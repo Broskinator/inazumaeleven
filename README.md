@@ -17,7 +17,10 @@ your own copy of the ROM:
 
 - [x] The whole ROM rebuilds from this repository and matches the original
       (main program, ITCM/DTCM and all 91 overlays)
-- [ ] Code split into one object per source file
+- [x] Library code identified and split into files: about 400 functions of
+      NitroSDK, NitroSystem and the Metrowerks libraries named, 126 files
+      (see [docs/libraries.md](docs/libraries.md))
+- [ ] Game code split into files
 - [ ] Decompiled to C
 
 ## Building
@@ -43,6 +46,7 @@ The result is `build/inazumaeleven_yeep.nds`, and the build ends with its SHA-1 
 | Path | What |
 |------|------|
 | `config/yeep/arm9/` | ds-decomp configuration: modules, sections, symbols, relocations, how the code is split (`delinks.txt`) |
-| `tools/` | setup script and build helpers |
+| `tools/` | setup script and build helpers (`sigmatch.py` / `sdk_split.py`: library identification) |
+| `docs/` | notes on the game's code |
 | `extract/` | the unpacked ROM (created by the build, not in git) |
 | `build/` | build output (not in git) |

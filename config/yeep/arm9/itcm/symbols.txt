@@ -1,4 +1,4 @@
-func_01ff8000 kind:function(arm,size=0x58) addr:0x01ff8000
+OS_IrqHandler kind:function(arm,size=0x58) addr:0x01ff8000
 func_01ff8058 kind:function(arm,size=0x160) addr:0x01ff8058
 func_01ff81b8 kind:function(arm,size=0x2c) addr:0x01ff81b8
 func_01ff81e4 kind:function(arm,size=0xd0) addr:0x01ff81e4

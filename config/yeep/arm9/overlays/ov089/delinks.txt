@@ -3,3 +3,28 @@
     .ctor       start:0x021791d0 end:0x021791d0 kind:rodata align:4
     .data       start:0x021791e0 end:0x02179220 kind:data align:32
     .bss        start:0x02179220 end:0x02179360 kind:bss align:32
+
+
+libs/NitroSDK/mb/mb_parent.c:
+    .text start:0x02174240 end:0x02175b60
+
+libs/NitroSDK/mb/mb_fileinfo.c:
+    .text start:0x02175b60 end:0x0217631c
+
+libs/NitroSDK/mb/mb_common.c:
+    .text start:0x0217631c end:0x021765a8
+
+libs/NitroSDK/mb/mb_gameinfo.c:
+    .text start:0x021765a8 end:0x02176bfc
+
+libs/NitroSDK/mb/mb_wm_base.c:
+    .text start:0x02178178 end:0x02178a1c
+
+libs/NitroSDK/mb/mb_cache.c:
+    .text start:0x02178a1c end:0x02178c2c
+
+libs/NitroSDK/mb/mb_task.c:
+    .text start:0x02178c2c end:0x02178ecc
+
+libs/NitroSDK/mb/mb_block.c:
+    .text start:0x02178ecc end:0x02179194
