@@ -20,32 +20,55 @@ enum TextAlign {
 
 // A font (NitroSystem) with the settings to measure and draw text with it. Text is
 // Shift-JIS, or 16-bit characters when isWide is set.
+//
+// Text is drawn into a canvas of 4 or 8 bits per pixel, either a plain bitmap (one row
+// after the other, `pitch` pixels wide) or 8x8 tiles (character data, as for BG/OBJ).
+// The canvas is in VRAM, which can only be written 16 bits at a time (WriteByte).
 class TextFont {
 public:
-    virtual void vfunc_00();
-    virtual void vfunc_04();
-    virtual void vfunc_08();
-    virtual void vfunc_0C();
-    virtual void vfunc_10();
-    // draws one character's glyph at (x, y)
-    virtual void DrawGlyph(const u8 *image, void *canvas, int width, u8 color,
+    TextFont();
+    virtual ~TextFont();
+    virtual BOOL DrawTextTile4(int x, int y, const char *str, int color, int align, void *canvas,
+        int width, int height, TextCharRect *rects, int maxRects);
+    virtual BOOL DrawTextTile8(int x, int y, const char *str, int color, int align, void *canvas,
+        int width, int height, TextCharRect *rects, int maxRects);
+    // glyph drawing: (x, y) in the canvas; returns the horizontal advance
+    virtual int DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 color,
+        const NNSG2dCharWidths *widths, int lineHeight, int x, int y);
+    virtual int DrawGlyph4(const u8 *image, u8 *canvas, int pitch, u8 color,
+        const NNSG2dCharWidths *widths, int lineHeight, int x, int y);
+    virtual int DrawGlyphTile8(const u8 *image, u8 *canvas, int width, u8 color,
+        const NNSG2dCharWidths *widths, int lineHeight, int x, int y);
+    virtual int DrawGlyph8(const u8 *image, u8 *canvas, int pitch, u8 color,
         const NNSG2dCharWidths *widths, int lineHeight, int x, int y);
 
+    void Reset();
+    void WriteByte(u8 *dest, u8 value);
     int GetCharLength(const char *str);
     u16 GetCharCode(const char *str);
     BOOL DrawText(const char *str, void *canvas, int width, int height, int x, int y,
-        int color, TextCharRect *rects, int maxRects, BOOL drawLines, int align);
+        int color, TextCharRect *rects, int maxRects, BOOL clearLines, int align);
     int GetTextWidth(const char *str);
     int GetLineWidth(const char *str);
     int GetAlignedX(int x, int width, const char *str, int align);
     int GetCharWidth(const char *str);
-    void func_02034a24(void *canvas, int width, int height, int x, int y, int lineWidth, int lineHeight);
+    void SetSpacing(int charSpace, int lineSpace);
+    void ResetSpacing();
+    BOOL SetFont(void *nftrFile, u32 unk_10, u8 isWide);
+    void ClearRect4(u8 *canvas, int pitch, int height, int x, int y, int width, int rectHeight);
+    void ClearRectTile4(u8 *canvas, int width, int height, int x, int y, int rectWidth, int rectHeight);
+    void SetUnk1C(u8 unk_1C, u8 unk_1D);
+    void SetUseGlyphWidth(u8 useGlyphWidth);
 
     NNSG2dFont font;
-    u8 unk_0C[0x14 - 0x0C];
+    void *nftrFile;
+    u32 unk_10;
     int charSpace;      // added between two characters
     int lineSpace;      // added between two lines
-    u8 unk_1C[0x20 - 0x1C];
+    u8 unk_1C;
+    u8 unk_1D;
+    u8 unk_1E;
+    u8 unk_1F;
     u8 isWide;
     u8 useGlyphWidth;   // measure characters by their glyph's width instead of their advance
 };

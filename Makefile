@@ -24,7 +24,7 @@ BUILD    := build/$(VERSION)
 ELF      := $(BUILD)/arm9.o
 ROM      := build/inazumaeleven_$(VERSION).nds
 
-CFLAGS   := -O4,p -proc arm946e -enum int -Cpp_exceptions off -char signed -interworking \
+CFLAGS   := -O4,p -RTTI off -proc arm946e -enum int -Cpp_exceptions off -char signed -interworking \
             -nosyspath -i include -msgstyle gcc
 export MWCIncludes := $(CURDIR)/include
 

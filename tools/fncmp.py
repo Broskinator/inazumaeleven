@@ -14,7 +14,7 @@ from elftools.elf.relocation import RelocationSection
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CC_VER = os.environ.get("CC_VER", "dsi/1.2")
-CFLAGS = os.environ.get("EXTRA_CFLAGS", "").split() + ["-O4,p", "-proc", "arm946e", "-enum", "int", "-Cpp_exceptions", "off",
+CFLAGS = os.environ.get("EXTRA_CFLAGS", "").split() + ["-O4,p", "-RTTI", "off", "-proc", "arm946e", "-enum", "int", "-Cpp_exceptions", "off",
           "-char", "signed", "-interworking", "-nosyspath", "-i", "include", "-msgstyle", "gcc"]
 
 
@@ -41,7 +41,14 @@ def modules():
 
 
 def main():
+    # NAME@0xADDRESS compares function NAME with the code at ADDRESS (e.g. while its signature changes)
     args = [a for a in sys.argv[1:] if not a.startswith("-")]
+    extra = {}
+    for a in list(args[1:]):
+        if "@" in a:
+            n, ad = a.split("@")
+            extra[n] = int(ad, 16)
+            args[args.index(a)] = n
     show = "-d" in sys.argv
     src, only = args[0], set(args[1:])
     os.makedirs(f"{ROOT}/build/tmp", exist_ok=True)
@@ -55,6 +62,8 @@ def main():
         print(r.stdout + r.stderr)
         sys.exit(1)
     mods, syms = modules()
+    for n, ad in extra.items():
+        syms[n] = (next(m for m, (b, blob) in mods.items() if b <= ad < b + len(blob)), ad)
     f = ELFFile(open(obj, "rb"))
     rel = {}
     for s in f.iter_sections():
@@ -66,6 +75,7 @@ def main():
         if s["st_info"]["type"] != "STT_FUNC" or s.name.startswith("$") or (only and s.name not in only):
             continue
         if s.name not in syms:
+            # (a signature changed: find the function by its position among this file's functions)
             print(f"{s.name}: not in symbols.txt")
             ok = False
             continue

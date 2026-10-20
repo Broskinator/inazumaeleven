@@ -363,4 +363,5 @@ libs/NitroSystem/fnd/frameheap.c:
 
 src/text/TextFont.cpp:
     complete
-    .text start:0x02033b18 end:0x020341a8
+    .text start:0x020336e8 end:0x02034e38
+    .data start:0x020abac8 end:0x020abaf0

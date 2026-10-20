@@ -50,6 +50,8 @@ typedef struct NNSG2dFont {
 extern "C" {
 #endif
 
+void NNS_G2dFontInitUTF16(NNSG2dFont *pFont, void *pNftrFile);
+void NNS_G2dFontInitShiftJIS(NNSG2dFont *pFont, void *pNftrFile);
 u16 NNS_G2dFontFindGlyphIndex(const NNSG2dFont *pFont, u16 c);
 const NNSG2dCharWidths *NNS_G2dFontGetCharWidthsFromIndex(const NNSG2dFont *pFont, u16 idx);
 

@@ -21,7 +21,7 @@ your own copy of the ROM:
       NitroSDK, NitroSystem and the Metrowerks libraries named, 126 files
       (see [docs/libraries.md](docs/libraries.md))
 - [ ] Game code split into files
-- [x] First functions decompiled to matching C++ (`src/text/TextFont.cpp`)
+- [x] First complete source file: `src/text/TextFont.cpp` (the `TextFont` class, 29 functions and its vtable)
 - [ ] Decompiled to C
 
 ## Building
@@ -55,9 +55,13 @@ build then uses the compiled code instead of the original, and the final SHA-1
 check proves it matches.
 
 Compiler: Metrowerks CodeWarrior for DSi (`mwccarm`, `dsi/1.2` in the `Makefile`),
-with `-O4,p -proc arm946e -enum int -Cpp_exceptions off -char signed`. The 2.0
+with `-O4,p -RTTI off -proc arm946e -enum int -Cpp_exceptions off -char signed`. The 2.0
 (DS) compilers produce different code for some functions; every DSi 1.x version
 matched so far, so the exact one is not pinned yet.
+
+Functions that compile almost but not exactly to the original are kept as the
+original instructions (an `asm` function) with the C++ attempt next to it under
+`#ifdef NONMATCHING`, so that a file can be complete before every function matches.
 
 Symbols use their C++ (mangled) names in `symbols.txt`, e.g.
 `_ZN8TextFont12GetLineWidthEPKc` for `TextFont::GetLineWidth(const char *)`.

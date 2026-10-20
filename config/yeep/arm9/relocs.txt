@@ -4124,17 +4124,17 @@ from:0x02033674 kind:arm_call to:0x0201a9b4 module:main
 from:0x020336d4 kind:arm_call to:0x0201a9b4 module:main
 from:0x02033728 kind:arm_call to:0x020091e0 module:main
 from:0x02033738 kind:arm_call to:0x020092ec module:main
-from:0x02033744 kind:load to:0x020abad0 module:main
+from:0x02033744 kind:load to:0x020abac8 add:0x8 module:main
 from:0x02033788 kind:arm_call to:0x020091e0 module:main
 from:0x02033798 kind:arm_call to:0x020092ec module:main
-from:0x020337a4 kind:load to:0x020abad0 module:main
+from:0x020337a4 kind:load to:0x020abac8 add:0x8 module:main
 from:0x020337b8 kind:arm_call to:0x02033810 module:main
-from:0x020337c4 kind:load to:0x020abad0 module:main
+from:0x020337c4 kind:load to:0x020abac8 add:0x8 module:main
 from:0x020337d8 kind:arm_call to:0x02033810 module:main
 from:0x020337e0 kind:arm_call to:0x020255a4 module:main
-from:0x020337ec kind:load to:0x020abad0 module:main
+from:0x020337ec kind:load to:0x020abac8 add:0x8 module:main
 from:0x02033800 kind:arm_call to:0x02033810 module:main
-from:0x0203380c kind:load to:0x020abad0 module:main
+from:0x0203380c kind:load to:0x020abac8 add:0x8 module:main
 from:0x02033834 kind:load to:0x020091e0 module:main
 from:0x02033968 kind:arm_call to:0x02033838 module:main
 from:0x02033ab0 kind:arm_call to:0x02033838 module:main
