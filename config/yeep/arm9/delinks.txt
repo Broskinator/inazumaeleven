@@ -360,3 +360,7 @@ libs/NitroSystem/fnd/expheap.c:
 
 libs/NitroSystem/fnd/frameheap.c:
     .text start:0x02033080 end:0x02033218
+
+src/text/text_font.c:
+    complete
+    .text start:0x02034020 end:0x020341a8

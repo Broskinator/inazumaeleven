@@ -13,6 +13,8 @@ DSD      := tools/bin/dsd
 WIBO     := tools/bin/wibo
 MW       := tools/mwccarm/2.0/sp1p5
 MWLD     := $(WIBO) $(MW)/mwldarm.exe
+CC_VER   := 2.0/sp1p2
+MWCC     := $(WIBO) tools/mwccarm/$(CC_VER)/mwccarm.exe
 export LM_LICENSE_FILE := $(CURDIR)/tools/mwccarm/license.dat
 
 CONFIG   := config/$(VERSION)/arm9/config.yaml
@@ -20,6 +22,13 @@ EXTRACT  := extract/$(VERSION)
 BUILD    := build/$(VERSION)
 ELF      := $(BUILD)/arm9.o
 ROM      := build/inazumaeleven_$(VERSION).nds
+
+CFLAGS   := -O4,p -proc arm946e -enum int -lang c99 -Cpp_exceptions off -char signed -interworking \
+            -nosyspath -i include -msgstyle gcc
+export MWCIncludes := $(CURDIR)/include
+
+C_SRCS   := $(shell find src -name '*.c' 2>/dev/null)
+C_OBJS   := $(C_SRCS:%.c=$(BUILD)/%.o)
 
 LDFLAGS  := -proc arm946e -nostdlib -interworking -nodead -m Entry -map closure,unused
 
@@ -40,11 +49,16 @@ $(BUILD)/arm9.lcf: $(EXTRACT)/config.yaml $(shell find config/$(VERSION) -name '
 	$(DSD) delink -c $(CONFIG)
 	$(DSD) lcf -c $(CONFIG)
 
-# 3. link everything with the original linker
-$(ELF): $(BUILD)/arm9.lcf
+# 3. compile the decompiled code
+$(BUILD)/src/%.o: src/%.c $(shell find include -name '*.h') Makefile
+	@mkdir -p $(dir $@)
+	$(MWCC) $(CFLAGS) -c $< -o $@
+
+# 4. link everything with the original linker
+$(ELF): $(BUILD)/arm9.lcf $(C_OBJS)
 	$(MWLD) $(LDFLAGS) -o $@ $(BUILD)/arm9.lcf @$(BUILD)/objects.txt
 
-# 4. put the ROM together
+# 5. put the ROM together
 $(ROM): $(ELF)
 	$(DSD) check modules -c $(CONFIG)
 	$(DSD) rom config -e $(ELF) -c $(CONFIG)
