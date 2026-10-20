@@ -15,7 +15,7 @@ from elftools.elf.relocation import RelocationSection
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CC_VER = os.environ.get("CC_VER", "dsi/1.2")
 CFLAGS = os.environ.get("EXTRA_CFLAGS", "").split() + ["-O4,p", "-RTTI", "off", "-proc", "arm946e", "-enum", "int", "-Cpp_exceptions", "off",
-          "-char", "signed", "-interworking", "-nosyspath", "-i", "include", "-msgstyle", "gcc"]
+          "-char", "signed", "-str", "noreuse", "-interworking", "-nosyspath", "-i", "include", "-msgstyle", "gcc"]
 
 
 def modules():

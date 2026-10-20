@@ -382,3 +382,12 @@ src/save/Backup.cpp:
 src/data/ChunkFile.cpp:
     complete
     .text start:0x02036050 end:0x02036278
+
+src/file/FileManager.cpp:
+    complete
+    .text start:0x02036278 end:0x020375c8
+    .data start:0x020abb60 end:0x020abb94
+
+src/system/GameHeap.cpp:
+    complete
+    .text start:0x020375c8 end:0x02037750

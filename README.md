@@ -21,7 +21,9 @@ your own copy of the ROM:
       NitroSDK, NitroSystem and the Metrowerks libraries named, 126 files
       (see [docs/libraries.md](docs/libraries.md))
 - [ ] Game code split into files
-- [x] First complete source file: `src/text/TextFont.cpp` (the `TextFont` class, 29 functions and its vtable)
+- [x] First complete source files (`make progress` for the current count): text drawing
+      (`src/text/`), the file loader and pack files (`src/file/`), the save memory
+      (`src/save/`), the heap (`src/system/`) and data containers (`src/data/`)
 - [ ] Decompiled to C
 
 ## Building
@@ -55,7 +57,9 @@ build then uses the compiled code instead of the original, and the final SHA-1
 check proves it matches.
 
 Compiler: Metrowerks CodeWarrior for DSi (`mwccarm`, `dsi/1.2` in the `Makefile`),
-with `-O4,p -RTTI off -proc arm946e -enum int -Cpp_exceptions off -char signed`. The 2.0
+with `-O4,p -RTTI off -proc arm946e -enum int -Cpp_exceptions off -char signed -str noreuse`.
+The game was linked with dead code stripping: functions nothing calls (such as the
+base-object constructor of a class nothing derives from) are not in the ROM. The 2.0
 (DS) compilers produce different code for some functions; every DSi 1.x version
 matched so far, so the exact one is not pinned yet.
 
@@ -72,6 +76,18 @@ To check a file while working on it:
     python3 tools/fncmp.py src/text/TextFont.cpp -d    # with a side-by-side disassembly
 
 (`pip install pyelftools pyyaml capstone` first.)
+
+More helpers:
+
+    python3 tools/permdecl.py src/file.cpp "int Class::Function(" MANGLED_NAME
+        # tries every order of the function's local declarations (register allocation
+        # follows it)
+    python3 tools/asmconv.py 0x02036354 FileManager > func.s
+    python3 tools/asmwrap.py src/file.cpp "int Class::Function(" func.s "reason"
+        # turns a function into an asm fallback, with its C++ under NONMATCHING
+
+Object file names must be unique ignoring case: the linker runs on Windows, so
+`Heap.o` and the sound library's `heap.o` would be the same file.
 
 ## Layout
 

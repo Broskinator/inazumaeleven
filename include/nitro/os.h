@@ -10,7 +10,9 @@ extern "C" {
 
 void DC_FlushRange(const void *startAddr, u32 nBytes);
 
-typedef struct OSThread OSThread;
+typedef struct OSThread {
+    u8 data[0xC0];
+} OSThread;
 
 typedef struct OSThreadQueue {
     OSThread *head;
@@ -37,6 +39,16 @@ void OS_UnlockMutex(OSMutex *mutex);
 BOOL OS_TryLockMutex(OSMutex *mutex);
 
 s32 OS_GetLockID(void);
+
+void OS_CreateThread(OSThread *thread, void (*func)(void *), void *arg, void *stack, u32 stackSize, u32 prio);
+void OS_DestroyThread(OSThread *thread);
+void OS_SleepThread(OSThreadQueue *queue);
+void OS_WakeupThreadDirect(OSThread *thread);
+void OS_Sleep(u32 msec);
+
+typedef u32 OSIntrMode;
+OSIntrMode OS_DisableInterrupts(void);
+OSIntrMode OS_RestoreInterrupts(OSIntrMode state);
 
 #ifdef __cplusplus
 }
