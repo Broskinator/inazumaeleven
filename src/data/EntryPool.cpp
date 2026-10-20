@@ -280,3 +280,11 @@ void *PoolEntry::GetData1()
 {
     return data1;
 }
+
+EntryPool::EntryPool()
+{
+}
+
+EntryPool::~EntryPool()
+{
+}
