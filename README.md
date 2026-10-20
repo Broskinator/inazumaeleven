@@ -42,6 +42,10 @@ The first run downloads the tools into `tools/` (see `tools/setup.sh`):
 
 The result is `build/inazumaeleven_yeep.nds`, and the build ends with its SHA-1 check.
 
+`make progress` shows how much has been decompiled. It also writes `objdiff.json`,
+which [objdiff](https://github.com/encounter/objdiff) opens to compare each
+function of the C code with the original, side by side.
+
 ## Decompiling
 
 A function is decompiled when its C source compiles to exactly the original

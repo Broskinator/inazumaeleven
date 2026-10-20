@@ -8,3 +8,4 @@ extract/
 # downloaded tools
 tools/bin/
 tools/mwccarm/
+objdiff.json

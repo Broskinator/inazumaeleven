@@ -1,6 +1,7 @@
 # Inazuma Eleven (Europe) decompilation
 #
 #   make            build the ROM and check that it matches the original
+#   make progress   show how much has been decompiled
 #   make setup      download the tools only
 #   make clean      remove build output (keeps the extracted ROM)
 #   make distclean  also remove the extracted ROM and the tools
@@ -32,11 +33,11 @@ C_OBJS   := $(C_SRCS:%.c=$(BUILD)/%.o)
 
 LDFLAGS  := -proc arm946e -nostdlib -interworking -nodead -m Entry -map closure,unused
 
-.PHONY: all setup check clean distclean
+.PHONY: all setup check progress clean distclean
 all: check
 
-setup: $(DSD) $(WIBO) $(MW)/mwldarm.exe
-$(DSD) $(WIBO) $(MW)/mwldarm.exe:
+setup: $(DSD) $(WIBO) $(MW)/mwldarm.exe tools/bin/objdiff-cli
+$(DSD) $(WIBO) $(MW)/mwldarm.exe tools/bin/objdiff-cli:
 	sh tools/setup.sh
 
 # 1. unpack the original ROM (code, overlays, files)
@@ -67,6 +68,12 @@ $(ROM): $(ELF)
 
 check: $(ROM)
 	@echo "$(SHA1)  $(ROM)" | sha1sum -c
+
+# decompilation progress (objdiff); objdiff.json can also be opened in the objdiff GUI
+progress: $(ELF)
+	$(DSD) objdiff -c $(CONFIG) -o . -m make -M $(ELF) --skip-absent-objects
+	tools/bin/objdiff-cli report generate -p . -o $(BUILD)/report.json
+	@python3 tools/progress.py $(BUILD)/report.json
 
 $(BASEROM):
 	@echo "Put your ROM here as $(BASEROM) (see README.md)"; exit 1
