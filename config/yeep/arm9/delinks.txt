@@ -378,3 +378,7 @@ src/data/EntryPool.cpp:
 src/save/Backup.cpp:
     complete
     .text start:0x02035c24 end:0x02036050
+
+src/data/ChunkFile.cpp:
+    complete
+    .text start:0x02036050 end:0x02036278
