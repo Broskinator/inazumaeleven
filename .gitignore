@@ -5,3 +5,6 @@ baserom*
 # build output and extracted data
 build/
 extract/
+# downloaded tools
+tools/bin/
+tools/mwccarm/
