@@ -1,0 +1,7 @@
+# the game (never commit it)
+*.nds
+*.sav
+baserom*
+# build output and extracted data
+build/
+extract/
