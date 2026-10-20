@@ -14,7 +14,7 @@ DSD      := tools/bin/dsd
 WIBO     := tools/bin/wibo
 MW       := tools/mwccarm/2.0/sp1p5
 MWLD     := $(WIBO) $(MW)/mwldarm.exe
-CC_VER   := 2.0/sp1p2
+CC_VER   := dsi/1.2
 MWCC     := $(WIBO) tools/mwccarm/$(CC_VER)/mwccarm.exe
 export LM_LICENSE_FILE := $(CURDIR)/tools/mwccarm/license.dat
 
@@ -24,12 +24,12 @@ BUILD    := build/$(VERSION)
 ELF      := $(BUILD)/arm9.o
 ROM      := build/inazumaeleven_$(VERSION).nds
 
-CFLAGS   := -O4,p -proc arm946e -enum int -lang c99 -Cpp_exceptions off -char signed -interworking \
+CFLAGS   := -O4,p -proc arm946e -enum int -Cpp_exceptions off -char signed -interworking \
             -nosyspath -i include -msgstyle gcc
 export MWCIncludes := $(CURDIR)/include
 
-C_SRCS   := $(shell find src -name '*.c' 2>/dev/null)
-C_OBJS   := $(C_SRCS:%.c=$(BUILD)/%.o)
+C_SRCS   := $(shell find src -name '*.c' -o -name '*.cpp' 2>/dev/null)
+C_OBJS   := $(patsubst %.cpp,$(BUILD)/%.o,$(C_SRCS:%.c=$(BUILD)/%.o))
 
 LDFLAGS  := -proc arm946e -nostdlib -interworking -nodead -m Entry -map closure,unused
 
@@ -51,9 +51,13 @@ $(BUILD)/arm9.lcf: $(EXTRACT)/config.yaml $(shell find config/$(VERSION) -name '
 	$(DSD) lcf -c $(CONFIG)
 
 # 3. compile the decompiled code
-$(BUILD)/src/%.o: src/%.c $(shell find include -name '*.h') Makefile
+HEADERS  := $(shell find include -name '*.h' -o -name '*.hpp')
+$(BUILD)/src/%.o: src/%.c $(HEADERS) Makefile
 	@mkdir -p $(dir $@)
-	$(MWCC) $(CFLAGS) -c $< -o $@
+	$(MWCC) -lang c99 $(CFLAGS) -c $< -o $@
+$(BUILD)/src/%.o: src/%.cpp $(HEADERS) Makefile
+	@mkdir -p $(dir $@)
+	$(MWCC) -lang c++ $(CFLAGS) -c $< -o $@
 
 # 4. link everything with the original linker
 $(ELF): $(BUILD)/arm9.lcf $(C_OBJS)

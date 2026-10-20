@@ -21,7 +21,7 @@ your own copy of the ROM:
       NitroSDK, NitroSystem and the Metrowerks libraries named, 126 files
       (see [docs/libraries.md](docs/libraries.md))
 - [ ] Game code split into files
-- [x] First functions decompiled to matching C (`src/text/text_font.c`)
+- [x] First functions decompiled to matching C++ (`src/text/TextFont.cpp`)
 - [ ] Decompiled to C
 
 ## Building
@@ -48,16 +48,26 @@ function of the C code with the original, side by side.
 
 ## Decompiling
 
-A function is decompiled when its C source compiles to exactly the original
-machine code. Decompiled files live in `src/` (headers in `include/`) and are
-marked `complete` in `config/yeep/arm9/**/delinks.txt`; the build then uses the
-compiled C instead of the original code, and the final SHA-1 check proves it matches.
+The game is written in C++. A function is decompiled when its source compiles to
+exactly the original machine code. Decompiled files live in `src/` (headers in
+`include/`) and are marked `complete` in `config/yeep/arm9/**/delinks.txt`; the
+build then uses the compiled code instead of the original, and the final SHA-1
+check proves it matches.
 
-Compiler: Metrowerks CodeWarrior for DS (`mwccarm`), flags in the `Makefile`
-(`-O4,p -proc arm946e -enum int -lang c99 -Cpp_exceptions off -char signed`).
-The exact version is not pinned yet: the functions decompiled so far compile
-identically with every 2.0 and DSi 1.x version; 2.0/sp1p2 is used until one of
-them shows a difference.
+Compiler: Metrowerks CodeWarrior for DSi (`mwccarm`, `dsi/1.2` in the `Makefile`),
+with `-O4,p -proc arm946e -enum int -Cpp_exceptions off -char signed`. The 2.0
+(DS) compilers produce different code for some functions; every DSi 1.x version
+matched so far, so the exact one is not pinned yet.
+
+Symbols use their C++ (mangled) names in `symbols.txt`, e.g.
+`_ZN8TextFont12GetLineWidthEPKc` for `TextFont::GetLineWidth(const char *)`.
+
+To check a file while working on it:
+
+    python3 tools/fncmp.py src/text/TextFont.cpp       # OK / words that differ, per function
+    python3 tools/fncmp.py src/text/TextFont.cpp -d    # with a side-by-side disassembly
+
+(`pip install pyelftools pyyaml capstone` first.)
 
 ## Layout
 
