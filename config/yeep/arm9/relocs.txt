@@ -4200,7 +4200,7 @@ from:0x02034c20 kind:arm_call to:0x02033838 module:main
 from:0x02034dd0 kind:arm_call to:0x02033838 module:main
 from:0x02034e40 kind:arm_call to:0x020336e8 module:main
 from:0x02034e58 kind:arm_call to:0x020349b4 module:main
-from:0x02034e64 kind:load to:0x020abaf8 module:main
+from:0x02034e64 kind:load to:0x020abaf0 add:0x8 module:main
 from:0x02034e70 kind:arm_call to:0x020337f0 module:main
 from:0x02034e84 kind:arm_call to:0x020337f0 module:main
 from:0x02034e8c kind:arm_call to:0x020255a4 module:main

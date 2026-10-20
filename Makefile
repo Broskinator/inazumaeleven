@@ -31,7 +31,7 @@ export MWCIncludes := $(CURDIR)/include
 C_SRCS   := $(shell find src -name '*.c' -o -name '*.cpp' 2>/dev/null)
 C_OBJS   := $(patsubst %.cpp,$(BUILD)/%.o,$(C_SRCS:%.c=$(BUILD)/%.o))
 
-LDFLAGS  := -proc arm946e -nostdlib -interworking -nodead -m Entry -map closure,unused
+LDFLAGS  := -proc arm946e -nostdlib -interworking -m Entry -map closure,unused
 
 .PHONY: all setup check progress clean distclean
 all: check

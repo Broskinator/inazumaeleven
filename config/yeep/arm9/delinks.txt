@@ -365,3 +365,8 @@ src/text/TextFont.cpp:
     complete
     .text start:0x020336e8 end:0x02034e38
     .data start:0x020abac8 end:0x020abaf0
+
+src/text/TextFont2bpp.cpp:
+    complete
+    .text start:0x02034e38 end:0x02035570
+    .data start:0x020abaf0 end:0x020abb18
