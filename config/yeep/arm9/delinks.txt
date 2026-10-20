@@ -374,3 +374,7 @@ src/text/TextFont2bpp.cpp:
 src/data/EntryPool.cpp:
     complete
     .text start:0x02035570 end:0x02035c1c
+
+src/save/Backup.cpp:
+    complete
+    .text start:0x02035c24 end:0x02036050
