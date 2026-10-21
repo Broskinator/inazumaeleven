@@ -103,25 +103,26 @@ u32 FileManager::GetFileSize(const char *name)
 
 // loads a file (offset and size bytes of it; size 0: to its end) into *buffer, or into
 // a buffer allocated from heap; names ending in '_' are compressed
-// (nonmatching: different stack and register use)
-#ifdef NONMATCHING
 int FileManager::Load(const char *name, void **buffer, GameHeap *heap, int offset, int size,
     BOOL compressed, int unused, u8 fromHead)
 {
-    FileRequest request;
+    FileRequest localRequest;
     FSFile file;
-    void *dest = *buffer;
+    FileRequest *request = &localRequest;
+    void *dest;
     void *readBuffer;
     int fileSize;
-    int readSize;
+    int chunk;
     int remaining;
     u8 *ptr;
+    int readSize;
 
     if (heap == NULL) {
         heap = this->heap;
     }
+    dest = *buffer;
 
-    STD_CopyString(request.name, name);
+    STD_CopyString(localRequest.name, name);
     FS_InitFile(&file);
     if (!func_0209ddd0(&file, name)) {
         return 0;
@@ -138,17 +139,17 @@ int FileManager::Load(const char *name, void **buffer, GameHeap *heap, int offse
     }
 
     readBuffer = NULL;
-    MI_CpuFill8(&request, 0, sizeof(request.header));
-    if (request.name[STD_GetStringLength(request.name) - 1] == '_') {
+    MI_CpuFill8(request, 0, sizeof(request->header));
+    if (request->name[STD_GetStringLength(request->name) - 1] == '_') {
         compressed = TRUE;
     }
-    if (compressed && ReadHeader(&request, &file, (u32 *)&size)) {
+    if (compressed && ReadHeader(request, &file, (u32 *)&size)) {
         readBuffer = Alloc(readSize);
     }
 
-    request.heap = NULL;
+    request->heap = NULL;
     if (dest == NULL) {
-        request.heap = heap;
+        request->heap = heap;
         dest = heap->Alloc(size, 1, fromHead);
         if (dest == NULL) {
             while (!FS_CloseFile(&file)) {
@@ -163,19 +164,19 @@ int FileManager::Load(const char *name, void **buffer, GameHeap *heap, int offse
 
     remaining = readSize;
     ptr = (u8 *)readBuffer;
-    request.buffer = dest;
+    request->buffer = dest;
     while (remaining > 0) {
-        int chunk = remaining;
+        chunk = remaining;
         if (remaining >= READ_CHUNK_SIZE) {
             chunk = READ_CHUNK_SIZE;
         }
         remaining -= chunk;
 
-        if (FS_ReadFile(&file, ptr, chunk) < 0) {
+        if (FS_ReadFileAsync(&file, ptr, chunk) < 0) {
             while (!FS_CloseFile(&file)) {
             }
-            if (request.heap != NULL) {
-                request.heap->Free(dest);
+            if (request->heap != NULL) {
+                request->heap->Free(dest);
             }
             if (readBuffer != dest) {
                 Free(readBuffer);
@@ -194,184 +195,13 @@ int FileManager::Load(const char *name, void **buffer, GameHeap *heap, int offse
     }
 
     if (readBuffer != dest) {
-        Decompress(readBuffer, &request);
+        Decompress(readBuffer, request);
         Free(readBuffer);
     }
 
     *buffer = dest;
     return size;
 }
-#else
-asm int FileManager::Load(const char *name, void **buffer, GameHeap *heap, int offset, int size,
-    BOOL compressed, int unused, u8 fromHead)
-{
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0xb4
-    mov r6, r1
-    str r2, [sp, #0x0]
-    ldr r2, [sp, #0x0]
-    mov r11, r0
-    movs r8, r3
-    add r4, sp, #0x4
-    add r0, sp, #0x54
-    mov r1, r6
-    ldreq r8, [r11, #0x0]
-    ldr r5, [r2, #0x0]
-    bl STD_CopyString
-    mov r0, r4
-    bl FS_InitFile
-    mov r0, r4
-    mov r1, r6
-    bl func_0209ddd0
-    cmp r0, #0x0
-    addeq sp, sp, #0xb4
-    moveq r0, #0x0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r1, [sp, #0xd8]
-    mov r0, r4
-    mov r2, #0x0
-    bl FS_SeekFile
-    mov r0, r4
-    bl FS_GetFileLength
-    ldr r10, [sp, #0xdc]
-    ldr r1, [sp, #0xd8]
-    cmp r10, #0x0
-    moveq r10, r0
-    add r2, r1, r10
-    streq r0, [sp, #0xdc]
-    cmp r2, r0
-    subgt r10, r0, r1
-    mov r6, #0x0
-    add r0, sp, #0x4c
-    mov r1, r6
-    mov r2, #0x4
-    strgt r10, [sp, #0xdc]
-    bl MI_CpuFill8
-    add r0, sp, #0x4c
-    add r0, r0, #0x8
-    bl STD_GetStringLength
-    sub r1, r0, #0x1
-    add r0, sp, #0x4c
-    add r0, r0, r1
-    ldrsb r0, [r0, #0x8]
-    mov r7, #0x0
-    add r4, sp, #0x4
-    cmp r0, #0x5f
-    moveq r0, #0x1
-    streq r0, [sp, #0xe0]
-    ldr r0, [sp, #0xe0]
-    cmp r0, #0x0
-    beq @L_02036578
-    add r2, sp, #0x4
-    add r3, sp, #0xdc
-    mov r0, r11
-    add r1, sp, #0x4c
-    bl ReadHeader
-    cmp r0, #0x0
-    beq @L_02036578
-    mov r0, r11
-    mov r1, r10
-    bl Alloc
-    mov r6, r0
-@L_02036578:
-    add r0, sp, #0x4c
-    str r7, [r0, #0x4]
-    cmp r5, #0x0
-    bne @L_020365c8
-    ldrb r3, [sp, #0xe8]
-    ldr r1, [sp, #0xdc]
-    add r5, sp, #0x4c
-    mov r0, r8
-    mov r2, #0x1
-    str r8, [r5, #0x4]
-    bl _ZN8GameHeap5AllocEiii
-    movs r5, r0
-    bne @L_020365c8
-@L_020365ac:
-    mov r0, r4
-    bl FS_CloseFile
-    cmp r0, #0x0
-    beq @L_020365ac
-    add sp, sp, #0xb4
-    mov r0, #0x0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020365c8:
-    cmp r6, #0x0
-    moveq r6, r5
-    add r0, sp, #0x4c
-    mov r8, r10
-    mov r9, r6
-    str r5, [r0, #0x48]
-    cmp r10, #0x0
-    ble @L_02036668
-@L_020365e8:
-    mov r7, r8
-    cmp r8, #0x2000
-    movge r7, #0x2000
-    mov r0, r4
-    mov r1, r9
-    mov r2, r7
-    sub r8, r8, r7
-    bl FS_ReadFileAsync
-    cmp r0, #0x0
-    bge @L_0203665c
-    add r4, sp, #0x4
-@L_02036614:
-    mov r0, r4
-    bl FS_CloseFile
-    cmp r0, #0x0
-    beq @L_02036614
-    add r0, sp, #0x4c
-    ldr r0, [r0, #0x4]
-    cmp r0, #0x0
-    beq @L_0203663c
-    mov r1, r5
-    bl _ZN8GameHeap4FreeEPv
-@L_0203663c:
-    cmp r6, r5
-    beq @L_02036650
-    mov r0, r11
-    mov r1, r6
-    bl Free
-@L_02036650:
-    add sp, sp, #0xb4
-    mov r0, #0x0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0203665c:
-    cmp r8, #0x0
-    add r9, r9, r7
-    bgt @L_020365e8
-@L_02036668:
-    mov r0, r6
-    mov r1, r10
-    bl DC_FlushRange
-@L_02036674:
-    mov r0, r4
-    bl FS_CloseFile
-    cmp r0, #0x0
-    beq @L_02036674
-    cmp r10, #0x400
-    ble @L_02036694
-    mov r0, #0x1
-    bl OS_Sleep
-@L_02036694:
-    cmp r6, r5
-    beq @L_020366b8
-    mov r0, r11
-    mov r1, r6
-    add r2, sp, #0x4c
-    bl Decompress
-    mov r0, r11
-    mov r1, r6
-    bl Free
-@L_020366b8:
-    ldr r0, [sp, #0x0]
-    str r5, [r0, #0x0]
-    ldr r0, [sp, #0xdc]
-    add sp, sp, #0xb4
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-}
-#endif
 
 // starts loading a file with the loading thread (see Load); returns its size
 // (nonmatching: two registers are swapped)
