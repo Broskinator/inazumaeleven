@@ -49,8 +49,6 @@ void FileManager::Init(int numRequests, GameHeap *heap)
     OS_CreateThread(&thread, ThreadMain, this, stack + sizeof(stack), sizeof(stack), 30);
 }
 
-// (nonmatching: the original reloads numRequests in the loop)
-#ifdef NONMATCHING
 int FileManager::FindFreeRequest()
 {
     int i;
@@ -63,33 +61,7 @@ int FileManager::FindFreeRequest()
 
     return 0;
 }
-#else
-asm int FileManager::FindFreeRequest()
-{
-    ldr r1, [r0, #0x1c]
-    mov r3, #0x1
-    cmp r1, #0x1
-    ble @L_02036390
-    ldr ip, [r0, #0x20]
-    mov r1, #0x68
-@L_0203636c:
-    mla r2, r3, r1, ip
-    ldr r2, [r2, #0x54]
-    cmp r2, #0x0
-    moveq r0, r3
-    bxeq lr
-    ldr r2, [r0, #0x1c]
-    add r3, r3, #0x1
-    cmp r3, r2
-    blt @L_0203636c
-@L_02036390:
-    mov r0, #0x0
-    bx lr
-}
-#endif
 
-// (nonmatching: the original reloads numRequests in the loop)
-#ifdef NONMATCHING
 int FileManager::FindRequest(void *buffer)
 {
     int i;
@@ -103,35 +75,6 @@ int FileManager::FindRequest(void *buffer)
 
     return 0;
 }
-#else
-asm int FileManager::FindRequest(void *buffer)
-{
-    stmdb sp!, {r4, lr}
-    ldr r2, [r0, #0x1c]
-    mov lr, #0x1
-    cmp r2, #0x1
-    ble @L_020363e4
-    ldr r4, [r0, #0x20]
-    mov r2, #0x68
-@L_020363b4:
-    mla ip, lr, r2, r4
-    ldr r3, [ip, #0x54]
-    cmp r3, #0x0
-    beq @L_020363d4
-    ldr r3, [ip, #0x48]
-    cmp r3, r1
-    moveq r0, lr
-    ldmeqia sp!, {r4, pc}
-@L_020363d4:
-    ldr r3, [r0, #0x1c]
-    add lr, lr, #0x1
-    cmp lr, r3
-    blt @L_020363b4
-@L_020363e4:
-    mov r0, #0x0
-    ldmia sp!, {r4, pc}
-}
-#endif
 
 void *FileManager::Alloc(u32 size)
 {
@@ -735,8 +678,9 @@ int FileManager::ReleaseRequest(int index)
 BOOL FileManager::IsBusy()
 {
     int i;
+    int count = numRequests;
 
-    for (i = 1; i < numRequests; i++) {
+    for (i = 1; i < (s32)count; i++) {
         s32 state = requests[i].state;
         if (state == FILE_REQUEST_READING || state == FILE_REQUEST_DECOMPRESSING) {
             return TRUE;

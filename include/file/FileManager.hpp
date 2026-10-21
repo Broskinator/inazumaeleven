@@ -90,7 +90,7 @@ public:
 
     GameHeap *heap;
     OSMutex mutex;
-    s32 numRequests;
+    volatile s32 numRequests;  // (volatile: the searches read it again at each step)
     FileRequest *requests;  // (request 0 is never used)
     FSFile file;            // the loading thread's
     OSThread thread;
