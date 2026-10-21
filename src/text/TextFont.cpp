@@ -709,15 +709,11 @@ asm BOOL TextFont::SetFont(void *nftrFile, u32 unk_10, u8 isWide)
 #endif
 
 // Clears a rectangle of a 4 bits per pixel bitmap (pitch pixels per row, height rows)
-#ifdef NONMATCHING
 void TextFont::ClearRect4(u8 *canvas, int pitch, int height, int x, int y, int width, int rectHeight)
 {
     int row;
     BOOL odd;
-    BOOL startOdd;
     int px;
-    int startBits;
-    int endPixels;
     u8 *dest;
     int middle;
 
@@ -733,35 +729,25 @@ void TextFont::ClearRect4(u8 *canvas, int pitch, int height, int x, int y, int w
         rectHeight = height - y;
     }
 
-    if (rectHeight <= 0) {
-        return;
-    }
-
-    startOdd = (x & 1) != 0;
-    startBits = x & 7;
-    endPixels = (x + width) & 3;
-
     for (row = 0; row < rectHeight; row++) {
         dest = canvas + (pitch * (y + row) + x) / 2;
-        odd = startOdd;
-        px = startBits;
+        odd = (x & 1) != 0;
+        px = x & 7;
 
-        if (px & 7) {
-            do {
-                if (odd) {
-                    WriteByte(dest, *dest++ & 0x0F);
-                } else {
-                    WriteByte(dest, *dest & 0xF0);
-                }
-
-                odd = !odd;
-                px++;
-            } while (px & 7);
+        while (px & 7) {
+            if (odd) {
+                WriteByte(dest, *dest & 0x0F);
+                dest++;
+            } else {
+                WriteByte(dest, *dest & 0xF0);
+            }
+            odd = !odd;
+            px++;
         }
 
         middle = width;
-        if (startBits != 0) {
-            middle -= 8 - startBits;
+        if ((x & 7) != 0) {
+            middle -= 8 - (x & 7);
         }
         middle &= ~7;
 
@@ -769,171 +755,17 @@ void TextFont::ClearRect4(u8 *canvas, int pitch, int height, int x, int y, int w
         MI_CpuClearFast(dest, middle / 2);
         dest += middle / 2;
 
-        for (px = 0; px < endPixels; px++) {
+        for (px = 0; px < ((x + width) & 3); px++) {
             if (odd) {
-                WriteByte(dest, *dest++ & 0x0F);
+                WriteByte(dest, *dest & 0x0F);
+                dest++;
             } else {
                 WriteByte(dest, *dest & 0xF0);
             }
-
             odd = !odd;
         }
     }
 }
-#else
-asm void TextFont::ClearRect4(u8 *canvas, int pitch, int height, int x, int y, int width, int rectHeight)
-{
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x14
-    mov r6, r0
-    movs r0, r1
-    ldr r0, [sp, #0x38]
-    str r1, [sp, #0x0]
-    str r0, [sp, #0x38]
-    ldr r0, [sp, #0x3c]
-    str r2, [sp, #0x4]
-    str r0, [sp, #0x3c]
-    ldr r0, [sp, #0x40]
-    str r0, [sp, #0x40]
-    ldr r0, [sp, #0x44]
-    str r0, [sp, #0x44]
-    addeq sp, sp, #0x14
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, [sp, #0x38]
-    cmp r0, #0x0
-    addlt sp, sp, #0x14
-    ldmltia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r1, r0
-    mov r0, r2
-    cmp r1, r0
-    addge sp, sp, #0x14
-    ldmgeia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, [sp, #0x3c]
-    cmp r0, #0x0
-    addlt sp, sp, #0x14
-    ldmltia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    cmp r0, r3
-    addge sp, sp, #0x14
-    ldmgeia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, [sp, #0x40]
-    mov r11, #0x0
-    add r1, r1, r0
-    mov r0, r2
-    cmp r1, r0
-    ldrgt r0, [sp, #0x38]
-    movgt r1, r2
-    subgt r0, r1, r0
-    strgt r0, [sp, #0x40]
-    ldr r1, [sp, #0x3c]
-    ldr r0, [sp, #0x44]
-    add r0, r1, r0
-    cmp r0, r3
-    movgt r0, r1
-    subgt r0, r3, r0
-    strgt r0, [sp, #0x44]
-    ldr r0, [sp, #0x44]
-    cmp r0, #0x0
-    addle sp, sp, #0x14
-    ldmleia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, [sp, #0x38]
-    ldr r1, [sp, #0x38]
-    tst r0, #0x1
-    movne r0, #0x1
-    strne r0, [sp, #0x8]
-    ldr r0, [sp, #0x38]
-    streq r11, [sp, #0x8]
-    and r0, r0, #0x7
-    str r0, [sp, #0x10]
-    ldr r0, [sp, #0x40]
-    add r1, r1, r0
-    ldr r0, [sp, #0x10]
-    and r5, r1, #0x3
-    rsb r0, r0, #0x8
-    str r0, [sp, #0xc]
-@L_02034b30:
-    ldr r0, [sp, #0x3c]
-    ldr r1, [sp, #0x4]
-    add r2, r0, r11
-    ldr r0, [sp, #0x38]
-    ldr r10, [sp, #0x8]
-    mla r0, r1, r2, r0
-    add r1, r0, r0, lsr #0x1f
-    ldr r0, [sp, #0x0]
-    add r4, r0, r1, asr #0x1
-    ldr r0, [sp, #0x10]
-    tst r0, #0x7
-    mov r9, r0
-    beq @L_02034bb0
-    mov r7, #0x0
-    mov r8, #0x1
-@L_02034b6c:
-    cmp r10, #0x0
-    mov r0, r6
-    mov r1, r4
-    beq @L_02034b88
-    ldrb r2, [r4], #0x1
-    and r2, r2, #0xf
-    b @L_02034b94
-@L_02034b88:
-    ldrb r2, [r4, #0x0]
-    and r2, r2, #0xf0
-    and r2, r2, #0xff
-@L_02034b94:
-    bl WriteByte
-    cmp r10, #0x0
-    moveq r10, r8
-    add r9, r9, #0x1
-    movne r10, r7
-    tst r9, #0x7
-    bne @L_02034b6c
-@L_02034bb0:
-    ldr r0, [sp, #0x10]
-    ldr r1, [sp, #0x40]
-    cmp r0, #0x0
-    ldrne r0, [sp, #0xc]
-    mov r10, #0x0
-    subne r1, r1, r0
-    bic r0, r1, #0x7
-    add r7, r0, r0, lsr #0x1f
-    mov r2, r7, asr #0x1
-    mov r0, r10
-    mov r1, r4
-    bl MIi_CpuClearFast
-    add r4, r4, r7, asr #0x1
-    cmp r5, #0x0
-    mov r9, r10
-    ble @L_02034c3c
-    mov r7, r10
-    mov r8, #0x1
-@L_02034bf8:
-    cmp r10, #0x0
-    mov r0, r6
-    mov r1, r4
-    beq @L_02034c14
-    ldrb r2, [r4], #0x1
-    and r2, r2, #0xf
-    b @L_02034c20
-@L_02034c14:
-    ldrb r2, [r4, #0x0]
-    and r2, r2, #0xf0
-    and r2, r2, #0xff
-@L_02034c20:
-    bl WriteByte
-    cmp r10, #0x0
-    moveq r10, r8
-    add r9, r9, #0x1
-    movne r10, r7
-    cmp r9, r5
-    blt @L_02034bf8
-@L_02034c3c:
-    ldr r0, [sp, #0x44]
-    add r11, r11, #0x1
-    cmp r11, r0
-    blt @L_02034b30
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-}
-#endif
 
 // Clears a rectangle of a canvas of 4-bit tiles (width x height pixels)
 void TextFont::ClearRectTile4(u8 *canvas, int width, int height, int x, int y, int rectWidth, int rectHeight)
