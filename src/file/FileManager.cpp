@@ -750,8 +750,6 @@ void FileManager::FinishDecompression(FileRequest *request)
     request->state = FILE_REQUEST_DONE;
 }
 
-// (nonmatching: the original switch keeps an empty case 0x30)
-#ifdef NONMATCHING
 void FileManager::Decompress(void *src, FileRequest *request)
 {
     void *dest = request->buffer;
@@ -763,46 +761,13 @@ void FileManager::Decompress(void *src, FileRequest *request)
     case 0x20:
         MI_UncompressHuffman(src, dest);
         break;
-    case 0x30:
+    case 0x30:  // (run-length and filtered files are not decompressed here)
+    case 0x80:
         break;
     }
 
     DC_FlushRange(dest, *(u32 *)src >> 8);
 }
-#else
-asm void FileManager::Decompress(void *src, FileRequest *request)
-{
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r1
-    ldr r0, [r5, #0x0]
-    ldr r4, [r2, #0x48]
-    and r0, r0, #0xf0
-    cmp r0, #0x20
-    bgt @L_02036fcc
-    bge @L_02036fe4
-    cmp r0, #0x10
-    beq @L_02036fd4
-    b @L_02036ff0
-@L_02036fcc:
-    cmp r0, #0x30
-    b @L_02036ff0
-@L_02036fd4:
-    mov r0, r5
-    mov r1, r4
-    bl MI_UncompressLZ8
-    b @L_02036ff0
-@L_02036fe4:
-    mov r0, r5
-    mov r1, r4
-    bl MI_UncompressHuffman
-@L_02036ff0:
-    ldr r1, [r5, #0x0]
-    mov r0, r4
-    mov r1, r1, lsr #0x8
-    bl DC_FlushRange
-    ldmia sp!, {r3, r4, r5, pc}
-}
-#endif
 
 // finds a file in a pack loaded in memory: its size, and its data in *data
 u32 FileManager::FindInPack(const char *name, void **data, void *pack)
