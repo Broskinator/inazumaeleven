@@ -1,5 +1,13 @@
 #include "save/Backup.hpp"
 
+Backup::Backup()
+{
+}
+
+Backup::~Backup()
+{
+}
+
 BOOL Backup::Init(CARDBackupType type)
 {
     BOOL result;

@@ -26,8 +26,6 @@ struct PoolEntry {
 // A fixed set of entries, placed in numbered slots.
 class EntryPool {
 public:
-    EntryPool();
-    ~EntryPool();
     void Init();
     void SetExt0Buffer(void *buffer);
     void ClearExt0Buffer();

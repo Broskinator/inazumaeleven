@@ -8,6 +8,8 @@
 // Access to the Game Card's backup memory (the save), for one thread at a time.
 class Backup {
 public:
+    Backup();
+    ~Backup();
     BOOL Init(CARDBackupType type);
     BOOL IsPresent();
     BOOL IsWriteDone();
