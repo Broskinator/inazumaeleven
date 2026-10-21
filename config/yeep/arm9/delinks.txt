@@ -391,3 +391,9 @@ src/file/FileManager.cpp:
 src/system/GameHeap.cpp:
     complete
     .text start:0x020375c8 end:0x02037750
+
+src/movie/MoviePlayer.cpp:
+    complete
+    .text start:0x02037750 end:0x0203811c
+    .data start:0x020abbac end:0x020abbe4
+    .bss start:0x020c4558 end:0x020c4588

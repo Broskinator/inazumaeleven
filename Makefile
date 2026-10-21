@@ -49,6 +49,7 @@ $(EXTRACT)/config.yaml: $(BASEROM) | setup
 $(BUILD)/arm9.lcf: $(EXTRACT)/config.yaml $(shell find config/$(VERSION) -name '*.txt' -o -name '*.yaml')
 	$(DSD) delink -c $(CONFIG)
 	$(DSD) lcf -c $(CONFIG)
+	python3 tools/lcfextra.py $@ config/$(VERSION)/arm9/lcf_symbols.txt
 
 # 3. compile the decompiled code
 HEADERS  := $(shell find include -name '*.h' -o -name '*.hpp')

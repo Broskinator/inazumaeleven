@@ -47,6 +47,23 @@ void OS_WakeupThreadDirect(OSThread *thread);
 void OS_Sleep(u32 msec);
 
 typedef u32 OSIntrMode;
+
+typedef u64 OSTick;
+typedef void (*OSAlarmHandler)(void *arg);
+
+typedef struct OSAlarm {
+    u8 data[0x2C];
+} OSAlarm;
+
+void OS_InitTick(void);
+OSTick OS_GetTick(void);
+void OS_CreateAlarm(OSAlarm *alarm);
+void OS_SetPeriodicAlarm(OSAlarm *alarm, OSTick start, OSTick period, OSAlarmHandler handler, void *arg);
+void OS_CancelAlarm(OSAlarm *alarm);
+void OS_SetThreadStackWarningOffset(OSThread *thread, u32 offset);
+
+#define OS_SYSTEM_CLOCK 33514000
+#define OS_MicroSecondsToTicks(usec) ((OSTick)(((OS_SYSTEM_CLOCK / 1000) * (u64)(usec)) / 64 / 1000))
 OSIntrMode OS_DisableInterrupts(void);
 OSIntrMode OS_RestoreInterrupts(OSIntrMode state);
 

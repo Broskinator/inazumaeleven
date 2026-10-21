@@ -5,8 +5,8 @@
 #include "msl/stdio.h"
 #include "msl/string.h"
 
-extern "C" BOOL func_0209dd60(FSFileID *id, const char *name);     // the ID of a file by its name
-extern "C" BOOL func_0209ddd0(FSFile *file, const char *name);     // opens a file by its name
+#include "file/RomFile.hpp"
+
 extern "C" void func_02099c48(char *dst, const char *src);         // copies a name, in lower case
 
 #ifndef NONMATCHING

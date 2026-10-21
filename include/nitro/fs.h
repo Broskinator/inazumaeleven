@@ -56,6 +56,20 @@ BOOL FS_WaitAsync(FSFile *file);
 FSArchive *FS_FindArchive(const char *name, int name_len);
 void *FS_UnloadArchiveTables(FSArchive *arc);
 
+typedef enum MIProcessor {
+    MI_PROCESSOR_ARM9 = 0,
+    MI_PROCESSOR_ARM7 = 1
+} MIProcessor;
+
+typedef u32 FSOverlayID;
+
+// the overlay's ID, defined by the linker script (config/yeep/arm9/lcf_symbols.txt)
+#define FS_EXTERN_OVERLAY(name) extern char SDK_OVERLAY_ ## name ## _ID[]
+#define FS_OVERLAY_ID(name) ((u32)&SDK_OVERLAY_ ## name ## _ID)
+
+BOOL FS_LoadOverlay(MIProcessor target, FSOverlayID id);
+BOOL FS_UnloadOverlay(MIProcessor target, FSOverlayID id);
+
 static inline BOOL FS_IsSucceeded(const FSFile *file)
 {
     return (file->error == FS_RESULT_SUCCESS) ? TRUE : FALSE;

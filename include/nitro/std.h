@@ -10,6 +10,7 @@ extern "C" {
 
 int STD_CopyString(char *dst, const char *src);
 int STD_GetStringLength(const char *str);
+int STD_ConcatenateString(char *dst, const char *src);
 int STD_CompareString(const char *str1, const char *str2);
 
 #ifdef __cplusplus
