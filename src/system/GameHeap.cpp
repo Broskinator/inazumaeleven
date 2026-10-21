@@ -1,5 +1,6 @@
 #include "system/GameHeap.hpp"
 #include "nitro/mi.h"
+#include "system/MutexLock.hpp"
 
 #define HEAP_ALIGNMENT 32
 #define HEAP_LARGE_BLOCK 0x32000    // blocks this big always come from the end of the heap
@@ -42,8 +43,6 @@ void *GameHeap::Alloc(int size, int unused, BOOL fromHead)
     return ptr;
 }
 
-// (nonmatching: the original keeps 4 unused bytes on the stack)
-#ifdef NONMATCHING
 void GameHeap::Free(void *ptr)
 {
     OSIntrMode enabled;
@@ -52,36 +51,11 @@ void GameHeap::Free(void *ptr)
         return;
     }
 
-    OS_LockMutex(&mutex);
+    MutexLock lock(&mutex);
     enabled = OS_DisableInterrupts();
     NNS_FndFreeToExpHeap(handle, ptr);
     OS_RestoreInterrupts(enabled);
-    OS_UnlockMutex(&mutex);
 }
-#else
-asm void GameHeap::Free(void *ptr)
-{
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x4
-    movs r5, r1
-    mov r6, r0
-    addeq sp, sp, #0x4
-    ldmeqia sp!, {r3, r4, r5, r6, pc}
-    add r0, r6, #0xc
-    bl OS_LockMutex
-    bl OS_DisableInterrupts
-    mov r4, r0
-    ldr r0, [r6, #0x24]
-    mov r1, r5
-    bl NNS_FndFreeToExpHeap
-    mov r0, r4
-    bl OS_RestoreInterrupts
-    add r0, r6, #0xc
-    bl OS_UnlockMutex
-    add sp, sp, #0x4
-    ldmia sp!, {r3, r4, r5, r6, pc}
-}
-#endif
 
 void GameHeap::GetInfo(u32 *used, u32 *free, u32 *allocatable)
 {
