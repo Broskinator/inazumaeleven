@@ -80,4 +80,5 @@ def main():
         print(f'extern "C" void {e}(void);', file=sys.stderr)
 
 
-main()
+if __name__ == "__main__":
+    main()

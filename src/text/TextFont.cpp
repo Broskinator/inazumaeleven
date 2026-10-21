@@ -403,12 +403,12 @@ int TextFont::GetCharWidth(const char *str)
 }
 
 // 4 bits per pixel, 8x8 tiles; the canvas is width pixels wide
-#ifdef NONMATCHING
 int TextFont::DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 color,
     const NNSG2dCharWidths *widths, int lineHeight, int x, int y)
 {
     int row;
     BOOL odd;
+    u8 pixels;
     int i;
     int mask = 0x80;
     int glyphWidth = widths->charWidth - widths->left;
@@ -420,7 +420,9 @@ int TextFont::DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 color,
     }
 
     for (row = 0; row < lineHeight; row++) {
-        rowOffset = ((row + y) >> 3) * ((width >> 3) << 5) + (((row + y) & 7) << 2);
+        int py = row + y;
+        rowOffset = ((width >> 3) << 5) * (py >> 3);
+        rowOffset += (py & 7) << 2;
         odd = (x & 1) != 0;
 
         for (i = 0; i < glyphWidth; i++) {
@@ -430,7 +432,8 @@ int TextFont::DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 color,
                 if (odd) {
                     WriteByte(canvas + offset, (canvas[offset] & 0x0F) | ((color & 0xF) << 4));
                 } else {
-                    WriteByte(canvas + offset, (canvas[offset] & 0xF0) | (color & 0xF));
+                    pixels = canvas[offset];
+                    WriteByte(canvas + offset, (pixels & 0xF0) | (color & 0xF));
                 }
             }
 
@@ -454,129 +457,6 @@ int TextFont::DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 color,
 
     return glyphWidth + charSpace;
 }
-#else
-asm int TextFont::DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 color,
-    const NNSG2dCharWidths *widths, int lineHeight, int x, int y)
-{
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x14
-    mov r10, r0
-    ldr r0, [r10, #0x4]
-    ldr r4, [sp, #0x3c]
-    ldr r5, [r0, #0x8]
-    ldrsb r0, [r4, #0x0]
-    ldrsb r6, [r4, #0x2]
-    ldrb r5, [r5, #0x0]
-    ldrb r4, [r10, #0x21]
-    sub r11, r6, r0
-    mov r9, r1
-    sub r1, r5, r11
-    str r1, [sp, #0xc]
-    ldr r1, [sp, #0x40]
-    cmp r4, #0x0
-    str r1, [sp, #0x40]
-    ldr r1, [sp, #0x44]
-    mov r8, r2
-    str r1, [sp, #0x44]
-    ldr r1, [sp, #0x48]
-    mov r5, #0x80
-    str r1, [sp, #0x48]
-    ldreq r1, [sp, #0x44]
-    addeq r0, r1, r0
-    streq r0, [sp, #0x44]
-    ldr r0, [sp, #0x40]
-    cmp r0, #0x0
-    mov r0, #0x0
-    str r0, [sp, #0x10]
-    ble @L_02034348
-    ldr r0, [sp, #0x44]
-    mov r1, r3, asr #0x3
-    tst r0, #0x1
-    mov r0, r1, lsl #0x5
-    str r0, [sp, #0x4]
-    movne r0, #0x1
-    strne r0, [sp, #0x0]
-    ldreq r0, [sp, #0x10]
-    streq r0, [sp, #0x0]
-    ldrb r0, [sp, #0x38]
-    and r6, r0, #0xf
-@L_02034250:
-    ldr r1, [sp, #0x10]
-    ldr r0, [sp, #0x48]
-    cmp r11, #0x0
-    add r2, r1, r0
-    ldr r0, [sp, #0x4]
-    mov r1, r2, asr #0x3
-    mul r1, r0, r1
-    mov r0, r2, lsl #0x1d
-    add r0, r1, r0, lsr #0x1b
-    str r0, [sp, #0x8]
-    ldr r7, [sp, #0x0]
-    mov r4, #0x0
-    ble @L_02034300
-@L_02034284:
-    ldr r0, [sp, #0x44]
-    add r2, r4, r0
-    ldr r0, [sp, #0x8]
-    mov r1, r2, asr #0x3
-    add r1, r0, r1, lsl #0x5
-    and r0, r2, #0x7
-    add r2, r1, r0, asr #0x1
-    ldrb r0, [r9, #0x0]
-    tst r0, r5
-    beq @L_020342dc
-    add r1, r8, r2
-    cmp r7, #0x0
-    mov r0, r10
-    ldrb r2, [r8, r2]
-    beq @L_020342cc
-    and r2, r2, #0xf
-    orr r2, r2, r6, lsl #0x4
-    b @L_020342d4
-@L_020342cc:
-    and r2, r2, #0xf0
-    orr r2, r2, r6
-@L_020342d4:
-    and r2, r2, #0xff
-    bl WriteByte
-@L_020342dc:
-    movs r5, r5, asr #0x1
-    moveq r5, #0x80
-    addeq r9, r9, #0x1
-    cmp r7, #0x0
-    moveq r7, #0x1
-    add r4, r4, #0x1
-    movne r7, #0x0
-    cmp r4, r11
-    blt @L_02034284
-@L_02034300:
-    ldr r0, [sp, #0xc]
-    mov r2, #0x0
-    cmp r0, #0x0
-    ble @L_02034330
-    mov r1, #0x80
-@L_02034314:
-    ldr r0, [sp, #0xc]
-    movs r5, r5, asr #0x1
-    add r2, r2, #0x1
-    moveq r5, r1
-    addeq r9, r9, #0x1
-    cmp r2, r0
-    blt @L_02034314
-@L_02034330:
-    ldr r0, [sp, #0x10]
-    add r1, r0, #0x1
-    ldr r0, [sp, #0x40]
-    str r1, [sp, #0x10]
-    cmp r1, r0
-    blt @L_02034250
-@L_02034348:
-    ldr r0, [r10, #0x14]
-    add r0, r11, r0
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-}
-#endif
 
 // 8 bits per pixel, 8x8 tiles; the canvas is width pixels wide
 int TextFont::DrawGlyphTile8(const u8 *image, u8 *canvas, int width, u8 color,

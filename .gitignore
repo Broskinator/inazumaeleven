@@ -9,3 +9,4 @@ extract/
 tools/bin/
 tools/mwccarm/
 objdiff.json
+__pycache__/

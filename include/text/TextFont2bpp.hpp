@@ -10,7 +10,6 @@ class TextFont2bpp : public TextFont {
 public:
     TextFont2bpp();
     virtual ~TextFont2bpp();
-    using TextFont::WriteByte;
     virtual int DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 color,
         const NNSG2dCharWidths *widths, int lineHeight, int x, int y);
     virtual int DrawGlyphTile8(const u8 *image, u8 *canvas, int width, u8 color,
