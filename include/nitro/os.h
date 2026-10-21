@@ -44,6 +44,7 @@ void OS_CreateThread(OSThread *thread, void (*func)(void *), void *arg, void *st
 void OS_DestroyThread(OSThread *thread);
 void OS_SleepThread(OSThreadQueue *queue);
 void OS_WakeupThreadDirect(OSThread *thread);
+BOOL OS_IsThreadTerminated(const OSThread *thread);
 void OS_Sleep(u32 msec);
 
 typedef u32 OSIntrMode;

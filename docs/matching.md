@@ -30,6 +30,15 @@ The compiler is Metrowerks CodeWarrior for DSi (`mwccarm` 1.x), C++.
   `WriteByte(dest, *dest++ & 0x0F)` compile differently; the separate
   increment is what the original's post-indexed load came from.
 
+- **Struct copies.** `a = b` for a struct copies memberwise when the struct has
+  members of different kinds (byte arrays, words, ...), and as one block (pairs of
+  bytes, halfwords, or `ldm`/`stm` of 16 bytes, by the struct's alignment) when it is an
+  array or a union (`SaveProfile`, `SaveTeam`). Copies of 4-byte structs of bytes and
+  12-byte structs of halfwords are unrolled.
+- **Constants in other registers.** A size passed to a call and the same size
+  kept in a variable can be loaded twice in the original and once in a rebuild (or the
+  reverse); no source change found for this yet (`SaveManager::Save`).
+
 ## Register allocation
 
 Registers follow the order in which local variables are declared (and,
@@ -42,7 +51,10 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   the original.
 - `tools/permdecl.py`: tries every order of a function's local declarations.
 - `tools/romasm.py ADDRESS [CLASS]`: a function of the ROM as inline asm, for
-  an asm fallback or as the target of decomp-permuter.
+  an asm fallback or as the target of decomp-permuter. Literal pool loads become
+  `ldr rX, =value`; the declarations the asm needs are listed on stderr.
+- `tools/disrange.py START END`: a disassembly of a range with the current names
+  and the literal values inline.
 - `tools/asmwrap.py` / `tools/asmunwrap.py`: add or remove an asm fallback.
 - [decomp-permuter](https://github.com/simonlindholm/decomp-permuter) works on
   these functions when they are rewritten as free functions taking `self`

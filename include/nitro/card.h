@@ -55,7 +55,14 @@ typedef enum CARDRequestMode {
 
 #define CARD_RETRY_COUNT_MAX 10
 
+typedef struct CARDRomHeader {
+    char game_name[12];
+    u32 game_code;
+    u8 unk_10[0x150];
+} CARDRomHeader;
+
 void CARD_Init(void);
+const CARDRomHeader *CARD_GetOwnRomHeader(void);
 void CARD_LockBackup(u16 lock_id);
 void CARD_UnlockBackup(u16 lock_id);
 CARDResult CARD_GetResultCode(void);

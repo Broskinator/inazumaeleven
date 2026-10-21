@@ -397,3 +397,7 @@ src/movie/MoviePlayer.cpp:
     .text start:0x02037750 end:0x0203811c
     .data start:0x020abbac end:0x020abbe4
     .bss start:0x020c4558 end:0x020c4588
+
+src/save/SaveManager.cpp:
+    complete
+    .text start:0x0203811c end:0x02039880
