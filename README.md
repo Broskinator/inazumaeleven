@@ -86,6 +86,8 @@ More helpers:
     python3 tools/asmwrap.py src/file.cpp "int Class::Function(" func.s "reason"
         # turns a function into an asm fallback, with its C++ under NONMATCHING
 
+See [docs/matching.md](docs/matching.md) for what made functions match so far.
+
 Object file names must be unique ignoring case: the linker runs on Windows, so
 `Heap.o` and the sound library's `heap.o` would be the same file.
 
