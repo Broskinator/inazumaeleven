@@ -20,11 +20,12 @@ struct UnkObjectVtable {
     void (*Delete)(UnkObject *object);
     void (*func_08)(UnkObject *object, int a, int b);
     void (*func_0c)(UnkObject *object, int a);
-    void *unk_10;
+    void (*func_10)(UnkObject *object);
     int (*func_14)(UnkObject *object);
     void (*func_18)(UnkObject *object, int a);
     void (*func_1c)(UnkObject *object);
-    void *unk_20[16];
+    void (*func_20)(UnkObject *object);
+    void *unk_24[15];
     int (*func_60)(UnkObject *object, int a);
     int (*func_64)(UnkObject *object, int a);
     int (*func_68)(UnkObject *object);

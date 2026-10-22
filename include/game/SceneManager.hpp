@@ -2,12 +2,13 @@
 #define GAME_SCENEMANAGER_HPP
 
 #include "nitro/types.h"
+#include "game/UnkClass_0203dc7c.hpp"
 
 // Creates the game's scenes (each a subclass of UnkClass_0203dc7c, its code in an overlay) and switches between them; its state is in data_020c45a0
 class SceneManager {
 public:
-    void func_0203e2fc();
-    void func_0203e30c();
+    static void func_0203e2fc(s32 value);
+    static s32 func_0203e30c();
     void func_0203e31c();
     void func_0203e348();
     void func_0203e3d0();
@@ -67,7 +68,7 @@ public:
     void func_0203ead8();
     void func_0203eba4();
     void func_0203ecd4();
-    void func_0203ed14();
+    static void func_0203ed14();
     void func_0203ed3c();
     void func_0203ed88();
     void func_0203ee70();
@@ -75,21 +76,21 @@ public:
     void func_0203efc8();
     void func_0203f0dc();
     void func_0203f248();
-    void func_0203f2e8();
-    void func_0203f310();
+    static void func_0203f2e8();
+    static void func_0203f310();
     void func_0203f338();
     void func_0203f3b4();
     void func_0203f42c();
     void func_0203f500();
     void func_0203f5d0();
     void func_0203f604();
-    void func_0203f798();
-    void func_0203f7a0();
-    void func_0203f7a8();
-    void func_0203f7b0();
+    int func_0203f798();
+    int func_0203f7a0();
+    int func_0203f7a8();
+    int func_0203f7b0();
     void func_0203f7b8();
     void func_0203f7bc();
-    void func_0203f7c0();
+    SceneManager *func_0203f7c0();
     void func_0203f7d4();
     void func_0203f7e0();
     void func_0203f7ec();
@@ -115,5 +116,16 @@ public:
     void func_0203f8e4();
     void func_0203f8e8();
 };
+
+// The state of the scenes
+struct SceneManagerGlobals {
+    u8 unk_00[8];
+    s32 unk_08;
+    s32 unk_0c;
+    u8 unk_10[0x20];
+    UnkObject *scene;           // the current scene
+};
+
+extern SceneManagerGlobals data_020c45a0;
 
 #endif // GAME_SCENEMANAGER_HPP

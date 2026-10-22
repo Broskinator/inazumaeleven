@@ -1,4 +1,24 @@
 #include "game/SceneManager.hpp"
+#include "nitro/os.h"
+#include "sound/SoundManager.hpp"
+#include "movie/MoviePlayer.hpp"
+
+extern "C" void func_ov015_021323a4(int);
+extern "C" void func_ov015_021323fc(void);
+extern "C" void func_ov015_0213240c(void);
+extern "C" void func_ov015_021324a4(void);
+extern "C" void func_ov015_021324b4(void);
+extern "C" void func_ov015_02132554(int);
+extern "C" void func_ov015_02132568(int);
+extern "C" void func_ov015_02132600(int);
+extern "C" void func_ov015_02132614(int);
+extern "C" void func_ov015_021326b8(int);
+extern "C" void func_ov015_021326cc(int);
+extern "C" void func_ov015_02132774(void);
+extern "C" void func_ov015_02132784(void);
+extern "C" void func_ov015_021327ec(int);
+extern "C" void func_ov015_0213290c(void);
+extern "C" void func_ov015_0213291c(void);
 
 extern "C" char data_020a4944[];
 extern "C" char data_020abf04[];
@@ -13,7 +33,6 @@ extern "C" char data_020abff4[];
 extern "C" char data_020ac008[];
 extern "C" char data_020ac094[];
 extern "C" char data_020afeac[];
-extern "C" char data_020c45a0[];
 extern "C" char data_020c45c0[];
 extern "C" char data_020c45c8[];
 extern "C" char data_020c45d4[];
@@ -41,9 +60,7 @@ extern "C" char data_020c4850[];
 extern "C" char data_020c4a40[];
 extern "C" char data_020c4ab4[];
 extern "C" char data_020c4c70[];
-extern "C" char data_020c4f60[];
 extern "C" char data_020c5320[];
-extern "C" char data_020c5e40[];
 extern "C" char data_020d9978[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov000_02117c6c[];
@@ -79,17 +96,13 @@ extern "C" char data_ov014_02124500[];
 extern "C" char data_ov014_021245c8[];
 extern "C" char data_ov014_021246fc[];
 extern "C" char data_ov046_0216acc0[];
-extern "C" void FS_UnloadOverlay(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void OS_Sleep(void);
 extern "C" void PM_GetLCDPower(void);
 extern "C" void TP_WaitCalibratedResult(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11MoviePlayer5PauseEv(void);
-extern "C" void _ZN11MoviePlayer6ResumeEv(void);
 extern "C" void _ZN11SaveManager6IsDoneEv(void);
 extern "C" void _ZN12SoundManager13func_02039bccEv(void);
-extern "C" void _ZN12SoundManager13func_02039bdcEv(void);
 extern "C" void _ZN12SoundManager6UpdateEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc7cEv(void);
 extern "C" void _ZN8GameHeap7GetInfoEPmS0_S0_(void);
@@ -138,23 +151,7 @@ extern "C" void func_ov003_0210eb00(void);
 extern "C" void func_ov015_02131828(void);
 extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_0213238c(void);
-extern "C" void func_ov015_021323a4(void);
-extern "C" void func_ov015_021323fc(void);
-extern "C" void func_ov015_0213240c(void);
-extern "C" void func_ov015_021324a4(void);
-extern "C" void func_ov015_021324b4(void);
-extern "C" void func_ov015_02132554(void);
-extern "C" void func_ov015_02132568(void);
-extern "C" void func_ov015_02132600(void);
-extern "C" void func_ov015_02132614(void);
-extern "C" void func_ov015_021326b8(void);
-extern "C" void func_ov015_021326cc(void);
-extern "C" void func_ov015_02132774(void);
-extern "C" void func_ov015_02132784(void);
 extern "C" void func_ov015_02132794(void);
-extern "C" void func_ov015_021327ec(void);
-extern "C" void func_ov015_0213290c(void);
-extern "C" void func_ov015_0213291c(void);
 extern "C" void func_ov015_02133efc(void);
 extern "C" void func_ov015_02134bd8(void);
 extern "C" void func_ov015_02134c78(void);
@@ -165,18 +162,14 @@ extern "C" void func_ov015_02148f94(void);
 extern "C" void gEntryPool(void);
 extern "C" void gGameState(void);
 
-asm void SceneManager::func_0203e2fc()
+void SceneManager::func_0203e2fc(s32 value)
 {
-    ldr r1, =data_020c45a0
-    str r0, [r1, #8]
-    bx lr
+    data_020c45a0.unk_08 = value;
 }
 
-asm void SceneManager::func_0203e30c()
+s32 SceneManager::func_0203e30c()
 {
-    ldr r0, =data_020c45a0
-    ldr r0, [r0, #0xc]
-    bx lr
+    return data_020c45a0.unk_0c;
 }
 
 asm void SceneManager::func_0203e31c()
@@ -273,19 +266,16 @@ asm void SceneManager::func_0203e3d0()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203e450()
+void SceneManager::func_0203e450()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e454()
+void SceneManager::func_0203e454()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e458()
+void SceneManager::func_0203e458()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203e45c()
@@ -332,14 +322,12 @@ asm void SceneManager::func_0203e498()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203e4f4()
+void SceneManager::func_0203e4f4()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e4f8()
+void SceneManager::func_0203e4f8()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203e4fc()
@@ -364,9 +352,8 @@ asm void SceneManager::func_0203e4fc()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203e548()
+void SceneManager::func_0203e548()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203e54c()
@@ -397,19 +384,16 @@ asm void SceneManager::func_0203e54c()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203e5b8()
+void SceneManager::func_0203e5b8()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e5bc()
+void SceneManager::func_0203e5bc()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e5c0()
+void SceneManager::func_0203e5c0()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203e5c4()
@@ -510,74 +494,60 @@ asm void SceneManager::func_0203e5c4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void SceneManager::func_0203e778()
+void SceneManager::func_0203e778()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e77c()
+void SceneManager::func_0203e77c()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e780()
+void SceneManager::func_0203e780()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e784()
+void SceneManager::func_0203e784()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e788()
+void SceneManager::func_0203e788()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e78c()
+void SceneManager::func_0203e78c()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e790()
+void SceneManager::func_0203e790()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e794()
+void SceneManager::func_0203e794()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e798()
+void SceneManager::func_0203e798()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e79c()
+void SceneManager::func_0203e79c()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e7a0()
+void SceneManager::func_0203e7a0()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e7a4()
+void SceneManager::func_0203e7a4()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e7a8()
+void SceneManager::func_0203e7a8()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e7ac()
+void SceneManager::func_0203e7ac()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203e7b0()
@@ -683,89 +653,72 @@ asm void SceneManager::func_0203e7b0()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void SceneManager::func_0203e980()
+void SceneManager::func_0203e980()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e984()
+void SceneManager::func_0203e984()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e988()
+void SceneManager::func_0203e988()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e98c()
+void SceneManager::func_0203e98c()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e990()
+void SceneManager::func_0203e990()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e994()
+void SceneManager::func_0203e994()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e998()
+void SceneManager::func_0203e998()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e99c()
+void SceneManager::func_0203e99c()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9a0()
+void SceneManager::func_0203e9a0()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9a4()
+void SceneManager::func_0203e9a4()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9a8()
+void SceneManager::func_0203e9a8()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9ac()
+void SceneManager::func_0203e9ac()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9b0()
+void SceneManager::func_0203e9b0()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9b4()
+void SceneManager::func_0203e9b4()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9b8()
+void SceneManager::func_0203e9b8()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9bc()
+void SceneManager::func_0203e9bc()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203e9c0()
+void SceneManager::func_0203e9c0()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203e9c4()
@@ -814,24 +767,20 @@ asm void SceneManager::func_0203e9c4()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203ea8c()
+void SceneManager::func_0203ea8c()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203ea90()
+void SceneManager::func_0203ea90()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203ea94()
+void SceneManager::func_0203ea94()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203ea98()
+void SceneManager::func_0203ea98()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203ea9c()
@@ -850,9 +799,8 @@ asm void SceneManager::func_0203ea9c()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203ead4()
+void SceneManager::func_0203ead4()
 {
-    bx lr
 }
 
 asm void SceneManager::func_0203ead8()
@@ -1012,16 +960,11 @@ asm void SceneManager::func_0203ecd4()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203ed14()
+void SceneManager::func_0203ed14()
 {
-    stmdb sp!, {r3, lr}
-    mov r0, #0x14
-    bl OS_Sleep
-    ldr r0, =data_020c5e40
-    bl _ZN12SoundManager13func_02039bdcEv
-    ldr r0, =data_020c4f60
-    bl _ZN11MoviePlayer6ResumeEv
-    ldmia sp!, {r3, pc}
+    OS_Sleep(20);
+    data_020c5e40.func_02039bdc();
+    data_020c4f60.Resume();
 }
 
 asm void SceneManager::func_0203ed3c()
@@ -1395,30 +1338,20 @@ asm void SceneManager::func_0203f248()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void SceneManager::func_0203f2e8()
+void SceneManager::func_0203f2e8()
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020c45a0
-    ldr r0, [r0, #0x30]
-    cmp r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r1, [r0]
-    ldr r1, [r1, #0x10]
-    blx r1
-    ldmia sp!, {r3, pc}
+    if (data_020c45a0.scene == NULL) {
+        return;
+    }
+    data_020c45a0.scene->vtable->func_10(data_020c45a0.scene);
 }
 
-asm void SceneManager::func_0203f310()
+void SceneManager::func_0203f310()
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020c45a0
-    ldr r0, [r0, #0x30]
-    cmp r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-    ldmia sp!, {r3, pc}
+    if (data_020c45a0.scene == NULL) {
+        return;
+    }
+    data_020c45a0.scene->vtable->func_20(data_020c45a0.scene);
 }
 
 asm void SceneManager::func_0203f338()
@@ -1706,193 +1639,150 @@ asm void SceneManager::func_0203f604()
     b @L_0203f644
 }
 
-asm void SceneManager::func_0203f798()
+int SceneManager::func_0203f798()
 {
-    mov r0, #0
-    bx lr
+    return 0;
 }
 
-asm void SceneManager::func_0203f7a0()
+int SceneManager::func_0203f7a0()
 {
-    mov r0, #0
-    bx lr
+    return 0;
 }
 
-asm void SceneManager::func_0203f7a8()
+int SceneManager::func_0203f7a8()
 {
-    mov r0, #0
-    bx lr
+    return 0;
 }
 
-asm void SceneManager::func_0203f7b0()
+int SceneManager::func_0203f7b0()
 {
-    mov r0, #1
-    bx lr
+    return 1;
 }
 
-asm void SceneManager::func_0203f7b8()
+void SceneManager::func_0203f7b8()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203f7bc()
+void SceneManager::func_0203f7bc()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203f7c0()
+SceneManager *SceneManager::func_0203f7c0()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    operator delete(this);
+    return this;
 }
 
-asm void SceneManager::func_0203f7d4()
+void SceneManager::func_0203f7d4()
 {
-    ldr r12, =func_ov015_0213291c
-    bx r12
+    func_ov015_0213291c();
 }
 
-asm void SceneManager::func_0203f7e0()
+void SceneManager::func_0203f7e0()
 {
-    ldr r12, =func_ov015_02132784
-    bx r12
+    func_ov015_02132784();
 }
 
-asm void SceneManager::func_0203f7ec()
+void SceneManager::func_0203f7ec()
 {
-    ldr r12, =func_ov015_021326cc
-    mov r0, #8
-    bx r12
+    func_ov015_021326cc(8);
 }
 
-asm void SceneManager::func_0203f7fc()
+void SceneManager::func_0203f7fc()
 {
-    ldr r12, =func_ov015_02132614
-    mov r0, #6
-    bx r12
+    func_ov015_02132614(6);
 }
 
-asm void SceneManager::func_0203f80c()
+void SceneManager::func_0203f80c()
 {
-    ldr r12, =func_ov015_02132568
-    mov r0, #6
-    bx r12
+    func_ov015_02132568(6);
 }
 
-asm void SceneManager::func_0203f81c()
+void SceneManager::func_0203f81c()
 {
-    ldr r12, =func_ov015_021324b4
-    bx r12
+    func_ov015_021324b4();
 }
 
-asm void SceneManager::func_0203f828()
+void SceneManager::func_0203f828()
 {
-    ldr r12, =func_ov015_0213240c
-    bx r12
+    func_ov015_0213240c();
 }
 
-asm void SceneManager::func_0203f834()
+void SceneManager::func_0203f834()
 {
-    ldr r12, =func_ov015_021327ec
-    mov r0, #1
-    bx r12
+    func_ov015_021327ec(1);
 }
 
-asm void SceneManager::func_0203f844()
+void SceneManager::func_0203f844()
 {
-    ldr r12, =func_ov015_021323a4
-    mov r0, #1
-    bx r12
+    func_ov015_021323a4(1);
 }
 
-asm void SceneManager::func_0203f854()
+void SceneManager::func_0203f854()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203f858()
+void SceneManager::func_0203f858()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203f85c()
+void SceneManager::func_0203f85c()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203f860()
+void SceneManager::func_0203f860()
 {
-    ldr r12, =func_ov015_0213290c
-    bx r12
+    func_ov015_0213290c();
 }
 
-asm void SceneManager::func_0203f86c()
+void SceneManager::func_0203f86c()
 {
-    ldr r12, =func_ov015_02132774
-    bx r12
+    func_ov015_02132774();
 }
 
-asm void SceneManager::func_0203f878()
+void SceneManager::func_0203f878()
 {
-    ldr r12, =func_ov015_021326b8
-    mov r0, #8
-    bx r12
+    func_ov015_021326b8(8);
 }
 
-asm void SceneManager::func_0203f888()
+void SceneManager::func_0203f888()
 {
-    ldr r12, =func_ov015_02132600
-    mov r0, #6
-    bx r12
+    func_ov015_02132600(6);
 }
 
-asm void SceneManager::func_0203f898()
+void SceneManager::func_0203f898()
 {
-    ldr r12, =func_ov015_02132554
-    mov r0, #6
-    bx r12
+    func_ov015_02132554(6);
 }
 
-asm void SceneManager::func_0203f8a8()
+void SceneManager::func_0203f8a8()
 {
-    ldr r12, =func_ov015_021324a4
-    bx r12
+    func_ov015_021324a4();
 }
 
-asm void SceneManager::func_0203f8b4()
+void SceneManager::func_0203f8b4()
 {
-    ldr r12, =func_ov015_021323fc
-    bx r12
+    func_ov015_021323fc();
 }
 
-asm void SceneManager::func_0203f8c0()
+void SceneManager::func_0203f8c0()
 {
-    ldr r12, =func_ov015_021327ec
-    mov r0, #0
-    bx r12
+    func_ov015_021327ec(0);
 }
 
-asm void SceneManager::func_0203f8d0()
+void SceneManager::func_0203f8d0()
 {
-    ldr r12, =func_ov015_021323a4
-    mov r0, #0
-    bx r12
+    func_ov015_021323a4(0);
 }
 
-asm void SceneManager::func_0203f8e0()
+void SceneManager::func_0203f8e0()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203f8e4()
+void SceneManager::func_0203f8e4()
 {
-    bx lr
 }
 
-asm void SceneManager::func_0203f8e8()
+void SceneManager::func_0203f8e8()
 {
-    bx lr
 }
