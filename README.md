@@ -26,6 +26,7 @@ your own copy of the ROM:
       (`src/save/`), the heap (`src/system/`), data containers and the "key = value"
       settings reader (`src/data/`), the movie player (`src/movie/`) and the sound
       manager over the sound driver (`src/sound/`: all 68 functions in C++, 63 matching)
+      and wireless play over the WM library (`src/wireless/`: 53 of 55 in C++)
 - [ ] Decompiled to C
 
 ## Building
@@ -88,6 +89,10 @@ More helpers:
     python3 tools/asmconv.py 0x02036354 FileManager > func.s
     python3 tools/asmwrap.py src/file.cpp "int Class::Function(" func.s "reason"
         # turns a function into an asm fallback, with its C++ under NONMATCHING
+    python3 tools/splitclass.py 0x0203c0ec 0x0203dc7c Wireless wireless/Wireless
+        # splits the code of a class into a file of asm members, to convert one by one
+    python3 tools/fixsyms.py src/file.cpp
+        # renames functions in symbols.txt after their signatures changed
 
 See [docs/matching.md](docs/matching.md) for what made functions match so far.
 

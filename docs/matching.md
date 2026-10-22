@@ -23,6 +23,13 @@ The compiler is Metrowerks CodeWarrior for DSi (`mwccarm` 1.x), C++.
   (`SoundManager::EndScene`). A case that the original jumps over to the code
   after the switch is a `break` to code after the switch, not a fallthrough
   (`SoundManager::PrepareBank`).
+- **Returns in a jump table.** A case whose code is only the function's return shows
+  up as the `pop` itself in the jump table when the switch is the end of the function
+  and the case `break`s; a `return;` in the case gives a branch to a shared `pop`
+  instead (`Wireless::func_0203dad8`).
+- **Range checks in a comparison tree.** `cmp #2; bgt; cmp #0; blt; beq` in a tree is
+  a group of cases 0..2 where only 0 has code: an empty `case 2:` (not 1 and 2) keeps
+  the tree instead of a jump table (`Wireless::func_0203d17c`).
 - **Which branch comes first.** `if (a) { x } else { y }` and
   `if (!a) { y } else { x }` give the same instructions but can give other
   registers (`SoundManager::SaveState`), and the branch written first is laid
