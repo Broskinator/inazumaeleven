@@ -24,7 +24,8 @@ your own copy of the ROM:
 - [x] First complete source files (`make progress` for the current count): text drawing
       (`src/text/`), the file loader and pack files (`src/file/`), the save memory
       (`src/save/`), the heap (`src/system/`), data containers and the "key = value"
-      settings reader (`src/data/`), the movie player (`src/movie/`)
+      settings reader (`src/data/`), the movie player (`src/movie/`) and the sound
+      manager over the sound driver (`src/sound/`, 61 of its 68 functions in C++)
 - [ ] Decompiled to C
 
 ## Building
