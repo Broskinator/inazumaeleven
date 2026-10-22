@@ -27,6 +27,8 @@ def main():
     calls = {}
     loads = {}
     for line in open(f"{ROOT}/config/yeep/arm9/relocs.txt"):
+        if "module:overlays(" in line:
+            continue    # (an address in several overlays: kept as a number)
         m = re.match(r"from:(0x[0-9a-f]+) kind:arm_call to:(0x[0-9a-f]+) module:overlay\((\d+)\)", line)
         if m:
             # (a call into an overlay: named from that overlay's symbols)
@@ -37,6 +39,19 @@ def main():
         m = re.match(r"from:(0x[0-9a-f]+) kind:arm_call to:(0x[0-9a-f]+)", line)
         if m:
             calls[int(m.group(1), 16)] = int(m.group(2), 16)
+        m = re.match(r"from:(0x[0-9a-f]+) kind:load to:(0x[0-9a-f]+)(?: add:(\S+))? module:overlay\((\d+)\)", line)
+        if m:
+            # (data of an overlay: named from that overlay's symbols)
+            ov = int(m.group(4))
+            to = int(m.group(2), 16)
+            name = f"data_ov{ov:03d}_{to:08x}"
+            for l2 in open(f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}/symbols.txt"):
+                mm = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", l2)
+                if mm and int(mm.group(2), 16) == to:
+                    name = mm.group(1)
+                    break
+            loads[int(m.group(1), 16)] = (name, int(m.group(3), 0) if m.group(3) else 0)
+            continue
         m = re.match(r"from:(0x[0-9a-f]+) kind:load to:(0x[0-9a-f]+)(?: add:(\S+))?", line)
         if m:
             loads[int(m.group(1), 16)] = (int(m.group(2), 16), int(m.group(3), 0) if m.group(3) else 0)
@@ -91,7 +106,7 @@ def main():
             lit = i.address + 8 + int(m.group(1) or "0", 0)
             if lit in loads:
                 to, add = loads[lit]
-                value = names.get(to, f"data_{to:08x}")
+                value = to if isinstance(to, str) else names.get(to, f"data_{to:08x}")
                 if value.startswith("_Z"):
                     value = short(value, cls) or value     # (members of the class by their short name)
                 value += f"+{add:#x}" if add else ""
