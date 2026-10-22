@@ -62,6 +62,15 @@ The compiler is Metrowerks CodeWarrior for DSi (`mwccarm` 1.x), C++.
   kept in a variable can be loaded twice in the original and once in a rebuild (or the
   reverse); no source change found for this yet (`SaveManager::Save`).
 
+- **Pooled globals.** A function that uses several global variables of its file loads
+  one address and reaches the others by offsets from it, while a function that uses
+  only one loads that variable's own address: `data_020c45a0` + 0x28 and `data_020c45c8`
+  are the same array (`SceneManager.cpp`). Until the file's `.bss` is decompiled, the
+  variables are declared both ways.
+- **Volatile reads that are not used.** Loads of hardware registers stay even when the
+  result is dropped (a `PAD_Read()` whose result is not used in
+  `SceneManager::func_0203ef38`); the order of the loads is the order of the reads.
+
 ## Register allocation
 
 Registers follow the order in which local variables are declared (and,
