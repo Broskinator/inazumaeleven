@@ -23,7 +23,8 @@ your own copy of the ROM:
 - [ ] Game code split into files
 - [x] First complete source files (`make progress` for the current count): text drawing
       (`src/text/`), the file loader and pack files (`src/file/`), the save memory
-      (`src/save/`), the heap (`src/system/`) and data containers (`src/data/`)
+      (`src/save/`), the heap (`src/system/`), data containers and the "key = value"
+      settings reader (`src/data/`), the movie player (`src/movie/`)
 - [ ] Decompiled to C
 
 ## Building

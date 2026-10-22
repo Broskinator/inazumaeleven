@@ -45,6 +45,16 @@ Registers follow the order in which local variables are declared (and,
 for values that live in the same register, the order of the statements that
 set them). `tools/permdecl.py` tries every order of a function's declarations.
 
+- **Chained assignments.** `a = b = x` sets `b` first: the `mov`s of the original
+  tell which of the two is assigned first (`ConfigFile::Load`).
+- **Clamps.** `if (n >= 8) n = 8;` gives `movge`, `if (n > 8)` gives `movgt`
+  (`ConfigFile::GetInt`).
+
+## Library calls
+
+- `float f() { return atof(s); }` calls the runtime's double-to-float helper
+  (`_d2f`) after `atof`; softfloat values come back in `r0`/`r1`.
+
 ## Tools
 
 - `tools/fncmp.py src/file.cpp [-d]`: compares the functions of a file with
