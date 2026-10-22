@@ -1,100 +1,79 @@
 #include "wireless/Wireless.hpp"
+#include "system/GameHeap.hpp"
+#include "nitro/mi.h"
+#include "nitro/os.h"
 
-extern "C" char data_020c4588[];
-extern "C" void DC_FlushRange(void);
 extern "C" void DC_InvalidateRange(void);
-extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
-extern "C" void WM_SetIndCallback(void);
-extern "C" void WM_StartKeySharing(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02006d84(void);
 extern "C" void func_02009380(void);
-extern "C" void func_02012e6c(void);
-extern "C" void func_020131c0(void);
 extern "C" void func_020131e0(void);
 extern "C" void func_02013274(void);
 extern "C" void func_02013308(void);
 extern "C" void func_020134f8(void);
 extern "C" void func_020136b4(void);
-extern "C" void func_0201372c(void);
 extern "C" void func_02013768(void);
 extern "C" void func_020137ac(void);
-extern "C" void func_02013940(void);
-extern "C" void func_02013950(void);
 extern "C" void func_02013994(void);
-extern "C" void func_02013ae4(void);
 extern "C" void func_02013b28(void);
-extern "C" void func_02013bf4(void);
-extern "C" void func_02013f08(void);
-extern "C" void func_02013fec(void);
-extern "C" void func_02014030(void);
-extern "C" void func_0201407c(void);
-extern "C" void func_020141b4(void);
 extern "C" void func_02014414(void);
 extern "C" void func_02014654(void);
 extern "C" void func_020146a0(void);
-extern "C" void func_02014ee0(void);
-extern "C" void func_02014f80(void);
-extern "C" void func_02014f8c(void);
-extern "C" void func_0201509c(void);
-extern "C" void func_02015218(void);
 extern "C" void memcmp(void);
+extern "C" int func_02012e6c(u16 port, WMCallbackFunc callback, void *arg);   // sets a port callback
+extern "C" u16 func_020131c0(void);                         // the allowed channels
+extern "C" int func_0201372c(WMCallbackFunc callback);         // resets
+extern "C" int func_02013940(WMCallbackFunc callback);         // starts the parent
+extern "C" int func_02013950(WMCallbackFunc callback);         // ends the parent
+extern "C" int func_02013ae4(WMCallbackFunc callback);         // ends the scan
+extern "C" int func_02013bf4(WMCallbackFunc callback, u16 aid);   // disconnects
+extern "C" int func_02013f08(WMCallbackFunc callback, void *receiveBuffer, u16 receiveSize, void *sendBuffer, u16 sendSize, int frequency);   // starts MP
+extern "C" int func_02013fec(WMCallbackFunc callback, u16);
+extern "C" int func_02014030(WMCallbackFunc callback, u16, u16);
+extern "C" int func_0201407c(WMCallbackFunc callback, void *arg, const void *data, u16 size, u16 destBitmap, u16 port, u16 priority);  // sends data to a port
+extern "C" int func_020141b4(WMCallbackFunc callback);         // ends MP
+extern "C" void *func_02014ee0(void *dataSharing, void *dataSet, u16 aid);   // a player's shared data
+extern "C" int func_02014f80(void *keySharing);              // ends key sharing
+extern "C" int func_02014f8c(WMCallbackFunc callback, u16, const void *key);
+extern "C" int func_0201509c(WMCallbackFunc callback, void *userGameInfo, u16 length, u32 ggid, u16 tgid, u8 flags);  // sets the game info
+extern "C" int func_02015218(WMCallbackFunc callback, u16 ccaMode, u16 edThreshold, u16 channel, u16 measureTime);  // measures a channel
 
-asm void Wireless::func_0203c0ec()
+void Wireless::func_0203c0ec()
 {
-    bx lr
 }
 
-asm void Wireless::func_0203c0f0()
+void Wireless::func_0203c0f0()
 {
-    bx lr
 }
 
-asm void Wireless::func_0203c0f4()
+void Wireless::func_0203c0f4(GameHeap *heap)
 {
-    str r1, [r0]
-    bx lr
+    this->heap = heap;
 }
 
-asm void Wireless::func_0203c0fc()
+// memory for the WM library: from the heap, or from the alloc callback
+void *Wireless::func_0203c0fc(u32 size)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, [r0]
-    cmp r2, #0
-    beq @L_0203c120
-    mov r0, r2
-    mov r2, #6
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    ldmia sp!, {r3, pc}
-@L_0203c120:
-    ldr r2, [r0, #0x240]
-    cmp r2, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    mov r0, r1
-    blx r2
-    ldmia sp!, {r3, pc}
+    if (heap != NULL) {
+        return heap->Alloc(size, 6, TRUE);
+    }
+    if (alloc == NULL) {
+        return NULL;
+    }
+    return alloc(size);
 }
 
-asm void Wireless::func_0203c13c()
+void Wireless::func_0203c13c(void *ptr)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, [r0]
-    cmp r2, #0
-    beq @L_0203c158
-    mov r0, r2
-    bl _ZN8GameHeap4FreeEPv
-    ldmia sp!, {r3, pc}
-@L_0203c158:
-    ldr r2, [r0, #0x244]
-    cmp r2, #0
-    ldmeqia sp!, {r3, pc}
-    mov r0, r1
-    blx r2
-    ldmia sp!, {r3, pc}
+    if (heap != NULL) {
+        heap->Free(ptr);
+        return;
+    }
+    if (free == NULL) {
+        return;
+    }
+    free(ptr);
 }
 
 asm void Wireless::func_0203c170()
@@ -227,149 +206,77 @@ asm void Wireless::func_0203c358()
     bx r12
 }
 
-asm void Wireless::func_0203c364()
+void Wireless::func_0203c364(BOOL flag)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    mov r3, r0
-    ldrb r0, [r3, #0x236]
-    cmp r1, #0
-    add r1, r3, #0x300
-    orrne r0, r0, #1
-    andeq r0, r0, #0xfe
-    strb r0, [r3, #0x236]
-    add r0, r3, #0x200
-    ldrh r2, [r0, #0x34]
-    ldr r0, =func_0203c41c
-    str r2, [sp]
-    ldrb r2, [r3, #0x236]
-    str r2, [sp, #4]
-    ldrh r2, [r1, #0x24]
-    ldr r1, [r3, #0x320]
-    ldr r3, [r3, #0x328]
-    bl func_0201509c
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    if (flag) {
+        gameInfoFlags |= 1;
+    } else {
+        gameInfoFlags &= ~1;
+    }
+    func_0201509c(func_0203c41c, parentParam.userGameInfo, parentParam.userGameInfoLength,
+        parentParam.ggid, tgid, gameInfoFlags);
 }
 
-asm void Wireless::func_0203c3bc()
+// sets the game info sent in the beacons
+void Wireless::func_0203c3bc(void *info, u16 length)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    mov r12, r0
-    add r0, r12, #0x2400
-    ldrh r0, [r0, #0x6c]
-    add r3, r12, #0x300
-    str r1, [r12, #0x320]
-    tst r0, #2
-    addeq sp, sp, #8
-    strh r2, [r3, #0x24]
-    ldmeqia sp!, {r3, pc}
-    add r0, r12, #0x200
-    ldrh r1, [r0, #0x34]
-    ldr r0, =func_0203c41c
-    str r1, [sp]
-    ldrb r1, [r12, #0x236]
-    str r1, [sp, #4]
-    ldrh r2, [r3, #0x24]
-    ldr r1, [r12, #0x320]
-    ldr r3, [r12, #0x328]
-    bl func_0201509c
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    parentParam.userGameInfo = info;
+    parentParam.userGameInfoLength = length;
+    if (!(flags & 2)) {
+        return;
+    }
+    func_0201509c(func_0203c41c, parentParam.userGameInfo, parentParam.userGameInfoLength,
+        parentParam.ggid, tgid, gameInfoFlags);
 }
 
-asm void Wireless::func_0203c41c()
+void Wireless::func_0203c41c(void *arg)
 {
-    bx lr
 }
 
-asm void Wireless::func_0203c420()
+// the parent found at this index of the scan, NULL if there is none
+WMBssDesc *Wireless::func_0203c420(int index)
 {
-    add r2, r0, #0x1000
-    ldrb r3, [r2, #0x3e2]
-    mov r2, #1
-    tst r3, r2, lsl r1
-    moveq r0, #0
-    addne r2, r0, #0x7e0
-    movne r0, #0xc0
-    mlane r0, r1, r0, r2
-    bx lr
+    return (bssMask & (1 << index)) == 0 ? NULL : &bss[index];
 }
 
-asm void Wireless::func_0203c444()
+void Wireless::func_0203c444(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_020c4588
-    ldr r1, [r4]
-    cmp r1, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r0, [r0, #2]
-    cmp r0, #0
-    addne r0, r1, #0x2400
-    movne r1, #9
-    strneh r1, [r0, #0x6a]
-    ldmneia sp!, {r4, pc}
-    ldr r0, =func_0203c4a4
-    bl WM_SetIndCallback
-    cmp r0, #0
-    ldr r0, [r4]
-    movne r1, #9
-    addne r0, r0, #0x2400
-    strneh r1, [r0, #0x6a]
-    moveq r1, #1
-    addeq r0, r0, #0x2400
-    streqh r1, [r0, #0x6a]
-    ldmia sp!, {r4, pc}
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        return;
+    }
+    if (WM_SetIndCallback(func_0203c4a4) != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+    } else {
+        data_020c4588.instance->state = WIRELESS_STATE_IDLE;
+    }
 }
 
-asm void Wireless::func_0203c4a4()
+void Wireless::func_0203c4a4(void *arg)
 {
-    bx lr
 }
 
-asm void Wireless::func_0203c4a8()
+BOOL Wireless::func_0203c4a8()
 {
-    stmdb sp!, {r3, lr}
-    add r1, r0, #0x2400
-    mov r2, #2
-    ldr r0, =func_0203c4d4
-    strh r2, [r1, #0x6a]
-    bl func_0201372c
-    cmp r0, #2
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, pc}
+    state = WIRELESS_STATE_BUSY;
+    return func_0201372c(func_0203c4d4) == WM_ERRCODE_OPERATING;
 }
 
-asm void Wireless::func_0203c4d4()
+void Wireless::func_0203c4d4(void *arg)
 {
-    ldr r2, =data_020c4588
-    ldr r3, [r2]
-    cmp r3, #0
-    bxeq lr
-    ldrh r1, [r0, #2]
-    cmp r1, #0
-    beq @L_0203c510
-    add r1, r3, #0x2400
-    mov r3, #9
-    strh r3, [r1, #0x6a]
-    ldr r1, [r2]
-    ldrh r2, [r0, #2]
-    add r0, r1, #0x2000
-    str r2, [r0, #0x440]
-    bx lr
-@L_0203c510:
-    add r0, r3, #0x2400
-    mov r1, #1
-    strh r1, [r0, #0x6a]
-    ldr r1, [r2]
-    ldr r0, =0xfffd
-    add r1, r1, #0x2400
-    ldrh r2, [r1, #0x6c]
-    and r0, r2, r0
-    strh r0, [r1, #0x6c]
-    bx lr
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = ((WMCallback *)arg)->errcode;
+        return;
+    }
+    data_020c4588.instance->state = WIRELESS_STATE_IDLE;
+    data_020c4588.instance->flags &= ~2;
 }
 
 asm void Wireless::func_0203c540()
@@ -456,18 +363,13 @@ asm void Wireless::func_0203c540()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void Wireless::func_0203c650()
+void Wireless::func_0203c650(void *arg)
 {
-    ldrh r0, [r0, #2]
-    cmp r0, #0
-    ldrne r0, =data_020c4588
-    movne r1, #9
-    ldreq r0, =data_020c4588
-    moveq r1, #0
-    ldr r0, [r0]
-    add r0, r0, #0x2400
-    strh r1, [r0, #0x6a]
-    bx lr
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+    } else {
+        data_020c4588.instance->state = WIRELESS_STATE_NONE;
+    }
 }
 
 asm void Wireless::func_0203c67c()
@@ -533,43 +435,24 @@ asm void Wireless::func_0203c67c()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void Wireless::func_0203c75c()
+// starts MP communication with the send and receive buffers
+BOOL Wireless::func_0203c75c()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #8
-    mov r5, r0
-    add r0, r5, #0x2400
-    ldrh r0, [r0, #0x6c]
-    tst r0, #2
-    addne sp, sp, #8
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldr r0, [r5, #0x238]
-    mov r4, #1
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    stmia sp, {r0, r4}
-    ldr r2, [r5, #0x208]
-    ldr r0, [r5, #0x204]
-    ldr r1, [r5, #0x23c]
-    add r3, r0, #0x1f
-    add r12, r2, #0x1f
-    mov r2, r1, lsl #0x10
-    ldr r0, =func_0203c7e0
-    bic r1, r12, #0x1f
-    mov r2, r2, lsr #0x10
-    bic r3, r3, #0x1f
-    bl func_02013f08
-    cmp r0, #2
-    addne r1, r5, #0x2000
-    strne r0, [r1, #0x440]
-    movne r0, #0
-    moveq r0, r4
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, pc}
+    int result;
+
+    if (flags & 2) {
+        return TRUE;
+    }
+    result = func_02013f08(func_0203c7e0, (void *)(((u32)receiveBuffer + 0x1F) & ~0x1F), receiveSize,
+        (void *)(((u32)sendBuffer + 0x1F) & ~0x1F), sendSize, 1);
+    if (result != WM_ERRCODE_OPERATING) {
+        error = result;
+        return FALSE;
+    }
+    return TRUE;
 }
 
-asm void Wireless::func_0203c7e0()
+asm void Wireless::func_0203c7e0(void *arg)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -686,35 +569,22 @@ asm void Wireless::func_0203c7e0()
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void Wireless::func_0203c988()
+BOOL Wireless::func_0203c988()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x2400
-    ldrh r1, [r0, #0x6e]
-    ldrh r2, [r0, #0x70]
-    ldr r0, =func_0203c9c0
-    bl func_02014030
-    cmp r0, #2
-    addne r1, r4, #0x2000
-    strne r0, [r1, #0x440]
-    movne r0, #0
-    moveq r0, #1
-    ldmia sp!, {r4, pc}
+    int result = func_02014030(func_0203c9c0, mpParam0, mpParam1);
+
+    if (result != WM_ERRCODE_OPERATING) {
+        error = result;
+        return FALSE;
+    }
+    return TRUE;
 }
 
-asm void Wireless::func_0203c9c0()
+void Wireless::func_0203c9c0(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_020c4588
-    ldr r0, [r4]
-    bl func_0203c75c
-    cmp r0, #0
-    ldreq r0, [r4]
-    moveq r1, #9
-    addeq r0, r0, #0x2400
-    streqh r1, [r0, #0x6a]
-    ldmia sp!, {r4, pc}
+    if (!data_020c4588.instance->func_0203c75c()) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+    }
 }
 
 asm void Wireless::func_0203c9ec()
@@ -745,450 +615,247 @@ asm void Wireless::func_0203c9ec()
     ldmia sp!, {r3, pc}
 }
 
-asm void Wireless::func_0203ca48()
+// (after a send)
+void Wireless::func_0203ca48(void *arg)
 {
-    stmdb sp!, {r3, lr}
-    ldrh r1, [r0, #2]
-    cmp r1, #0
-    beq @L_0203ca60
-    cmp r1, #0xf
-    ldmneia sp!, {r3, pc}
-@L_0203ca60:
-    ldr r2, [r0, #0x20]
-    cmp r2, #0
-    ldmeqia sp!, {r3, pc}
-    mov r0, #1
-    cmp r1, #0
-    movne r0, #0
-    blx r2
-    ldmia sp!, {r3, pc}
+    WMPortSendCallback *callback = (WMPortSendCallback *)arg;
+
+    if (callback->errcode != WM_ERRCODE_SUCCESS && callback->errcode != WM_ERRCODE_SEND_FAILED) {
+        return;
+    }
+    if (callback->callback == NULL) {
+        return;
+    }
+    callback->callback(callback->errcode == WM_ERRCODE_SUCCESS);
 }
 
-asm void Wireless::func_0203ca80()
+// sends data to the other players
+BOOL Wireless::func_0203ca80(const void *data, u16 size, void *arg)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0xc
-    mov lr, r0
-    add r0, lr, #0x2400
-    ldrh r12, [r0, #0x6a]
-    mov r6, r1
-    mov r5, r2
-    cmp r12, #4
-    mov r4, r3
-    addne sp, sp, #0xc
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, pc}
-    ldrh r0, [r0, #0x6c]
-    tst r0, #0x10
-    addne sp, sp, #0xc
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, pc}
-    ldr r0, [lr, #0x204]
-    ldr r1, [lr, #0x238]
-    bl DC_FlushRange
-    ldr r0, =0xffff
-    mov r1, r4
-    str r0, [sp]
-    mov r12, #0xe
-    ldr r0, =func_0203ca48
-    mov r2, r6
-    mov r3, r5
-    str r12, [sp, #4]
-    mov r4, #1
-    str r4, [sp, #8]
-    bl func_0201407c
-    ldr r1, =data_020c4588
-    cmp r0, #2
-    ldr r1, [r1]
-    movne r4, #0
-    add r1, r1, #0x2000
-    str r0, [r1, #0x440]
-    mov r0, r4
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    BOOL result;
+    int error;
+
+    if (state != WIRELESS_STATE_CONNECTED) {
+        return FALSE;
+    }
+    if (flags & 0x10) {
+        return FALSE;
+    }
+    DC_FlushRange(sendBuffer, sendSize);
+    error = func_0201407c(func_0203ca48, arg, data, size, 0xFFFF, 14, 1);
+    result = TRUE;
+    if (error != WM_ERRCODE_OPERATING) {
+        result = FALSE;
+    }
+    data_020c4588.instance->error = error;
+    return result;
 }
 
-asm void Wireless::func_0203cb2c()
+// (data received on the port)
+void Wireless::func_0203cb2c(void *arg)
 {
-    stmdb sp!, {r3, lr}
-    mov r1, r0
-    ldrh r0, [r1, #2]
-    cmp r0, #0
-    ldmneia sp!, {r3, pc}
-    ldr r0, =data_020c4588
-    ldr r3, [r0, #4]
-    cmp r3, #0
-    ldmeqia sp!, {r3, pc}
-    ldrh r0, [r1, #4]
-    cmp r0, #0x15
-    bne @L_0203cb70
-    ldrh r0, [r1, #0x12]
-    ldrh r2, [r1, #0x10]
-    ldr r1, [r1, #0xc]
-    blx r3
-    ldmia sp!, {r3, pc}
-@L_0203cb70:
-    cmp r0, #9
-    ldmneia sp!, {r3, pc}
-    ldrh r0, [r1, #0x12]
-    mov r1, #0
-    mov r2, r1
-    blx r3
-    ldmia sp!, {r3, pc}
+    WMPortRecvCallback *callback = (WMPortRecvCallback *)arg;
+
+    if (callback->errcode != WM_ERRCODE_SUCCESS) {
+        return;
+    }
+    if (data_020c4588.receive == NULL) {
+        return;
+    }
+    if (callback->state == WM_STATECODE_PORT_RECV) {
+        data_020c4588.receive(callback->aid, callback->data, callback->length);
+    } else if (callback->state == WM_STATECODE_DISCONNECTED) {
+        data_020c4588.receive(callback->aid, NULL, 0);
+    }
 }
 
-asm void Wireless::func_0203cb90()
+void Wireless::func_0203cb90(WirelessReceiveCallback callback)
 {
-    ldr r2, =data_020c4588
-    ldr r1, =func_0203cb2c
-    str r0, [r2, #4]
-    ldr r12, =func_02012e6c
-    mov r0, #0xe
-    mov r2, #0
-    bx r12
+    data_020c4588.receive = callback;
+    func_02012e6c(14, func_0203cb2c, NULL);
 }
 
-asm void Wireless::func_0203cbb8()
+void Wireless::func_0203cbb8(void *arg)
 {
-    ldrh r0, [r0, #2]
-    cmp r0, #0
-    bxne lr
-    ldr r1, =data_020c4588
-    ldr r0, =0xffef
-    ldr r1, [r1]
-    add r1, r1, #0x2400
-    ldrh r2, [r1, #0x6c]
-    and r0, r2, r0
-    strh r0, [r1, #0x6c]
-    bx lr
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        return;
+    }
+    data_020c4588.instance->flags &= ~0x10;
 }
 
-asm void Wireless::func_0203cbec()
+void Wireless::func_0203cbec(int arg)
 {
-    mov r1, r1, lsl #0x10
-    ldr r0, =func_0203cbb8
-    ldr r12, =func_02013fec
-    mov r1, r1, lsr #0x10
-    bx r12
+    func_02013fec(func_0203cbb8, arg);
 }
 
-asm void Wireless::func_0203cc08()
+// copies the data shared by a player
+BOOL Wireless::func_0203cc08(u16 aid, void *dest, u32 size)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    mov r5, r2
-    mov r2, r1
-    add r0, r4, #0x1400
-    add r1, r4, #4
-    mov r4, r3
-    bl func_02014ee0
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r1, r5
-    mov r2, r4
-    bl MI_CpuCopy8
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    void *data = func_02014ee0(dataSharing, unk_004, aid);
+
+    if (data == NULL) {
+        return FALSE;
+    }
+    MI_CpuCopy8(data, dest, size);
+    return TRUE;
 }
 
-asm void Wireless::func_0203cc48()
+BOOL Wireless::func_0203cc48()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0xc20
-    add r0, r0, #0x1000
-    bl func_02014f80
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, pc}
-    mov r0, r4
-    bl func_0203cc80
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
+    if (func_02014f80(keySharing) != WM_ERRCODE_SUCCESS) {
+        return FALSE;
+    }
+    return func_0203cc80() ? TRUE : FALSE;
 }
 
-asm void Wireless::func_0203cc80()
+BOOL Wireless::func_0203cc80()
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =func_0203cca0
-    bl func_020141b4
-    cmp r0, #2
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, pc}
+    return func_020141b4(func_0203cca0) == WM_ERRCODE_OPERATING;
 }
 
-asm void Wireless::func_0203cca0()
+void Wireless::func_0203cca0(void *arg)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, =data_020c4588
-    ldr r1, [r1]
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    ldrh r0, [r0, #2]
-    cmp r0, #0
-    add r0, r1, #0x2400
-    ldrh r0, [r0, #0x68]
-    beq @L_0203cce4
-    tst r0, #0x100
-    mov r0, r1
-    beq @L_0203ccdc
-    bl func_0203c4a8
-    ldmia sp!, {r3, pc}
-@L_0203ccdc:
-    bl func_0203c540
-    ldmia sp!, {r3, pc}
-@L_0203cce4:
-    tst r0, #0x100
-    mov r0, r1
-    beq @L_0203ccf8
-    bl func_0203cd04
-    ldmia sp!, {r3, pc}
-@L_0203ccf8:
-    bl func_0203cd70
-    ldmia sp!, {r3, pc}
+    Wireless *wireless = data_020c4588.instance;
+
+    if (wireless == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        if (wireless->connectMode & 0x100) {
+            wireless->func_0203c4a8();
+        } else {
+            wireless->func_0203c540();
+        }
+    } else {
+        if (wireless->connectMode & 0x100) {
+            wireless->func_0203cd04();
+        } else {
+            wireless->func_0203cd70();
+        }
+    }
 }
 
-asm void Wireless::func_0203cd04()
+BOOL Wireless::func_0203cd04()
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =func_0203cd24
-    bl func_02013950
-    cmp r0, #2
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, pc}
+    return func_02013950(func_0203cd24) == WM_ERRCODE_OPERATING;
 }
 
-asm void Wireless::func_0203cd24()
+void Wireless::func_0203cd24(void *arg)
 {
-    ldr r1, =data_020c4588
-    ldr r2, [r1]
-    cmp r2, #0
-    bxeq lr
-    ldrh r0, [r0, #2]
-    cmp r0, #0
-    bxne lr
-    add r0, r2, #0x2400
-    mov r2, #1
-    strh r2, [r0, #0x6a]
-    ldr r1, [r1]
-    ldr r0, =0xfffd
-    add r1, r1, #0x2400
-    ldrh r2, [r1, #0x6c]
-    and r0, r2, r0
-    strh r0, [r1, #0x6c]
-    bx lr
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        return;
+    }
+    data_020c4588.instance->state = WIRELESS_STATE_IDLE;
+    data_020c4588.instance->flags &= ~2;
 }
 
-asm void Wireless::func_0203cd70()
+BOOL Wireless::func_0203cd70()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    ldr r0, =func_0203cdac
-    mov r1, r4
-    bl func_02013bf4
-    cmp r0, #2
-    moveq r0, #1
-    ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c4588
-    ldr r0, [r0]
-    bl func_0203c4a8
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    if (func_02013bf4(func_0203cdac, 0) == WM_ERRCODE_OPERATING) {
+        return TRUE;
+    }
+    data_020c4588.instance->func_0203c4a8();
+    return FALSE;
 }
 
-asm void Wireless::func_0203cdac()
+void Wireless::func_0203cdac(void *arg)
 {
-    ldr r1, =data_020c4588
-    ldr r2, [r1]
-    cmp r2, #0
-    bxeq lr
-    ldrh r0, [r0, #2]
-    cmp r0, #0
-    bxne lr
-    add r0, r2, #0x2400
-    mov r2, #1
-    strh r2, [r0, #0x6a]
-    ldr r1, [r1]
-    ldr r0, =0xfffd
-    add r1, r1, #0x2400
-    ldrh r2, [r1, #0x6c]
-    and r0, r2, r0
-    strh r0, [r1, #0x6c]
-    bx lr
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        return;
+    }
+    data_020c4588.instance->state = WIRELESS_STATE_IDLE;
+    data_020c4588.instance->flags &= ~2;
 }
 
-asm void Wireless::func_0203cdf8()
+BOOL Wireless::func_0203cdf8(u16 arg, const void *key)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x2400
-    ldrh r0, [r0, #0x6a]
-    mov r4, r1
-    cmp r0, #1
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r2
-    add r1, r5, #0x220
-    mov r2, #0x14
-    bl MI_CpuCopy8
-    ldr r0, =func_0203ce58
-    mov r1, r4
-    add r3, r5, #0x2400
-    mov r12, #8
-    add r2, r5, #0x220
-    strh r12, [r3, #0x6a]
-    bl func_02014f8c
-    cmp r0, #2
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    if (state != WIRELESS_STATE_IDLE) {
+        return FALSE;
+    }
+    MI_CpuCopy8(key, unk_220, sizeof(unk_220));
+    state = 8;
+    return func_02014f8c(func_0203ce58, arg, unk_220) == WM_ERRCODE_OPERATING;
 }
 
-asm void Wireless::func_0203ce58()
+void Wireless::func_0203ce58(void *arg)
 {
-    ldr r2, =data_020c4588
-    ldr r3, [r2]
-    cmp r3, #0
-    bxeq lr
-    ldrh r1, [r0, #2]
-    cmp r1, #0
-    beq @L_0203ce94
-    add r1, r3, #0x2400
-    mov r3, #9
-    strh r3, [r1, #0x6a]
-    ldr r1, [r2]
-    ldrh r2, [r0, #2]
-    add r0, r1, #0x2000
-    str r2, [r0, #0x440]
-    bx lr
-@L_0203ce94:
-    add r0, r3, #0x2400
-    mov r1, #1
-    strh r1, [r0, #0x6a]
-    ldr r0, [r2]
-    add r0, r0, #0x2400
-    ldrh r1, [r0, #0x6c]
-    orr r1, r1, #4
-    strh r1, [r0, #0x6c]
-    bx lr
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = ((WMCallback *)arg)->errcode;
+        return;
+    }
+    data_020c4588.instance->state = WIRELESS_STATE_IDLE;
+    data_020c4588.instance->flags |= 4;
 }
 
-asm void Wireless::func_0203cebc()
+// looks for the quietest channel, starting at the first one
+BOOL Wireless::func_0203cebc(u16 channel)
 {
-    stmdb sp!, {r3, lr}
-    add r2, r0, #0x2400
-    ldrh r3, [r2, #0x6a]
-    cmp r3, #1
-    movne r0, #0
-    ldmneia sp!, {r3, pc}
-    strh r1, [r2, #0x62]
-    add r2, r0, #0x300
-    mov r12, #0
-    mov r3, #0x65
-    mov r1, #1
-    strh r12, [r2, #0x62]
-    strh r3, [r2, #0x64]
-    bl func_0203cef8
-    ldmia sp!, {r3, pc}
+    if (state != WIRELESS_STATE_IDLE) {
+        return FALSE;
+    }
+    this->channel = channel;
+    bestChannel = 0;
+    bestBusyRatio = 101;
+    return func_0203cef8(1);
 }
 
-asm void Wireless::func_0203cef8()
+// measures the next allowed channel from this one; FALSE after the last one
+BOOL Wireless::func_0203cef8(u16 channel)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_020131c0
-    cmp r0, #0x8000
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    sub r1, r4, #1
-    mov r2, #1
-    tst r0, r2, lsl r1
-    bne @L_0203cf54
-@L_0203cf30:
-    add r1, r4, #1
-    mov r1, r1, lsl #0x10
-    mov r4, r1, lsr #0x10
-    cmp r4, #0x10
-    movhs r0, #0
-    ldmhsia sp!, {r3, r4, r5, pc}
-    sub r1, r4, #1
-    tst r0, r2, lsl r1
-    beq @L_0203cf30
-@L_0203cf54:
-    add r1, r5, #0x2400
-    mov r2, #2
-    strh r2, [r1, #0x6a]
-    mov r3, r4
-    mov r4, #0x1e
-    ldr r0, =func_0203cf98
-    mov r1, #3
-    mov r2, #0x11
-    str r4, [sp]
-    bl func_02015218
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    cmp r0, #2
-    movne r0, #0
-    moveq r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    u16 allowed = func_020131c0();
+
+    if (allowed == WM_ERRCODE_ILLEGAL_STATE) {
+        return FALSE;
+    }
+    if (allowed == 0) {
+        return FALSE;
+    }
+    while (!(allowed & (1 << (channel - 1)))) {
+        channel++;
+        if (channel >= 16) {
+            return FALSE;
+        }
+    }
+    state = WIRELESS_STATE_BUSY;
+    if ((u16)func_02015218(func_0203cf98, 3, 17, channel, 30) != WM_ERRCODE_OPERATING) {
+        return FALSE;
+    }
+    return TRUE;
 }
 
-asm void Wireless::func_0203cf98()
+void Wireless::func_0203cf98(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    ldr r2, =data_020c4588
-    ldr r3, [r2]
-    cmp r3, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #2]
-    cmp r1, #0
-    beq @L_0203cfd8
-    add r1, r3, #0x2400
-    mov r3, #9
-    strh r3, [r1, #0x6a]
-    ldr r1, [r2]
-    ldrh r2, [r0, #2]
-    add r0, r1, #0x2000
-    str r2, [r0, #0x440]
-    ldmia sp!, {r4, pc}
-@L_0203cfd8:
-    add r1, r3, #0x300
-    ldrh r4, [r1, #0x64]
-    ldrh r3, [r0, #0xa]
-    ldrh r12, [r0, #8]
-    cmp r4, r3
-    strhih r12, [r1, #0x62]
-    ldrhi r1, [r2]
-    ldrhih r2, [r0, #0xa]
-    addhi r0, r1, #0x300
-    ldr r4, =data_020c4588
-    strhih r2, [r0, #0x64]
-    add r0, r12, #1
-    mov r1, r0, lsl #0x10
-    ldr r0, [r4]
-    mov r1, r1, lsr #0x10
-    bl func_0203cef8
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r3, [r4]
-    mov r1, #1
-    add r0, r3, #0x300
-    ldrh r2, [r0, #0x62]
-    add r0, r3, #0x2400
-    strh r2, [r0, #0x62]
-    ldr r0, [r4]
-    add r0, r0, #0x2400
-    strh r1, [r0, #0x6a]
-    ldmia sp!, {r4, pc}
+    WMMeasureChannelCallback *callback = (WMMeasureChannelCallback *)arg;
+    u16 channel;
+
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (callback->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = callback->errcode;
+        return;
+    }
+    channel = callback->channel;
+    if (data_020c4588.instance->bestBusyRatio > callback->ccaBusyRatio) {
+        data_020c4588.instance->bestChannel = channel;
+        data_020c4588.instance->bestBusyRatio = callback->ccaBusyRatio;
+    }
+    if (data_020c4588.instance->func_0203cef8(channel + 1)) {
+        return;
+    }
+    data_020c4588.instance->channel = data_020c4588.instance->bestChannel;
+    data_020c4588.instance->state = WIRELESS_STATE_IDLE;
 }
 
 asm void Wireless::func_0203d04c()
@@ -1249,31 +916,20 @@ asm void Wireless::func_0203d04c()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void Wireless::func_0203d128()
+void Wireless::func_0203d128(void *arg)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, =data_020c4588
-    ldr r3, [r2]
-    cmp r3, #0
-    ldmeqia sp!, {r3, pc}
-    ldrh r1, [r0, #2]
-    cmp r1, #0
-    beq @L_0203d168
-    add r1, r3, #0x2400
-    mov r3, #9
-    strh r3, [r1, #0x6a]
-    ldr r1, [r2]
-    ldrh r2, [r0, #2]
-    add r0, r1, #0x2000
-    str r2, [r0, #0x440]
-    ldmia sp!, {r3, pc}
-@L_0203d168:
-    ldr r0, =func_0203d17c
-    bl func_02013940
-    ldmia sp!, {r3, pc}
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = ((WMCallback *)arg)->errcode;
+        return;
+    }
+    func_02013940(func_0203d17c);
 }
 
-asm void Wireless::func_0203d17c()
+asm void Wireless::func_0203d17c(void *arg)
 {
     stmdb sp!, {r4, lr}
     ldr r2, =data_020c4588
@@ -1475,7 +1131,7 @@ asm void Wireless::func_0203d37c()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void Wireless::func_0203d44c()
+asm void Wireless::func_0203d44c(void *arg)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     str r0, [sp]
@@ -1796,48 +1452,32 @@ asm void Wireless::func_0203d44c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void Wireless::func_0203d8d0()
+void Wireless::func_0203d8d0()
 {
-    ldr r12, =func_0203d8dc
-    bx r12
+    func_0203d8dc();
 }
 
-asm void Wireless::func_0203d8dc()
+// stops scanning
+void Wireless::func_0203d8dc()
 {
-    stmdb sp!, {r3, lr}
-    add r1, r0, #0x2400
-    ldrh r0, [r1, #0x6a]
-    cmp r0, #3
-    ldmneia sp!, {r3, pc}
-    ldr r0, =func_0203d908
-    mov r2, #2
-    strh r2, [r1, #0x6a]
-    bl func_02013ae4
-    ldmia sp!, {r3, pc}
+    if (state != WIRELESS_STATE_SCANNING) {
+        return;
+    }
+    state = WIRELESS_STATE_BUSY;
+    func_02013ae4(func_0203d908);
 }
 
-asm void Wireless::func_0203d908()
+void Wireless::func_0203d908(void *arg)
 {
-    ldr r2, =data_020c4588
-    ldr r1, [r2]
-    cmp r1, #0
-    bxeq lr
-    ldrh r0, [r0, #2]
-    cmp r0, #0
-    addne r0, r1, #0x2400
-    movne r1, #9
-    strneh r1, [r0, #0x6a]
-    bxne lr
-    add r1, r1, #0x2400
-    ldrh r12, [r1, #0x6c]
-    ldr r0, =0xfffe
-    mov r3, #1
-    and r0, r12, r0
-    strh r0, [r1, #0x6c]
-    ldr r0, [r2]
-    add r0, r0, #0x2400
-    strh r3, [r0, #0x6a]
-    bx lr
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        return;
+    }
+    data_020c4588.instance->flags &= ~1;
+    data_020c4588.instance->state = WIRELESS_STATE_IDLE;
 }
 
 asm void Wireless::func_0203d960()
@@ -1899,52 +1539,30 @@ asm void Wireless::func_0203d960()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void Wireless::func_0203da3c()
+BOOL Wireless::func_0203da3c()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =func_0203da6c
-    bl func_0201372c
-    cmp r0, #2
-    movne r0, #0
-    addeq r0, r4, #0x2400
-    moveq r1, #2
-    streqh r1, [r0, #0x6a]
-    moveq r0, #1
-    ldmia sp!, {r4, pc}
+    if (func_0201372c(func_0203da6c) != WM_ERRCODE_OPERATING) {
+        return FALSE;
+    }
+    state = WIRELESS_STATE_BUSY;
+    return TRUE;
 }
 
-asm void Wireless::func_0203da6c()
+void Wireless::func_0203da6c(void *arg)
 {
-    ldr r2, =data_020c4588
-    ldr r3, [r2]
-    cmp r3, #0
-    bxeq lr
-    ldrh r1, [r0, #2]
-    cmp r1, #0
-    beq @L_0203daa8
-    add r1, r3, #0x2400
-    mov r3, #9
-    strh r3, [r1, #0x6a]
-    ldr r1, [r2]
-    ldrh r2, [r0, #2]
-    add r0, r1, #0x2000
-    str r2, [r0, #0x440]
-    bx lr
-@L_0203daa8:
-    add r0, r3, #0x2400
-    mov r1, #1
-    strh r1, [r0, #0x6a]
-    ldr r1, [r2]
-    ldr r0, =0xfffd
-    add r1, r1, #0x2400
-    ldrh r2, [r1, #0x6c]
-    and r0, r2, r0
-    strh r0, [r1, #0x6c]
-    bx lr
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (((WMCallback *)arg)->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = ((WMCallback *)arg)->errcode;
+        return;
+    }
+    data_020c4588.instance->state = WIRELESS_STATE_IDLE;
+    data_020c4588.instance->flags &= ~2;
 }
 
-asm void Wireless::func_0203dad8()
+asm void Wireless::func_0203dad8(void *arg)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, =data_020c4588
