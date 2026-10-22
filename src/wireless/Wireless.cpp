@@ -4,22 +4,22 @@
 #include "nitro/os.h"
 
 extern "C" void DC_InvalidateRange(void);
+extern "C" void func_020131e0(void);
+extern "C" int func_02013768(WMCallbackFunc callback);         // ends WM
+extern "C" int func_020146a0(void *dataSharing, int, void *dataSet);   // steps data sharing
+extern "C" u16 func_020134f8(void);                         // the next TGID
+extern "C" u16 func_02013274(void);                         // the beacon period
+extern "C" int func_020137ac(WMCallbackFunc callback, WMParentParam *param);   // sets the parent parameters
+extern "C" u16 func_02013308(void);                         // the scan time per channel
+extern "C" int func_02013994(WMCallbackFunc callback, WMScanExParam *param);   // scans
+extern "C" int func_02013b28(WMCallbackFunc callback, WMBssDesc *parent, u8 *ssid, u16 powerSave, u16 authMode);   // connects
+extern "C" void func_02006d84(void);                        // waits for the write buffer
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void func_02006d84(void);
 extern "C" void func_02009380(void);
-extern "C" void func_020131e0(void);
-extern "C" void func_02013274(void);
-extern "C" void func_02013308(void);
-extern "C" void func_020134f8(void);
 extern "C" void func_020136b4(void);
-extern "C" void func_02013768(void);
-extern "C" void func_020137ac(void);
-extern "C" void func_02013994(void);
-extern "C" void func_02013b28(void);
 extern "C" void func_02014414(void);
 extern "C" void func_02014654(void);
-extern "C" void func_020146a0(void);
 extern "C" void memcmp(void);
 extern "C" int func_02012e6c(u16 port, WMCallbackFunc callback, void *arg);   // sets a port callback
 extern "C" u16 func_020131c0(void);                         // the allowed channels
@@ -200,10 +200,9 @@ asm void Wireless::func_0203c170()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void Wireless::func_0203c358()
+void Wireless::func_0203c358()
 {
-    ldr r12, =func_020131e0
-    bx r12
+    func_020131e0();
 }
 
 void Wireless::func_0203c364(BOOL flag)
@@ -372,67 +371,36 @@ void Wireless::func_0203c650(void *arg)
     }
 }
 
-asm void Wireless::func_0203c67c()
+// ends wireless play and frees the buffers
+BOOL Wireless::func_0203c67c()
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r4, r0
-    add r0, r4, #0x2400
-    ldrh r0, [r0, #0x6a]
-    mov r7, #0
-    cmp r0, #1
-    movne r0, r7
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r0, =func_0203c650
-    bl func_02013768
-    cmp r0, #2
-    movne r0, r7
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    add r6, r4, #0x2400
-    ldrh r0, [r6, #0x6a]
-    cmp r0, #1
-    bne @L_0203c6e0
-    add r5, r4, #0x6a
-    mov r8, #2
-@L_0203c6c8:
-    mov r1, r8
-    add r0, r5, #0x2400
-    bl DC_FlushRange
-    ldrh r0, [r6, #0x6a]
-    cmp r0, #1
-    beq @L_0203c6c8
-@L_0203c6e0:
-    ldr r0, =data_020c4588
-    ldr r0, [r0]
-    add r0, r0, #0x2400
-    ldrh r0, [r0, #0x6a]
-    cmp r0, #9
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r1, [r4, #0x204]
-    cmp r1, #0
-    beq @L_0203c714
-    mov r0, r4
-    bl func_0203c13c
-    str r7, [r4, #0x204]
-@L_0203c714:
-    ldr r1, [r4, #0x208]
-    cmp r1, #0
-    beq @L_0203c72c
-    mov r0, r4
-    bl func_0203c13c
-    str r7, [r4, #0x208]
-@L_0203c72c:
-    ldr r1, [r4, #0x20c]
-    cmp r1, #0
-    beq @L_0203c744
-    mov r0, r4
-    bl func_0203c13c
-    str r7, [r4, #0x20c]
-@L_0203c744:
-    ldr r0, =data_020c4588
-    str r7, [r0]
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    if (state != WIRELESS_STATE_IDLE) {
+        return FALSE;
+    }
+    if (func_02013768(func_0203c650) != WM_ERRCODE_OPERATING) {
+        return FALSE;
+    }
+    while (state == WIRELESS_STATE_IDLE) {
+        DC_FlushRange(&state, sizeof(state));
+    }
+    if (data_020c4588.instance->state == WIRELESS_STATE_ERROR) {
+        return FALSE;
+    }
+
+    if (sendBuffer != NULL) {
+        func_0203c13c(sendBuffer);
+        sendBuffer = NULL;
+    }
+    if (receiveBuffer != NULL) {
+        func_0203c13c(receiveBuffer);
+        receiveBuffer = NULL;
+    }
+    if (systemBuffer != NULL) {
+        func_0203c13c(systemBuffer);
+        systemBuffer = NULL;
+    }
+    data_020c4588.instance = NULL;
+    return TRUE;
 }
 
 // starts MP communication with the send and receive buffers
@@ -587,7 +555,27 @@ void Wireless::func_0203c9c0(void *arg)
     }
 }
 
-asm void Wireless::func_0203c9ec()
+// (nonmatching: the error check for WM_ERRCODE_NO_DATASET stays a compare in the original)
+#ifdef NONMATCHING
+BOOL Wireless::func_0203c9ec(int arg)
+{
+    int result;
+
+    if (state != WIRELESS_STATE_DATA_SHARING) {
+        return FALSE;
+    }
+    result = func_020146a0(dataSharing, arg, unk_004);
+    switch (result) {
+    case WM_ERRCODE_NO_DATASET:
+        break;
+    case WM_ERRCODE_SUCCESS:
+        return TRUE;
+    }
+    data_020c4588.instance->error = result;
+    return FALSE;
+}
+#else
+asm BOOL Wireless::func_0203c9ec(int arg)
 {
     stmdb sp!, {r3, lr}
     mov r2, r0
@@ -614,6 +602,7 @@ asm void Wireless::func_0203c9ec()
     mov r0, #0
     ldmia sp!, {r3, pc}
 }
+#endif
 
 // (after a send)
 void Wireless::func_0203ca48(void *arg)
@@ -858,7 +847,38 @@ void Wireless::func_0203cf98(void *arg)
     data_020c4588.instance->state = WIRELESS_STATE_IDLE;
 }
 
-asm void Wireless::func_0203d04c()
+// starts as the parent
+// (nonmatching: the parent parameters are loaded into other registers)
+#ifdef NONMATCHING
+BOOL Wireless::func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1)
+{
+    if (state != WIRELESS_STATE_IDLE) {
+        return FALSE;
+    }
+
+    connectMode = mode | 0x100;
+    aid = 0;
+    tgid = func_020134f8();
+    parentParam.tgid = tgid;
+    parentParam.channel = channel;
+    parentParam.beaconPeriod = func_02013274();
+    parentParam.maxEntry = maxEntry - 1;
+    parentParam.entryFlag = 1;
+    parentParam.parentMaxSize = parentMaxSize;
+    parentParam.childMaxSize = childMaxSize;
+    parentParam.CS_Flag = 0;
+    parentParam.multiBootFlag = 0;
+    parentParam.KS_Flag = (connectMode & 1) ? 1 : 0;
+    connectedMask = 0;
+    this->mpParam0 = mpParam0;
+    this->mpParam1 = mpParam1;
+    if (func_020137ac(func_0203d128, &parentParam) != WM_ERRCODE_OPERATING) {
+        return FALSE;
+    }
+    return TRUE;
+}
+#else
+asm BOOL Wireless::func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
@@ -915,6 +935,7 @@ asm void Wireless::func_0203d04c()
     moveq r0, #1
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
+#endif
 
 void Wireless::func_0203d128(void *arg)
 {
@@ -929,153 +950,113 @@ void Wireless::func_0203d128(void *arg)
     func_02013940(func_0203d17c);
 }
 
-asm void Wireless::func_0203d17c(void *arg)
+// (the parent's events)
+void Wireless::func_0203d17c(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    ldr r2, =data_020c4588
-    ldr r3, [r2]
-    cmp r3, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #2]
-    cmp r1, #0
-    beq @L_0203d1bc
-    add r1, r3, #0x2400
-    mov r3, #9
-    strh r3, [r1, #0x6a]
-    ldr r1, [r2]
-    ldrh r2, [r0, #2]
-    add r0, r1, #0x2000
-    str r2, [r0, #0x440]
-    ldmia sp!, {r4, pc}
-@L_0203d1bc:
-    ldrh r1, [r0, #8]
-    cmp r1, #7
-    bgt @L_0203d1e4
-    bge @L_0203d200
-    cmp r1, #2
-    bgt @L_0203d298
-    cmp r1, #0
-    blt @L_0203d298
-    beq @L_0203d250
-    b @L_0203d298
-@L_0203d1e4:
-    cmp r1, #9
-    bgt @L_0203d1f4
-    beq @L_0203d220
-    b @L_0203d298
-@L_0203d1f4:
-    cmp r1, #0x1a
-    beq @L_0203d24c
-    b @L_0203d298
-@L_0203d200:
-    ldrh r0, [r0, #0x10]
-    add r1, r3, #0x2400
-    mov r2, #1
-    mov r0, r2, lsl r0
-    ldrh r2, [r1, #0x60]
-    mov r0, r0, lsl #0x10
-    orr r0, r2, r0, lsr #16
-    b @L_0203d244
-@L_0203d220:
-    ldrh r0, [r0, #0x10]
-    mov r2, #1
-    add r1, r3, #0x2400
-    mov r0, r2, lsl r0
-    mov r0, r0, lsl #0x10
-    mvn r0, r0, lsr #16
-    ldrh r2, [r1, #0x60]
-    mov r0, r0, lsl #0x10
-    and r0, r2, r0, lsr #16
-@L_0203d244:
-    strh r0, [r1, #0x60]
-    b @L_0203d298
-@L_0203d24c:
-    b @L_0203d220
-@L_0203d250:
-    add r0, r3, #0x2400
-    ldrh r1, [r0, #0x6e]
-    cmp r1, #0
-    ldrneh r0, [r0, #0x70]
-    cmpne r0, #0
-    beq @L_0203d278
-    mov r0, r3
-    bl func_0203c988
-    cmp r0, #0
-    bne @L_0203d298
-@L_0203d278:
-    ldr r4, =data_020c4588
-    ldr r0, [r4]
-    bl func_0203c75c
-    cmp r0, #0
-    ldreq r0, [r4]
-    moveq r1, #9
-    addeq r0, r0, #0x2400
-    streqh r1, [r0, #0x6a]
-@L_0203d298:
-    ldr r0, =data_020c4588
-    mov r1, #2
-    ldr r0, [r0]
-    add r0, r0, #0x460
-    add r0, r0, #0x2000
-    bl DC_FlushRange
-    ldmia sp!, {r4, pc}
+    WMStartParentCallback *callback = (WMStartParentCallback *)arg;
+
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+    if (callback->errcode != WM_ERRCODE_SUCCESS) {
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = callback->errcode;
+        return;
+    }
+
+    switch (callback->state) {
+    case WM_STATECODE_CONNECTED:
+        data_020c4588.instance->connectedMask |= (u16)(1 << callback->aid);
+        break;
+    case WM_STATECODE_DISCONNECTED:
+        data_020c4588.instance->connectedMask &= ~(u16)(1 << callback->aid);
+        break;
+    case WM_STATECODE_DISCONNECTED_FROM_MYSELF:
+        data_020c4588.instance->connectedMask &= ~(u16)(1 << callback->aid);
+        break;
+    case WM_STATECODE_PARENT_START:
+        if (data_020c4588.instance->mpParam0 != 0 && data_020c4588.instance->mpParam1 != 0) {
+            if (data_020c4588.instance->func_0203c988()) {
+                break;
+            }
+        }
+        if (!data_020c4588.instance->func_0203c75c()) {
+            data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        }
+        break;
+    case 2:
+        break;
+    }
+    DC_FlushRange(&data_020c4588.instance->connectedMask, sizeof(u16));
 }
 
-asm void Wireless::func_0203d2b8()
+// starts scanning for parents (bssid NULL: any parent)
+BOOL Wireless::func_0203d2b8(u16 channel, u8 *bssid)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r5, r0
-    add r3, r5, #0x2400
-    ldrh r0, [r3, #0x6a]
-    mov r4, r1
-    mov r7, r2
-    cmp r0, #1
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r2, =0x1078
-    mov r6, #3
-    add r0, r5, #0x380
-    mov r1, #0
-    strh r6, [r3, #0x6a]
-    bl MI_CpuFill8
-    cmp r7, #0
-    add r0, r5, #0x8a
-    mov r2, #6
-    beq @L_0203d314
-    mov r1, r7
-    add r0, r0, #0x300
-    bl MI_CpuCopy8
-    b @L_0203d320
-@L_0203d314:
-    add r0, r0, #0x300
-    mov r1, #0xff
-    bl MI_CpuFill8
-@L_0203d320:
-    mov r6, #0
-    add r3, r5, #0x1300
-    add r8, r5, #0x3e0
-    add lr, r5, #0x1000
-    mov r1, r6
-    add r12, r5, #0x300
-    mov r7, #0x400
-    add r0, r5, #0x7e0
-    mov r2, #0xc00
-    strh r4, [r3, #0xf4]
-    str r8, [r5, #0x380]
-    strh r7, [r12, #0x84]
-    strb r6, [lr, #0x3e2]
-    bl MI_CpuFill8
-    add r0, r5, #0xe3
-    mov r1, r6
-    add r0, r0, #0x1300
-    mov r2, #0x10
-    bl MI_CpuFill8
-    mov r0, r5
-    bl func_0203d37c
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    if (state != WIRELESS_STATE_IDLE) {
+        return FALSE;
+    }
+
+    state = WIRELESS_STATE_SCANNING;
+    MI_CpuFill8(&scanParam, 0, 0x1078);
+    if (bssid != NULL) {
+        // (the wrong way round: the zeros just written over scanParam go to bssid)
+        MI_CpuCopy8(scanParam.bssid, bssid, sizeof(scanParam.bssid));
+    } else {
+        MI_CpuFill8(scanParam.bssid, 0xFF, sizeof(scanParam.bssid));
+    }
+    scanChannel = channel;
+    scanParam.scanBuf = (WMBssDesc *)scanBuffer;
+    scanParam.scanBufSize = sizeof(scanBuffer);
+    bssMask = 0;
+    MI_CpuFill8(bss, 0, sizeof(bss));
+    MI_CpuFill8(bssLife, 0, sizeof(bssLife));
+    return func_0203d37c();
 }
 
-asm void Wireless::func_0203d37c()
+// scans the next allowed channel
+// (nonmatching: the result is moved to r0 with moveq instead of mov)
+#ifdef NONMATCHING
+BOOL Wireless::func_0203d37c()
+{
+    u16 allowed = func_020131c0();
+    u16 channel;
+
+    if (allowed == WM_ERRCODE_ILLEGAL_STATE) {
+        return FALSE;
+    }
+    if (allowed == 0) {
+        return FALSE;
+    }
+
+    channel = scanChannel;
+    if (channel == 0) {
+        channel++;
+    }
+    for (;;) {
+        if (channel > 16) {
+            channel = 1;
+        }
+        if (allowed & (1 << (channel - 1))) {
+            break;
+        }
+        channel++;
+    }
+
+    scanChannel = channel;
+    scanParam.channelList = 1 << (channel - 1);
+    scanParam.scanType = 1;
+    scanParam.ssidLength = 0;
+    MI_CpuFill8(scanParam.ssid, 0xFF, sizeof(scanParam.ssid));
+    scanParam.maxChannelTime = func_02013308();
+    flags |= 1;
+    if (func_02013994(func_0203d44c, &scanParam) == WM_ERRCODE_OPERATING) {
+        return TRUE;
+    }
+    return FALSE;
+}
+#else
+asm BOOL Wireless::func_0203d37c()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
@@ -1130,6 +1111,7 @@ asm void Wireless::func_0203d37c()
     moveq r0, r5
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 asm void Wireless::func_0203d44c(void *arg)
 {
@@ -1480,63 +1462,32 @@ void Wireless::func_0203d908(void *arg)
     data_020c4588.instance->state = WIRELESS_STATE_IDLE;
 }
 
-asm void Wireless::func_0203d960()
+// connects to a parent found by the scan
+BOOL Wireless::func_0203d960(u16 mode, int index)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, r0
-    add r3, r6, #0x1000
-    ldrb r3, [r3, #0x3e2]
-    mov r5, #1
-    mov r4, #0
-    tst r3, r5, lsl r2
-    moveq r0, r4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r3, r6, #0x2400
-    ldrh r7, [r3, #0x6a]
-    cmp r7, #3
-    bne @L_0203d9a0
-    bl func_0203d8dc
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0203d9a0:
-    cmp r7, #1
-    movne r0, r4
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrh r0, [r3, #0x6c]
-    tst r0, #2
-    movne r0, r5
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    add r0, r6, #0x7e0
-    mov r7, #0xc0
-    mla r0, r2, r7, r0
-    orr r12, r1, #0x200
-    mov r2, r7
-    add r1, r6, #0x260
-    strh r12, [r3, #0x68]
-    strh r4, [r3, #0x60]
-    bl MI_CpuCopy8
-    mov r1, r7
-    add r0, r6, #0x260
-    bl DC_FlushRange
-    bl func_02006d84
-    add r0, r6, #0x2400
-    ldrh r0, [r0, #0x6c]
-    add r2, r6, #0x44
-    add r1, r6, #0x260
-    tst r0, #4
-    moveq r5, r4
-    mov r0, r5, lsl #0x10
-    mov r5, r0, lsr #0x10
-    mov r4, #1
-    ldr r0, =func_0203dad8
-    mov r3, r4
-    add r2, r2, #0x2400
-    str r5, [sp]
-    bl func_02013b28
-    cmp r0, #2
-    movne r0, #0
-    moveq r0, r4
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    if (!(bssMask & (1 << index))) {
+        return FALSE;
+    }
+    if (state == WIRELESS_STATE_SCANNING) {
+        func_0203d8dc();
+        return FALSE;
+    }
+    if (state != WIRELESS_STATE_IDLE) {
+        return FALSE;
+    }
+    if (flags & 2) {
+        return TRUE;
+    }
+
+    connectMode = mode | 0x200;
+    connectedMask = 0;
+    MI_CpuCopy8(&bss[index], &target, sizeof(WMBssDesc));
+    DC_FlushRange(&target, sizeof(WMBssDesc));
+    func_02006d84();
+    if (func_02013b28(func_0203dad8, &target, unk_2444, 1, (flags & 4) ? 1 : 0) != WM_ERRCODE_OPERATING) {
+        return FALSE;
+    }
+    return TRUE;
 }
 
 BOOL Wireless::func_0203da3c()
@@ -1562,119 +1513,60 @@ void Wireless::func_0203da6c(void *arg)
     data_020c4588.instance->flags &= ~2;
 }
 
-asm void Wireless::func_0203dad8(void *arg)
+// (the child's connection events)
+void Wireless::func_0203dad8(void *arg)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r4, =data_020c4588
-    mov r6, r0
-    ldr r0, [r4]
-    mov r5, #9
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrh r1, [r6, #2]
-    cmp r1, #0xb
-    bgt @L_0203db2c
-    bge @L_0203db50
-    cmp r1, #6
-    ldmgtia sp!, {r4, r5, r6, pc}
-    cmp r1, #0
-    ldmltia sp!, {r4, r5, r6, pc}
-    beq @L_0203dba4
-    cmp r1, #1
-    beq @L_0203db6c
-    cmp r1, #6
-    beq @L_0203db88
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0203db2c:
-    cmp r1, #0xc
-    ldmneia sp!, {r4, r5, r6, pc}
-    add r0, r0, #0x2400
-    strh r5, [r0, #0x6a]
-    ldr r0, [r4]
-    ldrh r1, [r6, #2]
-    add r0, r0, #0x2000
-    str r1, [r0, #0x440]
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0203db50:
-    add r0, r0, #0x2400
-    strh r5, [r0, #0x6a]
-    ldr r0, [r4]
-    ldrh r1, [r6, #2]
-    add r0, r0, #0x2000
-    str r1, [r0, #0x440]
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0203db6c:
-    add r0, r0, #0x2400
-    strh r5, [r0, #0x6a]
-    ldr r0, [r4]
-    ldrh r1, [r6, #2]
-    add r0, r0, #0x2000
-    str r1, [r0, #0x440]
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0203db88:
-    add r0, r0, #0x2400
-    strh r5, [r0, #0x6a]
-    ldr r0, [r4]
-    ldrh r1, [r6, #2]
-    add r0, r0, #0x2000
-    str r1, [r0, #0x440]
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0203dba4:
-    ldrh r1, [r6, #8]
-    cmp r1, #9
-    bgt @L_0203dbe4
-    cmp r1, #0
-    addge pc, pc, r1, lsl #2
-    b @L_0203dc6c
-    b @L_0203dc6c
-    b @L_0203dc6c
-    b @L_0203dc6c
-    b @L_0203dc6c
-    b @L_0203dc6c
-    b @L_0203dc6c
-    ldmia sp!, {r4, r5, r6, pc}
-    b @L_0203dbf0
-    ldmia sp!, {r4, r5, r6, pc}
-    b @L_0203dc50
-@L_0203dbe4:
-    cmp r1, #0x1a
-    ldmeqia sp!, {r4, r5, r6, pc}
-    b @L_0203dc6c
-@L_0203dbf0:
-    bl func_0203c75c
-    cmp r0, #0
-    ldr r0, [r4]
-    addeq r0, r0, #0x2400
-    streqh r5, [r0, #0x6a]
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrh r1, [r6, #0xa]
-    add r0, r0, #0x2400
-    mov r2, #1
-    strh r1, [r0, #0x5c]
-    ldr r1, [r4]
-    ldrh r0, [r6, #0xa]
-    add r1, r1, #0x2400
-    ldrh r3, [r1, #0x60]
-    mov r0, r2, lsl r0
-    mov r0, r0, lsl #0x10
-    orr r0, r3, r0, lsr #16
-    strh r0, [r1, #0x60]
-    ldr r0, [r4]
-    mov r1, #2
-    add r0, r0, #0x460
-    add r0, r0, #0x2000
-    bl DC_FlushRange
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0203dc50:
-    add r0, r0, #0x2400
-    strh r5, [r0, #0x6a]
-    ldr r0, [r4]
-    mov r1, #0x14
-    add r0, r0, #0x2000
-    str r1, [r0, #0x440]
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0203dc6c:
-    add r0, r0, #0x2400
-    strh r5, [r0, #0x6a]
-    ldmia sp!, {r4, r5, r6, pc}
+    WMStartConnectCallback *callback = (WMStartConnectCallback *)arg;
+
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+
+    switch (callback->errcode) {
+    case 12:
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = callback->errcode;
+        return;
+    case 11:
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = callback->errcode;
+        return;
+    case 1:
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = callback->errcode;
+        return;
+    case 6:
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = callback->errcode;
+        return;
+    case WM_ERRCODE_SUCCESS:
+        break;
+    default:
+        return;
+    }
+
+    switch (callback->state) {
+    case 6:
+        break;
+    case 8:
+        break;
+    case WM_STATECODE_DISCONNECTED_FROM_MYSELF:
+        break;
+    case WM_STATECODE_CONNECTED:
+        if (!data_020c4588.instance->func_0203c75c()) {
+            data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+            break;
+        }
+        data_020c4588.instance->aid = callback->aid;
+        data_020c4588.instance->connectedMask |= (u16)(1 << callback->aid);
+        DC_FlushRange(&data_020c4588.instance->connectedMask, sizeof(u16));
+        break;
+    case WM_STATECODE_DISCONNECTED:
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = 20;
+        break;
+    default:
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        break;
+    }
 }

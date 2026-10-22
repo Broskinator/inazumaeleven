@@ -14,8 +14,11 @@ extern "C" {
 #define WM_ERRCODE_SEND_FAILED 15
 #define WM_ERRCODE_ILLEGAL_STATE 0x8000     // (WM_GetAllowedChannel)
 
+#define WM_STATECODE_PARENT_START 0
+#define WM_STATECODE_CONNECTED 7
 #define WM_STATECODE_DISCONNECTED 9
 #define WM_STATECODE_PORT_RECV 21
+#define WM_STATECODE_DISCONNECTED_FROM_MYSELF 26
 
 typedef void (*WMCallbackFunc)(void *arg);
 
@@ -72,6 +75,27 @@ typedef struct WMMeasureChannelCallback {
     u16 ccaBusyRatio;
 } WMMeasureChannelCallback;
 
+typedef struct WMStartParentCallback {
+    u16 apiid;
+    u16 errcode;
+    u16 wlCmdID;
+    u16 wlResult;
+    u16 state;
+    u8 macAddress[6];
+    u16 aid;
+    u16 reason;
+} WMStartParentCallback;
+
+typedef struct WMStartConnectCallback {
+    u16 apiid;
+    u16 errcode;
+    u16 wlCmdID;
+    u16 wlResult;
+    u16 state;
+    u16 aid;
+    u16 reason;
+} WMStartConnectCallback;
+
 typedef struct WMParentParam {
     void *userGameInfo;
     u16 userGameInfoLength;
@@ -96,6 +120,19 @@ typedef struct WMParentParam {
 typedef struct WMBssDesc {
     u8 data[0xC0];
 } WMBssDesc;
+
+typedef struct WMScanExParam {
+    WMBssDesc *scanBuf;
+    u16 scanBufSize;
+    u16 channelList;
+    u16 maxChannelTime;
+    u8 bssid[6];
+    u16 scanType;
+    u16 ssidLength;
+    u8 ssid[32];
+    u16 ssidMatchLength;
+    u16 rsv[2];
+} WMScanExParam;
 
 u16 WM_SetIndCallback(WMCallbackFunc callback);
 int WM_StartKeySharing(void *buf, u16 port);

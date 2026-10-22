@@ -75,7 +75,10 @@ def main():
             lit = i.address + 8 + int(m.group(1) or "0", 0)
             if lit in loads:
                 to, add = loads[lit]
-                value = names.get(to, f"data_{to:08x}") + (f"+{add:#x}" if add else "")
+                value = names.get(to, f"data_{to:08x}")
+                if value.startswith("_Z"):
+                    value = short(value, cls) or value     # (members of the class by their short name)
+                value += f"+{add:#x}" if add else ""
             else:
                 value = hex(struct.unpack("<I", blob[lit - 0x02000000:lit - 0x02000000 + 4])[0])
             op = op.split(",")[0] + ", =" + value

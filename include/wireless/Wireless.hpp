@@ -42,12 +42,12 @@ public:
     static void func_0203c4d4(void *arg);
     void func_0203c540();
     static void func_0203c650(void *arg);
-    void func_0203c67c();
+    BOOL func_0203c67c();
     BOOL func_0203c75c();
     static void func_0203c7e0(void *arg);
     BOOL func_0203c988();
     static void func_0203c9c0(void *arg);
-    void func_0203c9ec();
+    BOOL func_0203c9ec(int arg);
     static void func_0203ca48(void *arg);
     BOOL func_0203ca80(const void *data, u16 size, void *arg);
     static void func_0203cb2c(void *arg);
@@ -67,16 +67,16 @@ public:
     BOOL func_0203cebc(u16 channel);
     BOOL func_0203cef8(u16 channel);
     static void func_0203cf98(void *arg);
-    void func_0203d04c();
+    BOOL func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1);
     static void func_0203d128(void *arg);
     static void func_0203d17c(void *arg);
-    void func_0203d2b8();
-    void func_0203d37c();
+    BOOL func_0203d2b8(u16 channel, u8 *bssid);
+    BOOL func_0203d37c();
     static void func_0203d44c(void *arg);
     void func_0203d8d0();
     void func_0203d8dc();
     static void func_0203d908(void *arg);
-    void func_0203d960();
+    BOOL func_0203d960(u16 mode, int index);
     BOOL func_0203da3c();
     static void func_0203da6c(void *arg);
     static void func_0203dad8(void *arg);
@@ -101,7 +101,8 @@ public:
     u16 bestChannel;            // (channel measurement)
     u16 bestBusyRatio;
     u8 unk_366[0x1A];
-    u8 scanParam[0x60];
+    WMScanExParam scanParam;
+    u8 unk_3bc[0x24];
     u8 scanBuffer[0x400];
     WMBssDesc bss[WIRELESS_NUM_BSS];    // the parents found
     u16 unk_13e0;
