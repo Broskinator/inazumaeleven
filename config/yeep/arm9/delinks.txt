@@ -405,3 +405,7 @@ src/movie/MoviePlayer.cpp:
 src/save/SaveManager.cpp:
     complete
     .text start:0x0203811c end:0x02039880
+
+src/sound/SoundManager.cpp:
+    complete
+    .text start:0x02039880 end:0x0203c0ec

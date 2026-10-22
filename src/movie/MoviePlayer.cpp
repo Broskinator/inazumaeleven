@@ -2,6 +2,7 @@
 #include "system/GameHeap.hpp"
 #include "nitro/std.h"
 #include "file/RomFile.hpp"
+#include "sound/SoundManager.hpp"
 
 // Mobiclip (overlay 88)
 extern "C" void *func_ov088_02174830(FSFile *file, int unk);       // opens a stream
@@ -13,15 +14,6 @@ extern "C" void func_ov088_02174980(void *stream);                  // queues it
 extern "C" void func_ov088_021749a4(void *stream, void *dest, int unk, int unk2); // draws a frame
 extern "C" void func_ov088_021749c8(void *stream);                  // skips a frame
 
-// sound streams
-extern "C" u8 data_020c5e40[];
-extern "C" BOOL func_0203b9a8(void *player, int channel, const char *path, int unk);
-extern "C" void func_0203a7e4(void *player, int channel);
-extern "C" void func_0203ba78(void *player, int channel, int unk);
-extern "C" BOOL func_0203bba8(void *player, int channel);
-extern "C" void func_0203bc60(void *player, int channel, int unk);
-extern "C" void func_0203bab8(void *player, int channel, u64 position);
-extern "C" void func_0203ba5c(void *player, int channel);
 
 FS_EXTERN_OVERLAY(ov087);
 FS_EXTERN_OVERLAY(ov088);
@@ -154,7 +146,7 @@ BOOL MoviePlayer::Open(const char *name0, const char *name1, BOOL noSound, u8 lo
     STD_CopyString(path, name0);
     STD_ConcatenateString(path, ".sad");
     if (!(flags & MOVIE_NO_SOUND)) {
-        if (func_0203b9a8(data_020c5e40, 0, path, 0)) {
+        if (data_020c5e40.func_0203b9a8(0, path, 0)) {
             flags |= MOVIE_SOUND_LOADED;
         }
     }
@@ -173,7 +165,7 @@ BOOL MoviePlayer::Open(const char *name0, const char *name1, BOOL noSound, u8 lo
     OS_SetThreadStackWarningOffset(&thread, 0x100);
 
     if (!(flags & MOVIE_NO_SOUND)) {
-        func_0203a7e4(data_020c5e40, 0);
+        data_020c5e40.func_0203a7e4(0);
     }
 
     flags |= MOVIE_OPEN;
@@ -210,11 +202,11 @@ BOOL MoviePlayer::Update()
 
     if (flags & MOVIE_SOUND_LOADED) {
         if (!(flags & MOVIE_SOUND_PLAYING)) {
-            func_0203ba78(data_020c5e40, 0, 0);
+            data_020c5e40.func_0203ba78(0, NULL);
             flags |= MOVIE_SOUND_PLAYING | MOVIE_SOUND_STARTING;
         }
 
-        if (!func_0203bba8(data_020c5e40, 0)) {
+        if (!data_020c5e40.func_0203bba8(0)) {
             if (flags & MOVIE_SOUND_STARTING) {
                 sMovie.vblankCount = 0;
                 return TRUE;
@@ -274,7 +266,7 @@ void MoviePlayer::Pause()
     flags |= MOVIE_PAUSED;
     numDue += sMovie.vblankCount;
     if (flags & MOVIE_SOUND_PLAYING) {
-        func_0203bc60(data_020c5e40, 0, 300);
+        data_020c5e40.func_0203bc60(0, 300);
     }
 }
 
@@ -289,7 +281,7 @@ void MoviePlayer::Resume()
     if (flags & MOVIE_SOUND_PLAYING) {
         u32 frameTime = ((u64)1000 << 24) / (u64)func_ov088_0217492c(video);
         u32 frame = numShown + numDue + 1;
-        func_0203bab8(data_020c5e40, 0, (u64)frame * frameTime);
+        data_020c5e40.func_0203bab8(0, (u64)frame * frameTime);
         flags |= MOVIE_SOUND_STARTING;
     }
 }
@@ -354,7 +346,7 @@ void MoviePlayer::Close(BOOL reloadOverlay)
     }
 
     if (flags & MOVIE_SOUND_PLAYING) {
-        func_0203ba5c(data_020c5e40, 0);
+        data_020c5e40.func_0203ba5c(0);
     }
 
     OS_CancelAlarm(&alarm);

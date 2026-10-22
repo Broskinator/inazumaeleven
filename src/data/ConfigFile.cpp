@@ -6,9 +6,6 @@
 
 extern GameHeap data_020c47b4;
 
-// (the file manager is found through the first word of the heap)
-#define FILE_MANAGER (*(FileManager **)&data_020c47b4)
-
 ConfigFile::ConfigFile()
 {
     Reset();
@@ -40,8 +37,8 @@ BOOL ConfigFile::Load(const char *name)
     char *line;
     char *p;
 
-    if (FILE_MANAGER != NULL) {
-        size = FILE_MANAGER->Load(name, (void **)&data, &data_020c47b4, 0, 0, FALSE, 1, TRUE);
+    if (data_020c47b4.fileManager != NULL) {
+        size = data_020c47b4.fileManager->Load(name, (void **)&data, &data_020c47b4, 0, 0, FALSE, 1, TRUE);
     }
     if (size <= 0) {
         return FALSE;

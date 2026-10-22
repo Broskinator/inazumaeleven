@@ -5,6 +5,8 @@
 #include "nitro/os.h"
 #include "nnsys/fnd/expheap.h"
 
+class FileManager;
+
 // A NitroSystem expanded heap over a block of memory, for one thread at a time.
 class GameHeap {
 public:
@@ -15,7 +17,7 @@ public:
     void Free(void *ptr);
     void GetInfo(u32 *used, u32 *free, u32 *allocatable);
 
-    u32 unk_00;
+    FileManager *fileManager;   // (set by the game; files are loaded through it)
     void *start;
     u32 size;
     OSMutex mutex;

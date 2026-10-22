@@ -49,9 +49,9 @@ def main():
     while pc < end:
         i = next(md.disasm(blob[pc - 0x02000000:pc - 0x02000000 + 4], pc))
         insns.append(i)
-        m = re.search(r"\[pc, #(-?0x[0-9a-f]+|-?\d+)\]", i.op_str)
+        m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", i.op_str)
         if m:
-            end = min(end, pc + 8 + int(m.group(1), 0))
+            end = min(end, pc + 8 + int(m.group(1) or "0", 0))
         pc += 4
     targets = set()
     for i in insns:
@@ -71,14 +71,19 @@ def main():
         elif i.id == capstone.arm.ARM_INS_B and op.startswith("#"):
             op = f"@L_{int(op[1:], 16):08x}"
         elif "[pc" in op:
-            m = re.search(r"\[pc, #(-?0x[0-9a-f]+|-?\d+)\]", op)
-            lit = i.address + 8 + int(m.group(1), 0)
+            m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", op)
+            lit = i.address + 8 + int(m.group(1) or "0", 0)
             if lit in loads:
                 to, add = loads[lit]
                 value = names.get(to, f"data_{to:08x}") + (f"+{add:#x}" if add else "")
             else:
                 value = hex(struct.unpack("<I", blob[lit - 0x02000000:lit - 0x02000000 + 4])[0])
             op = op.split(",")[0] + ", =" + value
+        # MWCC (pre-UAL) syntax: shifts are a mov with a shifted operand
+        m = re.match(r"(lsl|lsr|asr|ror)(s?)(\w*)$", mn)
+        if m and op.count(",") == 2:
+            rd, rm, sh = [x.strip() for x in op.split(",")]
+            mn, op = "mov" + m.group(3) + m.group(2), f"{rd}, {rm}, {m.group(1)} {sh}"
         # MWCC syntax for push/pop
         # MWCC (pre-UAL) syntax: ldr<cond>b, str<cond>h, ...
         m = re.match(r"(ldr|str)(sb|sh|b|h|d)(eq|ne|hs|lo|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|cs|cc)$", mn)
@@ -95,7 +100,9 @@ def main():
     print("\n".join(out))
     # the C++ functions of other classes and the data it uses need a declaration
     for line in out:
-        m = re.match(r"\s*(?:bl\S*|b\S*|ldr\S*)\s+(?:\w+, =)?(_Z\w+|data_\w+|func_\w+)", line)
+        m = re.match(r"\s*(?:bl\S*|ldr\S*)\s+(?:\w+, =)?([A-Za-z_]\w*)(?:\+0x[0-9a-f]+)?$", line)
+        if m and (m.group(1).startswith("r") and m.group(1)[1:].isdigit() or m.group(1) in ("sp", "lr", "pc")):
+            m = None
         if m:
             print(f'extern "C" void {m.group(1)}(void);' if not m.group(1).startswith("data_")
                   else f'extern "C" char {m.group(1)}[];', file=sys.stderr)
