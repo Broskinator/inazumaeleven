@@ -18,8 +18,8 @@ extern "C" void func_0209ac8c(void *obj, void *dst);
 extern "C" void func_0209ae70(void *obj, void *src);
 extern "C" void func_02052474(void *obj, void *dst);
 extern "C" void func_020524b0(void *obj, void *src);
-extern "C" void _ZN12SoundManager9SaveStateEPv(void);
-extern "C" void _ZN12SoundManager12RestoreStateEPv(void);
+extern "C" void _ZN12SoundManager9SaveStateEP10SoundState(void);
+extern "C" void _ZN12SoundManager12RestoreStateEP10SoundState(void);
 extern "C" void func_0206db10(void *obj, SaveBody *dst);
 extern "C" void func_0206dcdc(void *obj, SaveBody *src);
 extern "C" void func_02086988(void *obj, void *dst);
@@ -421,7 +421,7 @@ s32 SaveManager::Save(int slot, BOOL async)
     body->block12 = gGameState.block12;
     func_0209ac8c(data_020d3d20, body->unk_49FC);
     func_02052474(data_020d9978, body->unk_5338);
-    data_020c5e40.SaveState(body->unk_7C44);
+    data_020c5e40.SaveState(&body->soundState);
     func_0206db10(data_020e88a0, body);
     func_02086988(data_020c46cc, body->unk_3DDC);
     func_0208e81c(data_020c4678, body->unk_43FC);
@@ -686,7 +686,7 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     add r1, r5, #0x44
     ldr r0, =data_020c5e40
     add r1, r1, #0x7c00
-    bl _ZN12SoundManager9SaveStateEPv
+    bl _ZN12SoundManager9SaveStateEP10SoundState
     ldr r0, =data_020e88a0
     mov r1, r5
     bl func_0206db10
@@ -1295,7 +1295,7 @@ s32 SaveManager::ApplyLoad(int slot)
         gGameState.unk_1281 = 0;
         func_0209ae70(data_020d3d20, body->unk_49FC);
         func_020524b0(data_020d9978, body->unk_5338);
-        data_020c5e40.RestoreState(body->unk_7C44);
+        data_020c5e40.RestoreState(&body->soundState);
         func_0206dcdc(data_020e88a0, body);
         func_0208663c(data_020c46cc, body->unk_3DDC);
         func_0208e844(data_020c4678, body->unk_43FC);
@@ -1541,7 +1541,7 @@ asm s32 SaveManager::ApplyLoad(int slot)
     add r1, r5, #0x44
     ldr r0, =data_020c5e40
     add r1, r1, #0x7c00
-    bl _ZN12SoundManager12RestoreStateEPv
+    bl _ZN12SoundManager12RestoreStateEP10SoundState
     ldr r0, =data_020e88a0
     mov r1, r5
     bl func_0206dcdc

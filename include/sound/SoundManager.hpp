@@ -93,6 +93,12 @@ struct SoundRequest {
     s32 unk_24;
 };
 
+// What is saved with the game: the effects of the loaded pairs and the tracks to play
+struct SoundState {
+    char effects[SOUND_NUM_BANK_PAIRS][0x20];
+    SoundRequest tracks[SOUND_NUM_TRACKS];
+};
+
 // Plays the music and the sound effects with the sound driver.
 class SoundManager {
 public:
@@ -114,8 +120,8 @@ public:
     void ApplyVolume(int volume);
     void SetFade(int volume, int time);
     void func_0203a154();
-    void SaveState(void *state);
-    void RestoreState(void *state);
+    void SaveState(SoundState *state);
+    void RestoreState(SoundState *state);
     void func_0203a3c4(int index, int id);
     void func_0203a3e0(int index, const char *name, int arg);
     void func_0203a4d4(int index, const char *name, int arg);

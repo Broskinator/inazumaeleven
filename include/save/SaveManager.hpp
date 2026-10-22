@@ -2,6 +2,7 @@
 #define SAVE_SAVEMANAGER_HPP
 
 #include "nitro/types.h"
+#include "sound/SoundManager.hpp"
 #include "nitro/os.h"
 #include "save/Backup.hpp"
 #include "game/GameState.hpp"
@@ -86,7 +87,7 @@ struct SaveBody {
     u8 unk_43FC[0x600];
     u8 unk_49FC[0x93C];
     u8 unk_5338[0x290C];
-    u8 unk_7C44[0xD0];
+    SoundState soundState;      // (0x7C44)
     s16 unk_7D14;
     s16 unk_7D16;
     u8 unk_7D18;
