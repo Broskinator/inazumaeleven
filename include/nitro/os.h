@@ -68,6 +68,24 @@ void OS_SetThreadStackWarningOffset(OSThread *thread, u32 offset);
 OSIntrMode OS_DisableInterrupts(void);
 OSIntrMode OS_RestoreInterrupts(OSIntrMode state);
 
+#define REG_IME (*(volatile u16 *)0x04000208)
+
+static inline BOOL OS_DisableIrq(void)
+{
+    u16 prep = REG_IME;
+
+    REG_IME = 0;
+    return prep;
+}
+
+static inline BOOL OS_EnableIrq(void)
+{
+    u16 prep = REG_IME;
+
+    REG_IME = 1;
+    return prep;
+}
+
 #ifdef __cplusplus
 }
 #endif

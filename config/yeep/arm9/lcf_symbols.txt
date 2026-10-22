@@ -1,5 +1,6 @@
 # Absolute symbols added to the linker script (tools/lcfextra.py)
 
 # overlay IDs, for FS_OVERLAY_ID(name)
+SDK_OVERLAY_ov015_ID = 15;
 SDK_OVERLAY_ov087_ID = 87;
 SDK_OVERLAY_ov088_ID = 88;

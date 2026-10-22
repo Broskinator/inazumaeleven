@@ -1,9 +1,65 @@
 #include "system/System.hpp"
+#include "system/GameHeap.hpp"
+#include "file/FileManager.hpp"
+#include "movie/MoviePlayer.hpp"
+#include "sound/SoundManager.hpp"
+#include "data/ConfigFile.hpp"
+#include "nitro/fs.h"
+#include "nitro/mi.h"
+#include "nitro/os.h"
 
-extern "C" char data_020aad64[];
+extern GameHeap data_020c47b4;
+extern FileManager data_020c6364;
+extern ConfigFile data_020c46e4;
+extern "C" void func_02099140(void);
+extern "C" void func_0209d1d4(void *);
+extern "C" void *func_02006fa4(int arena);                 // the start of an arena
+extern "C" void *func_02006f90(int arena);                 // the end of an arena
+extern "C" void func_02007150(int arena, void *start);      // sets the start of an arena
+extern "C" void *func_0200745c(int arena, void *start, void *end, int maxHeaps);   // starts allocating from an arena
+extern "C" void *OS_AllocFromArenaLo(int arena, u32 size, int align);
+extern "C" int func_02007504(int arena, void *start, void *end);   // makes a heap
+extern "C" int OS_SetCurrentHeap(int arena, int heap);
+extern "C" void func_02006dd8(void);
+extern "C" void func_02007be4(void);
+extern "C" void func_02005c5c(void);
+extern "C" void func_0200e794(int);
+extern "C" void func_0201025c(void);
+extern "C" void func_020023fc(void);
+extern "C" void func_02002400(void);
+extern "C" void func_020025b8(void);
+extern "C" void func_0209d638(void);
+extern "C" void func_0200878c(void);                        // stops (out of memory)
+extern "C" void DC_FlushAll(void);
+extern "C" void func_02004ab4(int banks);                  // gives VRAM banks to the LCDC
+extern "C" void func_02004f4c(void);
+extern "C" void OS_SetIrqFunction(u32 mask, void (*function)(void));
+extern "C" u32 OS_EnableIrqMask(u32 mask);
+extern "C" void func_02002570(BOOL enable);                // the vblank interrupt
+extern "C" void func_0200846c(void);                        // waits for the vblank
+extern "C" s32 data_020aad64;
+extern "C" char data_020ac0cc[];                            // the name of the settings file
+extern "C" u8 data_020c5320[];
+extern "C" u8 data_027e0000[];                              // (the DTCM)
+
+#define OS_ARENA_MAIN 0
+#define OS_IE_V_BLANK 1
+#define HW_DTCM ((u32)data_027e0000)
+#define OS_IRQ_CHECK_FLAG (*(volatile u32 *)(HW_DTCM + 0x3FF8))
+#define REG_DISPCNT_SUB (*(volatile u32 *)0x04001000)
+#define HW_LCDC_VRAM 0x06800000
+#define HW_PLTT 0x05000000
+#define HW_DB_PLTT 0x05000400
+#define HW_PLTT_SIZE 0x400
+#define HW_OAM 0x07000000
+#define HW_DB_OAM 0x07000400
+#define HW_OAM_SIZE 0x400
+
+FS_EXTERN_OVERLAY(ov015);
+FS_EXTERN_OVERLAY(ov087);
+
 extern "C" char data_020ac064[];
 extern "C" char data_020ac084[];
-extern "C" char data_020ac0cc[];
 extern "C" char data_020ac0e4[];
 extern "C" char data_020ac100[];
 extern "C" char data_020ac120[];
@@ -20,7 +76,6 @@ extern "C" char data_020af61c[];
 extern "C" char data_020af7d0[];
 extern "C" char data_020afa08[];
 extern "C" char data_020afd20[];
-extern "C" char data_020c4638[];
 extern "C" char data_020c4654[];
 extern "C" char data_020c4658[];
 extern "C" char data_020c465c[];
@@ -29,31 +84,14 @@ extern "C" char data_020c469c[];
 extern "C" char data_020c46a4[];
 extern "C" char data_020c46ac[];
 extern "C" char data_020c46bc[];
-extern "C" char data_020c46e4[];
-extern "C" char data_020c47b4[];
 extern "C" char data_020c4ab4[];
 extern "C" char data_020c4ac0[];
 extern "C" char data_020c4ae1[];
 extern "C" char data_020c4c70[];
-extern "C" char data_020c4f60[];
-extern "C" char data_020c5320[];
-extern "C" char data_020c5e40[];
-extern "C" char data_020c6364[];
 extern "C" char data_020e88a0[];
-extern "C" char data_027e0000[];
-extern "C" void DC_FlushAll(void);
-extern "C" void FS_LoadOverlay(void);
 extern "C" void G2x_ChangeBlendBrightness_(void);
 extern "C" void G3X_InitMtxStack(void);
-extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
 extern "C" void NNS_G3dInit(void);
-extern "C" void OS_AllocFromArenaLo(void);
-extern "C" void OS_EnableIrqMask(void);
-extern "C" void OS_InitTick(void);
-extern "C" void OS_SetCurrentHeap(void);
-extern "C" void OS_SetIrqFunction(void);
-extern "C" void OS_Sleep(void);
 extern "C" void _ZN10ConfigFile4LoadEPKc(void);
 extern "C" void _ZN10ConfigFile5ClearEv(void);
 extern "C" void _ZN10ConfigFile5ResetEv(void);
@@ -77,29 +115,11 @@ extern "C" void func_01ff9dc4(void);
 extern "C" void func_01ff9e1c(void);
 extern "C" void func_01ffb7b8(void);
 extern "C" void func_01ffd9a0(void);
-extern "C" void func_020023fc(void);
-extern "C" void func_02002400(void);
-extern "C" void func_02002570(void);
-extern "C" void func_020025b8(void);
-extern "C" void func_02004ab4(void);
-extern "C" void func_02004f4c(void);
-extern "C" void func_02005c5c(void);
 extern "C" void func_020065d0(void);
-extern "C" void func_02006dd8(void);
-extern "C" void func_02006f90(void);
-extern "C" void func_02006fa4(void);
 extern "C" void func_0200713c(void);
-extern "C" void func_02007150(void);
-extern "C" void func_0200745c(void);
-extern "C" void func_02007504(void);
-extern "C" void func_02007be4(void);
-extern "C" void func_0200846c(void);
-extern "C" void func_0200878c(void);
-extern "C" void func_0200e794(void);
 extern "C" void func_0200eab0(void);
 extern "C" void func_0200eb24(void);
 extern "C" void func_0200ebb8(void);
-extern "C" void func_0201025c(void);
 extern "C" void func_020285a4(void);
 extern "C" void func_0206f7a4(void);
 extern "C" void func_020858fc(void);
@@ -121,9 +141,6 @@ extern "C" void func_02091c64(void);
 extern "C" void func_02095d70(void);
 extern "C" void func_020977d0(void);
 extern "C" void func_02098bac(void);
-extern "C" void func_02099140(void);
-extern "C" void func_0209d1d4(void);
-extern "C" void func_0209d638(void);
 extern "C" void func_ov015_02130920(void);
 extern "C" void func_ov015_02131818(void);
 extern "C" void func_ov015_0213238c(void);
@@ -137,28 +154,18 @@ extern "C" void func_ov015_02148258(void);
 extern "C" void func_ov015_02161618(void);
 extern "C" void gGameState(void);
 
-asm void System::func_0203f8ec()
+// (the vblank interrupt)
+void System::func_0203f8ec()
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020c4638
-    ldr r0, [r0, #0x30]
-    cmp r0, #0
-    beq @L_0203f904
-    bl func_02099140
-@L_0203f904:
-    ldr r0, =data_020c5320
-    bl func_0209d1d4
-    ldr r0, =data_020c6364
-    bl _ZN11FileManager6WakeUpEv
-    ldr r0, =data_027e0000
-    add r0, r0, #0x3000
-    ldr r1, [r0, #0xff8]
-    orr r1, r1, #1
-    str r1, [r0, #0xff8]
-    ldmia sp!, {r3, pc}
+    if (data_020c4638.unk_30 != NULL) {
+        func_02099140();
+    }
+    func_0209d1d4(&data_020c5320);
+    data_020c6364.WakeUp();
+    OS_IRQ_CHECK_FLAG |= OS_IE_V_BLANK;
 }
 
-asm void System::func_0203f93c()
+asm void *System::func_0203f93c(u32 size)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -194,206 +201,103 @@ asm void System::func_0203f93c()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void System::func_0203f9b8()
+// clears the main arena and makes the system heap at its start
+void System::func_0203f9b8()
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, #0
-    mov r0, r6
-    bl func_02006fa4
-    mov r5, r0
-    mov r0, #0x100000
-    bl func_0203f93c
-    mov r4, r0
-    mov r0, r6
-    mov r1, r5
-    sub r2, r4, r5
-    bl MIi_CpuClearFast
-    mov r1, r5
-    mov r2, r4
-    mov r0, r6
-    mov r3, #2
-    bl func_0200745c
-    mov r1, r0
-    mov r0, r6
-    bl func_02007150
-    mov r0, r6
-    mov r1, #0x3c000
-    mov r2, #0x20
-    bl OS_AllocFromArenaLo
-    mov r1, r0
-    mov r0, r6
-    add r2, r1, #0x3c000
-    bl func_02007504
-    mov r4, r0
-    mov r0, r6
-    mov r1, r4
-    bl OS_SetCurrentHeap
-    ldr r0, =data_020c4638
-    str r4, [r0, #0x54]
-    ldmia sp!, {r4, r5, r6, pc}
+    void *lo = func_02006fa4(OS_ARENA_MAIN);
+    void *hi = func_0203f93c(0x100000);
+    void *start;
+    int heap;
+
+    MIi_CpuClearFast(0, lo, (u32)hi - (u32)lo);
+    func_02007150(OS_ARENA_MAIN, func_0200745c(OS_ARENA_MAIN, lo, hi, 2));
+    start = OS_AllocFromArenaLo(OS_ARENA_MAIN, 0x3C000, 0x20);
+    heap = func_02007504(OS_ARENA_MAIN, start, (u8 *)start + 0x3C000);
+    OS_SetCurrentHeap(OS_ARENA_MAIN, heap);
+    data_020c4638.systemHeap = heap;
 }
 
-asm void System::func_0203fa48()
+// starts the SDK
+void System::func_0203fa48()
 {
-    stmdb sp!, {r4, lr}
-    bl func_02006dd8
-    bl OS_InitTick
-    bl func_02007be4
-    bl func_02005c5c
-    mvn r0, #0
-    bl func_0200e794
-    bl func_0201025c
-    bl func_0203f9b8
-    bl func_020023fc
-    mov r1, #3
-    ldr r0, =data_020aad64
-    str r1, [r0]
-    bl func_02002400
-    bl func_020025b8
-    ldr r2, =0x4001000
-    mov r4, #0
-    ldr r1, [r2]
-    mov r0, r4
-    bic r1, r1, #0x10000
-    str r1, [r2]
-    ldr r1, =0xf
-    bl FS_LoadOverlay
-    mov r0, r4
-    ldr r1, =0x57
-    bl FS_LoadOverlay
-    bl func_0209d638
-    ldmia sp!, {r4, pc}
+    func_02006dd8();
+    OS_InitTick();
+    func_02007be4();
+    func_02005c5c();
+    func_0200e794(-1);
+    func_0201025c();
+    func_0203f9b8();
+    func_020023fc();
+    data_020aad64 = 3;
+    func_02002400();
+    func_020025b8();
+    REG_DISPCNT_SUB &= ~0x10000;
+    FS_LoadOverlay(MI_PROCESSOR_ARM9, FS_OVERLAY_ID(ov015));
+    FS_LoadOverlay(MI_PROCESSOR_ARM9, FS_OVERLAY_ID(ov087));
+    func_0209d638();
 }
 
-asm void System::func_0203fac8()
+// makes the game's heap from the rest of the main arena, and the file loader
+void System::func_0203fac8()
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, #0
-    mov r0, r5
-    bl func_02006fa4
-    ldr r4, =data_020c4638
-    str r0, [r4, #0x4c]
-    mov r0, r5
-    bl func_02006f90
-    str r0, [r4, #0x60]
-    ldr r1, [r4, #0x4c]
-    add r1, r1, #0xe000
-    add r1, r1, #0x200000
-    str r1, [r4, #0x78]
-    cmp r1, r0
-    strls r0, [r4, #0x58]
-    bls @L_0203fb0c
-    bl func_0200878c
-@L_0203fb0c:
-    ldr r4, =data_020c4638
-    mov r6, #0
-    ldr r1, [r4, #0x4c]
-    ldr r2, [r4, #0x58]
-    mov r0, r6
-    sub r2, r2, r1
-    str r2, [r4, #0x48]
-    bl MIi_CpuClearFast
-    bl DC_FlushAll
-    ldr r5, =data_020c47b4
-    ldr r2, [r4, #0x4c]
-    ldr r3, [r4, #0x58]
-    mov r0, r5
-    mov r1, r6
-    bl _ZN8GameHeap4InitEiPvS0_
-    mov r0, r6
-    ldr r1, [r4, #0x58]
-    add r1, r1, #0x1f
-    bic r1, r1, #0x1f
-    bl func_02007150
-    ldr r0, =data_020c6364
-    mov r1, #0x40
-    str r0, [r4, #0x17c]
-    mov r2, r5
-    bl _ZN11FileManager4InitEiP8GameHeap
-    mov r1, r5
-    ldr r0, =data_020c4f60
-    bl _ZN11MoviePlayer10InitSystemEP8GameHeap
-    ldmia sp!, {r4, r5, r6, pc}
+    data_020c4638.arenaLo = (u32)func_02006fa4(OS_ARENA_MAIN);
+    data_020c4638.arenaHi = (u32)func_02006f90(OS_ARENA_MAIN);
+    data_020c4638.heapMin = data_020c4638.arenaLo + 0x20E000;
+    if (data_020c4638.heapMin <= data_020c4638.arenaHi) {
+        data_020c4638.heapEnd = data_020c4638.arenaHi;
+    } else {
+        func_0200878c();
+    }
+    {
+        u32 start = data_020c4638.arenaLo;
+
+        data_020c4638.heapSize = data_020c4638.heapEnd - start;
+        MIi_CpuClearFast(0, (void *)start, data_020c4638.heapSize);
+    }
+    DC_FlushAll();
+    data_020c47b4.Init(0, (void *)data_020c4638.arenaLo, (void *)data_020c4638.heapEnd);
+    func_02007150(OS_ARENA_MAIN, (void *)((data_020c4638.heapEnd + 0x1F) & ~0x1F));
+    data_020c4638.fileManager = &data_020c6364;
+    data_020c6364.Init(0x40, &data_020c47b4);
+    data_020c4f60.InitSystem(&data_020c47b4);
 }
 
-asm void System::func_0203fb90()
+// clears the VRAM, the OAM and the palettes
+void System::func_0203fb90()
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r8, =0x1ff
-    mov r0, r8
-    bl func_02004ab4
-    mov r7, #0
-    mov r0, r7
-    mov r1, #0x6800000
-    mov r2, #0xa4000
-    bl MIi_CpuClearFast
-    bl func_02004f4c
-    mov r6, #0xc0
-    mov r4, #0x400
-    mov r0, r6
-    mov r1, #0x7000000
-    mov r2, r4
-    bl MIi_CpuClearFast
-    mov r0, r7
-    mov r5, #0x5000000
-    mov r1, r5
-    mov r2, r4
-    bl MIi_CpuClearFast
-    mov r0, r6
-    sub r1, r4, #0xf9000000
-    mov r2, r4
-    bl MIi_CpuClearFast
-    mov r0, r7
-    mov r2, r4
-    add r4, r5, #0x400
-    mov r1, r4
-    bl MIi_CpuClearFast
-    add r0, r8, #0x7e00
-    strh r0, [r5]
-    strh r0, [r4]
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    func_02004ab4(0x1FF);
+    MIi_CpuClearFast(0, (void *)HW_LCDC_VRAM, 0xA4000);
+    func_02004f4c();
+    MIi_CpuClearFast(0xC0, (void *)HW_OAM, HW_OAM_SIZE);
+    MIi_CpuClearFast(0, (void *)HW_PLTT, HW_PLTT_SIZE);
+    MIi_CpuClearFast(0xC0, (void *)HW_DB_OAM, HW_OAM_SIZE);
+    MIi_CpuClearFast(0, (void *)HW_DB_PLTT, HW_PLTT_SIZE);
+    *(u16 *)HW_PLTT = 0x7FFF;
+    *(u16 *)HW_DB_PLTT = 0x7FFF;
 }
 
-asm void System::func_0203fc1c()
+// starts the vblank interrupt
+void System::func_0203fc1c()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r5, =0x4000208
-    mov r4, #1
-    ldrh r0, [r5]
-    ldr r1, =func_0203f8ec
-    mov r2, #0
-    mov r0, r4
-    strh r2, [r5]
-    bl OS_SetIrqFunction
-    mov r0, r4
-    bl OS_EnableIrqMask
-    mov r0, #0x40000
-    bl OS_EnableIrqMask
-    ldrh r0, [r5]
-    mov r0, r4
-    strh r4, [r5]
-    bl func_02002570
-    bl func_0200846c
-    ldmia sp!, {r3, r4, r5, pc}
+    OS_DisableIrq();
+    OS_SetIrqFunction(OS_IE_V_BLANK, func_0203f8ec);
+    OS_EnableIrqMask(OS_IE_V_BLANK);
+    OS_EnableIrqMask(0x40000);
+    OS_EnableIrq();
+    func_02002570(TRUE);
+    func_0200846c();
 }
 
-asm void System::func_0203fc70()
+void System::func_0203fc70()
 {
-    bx lr
 }
 
-asm void System::func_0203fc74()
+// reads the settings file
+void System::func_0203fc74()
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_020c46e4
-    mov r0, r4
-    bl _ZN10ConfigFile5ResetEv
-    mov r0, r4
-    bl _ZN10ConfigFile5ClearEv
-    ldr r1, =data_020ac0cc
-    mov r0, r4
-    bl _ZN10ConfigFile4LoadEPKc
-    ldmia sp!, {r4, pc}
+    data_020c46e4.Reset();
+    data_020c46e4.Clear();
+    data_020c46e4.Load(data_020ac0cc);
 }
 
 asm void System::func_0203fca4()
