@@ -421,3 +421,7 @@ src/game/UnkClass_0203dc7c.cpp:
 src/game/SceneManager.cpp:
     complete
     .text start:0x0203e2fc end:0x0203f8ec
+
+src/system/System.cpp:
+    complete
+    .text start:0x0203f8ec end:0x0204054c
