@@ -50,6 +50,7 @@ BOOL FS_CloseFile(FSFile *file);
 BOOL FS_SeekFile(FSFile *file, s32 offset, FSSeekFileMode origin);
 s32 FS_ReadFile(FSFile *file, void *dst, s32 len);
 s32 FS_ReadFileAsync(FSFile *file, void *dst, s32 len);
+BOOL FS_GetPathName(FSFile *file, char *buf, u32 len);
 u32 FS_GetFileLength(FSFile *file);
 void FS_CancelFile(FSFile *file);
 BOOL FS_WaitAsync(FSFile *file);

@@ -46,12 +46,31 @@ struct SoundBankPair {
 // A music track
 struct SoundTrack {
     char name[0x20];
-    s8 sequence;            // index in banks
-    s8 wave;
+    s8 wave;                // index in banks
+    s8 sequence;
     u8 unk_22[2];
     u16 flags;
     u16 state;
     s32 unk_28;
+};
+
+// Parameters of a sound for the driver (flags 4: volume and fade time)
+struct SoundParam {
+    s32 flags;
+    u32 unk_04;
+    u32 unk_08;
+    s32 value;              // volume, fade time << 16
+    u32 unk_10;
+};
+
+// What the driver says about a stream
+struct SoundStreamInfo {
+    u32 unk_00;
+    u32 unk_04;
+    s32 unk_08;
+    u32 unk_0c;
+    u32 unk_10;
+    u32 unk_14;
 };
 
 // A stream (.SAD) played by the driver
@@ -147,10 +166,7 @@ public:
 
     GameHeap *heap;
     u8 unk_04[0x40];
-    s32 fadeState;
-    u8 unk_48[8];
-    s32 fadeTarget;
-    u8 unk_54[4];
+    SoundParam param;
     SoundBank banks[SOUND_NUM_BANKS];
     SoundBankPair pairs[SOUND_NUM_BANK_PAIRS];
     SoundTrack tracks[SOUND_NUM_TRACKS];
@@ -170,5 +186,7 @@ public:
 };
 
 extern SoundManager data_020c5e40;
+
+BOOL GetSoundFilePath(const char *name, char *path, u32 length);
 
 #endif // SOUND_SOUNDMANAGER_HPP

@@ -16,4 +16,4 @@ header = t[a:brace + 1]
 asm = open(asmfile).read().rstrip()
 new = (f"// (nonmatching: {reason})\n#ifdef NONMATCHING\n" + t[a:end] +
        "#else\nasm " + header + "{\n" + asm + "\n}\n#endif\n")
-open(src, "w").write(t[:a] + new + t[end:])
+open(src, "w", newline="\n").write(t[:a] + new + t[end:])

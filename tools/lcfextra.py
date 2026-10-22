@@ -17,4 +17,4 @@ if marker not in text:
     sys.exit(f"{lcf}: no '{marker}' to put the symbols after")
 if lines[0] not in text:
     text = text.replace(marker, marker + "\n        " + "\n        ".join(lines), 1)
-    open(lcf, "w").write(text)
+    open(lcf, "w", newline="\n").write(text)

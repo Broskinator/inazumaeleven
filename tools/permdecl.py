@@ -22,7 +22,7 @@ print(f"{len(decls)} declarations")
 
 
 def score(order):
-    open(src, "w").write(text[:brace] + "\n".join(order) + "\n" + rest)
+    open(src, "w", newline="\n").write(text[:brace] + "\n".join(order) + "\n" + rest)
     r = subprocess.run([sys.executable, "tools/fncmp.py", src, name], capture_output=True, text=True).stdout
     m = re.search(r"(\d+) words differ", r)
     return 0 if "OK" in r else int(m.group(1)) if m else 9999
@@ -36,5 +36,5 @@ for order in itertools.permutations(decls):
         print(s, [d.strip() for d in order])
     if s == 0:
         break
-open(src, "w").write(text[:brace] + "\n".join(best[1]) + "\n" + rest)
+open(src, "w", newline="\n").write(text[:brace] + "\n".join(best[1]) + "\n" + rest)
 print("best:", best[0])

@@ -14,4 +14,4 @@ cpp = t[start + len("#ifdef NONMATCHING\n"):els]
 # drop the "(nonmatching: ...)" comment line right before
 before = t[:start]
 before = re.sub(r"// \(nonmatching:[^\n]*\)\n$", "", before)
-open(src, "w").write(before + cpp + t[end:])
+open(src, "w", newline="\n").write(before + cpp + t[end:])
