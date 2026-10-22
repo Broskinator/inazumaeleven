@@ -409,3 +409,7 @@ src/save/SaveManager.cpp:
 src/sound/SoundManager.cpp:
     complete
     .text start:0x02039880 end:0x0203c0ec
+
+src/wireless/Wireless.cpp:
+    complete
+    .text start:0x0203c0ec end:0x0203dc7c
