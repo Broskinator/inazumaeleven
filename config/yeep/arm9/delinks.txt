@@ -361,6 +361,10 @@ libs/NitroSystem/fnd/expheap.c:
 libs/NitroSystem/fnd/frameheap.c:
     .text start:0x02033080 end:0x02033218
 
+src/data/ConfigFile.cpp:
+    complete
+    .text start:0x02033218 end:0x020336e8
+
 src/text/TextFont.cpp:
     complete
     .text start:0x020336e8 end:0x02034e38

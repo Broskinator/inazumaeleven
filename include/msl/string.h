@@ -6,6 +6,9 @@
 extern "C" {
 #endif
 
+void *memset(void *dst, int c, unsigned long n);
+unsigned long strlen(const char *s);
+char *strncpy(char *dst, const char *src, unsigned long n);
 int strcmp(const char *s1, const char *s2);
 char *strchr(const char *s, int c);
 char *strrchr(const char *s, int c);
