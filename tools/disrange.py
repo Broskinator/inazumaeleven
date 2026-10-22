@@ -3,10 +3,10 @@
 
 usage: tools/disrange.py START END
 """
-import re, struct, sys
+import os, re, struct, sys
 import capstone
 
-ROOT = __file__.rsplit("/tools/", 1)[0]
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 names = {}
 for line in open(f"{ROOT}/config/yeep/arm9/symbols.txt"):
     m = re.match(r"(\S+) kind:(\S+) addr:(0x[0-9a-f]+)", line)

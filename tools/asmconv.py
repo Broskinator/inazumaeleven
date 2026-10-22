@@ -9,9 +9,9 @@ functions are called by their mangled name, which needs a declaration like
     extern "C" void _ZN4Heap4FreeEPv(void);
 in the file: the names that need one are listed on stderr.
 """
-import glob, re, sys
+import glob, os, re, sys
 
-ROOT = __file__.rsplit("/tools/", 1)[0]
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 def symbols():

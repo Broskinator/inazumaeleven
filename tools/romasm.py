@@ -7,10 +7,10 @@ Calls are named from relocs.txt/symbols.txt (members of CLASS by their short nam
 Literal pool loads become "ldr rX, =value" (the compiler puts the pool at the end of the
 function, in the order of first use, as the original does).
 """
-import glob, re, sys
+import glob, os, re, sys
 import capstone
 
-ROOT = __file__.rsplit("/tools/", 1)[0]
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, f"{ROOT}/tools")
 from asmconv import short  # noqa: E402
 
