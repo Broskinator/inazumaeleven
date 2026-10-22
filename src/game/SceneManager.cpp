@@ -8,6 +8,9 @@ extern "C" void func_ov015_021323fc(void);
 extern "C" void func_ov015_0213240c(void);
 extern "C" void func_ov015_021324a4(void);
 extern "C" void func_ov015_021324b4(void);
+extern "C" BOOL func_ov015_02134bd8(void *arg);
+extern "C" void func_0200878c(void);
+extern "C" void _Znwm(void);       // (operator new, for the asm functions)
 extern "C" void func_ov015_02132554(int);
 extern "C" void func_ov015_02132568(int);
 extern "C" void func_ov015_02132600(int);
@@ -108,12 +111,10 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc7cEv(void);
 extern "C" void _ZN8GameHeap7GetInfoEPmS0_S0_(void);
 extern "C" void _ZN9EntryPool4InitEv(void);
 extern "C" void _ZdlPv(void);
-extern "C" void _Znwm(void);
 extern "C" void func_01ff9ea4(void);
 extern "C" void func_020025b8(void);
 extern "C" void func_020025f8(void);
 extern "C" void func_0200846c(void);
-extern "C" void func_0200878c(void);
 extern "C" void func_0200eca8(void);
 extern "C" void func_0200fa3c(void);
 extern "C" void func_0200ff28(void);
@@ -153,7 +154,6 @@ extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_0213238c(void);
 extern "C" void func_ov015_02132794(void);
 extern "C" void func_ov015_02133efc(void);
-extern "C" void func_ov015_02134bd8(void);
 extern "C" void func_ov015_02134c78(void);
 extern "C" void func_ov015_0213cc18(void);
 extern "C" void func_ov015_0213d1ac(void);
@@ -187,54 +187,59 @@ asm void SceneManager::func_0203e31c()
     bx lr
 }
 
-asm void SceneManager::func_0203e348()
+// creates the scene described by desc (NULL for an unknown type)
+UnkClass_0203dc7c *SceneManager::func_0203e348(SceneDesc *desc)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, [r0]
-    ldr r0, [r0, #4]
-    cmp r1, #8
-    addls pc, pc, r1, lsl #2
-    b @L_0203e3c4
-    b @L_0203e3c4
-    b @L_0203e394
-    b @L_0203e38c
-    b @L_0203e384
-    b @L_0203e39c
-    b @L_0203e3a4
-    b @L_0203e3ac
-    b @L_0203e3b4
-    b @L_0203e3bc
-@L_0203e384:
-    bl func_0203e9c4
-    ldmia sp!, {r3, pc}
-@L_0203e38c:
-    bl func_0203e7b0
-    ldmia sp!, {r3, pc}
-@L_0203e394:
-    bl func_0203e5c4
-    ldmia sp!, {r3, pc}
-@L_0203e39c:
-    bl func_0203e54c
-    ldmia sp!, {r3, pc}
-@L_0203e3a4:
-    bl func_0203e4fc
-    ldmia sp!, {r3, pc}
-@L_0203e3ac:
-    bl func_0203e498
-    ldmia sp!, {r3, pc}
-@L_0203e3b4:
-    bl func_0203e45c
-    ldmia sp!, {r3, pc}
-@L_0203e3bc:
-    bl func_0203e3d0
-    ldmia sp!, {r3, pc}
-@L_0203e3c4:
-    bl func_0200878c
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    void *arg = desc->arg;
+
+    switch (desc->type) {
+    case 3:
+        return func_0203e9c4(arg);
+    case 2:
+        return func_0203e7b0(arg);
+    case 1:
+        return func_0203e5c4(arg);
+    case 4:
+        return func_0203e54c(arg);
+    case 5:
+        return func_0203e4fc(arg);
+    case 6:
+        return func_0203e498(arg);
+    case 7:
+        return func_0203e45c(arg);
+    case 8:
+        return func_0203e3d0(arg);
+    default:
+        func_0200878c();
+        return NULL;
+    }
 }
 
-asm void SceneManager::func_0203e3d0()
+// (nonmatching: the parts are built by nested inline constructors (their stores are relative to the first part))
+#ifdef NONMATCHING
+UnkClass_0203dc7c *SceneManager::func_0203e3d0(void *arg)
+{
+    Scene8 *scene;
+
+    if (!func_ov015_02134bd8(arg)) {
+        return NULL;
+    }
+    scene = (Scene8 *)operator new(sizeof(Scene8));
+    if (scene != NULL) {
+        scene->func_0203dc7c();
+        scene->vtable = data_ov014_02124380;
+        scene->part0.vtable = data_ov014_02124500;
+        scene->part0.owner = scene;
+        scene->part1Vtable = data_ov014_021245c8;
+        scene->part1Owner = scene;
+        scene->part2.vtable = data_ov014_021246fc;
+        scene->part2.owner = scene;
+        scene->unk_700 = 0;
+    }
+    return scene;
+}
+#else
+asm UnkClass_0203dc7c *SceneManager::func_0203e3d0(void *arg)
 {
     stmdb sp!, {r4, lr}
     bl func_ov015_02134bd8
@@ -265,6 +270,7 @@ asm void SceneManager::func_0203e3d0()
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
+#endif
 
 void SceneManager::func_0203e450()
 {
@@ -278,48 +284,38 @@ void SceneManager::func_0203e458()
 {
 }
 
-asm void SceneManager::func_0203e45c()
+UnkClass_0203dc7c *SceneManager::func_0203e45c(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    bl func_ov015_02134bd8
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, #0x8c
-    bl _Znwm
-    movs r4, r0
-    beq @L_0203e48c
-    bl _ZN17UnkClass_0203dc7c13func_0203dc7cEv
-    ldr r0, =data_ov014_021243f0
-    str r0, [r4]
-@L_0203e48c:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    UnkClass_0203dc7c *scene;
+
+    if (!func_ov015_02134bd8(arg)) {
+        return NULL;
+    }
+    scene = (UnkClass_0203dc7c *)operator new(sizeof(UnkClass_0203dc7c));
+    if (scene != NULL) {
+        scene->func_0203dc7c();
+        scene->vtable = data_ov014_021243f0;
+    }
+    return scene;
 }
 
-asm void SceneManager::func_0203e498()
+UnkClass_0203dc7c *SceneManager::func_0203e498(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    bl func_ov015_02134bd8
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, #0x3d0
-    bl _Znwm
-    movs r4, r0
-    beq @L_0203e4e0
-    bl _ZN17UnkClass_0203dc7c13func_0203dc7cEv
-    ldr r1, =0x20fda40
-    ldr r0, =data_ov005_020fdab0
-    str r1, [r4]
-    str r0, [r4, #0x8c]
-    ldr r0, =data_ov005_020fdb84
-    str r4, [r4, #0x23c]
-    str r0, [r4, #0x24c]
-    str r4, [r4, #0x250]
-@L_0203e4e0:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    Scene6 *scene;
+
+    if (!func_ov015_02134bd8(arg)) {
+        return NULL;
+    }
+    scene = (Scene6 *)operator new(sizeof(Scene6));
+    if (scene != NULL) {
+        scene->func_0203dc7c();
+        scene->vtable = (void *)0x020FDA40;     // (in overlays 5 and 6)
+        scene->part0Vtable = data_ov005_020fdab0;
+        scene->part0Owner = scene;
+        scene->part1.vtable = data_ov005_020fdb84;
+        scene->part1.owner = scene;
+    }
+    return scene;
 }
 
 void SceneManager::func_0203e4f4()
@@ -330,58 +326,46 @@ void SceneManager::func_0203e4f8()
 {
 }
 
-asm void SceneManager::func_0203e4fc()
+UnkClass_0203dc7c *SceneManager::func_0203e4fc(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    bl func_ov015_02134bd8
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, #0xd8
-    bl _Znwm
-    movs r4, r0
-    beq @L_0203e538
-    bl _ZN17UnkClass_0203dc7c13func_0203dc7cEv
-    ldr r1, =0x20fd4a0
-    ldr r0, =data_ov002_020fd550
-    str r1, [r4]
-    str r0, [r4, #0x8c]
-    str r4, [r4, #0x90]
-@L_0203e538:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    Scene5 *scene;
+
+    if (!func_ov015_02134bd8(arg)) {
+        return NULL;
+    }
+    scene = (Scene5 *)operator new(sizeof(Scene5));
+    if (scene != NULL) {
+        scene->func_0203dc7c();
+        scene->vtable = (void *)0x020FD4A0;     // (in overlays 2 and 4)
+        scene->part0.vtable = data_ov002_020fd550;
+        scene->part0.owner = scene;
+    }
+    return scene;
 }
 
 void SceneManager::func_0203e548()
 {
 }
 
-asm void SceneManager::func_0203e54c()
+UnkClass_0203dc7c *SceneManager::func_0203e54c(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    bl func_ov015_02134bd8
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, #0x124
-    bl _Znwm
-    movs r4, r0
-    beq @L_0203e5a0
-    bl _ZN17UnkClass_0203dc7c13func_0203dc7cEv
-    ldr r1, =data_ov004_020fd2c0
-    ldr r0, =data_ov004_020fd3c4
-    str r1, [r4]
-    str r0, [r4, #0x8c]
-    ldr r0, =data_ov004_020fd330
-    str r4, [r4, #0x90]
-    str r0, [r4, #0xc8]
-    ldr r0, =0x20fd4a4
-    str r4, [r4, #0xcc]
-    str r0, [r4, #0x110]
-    str r4, [r4, #0x114]
-@L_0203e5a0:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    Scene4 *scene;
+
+    if (!func_ov015_02134bd8(arg)) {
+        return NULL;
+    }
+    scene = (Scene4 *)operator new(sizeof(Scene4));
+    if (scene != NULL) {
+        scene->func_0203dc7c();
+        scene->vtable = data_ov004_020fd2c0;
+        scene->part0.vtable = data_ov004_020fd3c4;
+        scene->part0.owner = scene;
+        scene->part1.vtable = data_ov004_020fd330;
+        scene->part1.owner = scene;
+        scene->part2.vtable = (void *)0x020FD4A4;   // (in overlays 2 and 4)
+        scene->part2.owner = scene;
+    }
+    return scene;
 }
 
 void SceneManager::func_0203e5b8()
@@ -396,7 +380,7 @@ void SceneManager::func_0203e5c0()
 {
 }
 
-asm void SceneManager::func_0203e5c4()
+asm UnkClass_0203dc7c *SceneManager::func_0203e5c4(void *arg)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     bl func_ov015_02134bd8
@@ -550,7 +534,7 @@ void SceneManager::func_0203e7ac()
 {
 }
 
-asm void SceneManager::func_0203e7b0()
+asm UnkClass_0203dc7c *SceneManager::func_0203e7b0(void *arg)
 {
     stmdb sp!, {r4, r5, r6, lr}
     bl func_ov015_02134bd8
@@ -721,7 +705,7 @@ void SceneManager::func_0203e9c0()
 {
 }
 
-asm void SceneManager::func_0203e9c4()
+asm UnkClass_0203dc7c *SceneManager::func_0203e9c4(void *arg)
 {
     stmdb sp!, {r4, lr}
     bl func_ov015_02134bd8
