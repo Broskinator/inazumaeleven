@@ -55,7 +55,8 @@ def main():
     obj = f"build/tmp/fncmp_{os.getpid()}.o"   # (relative: the compiler run by wibo writes there reliably)
     env = dict(os.environ, LM_LICENSE_FILE=f"{ROOT}/tools/mwccarm/license.dat", MWCIncludes=f"{ROOT}/include")
     lang = ["-lang", "c++"] if src.endswith(".cpp") else ["-lang", "c99"]
-    r = subprocess.run([f"{ROOT}/tools/bin/wibo", f"{ROOT}/tools/mwccarm/{CC_VER}/mwccarm.exe", *lang, *CFLAGS, "-c", src, "-o", obj],
+    wibo = [] if os.name == "nt" else [f"{ROOT}/tools/bin/wibo"]   # (on Windows the compiler runs as it is)
+    r = subprocess.run([*wibo, f"{ROOT}/tools/mwccarm/{CC_VER}/mwccarm.exe", *lang, *CFLAGS, "-c", src, "-o", obj],
                        cwd=ROOT, env=env, capture_output=True, text=True)
     obj = f"{ROOT}/{obj}"
     if r.returncode or not os.path.exists(obj):
@@ -64,7 +65,8 @@ def main():
     mods, syms = modules()
     for n, ad in extra.items():
         syms[n] = (next(m for m, (b, blob) in mods.items() if b <= ad < b + len(blob)), ad)
-    f = ELFFile(open(obj, "rb"))
+    objfile = open(obj, "rb")
+    f = ELFFile(objfile)
     rel = {}
     for s in f.iter_sections():
         if isinstance(s, RelocationSection):
@@ -98,6 +100,7 @@ def main():
                 a = A[k] if k < len(A) else ""
                 b = B[k] if k < len(B) else ""
                 print(("   " if a == b or (a.startswith("bl") and b.startswith("bl")) else ">> ") + f"{a:44s}{b}")
+    objfile.close()   # (Windows cannot remove a file that is still open)
     os.remove(obj)
     sys.exit(0 if ok else 1)
 

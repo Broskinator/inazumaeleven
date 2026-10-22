@@ -28,7 +28,8 @@ your own copy of the ROM:
 
 ## Building
 
-Requirements: Linux (or WSL on Windows), `make`, `python3`, `curl`, `unzip`.
+Requirements: Linux, or Windows with Git Bash / MSYS2 (no WSL needed: the tools are
+downloaded as Windows programs and the compiler runs directly); `make`, `python3`, `curl`.
 
 1. Put your ROM in this folder as `baserom_yeep.nds`.
 2. Run `make`.

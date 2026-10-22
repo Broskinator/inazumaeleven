@@ -23,7 +23,7 @@ print(f"{len(decls)} declarations")
 
 def score(order):
     open(src, "w").write(text[:brace] + "\n".join(order) + "\n" + rest)
-    r = subprocess.run(["python3", "tools/fncmp.py", src, name], capture_output=True, text=True).stdout
+    r = subprocess.run([sys.executable, "tools/fncmp.py", src, name], capture_output=True, text=True).stdout
     m = re.search(r"(\d+) words differ", r)
     return 0 if "OK" in r else int(m.group(1)) if m else 9999
 

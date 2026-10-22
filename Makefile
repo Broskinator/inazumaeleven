@@ -10,8 +10,18 @@ VERSION  ?= yeep
 BASEROM  := baserom_$(VERSION).nds
 SHA1     := d55169c0b93d26b4037379d3b81a61b5404945e5
 
-DSD      := tools/bin/dsd
+# on Windows (Git Bash / MSYS2) the tools are the .exe builds and the compiler runs without wibo
+ifeq ($(OS),Windows_NT)
+EXE      := .exe
+WIBO     :=
+PYTHON   ?= python
+else
+EXE      :=
 WIBO     := tools/bin/wibo
+PYTHON   ?= python3
+endif
+DSD      := tools/bin/dsd$(EXE)
+OBJDIFF  := tools/bin/objdiff-cli$(EXE)
 MW       := tools/mwccarm/2.0/sp1p5
 MWLD     := $(WIBO) $(MW)/mwldarm.exe
 CC_VER   := dsi/1.2
@@ -36,8 +46,8 @@ LDFLAGS  := -proc arm946e -nostdlib -interworking -m Entry -map closure,unused
 .PHONY: all setup check progress clean distclean
 all: check
 
-setup: $(DSD) $(WIBO) $(MW)/mwldarm.exe tools/bin/objdiff-cli
-$(DSD) $(WIBO) $(MW)/mwldarm.exe tools/bin/objdiff-cli:
+setup: $(DSD) $(WIBO) $(MW)/mwldarm.exe $(OBJDIFF)
+$(DSD) $(WIBO) $(MW)/mwldarm.exe $(OBJDIFF):
 	sh tools/setup.sh
 
 # 1. unpack the original ROM (code, overlays, files)
@@ -49,7 +59,7 @@ $(EXTRACT)/config.yaml: $(BASEROM) | setup
 $(BUILD)/arm9.lcf: $(EXTRACT)/config.yaml $(shell find config/$(VERSION) -name '*.txt' -o -name '*.yaml')
 	$(DSD) delink -c $(CONFIG)
 	$(DSD) lcf -c $(CONFIG)
-	python3 tools/lcfextra.py $@ config/$(VERSION)/arm9/lcf_symbols.txt
+	$(PYTHON) tools/lcfextra.py $@ config/$(VERSION)/arm9/lcf_symbols.txt
 
 # 3. compile the decompiled code
 HEADERS  := $(shell find include -name '*.h' -o -name '*.hpp')
@@ -69,7 +79,7 @@ $(ROM): $(ELF)
 	$(DSD) check modules -c $(CONFIG)
 	$(DSD) rom config -e $(ELF) -c $(CONFIG)
 	$(DSD) rom build -c $(BUILD)/build/rom_config.yaml -o $@
-	python3 tools/fixrom.py $@
+	$(PYTHON) tools/fixrom.py $@
 
 check: $(ROM)
 	@echo "$(SHA1)  $(ROM)" | sha1sum -c
@@ -77,8 +87,8 @@ check: $(ROM)
 # decompilation progress (objdiff); objdiff.json can also be opened in the objdiff GUI
 progress: $(ELF)
 	$(DSD) objdiff -c $(CONFIG) -o . -m make -M $(ELF) --skip-absent-objects
-	tools/bin/objdiff-cli report generate -p . -o $(BUILD)/report.json
-	@python3 tools/progress.py $(BUILD)/report.json
+	$(OBJDIFF) report generate -p . -o $(BUILD)/report.json
+	@$(PYTHON) tools/progress.py $(BUILD)/report.json
 
 $(BASEROM):
 	@echo "Put your ROM here as $(BASEROM) (see README.md)"; exit 1
