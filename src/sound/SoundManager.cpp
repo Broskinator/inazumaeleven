@@ -9,8 +9,6 @@
 
 extern GameHeap data_020c47b4;
 extern FileManager data_020c6364;
-extern "C" void SND_Init(void);
-extern "C" void SND_LockChannel(void);
 extern "C" void _ZN11MoviePlayer12GetFrameRateEv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ll_udiv(void);
@@ -49,23 +47,7 @@ extern "C" char data_020abe54[];
 extern "C" char data_020abe64[];
 extern "C" char data_020c484c[];
 extern "C" char data_020c4f60[];
-extern "C" void func_020406d8(void);
-extern "C" void func_02040854(void);
-extern "C" void func_02040884(void);
-extern "C" void func_020408b4(void);
-extern "C" void func_020408e0(void);
-extern "C" void func_02040924(void);
 extern "C" void func_02041d90(void);
-extern "C" void func_02042aec(void);
-extern "C" void func_0204802c(void);
-extern "C" void func_02048088(void);
-extern "C" void func_020480a8(void);
-extern "C" void func_020480c8(void);
-extern "C" void func_020480f4(void);
-extern "C" void func_0204812c(void);
-extern "C" void func_02048168(void);
-extern "C" void func_0204817c(void);
-extern "C" void func_0204832c(void);
 extern "C" void func_0204871c(void);
 extern "C" void func_02048730(void);
 extern "C" void func_020487c4(void);
@@ -73,6 +55,14 @@ extern "C" void func_02048bb8(void);
 extern "C" void func_02048d80(void);
 extern "C" void func_02049258(void);
 extern "C" void func_02049420(void);
+extern "C" void SND_Init(void);
+extern "C" void SND_LockChannel(u32 channels, u32 flags);
+extern "C" void func_020406d8(SoundDriverConfig *config);
+extern "C" void func_02040854(SoundDriverConfig *config, void *memory, u32 size);
+extern "C" void func_02040884(SoundDriverConfig *config, int, int);
+extern "C" void func_020408b4(SoundDriverConfig *config, int);
+extern "C" void func_020408e0(SoundDriverConfig *config, int, int);
+extern "C" void func_02040924(SoundDriverConfig *config);    // starts the driver
 extern "C" void func_02040b64(int);
 extern "C" void func_02040c00(int);
 extern "C" void func_02040c98(int);
@@ -83,6 +73,7 @@ extern "C" void func_02041d40(void *sequence);
 extern "C" int func_02041d78(void *sequence);
 extern "C" void func_02041e70(void *sequence, int);
 extern "C" void func_02041f10(void *sequence, SoundParam *param);
+extern "C" void func_02042aec(int, int);
 extern "C" void *func_02042be4(void *data);               // a bank of effects
 extern "C" void func_02042d98(u16 effects);
 extern "C" void func_02042e28(u32 sound, int);
@@ -90,14 +81,21 @@ extern "C" void func_02042ef4(u32 sound, int, SoundParam *param);
 extern "C" void func_02043484(u32 sound, int, u16);
 extern "C" void func_020435d8(u16);
 extern "C" void func_02043644(u16 effects);
+extern "C" void func_0204802c(void *streams);
+extern "C" void func_02048088(void *streams, int);
+extern "C" void func_020480a8(void *streams, int);
+extern "C" void func_020480c8(void *streams, int);
+extern "C" void func_020480f4(void *streams, int, int);
+extern "C" void func_0204812c(void *streams, int);
+extern "C" void func_02048168(void *streams, void *(*alloc)(void *, u32), void *(*free)(void *, void *), int);
+extern "C" void func_0204817c(void *streams, int);
+extern "C" void func_0204832c(void *streams);
 extern "C" int func_02048d30(void *stream);
 extern "C" void func_02048f60(void *stream, int);
 extern "C" void func_02049180(void *stream, SoundParam *param);
 extern "C" void func_020494c0(void *stream, SoundStreamInfo *info);
 extern "C" BOOL func_0209dd60(FSFileID *id, const char *path);   // the id of a file
 extern "C" BOOL func_0209ddd0(FSFile *file, const char *path);    // opens a file by its path
-
-BOOL GetSoundFilePath(const char *name, char *path, u32 length);
 
 // (files are loaded through the heap's file manager)
 static inline int ReleaseFile(GameHeap *heap, void *buffer)
@@ -111,8 +109,6 @@ static inline void CancelFile(GameHeap *heap, void *buffer)
         heap->fileManager->Cancel(buffer, FALSE);
     }
 }
-
-BOOL GetSoundFilePath(const char *name, char *path, u32 length);
 
 BOOL GetSoundFilePath(const char *name, char *path, u32 length)
 {
@@ -158,6 +154,65 @@ void *SoundManager::Free(void *arg, void *ptr)
     return ptr;
 }
 
+// (nonmatching: the volumes are stored before the first MI_CpuClear8's arguments are set up)
+#ifdef NONMATCHING
+void SoundManager::Init(GameHeap *heap)
+{
+    SoundDriverConfig config;
+    void *memory;
+    int i;
+
+    this->heap = heap;
+    SND_Init();
+    SND_LockChannel(0xFFFF, 0);
+
+    memory = this->heap->Alloc(0x1C00F, 4, TRUE);
+    func_020406d8(&config);
+    func_02040854(&config, (void *)(((u32)memory + 0xF) & ~0xF), 0x1C000);
+    func_02040884(&config, 0, 4);
+    func_020408b4(&config, 5);
+    func_020408e0(&config, 0, 0xF);
+    func_02040924(&config);
+    func_02042aec(4, 4);
+
+    func_0204802c(unk_04);
+    func_02048088(unk_04, 6);
+    func_020480a8(unk_04, 0x14);
+    func_020480c8(unk_04, 1);
+    func_020480f4(unk_04, 0, 0xF);
+    func_0204812c(unk_04, 0x1000);
+    func_02048168(unk_04, Alloc, Free, 0);
+    func_0204817c(unk_04, 0x1000);
+    func_0204832c(unk_04);
+
+    volumes[0] = 0x7F;
+    volumes[1] = 0x7F;
+    volumes[2] = 0x7F;
+    volume = 1000;
+    unk_518 = 1000;
+
+    MI_CpuClear8(banks, sizeof(banks));
+    MI_CpuClear8(pairs, sizeof(pairs));
+    MI_CpuClear8(tracks, sizeof(tracks));
+    MI_CpuClear8(streams, sizeof(streams));
+    MI_CpuClear8(requests, sizeof(requests));
+    MI_CpuClear8(current, sizeof(current));
+    MI_CpuClear8(next, sizeof(next));
+    MI_CpuClear8(saved, sizeof(saved));
+    MI_CpuClear8(unk_470, sizeof(unk_470));
+    MI_CpuClear8(unk_4c0, sizeof(unk_4c0));
+    for (i = 0; i < SOUND_NUM_TRACKS; i++) {
+        tracks[i].wave = -1;
+        tracks[i].sequence = -1;
+    }
+
+    // the first bank is kept for the streams
+    banks[0].type = SOUND_BANK_STREAM;
+    banks[0].data = this->heap->Alloc(0x64000, 4, TRUE);
+    scene = 0;
+    unk_520 = 0;
+}
+#else
 asm void SoundManager::Init(GameHeap *heap)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
@@ -303,6 +358,7 @@ asm void SoundManager::Init(GameHeap *heap)
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
+#endif
 
 void SoundManager::func_02039bcc()
 {
@@ -369,174 +425,78 @@ BOOL SoundManager::AreBanksReady()
     return TRUE;
 }
 
-asm BOOL SoundManager::SetScene(int scene, int arg1, int arg2)
+// loads the banks of a scene of the game
+BOOL SoundManager::SetScene(int scene, int arg1, int arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x20
-    mov r4, r0
-    ldr r5, [r4, #0x51c]
-    mov r9, r1
-    mov r7, r2
-    mov r6, r3
-    cmp r5, r9
-    mov r8, #0
-    beq @L_02039d74
-    bl EndScene
-@L_02039d74:
-    str r9, [r4, #0x51c]
-    cmp r9, #0xb
-    addls pc, pc, r9, lsl #2
-    b @L_02039f9c
-    b @L_02039f9c
-    b @L_02039f9c
-    b @L_02039db4
-    b @L_02039ddc
-    b @L_02039e04
-    b @L_02039e2c
-    b @L_02039e8c
-    b @L_02039e64
-    b @L_02039eec
-    b @L_02039f78
-    b @L_02039f9c
-    b @L_02039f9c
-@L_02039db4:
-    ldr r2, =data_020abcec
-    ldr r3, =data_020abcf8
-    mov r0, r4
-    mov r1, r8
-    bl LoadPair
-    cmp r0, #0
-    bne @L_02039f9c
-    add sp, sp, #0x20
-    mov r0, r8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02039ddc:
-    ldr r2, =data_020abd04
-    ldr r3, =data_020abd10
-    mov r0, r4
-    mov r1, r8
-    bl LoadPair
-    cmp r0, #0
-    bne @L_02039f9c
-    add sp, sp, #0x20
-    mov r0, r8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02039e04:
-    ldr r2, =data_020abd1c
-    ldr r3, =data_020abd28
-    mov r0, r4
-    mov r1, #2
-    bl LoadPair
-    cmp r0, #0
-    bne @L_02039f9c
-    add sp, sp, #0x20
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02039e2c:
-    mov r0, r4
-    mov r1, r8
-    mov r2, #6
-    bl func_0203a3c4
-    ldr r2, =data_020abd34
-    ldr r3, =data_020abd40
-    mov r0, r4
-    mov r1, #2
-    bl LoadPair
-    cmp r0, #0
-    bne @L_02039f9c
-    add sp, sp, #0x20
-    mov r0, r8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02039e64:
-    ldr r2, =data_020abd4c
-    ldr r3, =data_020abd58
-    mov r0, r4
-    mov r1, #1
-    bl LoadPair
-    cmp r0, #0
-    bne @L_02039f9c
-    add sp, sp, #0x20
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02039e8c:
-    ldr r2, =data_020abd64
-    ldr r3, =data_020abd70
-    mov r0, r4
-    mov r1, #1
-    bl LoadPair
-    cmp r5, #5
-    bne @L_02039f9c
-    mov r6, #0x28
-    mov r9, #0
-    add r7, r4, #0x470
-    mov r5, r6
-@L_02039eb8:
-    mov r0, r4
-    mov r1, r9
-    mov r2, r8
-    mov r3, r8
-    bl func_0203a724
-    mla r0, r9, r5, r7
-    mov r1, r8
-    mov r2, r6
-    bl MI_CpuFill8
-    add r9, r9, #1
-    cmp r9, #2
-    blt @L_02039eb8
-    b @L_02039f9c
-@L_02039eec:
-    cmp r7, #0
-    beq @L_02039f20
-    add r5, sp, #0
-    ldr r1, =data_020abd7c
-    mov r0, r5
-    mov r2, r7
-    bl sprintf
-    mov r0, r4
-    mov r2, r5
-    mov r1, #0
-    mov r3, #1
-    bl func_0203a3e0
-    b @L_02039f30
-@L_02039f20:
-    mov r1, #0
-    mov r0, r4
-    mov r2, r1
-    bl func_0203a3c4
-@L_02039f30:
-    cmp r6, #0
-    beq @L_02039f64
-    add r5, sp, #0
-    ldr r1, =data_020abd84
-    mov r0, r5
-    mov r2, r6
-    bl sprintf
-    mov r1, #1
-    mov r0, r4
-    mov r2, r5
-    mov r3, r1
-    bl func_0203a3e0
-    b @L_02039f9c
-@L_02039f64:
-    mov r0, r4
-    mov r1, #1
-    mov r2, #0
-    bl func_0203a3c4
-    b @L_02039f9c
-@L_02039f78:
-    ldr r2, =data_020abd8c
-    ldr r3, =data_020abd98
-    mov r0, r4
-    mov r1, #1
-    bl LoadPair
-    cmp r0, #0
-    addeq sp, sp, #0x20
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02039f9c:
-    mov r0, #1
-    add sp, sp, #0x20
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    char name[0x20];
+    int previous = this->scene;
+    int i;
+
+    if (previous != scene) {
+        EndScene();
+    }
+    this->scene = scene;
+
+    switch (scene) {
+    case 2:
+        if (!LoadPair(0, data_020abcec, data_020abcf8)) {
+            return FALSE;
+        }
+        break;
+    case 3:
+        if (!LoadPair(0, data_020abd04, data_020abd10)) {
+            return FALSE;
+        }
+        break;
+    case 4:
+        if (!LoadPair(2, data_020abd1c, data_020abd28)) {
+            return FALSE;
+        }
+        break;
+    case 5:
+        func_0203a3c4(0, 6);
+        if (!LoadPair(2, data_020abd34, data_020abd40)) {
+            return FALSE;
+        }
+        break;
+    case 7:
+        if (!LoadPair(1, data_020abd4c, data_020abd58)) {
+            return FALSE;
+        }
+        break;
+    case 6:
+        LoadPair(1, data_020abd64, data_020abd70);
+        if (previous == 5) {
+            for (i = 0; i < SOUND_NUM_TRACKS; i++) {
+                func_0203a724(i, 0, 0);
+                MI_CpuFill8(&unk_470[i], 0, sizeof(SoundRequest));
+            }
+        }
+        break;
+    case 8:
+        if (arg1 != 0) {
+            sprintf(name, data_020abd7c, arg1);
+            func_0203a3e0(0, name, 1);
+        } else {
+            func_0203a3c4(0, 0);
+        }
+        if (arg2 != 0) {
+            sprintf(name, data_020abd84, arg2);
+            func_0203a3e0(1, name, 1);
+        } else {
+            func_0203a3c4(1, 0);
+        }
+        break;
+    case 9:
+        if (!LoadPair(1, data_020abd8c, data_020abd98)) {
+            return FALSE;
+        }
+        break;
+    case 10:
+    case 11:
+        break;
+    }
+    return TRUE;
 }
 
 // frees the banks of the scene that ends
@@ -806,78 +766,37 @@ void SoundManager::func_0203a5c8(int index, int id, int arg, int arg2)
     func_0203a5e8(index, data_020abc68[id], arg, arg2);
 }
 
-asm void SoundManager::func_0203a5e8(int index, const char *name, int arg, int arg2)
+void SoundManager::func_0203a5e8(int index, const char *name, int arg, int arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r7, r2
-    ldrsb r2, [r7]
-    mov r9, r0
-    mov r8, r1
-    mov r6, r3
-    cmp r2, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r7
-    mov r1, #0x2e
-    mov r4, #1
-    bl strrchr
-    movs r5, r0
-    beq @L_0203a648
-    ldr r1, =data_020abdcc
-    bl STD_CompareString
-    cmp r0, #0
-    beq @L_0203a644
-    ldr r1, =data_020abdd4
-    mov r0, r5
-    bl STD_CompareString
-    cmp r0, #0
-    bne @L_0203a648
-@L_0203a644:
-    mov r4, #2
-@L_0203a648:
-    cmp r6, #0
-    bge @L_0203a690
-    mov r0, #0x28
-    mul r12, r8, r0
-    add r5, r9, r12
-    add r0, r5, #0x300
-    ldrsh r0, [r0, #0xf0]
-    cmp r0, #0
-    beq @L_0203a690
-    add r0, r5, #0x400
-    add r2, r9, #0x4c0
-    strh r4, [r0, #0xe0]
-    ldr r3, [sp, #0x20]
-    mov r1, r7
-    add r0, r2, r12
-    str r3, [r5, #0x4e4]
-    bl STD_CopyString
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0203a690:
-    mov r0, #0x28
-    mul r5, r8, r0
-    add r0, r9, #0x380
-    mov r1, r7
-    add r0, r0, r5
-    bl STD_CompareString
-    cmp r0, #0
-    bne @L_0203a6c4
-    add r0, r9, #0x500
-    ldrh r1, [r0, #0x16]
-    mov r0, r9
-    bl ApplyVolume
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0203a6c4:
-    add r8, r9, r5
-    add r2, r9, #0x3d0
-    str r6, [r8, #0x3a4]
-    add r0, r8, #0x300
-    ldr r3, [sp, #0x20]
-    strh r4, [r0, #0xf0]
-    mov r1, r7
-    add r0, r2, r5
-    str r3, [r8, #0x3f4]
-    bl STD_CopyString
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    int type;
+    char *ext;
+
+    if (name[0] == '\0') {
+        return;
+    }
+
+    type = 1;
+    ext = strrchr(name, '.');
+    if (ext != NULL && (STD_CompareString(ext, data_020abdcc) == 0 || STD_CompareString(ext, data_020abdd4) == 0)) {
+        type = 2;
+    }
+
+    if (arg < 0 && next[index].type != 0) {
+        unk_4c0[index].type = type;
+        unk_4c0[index].unk_24 = arg2;
+        STD_CopyString(unk_4c0[index].name, name);
+        return;
+    }
+
+    if (STD_CompareString(current[index].name, name) == 0) {
+        ApplyVolume(volume);
+        return;
+    }
+
+    current[index].unk_24 = arg;
+    next[index].type = type;
+    next[index].unk_24 = arg2;
+    STD_CopyString(next[index].name, name);
 }
 
 void SoundManager::func_0203a6f8(int index, int arg, int arg2)

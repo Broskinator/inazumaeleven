@@ -54,6 +54,11 @@ struct SoundTrack {
     s32 unk_28;
 };
 
+// The settings the driver is started with
+struct SoundDriverConfig {
+    u8 data[0x40];
+};
+
 // Parameters of a sound for the driver (flags 4: volume and fade time)
 struct SoundParam {
     s32 flags;
@@ -171,7 +176,7 @@ public:
     void func_0203bd04();
 
     GameHeap *heap;
-    u8 unk_04[0x40];
+    u8 unk_04[0x40];        // the driver's streams
     SoundParam param;
     SoundBank banks[SOUND_NUM_BANKS];
     SoundBankPair pairs[SOUND_NUM_BANK_PAIRS];

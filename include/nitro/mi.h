@@ -19,6 +19,11 @@ static inline void MI_CpuClearFast(void *destp, u32 size)
     MIi_CpuClearFast(0, destp, size);
 }
 
+static inline void MI_CpuClear8(void *dest, u32 size)
+{
+    MI_CpuFill8(dest, 0, size);
+}
+
 #ifdef __cplusplus
 }
 #endif
