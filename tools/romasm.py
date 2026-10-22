@@ -27,6 +27,13 @@ def main():
     calls = {}
     loads = {}
     for line in open(f"{ROOT}/config/yeep/arm9/relocs.txt"):
+        m = re.match(r"from:(0x[0-9a-f]+) kind:arm_call to:(0x[0-9a-f]+) module:overlay\((\d+)\)", line)
+        if m:
+            # (a call into an overlay: named from that overlay's symbols)
+            ov = int(m.group(3))
+            to = int(m.group(2), 16)
+            calls[int(m.group(1), 16)] = ("ov", ov, to)
+            continue
         m = re.match(r"from:(0x[0-9a-f]+) kind:arm_call to:(0x[0-9a-f]+)", line)
         if m:
             calls[int(m.group(1), 16)] = int(m.group(2), 16)
@@ -63,7 +70,16 @@ def main():
             out.append(f"@L_{i.address:08x}:")
         op = i.op_str
         mn = i.mnemonic
-        if i.address in calls:
+        if i.address in calls and isinstance(calls[i.address], tuple):
+            _, ov, to = calls[i.address]
+            t = f"func_ov{ov:03d}_{to:08x}"
+            for line in open(f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}/symbols.txt"):
+                mm = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", line)
+                if mm and int(mm.group(2), 16) == to:
+                    t = mm.group(1)
+                    break
+            op = t
+        elif i.address in calls:
             t = names.get(calls[i.address], f"func_{calls[i.address]:08x}")
             if t.startswith("_Z"):
                 t = short(t, cls) or t

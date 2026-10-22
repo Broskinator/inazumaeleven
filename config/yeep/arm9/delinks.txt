@@ -413,3 +413,7 @@ src/sound/SoundManager.cpp:
 src/wireless/Wireless.cpp:
     complete
     .text start:0x0203c0ec end:0x0203dc7c
+
+src/game/UnkClass_0203dc7c.cpp:
+    complete
+    .text start:0x0203dc7c end:0x0203e2fc
