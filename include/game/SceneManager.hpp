@@ -26,6 +26,8 @@ struct PMSleepCallbackInfo {
     u32 unk_0c;
 };
 
+#define SCENE_OBJECT 2           // (the current scene in objects)
+
 #define PLAY_TIME_MAX (((999 * 60 + 59) * 60 + 59) * 60 + 59)   // frames
 
 // A part of a scene with its own vtable and a pointer back to the scene
@@ -68,6 +70,17 @@ struct Scene8 : public UnkClass_0203dc7c {
     ScenePart part2;
     u8 unk_684[0x7C];
     s32 unk_700;
+};
+
+// (what a scene is started with, in data_020c4ab4)
+struct SceneStartInfo {
+    u8 unk_00[0xBE];
+    u8 unk_be;
+    u8 unk_bf;
+    u8 unk_c0;
+    u8 unk_c1_0 : 3;
+    u8 unk_c1_3 : 3;
+    u8 unk_c1_6 : 2;
 };
 
 // Creates the game's scenes (each a subclass of UnkClass_0203dc7c, its code in an overlay) and switches between them; its state is in data_020c45a0
@@ -132,11 +145,11 @@ public:
     static Scene3Part *func_0203ea9c(Scene3Part *part);
     void func_0203ead4();
     static void func_0203ead8();
-    void func_0203eba4();
+    static void func_0203eba4();
     static void func_0203ecd4(void *arg);
     static void func_0203ed14(void *arg);
     static void func_0203ed3c();
-    void func_0203ed88();
+    static void func_0203ed88();
     static void func_0203ee70();
     static void func_0203ef38();
     void func_0203efc8();
@@ -144,8 +157,8 @@ public:
     void func_0203f248();
     static void func_0203f2e8();
     static void func_0203f310();
-    void func_0203f338();
-    void func_0203f3b4();
+    static void func_0203f338();
+    static void func_0203f3b4();
     void func_0203f42c();
     void func_0203f500();
     static void func_0203f5d0();
@@ -192,8 +205,8 @@ struct SceneManagerGlobals {
     s32 currentScene;
     s32 previousScene;
     u8 unk_14[0xC];
-    u8 calibrate[0x10];         // data_020c45c0
-    UnkObject *scene;           // the current scene
+    u8 calibrate[8];            // data_020c45c0
+    UnkObject *objects[3];      // the last one is the current scene
     PMSleepCallbackInfo preSleep;
     PMSleepCallbackInfo postSleep;
 };

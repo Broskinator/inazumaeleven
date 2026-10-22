@@ -3,10 +3,16 @@
 #include "sound/SoundManager.hpp"
 #include "movie/MoviePlayer.hpp"
 #include "game/GameState.hpp"
+#include "save/SaveManager.hpp"
 #include "data/ConfigFile.hpp"
 #include "nitro/mi.h"
 
-extern "C" u8 data_020c5320[];
+struct UnkSystem5320 {
+    u8 unk_00[0x58];
+    s32 unk_58;
+    s32 unk_5c;
+};
+extern UnkSystem5320 data_020c5320;
 extern "C" void func_0209bebc(void *);
 extern "C" void func_020100e4(PMSleepCallbackInfo *info);        // adds a callback before sleep
 extern "C" void func_02010124(PMSleepCallbackInfo *info);        // adds a callback after sleep
@@ -38,7 +44,6 @@ extern "C" char data_020abff4[];
 extern "C" char data_020ac008[];
 extern "C" char data_020afeac[];
 extern "C" char data_020c45c0[];
-extern "C" char data_020c45c8[];
 extern "C" char data_020c45d4[];
 extern "C" char data_020c45e4[];
 extern "C" char data_020c4650[];
@@ -48,14 +53,11 @@ extern "C" char data_020c4674[];
 extern "C" char data_020c4678[];
 extern "C" char data_020c467c[];
 extern "C" char data_020c4694[];
-extern "C" char data_020c46c0[];
 extern "C" char data_020c46d4[];
 extern "C" char data_020c47b4[];
 extern "C" char data_020c4808[];
 extern "C" char data_020c4850[];
 extern "C" char data_020c4a40[];
-extern "C" char data_020c4ab4[];
-extern "C" char data_020c4c70[];
 extern "C" char data_020d9978[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov000_02117c6c[];
@@ -93,6 +95,20 @@ extern "C" char data_ov014_021246fc[];
 extern "C" char data_ov046_0216acc0[];
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 
+extern "C" s32 data_020c46c0;
+extern "C" UnkObject *data_020c45c8[3];      // (= data_020c45a0.objects)
+extern SceneStartInfo data_020c4ab4;
+extern SaveManager data_020c4c70;
+extern "C" BOOL func_ov015_02131828(void);
+extern "C" void func_0209c628(void);
+extern "C" void func_0209c648(void);
+extern "C" void func_0209be60(void);
+extern "C" int PM_GetLCDPower(void);
+extern "C" void func_0200846c(void);
+extern "C" void func_020025b8(void);
+extern "C" void func_0200ff28(int);
+extern "C" void func_0200fa3c(int, int, int);
+#define REG_DISPCNT_SUB (*(volatile u32 *)0x04001000)
 #define REG_KEYINPUT (*(volatile u16 *)0x04000130)
 
 extern "C" void func_ov015_021323a4(int);
@@ -102,6 +118,7 @@ extern "C" void func_ov015_021324a4(void);
 extern "C" void func_ov015_021324b4(void);
 extern "C" BOOL func_ov015_02134bd8(FSOverlayID overlay);     // loads the overlay of a scene
 extern "C" void func_0200878c(void);
+extern "C" void _ZN11SaveManager6IsDoneEv(void);     // (for the asm functions)
 extern "C" void _Znwm(void);       // (operator new, for the asm functions)
 extern "C" void func_ov015_02132554(int);
 extern "C" void func_ov015_02132568(int);
@@ -115,9 +132,7 @@ extern "C" void func_ov015_021327ec(int);
 extern "C" void func_ov015_0213290c(void);
 extern "C" void func_ov015_0213291c(void);
 
-extern "C" void PM_GetLCDPower(void);
 extern "C" void _ZN11MoviePlayer5PauseEv(void);
-extern "C" void _ZN11SaveManager6IsDoneEv(void);
 extern "C" void _ZN12SoundManager13func_02039bccEv(void);
 extern "C" void _ZN12SoundManager6UpdateEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc7cEv(void);
@@ -125,11 +140,7 @@ extern "C" void _ZN8GameHeap7GetInfoEPmS0_S0_(void);
 extern "C" void _ZN9EntryPool4InitEv(void);
 extern "C" void _ZdlPv(void);
 extern "C" void func_01ff9ea4(void);
-extern "C" void func_020025b8(void);
 extern "C" void func_020025f8(void);
-extern "C" void func_0200846c(void);
-extern "C" void func_0200fa3c(void);
-extern "C" void func_0200ff28(void);
 extern "C" void func_0202b4c4(void);
 extern "C" void func_02051c54(void);
 extern "C" void func_0208897c(void);
@@ -146,9 +157,6 @@ extern "C" void func_020920b4(void);
 extern "C" void func_02096048(void);
 extern "C" void func_0209605c(void);
 extern "C" void func_02096070(void);
-extern "C" void func_0209be60(void);
-extern "C" void func_0209c628(void);
-extern "C" void func_0209c648(void);
 extern "C" void func_0209d240(void);
 extern "C" void func_0209d480(void);
 extern "C" void func_ov000_0210048c(void);
@@ -156,7 +164,6 @@ extern "C" void func_ov000_02110de4(void);
 extern "C" void func_ov001_0211bcd0(void);
 extern "C" void func_ov003_020fd8ec(void);
 extern "C" void func_ov003_0210eb00(void);
-extern "C" void func_ov015_02131828(void);
 extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_0213238c(void);
 extern "C" BOOL func_ov015_02132794(void);      // TRUE while busy
@@ -797,12 +804,12 @@ void SceneManager::func_0203ead8()
         return;
     }
 
-    if (data_020c45a0.scene != NULL) {
-        data_020c45a0.scene->vtable->func_2c(data_020c45a0.scene);
-        if (data_020c45a0.scene != NULL) {
-            data_020c45a0.scene->vtable->Delete(data_020c45a0.scene);
+    if (data_020c45a0.objects[SCENE_OBJECT] != NULL) {
+        data_020c45a0.objects[SCENE_OBJECT]->vtable->func_2c(data_020c45a0.objects[SCENE_OBJECT]);
+        if (data_020c45a0.objects[SCENE_OBJECT] != NULL) {
+            data_020c45a0.objects[SCENE_OBJECT]->vtable->Delete(data_020c45a0.objects[SCENE_OBJECT]);
         }
-        data_020c45a0.scene = NULL;
+        data_020c45a0.objects[SCENE_OBJECT] = NULL;
     }
     if (data_020c45a0.currentScene != 0) {
         desc = func_0203e31c(data_020c45a0.currentScene);
@@ -812,18 +819,55 @@ void SceneManager::func_0203ead8()
     }
     desc = func_0203e31c(data_020c45a0.nextScene);
     if (desc != NULL) {
-        data_020c45a0.scene = (UnkObject *)func_0203e348(desc);
+        data_020c45a0.objects[SCENE_OBJECT] = (UnkObject *)func_0203e348(desc);
     }
 
     data_020c45a0.previousScene = data_020c45a0.currentScene;
     data_020c45a0.currentScene = data_020c45a0.nextScene;
     data_020c45a0.nextScene = 0;
-    if (data_020c45a0.scene == NULL) {
+    if (data_020c45a0.objects[SCENE_OBJECT] == NULL) {
         return;
     }
-    ((void (*)(UnkObject *))data_020c45a0.scene->vtable->func_08)(data_020c45a0.scene);
+    ((void (*)(UnkObject *))data_020c45a0.objects[SCENE_OBJECT]->vtable->func_08)(data_020c45a0.objects[SCENE_OBJECT]);
 }
 
+// chooses the first scene (from how the game was started) and switches to it
+// (nonmatching: the branches for the start modes are laid out differently)
+#ifdef NONMATCHING
+void SceneManager::func_0203eba4()
+{
+    u32 mode;
+
+    data_020c45a0.previousScene = 0;
+    data_020c45a0.currentScene = 0;
+    if (data_020c46c0 != 0) {
+        data_020c45a0.nextScene = 5;
+    } else {
+        mode = *(u32 *)0x02FFFC20;
+        gGameState.unk_000[0x7C] = 0;
+        if (mode == 0) {
+            data_020c45a0.nextScene = 4;
+        } else if (mode == 0x16 || mode == 0x15) {
+            data_020c4ab4.unk_be = 1;
+            data_020c4ab4.unk_c0 = 6;
+            data_020c45a0.nextScene = 1;
+        } else if (mode >= 0x17 && mode <= 0x19) {
+            data_020c4ab4.unk_be = 0;
+            data_020c4ab4.unk_c1_0 = mode - 0x16;
+            gGameState.unk_000[0x7C] = 1;
+            data_020c45a0.nextScene = 1;
+        } else if (mode >= 0x1A && mode <= 0x1C) {
+            data_020c4ab4.unk_be = 0;
+            data_020c4ab4.unk_c1_3 = mode - 0x19;
+            data_020c45a0.nextScene = 1;
+        } else {
+            data_020c4ab4.unk_be = 0;
+            data_020c45a0.nextScene = 1;
+        }
+    }
+    func_0203ead8();
+}
+#else
 asm void SceneManager::func_0203eba4()
 {
     stmdb sp!, {r3, lr}
@@ -905,11 +949,12 @@ asm void SceneManager::func_0203eba4()
     bl func_0203ead8
     ldmia sp!, {r3, pc}
 }
+#endif
 
 // (before the DS goes to sleep)
 void SceneManager::func_0203ecd4(void *arg)
 {
-    func_0209bebc(data_020c5320);
+    func_0209bebc(&data_020c5320);
     data_020c4f60.Pause();
     data_020c5e40.Update();
     OS_Sleep(20);
@@ -934,6 +979,47 @@ void SceneManager::func_0203ed3c()
     func_02010124(&data_020c45a0.postSleep);
 }
 
+// when the lid is closed: sleeps, or turns the screens off if the game cannot sleep now
+// (nonmatching: the sleep checks are laid out differently)
+#ifdef NONMATCHING
+void SceneManager::func_0203ed88()
+{
+    BOOL noSleep;
+
+    if (!data_020c4c70.IsDone()) {
+        return;
+    }
+    noSleep = FALSE;
+    if (func_ov015_02131828() != 0 || gGameState.unk_000[0x9A] != 0 || gGameState.unk_000[0x99] != 0) {
+        noSleep = TRUE;
+    } else if (!(data_020c5320.unk_58 == 0 || noSleep)) {
+        switch (data_020c5320.unk_5c) {
+        case 1:
+            func_0209c628();
+            break;
+        case 2:
+            func_0209c648();
+            break;
+        default:
+            func_0209be60();
+            break;
+        }
+    }
+
+    if (noSleep) {
+        if (PM_GetLCDPower() != 1) {
+            return;
+        }
+        func_0200846c();
+        func_020025b8();
+        REG_DISPCNT_SUB &= ~0x10000;
+        func_0200846c();
+        func_0200ff28(0);
+        return;
+    }
+    func_0200fa3c(0xC, 0, 0);
+}
+#else
 asm void SceneManager::func_0203ed88()
 {
     stmdb sp!, {r4, lr}
@@ -996,6 +1082,7 @@ asm void SceneManager::func_0203ed88()
     bl func_0200fa3c
     ldmia sp!, {r4, pc}
 }
+#endif
 
 // reads the settings of the game from its settings file
 void SceneManager::func_0203ee70()
@@ -1246,93 +1333,57 @@ asm void SceneManager::func_0203f248()
 
 void SceneManager::func_0203f2e8()
 {
-    if (data_020c45a0.scene == NULL) {
+    if (data_020c45a0.objects[SCENE_OBJECT] == NULL) {
         return;
     }
-    data_020c45a0.scene->vtable->func_10(data_020c45a0.scene);
+    data_020c45a0.objects[SCENE_OBJECT]->vtable->func_10(data_020c45a0.objects[SCENE_OBJECT]);
 }
 
 void SceneManager::func_0203f310()
 {
-    if (data_020c45a0.scene == NULL) {
+    if (data_020c45a0.objects[SCENE_OBJECT] == NULL) {
         return;
     }
-    data_020c45a0.scene->vtable->func_20(data_020c45a0.scene);
+    data_020c45a0.objects[SCENE_OBJECT]->vtable->func_20(data_020c45a0.objects[SCENE_OBJECT]);
 }
 
-asm void SceneManager::func_0203f338()
+void SceneManager::func_0203f338()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #4
-    mov r7, #0
-    ldr r6, =data_020c45c8
-    strb r7, [sp]
-    strb r7, [sp, #1]
-    add r4, sp, #0
-    mov r5, r7
-@L_0203f358:
-    ldr r0, [r6, r7, lsl #2]
-    cmp r0, #0
-    beq @L_0203f398
-    mov r8, r5
-@L_0203f368:
-    ldrb r0, [r4, r8]
-    cmp r0, #0
-    bne @L_0203f38c
-    ldr r0, [r6, r7, lsl #2]
-    mov r1, r8
-    ldr r2, [r0]
-    ldr r2, [r2, #0x1c]
-    blx r2
-    strb r0, [r4, r8]
-@L_0203f38c:
-    add r8, r8, #1
-    cmp r8, #2
-    blt @L_0203f368
-@L_0203f398:
-    add r7, r7, #1
-    cmp r7, #3
-    blt @L_0203f358
-    bl func_0203f310
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    int i;
+    int screen;
+    u8 done[2];
+
+    done[0] = FALSE;
+    done[1] = FALSE;
+    for (i = 0; i < 3; i++) {
+        if (data_020c45c8[i] != NULL) {
+            for (screen = 0; screen < 2; screen++) {
+                if (!done[screen]) {
+                    done[screen] = ((u8 (*)(UnkObject *, int))data_020c45c8[i]->vtable->func_1c)(data_020c45c8[i], screen);
+                }
+            }
+        }
+    }
+    func_0203f310();
 }
 
-asm void SceneManager::func_0203f3b4()
+void SceneManager::func_0203f3b4()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #4
-    mov r7, #0
-    ldr r6, =data_020c45c8
-    strb r7, [sp]
-    strb r7, [sp, #1]
-    add r4, sp, #0
-    mov r5, r7
-@L_0203f3d4:
-    ldr r0, [r6, r7, lsl #2]
-    cmp r0, #0
-    beq @L_0203f414
-    mov r8, r5
-@L_0203f3e4:
-    ldrb r0, [r4, r8]
-    cmp r0, #0
-    bne @L_0203f408
-    ldr r0, [r6, r7, lsl #2]
-    mov r1, r8
-    ldr r2, [r0]
-    ldr r2, [r2, #0x24]
-    blx r2
-    strb r0, [r4, r8]
-@L_0203f408:
-    add r8, r8, #1
-    cmp r8, #2
-    blt @L_0203f3e4
-@L_0203f414:
-    add r7, r7, #1
-    cmp r7, #3
-    blt @L_0203f3d4
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    int i;
+    int screen;
+    u8 done[2];
+
+    done[0] = FALSE;
+    done[1] = FALSE;
+    for (i = 0; i < 3; i++) {
+        if (data_020c45c8[i] != NULL) {
+            for (screen = 0; screen < 2; screen++) {
+                if (!done[screen]) {
+                    done[screen] = data_020c45c8[i]->vtable->func_24(data_020c45c8[i], screen);
+                }
+            }
+        }
+    }
 }
 
 asm void SceneManager::func_0203f42c()
