@@ -4,6 +4,9 @@
 #include "nitro/os.h"
 
 extern "C" void DC_InvalidateRange(void);
+extern "C" int func_020136b4(void *buffer, WMCallbackFunc callback, u16 dma);     // starts WM
+extern "C" void func_02009380(void *dest, u32 data, u32 size);
+extern "C" int func_02014414(void *dataSharing, u16 port, u16 aidBitmap, u16 dataLength, BOOL doubleMode);   // starts data sharing
 extern "C" void func_020131e0(void);
 extern "C" int func_02013768(WMCallbackFunc callback);         // ends WM
 extern "C" int func_020146a0(void *dataSharing, int, void *dataSet);   // steps data sharing
@@ -16,9 +19,6 @@ extern "C" int func_02013b28(WMCallbackFunc callback, WMBssDesc *parent, u8 *ssi
 extern "C" void func_02006d84(void);                        // waits for the write buffer
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void func_02009380(void);
-extern "C" void func_020136b4(void);
-extern "C" void func_02014414(void);
 extern "C" void func_02014654(void);
 extern "C" void memcmp(void);
 extern "C" int func_02012e6c(u16 port, WMCallbackFunc callback, void *arg);   // sets a port callback
@@ -76,7 +76,76 @@ void Wireless::func_0203c13c(void *ptr)
     free(ptr);
 }
 
-asm void Wireless::func_0203c170()
+// starts WM for a game of numPlayers players sending size bytes each
+// (nonmatching: the buffer sizes are computed in another order)
+#ifdef NONMATCHING
+BOOL Wireless::func_0203c170(u32 ggid, u16 size, u16 numPlayers)
+{
+    u32 sendBytes;
+    u32 receiveBytes;
+    u32 bytes;
+
+    if (data_020c4588.instance != NULL) {
+        return TRUE;
+    }
+    if (heap == NULL && (alloc == NULL || free == NULL)) {
+        return FALSE;
+    }
+
+    parentMaxSize = size * numPlayers + 4;
+    childMaxSize = size;
+    maxEntry = numPlayers;
+    if (parentMaxSize > 0x200) {
+        return FALSE;
+    }
+
+    MI_CpuFill8(&unk_360, 0, 6);
+    MI_CpuFill8(&scanParam, 0, 0x1078);
+    systemBuffer = func_0203c0fc(0xF20);
+    if (systemBuffer == NULL) {
+        return FALSE;
+    }
+    if (func_020136b4((void *)(((u32)systemBuffer + 0x1F) & ~0x1F), func_0203c444, 2) != WM_ERRCODE_OPERATING) {
+        return FALSE;
+    }
+
+    MI_CpuFill8(unk_2444, 0, sizeof(unk_2444));
+    parentParam.userGameInfoLength = 0;
+    parentParam.ggid = ggid;
+    parentParam.userGameInfo = NULL;
+    data_020c4588.instance = this;
+
+    sendBytes = (parentMaxSize + 0x23) & ~0x1F;
+    receiveBytes = (childMaxSize + 0x21) & ~0x1F;
+    if (sendBytes < receiveBytes) {
+        sendBytes = receiveBytes;
+    }
+    error = 0;
+    bytes = (sendBytes + 0x3F) & ~0x3F;
+    state = WIRELESS_STATE_NONE;
+    sendBuffer = func_0203c0fc(bytes + 0x20);
+    sendSize = bytes;
+    func_02009380(sendBuffer, 0, bytes);
+
+    receiveBytes = (((childMaxSize + 0xE) * (maxEntry - 1) + 0x29) & ~0x1F) * 2;
+    sendBytes = ((parentMaxSize + 0x55) & ~0x1F) * 2;
+    if (receiveBytes < sendBytes) {
+        receiveBytes = sendBytes;
+    }
+    bytes = (receiveBytes + 0x3F) & ~0x3F;
+    receiveBuffer = func_0203c0fc(bytes + 0x20);
+    receiveSize = bytes;
+    func_02009380(receiveBuffer, 0, bytes);
+
+    if (sendBuffer != NULL && receiveBuffer != NULL) {
+        data_020c4588.receive = NULL;
+        gameInfoFlags = TRUE;
+        return TRUE;
+    }
+    return FALSE;
+}
+#else
+asm BOOL Wireless::func_0203c170(u32 ggid, u16 size, u16 numPlayers)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, =data_020c4588
@@ -199,6 +268,7 @@ asm void Wireless::func_0203c170()
     strneb r0, [r6, #0x236]
     ldmia sp!, {r4, r5, r6, pc}
 }
+#endif
 
 void Wireless::func_0203c358()
 {
@@ -420,6 +490,63 @@ BOOL Wireless::func_0203c75c()
     return TRUE;
 }
 
+// (the MP events)
+// (nonmatching: the error code switch is laid out differently)
+#ifdef NONMATCHING
+void Wireless::func_0203c7e0(void *arg)
+{
+    WMStartMPCallback *callback = (WMStartMPCallback *)arg;
+    int result;
+
+    if (data_020c4588.instance == NULL) {
+        return;
+    }
+
+    switch (callback->errcode) {
+    case WM_ERRCODE_SUCCESS:
+        switch (callback->state) {
+        case WM_STATECODE_MP_START:
+            data_020c4588.instance->flags |= 2;
+            if (data_020c4588.instance->connectMode & 1) {
+                if (data_020c4588.instance->state != WIRELESS_STATE_KEY_SHARING) {
+                    result = WM_StartKeySharing(data_020c4588.instance->keySharing, 13);
+                    if (result != WM_ERRCODE_SUCCESS) {
+                        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+                        data_020c4588.instance->error = result;
+                    }
+                    data_020c4588.instance->state = WIRELESS_STATE_KEY_SHARING;
+                    return;
+                }
+            } else if (data_020c4588.instance->connectMode & 2) {
+                result = func_02014414(data_020c4588.instance->dataSharing, 13,
+                    (1 << data_020c4588.instance->maxEntry) - 1, data_020c4588.instance->childMaxSize, TRUE);
+                if (result == WM_ERRCODE_SUCCESS) {
+                    data_020c4588.instance->state = WIRELESS_STATE_DATA_SHARING;
+                    return;
+                }
+                data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+                data_020c4588.instance->error = result;
+                return;
+            }
+            data_020c4588.instance->state = WIRELESS_STATE_CONNECTED;
+            break;
+        case 11:
+        case 12:
+        case 13:
+            break;
+        }
+        break;
+    case 9:
+    case 13:
+    case WM_ERRCODE_SEND_FAILED:
+        break;
+    default:
+        data_020c4588.instance->state = WIRELESS_STATE_ERROR;
+        data_020c4588.instance->error = callback->errcode;
+        break;
+    }
+}
+#else
 asm void Wireless::func_0203c7e0(void *arg)
 {
     stmdb sp!, {r3, r4, lr}
@@ -536,6 +663,7 @@ asm void Wireless::func_0203c7e0(void *arg)
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
+#endif
 
 BOOL Wireless::func_0203c988()
 {

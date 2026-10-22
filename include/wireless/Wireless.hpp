@@ -30,7 +30,7 @@ public:
     void func_0203c0f4(GameHeap *heap);
     void *func_0203c0fc(u32 size);
     void func_0203c13c(void *ptr);
-    void func_0203c170();
+    BOOL func_0203c170(u32 ggid, u16 size, u16 numPlayers);
     void func_0203c358();
     void func_0203c364(BOOL flag);
     void func_0203c3bc(void *info, u16 length);

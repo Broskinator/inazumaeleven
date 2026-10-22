@@ -17,6 +17,7 @@ extern "C" {
 #define WM_STATECODE_PARENT_START 0
 #define WM_STATECODE_CONNECTED 7
 #define WM_STATECODE_DISCONNECTED 9
+#define WM_STATECODE_MP_START 10
 #define WM_STATECODE_PORT_RECV 21
 #define WM_STATECODE_DISCONNECTED_FROM_MYSELF 26
 
@@ -65,6 +66,12 @@ typedef struct WMPortSendCallback {
     u16 rsv2;
     void (*callback)(BOOL success);
 } WMPortSendCallback;
+
+typedef struct WMStartMPCallback {
+    u16 apiid;
+    u16 errcode;
+    u16 state;
+} WMStartMPCallback;
 
 typedef struct WMMeasureChannelCallback {
     u16 apiid;
