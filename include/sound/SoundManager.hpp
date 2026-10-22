@@ -81,12 +81,12 @@ struct SoundStreamInfo {
 // A stream (.SAD) played by the driver
 struct SoundStream {
     char name[0x20];
-    u8 unk_20;
+    s8 delay;               // frames before it starts
     s8 unk_21;
     u8 unk_22[2];
     u16 flags;
     u16 state;
-    void *handle;
+    s32 handle;
     s32 unk_2c;
 };
 
@@ -168,7 +168,7 @@ public:
     BOOL func_0203b9a8(int index, const char *name, int arg);
     void func_0203ba5c(int index);
     void func_0203ba78(int index, const char *name);
-    void func_0203bab8(int index, u64 position);
+    BOOL func_0203bab8(int index, int seek);
     BOOL func_0203bba8(int index);
     BOOL func_0203bc10(const char *name);
     void func_0203bc60(int index, int arg);

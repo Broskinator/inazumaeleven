@@ -1,6 +1,7 @@
 #include "sound/SoundManager.hpp"
 #include "system/GameHeap.hpp"
 #include "file/FileManager.hpp"
+#include "movie/MoviePlayer.hpp"
 #include "nitro/fs.h"
 #include "nitro/mi.h"
 #include "nitro/std.h"
@@ -9,9 +10,7 @@
 
 extern GameHeap data_020c47b4;
 extern FileManager data_020c6364;
-extern "C" void _ZN11MoviePlayer12GetFrameRateEv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void _ll_udiv(void);
 extern "C" const char *data_020abc68[];        // names of tracks
 extern "C" char data_020abcec[];
 extern "C" char data_020abcf8[];
@@ -45,16 +44,7 @@ extern "C" char data_020abe44[];
 extern "C" char data_020abe4c[];
 extern "C" char data_020abe54[];
 extern "C" char data_020abe64[];
-extern "C" char data_020c484c[];
-extern "C" char data_020c4f60[];
-extern "C" void func_02041d90(void);
-extern "C" void func_0204871c(void);
-extern "C" void func_02048730(void);
-extern "C" void func_020487c4(void);
-extern "C" void func_02048bb8(void);
-extern "C" void func_02048d80(void);
-extern "C" void func_02049258(void);
-extern "C" void func_02049420(void);
+extern "C" s32 data_020c484c;        // frames since the last update
 extern "C" void SND_Init(void);
 extern "C" void SND_LockChannel(u32 channels, u32 flags);
 extern "C" void func_020406d8(SoundDriverConfig *config);
@@ -71,7 +61,8 @@ extern "C" void func_02041964(u16 wave);
 extern "C" void *func_02041c3c(void *data);               // a sequence
 extern "C" void func_02041d40(void *sequence);
 extern "C" int func_02041d78(void *sequence);
-extern "C" void func_02041e70(void *sequence, int);
+extern "C" void func_02041d90(void *sequence, SoundParam *param, BOOL fadeIn);
+extern "C" void func_02041e70(void *sequence, u16 fadeTime);   // stops it
 extern "C" void func_02041f10(void *sequence, SoundParam *param);
 extern "C" void func_02042aec(int, int);
 extern "C" void *func_02042be4(void *data);               // a bank of effects
@@ -90,10 +81,17 @@ extern "C" void func_0204812c(void *streams, int);
 extern "C" void func_02048168(void *streams, void *(*alloc)(void *, u32), void *(*free)(void *, void *), int);
 extern "C" void func_0204817c(void *streams, int);
 extern "C" void func_0204832c(void *streams);
-extern "C" int func_02048d30(void *stream);
-extern "C" void func_02048f60(void *stream, int);
-extern "C" void func_02049180(void *stream, SoundParam *param);
-extern "C" void func_020494c0(void *stream, SoundStreamInfo *info);
+extern "C" void func_0204871c(s8 loop);
+extern "C" int func_02048730(s32 stream);
+extern "C" s32 func_020487c4(const char *path, int bufferSize, int);   // opens a stream
+extern "C" void func_02048bb8(s32 stream);
+extern "C" int func_02048d30(s32 stream);              // > 0 while it plays
+extern "C" void func_02048d80(s32 stream, SoundParam *param, s8 fadeIn);
+extern "C" void func_02048f60(s32 stream, u16 fadeTime);  // stops it
+extern "C" void func_02049180(s32 stream, SoundParam *param);
+extern "C" void func_02049258(s32 stream, s32 position);
+extern "C" int func_02049420(s32 stream, int);
+extern "C" void func_020494c0(s32 stream, SoundStreamInfo *info);
 extern "C" BOOL func_0209dd60(FSFileID *id, const char *path);   // the id of a file
 extern "C" BOOL func_0209ddd0(FSFile *file, const char *path);    // opens a file by its path
 
@@ -110,6 +108,7 @@ static inline void CancelFile(GameHeap *heap, void *buffer)
     }
 }
 
+// the full path of a file of the ROM
 BOOL GetSoundFilePath(const char *name, char *path, u32 length)
 {
     FSFile file;
@@ -872,200 +871,75 @@ BOOL SoundManager::func_0203a8c0(int index)
     return func_0203a87c(index);
 }
 
-asm void SoundManager::func_0203a904()
+// starts the tracks and streams requested for each track slot
+void SoundManager::func_0203a904()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r5, r0
-    mov r6, #0x28
-    mov r4, #0
-@L_0203a914:
-    mul r1, r4, r6
-    add r7, r5, r1
-    add r0, r7, #0x300
-    ldrsh r2, [r0, #0xf0]
-    cmp r2, #0
-    beq @L_0203abb0
-    ldrsb r0, [r0, #0x80]
-    cmp r0, #0
-    beq @L_0203a988
-    add r12, r7, #0x380
-    add r9, r7, #0x420
-    mov r8, #0x10
-@L_0203a944:
-    ldrb r2, [r12]
-    ldrb r0, [r12, #1]
-    add r12, r12, #2
-    subs r8, r8, #1
-    strb r0, [r9, #1]
-    strb r2, [r9], #2
-    mov r3, #0
-    bne @L_0203a944
-    add r0, r7, #0x300
-    ldrsh r8, [r0, #0xa0]
-    add r2, r7, #0x400
-    strh r8, [r2, #0x40]
-    ldrsh r0, [r0, #0xa2]
-    strh r0, [r2, #0x42]
-    ldr r0, [r7, #0x3a4]
-    str r0, [r7, #0x444]
-    strb r3, [r7, #0x380]
-@L_0203a988:
-    add r0, r7, #0x300
-    ldrsh r0, [r0, #0xa0]
-    cmp r0, #1
-    bne @L_0203a9d8
-    mov r2, #0x2c
-    mla r2, r4, r2, r5
-    add r2, r2, #0x200
-    ldrh r2, [r2, #0xce]
-    tst r2, #2
-    beq @L_0203a9cc
-    ldr r2, [r7, #0x3a4]
-    cmp r2, #0
-    blt @L_0203abb0
-    mov r0, r5
-    mov r1, r4
-    bl SetTrackStop
-    b @L_0203abb0
-@L_0203a9cc:
-    tst r2, #4
-    bne @L_0203abb0
-    b @L_0203aa14
-@L_0203a9d8:
-    cmp r0, #2
-    bne @L_0203aa14
-    add r2, r5, #0x300
-    ldrh r2, [r2, #0x26]
-    tst r2, #2
-    beq @L_0203aa0c
-    ldr r2, [r7, #0x3a4]
-    cmp r2, #0
-    blt @L_0203abb0
-    mov r0, r5
-    mov r1, #0
-    bl func_0203bc60
-    b @L_0203abb0
-@L_0203aa0c:
-    tst r2, #4
-    bne @L_0203abb0
-@L_0203aa14:
-    add r2, r7, #0x300
-    ldrsh r3, [r2, #0xf0]
-    cmn r3, #1
-    beq @L_0203aab0
-    cmp r3, #1
-    beq @L_0203aa38
-    cmp r3, #2
-    beq @L_0203aa78
-    b @L_0203aac0
-@L_0203aa38:
-    add r0, r5, #0x3d0
-    mla r2, r4, r6, r0
-    mov r0, r5
-    mov r1, r4
-    bl func_0203b3f0
-    add r0, r7, #0x300
-    ldrsh r0, [r0, #0xf2]
-    ldr r2, [r7, #0x3f4]
-    mov r1, r4
-    cmp r0, #0
-    mov r0, r5
-    beq @L_0203aa70
-    bl func_0203b57c
-    b @L_0203aad4
-@L_0203aa70:
-    bl SetTrackFadeIn
-    b @L_0203aad4
-@L_0203aa78:
-    ldrsh r0, [r2, #0xf2]
-    cmp r0, #0
-    beq @L_0203aa98
-    mov r1, #0
-    mov r0, r5
-    mov r2, r1
-    bl func_0203bab8
-    b @L_0203aad4
-@L_0203aa98:
-    add r2, r5, #0x3d0
-    mov r0, r5
-    add r2, r2, r1
-    mov r1, #0
-    bl func_0203ba78
-    b @L_0203aad4
-@L_0203aab0:
-    mla r1, r4, r6, r5
-    add r1, r1, #0x300
-    strh r0, [r1, #0xf0]
-    b @L_0203aad4
-@L_0203aac0:
-    add r0, r5, #0x3d0
-    add r0, r0, r1
-    mov r1, #0
-    mov r2, #0x28
-    bl MI_CpuFill8
-@L_0203aad4:
-    mul r9, r4, r6
-    add r8, r5, r9
-    add r12, r8, #0x3d0
-    add r3, r8, #0x380
-    mov r2, #0x10
-@L_0203aae8:
-    ldrb r1, [r12]
-    ldrb r0, [r12, #1]
-    add r12, r12, #2
-    subs r2, r2, #1
-    strb r0, [r3, #1]
-    strb r1, [r3], #2
-    mov r7, #0x28
-    bne @L_0203aae8
-    add r1, r8, #0x300
-    ldrsh r2, [r1, #0xf0]
-    add r0, r5, #0x3d0
-    add r0, r0, r9
-    strh r2, [r1, #0xa0]
-    ldrsh r3, [r1, #0xf2]
-    mov r2, r7
-    strh r3, [r1, #0xa2]
-    ldr r3, [r8, #0x3f4]
-    mov r1, #0
-    str r3, [r8, #0x3a4]
-    bl MI_CpuFill8
-    add r0, r8, #0x400
-    ldrsh r0, [r0, #0xe0]
-    cmp r0, #0
-    beq @L_0203abb0
-    add r3, r5, r9
-    sub r0, r7, #0x29
-    str r0, [r3, #0x3a4]
-    add r8, r3, #0x4c0
-    add r7, r3, #0x3d0
-    mov r2, #0x10
-@L_0203ab60:
-    ldrb r1, [r8]
-    ldrb r0, [r8, #1]
-    add r8, r8, #2
-    subs r2, r2, #1
-    strb r0, [r7, #1]
-    strb r1, [r7], #2
-    bne @L_0203ab60
-    add r0, r3, #0x400
-    ldrsh r7, [r0, #0xe0]
-    add r2, r3, #0x300
-    add r1, r5, #0x4c0
-    strh r7, [r2, #0xf0]
-    ldrsh r7, [r0, #0xe2]
-    add r0, r1, r9
-    mov r1, #0
-    strh r7, [r2, #0xf2]
-    ldr r7, [r3, #0x4e4]
-    mov r2, #0x28
-    str r7, [r3, #0x3f4]
-    bl MI_CpuFill8
-@L_0203abb0:
-    add r4, r4, #1
-    cmp r4, #2
-    blt @L_0203a914
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    int i;
+
+    for (i = 0; i < SOUND_NUM_TRACKS; i++) {
+        if (next[i].type == 0) {
+            continue;
+        }
+
+        if (current[i].name[0] != '\0') {
+            saved[i] = current[i];
+            current[i].name[0] = '\0';
+        }
+
+        if (current[i].type == 1) {
+            if (tracks[i].state & 2) {
+                if (current[i].unk_24 >= 0) {
+                    SetTrackStop(i, current[i].unk_24);
+                }
+                continue;
+            }
+            if (tracks[i].state & 4) {
+                continue;
+            }
+        } else if (current[i].type == 2) {
+            if (streams[0].state & 2) {
+                if (current[i].unk_24 >= 0) {
+                    func_0203bc60(0, current[i].unk_24);
+                }
+                continue;
+            }
+            if (streams[0].state & 4) {
+                continue;
+            }
+        }
+
+        switch (next[i].type) {
+        case 1:
+            func_0203b3f0(i, next[i].name);
+            if (next[i].unk_22 != 0) {
+                func_0203b57c(i, next[i].unk_24);
+            } else {
+                SetTrackFadeIn(i, next[i].unk_24);
+            }
+            break;
+        case 2:
+            if (next[i].unk_22 != 0) {
+                func_0203bab8(0, 0);
+            } else {
+                func_0203ba78(0, next[i].name);
+            }
+            break;
+        case -1:
+            next[i].type = current[i].type;
+            break;
+        default:
+            MI_CpuFill8(&next[i], 0, sizeof(SoundRequest));
+            break;
+        }
+
+        current[i] = next[i];
+        MI_CpuFill8(&next[i], 0, sizeof(SoundRequest));
+        if (unk_4c0[i].type != 0) {
+            current[i].unk_24 = -1;
+            next[i] = unk_4c0[i];
+            MI_CpuFill8(&unk_4c0[i], 0, sizeof(SoundRequest));
+        }
+    }
 }
 
 // a free bank for a file of this type (the stream's bank for streams), -1 if there is none
@@ -1388,6 +1262,91 @@ void SoundManager::SetTrackStop(int index, s32 time)
     tracks[index].unk_28 = time;
 }
 
+// loads, starts and stops the music tracks
+// (nonmatching: the fade time is loaded after the sequence is moved to r0 when stopping)
+#ifdef NONMATCHING
+void SoundManager::func_0203b664()
+{
+    void *sequence;
+    int i;
+    char waveName[0x20];
+    char sequenceName[0x20];
+
+    for (i = 0; i < SOUND_NUM_TRACKS; i++) {
+        sequence = banks[tracks[i].sequence].handle;
+
+        if (tracks[i].flags & 4) {
+            if (func_02041d78(sequence) > 0) {
+                func_02041e70(sequence, tracks[i].unk_28);
+                tracks[i].state = (tracks[i].state | 4) & (u16)~2;
+            }
+            tracks[i].unk_28 = 0;
+            tracks[i].flags &= ~4;
+        }
+
+        if (tracks[i].state & 4) {
+            if (func_02041d78(sequence) > 0) {
+                return;
+            }
+            tracks[i].state &= ~4;
+        }
+
+        if (tracks[i].flags & 8) {
+            if (tracks[i].state & 1) {
+                StopTrack(i);
+            }
+            tracks[i].state &= ~1;
+            tracks[i].flags &= ~8;
+        }
+
+        if (tracks[i].flags & 0x10) {
+            tracks[i].flags &= ~0x10;
+            sprintf(waveName, data_020abe44, tracks[i].name);
+            sprintf(sequenceName, data_020abe4c, tracks[i].name);
+            tracks[i].wave = LoadBankAsync(i == 0 ? SOUND_BANK_STREAM : SOUND_BANK_WAVE, waveName);
+            if (tracks[i].wave < 0) {
+                continue;
+            }
+            tracks[i].sequence = LoadBankAsync(SOUND_BANK_SEQUENCE, sequenceName);
+            if (tracks[i].sequence < 0) {
+                continue;
+            }
+            tracks[i].state |= 0x10;
+            tracks[i].flags |= 1;
+        }
+
+        if (tracks[i].flags & 1) {
+            if (!PrepareBank(tracks[i].wave)) {
+                continue;
+            }
+            if (!PrepareBank(tracks[i].sequence)) {
+                continue;
+            }
+            sequence = banks[tracks[i].sequence].handle;
+            tracks[i].flags &= ~1;
+            tracks[i].state |= 1;
+        }
+
+        if (tracks[i].flags & 2) {
+            if (tracks[i].state & 1) {
+                if (!(tracks[i].state & 2)) {
+                    BOOL fadeIn = TRUE;
+
+                    if (tracks[i].flags & 0x80) {
+                        fadeIn = FALSE;
+                    }
+
+                    SetFade((s8)((volumes[1] * volume * volumes[0] >> 7) / 1000), tracks[i].unk_28);
+                    func_02041d90(sequence, &param, fadeIn);
+                }
+                tracks[i].unk_28 = 0;
+                tracks[i].state |= 2;
+            }
+            tracks[i].flags &= ~0x82;
+        }
+    }
+}
+#else
 asm void SoundManager::func_0203b664()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -1607,6 +1566,7 @@ asm void SoundManager::func_0203b664()
     add sp, sp, #0x58
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 BOOL SoundManager::func_0203b9a8(int index, const char *name, int arg)
 {
@@ -1640,68 +1600,25 @@ void SoundManager::func_0203ba78(int index, const char *name)
     streams[index].flags |= 2;
 }
 
-asm void SoundManager::func_0203bab8(int index, u64 position)
+// starts the stream again at the movie's current frame (or at the start for 0)
+BOOL SoundManager::func_0203bab8(int index, int seek)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r6, =data_020c4f60
-    mov r8, r0
-    mov r0, r6
-    mov r7, r2
-    mov r4, r1
-    bl _ZN11MoviePlayer12GetFrameRateEv
-    mov r5, r0
-    mov r0, #0x30
-    cmp r7, #0
-    mul r7, r4, r0
-    ble @L_0203bb74
-    add r4, r8, #0x328
-    ldr r0, [r4, r7]
-    mov r1, #0x3e8
-    bl func_02049420
-    ldr r1, =0x22140
-    mov r2, #0xe8000000
-    cmp r0, r1
-    ldr r1, [r6, #0x1a0]
-    ldr r0, [r6, #0x198]
-    mov r3, #3
-    add r6, r1, r0
-    umull r0, r1, r6, r2
-    bge @L_0203bb40
-    mla r1, r6, r3, r1
-    mov r3, r6, asr #0x1f
-    mla r1, r3, r2, r1
-    mov r2, r5
-    mov r3, #0
-    bl _ll_udiv
-    mov r1, r0
-    ldr r0, [r4, r7]
-    b @L_0203bb80
-@L_0203bb40:
-    mla r1, r6, r3, r1
-    mov r3, r6, asr #0x1f
-    mla r1, r3, r2, r1
-    mov r2, r5
-    mov r3, #0
-    bl _ll_udiv
-    ldr r5, =0x88888889
-    mov r2, r0, lsr #0x1f
-    smull r3, r1, r5, r0
-    add r1, r0, r1
-    ldr r0, [r4, r7]
-    add r1, r2, r1, asr #4
-    b @L_0203bb80
-@L_0203bb74:
-    add r0, r8, r7
-    ldr r0, [r0, #0x328]
-    mov r1, #0
-@L_0203bb80:
-    bl func_02049258
-    add r2, r8, #0x324
-    ldrh r1, [r2, r7]
-    mov r0, #1
-    orr r1, r1, #0x82
-    strh r1, [r2, r7]
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    MoviePlayer *movie = &data_020c4f60;
+    u32 frameRate = movie->GetFrameRate();
+
+    if (seek > 0) {
+        if (func_02049420(streams[index].handle, 1000) < 0x22140) {
+            func_02049258(streams[index].handle,
+                ((s64)(movie->numShown + movie->numDue) * ((s64)1000 << 24)) / (u64)frameRate);
+        } else {
+            func_02049258(streams[index].handle,
+                (s32)(((s64)(movie->numShown + movie->numDue) * ((s64)1000 << 24)) / (u64)frameRate) / 30);
+        }
+    } else {
+        func_02049258(streams[index].handle, 0);
+    }
+    streams[index].flags |= 0x82;
+    return TRUE;
 }
 
 BOOL SoundManager::func_0203bba8(int index)
@@ -1750,6 +1667,96 @@ void SoundManager::func_0203bcb0(const char *name, int arg)
     }
 }
 
+// opens, starts and stops the stream
+// (nonmatching: after GetSoundFilePath, two accesses use the loop's stream pointer instead of the block's)
+#ifdef NONMATCHING
+void SoundManager::func_0203bd04()
+{
+    s32 handle;
+    int i;
+    s32 opened;
+    char path[0x40];
+
+    for (i = 0; i < SOUND_NUM_STREAMS; i++) {
+        handle = streams[i].handle;
+
+        if (streams[i].delay != 0) {
+            streams[i].delay -= (s8)data_020c484c;
+            if (streams[i].delay < 0) {
+                streams[i].delay = 0;
+            }
+        }
+
+        if (streams[i].flags & 4) {
+            streams[i].flags &= ~4;
+            if (func_0203bba8(i)) {
+                func_02048f60(handle, (u16)streams[i].unk_2c);
+                streams[i].state = (streams[i].state | 4) & (u16)~2;
+            }
+            streams[i].unk_2c = 0;
+        }
+
+        if (streams[i].state & 4) {
+            if (func_02048d30(handle) > 0) {
+                return;
+            }
+            streams[i].state &= ~4;
+            streams[i].delay = 0;
+        }
+
+        if ((streams[i].flags & 8) && !(streams[i].state & 4)) {
+            if (streams[i].state & 1) {
+                func_02048bb8(handle);
+                streams[i].state |= 8;
+            }
+            streams[i].state &= ~1;
+            streams[i].flags &= ~8;
+        }
+
+        if (streams[i].state & 8) {
+            if (func_02048730(handle) > 0) {
+                return;
+            }
+            streams[i].state &= ~8;
+            streams[i].delay = 0;
+        }
+
+        if (streams[i].flags & 1) {
+            streams[i].flags &= ~1;
+            if (!(streams[i].state & 1)) {
+                STD_CopyString(path, data_020abe64);
+                STD_ConcatenateString(path, streams[i].name);
+                if (!GetSoundFilePath(path, path, sizeof(path))) {
+                    continue;
+                }
+                func_0204871c(streams[i].unk_21 != 0 ? 1 : 0);
+                streams[i].unk_21 = 0;
+                opened = func_020487c4(path, 0x6000, 1);
+                if (opened < 0) {
+                    continue;
+                }
+                handle = streams[i].handle = opened;
+            }
+            streams[i].state |= 1;
+        }
+
+        if ((streams[i].flags & 2) && streams[i].delay == 0) {
+            if (streams[i].state & 1) {
+                if (!func_0203bba8(i)) {
+                    SetFade((s8)((volumes[1] * volume * volumes[0] >> 7) / 1000), streams[i].unk_2c);
+                    func_02048d80(handle, &param, (streams[i].flags & 0x80) ? 0 : 1);
+                }
+                streams[i].state |= 2;
+            }
+            streams[i].flags &= ~0x82;
+        }
+
+        if ((streams[i].state & 2) && func_02048d30(handle) == 0) {
+            func_0203ba5c(i);
+        }
+    }
+}
+#else
 asm void SoundManager::func_0203bd04()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -2013,3 +2020,4 @@ asm void SoundManager::func_0203bd04()
     add sp, sp, #0x60
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif

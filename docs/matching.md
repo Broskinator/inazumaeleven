@@ -61,6 +61,18 @@ Registers follow the order in which local variables are declared (and,
 for values that live in the same register, the order of the statements that
 set them). `tools/permdecl.py` tries every order of a function's declarations.
 
+- **16-bit masks.** `flags = (flags | 4) & ~2` on a `u16` gives `bic`; the
+  original's `and` with `0xFFFD` kept in a register is `& (u16)~2`
+  (`SoundManager::func_0203b664`).
+- **A value tested before it is stored.** `cmp r0, #0; blt ...; str r0, [...];
+  mov r6, r0` is `x = f(); if (x < 0) ...; local = member = x;`, while
+  `local = f()` with the test on `local` gives `movs r6, r0`
+  (`SoundManager::func_0203bd04`).
+- **Return values that nobody reads.** A `mov r0, #1` before the return of a
+  function whose callers ignore it means it returns `BOOL`
+  (`SoundManager::func_0203bab8`). Arguments are worth checking the same way: a
+  caller that sets only `r2` for a parameter shows that it is 32-bit, even if
+  another caller computes 64 bits for it.
 - **Chained assignments.** `a = b = x` sets `b` first: the `mov`s of the original
   tell which of the two is assigned first (`ConfigFile::Load`).
 - **Clamps.** `if (n >= 8) n = 8;` gives `movge`, `if (n > 8)` gives `movgt`

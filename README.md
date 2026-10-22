@@ -25,7 +25,7 @@ your own copy of the ROM:
       (`src/text/`), the file loader and pack files (`src/file/`), the save memory
       (`src/save/`), the heap (`src/system/`), data containers and the "key = value"
       settings reader (`src/data/`), the movie player (`src/movie/`) and the sound
-      manager over the sound driver (`src/sound/`, 61 of its 68 functions in C++)
+      manager over the sound driver (`src/sound/`: all 68 functions in C++, 63 matching)
 - [ ] Decompiled to C
 
 ## Building

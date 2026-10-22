@@ -67,4 +67,6 @@ public:
     s32 numFrames;
 };
 
+extern MoviePlayer data_020c4f60;
+
 #endif // MOVIE_MOVIEPLAYER_HPP
