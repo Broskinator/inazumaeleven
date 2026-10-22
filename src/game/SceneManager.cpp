@@ -3,6 +3,7 @@
 #include "sound/SoundManager.hpp"
 #include "movie/MoviePlayer.hpp"
 #include "game/GameState.hpp"
+#include "data/EntryPool.hpp"
 #include "save/SaveManager.hpp"
 #include "data/ConfigFile.hpp"
 #include "nitro/mi.h"
@@ -41,24 +42,12 @@ extern "C" char data_020abfbc[];
 extern "C" char data_020abfcc[];
 extern "C" char data_020abfe0[];
 extern "C" char data_020abff4[];
-extern "C" char data_020ac008[];
 extern "C" char data_020afeac[];
-extern "C" char data_020c45c0[];
 extern "C" char data_020c45d4[];
 extern "C" char data_020c45e4[];
-extern "C" char data_020c4650[];
-extern "C" char data_020c4660[];
 extern "C" char data_020c4668[];
-extern "C" char data_020c4674[];
-extern "C" char data_020c4678[];
 extern "C" char data_020c467c[];
-extern "C" char data_020c4694[];
-extern "C" char data_020c46d4[];
 extern "C" char data_020c47b4[];
-extern "C" char data_020c4808[];
-extern "C" char data_020c4850[];
-extern "C" char data_020c4a40[];
-extern "C" char data_020d9978[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov000_02117c6c[];
 extern "C" char data_ov000_02117cdc[];
@@ -109,6 +98,39 @@ extern "C" void func_020025b8(void);
 extern "C" void func_0200ff28(int);
 extern "C" void func_0200fa3c(int, int, int);
 #define REG_DISPCNT_SUB (*(volatile u32 *)0x04001000)
+extern "C" void func_02089004(void *, s32 frames);
+extern "C" void func_0202b4c4(void);
+extern "C" void func_0209605c(void *);
+extern "C" void func_0208c48c(void *);
+extern "C" void func_02096070(void *);
+extern "C" void func_0208de5c(void *);
+extern "C" void func_020898ac(void *, int);
+extern "C" void func_0208b130(void *);
+extern "C" void func_020920b4(void *);
+extern "C" void func_ov015_0213d1ac(void *);
+extern "C" void func_0208de6c(void *);
+extern "C" void func_0208b210(void *);
+extern "C" void func_020920a4(void *);
+extern "C" void func_02096048(void *);
+extern "C" void func_ov015_0213d1d0(void *);
+extern "C" void *data_020c4694;
+extern "C" void *data_020c4660;
+extern "C" void *data_020c4678;
+extern "C" void *data_020c4650;
+extern "C" void *data_020c4674;
+extern "C" void *data_020c46d4;
+extern "C" void func_ov015_02134c78(void);
+extern "C" u8 data_020c4808;
+extern "C" u8 data_020ac008[];
+extern "C" void *data_020c4850;
+extern "C" void func_ov015_02133efc(void *, void **);
+extern "C" void func_ov015_021322b0(void *, int, int);
+extern "C" u8 data_020c4a40[];
+extern "C" void func_ov015_02148f94(void);
+extern "C" u8 data_020d9978[];
+extern "C" void func_02051c54(void);
+extern "C" void func_01ff9ea4(void *);
+extern "C" u8 data_020c45c0[];             // (= data_020c45a0.calibrate)
 #define REG_KEYINPUT (*(volatile u16 *)0x04000130)
 
 extern "C" void func_ov015_021323a4(int);
@@ -137,26 +159,10 @@ extern "C" void _ZN12SoundManager13func_02039bccEv(void);
 extern "C" void _ZN12SoundManager6UpdateEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc7cEv(void);
 extern "C" void _ZN8GameHeap7GetInfoEPmS0_S0_(void);
-extern "C" void _ZN9EntryPool4InitEv(void);
 extern "C" void _ZdlPv(void);
-extern "C" void func_01ff9ea4(void);
 extern "C" void func_020025f8(void);
-extern "C" void func_0202b4c4(void);
-extern "C" void func_02051c54(void);
 extern "C" void func_0208897c(void);
 extern "C" void func_02088990(void);
-extern "C" void func_02089004(void);
-extern "C" void func_020898ac(void);
-extern "C" void func_0208b130(void);
-extern "C" void func_0208b210(void);
-extern "C" void func_0208c48c(void);
-extern "C" void func_0208de5c(void);
-extern "C" void func_0208de6c(void);
-extern "C" void func_020920a4(void);
-extern "C" void func_020920b4(void);
-extern "C" void func_02096048(void);
-extern "C" void func_0209605c(void);
-extern "C" void func_02096070(void);
 extern "C" void func_0209d240(void);
 extern "C" void func_0209d480(void);
 extern "C" void func_ov000_0210048c(void);
@@ -164,15 +170,8 @@ extern "C" void func_ov000_02110de4(void);
 extern "C" void func_ov001_0211bcd0(void);
 extern "C" void func_ov003_020fd8ec(void);
 extern "C" void func_ov003_0210eb00(void);
-extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_0213238c(void);
 extern "C" BOOL func_ov015_02132794(void);      // TRUE while busy
-extern "C" void func_ov015_02133efc(void);
-extern "C" void func_ov015_02134c78(void);
-extern "C" void func_ov015_0213d1ac(void);
-extern "C" void func_ov015_0213d1d0(void);
-extern "C" void func_ov015_02148f94(void);
-extern "C" void gEntryPool(void);
 
 void SceneManager::func_0203e2fc(s32 value)
 {
@@ -1284,6 +1283,28 @@ asm void SceneManager::func_0203f0dc()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
+// gives the keys, then the touch screen, to the objects until one of them takes them
+// (nonmatching: the loops start with a jump to their condition)
+#ifdef NONMATCHING
+void SceneManager::func_0203f248()
+{
+    int i;
+    int j;
+
+    for (i = 0; i < 3; i++) {
+        if (data_020c45c8[i] != NULL &&
+            ((BOOL (*)(UnkObject *, u16, u16))data_020c45c8[i]->vtable->func_14)(data_020c45c8[i], data_020c4818, data_020c4820)) {
+            break;
+        }
+    }
+    for (j = 0; j < 3; j++) {
+        if (data_020c45c8[j] != NULL &&
+            ((BOOL (*)(UnkObject *, void *))data_020c45c8[j]->vtable->func_18)(data_020c45c8[j], data_020c45c0)) {
+            return;
+        }
+    }
+}
+#else
 asm void SceneManager::func_0203f248()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
@@ -1330,6 +1351,7 @@ asm void SceneManager::func_0203f248()
     blt @L_0203f2a4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 void SceneManager::func_0203f2e8()
 {
@@ -1386,100 +1408,54 @@ void SceneManager::func_0203f3b4()
     }
 }
 
-asm void SceneManager::func_0203f42c()
+// draws a frame
+void SceneManager::func_0203f42c()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    ldr r4, =data_020c46d0
-    ldr r1, =data_020c484c
-    ldr r0, [r4]
-    ldr r1, [r1]
-    bl func_02089004
-    bl func_0202b4c4
-    ldr r9, =data_020c4694
-    ldr r0, [r9]
-    bl func_0209605c
-    ldr r0, =data_020c4660
-    ldr r0, [r0]
-    bl func_0208c48c
-    ldr r0, [r9]
-    bl func_02096070
-    ldr r8, =data_020c4678
-    ldr r0, [r8]
-    bl func_0208de5c
-    ldr r7, =data_020c4650
-    mov r1, #0
-    ldr r0, [r7]
-    bl func_020898ac
-    ldr r6, =data_020c4674
-    ldr r0, [r6]
-    bl func_0208b130
-    ldr r5, =data_020c46d4
-    ldr r0, [r5]
-    bl func_020920b4
-    bl func_0202b4c4
-    ldr r0, [r4]
-    bl func_ov015_0213d1ac
-    ldr r0, [r8]
-    bl func_0208de6c
-    ldr r0, [r7]
-    mov r1, #1
-    bl func_020898ac
-    ldr r0, [r6]
-    bl func_0208b210
-    ldr r0, [r5]
-    bl func_020920a4
-    ldr r0, [r9]
-    bl func_02096048
-    ldr r0, [r4]
-    bl func_ov015_0213d1d0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    func_02089004(data_020c46d0, data_020c484c);
+    func_0202b4c4();
+    func_0209605c(data_020c4694);
+    func_0208c48c(data_020c4660);
+    func_02096070(data_020c4694);
+    func_0208de5c(data_020c4678);
+    func_020898ac(data_020c4650, 0);
+    func_0208b130(data_020c4674);
+    func_020920b4(data_020c46d4);
+    func_0202b4c4();
+    func_ov015_0213d1ac(data_020c46d0);
+    func_0208de6c(data_020c4678);
+    func_020898ac(data_020c4650, 1);
+    func_0208b210(data_020c4674);
+    func_020920a4(data_020c46d4);
+    func_02096048(data_020c4694);
+    func_ov015_0213d1d0(data_020c46d0);
 }
 
-asm void SceneManager::func_0203f500()
+// starts the game
+void SceneManager::func_0203f500()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r0, =data_020c484c
-    mov r5, #0
-    str r5, [r0]
-    bl func_0203ee70
-    bl func_ov015_02134c78
-    bl func_0203ef38
-    ldr r4, =data_020c4850
-    ldr r2, =data_020c4808
-    ldr r0, =data_020ac008
-    mov r1, r4
-    strb r5, [r2]
-    bl func_ov015_02133efc
-    ldr r4, [r4]
-    mov r1, r5
-    mov r0, r4
-    mov r2, r5
-    bl func_ov015_021322b0
-    mov r0, r4
-    mov r1, #1
-    mov r2, r5
-    bl func_ov015_021322b0
-    ldr r0, =data_020c45c8
-    mov r1, r5
-@L_0203f560:
-    str r1, [r0, r5, lsl #2]
-    add r5, r5, #1
-    cmp r5, #3
-    blt @L_0203f560
-    ldr r0, =data_020c4a40
-    ldr r4, =data_020c45a0
-    str r0, [r4, #0x28]
-    bl func_ov015_02148f94
-    ldr r0, =data_020d9978
-    str r0, [r4, #0x2c]
-    bl func_02051c54
-    bl func_0203eba4
-    ldr r0, =gEntryPool
-    bl _ZN9EntryPool4InitEv
-    ldr r0, =data_020e88a0
-    bl func_01ff9ea4
-    bl func_0203ed3c
-    ldmia sp!, {r3, r4, r5, pc}
+    int i;
+    void *object;
+
+    data_020c484c = 0;
+    func_0203ee70();
+    func_ov015_02134c78();
+    func_0203ef38();
+    data_020c4808 = 0;
+    func_ov015_02133efc(data_020ac008, &data_020c4850);
+    object = data_020c4850;
+    func_ov015_021322b0(object, 0, 0);
+    func_ov015_021322b0(object, 1, 0);
+    for (i = 0; i < 3; i++) {
+        data_020c45c8[i] = NULL;
+    }
+    data_020c45a0.objects[0] = (UnkObject *)data_020c4a40;
+    func_ov015_02148f94();
+    data_020c45a0.objects[1] = (UnkObject *)data_020d9978;
+    func_02051c54();
+    func_0203eba4();
+    gEntryPool.Init();
+    func_01ff9ea4(data_020e88a0);
+    func_0203ed3c();
 }
 
 // counts the play time (up to 999:59:59)

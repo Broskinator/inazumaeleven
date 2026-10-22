@@ -154,13 +154,13 @@ public:
     static void func_0203ef38();
     void func_0203efc8();
     void func_0203f0dc();
-    void func_0203f248();
+    static void func_0203f248();
     static void func_0203f2e8();
     static void func_0203f310();
     static void func_0203f338();
     static void func_0203f3b4();
-    void func_0203f42c();
-    void func_0203f500();
+    static void func_0203f42c();
+    static void func_0203f500();
     static void func_0203f5d0();
     void func_0203f604();
     int func_0203f798();
