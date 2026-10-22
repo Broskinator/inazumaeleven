@@ -7,6 +7,8 @@
 #include "save/SaveManager.hpp"
 #include "data/ConfigFile.hpp"
 #include "nitro/mi.h"
+#include "nitro/pad.h"
+#include "system/GameHeap.hpp"
 
 struct UnkSystem5320 {
     u8 unk_00[0x58];
@@ -24,10 +26,10 @@ extern "C" s32 data_020ac094[];             // settings read from it
 extern "C" u16 data_020c4818;
 extern "C" u16 data_020c4820;
 extern "C" u16 data_020c4814;
-extern "C" u8 data_020c4618[0x20];
-extern "C" u8 data_020c4600[0x18];
-extern "C" void func_0200eca8(u16 arm7keys, u16 keys);
-extern "C" void TP_WaitCalibratedResult(void *);
+extern "C" u16 data_020c4618[16];         // frames each key has been held
+extern "C" TPData data_020c4600[3];       // the last touch samples
+extern "C" void func_0200eca8(void);       // starts sampling the touch screen
+extern "C" void TP_WaitCalibratedResult(TPData *data);
 extern "C" s32 data_020c484c;               // frames since the last update
 extern "C" void func_ov000_02110e04(void *);
 extern "C" void func_ov000_02110e00(void *);
@@ -45,9 +47,6 @@ extern "C" char data_020abff4[];
 extern "C" char data_020afeac[];
 extern "C" char data_020c45d4[];
 extern "C" char data_020c45e4[];
-extern "C" char data_020c4668[];
-extern "C" char data_020c467c[];
-extern "C" char data_020c47b4[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov000_02117c6c[];
 extern "C" char data_ov000_02117cdc[];
@@ -97,6 +96,16 @@ extern "C" void func_0200846c(void);
 extern "C" void func_020025b8(void);
 extern "C" void func_0200ff28(int);
 extern "C" void func_0200fa3c(int, int, int);
+extern "C" void func_020025f8(void);
+extern "C" void func_0209d240(void);
+extern "C" void func_ov015_0213238c(void);
+extern "C" void func_0208897c(void *);
+extern "C" void func_02088990(void *);
+extern "C" void func_0209d480(void);
+extern "C" void *data_020c467c;
+extern "C" void *data_020c4668;
+extern GameHeap data_020c47b4;
+#define OS_VBLANK_COUNT (*(volatile u32 *)0x02FFFC3C)
 #define REG_DISPCNT_SUB (*(volatile u32 *)0x04001000)
 extern "C" void func_02089004(void *, s32 frames);
 extern "C" void func_0202b4c4(void);
@@ -130,8 +139,7 @@ extern "C" void func_ov015_02148f94(void);
 extern "C" u8 data_020d9978[];
 extern "C" void func_02051c54(void);
 extern "C" void func_01ff9ea4(void *);
-extern "C" u8 data_020c45c0[];             // (= data_020c45a0.calibrate)
-#define REG_KEYINPUT (*(volatile u16 *)0x04000130)
+extern "C" TPData data_020c45c0;          // (= data_020c45a0.touch)
 
 extern "C" void func_ov015_021323a4(int);
 extern "C" void func_ov015_021323fc(void);
@@ -158,19 +166,12 @@ extern "C" void _ZN11MoviePlayer5PauseEv(void);
 extern "C" void _ZN12SoundManager13func_02039bccEv(void);
 extern "C" void _ZN12SoundManager6UpdateEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc7cEv(void);
-extern "C" void _ZN8GameHeap7GetInfoEPmS0_S0_(void);
 extern "C" void _ZdlPv(void);
-extern "C" void func_020025f8(void);
-extern "C" void func_0208897c(void);
-extern "C" void func_02088990(void);
-extern "C" void func_0209d240(void);
-extern "C" void func_0209d480(void);
 extern "C" void func_ov000_0210048c(void);
 extern "C" void func_ov000_02110de4(void);
 extern "C" void func_ov001_0211bcd0(void);
 extern "C" void func_ov003_020fd8ec(void);
 extern "C" void func_ov003_0210eb00(void);
-extern "C" void func_ov015_0213238c(void);
 extern "C" BOOL func_ov015_02132794(void);      // TRUE while busy
 
 void SceneManager::func_0203e2fc(s32 value)
@@ -1104,16 +1105,59 @@ void SceneManager::func_0203ef38()
     data_020c4814 = 0;
     MI_CpuFill8(data_020c4618, 0, sizeof(data_020c4618));
     {
+        // (a key read whose result is not used)
         u16 keys = REG_KEYINPUT;
 
-        func_0200eca8(*(u16 *)0x02FFFFA8, keys);
+        keys |= HW_BUTTON_XY_BUF;
     }
-    TP_WaitCalibratedResult(data_020c45a0.calibrate);
-    data_020c45a0.unk_00 = 0;
-    data_020c45a0.unk_04 = 0;
+    func_0200eca8();
+    TP_WaitCalibratedResult(&data_020c45a0.touch);
+    data_020c45a0.sampled = FALSE;
+    data_020c45a0.sampleIndex = 0;
     MI_CpuFill8(data_020c4600, 0, sizeof(data_020c4600));
 }
 
+// reads the keys: pressed this frame, held, and repeated
+// (nonmatching: the loop's values are in other registers)
+#ifdef NONMATCHING
+void SceneManager::func_0203efc8()
+{
+    u16 keys;
+    u16 old;
+    int i;
+    u16 bit;
+
+    if (PAD_DetectFold()) {
+        keys = 0;
+    } else {
+        keys = PAD_Read();
+        // (up cancels down, left cancels right)
+        keys = keys & ~((keys & PAD_KEY_UP) << 1) & ~((keys & PAD_KEY_LEFT) >> 1);
+    }
+
+    old = data_020c4820;
+    data_020c4814 = 0;
+    bit = 1;
+    for (i = 0; i < 16; i++) {
+        if (keys & bit) {
+            if (old & bit) {
+                if (data_020c4618[i] > 16) {
+                    data_020c4618[i] = 14;
+                    data_020c4814 |= bit;
+                } else {
+                    data_020c4618[i]++;
+                }
+            } else {
+                data_020c4618[i] = 1;
+                data_020c4814 |= bit;
+            }
+        }
+        bit <<= 1;
+    }
+    data_020c4818 = keys & (keys ^ old);
+    data_020c4820 = keys;
+}
+#else
 asm void SceneManager::func_0203efc8()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
@@ -1184,7 +1228,43 @@ asm void SceneManager::func_0203efc8()
     strh r12, [r0]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
+// samples the touch screen (a release of one frame is ignored)
+// (nonmatching: the choice of the sample is laid out differently)
+#ifdef NONMATCHING
+void SceneManager::func_0203f0dc()
+{
+    TPData *sample = &data_020c4600[data_020c45a0.sampleIndex];
+    TPData *previous;
+    TPData *last;
+
+    func_0200eca8();
+    TP_WaitCalibratedResult(sample);
+    if (!data_020c45a0.sampled) {
+        if (data_020c4600[data_020c45a0.sampleIndex].touch == 1) {
+            data_020c4600[data_020c45a0.sampleIndex].touch = 0;
+        } else {
+            data_020c45a0.sampled = TRUE;
+        }
+    }
+    if (PAD_DetectFold()) {
+        data_020c4600[data_020c45a0.sampleIndex].touch = 0;
+    }
+
+    previous = &data_020c4600[(data_020c45a0.sampleIndex + 2) % 3];
+    if (previous->touch == 1) {
+        last = &data_020c4600[data_020c45a0.sampleIndex];
+        if (last->touch == 1 || data_020c4600[(data_020c45a0.sampleIndex + 1) % 3].touch != 1) {
+            data_020c45a0.touch = *last;
+            goto next;
+        }
+    }
+    data_020c45a0.touch = *previous;
+next:
+    data_020c45a0.sampleIndex = (data_020c45a0.sampleIndex + 1) % 3;
+}
+#else
 asm void SceneManager::func_0203f0dc()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
@@ -1282,6 +1362,7 @@ asm void SceneManager::func_0203f0dc()
     str r4, [r3, #4]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 // gives the keys, then the touch screen, to the objects until one of them takes them
 // (nonmatching: the loops start with a jump to their condition)
@@ -1299,7 +1380,7 @@ void SceneManager::func_0203f248()
     }
     for (j = 0; j < 3; j++) {
         if (data_020c45c8[j] != NULL &&
-            ((BOOL (*)(UnkObject *, void *))data_020c45c8[j]->vtable->func_18)(data_020c45c8[j], data_020c45c0)) {
+            ((BOOL (*)(UnkObject *, void *))data_020c45c8[j]->vtable->func_18)(data_020c45c8[j], &data_020c45c0)) {
             return;
         }
     }
@@ -1467,104 +1548,66 @@ void SceneManager::func_0203f5d0()
     }
 }
 
-asm void SceneManager::func_0203f604()
+// the game's main loop
+void SceneManager::func_0203f604()
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0xc
-    bl func_0203f500
-    ldr r9, =0x2fffc3c
-    ldr r10, [r9]
-    bl func_0200846c
-    bl func_020025f8
-    ldr r8, =0x4001000
-    ldr r0, [r8]
-    orr r0, r0, #0x10000
-    str r0, [r8]
-    bl func_0209d240
-    ldr r5, =data_020c467c
-    ldr r4, =data_020c484c
-    ldr r11, =data_020c45a0
-    add r7, r9, #0x36c
-@L_0203f644:
-    ldrh r0, [r7]
-    and r0, r0, #0x8000
-    movs r0, r0, asr #0xf
-    beq @L_0203f660
-    bl func_0203ed88
-    ldr r10, [r9]
-    b @L_0203f690
-@L_0203f660:
-    bl PM_GetLCDPower
-    cmp r0, #0
-    bne @L_0203f690
-    mov r0, #1
-    bl func_0200ff28
-    bl func_0200846c
-    bl func_020025f8
-    ldr r0, [r8]
-    orr r0, r0, #0x10000
-    str r0, [r8]
-    bl func_ov015_0213238c
-    bl func_0200846c
-@L_0203f690:
-    ldr r0, [r5]
-    bl func_0208897c
-    bl func_0203f2e8
-    bl func_0203efc8
-    bl func_0203f0dc
-    bl func_0203f248
-    bl func_0203f338
-    bl func_0203f42c
-    ldr r0, =data_020c4668
-    ldr r1, [r0]
-    mov r0, #1
-    str r0, [r1, #0x38]
-    ldr r0, [r5]
-    bl func_02088990
-    bl func_0209d480
-    ldr r0, =data_020c4820
-    ldrh r0, [r0]
-    tst r0, #0x100
-    beq @L_0203f700
-    ldr r0, =data_020c4818
-    ldrh r0, [r0]
-    tst r0, #0x200
-    beq @L_0203f700
-    ldr r0, =data_020c47b4
-    add r1, sp, #8
-    add r2, sp, #4
-    add r3, sp, #0
-    bl _ZN8GameHeap7GetInfoEPmS0_S0_
-@L_0203f700:
-    bl func_0200846c
-    bl func_0203f3b4
-    ldr r0, [r11, #0x30]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x30]
-    blx r1
-    ldr r0, [r11, #0x30]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x34]
-    blx r1
-    ldr r6, [r9]
-    ldr r0, =data_020c5e40
-    sub r1, r6, r10
-    str r1, [r4]
-    mov r10, r6
-    bl _ZN12SoundManager6UpdateEv
-    ldr r0, [r4]
-    cmp r0, #1
-    bhi @L_0203f764
-    bl func_0203f0dc
-    bl func_0200846c
-    add r10, r6, #1
-    ldr r0, [r4]
-    add r0, r0, #1
-    str r0, [r4]
-@L_0203f764:
-    bl func_0203f5d0
-    bl func_0203ead8
-    b @L_0203f644
+    u32 lastFrame;
+    u32 now;
+    u32 used;
+    u32 free;
+    u32 allocatable;
+
+    func_0203f500();
+    lastFrame = OS_VBLANK_COUNT;
+    func_0200846c();
+    func_020025f8();
+    REG_DISPCNT_SUB |= 0x10000;
+    func_0209d240();
+
+    for (;;) {
+        if (PAD_DetectFold()) {
+            func_0203ed88();
+            lastFrame = OS_VBLANK_COUNT;
+        } else if (PM_GetLCDPower() == 0) {
+            func_0200ff28(1);
+            func_0200846c();
+            func_020025f8();
+            REG_DISPCNT_SUB |= 0x10000;
+            func_ov015_0213238c();
+            func_0200846c();
+        }
+
+        func_0208897c(data_020c467c);
+        func_0203f2e8();
+        func_0203efc8();
+        func_0203f0dc();
+        func_0203f248();
+        func_0203f338();
+        func_0203f42c();
+        *(s32 *)((u8 *)data_020c4668 + 0x38) = 1;
+        func_02088990(data_020c467c);
+        func_0209d480();
+        if ((data_020c4820 & 0x100) && (data_020c4818 & 0x200)) {
+            data_020c47b4.GetInfo(&used, &free, &allocatable);
+        }
+        func_0200846c();
+        func_0203f3b4();
+        data_020c45a0.objects[SCENE_OBJECT]->vtable->func_30(data_020c45a0.objects[SCENE_OBJECT]);
+        data_020c45a0.objects[SCENE_OBJECT]->vtable->func_34(data_020c45a0.objects[SCENE_OBJECT]);
+
+        now = OS_VBLANK_COUNT;
+        data_020c484c = now - lastFrame;
+        lastFrame = now;
+        data_020c5e40.Update();
+        if ((u32)data_020c484c <= 1) {
+            func_0203f0dc();
+            func_0200846c();
+            lastFrame = now + 1;
+            data_020c484c++;
+        }
+        func_0203f5d0();
+        func_0203ead8();
+    }
 }
 
 int SceneManager::func_0203f798()

@@ -4,6 +4,14 @@
 #include "nitro/types.h"
 #include "game/UnkClass_0203dc7c.hpp"
 
+// (NitroSDK TP)
+struct TPData {
+    u16 x;
+    u16 y;
+    u16 touch;
+    u16 validity;
+};
+
 // What a scene is made from
 struct SceneDesc {
     s32 id;
@@ -152,8 +160,8 @@ public:
     static void func_0203ed88();
     static void func_0203ee70();
     static void func_0203ef38();
-    void func_0203efc8();
-    void func_0203f0dc();
+    static void func_0203efc8();
+    static void func_0203f0dc();
     static void func_0203f248();
     static void func_0203f2e8();
     static void func_0203f310();
@@ -162,7 +170,7 @@ public:
     static void func_0203f42c();
     static void func_0203f500();
     static void func_0203f5d0();
-    void func_0203f604();
+    static void func_0203f604();
     int func_0203f798();
     int func_0203f7a0();
     int func_0203f7a8();
@@ -198,14 +206,14 @@ public:
 
 // The state of the scenes
 struct SceneManagerGlobals {
-    u8 unk_00;
+    u8 sampled;                 // a touch sample was taken
     u8 unk_01[3];
-    s32 unk_04;
+    s32 sampleIndex;            // in data_020c4600
     s32 nextScene;              // (0: none)
     s32 currentScene;
     s32 previousScene;
     u8 unk_14[0xC];
-    u8 calibrate[8];            // data_020c45c0
+    TPData touch;               // data_020c45c0: the touch screen this frame
     UnkObject *objects[3];      // the last one is the current scene
     PMSleepCallbackInfo preSleep;
     PMSleepCallbackInfo postSleep;
