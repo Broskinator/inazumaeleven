@@ -25,7 +25,9 @@ struct UnkObjectVtable {
     void (*func_18)(UnkObject *object, int a);
     void (*func_1c)(UnkObject *object);
     void (*func_20)(UnkObject *object);
-    void *unk_24[15];
+    void *unk_24[2];
+    void (*func_2c)(UnkObject *object);
+    void *unk_30[12];
     int (*func_60)(UnkObject *object, int a);
     int (*func_64)(UnkObject *object, int a);
     int (*func_68)(UnkObject *object);

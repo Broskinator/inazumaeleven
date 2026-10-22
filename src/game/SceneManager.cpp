@@ -2,26 +2,28 @@
 #include "nitro/os.h"
 #include "sound/SoundManager.hpp"
 #include "movie/MoviePlayer.hpp"
+#include "game/GameState.hpp"
+#include "data/ConfigFile.hpp"
+#include "nitro/mi.h"
 
-extern "C" void func_ov015_021323a4(int);
-extern "C" void func_ov015_021323fc(void);
-extern "C" void func_ov015_0213240c(void);
-extern "C" void func_ov015_021324a4(void);
-extern "C" void func_ov015_021324b4(void);
-extern "C" BOOL func_ov015_02134bd8(void *arg);
-extern "C" void func_0200878c(void);
-extern "C" void _Znwm(void);       // (operator new, for the asm functions)
-extern "C" void func_ov015_02132554(int);
-extern "C" void func_ov015_02132568(int);
-extern "C" void func_ov015_02132600(int);
-extern "C" void func_ov015_02132614(int);
-extern "C" void func_ov015_021326b8(int);
-extern "C" void func_ov015_021326cc(int);
-extern "C" void func_ov015_02132774(void);
-extern "C" void func_ov015_02132784(void);
-extern "C" void func_ov015_021327ec(int);
-extern "C" void func_ov015_0213290c(void);
-extern "C" void func_ov015_0213291c(void);
+extern "C" u8 data_020c5320[];
+extern "C" void func_0209bebc(void *);
+extern "C" void func_020100e4(PMSleepCallbackInfo *info);        // adds a callback before sleep
+extern "C" void func_02010124(PMSleepCallbackInfo *info);        // adds a callback after sleep
+extern "C" void *data_020c46d0;
+extern "C" void func_ov015_0213cc18(void *);
+extern ConfigFile data_020c46e4;            // the settings file
+extern "C" s32 data_020ac094[];             // settings read from it
+extern "C" u16 data_020c4818;
+extern "C" u16 data_020c4820;
+extern "C" u16 data_020c4814;
+extern "C" u8 data_020c4618[0x20];
+extern "C" u8 data_020c4600[0x18];
+extern "C" void func_0200eca8(u16 arm7keys, u16 keys);
+extern "C" void TP_WaitCalibratedResult(void *);
+extern "C" s32 data_020c484c;               // frames since the last update
+extern "C" void func_ov000_02110e04(void *);
+extern "C" void func_ov000_02110e00(void *);
 
 extern "C" char data_020a4944[];
 extern "C" char data_020abf04[];
@@ -34,14 +36,11 @@ extern "C" char data_020abfcc[];
 extern "C" char data_020abfe0[];
 extern "C" char data_020abff4[];
 extern "C" char data_020ac008[];
-extern "C" char data_020ac094[];
 extern "C" char data_020afeac[];
 extern "C" char data_020c45c0[];
 extern "C" char data_020c45c8[];
 extern "C" char data_020c45d4[];
 extern "C" char data_020c45e4[];
-extern "C" char data_020c4600[];
-extern "C" char data_020c4618[];
 extern "C" char data_020c4650[];
 extern "C" char data_020c4660[];
 extern "C" char data_020c4668[];
@@ -50,20 +49,13 @@ extern "C" char data_020c4678[];
 extern "C" char data_020c467c[];
 extern "C" char data_020c4694[];
 extern "C" char data_020c46c0[];
-extern "C" char data_020c46d0[];
 extern "C" char data_020c46d4[];
-extern "C" char data_020c46e4[];
 extern "C" char data_020c47b4[];
 extern "C" char data_020c4808[];
-extern "C" char data_020c4814[];
-extern "C" char data_020c4818[];
-extern "C" char data_020c4820[];
-extern "C" char data_020c484c[];
 extern "C" char data_020c4850[];
 extern "C" char data_020c4a40[];
 extern "C" char data_020c4ab4[];
 extern "C" char data_020c4c70[];
-extern "C" char data_020c5320[];
 extern "C" char data_020d9978[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov000_02117c6c[];
@@ -99,10 +91,31 @@ extern "C" char data_ov014_02124500[];
 extern "C" char data_ov014_021245c8[];
 extern "C" char data_ov014_021246fc[];
 extern "C" char data_ov046_0216acc0[];
-extern "C" void MI_CpuFill8(void);
-extern "C" void PM_GetLCDPower(void);
-extern "C" void TP_WaitCalibratedResult(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
+
+#define REG_KEYINPUT (*(volatile u16 *)0x04000130)
+
+extern "C" void func_ov015_021323a4(int);
+extern "C" void func_ov015_021323fc(void);
+extern "C" void func_ov015_0213240c(void);
+extern "C" void func_ov015_021324a4(void);
+extern "C" void func_ov015_021324b4(void);
+extern "C" BOOL func_ov015_02134bd8(FSOverlayID overlay);     // loads the overlay of a scene
+extern "C" void func_0200878c(void);
+extern "C" void _Znwm(void);       // (operator new, for the asm functions)
+extern "C" void func_ov015_02132554(int);
+extern "C" void func_ov015_02132568(int);
+extern "C" void func_ov015_02132600(int);
+extern "C" void func_ov015_02132614(int);
+extern "C" void func_ov015_021326b8(int);
+extern "C" void func_ov015_021326cc(int);
+extern "C" void func_ov015_02132774(void);
+extern "C" void func_ov015_02132784(void);
+extern "C" void func_ov015_021327ec(int);
+extern "C" void func_ov015_0213290c(void);
+extern "C" void func_ov015_0213291c(void);
+
+extern "C" void PM_GetLCDPower(void);
 extern "C" void _ZN11MoviePlayer5PauseEv(void);
 extern "C" void _ZN11SaveManager6IsDoneEv(void);
 extern "C" void _ZN12SoundManager13func_02039bccEv(void);
@@ -115,11 +128,8 @@ extern "C" void func_01ff9ea4(void);
 extern "C" void func_020025b8(void);
 extern "C" void func_020025f8(void);
 extern "C" void func_0200846c(void);
-extern "C" void func_0200eca8(void);
 extern "C" void func_0200fa3c(void);
 extern "C" void func_0200ff28(void);
-extern "C" void func_020100e4(void);
-extern "C" void func_02010124(void);
 extern "C" void func_0202b4c4(void);
 extern "C" void func_02051c54(void);
 extern "C" void func_0208897c(void);
@@ -137,42 +147,37 @@ extern "C" void func_02096048(void);
 extern "C" void func_0209605c(void);
 extern "C" void func_02096070(void);
 extern "C" void func_0209be60(void);
-extern "C" void func_0209bebc(void);
 extern "C" void func_0209c628(void);
 extern "C" void func_0209c648(void);
 extern "C" void func_0209d240(void);
 extern "C" void func_0209d480(void);
 extern "C" void func_ov000_0210048c(void);
 extern "C" void func_ov000_02110de4(void);
-extern "C" void func_ov000_02110e00(void);
-extern "C" void func_ov000_02110e04(void);
 extern "C" void func_ov001_0211bcd0(void);
 extern "C" void func_ov003_020fd8ec(void);
 extern "C" void func_ov003_0210eb00(void);
 extern "C" void func_ov015_02131828(void);
 extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_0213238c(void);
-extern "C" void func_ov015_02132794(void);
+extern "C" BOOL func_ov015_02132794(void);      // TRUE while busy
 extern "C" void func_ov015_02133efc(void);
 extern "C" void func_ov015_02134c78(void);
-extern "C" void func_ov015_0213cc18(void);
 extern "C" void func_ov015_0213d1ac(void);
 extern "C" void func_ov015_0213d1d0(void);
 extern "C" void func_ov015_02148f94(void);
 extern "C" void gEntryPool(void);
-extern "C" void gGameState(void);
 
 void SceneManager::func_0203e2fc(s32 value)
 {
-    data_020c45a0.unk_08 = value;
+    data_020c45a0.nextScene = value;
 }
 
 s32 SceneManager::func_0203e30c()
 {
-    return data_020c45a0.unk_0c;
+    return data_020c45a0.currentScene;
 }
 
-asm void SceneManager::func_0203e31c()
+asm SceneDesc *SceneManager::func_0203e31c(s32 id)
 {
     ldr r1, =data_020a4944
     mov r2, #3
@@ -190,25 +195,25 @@ asm void SceneManager::func_0203e31c()
 // creates the scene described by desc (NULL for an unknown type)
 UnkClass_0203dc7c *SceneManager::func_0203e348(SceneDesc *desc)
 {
-    void *arg = desc->arg;
+    FSOverlayID overlay = desc->overlay;
 
-    switch (desc->type) {
+    switch (desc->id) {
     case 3:
-        return func_0203e9c4(arg);
+        return func_0203e9c4(overlay);
     case 2:
-        return func_0203e7b0(arg);
+        return func_0203e7b0(overlay);
     case 1:
-        return func_0203e5c4(arg);
+        return func_0203e5c4(overlay);
     case 4:
-        return func_0203e54c(arg);
+        return func_0203e54c(overlay);
     case 5:
-        return func_0203e4fc(arg);
+        return func_0203e4fc(overlay);
     case 6:
-        return func_0203e498(arg);
+        return func_0203e498(overlay);
     case 7:
-        return func_0203e45c(arg);
+        return func_0203e45c(overlay);
     case 8:
-        return func_0203e3d0(arg);
+        return func_0203e3d0(overlay);
     default:
         func_0200878c();
         return NULL;
@@ -217,11 +222,11 @@ UnkClass_0203dc7c *SceneManager::func_0203e348(SceneDesc *desc)
 
 // (nonmatching: the parts are built by nested inline constructors (their stores are relative to the first part))
 #ifdef NONMATCHING
-UnkClass_0203dc7c *SceneManager::func_0203e3d0(void *arg)
+UnkClass_0203dc7c *SceneManager::func_0203e3d0(FSOverlayID overlay)
 {
     Scene8 *scene;
 
-    if (!func_ov015_02134bd8(arg)) {
+    if (!func_ov015_02134bd8(overlay)) {
         return NULL;
     }
     scene = (Scene8 *)operator new(sizeof(Scene8));
@@ -239,7 +244,7 @@ UnkClass_0203dc7c *SceneManager::func_0203e3d0(void *arg)
     return scene;
 }
 #else
-asm UnkClass_0203dc7c *SceneManager::func_0203e3d0(void *arg)
+asm UnkClass_0203dc7c *SceneManager::func_0203e3d0(FSOverlayID overlay)
 {
     stmdb sp!, {r4, lr}
     bl func_ov015_02134bd8
@@ -284,11 +289,11 @@ void SceneManager::func_0203e458()
 {
 }
 
-UnkClass_0203dc7c *SceneManager::func_0203e45c(void *arg)
+UnkClass_0203dc7c *SceneManager::func_0203e45c(FSOverlayID overlay)
 {
     UnkClass_0203dc7c *scene;
 
-    if (!func_ov015_02134bd8(arg)) {
+    if (!func_ov015_02134bd8(overlay)) {
         return NULL;
     }
     scene = (UnkClass_0203dc7c *)operator new(sizeof(UnkClass_0203dc7c));
@@ -299,11 +304,11 @@ UnkClass_0203dc7c *SceneManager::func_0203e45c(void *arg)
     return scene;
 }
 
-UnkClass_0203dc7c *SceneManager::func_0203e498(void *arg)
+UnkClass_0203dc7c *SceneManager::func_0203e498(FSOverlayID overlay)
 {
     Scene6 *scene;
 
-    if (!func_ov015_02134bd8(arg)) {
+    if (!func_ov015_02134bd8(overlay)) {
         return NULL;
     }
     scene = (Scene6 *)operator new(sizeof(Scene6));
@@ -326,11 +331,11 @@ void SceneManager::func_0203e4f8()
 {
 }
 
-UnkClass_0203dc7c *SceneManager::func_0203e4fc(void *arg)
+UnkClass_0203dc7c *SceneManager::func_0203e4fc(FSOverlayID overlay)
 {
     Scene5 *scene;
 
-    if (!func_ov015_02134bd8(arg)) {
+    if (!func_ov015_02134bd8(overlay)) {
         return NULL;
     }
     scene = (Scene5 *)operator new(sizeof(Scene5));
@@ -347,11 +352,11 @@ void SceneManager::func_0203e548()
 {
 }
 
-UnkClass_0203dc7c *SceneManager::func_0203e54c(void *arg)
+UnkClass_0203dc7c *SceneManager::func_0203e54c(FSOverlayID overlay)
 {
     Scene4 *scene;
 
-    if (!func_ov015_02134bd8(arg)) {
+    if (!func_ov015_02134bd8(overlay)) {
         return NULL;
     }
     scene = (Scene4 *)operator new(sizeof(Scene4));
@@ -380,7 +385,7 @@ void SceneManager::func_0203e5c0()
 {
 }
 
-asm UnkClass_0203dc7c *SceneManager::func_0203e5c4(void *arg)
+asm UnkClass_0203dc7c *SceneManager::func_0203e5c4(FSOverlayID overlay)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     bl func_ov015_02134bd8
@@ -534,7 +539,7 @@ void SceneManager::func_0203e7ac()
 {
 }
 
-asm UnkClass_0203dc7c *SceneManager::func_0203e7b0(void *arg)
+asm UnkClass_0203dc7c *SceneManager::func_0203e7b0(FSOverlayID overlay)
 {
     stmdb sp!, {r4, r5, r6, lr}
     bl func_ov015_02134bd8
@@ -705,7 +710,7 @@ void SceneManager::func_0203e9c0()
 {
 }
 
-asm UnkClass_0203dc7c *SceneManager::func_0203e9c4(void *arg)
+asm UnkClass_0203dc7c *SceneManager::func_0203e9c4(FSOverlayID overlay)
 {
     stmdb sp!, {r4, lr}
     bl func_ov015_02134bd8
@@ -767,82 +772,56 @@ void SceneManager::func_0203ea98()
 {
 }
 
-asm void SceneManager::func_0203ea9c()
+Scene3Part *SceneManager::func_0203ea9c(Scene3Part *part)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r2, =data_ov000_021181c4
-    ldr r1, =data_ov000_02118238
-    add r0, r4, #4
-    str r2, [r4]
-    str r1, [r4, #4]
-    bl func_ov000_02110e04
-    add r0, r4, #4
-    bl func_ov000_02110e00
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    part->vtable = data_ov000_021181c4;
+    part->inner.vtable = data_ov000_02118238;
+    func_ov000_02110e04(&part->inner);
+    func_ov000_02110e00(&part->inner);
+    return part;
 }
 
 void SceneManager::func_0203ead4()
 {
 }
 
-asm void SceneManager::func_0203ead8()
+// switches to the next scene: deletes the current one and unloads its overlay
+void SceneManager::func_0203ead8()
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_020c45a0
-    ldr r0, [r4, #8]
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    bl func_ov015_02132794
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r0, [r4, #0x30]
-    cmp r0, #0
-    beq @L_0203eb30
-    ldr r1, [r0]
-    ldr r1, [r1, #0x2c]
-    blx r1
-    ldr r0, [r4, #0x30]
-    cmp r0, #0
-    beq @L_0203eb28
-    ldr r1, [r0]
-    ldr r1, [r1, #4]
-    blx r1
-@L_0203eb28:
-    mov r0, #0
-    str r0, [r4, #0x30]
-@L_0203eb30:
-    ldr r0, [r4, #0xc]
-    cmp r0, #0
-    beq @L_0203eb54
-    bl func_0203e31c
-    cmp r0, #0
-    beq @L_0203eb54
-    ldr r1, [r0, #4]
-    mov r0, #0
-    bl FS_UnloadOverlay
-@L_0203eb54:
-    ldr r0, [r4, #8]
-    bl func_0203e31c
-    cmp r0, #0
-    beq @L_0203eb6c
-    bl func_0203e348
-    str r0, [r4, #0x30]
-@L_0203eb6c:
-    ldr r1, [r4, #0xc]
-    mov r0, #0
-    str r1, [r4, #0x10]
-    ldr r1, [r4, #8]
-    str r1, [r4, #0xc]
-    str r0, [r4, #8]
-    ldr r0, [r4, #0x30]
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldr r1, [r0]
-    ldr r1, [r1, #8]
-    blx r1
-    ldmia sp!, {r4, pc}
+    SceneDesc *desc;
+
+    if (data_020c45a0.nextScene == 0) {
+        return;
+    }
+    if (func_ov015_02132794()) {
+        return;
+    }
+
+    if (data_020c45a0.scene != NULL) {
+        data_020c45a0.scene->vtable->func_2c(data_020c45a0.scene);
+        if (data_020c45a0.scene != NULL) {
+            data_020c45a0.scene->vtable->Delete(data_020c45a0.scene);
+        }
+        data_020c45a0.scene = NULL;
+    }
+    if (data_020c45a0.currentScene != 0) {
+        desc = func_0203e31c(data_020c45a0.currentScene);
+        if (desc != NULL) {
+            FS_UnloadOverlay(MI_PROCESSOR_ARM9, desc->overlay);
+        }
+    }
+    desc = func_0203e31c(data_020c45a0.nextScene);
+    if (desc != NULL) {
+        data_020c45a0.scene = (UnkObject *)func_0203e348(desc);
+    }
+
+    data_020c45a0.previousScene = data_020c45a0.currentScene;
+    data_020c45a0.currentScene = data_020c45a0.nextScene;
+    data_020c45a0.nextScene = 0;
+    if (data_020c45a0.scene == NULL) {
+        return;
+    }
+    ((void (*)(UnkObject *))data_020c45a0.scene->vtable->func_08)(data_020c45a0.scene);
 }
 
 asm void SceneManager::func_0203eba4()
@@ -927,46 +906,32 @@ asm void SceneManager::func_0203eba4()
     ldmia sp!, {r3, pc}
 }
 
-asm void SceneManager::func_0203ecd4()
+// (before the DS goes to sleep)
+void SceneManager::func_0203ecd4(void *arg)
 {
-    stmdb sp!, {r4, lr}
-    ldr r0, =data_020c5320
-    bl func_0209bebc
-    ldr r0, =data_020c4f60
-    bl _ZN11MoviePlayer5PauseEv
-    ldr r4, =data_020c5e40
-    mov r0, r4
-    bl _ZN12SoundManager6UpdateEv
-    mov r0, #0x14
-    bl OS_Sleep
-    mov r0, r4
-    bl _ZN12SoundManager13func_02039bccEv
-    ldmia sp!, {r4, pc}
+    func_0209bebc(data_020c5320);
+    data_020c4f60.Pause();
+    data_020c5e40.Update();
+    OS_Sleep(20);
+    data_020c5e40.func_02039bcc();
 }
 
-void SceneManager::func_0203ed14()
+// (after the DS wakes up)
+void SceneManager::func_0203ed14(void *arg)
 {
     OS_Sleep(20);
     data_020c5e40.func_02039bdc();
     data_020c4f60.Resume();
 }
 
-asm void SceneManager::func_0203ed3c()
+void SceneManager::func_0203ed3c()
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =func_0203ecd4
-    ldr r1, =data_020c45a0
-    mov r2, #0
-    str r0, [r1, #0x34]
-    ldr r0, =func_0203ed14
-    str r2, [r1, #0x38]
-    str r0, [r1, #0x44]
-    ldr r0, =data_020c45d4
-    str r2, [r1, #0x48]
-    bl func_020100e4
-    ldr r0, =data_020c45e4
-    bl func_02010124
-    ldmia sp!, {r3, pc}
+    data_020c45a0.preSleep.callback = func_0203ecd4;
+    data_020c45a0.preSleep.arg = NULL;
+    data_020c45a0.postSleep.callback = func_0203ed14;
+    data_020c45a0.postSleep.arg = NULL;
+    func_020100e4(&data_020c45a0.preSleep);
+    func_02010124(&data_020c45a0.postSleep);
 }
 
 asm void SceneManager::func_0203ed88()
@@ -1032,78 +997,35 @@ asm void SceneManager::func_0203ed88()
     ldmia sp!, {r4, pc}
 }
 
-asm void SceneManager::func_0203ee70()
+// reads the settings of the game from its settings file
+void SceneManager::func_0203ee70()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r0, =data_020c46d0
-    ldr r0, [r0]
-    bl func_ov015_0213cc18
-    ldr r5, =data_020c46e4
-    ldr r1, =data_020abf70
-    mov r0, r5
-    bl _ZN10ConfigFile6GetIntEPKc
-    ldr r4, =data_020ac094
-    ldr r1, =data_020abf80
-    str r0, [r4]
-    mov r0, r5
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #4]
-    ldr r1, =data_020abf94
-    mov r0, r5
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0xc]
-    ldr r1, =data_020abfa8
-    mov r0, r5
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x10]
-    ldr r1, =data_020abfbc
-    mov r0, r5
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x28]
-    mov r0, r5
-    ldr r1, =data_020abfcc
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x2c]
-    mov r0, r5
-    ldr r1, =data_020abfe0
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x30]
-    mov r0, r5
-    ldr r1, =data_020abff4
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x34]
-    ldmia sp!, {r3, r4, r5, pc}
+    func_ov015_0213cc18(data_020c46d0);
+    data_020ac094[0] = data_020c46e4.GetInt(data_020abf70);
+    data_020ac094[1] = data_020c46e4.GetInt(data_020abf80);
+    data_020ac094[3] = data_020c46e4.GetInt(data_020abf94);
+    data_020ac094[4] = data_020c46e4.GetInt(data_020abfa8);
+    data_020ac094[10] = data_020c46e4.GetInt(data_020abfbc);
+    data_020ac094[11] = data_020c46e4.GetInt(data_020abfcc);
+    data_020ac094[12] = data_020c46e4.GetInt(data_020abfe0);
+    data_020ac094[13] = data_020c46e4.GetInt(data_020abff4);
 }
 
-asm void SceneManager::func_0203ef38()
+void SceneManager::func_0203ef38()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    ldr lr, =data_020c4818
-    ldr r12, =data_020c4820
-    ldr r3, =data_020c4814
-    ldr r0, =data_020c4618
-    mov r1, r4
-    mov r2, #0x20
-    strh r4, [lr]
-    strh r4, [r12]
-    strh r4, [r3]
-    bl MI_CpuFill8
-    ldr r1, =0x4000130
-    ldr r0, =0x2ffffa8
-    ldrh r1, [r1]
-    ldrh r0, [r0]
-    bl func_0200eca8
-    ldr r0, =data_020c45c0
-    bl TP_WaitCalibratedResult
-    ldr r3, =data_020c45a0
-    ldr r0, =data_020c4600
-    strb r4, [r3]
-    mov r1, r4
-    mov r2, #0x18
-    str r4, [r3, #4]
-    bl MI_CpuFill8
-    ldmia sp!, {r4, pc}
+    data_020c4818 = 0;
+    data_020c4820 = 0;
+    data_020c4814 = 0;
+    MI_CpuFill8(data_020c4618, 0, sizeof(data_020c4618));
+    {
+        u16 keys = REG_KEYINPUT;
+
+        func_0200eca8(*(u16 *)0x02FFFFA8, keys);
+    }
+    TP_WaitCalibratedResult(data_020c45a0.calibrate);
+    data_020c45a0.unk_00 = 0;
+    data_020c45a0.unk_04 = 0;
+    MI_CpuFill8(data_020c4600, 0, sizeof(data_020c4600));
 }
 
 asm void SceneManager::func_0203efc8()
@@ -1509,18 +1431,13 @@ asm void SceneManager::func_0203f500()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void SceneManager::func_0203f5d0()
+// counts the play time (up to 999:59:59)
+void SceneManager::func_0203f5d0()
 {
-    ldr r1, =gGameState
-    ldr r0, =data_020c484c
-    ldr r3, [r1, #0x4c8]
-    ldr r2, [r0]
-    ldr r0, =0xcdfe5ff
-    add r2, r3, r2
-    str r2, [r1, #0x4c8]
-    cmp r2, r0
-    strhi r0, [r1, #0x4c8]
-    bx lr
+    gGameState.profile.playTime += data_020c484c;
+    if (gGameState.profile.playTime > PLAY_TIME_MAX) {
+        gGameState.profile.playTime = PLAY_TIME_MAX;
+    }
 }
 
 asm void SceneManager::func_0203f604()

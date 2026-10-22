@@ -6,9 +6,27 @@
 
 // What a scene is made from
 struct SceneDesc {
-    s32 type;
-    void *arg;
+    s32 id;
+    FSOverlayID overlay;        // its code
 };
+
+// A part of the scene of type 3
+struct Scene3Part {
+    void *vtable;
+    struct {
+        void *vtable;
+    } inner;
+};
+
+// (NitroSDK PM)
+struct PMSleepCallbackInfo {
+    void (*callback)(void *arg);
+    void *arg;
+    PMSleepCallbackInfo *next;
+    u32 unk_0c;
+};
+
+#define PLAY_TIME_MAX (((999 * 60 + 59) * 60 + 59) * 60 + 59)   // frames
 
 // A part of a scene with its own vtable and a pointer back to the scene
 struct ScenePart {
@@ -57,23 +75,23 @@ class SceneManager {
 public:
     static void func_0203e2fc(s32 value);
     static s32 func_0203e30c();
-    void func_0203e31c();
+    static SceneDesc *func_0203e31c(s32 id);
     static UnkClass_0203dc7c *func_0203e348(SceneDesc *desc);
-    static UnkClass_0203dc7c *func_0203e3d0(void *arg);
+    static UnkClass_0203dc7c *func_0203e3d0(FSOverlayID overlay);
     void func_0203e450();
     void func_0203e454();
     void func_0203e458();
-    static UnkClass_0203dc7c *func_0203e45c(void *arg);
-    static UnkClass_0203dc7c *func_0203e498(void *arg);
+    static UnkClass_0203dc7c *func_0203e45c(FSOverlayID overlay);
+    static UnkClass_0203dc7c *func_0203e498(FSOverlayID overlay);
     void func_0203e4f4();
     void func_0203e4f8();
-    static UnkClass_0203dc7c *func_0203e4fc(void *arg);
+    static UnkClass_0203dc7c *func_0203e4fc(FSOverlayID overlay);
     void func_0203e548();
-    static UnkClass_0203dc7c *func_0203e54c(void *arg);
+    static UnkClass_0203dc7c *func_0203e54c(FSOverlayID overlay);
     void func_0203e5b8();
     void func_0203e5bc();
     void func_0203e5c0();
-    static UnkClass_0203dc7c *func_0203e5c4(void *arg);
+    static UnkClass_0203dc7c *func_0203e5c4(FSOverlayID overlay);
     void func_0203e778();
     void func_0203e77c();
     void func_0203e780();
@@ -88,7 +106,7 @@ public:
     void func_0203e7a4();
     void func_0203e7a8();
     void func_0203e7ac();
-    static UnkClass_0203dc7c *func_0203e7b0(void *arg);
+    static UnkClass_0203dc7c *func_0203e7b0(FSOverlayID overlay);
     void func_0203e980();
     void func_0203e984();
     void func_0203e988();
@@ -106,21 +124,21 @@ public:
     void func_0203e9b8();
     void func_0203e9bc();
     void func_0203e9c0();
-    static UnkClass_0203dc7c *func_0203e9c4(void *arg);
+    static UnkClass_0203dc7c *func_0203e9c4(FSOverlayID overlay);
     void func_0203ea8c();
     void func_0203ea90();
     void func_0203ea94();
     void func_0203ea98();
-    void func_0203ea9c();
+    static Scene3Part *func_0203ea9c(Scene3Part *part);
     void func_0203ead4();
-    void func_0203ead8();
+    static void func_0203ead8();
     void func_0203eba4();
-    void func_0203ecd4();
-    static void func_0203ed14();
-    void func_0203ed3c();
+    static void func_0203ecd4(void *arg);
+    static void func_0203ed14(void *arg);
+    static void func_0203ed3c();
     void func_0203ed88();
-    void func_0203ee70();
-    void func_0203ef38();
+    static void func_0203ee70();
+    static void func_0203ef38();
     void func_0203efc8();
     void func_0203f0dc();
     void func_0203f248();
@@ -130,7 +148,7 @@ public:
     void func_0203f3b4();
     void func_0203f42c();
     void func_0203f500();
-    void func_0203f5d0();
+    static void func_0203f5d0();
     void func_0203f604();
     int func_0203f798();
     int func_0203f7a0();
@@ -167,11 +185,17 @@ public:
 
 // The state of the scenes
 struct SceneManagerGlobals {
-    u8 unk_00[8];
-    s32 unk_08;
-    s32 unk_0c;
-    u8 unk_10[0x20];
+    u8 unk_00;
+    u8 unk_01[3];
+    s32 unk_04;
+    s32 nextScene;              // (0: none)
+    s32 currentScene;
+    s32 previousScene;
+    u8 unk_14[0xC];
+    u8 calibrate[0x10];         // data_020c45c0
     UnkObject *scene;           // the current scene
+    PMSleepCallbackInfo preSleep;
+    PMSleepCallbackInfo postSleep;
 };
 
 extern SceneManagerGlobals data_020c45a0;
