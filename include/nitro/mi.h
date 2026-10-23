@@ -11,6 +11,7 @@ extern "C" {
 void MIi_CpuClearFast(u32 data, void *destp, u32 size);
 void MI_CpuFill8(void *dest, u8 data, u32 size);
 void MI_CpuCopy8(const void *src, void *dest, u32 size);
+void MIi_CpuCopy32(const void *src, void *dest, u32 size);
 void MI_UncompressLZ8(const void *srcp, void *destp);
 void MI_UncompressHuffman(const void *srcp, void *destp);
 

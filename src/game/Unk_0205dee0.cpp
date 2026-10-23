@@ -2,8 +2,8 @@
 
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b3dcEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b3ecEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b3dcEi(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b3ecEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b3fcEv(void);     // (for the asm functions)
 extern "C" char data_020a6fdc[];
 extern "C" char data_020a701c[];
@@ -586,10 +586,10 @@ asm void Unk_0205dee0::func_0205e538()
     mov r0, r8
     mov r1, r10
     bne @L_0205e5d4
-    bl _ZN17UnkClass_020621b413func_0206b3dcEv
+    bl _ZN17UnkClass_020621b413func_0206b3dcEi
     b @L_0205e5d8
 @L_0205e5d4:
-    bl _ZN17UnkClass_020621b413func_0206b3ecEv
+    bl _ZN17UnkClass_020621b413func_0206b3ecEi
 @L_0205e5d8:
     mov r9, r0
     cmp r9, #0x63

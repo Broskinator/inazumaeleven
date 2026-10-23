@@ -1,5 +1,6 @@
 #include "game/UnkClass_020621b4.hpp"
 #include "game/Match.hpp"
+#include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
 extern "C" void _ZN17UnkClass_020621b413func_02063550EP11MatchPlayeriiii(void);     // (for the asm functions)
@@ -20,7 +21,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206a720Ei(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0206a748Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a774Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a77cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206a7f0Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206a7f0Eii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a890Eii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a8d8Eiii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a93cEv(void);     // (for the asm functions)
@@ -28,17 +29,17 @@ extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0206a970Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a9a4Eii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206abfcEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206abfcEP17UnkState_020621b4(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ac44Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206acfcEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ad68Eii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ad94Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b018Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b1a0Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b018EPvP11MatchPlayer(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b1a0EP17UnkState_020621b4h(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b274Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b390Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b3a4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b390Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b3a4Eim(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b47cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEv(void);     // (for the asm functions)
@@ -111,6 +112,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02064500Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_020646d4Ev(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
 extern "C" void *data_020c4648;
+extern "C" void func_0207a304(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" BOOL func_ov015_021317c8(void);
 extern "C" char data_020c4938[];     // (data_020c4920.unk_18, for the asm)
 extern "C" fx32 func_01fff15c(UnkClass_020621b4 *self, MatchPlayerBody *body, MatchPoint *point);
@@ -217,21 +219,21 @@ UnkClass_020621b4 *UnkClass_020621b4::func_020621b4()
     unk_bb4[3] = 0;
     unk_bb4[4] = 0;
     unk_bb4[5] = 0;
-    unk_bb4[6] = 0;
-    unk_bb4[7] = 0;
-    unk_bb4[8] = 0;
-    unk_bb4[9] = 0;
-    unk_bb4[10] = 0;
-    unk_bb4[11] = 0;
-    unk_bb4[12] = 0;
-    unk_bb4[13] = 0;
-    unk_bb4[14] = 0;
-    unk_bb4[15] = 0;
-    unk_bb4[16] = 0;
-    unk_bb4[17] = 0;
-    unk_bb4[18] = 0;
-    unk_bb4[19] = 0;
-    unk_bb4[20] = 0;
+    unk_bcc = NULL;
+    unk_bd0[0] = 0;
+    unk_bd0[1] = 0;
+    unk_bd0[2] = 0;
+    unk_bd0[3] = 0;
+    unk_bd0[4] = 0;
+    unk_bd0[5] = 0;
+    unk_bd0[6] = 0;
+    unk_bd0[7] = 0;
+    unk_bd0[8] = 0;
+    unk_bd0[9] = 0;
+    unk_bd0[10] = 0;
+    unk_bd0[11] = 0;
+    unk_bd0[12] = 0;
+    unk_bd0[13] = 0;
     unk_c28 = 0;
     unk_c2c = 0;
     unk_117d4 = 0;
@@ -321,7 +323,6 @@ extern "C" void func_ov087_0217877c(void);
 extern "C" void func_ov087_0217d29c(void);
 extern "C" fx32 data_020aeb64[];
 extern "C" char data_020fa1a5[];
-extern "C" void MI_CpuCopy8(void);
 extern "C" void func_0206c0c0(void);
 extern "C" void func_0206c0d8(void);
 extern "C" void func_0207620c(void);
@@ -335,8 +336,6 @@ extern "C" void func_ov087_02179c8c(void);
 extern "C" char data_020aedc8[];
 extern "C" char data_020af178[];
 extern "C" char data_020c46e4[];
-extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuCopy32(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void func_01fff06c(void);
 extern "C" void func_02018328(void);
@@ -344,7 +343,6 @@ extern "C" void func_0206deec(void);
 extern "C" void func_0206df08(void);
 extern "C" void func_0206f058(void);
 extern "C" void func_02078c70(void);
-extern "C" void func_0207a304(void);
 extern "C" void func_0207a394(void);
 extern "C" void func_0207f3e0(void);
 extern "C" void func_0207ff44(void);
@@ -8944,25 +8942,15 @@ asm void UnkClass_020621b4::func_0206a494()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_020621b4::func_0206a54c()
+BOOL UnkClass_020621b4::func_0206a54c(MatchPlayer *player)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    bl _ZN17UnkClass_020621b413func_0206bfecEv
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r0, [r4, #0xec]
-    ldrh r0, [r0, #0x1c]
-    cmp r0, #0x12
-    movne r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r0, [r4, #0xe8]
-    ldrh r0, [r0, #0x16]
-    tst r0, #0x10
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
+    if (func_0206bfec()) {
+        return FALSE;
+    }
+    if (player->state->unk_1c != 0x12) {
+        return FALSE;
+    }
+    return (player->body->unk_16 & 0x10) ? TRUE : FALSE;
 }
 
 asm void UnkClass_020621b4::func_0206a590()
@@ -9090,7 +9078,7 @@ BOOL UnkClass_020621b4::func_0206a720(int value)
     return result;
 }
 
-u8 *UnkClass_020621b4::func_0206a748(int n)
+UnkState_020621b4 *UnkClass_020621b4::func_0206a748(int n)
 {
     int i;
 
@@ -9101,7 +9089,7 @@ u8 *UnkClass_020621b4::func_0206a748(int n)
     if (i < 0) {
         i += 90;
     }
-    return unk_c7c[i];
+    return &unk_c7c[i];
 }
 
 BOOL UnkClass_020621b4::func_0206a774()
@@ -9125,7 +9113,7 @@ asm void UnkClass_020621b4::func_0206a77c()
     beq @L_0206a7b8
     mov r0, r5
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206abfcEv
+    bl _ZN17UnkClass_020621b413func_0206abfcEP17UnkState_020621b4
 @L_0206a7b8:
     ldrb r1, [r4, #4]
     tst r1, #3
@@ -9145,7 +9133,7 @@ asm void UnkClass_020621b4::func_0206a77c()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void UnkClass_020621b4::func_0206a7f0()
+asm int UnkClass_020621b4::func_0206a7f0(int n, BOOL convert)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -9192,57 +9180,41 @@ asm void UnkClass_020621b4::func_0206a7f0()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm int UnkClass_020621b4::func_0206a890(int a, int b)
+u8 *UnkClass_020621b4::func_0206a890(int n, BOOL convert)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r3, [r4, #0xc70]
-    cmp r1, r3
-    movge r0, #0
-    ldmgeia sp!, {r4, pc}
-    cmp r2, #0
-    beq @L_0206a8b8
-    bl _ZN17UnkClass_020621b413func_0206a7f0Ev
-    mov r1, r0
-@L_0206a8b8:
-    ldr r0, [r4, #0xc74]
-    subs r2, r0, r1
-    add r0, r4, #0x34c
-    add r1, r0, #0xc00
-    addmi r2, r2, #0x5a
-    mov r0, #0x2c
-    mla r0, r2, r0, r1
-    ldmia sp!, {r4, pc}
+    int i;
+
+    if (n >= unk_c70) {
+        return NULL;
+    }
+    if (convert) {
+        n = func_0206a7f0(n, convert);
+    }
+    i = unk_c74 - n;
+    if (i < 0) {
+        i += 90;
+    }
+    return unk_f4c[i];
 }
 
-asm int UnkClass_020621b4::func_0206a8d8(int a, int b, int c)
+u8 *UnkClass_020621b4::func_0206a8d8(int player, int n, BOOL convert)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r12, [r5, #0xc70]
-    mov r4, r1
-    cmp r2, r12
-    movge r0, #0
-    ldmgeia sp!, {r3, r4, r5, pc}
-    cmp r4, #0x16
-    movhs r0, #0
-    ldmhsia sp!, {r3, r4, r5, pc}
-    cmp r3, #0
-    beq @L_0206a918
-    mov r1, r2
-    mov r2, r3
-    bl _ZN17UnkClass_020621b413func_0206a7f0Ev
-    mov r2, r0
-@L_0206a918:
-    ldr r0, [r5, #0xc74]
-    subs r2, r0, r2
-    addmi r2, r2, #0x5a
-    mov r0, #0x16
-    mla r1, r2, r0, r4
-    add r0, r5, #0x2c4
-    add r0, r0, #0x1c00
-    add r0, r0, r1, lsl #5
-    ldmia sp!, {r3, r4, r5, pc}
+    int i;
+
+    if (n >= unk_c70) {
+        return NULL;
+    }
+    if ((u32)player >= 22) {
+        return NULL;
+    }
+    if (convert) {
+        n = func_0206a7f0(n, convert);
+    }
+    i = unk_c74 - n;
+    if (i < 0) {
+        i += 90;
+    }
+    return unk_1ec4[i * 22 + player];
 }
 
 s32 UnkClass_020621b4::func_0206a93c()
@@ -9258,60 +9230,36 @@ u8 *UnkClass_020621b4::func_0206a964(int i)
     return unk_17c[i];
 }
 
-asm void UnkClass_020621b4::func_0206a970()
+UnkState_020621b4 *UnkClass_020621b4::func_0206a970()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZN17UnkClass_020621b413func_0206ace8Ev
-    cmp r0, #0
-    addeq r0, r4, #0x384
-    addeq r0, r0, #0x800
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206a93cEv
-    mov r1, r0
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206a748Ei
-    ldmia sp!, {r4, pc}
+    if (!func_0206ace8()) {
+        return &unk_b84;
+    }
+    return func_0206a748(func_0206a93c());
 }
 
-int UnkClass_020621b4::func_0206a9a4(int a, int b)
+u8 *UnkClass_020621b4::func_0206a9a4(int a, int b)
 {
     return func_0206a8d8(a, func_0206a93c(), b);
 }
 
-asm void UnkClass_020621b4::func_0206a9d0()
+u8 *UnkClass_020621b4::func_0206a9d0(int team, BOOL convert)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, r1
-    mov r5, r2
-    mov r4, #0
-@L_0206a9e4:
-    mov r0, r7
-    mov r1, r4
-    bl func_02079d2c
-    cmp r0, #0
-    beq @L_0206aa04
-    ldrsh r0, [r0, #0xf4]
-    cmp r0, r6
-    beq @L_0206aa10
-@L_0206aa04:
-    add r4, r4, #1
-    cmp r4, #0x16
-    blt @L_0206a9e4
-@L_0206aa10:
-    cmp r4, #0x16
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, r7
-    mov r1, r4
-    mov r2, r5
-    bl _ZN17UnkClass_020621b413func_0206a9a4Eii
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    int i;
+
+    for (i = 0; i < 22; i++) {
+        MatchPlayer *player = func_02079d2c(this, i);
+        if (player != NULL && player->unk_f4 == team) {
+            break;
+        }
+    }
+    if (i == 22) {
+        return NULL;
+    }
+    return func_0206a9a4(i, convert);
 }
 
-int UnkClass_020621b4::func_0206aa30(int a)
+u8 *UnkClass_020621b4::func_0206aa30(int a)
 {
     return func_0206a890(func_0206a93c(), a);
 }
@@ -9436,27 +9384,21 @@ asm void UnkClass_020621b4::func_0206aa6c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_020621b4::func_0206abfc()
+int UnkClass_020621b4::func_0206abfc(UnkState_020621b4 *state)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    movs r5, r1
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrb r1, [r5]
-    mov r4, #0
-    cmp r1, #6
-    ldreqb r2, [r5, #1]
-    cmpeq r2, #6
-    moveq r4, #1
-    bl _ZN17UnkClass_020621b413func_0206acfcEi
-    cmp r0, #0
-    beq @L_0206ac3c
-    cmp r4, #0
-    ldreqb r0, [r5]
-    ldmeqia sp!, {r3, r4, r5, pc}
-@L_0206ac3c:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    BOOL both;
+
+    if (state == NULL) {
+        return 0;
+    }
+    both = FALSE;
+    if (state->unk_0 == 6 && state->unk_1 == 6) {
+        both = TRUE;
+    }
+    if (func_0206acfc(state->unk_0) && !both) {
+        return state->unk_0;
+    }
+    return 0;
 }
 
 asm void UnkClass_020621b4::func_0206ac44()
@@ -9486,7 +9428,7 @@ asm void UnkClass_020621b4::func_0206ac44()
     mov r5, r0
     mov r0, r4
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206abfcEv
+    bl _ZN17UnkClass_020621b413func_0206abfcEP17UnkState_020621b4
     mov r1, r0
     mov r0, r4
     bl _ZN17UnkClass_020621b413func_0206bff4Ev
@@ -9522,36 +9464,28 @@ BOOL UnkClass_020621b4::func_0206acfc(int value)
     return result;
 }
 
-asm void UnkClass_020621b4::func_0206ad1c()
+void UnkClass_020621b4::func_0206ad1c()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, #0
-    str r4, [r5, #0xc74]
-    bl func_ov015_021317c8
-    mov r2, #0
-    cmp r0, #0
-    movne r0, #2
-    strne r0, [r5, #0xc70]
-    sub r1, r2, #1
-    add r0, r5, #0x11000
-    mov r3, #1
-    streq r4, [r5, #0xc70]
-    strb r3, [r0, #0x89a]
-    strb r2, [r5, #0xb86]
-    strb r2, [r5, #0xb87]
-    strb r2, [r5, #0xb88]
-    str r1, [r5, #0xc78]
-    ldmia sp!, {r3, r4, r5, pc}
+    unk_c74 = 0;
+    if (func_ov015_021317c8()) {
+        unk_c70 = 2;
+    } else {
+        unk_c70 = 0;
+    }
+    unk_1189a = 1;
+    unk_b84.unk_2 = 0;
+    unk_b84.unk_3 = 0;
+    unk_b84.flags = 0;
+    unk_c78 = -1;
 }
 
 void UnkClass_020621b4::func_0206ad68(BOOL a, BOOL b)
 {
     unk_1189a = a;
     if (a && b) {
-        unk_b88 |= 2;
+        unk_b84.flags |= 2;
     } else {
-        unk_b88 &= ~2;
+        unk_b84.flags &= ~2;
     }
 }
 
@@ -9694,7 +9628,7 @@ asm void UnkClass_020621b4::func_0206ad94()
     mov r1, r0
     mov r0, r6
     mov r2, r8
-    bl _ZN17UnkClass_020621b413func_0206b018Ev
+    bl _ZN17UnkClass_020621b413func_0206b018EPvP11MatchPlayer
     cmp r5, #0
     beq @L_0206afd8
     mov r0, r6
@@ -9705,7 +9639,7 @@ asm void UnkClass_020621b4::func_0206ad94()
     mov r1, r0
     mov r0, r6
     mov r2, r8
-    bl _ZN17UnkClass_020621b413func_0206b018Ev
+    bl _ZN17UnkClass_020621b413func_0206b018EPvP11MatchPlayer
 @L_0206afd8:
     add r9, r9, #1
 @L_0206afdc:
@@ -9720,27 +9654,19 @@ asm void UnkClass_020621b4::func_0206ad94()
     mov r1, r0
     mov r0, r6
     mov r2, r5
-    bl _ZN17UnkClass_020621b413func_0206b1a0Ev
+    bl _ZN17UnkClass_020621b413func_0206b1a0EP17UnkState_020621b4h
     strb r4, [r6, #0xb88]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void UnkClass_020621b4::func_0206b018()
+// copies the player's body
+void UnkClass_020621b4::func_0206b018(void *body, MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r2
-    movs r5, r1
-    cmpne r4, #0
-    ldrne r1, [r4, #0xe8]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r1, r4
-    bl func_0207a304
-    ldr r0, [r4, #0xe8]
-    mov r1, r5
-    mov r2, #0x20
-    bl MIi_CpuCopy32
-    ldmia sp!, {r3, r4, r5, pc}
+    if (body == NULL || player == NULL || player->body == NULL) {
+        return;
+    }
+    func_0207a304(this, player);
+    MIi_CpuCopy32(player->body, body, 0x20);
 }
 
 asm void UnkClass_020621b4::func_0206b050()
@@ -9830,17 +9756,10 @@ asm void UnkClass_020621b4::func_0206b050()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_020621b4::func_0206b1a0()
+void UnkClass_020621b4::func_0206b1a0(UnkState_020621b4 *state, u8 value)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    add r0, r0, #0x384
-    mov r4, r2
-    add r0, r0, #0x800
-    mov r2, #8
-    mov r5, r1
-    bl MI_CpuCopy8
-    strb r4, [r5]
-    ldmia sp!, {r3, r4, r5, pc}
+    MI_CpuCopy8(&unk_b84, state, sizeof(UnkState_020621b4));
+    state->unk_0 = value;
 }
 
 s32 UnkClass_020621b4::func_0206b1c4(int i)
@@ -9882,7 +9801,7 @@ asm void UnkClass_020621b4::func_0206b1dc()
     mov r0, r10
     mov r1, r9
     mov r2, r8
-    bl _ZN17UnkClass_020621b413func_0206b3a4Ev
+    bl _ZN17UnkClass_020621b413func_0206b3a4Eim
     cmp r0, #0
     ldrneb r0, [r0, #8]
     add r7, r7, #1
@@ -9939,7 +9858,7 @@ asm void UnkClass_020621b4::func_0206b2c8()
     ldr r2, [r0, #0xc10]
     mov r0, r5
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206b3a4Ev
+    bl _ZN17UnkClass_020621b413func_0206b3a4Eim
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -9949,11 +9868,11 @@ asm void UnkClass_020621b4::func_0206b308()
     mov r4, #0
     mov r6, r0
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206b390Ev
+    bl _ZN17UnkClass_020621b413func_0206b390Ei
     mov r5, r0
     mov r0, r6
     mov r1, #1
-    bl _ZN17UnkClass_020621b413func_0206b390Ev
+    bl _ZN17UnkClass_020621b413func_0206b390Ei
     cmp r5, #0
     cmpeq r0, #0
     moveq r0, r4
@@ -9983,49 +9902,36 @@ asm void UnkClass_020621b4::func_0206b308()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_020621b4::func_0206b390()
+u8 *UnkClass_020621b4::func_0206b390(int side)
 {
-    add r2, r0, r1, lsl #2
-    ldr r2, [r2, #0xc10]
-    ldr r12, =_ZN17UnkClass_020621b413func_0206b3a4Ev
-    bx r12
+    return func_0206b3a4(side, unk_c10[side]);
 }
 
-asm void UnkClass_020621b4::func_0206b3a4()
+u8 *UnkClass_020621b4::func_0206b3a4(int side, u32 index)
 {
-    cmp r2, #0x20
-    movhs r0, #0
-    bxhs lr
-    ldr r0, [r0, #0xbcc]
-    cmp r1, #1
-    addeq r2, r2, #0x20
-    add r0, r0, r2, lsl #4
-    bx lr
+    if (index >= 32) {
+        return NULL;
+    }
+    if (side == 1) {
+        index += 32;
+    }
+    return unk_bcc[index];
 }
 
-asm void UnkClass_020621b4::func_0206b3c4(int a, int b)
+void UnkClass_020621b4::func_0206b3c4(int a, int b)
 {
-    ldr r3, =0x117fc
-    strh r1, [r0, r3]
-    add r1, r3, #2
-    strh r2, [r0, r1]
-    bx lr
+    unk_117fc = a;
+    unk_117fe = b;
 }
 
-asm void UnkClass_020621b4::func_0206b3dc()
+u8 UnkClass_020621b4::func_0206b3dc(int i)
 {
-    add r0, r0, r1
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x88c]
-    bx lr
+    return unk_1188c[i];
 }
 
-asm void UnkClass_020621b4::func_0206b3ec()
+u8 UnkClass_020621b4::func_0206b3ec(int i)
 {
-    add r0, r0, r1
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x88e]
-    bx lr
+    return unk_1188e[i];
 }
 
 asm void UnkClass_020621b4::func_0206b3fc()
@@ -10911,7 +10817,7 @@ asm void UnkClass_020621b4::func_0206bfb4()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void UnkClass_020621b4::func_0206bfec()
+asm BOOL UnkClass_020621b4::func_0206bfec()
 {
     ldrb r0, [r0, #0xb84]
     bx lr

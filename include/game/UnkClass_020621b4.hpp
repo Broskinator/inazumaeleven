@@ -15,6 +15,16 @@ struct UnkPair_020621b4 {
     s8 unk_d;
 };
 
+// A state of the match (the current one is at 0xB84, the past ones in a ring at 0xC7C)
+struct UnkState_020621b4 {
+    u8 unk_0;
+    u8 unk_1;
+    u8 unk_2;
+    u8 unk_3;
+    u8 flags;
+    u8 unk_5[3];
+};
+
 struct UnkVirtual_020621b4 {
     void **vtable;
 };
@@ -124,46 +134,46 @@ public:
     int func_0206a100(MatchPlayer *player, int a);
     void func_0206a3b8();
     void func_0206a494();
-    void func_0206a54c();
+    BOOL func_0206a54c(MatchPlayer *player);
     void func_0206a590();
     void func_0206a648();
     BOOL func_0206a700(int value);
     BOOL func_0206a720(int value);
-    u8 *func_0206a748(int n);
+    UnkState_020621b4 *func_0206a748(int n);
     BOOL func_0206a774();
     void func_0206a77c();
-    void func_0206a7f0();
-    int func_0206a890(int a, int b);
-    int func_0206a8d8(int a, int b, int c);
+    int func_0206a7f0(int n, BOOL convert);
+    u8 *func_0206a890(int n, BOOL convert);
+    u8 *func_0206a8d8(int player, int n, BOOL convert);
     s32 func_0206a93c();
     u8 *func_0206a964(int i);
-    void func_0206a970();
-    int func_0206a9a4(int a, int b);
-    void func_0206a9d0();
-    int func_0206aa30(int a);
+    UnkState_020621b4 *func_0206a970();
+    u8 *func_0206a9a4(int a, int b);
+    u8 *func_0206a9d0(int team, BOOL convert);
+    u8 *func_0206aa30(int a);
     void func_0206aa54();
     void func_0206aa6c();
-    void func_0206abfc();
+    int func_0206abfc(UnkState_020621b4 *state);
     void func_0206ac44();
     BOOL func_0206ace8();
     BOOL func_0206acfc(int value);
     void func_0206ad1c();
     void func_0206ad68(BOOL a, BOOL b);
     void func_0206ad94();
-    void func_0206b018();
+    void func_0206b018(void *body, MatchPlayer *player);
     void func_0206b050();
-    void func_0206b1a0();
+    void func_0206b1a0(UnkState_020621b4 *state, u8 value);
     s32 func_0206b1c4(int i);
     s32 func_0206b1d0(int i);
     void func_0206b1dc();
     void func_0206b274();
     void func_0206b2c8();
     void func_0206b308();
-    void func_0206b390();
-    void func_0206b3a4();
+    u8 *func_0206b390(int side);
+    u8 *func_0206b3a4(int side, u32 index);
     void func_0206b3c4(int a, int b);
-    void func_0206b3dc();
-    void func_0206b3ec();
+    u8 func_0206b3dc(int i);
+    u8 func_0206b3ec(int i);
     void func_0206b3fc();
     void func_0206b464();
     void func_0206b470();
@@ -186,7 +196,7 @@ public:
     void func_0206bfa0();
     BOOL func_0206bfa8();
     void func_0206bfb4();
-    void func_0206bfec();
+    BOOL func_0206bfec();
     void func_0206bff4();
     void func_0206bffc();
 
@@ -197,15 +207,16 @@ public:
     u8 unk_17c[40][0x40];
     s32 unk_b7c;
     UnkVirtual_020621b4 *unk_b80;     // (an object with a vtable)
-    u8 unk_b84[4];
-    u8 unk_b88;         // flags
-    u8 unk_b89[0xB98 - 0xB89];
+    UnkState_020621b4 unk_b84;
+    u8 unk_b8c[0xB98 - 0xB8C];
     s32 unk_b98;
     u8 unk_b9c[0xBB0 - 0xB9C];
     u16 unk_bb0;
     u8 unk_bb2;
     u8 unk_bb3;
-    s32 unk_bb4[21];
+    s32 unk_bb4[6];
+    u8 (*unk_bcc)[0x10];
+    s32 unk_bd0[14];
     u8 unk_c08[8];
     s32 unk_c10[2];
     s32 unk_c18[2];
@@ -216,15 +227,23 @@ public:
     s32 unk_c70;        // (how many entries of unk_c7c there are)
     s32 unk_c74;        // (the newest one)
     s32 unk_c78;
-    u8 unk_c7c[90][8];  // (a ring)
-    u8 unk_f4c[0x117A4 - 0xF4C];
+    UnkState_020621b4 unk_c7c[90];     // (rings of 90: the past states)
+    u8 unk_f4c[90][0x2C];
+    u8 unk_1ec4[90 * 22][0x20];    // (per player)
+    u8 unk_11644[0x117A4 - 0x11644];
     u8 unk_117a4[2][11];     // (per team and position)
     u8 unk_117ba[0x117D4 - 0x117BA];
     u8 unk_117d4;
     u8 unk_117d5;
     u8 unk_117d6[0x117E4 - 0x117D6];
     s32 unk_117e4[2];
-    u8 unk_117ec[0x11899 - 0x117EC];
+    u8 unk_117ec[0x117FC - 0x117EC];
+    u16 unk_117fc;
+    u16 unk_117fe;
+    u8 unk_11800[0x1188C - 0x11800];
+    u8 unk_1188c[2];
+    u8 unk_1188e[2];
+    u8 unk_11890[0x11899 - 0x11890];
     u8 unk_11899;
     u8 unk_1189a;
     u8 unk_1189b;
