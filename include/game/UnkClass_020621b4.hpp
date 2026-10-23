@@ -36,6 +36,13 @@ public:
     void func_02063c14();
     u16 func_02063e4c(fx32 x, fx32 y);
     void func_02063e6c(fx32 x, fx32 y);
+    void func_02063e7c();
+    void func_02063ec8();
+    void func_02063f24();
+    void func_020640b4();
+    void func_02064500();
+    void func_020646d4();
+    void func_02065178();
 
     void *vtable;
     u8 unk_4[0x9C - 0x4];

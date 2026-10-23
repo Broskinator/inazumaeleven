@@ -6,6 +6,8 @@
 #   make clean      remove build output (keeps the extracted ROM)
 #   make distclean  also remove the extracted ROM and the tools
 
+.DELETE_ON_ERROR:
+
 VERSION  ?= yeep
 BASEROM  := baserom_$(VERSION).nds
 SHA1     := d55169c0b93d26b4037379d3b81a61b5404945e5
