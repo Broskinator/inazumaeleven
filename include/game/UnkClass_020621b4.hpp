@@ -363,6 +363,23 @@ public:
     void func_0206fec0(s16 value);
     void func_0206fed0();
     void func_0206ffe0();
+    void func_020704b0();
+    void func_02070548();
+    void func_020705b4();
+    void G3C_Direct0();
+    void func_020705f8();
+    void func_02070604();
+    void func_02070610();
+    void func_02070644();
+    void func_0207065c();
+    void func_0207066c();
+    void func_02070678();
+    void func_020706a8();
+    void func_020706b4();
+    void func_0207070c();
+    void func_02070760();
+    void func_0207076c();
+    void func_020707e4();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];

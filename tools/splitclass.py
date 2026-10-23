@@ -107,7 +107,10 @@ if extend:
     dl = "config/yeep/arm9/delinks.txt"
     t = open(dl).read()
     if newfile:
-        t = t.rstrip("\n") + f"\n\n{srcpath}:\n    complete\n    .text start:{lo:#010x} end:{hi:#010x}\n"
+        pat = r"(" + re.escape(srcpath) + r":\n    complete\n    \.text start:0x[0-9a-f]+ end:)" + f"{lo:#010x}"
+        t, k = re.subn(pat, lambda m: m.group(1) + f"{hi:#010x}", t)
+        if k == 0:      # (a new file)
+            t = t.rstrip("\n") + f"\n\n{srcpath}:\n    complete\n    .text start:{lo:#010x} end:{hi:#010x}\n"
         open(dl, "w", newline="\n").write(t)
         print(len(funcs), "functions added in", srcpath)
         sys.exit(0)
