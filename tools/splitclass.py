@@ -33,6 +33,8 @@ for a, (short, mangled) in names.items():
 open(SYM, "w", newline="\n").write(s)
 
 own = {m for _, m in names.values()}
+# (the class's other members are called by their short names too)
+members = set(re.findall(r"^_ZN%d%s\d+(func_[0-9a-f]{8})E\S* kind:function" % (len(cls), cls), s, re.M))
 decls, bodies = set(), []
 for a, _ in funcs:
     short, mangled = names[a]
@@ -45,6 +47,8 @@ for a, _ in funcs:
             body = body[: -len(n)] + names[[k for k, v in names.items() if v[1] == n][0]][0]
     for d in r.stderr.splitlines():
         m = re.search(r" (\w+)[\(\[]", d)
+        if d.startswith("extern") and m.group(1) in members:
+            continue
         if d.startswith("extern") and m.group(1) not in own and not re.match(r"func_[0-9a-f]{8}$", m.group(1)) or \
            d.startswith("extern") and re.match(r"func_[0-9a-f]{8}$", m.group(1)) and int(m.group(1)[5:], 16) not in names:
             decls.add(d)
@@ -64,11 +68,24 @@ if extend:
     # (the functions that are members now are not declared as extern "C" any more)
     for short, _ in names.values():
         head = re.sub(r'^extern "C" void ' + short + r'\(void\);\n', "", head, flags=re.M)
+    # (names the file or the headers it includes already declare, maybe with their types, are
+    # not declared again)
+    known = head
+    todo = re.findall(r'^#include "([^"]+)"', head, re.M)
+    while todo:
+        inc = todo.pop()
+        if os.path.exists(f"include/{inc}") and inc not in known:
+            text = open(f"include/{inc}").read()
+            known += "\n" + inc + "\n" + text
+            todo += re.findall(r'^#include "([^"]+)"', text, re.M)
     for d in sorted(decls):
-        if d not in head:
+        name = re.search(r" \*?(\w+)[\(\[]", d).group(1)
+        if not re.search(r"\b%s\b" % name, known):
             head = head.rstrip("\n") + "\n" + d + "\n"
     src = head + src[i:].rstrip("\n") + "\n\n" + "\n".join(bodies)
     open(f"src/{path}.cpp", "w", newline="\n").write(src)
+    # (the new asm calls the class's older members by their mangled names)
+    subprocess.run([sys.executable, "tools/retarget.py", cls, f"src/{path}.cpp"], check=True, capture_output=True)
     dl = "config/yeep/arm9/delinks.txt"
     t = open(dl).read()
     pat = r"(src/" + re.escape(path) + r"\.cpp:\n    complete\n    \.text start:0x[0-9a-f]+ end:)" + f"{lo:#010x}"
