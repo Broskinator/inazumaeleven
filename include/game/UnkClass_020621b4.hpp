@@ -592,23 +592,23 @@ public:
     void func_0207a534();
     void func_0207a5c0();
     void func_0207a78c();
-    void func_0207a820();
+    BOOL func_0207a820();
     void func_0207a854();
-    void func_0207a950();
+    BOOL func_0207a950(MatchPlayer *player);
     void func_0207a990();
-    void func_0207aa58();
-    u8 func_0207aa94(int unk);
+    int func_0207aa58(int team);
+    int func_0207aa94(int team);
     void func_0207aaf4();
-    u8 func_0207ab64(int unk);
+    int func_0207ab64(int team);
     void func_0207aba0();
     void func_0207ac0c();
     void func_0207ac90();
     void func_0207acf0();
     void func_0207ad74();
-    void func_0207add4();
-    void func_0207ae40();
-    void func_0207aeac();
-    void func_0207aec4();
+    int func_0207add4(int a);
+    int func_0207ae40(int a);
+    BOOL func_0207aeac(int a);
+    BOOL func_0207aec4(int a);
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];
@@ -617,7 +617,11 @@ public:
     u8 unk_ac[0x15C - 0xAC];
     u8 unk_15c[2][0x10];
     u8 unk_17c[2][0x40];
-    u8 unk_1fc[0xB7C - 0x1FC];
+    u8 unk_1fc[0x34C - 0x1FC];
+    u8 unk_34c[2][0x20];     // (per team)
+    u8 unk_38c[0x3AC - 0x38C];
+    u8 unk_3ac[2][0x10];     // (per team)
+    u8 unk_3cc[0xB7C - 0x3CC];
     s32 unk_b7c;
     UnkVirtual_020621b4 *unk_b80;     // (an object with a vtable)
     UnkState_020621b4 unk_b84;   // (unk_0: the phase)
@@ -640,7 +644,9 @@ public:
     s32 unk_bc0[2];
     s16 *unk_bc8;
     u8 (*unk_bcc)[0x10];
-    s32 unk_bd0[5];
+    s32 unk_bd0[3];
+    void *unk_bdc;      // (on the heap)
+    s32 unk_be0;
     u8 (*unk_be4)[0xC];
     s8 *unk_be8;
     s32 unk_bec[7];
