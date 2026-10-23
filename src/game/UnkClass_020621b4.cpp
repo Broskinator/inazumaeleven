@@ -10,8 +10,8 @@ extern "C" void _ZN17UnkClass_020621b413func_0206371cEv(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_02063c14Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02063e4cEll(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02063e6cEll(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02063e7cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02063ec8Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02063e7cEP11MatchPlayer(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02063ec8EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02063f24Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020640b4Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02064500Ev(void);     // (for the asm functions)
@@ -75,7 +75,7 @@ extern "C" void func_0208f294(void);
 extern "C" void func_0208f300(void);
 extern "C" void func_ov001_02127dcc(void);
 extern "C" void func_ov015_02130b14(void);
-extern "C" void func_ov015_02130e28(u16 angle);
+extern "C" u8 func_ov015_02130e28(u16 angle);    // (the direction as one of 8)
 extern "C" void func_ov015_021317c8(void);
 extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_021318a4(void);
@@ -168,7 +168,7 @@ extern "C" char data_020c4eec[];
 extern "C" char data_020c4efc[];
 extern "C" void func_01fff198(void);
 extern "C" void func_02001d80(void);
-extern "C" void func_02067044(void);
+extern "C" fx32 func_02067044(UnkClass_020621b4 *self, int a, int b);
 extern "C" void func_02068590(void);
 extern "C" void func_02068ce4(void);
 extern "C" void func_02068d20(void);
@@ -183,9 +183,9 @@ extern "C" void func_0206a720(void);
 extern "C" void func_0206b89c(void);
 extern "C" void func_0206bf2c(void);
 extern "C" void func_0206de34(void);
-extern "C" void func_0207a46c(void);
+extern "C" BOOL func_0207a46c(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" void func_02080aa0(void);
-extern "C" void func_02083e34(void);
+extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" void func_02083e54(void);
 extern "C" void func_020840e0(void);
 extern "C" void func_020842b0(void);
@@ -2036,10 +2036,10 @@ asm void UnkClass_020621b4::func_02063c14()
     mov r0, r10
     mov r1, r9
     bne @L_02063ccc
-    bl _ZN17UnkClass_020621b413func_02063e7cEv
+    bl _ZN17UnkClass_020621b413func_02063e7cEP11MatchPlayer
     b @L_02063cd0
 @L_02063ccc:
-    bl _ZN17UnkClass_020621b413func_02063ec8Ev
+    bl _ZN17UnkClass_020621b413func_02063ec8EP11MatchPlayer
 @L_02063cd0:
     ldr r0, [r9, #0xe8]
     mov r1, r9
@@ -2152,54 +2152,26 @@ void UnkClass_020621b4::func_02063e6c(fx32 x, fx32 y)
     func_ov015_02130e28(func_02063e4c(x, y));
 }
 
-asm void UnkClass_020621b4::func_02063e7c()
+// turns a player towards the ball
+void UnkClass_020621b4::func_02063e7c(MatchPlayer *player)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r1
-    ldr r2, [r5, #0xe8]
-    mov r6, r0
-    ldmia r2, {r1, r2}
-    bl _ZN17UnkClass_020621b413func_02063e4cEll
-    mov r4, r0
-    mov r0, r6
-    mov r1, r5
-    bl func_0207a46c
-    cmp r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    ldr r1, [r5, #0xe8]
-    mov r0, r4
-    strh r4, [r1, #0x18]
-    bl func_ov015_02130e28
-    ldr r1, [r5, #0xe8]
-    strb r0, [r1, #0x1a]
-    ldmia sp!, {r4, r5, r6, pc}
+    u16 direction = func_02063e4c(player->body->pos.x, player->body->pos.y);
+
+    if (func_0207a46c(this, player)) {
+        return;
+    }
+    player->body->direction = direction;
+    player->body->unk_1a = func_ov015_02130e28(direction);
 }
 
-asm void UnkClass_020621b4::func_02063ec8()
+void UnkClass_020621b4::func_02063ec8(MatchPlayer *player)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r1
-    ldr r1, [r5, #0xe8]
-    mov r6, r0
-    mov r0, r5
-    ldr r4, [r1]
-    bl func_02083e34
-    mov r1, r0
-    mov r0, r6
-    mov r2, #0
-    bl func_02067044
-    ldr r1, [r5, #0xe8]
-    ldr r2, [r1, #4]
-    ldr r1, [r1]
-    sub r0, r0, r2
-    sub r1, r4, r1
-    bl func_0200226c
-    ldr r1, [r5, #0xe8]
-    strh r0, [r1, #0x18]
-    bl func_ov015_02130e28
-    ldr r1, [r5, #0xe8]
-    strb r0, [r1, #0x1a]
-    ldmia sp!, {r4, r5, r6, pc}
+    fx32 x = player->body->pos.x;
+    fx32 y = func_02067044(this, func_02083e34(player), 0);
+    u16 direction = func_0200226c(y - player->body->pos.y, x - player->body->pos.x);
+
+    player->body->direction = direction;
+    player->body->unk_1a = func_ov015_02130e28(direction);
 }
 
 asm void UnkClass_020621b4::func_02063f24()

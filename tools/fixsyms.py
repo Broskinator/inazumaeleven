@@ -32,10 +32,26 @@ os.remove(f"{ROOT}/{obj}")
 
 path = f"{ROOT}/config/yeep/arm9/symbols.txt"
 text = open(path).read()
+renamed = {}
 for name in names:
     m = re.search(r"func_([0-9a-f]{8})", name)
     addr = int(m.group(1), 16)
-    text, n = re.subn(rf"^(\S+)( kind:function\(\w+,size=0x[0-9a-f]+\) addr:{addr:#010x})$",
-                      lambda mm: (print(f"{mm.group(1)} -> {name}") if mm.group(1) != name else None) or name + mm.group(2),
-                      text, flags=re.M)
+    mm = re.search(rf"^(\S+)( kind:function\(\w+,size=0x[0-9a-f]+\) addr:{addr:#010x})$", text, flags=re.M)
+    if mm and mm.group(1) != name:
+        print(f"{mm.group(1)} -> {name}")
+        if mm.group(1).startswith("_Z"):
+            renamed[mm.group(1)] = name
+        text = text[:mm.start(1)] + name + text[mm.end(1):]
 open(path, "w", newline="\n").write(text)
+
+# (asm that calls the renamed functions by their old mangled names uses the new ones)
+if renamed:
+    pat = re.compile(r"\b(%s)\b" % "|".join(map(re.escape, renamed)))
+    for root, _, files in os.walk(f"{ROOT}/src"):
+        for f in files:
+            if f.endswith((".c", ".cpp")):
+                p = os.path.join(root, f)
+                t = open(p).read()
+                nt = pat.sub(lambda m: renamed[m.group(1)], t)
+                if nt != t:
+                    open(p, "w", newline="\n").write(nt)

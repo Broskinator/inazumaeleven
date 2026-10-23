@@ -38,6 +38,8 @@ struct MatchPlayerBody {
     VecFx32 pos;
     u8 unk_c[0x16 - 0xC];
     u16 unk_16;         // flags
+    u16 direction;      // 0x18
+    u8 unk_1a;          // (the direction as one of 8)
 };
 
 struct MatchPlayerState {
