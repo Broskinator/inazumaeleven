@@ -7,6 +7,8 @@
 #include "nitro/std.h"
 #include "nitro/card.h"
 
+extern "C" void _ZN17UnkClass_020621b413func_0207aa94Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0207ab64Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f034Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f04cEv(void);     // (for the asm functions)
@@ -30,8 +32,6 @@ extern "C" void func_02086988(void *obj, void *dst);
 extern "C" void func_0208663c(void *obj, void *src);
 extern "C" void func_0208e81c(void *obj, void *dst);
 extern "C" void func_0208e844(void *obj, void *src);
-extern "C" u8 func_0207ab64(void *obj, int unk);
-extern "C" u8 func_0207aa94(void *obj, int unk);
 extern "C" void *func_02085ba4(void *obj, u32 id);
 extern "C" void func_020412f0(int unk);
 
@@ -439,8 +439,8 @@ s32 SaveManager::Save(int slot, BOOL async)
     file->header.playTime = gGameState.profile.playTime;
     file->header.unk_14 = gGameState.profile.unk_4A;
     file->header.unk_15 = data_020e88a0.func_0206b4b8(0);
-    file->header.unk_16 = func_0207ab64(&data_020e88a0, 0);
-    file->header.unk_17 = func_0207aa94(&data_020e88a0, 0);
+    file->header.unk_16 = data_020e88a0.func_0207ab64(0);
+    file->header.unk_17 = data_020e88a0.func_0207aa94(0);
     file->header.unk_18 = data_020e88a0.func_020767bc();
     file->header.unk_48 = gGameState.profile.unk_24;
     file->header.unk_45 = gGameState.profile.unk_2C;
@@ -753,11 +753,11 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     strb r0, [r4, #0x15]
     ldr r0, =data_020e88a0
     mov r1, #0
-    bl func_0207ab64
+    bl _ZN17UnkClass_020621b413func_0207ab64Ei
     strb r0, [r4, #0x16]
     ldr r0, =data_020e88a0
     mov r1, #0
-    bl func_0207aa94
+    bl _ZN17UnkClass_020621b413func_0207aa94Ei
     strb r0, [r4, #0x17]
     ldr r0, =data_020e88a0
     bl _ZN17UnkClass_020621b413func_020767bcEv

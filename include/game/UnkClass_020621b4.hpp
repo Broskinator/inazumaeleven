@@ -590,6 +590,25 @@ public:
     void func_0207a4a0();
     BOOL func_0207a510(MatchPlayer *a, MatchPlayer *b);
     void func_0207a534();
+    void func_0207a5c0();
+    void func_0207a78c();
+    void func_0207a820();
+    void func_0207a854();
+    void func_0207a950();
+    void func_0207a990();
+    void func_0207aa58();
+    u8 func_0207aa94(int unk);
+    void func_0207aaf4();
+    u8 func_0207ab64(int unk);
+    void func_0207aba0();
+    void func_0207ac0c();
+    void func_0207ac90();
+    void func_0207acf0();
+    void func_0207ad74();
+    void func_0207add4();
+    void func_0207ae40();
+    void func_0207aeac();
+    void func_0207aec4();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];

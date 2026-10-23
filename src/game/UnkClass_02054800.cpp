@@ -1,5 +1,6 @@
 #include "game/UnkClass_02054800.hpp"
 
+extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a9d0Eii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_0206145cEv(void);     // (for the asm functions)
@@ -98,7 +99,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_0207a5c0(void);
 extern "C" void func_02084d24(void);
 extern "C" void func_02084d34(void);
 extern "C" void func_02084e08(void);
@@ -7290,7 +7290,7 @@ asm void UnkClass_02054800::func_0205ac0c()
     ldr r0, =data_020e88a0
     add r2, sp, #4
     mov r1, r1, lsr #0x10
-    bl func_0207a5c0
+    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
     cmp r0, #0
     addeq sp, sp, #0x64
     moveq r0, r9

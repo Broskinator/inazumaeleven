@@ -3,6 +3,7 @@
 #include "file/FileManager.hpp"
 #include "nitro/mi.h"
 
+extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020765d4Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020767a4Em(void);     // (for the asm functions)
@@ -142,7 +143,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_0207a5c0(void);
 extern "C" void func_0208e508(void);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov015_02130ae8(void);
@@ -2675,7 +2675,7 @@ asm void TreasureBox::func_02054398()
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     ldr r0, =data_020e88a0
     add r2, sp, #0x10
-    bl func_0207a5c0
+    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
     cmp r0, #0
     addeq sp, sp, #0x70
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
