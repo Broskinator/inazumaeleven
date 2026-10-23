@@ -1,17 +1,6 @@
 #include "game/UnkClass_020621b4.hpp"
 #include "game/Match.hpp"
 
-extern "C" s16 data_0209fcf8[];     // (the SDK's sine and cosine table)
-
-static inline s16 FX_SinIdx(int index)
-{
-    return data_0209fcf8[index * 2];
-}
-
-static inline s16 FX_CosIdx(int index)
-{
-    return data_0209fcf8[index * 2 + 1];
-}
 extern "C" char data_020aec84[];
 extern "C" void *data_020c4648;
 extern "C" char data_020c4824[];
@@ -820,7 +809,7 @@ asm UnkClass_020621b4::func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, f
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldrh r0, [sp, #0x20]
-    ldr r5, =data_0209fcf8
+    ldr r5, =FX_SinCosTable_
     ldr r4, [sp, #0x28]
     mov r0, r0, asr #4
     mov r6, r0, lsl #1
