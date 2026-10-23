@@ -440,3 +440,7 @@ src/game/TreasureBox.cpp:
 src/game/UnkClass_02054800.cpp:
     complete
     .text start:0x02054800 end:0x0205dee0
+
+src/game/UnkClass_02060294.cpp:
+    complete
+    .text start:0x02060294 end:0x02061450

@@ -2,13 +2,13 @@
 #include "system/System.hpp"
 #include "game/SceneManager.hpp"
 #include "game/UnkClass_02054800.hpp"
+#include "game/UnkClass_02060294.hpp"
 
 extern "C" u8 data_020c5320[];
 extern "C" char data_020ac084[];
 extern "C" void func_0209bcbc(void *);
 extern "C" void func_0209bebc(void *);
 extern "C" void func_02089674(void *);
-extern "C" void func_020602ec(void *);
 extern "C" void *OS_AllocFromHeap(int arena, int heap, u32 size);
 extern "C" void OS_FreeToHeap(int arena, int heap, void *ptr);
 
@@ -107,7 +107,7 @@ Main *Main::func_02040664()
 Main *Main::func_02040678()
 {
     ((UnkClass_02054800 *)((u8 *)this + 0x2B58))->func_02054854();
-    func_020602ec((u8 *)this + 0x8C);
+    ((UnkClass_02060294 *)((u8 *)this + 0x8C))->func_020602ec();
     return this;
 }
 

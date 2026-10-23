@@ -3,6 +3,19 @@
 #include "file/FileManager.hpp"
 #include "nitro/mi.h"
 
+extern "C" void _ZN17UnkClass_0206029413func_02060a48Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060a98Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060b58Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060b70Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060c80Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060d14Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060e80Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060efcEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02060f54Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02061210Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02061258Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_02061274Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206029413func_020612b8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0205480013func_02054cd0Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_02054d4cEv(void);
 extern "C" void _ZN17UnkClass_0205480013func_02054db4Ev(void);
@@ -25,14 +38,6 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203df08Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203df24Ev(void);
 extern "C" void func_02017cdc(void);
 extern "C" void func_0202273c(void);
-extern "C" void func_02060a48(void);
-extern "C" void func_02060c80(void);
-extern "C" void func_02060d14(void);
-extern "C" void func_02060efc(void);
-extern "C" void func_02060f54(void);
-extern "C" void func_02061258(void);
-extern "C" void func_02061274(void);
-extern "C" void func_020612b8(void);
 extern "C" void func_0209ac40(void);
 extern "C" void func_ov000_020fdde4(void);
 extern "C" void func_ov015_0213257c(void);
@@ -44,22 +49,8 @@ extern GameHeap data_020c47b4;
 extern "C" char data_020ae37c[];            // the vtable
 extern "C" char data_020ae3cc[];            // "/data_iz/script/treasurebox.dat"
 extern "C" char data_020ae3ec[];
-extern "C" void func_02060294(void *);
-extern "C" void func_02060310(void *);
-extern "C" void func_02060864(void *, int, int, int, int);
 
-extern "C" void func_020603e0(void *);
-extern "C" void func_02061210(void *);
-extern "C" void func_020612ac(void *);
-extern "C" void func_020612a0(void *, int);
-extern "C" void func_02060494(void *, void *);
-extern "C" void func_020604f8(void *, void *);
 
-extern "C" void func_02060624(void *);
-extern "C" void func_02060b58(void *);
-extern "C" void func_02060b70(void *);
-extern "C" void func_02060938(void *, int, int, int, int);
-extern "C" void func_020602ec(void *);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
@@ -80,7 +71,7 @@ TreasureBox *TreasureBox::func_02051ba0()
 {
     func_0203dc7c();
     vtable = data_020ae37c;
-    func_02060294(unk_8c);
+    unk_8c.func_02060294();
     unk_2b58.func_02054800();
     return this;
 }
@@ -108,8 +99,8 @@ void TreasureBox::func_02051c54()
     MI_CpuFill8(entries, 0, sizeof(entries));
     writeIndex = 0;
     readIndex = writeIndex;
-    func_02060310(unk_8c);
-    func_02060864(unk_8c, 0, 2, 0, 0);
+    unk_8c.func_02060310();
+    unk_8c.func_02060864(0, 2, 0, 0);
     dest = &unk_6a80;
     LoadFile(data_020ae3ec, &dest);
 }
@@ -140,8 +131,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_02060a98(void);
-extern "C" void func_02060e80(void);
 extern "C" void func_0206aa30(void);
 extern "C" void func_0206ace8(void);
 extern "C" void func_0206bffc(void);
@@ -254,7 +243,7 @@ asm void TreasureBox::func_02051d20()
 @L_02051e74:
     mov r1, r4
     add r0, r8, #0x8c
-    bl func_020612b8
+    bl _ZN17UnkClass_0206029413func_020612b8Ev
     add r4, r4, #1
 @L_02051e84:
     cmp r4, #1
@@ -264,7 +253,7 @@ asm void TreasureBox::func_02051d20()
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054db4Ev
     add r0, r8, #0x8c
-    bl func_02060f54
+    bl _ZN17UnkClass_0206029413func_02060f54Ev
     add sp, sp, #0x10
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -286,7 +275,7 @@ asm void TreasureBox::func_02051d20()
     ldr r3, [r6]
     add r0, r8, #0x8c
     add r1, r1, #0x2800
-    bl func_02060efc
+    bl _ZN17UnkClass_0206029413func_02060efcEv
     ldrsb r0, [r6, #5]
     add r1, r8, #0x6000
     mov r2, #1
@@ -332,7 +321,7 @@ asm void TreasureBox::func_02051d20()
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054db4Ev
     add r0, r8, #0x8c
-    bl func_02060f54
+    bl _ZN17UnkClass_0206029413func_02060f54Ev
     cmp r0, #0
     addeq r0, r8, #0x6000
     ldreq r1, [r0, #0xa78]
@@ -340,7 +329,7 @@ asm void TreasureBox::func_02051d20()
     b @L_02052278
 @L_02051fb0:
     add r0, r8, #0x8c
-    bl func_02061210
+    bl _ZN17UnkClass_0206029413func_02061210Ev
     add r0, r8, #0x358
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054d4cEv
@@ -360,7 +349,7 @@ asm void TreasureBox::func_02051d20()
     cmp r1, #0xb
     blt @L_02052004
     add r0, r8, #0x8c
-    bl func_02060b58
+    bl _ZN17UnkClass_0206029413func_02060b58Ev
 @L_02052004:
     add r0, r8, #0x6a00
     ldrsb r1, [r0, #0x38]
@@ -408,7 +397,7 @@ asm void TreasureBox::func_02051d20()
     mov r6, r5
     mov r1, r6
     add r0, r8, #0x8c
-    bl func_02060c80
+    bl _ZN17UnkClass_0206029413func_02060c80Ev
     cmp r0, #0
     beq @L_0205228c
     add r0, r8, #0x6000
@@ -416,7 +405,7 @@ asm void TreasureBox::func_02051d20()
     cmp r0, #0
     add r0, r8, #0x8c
     bne @L_020520f0
-    bl func_02060d14
+    bl _ZN17UnkClass_0206029413func_02060d14Ev
     add r1, r8, #0x6000
     str r0, [r1, #0xa54]
     cmp r0, #0
@@ -425,7 +414,7 @@ asm void TreasureBox::func_02051d20()
     b @L_02052148
 @L_020520f0:
     sub r1, r6, #1
-    bl func_02060a48
+    bl _ZN17UnkClass_0206029413func_02060a48Ev
     cmp r0, #0
     beq @L_0205228c
     add r7, r8, #0x6000
@@ -517,10 +506,10 @@ asm void TreasureBox::func_02051d20()
     cmp r0, #0
     add r0, r8, #0x8c
     beq @L_0205223c
-    bl func_02061274
+    bl _ZN17UnkClass_0206029413func_02061274Ev
     b @L_02052240
 @L_0205223c:
-    bl func_02061258
+    bl _ZN17UnkClass_0206029413func_02061258Ev
 @L_02052240:
     ldr r0, =data_020c4f60
     bl _ZN11MoviePlayer4StopEv
@@ -533,7 +522,7 @@ asm void TreasureBox::func_02051d20()
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054db4Ev
     add r0, r8, #0x8c
-    bl func_02060f54
+    bl _ZN17UnkClass_0206029413func_02060f54Ev
     cmp r0, #0
     addeq r0, r8, #0x6000
     moveq r1, #3
@@ -597,7 +586,7 @@ void TreasureBox::func_02052378(s32 value)
 
 void TreasureBox::func_02052384()
 {
-    func_020603e0(unk_8c);
+    unk_8c.func_020603e0();
 }
 
 void TreasureBox::func_02052394()
@@ -613,7 +602,7 @@ void TreasureBox::func_020523a8()
 void TreasureBox::func_020523bc()
 {
     if (unk_6a64 != 0 && unk_6a78 != 0) {
-        func_02061210(unk_8c);
+        unk_8c.func_02061210();
         unk_2b58.func_02054d4c();
     }
     unk_6a68 = 0;
@@ -633,8 +622,8 @@ void TreasureBox::func_02052438(UnkClass_0203dc7c *scene)
 
 void TreasureBox::func_02052444(int arg, int arg2)
 {
-    func_020612ac(unk_8c);
-    func_020612a0(unk_8c, arg2);
+    unk_8c.func_020612ac(arg);
+    unk_8c.func_020612a0(arg2);
 }
 
 void *TreasureBox::func_02052468()
@@ -646,14 +635,14 @@ void TreasureBox::func_02052474(void *dst)
 {
     MI_CpuCopy8(unk_6a88, dst, sizeof(unk_6a88));
     unk_2b58.func_02054c24((u8 *)dst + 0x80);
-    func_02060494(unk_8c, (u8 *)dst + 0x280);
+    unk_8c.func_02060494((u8 *)dst + 0x280);
 }
 
 void TreasureBox::func_020524b0(void *src)
 {
     MI_CpuCopy8(src, unk_6a88, sizeof(unk_6a88));
     unk_2b58.func_02054c6c((u8 *)src + 0x80);
-    func_020604f8(unk_8c, (u8 *)src + 0x280);
+    unk_8c.func_020604f8((u8 *)src + 0x280);
 }
 
 void TreasureBox::func_020524f0(s32 value)
@@ -704,27 +693,27 @@ s16 TreasureBox::func_02052600()
 
 void TreasureBox::func_02052618()
 {
-    func_02060624(unk_8c);
+    unk_8c.func_02060624();
 }
 
 void TreasureBox::func_02052628(int a, int b, int c, int d)
 {
     if (unk_6a64 == 0) {
         if (d == 0) {
-            func_02060b58(unk_8c);
+            unk_8c.func_02060b58();
         }
         if (c == 0) {
             return;
         }
-        func_02060864(unk_8c, a, b, c, d);
+        unk_8c.func_02060864(a, b, c, d);
     } else {
         if (d == 0) {
-            func_02060b70(unk_8c);
+            unk_8c.func_02060b70();
         }
         if (c == 0) {
             return;
         }
-        func_02060938(unk_8c, a, b, c, d);
+        unk_8c.func_02060938(a, b, c, d);
     }
 }
 
@@ -738,9 +727,9 @@ void TreasureBox::func_020526cc(int c)
 void TreasureBox::func_020526ec(int arg, int keep)
 {
     if (unk_6a64 == 0 || keep != 0) {
-        func_02060b58(unk_8c);
+        unk_8c.func_02060b58();
     } else {
-        func_02060b70(unk_8c);
+        unk_8c.func_02060b70();
     }
 }
 #else
@@ -755,11 +744,11 @@ asm void TreasureBox::func_020526ec(int arg, int keep)
     beq @L_02052714
 @L_02052708:
     add r0, r0, #0x8c
-    bl func_02060b58
+    bl _ZN17UnkClass_0206029413func_02060b58Ev
     ldmia sp!, {r3, pc}
 @L_02052714:
     add r0, r0, #0x8c
-    bl func_02060b70
+    bl _ZN17UnkClass_0206029413func_02060b70Ev
     ldmia sp!, {r3, pc}
 }
 #endif
@@ -1159,7 +1148,7 @@ asm void TreasureBox::func_02052c68()
     mov r3, r8
     add r0, r10, #0x8c
     str r12, [sp]
-    bl func_02060e80
+    bl _ZN17UnkClass_0206029413func_02060e80Ev
     movs r1, r0
     beq @L_02052d3c
     ldrsb r0, [r4, #0x39]
@@ -1316,7 +1305,7 @@ asm void TreasureBox::func_02052eec()
     mov r3, r4
     add r0, r8, #0x8c
     mov r1, #0xb
-    bl func_02060a98
+    bl _ZN17UnkClass_0206029413func_02060a98Ev
     add r2, r8, #0x6a00
     ldrsb r1, [r2, #0x39]
     rsb r4, r4, #0x2000
@@ -2959,7 +2948,7 @@ asm void TreasureBox::func_02054620()
 TreasureBox *TreasureBox::func_020547d4()
 {
     unk_2b58.func_02054854();
-    func_020602ec(unk_8c);
+    unk_8c.func_020602ec();
     operator delete(this);
     return this;
 }

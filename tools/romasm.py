@@ -28,7 +28,10 @@ def main():
     loads = {}
     for line in open(f"{ROOT}/config/yeep/arm9/relocs.txt"):
         if "module:overlays(" in line:
-            continue    # (an address in several overlays: kept as a number)
+            if "kind:arm_call" not in line:
+                continue    # (data at an address in several overlays: kept as a number)
+            # (a call to an address in several overlays: named from the first one)
+            line = re.sub(r"module:overlays\((\d+)[^)]*\)", r"module:overlay(\1)", line)
         m = re.match(r"from:(0x[0-9a-f]+) kind:arm_call to:(0x[0-9a-f]+) module:overlay\((\d+)\)", line)
         if m:
             # (a call into an overlay: named from that overlay's symbols)
