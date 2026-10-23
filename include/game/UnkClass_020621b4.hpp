@@ -5,6 +5,7 @@
 #include "nitro/fx.h"
 
 #include "game/Match.hpp"
+#include "game/UnkClass_0206ee34.hpp"
 #include "game/UnkClass_02083060.hpp"
 
 struct SaveBody;
@@ -294,7 +295,7 @@ public:
     void func_0206de18();
     void func_0206de34();
     void func_0206de44();
-    void func_0206de4c();
+    UnkClass_0206ee34 *func_0206de4c();     // (the rules)
     BOOL func_0206de54(int a, int b);
     void func_0206de64();
     BOOL func_0206dedc();

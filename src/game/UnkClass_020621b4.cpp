@@ -13117,7 +13117,7 @@ asm void UnkClass_020621b4::func_0206de44()
     bx lr
 }
 
-asm void UnkClass_020621b4::func_0206de4c()
+asm UnkClass_0206ee34 *UnkClass_020621b4::func_0206de4c()
 {
     add r0, r0, #0x22c
     bx lr
