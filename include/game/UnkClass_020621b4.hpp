@@ -672,15 +672,15 @@ public:
     void func_0207e8f8();
     void func_0207ec28();
     void func_0207ec70();
-    void func_0207ee18();
+    int func_0207ee18(u32 id);
     void func_0207ee3c();
-    void func_0207ef0c();
-    void func_0207ef30();
+    void func_0207ef0c(MatchPlayer *player);
+    void func_0207ef30(int index);
     void func_0207ef54();
-    void func_0207efc0();
-    void func_0207efcc();
+    u8 func_0207efc0();
+    void func_0207efcc(u8 value);
     void func_0207efd8();
-    void func_0207f07c();
+    BOOL func_0207f07c();
     void func_0207f0b0();
     void func_0207f140();
     void func_0207f1d0();
@@ -734,7 +734,9 @@ public:
     s32 unk_bc0[2];
     s16 *unk_bc8;
     u8 (*unk_bcc)[0x10];
-    s32 unk_bd0[3];
+    s32 unk_bd0;
+    void *unk_bd4;      // (on the heap)
+    s32 unk_bd8;
     void *unk_bdc;      // (on the heap)
     s32 unk_be0;
     u8 (*unk_be4)[0xC];

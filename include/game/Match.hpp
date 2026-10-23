@@ -89,7 +89,10 @@ struct MatchPlayerState {
 struct MatchPlayer {
     u8 unk_0[0x42];
     u16 unk_42;
-    u8 unk_44[0xE8 - 0x44];
+    u8 unk_44[0xD0 - 0x44];
+    s16 unk_d0;
+    s16 unk_d2;
+    u8 unk_d4[0xE8 - 0xD4];
     MatchPlayerBody *body;      // 0xE8
     MatchPlayerState *state;    // 0xEC
     u16 unk_f0;                 // flags
