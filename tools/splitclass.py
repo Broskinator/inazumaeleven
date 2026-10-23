@@ -13,6 +13,19 @@ import os, re, subprocess, sys
 extend = sys.argv[1] == "--extend"
 if extend:
     del sys.argv[1]
+# --file area/Name2 (with --extend): the range goes to a new file src/area/Name2.cpp of the
+# class (its header stays include/area/Name.hpp)
+newfile = None
+if "--file" in sys.argv:
+    i = sys.argv.index("--file")
+    newfile = sys.argv[i + 1]
+    del sys.argv[i:i + 2]
+    if newfile:
+        hdrpath = sys.argv[4]
+        src_new = f"src/{newfile}.cpp"
+        if not os.path.exists(src_new):
+            os.makedirs(os.path.dirname(src_new), exist_ok=True)
+            open(src_new, "w", newline="\n").write(f'#include "{hdrpath}.hpp"\n\n')
 lo, hi, cls, path = int(sys.argv[1], 16), int(sys.argv[2], 16), sys.argv[3], sys.argv[4]
 comment = sys.argv[5] if len(sys.argv) > 5 else ""
 SYM = "config/yeep/arm9/symbols.txt"
@@ -62,7 +75,8 @@ if extend:
     i = h.index("\n\n", h.index(f"class {cls}"))     # (after the last method)
     h = h[:i] + "\n" + methods + h[i:]
     open(f"include/{path}.hpp", "w", newline="\n").write(h)
-    src = open(f"src/{path}.cpp").read()
+    srcpath = f"src/{newfile}.cpp" if newfile else f"src/{path}.cpp"
+    src = open(srcpath).read()
     i = src.index("\nasm ") if "\nasm " in src else len(src)
     head = src[:i]
     # (the functions that are members now are not declared as extern "C" any more)
@@ -80,16 +94,23 @@ if extend:
             text = open(f"include/{inc}").read()
             known += "\n" + text
             todo += re.findall(r'^#include "([^"]+)"', text, re.M)
+    known = re.sub(r"//[^\n]*", "", known)     # (names in comments don't count)
     for d in sorted(decls):
         name = re.search(r" \*?(\w+)[\(\[]", d).group(1)
         if not re.search(r"\b%s\b" % name, known):
             head = head.rstrip("\n") + "\n" + d + "\n"
-    src = head + src[i:].rstrip("\n") + "\n\n" + "\n".join(bodies)
-    open(f"src/{path}.cpp", "w", newline="\n").write(src)
+    rest = src[i:].rstrip("\n")
+    src = head.rstrip("\n") + "\n\n" + (rest + "\n\n" if rest.strip() else "") + "\n".join(bodies)
+    open(srcpath, "w", newline="\n").write(src)
     # (the new asm calls the class's older members by their mangled names)
-    subprocess.run([sys.executable, "tools/retarget.py", cls, f"src/{path}.cpp"], check=True, capture_output=True)
+    subprocess.run([sys.executable, "tools/retarget.py", cls, srcpath], check=True, capture_output=True)
     dl = "config/yeep/arm9/delinks.txt"
     t = open(dl).read()
+    if newfile:
+        t = t.rstrip("\n") + f"\n\n{srcpath}:\n    complete\n    .text start:{lo:#010x} end:{hi:#010x}\n"
+        open(dl, "w", newline="\n").write(t)
+        print(len(funcs), "functions added in", srcpath)
+        sys.exit(0)
     pat = r"(src/" + re.escape(path) + r"\.cpp:\n    complete\n    \.text start:0x[0-9a-f]+ end:)" + f"{lo:#010x}"
     t, k = re.subn(pat, lambda m: m.group(1) + f"{hi:#010x}", t)
     assert k == 1, "the file's range must end at LO"

@@ -35,6 +35,12 @@ for other in sys.argv[3:]:
     o = open(other).read()
     opat = re.compile(r'^extern "C" (.+?)\b(func_[0-9a-f]{8})\([^,)]*(?:, )?([^)]*)\);[^\n]*\n', re.M)
     changed = False
+    # (objects the header declares with their type are passed by address)
+    for obj in re.findall(r"^extern %s (\w+);" % cls, h, re.M):
+        if re.search(r'^extern "C" u8 %s\[\];\n' % obj, o, re.M):
+            o = re.sub(r'^extern "C" u8 %s\[\];\n' % obj, "", o, flags=re.M)
+            o = re.sub(r"\((%s)([,)])" % obj, r"(&\1\2", o)
+            o = re.sub(r", (%s)([,)])" % obj, r", &\1\2", o)
     for m in list(opat.finditer(o)):
         ret, name, args = m.group(1), m.group(2), m.group(3)
         if not re.search(r"^    \S.*\b%s\(" % name, h, re.M):

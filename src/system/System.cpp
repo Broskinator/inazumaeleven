@@ -1,4 +1,5 @@
 #include "system/System.hpp"
+#include "game/UnkClass_020621b4.hpp"
 #include "system/GameHeap.hpp"
 #include "file/FileManager.hpp"
 #include "movie/MoviePlayer.hpp"
@@ -88,11 +89,9 @@ extern "C" BOOL func_0200eb24(void *);
 extern "C" void func_0200ebb8(void *);
 extern "C" void func_01ff9dc4(void *);
 extern "C" void func_01ff9e1c(void *);
-extern "C" u8 data_020e88a0[];
 
 extern "C" void func_01ffd9a0(void *);
 extern "C" void func_01ffb7b8(void *);
-extern "C" void func_0206f7a4(void *);
 extern "C" char data_020ac0e4[];
 extern "C" char data_020ac100[];
 extern "C" char data_020ac120[];
@@ -450,16 +449,16 @@ void System::func_0203ff78()
 
 void System::func_0203ffb4()
 {
-    func_01ff9dc4(data_020e88a0);
-    func_01ff9e1c(data_020e88a0);
+    func_01ff9dc4(&data_020e88a0);
+    func_01ff9e1c(&data_020e88a0);
 }
 
 // loads the files the whole game uses
 void System::func_0203ffd4()
 {
-    func_01ffd9a0(data_020e88a0);
-    func_01ffb7b8(data_020e88a0);
-    func_0206f7a4(data_020e88a0);
+    func_01ffd9a0(&data_020e88a0);
+    func_01ffb7b8(&data_020e88a0);
+    data_020e88a0.func_0206f7a4();
     data_020c4638.unk_6c = 0;
     LoadFile(data_020ac0e4, &data_020c46a4);
     data_020c4638.unk_24 = 0;
