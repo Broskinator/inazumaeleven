@@ -4,6 +4,7 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020764ccEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020764e4Ev(void);     // (for the asm functions)
@@ -241,7 +242,6 @@ extern "C" void func_01ff9490(UnkClass_020621b4 *self, MatchPlayer *player, int 
 extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 extern "C" void func_ov087_0217d69c(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" BOOL func_02084870(MatchPlayer *player);
-extern "C" MatchPlayerInfo *func_020787e8(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" char data_020c4824[];
 extern "C" char data_020c4940[];
 extern "C" void _ZdlPv(void);
@@ -1729,7 +1729,7 @@ asm UnkClass_020621b4::func_02063430()
 
 BOOL UnkClass_020621b4::func_02063480(MatchPlayer *player, fx32 *pos)
 {
-    MatchPlayerInfo *info = func_020787e8(this, player);
+    MatchPlayerInfo *info = func_020787e8(player);
 
     if (func_02084870(player)) {
         MatchPlayerState *state = player->state;
@@ -1883,7 +1883,7 @@ asm void UnkClass_020621b4::func_0206371c()
 @L_02063760:
     mov r0, r10
     mov r1, r9
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     mov r1, r0
     mov r0, r10
     bl _ZN17UnkClass_020621b413func_0206811cEPt
@@ -2051,7 +2051,7 @@ asm void UnkClass_020621b4::func_0206371c()
     bne @L_02063aec
     mov r0, r10
     mov r1, r4
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     mov r1, r0
     mov r0, r10
     bl _ZN17UnkClass_020621b413func_0206811cEPt
@@ -2231,7 +2231,7 @@ asm void UnkClass_020621b4::func_02063c14()
     mov r0, r10
     mov r1, r9
     mov r8, r5
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     ldr r1, [r9, #0xe8]
     mov r6, r0
     ldrh r0, [r1, #0x16]
@@ -2420,7 +2420,7 @@ asm void UnkClass_020621b4::func_02063f24()
     str r0, [sp, #4]
     mov r0, r11
     mov r1, r10
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     cmp r9, #0
     ldrne r1, [r10, #0xe8]
     mov r4, r0
@@ -2522,7 +2522,7 @@ asm void UnkClass_020621b4::func_020640b4()
     str r3, [sp, #0xc]
     str r2, [sp, #0x50]
     ldmia r4, {r6, r7}
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     ldr r1, [r10, #0xec]
     str r0, [sp, #0x20]
     ldr r0, [sp, #0x50]
@@ -2827,7 +2827,7 @@ asm void UnkClass_020621b4::func_02064500()
     mov r0, r8
     mov r1, r6
     mov r10, #0x800
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     str r0, [sp, #4]
     ldr r2, [r6, #0xe8]
     mov r0, r8
@@ -2937,7 +2937,7 @@ asm void UnkClass_020621b4::func_020646d4()
     mov r10, r0
     mov r8, r2
     ldr r7, [sp, #0x68]
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     str r0, [sp, #0x38]
     ldr r0, [sp, #0x14]
     ldr r1, [r9, #0xe8]
@@ -3656,7 +3656,7 @@ asm void UnkClass_020621b4::func_02065178()
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
     mov r0, r9
     mov r1, r8
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     mov r5, r0
     mov r0, r9
     mov r1, r5
@@ -3819,7 +3819,7 @@ asm void UnkClass_020621b4::func_02065178()
 
 void UnkClass_020621b4::func_02065414(MatchPlayer *player)
 {
-    MatchPlayerInfo *info = func_020787e8(this, player);
+    MatchPlayerInfo *info = func_020787e8(player);
 
     if (!func_02084870(player) && info->unk_0 == 10) {
         func_020654cc(player, 2, -1, NULL, NULL, 0);
@@ -4872,7 +4872,7 @@ void UnkClass_020621b4::func_02066504(int flags, int a, int b)
     for (i = 0; i < 0x16; i++) {
         MatchPlayer *player = func_02079d2c(this, i);
         if (player != NULL && !func_02079f98(this, player, a, b) && func_ov015_021318a4(player, b) &&
-            MatchPlayerInfo_HasFlag(func_020787e8(this, player), flags)) {
+            MatchPlayerInfo_HasFlag(func_020787e8(player), flags)) {
             func_ov087_0217d0ac(this, player, 1);
         }
     }
@@ -7430,7 +7430,7 @@ asm void UnkClass_020621b4::func_02068d74()
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
     mov r5, r1
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     mov r4, r0
     mov r0, r6
     mov r1, r5
@@ -7595,7 +7595,7 @@ asm void UnkClass_020621b4::func_02068f90()
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r10, r0
     mov r9, r1
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     mov r8, #0
     mov r4, r0
     mov r0, r10
@@ -8776,7 +8776,7 @@ asm int UnkClass_020621b4::func_0206a100(MatchPlayer *player, int a)
     mov r5, r0
     mov r0, r10
     mov r1, r9
-    bl func_020787e8
+    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
     ldr r1, [r9, #0xf8]
     mov r7, r0
     tst r1, #2
@@ -10846,7 +10846,7 @@ BOOL UnkClass_020621b4::func_0206bf2c(MatchPlayer *player)
         player->state->unk_85 = 0;
         player->state->unk_86 = -1;
     }
-    if (func_020787e8(this, player)->unk_0 == 10) {
+    if (func_020787e8(player)->unk_0 == 10) {
         player->state->unk_2f = 1;
     }
     return TRUE;
