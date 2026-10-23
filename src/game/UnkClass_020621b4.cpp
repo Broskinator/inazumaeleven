@@ -4,6 +4,7 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkClass_0208351c13func_0208363cEv(void);     // (for the asm functions)
 extern "C" void func_02081f28(void);     // (for the asm functions)
 extern "C" void func_02081f50(void);     // (for the asm functions)
 extern "C" void func_02081740(void);     // (for the asm functions)
@@ -405,7 +406,6 @@ extern "C" void func_ov087_0217877c(void);
 extern "C" void func_ov087_0217d29c(void);
 extern "C" fx32 data_020aeb64[];
 extern "C" char data_020fa1a5[];
-extern "C" void func_0208363c(void);
 extern "C" void func_02083ec4(void);
 extern "C" void func_ov015_0213fde4(void);
 extern "C" void func_ov015_0214079c(void);
@@ -6760,7 +6760,7 @@ asm void UnkClass_020621b4::func_02068248()
     add r9, sp, #0xc
     mov r1, r0, lsl #1
     mov r0, r9
-    bl func_0208363c
+    bl _ZN17UnkClass_0208351c13func_0208363cEv
     mov r0, r7
     bl func_02083e34
     mov r3, r0
