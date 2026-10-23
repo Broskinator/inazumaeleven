@@ -11,7 +11,6 @@ extern "C" void func_02054854(void *);
 extern "C" void func_020602ec(void *);
 extern "C" void *OS_AllocFromHeap(int arena, int heap, u32 size);
 extern "C" void OS_FreeToHeap(int arena, int heap, void *ptr);
-extern "C" void OS_AllocFromHeap_asm(void);
 
 #define OS_ARENA_MAIN 0
 

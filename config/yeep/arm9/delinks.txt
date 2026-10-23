@@ -429,3 +429,6 @@ src/system/System.cpp:
 src/system/GameMain.cpp:
     complete
     .text start:0x0204054c end:0x020406d8
+
+libs/SoundDriver/driver.c:
+    .text start:0x020406d8 end:0x02051ba0

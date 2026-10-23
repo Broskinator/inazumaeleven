@@ -44,7 +44,9 @@ In the main program (ARM9, 0x02000000-0x0209e94c), the libraries come first:
 | 0x02018128-0x020252f8 | MSL C (math, mbstring, mem, printf, rand, string, wstring, ansi_fp, fdlibm) |
 | 0x020252f8-0x02025ba4 | MSL C++ (exceptions, new, cxxabi) |
 | 0x02025ba4-0x02033218 | NitroSystem (g2d, g3d, snd, fnd) |
-| 0x02033218-0x0209e94c | the game, and the libraries not identified yet |
+| 0x02033218-0x020406d8 | the game |
+| 0x020406d8-0x02051ba0 | the sound driver the game's SoundManager uses (.SWD/.SED/.SMD/.SAD; its state is at 0x020fa1d4-0x020fc7xx) |
+| 0x02051ba0-0x0209e94c | the game, and the libraries not identified yet |
 
 Overlay 89 contains the SDK's DS Download Play (MB) library.
 
