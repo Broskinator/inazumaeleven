@@ -4,6 +4,7 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkClass_020621b413func_02080288EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207efd8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207f07cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207f38cEv(void);     // (for the asm functions)
@@ -244,7 +245,6 @@ extern "C" void func_ov087_0217d158(UnkClass_020621b4 *self, MatchPlayer *player
 extern "C" void func_ov087_0217dfbc(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" BOOL func_01ffed54(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" BOOL func_01ff9684(UnkClass_020621b4 *self);
-extern "C" MatchAction *func_02080288(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" int func_02080b90(MatchPlayer *player);
 extern "C" int func_02083e44(int a);
 extern "C" BOOL func_ov087_02179e8c(UnkClass_020621b4 *self, fx32 *segment, MatchPlayer *player, int a);
@@ -314,11 +314,11 @@ UnkClass_020621b4 *UnkClass_020621b4::func_020621b4()
     unk_be8 = NULL;
     unk_bec[0] = 0;
     unk_bec[1] = 0;
-    unk_bec[2] = 0;
-    unk_bec[3] = 0;
-    unk_bec[4] = 0;
-    unk_bec[5] = 0;
-    unk_bec[6] = 0;
+    unk_bf4 = NULL;
+    unk_bf8[0] = 0;
+    unk_bf8[1] = 0;
+    unk_bf8[2] = 0;
+    unk_bf8[3] = 0;
     unk_c28 = 0;
     unk_c2c = 0;
     unk_117d4 = 0;
@@ -2223,7 +2223,7 @@ asm void UnkClass_020621b4::func_02063c14()
     ldr r7, [r9, #0xec]
     mov r4, #1
     mov r5, #0
-    bl func_02080288
+    bl _ZN17UnkClass_020621b413func_02080288EP11MatchPlayer
     mov r0, r10
     mov r1, r9
     mov r8, r5
@@ -3837,7 +3837,7 @@ asm void UnkClass_020621b4::func_020654cc(MatchPlayer *player, int action, int a
     str r3, [sp, #0x10]
     ldr r8, [sp, #0x70]
     ldr r7, [sp, #0x74]
-    bl func_02080288
+    bl _ZN17UnkClass_020621b413func_02080288EP11MatchPlayer
     ldr r1, [r10, #0xe8]
     ldr r2, [r10, #0xec]
     ldrh r3, [r1, #0x16]
@@ -4023,7 +4023,7 @@ asm void UnkClass_020621b4::func_020654cc(MatchPlayer *player, int action, int a
 // updates a player: starts its next action, or what it does in the current phase
 void UnkClass_020621b4::func_020657a8(MatchPlayer *player)
 {
-    MatchAction *action = func_02080288(this, player);
+    MatchAction *action = func_02080288(player);
 
     if (!func_02084870(player) && action->action != 0 && !func_0206bfa8()) {
         func_020654cc(player, action->action, action->unk_1e, &action->unk_8, &action->unk_10, 0);

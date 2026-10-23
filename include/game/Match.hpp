@@ -128,6 +128,7 @@ struct MatchAction {
     u8 unk_18[0x1C - 0x18];
     u16 action;         // 0x1C (0: none)
     s8 unk_1e;
+    u8 unk_1f[0x40 - 0x1F];
 };
 
 extern "C" MatchPlayer *func_ov015_02130ae8(int index);     // (the player with that index, or NULL)

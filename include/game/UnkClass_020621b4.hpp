@@ -699,6 +699,7 @@ public:
     void func_0207f7cc();
     void func_0207ff44();
     void func_0207fff0();
+    MatchAction *func_02080288(MatchPlayer *player);
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];
@@ -741,7 +742,9 @@ public:
     s32 unk_be0;
     u8 (*unk_be4)[0xC];
     s8 *unk_be8;
-    s32 unk_bec[7];
+    s32 unk_bec[2];
+    MatchAction *unk_bf4;     // (per player, indexed by MatchPlayer::unk_f4)
+    s32 unk_bf8[4];
     u8 unk_c08[8];
     s32 unk_c10[2];
     s32 unk_c18[2];

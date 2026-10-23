@@ -26,6 +26,7 @@ extern "C" u8 data_020cb6e0[];
 extern "C" int func_020808c4(void *team, int i);
 extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 
+extern "C" void _ZN17UnkClass_020621b413func_02080288EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020632b4EP11MatchPlayerS1_Pl(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020640b4Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206707cEii(void);     // (for the asm functions)
@@ -541,7 +542,6 @@ extern "C" void func_ov015_02130ce0(void);
 extern "C" void func_ov087_0218099c(void);
 extern "C" void func_ov087_02181cbc(void);
 extern "C" char data_020c4ebc[];
-extern "C" void func_02080288(void);
 extern "C" void func_0208151c(void);
 extern "C" void func_02081b24(void);
 extern "C" void func_02081b44(void);
@@ -18004,7 +18004,7 @@ asm int UnkClass_020621b4::func_0207e334(int a, int b, int c, int d)
     mov r8, r3
     mov r11, #1
     mov r4, #0
-    bl func_02080288
+    bl _ZN17UnkClass_020621b413func_02080288EP11MatchPlayer
     mov r5, r0
     mov r0, r4
 @L_0207e360:
@@ -20270,4 +20270,12 @@ asm void UnkClass_020621b4::func_0207fff0()
 @L_02080274:
     mov r0, #0
     ldmia sp!, {r3, pc}
+}
+
+MatchAction *UnkClass_020621b4::func_02080288(MatchPlayer *player)
+{
+    if (unk_bf4 != NULL) {
+        return &unk_bf4[player->unk_f4];
+    }
+    return NULL;
 }
