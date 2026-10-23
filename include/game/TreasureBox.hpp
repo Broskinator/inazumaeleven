@@ -17,6 +17,50 @@ public:
     int func_020522c4(u32 keys, u32 arg);
     int func_020522fc(TPData *touch);
     void func_02052374();
+    void func_02052378();
+    void func_02052384();
+    void func_02052394();
+    void func_020523a8();
+    void func_020523bc();
+    void func_02052438();
+    void func_02052444();
+    void func_02052468();
+    void func_02052474(void *dst);      // (saves the boxes)
+    void func_020524b0(void *src);      // (loads them)
+    void func_020524f0();
+    void func_02052534();
+    void func_02052550();
+    void func_020525d4();
+    void func_020525f4();
+    void func_02052600();
+    void func_02052618();
+    void func_02052628();
+    void func_020526cc();
+    void func_020526ec();
+    void func_02052720();
+    void func_02052c68();
+    void func_02052d48();
+    void func_02052da8();
+    void func_02052db8();
+    void func_02052e00();
+    void func_02052e0c();
+    void func_02052eec();
+    void func_02052fd8();
+    void func_02053098();
+    void func_02053824();
+    void func_02053874();
+    void func_02053888();
+    void func_0205389c();
+    void func_020538b0();
+    void func_02053aa0();
+    void func_02053ae0();
+    void func_02053bbc();
+    void func_020541d0();
+    void func_02054398();
+    void func_020544c0();
+    void func_02054620();
+    void func_020547d4();
+
     u8 unk_8c[0x2ACC];          // (made by func_02060294)
     u8 unk_2b58[0x3EA0];        // (made by func_02054800)
     u8 unk_69f8[0x40];

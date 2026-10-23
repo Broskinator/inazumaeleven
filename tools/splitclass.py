@@ -4,10 +4,15 @@
 # renamed to the mangled names, and include/<path>.hpp gets the class with the methods.
 #
 # usage: tools/splitclass.py LO HI CLASS area/Name ["comment for the class"]
+#        tools/splitclass.py --extend LO HI CLASS area/Name
+#        (--extend: appends [LO, HI) to the existing file of the class, which ends at LO)
 # (then convert the functions to C++ one by one; tools/fixsyms.py renames them in
 # symbols.txt when their signatures change)
 import os, re, subprocess, sys
 
+extend = sys.argv[1] == "--extend"
+if extend:
+    del sys.argv[1]
 lo, hi, cls, path = int(sys.argv[1], 16), int(sys.argv[2], 16), sys.argv[3], sys.argv[4]
 comment = sys.argv[5] if len(sys.argv) > 5 else ""
 SYM = "config/yeep/arm9/symbols.txt"
@@ -48,6 +53,30 @@ for a, _ in funcs:
 hdr = path.split("/")
 guard = "_".join(x.upper() for x in hdr) + "_HPP"
 methods = "\n".join(f"    void {names[a][0]}();" for a, _ in funcs)
+if extend:
+    h = open(f"include/{path}.hpp").read()
+    i = h.index("\n\n", h.index(f"class {cls}"))     # (after the last method)
+    h = h[:i] + "\n" + methods + h[i:]
+    open(f"include/{path}.hpp", "w", newline="\n").write(h)
+    src = open(f"src/{path}.cpp").read()
+    i = src.index("\nasm ") if "\nasm " in src else len(src)
+    head = src[:i]
+    # (the functions that are members now are not declared as extern "C" any more)
+    for short, _ in names.values():
+        head = re.sub(r'^extern "C" void ' + short + r'\(void\);\n', "", head, flags=re.M)
+    for d in sorted(decls):
+        if d not in head:
+            head = head.rstrip("\n") + "\n" + d + "\n"
+    src = head + src[i:].rstrip("\n") + "\n\n" + "\n".join(bodies)
+    open(f"src/{path}.cpp", "w", newline="\n").write(src)
+    dl = "config/yeep/arm9/delinks.txt"
+    t = open(dl).read()
+    pat = r"(src/" + re.escape(path) + r"\.cpp:\n    complete\n    \.text start:0x[0-9a-f]+ end:)" + f"{lo:#010x}"
+    t, k = re.subn(pat, lambda m: m.group(1) + f"{hi:#010x}", t)
+    assert k == 1, "the file's range must end at LO"
+    open(dl, "w", newline="\n").write(t)
+    print(len(funcs), "functions added")
+    sys.exit(0)
 header = f"""#ifndef {guard}
 #define {guard}
 

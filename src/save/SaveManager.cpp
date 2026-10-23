@@ -1,6 +1,7 @@
 #include "save/SaveManager.hpp"
 #include "system/GameHeap.hpp"
 #include "sound/SoundManager.hpp"
+#include "game/TreasureBox.hpp"
 #include "nitro/mi.h"
 #include "nitro/std.h"
 #include "nitro/card.h"
@@ -8,7 +9,6 @@
 // (other systems, not decompiled yet)
 extern GameHeap data_020c47b4;
 extern "C" u8 data_020d3d20[];
-extern "C" u8 data_020d9978[];
 extern "C" u8 data_020e88a0[];
 extern "C" void *data_020c46cc;
 extern "C" void *data_020c4678;
@@ -16,8 +16,8 @@ extern "C" u8 data_020c4638;
 extern "C" void func_02081c3c(SaveBlock8 *block);
 extern "C" void func_0209ac8c(void *obj, void *dst);
 extern "C" void func_0209ae70(void *obj, void *src);
-extern "C" void func_02052474(void *obj, void *dst);
-extern "C" void func_020524b0(void *obj, void *src);
+extern "C" void _ZN11TreasureBox13func_02052474EPv(void);     // (for the asm functions)
+extern "C" void _ZN11TreasureBox13func_020524b0EPv(void);
 extern "C" void _ZN12SoundManager9SaveStateEP10SoundState(void);
 extern "C" void _ZN12SoundManager12RestoreStateEP10SoundState(void);
 extern "C" void func_0206db10(void *obj, SaveBody *dst);
@@ -420,7 +420,7 @@ s32 SaveManager::Save(int slot, BOOL async)
     body->block11 = gGameState.block11;
     body->block12 = gGameState.block12;
     func_0209ac8c(data_020d3d20, body->unk_49FC);
-    func_02052474(data_020d9978, body->unk_5338);
+    data_020d9978.func_02052474(body->unk_5338);
     data_020c5e40.SaveState(&body->soundState);
     func_0206db10(data_020e88a0, body);
     func_02086988(data_020c46cc, body->unk_3DDC);
@@ -682,7 +682,7 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     add r1, r5, #0x338
     ldr r0, =data_020d9978
     add r1, r1, #0x5000
-    bl func_02052474
+    bl _ZN11TreasureBox13func_02052474EPv
     add r1, r5, #0x44
     ldr r0, =data_020c5e40
     add r1, r1, #0x7c00
@@ -1294,7 +1294,7 @@ s32 SaveManager::ApplyLoad(int slot)
         gGameState.extraCrc = file->header.extraCrc;
         gGameState.unk_1281 = 0;
         func_0209ae70(data_020d3d20, body->unk_49FC);
-        func_020524b0(data_020d9978, body->unk_5338);
+        data_020d9978.func_020524b0(body->unk_5338);
         data_020c5e40.RestoreState(&body->soundState);
         func_0206dcdc(data_020e88a0, body);
         func_0208663c(data_020c46cc, body->unk_3DDC);
@@ -1537,7 +1537,7 @@ asm s32 SaveManager::ApplyLoad(int slot)
     add r1, r5, #0x338
     ldr r0, =data_020d9978
     add r1, r1, #0x5000
-    bl func_020524b0
+    bl _ZN11TreasureBox13func_020524b0EPv
     add r1, r5, #0x44
     ldr r0, =data_020c5e40
     add r1, r1, #0x7c00

@@ -435,4 +435,4 @@ libs/SoundDriver/driver.c:
 
 src/game/TreasureBox.cpp:
     complete
-    .text start:0x02051ba0 end:0x02052378
+    .text start:0x02051ba0 end:0x02054800
