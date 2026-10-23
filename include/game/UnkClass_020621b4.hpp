@@ -700,6 +700,12 @@ public:
     void func_0207ff44();
     void func_0207fff0();
     MatchAction *func_02080288(MatchPlayer *player);
+    void func_02082d5c();
+    void func_02082d80();
+    void func_02082d9c();
+    void func_02082f3c();
+    void func_02083048();
+    void func_02083054();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];
