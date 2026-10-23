@@ -436,3 +436,7 @@ libs/SoundDriver/driver.c:
 src/game/TreasureBox.cpp:
     complete
     .text start:0x02051ba0 end:0x02054800
+
+src/game/UnkClass_02054800.cpp:
+    complete
+    .text start:0x02054800 end:0x0205dee0

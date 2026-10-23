@@ -4,6 +4,7 @@
 #include "nitro/types.h"
 #include "nitro/tp.h"
 #include "game/UnkClass_0203dc7c.hpp"
+#include "game/UnkClass_02054800.hpp"
 
 #define TREASURE_BOX_NUM_ENTRIES 8
 
@@ -71,7 +72,7 @@ public:
     TreasureBox *func_020547d4();
 
     u8 unk_8c[0x2ACC];          // (made by func_02060294)
-    u8 unk_2b58[0x3EA0];        // (made by func_02054800)
+    UnkClass_02054800 unk_2b58;
     TreasureBoxEntry entries[TREASURE_BOX_NUM_ENTRIES];     // a ring
     s8 readIndex;
     s8 writeIndex;
