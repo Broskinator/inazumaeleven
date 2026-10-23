@@ -5,10 +5,10 @@
 
 extern "C" void _ZN17UnkClass_020621b413func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020765d4Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020767a4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020767a4Em(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020767ccEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020768a8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020768fcEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206dedcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);     // (for the asm functions)
@@ -1957,7 +1957,7 @@ asm void TreasureBox::func_020538b0()
     cmp r1, #0
     beq @L_02053984
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020767a4Ev
+    bl _ZN17UnkClass_020621b413func_020767a4Em
     cmp r0, #0
     bne @L_02053984
     mov r0, #0x21
@@ -2245,7 +2245,7 @@ asm void TreasureBox::func_02053bbc()
     beq @L_02053de8
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN17UnkClass_020621b413func_020768fcEv
+    bl _ZN17UnkClass_020621b413func_020768fcEm
     movs r5, r0
     moveq r8, #0
     beq @L_02053e94
@@ -2746,7 +2746,7 @@ asm void TreasureBox::func_020544c0()
     ldr r0, =data_020e88a0
     mov r1, #0x89
     mov r6, #0
-    bl _ZN17UnkClass_020621b413func_020768fcEv
+    bl _ZN17UnkClass_020621b413func_020768fcEm
     mov r5, #0x80
     mov r8, r0
     add r3, sp, #0x10
