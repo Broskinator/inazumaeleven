@@ -23,6 +23,16 @@ extern "C" u8 data_020cb6e0[];
 extern "C" int func_020808c4(void *team, int i);
 extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 
+extern "C" void func_02085228(void);     // (for the asm functions)
+extern "C" void func_020859c0(void);     // (for the asm functions)
+extern "C" void func_02085b4c(void);     // (for the asm functions)
+extern "C" void func_02085ba4(void);     // (for the asm functions)
+extern "C" void func_02085bb4(void);     // (for the asm functions)
+extern "C" void func_02085be8(void);     // (for the asm functions)
+extern "C" void func_02085bfc(void);     // (for the asm functions)
+extern "C" void func_02085d88(void);     // (for the asm functions)
+extern "C" void func_02085e30(void);     // (for the asm functions)
+extern "C" void func_02085ec0(void);     // (for the asm functions)
 extern "C" void func_02083e34(void);     // (for the asm functions)
 extern "C" void func_02083e44(void);     // (for the asm functions)
 extern "C" void func_020841c8(void);     // (for the asm functions)
@@ -522,12 +532,6 @@ extern "C" void func_01ffe1a4(void);
 extern "C" void func_01ffe1e4(void);
 extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
-extern "C" void func_02085228(void);
-extern "C" void func_020859c0(void);
-extern "C" void func_02085ba4(void);
-extern "C" void func_02085bfc(void);
-extern "C" void func_02085e30(void);
-extern "C" void func_02085ec0(void);
 extern "C" void func_02086164(void);
 extern "C" void func_020864f4(void);
 extern "C" void func_020864fc(void);
@@ -540,10 +544,6 @@ extern "C" void _Z22EntryPool_CompactFrontv(void);
 extern "C" void _ZN17UnkClass_0206ee3413func_0206f014Ev(void);
 extern "C" void func_01ffbc80(void);
 extern "C" void func_01ffbcc8(void);
-extern "C" void func_02085b4c(void);
-extern "C" void func_02085bb4(void);
-extern "C" void func_02085be8(void);
-extern "C" void func_02085d88(void);
 extern "C" void func_0208620c(void);
 extern "C" void func_02087464(void);
 extern "C" void func_020877e0(void);
