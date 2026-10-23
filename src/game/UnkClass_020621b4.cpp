@@ -6889,22 +6889,22 @@ int UnkClass_020621b4::func_020684f0(int kind, int a, int b)
 
 int UnkClass_020621b4::func_02068548(int a, int b)
 {
-    return ((int (*)(UnkVirtual_020621b4 *, int, int))unk_b80->vtable[8])(unk_b80, a, b);
+    return ((int (*)(UnkClass_02083060 *, int, int))unk_b80->vtable[8])(unk_b80, a, b);
 }
 
 int UnkClass_020621b4::func_02068560(int a, int b, int c)
 {
-    return ((int (*)(UnkVirtual_020621b4 *, int, int, int))unk_b80->vtable[9])(unk_b80, a, b, c);
+    return ((int (*)(UnkClass_02083060 *, int, int, int))unk_b80->vtable[9])(unk_b80, a, b, c);
 }
 
 int UnkClass_020621b4::func_02068578(int a, int b, int c)
 {
-    return ((int (*)(UnkVirtual_020621b4 *, int, int, int))unk_b80->vtable[10])(unk_b80, a, b, c);
+    return ((int (*)(UnkClass_02083060 *, int, int, int))unk_b80->vtable[10])(unk_b80, a, b, c);
 }
 
 int UnkClass_020621b4::func_02068590(int a, int b)
 {
-    return ((int (*)(UnkVirtual_020621b4 *, int, int))unk_b80->vtable[11])(unk_b80, a, b);
+    return ((int (*)(UnkClass_02083060 *, int, int))unk_b80->vtable[11])(unk_b80, a, b);
 }
 
 BOOL UnkClass_020621b4::func_020685a8(int team, int position, BOOL force)
@@ -6914,7 +6914,7 @@ BOOL UnkClass_020621b4::func_020685a8(int team, int position, BOOL force)
     if (position < 1 || position > 11) {
         return FALSE;
     }
-    if (!force && !((int (*)(UnkVirtual_020621b4 *))unk_b80->vtable[4])(unk_b80)) {
+    if (!force && !((int (*)(UnkClass_02083060 *))unk_b80->vtable[4])(unk_b80)) {
         return FALSE;
     }
     return unk_117a4[0][index] == 1;

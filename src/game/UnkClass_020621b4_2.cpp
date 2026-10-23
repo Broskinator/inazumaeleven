@@ -15,9 +15,6 @@ extern "C" BOOL func_02080328(u8 *entry, int i);
 extern "C" int func_02080b90(MatchPlayer *player);
 extern GameHeap data_020c47b4;
 extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
-extern "C" int func_020831f8(UnkVirtual_020621b4 *obj, int a);
-extern "C" MatchPlayer *func_020832a8(UnkVirtual_020621b4 *obj, int index);
-extern "C" MatchPlayer *func_020832b4(UnkVirtual_020621b4 *obj, int team, int i);
 extern "C" u8 func_ov015_02130e28(u16 angle);
 #include "game/GameState.hpp"
 extern "C" void func_ov015_021309a4(int a);
@@ -12995,12 +12992,12 @@ asm void UnkClass_020621b4::func_02079cec()
 
 int UnkClass_020621b4::func_02079d1c(int a)
 {
-    return func_020831f8(unk_b80, a);
+    return unk_b80->func_020831f8(a);
 }
 
 MatchPlayer *UnkClass_020621b4::func_02079d2c(int index)
 {
-    return func_020832a8(unk_b80, index);
+    return unk_b80->func_020832a8(index);
 }
 
 asm void UnkClass_020621b4::func_02079d3c()
@@ -13110,7 +13107,7 @@ asm void UnkClass_020621b4::func_02079dd8()
 
 MatchPlayer *UnkClass_020621b4::func_02079e90(int team, int i)
 {
-    return func_020832b4(unk_b80, team, i);
+    return unk_b80->func_020832b4(team, i);
 }
 
 asm void UnkClass_020621b4::func_02079ea0()

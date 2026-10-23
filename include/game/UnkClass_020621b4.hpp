@@ -5,6 +5,7 @@
 #include "nitro/fx.h"
 
 #include "game/Match.hpp"
+#include "game/UnkClass_02083060.hpp"
 
 struct SaveBody;
 
@@ -36,9 +37,6 @@ struct UnkSlot_020621b4 {
     u8 unk_22;          // (flags in bits 0-3)
 };
 
-struct UnkVirtual_020621b4 {
-    void **vtable;
-};
 
 // The object at data_020e88a0 (0x11920+ bytes, made by the static constructors): the match's data
 class UnkClass_020621b4 {
@@ -720,7 +718,7 @@ public:
     u8 unk_3ac[2][0x10];     // (per team)
     u8 unk_3cc[0xB7C - 0x3CC];
     s32 unk_b7c;
-    UnkVirtual_020621b4 *unk_b80;     // (an object with a vtable)
+    UnkClass_02083060 *unk_b80;     // (an object with a vtable)
     UnkState_020621b4 unk_b84;   // (unk_0: the phase)
     u8 unk_b8c[2];
     s8 unk_b8e;
