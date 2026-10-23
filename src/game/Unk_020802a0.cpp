@@ -9,7 +9,7 @@ extern "C" u8 func_020802ac(MatchPlayer *player);
 extern "C" void func_020802b8(u16 *list);
 extern "C" void func_020802cc(void);
 extern "C" u16 func_02080328(u16 *list, u32 i);
-extern "C" void func_0208033c(void);
+extern "C" u16 func_0208033c(u16 *list, u32 i);
 extern "C" void func_02080368(void);
 extern "C" void func_0208039c(void);
 extern "C" void func_020803e8(void);
@@ -23,26 +23,26 @@ extern "C" void func_02080650(void);
 extern "C" void func_02080694(void);
 extern "C" void func_02080730(void);
 extern "C" u16 func_0208076c(u16 *list, u32 i);
-extern "C" void func_02080780(void);
+extern "C" u16 func_02080780(u16 *list, u32 i);
 extern "C" u16 func_020807ac(u8 *data);
 extern "C" u16 func_020807b4(u8 *data);
 extern "C" void func_020807d0(void);
-extern "C" void func_02080804(void);
-extern "C" void func_02080830(void);
+extern "C" int func_02080804(MatchPlayer *player);
+extern "C" void func_02080830(MatchPlayer *player, int i, u16 a, u16 b);
 extern "C" void func_0208084c(void);
-extern "C" void func_020808c4(void);
+extern "C" u16 func_020808c4(MatchPlayer *player, int i);
 extern "C" void func_020808e8(void);
 extern "C" void func_02080964(void);
 extern "C" void func_020809e8(void);
 extern "C" void func_02080a38(void);
 extern "C" int func_02080a80(void);
 extern "C" void func_02080a88(void);
-extern "C" void func_02080aa0(void);
+extern "C" BOOL func_02080aa0(MatchPlayer *player);
 extern "C" void func_02080abc(void);
-extern "C" void func_02080b00(void);
-extern "C" void func_02080b1c(void);
-extern "C" void func_02080b38(void);
-extern "C" void func_02080b54(void);
+extern "C" void func_02080b00(MatchPlayer *player, int value);
+extern "C" void func_02080b1c(MatchPlayer *player, int value);
+extern "C" BOOL func_02080b38(MatchPlayer *player);
+extern "C" void func_02080b54(MatchPlayer *player, int value);
 extern "C" u16 func_02080b74(MatchPlayer *player);
 extern "C" u8 func_02080b90(MatchPlayer *player);
 extern "C" void func_02080b98(void);
@@ -50,7 +50,7 @@ extern "C" void func_02080be4(void);
 extern "C" void func_02080c64(MatchPlayer *player, u8 team);
 extern "C" u8 func_02080c6c(MatchPlayer *player);
 extern "C" void func_02080c74(MatchPlayer *player, u16 flags);
-extern "C" void func_02080c84(void);
+extern "C" void func_02080c84(MatchPlayer *player, int flags);
 extern "C" BOOL func_02080ca4(MatchPlayer *player, u16 flag);
 extern "C" int func_02080cb8(MatchPlayer *player);
 extern "C" int func_02080cc0(MatchPlayer *player);
@@ -97,11 +97,11 @@ extern "C" void func_0208151c(void);
 extern "C" void func_02081568(void);
 extern "C" void func_020815b4(void);
 extern "C" void func_02081600(void);
-extern "C" void func_0208164c(void);
-extern "C" void func_02081678(void);
+extern "C" s32 func_0208164c(s32 *table, int level);
+extern "C" u8 func_02081678(u8 *table, int level);
 extern "C" void func_0208169c(void *data);
-extern "C" void func_020816b0(void);
-extern "C" void func_020816dc(void);
+extern "C" void func_020816b0(u8 *bits, int i);
+extern "C" void func_020816dc(u8 *bits, int i);
 extern "C" void func_0208170c(void);
 
 extern "C" char data_020c5320[];
@@ -169,18 +169,12 @@ extern "C" u16 func_02080328(u16 *list, u32 i)
     return list[i];
 }
 
-extern "C" asm void func_0208033c(void)
+extern "C" u16 func_0208033c(u16 *list, u32 i)
 {
-    cmp r1, #0x10
-    movhs r0, #0
-    bxhs lr
-    mov r1, r1, lsl #1
-    ldrh r1, [r0, r1]
-    ldr r0, =0xfff
-    and r0, r1, r0
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    bx lr
+    if (i >= 16) {
+        return 0;
+    }
+    return list[i] & 0xFFF;
 }
 
 extern "C" asm void func_02080368(void)
@@ -515,18 +509,12 @@ extern "C" u16 func_0208076c(u16 *list, u32 i)
     return list[i];
 }
 
-extern "C" asm void func_02080780(void)
+extern "C" u16 func_02080780(u16 *list, u32 i)
 {
-    cmp r1, #4
-    movhs r0, #0
-    bxhs lr
-    mov r1, r1, lsl #1
-    ldrh r1, [r0, r1]
-    ldr r0, =0xfff
-    and r0, r1, r0
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    bx lr
+    if (i >= 4) {
+        return 0;
+    }
+    return list[i] & 0xFFF;
 }
 
 extern "C" u16 func_020807ac(u8 *data)
@@ -558,31 +546,23 @@ extern "C" asm void func_020807d0(void)
     bx lr
 }
 
-extern "C" asm void func_02080804(void)
+extern "C" int func_02080804(MatchPlayer *player)
 {
-    mov r2, #0
-    mov r3, #4
-@L_0208080c:
-    add r1, r0, r3, lsl #1
-    ldrh r1, [r1, #0x98]
-    add r3, r3, #1
-    cmp r1, #0
-    addne r2, r2, #1
-    cmp r3, #6
-    blt @L_0208080c
-    mov r0, r2
-    bx lr
+    int n = 0;
+    int i;
+
+    for (i = 4; i < 6; i++) {
+        if (player->unk_98[i] != 0) {
+            n++;
+        }
+    }
+    return n;
 }
 
-extern "C" asm void func_02080830(void)
+extern "C" void func_02080830(MatchPlayer *player, int i, u16 a, u16 b)
 {
-    mov r1, r1, lsl #1
-    add r12, r0, r1, lsl #1
-    add r1, r1, #1
-    strh r2, [r12, #0x7c]
-    add r0, r0, r1, lsl #1
-    strh r3, [r0, #0x7c]
-    bx lr
+    player->unk_7c[i * 2] = a;
+    player->unk_7c[i * 2 + 1] = b;
 }
 
 extern "C" asm void func_0208084c(void)
@@ -622,19 +602,12 @@ extern "C" asm void func_0208084c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_020808c4(void)
+extern "C" u16 func_020808c4(MatchPlayer *player, int i)
 {
-    cmp r1, #0
-    blt @L_020808d4
-    cmp r1, #6
-    ble @L_020808dc
-@L_020808d4:
-    mov r0, #0
-    bx lr
-@L_020808dc:
-    add r0, r0, r1, lsl #1
-    ldrh r0, [r0, #0x98]
-    bx lr
+    if (i < 0 || i > 6) {
+        return 0;
+    }
+    return player->unk_98[i];
 }
 
 extern "C" asm void func_020808e8(void)
@@ -775,15 +748,15 @@ extern "C" asm void func_02080a88(void)
     bx r12
 }
 
-extern "C" asm void func_02080aa0(void)
+extern "C" BOOL func_02080aa0(MatchPlayer *player)
 {
-    ldr r1, [r0, #0xec]
-    mov r0, #0
-    cmp r1, #0
-    ldrnesh r1, [r1, #0x22]
-    cmpne r1, #0
-    movgt r0, #1
-    bx lr
+    BOOL result = FALSE;
+    MatchPlayerState *state = player->state;
+
+    if (state != NULL && state->unk_22 > 0) {
+        result = TRUE;
+    }
+    return result;
 }
 
 extern "C" asm void func_02080abc(void)
@@ -809,49 +782,50 @@ extern "C" asm void func_02080abc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02080b00(void)
+extern "C" void func_02080b00(MatchPlayer *player, int value)
 {
-    ldrsh r2, [r0, #0xd0]
-    cmp r1, r2
-    movgt r1, r2
-    cmp r1, #0
-    movlt r1, #0
-    strh r1, [r0, #0x94]
-    bx lr
+    if (value > player->unk_d0) {
+        value = player->unk_d0;
+    }
+    if (value < 0) {
+        value = 0;
+    }
+    player->unk_94 = value;
 }
 
-extern "C" asm void func_02080b1c(void)
+extern "C" void func_02080b1c(MatchPlayer *player, int value)
 {
-    ldrsh r2, [r0, #0xd2]
-    cmp r1, r2
-    movgt r1, r2
-    cmp r1, #0
-    movlt r1, #0
-    strh r1, [r0, #0x96]
-    bx lr
+    if (value > player->unk_d2) {
+        value = player->unk_d2;
+    }
+    if (value < 0) {
+        value = 0;
+    }
+    player->unk_96 = value;
 }
 
-extern "C" asm void func_02080b38(void)
+extern "C" BOOL func_02080b38(MatchPlayer *player)
 {
-    ldr r1, [r0, #0xec]
-    mov r0, #0
-    cmp r1, #0
-    ldrneh r1, [r1, #0x1e]
-    cmpne r1, #0
-    movne r0, #1
-    bx lr
+    BOOL result = FALSE;
+    MatchPlayerState *state = player->state;
+
+    if (state != NULL && state->unk_1e != 0) {
+        result = TRUE;
+    }
+    return result;
 }
 
-extern "C" asm void func_02080b54(void)
+extern "C" void func_02080b54(MatchPlayer *player, int value)
 {
-    cmp r1, #0
-    bxlt lr
-    cmp r1, #0x34
-    bxge lr
-    ldr r0, [r0, #0xec]
-    cmp r0, #0
-    strneh r1, [r0, #0x1c]
-    bx lr
+    if (value < 0) {
+        return;
+    }
+    if (value >= 0x34) {
+        return;
+    }
+    if (player->state != NULL) {
+        player->state->unk_1c = value;
+    }
 }
 
 extern "C" u16 func_02080b74(MatchPlayer *player)
@@ -940,15 +914,9 @@ extern "C" void func_02080c74(MatchPlayer *player, u16 flags)
     player->unk_ba = flags | player->unk_ba;
 }
 
-extern "C" asm void func_02080c84(void)
+extern "C" void func_02080c84(MatchPlayer *player, int flags)
 {
-    ldrh r3, [r0, #0xba]
-    ldr r2, =0xffff
-    mov r1, r1, lsl #0x10
-    eor r1, r2, r1, lsr #16
-    and r1, r1, r3
-    strh r1, [r0, #0xba]
-    bx lr
+    player->unk_ba = (0xFFFF ^ (u16)flags) & player->unk_ba;
 }
 
 extern "C" BOOL func_02080ca4(MatchPlayer *player, u16 flag)
@@ -1719,36 +1687,23 @@ extern "C" asm void func_02081600(void)
     bx lr
 }
 
-extern "C" asm void func_0208164c(void)
+extern "C" s32 func_0208164c(s32 *table, int level)
 {
-    cmp r1, #0
-    ble @L_0208165c
-    cmp r1, #0x63
-    ble @L_02081664
-@L_0208165c:
-    mov r0, #0
-    bx lr
-@L_02081664:
-    cmp r1, #1
-    moveq r0, #0
-    subne r1, r1, #2
-    ldrne r0, [r0, r1, lsl #2]
-    bx lr
+    if (level <= 0 || level > 99) {
+        return 0;
+    }
+    if (level == 1) {
+        return 0;
+    }
+    return table[level - 2];
 }
 
-extern "C" asm void func_02081678(void)
+extern "C" u8 func_02081678(u8 *table, int level)
 {
-    cmp r1, #0
-    ble @L_02081688
-    cmp r1, #0x63
-    ble @L_02081690
-@L_02081688:
-    mov r0, #0
-    bx lr
-@L_02081690:
-    sub r1, r1, #1
-    ldrb r0, [r0, r1]
-    bx lr
+    if (level <= 0 || level > 99) {
+        return 0;
+    }
+    return table[level - 1];
 }
 
 extern "C" void func_0208169c(void *data)
@@ -1756,35 +1711,28 @@ extern "C" void func_0208169c(void *data)
     MI_CpuFill8(data, 0, 0x12C);
 }
 
-extern "C" asm void func_020816b0(void)
+extern "C" void func_020816b0(u8 *bits, int i)
 {
-    and r2, r1, #7
-    mov r3, #1
-    cmp r1, #0
-    mov r2, r3, lsl r2
-    bxlt lr
-    cmp r1, #0x960
-    ldrlsb r3, [r0, r1, asr #3]
-    andls r2, r2, #0xff
-    orrls r2, r3, r2
-    strlsb r2, [r0, r1, asr #3]
-    bx lr
+    int bit = 1 << (i & 7);
+
+    if (i < 0) {
+        return;
+    }
+    if ((u32)i <= 0x960) {
+        bits[i >> 3] |= (u8)bit;
+    }
 }
 
-extern "C" asm void func_020816dc(void)
+extern "C" void func_020816dc(u8 *bits, int i)
 {
-    and r2, r1, #7
-    mov r3, #1
-    cmp r1, #0
-    mov r2, r3, lsl r2
-    bxlt lr
-    cmp r1, #0x960
-    eorls r2, r2, #0xff
-    ldrlsb r3, [r0, r1, asr #3]
-    andls r2, r2, #0xff
-    andls r2, r3, r2
-    strlsb r2, [r0, r1, asr #3]
-    bx lr
+    int bit = 1 << (i & 7);
+
+    if (i < 0) {
+        return;
+    }
+    if ((u32)i <= 0x960) {
+        bits[i >> 3] &= (u8)(bit ^ 0xFF);
+    }
 }
 
 extern "C" asm void func_0208170c(void)
