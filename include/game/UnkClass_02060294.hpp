@@ -40,6 +40,10 @@ public:
     void func_0206131c();
     void func_02061358();
     void func_02061400();
+    s32 func_02061450();
+    void func_0206145c();
+    void func_0206146c(int bit);
+    u8 func_0206148c();
 
     u8 data[0x2ACC];
 };

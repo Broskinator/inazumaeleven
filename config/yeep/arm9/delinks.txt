@@ -443,7 +443,7 @@ src/game/UnkClass_02054800.cpp:
 
 src/game/UnkClass_02060294.cpp:
     complete
-    .text start:0x02060294 end:0x02061450
+    .text start:0x02060294 end:0x02061498
 
 src/game/Unk_0205dee0.cpp:
     complete

@@ -1,5 +1,6 @@
 #include "game/UnkClass_02054800.hpp"
 
+extern "C" void _ZN17UnkClass_0206029413func_0206145cEv(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205ed8cEv(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205ee18Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205f394Ev(void);     // (for the asm functions)
@@ -95,7 +96,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_0206145c(void);
 extern "C" void func_0206a9d0(void);
 extern "C" void func_0206ace8(void);
 extern "C" void func_0207a5c0(void);
@@ -4701,7 +4701,7 @@ asm void UnkClass_02054800::func_02057e80()
     bl _ZN12SoundManager9PlaySoundEi
 @L_0205874c:
     ldr r0, =data_020d9a04
-    bl func_0206145c
+    bl _ZN17UnkClass_0206029413func_0206145cEv
     add r0, r4, #0x1c00
     ldrsb r2, [r0, #0x65]
     mov r3, #0x20

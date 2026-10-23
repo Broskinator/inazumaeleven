@@ -1370,3 +1370,23 @@ asm void UnkClass_02060294::func_02061400()
     blt @L_02061414
     ldmia sp!, {r3, pc}
 }
+
+s32 UnkClass_02060294::func_02061450()
+{
+    return *(s32 *)&data[0x2AC8];
+}
+
+void UnkClass_02060294::func_0206145c()
+{
+    data[0x2AC4] = 0;
+}
+
+void UnkClass_02060294::func_0206146c(int bit)
+{
+    data[0x2AC4] |= (u8)(1 << bit);
+}
+
+u8 UnkClass_02060294::func_0206148c()
+{
+    return data[0x2AC4];
+}
