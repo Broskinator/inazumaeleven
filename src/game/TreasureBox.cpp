@@ -3,7 +3,7 @@
 #include "file/FileManager.hpp"
 #include "nitro/mi.h"
 
-extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bffcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_02060a48Ev(void);     // (for the asm functions)
@@ -2855,7 +2855,7 @@ asm void TreasureBox::func_02054620()
     mov r8, #0
     mov r0, r6
     mov r1, r8
-    bl _ZN17UnkClass_020621b413func_0206aa30Ev
+    bl _ZN17UnkClass_020621b413func_0206aa30Ei
     mov r0, r6
     bl _ZN17UnkClass_020621b413func_0206bffcEv
     add r1, r9, #0x6000

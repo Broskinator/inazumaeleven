@@ -1,6 +1,6 @@
 #include "game/Unk_0205dee0.hpp"
 
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b3dcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b3ecEv(void);     // (for the asm functions)
@@ -711,7 +711,7 @@ asm void Unk_0205dee0::func_0205e774()
     mov r10, r0
     ldr r0, =data_020e88a0
     mov r1, #0
-    bl _ZN17UnkClass_020621b413func_0206a964Ev
+    bl _ZN17UnkClass_020621b413func_0206a964Ei
     ldr r1, =gGameState
     mov r4, r0
     ldrb r0, [r1, #0x1a]
@@ -740,7 +740,7 @@ asm void Unk_0205dee0::func_0205e774()
     bl sprintf
     ldr r0, =data_020e88a0
     mov r1, #1
-    bl _ZN17UnkClass_020621b413func_0206a964Ev
+    bl _ZN17UnkClass_020621b413func_0206a964Ei
     ldr r1, =gGameState
     mov r4, r0
     ldrb r0, [r1, #0x1a]

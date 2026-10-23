@@ -127,34 +127,34 @@ public:
     void func_0206a54c();
     void func_0206a590();
     void func_0206a648();
-    void func_0206a700();
-    void func_0206a720();
-    void func_0206a748();
-    void func_0206a774();
+    BOOL func_0206a700(int value);
+    BOOL func_0206a720(int value);
+    u8 *func_0206a748(int n);
+    BOOL func_0206a774();
     void func_0206a77c();
     void func_0206a7f0();
-    void func_0206a890();
-    void func_0206a8d8();
-    void func_0206a93c();
-    void func_0206a964();
+    int func_0206a890(int a, int b);
+    int func_0206a8d8(int a, int b, int c);
+    s32 func_0206a93c();
+    u8 *func_0206a964(int i);
     void func_0206a970();
-    void func_0206a9a4();
+    int func_0206a9a4(int a, int b);
     void func_0206a9d0();
-    void func_0206aa30();
+    int func_0206aa30(int a);
     void func_0206aa54();
     void func_0206aa6c();
     void func_0206abfc();
     void func_0206ac44();
-    void func_0206ace8();
-    void func_0206acfc();
+    BOOL func_0206ace8();
+    BOOL func_0206acfc(int value);
     void func_0206ad1c();
-    void func_0206ad68();
+    void func_0206ad68(BOOL a, BOOL b);
     void func_0206ad94();
     void func_0206b018();
     void func_0206b050();
     void func_0206b1a0();
-    void func_0206b1c4();
-    void func_0206b1d0();
+    s32 func_0206b1c4(int i);
+    s32 func_0206b1d0(int i);
     void func_0206b1dc();
     void func_0206b274();
     void func_0206b2c8();
@@ -193,22 +193,31 @@ public:
     void *vtable;
     u8 unk_4[0x9C - 0x4];
     u8 unk_9c[2][8];
-    u8 unk_ac[0xB7C - 0xAC];
+    u8 unk_ac[0x17C - 0xAC];
+    u8 unk_17c[40][0x40];
     s32 unk_b7c;
     UnkVirtual_020621b4 *unk_b80;     // (an object with a vtable)
-    u8 unk_b84[0xB98 - 0xB84];
+    u8 unk_b84[4];
+    u8 unk_b88;         // flags
+    u8 unk_b89[0xB98 - 0xB89];
     s32 unk_b98;
     u8 unk_b9c[0xBB0 - 0xB9C];
     u16 unk_bb0;
     u8 unk_bb2;
     u8 unk_bb3;
     s32 unk_bb4[21];
-    u8 unk_c08[0xC28 - 0xC08];
+    u8 unk_c08[8];
+    s32 unk_c10[2];
+    s32 unk_c18[2];
+    u8 unk_c20[8];
     s32 unk_c28;
     s32 unk_c2c;
     u8 unk_c30[0xC70 - 0xC30];
-    s32 unk_c70;
-    u8 unk_c74[0x117A4 - 0xC74];
+    s32 unk_c70;        // (how many entries of unk_c7c there are)
+    s32 unk_c74;        // (the newest one)
+    s32 unk_c78;
+    u8 unk_c7c[90][8];  // (a ring)
+    u8 unk_f4c[0x117A4 - 0xF4C];
     u8 unk_117a4[2][11];     // (per team and position)
     u8 unk_117ba[0x117D4 - 0x117BA];
     u8 unk_117d4;
@@ -217,7 +226,9 @@ public:
     s32 unk_117e4[2];
     u8 unk_117ec[0x11899 - 0x117EC];
     u8 unk_11899;
-    u8 unk_1189a[0x118DD - 0x1189A];
+    u8 unk_1189a;
+    u8 unk_1189b;
+    u8 unk_1189c[0x118DD - 0x1189C];
     u8 unk_118dd;
     u8 unk_118de;
     u8 unk_118df[0x118F5 - 0x118DF];
