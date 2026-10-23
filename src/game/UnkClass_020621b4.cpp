@@ -55,7 +55,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206a9d0Eii(void);     // (for the 
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ad94Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206c004Eh(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206c018Ei(void);     // (for the asm functions)
@@ -114,7 +114,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206b390Ei(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0206b3a4Eim(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b47cEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4a8Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b89cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b9c4Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ba84Ev(void);     // (for the asm functions)
@@ -1012,7 +1012,7 @@ asm void UnkClass_020621b4::func_020622b4()
     bl func_ov015_021319b0
     mov r1, r0
     mov r0, r10
-    bl _ZN17UnkClass_020621b413func_0206b4ccEv
+    bl _ZN17UnkClass_020621b413func_0206b4ccEi
     ldr r1, =gGameState
     mov r4, r0
     ldrb r0, [r1, #0x7e]
@@ -10113,11 +10113,9 @@ asm u8 UnkClass_020621b4::func_0206b4b8(int a)
     bx r12
 }
 
-asm void UnkClass_020621b4::func_0206b4cc()
+u8 *UnkClass_020621b4::func_0206b4cc(int i)
 {
-    add r0, r0, #0x15c
-    add r0, r0, r1, lsl #4
-    bx lr
+    return unk_15c[i];
 }
 
 void UnkClass_020621b4::func_0206b4d8()
@@ -11672,7 +11670,7 @@ asm void UnkClass_020621b4::func_0206cad4()
     bl func_ov015_021319b0
     mov r1, r0
     mov r0, r7
-    bl _ZN17UnkClass_020621b413func_0206b4ccEv
+    bl _ZN17UnkClass_020621b413func_0206b4ccEi
     mov r5, r0
 @L_0206cb34:
     cmp r4, #0
@@ -11736,7 +11734,7 @@ asm void UnkClass_020621b4::func_0206cbbc()
     bl func_ov015_021319b0
     mov r1, r0
     mov r0, r7
-    bl _ZN17UnkClass_020621b413func_0206b4ccEv
+    bl _ZN17UnkClass_020621b413func_0206b4ccEi
     mov r5, r0
 @L_0206cc1c:
     cmp r4, #0

@@ -182,7 +182,7 @@ public:
     int func_0206b47c(BOOL invert);
     int func_0206b4a8(int a);
     u8 func_0206b4b8(int a);
-    void func_0206b4cc();
+    u8 *func_0206b4cc(int i);
     void func_0206b4d8();
     void func_0206b508();
     void func_0206b5a0();
@@ -328,10 +328,10 @@ public:
     void func_0206ea68();
     void func_0206eb34();
     void func_0206ecbc();
-    void func_0206f028();
-    u32 func_0206f034();
+    void func_0206f028(s32 value);
+    void func_0206f034();
     u32 func_0206f04c();
-    void func_0206f058();
+    u8 func_0206f058();
     void func_0206f064();
     void func_0206f08c();
     void func_0206f09c();
@@ -354,13 +354,13 @@ public:
     void func_0206faa0();
     void func_0206facc();
     void func_0206fad0();
-    void func_0206fbb4();
+    void func_0206fbb4(int i);
     void func_0206fbd0();
-    void func_0206fdac();
+    s16 func_0206fdac();
     void func_0206fdbc();
     void func_0206fe28();
-    void func_0206fe94();
-    void func_0206fec0();
+    void func_0206fe94(int delta);
+    void func_0206fec0(s16 value);
     void func_0206fed0();
     void func_0206ffe0();
 
@@ -368,8 +368,10 @@ public:
     u8 unk_4[0x74 - 0x4];
     u8 unk_74[5][8];
     u8 unk_9c[2][8];
-    u8 unk_ac[0x17C - 0xAC];
-    u8 unk_17c[40][0x40];
+    u8 unk_ac[0x15C - 0xAC];
+    u8 unk_15c[2][0x10];
+    u8 unk_17c[2][0x40];
+    u8 unk_1fc[0xB7C - 0x1FC];
     s32 unk_b7c;
     UnkVirtual_020621b4 *unk_b80;     // (an object with a vtable)
     UnkState_020621b4 unk_b84;   // (unk_0: the phase)
@@ -433,11 +435,12 @@ public:
     u8 unk_118b8[0x118DD - 0x118B8];
     u8 unk_118dd;
     u8 unk_118de;
-    u8 unk_118df[0x118F5 - 0x118DF];
+    u8 unk_118df[0x118F4 - 0x118DF];
+    u8 unk_118f4;
     u8 unk_118f5;
     u8 unk_118f6[0x118FC - 0x118F6];
     s32 unk_118fc;
-    u16 unk_11900;
+    s16 unk_11900;
     u8 unk_11902[0x11910 - 0x11902];
     u8 unk_11910;
     u8 unk_11911;

@@ -56,7 +56,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b2c8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4a8Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bf2cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa0Eh(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bfb4Ei(void);     // (for the asm functions)
@@ -66,57 +66,38 @@ extern "C" void _ZN17UnkClass_020621b413func_0206f4acEv(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0206f500Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f8c8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206fed0Ev(void);     // (for the asm functions)
-asm void UnkClass_020621b4::func_0206f028()
+void UnkClass_020621b4::func_0206f028(s32 value)
 {
-    add r0, r0, #0x11000
-    str r1, [r0, #0x8fc]
-    bx lr
+    unk_118fc = value;
 }
 
-asm u32 UnkClass_020621b4::func_0206f034()
+void UnkClass_020621b4::func_0206f034()
 {
-    add r0, r0, #0x11000
-    ldr r1, [r0, #0x8fc]
-    add r1, r1, #1
-    bic r1, r1, #0x80000000
-    str r1, [r0, #0x8fc]
-    bx lr
+    unk_118fc = (unk_118fc + 1) & 0x7FFFFFFF;
 }
 
-asm u32 UnkClass_020621b4::func_0206f04c()
+u32 UnkClass_020621b4::func_0206f04c()
 {
-    add r0, r0, #0x11000
-    ldr r0, [r0, #0x8fc]
-    bx lr
+    return unk_118fc;
 }
 
-asm void UnkClass_020621b4::func_0206f058()
+u8 UnkClass_020621b4::func_0206f058()
 {
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x8f4]
-    bx lr
+    return unk_118f4;
 }
 
-asm void UnkClass_020621b4::func_0206f064()
+void UnkClass_020621b4::func_0206f064()
 {
-    ldrb r1, [r0, #0xbb3]
-    add r2, r1, #1
-    and r1, r2, #0xff
-    cmp r1, #1
-    strb r2, [r0, #0xbb3]
-    moveq r2, #1
-    moveq r1, #0
-    streqb r2, [r0, #0xbb2]
-    streqb r1, [r0, #0xbb3]
-    bx lr
+    if (++unk_bb3 == 1) {
+        unk_bb2 = 1;
+        unk_bb3 = 0;
+    }
 }
 
-asm void UnkClass_020621b4::func_0206f08c()
+void UnkClass_020621b4::func_0206f08c()
 {
-    mov r1, #0
-    strb r1, [r0, #0xbb2]
-    strb r1, [r0, #0xbb3]
-    bx lr
+    unk_bb2 = 0;
+    unk_bb3 = 0;
 }
 
 asm void UnkClass_020621b4::func_0206f09c()
@@ -870,9 +851,8 @@ asm void UnkClass_020621b4::func_0206faa0()
     ldmia sp!, {r4, pc}
 }
 
-asm void UnkClass_020621b4::func_0206facc()
+void UnkClass_020621b4::func_0206facc()
 {
-    bx lr
 }
 
 asm void UnkClass_020621b4::func_0206fad0()
@@ -943,15 +923,13 @@ asm void UnkClass_020621b4::func_0206fad0()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void UnkClass_020621b4::func_0206fbb4()
+void UnkClass_020621b4::func_0206fbb4(int i)
 {
-    stmdb sp!, {r3, lr}
-    bl _ZN17UnkClass_020621b413func_0206b4ccEv
-    cmp r0, #0
-    ldrneb r1, [r0, #0xb]
-    addne r1, r1, #1
-    strneb r1, [r0, #0xb]
-    ldmia sp!, {r3, pc}
+    u8 *entry = func_0206b4cc(i);
+
+    if (entry != NULL) {
+        entry[0xB]++;
+    }
 }
 
 asm void UnkClass_020621b4::func_0206fbd0()
@@ -1087,11 +1065,9 @@ asm void UnkClass_020621b4::func_0206fbd0()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void UnkClass_020621b4::func_0206fdac()
+s16 UnkClass_020621b4::func_0206fdac()
 {
-    ldr r1, =0x11900
-    ldrsh r0, [r0, r1]
-    bx lr
+    return unk_11900;
 }
 
 asm void UnkClass_020621b4::func_0206fdbc()
@@ -1154,25 +1130,17 @@ asm void UnkClass_020621b4::func_0206fe28()
     ldmia sp!, {r4, pc}
 }
 
-asm void UnkClass_020621b4::func_0206fe94()
+void UnkClass_020621b4::func_0206fe94(int delta)
 {
-    ldr r2, =0x11900
-    mov r1, r1, lsl #0x10
-    ldrsh r12, [r0, r2]
-    mvn r3, #0x59
-    add r1, r12, r1, asr #16
-    strh r1, [r0, r2]
-    ldrsh r1, [r0, r2]
-    cmp r1, r3
-    strlth r3, [r0, r2]
-    bx lr
+    unk_11900 += (s16)delta;
+    if (unk_11900 < -90) {
+        unk_11900 = -90;
+    }
 }
 
-asm void UnkClass_020621b4::func_0206fec0()
+void UnkClass_020621b4::func_0206fec0(s16 value)
 {
-    ldr r2, =0x11900
-    strh r1, [r0, r2]
-    bx lr
+    unk_11900 = value;
 }
 
 asm void UnkClass_020621b4::func_0206fed0()
