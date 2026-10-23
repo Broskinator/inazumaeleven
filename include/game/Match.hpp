@@ -89,7 +89,20 @@ struct MatchPlayerState {
 struct MatchPlayer {
     u8 unk_0[0x42];
     u16 unk_42;
-    u8 unk_44[0xD0 - 0x44];
+    u8 unk_44[0x55 - 0x44];
+    u8 unk_55;          // (bits 5-7 and 0-4)
+    u8 unk_56[0x5A - 0x56];
+    u8 unk_5a;
+    u8 unk_5b[0xB6 - 0x5B];
+    u8 unk_b6;          // (the team)
+    u8 unk_b7;
+    u8 unk_b8[2];
+    u16 unk_ba;         // flags
+    u8 unk_bc;
+    u8 unk_bd;
+    u8 unk_be[0xC5 - 0xBE];
+    u8 unk_c5;
+    u8 unk_c6[0xD0 - 0xC6];
     s16 unk_d0;
     s16 unk_d2;
     u8 unk_d4[0xE8 - 0xD4];
