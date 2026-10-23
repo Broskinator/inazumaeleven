@@ -1,26 +1,32 @@
 #include "game/Unk_02081c3c.hpp"
 
 extern "C" void func_02081c3c(void);
-extern "C" void func_02081d20(void);
-extern "C" void func_02081f28(void);
-extern "C" void func_02081f50(void);
+extern "C" int func_02081d20(u8 *data, int i, int a);
+extern "C" int func_02081f28(u8 *data, int i);
+extern "C" BOOL func_02081f50(u8 *data, int i);
 extern "C" void func_02081f7c(void);
 extern "C" void func_02082150(void);
 extern "C" void func_020823a0(void);
 extern "C" void func_02082604(void);
 extern "C" void func_02082664(void);
-extern "C" void func_0208274c(void);
+extern "C" int func_0208274c(void *data);
 extern "C" void func_0208277c(void);
 extern "C" void func_020828ec(void);
 extern "C" void func_0208294c(void);
 extern "C" void func_02082a10(void);
 extern "C" void func_02082aa4(void);
-extern "C" void func_02082c8c(void);
-extern "C" void func_02082cb4(void);
-extern "C" void func_02082d10(void);
+extern "C" BOOL func_02082c8c(void *a, int b);
+extern "C" int func_02082cb4(void *a, int b, BOOL c);
+extern "C" int func_02082d10(void *data, int id);
 
 extern "C" char data_020cb0a0[];
-extern "C" char data_020cb288[];
+typedef struct {
+    u8 unk_0[0x4A];
+    u8 unk_4a;
+    u8 unk_4b[0x70 - 0x4B];
+} UnkEntry_020cb288;
+
+extern "C" UnkEntry_020cb288 data_020cb288[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a534Ev(void);
@@ -119,7 +125,7 @@ extern "C" asm void func_02081c3c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_02081d20(void)
+extern "C" asm int func_02081d20(u8 *data, int i, int a)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x58
@@ -261,37 +267,26 @@ extern "C" asm void func_02081d20(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02081f28(void)
+extern "C" int func_02081f28(u8 *data, int i)
 {
-    stmdb sp!, {r3, lr}
-    cmp r1, #0
-    blt @L_02081f3c
-    cmp r1, #0x33
-    ble @L_02081f44
-@L_02081f3c:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
-@L_02081f44:
-    ldrb r2, [r0, #1]
-    bl func_02081d20
-    ldmia sp!, {r3, pc}
+    if (i < 0 || i > 51) {
+        return 0;
+    }
+    return func_02081d20(data, i, data[1]);
 }
 
-extern "C" asm void func_02081f50(void)
+extern "C" BOOL func_02081f50(u8 *data, int i)
 {
-    cmp r1, #0
-    blt @L_02081f60
-    cmp r1, #7
-    ble @L_02081f68
-@L_02081f60:
-    mov r0, #0
-    bx lr
-@L_02081f68:
-    ldrb r2, [r0, #2]
-    mov r0, #1
-    tst r2, r0, lsl r1
-    moveq r0, #0
-    bx lr
+    BOOL result;
+
+    if (i < 0 || i > 7) {
+        return FALSE;
+    }
+    result = TRUE;
+    if (!(data[2] & (result << i))) {
+        result = FALSE;
+    }
+    return result;
 }
 
 extern "C" asm void func_02081f7c(void)
@@ -831,18 +826,16 @@ extern "C" asm void func_02082664(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_0208274c(void)
+extern "C" int func_0208274c(void *data)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, =0x919
-    bl func_02082d10
-    cmp r0, #0
-    ldrge r2, =data_020cb288
-    mvnlt r0, #0
-    movge r1, #0x70
-    mlage r1, r0, r1, r2
-    ldrgeb r0, [r1, #0x4a]
-    ldmia sp!, {r3, pc}
+    int i = func_02082d10(data, 0x919);
+    UnkEntry_020cb288 *entry;
+
+    if (i < 0) {
+        return -1;
+    }
+    entry = &data_020cb288[i];
+    return entry->unk_4a;
 }
 
 extern "C" asm void func_0208277c(void)
@@ -1205,21 +1198,17 @@ extern "C" asm void func_02082aa4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02082c8c(void)
+extern "C" BOOL func_02082c8c(void *a, int b)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #1
-    mov r2, r4
-    bl func_02082cb4
-    cmp r0, #0
-    moveq r4, #0
-    mov r0, #1
-    cmp r4, #0
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
+    BOOL found = TRUE;
+
+    if (!func_02082cb4(a, b, TRUE)) {
+        found = FALSE;
+    }
+    return found ? TRUE : FALSE;
 }
 
-extern "C" asm void func_02082cb4(void)
+extern "C" asm int func_02082cb4(void *a, int b, BOOL c)
 {
     cmp r1, #0
     ldr r2, [r0, #0xbe0]
@@ -1247,7 +1236,7 @@ extern "C" asm void func_02082cb4(void)
     bx lr
 }
 
-extern "C" asm void func_02082d10(void)
+extern "C" asm int func_02082d10(void *data, int id)
 {
     ldr r12, [r0, #0xc24]
     ldr r2, =0xfff
