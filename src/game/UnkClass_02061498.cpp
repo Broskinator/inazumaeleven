@@ -6,7 +6,6 @@ extern "C" char data_020aeb28[];
 extern "C" char data_020aeb50[];
 extern "C" char data_020c4648[];
 extern GameHeap data_020c47b4;
-extern VecFx32 data_020c4920;
 extern "C" char data_020c4de0[];
 extern "C" char data_020c4ebc[];
 extern "C" char data_020f98a0[];
@@ -449,40 +448,40 @@ void UnkClass_02061498::func_02061a2c(VecFx32 *pos)
     }
 }
 
-fx32 UnkClass_02061498::func_02061a84(UnkObject_02061498 *obj)
+fx32 UnkClass_02061498::func_02061a84(MatchBall *ball)
 {
-    return FX_Mul(unk_8, obj->unk_38);
+    return FX_Mul(unk_8, ball->unk_38);
 }
 
-void UnkClass_02061498::func_02061aa4(UnkObject_02061498 *obj)
+void UnkClass_02061498::func_02061aa4(MatchBall *ball)
 {
-    obj->unk_44 += unk_8;
+    ball->unk_44 += unk_8;
 }
 
 // applies the vertical speed to the height; inside either rectangle of the area, the
 // height can't cross the line (data_020f98a0 + 0x7EC)
 void // (nonmatching: register allocation differs)
 #ifdef NONMATCHING
-UnkClass_02061498::func_02061ab8(UnkObject_02061498 *obj, fx32 x, fx32 y)
+UnkClass_02061498::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
 {
-    fx32 speed = obj->unk_44;
+    fx32 speed = ball->unk_44;
     fx32 line = *(fx32 *)(data_020f98a0 + 0x7EC);
     s32 prev;
 
-    prev = obj->unk_30;
-    obj->unk_30 = obj->unk_40 + (FX_Mul(obj->unk_3c, speed) - FX_Mul(FX_Mul(speed, speed), 0x4E66));
+    prev = ball->height;
+    ball->height = ball->unk_40 + (FX_Mul(ball->unk_3c, speed) - FX_Mul(FX_Mul(speed, speed), 0x4E66));
     if (!func_02084808(x, y, area->unk_ec) && !func_02084808(x, y, area->unk_fc)) {
         return;
     }
-    if (prev <= line && obj->unk_30 > line) {
-        obj->unk_30 = line - 1;
+    if (prev <= line && ball->height > line) {
+        ball->height = line - 1;
     }
-    if (prev >= line && obj->unk_30 < line) {
-        obj->unk_30 = line + 1;
+    if (prev >= line && ball->height < line) {
+        ball->height = line + 1;
     }
 }
 #else
-asm UnkClass_02061498::func_02061ab8(UnkObject_02061498 *obj, fx32 x, fx32 y)
+asm UnkClass_02061498::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r1
@@ -548,9 +547,9 @@ asm UnkClass_02061498::func_02061ab8(UnkObject_02061498 *obj, fx32 x, fx32 y)
 }
 #endif
 
-void UnkClass_02061498::func_02061bac(UnkObject_02061498 *obj)
+void UnkClass_02061498::func_02061bac(MatchBall *ball)
 {
-    obj->unk_54 = obj->unk_54 + (obj->unk_38 >> 5);
+    ball->unk_54 = ball->unk_54 + (ball->unk_38 >> 5);
 }
 
 asm void UnkClass_02061498::func_02061bc0()
@@ -691,14 +690,14 @@ asm void UnkClass_02061498::func_02061bc0()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-// moves an object, keeping its previous position
-void UnkClass_02061498::func_02061dc4(UnkObject_02061498 *obj, fx32 x, fx32 y, fx32 z)
+// moves the ball, keeping its previous position
+void UnkClass_02061498::func_02061dc4(MatchBall *ball, fx32 x, fx32 y, fx32 z)
 {
-    obj->prevPos = obj->pos;
-    obj->unk_5b = obj->unk_52 >> 8;
-    obj->pos.x = x;
-    obj->pos.y = y;
-    obj->pos.z = z;
+    ball->prevPos = ball->pos;
+    ball->unk_5b = ball->unk_52 >> 8;
+    ball->pos.x = x;
+    ball->pos.y = y;
+    ball->pos.z = z;
 }
 
 DistanceTable *DistanceTable::func_02061df8()
@@ -885,12 +884,12 @@ void DistanceTable32::func_02062184()
 {
 }
 
-fx32 DistanceTable32::func_02062188(UnkPositioned_02061498 *obj)
+fx32 DistanceTable32::func_02062188(MatchPlayer *player)
 {
-    return func_02062148(obj->pos, &data_020c4920);
+    return func_02062148(&player->body->pos, &data_020c4920.pos);
 }
 
-fx32 DistanceTable32::func_020621a0(UnkPositioned_02061498 *a, UnkPositioned_02061498 *b)
+fx32 DistanceTable32::func_020621a0(MatchPlayer *a, MatchPlayer *b)
 {
-    return func_02062148(a->pos, b->pos);
+    return func_02062148(&a->body->pos, &b->body->pos);
 }

@@ -3,6 +3,7 @@
 
 #include "nitro/types.h"
 #include "nitro/fx.h"
+#include "game/Match.hpp"
 
 // The area an object moves in (only the bounds are known)
 struct UnkArea_02061498 {
@@ -15,40 +16,7 @@ struct UnkArea_02061498 {
     fx32 unk_fc[4];     // 0xFC
 };
 
-// A moving object, as UnkClass_02061498's methods see it
-struct UnkObject_02061498 {
-    VecFx32 pos;        // 0x00
-    VecFx32 prevPos;    // 0x0C
-    s32 unk_18;
-    s32 unk_1c;
-    s32 unk_20;
-    s32 unk_24;
-    u8 unk_28[0x30 - 0x28];
-    s32 unk_30;
-    s32 unk_34;
-    fx32 unk_38;
-    fx32 unk_3c;
-    s32 unk_40;
-    fx32 unk_44;
-    u8 unk_48[0x50 - 0x48];
-    u16 unk_50;
-    u16 unk_52;
-    u16 unk_54;
-    u8 unk_56;
-    u8 unk_57;
-    u8 unk_58;
-    u8 unk_59;
-    u8 unk_5a;
-    u8 unk_5b;
-};
-
-// An object with a vector at 0xE8 (the distances between them are measured from it)
-struct UnkPositioned_02061498 {
-    u8 unk_0[0xE8];
-    VecFx32 *pos;       // 0xE8
-};
-
-// A class with a vtable (data_020aeadc), made at 0x0209ee30: moves objects in an area
+// The ball's physics (data_020c475c; vtable data_020aeadc)
 class UnkClass_02061498 {
 public:
     UnkClass_02061498 *func_02061498();
@@ -59,12 +27,12 @@ public:
     void func_0206168c();
     void func_020618d4();
     void func_02061a2c(VecFx32 *pos);
-    fx32 func_02061a84(UnkObject_02061498 *obj);
-    void func_02061aa4(UnkObject_02061498 *obj);
-    void func_02061ab8(UnkObject_02061498 *obj, fx32 x, fx32 y);
-    void func_02061bac(UnkObject_02061498 *obj);
+    fx32 func_02061a84(MatchBall *ball);
+    void func_02061aa4(MatchBall *ball);
+    void func_02061ab8(MatchBall *ball, fx32 x, fx32 y);
+    void func_02061bac(MatchBall *ball);
     void func_02061bc0();
-    void func_02061dc4(UnkObject_02061498 *obj, fx32 x, fx32 y, fx32 z);
+    void func_02061dc4(MatchBall *ball, fx32 x, fx32 y, fx32 z);
 
     void *vtable;
     UnkArea_02061498 *area;
@@ -105,8 +73,8 @@ public:
     fx32 func_02062148(VecFx32 *a, VecFx32 *b);
     void func_02062178();
     void func_02062184();
-    fx32 func_02062188(UnkPositioned_02061498 *obj);
-    fx32 func_020621a0(UnkPositioned_02061498 *a, UnkPositioned_02061498 *b);
+    fx32 func_02062188(MatchPlayer *player);     // (the distance to the ball)
+    fx32 func_020621a0(MatchPlayer *a, MatchPlayer *b);
 };
 
 #endif // GAME_UNKCLASS_02061498_HPP
