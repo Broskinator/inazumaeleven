@@ -1,7 +1,7 @@
 #include "data/EntryPool.hpp"
+#include "game/UnkClass_0206ee34.hpp"
 #include "nitro/mi.h"
 
-extern "C" void func_0206ee34(void *ext1, int);
 
 void EntryPool::Init()
 {
@@ -95,7 +95,7 @@ void EntryPool::AllocExt1(PoolEntry *entry)
     }
 
     entry->ext1 = ext1Buffer + ((u32)entry - (u32)this) / sizeof(PoolEntry) * 0x90;
-    func_0206ee34(entry->ext1, 1);
+    ((UnkClass_0206ee34 *)entry->ext1)->func_0206ee34(1);
 }
 
 void EntryPool::FreeExt1(PoolEntry *entry)

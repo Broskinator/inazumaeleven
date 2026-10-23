@@ -4,6 +4,16 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkClass_0206ee3413func_0206ee34Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206eea8Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206eebcEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206eed0Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206eee4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206ef20Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206ef88Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206ef9cEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206efb0Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206efb8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b3fcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);     // (for the asm functions)
@@ -326,7 +336,6 @@ extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
 extern "C" void func_01ffec94(void);
 extern "C" void func_01ffed20(void);
-extern "C" void func_0206ee34(void);
 extern "C" void func_0206f09c(void);
 extern "C" void func_0206f178(void);
 extern "C" void func_0206fdbc(void);
@@ -445,15 +454,6 @@ extern "C" void func_020224cc(void);
 extern "C" void func_02022948(void);
 extern "C" void func_02022bac(void);
 extern "C" void func_02023890(void);
-extern "C" void func_0206eea8(void);
-extern "C" void func_0206eebc(void);
-extern "C" void func_0206eed0(void);
-extern "C" void func_0206eee4(void);
-extern "C" void func_0206ef20(void);
-extern "C" void func_0206ef88(void);
-extern "C" void func_0206ef9c(void);
-extern "C" void func_0206efb0(void);
-extern "C" void func_0206efb8(void);
 extern "C" void func_02070760(void);
 extern "C" void func_0207076c(void);
 extern "C" void func_020707e4(void);
@@ -3955,7 +3955,7 @@ asm void UnkClass_020621b4::func_020654cc(MatchPlayer *player, int action, int a
     mov r8, #0
     ldr r0, [r10, #0xec]
     mov r1, r8
-    bl func_0206ee34
+    bl _ZN17UnkClass_0206ee3413func_0206ee34Ei
     mov r1, r9
     mov r0, r10
     bl func_02080b54
@@ -12126,11 +12126,11 @@ asm void UnkClass_020621b4::func_0206d114()
     mov r6, r0
     mov r1, r7
     add r0, r8, #0x22c
-    bl func_0206efb8
+    bl _ZN17UnkClass_0206ee3413func_0206efb8Ev
     mov r5, r0
     mov r1, r7
     add r0, r8, #0x22c
-    bl func_0206efb0
+    bl _ZN17UnkClass_0206ee3413func_0206efb0Ev
     cmp r0, #1
     movne r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
@@ -12161,7 +12161,7 @@ asm void UnkClass_020621b4::func_0206d188()
     mov r4, r0
     mov r1, r7
     add r0, r8, #0x22c
-    bl func_0206efb8
+    bl _ZN17UnkClass_0206ee3413func_0206efb8Ev
     mov r5, r0
     mov r0, r8
     bl _ZN17UnkClass_020621b413func_0206c644Ev
@@ -12205,7 +12205,7 @@ asm void UnkClass_020621b4::func_0206d188()
 @L_0206d248:
     mov r1, r7
     add r0, r8, #0x22c
-    bl func_0206efb0
+    bl _ZN17UnkClass_0206ee3413func_0206efb0Ev
     cmp r0, #8
     addls pc, pc, r0, lsl #2
     b @L_0206d350
@@ -12227,7 +12227,7 @@ asm void UnkClass_020621b4::func_0206d188()
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     mov r1, r4
     add r0, r8, #0x22c
-    bl func_0206efb0
+    bl _ZN17UnkClass_0206ee3413func_0206efb0Ev
     cmp r0, #7
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -12334,7 +12334,7 @@ asm void UnkClass_020621b4::func_0206d358()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0206d414:
     add r0, r6, #0x22c
-    bl func_0206eea8
+    bl _ZN17UnkClass_0206ee3413func_0206eea8Ev
     cmp r0, #0
     movne r0, #3
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
@@ -12355,13 +12355,13 @@ asm void UnkClass_020621b4::func_0206d358()
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0206d45c:
     add r0, r6, #0x22c
-    bl func_0206eebc
+    bl _ZN17UnkClass_0206ee3413func_0206eebcEv
     cmp r0, #0
     movne r0, #6
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0206d470:
     add r0, r6, #0x22c
-    bl func_0206eed0
+    bl _ZN17UnkClass_0206ee3413func_0206eed0Ev
     cmp r0, #0
     movne r0, #9
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
@@ -12382,7 +12382,7 @@ asm void UnkClass_020621b4::func_0206d358()
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0206d4b8:
     add r0, r6, #0x22c
-    bl func_0206eee4
+    bl _ZN17UnkClass_0206ee3413func_0206eee4Ev
     cmp r0, #0
     movne r0, #0xc
     moveq r0, #0xf
@@ -13132,7 +13132,7 @@ asm void UnkClass_020621b4::func_0206de4c()
 
 asm BOOL UnkClass_020621b4::func_0206de54(int a, int b)
 {
-    ldr r12, =func_0206ef20
+    ldr r12, =_ZN17UnkClass_0206ee3413func_0206ef20Ev
     add r0, r0, #0x22c
     bx r12
 }
@@ -13176,7 +13176,7 @@ asm void UnkClass_020621b4::func_0206de64()
 
 asm BOOL UnkClass_020621b4::func_0206dedc()
 {
-    ldr r12, =func_0206ef88
+    ldr r12, =_ZN17UnkClass_0206ee3413func_0206ef88Ev
     add r0, r0, #0x22c
     bx r12
 }
@@ -13206,7 +13206,7 @@ asm void UnkClass_020621b4::func_0206df08()
 
 asm void UnkClass_020621b4::func_0206df34()
 {
-    ldr r12, =func_0206ef9c
+    ldr r12, =_ZN17UnkClass_0206ee3413func_0206ef9cEv
     add r0, r0, #0x22c
     bx r12
 }
