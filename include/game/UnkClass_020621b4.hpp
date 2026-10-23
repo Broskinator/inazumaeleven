@@ -80,8 +80,8 @@ public:
     void func_02067f44();
     void func_02068028();
     BOOL func_0206811c(u16 *action);
-    void func_0206815c();
-    void func_020681d8();
+    void func_0206815c(MatchPoint *pos, MatchPoint *a, MatchPoint *b, fx32 percent);
+    void func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos);
     void func_02068248();
     void func_02068434();
     int func_020684f0(int kind, int a, int b);
@@ -89,13 +89,13 @@ public:
     int func_02068560(int a, int b, int c);
     int func_02068578(int a, int b, int c);
     int func_02068590(int a, int b);
-    void func_020685a8();
+    BOOL func_020685a8(int team, int position, BOOL force);
     void func_02068614();
-    void func_020687cc();
+    BOOL func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos);
     void func_02068844();
-    void func_0206896c();
+    fx32 func_0206896c(MatchBall *ball, MatchPoint *pos);
     void func_020689c4();
-    void func_02068b08();
+    s32 func_02068b08(fx32 value);
     void func_02068b5c();
     u16 func_02068c28(u16 direction, u16 target, int *amount);
     int func_02068ce4(MatchPlayer *player, int target, int amount);
@@ -129,7 +129,9 @@ public:
     s32 unk_c2c;
     u8 unk_c30[0xC70 - 0xC30];
     s32 unk_c70;
-    u8 unk_c74[0x117D4 - 0xC74];
+    u8 unk_c74[0x117A4 - 0xC74];
+    u8 unk_117a4[2][11];     // (per team and position)
+    u8 unk_117ba[0x117D4 - 0x117BA];
     u8 unk_117d4;
     u8 unk_117d5;
     u8 unk_117d6[0x117E4 - 0x117D6];

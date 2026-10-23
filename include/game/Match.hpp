@@ -22,8 +22,7 @@ struct MatchBall {
     VecFx32 prevPos;    // 0x0C
     s32 unk_18;
     s32 unk_1c;
-    s32 unk_20;
-    s32 unk_24;
+    MatchPoint unk_20;  // (where it is going)
     u8 unk_28[0x30 - 0x28];
     fx32 height;        // 0x30
     s32 unk_34;

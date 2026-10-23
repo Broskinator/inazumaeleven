@@ -6,14 +6,14 @@ extern "C" void _ZN17UnkClass_020621b413func_0206707cEii(void);     // (for the 
 extern "C" void _ZN17UnkClass_020621b413func_02067f44Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068028Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206811cEPt(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020681d8Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020681d8EP10MatchPointilS1_(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068434Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068548Eii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068560Eiii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068590Eii(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020687ccEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206896cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02068b08Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020687ccEP10MatchPointilS1_(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206896cEP9MatchBallP10MatchPoint(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02068b08El(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068c28EttPi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068ce4EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068d20EP11MatchPlayeri(void);     // (for the asm functions)
@@ -62,6 +62,8 @@ extern "C" void _ZN17UnkClass_020621b413func_02064500Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_020646d4Ev(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
 extern "C" void *data_020c4648;
+extern "C" fx32 func_02001d60(fx32 a, fx32 b);     // (a / b)
+extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" int func_02069394(UnkClass_020621b4 *self, int a, int b, int c, int d, u8 e, int f);
 extern "C" int func_020739cc(UnkClass_020621b4 *self, int a);
 extern "C" int func_0206a100(UnkClass_020621b4 *self, MatchPlayer *player, int a);
@@ -109,7 +111,6 @@ extern "C" void _ZdlPv(void);
 extern "C" void func_01fff13c(void);
 extern "C" void func_01fff15c(void);
 extern "C" s32 func_01fff184(UnkClass_020621b4 *self, fx32 x, fx32 y);     // (the length of (x, y))
-extern "C" void func_02001d60(void);
 extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" void func_0202273c(void);
 extern "C" void func_0206ad68(void);
@@ -285,11 +286,10 @@ extern "C" void func_02074424(void);
 extern "C" void func_02083e24(void);
 extern "C" void func_02083e94(void);
 extern "C" void func_020841e8(void);
-extern "C" void func_02084350(void);
 extern "C" void func_ov087_021774bc(void);
 extern "C" void func_ov087_0217877c(void);
 extern "C" void func_ov087_0217d29c(void);
-extern "C" char data_020aeb64[];
+extern "C" fx32 data_020aeb64[];
 extern "C" char data_020fa1a5[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void func_0206a078(void);
@@ -1081,7 +1081,7 @@ asm void UnkClass_020621b4::func_02062d74()
     ldr r1, =data_020c4920
     mov r0, r9
     mov r2, r4
-    bl _ZN17UnkClass_020621b413func_0206896cEv
+    bl _ZN17UnkClass_020621b413func_0206896cEP9MatchBallP10MatchPoint
     ldr r1, =data_020c4940
     mov r2, r4
     mov r0, r9
@@ -5665,7 +5665,7 @@ asm void UnkClass_020621b4::func_02067448()
     mov r2, r4
     mov r3, r6
     str r5, [sp]
-    bl _ZN17UnkClass_020621b413func_020681d8Ev
+    bl _ZN17UnkClass_020621b413func_020681d8EP10MatchPointilS1_
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
@@ -6334,14 +6334,14 @@ asm void UnkClass_020621b4::func_02067f44()
     mov r6, r0
     mov r8, r2
     ldr r4, =0x186a0
-    bl _ZN17UnkClass_020621b413func_020687ccEv
+    bl _ZN17UnkClass_020621b413func_020687ccEP10MatchPointilS1_
     add r12, sp, #4
     mov r0, r6
     mov r1, r7
     mov r2, r8
     mov r3, #0x96000
     str r12, [sp]
-    bl _ZN17UnkClass_020621b413func_020687ccEv
+    bl _ZN17UnkClass_020621b413func_020687ccEP10MatchPointilS1_
     ldr r1, =0x10011
     mov r0, r6
     str r1, [sp]
@@ -6439,7 +6439,7 @@ asm void UnkClass_020621b4::func_02068028()
     mov r0, r8
     mov r2, r4
     str r5, [sp]
-    bl _ZN17UnkClass_020621b413func_020687ccEv
+    bl _ZN17UnkClass_020621b413func_020687ccEP10MatchPointilS1_
     ldr r1, [sp, #4]
     mov r0, #1
     str r1, [r6]
@@ -6460,41 +6460,31 @@ BOOL UnkClass_020621b4::func_0206811c(u16 *action)
     return result ? TRUE : FALSE;
 }
 
-asm void UnkClass_020621b4::func_0206815c()
+void UnkClass_020621b4::func_0206815c(MatchPoint *pos, MatchPoint *a, MatchPoint *b, fx32 percent)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r12, [r2]
-    ldr r4, [r3]
-    ldr r0, [r2, #4]
-    ldr r2, [r3, #4]
-    ldr r6, [sp, #0x10]
-    sub r3, r4, r12
-    sub r2, r2, r0
-    smull lr, r4, r3, r6
-    adds r5, lr, #0x800
-    smull r3, lr, r2, r6
-    adc r2, r4, #0
-    adds r4, r3, #0x800
-    mov r5, r5, lsr #0xc
-    orr r5, r5, r2, lsl #20
-    ldr r3, =0x51eb851f
-    adc r2, lr, #0
-    mov r4, r4, lsr #0xc
-    orr r4, r4, r2, lsl #20
-    smull r2, lr, r3, r5
-    mov r2, r5, lsr #0x1f
-    add lr, r2, lr, asr #5
-    add r5, r12, lr
-    smull r2, r12, r3, r4
-    mov r2, r4, lsr #0x1f
-    add r12, r2, r12, asr #5
-    add r0, r0, r12
-    str r5, [r1]
-    str r0, [r1, #4]
-    ldmia sp!, {r4, r5, r6, pc}
+    fx32 ax = a->x;
+    fx32 bx = b->x;
+    fx32 ay = a->y;
+    fx32 by = b->y;
+
+    pos->x = ax + FX_Mul(bx - ax, percent) / 100;
+    pos->y = ay + FX_Mul(by - ay, percent) / 100;
 }
 
-asm void UnkClass_020621b4::func_020681d8()
+void // (nonmatching: the loads are scheduled differently)
+#ifdef NONMATCHING
+UnkClass_020621b4::func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
+{
+    fx32 cos = FX_CosIdx(angle >> 4);
+    fx32 sin = FX_SinIdx(angle >> 4);
+    fx32 x = from->x;
+    fx32 y = from->y;
+
+    pos->x = x + FX_Mul(distance, cos);
+    pos->y = y + FX_Mul(distance, sin);
+}
+#else
+asm UnkClass_020621b4::func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
 {
     stmdb sp!, {r4, lr}
     mov r0, r2, asr #4
@@ -6524,6 +6514,7 @@ asm void UnkClass_020621b4::func_020681d8()
     str r0, [r12, #4]
     ldmia sp!, {r4, pc}
 }
+#endif
 
 asm void UnkClass_020621b4::func_02068248()
 {
@@ -6742,38 +6733,17 @@ int UnkClass_020621b4::func_02068590(int a, int b)
     return ((int (*)(UnkVirtual_020621b4 *, int, int))unk_b80->vtable[11])(unk_b80, a, b);
 }
 
-asm void UnkClass_020621b4::func_020685a8()
+BOOL UnkClass_020621b4::func_020685a8(int team, int position, BOOL force)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub lr, r2, #1
-    mov r12, #0xb
-    mla r4, r1, r12, lr
-    mov r5, r0
-    cmp r2, #1
-    blt @L_020685cc
-    cmp r2, #0xb
-    ble @L_020685d4
-@L_020685cc:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_020685d4:
-    cmp r3, #0
-    bne @L_020685f8
-    ldr r0, [r5, #0xb80]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x10]
-    blx r1
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-@L_020685f8:
-    add r0, r5, r4
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x7a4]
-    cmp r0, #1
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    int index = team * 11 + (position - 1);
+
+    if (position < 1 || position > 11) {
+        return FALSE;
+    }
+    if (!force && !((int (*)(UnkVirtual_020621b4 *))unk_b80->vtable[4])(unk_b80)) {
+        return FALSE;
+    }
+    return unk_117a4[0][index] == 1;
 }
 
 asm void UnkClass_020621b4::func_02068614()
@@ -6891,7 +6861,19 @@ asm void UnkClass_020621b4::func_02068614()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void UnkClass_020621b4::func_020687cc()
+BOOL // (nonmatching: the loads are scheduled differently)
+#ifdef NONMATCHING
+UnkClass_020621b4::func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
+{
+    fx32 cos = FX_CosIdx(angle >> 4);
+    fx32 sin = FX_SinIdx(angle >> 4);
+
+    pos->x = from->x - FX_Mul(distance, cos);
+    pos->y = from->y - FX_Mul(distance, sin);
+    return func_02084350(pos->x, pos->y);
+}
+#else
+asm UnkClass_020621b4::func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
 {
     stmdb sp!, {r4, lr}
     mov r0, r2, asr #4
@@ -6923,6 +6905,7 @@ asm void UnkClass_020621b4::func_020687cc()
     bl func_02084350
     ldmia sp!, {r4, pc}
 }
+#endif
 
 asm void UnkClass_020621b4::func_02068844()
 {
@@ -6971,7 +6954,7 @@ asm void UnkClass_020621b4::func_02068844()
 @L_020688e0:
     mov r0, r8
     mov r1, r9
-    bl _ZN17UnkClass_020621b413func_02068b08Ev
+    bl _ZN17UnkClass_020621b413func_02068b08El
     cmp r7, r0
     movgt r0, r9
     ldmgtia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -7004,7 +6987,17 @@ asm void UnkClass_020621b4::func_02068844()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void UnkClass_020621b4::func_0206896c()
+fx32 // (nonmatching: the stack argument is stored at a different time)
+#ifdef NONMATCHING
+UnkClass_020621b4::func_0206896c(MatchBall *ball, MatchPoint *pos)
+{
+    fx32 time = func_02001d60(ball->unk_3c, 0x9CCD);
+
+    func_020681d8(&ball->unk_20, ball->unk_52, FX_Mul(ball->unk_38, time), pos);
+    return time;
+}
+#else
+asm UnkClass_020621b4::func_0206896c(MatchBall *ball, MatchPoint *pos)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -7024,10 +7017,11 @@ asm void UnkClass_020621b4::func_0206896c()
     mov r0, r6
     add r1, r5, #0x20
     orr r3, r3, r12, lsl #20
-    bl _ZN17UnkClass_020621b413func_020681d8Ev
+    bl func_020681d8
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 asm void UnkClass_020621b4::func_020689c4()
 {
@@ -7114,27 +7108,9 @@ asm void UnkClass_020621b4::func_020689c4()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_020621b4::func_02068b08()
+s32 UnkClass_020621b4::func_02068b08(fx32 value)
 {
-    ldr r0, =data_020aeb64
-    ldr r2, =0x5397829d
-    ldr r0, [r0, #0x1c]
-    mov r3, #0xa
-    smull r12, r0, r1, r0
-    adds r12, r12, #0x800
-    adc r0, r0, #0
-    mov r12, r12, lsr #0xc
-    orr r12, r12, r0, lsl #20
-    smull r12, r0, r1, r12
-    adds r1, r12, #0x800
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    mov r0, r1, lsr #0x1f
-    smull r1, r12, r2, r1
-    add r12, r0, r12, asr #4
-    mul r0, r12, r3
-    bx lr
+    return FX_Mul(value, FX_Mul(value, data_020aeb64[7])) / 49 * 10;
 }
 
 asm void UnkClass_020621b4::func_02068b5c()
