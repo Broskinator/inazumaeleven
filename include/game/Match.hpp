@@ -20,8 +20,7 @@ typedef struct {
 struct MatchBall {
     VecFx32 pos;        // 0x00
     VecFx32 prevPos;    // 0x0C
-    s32 unk_18;
-    s32 unk_1c;
+    MatchPoint unk_18;  // (data_020c4938)
     MatchPoint unk_20;  // (where it is going)
     u8 unk_28[0x30 - 0x28];
     fx32 height;        // 0x30

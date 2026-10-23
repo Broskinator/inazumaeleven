@@ -6,6 +6,15 @@
 
 #include "game/Match.hpp"
 
+// (what func_ov015_02143664 gives)
+struct UnkPair_020621b4 {
+    u8 unk_0[8];
+    s16 unk_8;
+    s16 unk_a;
+    s8 unk_c;           // (a team)
+    s8 unk_d;
+};
+
 struct UnkVirtual_020621b4 {
     void **vtable;
 };
@@ -103,11 +112,11 @@ public:
     void func_02068d74();
     int func_02068eb4(MatchPlayer *player);
     int func_02068ed4(int value);
-    void func_02068edc();
+    BOOL func_02068edc(MatchPlayer *player, int angle);
     fx32 func_02068f68(fx32 value);
     void func_02068f90();
-    void func_020690a8();
-    void func_02069110();
+    BOOL func_020690a8(int a, int b);
+    BOOL func_02069110(MatchPlayer *player);
     void func_02069184();
     int func_02069344(int a, int b, int c, int d, u8 e, int f);
 
