@@ -19,16 +19,16 @@ extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_02073fa0Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02074210Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207436cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207455cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02074584Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020745acEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020745d4Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020745e4Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02074700Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02074728Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02074750Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02074778Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020747a0Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0207455cEiim(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02074584Eiim(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020745acEiim(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020745d4Eiim(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020745e4Eiiiih(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02074700Eiiih(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02074728Eiiih(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02074750Eiiih(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02074778Eiiih(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020747a0Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020749c8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02074a18Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02074aacEv(void);     // (for the asm functions)
@@ -4027,13 +4027,13 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r2, r6
     bne @L_020726a4
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_0207455cEv
+    bl _ZN17UnkClass_020621b413func_0207455cEiim
     str r0, [r4]
     mov r0, r10
     mov r1, r9
     mov r2, #1
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_0207455cEv
+    bl _ZN17UnkClass_020621b413func_0207455cEiim
     str r0, [r4, #4]
     add r4, r4, #8
 @L_02072678:
@@ -4042,7 +4042,7 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r2, r6
     mov r3, r5
     str r7, [sp]
-    bl _ZN17UnkClass_020621b413func_02074700Ev
+    bl _ZN17UnkClass_020621b413func_02074700Eiiih
     add r6, r6, #1
     cmp r6, #6
     str r0, [r4], #4
@@ -4050,13 +4050,13 @@ asm void UnkClass_020621b4::func_020725ac()
     b @L_0207284c
 @L_020726a4:
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_02074584Ev
+    bl _ZN17UnkClass_020621b413func_02074584Eiim
     str r0, [r4]
     mov r0, r10
     mov r1, r9
     mov r2, #1
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_02074584Ev
+    bl _ZN17UnkClass_020621b413func_02074584Eiim
     str r0, [r4, #4]
     add r4, r4, #8
 @L_020726cc:
@@ -4065,7 +4065,7 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r2, r6
     mov r3, r5
     str r7, [sp]
-    bl _ZN17UnkClass_020621b413func_02074728Ev
+    bl _ZN17UnkClass_020621b413func_02074728Eiiih
     add r6, r6, #1
     cmp r6, #6
     str r0, [r4], #4
@@ -4085,7 +4085,7 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r2, r11
     mov r3, r6
     stmia sp, {r5, r7}
-    bl _ZN17UnkClass_020621b413func_020745e4Ev
+    bl _ZN17UnkClass_020621b413func_020745e4Eiiiih
     add r6, r6, #1
     cmp r6, #6
     str r0, [r4], #4
@@ -4117,13 +4117,13 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r0, r10
     mov r1, r9
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_020745acEv
+    bl _ZN17UnkClass_020621b413func_020745acEiim
     str r0, [r4]
     mov r0, r10
     mov r1, r9
     mov r2, #1
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_020745acEv
+    bl _ZN17UnkClass_020621b413func_020745acEiim
     str r0, [r4, #4]
     add r4, r4, #8
 @L_020727c0:
@@ -4132,7 +4132,7 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r2, r6
     mov r3, r5
     str r7, [sp]
-    bl _ZN17UnkClass_020621b413func_02074750Ev
+    bl _ZN17UnkClass_020621b413func_02074750Eiiih
     add r6, r6, #1
     cmp r6, #6
     str r0, [r4], #4
@@ -4144,13 +4144,13 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r1, r9
     mov r2, r6
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_020745d4Ev
+    bl _ZN17UnkClass_020621b413func_020745d4Eiim
     str r0, [r4]
     mov r0, r10
     mov r1, r9
     mov r2, #1
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_020745d4Ev
+    bl _ZN17UnkClass_020621b413func_020745d4Eiim
     str r0, [r4, #4]
     add r4, r4, #8
 @L_02072824:
@@ -4159,7 +4159,7 @@ asm void UnkClass_020621b4::func_020725ac()
     mov r2, r6
     mov r3, r5
     str r7, [sp]
-    bl _ZN17UnkClass_020621b413func_02074778Ev
+    bl _ZN17UnkClass_020621b413func_02074778Eiiih
     add r6, r6, #1
     cmp r6, #6
     str r0, [r4], #4
@@ -6076,11 +6076,11 @@ asm void UnkClass_020621b4::func_0207436c()
     mov r3, #0
     str r12, [sp]
     bne @L_020743b4
-    bl _ZN17UnkClass_020621b413func_02074700Ev
+    bl _ZN17UnkClass_020621b413func_02074700Eiiih
     add sp, sp, #8
     ldmia sp!, {r3, pc}
 @L_020743b4:
-    bl _ZN17UnkClass_020621b413func_02074728Ev
+    bl _ZN17UnkClass_020621b413func_02074728Eiiih
     add sp, sp, #8
     ldmia sp!, {r3, pc}
 @L_020743c0:
@@ -6095,7 +6095,7 @@ asm void UnkClass_020621b4::func_0207436c()
     mov r3, lr
     mov r2, #6
     str r12, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_020745e4Ev
+    bl _ZN17UnkClass_020621b413func_020745e4Eiiiih
     add sp, sp, #8
     ldmia sp!, {r3, pc}
 @L_020743f8:
@@ -6104,11 +6104,11 @@ asm void UnkClass_020621b4::func_0207436c()
     mov r3, #0
     str r12, [sp]
     bne @L_02074418
-    bl _ZN17UnkClass_020621b413func_02074750Ev
+    bl _ZN17UnkClass_020621b413func_02074750Eiiih
     add sp, sp, #8
     ldmia sp!, {r3, pc}
 @L_02074418:
-    bl _ZN17UnkClass_020621b413func_02074778Ev
+    bl _ZN17UnkClass_020621b413func_02074778Eiiih
     add sp, sp, #8
     ldmia sp!, {r3, pc}
 }
@@ -6181,7 +6181,7 @@ asm void UnkClass_020621b4::func_020744d4()
     mov r2, r5
     mov r3, r8
     str r6, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_020745e4Ev
+    bl _ZN17UnkClass_020621b413func_020745e4Eiiiih
     movs r2, r0
     addeq sp, sp, #0xc
     moveq r0, r6
@@ -6202,7 +6202,27 @@ asm void UnkClass_020621b4::func_020744d4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void UnkClass_020621b4::func_0207455c()
+int // (nonmatching: the order of two instructions differs)
+#ifdef NONMATCHING
+UnkClass_020621b4::func_0207455c(int a, BOOL b, u32 flags)
+{
+    int result;
+
+    if (flags & 0x1) {
+        result = 1;
+        if (b) {
+            result = 2;
+        }
+        return result;
+    }
+    result = 3;
+    if (b) {
+        result = 2;
+    }
+    return result;
+}
+#else
+asm UnkClass_020621b4::func_0207455c(int a, BOOL b, u32 flags)
 {
     tst r3, #1
     beq @L_02074574
@@ -6216,8 +6236,29 @@ asm void UnkClass_020621b4::func_0207455c()
     movne r0, #2
     bx lr
 }
+#endif
 
-asm void UnkClass_020621b4::func_02074584()
+int // (nonmatching: the order of two instructions differs)
+#ifdef NONMATCHING
+UnkClass_020621b4::func_02074584(int a, BOOL b, u32 flags)
+{
+    int result;
+
+    if (flags & 0x1) {
+        result = 12;
+        if (b) {
+            result = 11;
+        }
+        return result;
+    }
+    result = 10;
+    if (b) {
+        result = 11;
+    }
+    return result;
+}
+#else
+asm UnkClass_020621b4::func_02074584(int a, BOOL b, u32 flags)
 {
     tst r3, #1
     beq @L_0207459c
@@ -6231,31 +6272,37 @@ asm void UnkClass_020621b4::func_02074584()
     movne r0, #0xb
     bx lr
 }
+#endif
 
-asm void UnkClass_020621b4::func_020745ac()
+int UnkClass_020621b4::func_020745ac(int a, BOOL b, u32 flags)
 {
-    tst r3, #0x10
-    beq @L_020745c4
-    mov r0, #0x16
-    cmp r2, #0
-    movne r0, #0x17
-    bx lr
-@L_020745c4:
-    mov r0, #0x14
-    cmp r2, #0
-    movne r0, #0x15
-    bx lr
+    int result;
+
+    if (flags & 0x10) {
+        result = 22;
+        if (b) {
+            result = 23;
+        }
+        return result;
+    }
+    result = 20;
+    if (b) {
+        result = 21;
+    }
+    return result;
 }
 
-asm void UnkClass_020621b4::func_020745d4()
+int UnkClass_020621b4::func_020745d4(int a, BOOL b, u32 flags)
 {
-    mov r0, #0x1e
-    cmp r2, #0
-    movne r0, #0x1f
-    bx lr
+    int result = 30;
+
+    if (b) {
+        result = 31;
+    }
+    return result;
 }
 
-asm void UnkClass_020621b4::func_020745e4()
+asm int UnkClass_020621b4::func_020745e4(int a, int kind, int b, int c, u8 d)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -6337,88 +6384,70 @@ asm void UnkClass_020621b4::func_020745e4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_020621b4::func_02074700()
+int UnkClass_020621b4::func_02074700(int a, int b, int c, u8 d)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    ldrb r12, [sp, #0x10]
-    str r3, [sp]
-    mov r3, r2
-    mov r2, #5
-    str r12, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_020745e4Ev
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    return func_020745e4(a, 5, b, c, d);
 }
 
-asm void UnkClass_020621b4::func_02074728()
+int UnkClass_020621b4::func_02074728(int a, int b, int c, u8 d)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    ldrb r12, [sp, #0x10]
-    str r3, [sp]
-    mov r3, r2
-    mov r2, #6
-    str r12, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_020745e4Ev
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    return func_020745e4(a, 6, b, c, d);
 }
 
-asm void UnkClass_020621b4::func_02074750()
+int UnkClass_020621b4::func_02074750(int a, int b, int c, u8 d)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    ldrb r12, [sp, #0x10]
-    str r3, [sp]
-    mov r3, r2
-    mov r2, #7
-    str r12, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_020745e4Ev
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    return func_020745e4(a, 7, b, c, d);
 }
 
-asm void UnkClass_020621b4::func_02074778()
+int UnkClass_020621b4::func_02074778(int a, int b, int c, u8 d)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    ldrb r12, [sp, #0x10]
-    str r3, [sp]
-    mov r3, r2
-    mov r2, #8
-    str r12, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_020745e4Ev
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    return func_020745e4(a, 8, b, c, d);
 }
 
-asm void UnkClass_020621b4::func_020747a0()
+s8 UnkClass_020621b4::func_020747a0(int i)
 {
-    ldr r0, [r0, #0xbe8]
-    cmp r0, #0
-    ldrnesb r0, [r0, r1]
-    moveq r0, #0
-    bx lr
+    s8 *table = unk_be8;
+
+    if (table != NULL) {
+        return table[i];
+    }
+    return 0;
 }
 
-asm void UnkClass_020621b4::func_020747b4()
+BOOL UnkClass_020621b4::func_020747b4(int i, int value)
 {
-    ldr r3, [r0, #0xbe8]
-    cmp r3, #0
-    moveq r0, #0
-    bxeq lr
-    cmp r2, #0x7f
-    movgt r2, #0x7f
-    mvn r0, #0x7e
-    cmp r2, r0
-    movlt r2, r0
-    strb r2, [r3, r1]
-    mov r0, #1
-    bx lr
+    s8 *table = unk_be8;
+
+    if (table == NULL) {
+        return FALSE;
+    }
+    if (value > 127) {
+        value = 127;
+    }
+    if (value < -127) {
+        value = -127;
+    }
+    table[i] = value;
+    return TRUE;
 }
 
-asm void UnkClass_020621b4::func_020747e4()
+BOOL // (nonmatching: the order of two instructions differs)
+#ifdef NONMATCHING
+UnkClass_020621b4::func_020747e4(int index, u32 value)
+{
+    MatchPlayer *player = func_ov015_02130b14(index, 0);
+
+    if (player == NULL) {
+        return FALSE;
+    }
+    if (value >= 0x200) {
+        return FALSE;
+    }
+    player->state->unk_32 = value;
+    return TRUE;
+}
+#else
+asm UnkClass_020621b4::func_020747e4(int index, u32 value)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, #0
@@ -6436,6 +6465,7 @@ asm void UnkClass_020621b4::func_020747e4()
     strloh r5, [r1, #0x32]
     ldmia sp!, {r3, r4, r5, pc}
 }
+#endif
 
 asm void UnkClass_020621b4::func_02074820()
 {
@@ -7205,14 +7235,14 @@ asm void UnkClass_020621b4::func_020751b8()
     mov r4, r0
     ldrsh r1, [r9]
     mov r0, r10
-    bl _ZN17UnkClass_020621b413func_020747a0Ev
+    bl _ZN17UnkClass_020621b413func_020747a0Ei
     add r4, r4, r0
     mov r0, r7
     bl func_0207f3e0
     mov r11, r0
     ldrsh r1, [r9, #2]
     mov r0, r10
-    bl _ZN17UnkClass_020621b413func_020747a0Ev
+    bl _ZN17UnkClass_020621b413func_020747a0Ei
     add r0, r11, r0
     cmp r4, r0
     ble @L_02075304
