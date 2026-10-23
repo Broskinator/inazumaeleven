@@ -4,6 +4,9 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkDeque_0207076c13func_0207076cEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkDeque_0207076c13func_020707e4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkDeque_0207076c13func_02070d64Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020705f8Eh(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02070610Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02070644Ev(void);     // (for the asm functions)
@@ -455,9 +458,6 @@ extern "C" void func_020224cc(void);
 extern "C" void func_02022948(void);
 extern "C" void func_02022bac(void);
 extern "C" void func_02023890(void);
-extern "C" void func_0207076c(void);
-extern "C" void func_020707e4(void);
-extern "C" void func_02070d64(void);
 extern "C" void func_020764cc(void);
 extern "C" void func_020764e4(void);
 extern "C" void func_0207a534(void);
@@ -12551,7 +12551,7 @@ asm void UnkClass_020621b4::func_0206d6b4()
     mov r8, r10
     mov r11, r10
     mov r6, r10
-    bl func_020707e4
+    bl _ZN17UnkDeque_0207076c13func_020707e4Ev
     mov r9, #1
     sub r5, sp, #4
     and r4, r6, #0xff
@@ -12595,7 +12595,7 @@ asm void UnkClass_020621b4::func_0206d6b4()
     ldr r2, [r5]
     add r0, sp, #8
     add r1, sp, #4
-    bl func_0207076c
+    bl _ZN17UnkDeque_0207076c13func_0207076cEv
 @L_0206d798:
     add r0, r10, #1
     mov r0, r0, lsl #0x10
@@ -12620,17 +12620,17 @@ asm void UnkClass_020621b4::func_0206d6b4()
     ldr r1, [r1, r0, lsl #2]
     mov r0, r4
     str r1, [sp, #4]
-    bl func_020707e4
+    bl _ZN17UnkDeque_0207076c13func_020707e4Ev
     ldr r1, [sp, #4]
     mov r0, r4
     ldrb r4, [r1, #0x5b]
-    bl func_02070d64
+    bl _ZN17UnkDeque_0207076c13func_02070d64Ev
     add sp, sp, #0x20
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0206d814:
     add r0, sp, #8
-    bl func_02070d64
+    bl _ZN17UnkDeque_0207076c13func_02070d64Ev
     mov r0, #0
     add sp, sp, #0x20
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
