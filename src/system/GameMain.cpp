@@ -1,4 +1,4 @@
-#include "system/Main.hpp"
+#include "system/GameMain.hpp"
 
 extern "C" char data_020ac084[];
 extern "C" char data_020c5320[];

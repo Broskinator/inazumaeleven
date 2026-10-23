@@ -1,5 +1,5 @@
-#ifndef SYSTEM_MAIN_HPP
-#define SYSTEM_MAIN_HPP
+#ifndef SYSTEM_GAMEMAIN_HPP
+#define SYSTEM_GAMEMAIN_HPP
 
 #include "nitro/types.h"
 
@@ -25,4 +25,4 @@ public:
     void func_020406d4();
 };
 
-#endif // SYSTEM_MAIN_HPP
+#endif // SYSTEM_GAMEMAIN_HPP
