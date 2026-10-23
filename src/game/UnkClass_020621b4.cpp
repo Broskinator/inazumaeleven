@@ -284,11 +284,11 @@ UnkClass_020621b4 *UnkClass_020621b4::func_020621b4()
     unk_bb0 = 0;
     unk_bb2 = 0;
     unk_bb3 = 0;
-    unk_bb4[0] = 0;
-    unk_bb4[1] = 0;
-    unk_bb4[2] = 0;
-    unk_bb4[3] = 0;
-    unk_bb4[4] = 0;
+    unk_bb4 = 0;
+    unk_bb8 = NULL;
+    unk_bbc[0] = 0;
+    unk_bbc[1] = 0;
+    unk_bbc[2] = 0;
     unk_bc8 = NULL;
     unk_bcc = NULL;
     unk_bd0[0] = 0;
@@ -296,15 +296,15 @@ UnkClass_020621b4 *UnkClass_020621b4::func_020621b4()
     unk_bd0[2] = 0;
     unk_bd0[3] = 0;
     unk_bd0[4] = 0;
-    unk_bd0[5] = 0;
-    unk_bd0[6] = 0;
-    unk_bd0[7] = 0;
-    unk_bd0[8] = 0;
-    unk_bd0[9] = 0;
-    unk_bd0[10] = 0;
-    unk_bd0[11] = 0;
-    unk_bd0[12] = 0;
-    unk_bd0[13] = 0;
+    unk_be4 = NULL;
+    unk_be8[0] = 0;
+    unk_be8[1] = 0;
+    unk_be8[2] = 0;
+    unk_be8[3] = 0;
+    unk_be8[4] = 0;
+    unk_be8[5] = 0;
+    unk_be8[6] = 0;
+    unk_be8[7] = 0;
     unk_c28 = 0;
     unk_c2c = 0;
     unk_117d4 = 0;
@@ -7834,7 +7834,7 @@ asm void UnkClass_020621b4::func_02069184()
 
 int UnkClass_020621b4::func_02069344(int a, int b, int c, int d, u8 e, int f)
 {
-    return func_02069394(a, func_020739cc(b), c, d, e, f);
+    return func_02069394(a, (int)func_020739cc(b), c, d, e, f);
 }
 
 asm int UnkClass_020621b4::func_02069394(int a, int b, int c, int d, u8 e, int f)
