@@ -1,5 +1,9 @@
 #include "game/Unk_0205dee0.hpp"
 
+extern "C" void _ZN17UnkClass_020621b413func_0206c644Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206caa4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206cad4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206cbbcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b3dcEi(void);     // (for the asm functions)
@@ -57,10 +61,6 @@ extern "C" void _ZN9ChunkFileD1Ev(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_020095c4(void);
 extern "C" void func_0202273c(void);
-extern "C" void func_0206c644(void);
-extern "C" void func_0206caa4(void);
-extern "C" void func_0206cad4(void);
-extern "C" void func_0206cbbc(void);
 extern "C" void func_0207620c(void);
 extern "C" void func_0207649c(void);
 extern "C" void func_020764b4(void);
@@ -581,7 +581,7 @@ asm void Unk_0205dee0::func_0205e538()
     b @L_0205e68c
 @L_0205e5b4:
     mov r0, r8
-    bl func_0206c644
+    bl _ZN17UnkClass_020621b413func_0206c644Ev
     cmp r0, #0
     mov r0, r8
     mov r1, r10
@@ -1597,15 +1597,15 @@ asm void Unk_0205dee0::func_0205f430()
     b @L_0205f484
 @L_0205f464:
     ldr r0, =data_020e88a0
-    bl func_0206caa4
+    bl _ZN17UnkClass_020621b413func_0206caa4Ev
     b @L_0205f484
 @L_0205f470:
     ldr r0, =data_020e88a0
-    bl func_0206cbbc
+    bl _ZN17UnkClass_020621b413func_0206cbbcEv
     b @L_0205f484
 @L_0205f47c:
     ldr r0, =data_020e88a0
-    bl func_0206cad4
+    bl _ZN17UnkClass_020621b413func_0206cad4Ev
 @L_0205f484:
     add r0, r4, #0x1000
     ldr r1, [r0, #0xed8]
