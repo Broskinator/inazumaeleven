@@ -3,6 +3,9 @@
 #include "file/FileManager.hpp"
 #include "nitro/mi.h"
 
+extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206bffcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_02060a48Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_02060a98Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_02060b58Ev(void);     // (for the asm functions)
@@ -131,9 +134,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_0206aa30(void);
-extern "C" void func_0206ace8(void);
-extern "C" void func_0206bffc(void);
 extern "C" void func_0206dedc(void);
 extern "C" void func_020739cc(void);
 extern "C" void func_0207620c(void);
@@ -876,7 +876,7 @@ asm void TreasureBox::func_02052720()
 @L_020528c4:
     ldr r4, =data_020e88a0
     mov r0, r4
-    bl func_0206ace8
+    bl _ZN17UnkClass_020621b413func_0206ace8Ev
     cmp r0, #0
     addne sp, sp, #0x80
     movne r0, r6
@@ -2855,9 +2855,9 @@ asm void TreasureBox::func_02054620()
     mov r8, #0
     mov r0, r6
     mov r1, r8
-    bl func_0206aa30
+    bl _ZN17UnkClass_020621b413func_0206aa30Ev
     mov r0, r6
-    bl func_0206bffc
+    bl _ZN17UnkClass_020621b413func_0206bffcEv
     add r1, r9, #0x6000
     ldr r1, [r1, #0xa44]
     mov r5, r0

@@ -1,9 +1,8 @@
 #include "game/UnkClass_0203dc7c.hpp"
+#include "game/UnkClass_020621b4.hpp"
 #include "nitro/mi.h"
 
 extern "C" char data_020abe94[];        // the vtable
-extern "C" u8 data_020e88a0[];
-extern "C" void func_0206b3c4(void *object, int a, int b);
 extern "C" void func_ov015_02132554(int);
 extern "C" void func_ov015_02132600(int);
 extern "C" void func_ov015_02132614(int);
@@ -46,7 +45,7 @@ int UnkClass_0203dc7c::func_0203dcec(int a, int b)
             children[0]->vtable->func_08(children[0], a, b);
         }
     }
-    func_0206b3c4(data_020e88a0, a, b);
+    data_020e88a0.func_0206b3c4(a, b);
     return 0;
 }
 

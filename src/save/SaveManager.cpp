@@ -1,4 +1,5 @@
 #include "save/SaveManager.hpp"
+#include "game/UnkClass_020621b4.hpp"
 #include "system/GameHeap.hpp"
 #include "sound/SoundManager.hpp"
 #include "game/TreasureBox.hpp"
@@ -6,10 +7,10 @@
 #include "nitro/std.h"
 #include "nitro/card.h"
 
+extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);     // (for the asm functions)
 // (other systems, not decompiled yet)
 extern GameHeap data_020c47b4;
 extern "C" u8 data_020d3d20[];
-extern "C" u8 data_020e88a0[];
 extern "C" void *data_020c46cc;
 extern "C" void *data_020c4678;
 extern "C" u8 data_020c4638;
@@ -26,7 +27,6 @@ extern "C" void func_02086988(void *obj, void *dst);
 extern "C" void func_0208663c(void *obj, void *src);
 extern "C" void func_0208e81c(void *obj, void *dst);
 extern "C" void func_0208e844(void *obj, void *src);
-extern "C" u8 func_0206b4b8(void *obj, int unk);
 extern "C" u8 func_0207ab64(void *obj, int unk);
 extern "C" u8 func_0207aa94(void *obj, int unk);
 extern "C" u32 func_020767bc(void *obj);
@@ -422,7 +422,7 @@ s32 SaveManager::Save(int slot, BOOL async)
     func_0209ac8c(data_020d3d20, body->unk_49FC);
     data_020d9978.func_02052474(body->unk_5338);
     data_020c5e40.SaveState(&body->soundState);
-    func_0206db10(data_020e88a0, body);
+    func_0206db10(&data_020e88a0, body);
     func_02086988(data_020c46cc, body->unk_3DDC);
     func_0208e81c(data_020c4678, body->unk_43FC);
     gGameState.SaveExtra(extra);
@@ -438,14 +438,14 @@ s32 SaveManager::Save(int slot, BOOL async)
     file->header.extraSize = GAME_EXTRA_SIZE;
     file->header.playTime = gGameState.profile.playTime;
     file->header.unk_14 = gGameState.profile.unk_4A;
-    file->header.unk_15 = func_0206b4b8(data_020e88a0, 0);
-    file->header.unk_16 = func_0207ab64(data_020e88a0, 0);
-    file->header.unk_17 = func_0207aa94(data_020e88a0, 0);
-    file->header.unk_18 = func_020767bc(data_020e88a0);
+    file->header.unk_15 = data_020e88a0.func_0206b4b8(0);
+    file->header.unk_16 = func_0207ab64(&data_020e88a0, 0);
+    file->header.unk_17 = func_0207aa94(&data_020e88a0, 0);
+    file->header.unk_18 = func_020767bc(&data_020e88a0);
     file->header.unk_48 = gGameState.profile.unk_24;
     file->header.unk_45 = gGameState.profile.unk_2C;
-    file->header.unk_54 = func_0206f04c(data_020e88a0);
-    func_0206f034(data_020e88a0);
+    file->header.unk_54 = func_0206f04c(&data_020e88a0);
+    func_0206f034(&data_020e88a0);
     STD_CopyString(file->header.name, gGameState.profile.name);
     STD_CopyString(file->header.unk_34, body->unk_3D4C);
 
@@ -749,7 +749,7 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     ldr r0, =data_020e88a0
     strb r1, [r4, #0x14]
     mov r1, #0
-    bl func_0206b4b8
+    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
     strb r0, [r4, #0x15]
     ldr r0, =data_020e88a0
     mov r1, #0
@@ -1296,7 +1296,7 @@ s32 SaveManager::ApplyLoad(int slot)
         func_0209ae70(data_020d3d20, body->unk_49FC);
         data_020d9978.func_020524b0(body->unk_5338);
         data_020c5e40.RestoreState(&body->soundState);
-        func_0206dcdc(data_020e88a0, body);
+        func_0206dcdc(&data_020e88a0, body);
         func_0208663c(data_020c46cc, body->unk_3DDC);
         func_0208e844(data_020c4678, body->unk_43FC);
         gGameState.LoadExtra(extra);

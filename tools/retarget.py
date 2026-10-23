@@ -25,7 +25,8 @@ for member, expr in members:
     t = re.sub(r"\b(func_[0-9a-f]{8})\(%s(?:, )?" % re.escape(member),
                lambda m: f"{expr}{sep}{m.group(1)}(" if m.group(1) in syms else m.group(0), t)
 for f in syms:
-    t = re.sub(r'^extern "C" \w+ \*?%s\([^)]*\);.*\n' % f, "", t, flags=re.M)
+    # (only the untyped declarations: typed ones are turned into members by tools/memberize.py)
+    t = re.sub(r'^extern "C" void %s\(void\);.*\n' % f, "", t, flags=re.M)
 used = set()
 
 
