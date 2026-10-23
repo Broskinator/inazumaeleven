@@ -29,6 +29,10 @@ your own copy of the ROM:
       and wireless play over the WM library (`src/wireless/`: 53 of 55 in C++), the scenes'
       base class, the scene manager with the game's main loop and the treasure boxes
       (`src/game/`), the start-up and the entry point (`src/system/`)
+- [ ] Match code (`src/game/`, from 0x02061498): the ball's physics and the distance
+      tables (`UnkClass_02061498.cpp`), and the first files of the match's data
+      object at data_020e88a0 (`UnkClass_020621b4.cpp`); the ball, the players and their
+      bodies are in `include/game/Match.hpp`
 - [ ] Decompiled to C
 
 ## Building
