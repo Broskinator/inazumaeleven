@@ -48,7 +48,7 @@ public:
     void func_020526ec(int arg, int keep);
     void func_02052720();
     void func_02052c68();
-    void func_02052d48();
+    BOOL func_02052d48(UnkClass_0203dc7c *scene);
     void func_02052da8(s32 top, s32 bottom);
     void func_02052db8(UnkClass_0203dc7c *scene);
     void func_02052e00(s32 value);
@@ -56,19 +56,19 @@ public:
     void func_02052eec();
     void func_02052fd8();
     void func_02053098();
-    void func_02053824();
+    BOOL func_02053824();
     void func_02053874();
     void func_02053888();
     void func_0205389c();
     void func_020538b0();
-    void func_02053aa0();
+    BOOL func_02053aa0(int index);
     void func_02053ae0();
     void func_02053bbc();
     void func_020541d0();
     void func_02054398();
     void func_020544c0();
     void func_02054620();
-    void func_020547d4();
+    TreasureBox *func_020547d4();
 
     u8 unk_8c[0x2ACC];          // (made by func_02060294)
     u8 unk_2b58[0x3EA0];        // (made by func_02054800)
@@ -92,10 +92,10 @@ public:
     s32 unk_6a70;
     u8 unk_6a74[4];
     s32 unk_6a78;
-    u8 unk_6a7c[4];
-    s32 unk_6a80;               // (4 bytes of treasurebox.dat)
+    void *unk_6a7c;
+    s32 unk_6a80;               // the number of boxes (4 bytes of treasurebox.dat)
     u8 unk_6a84[4];
-    u8 unk_6a88[0x80];
+    u8 unk_6a88[0x80];          // the boxes that were opened (a bit each)
 };
 
 extern TreasureBox data_020d9978;

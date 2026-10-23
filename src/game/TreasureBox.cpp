@@ -59,8 +59,15 @@ extern "C" void func_02060624(void *);
 extern "C" void func_02060b58(void *);
 extern "C" void func_02060b70(void *);
 extern "C" void func_02060938(void *, int, int, int, int);
+extern "C" void func_0205d874(void *);
+extern "C" void func_0205d18c(void *);
+extern "C" void func_0205cfec(void *);
+extern "C" void func_0205d00c(void *);
+extern "C" void func_02054854(void *);
+extern "C" void func_020602ec(void *);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
+extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
 
 // (4 bytes of a file, through the heap's file manager)
 static inline int LoadFile(const char *name, void **dest)
@@ -131,30 +138,21 @@ extern "C" void STD_ConcatenateString(void);
 extern "C" void STD_CopyString(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void _ZdlPv(void);
 extern "C" void func_02017278(void);
 extern "C" void func_02022348(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_02054854(void);
-extern "C" void func_0205cfec(void);
-extern "C" void func_0205d00c(void);
 extern "C" void func_0205d02c(void);
-extern "C" void func_0205d18c(void);
 extern "C" void func_0205d204(void);
 extern "C" void func_0205d2ac(void);
 extern "C" void func_0205d3f4(void);
 extern "C" void func_0205d618(void);
 extern "C" void func_0205d7e0(void);
-extern "C" void func_0205d874(void);
 extern "C" void func_0205dac4(void);
 extern "C" void func_0205dafc(void);
-extern "C" void func_020602ec(void);
 extern "C" void func_02060a98(void);
 extern "C" void func_02060e80(void);
 extern "C" void func_0206aa30(void);
@@ -1204,32 +1202,16 @@ asm void TreasureBox::func_02052c68()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void TreasureBox::func_02052d48()
+BOOL TreasureBox::func_02052d48(UnkClass_0203dc7c *scene)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x6a00
-    ldrsb r0, [r0, #0x38]
-    mov r4, r1
-    add r0, r5, r0, lsl #3
-    add r0, r0, #0x6900
-    ldrsh r0, [r0, #0xfe]
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    add r1, r5, #0x6000
-    mov r0, r4
-    str r4, [r1, #0xa3c]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
-    add r1, r5, #0x6000
-    str r0, [r1, #0xa40]
-    mov r0, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e1f4Ev
-    add r1, r5, #0x6000
-    str r0, [r1, #0xa44]
-    mov r0, #1
-    str r0, [r1, #0xa64]
-    ldmia sp!, {r3, r4, r5, pc}
+    if (entries[readIndex].unk_06 == 0) {
+        return FALSE;
+    }
+    this->scene = scene;
+    unk_6a40 = scene->func_0203e18c();
+    unk_6a44 = scene->func_0203e1f4();
+    unk_6a64 = TRUE;
+    return TRUE;
 }
 
 void TreasureBox::func_02052da8(s32 top, s32 bottom)
@@ -1958,51 +1940,30 @@ asm void TreasureBox::func_02053098()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void TreasureBox::func_02053824()
+BOOL TreasureBox::func_02053824()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x6000
-    ldr r0, [r0, #0xa7c]
-    cmp r0, #0
-    moveq r0, #1
-    ldmeqia sp!, {r4, pc}
-    add r0, r4, #0x358
-    add r0, r0, #0x2800
-    bl func_0205d874
-    add r0, r4, #0x6000
-    ldr r1, [r0, #0xa7c]
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    add r0, r4, #0x6000
-    mov r1, #0
-    str r1, [r0, #0xa7c]
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    if (unk_6a7c == NULL) {
+        return TRUE;
+    }
+    func_0205d874(unk_2b58);
+    data_020c47b4.Free(unk_6a7c);
+    unk_6a7c = NULL;
+    return TRUE;
 }
 
-asm void TreasureBox::func_02053874()
+void TreasureBox::func_02053874()
 {
-    add r0, r0, #0x358
-    ldr r12, =func_0205d18c
-    add r0, r0, #0x2800
-    bx r12
+    func_0205d18c(unk_2b58);
 }
 
-asm void TreasureBox::func_02053888()
+void TreasureBox::func_02053888()
 {
-    add r0, r0, #0x358
-    ldr r12, =func_0205cfec
-    add r0, r0, #0x2800
-    bx r12
+    func_0205cfec(unk_2b58);
 }
 
-asm void TreasureBox::func_0205389c()
+void TreasureBox::func_0205389c()
 {
-    add r0, r0, #0x358
-    ldr r12, =func_0205d00c
-    add r0, r0, #0x2800
-    bx r12
+    func_0205d00c(unk_2b58);
 }
 
 asm void TreasureBox::func_020538b0()
@@ -2129,24 +2090,13 @@ asm void TreasureBox::func_020538b0()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void TreasureBox::func_02053aa0()
+// TRUE when the box has been opened (boxes past the ones in the file count as opened)
+BOOL TreasureBox::func_02053aa0(int index)
 {
-    add r2, r0, #0x6000
-    ldr r2, [r2, #0xa80]
-    cmp r1, r2
-    movge r0, #1
-    bxge lr
-    mov r2, r1, asr #2
-    add r2, r1, r2, lsr #29
-    add r0, r0, r2, asr #3
-    add r3, r0, #0x6000
-    mov r2, r1, lsr #0x1f
-    rsb r0, r2, r1, lsl #29
-    ldrb r1, [r3, #0xa88]
-    add r0, r2, r0, ror #29
-    mov r2, #1
-    and r0, r1, r2, lsl r0
-    bx lr
+    if (index >= unk_6a80) {
+        return TRUE;
+    }
+    return unk_6a88[index / 8] & (1 << (index % 8));
 }
 
 asm void TreasureBox::func_02053ae0()
@@ -3019,17 +2969,10 @@ asm void TreasureBox::func_02054620()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void TreasureBox::func_020547d4()
+TreasureBox *TreasureBox::func_020547d4()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x358
-    add r0, r0, #0x2800
-    bl func_02054854
-    add r0, r4, #0x8c
-    bl func_020602ec
-    mov r0, r4
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    func_02054854(unk_2b58);
+    func_020602ec(unk_8c);
+    operator delete(this);
+    return this;
 }
