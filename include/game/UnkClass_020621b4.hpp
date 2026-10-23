@@ -58,20 +58,20 @@ public:
     void func_02066504(int flags, int a, int b);
     void func_020665a4();
     void func_02066768();
-    void func_02066e14();
-    void func_02066e28();
-    void func_02067014();
+    BOOL func_02066e14(int value);
+    int func_02066e28(int a, int b, int c);
+    int func_02067014(MatchPlayer *player, int a, int b);
     fx32 func_02067044(int a, int b);
-    void func_0206707c();
-    void func_020670ec();
+    fx32 func_0206707c(int a, int b);
+    BOOL func_020670ec(fx32 *pos);
     void func_02067104();
     void func_020671e4();
-    void func_020673d8();
+    void func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_02067448();
     void func_020674f8();
     void func_020678d0();
-    void func_02067aec();
-    void func_02067e00();
+    void func_02067aec(MatchPlayer *player, int a, int b, void *c, int d, int e);
+    void func_02067e00(MatchPlayer *player, int a, int b, int c);
     void func_02067e78();
     void func_02067f44();
 
