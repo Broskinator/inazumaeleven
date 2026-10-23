@@ -1,18 +1,19 @@
 #include "game/UnkClass_02061498.hpp"
+#include "system/GameHeap.hpp"
 
 extern "C" char data_020aeadc[];
 extern "C" char data_020aeb28[];
 extern "C" char data_020aeb50[];
 extern "C" char data_020c4648[];
-extern "C" char data_020c47b4[];
-extern "C" char data_020c4920[];
+extern GameHeap data_020c47b4;
+extern VecFx32 data_020c4920;
 extern "C" char data_020c4de0[];
 extern "C" char data_020c4ebc[];
 extern "C" char data_020f98a0[];
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZdlPv(void);
-extern "C" void func_02001d80(void);
+extern "C" s32 func_02001d80(s32 x);     // (the square root of x)
 extern "C" void func_0200226c(void);
 extern "C" void func_02083afc(void);
 extern "C" void func_0208413c(void);
@@ -27,33 +28,27 @@ extern "C" void func_ov015_02142ec8(void);
 extern "C" void func_ov087_02182234(void);
 extern "C" void func_ov087_02182248(void);
 
-asm void UnkClass_02061498::func_02061498()
+UnkClass_02061498 *UnkClass_02061498::func_02061498()
 {
-    ldr r2, =data_020aeadc
-    mov r1, #0
-    str r2, [r0]
-    str r1, [r0, #4]
-    bx lr
+    vtable = data_020aeadc;
+    area = NULL;
+    return this;
 }
 
-asm void UnkClass_02061498::func_020614b0()
+void UnkClass_02061498::func_020614b0()
 {
-    bx lr
 }
 
-asm void UnkClass_02061498::func_020614b4()
+UnkClass_02061498 *UnkClass_02061498::func_020614b4()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    operator delete(this);
+    return this;
 }
 
-asm void UnkClass_02061498::func_020614c8()
+void UnkClass_02061498::func_020614c8(UnkArea_02061498 *area, fx32 value)
 {
-    stmib r0, {r1, r2}
-    bx lr
+    this->area = area;
+    unk_8 = value;
 }
 
 asm void UnkClass_02061498::func_020614d0()
@@ -436,52 +431,32 @@ asm void UnkClass_02061498::func_020618d4()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void UnkClass_02061498::func_02061a2c()
+// keeps a position at most 32 units out of the area horizontally, 58 vertically
+void UnkClass_02061498::func_02061a2c(VecFx32 *pos)
 {
-    ldr r3, [r0, #4]
-    ldr r2, [r1]
-    ldr r0, [r3, #0xdc]
-    sub r0, r0, #0x20000
-    cmp r2, r0
-    strlt r0, [r1]
-    blt @L_02061a58
-    ldr r0, [r3, #0xe4]
-    add r0, r0, #0x20000
-    cmp r2, r0
-    strgt r0, [r1]
-@L_02061a58:
-    ldr r0, [r3, #0xe0]
-    ldr r2, [r1, #4]
-    sub r0, r0, #0x3a000
-    cmp r2, r0
-    strlt r0, [r1, #4]
-    bxlt lr
-    ldr r0, [r3, #0xe8]
-    add r0, r0, #0x3a000
-    cmp r2, r0
-    strgt r0, [r1, #4]
-    bx lr
+    UnkArea_02061498 *area = this->area;
+    fx32 limit;
+
+    if (pos->x < (limit = area->minX - 32 * FX32_ONE)) {
+        pos->x = limit;
+    } else if (pos->x > (limit = area->maxX + 32 * FX32_ONE)) {
+        pos->x = limit;
+    }
+    if (pos->y < (limit = area->minY - 58 * FX32_ONE)) {
+        pos->y = limit;
+    } else if (pos->y > (limit = area->maxY + 58 * FX32_ONE)) {
+        pos->y = limit;
+    }
 }
 
-asm void UnkClass_02061498::func_02061a84()
+fx32 UnkClass_02061498::func_02061a84(UnkObject_02061498 *obj)
 {
-    ldr r2, [r0, #8]
-    ldr r0, [r1, #0x38]
-    smull r1, r0, r2, r0
-    adds r2, r1, #0x800
-    adc r1, r0, #0
-    mov r0, r2, lsr #0xc
-    orr r0, r0, r1, lsl #20
-    bx lr
+    return FX_Mul(unk_8, obj->unk_38);
 }
 
-asm void UnkClass_02061498::func_02061aa4()
+void UnkClass_02061498::func_02061aa4(UnkObject_02061498 *obj)
 {
-    ldr r2, [r1, #0x44]
-    ldr r0, [r0, #8]
-    add r0, r2, r0
-    str r0, [r1, #0x44]
-    bx lr
+    obj->unk_44 += unk_8;
 }
 
 asm void UnkClass_02061498::func_02061ab8()
@@ -549,13 +524,9 @@ asm void UnkClass_02061498::func_02061ab8()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void UnkClass_02061498::func_02061bac()
+void UnkClass_02061498::func_02061bac(UnkObject_02061498 *obj)
 {
-    ldrh r2, [r1, #0x54]
-    ldr r0, [r1, #0x38]
-    add r0, r2, r0, asr #5
-    strh r0, [r1, #0x54]
-    bx lr
+    obj->unk_54 = obj->unk_54 + (obj->unk_38 >> 5);
 }
 
 asm void UnkClass_02061498::func_02061bc0()
@@ -696,329 +667,206 @@ asm void UnkClass_02061498::func_02061bc0()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkClass_02061498::func_02061dc4()
+// moves an object, keeping its previous position
+void UnkClass_02061498::func_02061dc4(UnkObject_02061498 *obj, fx32 x, fx32 y, fx32 z)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldrh r12, [r1, #0x52]
-    ldmib r1, {r4, lr}
-    ldr r5, [r1]
-    mov r12, r12, asr #8
-    str r5, [r1, #0xc]
-    str r4, [r1, #0x10]
-    str lr, [r1, #0x14]
-    strb r12, [r1, #0x5b]
-    ldr r0, [sp, #0x10]
-    stmia r1, {r2, r3}
-    str r0, [r1, #8]
-    ldmia sp!, {r3, r4, r5, pc}
+    obj->prevPos = obj->pos;
+    obj->unk_5b = obj->unk_52 >> 8;
+    obj->pos.x = x;
+    obj->pos.y = y;
+    obj->pos.z = z;
 }
 
-asm void UnkClass_02061498::func_02061df8()
+DistanceTable *DistanceTable::func_02061df8()
 {
-    ldr r2, =data_020aeb28
-    mov r1, #0
-    str r2, [r0]
-    str r1, [r0, #4]
-    str r1, [r0, #8]
-    str r1, [r0, #0xc]
-    str r1, [r0, #0x10]
-    str r1, [r0, #0x14]
-    str r1, [r0, #0x18]
-    bx lr
+    vtable = data_020aeb28;
+    table = NULL;
+    width = 0;
+    height = 0;
+    capacity = 0;
+    stepX = 0;
+    stepY = 0;
+    return this;
 }
 
-asm void UnkClass_02061498::func_02061e24()
+void DistanceTable::func_02061e24()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #4]
-    cmp r1, #0
-    beq @L_02061e48
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r4, #4]
-@L_02061e48:
-    mov r0, #0
-    str r0, [r4, #8]
-    str r0, [r4, #0xc]
-    str r0, [r4, #0x10]
-    str r0, [r4, #0x14]
-    str r0, [r4, #0x18]
-    ldmia sp!, {r4, pc}
+    if (table != NULL) {
+        data_020c47b4.Free(table);
+        table = NULL;
+    }
+    width = 0;
+    height = 0;
+    capacity = 0;
+    stepX = 0;
+    stepY = 0;
 }
 
-asm void UnkClass_02061498::func_02061e68()
+BOOL DistanceTable::func_02061e68(int width, int height)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r7, r1
-    mov r6, r2
-    mul r1, r7, r6
-    mov r8, r0
-    ldr r0, [r8, #0x10]
-    mov r5, r1, lsl #2
-    cmp r0, r1, lsl #2
-    bge @L_02061ecc
-    ldr r1, [r8, #4]
-    cmp r1, #0
-    beq @L_02061ea0
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_02061ea0:
-    mov r4, #0
-    ldr r0, =data_020c47b4
-    mov r1, r5
-    mov r2, r4
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r8, #4]
-    cmp r0, #0
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    str r5, [r8, #0x10]
-@L_02061ecc:
-    str r7, [r8, #8]
-    str r6, [r8, #0xc]
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    int size = width * height * sizeof(s32);
+
+    if (capacity < size) {
+        if (table != NULL) {
+            data_020c47b4.Free(table);
+        }
+        table = (s32 *)data_020c47b4.Alloc(size, 0, TRUE);
+        if (table == NULL) {
+            return FALSE;
+        }
+        capacity = size;
+    }
+    this->width = width;
+    this->height = height;
+    return TRUE;
 }
 
-asm void UnkClass_02061498::func_02061ee0()
+void DistanceTable::func_02061ee0(fx32 stepX, fx32 stepY)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r10, r0
-    ldr r0, [r10, #0xc]
-    mov r7, #0
-    mov r9, r1
-    str r2, [sp]
-    mov r11, r7
-    cmp r0, #0
-    ldr r8, [r10, #4]
-    ble @L_02061f8c
-@L_02061f08:
-    ldr r2, [r10, #8]
-    mov r6, #0
-    mov r5, r6
-    cmp r2, #0
-    ble @L_02061f74
-    smull r1, r0, r7, r7
-    adds r1, r1, #0x800
-    adc r0, r0, #0
-    mov r4, r1, lsr #0xc
-    cmp r2, #0
-    orr r4, r4, r0, lsl #20
-    ble @L_02061f74
-@L_02061f38:
-    smull r1, r0, r6, r6
-    adds r1, r1, #0x800
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    mov r0, r1, asr #4
-    add r0, r0, r4, asr #4
-    bl func_02001d80
-    mov r0, r0, lsl #2
-    str r0, [r8], #4
-    ldr r0, [r10, #8]
-    add r5, r5, #1
-    cmp r5, r0
-    add r6, r6, r9
-    blt @L_02061f38
-@L_02061f74:
-    ldr r0, [r10, #0xc]
-    add r11, r11, #1
-    cmp r11, r0
-    ldr r0, [sp]
-    add r7, r7, r0
-    blt @L_02061f08
-@L_02061f8c:
-    ldr r0, [sp]
-    str r9, [r10, #0x14]
-    str r0, [r10, #0x18]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    int i;
+    fx32 x;
+    fx32 y = 0;
+    int j;
+    s32 *entry = table;
+
+    for (j = 0; j < height; j++) {
+        fx32 y2;
+
+        x = 0;
+        i = 0;
+        if (width > 0) {
+            y2 = FX_Mul(y, y);
+            for (; i < width; i++) {
+                *entry++ = func_02001d80((FX_Mul(x, x) >> 4) + (y2 >> 4)) << 2;
+                x += stepX;
+            }
+        }
+        y += stepY;
+    }
+    this->stepX = stepX;
+    this->stepY = stepY;
 }
 
-asm void UnkClass_02061498::func_02061f9c()
+DistanceTable *DistanceTable::func_02061f9c()
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_020aeb28
-    mov r4, r0
-    str r1, [r4]
-    bl func_02061e24
-    mov r0, r4
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    vtable = data_020aeb28;
+    func_02061e24();
+    operator delete(this);
+    return this;
 }
 
-asm void UnkClass_02061498::func_02061fc4()
+DistanceTable *DistanceTable::func_02061fc4()
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_020aeb28
-    mov r4, r0
-    str r1, [r4]
-    bl func_02061e24
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    vtable = data_020aeb28;
+    func_02061e24();
+    return this;
 }
 
-asm void UnkClass_02061498::func_02061fe4()
+DistanceTable32 *DistanceTable32::func_02061fe4()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_02061df8
-    ldr r1, =data_020aeb50
-    mov r0, r4
-    str r1, [r4]
-    ldmia sp!, {r4, pc}
+    func_02061df8();
+    vtable = data_020aeb50;
+    return this;
 }
 
-asm void UnkClass_02061498::func_02062004()
+DistanceTable32 *DistanceTable32::func_02062004()
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_020aeb28
-    mov r4, r0
-    str r1, [r4]
-    bl func_02061e24
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    vtable = data_020aeb28;
+    func_02061e24();
+    return this;
 }
 
-asm void UnkClass_02061498::func_02062024()
+DistanceTable32 *DistanceTable32::func_02062024()
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_020aeb28
-    mov r4, r0
-    str r1, [r4]
-    bl func_02061e24
-    mov r0, r4
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    vtable = data_020aeb28;
+    func_02061e24();
+    operator delete(this);
+    return this;
 }
 
-asm void UnkClass_02061498::func_0206204c()
+BOOL DistanceTable32::func_0206204c()
 {
-    mov r1, #0x20
-    ldr r12, =func_02061e68
-    mov r2, r1
-    bx r12
+    return func_02061e68(32, 32);
 }
 
-asm void UnkClass_02061498::func_02062060()
+void DistanceTable32::func_02062060()
 {
-    mov r1, #0x1000
-    ldr r12, =func_02061ee0
-    mov r2, r1
-    bx r12
+    func_02061ee0(FX32_ONE, FX32_ONE);
 }
 
-asm void UnkClass_02061498::func_02062074()
+s32 DistanceTable32::func_02062074(int x, int y)
 {
-    ldr r3, [r0, #4]
-    add r0, r1, r2, lsl #5
-    ldr r0, [r3, r0, lsl #2]
-    bx lr
+    return table[x + y * 32];
 }
 
-asm void UnkClass_02061498::func_02062084()
+// the length of (x, y), both positive: looked up with as many units dropped as needed
+// for the table, then corrected with the dropped bits
+fx32 DistanceTable32::func_02062084(fx32 x, fx32 y)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r1
-    mov r5, r2
-    mov r1, r6, asr #0xc
-    orr r3, r1, r5, asr #12
-    mov r2, r5, asr #0xc
-    bics r3, r3, #0x1f
-    mov r4, #0
-    beq @L_020620c0
-@L_020620a8:
-    mov r1, r1, asr #1
-    mov r2, r2, asr #1
-    orr r3, r1, r2
-    add r4, r4, #1
-    bics r3, r3, #0x1f
-    bne @L_020620a8
-@L_020620c0:
-    bl func_02062074
-    cmp r6, r5, lsl #1
-    mov r2, #1
-    ble @L_020620e8
-    add r1, r4, #0xc
-    mov r1, r2, lsl r1
-    sub r1, r1, #1
-    and r1, r6, r1
-    add r0, r1, r0, lsl r4
-    ldmia sp!, {r4, r5, r6, pc}
-@L_020620e8:
-    add r1, r4, #0xc
-    mov r1, r2, lsl r1
-    cmp r5, r6, lsl #1
-    subgt r1, r1, #1
-    andgt r1, r5, r1
-    addgt r0, r1, r0, lsl r4
-    ldmgtia sp!, {r4, r5, r6, pc}
-    sub r3, r1, #1
-    and r2, r6, r3
-    and r1, r5, r3
-    add r1, r2, r1
-    mov r2, r1, asr #1
-    orr r1, r6, r5
-    add r2, r2, r0, lsl r4
-    and r0, r3, r1
-    add r0, r2, r0, asr #2
-    ldmia sp!, {r4, r5, r6, pc}
+    int ix = x >> FX32_SHIFT;
+    int iy = y >> FX32_SHIFT;
+    int shift = 0;
+    s32 length;
+    s32 mask;
+
+    while ((ix | iy) & ~0x1F) {
+        ix >>= 1;
+        iy >>= 1;
+        shift++;
+    }
+    length = func_02062074(ix, iy);
+    if (x > y * 2) {
+        return (length << shift) + (x & ((1 << (shift + FX32_SHIFT)) - 1));
+    }
+    if (y > x * 2) {
+        return (length << shift) + (y & ((1 << (shift + FX32_SHIFT)) - 1));
+    }
+    mask = (1 << (shift + FX32_SHIFT)) - 1;
+    length = (length << shift) + (((x & mask) + (y & mask)) >> 1);
+    return length + ((mask & (x | y)) >> 2);
 }
 
-asm void UnkClass_02061498::func_0206212c()
+fx32 DistanceTable32::func_0206212c(fx32 x, fx32 y)
 {
-    ldr r12, =func_02062084
-    cmp r2, #0
-    rsblt r2, r2, #0
-    cmp r1, #0
-    rsblt r1, r1, #0
-    bx r12
+    if (y < 0) {
+        y = -y;
+    }
+    if (x < 0) {
+        x = -x;
+    }
+    return func_02062084(x, y);
 }
 
-asm void UnkClass_02061498::func_02062148()
+fx32 DistanceTable32::func_02062148(VecFx32 *a, VecFx32 *b)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [r1, #4]
-    ldr r3, [r2, #4]
-    subs r12, r12, r3
-    ldr r3, [r1]
-    ldr r1, [r2]
-    rsbmi r12, r12, #0
-    subs r1, r3, r1
-    rsbmi r1, r1, #0
-    mov r2, r12
-    bl func_02062084
-    ldmia sp!, {r3, pc}
+    fx32 dy = a->y - b->y;
+    fx32 dx;
+
+    if (dy < 0) {
+        dy = -dy;
+    }
+    dx = a->x - b->x;
+    if (dx < 0) {
+        dx = -dx;
+    }
+    return func_02062084(dx, dy);
 }
 
-asm void UnkClass_02061498::func_02062178()
+void DistanceTable32::func_02062178()
 {
-    ldr r12, =func_02062184
-    bx r12
+    func_02062184();
 }
 
-asm void UnkClass_02061498::func_02062184()
+void DistanceTable32::func_02062184()
 {
-    bx lr
 }
 
-asm void UnkClass_02061498::func_02062188()
+fx32 DistanceTable32::func_02062188(UnkPositioned_02061498 *obj)
 {
-    ldr r1, [r1, #0xe8]
-    ldr r2, =data_020c4920
-    ldr r12, =func_02062148
-    bx r12
+    return func_02062148(obj->pos, &data_020c4920);
 }
 
-asm void UnkClass_02061498::func_020621a0()
+fx32 DistanceTable32::func_020621a0(UnkPositioned_02061498 *a, UnkPositioned_02061498 *b)
 {
-    ldr r1, [r1, #0xe8]
-    ldr r2, [r2, #0xe8]
-    ldr r12, =func_02062148
-    bx r12
+    return func_02062148(a->pos, b->pos);
 }
