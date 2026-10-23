@@ -5,6 +5,15 @@
 #include "nitro/tp.h"
 #include "game/UnkClass_0203dc7c.hpp"
 
+#define TREASURE_BOX_NUM_ENTRIES 8
+
+struct TreasureBoxEntry {
+    s32 unk_00;
+    s8 unk_04;
+    s8 unk_05;
+    s16 unk_06;
+};
+
 // The treasure boxes (/data_iz/script/treasurebox.dat): a scene object, the global data_020d9978 (objects[1] of the scene manager)
 class TreasureBox : public UnkClass_0203dc7c {
 public:
@@ -30,19 +39,19 @@ public:
     void func_020524f0(s32 value);
     int func_02052534();
     void func_02052550();
-    void func_020525d4();
-    void func_020525f4();
-    void func_02052600();
+    BOOL func_020525d4();
+    void func_020525f4(s32 value);
+    s16 func_02052600();
     void func_02052618();
-    void func_02052628();
-    void func_020526cc();
-    void func_020526ec();
+    void func_02052628(int a, int b, int c, int d);
+    void func_020526cc(int c);
+    void func_020526ec(int arg, int keep);
     void func_02052720();
     void func_02052c68();
     void func_02052d48();
-    void func_02052da8();
-    void func_02052db8();
-    void func_02052e00();
+    void func_02052da8(s32 top, s32 bottom);
+    void func_02052db8(UnkClass_0203dc7c *scene);
+    void func_02052e00(s32 value);
     void func_02052e0c();
     void func_02052eec();
     void func_02052fd8();
@@ -63,12 +72,14 @@ public:
 
     u8 unk_8c[0x2ACC];          // (made by func_02060294)
     u8 unk_2b58[0x3EA0];        // (made by func_02054800)
-    u8 unk_69f8[0x40];
-    s8 unk_6a38;
-    s8 unk_6a39;
+    TreasureBoxEntry entries[TREASURE_BOX_NUM_ENTRIES];     // a ring
+    s8 readIndex;
+    s8 writeIndex;
     u8 unk_6a3a[2];
     UnkClass_0203dc7c *scene;
-    u8 unk_6a40[0xC];
+    s32 unk_6a40;
+    s32 unk_6a44;
+    s32 unk_6a48;
     s32 unk_6a4c;
     u8 unk_6a50[4];
     s32 unk_6a54;

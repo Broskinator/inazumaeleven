@@ -17,7 +17,6 @@ extern "C" void func_0202273c(void);
 extern "C" void func_02054cd0(void);
 extern "C" void func_02054db4(void);
 extern "C" void func_02060a48(void);
-extern "C" void func_02060b58(void);
 extern "C" void func_02060c80(void);
 extern "C" void func_02060d14(void);
 extern "C" void func_02060efc(void);
@@ -56,6 +55,10 @@ extern "C" void func_02060494(void *, void *);
 extern "C" void func_02054c6c(void *, void *);
 extern "C" void func_020604f8(void *, void *);
 
+extern "C" void func_02060624(void *);
+extern "C" void func_02060b58(void *);
+extern "C" void func_02060b70(void *);
+extern "C" void func_02060938(void *, int, int, int, int);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 
@@ -100,9 +103,9 @@ void TreasureBox::func_02051c54()
     unk_6a64 = 0;
     unk_6a54 = 0;
     unk_6a78 = 0;
-    MI_CpuFill8(unk_69f8, 0, sizeof(unk_69f8));
-    unk_6a39 = 0;
-    unk_6a38 = unk_6a39;
+    MI_CpuFill8(entries, 0, sizeof(entries));
+    writeIndex = 0;
+    readIndex = writeIndex;
     func_02060310(unk_8c);
     func_02060864(unk_8c, 0, 2, 0, 0);
     dest = &unk_6a80;
@@ -128,7 +131,6 @@ extern "C" void STD_ConcatenateString(void);
 extern "C" void STD_CopyString(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -153,10 +155,7 @@ extern "C" void func_0205d874(void);
 extern "C" void func_0205dac4(void);
 extern "C" void func_0205dafc(void);
 extern "C" void func_020602ec(void);
-extern "C" void func_02060624(void);
-extern "C" void func_02060938(void);
 extern "C" void func_02060a98(void);
-extern "C" void func_02060b70(void);
 extern "C" void func_02060e80(void);
 extern "C" void func_0206aa30(void);
 extern "C" void func_0206ace8(void);
@@ -637,9 +636,9 @@ void TreasureBox::func_020523bc()
     unk_6a70 = 0;
     unk_6a64 = 0;
     unk_6a78 = 0;
-    MI_CpuFill8(unk_69f8, 0, sizeof(unk_69f8));
-    unk_6a39 = 0;
-    unk_6a38 = unk_6a39;
+    MI_CpuFill8(entries, 0, sizeof(entries));
+    writeIndex = 0;
+    readIndex = writeIndex;
 }
 
 void TreasureBox::func_02052438(UnkClass_0203dc7c *scene)
@@ -685,144 +684,82 @@ void TreasureBox::func_020524f0(s32 value)
 // the number of entries waiting in the ring of 8
 int TreasureBox::func_02052534()
 {
-    return (unk_6a39 + 8 - unk_6a38) & 7;
+    return (writeIndex + TREASURE_BOX_NUM_ENTRIES - readIndex) & (TREASURE_BOX_NUM_ENTRIES - 1);
 }
 
-asm void TreasureBox::func_02052550()
+// clears the ring, keeping the current entry while a box is open
+void TreasureBox::func_02052550()
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    add r0, r8, #0x6000
-    ldr r0, [r0, #0xa64]
-    cmp r0, #0
-    beq @L_0205258c
-    add r0, r8, #0x6a00
-    ldrsb r1, [r0, #0x38]
-    add r0, r8, #0x1f8
-    add r0, r0, #0x6800
-    add r2, r0, r1, lsl #3
-    ldrsb r5, [r2, #4]
-    ldrsb r6, [r2, #5]
-    ldrsh r7, [r2, #6]
-    ldr r4, [r0, r1, lsl #3]
-@L_0205258c:
-    add r0, r8, #0x1f8
-    add r0, r0, #0x6800
-    mov r1, #0
-    mov r2, #0x40
-    bl MI_CpuFill8
-    add r0, r8, #0x6000
-    ldr r0, [r0, #0xa64]
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r0, r8, #0x6a00
-    ldrsb r1, [r0, #0x38]
-    add r0, r8, #0x1f8
-    add r0, r0, #0x6800
-    str r4, [r0, r1, lsl #3]!
-    strb r5, [r0, #4]
-    strb r6, [r0, #5]
-    strh r7, [r0, #6]
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    TreasureBoxEntry entry;
+
+    if (unk_6a64 != 0) {
+        entry = entries[readIndex];
+    }
+    MI_CpuFill8(entries, 0, sizeof(entries));
+    if (unk_6a64 == 0) {
+        return;
+    }
+    entries[readIndex] = entry;
 }
 
-asm void TreasureBox::func_020525d4()
+BOOL TreasureBox::func_020525d4()
 {
-    add r0, r0, #0x6000
-    ldr r1, [r0, #0xa64]
-    cmp r1, #0
-    ldrne r0, [r0, #0xa78]
-    cmpne r0, #0
-    movne r0, #1
-    moveq r0, #0
-    bx lr
+    return unk_6a64 != 0 && unk_6a78 != 0;
 }
 
-asm void TreasureBox::func_020525f4()
+void TreasureBox::func_020525f4(s32 value)
 {
-    add r0, r0, #0x6000
-    str r1, [r0, #0xa70]
-    bx lr
+    unk_6a70 = value;
 }
 
-asm void TreasureBox::func_02052600()
+s16 TreasureBox::func_02052600()
 {
-    add r1, r0, #0x6a00
-    ldrsb r1, [r1, #0x38]
-    add r0, r0, r1, lsl #3
-    add r0, r0, #0x6900
-    ldrsh r0, [r0, #0xfe]
-    bx lr
+    return entries[readIndex].unk_06;
 }
 
-asm void TreasureBox::func_02052618()
+void TreasureBox::func_02052618()
 {
-    ldr r12, =func_02060624
-    add r0, r0, #0x8c
-    bx r12
+    func_02060624(unk_8c);
 }
 
-asm void TreasureBox::func_02052628()
+void TreasureBox::func_02052628(int a, int b, int c, int d)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #4
-    mov r8, r0
-    add r0, r8, #0x6000
-    ldr r0, [r0, #0xa64]
-    mov r7, r1
-    mov r6, r2
-    mov r5, r3
-    cmp r0, #0
-    ldr r4, [sp, #0x20]
-    bne @L_02052690
-    cmp r4, #0
-    bne @L_02052664
-    add r0, r8, #0x8c
-    bl func_02060b58
-@L_02052664:
-    cmp r5, #0
-    addeq sp, sp, #4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    add r0, r8, #0x8c
-    str r4, [sp]
-    bl func_02060864
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
-@L_02052690:
-    cmp r4, #0
-    bne @L_020526a0
-    add r0, r8, #0x8c
-    bl func_02060b70
-@L_020526a0:
-    cmp r5, #0
-    addeq sp, sp, #4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    add r0, r8, #0x8c
-    str r4, [sp]
-    bl func_02060938
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    if (unk_6a64 == 0) {
+        if (d == 0) {
+            func_02060b58(unk_8c);
+        }
+        if (c == 0) {
+            return;
+        }
+        func_02060864(unk_8c, a, b, c, d);
+    } else {
+        if (d == 0) {
+            func_02060b70(unk_8c);
+        }
+        if (c == 0) {
+            return;
+        }
+        func_02060938(unk_8c, a, b, c, d);
+    }
 }
 
-asm void TreasureBox::func_020526cc()
+void TreasureBox::func_020526cc(int c)
 {
-    stmdb sp!, {r3, lr}
-    mov r3, r1
-    mov r12, #0
-    mov r1, #2
-    mov r2, #1
-    str r12, [sp]
-    bl func_02052628
-    ldmia sp!, {r3, pc}
+    func_02052628(2, 1, c, 0);
 }
 
-asm void TreasureBox::func_020526ec()
+// (nonmatching: the two calls are laid out in the other order)
+#ifdef NONMATCHING
+void TreasureBox::func_020526ec(int arg, int keep)
+{
+    if (unk_6a64 == 0 || keep != 0) {
+        func_02060b58(unk_8c);
+    } else {
+        func_02060b70(unk_8c);
+    }
+}
+#else
+asm void TreasureBox::func_020526ec(int arg, int keep)
 {
     stmdb sp!, {r3, lr}
     add r3, r0, #0x6000
@@ -840,6 +777,7 @@ asm void TreasureBox::func_020526ec()
     bl func_02060b70
     ldmia sp!, {r3, pc}
 }
+#endif
 
 asm void TreasureBox::func_02052720()
 {
@@ -1294,42 +1232,25 @@ asm void TreasureBox::func_02052d48()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void TreasureBox::func_02052da8()
+void TreasureBox::func_02052da8(s32 top, s32 bottom)
 {
-    add r0, r0, #0x6000
-    str r1, [r0, #0xa40]
-    str r2, [r0, #0xa44]
-    bx lr
+    unk_6a40 = top;
+    unk_6a44 = bottom;
 }
 
-asm void TreasureBox::func_02052db8()
+void TreasureBox::func_02052db8(UnkClass_0203dc7c *scene)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x6000
-    ldr r2, [r0, #0xa40]
-    mov r4, r1
-    cmp r2, #0
-    blt @L_02052de0
-    mov r0, r4
-    mov r1, #0
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-@L_02052de0:
-    add r0, r5, #0x6000
-    ldr r2, [r0, #0xa44]
-    cmp r2, #0
-    ldmltia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    ldmia sp!, {r3, r4, r5, pc}
+    if (unk_6a40 >= 0) {
+        scene->func_0203e04c(0, unk_6a40);
+    }
+    if (unk_6a44 >= 0) {
+        scene->func_0203e04c(1, unk_6a44);
+    }
 }
 
-asm void TreasureBox::func_02052e00()
+void TreasureBox::func_02052e00(s32 value)
 {
-    add r0, r0, #0x6000
-    str r1, [r0, #0xa48]
-    bx lr
+    unk_6a48 = value;
 }
 
 asm void TreasureBox::func_02052e0c()
