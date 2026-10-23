@@ -43,12 +43,12 @@ public:
     void func_02064500();
     void func_020646d4();
     void func_02065178();
-    void func_02065414();
+    void func_02065414(MatchPlayer *player);
     void func_020654cc(MatchPlayer *player, int action, int a, int b, int c, int d);     // (sets the player's action)
     void func_020657a8();
     void func_020658ec();
-    void func_020659f8();
-    void func_02065a04();
+    void func_020659f8(MatchPlayer *player);
+    void func_02065a04(MatchPlayer *player);
     void func_02065a90();
     void func_02065c00();
     void func_02065dec();

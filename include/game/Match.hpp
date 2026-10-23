@@ -40,16 +40,23 @@ struct MatchPlayerBody {
     u16 unk_16;         // flags
     u16 direction;      // 0x18
     u8 unk_1a;          // (the direction as one of 8)
+    u8 unk_1b;
+    u8 unk_1c;
+    u8 unk_1d;
 };
 
 struct MatchPlayerState {
     u8 unk_0[0x1C];
     u16 unk_1c;
-    u8 unk_1e[0x34 - 0x1E];
+    u8 unk_1e[2];
+    u16 unk_20;
+    u8 unk_22[0x34 - 0x22];
     fx32 unk_34[10][2];     // 0x34
     u8 unk_84;
     u8 unk_85;
     s16 unk_86;
+    u8 unk_88;
+    u8 unk_89;
 };
 
 // A player of the match (one of 0x20, see func_ov015_02130ae8)
@@ -60,6 +67,18 @@ struct MatchPlayer {
     u16 unk_f0;                 // flags
     u8 unk_f2[2];
     s16 unk_f4;                 // the team
+};
+
+static inline BOOL MatchPlayer_HasFlag(MatchPlayer *player, u16 flag)
+{
+    return (player->unk_f0 & flag) ? TRUE : FALSE;
+}
+
+// What func_020787e8 gives for a player
+struct MatchPlayerInfo {
+    s16 unk_0;
+    u8 unk_2[6];
+    u8 unk_8;
 };
 
 extern "C" MatchPlayer *func_ov015_02130ae8(int index);     // (the player with that index, or NULL)

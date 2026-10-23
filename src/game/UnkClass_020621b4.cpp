@@ -1,11 +1,11 @@
 #include "game/UnkClass_020621b4.hpp"
 #include "game/Match.hpp"
 
-extern "C" void _ZN17UnkClass_020621b413func_02065414Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02065414EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiiii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020658ecEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020659f8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02065a04Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020659f8EP11MatchPlayer(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02065a04EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02065a90Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02065c00Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02065decEv(void);     // (for the asm functions)
@@ -27,6 +27,10 @@ extern "C" void _ZN17UnkClass_020621b413func_02064500Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_020646d4Ev(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
 extern "C" void *data_020c4648;
+extern "C" void func_0206bf2c(UnkClass_020621b4 *self, MatchPlayer *player);
+extern "C" void func_ov087_0217d69c(UnkClass_020621b4 *self, MatchPlayer *player);
+extern "C" BOOL func_02084870(MatchPlayer *player);
+extern "C" MatchPlayerInfo *func_020787e8(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" char data_020c4824[];
 extern "C" char data_020c4938[];
 extern "C" char data_020c4940[];
@@ -62,7 +66,6 @@ extern "C" void func_0206fe28(void);
 extern "C" void func_0206ffe0(void);
 extern "C" void func_020705f8(void);
 extern "C" void func_020739cc(void);
-extern "C" void func_020787e8(void);
 extern "C" void func_02078fa4(void);
 extern "C" void func_0207903c(void);
 extern "C" MatchPlayer *func_02079d2c(UnkClass_020621b4 *self, int index);
@@ -77,7 +80,6 @@ extern "C" void func_02083afc(void);
 extern "C" void func_020841d8(void);
 extern "C" void func_02084788(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
-extern "C" void func_02084870(void);
 extern "C" void func_0208f294(void);
 extern "C" void func_0208f300(void);
 extern "C" void func_ov001_02127dcc(void);
@@ -188,7 +190,6 @@ extern "C" void func_0206a100(void);
 extern "C" void func_0206a494(void);
 extern "C" void func_0206a720(void);
 extern "C" void func_0206b89c(void);
-extern "C" void func_0206bf2c(void);
 extern "C" void func_0206de34(void);
 extern "C" BOOL func_0207a46c(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" void func_02080aa0(void);
@@ -245,7 +246,6 @@ extern "C" void func_ov015_02142824(void);
 extern "C" void func_ov087_0217cf1c(void);
 extern "C" void func_ov087_0217d034(void);
 extern "C" void func_ov087_0217d158(void);
-extern "C" void func_ov087_0217d69c(void);
 extern "C" void func_ov087_0217dcfc(void);
 extern "C" void func_ov087_0217e878(void);
 extern "C" void func_ov087_02180be0(void);
@@ -1153,7 +1153,7 @@ asm void UnkClass_020621b4::func_02062d74()
     bne @L_02062fbc
     mov r0, r9
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_02065414Ev
+    bl _ZN17UnkClass_020621b413func_02065414EP11MatchPlayer
     add sp, sp, #0x44
     mov r0, r5
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1989,7 +1989,7 @@ asm void UnkClass_020621b4::func_0206371c()
 @L_02063b3c:
     mov r0, r10
     mov r1, r9
-    bl _ZN17UnkClass_020621b413func_02065414Ev
+    bl _ZN17UnkClass_020621b413func_02065414EP11MatchPlayer
     b @L_02063bdc
 @L_02063b4c:
     add r0, sp, #0x20
@@ -3650,56 +3650,18 @@ asm void UnkClass_020621b4::func_02065178()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void UnkClass_020621b4::func_02065414()
+void UnkClass_020621b4::func_02065414(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0xc
-    mov r5, r1
-    mov r6, r0
-    bl func_020787e8
-    mov r4, r0
-    mov r0, r5
-    bl func_02084870
-    cmp r0, #0
-    ldreqsh r0, [r4]
-    cmpeq r0, #0xa
-    bne @L_02065470
-    mov r12, #0
-    str r12, [sp]
-    mov r2, #2
-    str r12, [sp, #4]
-    mov r0, r6
-    mov r1, r5
-    sub r3, r2, #3
-    str r12, [sp, #8]
-    bl _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiiii
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, r5, r6, pc}
-@L_02065470:
-    mov r0, r5
-    bl func_02084870
-    cmp r0, #0
-    ldrnesh r0, [r4]
-    cmpne r0, #0xa
-    beq @L_0206549c
-    mov r0, r6
-    mov r1, r5
-    bl func_ov087_0217d69c
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, r5, r6, pc}
-@L_0206549c:
-    ldrb r1, [r4, #8]
-    ldr r0, [r5, #0xec]
-    mov r2, #1
-    strh r1, [r0, #0x20]
-    ldr r1, [r5, #0xec]
-    ldrb r0, [r1, #0x89]
-    cmp r0, #0x32
-    movhs r2, #0
-    add r0, r0, r2
-    strb r0, [r1, #0x89]
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    MatchPlayerInfo *info = func_020787e8(this, player);
+
+    if (!func_02084870(player) && info->unk_0 == 10) {
+        func_020654cc(player, 2, -1, 0, 0, 0);
+    } else if (func_02084870(player) && info->unk_0 != 10) {
+        func_ov087_0217d69c(this, player);
+    } else {
+        player->state->unk_20 = info->unk_8;
+        player->state->unk_89 = player->state->unk_89 + (player->state->unk_89 < 50 ? 1 : 0);
+    }
 }
 
 asm void UnkClass_020621b4::func_020654cc(MatchPlayer *player, int action, int a, int b, int c, int d)
@@ -3934,7 +3896,7 @@ asm void UnkClass_020621b4::func_020657a8()
     beq @L_0206583c
     mov r0, r5
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_020659f8Ev
+    bl _ZN17UnkClass_020621b413func_020659f8EP11MatchPlayer
 @L_0206583c:
     mov r0, r5
     bl func_01ff9684
@@ -3942,7 +3904,7 @@ asm void UnkClass_020621b4::func_020657a8()
     mov r0, r5
     beq @L_02065860
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_02065a04Ev
+    bl _ZN17UnkClass_020621b413func_02065a04EP11MatchPlayer
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02065860:
@@ -4061,51 +4023,21 @@ asm void UnkClass_020621b4::func_020658ec()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_020621b4::func_020659f8()
+void UnkClass_020621b4::func_020659f8(MatchPlayer *player)
 {
-    ldr r12, =_ZN17UnkClass_020621b413func_02065a04Ev
-    bx r12
+    func_02065a04(player);
 }
 
-asm void UnkClass_020621b4::func_02065a04()
+void UnkClass_020621b4::func_02065a04(MatchPlayer *player)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0xc
-    mov r4, r1
-    mov r5, r0
-    mov r0, r4
-    bl func_02084870
-    cmp r0, #0
-    beq @L_02065a30
-    mov r0, r5
-    mov r1, r4
-    bl func_0206bf2c
-@L_02065a30:
-    ldr r0, [r4, #0xe8]
-    mov r12, #0
-    ldrb r0, [r0, #0x1d]
-    cmp r0, #1
-    str r12, [sp]
-    bne @L_02065a6c
-    mov r2, #0x2b
-    str r12, [sp, #4]
-    mov r0, r5
-    mov r1, r4
-    sub r3, r2, #0x2c
-    str r12, [sp, #8]
-    bl _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiiii
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, pc}
-@L_02065a6c:
-    mov r2, #0x2d
-    str r12, [sp, #4]
-    mov r0, r5
-    mov r1, r4
-    sub r3, r2, #0x2e
-    str r12, [sp, #8]
-    bl _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiiii
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, pc}
+    if (func_02084870(player)) {
+        func_0206bf2c(this, player);
+    }
+    if (player->body->unk_1d == 1) {
+        func_020654cc(player, 43, -1, 0, 0, 0);
+    } else {
+        func_020654cc(player, 45, -1, 0, 0, 0);
+    }
 }
 
 asm void UnkClass_020621b4::func_02065a90()
@@ -4697,40 +4629,16 @@ asm void UnkClass_020621b4::func_02065fa0()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void UnkClass_020621b4::func_02066338()
+void UnkClass_020621b4::func_02066338()
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0xc
-    mov r9, #0
-    mov r4, r0
-    mov r7, r9
-    mov r8, #1
-    mov r6, r9
-    mvn r5, #0
-@L_02066358:
-    mov r0, r9
-    bl func_ov015_02130ae8
-    movs r1, r0
-    beq @L_0206639c
-    ldrh r0, [r1, #0xf0]
-    tst r0, #1
-    movne r0, r8
-    moveq r0, r7
-    cmp r0, #0
-    beq @L_0206639c
-    str r6, [sp]
-    str r6, [sp, #4]
-    mov r0, r4
-    mov r2, r6
-    mov r3, r5
-    str r6, [sp, #8]
-    bl _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiiii
-@L_0206639c:
-    add r9, r9, #1
-    cmp r9, #0x20
-    blt @L_02066358
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
+    int i;
+
+    for (i = 0; i < 0x20; i++) {
+        MatchPlayer *player = func_ov015_02130ae8(i);
+        if (player != NULL && MatchPlayer_HasFlag(player, 1)) {
+            func_020654cc(player, 0, -1, 0, 0, 0);
+        }
+    }
 }
 
 asm void UnkClass_020621b4::func_020663b0()
