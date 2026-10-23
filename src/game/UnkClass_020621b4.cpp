@@ -4,6 +4,7 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkClass_020621b413func_0207af84Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02078c70Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02078f8cEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02078fa4EP11MatchPlayer(void);     // (for the asm functions)
@@ -426,7 +427,6 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
 extern "C" void func_01ffb994(void);
 extern "C" void func_01ffca10(void);
-extern "C" void func_0207af84(void);
 extern "C" void func_02080b1c(void);
 extern "C" void func_02084428(void);
 extern "C" void func_02084900(void);
@@ -12059,7 +12059,7 @@ asm void UnkClass_020621b4::func_0206cfc8()
     beq @L_0206d06c
     mov r0, r7
     mov r1, r9
-    bl func_0207af84
+    bl _ZN17UnkClass_020621b413func_0207af84Ev
     cmp r0, #0
     addeq r6, r6, #1
 @L_0206d06c:

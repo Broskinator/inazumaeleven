@@ -609,6 +609,18 @@ public:
     int func_0207ae40(int a);
     BOOL func_0207aeac(int a);
     BOOL func_0207aec4(int a);
+    void func_0207aedc();
+    void func_0207af84();
+    void func_0207b00c();
+    void func_0207b160();
+    void func_0207b28c();
+    void func_0207b708();
+    void func_0207b780();
+    void func_0207bb9c();
+    void func_0207bdf8();
+    void func_0207bee8();
+    void func_0207bfd0();
+    void func_0207c064();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];
