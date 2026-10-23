@@ -71,6 +71,11 @@ The compiler is Metrowerks CodeWarrior for DSi (`mwccarm` 1.x), C++.
   result is dropped (a `PAD_Read()` whose result is not used in
   `SceneManager::func_0203ef38`); the order of the loads is the order of the reads.
 
+- **Loading through the heap's file manager.** The helper that matches keeps the file
+  manager and the path in locals and returns 0 without a file manager; the path is
+  then loaded before the check, as in the original (`LoadFile` in `TreasureBox.cpp`
+  and `System.cpp`).
+
 ## Register allocation
 
 Registers follow the order in which local variables are declared (and,

@@ -27,7 +27,8 @@ your own copy of the ROM:
       settings reader (`src/data/`), the movie player (`src/movie/`) and the sound
       manager over the sound driver (`src/sound/`: all 68 functions in C++, 63 matching)
       and wireless play over the WM library (`src/wireless/`: 53 of 55 in C++), the scenes'
-      base class and the scene manager with the game's main loop (`src/game/`)
+      base class, the scene manager with the game's main loop and the treasure boxes
+      (`src/game/`), the start-up and the entry point (`src/system/`)
 - [ ] Decompiled to C
 
 ## Building

@@ -298,9 +298,8 @@ asm UnkClass_02054800 * UnkClass_02054800::func_02054800()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_02054800::func_02054854()
+void UnkClass_02054800::func_02054854()
 {
-    bx lr
 }
 
 asm int UnkClass_02054800::func_02054858(u32 keys, u32 arg)
