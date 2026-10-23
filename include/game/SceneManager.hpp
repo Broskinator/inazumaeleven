@@ -82,13 +82,52 @@ struct Scene8 : public UnkClass_0203dc7c {
 
 // (what a scene is started with, in data_020c4ab4)
 struct SceneStartInfo {
-    u8 unk_00[0xBE];
+    s32 unk_00;
+    s32 unk_04;
+    s32 unk_08;
+    s32 unk_0c[2];              // (data_020c4ac0)
+    u8 unk_14;
+    u8 unk_15[0x18];
+    u8 unk_2d[2][0x19];         // (data_020c4ae1)
+    u8 unk_5f;
+    u8 unk_60;
+    u8 unk_61;
+    u8 unk_62;
+    u8 unk_63;
+    s32 unk_64;
+    u8 unk_68;
+    u8 unk_69;
+    u8 unk_6a;
+    u8 unk_6b;
+    u16 unk_6c;
+    u8 unk_6e;
+    u8 unk_6f;
+    u8 unk_70;
+    u8 unk_71;
+    u8 unk_72;
+    u8 unk_73;
+    u8 unk_74;
+    u8 unk_75;
+    u8 unk_76;
+    u8 unk_77;
+    u8 unk_78;
+    u8 unk_79;
+    u16 unk_7a;
+    u16 unk_7c;
+    u8 unk_7e;
+    u8 unk_7f[0x1F];
+    u8 unk_9e;
+    u8 unk_9f[0x1F];
     u8 unk_be;
     u8 unk_bf;
     u8 unk_c0;
     u8 unk_c1_0 : 3;
     u8 unk_c1_3 : 3;
-    u8 unk_c1_6 : 2;
+    u8 unk_c1_6 : 1;
+    u8 unk_c1_7 : 1;
+    u8 unk_c2[2];
+    s32 unk_c4;
+    u8 unk_c8;
 };
 
 // Creates the game's scenes (each a subclass of UnkClass_0203dc7c, its code in an overlay) and switches between them; its state is in data_020c45a0

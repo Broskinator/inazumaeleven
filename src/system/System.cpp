@@ -7,6 +7,11 @@
 #include "nitro/fs.h"
 #include "nitro/mi.h"
 #include "nitro/os.h"
+#include "game/GameState.hpp"
+#include "game/SceneManager.hpp"
+#include "save/SaveManager.hpp"
+#include "text/TextFont.hpp"
+#include "text/TextFont2bpp.hpp"
 
 extern GameHeap data_020c47b4;
 extern FileManager data_020c6364;
@@ -85,6 +90,46 @@ extern "C" void func_01ff9dc4(void *);
 extern "C" void func_01ff9e1c(void *);
 extern "C" u8 data_020e88a0[];
 
+extern "C" void func_01ffd9a0(void *);
+extern "C" void func_01ffb7b8(void *);
+extern "C" void func_0206f7a4(void *);
+extern "C" char data_020ac0e4[];
+extern "C" char data_020ac100[];
+extern "C" char data_020ac120[];
+extern "C" char data_020ac140[];
+extern "C" char data_020ac15c[];
+extern "C" char data_020ac17c[];
+extern "C" char data_020ac19c[];
+extern "C" char data_020ac1bc[];
+extern "C" char data_020ac1d8[];
+extern "C" char data_020ac1f4[];
+extern "C" char data_020ac210[];
+extern "C" char data_020ac22c[];
+extern "C" void *data_020c46a4;
+extern "C" void *data_020c465c;
+extern "C" void *data_020c46ac;
+extern "C" void *data_020c469c;
+extern "C" void *data_020c4664;
+extern "C" void *data_020c4654;
+extern "C" void *data_020c46bc;
+extern "C" u16 data_020c4658[2];         // (= data_020c4638.unk_20)
+extern SceneStartInfo data_020c4ab4;
+extern "C" s32 data_020c4ac0[2];          // (= data_020c4ab4.unk_0c)
+extern "C" u8 data_020c4ae1[];            // (= data_020c4ab4.unk_2d)
+extern SaveManager data_020c4c70;
+extern "C" void func_ov015_02130920(void);
+extern "C" void func_ov015_0213238c(void);
+extern "C" void func_ov015_02131818(int);
+extern "C" void func_ov015_02133efc(const char *name, FontFile *file);
+
+// (files are loaded through the file manager)
+static inline void LoadFile(FileManager *fileManager, const char *name, void **buffer)
+{
+    if (fileManager != NULL) {
+        fileManager->Load(name, buffer, &data_020c47b4, 0, 0, FALSE, 1, TRUE);
+    }
+}
+
 #define OS_ARENA_MAIN 0
 #define OS_IE_V_BLANK 1
 #define HW_DTCM ((u32)data_027e0000)
@@ -104,30 +149,6 @@ extern "C" u8 data_020e88a0[];
 FS_EXTERN_OVERLAY(ov015);
 FS_EXTERN_OVERLAY(ov087);
 
-extern "C" char data_020ac0e4[];
-extern "C" char data_020ac100[];
-extern "C" char data_020ac120[];
-extern "C" char data_020ac140[];
-extern "C" char data_020ac15c[];
-extern "C" char data_020ac17c[];
-extern "C" char data_020ac19c[];
-extern "C" char data_020ac1bc[];
-extern "C" char data_020ac1d8[];
-extern "C" char data_020ac1f4[];
-extern "C" char data_020ac210[];
-extern "C" char data_020ac22c[];
-extern "C" char data_020c4654[];
-extern "C" char data_020c4658[];
-extern "C" char data_020c465c[];
-extern "C" char data_020c4664[];
-extern "C" char data_020c469c[];
-extern "C" char data_020c46a4[];
-extern "C" char data_020c46ac[];
-extern "C" char data_020c46bc[];
-extern "C" char data_020c4ab4[];
-extern "C" char data_020c4ac0[];
-extern "C" char data_020c4ae1[];
-extern "C" char data_020c4c70[];
 extern "C" void _ZN10ConfigFile4LoadEPKc(void);
 extern "C" void _ZN10ConfigFile5ClearEv(void);
 extern "C" void _ZN10ConfigFile5ResetEv(void);
@@ -147,16 +168,8 @@ extern "C" void _ZN8TextFont16SetUseGlyphWidthEh(void);
 extern "C" void _ZN8TextFont7SetFontEPvmh(void);
 extern "C" void _ZN8TextFontC1Ev(void);
 extern "C" void _Znwm(void);
-extern "C" void func_01ffb7b8(void);
-extern "C" void func_01ffd9a0(void);
 extern "C" void func_020065d0(void);
 extern "C" void func_0200713c(void);
-extern "C" void func_0206f7a4(void);
-extern "C" void func_ov015_02130920(void);
-extern "C" void func_ov015_02131818(void);
-extern "C" void func_ov015_0213238c(void);
-extern "C" void func_ov015_02133efc(void);
-extern "C" void gGameState(void);
 
 // (the vblank interrupt)
 void System::func_0203f8ec()
@@ -437,6 +450,29 @@ void System::func_0203ffb4()
     func_01ff9e1c(data_020e88a0);
 }
 
+// loads the files the whole game uses
+// (nonmatching: each file's name is loaded before the file manager is checked)
+#ifdef NONMATCHING
+void System::func_0203ffd4()
+{
+    func_01ffd9a0(data_020e88a0);
+    func_01ffb7b8(data_020e88a0);
+    func_0206f7a4(data_020e88a0);
+    data_020c4638.unk_6c = 0;
+    LoadFile(data_020c4638.fileManager, data_020ac0e4, &data_020c46a4);
+    data_020c4638.unk_24 = 0;
+    data_020c4638.unk_74 = 0;
+    data_020c4638.unk_64 = 0;
+    data_020c4638.unk_2c = 0;
+    data_020c4638.unk_1c = 0;
+    LoadFile(data_020c4638.fileManager, data_020ac100, &data_020c465c);
+    LoadFile(data_020c4638.fileManager, data_020ac120, &data_020c46ac);
+    LoadFile(data_020c4638.fileManager, data_020ac140, &data_020c469c);
+    LoadFile(data_020c4638.fileManager, data_020ac15c, &data_020c4664);
+    LoadFile(data_020c4638.fileManager, data_020ac17c, &data_020c4654);
+    LoadFile(data_020c4638.fileManager, data_020ac19c, &data_020c46bc);
+}
+#else
 asm void System::func_0203ffd4()
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
@@ -551,7 +587,79 @@ asm void System::func_0203ffd4()
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
+#endif
 
+// a new game: clears the game's state
+// (nonmatching: the original keeps a second zero in a register and starts its loops with a jump to the condition)
+#ifdef NONMATCHING
+void System::func_020401bc()
+{
+    int i;
+
+    MI_CpuFill8(&gGameState, 0, 0x128C);
+    gGameState.profile.unk_2D[0x1A] = 1;
+    gGameState.profile.unk_2C = -1;
+    data_020c4638.unk_0a = 0;
+    data_020c4638.unk_00 = 0;
+    data_020c4638.unk_02 = 0;
+    data_020c4638.unk_03 = 0;
+    data_020c4638.unk_04 = 0;
+    data_020c4638.unk_01 = 0;
+    data_020c4638.unk_06 = 1;
+    for (i = 0; i < 2; i++) {
+        data_020c4658[i] = 0;
+    }
+
+    data_020c4ab4.unk_00 = 0;
+    data_020c4ab4.unk_08 = 0;
+    data_020c4ab4.unk_14 = 0;
+    data_020c4638.unk_08 = 1;
+    for (i = 0; i < 2; i++) {
+        data_020c4ac0[i] = 0;
+        data_020c4ae1[i * 0x19] = 0;
+    }
+    data_020c4ab4.unk_04 = 0;
+    data_020c4ab4.unk_60 = 0;
+    data_020c4ab4.unk_61 = 0;
+    data_020c4ab4.unk_62 = 0;
+    data_020c4ab4.unk_5f = 0;
+    data_020c4ab4.unk_63 = 0;
+    data_020c4ab4.unk_64 = 0;
+    data_020c4ab4.unk_68 = 0;
+    data_020c4ab4.unk_6c = 0;
+    data_020c4ab4.unk_75 = 0;
+    data_020c4ab4.unk_76 = 0;
+    data_020c4ab4.unk_77 = 0;
+    data_020c4ab4.unk_78 = 0;
+    data_020c4ab4.unk_79 = 0;
+    data_020c4ab4.unk_69 = 0;
+    data_020c4ab4.unk_6a = 0;
+    data_020c4ab4.unk_6e = 1;
+    data_020c4ab4.unk_6f = 1;
+    data_020c4ab4.unk_70 = 0;
+    data_020c4ab4.unk_71 = 0;
+    data_020c4ab4.unk_72 = 0;
+    data_020c4ab4.unk_73 = 0;
+    data_020c4ab4.unk_74 = 0;
+    data_020c4ab4.unk_7c = 0;
+    data_020c4ab4.unk_7a = 0;
+    data_020c4ab4.unk_7e = 0;
+    data_020c4ab4.unk_9e = 0;
+    data_020c4ab4.unk_be = 0;
+    data_020c4ab4.unk_bf = 0;
+    data_020c4ab4.unk_c0 = 0;
+    data_020c4ab4.unk_c1_0 = 0;
+    data_020c4ab4.unk_c1_3 = 0;
+    data_020c4ab4.unk_c1_6 = 0;
+    data_020c4ab4.unk_c4 = 0;
+    data_020c4ab4.unk_c8 = 0;
+
+    func_ov015_02130920();
+    func_ov015_0213238c();
+    data_020c4638.unk_88 = data_020c4c70.Init();
+    func_ov015_02131818(0);
+}
+#else
 asm void System::func_020401bc()
 {
     stmdb sp!, {r4, r5, r6, lr}
@@ -654,134 +762,41 @@ asm void System::func_020401bc()
     bl func_ov015_02131818
     ldmia sp!, {r4, r5, r6, pc}
 }
+#endif
 
-asm void System::func_02040358()
+// makes the game's fonts
+void System::func_02040358()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #0x30
-    ldr r0, =data_020ac1bc
-    add r1, sp, #0
-    bl func_ov015_02133efc
-    ldr r0, =data_020ac1d8
-    add r1, sp, #0xc
-    bl func_ov015_02133efc
-    ldr r0, =data_020ac1f4
-    add r1, sp, #0x18
-    bl func_ov015_02133efc
-    ldr r0, =data_020ac210
-    add r1, sp, #0x24
-    bl func_ov015_02133efc
-    mov r0, #0x24
-    bl _Znwm
-    cmp r0, #0
-    beq @L_020403a4
-    bl _ZN8TextFontC1Ev
-@L_020403a4:
-    ldr r1, =data_020c4638
-    str r0, [r1, #0x7c]
-    mov r0, #0x24
-    bl _Znwm
-    cmp r0, #0
-    beq @L_020403c0
-    bl _ZN8TextFontC1Ev
-@L_020403c0:
-    ldr r1, =data_020c4638
-    str r0, [r1, #0x68]
-    mov r0, #0x24
-    bl _Znwm
-    cmp r0, #0
-    beq @L_020403dc
-    bl _ZN8TextFontC1Ev
-@L_020403dc:
-    ldr r1, =data_020c4638
-    str r0, [r1, #0x70]
-    mov r0, #0x24
-    bl _Znwm
-    cmp r0, #0
-    beq @L_020403f8
-    bl _ZN12TextFont2bppC1Ev
-@L_020403f8:
-    ldr r4, =data_020c4638
-    mov r5, #0
-    str r0, [r4, #0x34]
-    ldr r0, [r4, #0x7c]
-    ldr r1, [sp]
-    mov r2, r5
-    mov r3, r5
-    bl _ZN8TextFont7SetFontEPvmh
-    ldr r0, [r4, #0x68]
-    ldr r1, [sp, #0xc]
-    mov r2, r5
-    mov r3, r5
-    bl _ZN8TextFont7SetFontEPvmh
-    ldr r0, [r4, #0x70]
-    ldr r1, [sp, #0x18]
-    mov r2, r5
-    mov r3, r5
-    bl _ZN8TextFont7SetFontEPvmh
-    ldr r0, [r4, #0x34]
-    ldr r1, [sp, #0x24]
-    mov r2, r5
-    mov r3, r5
-    bl _ZN8TextFont7SetFontEPvmh
-    ldr r0, [r4, #0x7c]
-    mov r5, #1
-    mov r1, r5
-    bl _ZN8TextFont16SetUseGlyphWidthEh
-    ldr r0, [r4, #0x68]
-    mov r1, r5
-    bl _ZN8TextFont16SetUseGlyphWidthEh
-    ldr r0, [r4, #0x70]
-    mov r1, r5
-    bl _ZN8TextFont16SetUseGlyphWidthEh
-    mov r1, r5
-    ldr r0, [r4, #0x34]
-    bl _ZN8TextFont16SetUseGlyphWidthEh
-    ldr r0, =data_020c46e4
-    ldr r1, =data_020ac22c
-    bl _ZN10ConfigFile6GetIntEPKc
-    strh r0, [r4, #0xc]
-    add sp, sp, #0x30
-    ldmia sp!, {r3, r4, r5, pc}
+    FontFile files[4];
+
+    func_ov015_02133efc(data_020ac1bc, &files[0]);
+    func_ov015_02133efc(data_020ac1d8, &files[1]);
+    func_ov015_02133efc(data_020ac1f4, &files[2]);
+    func_ov015_02133efc(data_020ac210, &files[3]);
+    data_020c4638.font0 = new TextFont;
+    data_020c4638.font1 = new TextFont;
+    data_020c4638.font2 = new TextFont;
+    data_020c4638.font2bpp = new TextFont2bpp;
+    data_020c4638.font0->SetFont(files[0].data, 0, 0);
+    data_020c4638.font1->SetFont(files[1].data, 0, 0);
+    data_020c4638.font2->SetFont(files[2].data, 0, 0);
+    data_020c4638.font2bpp->SetFont(files[3].data, 0, 0);
+    data_020c4638.font0->SetUseGlyphWidth(TRUE);
+    data_020c4638.font1->SetUseGlyphWidth(TRUE);
+    data_020c4638.font2->SetUseGlyphWidth(TRUE);
+    data_020c4638.font2bpp->SetUseGlyphWidth(TRUE);
+    data_020c4638.unk_0c = data_020c46e4.GetInt(data_020ac22c);
 }
 
-asm void System::func_020404bc()
+// starts the sound and waits until it is ready
+void System::func_020404bc()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r5, =data_020c5e40
-    ldr r1, =data_020c47b4
-    mov r0, r5
-    bl _ZN12SoundManager4InitEP8GameHeap
-    mov r2, #0
-    mov r0, r5
-    mov r3, r2
-    mov r1, #2
-    bl _ZN12SoundManager8SetSceneEiii
-    mov r0, r5
-    bl _ZN12SoundManager6IsIdleEv
-    cmp r0, #0
-    bne @L_02040510
-    mov r4, #0x14
-@L_020404f8:
-    mov r0, r4
-    bl OS_Sleep
-    mov r0, r5
-    bl _ZN12SoundManager6IsIdleEv
-    cmp r0, #0
-    beq @L_020404f8
-@L_02040510:
-    ldr r5, =data_020c5e40
-    mov r0, r5
-    bl _ZN12SoundManager13AreBanksReadyEv
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r4, #0x14
-@L_02040528:
-    mov r0, r4
-    bl OS_Sleep
-    mov r0, r5
-    bl _ZN12SoundManager13AreBanksReadyEv
-    cmp r0, #0
-    beq @L_02040528
-    ldmia sp!, {r3, r4, r5, pc}
+    data_020c5e40.Init(&data_020c47b4);
+    data_020c5e40.SetScene(2, 0, 0);
+    while (!data_020c5e40.IsIdle()) {
+        OS_Sleep(20);
+    }
+    while (!data_020c5e40.AreBanksReady()) {
+        OS_Sleep(20);
+    }
 }
