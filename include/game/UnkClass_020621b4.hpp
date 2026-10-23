@@ -28,10 +28,10 @@ public:
     BOOL func_02063388(s16 team, fx32 x, fx32 y);
     BOOL func_0206340c(int value);
     void func_02063430();
-    void func_02063480();
-    void func_020634e8();
-    void func_02063550();
-    void func_020636b8();
+    BOOL func_02063480(MatchPlayer *player, fx32 *pos);
+    void func_020634e8(int index, int a, int b);
+    void func_02063550(MatchPlayer *player, int a, int b, int c, int d);
+    BOOL func_020636b8(MatchPlayer *player);
     void func_0206371c();
     void func_02063c14();
     u16 func_02063e4c(fx32 x, fx32 y);
@@ -55,7 +55,7 @@ public:
     void func_02065fa0();
     void func_02066338();
     void func_020663b0();
-    void func_02066504();
+    void func_02066504(int flags, int a, int b);
     void func_020665a4();
     void func_02066768();
 
@@ -65,7 +65,9 @@ public:
     u8 unk_ac[0xB7C - 0xAC];
     s32 unk_b7c;
     s32 unk_b80;
-    u8 unk_b84[0xBB0 - 0xB84];
+    u8 unk_b84[0xB98 - 0xB84];
+    s32 unk_b98;
+    u8 unk_b9c[0xBB0 - 0xB9C];
     u16 unk_bb0;
     u8 unk_bb2;
     u8 unk_bb3;
@@ -82,7 +84,8 @@ public:
     s32 unk_117e4[2];
     u8 unk_117ec[0x118DD - 0x117EC];
     u8 unk_118dd;
-    u8 unk_118de[0x118F5 - 0x118DE];
+    u8 unk_118de;
+    u8 unk_118df[0x118F5 - 0x118DF];
     u8 unk_118f5;
     u8 unk_118f6[0x118FC - 0x118F6];
     s32 unk_118fc;

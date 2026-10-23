@@ -79,7 +79,14 @@ struct MatchPlayerInfo {
     s16 unk_0;
     u8 unk_2[6];
     u8 unk_8;
+    u8 unk_9[0x10 - 0x9];
+    u16 unk_10;         // flags
 };
+
+static inline BOOL MatchPlayerInfo_HasFlag(MatchPlayerInfo *info, int flag)
+{
+    return info->unk_10 & flag;
+}
 
 extern "C" MatchPlayer *func_ov015_02130ae8(int index);     // (the player with that index, or NULL)
 
