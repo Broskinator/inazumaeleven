@@ -4,7 +4,7 @@
 #include "nitro/types.h"
 #include "nitro/fx.h"
 
-struct MatchPlayer;
+#include "game/Match.hpp"
 
 // The object at data_020e88a0 (0x11920+ bytes, made by the static constructors): the match's data
 class UnkClass_020621b4 {
@@ -44,15 +44,15 @@ public:
     void func_020646d4();
     void func_02065178();
     void func_02065414(MatchPlayer *player);
-    void func_020654cc(MatchPlayer *player, int action, int a, int b, int c, int d);     // (sets the player's action)
-    void func_020657a8();
-    void func_020658ec();
+    void func_020654cc(MatchPlayer *player, int action, int a, MatchPoint *b, MatchPoint *c, int d);     // (sets the player's action)
+    void func_020657a8(MatchPlayer *player);
+    void func_020658ec(MatchPlayer *player);
     void func_020659f8(MatchPlayer *player);
     void func_02065a04(MatchPlayer *player);
     void func_02065a90();
     void func_02065c00();
     void func_02065dec();
-    void func_02065fa0();
+    void func_02065fa0(MatchPlayer *player);
     void func_02066338();
     void func_020663b0();
     void func_02066504(int flags, int a, int b);
@@ -82,7 +82,9 @@ public:
     u8 unk_117d5;
     u8 unk_117d6[0x117E4 - 0x117D6];
     s32 unk_117e4[2];
-    u8 unk_117ec[0x118DD - 0x117EC];
+    u8 unk_117ec[0x11899 - 0x117EC];
+    u8 unk_11899;
+    u8 unk_1189a[0x118DD - 0x1189A];
     u8 unk_118dd;
     u8 unk_118de;
     u8 unk_118df[0x118F5 - 0x118DF];

@@ -83,7 +83,9 @@ struct MatchPlayerState {
 
 // A player of the match (one of 0x20, see func_ov015_02130ae8)
 struct MatchPlayer {
-    u8 unk_0[0xE8];
+    u8 unk_0[0x42];
+    u16 unk_42;
+    u8 unk_44[0xE8 - 0x44];
     MatchPlayerBody *body;      // 0xE8
     MatchPlayerState *state;    // 0xEC
     u16 unk_f0;                 // flags
@@ -109,6 +111,16 @@ static inline BOOL MatchPlayerInfo_HasFlag(MatchPlayerInfo *info, int flag)
 {
     return info->unk_10 & flag;
 }
+
+// A player's next action, as func_02080288 gives it
+struct MatchAction {
+    u8 unk_0[8];
+    MatchPoint unk_8;
+    MatchPoint unk_10;
+    u8 unk_18[0x1C - 0x18];
+    u16 action;         // 0x1C (0: none)
+    s8 unk_1e;
+};
 
 extern "C" MatchPlayer *func_ov015_02130ae8(int index);     // (the player with that index, or NULL)
 
