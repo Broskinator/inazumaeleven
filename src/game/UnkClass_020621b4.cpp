@@ -4,6 +4,9 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkClass_020621b413func_02074424Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020744d4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02074a18Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_0207076cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_020707e4Ev(void);     // (for the asm functions)
@@ -196,7 +199,6 @@ extern "C" char data_020aec84[];
 extern "C" void *data_020c4648;
 extern "C" u8 data_020c4eec[][0x10];
 extern "C" u8 data_020c4f0c[][0x10];
-extern "C" void func_0207577c(UnkClass_020621b4 *self, int n);
 extern "C" int func_0207620c(UnkClass_020621b4 *self);
 extern "C" MatchPlayer *func_02079e90(UnkClass_020621b4 *self, int team, int i);
 extern "C" int func_02080be4(MatchPlayer *player);
@@ -348,7 +350,6 @@ extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
 extern "C" void func_01ffec94(void);
 extern "C" void func_01ffed20(void);
-extern "C" void func_020744d4(void);
 extern "C" void func_02078f8c(void);
 extern "C" void func_0207a144(void);
 extern "C" void func_0207f3b8(void);
@@ -371,7 +372,6 @@ extern "C" void func_01ffe75c(void);
 extern "C" void func_01ffe898(void);
 extern "C" void func_01ffecec(void);
 extern "C" void func_01fff170(void);
-extern "C" void func_02074424(void);
 extern "C" void func_02083e24(void);
 extern "C" void func_02083e94(void);
 extern "C" void func_020841e8(void);
@@ -426,7 +426,6 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
 extern "C" void func_01ffb994(void);
 extern "C" void func_01ffca10(void);
-extern "C" void func_02074a18(void);
 extern "C" void func_0207af84(void);
 extern "C" void func_02080b1c(void);
 extern "C" void func_02084428(void);
@@ -5103,7 +5102,7 @@ asm void UnkClass_020621b4::func_02066768()
     beq @L_02066914
     mov r0, r10
     mov r1, r9
-    bl func_020744d4
+    bl _ZN17UnkClass_020621b413func_020744d4Ev
     cmp r0, #0
     beq @L_02066914
     ldr r1, [r9, #0xe8]
@@ -5923,7 +5922,7 @@ asm void UnkClass_020621b4::func_020674f8()
     mov r1, r5
     mov r2, #0
     mov r3, #1
-    bl func_02074424
+    bl _ZN17UnkClass_020621b413func_02074424Ev
     cmp r0, #0
     beq @L_020677a0
 @L_02067620:
@@ -11643,7 +11642,7 @@ void UnkClass_020621b4::func_0206caa4()
     if (n == 0) {
         return;
     }
-    func_0207577c(this, n);
+    func_0207577c(n);
 }
 
 asm void UnkClass_020621b4::func_0206cad4()
@@ -11691,7 +11690,7 @@ asm void UnkClass_020621b4::func_0206cad4()
     ldrsh r7, [r4, #0x96]
     mov r0, r6
     mov r1, r4
-    bl func_02074a18
+    bl _ZN17UnkClass_020621b413func_02074a18Ev
     sub r0, r7, r0
     mov r1, r0, lsl #0x10
     mov r0, r4
@@ -11755,7 +11754,7 @@ asm void UnkClass_020621b4::func_0206cbbc()
     ldrsh r7, [r4, #0x96]
     mov r0, r6
     mov r1, r4
-    bl func_02074a18
+    bl _ZN17UnkClass_020621b413func_02074a18Ev
     sub r0, r7, r0
     mov r1, r0, lsl #0x10
     mov r0, r4
