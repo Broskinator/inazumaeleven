@@ -1,24 +1,24 @@
 #include "game/Unk_02081740.hpp"
+#include "nitro/mi.h"
 
 extern "C" void func_02081740(void);
-extern "C" void func_020817bc(void);
+extern "C" BOOL func_020817bc(u8 *bits, int i);
 extern "C" void func_020817f0(void);
-extern "C" void func_02081894(void);
+extern "C" BOOL func_02081894(u8 *bits, int i);
 extern "C" void func_020818c8(void);
 extern "C" void func_020819ac(void);
-extern "C" void func_02081a6c(void);
-extern "C" void func_02081aa0(void);
-extern "C" void func_02081ac0(void);
-extern "C" void func_02081ae4(void);
-extern "C" void func_02081b04(void);
-extern "C" void func_02081b24(void);
-extern "C" void func_02081b44(void);
+extern "C" BOOL func_02081a6c(u8 *bits, int i);
+extern "C" void func_02081aa0(u8 *data, int i);
+extern "C" void func_02081ac0(u8 *data, int i);
+extern "C" void func_02081ae4(u8 *data, int i);
+extern "C" void func_02081b04(u8 *data, int i);
+extern "C" void func_02081b24(u8 *data, int i, int delta);
+extern "C" void func_02081b44(u8 *data);
 extern "C" void func_02081b70(void);
 
 extern "C" char data_020cadf4[];
 extern "C" char data_020caf20[];
 extern "C" char data_020e88a0[];
-extern "C" void MI_CpuCopy8(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206ea68Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a534Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
@@ -56,23 +56,18 @@ extern "C" asm void func_02081740(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_020817bc(void)
+extern "C" BOOL func_020817bc(u8 *bits, int i)
 {
-    cmp r1, #0
-    and r2, r1, #7
-    mov r3, #1
-    blt @L_020817d4
-    cmp r1, #0x960
-    bls @L_020817dc
-@L_020817d4:
-    mov r0, #0
-    bx lr
-@L_020817dc:
-    ldrb r0, [r0, r1, asr #3]
-    tst r0, r3, lsl r2
-    moveq r3, #0
-    mov r0, r3
-    bx lr
+    int bit = i & 7;
+    BOOL result = TRUE;
+
+    if (i < 0 || (u32)i > 0x960) {
+        return FALSE;
+    }
+    if (!(bits[i >> 3] & (result << bit))) {
+        result = FALSE;
+    }
+    return result;
 }
 
 extern "C" asm void func_020817f0(void)
@@ -118,23 +113,18 @@ extern "C" asm void func_020817f0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02081894(void)
+extern "C" BOOL func_02081894(u8 *bits, int i)
 {
-    cmp r1, #0
-    and r2, r1, #7
-    mov r3, #1
-    blt @L_020818ac
-    cmp r1, #0x960
-    bls @L_020818b4
-@L_020818ac:
-    mov r0, #0
-    bx lr
-@L_020818b4:
-    ldrb r0, [r0, r1, asr #3]
-    tst r0, r3, lsl r2
-    moveq r3, #0
-    mov r0, r3
-    bx lr
+    int bit = i & 7;
+    BOOL result = TRUE;
+
+    if (i < 0 || (u32)i > 0x960) {
+        return FALSE;
+    }
+    if (!(bits[i >> 3] & (result << bit))) {
+        result = FALSE;
+    }
+    return result;
 }
 
 extern "C" asm void func_020818c8(void)
@@ -252,99 +242,84 @@ extern "C" asm void func_020819ac(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_02081a6c(void)
+extern "C" BOOL func_02081a6c(u8 *bits, int i)
 {
-    cmp r1, #0
-    and r2, r1, #7
-    mov r3, #1
-    blt @L_02081a84
-    cmp r1, #0x960
-    bls @L_02081a8c
-@L_02081a84:
-    mov r0, #0
-    bx lr
-@L_02081a8c:
-    ldrb r0, [r0, r1, asr #3]
-    tst r0, r3, lsl r2
-    moveq r3, #0
-    mov r0, r3
-    bx lr
+    int bit = i & 7;
+    BOOL result = TRUE;
+
+    if (i < 0 || (u32)i > 0x960) {
+        return FALSE;
+    }
+    if (!(bits[i >> 3] & (result << bit))) {
+        result = FALSE;
+    }
+    return result;
 }
 
-extern "C" asm void func_02081aa0(void)
+extern "C" void func_02081aa0(u8 *data, int i)
 {
-    add r2, r0, #0x12c
-    ldrb r0, [r2, r1]
-    cmp r0, #0xff
-    bxhs lr
-    cmp r1, #0xa
-    addle r0, r0, #1
-    strleb r0, [r2, r1]
-    bx lr
+    u8 *counts = data + 0x12C;
+
+    if (counts[i] >= 255) {
+        return;
+    }
+    if (i <= 10) {
+        counts[i]++;
+    }
 }
 
-extern "C" asm void func_02081ac0(void)
+extern "C" void func_02081ac0(u8 *data, int i)
 {
-    add r0, r0, #0x36
-    add r2, r0, #0x100
-    ldrb r0, [r2, r1]
-    cmp r0, #0xff
-    bxhs lr
-    cmp r1, #0x32
-    addlt r0, r0, #1
-    strltb r0, [r2, r1]
-    bx lr
+    u8 *counts = data + 0x136;
+
+    if (counts[i] >= 255) {
+        return;
+    }
+    if (i < 50) {
+        counts[i]++;
+    }
 }
 
-extern "C" asm void func_02081ae4(void)
+extern "C" void func_02081ae4(u8 *data, int i)
 {
-    add r2, r0, #0x12c
-    ldrb r0, [r2, r1]
-    cmp r0, #0
-    bxeq lr
-    cmp r1, #0xa
-    suble r0, r0, #1
-    strleb r0, [r2, r1]
-    bx lr
+    u8 *counts = data + 0x12C;
+
+    if (counts[i] == 0) {
+        return;
+    }
+    if (i <= 10) {
+        counts[i]--;
+    }
 }
 
-extern "C" asm void func_02081b04(void)
+extern "C" void func_02081b04(u8 *data, int i)
 {
-    add r0, r0, #0x36
-    add r2, r0, #0x100
-    ldrb r0, [r2, r1]
-    cmp r0, #0
-    cmpne r1, #0x32
-    sublt r0, r0, #1
-    strltb r0, [r2, r1]
-    bx lr
+    u8 *counts = data + 0x136;
+
+    if (counts[i] != 0 && i < 50) {
+        counts[i]--;
+    }
 }
 
-extern "C" asm void func_02081b24(void)
+extern "C" void func_02081b24(u8 *data, int i, int delta)
 {
-    add r3, r0, #8
-    ldrb r0, [r3, r1]
-    adds r0, r2, r0
-    movmi r0, #0
-    cmp r0, #0xff
-    movgt r0, #0xff
-    strb r0, [r3, r1]
-    bx lr
+    u8 *values = data + 8;
+    int value = delta + values[i];
+
+    if (value < 0) {
+        value = 0;
+    }
+    if (value > 255) {
+        value = 255;
+    }
+    values[i] = value;
 }
 
-extern "C" asm void func_02081b44(void)
+extern "C" void func_02081b44(u8 *data)
 {
-    stmdb sp!, {r3, lr}
-    mov lr, r0
-    ldrh r12, [lr, #4]
-    ldrh r3, [lr, #6]
-    add r0, lr, #0xf
-    add r1, lr, #8
-    mov r2, #7
-    strh r12, [lr]
-    strh r3, [lr, #2]
-    bl MI_CpuCopy8
-    ldmia sp!, {r3, pc}
+    *(u16 *)(data + 0) = *(u16 *)(data + 4);
+    *(u16 *)(data + 2) = *(u16 *)(data + 6);
+    MI_CpuCopy8(data + 0xF, data + 8, 7);
 }
 
 extern "C" asm void func_02081b70(void)
