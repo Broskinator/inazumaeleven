@@ -43,6 +43,21 @@ public:
     void func_02064500();
     void func_020646d4();
     void func_02065178();
+    void func_02065414();
+    void func_020654cc(MatchPlayer *player, int action, int a, int b, int c, int d);     // (sets the player's action)
+    void func_020657a8();
+    void func_020658ec();
+    void func_020659f8();
+    void func_02065a04();
+    void func_02065a90();
+    void func_02065c00();
+    void func_02065dec();
+    void func_02065fa0();
+    void func_02066338();
+    void func_020663b0();
+    void func_02066504();
+    void func_020665a4();
+    void func_02066768();
 
     void *vtable;
     u8 unk_4[0x9C - 0x4];

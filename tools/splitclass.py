@@ -72,11 +72,13 @@ if extend:
     # not declared again)
     known = head
     todo = re.findall(r'^#include "([^"]+)"', head, re.M)
+    seen = set()
     while todo:
         inc = todo.pop()
-        if os.path.exists(f"include/{inc}") and inc not in known:
+        if os.path.exists(f"include/{inc}") and inc not in seen:
+            seen.add(inc)
             text = open(f"include/{inc}").read()
-            known += "\n" + inc + "\n" + text
+            known += "\n" + text
             todo += re.findall(r'^#include "([^"]+)"', text, re.M)
     for d in sorted(decls):
         name = re.search(r" \*?(\w+)[\(\[]", d).group(1)
