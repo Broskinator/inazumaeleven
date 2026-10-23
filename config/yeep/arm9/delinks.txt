@@ -432,3 +432,7 @@ src/system/GameMain.cpp:
 
 libs/SoundDriver/driver.c:
     .text start:0x020406d8 end:0x02051ba0
+
+src/game/TreasureBox.cpp:
+    complete
+    .text start:0x02051ba0 end:0x02052378

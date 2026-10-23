@@ -3,6 +3,7 @@
 #include "sound/SoundManager.hpp"
 #include "movie/MoviePlayer.hpp"
 #include "game/GameState.hpp"
+#include "game/TreasureBox.hpp"
 #include "data/EntryPool.hpp"
 #include "save/SaveManager.hpp"
 #include "data/ConfigFile.hpp"
@@ -136,8 +137,6 @@ extern "C" void func_ov015_02133efc(void *, void **);
 extern "C" void func_ov015_021322b0(void *, int, int);
 extern "C" u8 data_020c4a40[];
 extern "C" void func_ov015_02148f94(void);
-extern "C" u8 data_020d9978[];
-extern "C" void func_02051c54(void);
 extern "C" void func_01ff9ea4(void *);
 extern "C" TPData data_020c45c0;          // (= data_020c45a0.touch)
 
@@ -1531,8 +1530,8 @@ void SceneManager::func_0203f500()
     }
     data_020c45a0.objects[0] = (UnkObject *)data_020c4a40;
     func_ov015_02148f94();
-    data_020c45a0.objects[1] = (UnkObject *)data_020d9978;
-    func_02051c54();
+    data_020c45a0.objects[1] = (UnkObject *)&data_020d9978;
+    data_020d9978.func_02051c54();
     func_0203eba4();
     gEntryPool.Init();
     func_01ff9ea4(data_020e88a0);
