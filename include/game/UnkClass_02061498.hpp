@@ -61,7 +61,7 @@ public:
     void func_02061a2c(VecFx32 *pos);
     fx32 func_02061a84(UnkObject_02061498 *obj);
     void func_02061aa4(UnkObject_02061498 *obj);
-    void func_02061ab8();
+    void func_02061ab8(UnkObject_02061498 *obj, fx32 x, fx32 y);
     void func_02061bac(UnkObject_02061498 *obj);
     void func_02061bc0();
     void func_02061dc4(UnkObject_02061498 *obj, fx32 x, fx32 y, fx32 z);

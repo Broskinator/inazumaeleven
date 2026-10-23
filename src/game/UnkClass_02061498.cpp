@@ -19,7 +19,7 @@ extern "C" void func_02083afc(void);
 extern "C" void func_0208413c(void);
 extern "C" void func_02084350(void);
 extern "C" void func_0208454c(void);
-extern "C" void func_02084808(void);
+extern "C" BOOL func_02084808(fx32 x, fx32 y, fx32 *rect);    // (is (x, y) in the rectangle?)
 extern "C" void func_ov015_02131704(void);
 extern "C" void func_ov015_0213a818(void);
 extern "C" void func_ov015_02142de8(void);
@@ -459,7 +459,30 @@ void UnkClass_02061498::func_02061aa4(UnkObject_02061498 *obj)
     obj->unk_44 += unk_8;
 }
 
-asm void UnkClass_02061498::func_02061ab8()
+// applies the vertical speed to the height; inside either rectangle of the area, the
+// height can't cross the line (data_020f98a0 + 0x7EC)
+void // (nonmatching: register allocation differs)
+#ifdef NONMATCHING
+UnkClass_02061498::func_02061ab8(UnkObject_02061498 *obj, fx32 x, fx32 y)
+{
+    fx32 speed = obj->unk_44;
+    fx32 line = *(fx32 *)(data_020f98a0 + 0x7EC);
+    s32 prev;
+
+    prev = obj->unk_30;
+    obj->unk_30 = obj->unk_40 + (FX_Mul(obj->unk_3c, speed) - FX_Mul(FX_Mul(speed, speed), 0x4E66));
+    if (!func_02084808(x, y, area->unk_ec) && !func_02084808(x, y, area->unk_fc)) {
+        return;
+    }
+    if (prev <= line && obj->unk_30 > line) {
+        obj->unk_30 = line - 1;
+    }
+    if (prev >= line && obj->unk_30 < line) {
+        obj->unk_30 = line + 1;
+    }
+}
+#else
+asm UnkClass_02061498::func_02061ab8(UnkObject_02061498 *obj, fx32 x, fx32 y)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r1
@@ -523,6 +546,7 @@ asm void UnkClass_02061498::func_02061ab8()
     strlt r0, [r7, #0x30]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
+#endif
 
 void UnkClass_02061498::func_02061bac(UnkObject_02061498 *obj)
 {
