@@ -387,6 +387,26 @@ public:
     void func_020706b4();
     void func_0207070c();
     s32 func_02070760();
+    void func_020725ac();
+    void func_020728e0();
+    void func_02072914();
+    void func_02072a5c();
+    void func_02072bb8();
+    void func_02072fe8();
+    void func_02073094();
+    void func_020730dc();
+    void func_020731c4();
+    void func_020732b0();
+    void func_020733d4();
+    void func_020738e4();
+    void func_020739a8();
+    int func_020739cc(int a);
+    void func_020739e4();
+    void func_02073a20();
+    void func_02073a9c();
+    void func_02073df8();
+    void func_02073e3c();
+    void func_02073fa0();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];

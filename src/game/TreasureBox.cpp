@@ -3,6 +3,7 @@
 #include "file/FileManager.hpp"
 #include "nitro/mi.h"
 
+extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206dedcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
@@ -135,7 +136,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_020739cc(void);
 extern "C" void func_0207620c(void);
 extern "C" void func_020765d4(void);
 extern "C" void func_020767a4(void);
@@ -2865,11 +2865,11 @@ asm void TreasureBox::func_02054620()
     bne @L_0205470c
     ldrsh r1, [r7]
     mov r0, r6
-    bl func_020739cc
+    bl _ZN17UnkClass_020621b413func_020739ccEi
     mov r5, r0
     ldrsh r1, [r7, #2]
     mov r0, r6
-    bl func_020739cc
+    bl _ZN17UnkClass_020621b413func_020739ccEi
     cmp r5, #0
     beq @L_020546dc
     ldrb r1, [r5]
@@ -2899,7 +2899,7 @@ asm void TreasureBox::func_02054620()
     cmpne r1, #0
     beq @L_0205474c
     mov r0, r6
-    bl func_020739cc
+    bl _ZN17UnkClass_020621b413func_020739ccEi
     cmp r0, #0
     beq @L_0205474c
     ldrb r0, [r0]
