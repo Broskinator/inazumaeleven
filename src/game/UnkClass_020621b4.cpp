@@ -4,6 +4,32 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void _ZN17UnkClass_020621b413func_0206b3fcEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b4a8Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206bfa0Eh(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206bfb4Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206bff4Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206c644Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206ceb4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206d094Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206d114Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206d188Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206d358Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206d690Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206d9a0Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206de18Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206de34Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206de54Eii(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206dedcEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206deecEv(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206df08Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206df68Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206e100Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206e1c4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206e330Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206e3a8Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206e50cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiP10MatchPointS3_i(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206707cEii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02068548Eii(void);     // (for the asm functions)
@@ -160,9 +186,7 @@ extern "C" int func_02084470(void *obj, int a);
 extern "C" void func_0207f634(UnkClass_020621b4 *self, void *buffer, int n, int a, int b);
 extern "C" int func_02078bc0(UnkClass_020621b4 *self, MatchPlayer *player, void *buffer, int a, int b, int c);
 extern "C" void func_ov015_021319b0(MatchPlayer *player);
-extern "C" BOOL func_0206dedc(UnkClass_020621b4 *self);
 extern "C" BOOL func_02084958(fx32 *pos, fx32 *rect);     // (is the position in the rectangle?)
-extern "C" BOOL func_0206de54(UnkClass_020621b4 *self, int a, int b);
 extern "C" fx32 func_01ffe4b4(UnkClass_020621b4 *self, int a, int b);
 extern "C" UnkArea_02061498 data_020c4de0;     // (the field)
 extern "C" fx32 data_020c4ebc[];
@@ -292,7 +316,6 @@ void UnkClass_020621b4::func_020622b0()
 extern "C" char data_020c4efc[];
 extern "C" void func_01fff198(void);
 extern "C" void func_02001d80(void);
-extern "C" void func_0206de34(void);
 extern "C" BOOL func_0207a46c(UnkClass_020621b4 *self, MatchPlayer *player);
 extern "C" void func_02080aa0(void);
 extern "C" int func_02083e34(MatchPlayer *player);
@@ -303,7 +326,6 @@ extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
 extern "C" void func_01ffec94(void);
 extern "C" void func_01ffed20(void);
-extern "C" void func_0206d9a0(void);
 extern "C" void func_0206ee34(void);
 extern "C" void func_0206f09c(void);
 extern "C" void func_0206f178(void);
@@ -335,7 +357,6 @@ extern "C" void func_01ffe75c(void);
 extern "C" void func_01ffe898(void);
 extern "C" void func_01ffecec(void);
 extern "C" void func_01fff170(void);
-extern "C" void func_0206e1c4(void);
 extern "C" void func_02074424(void);
 extern "C" void func_02083e24(void);
 extern "C" void func_02083e94(void);
@@ -358,8 +379,6 @@ extern "C" char data_020c46e4[];
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void func_01fff06c(void);
 extern "C" void func_02018328(void);
-extern "C" void func_0206deec(void);
-extern "C" void func_0206df08(void);
 extern "C" void func_0206f058(void);
 extern "C" void func_02078c70(void);
 extern "C" void func_0207a394(void);
@@ -394,10 +413,6 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
 extern "C" void func_01ffb994(void);
 extern "C" void func_01ffca10(void);
-extern "C" void func_0206d188(void);
-extern "C" void func_0206d358(void);
-extern "C" void func_0206d690(void);
-extern "C" void func_0206df68(void);
 extern "C" void func_02074a18(void);
 extern "C" void func_0207af84(void);
 extern "C" void func_02080b1c(void);
@@ -406,6 +421,67 @@ extern "C" void func_02084900(void);
 extern "C" void func_0209e220(void);
 extern "C" void func_ov001_02128144(void);
 extern "C" void func_ov087_02182248(void);
+extern "C" char data_020a43f8[];
+extern "C" char data_020a71c8[];
+extern "C" char data_020af1a0[];
+extern "C" char data_020af1bc[];
+extern "C" char data_020af1d8[];
+extern "C" char data_020af1f4[];
+extern "C" char data_020c4ab4[];
+extern "C" char data_020cabf8[];
+extern "C" char data_020cacc8[];
+extern "C" char data_020cadf4[];
+extern "C" char data_020cb0a0[];
+extern "C" char data_020cb288[];
+extern "C" void STD_GetStringLength(void);
+extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" void _ZN9EntryPool9RemoveAllEv(void);
+extern "C" void func_01ffde48(void);
+extern "C" void func_0200878c(void);
+extern "C" void func_02021adc(void);
+extern "C" void func_02021f44(void);
+extern "C" void func_02022400(void);
+extern "C" void func_020224cc(void);
+extern "C" void func_02022948(void);
+extern "C" void func_02022bac(void);
+extern "C" void func_02023890(void);
+extern "C" void func_0206eea8(void);
+extern "C" void func_0206eebc(void);
+extern "C" void func_0206eed0(void);
+extern "C" void func_0206eee4(void);
+extern "C" void func_0206ef20(void);
+extern "C" void func_0206ef88(void);
+extern "C" void func_0206ef9c(void);
+extern "C" void func_0206efb0(void);
+extern "C" void func_0206efb8(void);
+extern "C" void func_02070760(void);
+extern "C" void func_0207076c(void);
+extern "C" void func_020707e4(void);
+extern "C" void func_02070d64(void);
+extern "C" void func_020764cc(void);
+extern "C" void func_020764e4(void);
+extern "C" void func_0207a534(void);
+extern "C" void func_0207efd8(void);
+extern "C" void func_0207f07c(void);
+extern "C" void func_0207f7cc(void);
+extern "C" void func_0207fff0(void);
+extern "C" void func_02080328(void);
+extern "C" void func_02080368(void);
+extern "C" void func_02081740(void);
+extern "C" void func_02081894(void);
+extern "C" void func_02081f28(void);
+extern "C" void func_02081f50(void);
+extern "C" void func_0209e020(void);
+extern "C" void func_0209e174(void);
+extern "C" void func_0209e1c8(void);
+extern "C" void func_ov000_02116e8c(void);
+extern "C" void func_ov000_02116f2c(void);
+extern "C" void func_ov001_02122de8(void);
+extern "C" void func_ov015_02130ce0(void);
+extern "C" void func_ov015_021443f4(void);
+extern "C" void func_ov015_0214440c(void);
+extern "C" void func_ov087_0217e70c(void);
+extern "C" void gEntryPool(void);
 
 asm void UnkClass_020621b4::func_020622b4()
 {
@@ -2619,7 +2695,7 @@ asm void UnkClass_020621b4::func_020640b4()
     bl func_02083e54
     mov r1, r0
     ldr r0, [sp, #4]
-    bl func_0206de34
+    bl _ZN17UnkClass_020621b413func_0206de34Ev
     cmp r0, #0
     beq @L_02064470
     ldr r0, [sp, #0x10]
@@ -3437,7 +3513,7 @@ asm void UnkClass_020621b4::func_020646d4()
     bl func_02083e54
     mov r1, r0
     mov r0, r10
-    bl func_0206de34
+    bl _ZN17UnkClass_020621b413func_0206de34Ev
     cmp r0, #0
     beq @L_02065090
     ldr r0, [sp, #0x34]
@@ -5009,11 +5085,11 @@ asm void UnkClass_020621b4::func_02066768()
     orrgt r6, r6, #0x200
 @L_02066880:
     mov r0, r10
-    bl func_0206dedc
+    bl _ZN17UnkClass_020621b413func_0206dedcEv
     cmp r0, #0
     bne @L_02066914
     mov r0, r10
-    bl func_0206d9a0
+    bl _ZN17UnkClass_020621b413func_0206d9a0Ev
     cmp r0, #0
     beq @L_02066914
     ldr r0, =data_020c4920
@@ -5226,7 +5302,7 @@ asm void UnkClass_020621b4::func_02066768()
     add r11, sp, #0x20
     mov r4, #0
     orrne r7, r7, #0x80
-    bl func_0206dedc
+    bl _ZN17UnkClass_020621b413func_0206dedcEv
     cmp r0, #0
     bne @L_02066bf4
     ldr r1, [r9, #0xe8]
@@ -5311,11 +5387,11 @@ asm void UnkClass_020621b4::func_02066768()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02066d04:
     mov r0, r10
-    bl func_0206dedc
+    bl _ZN17UnkClass_020621b413func_0206dedcEv
     cmp r0, #0
     bne @L_02066e00
     mov r0, r10
-    bl func_0206d9a0
+    bl _ZN17UnkClass_020621b413func_0206d9a0Ev
     cmp r0, #0
     beq @L_02066e00
     ldr r1, [r9, #0xe8]
@@ -5541,7 +5617,7 @@ fx32 UnkClass_020621b4::func_02067044(int a, int b)
 
 fx32 UnkClass_020621b4::func_0206707c(int a, int b)
 {
-    if (!func_0206de54(this, a, b)) {
+    if (!func_0206de54(a, b)) {
         return func_02067044(a, b);
     }
     if (a == 0) {
@@ -5717,7 +5793,7 @@ void UnkClass_020621b4::func_020673d8(MatchPlayer *player, fx32 distance, MatchP
     }
     pos->x = data_020c4920.pos.x;
     pos->y = data_020c4920.pos.y;
-    if (func_0206dedc(this) && distance > 3 * 0x10000) {
+    if (func_0206dedc() && distance > 3 * 0x10000) {
         distance = 3 * 0x10000;
     }
     if (func_0206b4a8(func_02080b90(player)) == 1) {
@@ -6144,7 +6220,7 @@ asm void UnkClass_020621b4::func_020678d0()
 @L_02067a6c:
     mov r0, r10
     mov r1, r11
-    bl func_0206e1c4
+    bl _ZN17UnkClass_020621b413func_0206e1c4Ev
     cmp r0, #0
     beq @L_02067aa4
     cmp r0, #1
@@ -6412,7 +6488,7 @@ BOOL UnkClass_020621b4::func_02067e78(MatchPlayer *player, int a, int b)
         return FALSE;
     }
     func_0207f634(this, buffer, n, 0xA1, 1);
-    if (!func_0206dedc(this)) {
+    if (!func_0206dedc()) {
         if (n > 3) {
             n = 3;
         }
@@ -6632,7 +6708,7 @@ asm void UnkClass_020621b4::func_02068248()
     bl func_02083e34
     mov r1, r0
     mov r0, r8
-    bl func_0206de54
+    bl _ZN17UnkClass_020621b413func_0206de54Eii
     cmp r0, #0
     addeq sp, sp, #0x2c
     moveq r0, r4
@@ -6870,7 +6946,7 @@ asm void UnkClass_020621b4::func_02068614()
     bl func_02083e34
     mov r1, r0
     mov r0, r9
-    bl func_0206de54
+    bl _ZN17UnkClass_020621b413func_0206de54Eii
     cmp r0, #0
     addeq sp, sp, #0x84
     moveq r0, r10
@@ -7805,7 +7881,7 @@ asm int UnkClass_020621b4::func_02069394(int a, int b, int c, int d, u8 e, int f
     bl func_ov015_02130b14
     mov r6, r0
     mov r0, r9
-    bl func_0206deec
+    bl _ZN17UnkClass_020621b413func_0206deecEv
     cmp r0, #0
     beq @L_02069450
     ldrh r0, [r6, #0xba]
@@ -7813,11 +7889,11 @@ asm int UnkClass_020621b4::func_02069394(int a, int b, int c, int d, u8 e, int f
     bne @L_02069498
 @L_02069450:
     mov r0, r9
-    bl func_0206deec
+    bl _ZN17UnkClass_020621b413func_0206deecEv
     cmp r0, #0
     bne @L_0206947c
     mov r0, r9
-    bl func_0206df08
+    bl _ZN17UnkClass_020621b413func_0206df08Ev
     cmp r0, #0
     bne @L_0206947c
     ldrh r0, [r6, #0xba]
@@ -7825,7 +7901,7 @@ asm int UnkClass_020621b4::func_02069394(int a, int b, int c, int d, u8 e, int f
     bne @L_02069498
 @L_0206947c:
     mov r0, r9
-    bl func_0206df08
+    bl _ZN17UnkClass_020621b413func_0206df08Ev
     cmp r0, #0
     beq @L_020695e8
     ldrh r0, [r6, #0xba]
@@ -8895,7 +8971,7 @@ asm void UnkClass_020621b4::func_0206a3b8()
     bl func_ov015_02131970
     mov r1, r0
     mov r0, r5
-    bl func_0206de54
+    bl _ZN17UnkClass_020621b413func_0206de54Eii
     cmp r0, #0
     addeq sp, sp, #0x10
     moveq r0, #0
@@ -10978,7 +11054,7 @@ asm void UnkClass_020621b4::func_0206c23c()
     cmp r1, #0
     beq @L_0206c2a4
     mov r1, #1
-    bl func_0206de54
+    bl _ZN17UnkClass_020621b413func_0206de54Eii
     cmp r0, #0
     bne @L_0206c2b0
 @L_0206c2a4:
@@ -10993,7 +11069,7 @@ asm void UnkClass_020621b4::func_0206c23c()
     beq @L_0206c2d8
     mov r0, r8
     mov r1, #0
-    bl func_0206de54
+    bl _ZN17UnkClass_020621b413func_0206de54Eii
     cmp r0, #0
     bne @L_0206c2e4
 @L_0206c2d8:
@@ -11118,7 +11194,7 @@ asm void UnkClass_020621b4::func_0206c42c()
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, r5
     mov r1, r4
-    bl func_0206df68
+    bl _ZN17UnkClass_020621b413func_0206df68Ev
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -11793,7 +11869,7 @@ asm void UnkClass_020621b4::func_0206cd78()
     bl _ZN17UnkClass_020621b413func_0206ce8cEv
     ldrb r1, [sp, #0xf]
     mov r0, r5
-    bl func_0206d690
+    bl _ZN17UnkClass_020621b413func_0206d690Ev
     mov r2, #0
 @L_0206cdf4:
     add r0, r4, r2, lsl #1
@@ -11899,7 +11975,7 @@ asm void UnkClass_020621b4::func_0206cec0()
     ldmia sp!, {r4, r5, r6, pc}
 @L_0206cf1c:
     mov r1, r5
-    bl func_0206d358
+    bl _ZN17UnkClass_020621b413func_0206d358Ev
     cmp r5, #0xf
     mov r4, r0
     mov r5, #1
@@ -11931,14 +12007,14 @@ asm void UnkClass_020621b4::func_0206cf6c()
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_0206d188
+    bl _ZN17UnkClass_020621b413func_0206d188Ev
     cmp r0, #0
     movne r0, #1
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, r6
     mov r2, r4
     mov r1, #1
-    bl func_0206d188
+    bl _ZN17UnkClass_020621b413func_0206d188Ev
     cmp r0, #0
     movne r0, #2
     ldmneia sp!, {r4, r5, r6, pc}
@@ -12038,4 +12114,2236 @@ asm void UnkClass_020621b4::func_0206d094()
     movge r0, #0
     add sp, sp, #0x18
     ldmia sp!, {r4, r5, r6, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d114()
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, lr}
+    mov r7, r1
+    mov r8, r0
+    mov r0, r7
+    bl func_02083e44
+    mov r6, r0
+    mov r1, r7
+    add r0, r8, #0x22c
+    bl func_0206efb8
+    mov r5, r0
+    mov r1, r7
+    add r0, r8, #0x22c
+    bl func_0206efb0
+    cmp r0, #1
+    movne r0, #0
+    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
+    mov r0, r7
+    bl func_020841c8
+    mov r4, r0
+    mov r0, r6
+    bl func_020841c8
+    add r0, r5, r0
+    cmp r4, r0
+    movge r0, #1
+    ldmgeia sp!, {r4, r5, r6, r7, r8, pc}
+    mov r0, r8
+    mov r1, r7
+    bl _ZN17UnkClass_020621b413func_0206d094Ev
+    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d188()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+    mov r7, r1
+    mov r8, r0
+    mov r0, r7
+    mov r6, r2
+    mov r9, #1
+    bl func_02083e44
+    mov r4, r0
+    mov r1, r7
+    add r0, r8, #0x22c
+    bl func_0206efb8
+    mov r5, r0
+    mov r0, r8
+    bl _ZN17UnkClass_020621b413func_0206c644Ev
+    cmp r0, #0
+    beq @L_0206d1d8
+    mov r0, r8
+    mov r1, r7
+    bl _ZN17UnkClass_020621b413func_0206d094Ev
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d1d8:
+    cmp r6, #0
+    ldrneb r0, [r8, #0x23b]
+    cmpne r0, #0
+    beq @L_0206d248
+    cmp r0, #1
+    beq @L_0206d1fc
+    cmp r0, #2
+    beq @L_0206d224
+    b @L_0206d248
+@L_0206d1fc:
+    cmp r7, #0
+    bne @L_0206d248
+    mov r0, r8
+    mov r1, r9
+    mov r2, r6
+    bl _ZN17UnkClass_020621b413func_0206d188Ev
+    cmp r0, #0
+    bne @L_0206d248
+    mov r0, r9
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d224:
+    cmp r7, #1
+    bne @L_0206d248
+    mov r0, r8
+    mov r2, r6
+    mov r1, #0
+    bl _ZN17UnkClass_020621b413func_0206d188Ev
+    cmp r0, #0
+    moveq r0, r9
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d248:
+    mov r1, r7
+    add r0, r8, #0x22c
+    bl func_0206efb0
+    cmp r0, #8
+    addls pc, pc, r0, lsl #2
+    b @L_0206d350
+    b @L_0206d284
+    b @L_0206d2d0
+    b @L_0206d350
+    b @L_0206d350
+    b @L_0206d350
+    b @L_0206d350
+    b @L_0206d2f8
+    b @L_0206d28c
+    b @L_0206d338
+@L_0206d284:
+    mov r0, #0
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d28c:
+    cmp r6, #0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    mov r1, r4
+    add r0, r8, #0x22c
+    bl func_0206efb0
+    cmp r0, #7
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    mov r0, r8
+    mov r1, r4
+    mov r2, r6
+    bl _ZN17UnkClass_020621b413func_0206d188Ev
+    cmp r0, #0
+    moveq r0, #1
+    movne r0, #0
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d2d0:
+    cmp r6, #0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    mov r0, r8
+    mov r1, r7
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    beq @L_0206d350
+    mov r0, #1
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d2f8:
+    mov r0, r7
+    bl func_020841c8
+    mov r6, r0
+    mov r0, r4
+    bl func_020841c8
+    add r0, r5, r0
+    cmp r6, r0
+    movge r0, #1
+    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    mov r0, r8
+    mov r1, r7
+    bl _ZN17UnkClass_020621b413func_0206d094Ev
+    cmp r0, #0
+    beq @L_0206d350
+    mov r0, #1
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d338:
+    add r0, r8, r7, lsl #1
+    add r0, r0, #0x11800
+    ldrh r0, [r0, #0x48]
+    cmp r0, r5
+    movge r0, #1
+    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0206d350:
+    mov r0, #0
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d358()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, lr}
+    mov r5, r1
+    sub r2, r5, #2
+    mov r6, r0
+    cmp r2, #0xc
+    mov r4, #0
+    bhi @L_0206d384
+    ldr r0, =0x1249
+    mov r1, #1
+    tst r0, r1, lsl r2
+    movne r4, r1
+@L_0206d384:
+    mov r7, #0
+    mov r0, r6
+    mov r1, r7
+    mov r2, r7
+    bl _ZN17UnkClass_020621b413func_0206d188Ev
+    cmp r0, #0
+    bne @L_0206d3b8
+    mov r0, r6
+    mov r2, r7
+    mov r1, #1
+    bl _ZN17UnkClass_020621b413func_0206d188Ev
+    cmp r0, #0
+    beq @L_0206d3c0
+@L_0206d3b8:
+    mov r0, #0xf
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d3c0:
+    cmp r5, #0xf
+    addls pc, pc, r5, lsl #2
+    b @L_0206d4e0
+    b @L_0206d40c
+    b @L_0206d414
+    b @L_0206d414
+    b @L_0206d40c
+    b @L_0206d428
+    b @L_0206d428
+    b @L_0206d40c
+    b @L_0206d470
+    b @L_0206d470
+    b @L_0206d40c
+    b @L_0206d484
+    b @L_0206d484
+    b @L_0206d40c
+    b @L_0206d4d0
+    b @L_0206d4d0
+    b @L_0206d4d8
+@L_0206d40c:
+    mov r0, r5
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d414:
+    add r0, r6, #0x22c
+    bl func_0206eea8
+    cmp r0, #0
+    movne r0, #3
+    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d428:
+    mov r0, r6
+    mov r1, #0
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    bne @L_0206d450
+    mov r0, r6
+    mov r1, #1
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    beq @L_0206d45c
+@L_0206d450:
+    cmp r4, #0
+    movne r0, #0xf
+    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d45c:
+    add r0, r6, #0x22c
+    bl func_0206eebc
+    cmp r0, #0
+    movne r0, #6
+    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d470:
+    add r0, r6, #0x22c
+    bl func_0206eed0
+    cmp r0, #0
+    movne r0, #9
+    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d484:
+    mov r0, r6
+    mov r1, #0
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    bne @L_0206d4ac
+    mov r0, r6
+    mov r1, #1
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    beq @L_0206d4b8
+@L_0206d4ac:
+    cmp r4, #0
+    movne r0, #0xf
+    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d4b8:
+    add r0, r6, #0x22c
+    bl func_0206eee4
+    cmp r0, #0
+    movne r0, #0xc
+    moveq r0, #0xf
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d4d0:
+    mov r0, #0xf
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d4d8:
+    mov r0, r5
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0206d4e0:
+    add r0, r5, #1
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d4ec()
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r4, r0
+    bl _ZN17UnkClass_020621b413func_0206ceb4Ev
+    ldr r1, =gGameState
+    mov r5, r0
+    ldrb r0, [r1, #0x7e]
+    cmp r0, #0xa
+    bgt @L_0206d604
+    cmp r0, #0
+    addge pc, pc, r0, lsl #2
+    b @L_0206d604
+    b @L_0206d604
+    b @L_0206d548
+    b @L_0206d604
+    b @L_0206d604
+    b @L_0206d568
+    b @L_0206d604
+    b @L_0206d604
+    b @L_0206d5b4
+    b @L_0206d604
+    b @L_0206d604
+    b @L_0206d5c0
+    b @L_0206d604
+@L_0206d548:
+    mov r0, r4
+    mov r1, #8
+@L_0206d550:
+    bl _ZN17UnkClass_020621b413func_0206bff4Ei
+    mov r0, r5
+    bl func_02083e44
+    mov r1, r0
+    mov r0, r4
+    b @L_0206d618
+@L_0206d568:
+    mov r0, r4
+    mov r1, #0
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    bne @L_0206d590
+    mov r0, r4
+    mov r1, #1
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    beq @L_0206d59c
+@L_0206d590:
+    mov r0, r4
+    mov r1, #0xc
+    b @L_0206d5a4
+@L_0206d59c:
+    mov r0, r4
+    mov r1, #9
+@L_0206d5a4:
+    bl _ZN17UnkClass_020621b413func_0206bff4Ei
+    mov r0, r4
+    mov r1, r5
+    b @L_0206d618
+@L_0206d5b4:
+    mov r0, r4
+    mov r1, #0xa
+    b @L_0206d550
+@L_0206d5c0:
+    mov r0, r4
+    mov r1, #0
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    bne @L_0206d5e8
+    mov r0, r4
+    mov r1, #1
+    bl _ZN17UnkClass_020621b413func_0206d114Ev
+    cmp r0, #0
+    beq @L_0206d5f4
+@L_0206d5e8:
+    mov r0, r4
+    mov r1, #0xc
+    b @L_0206d5fc
+@L_0206d5f4:
+    mov r0, r4
+    mov r1, #0xb
+@L_0206d5fc:
+    bl _ZN17UnkClass_020621b413func_0206bff4Ei
+    b @L_0206d610
+@L_0206d604:
+    mov r0, r4
+    mov r1, #0xc
+    bl _ZN17UnkClass_020621b413func_0206bff4Ei
+@L_0206d610:
+    mov r0, r4
+    mov r1, #0
+@L_0206d618:
+    bl _ZN17UnkClass_020621b413func_0206bfa0Eh
+    ldr r1, =gGameState
+    ldr r3, [r4, #0xbac]
+    ldr r2, [r1, #4]
+    mov r0, r4
+    add r2, r3, r2
+    str r2, [r4, #0xbac]
+    ldrb r1, [r1, #0x7e]
+    add r1, r1, #1
+    bl _ZN17UnkClass_020621b413func_0206d358Ev
+    mov r5, r0
+    cmp r5, #0xc
+    bne @L_0206d658
+    mov r0, r4
+    mov r1, #0
+    bl _ZN17UnkClass_020621b413func_0206bfa0Eh
+@L_0206d658:
+    cmp r5, #0xf
+    bne @L_0206d66c
+    mov r0, r4
+    mov r1, #0xc
+    bl _ZN17UnkClass_020621b413func_0206bff4Ei
+@L_0206d66c:
+    mov r0, #0x38
+    bl func_ov001_02122de8
+    mov r0, r4
+    bl func_ov087_0217e70c
+    mov r0, r4
+    mov r1, #1
+    bl _ZN17UnkClass_020621b413func_0206bfb4Ei
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d690()
+{
+    ldr r2, =gGameState
+    mov r0, #0
+    strb r1, [r2, #0x4f5]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d6a4()
+{
+    ldr r0, =gGameState
+    ldrb r0, [r0, #0x4f5]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d6b4()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x20
+    mov r10, #0
+    add r1, sp, #0x10
+    add r0, sp, #8
+    str r10, [sp, #8]
+    str r10, [sp, #0xc]
+    str r10, [r1]
+    str r10, [r1, #4]
+    str r10, [r1, #8]
+    str r10, [r1, #0xc]
+    mov r8, r10
+    mov r11, r10
+    mov r6, r10
+    bl func_020707e4
+    mov r9, #1
+    sub r5, sp, #4
+    and r4, r6, #0xff
+    mov r7, r9
+@L_0206d700:
+    mov r0, r10
+    bl func_ov015_02130ae8
+    str r0, [sp, #4]
+    cmp r0, #0
+    beq @L_0206d798
+    ldrh r1, [r0, #0xf0]
+    tst r1, #0x20
+    movne r2, r9
+    moveq r2, r8
+    cmp r2, #0
+    beq @L_0206d74c
+    tst r1, #0x40
+    movne r1, r7
+    moveq r1, r11
+    cmp r1, #0
+    bne @L_0206d74c
+    bl func_ov015_021319b0
+    cmp r0, #1
+    bne @L_0206d798
+@L_0206d74c:
+    ldr r0, [sp, #4]
+    mov r1, r6
+    bl func_0208130c
+    cmp r0, #0
+    beq @L_0206d798
+    ldr r0, [sp, #4]
+    mov r1, r6
+    bl func_0208130c
+    cmp r0, #4
+    bgt @L_0206d798
+    ldr r0, [sp, #4]
+    ldrb r0, [r0, #0x5b]
+    cmp r0, #0
+    beq @L_0206d798
+    strb r4, [r5]
+    ldr r2, [r5]
+    add r0, sp, #8
+    add r1, sp, #4
+    bl func_0207076c
+@L_0206d798:
+    add r0, r10, #1
+    mov r0, r0, lsl #0x10
+    mov r10, r0, asr #0x10
+    cmp r10, #0x84
+    blt @L_0206d700
+    ldr r0, [sp, #0xc]
+    cmp r0, #0
+    beq @L_0206d814
+    bl func_ov015_021309f8
+    add r4, sp, #0x10
+    ldr r1, [sp, #8]
+    ldr r2, [r4, #4]
+    add r5, r0, r1
+    ldr r1, [r4, #0xc]
+    add r0, r2, r5, lsr #8
+    bl func_02022948
+    ldr r0, [r4]
+    add r4, sp, #8
+    ldr r1, [r0, r1, lsl #2]
+    and r0, r5, #0xff
+    ldr r1, [r1, r0, lsl #2]
+    mov r0, r4
+    str r1, [sp, #4]
+    bl func_020707e4
+    ldr r1, [sp, #4]
+    mov r0, r4
+    ldrb r4, [r1, #0x5b]
+    bl func_02070d64
+    add sp, sp, #0x20
+    mov r0, r4
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+@L_0206d814:
+    add r0, sp, #8
+    bl func_02070d64
+    mov r0, #0
+    add sp, sp, #0x20
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d828()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0xc]
+    tst r0, #1
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d840()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0xc]
+    cmp r1, #0xe
+    addls pc, pc, r1, lsl #2
+    b @L_0206d8d8
+    b @L_0206d890
+    b @L_0206d890
+    b @L_0206d890
+    b @L_0206d8a0
+    b @L_0206d8a0
+    b @L_0206d8a0
+    b @L_0206d8b0
+    b @L_0206d8b0
+    b @L_0206d8b0
+    b @L_0206d8c0
+    b @L_0206d8c0
+    b @L_0206d8c0
+    b @L_0206d8d0
+    b @L_0206d8d0
+    b @L_0206d8d0
+@L_0206d890:
+    tst r0, #2
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+@L_0206d8a0:
+    tst r0, #4
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+@L_0206d8b0:
+    tst r0, #8
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+@L_0206d8c0:
+    tst r0, #0x10
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+@L_0206d8d0:
+    mov r0, #0
+    bx lr
+@L_0206d8d8:
+    mov r0, #1
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d8e0()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0xc]
+    tst r0, #0x20
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d8f8()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0xc]
+    tst r0, #0x40
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d910()
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    bl _ZN17UnkClass_020621b413func_0206c644Ev
+    cmp r0, #0
+    movne r0, #0
+    ldmneia sp!, {r4, pc}
+    add r0, r4, #0x200
+    ldrh r0, [r0, #0xc]
+    tst r0, #0x100
+    moveq r0, #1
+    movne r0, #0
+    ldmia sp!, {r4, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d940()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0xc]
+    tst r0, #0x80
+    moveq r0, #1
+    movne r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d958()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0x1a]
+    tst r0, #1
+    movne r0, #1
+    moveq r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d970()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0x1a]
+    tst r0, #2
+    movne r0, #1
+    moveq r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d988()
+{
+    add r0, r0, #0x200
+    ldrh r0, [r0, #0x1a]
+    tst r0, #0x10
+    movne r0, #1
+    moveq r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206d9a0()
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    bl func_02070760
+    cmp r0, #0
+    moveq r0, #0
+    ldmeqia sp!, {r4, pc}
+    add r0, r4, #0x200
+    ldrh r0, [r0, #0x1a]
+    tst r0, #8
+    movne r0, #1
+    moveq r0, #0
+    ldmia sp!, {r4, pc}
+}
+
+asm void UnkClass_020621b4::func_0206d9d0()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, lr}
+    mov r4, r1
+    mov r0, #0x29
+    bl func_ov015_021309f8
+    mov r7, r0
+    mov r0, r4
+    bl func_02021f44
+    mov r6, #0
+    mov r2, r0
+    mov r5, #0x40000000
+    mov r3, r1
+    mov r0, r6
+    mov r1, r5
+    bl func_02021adc
+    mov r4, r0
+    add r0, r7, #0x50
+    mov r7, r1
+    bl func_020224cc
+    bl func_02022400
+    mov r2, r6
+    add r3, r5, #0x590000
+    bl func_02023890
+    mov r2, r0
+    mov r0, r4
+    mov r3, r1
+    mov r1, r7
+    bl func_02021adc
+    bl func_02022bac
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+}
+
+asm void UnkClass_020621b4::func_0206da44()
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r0, r1
+    bl func_02021f44
+    mov r3, r1
+    mov r2, r0
+    ldr r1, =0x3fe00000
+    mov r0, #0
+    bl func_02021adc
+    bl func_02022bac
+    mov r0, r0, lsl #0x10
+    mov r4, r0, lsr #0x10
+    cmp r4, #0x1e
+    movhi r4, #0x1e
+    mov r0, #0x29
+    bl func_ov015_021309f8
+    mov r5, r0
+    mov r0, r4
+    bl func_020224cc
+    bl func_02022400
+    mov r4, r0
+    add r0, r5, #0x50
+    mov r5, r1
+    bl func_020224cc
+    bl func_02022400
+    ldr r3, =0x40590000
+    mov r2, #0
+    bl func_02023890
+    mov r2, r0
+    mov r3, r1
+    mov r0, r4
+    mov r1, r5
+    bl func_02021adc
+    bl func_02022bac
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+asm void UnkClass_020621b4::func_0206dad4()
+{
+    stmdb sp!, {r3, lr}
+    ldr r0, =data_020cacc8
+    bl func_02081740
+    mov r0, #1
+    ldmia sp!, {r3, pc}
+}
+
+asm void UnkClass_020621b4::func_0206daec()
+{
+    stmdb sp!, {r3, lr}
+    bl func_0207a534
+    movs r1, r0
+    moveq r0, #0
+    ldmeqia sp!, {r3, pc}
+    ldr r0, =data_020cadf4
+    bl func_02081894
+    ldmia sp!, {r3, pc}
+}
+
+asm void UnkClass_020621b4::func_0206db10(SaveBody *dst)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    movs r4, r1
+    mov r6, r0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    add r1, r4, #0x14c
+    add r0, r6, #0x17c
+    add r1, r1, #0x3c00
+    mov r2, #0x40
+    bl MI_CpuCopy8
+    add r1, r4, #0x18c
+    mov r5, #0x20
+    mov r2, r5
+    add r0, r6, #0x34c
+    add r1, r1, #0x3c00
+    bl MI_CpuCopy8
+    add r1, r4, #0x1ac
+    mov r2, r5
+    add r0, r6, #0x38c
+    add r1, r1, #0x3c00
+    bl MI_CpuCopy8
+    add r1, r4, #0x1cc
+    add r0, r6, #0x3ac
+    add r1, r1, #0x3c00
+    mov r2, #0x10
+    bl MI_CpuCopy8
+    add r0, r4, #0x2fc
+    add r1, r0, #0x800
+    ldr r0, =data_020cb288
+    mov r2, #0x690
+    bl MI_CpuCopy8
+    add r0, r4, #0x18c
+    mov r10, #0
+    add r0, r0, #0x1000
+    mov r1, r10
+    mov r2, #0x2bc0
+    bl MI_CpuFill8
+    add r0, r4, #0x18c
+    mov r11, #0x70
+    mov r9, r10
+    add r5, r0, #0x1000
+    mov r6, r10
+    mov r7, #1
+    mov r4, r11
+    b @L_0206dc20
+@L_0206dbc4:
+    mov r0, r9
+    bl func_ov015_02130ae8
+    movs r8, r0
+    beq @L_0206dc1c
+    ldrh r0, [r8, #0xf0]
+    tst r0, #1
+    movne r0, r7
+    moveq r0, r6
+    cmp r0, #0
+    beq @L_0206dc1c
+    mov r0, r8
+    bl func_02080b90
+    cmp r0, #0
+    bne @L_0206dc1c
+    cmp r10, #0x64
+    movge r0, #0
+    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    mla r1, r10, r4, r5
+    mov r2, r11
+    add r0, r8, #0x60
+    bl MI_CpuCopy8
+    add r10, r10, #1
+@L_0206dc1c:
+    add r9, r9, #1
+@L_0206dc20:
+    cmp r9, #0x84
+    blt @L_0206dbc4
+    mov r0, #1
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+asm void UnkClass_020621b4::func_0206dc34()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    movs r4, r1
+    mov r5, r0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    add r1, r4, #0x3d4
+    add r0, r5, #0x17c
+    add r1, r1, #0x400
+    mov r2, #0x40
+    bl MI_CpuCopy8
+    add r1, r4, #0x14
+    add r0, r5, #0x38c
+    add r1, r1, #0x800
+    mov r2, #0x20
+    bl MI_CpuCopy8
+    mov r9, #0
+    mov r11, #0x70
+    mov r8, r9
+    add r6, r4, #0xd4
+    add r5, r4, #0x14
+    mov r7, r9
+    mov r4, r11
+@L_0206dc8c:
+    mov r1, r8
+    add r0, r5, #0x800
+    bl func_02080328
+    mov r1, r7
+    bl func_ov015_02130b14
+    cmp r0, #0
+    beq @L_0206dcc8
+    mla r10, r9, r4, r6
+    mov r1, r10
+    mov r2, r11
+    add r0, r0, #0x60
+    bl MI_CpuCopy8
+    ldrb r0, [r10, #0x65]
+    add r9, r9, #1
+    strb r0, [r10, #0x57]
+@L_0206dcc8:
+    add r8, r8, #1
+    cmp r8, #0x10
+    blt @L_0206dc8c
+    mov r0, #1
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+asm void UnkClass_020621b4::func_0206dcdc(SaveBody *src)
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
+    mov r5, #0
+    movs r7, r1
+    mov r8, r0
+    mov r6, r5
+    moveq r0, r5
+    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    ldr r0, =gEntryPool
+    bl _ZN9EntryPool9RemoveAllEv
+    add r0, r7, #0x14c
+    add r0, r0, #0x3c00
+    add r1, r8, #0x17c
+    mov r2, #0x40
+    bl MI_CpuCopy8
+    add r0, r8, #0x100
+    ldrh r1, [r0, #0xba]
+    mov r4, #0x20
+    mov r2, r4
+    cmp r1, #0
+    ldreqh r1, [r0, #0x9e]
+    streqh r1, [r0, #0xba]
+    add r0, r7, #0x18c
+    add r0, r0, #0x3c00
+    add r1, r8, #0x34c
+    bl MI_CpuCopy8
+    add r0, r7, #0x1ac
+    mov r2, r4
+    add r0, r0, #0x3c00
+    add r1, r8, #0x38c
+    bl MI_CpuCopy8
+    add r0, r7, #0x1cc
+    add r0, r0, #0x3c00
+    add r1, r8, #0x3ac
+    mov r2, #0x10
+    bl MI_CpuCopy8
+    add r0, r7, #0x18c
+    mov r4, #0
+    add r9, r0, #0x1000
+    mov r7, #0x70
+@L_0206dd78:
+    mla r10, r4, r7, r9
+    ldrh r1, [r10, #4]
+    cmp r1, #0
+    beq @L_0206ddb0
+    add r0, r8, #0x34c
+    bl func_02080368
+    cmp r0, #0
+    movne r2, r5
+    addeq r2, r6, #0x20
+    mov r0, r8
+    mov r1, r10
+    addne r5, r5, #1
+    addeq r6, r6, #1
+    bl func_01ffde48
+@L_0206ddb0:
+    add r4, r4, #1
+    cmp r4, #0x64
+    blt @L_0206dd78
+    mov r0, #1
+    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+}
+
+asm void UnkClass_020621b4::func_0206ddc8()
+{
+    add r0, r0, #0x44
+    add r12, r0, #0x11800
+    mov r3, r1, lsl #1
+    ldrh r1, [r12, r3]
+    mov r0, r2, lsl #0x10
+    orr r0, r1, r0, lsr #16
+    strh r0, [r12, r3]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206dde8()
+{
+    stmdb sp!, {r3, lr}
+    add r0, r0, #0x44
+    ldr r3, =0xffff
+    add lr, r0, #0x11800
+    mov r12, r1, lsl #1
+    eor r0, r2, r3
+    ldrh r1, [lr, r12]
+    mov r0, r0, lsl #0x10
+    and r0, r1, r0, lsr #16
+    strh r0, [lr, r12]
+    ldmia sp!, {r3, pc}
+}
+
+asm void UnkClass_020621b4::func_0206de18()
+{
+    add r0, r0, r1, lsl #1
+    add r0, r0, #0x11800
+    ldrh r0, [r0, #0x44]
+    tst r2, r0
+    movne r0, #1
+    moveq r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206de34()
+{
+    ldr r12, =_ZN17UnkClass_020621b413func_0206de18Ev
+    mov r2, #1
+    bx r12
+}
+
+asm void UnkClass_020621b4::func_0206de44()
+{
+    add r0, r0, #0x1fc
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206de4c()
+{
+    add r0, r0, #0x22c
+    bx lr
+}
+
+asm BOOL UnkClass_020621b4::func_0206de54(int a, int b)
+{
+    ldr r12, =func_0206ef20
+    add r0, r0, #0x22c
+    bx r12
+}
+
+asm void UnkClass_020621b4::func_0206de64()
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r0
+    mov r1, #1
+    bl _ZN17UnkClass_020621b413func_0206de54Eii
+    mov r4, r0
+    mov r0, r5
+    mov r1, #0
+    bl _ZN17UnkClass_020621b413func_0206de54Eii
+    cmp r4, #0
+    cmpeq r0, #0
+    bne @L_0206deac
+    ldrb r1, [r5, #0x230]
+    mov r0, r5
+    bl _ZN17UnkClass_020621b413func_0206b4a8Ei
+    cmp r0, #1
+    moveq r0, #0xa
+    movne r0, #0xb
+    ldmia sp!, {r3, r4, r5, pc}
+@L_0206deac:
+    cmp r4, #0
+    beq @L_0206dec0
+    cmp r0, #0
+    moveq r0, #0xa
+    ldmeqia sp!, {r3, r4, r5, pc}
+@L_0206dec0:
+    cmp r4, #0
+    bne @L_0206ded4
+    cmp r0, #0
+    movne r0, #0xb
+    ldmneia sp!, {r3, r4, r5, pc}
+@L_0206ded4:
+    mov r0, #1
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+asm BOOL UnkClass_020621b4::func_0206dedc()
+{
+    ldr r12, =func_0206ef88
+    add r0, r0, #0x22c
+    bx r12
+}
+
+asm void UnkClass_020621b4::func_0206deec()
+{
+    ldr r0, =data_020c4ab4
+    ldrb r0, [r0, #0x70]
+    cmp r0, #0
+    movne r0, #1
+    moveq r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206df08()
+{
+    ldr r1, =data_020c4ab4
+    mov r0, #1
+    ldrb r1, [r1, #0x71]
+    cmp r1, #0
+    ldreq r1, =gGameState
+    ldreqb r1, [r1, #0x1b]
+    cmpeq r1, #0
+    moveq r0, #0
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206df34()
+{
+    ldr r12, =func_0206ef9c
+    add r0, r0, #0x22c
+    bx r12
+}
+
+asm void UnkClass_020621b4::func_0206df44()
+{
+    add r0, r0, #0x17c0
+    ldr r12, =func_0209e020
+    add r0, r0, #0x10000
+    bx r12
+}
+
+asm void UnkClass_020621b4::func_0206df58()
+{
+    add r0, r0, r1
+    add r0, r0, #0x11000
+    strb r2, [r0, #0x7da]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206df68()
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r0
+    ldr r0, [r5, #0xb80]
+    mov r4, r1
+    ldr r1, [r0]
+    ldr r1, [r1, #0x14]
+    blx r1
+    cmp r0, #0
+    addne r0, r5, r4
+    addne r0, r0, #0x11000
+    ldrneb r0, [r0, #0x7da]
+    moveq r0, #0
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+asm void UnkClass_020621b4::func_0206df9c()
+{
+    str r1, [r0, #0xc20]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206dfa4()
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, lr}
+    mov r7, r2
+    mov r8, r1
+    cmp r7, #2
+    mov r6, #0xb
+    beq @L_0206dfd0
+    cmp r7, #0
+    bne @L_0206dfd4
+    bl _ZN17UnkClass_020621b413func_0206deecEv
+    cmp r0, #0
+    beq @L_0206dfd4
+@L_0206dfd0:
+    mov r6, #4
+@L_0206dfd4:
+    cmp r6, #1
+    mov r5, #1
+    blt @L_0206e010
+    mov r4, r5
+@L_0206dfe4:
+    mov r0, r8
+    mov r1, r5
+    mov r2, r4
+    mov r3, r7
+    bl func_ov015_02130ce0
+    cmp r0, #0
+    moveq r0, r5
+    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
+    add r5, r5, #1
+    cmp r5, r6
+    ble @L_0206dfe4
+@L_0206e010:
+    mov r0, #0
+    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e018()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
+    sub sp, sp, #4
+    mov r8, r3
+    mov r10, r0
+    mov r4, r1
+    mov r9, r2
+    cmp r8, #2
+    beq @L_0206e04c
+    cmp r8, #0
+    bne @L_0206e050
+    bl _ZN17UnkClass_020621b413func_0206deecEv
+    cmp r0, #0
+    beq @L_0206e050
+@L_0206e04c:
+    mov r9, #0
+@L_0206e050:
+    mov r7, #1
+    mov r5, #0
+    mov r6, r7
+@L_0206e05c:
+    mov r0, r4
+    mov r1, r7
+    mov r2, r6
+    mov r3, r8
+    bl func_ov015_02130ce0
+    cmp r0, #0
+    bne @L_0206e0a0
+    mov r0, r10
+    mov r1, r4
+    mov r2, r7
+    mov r3, r5
+    str r8, [sp]
+    bl _ZN17UnkClass_020621b413func_0206e100Ev
+    cmp r0, #0
+    addne sp, sp, #4
+    movne r0, r7
+    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+@L_0206e0a0:
+    add r7, r7, #1
+    cmp r7, #0xb
+    ble @L_0206e05c
+    cmp r9, #0
+    addeq sp, sp, #4
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    mov r6, #0xc
+    mov r5, #1
+@L_0206e0c4:
+    mov r0, r4
+    mov r1, r6
+    mov r2, r5
+    mov r3, r8
+    bl func_ov015_02130ce0
+    cmp r0, #0
+    addeq sp, sp, #4
+    moveq r0, r6
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    add r6, r6, #1
+    cmp r6, #0x10
+    ble @L_0206e0c4
+    mov r0, #0
+    add sp, sp, #4
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e100()
+{
+    stmdb sp!, {r3, lr}
+    sub lr, r2, #1
+    mov r12, #0xb
+    mla r12, r1, r12, lr
+    cmp r3, #0
+    beq @L_0206e13c
+    cmp r2, #0xc
+    blt @L_0206e13c
+    cmp r2, #0x10
+    bgt @L_0206e13c
+    bl _ZN17UnkClass_020621b413func_0206dedcEv
+    cmp r0, #0
+    moveq r0, #1
+    movne r0, #0
+    ldmia sp!, {r3, pc}
+@L_0206e13c:
+    cmp r2, #0
+    cmpne r2, #0xc
+    movge r0, #0
+    ldmgeia sp!, {r3, pc}
+    cmp r12, #0x16
+    movhs r0, #0
+    ldmhsia sp!, {r3, pc}
+    add r0, r0, r12
+    add r0, r0, #0x11000
+    ldrb r0, [r0, #0x7a4]
+    cmp r0, #0
+    movne r0, #1
+    moveq r0, #0
+    ldmia sp!, {r3, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e174()
+{
+    stmdb sp!, {r4, lr}
+    mov lr, #6
+    cmp r3, #6
+    mov r4, #1
+    movlt lr, r3
+    movlt r4, #0
+    cmp lr, #0
+    mov r12, #0
+    ble @L_0206e1bc
+    mov r3, #6
+    mla r3, r1, r3, r0
+@L_0206e1a0:
+    add r0, r3, r12
+    add r0, r0, #0x11000
+    ldrb r0, [r0, #0x8ca]
+    strb r0, [r2, r12]
+    add r12, r12, #1
+    cmp r12, lr
+    blt @L_0206e1a0
+@L_0206e1bc:
+    mov r0, r4
+    ldmia sp!, {r4, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e1c4()
+{
+    ldr r0, =data_020cabf8
+    ldrb r0, [r0, r1]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e1d4()
+{
+    ldr r0, =data_020cabf8
+    strb r2, [r0, r1]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e1e4()
+{
+    add r0, r0, #0x11000
+    strb r1, [r0, #0x8bd]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e1f0()
+{
+    add r0, r0, #0x11000
+    ldrb r0, [r0, #0x8bd]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e1fc()
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, lr}
+    mov r8, r0
+    ldr r2, [r8, #0xbd4]
+    mov r4, #0
+    mov r7, r1
+    mov r5, r4
+    cmp r2, #0
+    ldr r6, =data_020cb0a0
+    bne @L_0206e234
+    bl func_0207efd8
+    cmp r0, #0
+    moveq r0, r4
+    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
+    mov r4, #1
+@L_0206e234:
+    mov r0, r8
+    mov r1, r7
+    bl func_ov000_02116e8c
+    movs r1, r0
+    bmi @L_0206e254
+    mov r0, r6
+    bl func_02081f28
+    mov r5, r0
+@L_0206e254:
+    cmp r5, #0
+    bne @L_0206e27c
+    mov r0, r8
+    mov r1, r7
+    bl func_ov000_02116f2c
+    movs r1, r0
+    bmi @L_0206e27c
+    mov r0, r6
+    bl func_02081f50
+    mov r5, r0
+@L_0206e27c:
+    cmp r4, #0
+    beq @L_0206e28c
+    mov r0, r8
+    bl func_0207f07c
+@L_0206e28c:
+    mov r0, r5
+    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e298()
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r1
+    bl func_0207620c
+    movs r4, r0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, pc}
+    ldrsb r0, [r4, #4]
+    bl func_ov015_02130ae8
+    cmp r0, #0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, pc}
+    bl func_02080b90
+    cmp r5, r0
+    mov r0, r4
+    bne @L_0206e2dc
+    bl func_020764cc
+    ldmia sp!, {r3, r4, r5, pc}
+@L_0206e2dc:
+    bl func_020764e4
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e2e4()
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r1
+    bl func_ov015_02143664
+    movs r4, r0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, pc}
+    ldrsb r0, [r4, #0xc]
+    bl func_ov015_02130ae8
+    cmp r0, #0
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, pc}
+    bl func_02080b90
+    cmp r5, r0
+    mov r0, r4
+    bne @L_0206e328
+    bl func_ov015_021443f4
+    ldmia sp!, {r3, r4, r5, pc}
+@L_0206e328:
+    bl func_ov015_0214440c
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e330()
+{
+    stmdb sp!, {lr}
+    sub sp, sp, #0x14
+    mov lr, r0
+    ldr r0, [lr, #0xc00]
+    cmp r0, #0
+    addne sp, sp, #0x14
+    movne r0, #1
+    ldmneia sp!, {pc}
+    ldr r3, =data_020c47b4
+    ldr r1, =data_020af1a0
+    ldr r0, [r3]
+    cmp r0, #0
+    moveq r0, #0
+    beq @L_0206e38c
+    mov r2, #0
+    str r2, [sp]
+    str r2, [sp, #4]
+    str r2, [sp, #8]
+    mov r12, #1
+    str r12, [sp, #0xc]
+    add r2, lr, #0xc00
+    str r12, [sp, #0x10]
+    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
+@L_0206e38c:
+    cmp r0, #0x600
+    movne r0, #0
+    moveq r0, #1
+    add sp, sp, #0x14
+    ldmia sp!, {pc}
+}
+
+asm void UnkClass_020621b4::func_0206e3a8()
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    ldr r1, [r4, #0xc00]
+    cmp r1, #0
+    ldmeqia sp!, {r4, pc}
+    ldr r0, =data_020c47b4
+    bl _ZN8GameHeap4FreeEPv
+    mov r0, #0
+    str r0, [r4, #0xc00]
+    ldmia sp!, {r4, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e3d4()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    mov r10, r0
+    ldr r2, [r10, #0xc00]
+    mov r1, #0
+    str r1, [sp]
+    cmp r2, #0
+    bne @L_0206e404
+    bl _ZN17UnkClass_020621b413func_0206e330Ev
+    cmp r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    mov r0, #1
+    str r0, [sp]
+@L_0206e404:
+    bl func_ov015_021319bc
+    mov r1, r0
+    mov r0, r10
+    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    mov r6, r0
+    cmp r6, #0x63
+    movgt r6, #0x63
+    mov r9, #0
+@L_0206e424:
+    ldr r0, [r10, #0xc00]
+    add r5, r0, r9, lsl #5
+    b @L_0206e448
+@L_0206e430:
+    ldrb r0, [r5]
+    cmp r6, r0
+    movge r7, r0
+    bge @L_0206e450
+    add r9, r9, #1
+    add r5, r5, #0x20
+@L_0206e448:
+    cmp r9, #0x30
+    blt @L_0206e430
+@L_0206e450:
+    mov r4, r9
+    b @L_0206e46c
+@L_0206e458:
+    ldrb r0, [r5]
+    cmp r7, r0
+    bne @L_0206e474
+    add r4, r4, #1
+    add r5, r5, #0x20
+@L_0206e46c:
+    cmp r4, #0x30
+    blt @L_0206e458
+@L_0206e474:
+    ldr r0, [r10, #0xc00]
+    mov r8, #0
+    add r5, r0, r9, lsl #5
+    sub r11, r8, #1
+    b @L_0206e4c4
+@L_0206e488:
+    ldrb r1, [r5, #1]
+    cmp r1, #0
+    moveq r11, r9
+    beq @L_0206e4cc
+    mov r0, r10
+    mov r2, #0
+    bl func_0207fff0
+    cmp r8, r0
+    bgt @L_0206e4bc
+    ldr r1, [r5, #4]
+    cmp r0, r1
+    movge r8, r0
+    movge r11, r9
+@L_0206e4bc:
+    add r9, r9, #1
+    add r5, r5, #0x20
+@L_0206e4c4:
+    cmp r9, r4
+    blt @L_0206e488
+@L_0206e4cc:
+    mvn r1, #0
+    cmp r11, r1
+    moveq r9, r4
+    beq @L_0206e424
+    cmp r11, #0x30
+    ldrlt r0, =gGameState
+    strltb r11, [r0, #0x4d8]
+    ldrge r0, =gGameState
+    strgeb r1, [r0, #0x4d8]
+    ldr r0, [sp]
+    cmp r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    mov r0, r10
+    bl _ZN17UnkClass_020621b413func_0206e3a8Ev
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e50c()
+{
+    stmdb sp!, {r0, r1, r2, r3}
+    stmdb sp!, {lr}
+    sub sp, sp, #0x14
+    ldr r3, [sp, #0x20]
+    mov r2, #0
+    cmp r3, #0
+    addeq sp, sp, #0x14
+    moveq r0, r2
+    ldmeqia sp!, {lr}
+    addeq sp, sp, #0x10
+    bxeq lr
+    cmp r1, #0x30
+    addhs sp, sp, #0x14
+    movhs r0, #0
+    ldmhsia sp!, {lr}
+    addhs sp, sp, #0x10
+    bxhs lr
+    ldr r0, [r0, #0xc00]
+    cmp r0, #0
+    beq @L_0206e580
+    add r0, r0, r1, lsl #5
+    mov r1, r3
+    mov r2, #0x20
+    bl MI_CpuCopy8
+    add sp, sp, #0x14
+    mov r0, #1
+    ldmia sp!, {lr}
+    add sp, sp, #0x10
+    bx lr
+@L_0206e580:
+    ldr r3, =data_020c47b4
+    ldr lr, =data_020af1bc
+    ldr r0, [r3]
+    cmp r0, #0
+    moveq r0, r2
+    beq @L_0206e5c0
+    mov r1, r1, lsl #5
+    str r1, [sp]
+    mov r1, #0x20
+    stmib sp, {r1, r2}
+    mov r12, #1
+    str r12, [sp, #0xc]
+    add r2, sp, #0x20
+    mov r1, lr
+    str r12, [sp, #0x10]
+    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
+@L_0206e5c0:
+    cmp r0, #0
+    moveq r0, #0
+    movne r0, #1
+    add sp, sp, #0x14
+    ldmia sp!, {lr}
+    add sp, sp, #0x10
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e5e4()
+{
+    stmdb sp!, {r0, r1, r2, r3}
+    stmdb sp!, {r4, r5, lr}
+    sub sp, sp, #0x34
+    ldr r2, [sp, #0x48]
+    mov r5, r3
+    cmp r2, #0
+    beq @L_0206e608
+    cmp r5, #0x13
+    bge @L_0206e61c
+@L_0206e608:
+    add sp, sp, #0x34
+    mov r0, #0
+    ldmia sp!, {r4, r5, lr}
+    add sp, sp, #0x10
+    bx lr
+@L_0206e61c:
+    cmp r1, #0x30
+    mov r4, #0
+    addhs sp, sp, #0x34
+    strb r4, [r2]
+    movhs r0, #0
+    ldmhsia sp!, {r4, r5, lr}
+    addhs sp, sp, #0x10
+    bxhs lr
+    add r2, sp, #0x14
+    bl _ZN17UnkClass_020621b413func_0206e50cEv
+    cmp r0, #0
+    addeq sp, sp, #0x34
+    moveq r0, r4
+    ldmeqia sp!, {r4, r5, lr}
+    addeq sp, sp, #0x10
+    bxeq lr
+    ldr r3, =data_020c47b4
+    ldrh r2, [sp, #0x32]
+    ldr r0, [r3]
+    ldr r1, =data_020af1d8
+    cmp r0, #0
+    mov r2, r2, lsl #5
+    beq @L_0206e698
+    stmia sp, {r2, r5}
+    str r4, [sp, #8]
+    mov r12, #1
+    str r12, [sp, #0xc]
+    add r2, sp, #0x48
+    str r12, [sp, #0x10]
+    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
+    mov r4, r0
+@L_0206e698:
+    mov r0, #0
+    cmp r4, #0
+    movne r0, #1
+    add sp, sp, #0x34
+    ldmia sp!, {r4, r5, lr}
+    add sp, sp, #0x10
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e6bc()
+{
+    stmdb sp!, {lr}
+    sub sp, sp, #0x14
+    mov r2, r0
+    ldr r0, [r2, #0xc04]
+    cmp r0, #0
+    addne sp, sp, #0x14
+    movne r0, #1
+    ldmneia sp!, {pc}
+    ldr r3, =data_020c47b4
+    ldr r1, =data_020af1f4
+    ldr r0, [r3]
+    cmp r0, #0
+    moveq r0, #0
+    beq @L_0206e71c
+    mov r12, #0
+    str r12, [sp]
+    str r12, [sp, #4]
+    add r2, r2, #4
+    str r12, [sp, #8]
+    mov r12, #1
+    str r12, [sp, #0xc]
+    add r2, r2, #0xc00
+    str r12, [sp, #0x10]
+    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
+@L_0206e71c:
+    cmp r0, #0
+    moveq r0, #0
+    movne r0, #1
+    add sp, sp, #0x14
+    ldmia sp!, {pc}
+}
+
+asm void UnkClass_020621b4::func_0206e738()
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    ldr r1, [r4, #0xc04]
+    cmp r1, #0
+    moveq r0, #1
+    ldmeqia sp!, {r4, pc}
+    ldr r0, =data_020c47b4
+    bl _ZN8GameHeap4FreeEPv
+    mov r0, #0
+    str r0, [r4, #0xc04]
+    mov r0, #1
+    ldmia sp!, {r4, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e76c()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    mov r10, r0
+    ldr r2, [r10, #0xbd4]
+    mov r7, #0
+    mov r9, r1
+    mov r11, r7
+    cmp r2, #0
+    ldr r5, =data_020cadf4
+    bne @L_0206e7a4
+    bl func_0207efd8
+    cmp r0, #0
+    moveq r0, r7
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    mov r11, #1
+@L_0206e7a4:
+    ldr r6, [r10, #0xbd4]
+    mov r8, #0
+    add r4, r10, #0x11800
+    b @L_0206e800
+@L_0206e7b4:
+    cmp r9, #0
+    bne @L_0206e7cc
+    ldrb r0, [r6, #0x30]
+    cmp r0, #1
+    bne @L_0206e7f8
+    b @L_0206e7e4
+@L_0206e7cc:
+    cmp r9, #1
+    bne @L_0206e7e4
+    ldrb r0, [r6, #0x30]
+    cmp r0, #0
+    cmpne r0, #1
+    beq @L_0206e7f8
+@L_0206e7e4:
+    mov r0, r5
+    mov r1, r8
+    bl func_02081894
+    cmp r0, #0
+    addne r7, r7, #1
+@L_0206e7f8:
+    add r8, r8, #1
+    add r6, r6, #0x38
+@L_0206e800:
+    ldrh r0, [r4, #0x42]
+    cmp r8, r0
+    blt @L_0206e7b4
+    cmp r11, #0
+    beq @L_0206e81c
+    mov r0, r10
+    bl func_0207f07c
+@L_0206e81c:
+    mov r0, r7
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+asm void UnkClass_020621b4::func_0206e828()
+{
+    ldr r2, =0xfff
+    add r0, r0, #0x11800
+    and r1, r1, r2
+    strh r1, [r0, #0x84]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e840()
+{
+    add r0, r0, #0xb00
+    strh r1, [r0, #0xb0]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e84c()
+{
+    add r0, r0, #0xb00
+    ldrh r0, [r0, #0xb0]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206e858()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x10
+    movs r5, r1
+    mov r4, r0
+    mov r10, r2
+    mov r9, r3
+    mov r11, #0
+    addeq sp, sp, #0x10
+    moveq r0, #1
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    cmp r5, #7
+    blo @L_0206e8f8
+    cmp r5, #8
+    bhi @L_0206e8f8
+    cmp r9, #0
+    mov r8, r11
+    ble @L_0206ea1c
+    ldr r0, =data_020a71c8
+    sub r5, r5, #7
+    ldr r7, [r0]
+    ldr r6, [r0, #4]
+    str r7, [sp]
+    str r6, [sp, #4]
+@L_0206e8b4:
+    ldr r1, [r10, r8, lsl #2]
+    mov r0, r4
+    mov r2, #0x25
+    mov r3, r11
+    bl func_0207f7cc
+    str r7, [sp, #8]
+    str r6, [sp, #0xc]
+    add r1, sp, #8
+    ldr r1, [r1, r5, lsl #2]
+    cmp r1, r0
+    addlt sp, sp, #0x10
+    movlt r0, r11
+    ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    add r8, r8, #1
+    cmp r8, r9
+    blt @L_0206e8b4
+    b @L_0206ea1c
+@L_0206e8f8:
+    cmp r5, #5
+    blo @L_0206e940
+    cmp r5, #6
+    bhi @L_0206e940
+    cmp r9, #0
+    mov r1, #0
+    ble @L_0206ea1c
+    sub r2, r5, #4
+@L_0206e918:
+    ldr r0, [r10, r1, lsl #2]
+    ldrb r0, [r0, #0x52]
+    cmp r2, r0
+    addeq sp, sp, #0x10
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    add r1, r1, #1
+    cmp r1, r9
+    blt @L_0206e918
+    b @L_0206ea1c
+@L_0206e940:
+    cmp r5, #1
+    blo @L_0206e984
+    cmp r5, #4
+    bhi @L_0206e984
+    cmp r9, #0
+    mov r1, #0
+    ble @L_0206ea1c
+@L_0206e95c:
+    ldr r0, [r10, r1, lsl #2]
+    ldrb r0, [r0, #0x5a]
+    cmp r5, r0
+    addne sp, sp, #0x10
+    movne r0, #0
+    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    add r1, r1, #1
+    cmp r1, r9
+    blt @L_0206e95c
+    b @L_0206ea1c
+@L_0206e984:
+    cmp r5, #9
+    blo @L_0206ea1c
+    cmp r5, #0xa
+    bhi @L_0206ea1c
+    cmp r9, #0
+    mov r6, #0
+    ble @L_0206ea1c
+    ldr r4, =data_020e88a0
+@L_0206e9a4:
+    mov r7, r11
+@L_0206e9a8:
+    ldr r0, [r10, r6, lsl #2]
+    add r0, r0, r7, lsl #1
+    ldrh r1, [r0, #0x98]
+    cmp r1, #0
+    beq @L_0206ea04
+    mov r0, r4
+    bl func_020739cc
+    cmp r0, #0
+    beq @L_0206ea04
+    cmp r5, #9
+    bne @L_0206e9ec
+    ldrb r0, [r0]
+    cmp r0, #7
+    bne @L_0206ea04
+    add sp, sp, #0x10
+    mov r0, #0
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+@L_0206e9ec:
+    cmp r5, #0xa
+    ldreqb r0, [r0]
+    cmpeq r0, #8
+    addeq sp, sp, #0x10
+    moveq r0, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+@L_0206ea04:
+    add r7, r7, #1
+    cmp r7, #6
+    blt @L_0206e9a8
+    add r6, r6, #1
+    cmp r6, r9
+    blt @L_0206e9a4
+@L_0206ea1c:
+    mov r0, #1
+    add sp, sp, #0x10
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+asm void UnkClass_020621b4::func_0206ea30()
+{
+    add r0, r0, r1, lsl #1
+    add r0, r0, #0x11800
+    strh r2, [r0, #0x86]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206ea40()
+{
+    add r0, r0, r1, lsl #1
+    add r0, r0, #0x11800
+    ldrh r0, [r0, #0x86]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206ea50()
+{
+    add r0, r0, #0x11800
+    strh r1, [r0, #0x8a]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206ea5c()
+{
+    add r0, r0, #0x11800
+    ldrh r0, [r0, #0x8a]
+    bx lr
+}
+
+asm void UnkClass_020621b4::func_0206ea68()
+{
+    stmdb sp!, {r4, lr}
+    movs r4, r1
+    beq @L_0206ea84
+    mov r0, r4
+    bl STD_GetStringLength
+    cmp r0, #2
+    bge @L_0206ea8c
+@L_0206ea84:
+    mvn r0, #0
+    ldmia sp!, {r4, pc}
+@L_0206ea8c:
+    ldrsb r1, [r4]
+    cmp r1, #0
+    blt @L_0206eaa4
+    cmp r1, #0x80
+    ldrlt r0, =data_020a43f8
+    ldrltb r1, [r0, r1]
+@L_0206eaa4:
+    mov r0, r1, lsl #0x10
+    mov r0, r0, lsr #0x10
+    cmp r0, #0x61
+    blt @L_0206eabc
+    cmp r0, #0x7a
+    ble @L_0206eac4
+@L_0206eabc:
+    mvn r0, #0
+    ldmia sp!, {r4, pc}
+@L_0206eac4:
+    cmp r0, #0x63
+    movle r0, #0
+    ldmleia sp!, {r4, pc}
+    cmp r0, #0x66
+    movle r0, #1
+    ldmleia sp!, {r4, pc}
+    cmp r0, #0x69
+    movle r0, #2
+    ldmleia sp!, {r4, pc}
+    cmp r0, #0x6c
+    movle r0, #3
+    ldmleia sp!, {r4, pc}
+    cmp r0, #0x6f
+    movle r0, #4
+    ldmleia sp!, {r4, pc}
+    cmp r0, #0x73
+    movle r0, #5
+    ldmleia sp!, {r4, pc}
+    cmp r0, #0x76
+    movle r0, #6
+    ldmleia sp!, {r4, pc}
+    cmp r0, #0x7a
+    movle r0, #7
+    ldmleia sp!, {r4, pc}
+    bl func_0200878c
+    mvn r0, #0
+    ldmia sp!, {r4, pc}
+}
+
+asm void UnkClass_020621b4::func_0206eb34()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
+    sub sp, sp, #4
+    mov r4, r0
+    add r5, r4, #0x6b0
+    ldr r2, =0x4cc
+    mov r0, r5
+    mov r1, #0
+    bl MI_CpuFill8
+    ldr r0, [r4, #0xbcc]
+    cmp r0, #0
+    beq @L_0206eb6c
+    mov r1, r5
+    mov r2, #0x400
+    bl MI_CpuCopy8
+@L_0206eb6c:
+    add r0, r5, #0x66
+    add r3, r5, #0x62
+    add r6, r0, #0x400
+    add r1, r4, #0x17c0
+    add r0, r1, #0x10000
+    add r1, r5, #0x420
+    add r2, r5, #0x460
+    add r3, r3, #0x400
+    str r6, [sp]
+    bl func_0209e174
+    add r0, r4, #0x15c
+    add r1, r5, #0x400
+    mov r2, #0x20
+    bl MI_CpuCopy8
+    add r0, r4, #8
+    add r1, r5, #0x28
+    mov r6, #8
+    mov r2, r6
+    add r0, r0, #0xc00
+    add r1, r1, #0x400
+    bl MI_CpuCopy8
+    mov r2, r6
+    add r0, r4, #0xc10
+    add r1, r5, #0x430
+    bl MI_CpuCopy8
+    add r0, r4, #0x18
+    add r1, r5, #0x38
+    mov r2, r6
+    add r0, r0, #0xc00
+    add r1, r1, #0x400
+    bl MI_CpuCopy8
+    add r0, r4, #0xbe
+    add r1, r5, #0x48
+    mov r6, #0xc
+    add r0, r0, #0x11800
+    add r1, r1, #0x400
+    mov r2, r6
+    bl MI_CpuCopy8
+    add r0, r4, #0xca
+    add r1, r5, #0x54
+    mov r2, r6
+    add r0, r0, #0x11800
+    add r1, r1, #0x400
+    bl MI_CpuCopy8
+    ldr r1, [r4, #0xbac]
+    mov r6, #0
+    add r0, r4, #0x11000
+    str r1, [r5, #0x440]
+    ldr r1, [r0, #0x8f8]
+    ldr r0, =gGameState
+    str r1, [r5, #0x444]
+    ldrb r1, [r0, #0x86]
+    mov r7, r6
+    mov r8, #6
+    strb r1, [r5, #0x464]
+    ldrb r0, [r0, #0x87]
+    strb r0, [r5, #0x465]
+    b @L_0206eca4
+@L_0206ec54:
+    mov r0, r7
+    bl func_ov015_02130ae8
+    movs r4, r0
+    beq @L_0206eca0
+    bl func_02080b90
+    cmp r0, #1
+    bne @L_0206eca0
+    mla r0, r6, r8, r5
+    ldrh r1, [r4, #0x42]
+    add r0, r0, #0x400
+    add r6, r6, #1
+    strh r1, [r0, #0x68]
+    ldrsh r1, [r4, #0x94]
+    cmp r6, #0x10
+    addeq sp, sp, #4
+    strh r1, [r0, #0x6a]
+    ldrsh r1, [r4, #0x96]
+    strh r1, [r0, #0x6c]
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
+@L_0206eca0:
+    add r7, r7, #1
+@L_0206eca4:
+    cmp r7, #0x84
+    blt @L_0206ec54
+    add sp, sp, #4
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+}
+
+asm void UnkClass_020621b4::func_0206ecbc()
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
+    sub sp, sp, #4
+    mov r4, r0
+    ldr r1, [r4, #0xbcc]
+    add r8, r4, #0x6b0
+    cmp r1, #0
+    beq @L_0206ece4
+    mov r0, r8
+    mov r2, #0x400
+    bl MI_CpuCopy8
+@L_0206ece4:
+    add r0, r8, #0x66
+    add r3, r8, #0x62
+    add r5, r0, #0x400
+    add r1, r4, #0x17c0
+    add r0, r1, #0x10000
+    add r1, r8, #0x420
+    add r2, r8, #0x460
+    add r3, r3, #0x400
+    str r5, [sp]
+    bl func_0209e1c8
+    add r0, r8, #0x400
+    add r1, r4, #0x15c
+    mov r2, #0x20
+    bl MI_CpuCopy8
+    add r0, r8, #0x28
+    add r1, r4, #8
+    mov r5, #8
+    mov r2, r5
+    add r0, r0, #0x400
+    add r1, r1, #0xc00
+    bl MI_CpuCopy8
+    mov r2, r5
+    add r0, r8, #0x430
+    add r1, r4, #0xc10
+    bl MI_CpuCopy8
+    add r0, r8, #0x38
+    add r1, r4, #0x18
+    mov r2, r5
+    add r0, r0, #0x400
+    add r1, r1, #0xc00
+    bl MI_CpuCopy8
+    add r0, r8, #0x48
+    add r1, r4, #0xbe
+    mov r5, #0xc
+    add r0, r0, #0x400
+    add r1, r1, #0x11800
+    mov r2, r5
+    bl MI_CpuCopy8
+    add r0, r8, #0x54
+    add r1, r4, #0xca
+    mov r2, r5
+    add r0, r0, #0x400
+    add r1, r1, #0x11800
+    bl MI_CpuCopy8
+    ldr r0, [r8, #0x440]
+    ldr r1, [r8, #0x444]
+    str r0, [r4, #0xbac]
+    add r0, r4, #0x11000
+    str r1, [r0, #0x8f8]
+    ldrb r2, [r8, #0x464]
+    ldr r1, =gGameState
+    mov r0, r4
+    strb r2, [r1, #0x86]
+    ldrb r2, [r8, #0x465]
+    strb r2, [r1, #0x87]
+    bl _ZN17UnkClass_020621b413func_0206b3fcEv
+    mov r10, #6
+    mov r9, #0
+    mov r7, r9
+    mov r4, r10
+    mov r5, r10
+    b @L_0206ee20
+@L_0206eddc:
+    mla r0, r9, r5, r8
+    add r0, r0, #0x400
+    ldrh r0, [r0, #0x68]
+    mov r1, r7
+    bl func_ov015_02130b14
+    movs r6, r0
+    beq @L_0206ee1c
+    mla r1, r9, r10, r8
+    add r1, r1, #0x400
+    ldrsh r1, [r1, #0x6a]
+    bl func_02080b00
+    mla r0, r9, r4, r8
+    add r0, r0, #0x400
+    ldrsh r1, [r0, #0x6c]
+    mov r0, r6
+    bl func_02080b1c
+@L_0206ee1c:
+    add r9, r9, #1
+@L_0206ee20:
+    cmp r9, #0x10
+    blt @L_0206eddc
+    add sp, sp, #4
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }

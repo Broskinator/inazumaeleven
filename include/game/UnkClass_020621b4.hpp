@@ -6,6 +6,8 @@
 
 #include "game/Match.hpp"
 
+struct SaveBody;
+
 // (what func_ov015_02143664 gives)
 struct UnkPair_020621b4 {
     u8 unk_0[8];
@@ -256,6 +258,76 @@ public:
     void func_0206cf6c();
     void func_0206cfc8();
     void func_0206d094();
+    void func_0206d114();
+    void func_0206d188();
+    void func_0206d358();
+    void func_0206d4ec();
+    void func_0206d690();
+    void func_0206d6a4();
+    void func_0206d6b4();
+    void func_0206d828();
+    void func_0206d840();
+    void func_0206d8e0();
+    void func_0206d8f8();
+    void func_0206d910();
+    void func_0206d940();
+    void func_0206d958();
+    void func_0206d970();
+    void func_0206d988();
+    void func_0206d9a0();
+    void func_0206d9d0();
+    void func_0206da44();
+    void func_0206dad4();
+    void func_0206daec();
+    void func_0206db10(SaveBody *dst);
+    void func_0206dc34();
+    void func_0206dcdc(SaveBody *src);
+    void func_0206ddc8();
+    void func_0206dde8();
+    void func_0206de18();
+    void func_0206de34();
+    void func_0206de44();
+    void func_0206de4c();
+    BOOL func_0206de54(int a, int b);
+    void func_0206de64();
+    BOOL func_0206dedc();
+    void func_0206deec();
+    void func_0206df08();
+    void func_0206df34();
+    void func_0206df44();
+    void func_0206df58();
+    void func_0206df68();
+    void func_0206df9c();
+    void func_0206dfa4();
+    void func_0206e018();
+    void func_0206e100();
+    void func_0206e174();
+    void func_0206e1c4();
+    void func_0206e1d4();
+    void func_0206e1e4();
+    void func_0206e1f0();
+    void func_0206e1fc();
+    void func_0206e298();
+    void func_0206e2e4();
+    void func_0206e330();
+    void func_0206e3a8();
+    void func_0206e3d4();
+    void func_0206e50c();
+    void func_0206e5e4();
+    void func_0206e6bc();
+    void func_0206e738();
+    void func_0206e76c();
+    void func_0206e828();
+    void func_0206e840();
+    void func_0206e84c();
+    void func_0206e858();
+    void func_0206ea30();
+    void func_0206ea40();
+    void func_0206ea50();
+    void func_0206ea5c();
+    void func_0206ea68();
+    void func_0206eb34();
+    void func_0206ecbc();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];
