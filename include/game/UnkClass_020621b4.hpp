@@ -6,6 +6,10 @@
 
 #include "game/Match.hpp"
 
+struct UnkVirtual_020621b4 {
+    void **vtable;
+};
+
 // The object at data_020e88a0 (0x11920+ bytes, made by the static constructors): the match's data
 class UnkClass_020621b4 {
 public:
@@ -75,16 +79,16 @@ public:
     BOOL func_02067e78(MatchPlayer *player, int a, int b);
     void func_02067f44();
     void func_02068028();
-    void func_0206811c();
+    BOOL func_0206811c(u16 *action);
     void func_0206815c();
     void func_020681d8();
     void func_02068248();
     void func_02068434();
-    void func_020684f0();
-    void func_02068548();
-    void func_02068560();
-    void func_02068578();
-    void func_02068590();
+    int func_020684f0(int kind, int a, int b);
+    int func_02068548(int a, int b);
+    int func_02068560(int a, int b, int c);
+    int func_02068578(int a, int b, int c);
+    int func_02068590(int a, int b);
     void func_020685a8();
     void func_02068614();
     void func_020687cc();
@@ -93,26 +97,26 @@ public:
     void func_020689c4();
     void func_02068b08();
     void func_02068b5c();
-    void func_02068c28();
-    void func_02068ce4();
-    void func_02068d20();
+    u16 func_02068c28(u16 direction, u16 target, int *amount);
+    int func_02068ce4(MatchPlayer *player, int target, int amount);
+    void func_02068d20(MatchPlayer *player, int value);
     void func_02068d74();
-    void func_02068eb4();
-    void func_02068ed4();
+    int func_02068eb4(MatchPlayer *player);
+    int func_02068ed4(int value);
     void func_02068edc();
-    void func_02068f68();
+    fx32 func_02068f68(fx32 value);
     void func_02068f90();
     void func_020690a8();
     void func_02069110();
     void func_02069184();
-    void func_02069344();
+    int func_02069344(int a, int b, int c, int d, u8 e, int f);
 
     void *vtable;
     u8 unk_4[0x9C - 0x4];
     u8 unk_9c[2][8];
     u8 unk_ac[0xB7C - 0xAC];
     s32 unk_b7c;
-    s32 unk_b80;
+    UnkVirtual_020621b4 *unk_b80;     // (an object with a vtable)
     u8 unk_b84[0xB98 - 0xB84];
     s32 unk_b98;
     u8 unk_b9c[0xBB0 - 0xB9C];
