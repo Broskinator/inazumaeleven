@@ -2,6 +2,9 @@
 #include "game/Match.hpp"
 #include "nitro/mi.h"
 
+extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
+extern "C" fx32 data_020c4ebc[4];     // (the field's rectangle)
+
 extern "C" int func_ov015_02131970(MatchPlayer *player);
 extern "C" int func_ov015_021319b0(MatchPlayer *player);
 extern "C" u8 data_020c4eec[];
@@ -25,9 +28,9 @@ extern "C" u8 *func_02083e94(int side);
 extern "C" u8 *func_02083eac(int side);
 extern "C" void func_02083ec4(void);
 extern "C" void func_02083fe8(void);
-extern "C" void func_02084094(void);
-extern "C" void func_020840b4(void);
-extern "C" void func_020840e0(void);
+extern "C" u16 func_02084094(fx32 *segment);
+extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b);
+extern "C" int func_020840e0(int a, int b);
 extern "C" void func_02084100(void);
 extern "C" void func_0208413c(void);
 extern "C" void func_02084188(void);
@@ -35,10 +38,10 @@ extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
 extern "C" void func_020841e8(void);
 extern "C" void func_02084248(void);
-extern "C" void func_02084284(void);
+extern "C" BOOL func_02084284(int value, int a, int b);
 extern "C" void func_020842b0(void);
-extern "C" void func_020842f8(void);
-extern "C" void func_02084324(void);
+extern "C" BOOL func_020842f8(fx32 value);
+extern "C" BOOL func_02084324(fx32 value);
 extern "C" void func_02084350(void);
 extern "C" void func_020843b0(void);
 extern "C" void func_02084428(void);
@@ -47,12 +50,12 @@ extern "C" void func_020844dc(void);
 extern "C" void func_0208454c(void);
 extern "C" void func_020845e0(void);
 extern "C" void func_020846dc(void);
-extern "C" void func_02084788(void);
+extern "C" BOOL func_02084788(MatchPoint *point);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
-extern "C" void func_020847d0(void);
-extern "C" void func_020847ec(void);
+extern "C" BOOL func_020847d0(int value);
+extern "C" BOOL func_020847ec(int value);
 extern "C" void func_02084808(void);
-extern "C" void func_0208484c(void);
+extern "C" BOOL func_0208484c(MatchPoint *a, MatchPoint *b);
 extern "C" BOOL func_02084870(MatchPlayer *player);
 extern "C" void func_0208488c(void);
 extern "C" BOOL func_02084900(fx32 *x, fx32 *y, fx32 *rect, int a);
@@ -68,25 +71,24 @@ extern "C" s32 func_02084ca0(u8 *obj);
 extern "C" void func_02084cac(void);
 extern "C" u8 *func_02084cf0(u8 *obj);
 extern "C" u8 *func_02084cf8(u8 *obj);
-extern "C" void func_02084d00(void);
+extern "C" void func_02084d00(u8 *obj, VecFx32 v);
 extern "C" void func_02084d24(u8 *obj, s32 a, s32 b, s32 c);
-extern "C" void func_02084d34(void);
-extern "C" void func_02084d50(void);
+extern "C" void func_02084d34(u8 *obj, int value);
+extern "C" void func_02084d50(u8 *obj, s32 value, BOOL update);
 extern "C" void func_02084d74(u8 *obj, u8 value);
 extern "C" void func_02084d7c(u8 *obj, u16 value);
 extern "C" BOOL func_02084d94(u8 *obj, u16 flags);
 extern "C" void func_02084dac(u8 *obj, int flags);
 extern "C" void func_02084dc0(u8 *obj, int flags);
 extern "C" BOOL func_02084dd8(u8 *obj);
-extern "C" void func_02084de8(void);
+extern "C" BOOL func_02084de8(u8 *obj);
 extern "C" void func_02084e08(void);
-extern "C" void func_02084e40(void);
+extern "C" void func_02084e40(u8 *obj, s32 a, s32 b);
 extern "C" void func_02084e70(void);
 extern "C" void func_02084f84(void);
 extern "C" void func_02084fdc(void *data);
 
 extern "C" char data_020c47b4[];
-extern "C" char data_020c4ebc[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" void MIi_CpuCopyFast(void);
@@ -95,7 +97,6 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001d80(void);
-extern "C" void func_0200226c(void);
 extern "C" void func_02099adc(void);
 extern "C" void func_ov015_02131854(void);
 
@@ -491,43 +492,27 @@ extern "C" asm void func_02083fe8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02084094(void)
+extern "C" u16 func_02084094(fx32 *segment)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [r0, #0xc]
-    ldr r2, [r0, #8]
-    ldmia r0, {r1, r3}
-    sub r0, r12, r3
-    sub r1, r2, r1
-    bl func_0200226c
-    ldmia sp!, {r3, pc}
+    return func_0200226c(segment[3] - segment[1], segment[2] - segment[0]);
 }
 
-extern "C" asm void func_020840b4(void)
+extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b)
 {
-    stmdb sp!, {r3, lr}
-    ldmia r1, {r2, r12}
-    ldr r1, [r0]
-    ldr r3, [r0, #4]
-    sub r1, r2, r1
-    sub r0, r12, r3
-    bl func_0200226c
-    add r0, r0, #0x10000
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    ldmia sp!, {r3, pc}
+    return func_0200226c(b->y - a->y, b->x - a->x) + 0x10000;
 }
 
-extern "C" asm void func_020840e0(void)
+extern "C" int func_020840e0(int a, int b)
 {
-    sub r0, r1, r0
-    mov r1, #0x8000
-    cmp r0, #0x8000
-    subgt r0, r0, #0x10000
-    rsb r1, r1, #0
-    cmp r0, r1
-    addle r0, r0, #0x10000
-    bx lr
+    int d = b - a;
+
+    if (d > 0x8000) {
+        d -= 0x10000;
+    }
+    if (d <= -0x8000) {
+        d += 0x10000;
+    }
+    return d;
 }
 
 extern "C" asm void func_02084100(void)
@@ -652,20 +637,17 @@ extern "C" asm void func_02084248(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_02084284(void)
+extern "C" BOOL func_02084284(int value, int a, int b)
 {
-    cmp r1, r2
-    movgt r3, r1
-    movgt r1, r2
-    movgt r2, r3
-    cmp r0, r1
-    blt @L_020842a8
-    cmp r0, r2
-    movle r0, #1
-    bxle lr
-@L_020842a8:
-    mov r0, #0
-    bx lr
+    if (a > b) {
+        int tmp = a;
+        a = b;
+        b = tmp;
+    }
+    if (value >= a && value <= b) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 extern "C" asm void func_020842b0(void)
@@ -692,34 +674,26 @@ extern "C" asm void func_020842b0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_020842f8(void)
+extern "C" BOOL func_020842f8(fx32 value)
 {
-    ldr r2, =data_020c4ebc
-    mov r3, #0
-    ldr r1, [r2]
-    cmp r0, r1
-    blt @L_02084318
-    ldr r1, [r2, #8]
-    cmp r0, r1
-    movle r3, #1
-@L_02084318:
-    mov r0, r3
-    bx lr
+    BOOL result = FALSE;
+    fx32 *rect = data_020c4ebc;
+
+    if (value >= rect[0] && value <= rect[2]) {
+        result = TRUE;
+    }
+    return result;
 }
 
-extern "C" asm void func_02084324(void)
+extern "C" BOOL func_02084324(fx32 value)
 {
-    ldr r2, =data_020c4ebc
-    mov r3, #0
-    ldr r1, [r2, #4]
-    cmp r0, r1
-    blt @L_02084344
-    ldr r1, [r2, #0xc]
-    cmp r0, r1
-    movle r3, #1
-@L_02084344:
-    mov r0, r3
-    bx lr
+    BOOL result = FALSE;
+    fx32 *rect = data_020c4ebc;
+
+    if (value >= rect[1] && value <= rect[3]) {
+        result = TRUE;
+    }
+    return result;
 }
 
 extern "C" asm void func_02084350(void)
@@ -1043,18 +1017,11 @@ extern "C" asm void func_020846dc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_02084788(void)
+extern "C" BOOL func_02084788(MatchPoint *point)
 {
-    ldr r1, [r0]
-    cmp r1, #0x80000000
-    ldrne r0, [r0, #4]
-    cmpne r0, #0x80000000
-    moveq r0, #1
-    movne r0, #0
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    bx lr
+    BOOL none = point->x == (fx32)0x80000000 || point->y == (fx32)0x80000000;
+
+    return none ? TRUE : FALSE;
 }
 
 extern "C" BOOL func_020847b0(MatchPlayer *player)
@@ -1062,28 +1029,20 @@ extern "C" BOOL func_020847b0(MatchPlayer *player)
     return data_020c4920.unk_48 == player->unk_f4;
 }
 
-extern "C" asm void func_020847d0(void)
+extern "C" BOOL func_020847d0(int value)
 {
-    cmp r0, #1
-    blt @L_020847e4
-    cmp r0, #0xb
-    movle r0, #1
-    bxle lr
-@L_020847e4:
-    mov r0, #0
-    bx lr
+    if (value >= 1 && value <= 11) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
-extern "C" asm void func_020847ec(void)
+extern "C" BOOL func_020847ec(int value)
 {
-    cmp r0, #0xc
-    blt @L_02084800
-    cmp r0, #0x10
-    movle r0, #1
-    bxle lr
-@L_02084800:
-    mov r0, #0
-    bx lr
+    if (value >= 12 && value <= 16) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 extern "C" asm void func_02084808(void)
@@ -1108,17 +1067,9 @@ extern "C" asm void func_02084808(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0208484c(void)
+extern "C" BOOL func_0208484c(MatchPoint *a, MatchPoint *b)
 {
-    ldr r3, [r0]
-    ldr r2, [r1]
-    cmp r3, r2
-    ldreq r2, [r0, #4]
-    ldreq r0, [r1, #4]
-    cmpeq r2, r0
-    moveq r0, #1
-    movne r0, #0
-    bx lr
+    return a->x == b->x && a->y == b->y;
 }
 
 extern "C" BOOL func_02084870(MatchPlayer *player)
@@ -1464,17 +1415,9 @@ extern "C" u8 *func_02084cf8(u8 *obj)
     return obj + 0x78;
 }
 
-extern "C" asm void func_02084d00(void)
+extern "C" void func_02084d00(u8 *obj, VecFx32 v)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    ldr r3, [sp, #4]
-    ldr r2, [sp, #8]
-    ldr r1, [sp, #0xc]
-    str r3, [r0, #0x6c]
-    str r2, [r0, #0x70]
-    str r1, [r0, #0x74]
-    add sp, sp, #0x10
-    bx lr
+    *(VecFx32 *)(obj + 0x6C) = v;
 }
 
 extern "C" void func_02084d24(u8 *obj, s32 a, s32 b, s32 c)
@@ -1484,29 +1427,27 @@ extern "C" void func_02084d24(u8 *obj, s32 a, s32 b, s32 c)
     *(s32 *)(obj + 0x98) = c;
 }
 
-extern "C" asm void func_02084d34(void)
+extern "C" void func_02084d34(u8 *obj, int value)
 {
-    cmp r1, #0
-    movlt r1, #0
-    blt @L_02084d48
-    cmp r1, #0x1f
-    movge r1, #0x1e
-@L_02084d48:
-    strb r1, [r0, #0x68]
-    bx lr
+    if (value < 0) {
+        value = 0;
+    } else if (value >= 31) {
+        value = 30;
+    }
+    obj[0x68] = value;
 }
 
-extern "C" asm void func_02084d50(void)
+extern "C" void func_02084d50(u8 *obj, s32 value, BOOL update)
 {
-    str r1, [r0, #0xa0]
-    cmp r2, #0
-    bxeq lr
-    cmp r1, #0xef
-    movge r1, #1
-    strgeb r1, [r0, #0xa6]
-    movlt r1, #0
-    strltb r1, [r0, #0xa6]
-    bx lr
+    *(s32 *)(obj + 0xA0) = value;
+    if (!update) {
+        return;
+    }
+    if (value >= 0xEF) {
+        obj[0xA6] = 1;
+    } else {
+        obj[0xA6] = 0;
+    }
 }
 
 extern "C" void func_02084d74(u8 *obj, u8 value)
@@ -1542,16 +1483,14 @@ extern "C" BOOL func_02084dd8(u8 *obj)
     return func_02084d94(obj, 2);
 }
 
-extern "C" asm void func_02084de8(void)
+extern "C" BOOL func_02084de8(u8 *obj)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #1
-    mov r1, r4
-    bl func_02084d94
-    cmp r0, #0
-    movne r4, #0
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    BOOL result = TRUE;
+
+    if (func_02084d94(obj, result)) {
+        result = FALSE;
+    }
+    return result;
 }
 
 extern "C" asm void func_02084e08(void)
@@ -1573,19 +1512,11 @@ extern "C" asm void func_02084e08(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02084e40(void)
+extern "C" void func_02084e40(u8 *obj, s32 a, s32 b)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r4, r2
-    mov r5, r1
-    ldr r2, =0x4c8
-    mov r1, r6
-    mov r0, #0
-    bl MIi_CpuClearFast
-    str r5, [r6, #0x490]
-    str r4, [r6, #0x494]
-    ldmia sp!, {r4, r5, r6, pc}
+    MIi_CpuClearFast(0, obj, 0x4C8);
+    *(s32 *)(obj + 0x490) = a;
+    *(s32 *)(obj + 0x494) = b;
 }
 
 extern "C" asm void func_02084e70(void)
