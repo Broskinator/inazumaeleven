@@ -52,7 +52,7 @@ for f in glob.glob("src/**/*.cpp", recursive=True):
     y = open(f).read()
     ny = mang.sub(r"\1", y)
     # (an untyped declaration once is enough, and none where a typed one exists)
-    typed = set(re.findall(r'^extern "C" (?!void \w+\(void\))[^\n]*?\b(func_[0-9a-f]{8})\(', ny, re.M))
+    typed = set(re.findall(r'^extern "C" (?!void \w+\(void\))(?!asm )[^\n]*?\b(func_[0-9a-f]{8})\([^\n]*\);', ny, re.M))
     seen, out = set(), []
     for line in ny.split("\n"):
         m = re.match(r'extern "C" void (func_[0-9a-f]{8})\(void\);', line)
