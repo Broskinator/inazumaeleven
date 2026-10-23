@@ -123,11 +123,15 @@ extern "C" void func_ov015_02131818(int);
 extern "C" void func_ov015_02133efc(const char *name, FontFile *file);
 
 // (files are loaded through the file manager)
-static inline void LoadFile(FileManager *fileManager, const char *name, void **buffer)
+static inline int LoadFile(const char *name, void **buffer)
 {
-    if (fileManager != NULL) {
-        fileManager->Load(name, buffer, &data_020c47b4, 0, 0, FALSE, 1, TRUE);
+    FileManager *fileManager = data_020c4638.fileManager;
+    const char *path = name;
+
+    if (fileManager == NULL) {
+        return 0;
     }
+    return fileManager->Load(path, buffer, &data_020c47b4, 0, 0, FALSE, 1, TRUE);
 }
 
 #define OS_ARENA_MAIN 0
@@ -451,143 +455,25 @@ void System::func_0203ffb4()
 }
 
 // loads the files the whole game uses
-// (nonmatching: each file's name is loaded before the file manager is checked)
-#ifdef NONMATCHING
 void System::func_0203ffd4()
 {
     func_01ffd9a0(data_020e88a0);
     func_01ffb7b8(data_020e88a0);
     func_0206f7a4(data_020e88a0);
     data_020c4638.unk_6c = 0;
-    LoadFile(data_020c4638.fileManager, data_020ac0e4, &data_020c46a4);
+    LoadFile(data_020ac0e4, &data_020c46a4);
     data_020c4638.unk_24 = 0;
     data_020c4638.unk_74 = 0;
     data_020c4638.unk_64 = 0;
     data_020c4638.unk_2c = 0;
     data_020c4638.unk_1c = 0;
-    LoadFile(data_020c4638.fileManager, data_020ac100, &data_020c465c);
-    LoadFile(data_020c4638.fileManager, data_020ac120, &data_020c46ac);
-    LoadFile(data_020c4638.fileManager, data_020ac140, &data_020c469c);
-    LoadFile(data_020c4638.fileManager, data_020ac15c, &data_020c4664);
-    LoadFile(data_020c4638.fileManager, data_020ac17c, &data_020c4654);
-    LoadFile(data_020c4638.fileManager, data_020ac19c, &data_020c46bc);
+    LoadFile(data_020ac100, &data_020c465c);
+    LoadFile(data_020ac120, &data_020c46ac);
+    LoadFile(data_020ac140, &data_020c469c);
+    LoadFile(data_020ac15c, &data_020c4664);
+    LoadFile(data_020ac17c, &data_020c4654);
+    LoadFile(data_020ac19c, &data_020c46bc);
 }
-#else
-asm void System::func_0203ffd4()
-{
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x14
-    ldr r4, =data_020e88a0
-    mov r5, #1
-    mov r0, r4
-    bl func_01ffd9a0
-    mov r0, r4
-    bl func_01ffb7b8
-    mov r0, r4
-    bl func_0206f7a4
-    ldr r4, =data_020c4638
-    mov r6, #0
-    str r6, [r4, #0x6c]
-    ldr r0, [r4, #0x17c]
-    ldr r1, =data_020ac0e4
-    cmp r0, #0
-    beq @L_02040038
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r5, [sp, #0xc]
-    ldr r2, =data_020c46a4
-    ldr r3, =data_020c47b4
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_02040038:
-    str r6, [r4, #0x24]
-    str r6, [r4, #0x74]
-    str r6, [r4, #0x64]
-    str r6, [r4, #0x2c]
-    str r6, [r4, #0x1c]
-    ldr r0, [r4, #0x17c]
-    ldr r1, =data_020ac100
-    cmp r0, #0
-    beq @L_0204007c
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r5, [sp, #0xc]
-    ldr r2, =data_020c465c
-    ldr r3, =data_020c47b4
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_0204007c:
-    ldr r0, [r4, #0x17c]
-    ldr r1, =data_020ac120
-    cmp r0, #0
-    beq @L_020400ac
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r5, [sp, #0xc]
-    ldr r2, =data_020c46ac
-    ldr r3, =data_020c47b4
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_020400ac:
-    ldr r0, [r4, #0x17c]
-    ldr r1, =data_020ac140
-    cmp r0, #0
-    beq @L_020400dc
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r5, [sp, #0xc]
-    ldr r2, =data_020c469c
-    ldr r3, =data_020c47b4
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_020400dc:
-    ldr r0, [r4, #0x17c]
-    ldr r1, =data_020ac15c
-    cmp r0, #0
-    beq @L_0204010c
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r5, [sp, #0xc]
-    ldr r2, =data_020c4664
-    ldr r3, =data_020c47b4
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_0204010c:
-    ldr r0, [r4, #0x17c]
-    ldr r1, =data_020ac17c
-    cmp r0, #0
-    beq @L_0204013c
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r5, [sp, #0xc]
-    ldr r2, =data_020c4654
-    ldr r3, =data_020c47b4
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_0204013c:
-    ldr r0, [r4, #0x17c]
-    ldr r1, =data_020ac19c
-    cmp r0, #0
-    addeq sp, sp, #0x14
-    ldmeqia sp!, {r3, r4, r5, r6, pc}
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r5, [sp, #0xc]
-    ldr r2, =data_020c46bc
-    ldr r3, =data_020c47b4
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, pc}
-}
-#endif
 
 // a new game: clears the game's state
 // (nonmatching: the original keeps a second zero in a register and starts its loops with a jump to the condition)
