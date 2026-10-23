@@ -42,11 +42,57 @@ extern "C" char data_020ac0cc[];                            // the name of the s
 extern "C" u8 data_020c5320[];
 extern "C" u8 data_027e0000[];                              // (the DTCM)
 
+extern "C" char data_020af61c[];
+extern "C" char data_020ac084[];
+extern "C" char data_020af7d0[];
+extern "C" char data_020afa08[];
+extern "C" char data_020afd20[];
+extern "C" char data_020ac064[];
+extern "C" void *func_ov015_02148258(void *);
+extern "C" void func_02089024(void *);
+extern "C" void *func_0208c178(void *);
+extern "C" void func_02088a38(void *);
+extern "C" void func_0208a718(void *);
+extern "C" void func_0208d2f0(void *);
+extern "C" void *func_ov015_02136584(void *);
+extern "C" void func_020977d0(void *);
+extern "C" void *func_02090320(void *);
+extern "C" void *func_020858fc(void *);
+extern "C" void *func_02087144(void *);
+extern "C" void *func_ov015_02161618(void *);
+extern "C" void *func_ov015_0213db54(void *);
+extern "C" void func_0208868c(void *);
+extern "C" void func_02098bac(void *, int, int, int);
+extern "C" void func_ov015_0214799c(void *, int);
+extern "C" void func_ov015_0213cc18(void *);
+extern "C" void func_02089214(void *, int);
+extern "C" void func_0208d9e8(void *, int);
+extern "C" void func_0208c1f4(void *, int);
+extern "C" void func_0208ad68(void *, int);
+extern "C" void func_ov015_02136594(void *);
+extern "C" void func_02091c64(void *, int, int);
+extern "C" void func_02095d70(void *, int, int);
+extern "C" void func_02085934(void *);
+extern "C" void func_0208720c(void *);
+extern "C" void NNS_G3dInit(void);
+extern "C" void func_020285a4(void);
+extern "C" void G3X_InitMtxStack(void);
+extern "C" void G2x_ChangeBlendBrightness_(volatile u16 *reg, int brightness);
+extern "C" void func_0200eab0(void);
+extern "C" BOOL func_0200eb24(void *);
+extern "C" void func_0200ebb8(void *);
+extern "C" void func_01ff9dc4(void *);
+extern "C" void func_01ff9e1c(void *);
+extern "C" u8 data_020e88a0[];
+
 #define OS_ARENA_MAIN 0
 #define OS_IE_V_BLANK 1
 #define HW_DTCM ((u32)data_027e0000)
 #define OS_IRQ_CHECK_FLAG (*(volatile u32 *)(HW_DTCM + 0x3FF8))
 #define REG_DISPCNT_SUB (*(volatile u32 *)0x04001000)
+#define REG_POWCNT (*(volatile u16 *)0x04000304)
+#define REG_MASTER_BRIGHT (*(volatile u16 *)0x04000050)
+#define REG_DB_MASTER_BRIGHT (*(volatile u16 *)0x04001050)
 #define HW_LCDC_VRAM 0x06800000
 #define HW_PLTT 0x05000000
 #define HW_DB_PLTT 0x05000400
@@ -58,8 +104,6 @@ extern "C" u8 data_027e0000[];                              // (the DTCM)
 FS_EXTERN_OVERLAY(ov015);
 FS_EXTERN_OVERLAY(ov087);
 
-extern "C" char data_020ac064[];
-extern "C" char data_020ac084[];
 extern "C" char data_020ac0e4[];
 extern "C" char data_020ac100[];
 extern "C" char data_020ac120[];
@@ -72,10 +116,6 @@ extern "C" char data_020ac1d8[];
 extern "C" char data_020ac1f4[];
 extern "C" char data_020ac210[];
 extern "C" char data_020ac22c[];
-extern "C" char data_020af61c[];
-extern "C" char data_020af7d0[];
-extern "C" char data_020afa08[];
-extern "C" char data_020afd20[];
 extern "C" char data_020c4654[];
 extern "C" char data_020c4658[];
 extern "C" char data_020c465c[];
@@ -88,10 +128,6 @@ extern "C" char data_020c4ab4[];
 extern "C" char data_020c4ac0[];
 extern "C" char data_020c4ae1[];
 extern "C" char data_020c4c70[];
-extern "C" char data_020e88a0[];
-extern "C" void G2x_ChangeBlendBrightness_(void);
-extern "C" void G3X_InitMtxStack(void);
-extern "C" void NNS_G3dInit(void);
 extern "C" void _ZN10ConfigFile4LoadEPKc(void);
 extern "C" void _ZN10ConfigFile5ClearEv(void);
 extern "C" void _ZN10ConfigFile5ResetEv(void);
@@ -111,47 +147,15 @@ extern "C" void _ZN8TextFont16SetUseGlyphWidthEh(void);
 extern "C" void _ZN8TextFont7SetFontEPvmh(void);
 extern "C" void _ZN8TextFontC1Ev(void);
 extern "C" void _Znwm(void);
-extern "C" void func_01ff9dc4(void);
-extern "C" void func_01ff9e1c(void);
 extern "C" void func_01ffb7b8(void);
 extern "C" void func_01ffd9a0(void);
 extern "C" void func_020065d0(void);
 extern "C" void func_0200713c(void);
-extern "C" void func_0200eab0(void);
-extern "C" void func_0200eb24(void);
-extern "C" void func_0200ebb8(void);
-extern "C" void func_020285a4(void);
 extern "C" void func_0206f7a4(void);
-extern "C" void func_020858fc(void);
-extern "C" void func_02085934(void);
-extern "C" void func_02087144(void);
-extern "C" void func_0208720c(void);
-extern "C" void func_0208868c(void);
-extern "C" void func_02088a38(void);
-extern "C" void func_02089024(void);
-extern "C" void func_02089214(void);
-extern "C" void func_0208a718(void);
-extern "C" void func_0208ad68(void);
-extern "C" void func_0208c178(void);
-extern "C" void func_0208c1f4(void);
-extern "C" void func_0208d2f0(void);
-extern "C" void func_0208d9e8(void);
-extern "C" void func_02090320(void);
-extern "C" void func_02091c64(void);
-extern "C" void func_02095d70(void);
-extern "C" void func_020977d0(void);
-extern "C" void func_02098bac(void);
 extern "C" void func_ov015_02130920(void);
 extern "C" void func_ov015_02131818(void);
 extern "C" void func_ov015_0213238c(void);
 extern "C" void func_ov015_02133efc(void);
-extern "C" void func_ov015_02136584(void);
-extern "C" void func_ov015_02136594(void);
-extern "C" void func_ov015_0213cc18(void);
-extern "C" void func_ov015_0213db54(void);
-extern "C" void func_ov015_0214799c(void);
-extern "C" void func_ov015_02148258(void);
-extern "C" void func_ov015_02161618(void);
 extern "C" void gGameState(void);
 
 // (the vblank interrupt)
@@ -300,224 +304,137 @@ void System::func_0203fc74()
     data_020c46e4.Load(data_020ac0cc);
 }
 
-asm void System::func_0203fca4()
+// makes the game's systems
+void System::func_0203fca4()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r0, #0x48
-    ldr r4, =data_020c4638
-    bl _Znwm
-    cmp r0, #0
-    ldrne r1, =data_020af61c
-    strne r1, [r0]
-    str r0, [r4, #0x44]
-    mov r0, #0x3c
-    bl _Znwm
-    str r0, [r4, #0x30]
-    mov r0, #0x2c
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fce4
-    bl func_ov015_02148258
-@L_0203fce4:
-    str r0, [r4, #0x14]
-    ldr r0, =0x5e4
-    bl _Znwm
-    str r0, [r4, #0x98]
-    mov r0, #0x94
-    bl _Znwm
-    movs r5, r0
-    beq @L_0203fd10
-    ldr r1, =data_020ac084
-    str r1, [r5]
-    bl func_02089024
-@L_0203fd10:
-    mov r0, #0x20
-    str r5, [r4, #0x18]
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fd28
-    bl func_0208c178
-@L_0203fd28:
-    str r0, [r4, #0x28]
-    mov r0, #0x1c
-    bl _Znwm
-    movs r5, r0
-    beq @L_0203fd50
-    bl func_02088a38
-    ldr r1, =data_020af7d0
-    mov r0, r5
-    str r1, [r5]
-    bl func_0208a718
-@L_0203fd50:
-    mov r0, #0x20
-    str r5, [r4, #0x3c]
-    bl _Znwm
-    movs r5, r0
-    beq @L_0203fd78
-    bl func_02088a38
-    ldr r1, =data_020afa08
-    mov r0, r5
-    str r1, [r5]
-    bl func_0208d2f0
-@L_0203fd78:
-    mov r0, #0x1bc
-    str r5, [r4, #0x40]
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fd90
-    bl func_ov015_02136584
-@L_0203fd90:
-    str r0, [r4, #0x10]
-    mov r0, #0x2c
-    bl _Znwm
-    movs r5, r0
-    beq @L_0203fda8
-    bl func_020977d0
-@L_0203fda8:
-    mov r0, #0x48
-    str r5, [r4, #0x9c]
-    bl _Znwm
-    movs r5, r0
-    beq @L_0203fdcc
-    ldr r1, =data_020afd20
-    add r0, r5, #4
-    str r1, [r5]
-    bl func_020977d0
-@L_0203fdcc:
-    mov r0, #0x350
-    str r5, [r4, #0x5c]
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fde4
-    bl func_02090320
-@L_0203fde4:
-    str r0, [r4, #0x38]
-    ldr r0, =0x18fc
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fdfc
-    bl func_020858fc
-@L_0203fdfc:
-    str r0, [r4, #0x94]
-    mov r0, #0xa0
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fe14
-    bl func_02087144
-@L_0203fe14:
-    str r0, [r4, #0x90]
-    ldr r0, =0xf3c
-    bl _Znwm
-    cmp r0, #0
-    ldrne r1, =data_020ac064
-    strne r1, [r0]
-    str r0, [r4, #0x8c]
-    ldr r0, =0x424
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fe44
-    bl func_ov015_02161618
-@L_0203fe44:
-    str r0, [r4, #0x80]
-    mov r0, #0x138
-    bl _Znwm
-    cmp r0, #0
-    beq @L_0203fe5c
-    bl func_ov015_0213db54
-@L_0203fe5c:
-    str r0, [r4, #0x50]
-    ldr r0, [r4, #0x44]
-    bl func_0208868c
-    mov r5, #0x100
-    mov r2, #0x80
-    ldr r0, [r4, #0x30]
-    mov r1, r5
-    mov r3, r2
-    bl func_02098bac
-    ldr r0, [r4, #0x14]
-    mov r1, r5
-    bl func_ov015_0214799c
-    ldr r0, [r4, #0x98]
-    bl func_ov015_0213cc18
-    mov r5, #8
-    ldr r0, [r4, #0x18]
-    mov r1, r5
-    bl func_02089214
-    ldr r0, [r4, #0x40]
-    mov r1, #0x20
-    bl func_0208d9e8
-    ldr r0, [r4, #0x28]
-    mov r1, r5
-    bl func_0208c1f4
-    ldr r0, [r4, #0x3c]
-    mov r1, #0x10
-    bl func_0208ad68
-    ldr r0, [r4, #0x10]
-    bl func_ov015_02136594
-    ldr r0, [r4, #0x9c]
-    mov r1, #0xc0
-    mov r2, #0xa0
-    bl func_02091c64
-    mov r1, #0x60
-    ldr r0, [r4, #0x5c]
-    mov r2, r1
-    bl func_02095d70
-    ldr r0, [r4, #0x94]
-    bl func_02085934
-    ldr r0, [r4, #0x90]
-    bl func_0208720c
-    ldmia sp!, {r3, r4, r5, pc}
+    void *object;
+
+    object = operator new(0x48);
+    if (object != NULL) {
+        *(void **)object = data_020af61c;
+    }
+    data_020c4638.unk_44 = object;
+    data_020c4638.unk_30 = operator new(0x3C);
+    object = operator new(0x2C);
+    if (object != NULL) {
+        object = func_ov015_02148258(object);
+    }
+    data_020c4638.unk_14 = object;
+    data_020c4638.unk_98 = operator new(0x5E4);
+    object = operator new(0x94);
+    if (object != NULL) {
+        *(void **)object = data_020ac084;
+        func_02089024(object);
+    }
+    data_020c4638.unk_18 = object;
+    object = operator new(0x20);
+    if (object != NULL) {
+        object = func_0208c178(object);
+    }
+    data_020c4638.unk_28 = object;
+    object = operator new(0x1C);
+    if (object != NULL) {
+        func_02088a38(object);
+        *(void **)object = data_020af7d0;
+        func_0208a718(object);
+    }
+    data_020c4638.unk_3c = object;
+    object = operator new(0x20);
+    if (object != NULL) {
+        func_02088a38(object);
+        *(void **)object = data_020afa08;
+        func_0208d2f0(object);
+    }
+    data_020c4638.unk_40 = object;
+    object = operator new(0x1BC);
+    if (object != NULL) {
+        object = func_ov015_02136584(object);
+    }
+    data_020c4638.unk_10 = object;
+    object = operator new(0x2C);
+    if (object != NULL) {
+        func_020977d0(object);
+    }
+    data_020c4638.unk_9c = object;
+    object = operator new(0x48);
+    if (object != NULL) {
+        *(void **)object = data_020afd20;
+        func_020977d0((u8 *)object + 4);
+    }
+    data_020c4638.unk_5c = object;
+    object = operator new(0x350);
+    if (object != NULL) {
+        object = func_02090320(object);
+    }
+    data_020c4638.unk_38 = object;
+    object = operator new(0x18FC);
+    if (object != NULL) {
+        object = func_020858fc(object);
+    }
+    data_020c4638.unk_94 = object;
+    object = operator new(0xA0);
+    if (object != NULL) {
+        object = func_02087144(object);
+    }
+    data_020c4638.unk_90 = object;
+    object = operator new(0xF3C);
+    if (object != NULL) {
+        *(void **)object = data_020ac064;
+    }
+    data_020c4638.unk_8c = object;
+    object = operator new(0x424);
+    if (object != NULL) {
+        object = func_ov015_02161618(object);
+    }
+    data_020c4638.unk_80 = object;
+    object = operator new(0x138);
+    if (object != NULL) {
+        object = func_ov015_0213db54(object);
+    }
+    data_020c4638.unk_50 = object;
+
+    func_0208868c(data_020c4638.unk_44);
+    func_02098bac(data_020c4638.unk_30, 0x100, 0x80, 0x80);
+    func_ov015_0214799c(data_020c4638.unk_14, 0x100);
+    func_ov015_0213cc18(data_020c4638.unk_98);
+    func_02089214(data_020c4638.unk_18, 8);
+    func_0208d9e8(data_020c4638.unk_40, 0x20);
+    func_0208c1f4(data_020c4638.unk_28, 8);
+    func_0208ad68(data_020c4638.unk_3c, 0x10);
+    func_ov015_02136594(data_020c4638.unk_10);
+    func_02091c64(data_020c4638.unk_9c, 0xC0, 0xA0);
+    func_02095d70(data_020c4638.unk_5c, 0x60, 0x60);
+    func_02085934(data_020c4638.unk_94);
+    func_0208720c(data_020c4638.unk_90);
 }
 
-asm void System::func_0203ff30()
+// starts the 3D and the screens' brightness
+void System::func_0203ff30()
 {
-    stmdb sp!, {r4, lr}
-    bl NNS_G3dInit
-    bl func_020285a4
-    bl G3X_InitMtxStack
-    ldr r3, =0x4000304
-    mov r4, #0
-    ldrh r2, [r3]
-    mov r1, r4
-    sub r0, r3, #0x2b4
-    bic r2, r2, #0x8000
-    strh r2, [r3]
-    bl G2x_ChangeBlendBrightness_
-    ldr r0, =0x4001050
-    mov r1, r4
-    bl G2x_ChangeBlendBrightness_
-    ldmia sp!, {r4, pc}
+    NNS_G3dInit();
+    func_020285a4();
+    G3X_InitMtxStack();
+    REG_POWCNT = REG_POWCNT & ~0x8000;
+    G2x_ChangeBlendBrightness_(&REG_MASTER_BRIGHT, 0);
+    G2x_ChangeBlendBrightness_(&REG_DB_MASTER_BRIGHT, 0);
 }
 
-asm void System::func_0203ff78()
+void System::func_0203ff78()
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    bl func_0200eab0
-    add r4, sp, #0
-    mov r0, r4
-    bl func_0200eb24
-    cmp r0, #0
-    bne @L_0203ffa4
-    bl func_0200878c
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
-@L_0203ffa4:
-    mov r0, r4
-    bl func_0200ebb8
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    u8 info[8];
+
+    func_0200eab0();
+    if (!func_0200eb24(info)) {
+        func_0200878c();
+        return;
+    }
+    func_0200ebb8(info);
 }
 
-asm void System::func_0203ffb4()
+void System::func_0203ffb4()
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_020e88a0
-    mov r0, r4
-    bl func_01ff9dc4
-    mov r0, r4
-    bl func_01ff9e1c
-    ldmia sp!, {r4, pc}
+    func_01ff9dc4(data_020e88a0);
+    func_01ff9e1c(data_020e88a0);
 }
 
 asm void System::func_0203ffd4()
