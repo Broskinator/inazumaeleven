@@ -3,14 +3,7 @@
 
 #include "nitro/types.h"
 #include "game/UnkClass_0203dc7c.hpp"
-
-// (NitroSDK TP)
-struct TPData {
-    u16 x;
-    u16 y;
-    u16 touch;
-    u16 validity;
-};
+#include "nitro/tp.h"
 
 // What a scene is made from
 struct SceneDesc {

@@ -1,19 +1,15 @@
 #include "game/TreasureBox.hpp"
+#include "system/GameHeap.hpp"
+#include "file/FileManager.hpp"
+#include "nitro/mi.h"
 
 extern "C" char data_020a6fb8[];
-extern "C" char data_020ae37c[];
-extern "C" char data_020ae3cc[];
-extern "C" char data_020ae3ec[];
-extern "C" char data_020c47b4[];
 extern "C" char data_020c48a0[];
 extern "C" char data_020c4f60[];
 extern "C" char data_020d3d20[];
-extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11MoviePlayer4StopEv(void);
 extern "C" void _ZN12SceneManager13func_0203e2fcEl(void);
 extern "C" void _ZN12SceneManager13func_0203e30cEv(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc7cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203df08Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203df24Ev(void);
 extern "C" void func_02017cdc(void);
@@ -21,17 +17,9 @@ extern "C" void func_0202273c(void);
 extern "C" void func_02052444(void);
 extern "C" void func_02052c68(void);
 extern "C" void func_02052db8(void);
-extern "C" void func_02054620(void);
-extern "C" void func_02054800(void);
-extern "C" void func_02054858(void);
-extern "C" void func_02054884(void);
-extern "C" void func_02054aa8(void);
 extern "C" void func_02054cd0(void);
 extern "C" void func_02054d4c(void);
 extern "C" void func_02054db4(void);
-extern "C" void func_02060294(void);
-extern "C" void func_02060310(void);
-extern "C" void func_02060864(void);
 extern "C" void func_02060a48(void);
 extern "C" void func_02060b58(void);
 extern "C" void func_02060c80(void);
@@ -49,108 +37,67 @@ extern "C" void func_ov015_02132628(void);
 extern "C" void func_ov015_02132794(void);
 extern "C" void func_ov015_0213290c(void);
 extern "C" void func_ov015_021334b8(void);
+extern GameHeap data_020c47b4;
+extern "C" char data_020ae37c[];            // the vtable
+extern "C" char data_020ae3cc[];            // "/data_iz/script/treasurebox.dat"
+extern "C" char data_020ae3ec[];
+extern "C" void func_02060294(void *);
+extern "C" void func_02054800(void *);
+extern "C" void func_02054aa8(void *);
+extern "C" void func_02060310(void *);
+extern "C" void func_02060864(void *, int, int, int, int);
+extern "C" void func_02054620(TreasureBox *);
+extern "C" void func_02054858(void *, u32, u32);
+extern "C" void func_02054884(void *, TPData *);
 
-asm void TreasureBox::func_02051ba0()
+// (4 bytes of a file, through the heap's file manager)
+static inline int LoadFile(const char *name, void **dest)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZN17UnkClass_0203dc7c13func_0203dc7cEv
-    ldr r1, =data_020ae37c
-    add r0, r4, #0x8c
-    str r1, [r4]
-    bl func_02060294
-    add r0, r4, #0x358
-    add r0, r0, #0x2800
-    bl func_02054800
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    FileManager *fileManager = data_020c47b4.fileManager;
+    const char *path = name;
+
+    if (fileManager == NULL) {
+        return 0;
+    }
+    return fileManager->Load(path, dest, &data_020c47b4, 0, 4, FALSE, 1, TRUE);
 }
 
-asm void TreasureBox::func_02051bd4()
+TreasureBox *TreasureBox::func_02051ba0()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #0x18
-    mov r5, r0
-    add r0, r5, #0x288
-    mov r4, #0
-    add r3, r5, #0x6000
-    mov r1, r4
-    add r0, r0, #0x6800
-    mov r2, #0x80
-    str r4, [r3, #0xa80]
-    bl MI_CpuFill8
-    ldr r3, =data_020c47b4
-    add r1, r5, #0x2a80
-    ldr r0, [r3]
-    add r1, r1, #0x4000
-    str r1, [sp, #0x14]
-    cmp r0, #0
-    addeq sp, sp, #0x18
-    ldr r1, =data_020ae3cc
-    ldmeqia sp!, {r3, r4, r5, pc}
-    str r4, [sp]
-    mov r2, #4
-    stmib sp, {r2, r4}
-    mov r12, #1
-    str r12, [sp, #0xc]
-    add r2, sp, #0x14
-    str r12, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-    add sp, sp, #0x18
-    ldmia sp!, {r3, r4, r5, pc}
+    func_0203dc7c();
+    vtable = data_020ae37c;
+    func_02060294(unk_8c);
+    func_02054800(unk_2b58);
+    return this;
 }
 
-asm void TreasureBox::func_02051c54()
+void TreasureBox::func_02051bd4()
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    sub sp, sp, #0x18
-    mov r6, r0
-    add r0, r6, #0x358
-    add r0, r0, #0x2800
-    bl func_02054aa8
-    add r0, r6, #0x1f8
-    mov r4, #0
-    add r3, r6, #0x6000
-    mov r5, #1
-    mov r1, r4
-    add r0, r0, #0x6800
-    mov r2, #0x40
-    str r5, [r3, #0xa60]
-    str r4, [r3, #0xa64]
-    str r4, [r3, #0xa54]
-    str r4, [r3, #0xa78]
-    bl MI_CpuFill8
-    add r1, r6, #0x6000
-    strb r4, [r1, #0xa39]
-    add r0, r6, #0x6a00
-    ldrsb r2, [r0, #0x39]
-    add r0, r6, #0x8c
-    strb r2, [r1, #0xa38]
-    bl func_02060310
-    add r0, r6, #0x8c
-    mov r1, r4
-    mov r2, #2
-    mov r3, r4
-    str r4, [sp]
-    bl func_02060864
-    add r0, r6, #0x2a80
-    add r0, r0, #0x4000
-    ldr r3, =data_020c47b4
-    str r0, [sp, #0x14]
-    ldr r0, [r3]
-    ldr r1, =data_020ae3ec
-    cmp r0, #0
-    addeq sp, sp, #0x18
-    ldmeqia sp!, {r4, r5, r6, pc}
-    str r4, [sp]
-    mov r2, #4
-    stmib sp, {r2, r4}
-    str r5, [sp, #0xc]
-    add r2, sp, #0x14
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-    add sp, sp, #0x18
-    ldmia sp!, {r4, r5, r6, pc}
+    void *dest;
+
+    unk_6a80 = 0;
+    MI_CpuFill8(unk_6a88, 0, sizeof(unk_6a88));
+    dest = &unk_6a80;
+    LoadFile(data_020ae3cc, &dest);
+}
+
+// (when the scene starts)
+void TreasureBox::func_02051c54()
+{
+    void *dest;
+
+    func_02054aa8(unk_2b58);
+    unk_6a60 = 1;
+    unk_6a64 = 0;
+    unk_6a54 = 0;
+    unk_6a78 = 0;
+    MI_CpuFill8(unk_69f8, 0, sizeof(unk_69f8));
+    unk_6a39 = 0;
+    unk_6a38 = unk_6a39;
+    func_02060310(unk_8c);
+    func_02060864(unk_8c, 0, 2, 0, 0);
+    dest = &unk_6a80;
+    LoadFile(data_020ae3ec, &dest);
 }
 
 asm void TreasureBox::func_02051d20()
@@ -541,74 +488,42 @@ asm void TreasureBox::func_02051d20()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void TreasureBox::func_020522b8()
+int TreasureBox::func_020522b8()
 {
-    mov r0, #0
-    bx lr
+    return 0;
 }
 
-asm void TreasureBox::func_020522c0()
+void TreasureBox::func_020522c0()
 {
-    bx lr
 }
 
-asm void TreasureBox::func_020522c4()
+int TreasureBox::func_020522c4(u32 keys, u32 arg)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r1
-    mov r6, r0
-    mov r4, r2
-    tst r5, #1
-    beq @L_020522e0
-    bl func_02054620
-@L_020522e0:
-    add r0, r6, #0x358
-    mov r1, r5
-    mov r2, r4
-    add r0, r0, #0x2800
-    bl func_02054858
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    if (keys & 1) {
+        func_02054620(this);
+    }
+    func_02054858(unk_2b58, keys, arg);
+    return 0;
 }
 
-asm void TreasureBox::func_020522fc()
+int TreasureBox::func_020522fc(TPData *touch)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x6000
-    mov r2, #0
-    mov r4, r1
-    str r2, [r0, #0xa5c]
-    ldrh r1, [r4, #4]
-    cmp r1, #1
-    bne @L_02052340
-    ldr r1, [r0, #0xa58]
-    cmp r1, #0
-    moveq r1, #1
-    streq r1, [r0, #0xa5c]
-    add r0, r5, #0x6000
-    mov r1, #1
-    str r1, [r0, #0xa58]
-    b @L_02052344
-@L_02052340:
-    str r2, [r0, #0xa58]
-@L_02052344:
-    add r0, r5, #0x6000
-    ldr r0, [r0, #0xa5c]
-    cmp r0, #0
-    beq @L_0205235c
-    mov r0, r5
-    bl func_02054620
-@L_0205235c:
-    add r0, r5, #0x358
-    mov r1, r4
-    add r0, r0, #0x2800
-    bl func_02054884
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    unk_6a5c = 0;
+    if (touch->touch == 1) {
+        if (unk_6a58 == 0) {
+            unk_6a5c = 1;
+        }
+        unk_6a58 = 1;
+    } else {
+        unk_6a58 = 0;
+    }
+    if (unk_6a5c) {
+        func_02054620(this);
+    }
+    func_02054884(unk_2b58, touch);
+    return 0;
 }
 
-asm void TreasureBox::func_02052374()
+void TreasureBox::func_02052374()
 {
-    bx lr
 }
