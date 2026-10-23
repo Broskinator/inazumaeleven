@@ -1,5 +1,10 @@
 #include "game/UnkClass_02054800.hpp"
 
+extern "C" void _ZN12Unk_0205dee013func_0205ed8cEv(void);     // (for the asm functions)
+extern "C" void _ZN12Unk_0205dee013func_0205ee18Ev(void);     // (for the asm functions)
+extern "C" void _ZN12Unk_0205dee013func_0205f394Ev(void);     // (for the asm functions)
+extern "C" void _ZN12Unk_0205dee013func_0205f49cEv(void);     // (for the asm functions)
+extern "C" void _ZN12Unk_0205dee013func_0205f89cEv(void);     // (for the asm functions)
 extern "C" char data_020a6fc4[];
 extern "C" char data_020a6fcc[];
 extern "C" char data_020a6fd4[];
@@ -90,11 +95,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_0205ed8c(void);
-extern "C" void func_0205ee18(void);
-extern "C" void func_0205f394(void);
-extern "C" void func_0205f49c(void);
-extern "C" void func_0205f89c(void);
 extern "C" void func_0206145c(void);
 extern "C" void func_0206a9d0(void);
 extern "C" void func_0206ace8(void);
@@ -573,9 +573,9 @@ asm void UnkClass_02054800::func_02054bcc()
     mov r0, r4
     bl func_0205d804
     mov r0, r4
-    bl func_0205ed8c
+    bl _ZN12Unk_0205dee013func_0205ed8cEv
     mov r0, r4
-    bl func_0205f394
+    bl _ZN12Unk_0205dee013func_0205f394Ev
     ldmia sp!, {r4, pc}
 }
 
@@ -692,9 +692,9 @@ asm void UnkClass_02054800::func_02054d4c()
     mov r0, r4
     bl func_0205d804
     mov r0, r4
-    bl func_0205ed8c
+    bl _ZN12Unk_0205dee013func_0205ed8cEv
     mov r0, r4
-    bl func_0205f394
+    bl _ZN12Unk_0205dee013func_0205f394Ev
     ldr r0, =data_020c4670
     ldr r0, [r0]
     bl func_02090550
@@ -732,11 +732,11 @@ asm void UnkClass_02054800::func_02054db4()
     mov r0, r4
     bl func_0205d874
     mov r0, r4
-    bl func_0205ee18
+    bl _ZN12Unk_0205dee013func_0205ee18Ev
     mov r0, r4
-    bl func_0205f49c
+    bl _ZN12Unk_0205dee013func_0205f49cEv
     mov r0, r4
-    bl func_0205f89c
+    bl _ZN12Unk_0205dee013func_0205f89cEv
     mov r0, r4
     bl func_0205ddb0
     ldmia sp!, {r4, pc}
