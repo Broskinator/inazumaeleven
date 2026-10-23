@@ -1,6 +1,10 @@
 #include "game/UnkClass_02061498.hpp"
 #include "system/GameHeap.hpp"
 
+extern "C" void func_02083afc(void);     // (for the asm functions)
+extern "C" void func_0208413c(void);     // (for the asm functions)
+extern "C" void func_02084350(void);     // (for the asm functions)
+extern "C" void func_0208454c(void);     // (for the asm functions)
 extern "C" char data_020aeadc[];
 extern "C" char data_020aeb28[];
 extern "C" char data_020aeb50[];
@@ -14,10 +18,6 @@ extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZdlPv(void);
 extern "C" s32 func_02001d80(s32 x);     // (the square root of x)
 extern "C" void func_0200226c(void);
-extern "C" void func_02083afc(void);
-extern "C" void func_0208413c(void);
-extern "C" void func_02084350(void);
-extern "C" void func_0208454c(void);
 extern "C" BOOL func_02084808(fx32 x, fx32 y, fx32 *rect);    // (is (x, y) in the rectangle?)
 extern "C" void func_ov015_02131704(void);
 extern "C" void func_ov015_0213a818(void);

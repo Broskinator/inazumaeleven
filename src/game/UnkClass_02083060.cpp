@@ -2,6 +2,7 @@
 #include "game/UnkClass_020621b4.hpp"
 #include "nitro/mi.h"
 
+extern "C" void func_02083eac(void);     // (for the asm functions)
 extern "C" void *data_020af3f0[];     // (the vtable)
 extern "C" u8 data_020c4eec[];
 extern "C" u8 data_020c4efc[];
@@ -17,7 +18,6 @@ extern "C" void _ZN17UnkClass_0206ee3413func_0206ef60Ev(void);
 extern "C" void _ZN17UnkClass_0206ee3413func_0206ef74Ev(void);
 extern "C" void _ZdlPv(void);
 extern "C" void func_02001d80(void);
-extern "C" void func_02083eac(void);
 extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_021319b0(void);
 extern "C" void gGameState(void);

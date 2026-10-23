@@ -1,5 +1,8 @@
 #include "game/UnkClass_0208351c.hpp"
 
+extern "C" void func_02084094(void);     // (for the asm functions)
+extern "C" void func_020841d8(void);     // (for the asm functions)
+extern "C" void func_0208488c(void);     // (for the asm functions)
 extern "C" void *data_020af44c[];     // (the vtable)
 
 extern "C" void FX_SinCosTable_(void);
@@ -11,9 +14,6 @@ extern "C" void _ZN17UnkClass_0208306013func_0208331cEv(void);
 extern "C" void _ZdlPv(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_0200226c(void);
-extern "C" void func_02084094(void);
-extern "C" void func_020841d8(void);
-extern "C" void func_0208488c(void);
 extern "C" void func_ov015_021319b0(void);
 extern "C" void func_ov015_02131bb4(void);
 extern "C" void func_ov015_021335c0(void);
