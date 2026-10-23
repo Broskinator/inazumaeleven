@@ -7,6 +7,7 @@
 #include "nitro/std.h"
 #include "nitro/card.h"
 
+extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f034Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f04cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206db10EP8SaveBody(void);     // (for the asm functions)
@@ -31,7 +32,6 @@ extern "C" void func_0208e81c(void *obj, void *dst);
 extern "C" void func_0208e844(void *obj, void *src);
 extern "C" u8 func_0207ab64(void *obj, int unk);
 extern "C" u8 func_0207aa94(void *obj, int unk);
-extern "C" u32 func_020767bc(void *obj);
 extern "C" void *func_02085ba4(void *obj, u32 id);
 extern "C" void func_020412f0(int unk);
 
@@ -441,7 +441,7 @@ s32 SaveManager::Save(int slot, BOOL async)
     file->header.unk_15 = data_020e88a0.func_0206b4b8(0);
     file->header.unk_16 = func_0207ab64(&data_020e88a0, 0);
     file->header.unk_17 = func_0207aa94(&data_020e88a0, 0);
-    file->header.unk_18 = func_020767bc(&data_020e88a0);
+    file->header.unk_18 = data_020e88a0.func_020767bc();
     file->header.unk_48 = gGameState.profile.unk_24;
     file->header.unk_45 = gGameState.profile.unk_2C;
     file->header.unk_54 = data_020e88a0.func_0206f04c();
@@ -760,7 +760,7 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     bl func_0207aa94
     strb r0, [r4, #0x17]
     ldr r0, =data_020e88a0
-    bl func_020767bc
+    bl _ZN17UnkClass_020621b413func_020767bcEv
     str r0, [r4, #0x18]
     ldr r1, [r10, #0x4d0]
     add r0, r10, #0x400
