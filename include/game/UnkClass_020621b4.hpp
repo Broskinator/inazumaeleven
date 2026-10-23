@@ -649,6 +649,24 @@ public:
     void func_0207d60c();
     void func_0207d6a8();
     void func_0207d6ac();
+    void func_0207d6b0();
+    void func_0207d6bc();
+    void func_0207d728();
+    void func_0207d830();
+    void func_0207da34();
+    void func_0207dac0();
+    void func_0207dbf4();
+    void func_0207dc10();
+    void func_0207de24();
+    void func_0207dec0();
+    void func_0207e19c();
+    void func_0207e334();
+    void func_0207e5a4();
+    void func_0207e5fc();
+    void func_0207e60c();
+    void func_0207e62c();
+    void func_0207e6dc();
+    void func_0207e738();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];
