@@ -106,9 +106,6 @@ extern "C" char data_020c4648[];
 extern "C" char data_020cb288[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZdlPv(void);
-extern "C" void func_02070854(void);
-extern "C" void func_02071d38(void);
 extern "C" void func_0207620c(void);
 extern "C" void func_0208f2d0(void);
 extern "C" void func_0208f300(void);
@@ -1791,73 +1788,4 @@ asm void UnkClass_020621b4::func_02070760()
     add r0, r0, #0x11000
     ldr r0, [r0, #0x918]
     bx lr
-}
-
-asm void UnkClass_020621b4::func_0207076c()
-{
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x14
-    mov r5, r0
-    ldr r0, [r5, #0x10]
-    mov r4, r1
-    cmp r0, #0
-    moveq r2, #0
-    subne r0, r0, #1
-    movne r2, r0, lsl #8
-    ldr r1, [r5]
-    ldr r0, [r5, #4]
-    add r0, r1, r0
-    subs r0, r2, r0
-    bne @L_020707b0
-    mov r0, r5
-    mov r1, #1
-    bl func_02070854
-@L_020707b0:
-    ldr r2, [r5, #4]
-    add r0, sp, #0
-    mov r1, r5
-    bl func_02071d38
-    ldr r1, [sp, #0x10]
-    cmp r1, #0
-    ldrne r0, [r4]
-    strne r0, [r1]
-    ldr r0, [r5, #4]
-    add r0, r0, #1
-    str r0, [r5, #4]
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, pc}
-}
-
-asm void UnkClass_020621b4::func_020707e4()
-{
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    ldr r0, [r4, #0x10]
-    mov r1, #0
-    str r1, [r4, #4]
-    cmp r0, #2
-    bls @L_02070840
-    mov r5, r1
-@L_02070804:
-    ldr r1, [r4, #8]
-    ldr r0, [r4, #0xc]
-    ldr r0, [r1, r0, lsl #2]
-    bl _ZdlPv
-    ldr r1, [r4, #0xc]
-    ldr r0, [r4, #0x14]
-    add r1, r1, #1
-    cmp r1, r0
-    ldr r0, [r4, #0x10]
-    str r1, [r4, #0xc]
-    sub r0, r0, #1
-    streq r5, [r4, #0xc]
-    str r0, [r4, #0x10]
-    cmp r0, #2
-    bhi @L_02070804
-@L_02070840:
-    ldr r0, [r4, #0x10]
-    cmp r0, #0
-    movne r0, #0x80
-    strne r0, [r4]
-    ldmia sp!, {r3, r4, r5, pc}
 }

@@ -378,8 +378,6 @@ public:
     void func_020706b4();
     void func_0207070c();
     void func_02070760();
-    void func_0207076c();
-    void func_020707e4();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];

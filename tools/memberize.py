@@ -62,6 +62,21 @@ for other in sys.argv[3:]:
 
 open(path, "w", newline="\n").write(t)
 open(hdr, "w", newline="\n").write(h)
+
+# (the class's other source files get the header's signatures on their asm definitions)
+import glob
+sig = {m.group(2): (m.group(1), m.group(3)) for m in re.finditer(r"^    (.+?)\b(func_[0-9a-f]{8})\(([^)]*)\);", h, re.M)}
+for f in glob.glob("src/**/*.cpp", recursive=True):
+    f = f.replace("\\", "/")
+    if f == path:
+        continue
+    x = open(f).read()
+    if f"asm void {cls}::" not in x:
+        continue
+    nx = re.sub(r"asm void %s::(func_[0-9a-f]{8})\(\)" % cls,
+                lambda m: f"asm {sig[m.group(1)][0]}{cls}::{m.group(1)}({sig[m.group(1)][1]})" if m.group(1) in sig else m.group(0), x)
+    if nx != x:
+        open(f, "w", newline="\n").write(nx)
 print(f"{path}: {len(done)} members", " ".join(done))
 if others:
     print("callers in other files:", " ".join(others))

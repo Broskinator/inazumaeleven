@@ -10,8 +10,6 @@ extern "C" void _ZN17UnkClass_020621b413func_02070644Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0207065cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207066cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02070760Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207076cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020707e4Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f058Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f09cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206f178Ev(void);     // (for the asm functions)
@@ -457,6 +455,8 @@ extern "C" void func_020224cc(void);
 extern "C" void func_02022948(void);
 extern "C" void func_02022bac(void);
 extern "C" void func_02023890(void);
+extern "C" void func_0207076c(void);
+extern "C" void func_020707e4(void);
 extern "C" void func_02070d64(void);
 extern "C" void func_020764cc(void);
 extern "C" void func_020764e4(void);
@@ -12551,7 +12551,7 @@ asm void UnkClass_020621b4::func_0206d6b4()
     mov r8, r10
     mov r11, r10
     mov r6, r10
-    bl _ZN17UnkClass_020621b413func_020707e4Ev
+    bl func_020707e4
     mov r9, #1
     sub r5, sp, #4
     and r4, r6, #0xff
@@ -12595,7 +12595,7 @@ asm void UnkClass_020621b4::func_0206d6b4()
     ldr r2, [r5]
     add r0, sp, #8
     add r1, sp, #4
-    bl _ZN17UnkClass_020621b413func_0207076cEv
+    bl func_0207076c
 @L_0206d798:
     add r0, r10, #1
     mov r0, r0, lsl #0x10
@@ -12620,7 +12620,7 @@ asm void UnkClass_020621b4::func_0206d6b4()
     ldr r1, [r1, r0, lsl #2]
     mov r0, r4
     str r1, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_020707e4Ev
+    bl func_020707e4
     ldr r1, [sp, #4]
     mov r0, r4
     ldrb r4, [r1, #0x5b]
