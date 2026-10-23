@@ -511,7 +511,7 @@ public:
     void func_02077d18();
     void func_02077da8();
     void func_02077e14();
-    void func_02077e58();
+    u16 func_02077e58(u8 *team, u32 i);
     void func_02077e78();
     void func_02077eb8();
     void func_02077eec();
@@ -557,7 +557,7 @@ public:
     u16 unk_bb0;
     u8 unk_bb2;
     u8 unk_bb3;
-    s32 unk_bb4;
+    MatchPlayerInfo *unk_bb4;     // (indexed by MatchPlayerState::unk_1c)
     u8 (*unk_bb8)[0x1C];
     u8 (*unk_bbc)[0x30];
     s32 unk_bc0[2];

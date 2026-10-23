@@ -288,7 +288,7 @@ UnkClass_020621b4 *UnkClass_020621b4::func_020621b4()
     unk_bb0 = 0;
     unk_bb2 = 0;
     unk_bb3 = 0;
-    unk_bb4 = 0;
+    unk_bb4 = NULL;
     unk_bb8 = NULL;
     unk_bbc = NULL;
     unk_bc0[0] = 0;

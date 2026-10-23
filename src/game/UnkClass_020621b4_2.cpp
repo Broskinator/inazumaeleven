@@ -27,7 +27,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02077830Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_02077b00Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02077d18Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02077da8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02077e58Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02077e58EPhm(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02077e78Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02077eb8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02077f20Ev(void);     // (for the asm functions)
@@ -10482,7 +10482,7 @@ asm void UnkClass_020621b4::func_02077e14()
     mov r0, r7
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_020621b413func_02077e58Ev
+    bl _ZN17UnkClass_020621b413func_02077e58EPhm
     cmp r5, r0
     moveq r0, #1
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
@@ -10493,16 +10493,15 @@ asm void UnkClass_020621b4::func_02077e14()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkClass_020621b4::func_02077e58()
+u16 UnkClass_020621b4::func_02077e58(u8 *team, u32 i)
 {
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    cmp r2, #4
-    movhs r0, #0
-    addlo r0, r1, r2, lsl #1
-    ldrloh r0, [r0, #0x70]
-    bx lr
+    if (team == NULL) {
+        return 0;
+    }
+    if (i >= 4) {
+        return 0;
+    }
+    return ((u16 *)(team + 0x70))[i];
 }
 
 asm void UnkClass_020621b4::func_02077e78()
@@ -11239,12 +11238,7 @@ asm void UnkClass_020621b4::func_02078664()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm MatchPlayerInfo *UnkClass_020621b4::func_020787e8(MatchPlayer *player)
+MatchPlayerInfo *UnkClass_020621b4::func_020787e8(MatchPlayer *player)
 {
-    ldr r1, [r1, #0xec]
-    ldr r2, [r0, #0xbb4]
-    ldrh r1, [r1, #0x1c]
-    mov r0, #0x18
-    mla r0, r1, r0, r2
-    bx lr
+    return &unk_bb4[player->state->unk_1c];
 }

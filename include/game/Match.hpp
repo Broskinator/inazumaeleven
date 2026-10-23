@@ -109,6 +109,7 @@ struct MatchPlayerInfo {
     u8 unk_8;
     u8 unk_9[0x10 - 0x9];
     u16 unk_10;         // flags
+    u8 unk_12[0x18 - 0x12];
 };
 
 static inline BOOL MatchPlayerInfo_HasFlag(MatchPlayerInfo *info, int flag)
