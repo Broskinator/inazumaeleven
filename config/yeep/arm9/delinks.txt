@@ -468,3 +468,7 @@ src/game/UnkClass_020621b4_2.cpp:
 src/game/Unk_020802a0.cpp:
     complete
     .text start:0x020802a0 end:0x02081740
+
+src/game/Unk_02081740.cpp:
+    complete
+    .text start:0x02081740 end:0x02081c3c

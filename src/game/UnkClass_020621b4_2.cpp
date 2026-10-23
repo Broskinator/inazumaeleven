@@ -26,6 +26,9 @@ extern "C" u8 data_020cb6e0[];
 extern "C" int func_020808c4(void *team, int i);
 extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 
+extern "C" void func_02081b24(void);     // (for the asm functions)
+extern "C" void func_02081b44(void);     // (for the asm functions)
+extern "C" void func_02081b70(void);     // (for the asm functions)
 extern "C" void func_020802a0(void);     // (for the asm functions)
 extern "C" void func_020802ac(void);     // (for the asm functions)
 extern "C" void func_020802b8(void);     // (for the asm functions)
@@ -463,7 +466,6 @@ extern "C" void func_020224cc(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_02081b70(void);
 extern "C" void func_ov015_02131704(void);
 extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_02131910(void);
@@ -551,8 +553,6 @@ extern "C" void func_ov015_02130ce0(void);
 extern "C" void func_ov087_0218099c(void);
 extern "C" void func_ov087_02181cbc(void);
 extern "C" char data_020c4ebc[];
-extern "C" void func_02081b24(void);
-extern "C" void func_02081b44(void);
 extern "C" char data_020af3b4[];
 extern "C" char data_020cabe0[];
 extern "C" void STD_CopyString(void);
