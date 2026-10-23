@@ -4,6 +4,18 @@
 #include "nitro/types.h"
 #include "nitro/fx.h"
 
+// A point on the field
+typedef struct {
+    fx32 x;
+    fx32 y;
+} MatchPoint;
+
+// A line from a to b
+typedef struct {
+    MatchPoint a;
+    MatchPoint b;
+} MatchSegment;
+
 // The ball (data_020c4920)
 struct MatchBall {
     VecFx32 pos;        // 0x00
@@ -32,6 +44,16 @@ struct MatchBall {
     u8 unk_5b;
     u8 unk_5c;
 };
+
+static inline BOOL MatchBall_HasFlag(MatchBall *ball, u8 flag)
+{
+    return (ball->unk_59 & flag) ? TRUE : FALSE;
+}
+
+static inline BOOL MatchBall_IsHeld(MatchBall *ball)
+{
+    return ball->unk_48 >= 0 ? TRUE : FALSE;
+}
 
 // A player's position and state, pointed to by MatchPlayer::body
 struct MatchPlayerBody {

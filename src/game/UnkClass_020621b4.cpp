@@ -10,7 +10,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02065a90Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_02065c00Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02065decEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02065fa0Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02062b58Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_02062b58EPlP11MatchPlayeriPi(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02062bfcEPllltll(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206313cEv(void);     // (for the asm functions)
 extern "C" void func_02063550(void);     // (for the asm functions)
@@ -27,6 +27,8 @@ extern "C" void _ZN17UnkClass_020621b413func_02064500Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_020646d4Ev(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
 extern "C" void *data_020c4648;
+extern "C" BOOL func_ov087_02179e8c(UnkClass_020621b4 *self, fx32 *segment, MatchPlayer *player, int a);
+extern "C" BOOL func_02083afc(fx32 *a, fx32 *b, int c);     // (do the segments cross?)
 extern "C" void func_ov087_0217d0ac(UnkClass_020621b4 *self, MatchPlayer *player, int a);
 extern "C" BOOL func_ov015_021318a4(MatchPlayer *player, int a);
 extern "C" BOOL func_02079f98(UnkClass_020621b4 *self, MatchPlayer *player, int a, int b);
@@ -81,7 +83,6 @@ extern "C" void func_0207f38c(void);
 extern "C" void func_02080288(void);
 extern "C" void func_02080b38(void);
 extern "C" void func_02080b90(void);
-extern "C" void func_02083afc(void);
 extern "C" void func_020841d8(void);
 extern "C" void func_02084788(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
@@ -110,7 +111,6 @@ extern "C" void func_ov015_02144420(void);
 extern "C" void func_ov015_02144458(void);
 extern "C" void func_ov087_02177634(void);
 extern "C" void func_ov087_02177f28(void);
-extern "C" void func_ov087_02179e8c(void);
 extern "C" void func_ov087_0217b3c8(void);
 extern "C" void func_ov087_0217dfbc(void);
 extern "C" void gGameState(void);
@@ -845,7 +845,35 @@ asm void UnkClass_020621b4::func_020622b4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_020621b4::func_02062b58()
+// does the segment cross the player's path (from the player through the points from
+// unk_84 to unk_85)? gives the index of the first point it crosses the path before
+BOOL // (nonmatching: the copies are scheduled differently)
+#ifdef NONMATCHING
+UnkClass_020621b4::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
+{
+    MatchPlayerState *state = player->state;
+    int i = state->unk_84;
+    fx32 *point = state->unk_34[i];
+    fx32 *prev = &player->body->pos.x;
+
+    for (; i < player->state->unk_85; i++) {
+        fx32 path[4];
+
+        path[0] = prev[0];
+        path[1] = prev[1];
+        path[2] = point[0];
+        path[3] = point[1];
+        if (func_02083afc(segment, path, a)) {
+            *index = i;
+            return TRUE;
+        }
+        prev = point;
+        point += 2;
+    }
+    return FALSE;
+}
+#else
+asm UnkClass_020621b4::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x10
@@ -891,6 +919,7 @@ asm void UnkClass_020621b4::func_02062b58()
     add sp, sp, #0x10
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
+#endif
 
 void // (nonmatching: the products are scheduled differently)
 #ifdef NONMATCHING
@@ -951,59 +980,23 @@ asm UnkClass_020621b4::func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, f
 }
 #endif
 
-asm void UnkClass_020621b4::func_02062ca4()
+// is the player in the way of the ball (when it is free and on the ground)?
+BOOL UnkClass_020621b4::func_02062ca4(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #0x20
-    ldr r2, =data_020c4920
-    mov r6, r0
-    ldrb r0, [r2, #0x59]
-    mov r4, #0
-    mov r5, r1
-    tst r0, #1
-    movne r0, #1
-    moveq r0, r4
-    cmp r0, #0
-    addne sp, sp, #0x20
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_020c4920
-    ldr r0, [r0, #0x48]
-    cmp r0, #0
-    movge r0, #1
-    movlt r0, #0
-    cmp r0, #0
-    addne sp, sp, #0x20
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_020c4920
-    mov r1, #0x400000
-    ldrh r2, [r0, #0x52]
-    add r7, sp, #0x10
-    stmia sp, {r2, r4}
-    str r1, [sp, #8]
-    ldmia r0, {r2, r3}
-    mov r0, r6
-    mov r1, r7
-    bl _ZN17UnkClass_020621b413func_02062bfcEPllltll
-    mov r0, r6
-    mov r1, r7
-    mov r2, r5
-    mov r3, r4
-    bl func_ov087_02179e8c
-    cmp r0, #0
-    addne sp, sp, #0x20
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    add r12, sp, #0xc
-    mov r0, r6
-    mov r1, r7
-    mov r2, r5
-    mov r3, r4
-    str r12, [sp]
-    bl _ZN17UnkClass_020621b413func_02062b58Ev
-    add sp, sp, #0x20
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    fx32 segment[4];
+    int index;
+
+    if (MatchBall_HasFlag(&data_020c4920, 1)) {
+        return FALSE;
+    }
+    if (MatchBall_IsHeld(&data_020c4920)) {
+        return FALSE;
+    }
+    func_02062bfc(segment, data_020c4920.pos.x, data_020c4920.pos.y, data_020c4920.unk_52, 0, 0x400 * FX32_ONE);
+    if (func_ov087_02179e8c(this, segment, player, 0)) {
+        return TRUE;
+    }
+    return func_02062b58(segment, player, 0, &index);
 }
 
 asm void UnkClass_020621b4::func_02062d74()
@@ -1080,7 +1073,7 @@ asm void UnkClass_020621b4::func_02062d74()
     add r1, sp, #0x34
     mov r2, r5
     mov r3, r4
-    bl _ZN17UnkClass_020621b413func_02062b58Ev
+    bl _ZN17UnkClass_020621b413func_02062b58EPlP11MatchPlayeriPi
     cmp r0, #0
     beq @L_02062f60
     ldr r1, =data_020c4940
