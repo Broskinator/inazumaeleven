@@ -9,11 +9,11 @@ extern "C" void _ZN17UnkClass_0206ee3413func_0206eea8Ev(void);     // (for the a
 extern "C" void _ZN17UnkClass_0206ee3413func_0206eebcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206ee3413func_0206eed0Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206ee3413func_0206eee4Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206ee3413func_0206ef20Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206ef20Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206ee3413func_0206ef88Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206ee3413func_0206ef9cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206ee3413func_0206efb0Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206ee3413func_0206efb8Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206efb0Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_0206ee3413func_0206efb8Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b3fcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);     // (for the asm functions)
@@ -12126,11 +12126,11 @@ asm void UnkClass_020621b4::func_0206d114()
     mov r6, r0
     mov r1, r7
     add r0, r8, #0x22c
-    bl _ZN17UnkClass_0206ee3413func_0206efb8Ev
+    bl _ZN17UnkClass_0206ee3413func_0206efb8Ei
     mov r5, r0
     mov r1, r7
     add r0, r8, #0x22c
-    bl _ZN17UnkClass_0206ee3413func_0206efb0Ev
+    bl _ZN17UnkClass_0206ee3413func_0206efb0Ei
     cmp r0, #1
     movne r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
@@ -12161,7 +12161,7 @@ asm void UnkClass_020621b4::func_0206d188()
     mov r4, r0
     mov r1, r7
     add r0, r8, #0x22c
-    bl _ZN17UnkClass_0206ee3413func_0206efb8Ev
+    bl _ZN17UnkClass_0206ee3413func_0206efb8Ei
     mov r5, r0
     mov r0, r8
     bl _ZN17UnkClass_020621b413func_0206c644Ev
@@ -12205,7 +12205,7 @@ asm void UnkClass_020621b4::func_0206d188()
 @L_0206d248:
     mov r1, r7
     add r0, r8, #0x22c
-    bl _ZN17UnkClass_0206ee3413func_0206efb0Ev
+    bl _ZN17UnkClass_0206ee3413func_0206efb0Ei
     cmp r0, #8
     addls pc, pc, r0, lsl #2
     b @L_0206d350
@@ -12227,7 +12227,7 @@ asm void UnkClass_020621b4::func_0206d188()
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     mov r1, r4
     add r0, r8, #0x22c
-    bl _ZN17UnkClass_0206ee3413func_0206efb0Ev
+    bl _ZN17UnkClass_0206ee3413func_0206efb0Ei
     cmp r0, #7
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -13132,7 +13132,7 @@ asm void UnkClass_020621b4::func_0206de4c()
 
 asm BOOL UnkClass_020621b4::func_0206de54(int a, int b)
 {
-    ldr r12, =_ZN17UnkClass_0206ee3413func_0206ef20Ev
+    ldr r12, =_ZN17UnkClass_0206ee3413func_0206ef20Ei
     add r0, r0, #0x22c
     bx r12
 }
