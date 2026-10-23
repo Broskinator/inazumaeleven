@@ -4,6 +4,23 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void func_020802a0(void);     // (for the asm functions)
+extern "C" void func_02080328(void);     // (for the asm functions)
+extern "C" void func_02080368(void);     // (for the asm functions)
+extern "C" void func_02080aa0(void);     // (for the asm functions)
+extern "C" void func_02080b00(void);     // (for the asm functions)
+extern "C" void func_02080b1c(void);     // (for the asm functions)
+extern "C" void func_02080b38(void);     // (for the asm functions)
+extern "C" void func_02080b54(void);     // (for the asm functions)
+extern "C" void func_02080c6c(void);     // (for the asm functions)
+extern "C" void func_0208130c(void);     // (for the asm functions)
+extern "C" void func_02081438(void);     // (for the asm functions)
+extern "C" void func_02081484(void);     // (for the asm functions)
+extern "C" void func_020814d0(void);     // (for the asm functions)
+extern "C" void func_0208151c(void);     // (for the asm functions)
+extern "C" void func_02081568(void);     // (for the asm functions)
+extern "C" void func_020815b4(void);     // (for the asm functions)
+extern "C" void func_02081600(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02080288EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207efd8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207f07cEv(void);     // (for the asm functions)
@@ -263,7 +280,6 @@ extern "C" void func_01fff13c(void);
 extern "C" s32 func_01fff184(UnkClass_020621b4 *self, fx32 x, fx32 y);     // (the length of (x, y))
 extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" void func_0202273c(void);
-extern "C" void func_02080b38(void);
 extern "C" void func_020841d8(void);
 extern "C" void func_02084788(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
@@ -352,7 +368,6 @@ void UnkClass_020621b4::func_020622b0()
 extern "C" char data_020c4efc[];
 extern "C" void func_01fff198(void);
 extern "C" void func_02001d80(void);
-extern "C" void func_02080aa0(void);
 extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" void func_02083e54(void);
 extern "C" void func_020840e0(void);
@@ -361,8 +376,6 @@ extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
 extern "C" void func_01ffec94(void);
 extern "C" void func_01ffed20(void);
-extern "C" void func_02080b54(void);
-extern "C" void func_02080c6c(void);
 extern "C" void func_02083e7c(void);
 extern "C" void func_020845e0(void);
 extern "C" void func_ov015_021309f8(void);
@@ -401,16 +414,6 @@ extern "C" char data_020c46e4[];
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void func_01fff06c(void);
 extern "C" void func_02018328(void);
-extern "C" void func_020802a0(void);
-extern "C" void func_02080b00(void);
-extern "C" void func_0208130c(void);
-extern "C" void func_02081438(void);
-extern "C" void func_02081484(void);
-extern "C" void func_020814d0(void);
-extern "C" void func_0208151c(void);
-extern "C" void func_02081568(void);
-extern "C" void func_020815b4(void);
-extern "C" void func_02081600(void);
 extern "C" void func_020841c8(void);
 extern "C" void func_ov015_021309a4(void);
 extern "C" void func_ov015_02130e80(void);
@@ -430,7 +433,6 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
 extern "C" void func_01ffb994(void);
 extern "C" void func_01ffca10(void);
-extern "C" void func_02080b1c(void);
 extern "C" void func_02084428(void);
 extern "C" void func_02084900(void);
 extern "C" void func_0209e220(void);
@@ -460,8 +462,6 @@ extern "C" void func_020224cc(void);
 extern "C" void func_02022948(void);
 extern "C" void func_02022bac(void);
 extern "C" void func_02023890(void);
-extern "C" void func_02080328(void);
-extern "C" void func_02080368(void);
 extern "C" void func_02081740(void);
 extern "C" void func_02081894(void);
 extern "C" void func_02081f28(void);
