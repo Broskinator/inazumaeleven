@@ -73,7 +73,9 @@ struct MatchPlayerState {
     u16 unk_1c;
     u8 unk_1e[2];
     u16 unk_20;
-    u8 unk_22[0x34 - 0x22];
+    u8 unk_22[0x2F - 0x22];
+    u8 unk_2f;
+    u8 unk_30[0x34 - 0x30];
     fx32 unk_34[10][2];     // 0x34
     u8 unk_84;
     u8 unk_85;

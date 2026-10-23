@@ -175,9 +175,9 @@ public:
     u8 func_0206b3dc(int i);
     u8 func_0206b3ec(int i);
     void func_0206b3fc();
-    void func_0206b464();
-    void func_0206b470();
-    void func_0206b47c();
+    void func_0206b464(u8 value);
+    u8 func_0206b470();
+    int func_0206b47c(BOOL invert);
     int func_0206b4a8(int a);
     u8 func_0206b4b8(int a);
     void func_0206b4cc();
@@ -189,16 +189,16 @@ public:
     void func_0206b9c4();
     void func_0206ba84();
     void func_0206bc70();
-    void func_0206befc();
-    void func_0206bf2c(MatchPlayer *player);
+    void func_0206befc(MatchPoint *a, MatchPoint *b);
+    BOOL func_0206bf2c(MatchPlayer *player);
     void func_0206bf88();
-    void func_0206bf98();
-    void func_0206bfa0();
-    BOOL func_0206bfa8();
-    void func_0206bfb4();
-    BOOL func_0206bfec();
-    void func_0206bff4();
-    void func_0206bffc();
+    u8 func_0206bf98();
+    void func_0206bfa0(u8 value);
+    s8 func_0206bfa8();
+    void func_0206bfb4(int value);
+    u8 func_0206bfec();
+    void func_0206bff4(int phase);
+    u8 func_0206bffc();
 
     void *vtable;
     u8 unk_4[0x9C - 0x4];
@@ -207,10 +207,17 @@ public:
     u8 unk_17c[40][0x40];
     s32 unk_b7c;
     UnkVirtual_020621b4 *unk_b80;     // (an object with a vtable)
-    UnkState_020621b4 unk_b84;
-    u8 unk_b8c[0xB98 - 0xB8C];
+    UnkState_020621b4 unk_b84;   // (unk_0: the phase)
+    u8 unk_b8c[2];
+    s8 unk_b8e;
+    u8 unk_b8f;
+    u8 unk_b90[0xB98 - 0xB90];
     s32 unk_b98;
-    u8 unk_b9c[0xBB0 - 0xB9C];
+    s32 unk_b9c;
+    u8 unk_ba0[4];
+    s32 unk_ba4;
+    s32 unk_ba8;
+    u8 unk_bac[0xBB0 - 0xBAC];
     u16 unk_bb0;
     u8 unk_bb2;
     u8 unk_bb3;
@@ -243,7 +250,9 @@ public:
     u8 unk_11800[0x1188C - 0x11800];
     u8 unk_1188c[2];
     u8 unk_1188e[2];
-    u8 unk_11890[0x11899 - 0x11890];
+    u8 unk_11890[0x11895 - 0x11890];
+    u8 unk_11895;
+    u8 unk_11896[0x11899 - 0x11896];
     u8 unk_11899;
     u8 unk_1189a;
     u8 unk_1189b;
@@ -255,7 +264,9 @@ public:
     u8 unk_118f6[0x118FC - 0x118F6];
     s32 unk_118fc;
     u16 unk_11900;
-    u8 unk_11902[0x11918 - 0x11902];
+    u8 unk_11902[0x11913 - 0x11902];
+    u8 unk_11913;
+    u8 unk_11914[0x11918 - 0x11914];
     s32 unk_11918;
 };
 
