@@ -622,7 +622,7 @@ public:
     void func_0207bfd0();
     void func_0207c064();
     void func_0207c110();
-    void func_0207c178();
+    BOOL func_0207c178(int a, int index);
     void func_0207c1b0();
     void func_0207c3d8();
     void func_0207c478();
@@ -636,9 +636,9 @@ public:
     void func_0207d214();
     void func_0207d244();
     void func_0207d274();
-    void func_0207d308();
+    int func_0207d308(u8 *data);
     void func_0207d330();
-    void func_0207d378();
+    int func_0207d378(u8 *data, int level);
     void func_0207d394();
     void func_0207d3f8();
     void func_0207d468();
