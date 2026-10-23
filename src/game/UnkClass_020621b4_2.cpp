@@ -1,4 +1,7 @@
 #include "game/UnkClass_020621b4.hpp"
+#include "nitro/mi.h"
+
+extern "C" UnkSlot_020621b4 *func_ov015_02143750(UnkClass_020621b4 *self, int id);
 extern "C" char data_020af210[];
 extern "C" void func_ov015_02143664(void);
 extern "C" char data_020c47b4[];
@@ -50,8 +53,8 @@ extern "C" void gEntryPool(void);
 extern "C" void gGameState(void);
 
 extern "C" void _ZN17UnkClass_020621b413func_0206ad68Eii(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020704b0Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020705b4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020704b0Ei(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_020705b4Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02070760Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiP10MatchPointS3_i(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206707cEii(void);     // (for the asm functions)
@@ -104,14 +107,11 @@ void UnkClass_020621b4::func_0206f08c()
 }
 extern "C" char data_020c4648[];
 extern "C" char data_020cb288[];
-extern "C" void MI_CpuCopy8(void);
-extern "C" void MIi_CpuClearFast(void);
 extern "C" void func_0207620c(void);
 extern "C" void func_0208f2d0(void);
 extern "C" void func_0208f300(void);
 extern "C" void func_ov015_0213a75c(void);
 extern "C" void func_ov015_0213b1f0(void);
-extern "C" void func_ov015_02143750(void);
 
 
 asm void UnkClass_020621b4::func_0206f09c()
@@ -1553,7 +1553,7 @@ asm void UnkClass_020621b4::func_0206ffe0()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_020621b4::func_020704b0()
+asm void UnkClass_020621b4::func_020704b0(BOOL a)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r1
@@ -1627,108 +1627,76 @@ asm void UnkClass_020621b4::func_02070548()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_020621b4::func_020705b4()
+void UnkClass_020621b4::func_020705b4(int id)
 {
-    stmdb sp!, {r3, lr}
-    bl func_ov015_02143750
-    cmp r0, #0
-    ldrneb r1, [r0, #0x1c]
-    cmpne r1, #0xff
-    ldmeqia sp!, {r3, pc}
-    ldr r1, [r0, #0x18]
-    mov r2, #0x18
-    bl MI_CpuCopy8
-    ldmia sp!, {r3, pc}
+    UnkSlot_020621b4 *slot = func_ov015_02143750(this, id);
+
+    if (slot == NULL || slot->unk_1c == 0xFF) {
+        return;
+    }
+    MI_CpuCopy8(slot, slot->unk_18, sizeof(slot->unk_0));
 }
 
-asm void UnkClass_020621b4::G3C_Direct0()
+void UnkClass_020621b4::func_020705dc(int id)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZN17UnkClass_020621b413func_020705b4Ev
-    mov r0, r4
-    mov r1, #0
-    bl _ZN17UnkClass_020621b413func_020704b0Ev
-    ldmia sp!, {r4, pc}
+    func_020705b4(id);
+    func_020704b0(0);
 }
 
-asm void UnkClass_020621b4::func_020705f8()
+void UnkClass_020621b4::func_020705f8(u8 value)
 {
-    add r0, r0, #0x11000
-    strb r1, [r0, #0x902]
-    bx lr
+    unk_11902 = value;
 }
 
-asm void UnkClass_020621b4::func_02070604()
+u8 UnkClass_020621b4::func_02070604()
 {
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x902]
-    bx lr
+    return unk_11902;
 }
 
-asm void UnkClass_020621b4::func_02070610()
+void UnkClass_020621b4::func_02070610(int amount)
 {
-    add r2, r0, #0x11000
-    ldrb r3, [r2, #0x904]
-    add r0, r0, #0x11000
-    tst r3, #3
-    andeq r2, r1, #1
-    cmpeq r2, #1
-    addeq r1, r1, r1
-    add r1, r1, r3
-    cmp r1, #0x78
-    movgt r1, #0x64
-    andle r1, r1, #0xff
-    strb r1, [r0, #0x904]
-    bx lr
+    u8 value = unk_11904;
+    u8 result;
+
+    if ((value & 3) == 0 && (amount & 1) == 1) {
+        amount += amount;
+    }
+    amount += value;
+    if (amount > 120) {
+        result = 100;
+    } else {
+        result = amount;
+    }
+    unk_11904 = result;
 }
 
-asm void UnkClass_020621b4::func_02070644()
+BOOL UnkClass_020621b4::func_02070644()
 {
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x904]
-    cmp r0, #0x64
-    movhs r0, #1
-    movlo r0, #0
-    bx lr
+    return unk_11904 >= 100;
 }
 
-asm void UnkClass_020621b4::func_0207065c()
+void UnkClass_020621b4::func_0207065c()
 {
-    add r0, r0, #0x11000
-    mov r1, #0
-    strb r1, [r0, #0x904]
-    bx lr
+    unk_11904 = 0;
 }
 
-asm void UnkClass_020621b4::func_0207066c()
+u8 UnkClass_020621b4::func_0207066c()
 {
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x904]
-    bx lr
+    return unk_11904;
 }
 
-asm void UnkClass_020621b4::func_02070678()
+void UnkClass_020621b4::func_02070678(BOOL value)
 {
-    stmdb sp!, {r3, lr}
-    mov r2, #1
-    cmp r1, #0
-    moveq r2, #0
-    add r1, r0, #0x11000
-    strb r2, [r1, #0x914]
-    tst r2, #0xff
-    ldmneia sp!, {r3, pc}
-    mov r1, #1
-    mov r2, r1
-    bl _ZN17UnkClass_020621b413func_0206ad68Eii
-    ldmia sp!, {r3, pc}
+    unk_11914 = value != FALSE;
+    if (unk_11914) {
+        return;
+    }
+    func_0206ad68(TRUE, TRUE);
 }
 
-asm void UnkClass_020621b4::func_020706a8()
+u8 UnkClass_020621b4::func_020706a8()
 {
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x914]
-    bx lr
+    return unk_11914;
 }
 
 asm void UnkClass_020621b4::func_020706b4()
@@ -1783,9 +1751,7 @@ asm void UnkClass_020621b4::func_0207070c()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_020621b4::func_02070760()
+s32 UnkClass_020621b4::func_02070760()
 {
-    add r0, r0, #0x11000
-    ldr r0, [r0, #0x918]
-    bx lr
+    return unk_11918;
 }

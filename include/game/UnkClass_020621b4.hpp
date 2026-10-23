@@ -27,6 +27,15 @@ struct UnkState_020621b4 {
     u8 unk_5[3];
 };
 
+// (what func_ov015_02143750 gives)
+struct UnkSlot_020621b4 {
+    u8 unk_0[0x18];
+    void *unk_18;       // (where unk_0 is saved)
+    u8 unk_1c;          // (0xFF: not saved)
+    u8 unk_1d[0x22 - 0x1D];
+    u8 unk_22;          // (flags in bits 0-3)
+};
+
 struct UnkVirtual_020621b4 {
     void **vtable;
 };
@@ -363,21 +372,21 @@ public:
     void func_0206fec0(s16 value);
     void func_0206fed0();
     void func_0206ffe0();
-    void func_020704b0();
+    void func_020704b0(BOOL a);
     void func_02070548();
-    void func_020705b4();
-    void G3C_Direct0();
-    void func_020705f8();
-    void func_02070604();
-    void func_02070610();
-    void func_02070644();
+    void func_020705b4(int id);
+    void func_020705dc(int id);
+    void func_020705f8(u8 value);
+    u8 func_02070604();
+    void func_02070610(int amount);
+    BOOL func_02070644();
     void func_0207065c();
-    void func_0207066c();
-    void func_02070678();
-    void func_020706a8();
+    u8 func_0207066c();
+    void func_02070678(BOOL value);
+    u8 func_020706a8();
     void func_020706b4();
     void func_0207070c();
-    void func_02070760();
+    s32 func_02070760();
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];
@@ -456,12 +465,16 @@ public:
     u8 unk_118f6[0x118FC - 0x118F6];
     s32 unk_118fc;
     s16 unk_11900;
-    u8 unk_11902[0x11910 - 0x11902];
+    u8 unk_11902;
+    u8 unk_11903;
+    u8 unk_11904;       // (a gauge: 100 is full)
+    u8 unk_11905[0x11910 - 0x11905];
     u8 unk_11910;
     u8 unk_11911;
     u8 unk_11912;
     u8 unk_11913;
-    u8 unk_11914[0x11918 - 0x11914];
+    u8 unk_11914;
+    u8 unk_11915[0x11918 - 0x11915];
     s32 unk_11918;
 };
 
