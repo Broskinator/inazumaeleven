@@ -104,6 +104,10 @@ def main():
             op = t
         elif i.id == capstone.arm.ARM_INS_B and op.startswith("#"):
             op = f"@L_{int(op[1:], 16):08x}"
+        elif mn == "blx" and op.startswith("#"):
+            # (a call of a Thumb function has no relocation: 'bl NAME', the linker makes it a blx)
+            to = int(op[1:], 16)
+            mn, op = "bl", names.get(to, names.get(to | 1, f"func_{to:08x}"))
         elif "[pc" in op:
             m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", op)
             lit = i.address + 8 + int(m.group(1) or "0", 0)
