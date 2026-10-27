@@ -1,5 +1,28 @@
 #include "game/UnkClass_02054800.hpp"
 
+extern "C" void func_0208d38c(void);     // (for the asm functions)
+extern "C" void func_0208d3d8(void);     // (for the asm functions)
+extern "C" void func_0208d434(void);     // (for the asm functions)
+extern "C" void func_0208d46c(void);     // (for the asm functions)
+extern "C" void func_0208dd58(void);     // (for the asm functions)
+extern "C" void func_0208de7c(void);     // (for the asm functions)
+extern "C" void func_0208e064(void);     // (for the asm functions)
+extern "C" void func_0208e0e4(void);     // (for the asm functions)
+extern "C" void func_0208e15c(void);     // (for the asm functions)
+extern "C" void func_0208e35c(void);     // (for the asm functions)
+extern "C" void func_0208e38c(void);     // (for the asm functions)
+extern "C" void func_0208e414(void);     // (for the asm functions)
+extern "C" void func_0208e480(void);     // (for the asm functions)
+extern "C" void func_0208e4c4(void);     // (for the asm functions)
+extern "C" void func_0208e508(void);     // (for the asm functions)
+extern "C" void func_0208e584(void);     // (for the asm functions)
+extern "C" void func_0208e600(void);     // (for the asm functions)
+extern "C" void func_0208e680(void);     // (for the asm functions)
+extern "C" void func_0208e6cc(void);     // (for the asm functions)
+extern "C" void func_0208e710(void);     // (for the asm functions)
+extern "C" void func_0208e754(void);     // (for the asm functions)
+extern "C" void func_0208e798(void);     // (for the asm functions)
+extern "C" void func_0208e7c8(void);     // (for the asm functions)
 extern "C" void func_0208b434(void);     // (for the asm functions)
 extern "C" void func_0208b444(void);     // (for the asm functions)
 extern "C" void func_0208b4d8(void);     // (for the asm functions)
@@ -171,29 +194,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_0208d38c(void);
-extern "C" void func_0208d3d8(void);
-extern "C" void func_0208d434(void);
-extern "C" void func_0208d46c(void);
-extern "C" void func_0208dd58(void);
-extern "C" void func_0208de7c(void);
-extern "C" void func_0208e064(void);
-extern "C" void func_0208e0e4(void);
-extern "C" void func_0208e15c(void);
-extern "C" void func_0208e35c(void);
-extern "C" void func_0208e38c(void);
-extern "C" void func_0208e414(void);
-extern "C" void func_0208e480(void);
-extern "C" void func_0208e4c4(void);
-extern "C" void func_0208e508(void);
-extern "C" void func_0208e584(void);
-extern "C" void func_0208e600(void);
-extern "C" void func_0208e680(void);
-extern "C" void func_0208e6cc(void);
-extern "C" void func_0208e710(void);
-extern "C" void func_0208e754(void);
-extern "C" void func_0208e798(void);
-extern "C" void func_0208e7c8(void);
 extern "C" void func_02090550(void);
 extern "C" void func_02090dcc(void);
 extern "C" void func_020920c4(void);

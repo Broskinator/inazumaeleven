@@ -23,6 +23,7 @@ extern "C" u8 data_020cb6e0[];
 extern "C" int func_020808c4(void *team, int i);
 extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 
+extern "C" void func_0208e9b8(void);     // (for the asm functions)
 extern "C" void func_02087500(void);     // (for the asm functions)
 extern "C" void func_020877e0(void);     // (for the asm functions)
 extern "C" void func_020878ac(void);     // (for the asm functions)
@@ -385,7 +386,6 @@ extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" void func_01fff13c(void);
 extern "C" void func_02001d80(void);
 extern "C" void func_0202273c(void);
-extern "C" void func_0208e9b8(void);
 extern "C" void func_0208e9d4(void);
 extern "C" void func_0208f310(void);
 extern "C" void func_0208f6ac(void);

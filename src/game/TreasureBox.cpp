@@ -3,6 +3,7 @@
 #include "file/FileManager.hpp"
 #include "nitro/mi.h"
 
+extern "C" void func_0208e508(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020765d4Ev(void);     // (for the asm functions)
@@ -143,7 +144,6 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_0208e508(void);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_0213e11c(void);
