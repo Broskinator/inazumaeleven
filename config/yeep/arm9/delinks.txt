@@ -504,3 +504,7 @@ src/game/Unk_02086070.cpp:
 src/game/Unk_02087500.cpp:
     complete
     .text start:0x02087500 end:0x02089004
+
+src/game/Unk_02089004.cpp:
+    complete
+    .text start:0x02089004 end:0x0208afe4
