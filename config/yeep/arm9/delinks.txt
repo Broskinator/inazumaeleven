@@ -496,3 +496,7 @@ src/game/Unk_02083afc.cpp:
 src/game/Unk_02084ff4.cpp:
     complete
     .text start:0x02084ff4 end:0x02086070
+
+src/game/Unk_02086070.cpp:
+    complete
+    .text start:0x02086070 end:0x02087500

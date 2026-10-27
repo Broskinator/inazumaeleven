@@ -1,5 +1,8 @@
 #include "game/Unk_02084ff4.hpp"
 
+extern "C" void func_020860ac(void);     // (for the asm functions)
+extern "C" void func_020864a8(void);     // (for the asm functions)
+extern "C" void func_020864b4(void);     // (for the asm functions)
 extern "C" BOOL func_02084d94(u8 *obj, u16 flags);
 extern "C" BOOL func_02084de8(u8 *obj);
 extern "C" void *data_020af4c0[];     // (a vtable)
@@ -71,9 +74,6 @@ extern "C" void func_02084dc0(void);
 extern "C" void func_02084e40(void);
 extern "C" void func_02084f84(void);
 extern "C" void func_02084fdc(void);
-extern "C" void func_020860ac(void);
-extern "C" void func_020864a8(void);
-extern "C" void func_020864b4(void);
 extern "C" void func_02099a94(void);
 extern "C" void func_02099b64(void);
 extern "C" void func_02099bbc(void);
