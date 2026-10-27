@@ -1,5 +1,6 @@
 #include "game/Unk_02086070.hpp"
 
+extern "C" void func_02087500(void);     // (for the asm functions)
 extern "C" u8 *func_02085298(void *self, int a, int b);
 extern "C" BOOL func_02085488(void *self, u8 *obj);
 extern "C" BOOL func_020854a8(void *self, u8 *obj);
@@ -111,7 +112,6 @@ extern "C" void func_020858c8(void);
 extern "C" void func_02085934(void);
 extern "C" void func_020859c0(void);
 extern "C" void func_02085bb4(void);
-extern "C" void func_02087500(void);
 extern "C" void func_02096148(void);
 extern "C" void func_02096160(void);
 extern "C" void func_020962f4(void);
