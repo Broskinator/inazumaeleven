@@ -18,10 +18,7 @@ print(r.stdout.strip())
 if r.returncode:
     print(r.stderr)
     sys.exit(1)
-for f in glob.glob("src/**/*.cpp", recursive=True):
-    f = f.replace("\\", "/")
-    if f != f"src/{path}.cpp":
-        subprocess.run([sys.executable, "tools/retarget.py", tmp, f], capture_output=True)
+# (the other files call the functions by the same names: nothing to update there)
 
 mang = re.compile(r"_ZN%d%s\d+(func_[0-9a-f]{8})Ev" % (len(tmp), tmp))
 p = f"src/{path}.cpp"
