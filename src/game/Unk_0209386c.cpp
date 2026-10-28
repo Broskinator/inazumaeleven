@@ -1,4 +1,5 @@
 #include "game/Unk_0209386c.hpp"
+#include "nitro/mi.h"
 
 extern "C" void func_0209386c(void);
 extern "C" void func_02093928(void);
@@ -14,13 +15,13 @@ extern "C" void func_02093df0(void);
 extern "C" void func_02093e2c(void);
 extern "C" void func_02093edc(void);
 extern "C" void func_02094154(void);
-extern "C" void func_0209443c(void);
+extern "C" BOOL func_0209443c(u8 *obj);
 extern "C" void func_02094450(void);
 extern "C" void func_02094484(void);
-extern "C" void func_020944b4(void);
+extern "C" BOOL func_020944b4(void *self, u8 *obj);
 extern "C" void func_020944d4(void);
 extern "C" void func_02094528(void);
-extern "C" void func_02094580(void);
+extern "C" void func_02094580(void *self, u8 *obj);
 extern "C" void func_020945ac(void);
 extern "C" void func_020945ec(void);
 extern "C" void func_020946d8(void);
@@ -33,8 +34,6 @@ extern "C" char data_020c46d0[];
 extern "C" char data_020c47b4[];
 extern "C" void DC_FlushRange(void);
 extern "C" void FX_SinCosTable_(void);
-extern "C" void MI_CpuCopy8(void);
-extern "C" void MIi_CpuClearFast(void);
 extern "C" void MTX_RotX43_(void);
 extern "C" void MTX_RotY43_(void);
 extern "C" void MTX_RotZ43_(void);
@@ -944,13 +943,9 @@ extern "C" asm void func_02094154(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_0209443c(void)
+extern "C" BOOL func_0209443c(u8 *obj)
 {
-    ldrh r0, [r0, #4]
-    tst r0, #2
-    movne r0, #1
-    moveq r0, #0
-    bx lr
+    return (*(u16 *)(obj + 4) & 2) ? TRUE : FALSE;
 }
 
 extern "C" asm void func_02094450(void)
@@ -988,16 +983,12 @@ extern "C" asm void func_02094484(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_020944b4(void)
+extern "C" BOOL func_020944b4(void *self, u8 *obj)
 {
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    ldrh r0, [r1, #4]
-    tst r0, #1
-    moveq r0, #1
-    movne r0, #0
-    bx lr
+    if (obj == NULL) {
+        return FALSE;
+    }
+    return (*(u16 *)(obj + 4) & 1) ? FALSE : TRUE;
 }
 
 extern "C" asm void func_020944d4(void)
@@ -1052,18 +1043,11 @@ extern "C" asm void func_02094528(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02094580(void)
+extern "C" void func_02094580(void *self, u8 *obj)
 {
-    stmdb sp!, {r4, lr}
-    mov r0, #0
-    mov r2, #0x24
-    mov r4, r1
-    bl MIi_CpuClearFast
-    ldr r0, =0x7fff
-    mov r1, #0x1f
-    strb r1, [r4, #7]
-    strh r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    MIi_CpuClearFast(0, obj, 0x24);
+    obj[7] = 31;
+    *(u16 *)(obj + 8) = 0x7FFF;
 }
 
 extern "C" asm void func_020945ac(void)
