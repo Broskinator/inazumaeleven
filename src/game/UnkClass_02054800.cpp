@@ -2666,26 +2666,19 @@ asm void UnkClass_02054800::func_020568c4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_02054800::func_020569bc()
+s8 UnkClass_02054800::func_020569bc()
 {
-    add r0, r0, #0x1e00
-    ldrsb r0, [r0, #0x99]
-    bx lr
+    return *(s8 *)&data[0x1E99];
 }
 
-asm void UnkClass_02054800::func_020569c8()
+void UnkClass_02054800::func_020569c8()
 {
-    ldr r1, [r0, #0x10]
-    orr r1, r1, #0x200
-    str r1, [r0, #0x10]
-    bx lr
+    *(u32 *)&data[0x10] |= 0x200;
 }
 
-asm void UnkClass_02054800::func_020569d8()
+u16 UnkClass_02054800::func_020569d8()
 {
-    add r0, r0, #0x1e00
-    ldrh r0, [r0, #0x9e]
-    bx lr
+    return *(u16 *)&data[0x1E9E];
 }
 
 asm void UnkClass_02054800::func_020569e4()
@@ -2838,14 +2831,9 @@ asm void UnkClass_02054800::func_02056ac8()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_02054800::func_02056bf4()
+void UnkClass_02054800::func_02056bf4(s8 flags)
 {
-    add r2, r0, #0x1e00
-    ldrsb r2, [r2, #0x82]
-    add r0, r0, #0x1000
-    orr r1, r2, r1
-    strb r1, [r0, #0xe82]
-    bx lr
+    *(s8 *)&data[0x1E82] |= flags;
 }
 
 asm void UnkClass_02054800::func_02056c0c()
@@ -2860,36 +2848,33 @@ asm void UnkClass_02054800::func_02056c0c()
     bx lr
 }
 
-asm void UnkClass_02054800::func_02056c2c()
+void UnkClass_02054800::func_02056c2c(s32 value)
 {
-    add r0, r0, #0x1000
-    str r1, [r0, #0xc78]
-    bx lr
+    *(s32 *)&data[0x1C78] = value;
 }
 
-asm void UnkClass_02054800::func_02056c38()
+void UnkClass_02054800::func_02056c38(BOOL on)
 {
-    cmp r1, #0
-    ldr r1, [r0, #0x10]
-    orrne r1, r1, #1
-    biceq r1, r1, #1
-    str r1, [r0, #0x10]
-    bx lr
+    if (on) {
+        *(u32 *)&data[0x10] |= 1;
+    } else {
+        *(u32 *)&data[0x10] &= ~1;
+    }
 }
 
-asm void UnkClass_02054800::func_02056c50()
+void UnkClass_02054800::func_02056c50(int value)
 {
-    cmp r1, #4
-    mov r1, #1
-    strb r1, [r0, #0x43]
-    strneb r1, [r0, #0x38]
-    bx lr
+    if (value != 4) {
+        data[0x43] = 1;
+        data[0x38] = 1;
+    } else {
+        data[0x43] = 1;
+    }
 }
 
-asm void UnkClass_02054800::func_02056c64()
+u32 UnkClass_02054800::func_02056c64()
 {
-    ldr r0, [r0, #0x10]
-    bx lr
+    return *(u32 *)&data[0x10];
 }
 
 asm void UnkClass_02054800::func_02056c6c()
@@ -9040,13 +9025,9 @@ asm void UnkClass_02054800::func_0205c52c()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void UnkClass_02054800::func_0205c584()
+u16 UnkClass_02054800::func_0205c584(int i)
 {
-    mov r2, #0x28
-    mla r0, r1, r2, r0
-    add r0, r0, #0x2a00
-    ldrh r0, [r0, #0x96]
-    bx lr
+    return *(u16 *)((u8 *)this + i * 0x28 + 0x2A96);
 }
 
 asm void UnkClass_02054800::func_0205c598()
@@ -10758,12 +10739,9 @@ asm void UnkClass_02054800::func_0205dd34()
     ldmia sp!, {r4, pc}
 }
 
-asm void UnkClass_02054800::func_0205dda0()
+void UnkClass_02054800::func_0205dda0()
 {
-    add r0, r0, #0x3000
-    mov r1, #0
-    strb r1, [r0, #0xe70]
-    bx lr
+    data[0x3E70] = 0;
 }
 
 asm void UnkClass_02054800::func_0205ddb0()

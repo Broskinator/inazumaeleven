@@ -44,7 +44,7 @@ public:
     BOOL func_020525d4();
     void func_020525f4(s32 value);
     s16 func_02052600();
-    void func_02052618();
+    void func_02052618(int i);
     void func_02052628(int a, int b, int c, int d);
     void func_020526cc(int c);
     void func_020526ec(int arg, int keep);

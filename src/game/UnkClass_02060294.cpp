@@ -1,8 +1,12 @@
 #include "game/UnkClass_02060294.hpp"
+#include "game/Unk_0205dee0.hpp"
+#include "system/GameHeap.hpp"
+
+extern GameHeap data_020c47b4;
 
 extern "C" void _ZN12Unk_0205dee013func_0205f958Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205f97cEv(void);     // (for the asm functions)
-extern "C" void _ZN12Unk_0205dee013func_0205f994Ev(void);     // (for the asm functions)
+extern "C" void _ZN12Unk_0205dee013func_0205f994El(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205f9a8Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205fed0Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205ff20Ev(void);     // (for the asm functions)
@@ -18,7 +22,6 @@ extern "C" char data_020aea6c[];
 extern "C" char data_020aea80[];
 extern "C" char data_020aea94[];
 extern "C" char data_020aeaa8[];
-extern "C" char data_020c47b4[];
 extern "C" char data_020c48a0[];
 extern "C" char data_020c5e40[];
 extern "C" void MI_CpuCopy8(void);
@@ -107,7 +110,7 @@ asm void UnkClass_02060294::func_02060310()
 @L_02060348:
     mla r0, r6, r5, r4
     mov r1, r4
-    bl _ZN12Unk_0205dee013func_0205f994Ev
+    bl _ZN12Unk_0205dee013func_0205f994El
     add r6, r6, #1
     cmp r6, #0x11
     blt @L_02060348
@@ -196,11 +199,9 @@ asm void UnkClass_02060294::func_02060448()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void UnkClass_02060294::func_02060480()
+void UnkClass_02060294::func_02060480(void *ptr)
 {
-    ldr r0, =data_020c47b4
-    ldr r12, =_ZN8GameHeap4FreeEPv
-    bx r12
+    data_020c47b4.Free(ptr);
 }
 
 asm void UnkClass_02060294::func_02060494(void *dst)
@@ -315,12 +316,9 @@ asm void UnkClass_02060294::func_020604f8(void *src)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_02060294::func_02060624()
+u8 *UnkClass_02060294::func_02060624(int i)
 {
-    add r0, r0, #0x274
-    add r0, r0, #0x2400
-    add r0, r0, r1, lsl #2
-    bx lr
+    return &((u8 *)this + 0x2674)[i * 4];
 }
 
 asm void UnkClass_02060294::func_02060634()
@@ -462,11 +460,9 @@ asm void UnkClass_02060294::func_02060634()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_02060294::func_02060858()
+u8 *UnkClass_02060294::func_02060858(int i)
 {
-    mov r2, #0x22c
-    mla r0, r1, r2, r0
-    bx lr
+    return (u8 *)this + i * 0x22C;
 }
 
 asm void UnkClass_02060294::func_02060864(int a, int b, int c, int d)
@@ -684,22 +680,15 @@ asm void UnkClass_02060294::func_02060a98()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void UnkClass_02060294::func_02060b48()
+s32 UnkClass_02060294::func_02060b48(int i)
 {
-    stmdb sp!, {r3, lr}
-    bl func_02060858
-    ldr r0, [r0, #0x28]
-    ldmia sp!, {r3, pc}
+    return *(s32 *)(func_02060858(i) + 0x28);
 }
 
-asm void UnkClass_02060294::func_02060b58()
+BOOL UnkClass_02060294::func_02060b58(int i)
 {
-    stmdb sp!, {r3, lr}
-    mov r2, #0x22c
-    mla r0, r1, r2, r0
-    bl _ZN12Unk_0205dee013func_0205fed0Ev
-    mov r0, #1
-    ldmia sp!, {r3, pc}
+    ((Unk_0205dee0 *)((u8 *)this + i * 0x22C))->func_0205fed0();
+    return TRUE;
 }
 
 asm void UnkClass_02060294::func_02060b70()
@@ -1234,18 +1223,14 @@ asm void UnkClass_02060294::func_02061274()
     ldmia sp!, {r3, pc}
 }
 
-asm void UnkClass_02060294::func_020612a0(s32 value)
+void UnkClass_02060294::func_020612a0(s32 value)
 {
-    add r0, r0, #0x2000
-    str r1, [r0, #0x4f0]
-    bx lr
+    *(s32 *)&data[0x24F0] = value;
 }
 
-asm void UnkClass_02060294::func_020612ac(s32 value)
+void UnkClass_02060294::func_020612ac(s32 value)
 {
-    add r0, r0, #0x2000
-    str r1, [r0, #0x4ec]
-    bx lr
+    *(s32 *)&data[0x24EC] = value;
 }
 
 asm void UnkClass_02060294::func_020612b8()

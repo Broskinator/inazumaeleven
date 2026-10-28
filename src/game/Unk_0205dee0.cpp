@@ -1,5 +1,9 @@
 #include "game/Unk_0205dee0.hpp"
 
+extern "C" int func_02090600(void *a, int b, int c);
+extern "C" int func_02090d0c(void *a, int b);
+extern "C" u8 data_020c4670[];
+
 extern "C" void func_02097b3c(void);     // (for the asm functions)
 extern "C" void func_02097ca8(void);     // (for the asm functions)
 extern "C" void func_02097898(void);     // (for the asm functions)
@@ -20,13 +24,11 @@ extern "C" void func_02093188(void);     // (for the asm functions)
 extern "C" void func_02093368(void);     // (for the asm functions)
 extern "C" void func_02093524(void);     // (for the asm functions)
 extern "C" void func_0209360c(void);     // (for the asm functions)
-extern "C" void func_02090600(void);     // (for the asm functions)
 extern "C" void func_0209074c(void);     // (for the asm functions)
 extern "C" void func_0209089c(void);     // (for the asm functions)
 extern "C" void func_02090c58(void);     // (for the asm functions)
 extern "C" void func_02090cac(void);     // (for the asm functions)
 extern "C" void func_02090ccc(void);     // (for the asm functions)
-extern "C" void func_02090d0c(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207649cEPh(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020764b4EPh(void);     // (for the asm functions)
@@ -72,7 +74,6 @@ extern "C" char data_020ae93c[];
 extern "C" char data_020ae94c[];
 extern "C" char data_020ae95c[];
 extern "C" char data_020ae96c[];
-extern "C" char data_020c4670[];
 extern "C" char data_020c46d4[];
 extern "C" char data_020c46e4[];
 extern "C" char data_020c47b4[];
@@ -107,13 +108,9 @@ extern "C" void func_ov015_021460d4(void);
 extern "C" void gGameState(void);
 extern "C" void sprintf(void);
 
-asm void Unk_0205dee0::func_0205dee0()
+int Unk_0205dee0::func_0205dee0(int a)
 {
-    ldr r0, =data_020c4670
-    ldr r12, =func_02090600
-    ldr r0, [r0]
-    mov r2, #1
-    bx r12
+    return func_02090600(*(void **)data_020c4670, a, 1);
 }
 
 asm void Unk_0205dee0::func_0205defc()
@@ -146,12 +143,9 @@ asm void Unk_0205dee0::func_0205df2c()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void Unk_0205dee0::func_0205df5c()
+int Unk_0205dee0::func_0205df5c(int a)
 {
-    ldr r0, =data_020c4670
-    ldr r12, =func_02090d0c
-    ldr r0, [r0]
-    bx r12
+    return func_02090d0c(*(void **)data_020c4670, a);
 }
 
 asm void Unk_0205dee0::func_0205df74()
@@ -1087,13 +1081,9 @@ asm void Unk_0205dee0::func_0205eb74()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void Unk_0205dee0::func_0205ed28()
+void Unk_0205dee0::func_0205ed28()
 {
-    add r0, r0, #0x1000
-    ldr r1, [r0, #0xea0]
-    add r1, r1, #1
-    str r1, [r0, #0xea0]
-    bx lr
+    (*(s32 *)((u8 *)this + 0x1EA0))++;
 }
 
 asm void Unk_0205dee0::func_0205ed3c()
@@ -1956,13 +1946,11 @@ asm void Unk_0205dee0::func_0205f97c()
     ldmia sp!, {r4, pc}
 }
 
-asm void Unk_0205dee0::func_0205f994()
+void Unk_0205dee0::func_0205f994(s32 value)
 {
-    mov r2, #0
-    str r1, [r0]
-    str r2, [r0, #0x24]
-    str r2, [r0, #0x28]
-    bx lr
+    *(s32 *)this = value;
+    *(s32 *)((u8 *)this + 0x24) = 0;
+    *(s32 *)((u8 *)this + 0x28) = 0;
 }
 
 asm void Unk_0205dee0::func_0205f9a8()
@@ -2538,13 +2526,12 @@ asm void Unk_0205dee0::func_02060164()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void Unk_0205dee0::func_020601f0()
+u8 *Unk_0205dee0::func_020601f0(int i)
 {
-    cmp r1, #0x40
-    movge r1, #0
-    add r0, r0, #0x2c
-    add r0, r0, r1, lsl #2
-    bx lr
+    if (i >= 64) {
+        i = 0;
+    }
+    return (u8 *)this + 0x2C + i * 4;
 }
 
 asm void Unk_0205dee0::func_02060204()
