@@ -1,11 +1,25 @@
 #include "game/Unk_0208e9d4.hpp"
+#include "nnsys/fnd/list.h"
+#include "nitro/mi.h"
+
+// (the object whose lists these functions keep)
+typedef struct {
+    u8 unk_0[0x278];
+    NNSFndList list278;
+    NNSFndList list284;
+    u8 unk_290;
+} UnkListOwner_0208e9d4;
+
+extern "C" void func_020326f8(NNSFndList *list, void *object);
+extern "C" void *func_02032878(NNSFndList *list);
+extern "C" u8 data_020fc708[];
 
 extern "C" void func_0208e9d4(void);
 extern "C" void func_0208f294(void);
-extern "C" void func_0208f2d0(void);
-extern "C" void func_0208f2e0(void);
-extern "C" void func_0208f300(void);
-extern "C" void func_0208f308(void);
+extern "C" void func_0208f2d0(u8 *obj);
+extern "C" void func_0208f2e0(u8 *obj, int i);
+extern "C" void func_0208f300(u8 *obj, u8 value);
+extern "C" u8 func_0208f308(u8 *obj);
 extern "C" void func_0208f310(void);
 extern "C" void func_0208f3c0(void);
 extern "C" void func_0208f628(void);
@@ -20,28 +34,22 @@ extern "C" void func_0208fc70(void);
 extern "C" void func_0208fd90(void);
 extern "C" void func_0208fdf4(void);
 extern "C" void func_0208fe20(void);
-extern "C" void func_0208fe50(void);
-extern "C" void func_0208fe60(void);
-extern "C" void func_0208fe7c(void);
+extern "C" void func_0208fe50(u8 *obj, void *object);
+extern "C" void func_0208fe60(u8 *obj, void *object, void *target);
+extern "C" u16 func_0208fe7c(u8 *obj);
 extern "C" void func_0208fe88(void);
-extern "C" void func_0208fed0(void);
+extern "C" void *func_0208fed0(u8 *obj);
 extern "C" void func_0208fef4(void);
-extern "C" void func_0208ff1c(void);
-extern "C" void func_0208ff2c(void);
-extern "C" void func_0208ff34(void);
-extern "C" void func_0208ff4c(void);
-extern "C" void func_0208ff5c(void);
-extern "C" void func_0208ff6c(void);
+extern "C" void *func_0208ff1c(u8 *obj, void *object);
+extern "C" void *func_0208ff2c(u8 *obj);
+extern "C" void *func_0208ff34(u8 *obj, int index);
+extern "C" void func_0208ff4c(u8 *obj, void *object);
+extern "C" void *func_0208ff5c(u8 *obj, void *object);
+extern "C" void func_0208ff6c(u8 *obj, void *object);
 extern "C" void func_0208ff7c(void);
 
-extern "C" char data_020fc708[];
 extern "C" void FX_SinCosTable_(void);
-extern "C" void MIi_CpuClearFast(void);
-extern "C" void NNS_FndGetNextListObject(void);
-extern "C" void NNS_FndGetNthListObject(void);
 extern "C" void NNS_FndInitList(void);
-extern "C" void NNS_FndInsertListObject(void);
-extern "C" void NNS_FndRemoveListObject(void);
 extern "C" void NNS_G3dGlbFlushVP(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001d80(void);
@@ -51,9 +59,7 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
 extern "C" void func_0202b608(void);
-extern "C" void func_020326f8(void);
 extern "C" void func_0203274c(void);
-extern "C" void func_02032878(void);
 
 extern "C" asm void func_0208e9d4(void)
 {
@@ -658,35 +664,29 @@ extern "C" asm void func_0208f294(void)
     bx lr
 }
 
-extern "C" asm void func_0208f2d0(void)
+extern "C" void func_0208f2d0(u8 *obj)
 {
-    ldr r12, =func_0208f2e0
-    mov r1, #0
-    bx r12
+    func_0208f2e0(obj, 0);
 }
 
-extern "C" asm void func_0208f2e0(void)
+extern "C" void func_0208f2e0(u8 *obj, int i)
 {
-    cmp r1, #0
-    bxlt lr
-    cmp r1, #1
-    movlt r2, #0x114
-    mlalt r0, r1, r2, r0
-    movlt r1, #0
-    strltb r1, [r0, #0x10d]
-    bx lr
+    if (i < 0) {
+        return;
+    }
+    if (i < 1) {
+        (obj + i * 0x114)[0x10D] = 0;
+    }
 }
 
-extern "C" asm void func_0208f300(void)
+extern "C" void func_0208f300(u8 *obj, u8 value)
 {
-    strb r1, [r0, #0x290]
-    bx lr
+    obj[0x290] = value;
 }
 
-extern "C" asm void func_0208f308(void)
+extern "C" u8 func_0208f308(u8 *obj)
 {
-    ldrb r0, [r0, #0x290]
-    bx lr
+    return obj[0x290];
 }
 
 extern "C" asm void func_0208f310(void)
@@ -1481,28 +1481,19 @@ extern "C" asm void func_0208fe20(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0208fe50(void)
+extern "C" void func_0208fe50(u8 *obj, void *object)
 {
-    ldr r12, =func_020326f8
-    add r0, r0, #0x278
-    bx r12
+    func_020326f8(&((UnkListOwner_0208e9d4 *)obj)->list278, object);
 }
 
-extern "C" asm void func_0208fe60(void)
+extern "C" void func_0208fe60(u8 *obj, void *object, void *target)
 {
-    mov r3, r1
-    mov r1, r2
-    ldr r12, =NNS_FndInsertListObject
-    mov r2, r3
-    add r0, r0, #0x278
-    bx r12
+    NNS_FndInsertListObject(&((UnkListOwner_0208e9d4 *)obj)->list278, target, object);
 }
 
-extern "C" asm void func_0208fe7c(void)
+extern "C" u16 func_0208fe7c(u8 *obj)
 {
-    add r0, r0, #0x200
-    ldrh r0, [r0, #0x80]
-    bx lr
+    return ((UnkListOwner_0208e9d4 *)obj)->list278.numObjects;
 }
 
 extern "C" asm void func_0208fe88(void)
@@ -1528,17 +1519,14 @@ extern "C" asm void func_0208fe88(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}     // (unreachable)
 }
 
-extern "C" asm void func_0208fed0(void)
+extern "C" void *func_0208fed0(u8 *obj)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x278
-    bl func_02032878
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    mov r0, r4
-    bl func_0208ff2c
-    ldmia sp!, {r4, pc}
+    void *object = func_02032878(&((UnkListOwner_0208e9d4 *)obj)->list278);
+
+    if (object != NULL) {
+        return object;
+    }
+    return func_0208ff2c(obj);
 }
 
 extern "C" asm void func_0208fef4(void)
@@ -1555,54 +1543,37 @@ extern "C" asm void func_0208fef4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_0208ff1c(void)
+extern "C" void *func_0208ff1c(u8 *obj, void *object)
 {
-    ldr r12, =NNS_FndGetNextListObject
-    add r0, r0, #0x278
-    bx r12
+    return NNS_FndGetNextListObject(&((UnkListOwner_0208e9d4 *)obj)->list278, object);
 }
 
-extern "C" asm void func_0208ff2c(void)
+extern "C" void *func_0208ff2c(u8 *obj)
 {
-    ldr r0, [r0, #0x27c]
-    bx lr
+    return ((UnkListOwner_0208e9d4 *)obj)->list278.tailObject;
 }
 
-extern "C" asm void func_0208ff34(void)
+extern "C" void *func_0208ff34(u8 *obj, int index)
 {
-    mov r1, r1, lsl #0x10
-    ldr r12, =NNS_FndGetNthListObject
-    add r0, r0, #0x278
-    mov r1, r1, lsr #0x10
-    bx r12
+    return NNS_FndGetNthListObject(&((UnkListOwner_0208e9d4 *)obj)->list278, index);
 }
 
-extern "C" asm void func_0208ff4c(void)
+extern "C" void func_0208ff4c(u8 *obj, void *object)
 {
-    ldr r12, =NNS_FndRemoveListObject
-    add r0, r0, #0x278
-    bx r12
+    NNS_FndRemoveListObject(&((UnkListOwner_0208e9d4 *)obj)->list278, object);
 }
 
-extern "C" asm void func_0208ff5c(void)
+extern "C" void *func_0208ff5c(u8 *obj, void *object)
 {
-    ldr r12, =NNS_FndGetNextListObject
-    add r0, r0, #0x284
-    bx r12
+    return NNS_FndGetNextListObject(&((UnkListOwner_0208e9d4 *)obj)->list284, object);
 }
 
-extern "C" asm void func_0208ff6c(void)
+extern "C" void func_0208ff6c(u8 *obj, void *object)
 {
-    ldr r12, =func_020326f8
-    add r0, r0, #0x284
-    bx r12
+    func_020326f8(&((UnkListOwner_0208e9d4 *)obj)->list284, object);
 }
 
-extern "C" asm void func_0208ff7c(void)
+extern "C" void func_0208ff7c(void)
 {
-    ldr r1, =data_020fc708
-    ldr r12, =MIi_CpuClearFast
-    mov r0, #0
-    mov r2, #0x1c
-    bx r12
+    MIi_CpuClearFast(0, data_020fc708, 0x1C);
 }
