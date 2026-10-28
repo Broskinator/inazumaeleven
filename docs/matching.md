@@ -120,3 +120,9 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   (it parses C, so the C++ has to look like C) and compiled as C++ inside
   `extern "C" { }`; `arm-none-eabi-objdump` can be replaced by
   `llvm-objdump --triple=armv5te` with its output reformatted.
+- A "function" of a few bytes that nothing references and that is only an epilogue
+  (`ldmia sp!, {..., pc}`) is the unreachable end of the function before it (after an
+  endless loop): as a separate asm function the linker strips it and everything after
+  moves. It goes at the end of the function before it (the symbols too).
+- MW's inline asm merges equal literals (`ldr rX, =sym` twice gives one pool entry):
+  functions whose pool has the same address twice stay in the dsd gap code for now.

@@ -4,6 +4,8 @@
 #include "nitro/mi.h"
 #include "game/UnkClass_02061498.hpp"
 
+extern "C" void func_0208f294(void);     // (for the asm functions)
+extern "C" void func_0208f300(void);     // (for the asm functions)
 extern "C" void func_02083e24(void);     // (for the asm functions)
 extern "C" void func_02083e54(void);     // (for the asm functions)
 extern "C" void func_02083e7c(void);     // (for the asm functions)
@@ -300,8 +302,6 @@ extern "C" s32 func_01fff184(UnkClass_020621b4 *self, fx32 x, fx32 y);     // (t
 extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" void func_0202273c(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
-extern "C" void func_0208f294(void);
-extern "C" void func_0208f300(void);
 extern "C" void func_ov001_02127dcc(void);
 extern "C" u8 func_ov015_02130e28(u16 angle);    // (the direction as one of 8)
 extern "C" void func_ov015_02131854(void);

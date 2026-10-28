@@ -23,6 +23,11 @@ extern "C" u8 data_020cb6e0[];
 extern "C" int func_020808c4(void *team, int i);
 extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 
+extern "C" void func_0208e9d4(void);     // (for the asm functions)
+extern "C" void func_0208f2d0(void);     // (for the asm functions)
+extern "C" void func_0208f300(void);     // (for the asm functions)
+extern "C" void func_0208f310(void);     // (for the asm functions)
+extern "C" void func_0208f6ac(void);     // (for the asm functions)
 extern "C" void func_0208e9b8(void);     // (for the asm functions)
 extern "C" void func_02087500(void);     // (for the asm functions)
 extern "C" void func_020877e0(void);     // (for the asm functions)
@@ -386,9 +391,6 @@ extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" void func_01fff13c(void);
 extern "C" void func_02001d80(void);
 extern "C" void func_0202273c(void);
-extern "C" void func_0208e9d4(void);
-extern "C" void func_0208f310(void);
-extern "C" void func_0208f6ac(void);
 extern "C" void func_ov015_021309f8(void);
 extern "C" void func_ov015_02131970(void);
 extern "C" void func_ov015_02142824(void);
@@ -449,8 +451,6 @@ void UnkClass_020621b4::func_0206f08c()
 }
 extern "C" char data_020c4648[];
 extern "C" char data_020cb288[];
-extern "C" void func_0208f2d0(void);
-extern "C" void func_0208f300(void);
 extern "C" void func_ov015_0213a75c(void);
 extern "C" void func_ov015_0213b1f0(void);
 extern "C" char data_020aeb84[];

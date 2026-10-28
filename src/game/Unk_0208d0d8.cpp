@@ -1,6 +1,8 @@
 #include "game/Unk_0208d0d8.hpp"
 #include "nitro/mi.h"
 
+extern "C" void func_0208f308(void);     // (for the asm functions)
+extern "C" void func_0208fac4(void);     // (for the asm functions)
 extern "C" void func_ov015_0213497c(void *a, void *b);
 extern "C" void func_ov015_02134998(void *a, void *b);
 extern "C" void *data_020afa08[];     // (a vtable)
@@ -90,8 +92,6 @@ extern "C" void func_02089350(void);
 extern "C" void func_02089384(void);
 extern "C" void func_02089514(void);
 extern "C" void func_02089584(void);
-extern "C" void func_0208f308(void);
-extern "C" void func_0208fac4(void);
 extern "C" void func_ov015_02134300(void);
 extern "C" void func_ov015_02134a28(void);
 extern "C" void func_ov015_02144cf8(void);
