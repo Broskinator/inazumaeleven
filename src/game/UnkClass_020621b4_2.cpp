@@ -139,7 +139,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0207f4bcEv(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0207f634EPviii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207f730Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0207f7ccEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207ff44Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0207ff44Eiii(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206e3d4Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_02072fe8Ev(void);     // (for the asm functions)
@@ -239,7 +239,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02079f98EP11MatchPlayerii(void);   
 extern "C" void _ZN17UnkClass_020621b413func_0207a350Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206e1c4Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206e1c4Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020765d4Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020767a4Em(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);     // (for the asm functions)
@@ -306,7 +306,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEi(void);     // (for the a
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bfecEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_0206bff4Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206de34Ev(void);     // (for the asm functions)
+extern "C" void _ZN17UnkClass_020621b413func_0206de34Ei(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020725acEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020732b0Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_020621b413func_020733d4Ev(void);     // (for the asm functions)
@@ -7504,7 +7504,7 @@ asm void UnkClass_020621b4::func_020751b8()
     bl func_02080b90
     mov r1, r0
     mov r0, r10
-    bl _ZN17UnkClass_020621b413func_0206de34Ev
+    bl _ZN17UnkClass_020621b413func_0206de34Ei
     cmp r0, #0
     beq @L_02075228
     mov r0, r9
@@ -7524,7 +7524,7 @@ asm void UnkClass_020621b4::func_020751b8()
     bl func_02080b90
     mov r1, r0
     mov r0, r10
-    bl _ZN17UnkClass_020621b413func_0206de34Ev
+    bl _ZN17UnkClass_020621b413func_0206de34Ei
     cmp r0, #0
     beq @L_02075274
     mov r0, r9
@@ -11251,7 +11251,7 @@ asm void UnkClass_020621b4::func_02078520()
 {
     stmdb sp!, {r4, lr}
     mov r4, r2
-    bl _ZN17UnkClass_020621b413func_0206e1c4Ev
+    bl _ZN17UnkClass_020621b413func_0206e1c4Ei
     cmp r0, #0
     beq @L_02078558
     cmp r0, #1
@@ -11274,7 +11274,7 @@ asm void UnkClass_020621b4::func_02078560()
 {
     stmdb sp!, {r4, lr}
     mov r4, r2
-    bl _ZN17UnkClass_020621b413func_0206e1c4Ev
+    bl _ZN17UnkClass_020621b413func_0206e1c4Ei
     cmp r0, #0
     beq @L_02078598
     cmp r0, #1
@@ -20028,7 +20028,7 @@ asm void UnkClass_020621b4::func_0207f7cc()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_020621b4::func_0207ff44()
+asm u8 UnkClass_020621b4::func_0207ff44(int a, int b, int c)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x28
@@ -20137,37 +20137,37 @@ asm void UnkClass_020621b4::func_0207fff0()
 @L_020800c4:
     mov r1, r12
     mov r2, #0x22
-    bl _ZN17UnkClass_020621b413func_0207ff44Ev
+    bl _ZN17UnkClass_020621b413func_0207ff44Eiii
     ldmia sp!, {r3, pc}
 @L_020800d4:
     mov r1, r12
     mov r2, #0x23
-    bl _ZN17UnkClass_020621b413func_0207ff44Ev
+    bl _ZN17UnkClass_020621b413func_0207ff44Eiii
     ldmia sp!, {r3, pc}
 @L_020800e4:
     mov r1, r12
     mov r2, #0x21
-    bl _ZN17UnkClass_020621b413func_0207ff44Ev
+    bl _ZN17UnkClass_020621b413func_0207ff44Eiii
     ldmia sp!, {r3, pc}
 @L_020800f4:
     mov r1, r12
     mov r2, #0x20
-    bl _ZN17UnkClass_020621b413func_0207ff44Ev
+    bl _ZN17UnkClass_020621b413func_0207ff44Eiii
     ldmia sp!, {r3, pc}
 @L_02080104:
     mov r1, r12
     mov r2, #0x24
-    bl _ZN17UnkClass_020621b413func_0207ff44Ev
+    bl _ZN17UnkClass_020621b413func_0207ff44Eiii
     ldmia sp!, {r3, pc}
 @L_02080114:
     mov r1, r12
     mov r2, #0x1e
-    bl _ZN17UnkClass_020621b413func_0207ff44Ev
+    bl _ZN17UnkClass_020621b413func_0207ff44Eiii
     ldmia sp!, {r3, pc}
 @L_02080124:
     mov r1, r12
     mov r2, #0x1f
-    bl _ZN17UnkClass_020621b413func_0207ff44Ev
+    bl _ZN17UnkClass_020621b413func_0207ff44Eiii
     ldmia sp!, {r3, pc}
 @L_02080134:
     ldr r0, [lr, #0x4c0]
