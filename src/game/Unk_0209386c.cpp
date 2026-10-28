@@ -1,6 +1,7 @@
 #include "game/Unk_0209386c.hpp"
 #include "nitro/mi.h"
 
+extern "C" void func_020960ac(void);     // (for the asm functions)
 extern "C" void func_0209386c(void);
 extern "C" void func_02093928(void);
 extern "C" void func_020939c8(void);
@@ -50,7 +51,6 @@ extern "C" void func_0202323c(void);
 extern "C" void func_0202b608(void);
 extern "C" void func_020917c0(void);
 extern "C" void func_02091fc0(void);
-extern "C" void func_020960ac(void);
 extern "C" void func_020985fc(void);
 extern "C" void func_0209860c(void);
 extern "C" void func_02098710(void);
