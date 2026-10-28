@@ -1,5 +1,15 @@
 #include "game/Unk_0205dee0.hpp"
 
+extern "C" void func_020920c4(void);     // (for the asm functions)
+extern "C" void func_02092270(void);     // (for the asm functions)
+extern "C" void func_020922fc(void);     // (for the asm functions)
+extern "C" void func_02092544(void);     // (for the asm functions)
+extern "C" void func_02092c48(void);     // (for the asm functions)
+extern "C" void func_02092e18(void);     // (for the asm functions)
+extern "C" void func_02093188(void);     // (for the asm functions)
+extern "C" void func_02093368(void);     // (for the asm functions)
+extern "C" void func_02093524(void);     // (for the asm functions)
+extern "C" void func_0209360c(void);     // (for the asm functions)
 extern "C" void func_02090600(void);     // (for the asm functions)
 extern "C" void func_0209074c(void);     // (for the asm functions)
 extern "C" void func_0209089c(void);     // (for the asm functions)
@@ -74,16 +84,6 @@ extern "C" void _ZN9ChunkFileD1Ev(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_020095c4(void);
 extern "C" void func_0202273c(void);
-extern "C" void func_020920c4(void);
-extern "C" void func_02092270(void);
-extern "C" void func_020922fc(void);
-extern "C" void func_02092544(void);
-extern "C" void func_02092c48(void);
-extern "C" void func_02092e18(void);
-extern "C" void func_02093188(void);
-extern "C" void func_02093368(void);
-extern "C" void func_02093524(void);
-extern "C" void func_0209360c(void);
 extern "C" void func_0209386c(void);
 extern "C" void func_02093928(void);
 extern "C" void func_020939c8(void);
