@@ -1,10 +1,11 @@
 #include "game/Unk_02095154.hpp"
 
+extern "C" void func_020984f0(void *a, int b);
+extern "C" void func_0209855c(void *a, int b);
+extern "C" int func_02097ca8(void *a, int b, int c, int d);
+extern "C" u8 *func_020985fc(u8 *self, int id);
+
 extern "C" void func_02097ac0(void);     // (for the asm functions)
-extern "C" void func_02097ca8(void);     // (for the asm functions)
-extern "C" void func_020984f0(void);     // (for the asm functions)
-extern "C" void func_0209855c(void);     // (for the asm functions)
-extern "C" void func_020985fc(void);     // (for the asm functions)
 extern "C" void func_0209860c(void);     // (for the asm functions)
 extern "C" void func_020987fc(void);     // (for the asm functions)
 extern "C" void func_02098824(void);     // (for the asm functions)
@@ -25,19 +26,19 @@ extern "C" void func_02095d14(void);
 extern "C" void func_02095d70(void);
 extern "C" void func_02095e04(void);
 extern "C" void func_02095e6c(void);
-extern "C" void func_02095ea0(void);
+extern "C" void func_02095ea0(void *obj);
 extern "C" void func_02095ea4(void);
-extern "C" void func_02095f2c(void);
-extern "C" void func_02096048(void);
-extern "C" void func_0209605c(void);
-extern "C" void func_02096070(void);
-extern "C" void func_02096084(void);
-extern "C" void func_02096098(void);
+extern "C" int func_02095f2c(void *obj, int a, int b);
+extern "C" int func_02096048(void *obj);
+extern "C" int func_0209605c(void *obj);
+extern "C" int func_02096070(void *obj);
+extern "C" BOOL func_02096084(u8 *obj, int a);
+extern "C" BOOL func_02096098(u8 *obj, int a);
 extern "C" void func_020960ac(void);
 extern "C" void func_020960ec(void);
 extern "C" void func_02096110(void);
-extern "C" void func_02096148(void);
-extern "C" void func_02096160(void);
+extern "C" int func_02096148(u8 *obj, int a, int b);
+extern "C" u8 *func_02096160(u8 *obj, int id);
 extern "C" void func_02096170(void);
 extern "C" void func_020961b4(void);
 extern "C" void func_020961f0(void);
@@ -1010,9 +1011,8 @@ extern "C" asm void func_02095e6c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_02095ea0(void)
+extern "C" void func_02095ea0(void *obj)
 {
-    bx lr
 }
 
 extern "C" asm void func_02095ea4(void)
@@ -1058,7 +1058,7 @@ extern "C" asm void func_02095ea4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02095f2c(void)
+extern "C" asm int func_02095f2c(void *obj, int a, int b)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r0
@@ -1140,46 +1140,31 @@ extern "C" asm void func_02095f2c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_02096048(void)
+extern "C" int func_02096048(void *obj)
 {
-    ldr r12, =func_02095f2c
-    mov r1, #1
-    mov r2, #0
-    bx r12
+    return func_02095f2c(obj, 1, 0);
 }
 
-extern "C" asm void func_0209605c(void)
+extern "C" int func_0209605c(void *obj)
 {
-    mov r1, #0
-    ldr r12, =func_02095f2c
-    mov r2, r1
-    bx r12
+    return func_02095f2c(obj, 0, 0);
 }
 
-extern "C" asm void func_02096070(void)
+extern "C" int func_02096070(void *obj)
 {
-    ldr r12, =func_02095f2c
-    mov r1, #0
-    mov r2, #1
-    bx r12
+    return func_02095f2c(obj, 0, 1);
 }
 
-extern "C" asm void func_02096084(void)
+extern "C" BOOL func_02096084(u8 *obj, int a)
 {
-    stmdb sp!, {r3, lr}
-    add r0, r0, #4
-    bl func_020984f0
-    mov r0, #1
-    ldmia sp!, {r3, pc}
+    func_020984f0(obj + 4, a);
+    return TRUE;
 }
 
-extern "C" asm void func_02096098(void)
+extern "C" BOOL func_02096098(u8 *obj, int a)
 {
-    stmdb sp!, {r3, lr}
-    add r0, r0, #4
-    bl func_0209855c
-    mov r0, #1
-    ldmia sp!, {r3, pc}
+    func_0209855c(obj + 4, a);
+    return TRUE;
 }
 
 extern "C" asm void func_020960ac(void)
@@ -1237,20 +1222,14 @@ extern "C" asm void func_02096110(void)
     bx lr
 }
 
-extern "C" asm void func_02096148(void)
+extern "C" int func_02096148(u8 *obj, int a, int b)
 {
-    ldr r12, =func_02097ca8
-    add r0, r0, #4
-    and r2, r2, #0xff
-    mov r3, #0
-    bx r12
+    return func_02097ca8(obj + 4, a, (u8)b, 0);
 }
 
-extern "C" asm void func_02096160(void)
+extern "C" u8 *func_02096160(u8 *obj, int id)
 {
-    ldr r12, =func_020985fc
-    add r0, r0, #4
-    bx r12
+    return func_020985fc(obj + 4, id);
 }
 
 extern "C" asm void func_02096170(void)
