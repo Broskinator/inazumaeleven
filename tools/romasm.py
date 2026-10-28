@@ -105,6 +105,10 @@ def main():
             op = t
         elif i.id == capstone.arm.ARM_INS_B and op.startswith("#"):
             op = f"@L_{int(op[1:], 16):08x}"
+        elif mn == "bl" and op.startswith("#"):
+            # (a call without a relocation, in hand-written code)
+            to = int(op[1:], 16)
+            op = names.get(to, f"func_{to:08x}")
         elif mn == "blx" and op.startswith("#"):
             # (a call of a Thumb function has no relocation: 'bl NAME', the linker makes it a blx)
             to = int(op[1:], 16)
@@ -149,6 +153,9 @@ def main():
             mn = mn[:3] + mn[3:] + "ia"
         if mn.startswith("push"):
             mn, op = "stm" + mn[4:] + "db", "sp!, " + op
+        elif mn.startswith("pop") and "," not in op and (int.from_bytes(i.bytes, "little") >> 25) & 7 == 2:
+            # (one register: capstone shows 'ldr rX, [sp], #4' as a pop)
+            mn, op = "ldr" + mn[3:], f"{op.strip('{}')}, [sp], #4"
         elif mn.startswith("pop"):
             mn, op = "ldm" + mn[3:] + "ia", "sp!, " + op
         out.append(f"    {mn} {op}")
