@@ -429,9 +429,9 @@ public:
     void func_020748fc();
     void func_020749c8();
     void func_02074a18();
-    void func_02074aac();
-    void func_02074abc();
-    void func_02074ac8();
+    int func_02074aac();
+    int func_02074abc();
+    u8 func_02074ac8();
     void func_02074ad0();
     void func_02074b00();
     void func_02074b30();
@@ -451,10 +451,10 @@ public:
     void func_02076370();
     void func_02076424();
     void func_02076460();
-    void func_0207649c();
-    void func_020764b4();
-    void func_020764cc();
-    void func_020764e4();
+    static int func_0207649c(u8 *data);     // (on another struct)
+    static int func_020764b4(u8 *data);     // (on another struct)
+    static int func_020764cc(u8 *data);     // (on another struct)
+    static int func_020764e4(u8 *data);     // (on another struct)
     void func_020764f8();
     void func_02076530();
     void func_02076568();
@@ -467,7 +467,7 @@ public:
     void func_020767cc();
     void func_02076808(u8 value);
     u8 func_02076818();
-    void func_02076828();
+    void func_02076828(u32 value);
     u8 func_02076848();
     u32 func_02076858();
     void func_02076868();
@@ -486,8 +486,8 @@ public:
     void func_02076ddc();
     void func_02076ec8();
     u16 func_02076f04(int i);
-    void func_02076f14();
-    void func_02076f34();
+    u8 *func_02076f14(MatchPlayer *player);
+    u8 *func_02076f34(int i);
     void func_02076f50();
     void func_02077064();
     void func_020770a8();
@@ -519,12 +519,12 @@ public:
     void func_02078148();
     void func_020782f0();
     void func_02078394();
-    void func_02078428();
-    void func_02078434();
+    int func_02078428();
+    int func_02078434();
     void func_02078450();
     void func_02078474();
     void func_02078498();
-    void func_020784b8();
+    void func_020784b8(int a);
     void func_020784ec();
     void func_02078520();
     void func_02078560();
@@ -686,9 +686,9 @@ public:
     void func_0207f260();
     void func_0207f2f8();
     void func_0207f38c();
-    void func_0207f3b8();
-    void func_0207f3cc();
-    void func_0207f3e0();
+    void func_0207f3b8(int value);
+    u16 func_0207f3cc(u32 i);
+    s8 func_0207f3e0();
     void func_0207f3ec();
     void func_0207f42c();
     void func_0207f4bc();

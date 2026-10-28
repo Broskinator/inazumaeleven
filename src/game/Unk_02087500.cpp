@@ -119,7 +119,7 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" void MIi_CpuCopyFast(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076f14Ev(void);
+extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -236,7 +236,7 @@ extern "C" asm void func_02087500(void)
     strneh r0, [r9, #0x10]
     ldr r0, =data_020e88a0
     streqh r8, [r9, #0x10]
-    bl _ZN17UnkClass_020621b413func_02076f14Ev
+    bl _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer
     cmp r0, #0
     ldrneh r0, [r0, #0x2a]
     strneh r0, [r9, #0xe]
