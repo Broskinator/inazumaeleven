@@ -4,3 +4,7 @@
 SDK_OVERLAY_ov015_ID = 15;
 SDK_OVERLAY_ov087_ID = 87;
 SDK_OVERLAY_ov088_ID = 88;
+
+# second names of data whose address a function's literal pool holds twice (MW's inline
+# asm merges equal literals; these keep the second one apart until the code is in C)
+data_020fc708_b = 0x020fc708;

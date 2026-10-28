@@ -124,5 +124,7 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   (`ldmia sp!, {..., pc}`) is the unreachable end of the function before it (after an
   endless loop): as a separate asm function the linker strips it and everything after
   moves. It goes at the end of the function before it (the symbols too).
-- MW's inline asm merges equal literals (`ldr rX, =sym` twice gives one pool entry):
-  functions whose pool has the same address twice stay in the dsd gap code for now.
+- MW's inline asm merges equal literals (`ldr rX, =sym` twice gives one pool entry),
+  but compiled C sometimes has the same address twice in a pool. For the asm of such
+  functions a second name of the address is defined in `config/yeep/arm9/lcf_symbols.txt`
+  (`data_X_b = 0x...;`) and the loads of the second entry use it.
