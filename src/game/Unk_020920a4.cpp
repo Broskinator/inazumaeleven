@@ -1,7 +1,9 @@
 #include "game/Unk_020920a4.hpp"
 
-extern "C" void func_020920a4(void);
-extern "C" void func_020920b4(void);
+extern "C" int func_02091d74(void *self, BOOL a);
+
+extern "C" int func_020920a4(void *self);
+extern "C" int func_020920b4(void *self);
 extern "C" void func_020920c4(void);
 extern "C" void func_02092270(void);
 extern "C" void func_020922fc(void);
@@ -45,7 +47,6 @@ extern "C" void func_02090e38(void);
 extern "C" void func_02090ee0(void);
 extern "C" void func_02090f68(void);
 extern "C" void func_020917c0(void);
-extern "C" void func_02091d74(void);
 extern "C" void func_02091f68(void);
 extern "C" void func_02091f80(void);
 extern "C" void func_02091f8c(void);
@@ -53,18 +54,14 @@ extern "C" void func_02091fc0(void);
 extern "C" void func_02096eb4(void);
 extern "C" void func_020985fc(void);
 
-extern "C" asm void func_020920a4(void)
+extern "C" int func_020920a4(void *self)
 {
-    ldr r12, =func_02091d74
-    mov r1, #1
-    bx r12
+    return func_02091d74(self, 1);
 }
 
-extern "C" asm void func_020920b4(void)
+extern "C" int func_020920b4(void *self)
 {
-    ldr r12, =func_02091d74
-    mov r1, #0
-    bx r12
+    return func_02091d74(self, 0);
 }
 
 extern "C" asm void func_020920c4(void)
