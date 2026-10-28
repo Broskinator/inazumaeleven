@@ -1,5 +1,9 @@
 #include "game/Unk_02095154.hpp"
 
+extern "C" void func_0209657c(void);     // (for the asm functions)
+extern "C" void func_02096eb4(void);     // (for the asm functions)
+extern "C" void func_02097858(void);     // (for the asm functions)
+extern "C" void func_02097880(void);     // (for the asm functions)
 extern "C" void func_02095154(void);
 extern "C" void func_02095544(void);
 extern "C" void func_020956f8(void);
@@ -62,10 +66,6 @@ extern "C" void func_020945ac(void);
 extern "C" void func_020945ec(void);
 extern "C" void func_020946d8(void);
 extern "C" void func_0209489c(void);
-extern "C" void func_0209657c(void);
-extern "C" void func_02096eb4(void);
-extern "C" void func_02097858(void);
-extern "C" void func_02097880(void);
 extern "C" void func_02097ac0(void);
 extern "C" void func_02097ca8(void);
 extern "C" void func_020984f0(void);
