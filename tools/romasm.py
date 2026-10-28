@@ -83,6 +83,7 @@ def main():
         if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
             targets.add(int(i.op_str[1:], 16))
     out = []
+    pools = {}
     for i in insns:
         if i.address in targets:
             out.append(f"@L_{i.address:08x}:")
@@ -117,6 +118,19 @@ def main():
                 if value.startswith("_Z"):
                     value = short(value, cls) or value     # (members of the class by their short name)
                 value += f"+{add:#x}" if add else ""
+                # (MW's asm merges equal literals: a second pool entry of the same value
+                # uses a second name of the address, see docs/matching.md)
+                seen = pools.setdefault(value, [])
+                if lit not in seen:
+                    seen.append(lit)
+                k = seen.index(lit)
+                if k and not isinstance(to, str) and not add:
+                    alias = f"{value}_{'bcdefgh'[k - 1]}"
+                    lcf = f"{ROOT}/config/yeep/arm9/lcf_symbols.txt"
+                    if f"{alias} =" not in open(lcf).read():
+                        with open(lcf, "a", newline="\n") as f:
+                            f.write(f"{alias} = {to:#010x};\n")
+                    value = alias
             else:
                 value = hex(struct.unpack("<I", blob[lit - 0x02000000:lit - 0x02000000 + 4])[0])
             op = op.split(",")[0] + ", =" + value
