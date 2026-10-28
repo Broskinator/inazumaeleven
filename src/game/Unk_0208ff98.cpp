@@ -1,5 +1,7 @@
 #include "game/Unk_0208ff98.hpp"
 
+extern "C" void func_02098cdc(void);     // (for the asm functions)
+extern "C" void func_02098d88(void);     // (for the asm functions)
 extern "C" void func_0208ff98(void);
 extern "C" void func_020900a4(void);
 extern "C" void func_020900f4(void);
@@ -26,8 +28,6 @@ typedef struct {
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void func_02098cdc(void);
-extern "C" void func_02098d88(void);
 extern "C" void func_02098f14(void);
 
 extern "C" asm void func_0208ff98(void)
