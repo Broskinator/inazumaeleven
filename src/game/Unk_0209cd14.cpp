@@ -1,6 +1,18 @@
 #include "game/Unk_0209cd14.hpp"
 
-extern "C" void func_0209cd14(void);
+extern "C" void func_0209c480(void *a);
+extern "C" void func_02008580(void *buffer);
+extern "C" u8 data_020c5320[];
+extern "C" s32 data_020fc794[];
+extern "C" u32 data_020fc7d4;
+extern "C" s32 *data_020affd0[];
+extern "C" s32 data_020b40e8[];
+extern "C" s32 data_020b4944[];
+extern "C" u8 data_020a7520[];
+extern "C" u8 data_020aabf8[];
+extern "C" void func_0209d378(void);
+
+extern "C" void func_0209cd14(BOOL a);
 extern "C" void func_0209cd30(void);
 extern "C" void func_0209d024(void);
 extern "C" void func_0209d1d4(void);
@@ -9,29 +21,28 @@ extern "C" void func_0209d264(void);
 extern "C" void func_0209d2a0(void);
 extern "C" void func_0209d2dc(void);
 extern "C" void func_0209d350(void);
-extern "C" void func_0209d378(void);
-extern "C" void func_0209d3a0(void);
-extern "C" void func_0209d420(void);
+extern "C" int func_0209d3a0(void *callback);
+extern "C" void func_0209d420(s32 value);
 extern "C" void func_0209d444(void);
 extern "C" void func_0209d480(void);
 extern "C" void func_0209d524(void);
 extern "C" void func_0209d5a4(void);
-extern "C" void func_0209d61c(void);
+extern "C" int func_0209d61c(void);
 extern "C" void func_0209d638(void);
-extern "C" void func_0209d648(void);
-extern "C" void func_0209d668(void);
-extern "C" void func_0209d678(void);
-extern "C" void func_0209d684(void);
+extern "C" void func_0209d648(u32 value);
+extern "C" u32 func_0209d668(void);
+extern "C" void func_0209d678(s32 *obj);
+extern "C" void func_0209d684(void *obj);
 extern "C" void func_0209d688(void);
 extern "C" void func_0209d874(void);
-extern "C" void func_0209d8b8(void);
-extern "C" void func_0209d8cc(void);
+extern "C" s32 func_0209d8b8(int i);
+extern "C" void func_0209d8cc(s32 *table);
 extern "C" void func_0209d8dc(void);
 extern "C" void func_0209d998(void);
 extern "C" void func_0209da5c(void);
-extern "C" void func_0209da70(void);
-extern "C" void func_0209da74(void);
-extern "C" void func_0209da80(void);
+extern "C" void func_0209da70(u32 value);
+extern "C" void func_0209da74(u32 value);
+extern "C" void func_0209da80(s32 a, s32 b);
 extern "C" void func_0209da94(void);
 extern "C" void func_0209db9c(void);
 extern "C" void func_0209dc78(void);
@@ -42,10 +53,10 @@ extern "C" void func_0209de0c(void);
 extern "C" void func_0209de28(void);
 extern "C" void func_0209deb0(void);
 extern "C" void func_0209df60(void);
-extern "C" void func_0209dfd4(void);
+extern "C" void func_0209dfd4(s32 *obj, int i, s32 value);
 extern "C" void func_0209e020(void);
 extern "C" void func_0209e09c(void);
-extern "C" void func_0209e0c0(void);
+extern "C" void func_0209e0c0(s32 *obj, int i, s32 value);
 extern "C" void func_0209e0dc(void);
 
 extern "C" char data_020a43f8[];
@@ -53,27 +64,19 @@ extern "C" char data_020a72c4[];
 extern "C" char data_020a72f4[];
 extern "C" char data_020a7304[];
 extern "C" char data_020a733c[];
-extern "C" char data_020a7520[];
-extern "C" char data_020aabf8[];
-extern "C" char data_020affd0[];
 extern "C" char data_020b2fb0[];
 extern "C" char data_020b3f04[];
-extern "C" char data_020b40e8[];
-extern "C" char data_020b4944[];
 extern "C" char data_020bafe4[];
 extern "C" char data_020c4830[];
 extern "C" char data_020c4844[];
 extern "C" char data_020c5120[];
 extern "C" char data_020c5124[];
-extern "C" char data_020c5320[];
 extern "C" char data_020c8760[];
 extern "C" char data_020cb980[];
 extern "C" char data_020cdd80[];
 extern "C" char data_020fc74c[];
 extern "C" char data_020fc750[];
 extern "C" char data_020fc754[];
-extern "C" char data_020fc794[];
-extern "C" char data_020fc7d4[];
 extern "C" char data_020fc7d8[];
 extern "C" void FS_FindArchive(void);
 extern "C" void FS_OpenFileFast(void);
@@ -81,14 +84,12 @@ extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void STD_CompareString(void);
 extern "C" void _ZN8Wireless13func_0203ca80EPKvtPv(void);
-extern "C" void func_02008580(void);
 extern "C" void func_02016e34(void);
 extern "C" void func_0209bedc(void);
 extern "C" void func_0209bee4(void);
 extern "C" void func_0209bf44(void);
 extern "C" void func_0209bf60(void);
 extern "C" void func_0209bf9c(void);
-extern "C" void func_0209c480(void);
 extern "C" void func_0209c4bc(void);
 extern "C" void func_0209c9e0(void);
 extern "C" void func_0209cba8(void);
@@ -97,14 +98,12 @@ extern "C" void func_ov015_021319bc(void);
 extern "C" void func_ov015_021319fc(void);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_0209cd14(void)
+extern "C" void func_0209cd14(BOOL a)
 {
-    stmdb sp!, {r3, lr}
-    cmp r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c5320
-    bl func_0209c480
-    ldmia sp!, {r3, pc}
+    if (!a) {
+        return;
+    }
+    func_0209c480(data_020c5320);
 }
 
 extern "C" asm void func_0209cd30(void)
@@ -559,7 +558,7 @@ extern "C" asm void func_0209d378(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_0209d3a0(void)
+extern "C" asm int func_0209d3a0(void *callback)
 {
     str r0, [r1, #-4]!
     str r12, [r1, #-4]!
@@ -596,15 +595,9 @@ extern "C" asm void func_0209d3a0(void)
     mov pc, lr
 }
 
-extern "C" asm void func_0209d420(void)
+extern "C" void func_0209d420(s32 value)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =func_0209d378
-    bl func_0209d3a0
-    ldr r1, =data_020fc794
-    str r4, [r1, r0, lsl #2]
-    ldmia sp!, {r4, pc}
+    data_020fc794[func_0209d3a0(func_0209d378)] = value;
 }
 
 extern "C" asm void func_0209d444(void)
@@ -742,52 +735,40 @@ extern "C" asm void func_0209d5a4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_0209d61c(void)
+extern "C" int func_0209d61c(void)
 {
-    stmdb sp!, {lr}
-    sub sp, sp, #0x54
-    add r0, sp, #0
-    bl func_02008580
-    mov r0, #0
-    add sp, sp, #0x54
-    ldmia sp!, {pc}
+    u8 buffer[0x54];
+
+    func_02008580(buffer);
+    return 0;
 }
 
-extern "C" asm void func_0209d638(void)
+extern "C" void func_0209d638(void)
 {
-    stmdb sp!, {r3, lr}
-    bl func_0209d61c
-    bl func_0209d648
-    ldmia sp!, {r3, pc}
+    func_0209d648(func_0209d61c());
 }
 
-extern "C" asm void func_0209d648(void)
+extern "C" void func_0209d648(u32 value)
 {
-    ldr r1, =data_020fc7d4
-    cmp r0, #5
-    movhs r0, #0
-    ldr r12, =func_0209da74
-    str r0, [r1]
-    bx r12
+    if (value >= 5) {
+        value = 0;
+    }
+    data_020fc7d4 = value;
+    func_0209da74(value);
 }
 
-extern "C" asm void func_0209d668(void)
+extern "C" u32 func_0209d668(void)
 {
-    ldr r0, =data_020fc7d4
-    ldr r0, [r0]
-    bx lr
+    return data_020fc7d4;
 }
 
-extern "C" asm void func_0209d678(void)
+extern "C" void func_0209d678(s32 *obj)
 {
-    mov r1, #0
-    str r1, [r0]
-    bx lr
+    *obj = 0;
 }
 
-extern "C" asm void func_0209d684(void)
+extern "C" void func_0209d684(void *obj)
 {
-    bx lr
 }
 
 extern "C" asm void func_0209d688(void)
@@ -953,19 +934,14 @@ extern "C" asm void func_0209d874(void)
     bx lr
 }
 
-extern "C" asm void func_0209d8b8(void)
+extern "C" s32 func_0209d8b8(int i)
 {
-    ldr r1, =data_020affd0
-    ldr r1, [r1]
-    ldr r0, [r1, r0, lsl #2]
-    bx lr
+    return data_020affd0[0][i];
 }
 
-extern "C" asm void func_0209d8cc(void)
+extern "C" void func_0209d8cc(s32 *table)
 {
-    ldr r1, =data_020affd0
-    str r0, [r1]
-    bx lr
+    data_020affd0[0] = table;
 }
 
 extern "C" asm void func_0209d8dc(void)
@@ -1074,30 +1050,24 @@ extern "C" asm void func_0209d998(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_0209da5c(void)
+extern "C" void func_0209da5c(void)
 {
-    ldr r0, =data_020b40e8
-    ldr r12, =func_0209d8cc
-    bx r12
+    func_0209d8cc(data_020b40e8);
 }
 
-extern "C" asm void func_0209da70(void)
+extern "C" void func_0209da70(u32 value)
 {
-    bx lr
 }
 
-extern "C" asm void func_0209da74(void)
+extern "C" void func_0209da74(u32 value)
 {
-    ldr r12, =func_0209da70
-    bx r12
+    func_0209da70(value);
 }
 
-extern "C" asm void func_0209da80(void)
+extern "C" void func_0209da80(s32 a, s32 b)
 {
-    ldr r2, =data_020b4944
-    str r0, [r2, #4]
-    str r1, [r2]
-    bx lr
+    data_020b4944[1] = a;
+    data_020b4944[0] = b;
 }
 
 extern "C" asm void func_0209da94(void)
@@ -1355,12 +1325,9 @@ extern "C" asm void func_0209ddd0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0209de0c(void)
+extern "C" void func_0209de0c(void)
 {
-    ldr r0, =data_020a7520
-    ldr r1, =data_020aabf8
-    ldr r12, =func_0209da80
-    bx r12
+    func_0209da80((s32)data_020a7520, (s32)data_020aabf8);
 }
 
 extern "C" asm void func_0209de28(void)
@@ -1485,7 +1452,7 @@ extern "C" asm void func_0209df60(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_0209dfd4(void)
+extern "C" asm void func_0209dfd4(s32 *obj, int i, s32 value)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r1
@@ -1557,15 +1524,13 @@ extern "C" asm void func_0209e09c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_0209e0c0(void)
+extern "C" void func_0209e0c0(s32 *obj, int i, s32 value)
 {
-    stmdb sp!, {r3, lr}
-    cmp r2, #0
-    addgt r0, r0, r1, lsl #2
-    strgt r2, [r0, #4]
-    ldmgtia sp!, {r3, pc}
-    bl func_0209dfd4
-    ldmia sp!, {r3, pc}
+    if (value > 0) {
+        (obj + 1)[i] = value;
+        return;
+    }
+    func_0209dfd4(obj, i, value);
 }
 
 extern "C" asm void func_0209e0dc(void)

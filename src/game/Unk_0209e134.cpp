@@ -1,15 +1,19 @@
 #include "game/Unk_0209e134.hpp"
+#include "system/GameHeap.hpp"
+
+extern GameHeap data_020c47b4;
+extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
 
 extern "C" void func_0209e134(void);
 extern "C" void func_0209e174(void);
 extern "C" void func_0209e1c8(void);
 extern "C" void func_0209e220(void);
-extern "C" void func_0209e248(void);
-extern "C" void func_0209e258(void);
+extern "C" void func_0209e248(s32 *obj);
+extern "C" void func_0209e258(void *obj);
 extern "C" void func_0209e25c(void);
 extern "C" void func_0209e298(void);
 extern "C" void func_0209e360(void);
-extern "C" void func_0209e5cc(void);
+extern "C" void func_0209e5cc(void **obj);
 extern "C" void func_0209e5ec(void);
 extern "C" void func_0209e654(void);
 extern "C" void func_0209e78c(void);
@@ -21,7 +25,6 @@ extern "C" char data_020aac48[];
 extern "C" char data_020bb000[];
 extern "C" char data_020bb01c[];
 extern "C" char data_020bb028[];
-extern "C" char data_020c47b4[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
@@ -120,17 +123,14 @@ extern "C" asm void func_0209e220(void)
     bx lr
 }
 
-extern "C" asm void func_0209e248(void)
+extern "C" void func_0209e248(s32 *obj)
 {
-    mov r1, #0
-    str r1, [r0]
-    str r1, [r0, #4]
-    bx lr
+    obj[0] = 0;
+    obj[1] = 0;
 }
 
-extern "C" asm void func_0209e258(void)
+extern "C" void func_0209e258(void *obj)
 {
-    bx lr
 }
 
 extern "C" asm void func_0209e25c(void)
@@ -381,15 +381,12 @@ extern "C" asm void func_0209e360(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_0209e5cc(void)
+extern "C" void func_0209e5cc(void **obj)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, [r0]
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    ldmia sp!, {r3, pc}
+    if (*obj == NULL) {
+        return;
+    }
+    data_020c47b4.Free(*obj);
 }
 
 extern "C" asm void func_0209e5ec(void)
