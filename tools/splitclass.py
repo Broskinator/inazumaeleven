@@ -35,6 +35,8 @@ for m in re.finditer(r"^(\S+) kind:function\(arm,size=(0x[0-9a-f]+)\) addr:(0x[0
     a = int(m.group(3), 16)
     if lo <= a < hi:
         funcs.append((a, m.group(1)))
+        # (HI inside the last function: the range ends where the function does)
+        hi = max(hi, a + int(m.group(2), 16))
 funcs.sort()
 names = {}
 for a, old in funcs:
