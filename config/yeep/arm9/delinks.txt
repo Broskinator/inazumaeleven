@@ -84,7 +84,8 @@ src/libs/NitroSDK/os/os_interrupt.c:
     complete
     .text start:0x02005288 end:0x0200556c
 
-libs/NitroSDK/os/os_reset.c:
+src/libs/NitroSDK/os/os_reset.c:
+    complete
     .text start:0x0200556c end:0x02005668
 
 libs/NitroSDK/os/os_spinLock.c:
