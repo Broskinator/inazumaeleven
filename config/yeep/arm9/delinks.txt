@@ -307,7 +307,8 @@ src/libs/MSL_C/math_sun.c:
     complete
     .text start:0x0201d4c0 end:0x0201d4ec
 
-libs/MSL_C/k_sin.c:
+src/libs/MSL_C/k_sin.c:
+    complete
     .text start:0x0202034c end:0x020205c8
 
 libs/MSL_C/s_copysign.c:
