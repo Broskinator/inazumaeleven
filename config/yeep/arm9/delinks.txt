@@ -299,7 +299,8 @@ src/libs/MSL_C/wstring.c:
     complete
     .text start:0x0201c0c8 end:0x0201c0e4
 
-libs/MSL_C/ansi_fp.c:
+src/libs/MSL_C/ansi_fp.c:
+    complete
     .text start:0x0201c0e4 end:0x0201d4c0
 
 libs/MSL_C/math_sun.c:
