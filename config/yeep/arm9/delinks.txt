@@ -331,7 +331,8 @@ src/libs/Runtime/mwexception.c:
     complete
     .text start:0x020252f8 end:0x020254fc
 
-libs/Runtime/new.c:
+src/libs/Runtime/new.c:
+    complete
     .text start:0x020254fc end:0x02025610
 
 libs/Runtime/cxxabi_alloc.c:
