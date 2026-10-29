@@ -191,7 +191,8 @@ src/libs/NitroSDK/fs/fs_archive.c:
     complete
     .text start:0x0200e2e4 end:0x0200e764
 
-libs/NitroSDK/fs/fs_rom.c:
+src/libs/NitroSDK/fs/fs_rom.c:
+    complete
     .text start:0x0200e764 end:0x0200e7c0
 
 libs/NitroSDK/cp/cp_context.c:
