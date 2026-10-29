@@ -128,3 +128,7 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   but compiled C sometimes has the same address twice in a pool. For the asm of such
   functions a second name of the address is defined in `config/yeep/arm9/lcf_symbols.txt`
   (`data_X_b = 0x...;`) and the loads of the second entry use it.
+- The linker strips functions nothing refers to. The original keeps them, so
+  `tools/lcfextra.py` lists the unreferenced functions of the source files in a
+  `FORCE_ACTIVE` block of the linker script (a reference "into one of several overlays"
+  doesn't count: it isn't linked by name).
