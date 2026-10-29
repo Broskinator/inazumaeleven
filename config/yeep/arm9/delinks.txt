@@ -219,7 +219,8 @@ src/libs/NitroSDK/card/card_pullOut.c:
     complete
     .text start:0x0201239c end:0x020126b0
 
-libs/NitroSDK/wm/wm_system.c:
+src/libs/NitroSDK/wm/wm_system.c:
+    complete
     .text start:0x020126b0 end:0x02012e28
 
 libs/NitroSDK/wm/wm_sync.c:
