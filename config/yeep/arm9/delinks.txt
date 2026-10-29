@@ -291,7 +291,8 @@ src/libs/MSL_C/rand.c:
     complete
     .text start:0x0201a6c0 end:0x0201aa34
 
-libs/MSL_C/string.c:
+src/libs/MSL_C/string.c:
+    complete
     .text start:0x0201aa34 end:0x0201ac60
 
 libs/MSL_C/wstring.c:
