@@ -307,6 +307,10 @@ src/libs/MSL_C/mem.c:
     complete
     .text start:0x020183a8 end:0x02018440
 
+src/libs/Unk_02018440.c:
+    complete
+    .text start:0x02018440 end:0x0201a498
+
 src/libs/MSL_C/printf.c:
     complete
     .text start:0x0201a498 end:0x0201a6c0
