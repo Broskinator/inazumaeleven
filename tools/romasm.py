@@ -154,10 +154,20 @@ def main():
             op = t
         elif i.address in calls and isinstance(calls[i.address], str):
             op = calls[i.address]
+            if op.startswith(".L_"):
+                # (a label inside a function of another module, as a second entry: MW's asm
+                # takes no such name, so the linker gets another one for the address)
+                op = "func_" + op[3:]
+                lcf = f"{ROOT}/config/yeep/arm9/lcf_symbols.txt"
+                if f"{op} =" not in open(lcf).read():
+                    with open(lcf, "a", newline="\n") as f:
+                        f.write(f"{op} = 0x{op[5:]};\n")
             if mn == "blx":
                 mn = "bl"     # (the linker makes it a blx: MW's asm can't take blx with a name)
         elif i.address in calls:
             t = names.get(calls[i.address], f"func_{calls[i.address]:08x}")
+            if mn == "blx":
+                mn = "bl"
             if t.startswith("_Z"):
                 t = short(t, cls) or t
             op = t
