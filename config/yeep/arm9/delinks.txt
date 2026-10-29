@@ -259,7 +259,8 @@ src/libs/NitroSDK/dgt/hash2.c:
     complete
     .text start:0x02016118 end:0x02016678
 
-libs/NitroSDK/math/crc.c:
+src/libs/NitroSDK/math/crc.c:
+    complete
     .text start:0x02016678 end:0x02016724
 
 libs/NitroSDK/math/qsort.c:
