@@ -231,7 +231,8 @@ src/libs/NitroSDK/wm/wm_standard.c:
     complete
     .text start:0x02013888 end:0x02013e64
 
-libs/NitroSDK/wm/wm_mp.c:
+src/libs/NitroSDK/wm/wm_mp.c:
+    complete
     .text start:0x02013e64 end:0x02013f08
 
 libs/NitroSDK/wm/wm_ds.c:
