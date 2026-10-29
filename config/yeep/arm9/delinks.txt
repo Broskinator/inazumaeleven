@@ -459,7 +459,8 @@ src/libs/NitroSystem/snd/fader.c:
     complete
     .text start:0x02032610 end:0x020326b4
 
-libs/NitroSystem/fnd/list.c:
+src/libs/NitroSystem/fnd/list.c:
+    complete
     .text start:0x020326b4 end:0x020328d4
 
 libs/NitroSystem/fnd/heapcommon.c:
