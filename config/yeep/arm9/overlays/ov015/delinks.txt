@@ -68,3 +68,7 @@ src/ov015/Unk_02158998.cpp:
 src/ov015/Unk_0215b9c8.cpp:
     complete
     .text start:0x0215b9c8 end:0x0215eaa8
+
+src/ov015/Unk_0215eaa8.cpp:
+    complete
+    .text start:0x0215eaa8 end:0x02161af4
