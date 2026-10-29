@@ -1,0 +1,14 @@
+// (asm for now)
+
+asm void OSi_DequeueItem(void)
+{
+    ldr r2, [r1, #0x10]
+    ldr r1, [r1, #0x14]
+    cmp r2, #0
+    streq r1, [r0, #0x8c]
+    strne r1, [r2, #0x14]
+    cmp r1, #0
+    streq r2, [r0, #0x88]
+    strne r2, [r1, #0x10]
+    bx lr
+}
