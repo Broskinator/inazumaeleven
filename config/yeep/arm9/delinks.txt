@@ -144,7 +144,8 @@ src/libs/NitroSDK/mi/mi_dma.c:
     complete
     .text start:0x02008e2c end:0x0200913c
 
-libs/NitroSDK/mi/mi_dma_gxcommand.c:
+src/libs/NitroSDK/mi/mi_dma_gxcommand.c:
+    complete
     .text start:0x0200913c end:0x02009168
 
 libs/NitroSDK/mi/mi_memory.c:
