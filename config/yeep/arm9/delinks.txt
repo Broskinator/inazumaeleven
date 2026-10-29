@@ -247,7 +247,8 @@ src/libs/NitroSDK/ctrdg/ctrdg.c:
     complete
     .text start:0x020152b8 end:0x0201588c
 
-libs/NitroSDK/ctrdg/ctrdg_proc.c:
+src/libs/NitroSDK/ctrdg/ctrdg_proc.c:
+    complete
     .text start:0x0201588c end:0x02015910
 
 libs/NitroSDK/ctrdg/ctrdg_task.c:
