@@ -467,7 +467,8 @@ src/libs/NitroSystem/fnd/heapcommon.c:
     complete
     .text start:0x020328d4 end:0x020329f8
 
-libs/NitroSystem/fnd/expheap.c:
+src/libs/NitroSystem/fnd/expheap.c:
+    complete
     .text start:0x020329f8 end:0x02033080
 
 libs/NitroSystem/fnd/frameheap.c:
