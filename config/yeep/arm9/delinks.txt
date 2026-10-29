@@ -68,7 +68,8 @@ src/libs/NitroSDK/gx/gxasm.c:
     complete
     .text start:0x02005084 end:0x020050a8
 
-libs/NitroSDK/gx/gxstate.c:
+src/libs/NitroSDK/gx/gxstate.c:
+    complete
     .text start:0x020050a8 end:0x02005108
 
 libs/NitroSDK/os/os_irqHandler.c:
