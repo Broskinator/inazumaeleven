@@ -125,8 +125,12 @@ def main():
     end = addr + size
     insns = []
     pc = addr
+    # (data inside the code, as "START END" lines in codedata.txt)
+    data = []
+    if os.path.exists(f"{cfg}/codedata.txt"):
+        data = [tuple(int(x, 16) for x in l.split()) for l in open(f"{cfg}/codedata.txt") if l.strip()]
     while pc < end:
-        i = next(md.disasm(blob[pc - base:pc - base + 4], pc), None)
+        i = None if any(a <= pc < b for a, b in data) else next(md.disasm(blob[pc - base:pc - base + 4], pc), None)
         if i is None:
             # (a word that is no instruction: data in the code, written as a dcd)
             insns.append((pc, struct.unpack("<I", blob[pc - base:pc - base + 4])[0]))
