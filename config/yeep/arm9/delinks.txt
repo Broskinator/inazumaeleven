@@ -243,7 +243,8 @@ src/libs/NitroSDK/wm/wm_ks.c:
     complete
     .text start:0x02014f64 end:0x020152b8
 
-libs/NitroSDK/ctrdg/ctrdg.c:
+src/libs/NitroSDK/ctrdg/ctrdg.c:
+    complete
     .text start:0x020152b8 end:0x0201588c
 
 libs/NitroSDK/ctrdg/ctrdg_proc.c:
