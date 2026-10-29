@@ -343,7 +343,8 @@ src/libs/Runtime/cxxabi_rtti.c:
     complete
     .text start:0x020258f8 end:0x02025ba4
 
-libs/NitroSystem/g2d/load_g2d_Load.c:
+src/libs/NitroSystem/g2d/load_g2d_Load.c:
+    complete
     .text start:0x02025ba4 end:0x02025bec
 
 libs/NitroSystem/g2d/g2d_Font.c:
