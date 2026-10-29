@@ -41,3 +41,4 @@ data_020c238c_b = 0x020c238c;
 data_020c23a8_b = 0x020c23a8;
 data_020c2e00_b = 0x020c2e00;
 data_020bd0a8_b = 0x020bd0a8;
+data_020bd980_b = 0x020bd980;
