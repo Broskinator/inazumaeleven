@@ -116,7 +116,8 @@ src/libs/NitroSDK/os/os_init.c:
     complete
     .text start:0x02006db8 end:0x02007164
 
-libs/NitroSDK/os/os_arena.c:
+src/libs/NitroSDK/os/os_arena.c:
+    complete
     .text start:0x02007164 end:0x020071ec
 
 libs/NitroSDK/os/os_alloc.c:
