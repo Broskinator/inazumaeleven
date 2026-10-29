@@ -25,7 +25,8 @@ libs/NitroSDK/fx/fx_mtx44.c:
 libs/NitroSDK/fx/fx_cp.c:
     .text start:0x02001db4 end:0x02001f68
 
-libs/NitroSDK/fx/fx_vec.c:
+src/libs/NitroSDK/fx/fx_vec.c:
+    complete
     .text start:0x02001f68 end:0x02002548
 
 libs/NitroSDK/gx/gx.c:
