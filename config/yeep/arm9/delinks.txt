@@ -463,7 +463,8 @@ src/libs/NitroSystem/fnd/list.c:
     complete
     .text start:0x020326b4 end:0x020328d4
 
-libs/NitroSystem/fnd/heapcommon.c:
+src/libs/NitroSystem/fnd/heapcommon.c:
+    complete
     .text start:0x020328d4 end:0x020329f8
 
 libs/NitroSystem/fnd/expheap.c:
