@@ -195,6 +195,10 @@ src/libs/NitroSDK/fs/fs_overlay.c:
     complete
     .text start:0x0200ca08 end:0x0200cf90
 
+src/libs/Unk_0200cf90.c:
+    complete
+    .text start:0x0200cf90 end:0x0200e2e4
+
 src/libs/NitroSDK/fs/fs_archive.c:
     complete
     .text start:0x0200e2e4 end:0x0200e764
