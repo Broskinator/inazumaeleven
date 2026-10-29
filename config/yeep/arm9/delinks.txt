@@ -339,7 +339,8 @@ src/libs/Runtime/cxxabi_alloc.c:
     complete
     .text start:0x02025610 end:0x020258f8
 
-libs/Runtime/cxxabi_rtti.c:
+src/libs/Runtime/cxxabi_rtti.c:
+    complete
     .text start:0x020258f8 end:0x02025ba4
 
 libs/NitroSystem/g2d/load_g2d_Load.c:
