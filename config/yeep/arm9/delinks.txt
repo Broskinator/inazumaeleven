@@ -279,7 +279,8 @@ src/libs/MSL_C/mbstring.c:
     complete
     .text start:0x02018294 end:0x020183a8
 
-libs/MSL_C/mem.c:
+src/libs/MSL_C/mem.c:
+    complete
     .text start:0x020183a8 end:0x02018440
 
 libs/MSL_C/printf.c:
