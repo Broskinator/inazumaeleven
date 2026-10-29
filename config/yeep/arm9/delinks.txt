@@ -179,7 +179,8 @@ src/libs/NitroSDK/snd/snd_util.c:
     complete
     .text start:0x0200ab5c end:0x0200ad34
 
-libs/NitroSDK/snd/snd_bank.c:
+src/libs/NitroSDK/snd/snd_bank.c:
+    complete
     .text start:0x0200ad34 end:0x0200afc0
 
 libs/NitroSDK/fs/fs_overlay.c:
