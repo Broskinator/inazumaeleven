@@ -371,7 +371,8 @@ src/libs/NitroSystem/g3d/glbstate.c:
     complete
     .text start:0x02028714 end:0x020288fc
 
-libs/NitroSystem/g3d/anm.c:
+src/libs/NitroSystem/g3d/anm.c:
+    complete
     .text start:0x020288fc end:0x02029174
 
 libs/NitroSystem/g3d/sbc.c:
