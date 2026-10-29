@@ -227,7 +227,8 @@ src/libs/NitroSDK/wm/wm_sync.c:
     complete
     .text start:0x02012e28 end:0x02013888
 
-libs/NitroSDK/wm/wm_standard.c:
+src/libs/NitroSDK/wm/wm_standard.c:
+    complete
     .text start:0x02013888 end:0x02013e64
 
 libs/NitroSDK/wm/wm_mp.c:
