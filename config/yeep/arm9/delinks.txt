@@ -32,7 +32,8 @@ src/libs/NitroSDK/fx/fx_vec.c:
     complete
     .text start:0x02001f68 end:0x02002548
 
-libs/NitroSDK/gx/gx.c:
+src/libs/NitroSDK/gx/gx.c:
+    complete
     .text start:0x02002548 end:0x020027ec
 
 libs/NitroSDK/gx/g2.c:
