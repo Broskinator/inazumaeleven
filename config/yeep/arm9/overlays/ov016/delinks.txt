@@ -31,3 +31,7 @@ src/ov016/Unk_02145fb4.cpp:
 src/ov016/Unk_02149068.cpp:
     complete
     .text start:0x02149068 end:0x0214c08c
+
+src/ov016/Unk_0214c08c.cpp:
+    complete
+    .text start:0x0214c08c end:0x0214f17c
