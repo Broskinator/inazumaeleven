@@ -379,7 +379,8 @@ src/libs/NitroSystem/g3d/sbc.c:
     complete
     .text start:0x02029174 end:0x02029aa0
 
-libs/NitroSystem/g3d/gecom.c:
+src/libs/NitroSystem/g3d/gecom.c:
+    complete
     .text start:0x0202b51c end:0x0202b770
 
 libs/NitroSystem/g3d/util.c:
