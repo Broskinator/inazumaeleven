@@ -275,7 +275,8 @@ src/libs/MSL_C/math_api.c:
     complete
     .text start:0x02018128 end:0x02018294
 
-libs/MSL_C/mbstring.c:
+src/libs/MSL_C/mbstring.c:
+    complete
     .text start:0x02018294 end:0x020183a8
 
 libs/MSL_C/mem.c:
