@@ -203,7 +203,8 @@ src/libs/NitroSDK/spi/tp.c:
     complete
     .text start:0x0200ed44 end:0x0200f760
 
-libs/NitroSDK/spi/pm.c:
+src/libs/NitroSDK/spi/pm.c:
+    complete
     .text start:0x0200f760 end:0x02010a08
 
 libs/NitroSDK/rtc/convert.c:
