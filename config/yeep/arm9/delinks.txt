@@ -411,7 +411,8 @@ src/libs/NitroSystem/g3d/anm_nsbta.c:
     complete
     .text start:0x0202dd24 end:0x0202de30
 
-libs/NitroSystem/gfd/VramManager_gfdi_LinkedListVramMan_Common.c:
+src/libs/NitroSystem/gfd/VramManager_gfdi_LinkedListVramMan_Common.c:
+    complete
     .text start:0x0202fd38 end:0x02030130
 
 libs/NitroSystem/gfd/VramManager_gfd_LinkedListTexVramMan.c:
