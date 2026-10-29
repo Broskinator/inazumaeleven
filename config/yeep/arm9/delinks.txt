@@ -44,7 +44,8 @@ src/libs/NitroSDK/gx/g3imm.c:
     complete
     .text start:0x02002830 end:0x02002988
 
-libs/NitroSDK/gx/g3x.c:
+src/libs/NitroSDK/gx/g3x.c:
+    complete
     .text start:0x02002988 end:0x02002e28
 
 libs/NitroSDK/gx/gx_bgcnt.c:
