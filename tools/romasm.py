@@ -126,7 +126,12 @@ def main():
     insns = []
     pc = addr
     while pc < end:
-        i = next(md.disasm(blob[pc - base:pc - base + 4], pc))
+        i = next(md.disasm(blob[pc - base:pc - base + 4], pc), None)
+        if i is None:
+            # (a word that is no instruction: data in the code, written as a dcd)
+            insns.append((pc, struct.unpack("<I", blob[pc - base:pc - base + 4])[0]))
+            pc += 4
+            continue
         insns.append(i)
         m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", i.op_str)
         if m:
@@ -134,11 +139,18 @@ def main():
         pc += 4
     targets = set()
     for i in insns:
+        if isinstance(i, tuple):
+            continue
         if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
             targets.add(int(i.op_str[1:], 16))
     out = []
     pools = {}
     for i in insns:
+        if isinstance(i, tuple):
+            if i[0] in targets:
+                out.append(f"@L_{i[0]:08x}:")
+            out.append(f"    dcd {i[1]:#010x}")
+            continue
         if i.address in targets:
             out.append(f"@L_{i.address:08x}:")
         op = i.op_str
