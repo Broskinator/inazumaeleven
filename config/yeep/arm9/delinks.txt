@@ -431,7 +431,8 @@ src/libs/NitroSystem/snd/resource_mgr.c:
     complete
     .text start:0x02030750 end:0x020307d8
 
-libs/NitroSystem/snd/player.c:
+src/libs/NitroSystem/snd/player.c:
+    complete
     .text start:0x020307d8 end:0x0203180c
 
 libs/NitroSystem/snd/heap.c:
