@@ -291,6 +291,10 @@ src/libs/NitroSDK/std/std_string.c:
     complete
     .text start:0x02016cd8 end:0x02017000
 
+src/libs/Unk_02017000.c:
+    complete
+    .text start:0x02017000 end:0x02018128
+
 src/libs/MSL_C/math_api.c:
     complete
     .text start:0x02018128 end:0x02018294
