@@ -132,7 +132,8 @@ src/libs/NitroSDK/os/os_valarm.c:
     complete
     .text start:0x02008004 end:0x020083e8
 
-libs/NitroSDK/os/os_system.c:
+src/libs/NitroSDK/os/os_system.c:
+    complete
     .text start:0x020083e8 end:0x02008608
 
 libs/NitroSDK/os/os_vramExclusive.c:
