@@ -23,3 +23,7 @@ src/ov016/Unk_0213ff24.cpp:
 src/ov016/Unk_02142f80.cpp:
     complete
     .text start:0x02142f80 end:0x02145fb4
+
+src/ov016/Unk_02145fb4.cpp:
+    complete
+    .text start:0x02145fb4 end:0x02149068
