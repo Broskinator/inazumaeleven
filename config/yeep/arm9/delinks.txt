@@ -7,6 +7,10 @@
     .bss        start:0x020bb040 end:0x020fc7e0 kind:bss align:32
 
 
+src/libs/Unk_02000800.c:
+    complete
+    .text start:0x02000800 end:0x02000950
+
 libs/NitroSDK/init/crt0.c:
     .text start:0x02000950 end:0x02000c9c
 
