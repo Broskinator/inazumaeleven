@@ -151,7 +151,8 @@ src/libs/NitroSDK/mi/mi_dma_gxcommand.c:
 libs/NitroSDK/mi/mi_memory.c:
     .text start:0x02009168 end:0x02009be0
 
-libs/NitroSDK/mi/mi_uncompress.c:
+src/libs/NitroSDK/mi/mi_uncompress.c:
+    complete
     .text start:0x02009be0 end:0x02009e14
 
 libs/NitroSDK/mi/mi_init.c:
