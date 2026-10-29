@@ -154,6 +154,8 @@ def main():
             op = t
         elif i.address in calls and isinstance(calls[i.address], str):
             op = calls[i.address]
+            if mn == "blx":
+                mn = "bl"     # (the linker makes it a blx: MW's asm can't take blx with a name)
         elif i.address in calls:
             t = names.get(calls[i.address], f"func_{calls[i.address]:08x}")
             if t.startswith("_Z"):
