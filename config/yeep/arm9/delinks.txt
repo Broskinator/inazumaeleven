@@ -375,7 +375,8 @@ src/libs/NitroSystem/g3d/anm.c:
     complete
     .text start:0x020288fc end:0x02029174
 
-libs/NitroSystem/g3d/sbc.c:
+src/libs/NitroSystem/g3d/sbc.c:
+    complete
     .text start:0x02029174 end:0x02029aa0
 
 libs/NitroSystem/g3d/gecom.c:
