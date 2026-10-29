@@ -1,0 +1,9 @@
+#ifndef OV026_UNK_OV026_02169010_HPP
+#define OV026_UNK_OV026_02169010_HPP
+
+#include "nitro/types.h"
+
+// Helpers (asm for now)
+// (the functions are declared by their users, with their types, for now)
+
+#endif // OV026_UNK_OV026_02169010_HPP
