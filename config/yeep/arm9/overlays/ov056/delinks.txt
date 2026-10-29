@@ -8,3 +8,7 @@
 src/ov056/Unk_ov056_02165d60.cpp:
     complete
     .text start:0x02165d60 end:0x02168de4
+
+src/ov056/Unk_ov056_02168de4.cpp:
+    complete
+    .text start:0x02168de4 end:0x0216b0fc
