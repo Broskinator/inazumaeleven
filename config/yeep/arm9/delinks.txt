@@ -367,7 +367,8 @@ src/libs/NitroSystem/g3d/kernel.c:
     complete
     .text start:0x020279f8 end:0x02028714
 
-libs/NitroSystem/g3d/glbstate.c:
+src/libs/NitroSystem/g3d/glbstate.c:
+    complete
     .text start:0x02028714 end:0x020288fc
 
 libs/NitroSystem/g3d/anm.c:
