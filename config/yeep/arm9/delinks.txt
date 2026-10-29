@@ -128,7 +128,8 @@ src/libs/NitroSDK/os/os_exception.c:
     complete
     .text start:0x020077ac end:0x02008004
 
-libs/NitroSDK/os/os_valarm.c:
+src/libs/NitroSDK/os/os_valarm.c:
+    complete
     .text start:0x02008004 end:0x020083e8
 
 libs/NitroSDK/os/os_system.c:
