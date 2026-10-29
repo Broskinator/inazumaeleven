@@ -383,7 +383,8 @@ src/libs/NitroSystem/g3d/gecom.c:
     complete
     .text start:0x0202b51c end:0x0202b770
 
-libs/NitroSystem/g3d/util.c:
+src/libs/NitroSystem/g3d/util.c:
+    complete
     .text start:0x0202b770 end:0x0202bc84
 
 libs/NitroSystem/g3d/model.c:
