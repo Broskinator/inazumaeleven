@@ -419,7 +419,8 @@ src/libs/NitroSystem/gfd/VramManager_gfd_LinkedListTexVramMan.c:
     complete
     .text start:0x02030130 end:0x02030498
 
-libs/NitroSystem/gfd/VramManager_gfd_LinkedListPlttVramMan.c:
+src/libs/NitroSystem/gfd/VramManager_gfd_LinkedListPlttVramMan.c:
+    complete
     .text start:0x02030498 end:0x0203070c
 
 libs/NitroSystem/snd/main.c:
