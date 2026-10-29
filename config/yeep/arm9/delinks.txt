@@ -351,7 +351,8 @@ src/libs/NitroSystem/g2d/g2d_Font.c:
     complete
     .text start:0x02025bec end:0x02026028
 
-libs/NitroSystem/g2d/g2d_CharCanvas.c:
+src/libs/NitroSystem/g2d/g2d_CharCanvas.c:
+    complete
     .text start:0x02026028 end:0x0202751c
 
 libs/NitroSystem/g2d/g2d_TextCanvas.c:
