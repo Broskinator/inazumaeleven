@@ -443,7 +443,8 @@ src/libs/NitroSystem/snd/sndarc_loader.c:
     complete
     .text start:0x020319e8 end:0x02032190
 
-libs/NitroSystem/snd/sndarc_player.c:
+src/libs/NitroSystem/snd/sndarc_player.c:
+    complete
     .text start:0x02032190 end:0x02032534
 
 libs/NitroSystem/snd/sndarc_stream.c:
