@@ -40,7 +40,8 @@ src/libs/NitroSDK/gx/g2.c:
     complete
     .text start:0x020027ec end:0x02002830
 
-libs/NitroSDK/gx/g3imm.c:
+src/libs/NitroSDK/gx/g3imm.c:
+    complete
     .text start:0x02002830 end:0x02002988
 
 libs/NitroSDK/gx/g3x.c:
