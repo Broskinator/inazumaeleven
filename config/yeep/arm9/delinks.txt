@@ -187,6 +187,10 @@ src/libs/NitroSDK/snd/snd_bank.c:
     complete
     .text start:0x0200ad34 end:0x0200afc0
 
+src/libs/Unk_0200afc0.c:
+    complete
+    .text start:0x0200afc0 end:0x0200ca08
+
 src/libs/NitroSDK/fs/fs_overlay.c:
     complete
     .text start:0x0200ca08 end:0x0200cf90
