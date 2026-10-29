@@ -295,7 +295,8 @@ src/libs/MSL_C/string.c:
     complete
     .text start:0x0201aa34 end:0x0201ac60
 
-libs/MSL_C/wstring.c:
+src/libs/MSL_C/wstring.c:
+    complete
     .text start:0x0201c0c8 end:0x0201c0e4
 
 libs/MSL_C/ansi_fp.c:
