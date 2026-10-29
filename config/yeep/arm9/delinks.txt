@@ -100,7 +100,8 @@ src/libs/NitroSDK/os/os_context.c:
     complete
     .text start:0x020064a0 end:0x02006804
 
-libs/NitroSDK/os/os_message.c:
+src/libs/NitroSDK/os/os_message.c:
+    complete
     .text start:0x02006804 end:0x02006cd0
 
 libs/NitroSDK/os/os_mutex.c:
