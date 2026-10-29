@@ -20,12 +20,12 @@ if r.returncode:
     sys.exit(1)
 # (the other files call the functions by the same names: nothing to update there)
 
-mang = re.compile(r"_ZN%d%s\d+(func_[0-9a-f]{8})Ev" % (len(tmp), tmp))
+mang = re.compile(r"_ZN%d%s\d+(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})Ev" % (len(tmp), tmp))
 p = f"src/{path}.cpp"
 t = open(p).read()
-t = re.sub(r"asm void %s::(func_[0-9a-f]{8})\(\)" % tmp, r'extern "C" asm void \1(void)', t)
+t = re.sub(r"asm void %s::(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\(\)" % tmp, r'extern "C" asm void \1(void)', t)
 t = mang.sub(r"\1", t)
-names = re.findall(r'^extern "C" asm void (func_[0-9a-f]{8})\(void\)', t, re.M)
+names = re.findall(r'^extern "C" asm void (func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\(void\)', t, re.M)
 for n in names:
     t = re.sub(r'^extern "C" void %s\(void\);\n' % n, "", t, flags=re.M)
 i = t.index("\n\n") + 2
@@ -37,9 +37,9 @@ s = open(h).read()
 s = re.sub(r"class %s \{\npublic:\n.*?\n\};\n" % tmp, "// (the functions are declared by their users, with their types, for now)\n", s, flags=re.S)
 open(h, "w", newline="\n").write(s)
 
-sy = "config/yeep/arm9/symbols.txt"
+sy = (f"config/yeep/arm9/overlays/ov{int(os.environ['IE_OV']):03d}" if os.environ.get("IE_OV") else "config/yeep/arm9") + "/symbols.txt"
 x = open(sy).read()
-x = re.sub(r"^_ZN%d%s\d+(func_[0-9a-f]{8})Ev " % (len(tmp), tmp), r"\1 ", x, flags=re.M)
+x = re.sub(r"^_ZN%d%s\d+(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})Ev " % (len(tmp), tmp), r"\1 ", x, flags=re.M)
 open(sy, "w", newline="\n").write(x)
 
 for f in glob.glob("src/**/*.cpp", recursive=True):
@@ -49,10 +49,10 @@ for f in glob.glob("src/**/*.cpp", recursive=True):
     y = open(f).read()
     ny = mang.sub(r"\1", y)
     # (an untyped declaration once is enough, and none where a typed one exists)
-    typed = set(re.findall(r'^extern "C" (?!void \w+\(void\))(?!asm )[^\n]*?\b(func_[0-9a-f]{8})\([^\n]*\);', ny, re.M))
+    typed = set(re.findall(r'^extern "C" (?!void \w+\(void\))(?!asm )[^\n]*?\b(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\([^\n]*\);', ny, re.M))
     seen, out = set(), []
     for line in ny.split("\n"):
-        m = re.match(r'extern "C" void (func_[0-9a-f]{8})\(void\);', line)
+        m = re.match(r'extern "C" void (func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\(void\);', line)
         if m:
             if m.group(1) in seen or m.group(1) in typed:
                 continue

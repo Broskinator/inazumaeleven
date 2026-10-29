@@ -15,7 +15,7 @@ cls, path = sys.argv[1], sys.argv[2]
 hdr = "include/" + path[len("src/"):].rsplit(".", 1)[0] + ".hpp"
 t = open(path).read()
 h = open(hdr).read()
-pat = re.compile(r'^extern "C" (.+?)\b(func_[0-9a-f]{8})\(%s \*self(?:, )?([^)]*)\);[^\n]*\n' % cls, re.M)
+pat = re.compile(r'^extern "C" (.+?)\b(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\(%s \*self(?:, )?([^)]*)\);[^\n]*\n' % cls, re.M)
 done = []
 for m in list(pat.finditer(t)):
     ret, name, args = m.group(1), m.group(2), m.group(3)
@@ -33,7 +33,7 @@ for m in list(pat.finditer(t)):
 others = []
 for other in sys.argv[3:]:
     o = open(other).read()
-    opat = re.compile(r'^extern "C" (.+?)\b(func_[0-9a-f]{8})\([^,)]*(?:, )?([^)]*)\);[^\n]*\n', re.M)
+    opat = re.compile(r'^extern "C" (.+?)\b(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\([^,)]*(?:, )?([^)]*)\);[^\n]*\n', re.M)
     changed = False
     # (objects the header declares with their type are passed by address)
     for obj in re.findall(r"^extern %s (\w+);" % cls, h, re.M):
@@ -65,7 +65,7 @@ open(hdr, "w", newline="\n").write(h)
 
 # (the class's other source files get the header's signatures on their asm definitions)
 import glob
-sig = {m.group(2): (m.group(1), m.group(3)) for m in re.finditer(r"^    (.+?)\b(func_[0-9a-f]{8})\(([^)]*)\);", h, re.M)}
+sig = {m.group(2): (m.group(1), m.group(3)) for m in re.finditer(r"^    (.+?)\b(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\(([^)]*)\);", h, re.M)}
 for f in glob.glob("src/**/*.cpp", recursive=True):
     f = f.replace("\\", "/")
     if f == path:
@@ -73,7 +73,7 @@ for f in glob.glob("src/**/*.cpp", recursive=True):
     x = open(f).read()
     if f"asm void {cls}::" not in x:
         continue
-    nx = re.sub(r"asm void %s::(func_[0-9a-f]{8})\(\)" % cls,
+    nx = re.sub(r"asm void %s::(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})\(\)" % cls,
                 lambda m: f"asm {sig[m.group(1)][0]}{cls}::{m.group(1)}({sig[m.group(1)][1]})" if m.group(1) in sig else m.group(0), x)
     if nx != x:
         open(f, "w", newline="\n").write(nx)

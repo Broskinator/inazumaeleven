@@ -28,7 +28,9 @@ if "--file" in sys.argv:
             open(src_new, "w", newline="\n").write(f'#include "{hdrpath}.hpp"\n\n')
 lo, hi, cls, path = int(sys.argv[1], 16), int(sys.argv[2], 16), sys.argv[3], sys.argv[4]
 comment = sys.argv[5] if len(sys.argv) > 5 else ""
-SYM = "config/yeep/arm9/symbols.txt"
+# IE_OV=N in the environment: the range is in overlay N
+CFG = (f"config/yeep/arm9/overlays/ov{int(os.environ['IE_OV']):03d}" if os.environ.get("IE_OV") else "config/yeep/arm9")
+SYM = f"{CFG}/symbols.txt"
 s = open(SYM).read()
 funcs = []
 for m in re.finditer(r"^(\S+) kind:function\(arm,size=(0x[0-9a-f]+)\) addr:(0x[0-9a-f]+)$", s, re.M):
@@ -40,7 +42,7 @@ for m in re.finditer(r"^(\S+) kind:function\(arm,size=(0x[0-9a-f]+)\) addr:(0x[0
 funcs.sort()
 names = {}
 for a, old in funcs:
-    short = old if not old.startswith("_Z") else f"func_{a:08x}"
+    short = old if not old.startswith("_Z") else (f"func_ov{int(os.environ['IE_OV']):03d}_{a:08x}" if os.environ.get("IE_OV") else f"func_{a:08x}")
     names[a] = (short, f"_ZN{len(cls)}{cls}{len(short)}{short}Ev")
 for a, (short, mangled) in names.items():
     s, k = re.subn(rf"^\S+( kind:function\(arm,size=0x[0-9a-f]+\) addr:{a:#010x})$", rf"{mangled}\1", s, flags=re.M)
@@ -49,11 +51,11 @@ open(SYM, "w", newline="\n").write(s)
 
 own = {m for _, m in names.values()}
 # (the class's other members are called by their short names too)
-members = set(re.findall(r"^_ZN%d%s\d+(func_[0-9a-f]{8})E\S* kind:function" % (len(cls), cls), s, re.M))
+members = set(re.findall(r"^_ZN%d%s\d+(func_(?:ov[0-9]{3}_)?[0-9a-f]{8})E\S* kind:function" % (len(cls), cls), s, re.M))
 decls, bodies = set(), []
 for a, _ in funcs:
     short, mangled = names[a]
-    r = subprocess.run([sys.executable, "tools/romasm.py", hex(a), cls], capture_output=True, text=True)
+    r = subprocess.run([sys.executable, "tools/romasm.py", *(["--ov", os.environ["IE_OV"]] if os.environ.get("IE_OV") else []), hex(a), cls], capture_output=True, text=True)
     assert r.returncode == 0, (hex(a), r.stderr)
     body = r.stdout.rstrip()
     for n in own:
@@ -64,8 +66,8 @@ for a, _ in funcs:
         m = re.search(r" (\w+)[\(\[]", d)
         if d.startswith("extern") and m.group(1) in members:
             continue
-        if d.startswith("extern") and m.group(1) not in own and not re.match(r"func_[0-9a-f]{8}$", m.group(1)) or \
-           d.startswith("extern") and re.match(r"func_[0-9a-f]{8}$", m.group(1)) and int(m.group(1)[5:], 16) not in names:
+        if d.startswith("extern") and m.group(1) not in own and not re.match(r"func_(?:ov[0-9]{3}_)?[0-9a-f]{8}$", m.group(1)) or \
+           d.startswith("extern") and re.match(r"func_(?:ov[0-9]{3}_)?[0-9a-f]{8}$", m.group(1)) and int(m.group(1)[-8:], 16) not in names:
             decls.add(d)
     bodies.append(f"asm void {cls}::{short}()\n{{\n{body}\n}}\n")
 
@@ -106,7 +108,7 @@ if extend:
     open(srcpath, "w", newline="\n").write(src)
     # (the new asm calls the class's older members by their mangled names)
     subprocess.run([sys.executable, "tools/retarget.py", cls, srcpath], check=True, capture_output=True)
-    dl = "config/yeep/arm9/delinks.txt"
+    dl = f"{CFG}/delinks.txt"
     t = open(dl).read()
     if newfile:
         pat = r"(" + re.escape(srcpath) + r":\n    complete\n    \.text start:0x[0-9a-f]+ end:)" + f"{lo:#010x}"
@@ -140,7 +142,7 @@ open(f"include/{path}.hpp", "w", newline="\n").write(header)
 src = f'#include "{path}.hpp"\n\n' + "\n".join(sorted(decls)) + "\n\n" + "\n".join(bodies)
 open(f"src/{path}.cpp", "w", newline="\n").write(src)
 
-dl = "config/yeep/arm9/delinks.txt"
+dl = f"{CFG}/delinks.txt"
 t = open(dl).read().rstrip("\n")
 t += f"\n\nsrc/{path}.cpp:\n    complete\n    .text start:{lo:#010x} end:{hi:#010x}\n"
 open(dl, "w", newline="\n").write(t)

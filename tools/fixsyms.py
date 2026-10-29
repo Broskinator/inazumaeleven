@@ -30,11 +30,11 @@ with open(f"{ROOT}/{obj}", "rb") as f:
              if s["st_info"]["type"] == "STT_FUNC" and "func_" in s.name]
 os.remove(f"{ROOT}/{obj}")
 
-path = f"{ROOT}/config/yeep/arm9/symbols.txt"
+path = f"{ROOT}/" + (f"config/yeep/arm9/overlays/ov{int(os.environ['IE_OV']):03d}" if os.environ.get("IE_OV") else "config/yeep/arm9") + "/symbols.txt"     # (IE_OV=N: overlay N)
 text = open(path).read()
 renamed = {}
 for name in names:
-    m = re.search(r"func_([0-9a-f]{8})", name)
+    m = re.search(r"func_(?:ov[0-9]{3}_)?([0-9a-f]{8})", name)
     addr = int(m.group(1), 16)
     mm = re.search(rf"^(\S+)( kind:function\(\w+,size=0x[0-9a-f]+\) addr:{addr:#010x})$", text, flags=re.M)
     if mm and mm.group(1) != name:

@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
-"""Prints a function of the original ROM (main module) as MWCC inline asm.
+"""Prints a function of the original ROM as MWCC inline asm.
 
-usage: tools/romasm.py ADDRESS [CLASS]
+usage: tools/romasm.py [--ov N] ADDRESS [CLASS]
+
+--ov N: the function is in overlay N (default: the main module).
 
 Calls are named from relocs.txt/symbols.txt (members of CLASS by their short name).
 Literal pool loads become "ldr rX, =value" (the compiler puts the pool at the end of the
@@ -15,18 +17,66 @@ sys.path.insert(0, f"{ROOT}/tools")
 from asmconv import short  # noqa: E402
 
 
+_tables = {}
+
+
+def module_names(mod):
+    """{address: name} of a module's symbols ("main" or an overlay number)."""
+    if mod not in _tables:
+        path = f"{ROOT}/config/yeep/arm9/symbols.txt" if mod == "main" else \
+            f"{ROOT}/config/yeep/arm9/overlays/ov{mod:03d}/symbols.txt"
+        table = {}
+        for line in open(path):
+            m = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", line)
+            if m and int(m.group(2), 16) not in table:
+                table[int(m.group(2), 16)] = m.group(1)
+        _tables[mod] = table
+    return _tables[mod]
+
+
 def main():
+    # --ov N: the function is in overlay N
+    ov = None
+    if "--ov" in sys.argv:
+        i = sys.argv.index("--ov")
+        ov = int(sys.argv[i + 1])
+        del sys.argv[i:i + 2]
     addr = int(sys.argv[1], 16)
     cls = sys.argv[2] if len(sys.argv) > 2 else None
+    cfg = f"{ROOT}/config/yeep/arm9" if ov is None else f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}"
     names, sizes = {}, {}
-    for line in open(f"{ROOT}/config/yeep/arm9/symbols.txt"):
+    for line in open(f"{cfg}/symbols.txt"):
         m = re.match(r"(\S+) kind:function\(\w+,size=(0x[0-9a-f]+)\S*\) addr:(0x[0-9a-f]+)", line)
         if m:
             names[int(m.group(3), 16)] = m.group(1)
             sizes[int(m.group(3), 16)] = int(m.group(2), 16)
     calls = {}
     loads = {}
-    for line in open(f"{ROOT}/config/yeep/arm9/relocs.txt"):
+    if ov is not None:
+        # (an overlay: its references to the main module and to other overlays are named
+        # from their own symbols)
+        main_names = module_names("main")
+        for line in open(f"{cfg}/relocs.txt"):
+            line = re.sub(r"module:overlays\((\d+)[^)]*\)", r"module:overlay(\1)", line)
+            m = re.match(r"from:(0x[0-9a-f]+) kind:(\w+) to:(0x[0-9a-f]+)(?: add:(\S+))? module:(\w+)(?:\((\d+)\))?", line)
+            if not m:
+                continue
+            frm, kind, to = int(m.group(1), 16), m.group(2), int(m.group(3), 16)
+            add = int(m.group(4), 0) if m.group(4) else 0
+            if m.group(5) == "main":
+                name = main_names.get(to, f"func_{to:08x}" if "call" in kind else f"data_{to:08x}")
+            elif m.group(5) == "overlay" and int(m.group(6)) != ov:
+                o = int(m.group(6))
+                name = module_names(o).get(to, f"func_ov{o:03d}_{to:08x}" if "call" in kind else f"data_ov{o:03d}_{to:08x}")
+            elif m.group(5) == "overlay":
+                name = None     # (this overlay: named below)
+            else:
+                continue
+            if "call" in kind:
+                calls[frm] = name if name else to
+            elif kind == "load":
+                loads[frm] = (name if name else to, add)
+    for line in (open(f"{ROOT}/config/yeep/arm9/relocs.txt") if ov is None else []):
         if "module:overlays(" in line:
             if "kind:arm_call" not in line:
                 continue    # (data at an address in several overlays: kept as a number)
@@ -35,9 +85,9 @@ def main():
         m = re.match(r"from:(0x[0-9a-f]+) kind:arm_call to:(0x[0-9a-f]+) module:overlay\((\d+)\)", line)
         if m:
             # (a call into an overlay: named from that overlay's symbols)
-            ov = int(m.group(3))
+            o = int(m.group(3))
             to = int(m.group(2), 16)
-            calls[int(m.group(1), 16)] = ("ov", ov, to)
+            calls[int(m.group(1), 16)] = ("ov", o, to)
             continue
         m = re.match(r"from:(0x[0-9a-f]+) kind:arm_call to:(0x[0-9a-f]+)", line)
         if m:
@@ -45,10 +95,10 @@ def main():
         m = re.match(r"from:(0x[0-9a-f]+) kind:load to:(0x[0-9a-f]+)(?: add:(\S+))? module:overlay\((\d+)\)", line)
         if m:
             # (data of an overlay: named from that overlay's symbols)
-            ov = int(m.group(4))
+            o = int(m.group(4))
             to = int(m.group(2), 16)
-            name = f"data_ov{ov:03d}_{to:08x}"
-            for l2 in open(f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}/symbols.txt"):
+            name = f"data_ov{o:03d}_{to:08x}"
+            for l2 in open(f"{ROOT}/config/yeep/arm9/overlays/ov{o:03d}/symbols.txt"):
                 mm = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", l2)
                 if mm and int(mm.group(2), 16) == to:
                     name = mm.group(1)
@@ -58,11 +108,15 @@ def main():
         m = re.match(r"from:(0x[0-9a-f]+) kind:load to:(0x[0-9a-f]+)(?: add:(\S+))?", line)
         if m:
             loads[int(m.group(1), 16)] = (int(m.group(2), 16), int(m.group(3), 0) if m.group(3) else 0)
-    for line in open(f"{ROOT}/config/yeep/arm9/symbols.txt"):
+    for line in open(f"{cfg}/symbols.txt"):
         m = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", line)
         if m and int(m.group(2), 16) not in names:
             names[int(m.group(2), 16)] = m.group(1)
-    blob = open(f"{ROOT}/extract/yeep/arm9/arm9.bin", "rb").read()
+    if ov is None:
+        blob, base = open(f"{ROOT}/extract/yeep/arm9/arm9.bin", "rb").read(), 0x02000000
+    else:
+        blob = open(f"{ROOT}/extract/yeep/arm9_overlays/ov{ov:03d}.bin", "rb").read()
+        base = int(re.search(r"\.text\s+start:(0x[0-9a-f]+)", open(f"{cfg}/delinks.txt").read()).group(1), 16)
     size = sizes[addr]
     md = capstone.Cs(capstone.CS_ARCH_ARM, capstone.CS_MODE_ARM)
     md.syntax = capstone.CS_OPT_SYNTAX_NOREGNAME
@@ -72,7 +126,7 @@ def main():
     insns = []
     pc = addr
     while pc < end:
-        i = next(md.disasm(blob[pc - 0x02000000:pc - 0x02000000 + 4], pc))
+        i = next(md.disasm(blob[pc - base:pc - base + 4], pc))
         insns.append(i)
         m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", i.op_str)
         if m:
@@ -90,14 +144,16 @@ def main():
         op = i.op_str
         mn = i.mnemonic
         if i.address in calls and isinstance(calls[i.address], tuple):
-            _, ov, to = calls[i.address]
-            t = f"func_ov{ov:03d}_{to:08x}"
-            for line in open(f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}/symbols.txt"):
+            _, cov, to = calls[i.address]
+            t = f"func_ov{cov:03d}_{to:08x}"
+            for line in open(f"{ROOT}/config/yeep/arm9/overlays/ov{cov:03d}/symbols.txt"):
                 mm = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", line)
                 if mm and int(mm.group(2), 16) == to:
                     t = mm.group(1)
                     break
             op = t
+        elif i.address in calls and isinstance(calls[i.address], str):
+            op = calls[i.address]
         elif i.address in calls:
             t = names.get(calls[i.address], f"func_{calls[i.address]:08x}")
             if t.startswith("_Z"):
@@ -136,7 +192,7 @@ def main():
                             f.write(f"{alias} = {to:#010x};\n")
                     value = alias
             else:
-                value = hex(struct.unpack("<I", blob[lit - 0x02000000:lit - 0x02000000 + 4])[0])
+                value = hex(struct.unpack("<I", blob[lit - base:lit - base + 4])[0])
             op = op.split(",")[0] + ", =" + value
         # MWCC (pre-UAL) syntax: shifts are a mov with a shifted operand
         m = re.match(r"(lsl|lsr|asr|ror)(s?)(\w*)$", mn)
