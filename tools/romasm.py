@@ -173,10 +173,17 @@ def main():
             op = t
         elif i.id == capstone.arm.ARM_INS_B and op.startswith("#"):
             op = f"@L_{int(op[1:], 16):08x}"
-        elif mn == "bl" and op.startswith("#"):
-            # (a call without a relocation, in hand-written code)
+        elif re.fullmatch(r"bl(eq|ne|cs|cc|hs|lo|mi|pl|vs|vc|hi|ls|ge|lt|gt|le)?", mn) and op.startswith("#"):
+            # (a call without a relocation, in hand-written code; a target without a symbol
+            # gets a name for the linker)
             to = int(op[1:], 16)
-            op = names.get(to, f"func_{to:08x}")
+            op = names.get(to)
+            if op is None:
+                op = f"func_{to:08x}"
+                lcf = f"{ROOT}/config/yeep/arm9/lcf_symbols.txt"
+                if f"{op} =" not in open(lcf).read():
+                    with open(lcf, "a", newline="\n") as f:
+                        f.write(f"{op} = {to:#010x};\n")
         elif mn == "blx" and op.startswith("#"):
             # (a call of a Thumb function has no relocation: 'bl NAME', the linker makes it a blx)
             to = int(op[1:], 16)
