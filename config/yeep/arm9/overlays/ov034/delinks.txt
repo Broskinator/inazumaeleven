@@ -4,3 +4,7 @@
     .ctor       start:0x02167a48 end:0x02167a4c kind:rodata align:4
     .data       start:0x02167a60 end:0x02167ba0 kind:data align:32
     .bss        start:0x02167ba0 end:0x02167ba0 kind:bss align:32
+
+src/ov034/Unk_ov034_02165d60.cpp:
+    complete
+    .text start:0x02165d60 end:0x021679a4
