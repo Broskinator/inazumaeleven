@@ -64,7 +64,8 @@ src/libs/NitroSDK/gx/gx_vramcnt.c:
     complete
     .text start:0x02004b74 end:0x02005084
 
-libs/NitroSDK/gx/gxasm.c:
+src/libs/NitroSDK/gx/gxasm.c:
+    complete
     .text start:0x02005084 end:0x020050a8
 
 libs/NitroSDK/gx/gxstate.c:
