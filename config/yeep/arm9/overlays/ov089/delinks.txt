@@ -28,3 +28,7 @@ libs/NitroSDK/mb/mb_task.c:
 
 libs/NitroSDK/mb/mb_block.c:
     .text start:0x02178ecc end:0x02179194
+
+src/ov089/Unk_ov089_02176bfc.cpp:
+    complete
+    .text start:0x02176bfc end:0x02178178
