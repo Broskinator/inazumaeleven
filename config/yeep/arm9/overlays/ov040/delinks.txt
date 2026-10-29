@@ -8,3 +8,7 @@
 src/ov040/Unk_ov040_02165d60.cpp:
     complete
     .text start:0x02165d60 end:0x02168e24
+
+src/ov040/Unk_ov040_02168e24.cpp:
+    complete
+    .text start:0x02168e24 end:0x021692ec
