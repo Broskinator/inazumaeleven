@@ -287,7 +287,8 @@ src/libs/MSL_C/printf.c:
     complete
     .text start:0x0201a498 end:0x0201a6c0
 
-libs/MSL_C/rand.c:
+src/libs/MSL_C/rand.c:
+    complete
     .text start:0x0201a6c0 end:0x0201aa34
 
 libs/MSL_C/string.c:
