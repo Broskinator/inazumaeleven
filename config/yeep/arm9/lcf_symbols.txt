@@ -39,3 +39,4 @@ func_02175cfc = 0x02175cfc;
 data_020bb02c_b = 0x020bb02c;
 data_020c238c_b = 0x020c238c;
 data_020c23a8_b = 0x020c23a8;
+data_020c2e00_b = 0x020c2e00;

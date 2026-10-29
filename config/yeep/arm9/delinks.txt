@@ -439,7 +439,8 @@ src/libs/NitroSystem/snd/heap.c:
     complete
     .text start:0x0203180c end:0x020319e8
 
-libs/NitroSystem/snd/sndarc_loader.c:
+src/libs/NitroSystem/snd/sndarc_loader.c:
+    complete
     .text start:0x020319e8 end:0x02032190
 
 libs/NitroSystem/snd/sndarc_player.c:
