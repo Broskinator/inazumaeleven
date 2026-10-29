@@ -451,7 +451,8 @@ src/libs/NitroSystem/snd/sndarc_stream.c:
     complete
     .text start:0x02032534 end:0x020325d0
 
-libs/NitroSystem/snd/seqdata.c:
+src/libs/NitroSystem/snd/seqdata.c:
+    complete
     .text start:0x020325d0 end:0x02032610
 
 libs/NitroSystem/snd/fader.c:
