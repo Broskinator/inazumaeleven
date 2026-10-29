@@ -76,7 +76,8 @@ src/libs/NitroSDK/os/os_irqHandler.c:
     complete
     .text start:0x02005108 end:0x02005180
 
-libs/NitroSDK/os/os_irqTable.c:
+src/libs/NitroSDK/os/os_irqTable.c:
+    complete
     .text start:0x02005180 end:0x02005288
 
 libs/NitroSDK/os/os_interrupt.c:
