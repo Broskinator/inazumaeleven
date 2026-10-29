@@ -16,3 +16,7 @@ src/ov087/Unk_ov087_021772d4.cpp:
 src/ov087/Unk_ov087_0217a324.cpp:
     complete
     .text start:0x0217a324 end:0x0217d338
+
+src/ov087/Unk_ov087_0217d338.cpp:
+    complete
+    .text start:0x0217d338 end:0x02180788
