@@ -211,7 +211,8 @@ src/libs/NitroSDK/rtc/convert.c:
     complete
     .text start:0x02010a08 end:0x02010d44
 
-libs/NitroSDK/card/card_common.c:
+src/libs/NitroSDK/card/card_common.c:
+    complete
     .text start:0x02010d44 end:0x02010e5c
 
 libs/NitroSDK/card/card_pullOut.c:
