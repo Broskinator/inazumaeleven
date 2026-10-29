@@ -395,7 +395,8 @@ src/libs/NitroSystem/g3d/binres_res_struct_accessor.c:
     complete
     .text start:0x0202c12c end:0x0202c16c
 
-libs/NitroSystem/g3d/binres_res_struct_accessor_anm.c:
+src/libs/NitroSystem/g3d/binres_res_struct_accessor_anm.c:
+    complete
     .text start:0x0202c16c end:0x0202c33c
 
 libs/NitroSystem/g3d/anm_nsbca.c:
