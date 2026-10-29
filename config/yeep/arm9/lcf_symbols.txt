@@ -36,3 +36,4 @@ data_ov073_021706e4_b = 0x021706e4;
 data_ov081_02170eb4_b = 0x02170eb4;
 func_02175b00 = 0x02175b00;
 func_02175cfc = 0x02175cfc;
+data_020bb02c_b = 0x020bb02c;
