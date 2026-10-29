@@ -3,3 +3,7 @@
     .ctor       start:0x0216b344 end:0x0216b348 kind:rodata align:4
     .data       start:0x0216b360 end:0x0216b600 kind:data align:32
     .bss        start:0x0216b600 end:0x0216b600 kind:bss align:32
+
+src/ov053/Unk_ov053_02165d60.cpp:
+    complete
+    .text start:0x02165d60 end:0x02168eb4
