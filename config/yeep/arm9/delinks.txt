@@ -315,7 +315,8 @@ src/libs/MSL_C/s_copysign.c:
     complete
     .text start:0x020205c8 end:0x020205f0
 
-libs/MSL_C/s_fabs.c:
+src/libs/MSL_C/s_fabs.c:
+    complete
     .text start:0x020205f0 end:0x02020db4
 
 libs/MSL_CPP/locale.c:
