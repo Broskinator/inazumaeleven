@@ -207,7 +207,8 @@ src/libs/NitroSDK/spi/pm.c:
     complete
     .text start:0x0200f760 end:0x02010a08
 
-libs/NitroSDK/rtc/convert.c:
+src/libs/NitroSDK/rtc/convert.c:
+    complete
     .text start:0x02010a08 end:0x02010d44
 
 libs/NitroSDK/card/card_common.c:
