@@ -323,7 +323,8 @@ src/libs/MSL_CPP/locale.c:
     complete
     .text start:0x02020db4 end:0x0202139c
 
-libs/MSL_CPP/msl_thread.c:
+src/libs/MSL_CPP/msl_thread.c:
+    complete
     .text start:0x0202139c end:0x020213f8
 
 libs/Runtime/mwexception.c:
