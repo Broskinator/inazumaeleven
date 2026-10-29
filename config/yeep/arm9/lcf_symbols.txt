@@ -10,3 +10,7 @@ SDK_OVERLAY_ov088_ID = 88;
 data_020fc708_b = 0x020fc708;
 data_020fc724_b = 0x020fc724;
 data_ov015_021648b0_b = 0x021648b0;
+data_ov016_021589e4_b = 0x021589e4;
+data_ov016_021589e8_b = 0x021589e8;
+data_ov016_02158a38_b = 0x02158a38;
+data_ov016_02158a3c_b = 0x02158a3c;
