@@ -56,7 +56,8 @@ src/libs/NitroSDK/gx/gx_load2d.c:
     complete
     .text start:0x02003dd8 end:0x02003e90
 
-libs/NitroSDK/gx/gx_load3d.c:
+src/libs/NitroSDK/gx/gx_load3d.c:
+    complete
     .text start:0x02003e90 end:0x02004b74
 
 libs/NitroSDK/gx/gx_vramcnt.c:
