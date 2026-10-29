@@ -199,7 +199,8 @@ src/libs/NitroSDK/cp/cp_context.c:
     complete
     .text start:0x0200e7c0 end:0x0200ed44
 
-libs/NitroSDK/spi/tp.c:
+src/libs/NitroSDK/spi/tp.c:
+    complete
     .text start:0x0200ed44 end:0x0200f760
 
 libs/NitroSDK/spi/pm.c:
