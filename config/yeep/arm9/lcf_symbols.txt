@@ -9,3 +9,4 @@ SDK_OVERLAY_ov088_ID = 88;
 # asm merges equal literals; these keep the second one apart until the code is in C)
 data_020fc708_b = 0x020fc708;
 data_020fc724_b = 0x020fc724;
+data_ov015_021648b0_b = 0x021648b0;
