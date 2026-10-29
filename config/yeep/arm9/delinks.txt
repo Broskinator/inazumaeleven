@@ -447,7 +447,8 @@ src/libs/NitroSystem/snd/sndarc_player.c:
     complete
     .text start:0x02032190 end:0x02032534
 
-libs/NitroSystem/snd/sndarc_stream.c:
+src/libs/NitroSystem/snd/sndarc_stream.c:
+    complete
     .text start:0x02032534 end:0x020325d0
 
 libs/NitroSystem/snd/seqdata.c:
