@@ -1,5 +1,17 @@
 // (asm for now)
 
+void OSi_InsertVAlarm(void);
+void OSi_AppendVAlarm(void);
+void OSi_DetachVAlarm(void);
+void func_020080f0(void);
+void func_02008104(void);
+void func_02008190(void);
+void func_020081d0(void);
+void OSi_CompareVCount(void);
+void func_02008384(void);
+void func_020083c0(void);
+void OS_DisableInterrupts(void);
+
 extern char data_020bb47c[];
 void func_0200878c(void);
 void OS_RestoreInterrupts(void);
@@ -292,7 +304,7 @@ asm void func_02008384(void)
 
 asm void func_020083c0(void)
 {
-    mrs r0, apsr
+    mrs r0, CPSR
     bic r1, r0, #0x80
     msr cpsr_c, r1
     and r0, r0, #0x80
@@ -301,7 +313,7 @@ asm void func_020083c0(void)
 
 asm void OS_DisableInterrupts(void)
 {
-    mrs r0, apsr
+    mrs r0, CPSR
     orr r1, r0, #0x80
     msr cpsr_c, r1
     and r0, r0, #0x80

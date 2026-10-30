@@ -1,5 +1,14 @@
 // (asm for now)
 
+void NNSi_G3dFuncSbc_NOP(void);
+void NNSi_G3dFuncSbc_RET(void);
+void func_020291c4(void);
+void func_0202933c(void);
+void func_02029408(void);
+void NNSi_G3dFuncSbc_MAT(void);
+void func_0202992c(void);
+void NNSi_G3dFuncSbc_SHP(void);
+
 void func_0202b608(void);
 extern char data_020bf680[];
 extern char data_020a48ac[];

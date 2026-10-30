@@ -1,5 +1,7 @@
 // (asm for now)
 
+void GetTexSRTAnmSinCosVal_(void);
+
 asm void GetTexSRTAnmSinCosVal_(void)
 {
     tst r1, #0x20000000

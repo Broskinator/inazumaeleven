@@ -1,5 +1,9 @@
 // (asm for now)
 
+void MATHi_CRC16InitTableRev(void);
+void MATHi_CRC16UpdateRev(void);
+void MATH_CalcCRC16(void);
+
 asm void MATHi_CRC16InitTableRev(void)
 {
     stmdb sp!, {r3, lr}

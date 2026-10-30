@@ -1,5 +1,9 @@
 // (asm for now)
 
+void memchr(void);
+void __memrchr(void);
+void memcmp(void);
+
 asm void memchr(void)
 {
     cmp r2, #0

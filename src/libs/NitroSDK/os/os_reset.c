@@ -1,5 +1,8 @@
 // (asm for now)
 
+void OSi_SendToPxi(void);
+void func_02005598(void);
+
 void func_0200b138(void);
 extern char data_020bb100[];
 void func_020056b4(void);

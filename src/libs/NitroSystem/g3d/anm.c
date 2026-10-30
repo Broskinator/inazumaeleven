@@ -1,5 +1,14 @@
 // (asm for now)
 
+void NNSi_G3dAnmBlendMat(void);
+void func_02028968(void);
+void func_020289d8(void);
+void NNSi_G3dAnmBlendVis(void);
+void func_02028e50(void);
+void func_02028e98(void);
+void func_02029030(void);
+void func_02029094(void);
+
 void MIi_CpuClearFast(void);
 void MIi_CpuCopy32(void);
 void func_02001d60(void);

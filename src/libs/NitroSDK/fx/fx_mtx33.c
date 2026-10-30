@@ -1,5 +1,8 @@
 // (asm for now)
 
+void MTX_Identity33_(void);
+void func_02000cd8(void);
+
 asm void MTX_Identity33_(void)
 {
     mov r2, #0x1000

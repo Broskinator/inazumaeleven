@@ -1,5 +1,7 @@
 // (asm for now)
 
+void G2x_ChangeBlendBrightness_(void);
+
 asm void G2x_ChangeBlendBrightness_(void)
 {
     ldrh r3, [r0]

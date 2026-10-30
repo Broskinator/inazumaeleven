@@ -1,5 +1,21 @@
 // (asm for now)
 
+void SND_AllocCommand(void);
+void SND_PushCommand(void);
+void func_0200a550(void);
+void SND_WaitForCommandProc(void);
+void SND_GetCurrentCommandTag(void);
+void func_0200a784(void);
+void SND_CountFreeCommand(void);
+void SND_CountReservedCommand(void);
+void SND_CountWaitingCommand(void);
+void PxiFifoCallback(void);
+void func_0200a88c(void);
+void RequestCommandProc(void);
+void AllocCommand(void);
+void func_0200a960(void);
+void func_0200a9a0(void);
+
 void func_0200a390(void);
 void OS_DisableInterrupts(void);
 extern char data_020bb4f0[];

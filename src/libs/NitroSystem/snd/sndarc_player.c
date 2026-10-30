@@ -1,5 +1,13 @@
 // (asm for now)
 
+void NNS_SndArcPlayerStartSeqArc(void);
+void func_02032210(void);
+void func_020322d8(void);
+void func_020323e4(void);
+void func_02032410(void);
+void func_020324a8(void);
+void func_02032510(void);
+
 void func_020314d4(void);
 void func_02031754(void);
 void NNSi_SndSeqArcGetSeqInfo(void);

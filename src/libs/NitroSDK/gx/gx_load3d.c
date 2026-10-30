@@ -1,5 +1,23 @@
 // (asm for now)
 
+void GX_BeginLoadTex(void);
+void func_02003eec(void);
+void func_02004038(void);
+void GX_BeginLoadTexPltt(void);
+void func_020040b0(void);
+void func_02004120(void);
+void func_0200415c(void);
+void func_020041f4(void);
+void func_020043f8(void);
+void func_02004528(void);
+void func_02004620(void);
+void func_020046bc(void);
+void func_02004834(void);
+void func_02004910(void);
+void func_02004a10(void);
+void func_02004ab4(void);
+void func_02004ad8(void);
+
 void func_02004d54(void);
 extern char data_020a3e0c[];
 extern char data_020a3e0e[];

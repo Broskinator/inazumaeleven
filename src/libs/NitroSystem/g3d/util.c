@@ -1,5 +1,10 @@
 // (asm for now)
 
+void NNS_G3dInit(void);
+void func_0202b798(void);
+void func_0202b9d8(void);
+void NNS_G3dWorldPosToScrPos(void);
+
 void func_02002884(void);
 void func_020285a4(void);
 void NNS_G3dGetTex(void);

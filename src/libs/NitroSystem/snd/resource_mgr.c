@@ -1,5 +1,10 @@
 // (asm for now)
 
+void NNS_SndUnlockChannel(void);
+void NNS_SndUnlockCapture(void);
+void NNS_SndFreeAlarm(void);
+void NNSi_SndInitResourceMgr(void);
+
 void SND_UnlockChannel(void);
 extern char data_020c23ec[];
 

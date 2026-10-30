@@ -1,5 +1,15 @@
 // (asm for now)
 
+void CARD_CheckEnabled(void);
+void func_02010d5c(void);
+void CARD_GetResultCode(void);
+void CARD_GetOwnRomHeader(void);
+void func_02010d8c(void);
+void func_02010d98(void);
+void CARD_UnlockRom(void);
+void CARD_LockBackup(void);
+void CARD_UnlockBackup(void);
+
 void func_02010d34(void);
 void func_0200878c(void);
 extern char data_020bd3e0[];

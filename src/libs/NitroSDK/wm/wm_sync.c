@@ -1,5 +1,28 @@
 // (asm for now)
 
+void WM_SetIndCallback(void);
+void func_02012e6c(void);
+void func_02012f44(void);
+void func_02012f94(void);
+void func_02013004(void);
+void func_020130d0(void);
+void func_020131c0(void);
+void func_020131e0(void);
+void func_02013274(void);
+void func_02013308(void);
+void func_020133a0(void);
+void func_020134f8(void);
+void func_02013568(void);
+void func_02013578(void);
+void func_020135e4(void);
+void func_02013628(void);
+void func_0201366c(void);
+void func_020136b4(void);
+void func_020136c4(void);
+void func_0201372c(void);
+void func_02013768(void);
+void func_020137ac(void);
+
 void OS_DisableInterrupts(void);
 void WMi_CheckInitialized(void);
 void OS_RestoreInterrupts(void);

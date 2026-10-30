@@ -1,5 +1,21 @@
 // (asm for now)
 
+void __must_round(void);
+void __dorounddecup(void);
+void func_0201c19c(void);
+void __rounddec(void);
+void func_0201c1e0(void);
+void func_0201c2a4(void);
+void func_0201c424(void);
+void func_0201c4c0(void);
+void func_0201c840(void);
+void __less_dec(void);
+void func_0201ca00(void);
+void func_0201cca0(void);
+void func_0201ce20(void);
+void func_0201cecc(void);
+
+void func_020226e0(void);
 void _ll_udiv(void);
 extern char data_020ab36c[];
 extern char data_020ab39c[];
@@ -148,7 +164,7 @@ asm void func_0201c1e0(void)
     mov r1, r5
     mov r3, r8
     strb r12, [r7, #4]
-    bl .L_020226e0
+    bl func_020226e0
     add r1, r7, r4
     strb r0, [r1, #5]
     mov r0, r6

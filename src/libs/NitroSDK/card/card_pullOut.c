@@ -1,5 +1,10 @@
 // (asm for now)
 
+void CARDi_SendtoPxi(void);
+void func_020123ec(void);
+void func_02012414(void);
+void func_02012640(void);
+
 void func_0200b138(void);
 void WaitByLoop(void);
 extern char data_020bdd6c[];

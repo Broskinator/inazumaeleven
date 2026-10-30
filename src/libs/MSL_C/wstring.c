@@ -1,5 +1,7 @@
 // (asm for now)
 
+void wcslen(void);
+
 asm void wcslen(void)
 {
     mvn r2, #0

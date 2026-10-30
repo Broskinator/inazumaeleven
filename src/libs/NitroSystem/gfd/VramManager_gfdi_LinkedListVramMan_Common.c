@@ -1,5 +1,15 @@
 // (asm for now)
 
+void TryToMergeBlockRegion_(void);
+void func_0202fe1c(void);
+void func_0202fe28(void);
+void NNSi_GfdAddNewFreeBlock(void);
+void func_0202fec8(void);
+void func_0202fedc(void);
+void NNSi_GfdMergeAllFreeBlocks(void);
+void NNSi_GfdFreeLnkVram(void);
+void func_02030128(void);
+
 asm void TryToMergeBlockRegion_(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}

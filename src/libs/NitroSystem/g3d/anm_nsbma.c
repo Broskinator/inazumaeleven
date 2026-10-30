@@ -1,5 +1,10 @@
 // (asm for now)
 
+void GetMatColAnmuAlphaValue_(void);
+void func_0202da58(void);
+void func_0202db24(void);
+void func_0202dc30(void);
+
 extern char data_020ab838[];
 void MIi_CpuClear16(void);
 void func_0202bfb8(void);

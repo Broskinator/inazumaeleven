@@ -1,5 +1,11 @@
 // (asm for now)
 
+void NNSi_SndFaderInit(void);
+void func_02032628(void);
+void NNSi_SndFaderGet(void);
+void NNSi_SndFaderUpdate(void);
+void NNSi_SndFaderIsFinished(void);
+
 void func_0202273c(void);
 
 asm void NNSi_SndFaderInit(void)

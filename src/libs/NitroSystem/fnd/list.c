@@ -1,5 +1,15 @@
 // (asm for now)
 
+void NNS_FndInitList(void);
+void func_020326cc(void);
+void func_020326f8(void);
+void func_0203274c(void);
+void NNS_FndInsertListObject(void);
+void NNS_FndRemoveListObject(void);
+void NNS_FndGetNextListObject(void);
+void func_02032878(void);
+void NNS_FndGetNthListObject(void);
+
 asm void NNS_FndInitList(void)
 {
     mov r2, #0

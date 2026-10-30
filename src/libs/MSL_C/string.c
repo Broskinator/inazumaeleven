@@ -1,5 +1,11 @@
 // (asm for now)
 
+void strcmp(void);
+void strncmp(void);
+void strchr(void);
+void strrchr(void);
+void strstr(void);
+
 asm void strcmp(void)
 {
     stmdb sp!, {r4, lr}

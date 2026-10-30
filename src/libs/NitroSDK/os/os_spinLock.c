@@ -1,5 +1,30 @@
 // (asm for now)
 
+void OSi_DoLockByWord(void);
+void func_020056b4(void);
+void OSi_DoUnlockByWord(void);
+void func_02005738(void);
+void OSi_DoTryLockByWord(void);
+void func_020057b4(void);
+void func_020057c4(void);
+void func_020057e4(void);
+void func_020057f0(void);
+void OSi_AllocateCartridgeBus(void);
+void OSi_FreeCartridgeBus(void);
+void func_02005840(void);
+void func_0200585c(void);
+void OSi_AllocateCardBus(void);
+void OSi_FreeCardBus(void);
+void func_020058a8(void);
+void OS_GetLockID(void);
+void func_02005908(void);
+void func_02005938(void);
+void func_02005960(void);
+void func_02005978(void);
+void func_020059a0(void);
+void func_020059ac(void);
+void func_020059c4(void);
+
 void WaitByLoop(void);
 void func_02008400(void);
 void OS_DisableInterrupts(void);

@@ -1,5 +1,13 @@
 // (asm for now)
 
+void NNS_G3dMdlSetMdlDiff(void);
+void NNS_G3dMdlSetMdlAlpha(void);
+void func_0202bd7c(void);
+void func_0202bdbc(void);
+void func_0202bdfc(void);
+void func_0202bfb8(void);
+void func_0202c11c(void);
+
 asm void NNS_G3dMdlSetMdlDiff(void)
 {
     stmdb sp!, {r3, lr}

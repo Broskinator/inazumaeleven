@@ -1,5 +1,9 @@
 // (asm for now)
 
+void CTRDGi_PulledOutCallback(void);
+void func_020158e8(void);
+void func_020158fc(void);
+
 extern char data_020be8a8[];
 void func_0200878c(void);
 void CTRDGi_SendtoPxi(void);

@@ -1,5 +1,16 @@
 // (asm for now)
 
+void CTRDGi_InitTaskThread(void);
+void func_0201599c(void);
+void func_020159b0(void);
+void func_02015aa0(void);
+void func_02015ae4(void);
+void func_02015e9c(void);
+void func_02015ee0(void);
+void func_02015fa8(void);
+void func_0201605c(void);
+void func_02016088(void);
+
 void OS_DisableInterrupts(void);
 extern char data_020bea88[];
 extern char data_020bea8c[];

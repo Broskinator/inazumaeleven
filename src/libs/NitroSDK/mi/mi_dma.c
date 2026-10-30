@@ -1,5 +1,11 @@
 // (asm for now)
 
+void MIi_CheckDma0SourceAddress(void);
+void func_02008e80(void);
+void func_02008f6c(void);
+void func_02009020(void);
+void func_02009080(void);
+
 void func_0200878c(void);
 extern char data_020bb4b4[];
 void func_02008cb4(void);

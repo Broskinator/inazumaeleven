@@ -1,5 +1,12 @@
 // (asm for now)
 
+void DGT_SetOverlayTableMode(void);
+void func_02016154(void);
+void func_020161a8(void);
+void func_0201623c(void);
+void func_02016434(void);
+void func_020164c8(void);
+
 extern char data_020beeb0[];
 void func_0201605c(void);
 extern char data_020aafdc[];

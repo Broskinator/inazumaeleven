@@ -1,5 +1,15 @@
 // (asm for now)
 
+void WM_StartKeySharing(void);
+void func_02014f80(void);
+void func_02014f8c(void);
+void func_02015008(void);
+void func_0201509c(void);
+void func_02015160(void);
+void func_020151b4(void);
+void func_02015218(void);
+void func_02015294(void);
+
 void func_02014414(void);
 void func_02014654(void);
 void func_02012870(void);

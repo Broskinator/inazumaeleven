@@ -1,5 +1,16 @@
 // (asm for now)
 
+void rand(void);
+void func_0201a6f4(void);
+void func_0201a704(void);
+void func_0201a77c(void);
+void func_0201a7a4(void);
+void func_0201a7a8(void);
+void strlen(void);
+void strcpy(void);
+void strncpy(void);
+void func_0201aa04(void);
+
 extern char data_020ab328[];
 extern char data_020bf3e8[];
 extern char data_020bf0b4[];

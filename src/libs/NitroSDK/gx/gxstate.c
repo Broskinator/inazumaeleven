@@ -1,5 +1,7 @@
 // (asm for now)
 
+void GX_InitGXState(void);
+
 extern char data_020bb080[];
 
 asm void GX_InitGXState(void)

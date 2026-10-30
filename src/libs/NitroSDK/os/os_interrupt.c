@@ -1,5 +1,18 @@
 // (asm for now)
 
+void OS_InitIrqTable(void);
+void OS_SetIrqFunction(void);
+void OS_GetIrqFunction(void);
+void OSi_EnterDmaCallback(void);
+void func_020053fc(void);
+void OS_SetIrqMask(void);
+void OS_EnableIrqMask(void);
+void OS_DisableIrqMask(void);
+void OS_ResetRequestIrqMask(void);
+void OS_SetIrqStackChecker(void);
+void func_0200552c(void);
+void func_0200553c(void);
+
 extern char data_027e0060[];
 extern char data_027e0000[];
 extern char data_020bb09c[];

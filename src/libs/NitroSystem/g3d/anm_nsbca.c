@@ -1,5 +1,10 @@
 // (asm for now)
 
+void NNSi_G3dAnmCalcNsBca(void);
+void func_0202c378(void);
+void getMdlScale_(void);
+void getMdlRot_(void);
+
 void func_0202c61c(void);
 extern char data_020bf67c[];
 void func_02009bc8(void);

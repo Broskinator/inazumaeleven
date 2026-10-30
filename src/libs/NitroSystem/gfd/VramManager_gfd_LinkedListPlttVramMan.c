@@ -1,5 +1,12 @@
 // (asm for now)
 
+void NNS_GfdInitLnkPlttVramManager(void);
+void func_020304ec(void);
+void NNS_GfdFreeLnkPlttVram(void);
+void func_02030604(void);
+void func_02030660(void);
+void func_020306dc(void);
+
 extern char data_020c23a8[];
 extern char data_020abaa8[];
 extern char data_020abaac[];

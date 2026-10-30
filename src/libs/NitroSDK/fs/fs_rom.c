@@ -1,5 +1,8 @@
 // (asm for now)
 
+void FS_CreateFileFromRom(void);
+void func_0200e794(void);
+
 extern char data_020bd2e0[];
 void func_0200c68c(void);
 extern char data_020bd33c[];

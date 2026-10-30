@@ -1,5 +1,9 @@
 // (asm for now)
 
+void MI_UncompressLZ8(void);
+void MI_UncompressHuffman(void);
+void func_02009d98(void);
+
 void func_02008da0(void);
 void MIi_CheckDma0SourceAddress(void);
 void func_01ff845c(void);

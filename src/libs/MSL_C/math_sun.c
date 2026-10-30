@@ -1,5 +1,7 @@
 // (asm for now)
 
+void scalbn(void);
+
 void func_020207d4(void);
 void func_02020894(void);
 

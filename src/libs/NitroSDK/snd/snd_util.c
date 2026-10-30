@@ -1,5 +1,9 @@
 // (asm for now)
 
+void SND_CalcChannelVolume(void);
+void func_0200abcc(void);
+void func_0200ac9c(void);
+
 extern char data_020a3f80[];
 void func_0200a298(void);
 void func_0200a2ac(void);

@@ -1,5 +1,15 @@
 // (asm for now)
 
+void func_02029aa0(void);
+void func_02029efc(void);
+void func_0202a1e8(void);
+void func_0202a534(void);
+void func_0202ac7c(void);
+void func_0202ad58(void);
+void func_0202adc0(void);
+void func_0202b110(void);
+void func_0202b4c4(void);
+
 void func_0202b608(void);
 void func_02009bc8(void);
 extern char data_020a48cc[];

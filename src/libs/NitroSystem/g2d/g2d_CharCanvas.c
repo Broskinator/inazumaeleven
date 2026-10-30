@@ -1,5 +1,26 @@
 // (asm for now)
 
+void OBJSizeToShape(void);
+void func_02026044(void);
+void func_02026174(void);
+void func_020263a8(void);
+void func_0202653c(void);
+void ClearContinuous(void);
+void ClearLine(void);
+void func_02026814(void);
+void func_020269ac(void);
+void func_02026b98(void);
+void func_02026bc0(void);
+void NNS_G2dCharCanvasInitForBG(void);
+void func_02026d08(void);
+void func_02026d8c(void);
+void NNS_G2dMapScrToChar256x16Pltt(void);
+void func_02026e98(void);
+void func_02026ef4(void);
+void func_020271f4(void);
+void func_020272a8(void);
+void func_020273f8(void);
+
 extern char data_020a486c[];
 void MIi_CpuClearFast(void);
 void func_02027898(void);

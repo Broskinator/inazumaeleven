@@ -1,5 +1,8 @@
 // (asm for now)
 
+void OS_AllocFromArenaLo(void);
+void func_020071d0(void);
+
 void func_02006fa4(void);
 void func_02006f90(void);
 void func_02007150(void);

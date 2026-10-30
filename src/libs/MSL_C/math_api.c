@@ -1,5 +1,11 @@
 // (asm for now)
 
+void __msl_generic_count_bits64(void);
+void func_020181bc(void);
+void __fpclassifyd(void);
+void func_02018248(void);
+void func_02018280(void);
+
 asm void __msl_generic_count_bits64(void)
 {
     mov r3, r0, lsr #1

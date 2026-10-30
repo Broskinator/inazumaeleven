@@ -1,5 +1,7 @@
 // (asm for now)
 
+void MTX_Identity22_(void);
+
 asm void MTX_Identity22_(void)
 {
     mov r1, #0

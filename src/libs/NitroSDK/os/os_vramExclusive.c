@@ -1,5 +1,25 @@
 // (asm for now)
 
+void OSi_InitVramExclusive(void);
+void func_0200863c(void);
+void func_020086c0(void);
+void func_0200878c(void);
+void func_020087bc(void);
+void func_020087cc(void);
+void func_020087d8(void);
+void func_020087ec(void);
+void func_02008894(void);
+void func_020088d0(void);
+void func_020088e0(void);
+void func_02008964(void);
+void func_02008a08(void);
+void func_02008ab0(void);
+void func_02008bb8(void);
+void func_02008cb4(void);
+void func_02008d10(void);
+void func_02008d78(void);
+void func_02008da0(void);
+
 extern char data_020bb494[];
 extern char data_020bb498[];
 void OS_DisableInterrupts(void);
@@ -145,7 +165,7 @@ asm void func_020087bc(void)
 asm void func_020087cc(void)
 {
     mov r0, #0
-    mcr p15, #0, r0, c7, c0, #4
+    mcr p15, 0, r0, c7, c0, 4
     bx lr
 }
 

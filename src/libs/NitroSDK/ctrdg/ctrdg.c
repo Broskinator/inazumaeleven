@@ -1,5 +1,17 @@
 // (asm for now)
 
+void CTRDGi_InitCommon(void);
+void func_020152f0(void);
+void CTRDGi_ChangeLatestAccessCycle(void);
+void CTRDGi_RestoreAccessCycle(void);
+void func_02015470(void);
+void CTRDGi_UnlockByProcessor(void);
+void CTRDGi_SendtoPxi(void);
+void func_02015540(void);
+void func_020155d0(void);
+void func_02015680(void);
+void func_02015864(void);
+
 extern char data_020be8a4[];
 void CpuSet(void);
 void OS_GetLockID(void);

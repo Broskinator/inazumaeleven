@@ -1,5 +1,22 @@
 // (asm for now)
 
+void GetRegionOfMBlock(void);
+void RemoveMBlock(void);
+void InsertMBlock(void);
+void func_02032a7c(void);
+void func_02032aa8(void);
+void func_02032b18(void);
+void func_02032c84(void);
+void func_02032d38(void);
+void RecycleRegion(void);
+void NNS_FndCreateExpHeapEx(void);
+void NNS_FndDestroyExpHeap(void);
+void NNS_FndAllocFromExpHeapEx(void);
+void NNS_FndFreeToExpHeap(void);
+void NNS_FndGetTotalFreeSizeForExpHeap(void);
+void NNS_FndGetAllocatableSizeForExpHeapEx(void);
+void func_02033038(void);
+
 void func_02032964(void);
 void func_0200919c(void);
 void func_020329e0(void);

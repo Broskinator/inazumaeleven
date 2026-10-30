@@ -1,5 +1,15 @@
 // (asm for now)
 
+void WmCheckParentParameter(void);
+void func_020138d8(void);
+void func_02013940(void);
+void func_02013950(void);
+void func_02013994(void);
+void func_02013ae4(void);
+void func_02013b28(void);
+void func_02013bf4(void);
+void func_02013ce4(void);
+
 void func_020128b4(void);
 void func_02012844(void);
 void WMi_SetCallbackTable(void);

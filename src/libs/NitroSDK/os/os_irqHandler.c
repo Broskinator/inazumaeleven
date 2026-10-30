@@ -1,5 +1,8 @@
 // (asm for now)
 
+void OS_WaitIrq(void);
+void func_0200517c(void);
+
 void OS_DisableInterrupts(void);
 extern char data_027e0000[];
 void OS_RestoreInterrupts(void);

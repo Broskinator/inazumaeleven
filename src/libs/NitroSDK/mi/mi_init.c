@@ -1,5 +1,7 @@
 // (asm for now)
 
+void MI_Init(void);
+
 void func_020088d0(void);
 void func_02008d10(void);
 

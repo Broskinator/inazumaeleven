@@ -1,5 +1,10 @@
 // (asm for now)
 
+void FindContainHeap(void);
+void FindListContainHeap(void);
+void func_02032964(void);
+void func_020329e0(void);
+
 void NNS_FndGetNextListObject(void);
 extern char data_020c454c[];
 void NNS_FndInitList(void);

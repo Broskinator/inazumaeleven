@@ -1,5 +1,22 @@
 // (asm for now)
 
+void G3X_Reset(void);
+void func_020029f4(void);
+void G3X_InitMtxStack(void);
+void G3X_ResetMtxStack(void);
+void func_02002b40(void);
+void G3X_GetClipMtx(void);
+void G3X_GetVectorMtx(void);
+void func_02002bf4(void);
+void func_02002c0c(void);
+void func_02002c20(void);
+void G3X_SetClearColor(void);
+void func_02002c60(void);
+void func_02002d14(void);
+void func_02002d40(void);
+void func_02002d6c(void);
+void GXi_NopClearFifo128_(void);
+
 void MI_Copy64B(void);
 void func_02009280(void);
 void MIi_CpuCopy16(void);

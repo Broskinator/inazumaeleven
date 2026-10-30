@@ -1,5 +1,11 @@
 // (asm for now)
 
+void NNSi_G2dTextCanvasDrawTextRect(void);
+void func_020275fc(void);
+void func_020277c0(void);
+void func_02027898(void);
+void NNSi_G2dSplitCharUTF16(void);
+
 void func_02025e38(void);
 void func_020272a8(void);
 void func_0200878c(void);

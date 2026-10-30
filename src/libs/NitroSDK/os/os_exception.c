@@ -1,5 +1,28 @@
 // (asm for now)
 
+void OSi_ExceptionHandler(void);
+void func_02007820(void);
+void func_02007834(void);
+void func_020078b4(void);
+void func_02007930(void);
+void OS_InitTick(void);
+void func_020079c4(void);
+void func_020079d4(void);
+void OS_GetTick(void);
+void func_02007adc(void);
+void func_02007aec(void);
+void func_02007b5c(void);
+void func_02007be4(void);
+void func_02007c20(void);
+void OS_CreateAlarm(void);
+void func_02007c40(void);
+void func_02007d68(void);
+void OS_SetPeriodicAlarm(void);
+void OS_CancelAlarm(void);
+void func_02007ec8(void);
+void func_02007ed8(void);
+void func_02007fc4(void);
+
 extern char data_020bb3bc[];
 extern char data_020bb3ec[];
 void func_020075dc(void);
@@ -31,7 +54,7 @@ asm void OSi_ExceptionHandler(void)
     stmdb r12!, {r0, r1, r2, r3, sp, lr}
     and r0, sp, #1
     mov sp, r12
-    mrs r1, apsr
+    mrs r1, CPSR
     and r1, r1, #0x1f
     teq r1, #0x17
     bne @L_020077e8
@@ -88,7 +111,7 @@ asm void func_02007834(void)
     str r0, [r1, #0x34]
     ldr r0, [r2, #0xc]
     str r0, [r1, #0x40]
-    mrs r0, apsr
+    mrs r0, CPSR
     orr r3, r3, #0x80
     bic r3, r3, #0x20
     msr cpsr_fsxc, r3
@@ -106,7 +129,7 @@ asm void func_020078b4(void)
     ldr r0, [r0, #0xc]
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
-    mrs r2, apsr
+    mrs r2, CPSR
     mov r0, sp
     ldr r1, =0x9f
     msr cpsr_fsxc, r1

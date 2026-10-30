@@ -1,5 +1,15 @@
 // (asm for now)
 
+void FX_GetDivResultFx64c(void);
+void func_02001dd8(void);
+void func_02001e0c(void);
+void FX_GetSqrtResult(void);
+void FX_DivAsync(void);
+void FX_DivS32(void);
+void FX_ModS32(void);
+void func_02001f08(void);
+void func_02001f38(void);
+
 asm void FX_GetDivResultFx64c(void)
 {
     ldr r1, =0x4000280

@@ -1,5 +1,11 @@
 // (asm for now)
 
+void SND_Init(void);
+void func_0200a298(void);
+void func_0200a2ac(void);
+void func_0200a2c0(void);
+void func_0200a390(void);
+
 extern char data_020bb4d4[];
 extern char data_020bb4d8[];
 void OS_InitMutex(void);

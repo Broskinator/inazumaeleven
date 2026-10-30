@@ -1,5 +1,7 @@
 // (asm for now)
 
+void NNS_G3dGetTex(void);
+
 asm void NNS_G3dGetTex(void)
 {
     ldrh r2, [r0, #0xc]

@@ -1,5 +1,8 @@
 // (asm for now)
 
+void RemoveCommandByPlayer(void);
+void FreeCommandBuffer(void);
+
 void OS_DisableInterrupts(void);
 void NNS_FndGetNextListObject(void);
 void NNS_FndRemoveListObject(void);

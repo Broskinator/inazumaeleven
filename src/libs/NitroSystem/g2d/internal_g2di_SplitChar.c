@@ -1,5 +1,8 @@
 // (asm for now)
 
+void NNSi_G2dSplitCharShiftJIS(void);
+void func_02027960(void);
+
 extern char data_020ab824[];
 extern char data_020ab848[];
 extern char data_020ab84c[];

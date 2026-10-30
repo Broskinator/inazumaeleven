@@ -1,5 +1,16 @@
 // (asm for now)
 
+void _ZSt17__throw_bad_allocv(void);
+void func_0202553c(void);
+void _Znwm(void);
+void _ZdlPv(void);
+void _Znam(void);
+void func_020255d0(void);
+void func_020255dc(void);
+void func_020255e4(void);
+void func_020255f0(void);
+void func_02025604(void);
+
 extern char data_020ab72c[];
 extern char data_020ab760[];
 extern char data_020ab76c[];

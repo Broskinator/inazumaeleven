@@ -1,5 +1,10 @@
 // (asm for now)
 
+void _ZSt9terminatev(void);
+void _ZSt10unexpectedv(void);
+void __register_global_object(void);
+void func_02025348(void);
+
 extern char data_020ab724[];
 extern char data_020bf410[];
 

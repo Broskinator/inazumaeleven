@@ -1,5 +1,13 @@
 // (asm for now)
 
+void func_0201ac60(void);
+void strtod(void);
+void atof(void);
+void func_0201bc10(void);
+void strtol(void);
+void atoi(void);
+void func_0201c058(void);
+
 extern char data_020a4600[];
 extern char data_020a45f8[];
 extern char data_020a44f8[];

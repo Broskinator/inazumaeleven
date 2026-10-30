@@ -1,7 +1,17 @@
 // (asm for now)
 
+void __fill_mem(void);
+void func_020184ec(void);
+void func_020189f8(void);
+void func_02018c48(void);
+void func_02018f1c(void);
+void func_020193c8(void);
+void func_020194dc(void);
+void func_02019bec(void);
+
 extern char data_020a44f8[];
 void func_02022948(void);
+void func_020226e0(void);
 void _ll_udiv(void);
 void func_0201ce20(void);
 extern char data_020ab2f0[];
@@ -716,7 +726,7 @@ asm void func_02018c48(void)
     mov r1, r9
     mov r2, r6
     mov r3, r5
-    bl .L_020226e0
+    bl func_020226e0
     mov r4, r0
     mov r0, r10
     mov r1, r9

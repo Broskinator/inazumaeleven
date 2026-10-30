@@ -1,5 +1,7 @@
 // (asm for now)
 
+void copysign(void);
+
 asm void copysign(void)
 {
     stmdb sp!, {r0, r1, r2, r3}

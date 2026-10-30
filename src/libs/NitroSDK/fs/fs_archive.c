@@ -1,5 +1,22 @@
 // (asm for now)
 
+void FS_SetArchiveProc(void);
+void func_0200e304(void);
+void FS_UnloadArchiveTables(void);
+void func_0200e4c8(void);
+void func_0200e4d4(void);
+void func_0200e4e4(void);
+void func_0200e4f8(void);
+void func_0200e500(void);
+void func_0200e508(void);
+void func_0200e52c(void);
+void func_0200e574(void);
+void func_0200e5e4(void);
+void func_0200e5f8(void);
+void func_0200e600(void);
+void func_0200e608(void);
+void func_0200e610(void);
+
 void FS_InitFile(void);
 void func_0200c68c(void);
 void FS_ReadFile(void);

@@ -1,5 +1,11 @@
 // (asm for now)
 
+void NNS_GfdInitLnkTexVramManager(void);
+void func_02030188(void);
+void func_0203020c(void);
+void func_02030278(void);
+void func_02030490(void);
+
 extern char data_020c238c[];
 extern char data_020abaa0[];
 extern char data_020abaa4[];

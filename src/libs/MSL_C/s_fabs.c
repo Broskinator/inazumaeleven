@@ -1,5 +1,23 @@
 // (asm for now)
 
+void fabs(void);
+void func_02020610(void);
+void func_020207d4(void);
+void func_02020894(void);
+void func_02020af4(void);
+void func_02020c6c(void);
+void func_02020c78(void);
+void func_02020c84(void);
+void func_02020cfc(void);
+void func_02020d24(void);
+void func_02020d34(void);
+void func_02020d60(void);
+void func_02020d6c(void);
+void func_02020d74(void);
+void func_02020d94(void);
+void func_02020da8(void);
+void func_02020dac(void);
+
 void func_020213f8(void);
 void func_02022058(void);
 void func_02021adc(void);

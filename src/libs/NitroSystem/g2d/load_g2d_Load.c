@@ -1,5 +1,7 @@
 // (asm for now)
 
+void NNS_G2dFindBinaryBlock(void);
+
 asm void NNS_G2dFindBinaryBlock(void)
 {
     ldrh r2, [r0, #0xc]

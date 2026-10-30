@@ -1,5 +1,12 @@
 // (asm for now)
 
+void NNS_G3dGeWaitSendDL(void);
+void func_0202b534(void);
+void func_0202b540(void);
+void func_0202b550(void);
+void func_0202b608(void);
+void func_0202b6e4(void);
+
 extern char data_020c2380[];
 extern char data_020aad64[];
 void func_0202b4c4(void);

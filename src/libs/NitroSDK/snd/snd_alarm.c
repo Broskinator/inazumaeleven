@@ -1,5 +1,13 @@
 // (asm for now)
 
+void SNDi_IncAlarmId(void);
+void SNDi_SetAlarmHandler(void);
+void SNDi_CallAlarmHandler(void);
+void func_0200aa6c(void);
+void func_0200aa94(void);
+void func_0200aabc(void);
+void func_0200aae0(void);
+
 extern char data_020bcfc0[];
 extern char data_020bd020[];
 void DC_InvalidateRange(void);

@@ -1,5 +1,14 @@
 // (asm for now)
 
+void func_02033080(void);
+void func_020330dc(void);
+void func_02033134(void);
+void FreeTail(void);
+void NNS_FndCreateFrmHeapEx(void);
+void func_020331ac(void);
+void NNS_FndAllocFromFrmHeapEx(void);
+void NNS_FndFreeToFrmHeap(void);
+
 void func_0200919c(void);
 void func_02033038(void);
 void func_020329e0(void);

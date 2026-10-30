@@ -1,5 +1,7 @@
 // (asm for now)
 
+void NNSi_SndSeqArcGetSeqInfo(void);
+
 asm void NNSi_SndSeqArcGetSeqInfo(void)
 {
     cmp r1, #0

@@ -1,5 +1,31 @@
 // (asm for now)
 
+void SND_StopSeq(void);
+void SND_PrepareSeq(void);
+void SND_StartPreparedSeq(void);
+void SND_SetPlayerVolume(void);
+void SND_SetPlayerChannelPriority(void);
+void SND_SetTrackPitch(void);
+void SND_SetTrackAllocatableChannel(void);
+void SND_StartTimer(void);
+void SND_StopTimer(void);
+void SND_SetupCapture(void);
+void SND_SetupAlarm(void);
+void SND_LockChannel(void);
+void SND_UnlockChannel(void);
+void SND_SetChannelTimer(void);
+void SND_SetChannelVolume(void);
+void SND_SetChannelPan(void);
+void SND_SetupChannelPcm(void);
+void SND_SetupChannelPsg(void);
+void SND_SetupChannelNoise(void);
+void SND_InvalidateBankData(void);
+void SND_InvalidateWaveData(void);
+void SND_SetOutputSelector(void);
+void SNDi_SetPlayerParam(void);
+void SNDi_SetTrackParam(void);
+void PushCommand_impl(void);
+
 void SNDi_IncAlarmId(void);
 void SNDi_SetAlarmHandler(void);
 void SND_AllocCommand(void);

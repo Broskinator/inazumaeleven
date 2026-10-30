@@ -1,5 +1,12 @@
 // (asm for now)
 
+void NNS_G3dGlbFlushVP(void);
+void func_0202878c(void);
+void func_020287cc(void);
+void func_02028830(void);
+void func_02028864(void);
+void func_02028898(void);
+
 extern char data_020bf41c[];
 void func_0202b608(void);
 extern char data_020bf464[];

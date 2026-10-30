@@ -1,5 +1,13 @@
 // (asm for now)
 
+void NNS_SndHeapDestroy(void);
+void NNS_SndHeapClear(void);
+void NNS_SndHeapAlloc(void);
+void func_02031948(void);
+void InitHeap(void);
+void NewSection(void);
+void EraseSync(void);
+
 void func_020331ac(void);
 void func_02032878(void);
 void NNS_FndRemoveListObject(void);

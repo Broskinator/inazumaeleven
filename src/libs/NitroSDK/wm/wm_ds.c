@@ -1,5 +1,7 @@
 // (asm for now)
 
+void WmGetSharedDataAddress(void);
+
 void func_02015aa0(void);
 
 asm void WmGetSharedDataAddress(void)

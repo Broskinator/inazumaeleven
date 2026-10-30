@@ -1,5 +1,20 @@
 // (asm for now)
 
+void NNSi_SndArcLoadBank(void);
+void func_02031b28(void);
+void func_02031bac(void);
+void func_02031c50(void);
+void func_02031cbc(void);
+void func_02031d28(void);
+void DisposeCallback(void);
+void func_02031ea8(void);
+void func_02031ed8(void);
+void WaveArcTableDisposeCallback(void);
+void SingleWaveDisposeCallback(void);
+void LoadSingleWave(void);
+void func_02032038(void);
+void func_020320f8(void);
+
 void func_02031538(void);
 void func_02031754(void);
 void func_0203159c(void);

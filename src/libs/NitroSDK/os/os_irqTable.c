@@ -1,5 +1,15 @@
 // (asm for now)
 
+void OSi_IrqCallback(void);
+void func_02005208(void);
+void func_02005218(void);
+void func_02005228(void);
+void func_02005238(void);
+void func_02005248(void);
+void func_02005258(void);
+void func_02005268(void);
+void func_02005278(void);
+
 extern char data_020bb09c[];
 extern char data_020aad68[];
 extern char data_020bb0a4[];

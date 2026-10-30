@@ -1,5 +1,18 @@
 // (asm for now)
 
+void OS_InitMessageQueue(void);
+void OS_SendMessage(void);
+void func_020068c0(void);
+void func_02006960(void);
+void func_020069fc(void);
+void OS_InitMutex(void);
+void OS_LockMutex(void);
+void OS_UnlockMutex(void);
+void func_02006af8(void);
+void OS_TryLockMutex(void);
+void func_02006bd4(void);
+void func_02006cac(void);
+
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
 void OS_SleepThread(void);

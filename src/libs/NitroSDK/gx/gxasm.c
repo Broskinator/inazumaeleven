@@ -1,5 +1,7 @@
 // (asm for now)
 
+void GX_SendFifo48B(void);
+
 asm void GX_SendFifo48B(void)
 {
     ldmia r0!, {r2, r3, r12}

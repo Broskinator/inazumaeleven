@@ -1,5 +1,15 @@
 // (asm for now)
 
+void GetGlyphIndex(void);
+void NNS_G2dFontInitUTF16(void);
+void NNS_G2dFontInitShiftJIS(void);
+void NNS_G2dFontFindGlyphIndex(void);
+void NNS_G2dFontGetCharWidthsFromIndex(void);
+void func_02025d8c(void);
+void func_02025e38(void);
+void func_02025eac(void);
+void func_02025f40(void);
+
 void func_020275fc(void);
 void NNSi_G2dSplitCharUTF16(void);
 void NNSi_G2dSplitCharShiftJIS(void);

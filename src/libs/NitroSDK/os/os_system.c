@@ -1,5 +1,21 @@
 // (asm for now)
 
+void OS_RestoreInterrupts(void);
+void func_02008400(void);
+void OS_RestoreInterrupts_IrqAndFiq(void);
+void func_0200842c(void);
+void func_02008438(void);
+void func_02008444(void);
+void func_02008450(void);
+void func_0200846c(void);
+void func_0200848c(void);
+void func_0200849c(void);
+void func_020084a8(void);
+void func_020084fc(void);
+void func_02008564(void);
+void func_02008580(void);
+void func_02008600(void);
+
 void WaitByLoop(void);
 void OS_WaitIrq(void);
 extern char data_020bb490[];
@@ -21,7 +37,7 @@ void MIi_CpuCopy16(void);
 
 asm void OS_RestoreInterrupts(void)
 {
-    mrs r1, apsr
+    mrs r1, CPSR
     bic r2, r1, #0x80
     orr r2, r2, r0
     msr cpsr_c, r2
@@ -31,7 +47,7 @@ asm void OS_RestoreInterrupts(void)
 
 asm void func_02008400(void)
 {
-    mrs r0, apsr
+    mrs r0, CPSR
     orr r1, r0, #0xc0
     msr cpsr_c, r1
     and r0, r0, #0xc0
@@ -40,7 +56,7 @@ asm void func_02008400(void)
 
 asm void OS_RestoreInterrupts_IrqAndFiq(void)
 {
-    mrs r1, apsr
+    mrs r1, CPSR
     bic r2, r1, #0xc0
     orr r2, r2, r0
     msr cpsr_c, r2
@@ -50,14 +66,14 @@ asm void OS_RestoreInterrupts_IrqAndFiq(void)
 
 asm void func_0200842c(void)
 {
-    mrs r0, apsr
+    mrs r0, CPSR
     and r0, r0, #0x80
     bx lr
 }
 
 asm void func_02008438(void)
 {
-    mrs r0, apsr
+    mrs r0, CPSR
     and r0, r0, #0x1f
     bx lr
 }

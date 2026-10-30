@@ -1,5 +1,27 @@
 // (asm for now)
 
+void TP_GetCalibratedResult(void);
+void TP_WaitCalibratedResult(void);
+void func_0200edac(void);
+void func_0200eeb4(void);
+void func_0200ef54(void);
+void func_0200ef64(void);
+void func_0200f150(void);
+void TP_WaitBusy(void);
+void func_0200f284(void);
+void func_0200f298(void);
+void func_0200f31c(void);
+void func_0200f328(void);
+void func_0200f358(void);
+void func_0200f38c(void);
+void func_0200f420(void);
+void func_0200f4a8(void);
+void func_0200f52c(void);
+void func_0200f5f0(void);
+void func_0200f67c(void);
+void func_0200f6c4(void);
+void func_0200f6fc(void);
+
 extern char data_020bd340[];
 void OS_DisableInterrupts(void);
 void func_0200b138(void);

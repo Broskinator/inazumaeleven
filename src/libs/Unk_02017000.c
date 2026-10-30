@@ -1,5 +1,29 @@
 // (asm for now)
 
+void STD_CompareString(void);
+void func_020170b8(void);
+void func_020171a0(void);
+void func_020171cc(void);
+void func_02017220(void);
+void func_02017278(void);
+void func_020172a0(void);
+void func_02017a7c(void);
+void func_02017aa4(void);
+void func_02017ae8(void);
+void func_02017c04(void);
+void func_02017c1c(void);
+void func_02017c34(void);
+void func_02017c4c(void);
+void func_02017c64(void);
+void func_02017c78(void);
+void func_02017cdc(void);
+void func_02017ce8(void);
+void func_02017cf4(void);
+void func_02017cf8(void);
+void func_02017d20(void);
+void func_02017da4(void);
+void func_02018044(void);
+
 void _ll_udiv(void);
 void func_0201a7a8(void);
 extern char data_020beeb4[];

@@ -1,5 +1,53 @@
 // (asm for now)
 
+void func_02010e5c(void);
+void func_02010ed4(void);
+void func_02010f54(void);
+void func_02010f6c(void);
+void func_02010f8c(void);
+void func_02010fa8(void);
+void func_02010fd0(void);
+void func_0201101c(void);
+void func_0201108c(void);
+void func_02011100(void);
+void func_0201114c(void);
+void func_020111c4(void);
+void func_02011210(void);
+void func_0201124c(void);
+void func_02011268(void);
+void func_020112c4(void);
+void func_020112f8(void);
+void func_02011448(void);
+void func_020115e0(void);
+void func_02011928(void);
+void func_02011978(void);
+void CARDi_RequestStreamCommand(void);
+void CARD_IdentifyBackup(void);
+void func_02011a74(void);
+void CARD_WaitBackupAsync(void);
+void CARD_TryWaitBackupAsync(void);
+void func_02011aa0(void);
+void func_02011b20(void);
+void func_02011b54(void);
+void func_02011bac(void);
+void func_02011c14(void);
+void func_02011c74(void);
+void func_02011cc0(void);
+void func_02011ddc(void);
+void func_02011e7c(void);
+void func_02011ef8(void);
+void func_02011f28(void);
+void func_02011fdc(void);
+void func_02012028(void);
+void func_020121b0(void);
+void func_02012228(void);
+void func_02012234(void);
+void func_02012240(void);
+void func_02012274(void);
+void func_02012304(void);
+void func_02012314(void);
+void func_0201234c(void);
+
 extern char data_020bd460[];
 void OS_DisableInterrupts(void);
 void func_0200878c(void);
@@ -41,7 +89,7 @@ void OS_DisableIrqMask(void);
 void OS_ResetRequestIrqMask(void);
 void OS_SetIrqFunction(void);
 void OS_EnableIrqMask(void);
-extern char data_01ff8000[];
+void OS_IrqHandler(void);
 void func_020075c8(void);
 extern char data_020bdab0[];
 void func_02010d8c(void);
@@ -1313,7 +1361,7 @@ asm void func_02011f28(void)
     beq @L_02011f80
     tst r9, #0x1f
     bne @L_02011f80
-    ldr r0, =data_01ff8000
+    ldr r0, =OS_IrqHandler
     add r1, r9, r7
     cmp r1, r0
     mov r0, #1

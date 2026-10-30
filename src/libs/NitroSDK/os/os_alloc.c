@@ -1,5 +1,44 @@
 // (asm for now)
 
+void DLExtract(void);
+void DLInsert(void);
+void OS_AllocFromHeap(void);
+void OS_FreeToHeap(void);
+void OS_SetCurrentHeap(void);
+void func_0200745c(void);
+void func_02007504(void);
+void func_020075a4(void);
+void func_020075c8(void);
+void func_020075dc(void);
+void func_020075ec(void);
+void func_020075fc(void);
+void func_0200760c(void);
+void func_0200761c(void);
+void func_0200762c(void);
+void func_0200763c(void);
+void func_02007650(void);
+void func_02007660(void);
+void func_02007670(void);
+void func_0200768c(void);
+void func_02007694(void);
+void func_0200769c(void);
+void func_020076a4(void);
+void func_020076ac(void);
+void func_020076b4(void);
+void func_020076bc(void);
+void func_020076c4(void);
+void func_020076cc(void);
+void func_020076d4(void);
+void func_020076dc(void);
+void func_020076e4(void);
+void func_020076ec(void);
+void func_020076f4(void);
+void func_020076fc(void);
+void func_02007704(void);
+void func_0200770c(void);
+void func_02007734(void);
+void func_0200779c(void);
+
 void OS_DisableInterrupts(void);
 extern char data_020bb398[];
 void OS_RestoreInterrupts(void);
@@ -299,7 +338,7 @@ asm void func_020075a4(void)
 
 asm void func_020075c8(void)
 {
-    mrc p15, #0, r0, c9, c1, #0
+    mrc p15, 0, r0, c9, c1, 0
     ldr r1, =0xfffff000
     and r0, r0, r1
     bx lr
@@ -307,74 +346,74 @@ asm void func_020075c8(void)
 
 asm void func_020075dc(void)
 {
-    mrc p15, #0, r0, c1, c0, #0
+    mrc p15, 0, r0, c1, c0, 0
     orr r0, r0, #1
-    mcr p15, #0, r0, c1, c0, #0
+    mcr p15, 0, r0, c1, c0, 0
     bx lr
 }
 
 asm void func_020075ec(void)
 {
-    mrc p15, #0, r0, c1, c0, #0
+    mrc p15, 0, r0, c1, c0, 0
     bic r0, r0, #1
-    mcr p15, #0, r0, c1, c0, #0
+    mcr p15, 0, r0, c1, c0, 0
     bx lr
 }
 
 asm void func_020075fc(void)
 {
-    mrc p15, #0, r1, c2, c0, #1
+    mrc p15, 0, r1, c2, c0, 1
     orr r1, r1, r0
-    mcr p15, #0, r1, c2, c0, #1
+    mcr p15, 0, r1, c2, c0, 1
     bx lr
 }
 
 asm void func_0200760c(void)
 {
-    mrc p15, #0, r1, c2, c0, #1
+    mrc p15, 0, r1, c2, c0, 1
     bic r1, r1, r0
-    mcr p15, #0, r1, c2, c0, #1
+    mcr p15, 0, r1, c2, c0, 1
     bx lr
 }
 
 asm void func_0200761c(void)
 {
-    mrc p15, #0, r1, c2, c0, #0
+    mrc p15, 0, r1, c2, c0, 0
     orr r1, r1, r0
-    mcr p15, #0, r1, c2, c0, #0
+    mcr p15, 0, r1, c2, c0, 0
     bx lr
 }
 
 asm void func_0200762c(void)
 {
-    mrc p15, #0, r1, c2, c0, #0
+    mrc p15, 0, r1, c2, c0, 0
     bic r1, r1, r0
-    mcr p15, #0, r1, c2, c0, #0
+    mcr p15, 0, r1, c2, c0, 0
     bx lr
 }
 
 asm void func_0200763c(void)
 {
-    mrc p15, #0, r2, c5, c0, #2
+    mrc p15, 0, r2, c5, c0, 2
     bic r2, r2, r0
     orr r2, r2, r1
-    mcr p15, #0, r2, c5, c0, #2
+    mcr p15, 0, r2, c5, c0, 2
     bx lr
 }
 
 asm void func_02007650(void)
 {
-    mrc p15, #0, r1, c3, c0, #0
+    mrc p15, 0, r1, c3, c0, 0
     orr r1, r1, r0
-    mcr p15, #0, r1, c3, c0, #0
+    mcr p15, 0, r1, c3, c0, 0
     bx lr
 }
 
 asm void func_02007660(void)
 {
-    mrc p15, #0, r1, c3, c0, #0
+    mrc p15, 0, r1, c3, c0, 0
     bic r1, r1, r0
-    mcr p15, #0, r1, c3, c0, #0
+    mcr p15, 0, r1, c3, c0, 0
     bx lr
 }
 
@@ -390,97 +429,97 @@ asm void func_02007670(void)
 
 asm void func_0200768c(void)
 {
-    mcr p15, #0, r0, c6, c0, #0
+    mcr p15, 0, r0, c6, c0, 0
     bx lr
 }
 
 asm void func_02007694(void)
 {
-    mcr p15, #0, r0, c6, c1, #0
+    mcr p15, 0, r0, c6, c1, 0
     bx lr
 }
 
 asm void func_0200769c(void)
 {
-    mcr p15, #0, r0, c6, c2, #0
+    mcr p15, 0, r0, c6, c2, 0
     bx lr
 }
 
 asm void func_020076a4(void)
 {
-    mcr p15, #0, r0, c6, c3, #0
+    mcr p15, 0, r0, c6, c3, 0
     bx lr
 }
 
 asm void func_020076ac(void)
 {
-    mcr p15, #0, r0, c6, c4, #0
+    mcr p15, 0, r0, c6, c4, 0
     bx lr
 }
 
 asm void func_020076b4(void)
 {
-    mcr p15, #0, r0, c6, c5, #0
+    mcr p15, 0, r0, c6, c5, 0
     bx lr
 }
 
 asm void func_020076bc(void)
 {
-    mcr p15, #0, r0, c6, c6, #0
+    mcr p15, 0, r0, c6, c6, 0
     bx lr
 }
 
 asm void func_020076c4(void)
 {
-    mcr p15, #0, r0, c6, c7, #0
+    mcr p15, 0, r0, c6, c7, 0
     bx lr
 }
 
 asm void func_020076cc(void)
 {
-    mrc p15, #0, r0, c6, c0, #0
+    mrc p15, 0, r0, c6, c0, 0
     bx lr
 }
 
 asm void func_020076d4(void)
 {
-    mrc p15, #0, r0, c6, c1, #0
+    mrc p15, 0, r0, c6, c1, 0
     bx lr
 }
 
 asm void func_020076dc(void)
 {
-    mrc p15, #0, r0, c6, c2, #0
+    mrc p15, 0, r0, c6, c2, 0
     bx lr
 }
 
 asm void func_020076e4(void)
 {
-    mrc p15, #0, r0, c6, c3, #0
+    mrc p15, 0, r0, c6, c3, 0
     bx lr
 }
 
 asm void func_020076ec(void)
 {
-    mrc p15, #0, r0, c6, c4, #0
+    mrc p15, 0, r0, c6, c4, 0
     bx lr
 }
 
 asm void func_020076f4(void)
 {
-    mrc p15, #0, r0, c6, c5, #0
+    mrc p15, 0, r0, c6, c5, 0
     bx lr
 }
 
 asm void func_020076fc(void)
 {
-    mrc p15, #0, r0, c6, c6, #0
+    mrc p15, 0, r0, c6, c6, 0
     bx lr
 }
 
 asm void func_02007704(void)
 {
-    mrc p15, #0, r0, c6, c7, #0
+    mrc p15, 0, r0, c6, c7, 0
     bx lr
 }
 

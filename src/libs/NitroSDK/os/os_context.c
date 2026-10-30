@@ -1,5 +1,16 @@
 // (asm for now)
 
+void OS_InitContext(void);
+void OS_SaveContext(void);
+void OS_LoadContext(void);
+void func_0200659c(void);
+void func_020065d0(void);
+void func_02006654(void);
+void func_0200666c(void);
+void func_02006698(void);
+void func_020067a8(void);
+void func_020067c0(void);
+
 void CP_SaveContext(void);
 void CPi_RestoreContext(void);
 extern char data_020aad78[];
@@ -47,7 +58,7 @@ asm void OS_SaveContext(void)
     blx r1
     ldmia sp!, {r0, lr}
     add r1, r0, #0
-    mrs r2, apsr
+    mrs r2, CPSR
     str r2, [r1], #4
     mov r0, #0xd3
     msr cpsr_c, r0
@@ -68,7 +79,7 @@ asm void OS_LoadContext(void)
     ldr r1, =CPi_RestoreContext
     blx r1
     ldmia sp!, {r0, lr}
-    mrs r1, apsr
+    mrs r1, CPSR
     bic r1, r1, #0x1f
     orr r1, r1, #0xd3
     msr cpsr_c, r1

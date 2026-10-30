@@ -1,5 +1,7 @@
 // (asm for now)
 
+void WM_StartMPEx(void);
+
 void func_0200919c(void);
 void func_02013ce4(void);
 

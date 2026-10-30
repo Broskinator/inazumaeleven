@@ -1,5 +1,7 @@
 // (asm for now)
 
+void OSi_DequeueItem(void);
+
 asm void OSi_DequeueItem(void)
 {
     ldr r2, [r1, #0x10]

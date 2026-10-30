@@ -1,5 +1,8 @@
 // (asm for now)
 
+void BeginSleep(void);
+void func_02030744(void);
+
 void func_0203131c(void);
 void SND_StopTimer(void);
 void SND_GetCurrentCommandTag(void);

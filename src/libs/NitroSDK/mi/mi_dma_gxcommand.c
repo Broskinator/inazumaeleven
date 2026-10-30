@@ -1,5 +1,7 @@
 // (asm for now)
 
+void MIi_DMAFastCallback(void);
+
 extern char data_020bb4b4[];
 
 asm void MIi_DMAFastCallback(void)

@@ -1,5 +1,10 @@
 // (asm for now)
 
+void G3_LoadMtx43(void);
+void G3_MultMtx43(void);
+void G3_MultMtx33(void);
+void func_02002884(void);
+
 void GX_SendFifo48B(void);
 void func_02009280(void);
 void func_020029f4(void);

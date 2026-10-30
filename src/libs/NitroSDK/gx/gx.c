@@ -1,5 +1,17 @@
 // (asm for now)
 
+void GX_SetVCountEqVal(void);
+void func_02002570(void);
+void func_020025a8(void);
+void func_020025b8(void);
+void func_020025f8(void);
+void GX_SetGraphicsMode(void);
+void GXS_SetGraphicsMode(void);
+void GXx_SetMasterBrightness_(void);
+void func_020026e8(void);
+void func_02002728(void);
+void func_020027c8(void);
+
 extern char data_020aad60[];
 extern char data_020bb040[];
 void func_02010240(void);

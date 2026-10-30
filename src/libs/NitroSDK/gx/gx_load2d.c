@@ -1,5 +1,9 @@
 // (asm for now)
 
+void GXS_BeginLoadBGExtPltt(void);
+void func_02003df0(void);
+void func_02003e58(void);
+
 void func_02004da4(void);
 extern char data_020bb044[];
 extern char data_020aad64[];

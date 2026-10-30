@@ -1,5 +1,11 @@
 // (asm for now)
 
+void __FileWrite(void);
+void __StringWrite(void);
+void func_0201a508(void);
+void func_0201a630(void);
+void sprintf(void);
+
 void func_02017da4(void);
 void func_02018328(void);
 extern char data_020ab02c[];

@@ -1,5 +1,7 @@
 // (asm for now)
 
+void __kernel_sin(void);
+
 void func_02022b60(void);
 void func_02021adc(void);
 void func_020213f8(void);

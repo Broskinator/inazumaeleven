@@ -1,5 +1,22 @@
 // (asm for now)
 
+void WMi_SetCallbackTable(void);
+void func_020126c8(void);
+void func_02012728(void);
+void func_020127d4(void);
+void func_02012844(void);
+void WMi_CheckInitialized(void);
+void func_02012870(void);
+void func_020128b4(void);
+void func_02012944(void);
+void func_02012d2c(void);
+void WMi_GetStatusAddress(void);
+void WM_GetAID(void);
+void WM_GetConnectedAIDs(void);
+void func_02012dd4(void);
+void func_02012e08(void);
+void func_02012e1c(void);
+
 extern char data_020bdd6c[];
 extern char data_020bdd84[];
 void func_020068c0(void);

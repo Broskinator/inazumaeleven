@@ -34,6 +34,12 @@ def module_names(mod):
     return _tables[mod]
 
 
+def pc_before(i, op, start):
+    """A load of data before the function that starts at START (it stays as it is)."""
+    m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", op)
+    return bool(m) and i.address + 8 + int(m.group(1) or "0", 0) < start
+
+
 def main():
     # --ov N: the function is in overlay N
     ov = None
@@ -112,6 +118,12 @@ def main():
         m = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", line)
         if m and int(m.group(2), 16) not in names:
             names[int(m.group(2), 16)] = m.group(1)
+    for tcm in ("itcm", "dtcm"):
+        # (the code and data of the TCMs, by their names)
+        for line in open(f"{ROOT}/config/yeep/arm9/{tcm}/symbols.txt"):
+            m = re.match(r"(\S+) kind:\S* addr:(0x[0-9a-f]+)", line)
+            if m and int(m.group(2), 16) not in names:
+                names[int(m.group(2), 16)] = m.group(1)
     if ov is None:
         blob, base = open(f"{ROOT}/extract/yeep/arm9/arm9.bin", "rb").read(), 0x02000000
     else:
@@ -139,7 +151,8 @@ def main():
         insns.append(i)
         m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", i.op_str)
         if m:
-            end = min(end, pc + 8 + int(m.group(1) or "0", 0))
+            if pc + 8 + int(m.group(1) or "0", 0) >= addr:     # (not data before the function)
+                end = min(end, pc + 8 + int(m.group(1) or "0", 0))
         pc += 4
     targets = set()
     for i in insns:
@@ -147,13 +160,38 @@ def main():
             continue
         if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
             targets.add(int(i.op_str[1:], 16))
+    # (code after a literal pool in the middle: the function is written word by word, its
+    # loads as they are and the pool as dcds, MW's own pool would go at the end)
+    literal = any(end <= t < addr + size for t in targets)
+    if literal:
+        insns, pool, pc = [], set(), addr
+        while pc < addr + size:
+            i = None if pc in pool or any(a <= pc < b for a, b in data) else \
+                next(md.disasm(blob[pc - base:pc - base + 4], pc), None)
+            if i is None:
+                insns.append((pc, struct.unpack("<I", blob[pc - base:pc - base + 4])[0]))
+            else:
+                insns.append(i)
+                m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", i.op_str)
+                if m:
+                    pool.add(pc + 8 + int(m.group(1) or "0", 0))
+                if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
+                    targets.add(int(i.op_str[1:], 16))
+            pc += 4
     out = []
     pools = {}
     for i in insns:
         if isinstance(i, tuple):
             if i[0] in targets:
                 out.append(f"@L_{i[0]:08x}:")
-            out.append(f"    dcd {i[1]:#010x}")
+            value = f"{i[1]:#010x}"
+            if i[0] in loads:
+                to, add = loads[i[0]]
+                value = to if isinstance(to, str) else names.get(to, f"data_{to:08x}")
+                if value.startswith(".L_"):
+                    value = f"{i[1] - add:#010x}"     # (no name for it: as a number)
+                value += f"+{add:#x}" if add else ""
+            out.append(f"    dcd {value}")
             continue
         if i.address in targets:
             out.append(f"@L_{i.address:08x}:")
@@ -187,6 +225,16 @@ def main():
             if t.startswith("_Z"):
                 t = short(t, cls) or t
             op = t
+        elif i.id == capstone.arm.ARM_INS_B and op.startswith("#") and not addr <= int(op[1:], 16) < addr + size:
+            # (a branch into another function, without a relocation: the linker gets a name)
+            to = int(op[1:], 16)
+            op = names.get(to)
+            if op is None or op.startswith(".L_"):
+                op = f"func_{to:08x}"
+                lcf = f"{ROOT}/config/yeep/arm9/lcf_symbols.txt"
+                if f"{op} =" not in open(lcf).read():
+                    with open(lcf, "a", newline="\n") as f:
+                        f.write(f"{op} = {to:#010x};\n")
         elif i.id == capstone.arm.ARM_INS_B and op.startswith("#"):
             op = f"@L_{int(op[1:], 16):08x}"
         elif re.fullmatch(r"bl(eq|ne|cs|cc|hs|lo|mi|pl|vs|vc|hi|ls|ge|lt|gt|le)?", mn) and op.startswith("#"):
@@ -204,7 +252,7 @@ def main():
             # (a call of a Thumb function has no relocation: 'bl NAME', the linker makes it a blx)
             to = int(op[1:], 16)
             mn, op = "bl", names.get(to, names.get(to | 1, f"func_{to:08x}"))
-        elif "[pc" in op:
+        elif "[pc" in op and not literal and not pc_before(i, op, addr):
             m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", op)
             lit = i.address + 8 + int(m.group(1) or "0", 0)
             if lit in loads:
@@ -249,11 +297,24 @@ def main():
             mn, op = "ldr" + mn[3:], f"{op.strip('{}')}, [sp], #4"
         elif mn.startswith("pop"):
             mn, op = "ldm" + mn[3:] + "ia", "sp!, " + op
+        # MWCC syntax for the system instructions
+        if mn[:3] in ("mcr", "mrc"):
+            op = op.replace("#", "")
+        if mn[:3] in ("mrs", "msr"):
+            op = op.replace("apsr_nzcvq", "CPSR_f").replace("apsr", "CPSR")
+        if mn.startswith("bl") and op.startswith(".L_"):
+            # (a label inside a function, as a second entry: MW's asm takes no such name,
+            # so the linker gets another one for the address)
+            op = "func_" + op[3:]
+            lcf = f"{ROOT}/config/yeep/arm9/lcf_symbols.txt"
+            if f"{op} =" not in open(lcf).read():
+                with open(lcf, "a", newline="\n") as f:
+                    f.write(f"{op} = 0x{op[5:]};\n")
         out.append(f"    {mn} {op}")
     print("\n".join(out))
     # the C++ functions of other classes and the data it uses need a declaration
     for line in out:
-        m = re.match(r"\s*(?:bl\S*|ldr\S*)\s+(?:\w+, =)?([A-Za-z_]\w*)(?:\+0x[0-9a-f]+)?$", line)
+        m = re.match(r"\s*(?:b\S*|ldr\S*|dcd)\s+(?:\w+, =)?([A-Za-z_]\w*)(?:\+0x[0-9a-f]+)?$", line)
         if m and (m.group(1).startswith("r") and m.group(1)[1:].isdigit() or m.group(1) in ("sp", "lr", "pc")):
             m = None
         if m:

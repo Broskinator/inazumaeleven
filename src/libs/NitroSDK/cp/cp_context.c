@@ -1,5 +1,13 @@
 // (asm for now)
 
+void CP_SaveContext(void);
+void CPi_RestoreContext(void);
+void func_0200e83c(void);
+void func_0200eab0(void);
+void func_0200eb24(void);
+void func_0200ebb8(void);
+void func_0200eca8(void);
+
 extern char data_020bd340[];
 void func_0200878c(void);
 void func_0200afc0(void);

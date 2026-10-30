@@ -1,10 +1,13 @@
 // (asm for now)
 
+void Entry(void);
+void func_0200093c(void);
+
 void func_02000a78(void);
 extern char data_027e0000[];
 void MIi_UncompressBackward(void);
 void do_autoload(void);
-extern char data_01ff8000[];
+void OS_IrqHandler(void);
 void func_02023dd4(void);
 void _ZN4Main13func_02040588Ev(void);
 void func_0202526c(void);
@@ -66,9 +69,9 @@ asm void Entry(void)
     blo @L_020008bc
     bic r1, r3, #0x1f
 @L_020008cc:
-    mcr p15, #0, r0, c7, c10, #4
-    mcr p15, #0, r1, c7, c5, #1
-    mcr p15, #0, r1, c7, c14, #1
+    mcr p15, 0, r0, c7, c10, 4
+    mcr p15, 0, r1, c7, c5, 1
+    mcr p15, 0, r1, c7, c14, 1
     add r1, r1, #0x20
     cmp r1, r2
     blt @L_020008cc
@@ -77,7 +80,7 @@ asm void Entry(void)
     ldr r1, =data_027e0000
     add r1, r1, #0x3fc0
     add r1, r1, #0x3c
-    ldr r0, =data_01ff8000
+    ldr r0, =OS_IrqHandler
     str r0, [r1]
     bl func_02023dd4
     bl _ZN4Main13func_02040588Ev

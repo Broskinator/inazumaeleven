@@ -1,5 +1,15 @@
 // (asm for now)
 
+void FSi_GetOverlayBinarySize(void);
+void FS_ClearOverlayImage(void);
+void func_0200ca60(void);
+void func_0200ca8c(void);
+void func_0200cbec(void);
+void func_0200cc70(void);
+void func_0200ccf0(void);
+void func_0200cdb0(void);
+void FS_EndOverlay(void);
+
 void IC_InvalidateRange(void);
 void DC_InvalidateRange(void);
 void MI_CpuFill8(void);

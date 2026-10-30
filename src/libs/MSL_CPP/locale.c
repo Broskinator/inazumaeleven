@@ -1,5 +1,17 @@
 // (asm for now)
 
+void _ZNSsD1Ev(void);
+void func_02020ddc(void);
+void func_02020ef0(void);
+void func_0202128c(void);
+void _ZNSs7replaceIPcEERSsmmT_S3_PNN10Metrowerks11restrict_toIXsrNS4_4_notINS4_11is_integralIS3_EEEE5valueEvEE4typeE(void);
+void func_020212f4(void);
+void func_0202130c(void);
+void func_0202132c(void);
+void func_02021344(void);
+void func_02021364(void);
+void func_0202137c(void);
+
 void _ZdlPv(void);
 extern char data_020ab630[];
 extern char data_020ab5ec[];

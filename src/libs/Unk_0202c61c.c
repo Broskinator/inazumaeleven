@@ -1,5 +1,15 @@
 // (asm for now)
 
+void func_0202c61c(void);
+void func_0202c970(void);
+void func_0202cac0(void);
+void func_0202cc14(void);
+void func_0202cde8(void);
+void func_0202cf68(void);
+void func_0202d36c(void);
+void func_0202d6a4(void);
+void func_0202d80c(void);
+
 void func_0202c378(void);
 void getMdlRot_(void);
 void getMdlScale_(void);

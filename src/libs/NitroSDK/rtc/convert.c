@@ -1,5 +1,14 @@
 // (asm for now)
 
+void RTC_ConvertDateToDay(void);
+void RTCi_ConvertTimeToSecond(void);
+void func_02010ab4(void);
+void RTC_GetDayOfWeek(void);
+void func_02010bcc(void);
+void func_02010c24(void);
+void CARD_Init(void);
+void func_02010d34(void);
+
 extern char data_020aadd8[];
 void func_02008894(void);
 void func_02008104(void);

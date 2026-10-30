@@ -1,5 +1,36 @@
 // (asm for now)
 
+void GX_SetBankForSubOBJ(void);
+void GX_SetBankForSubBGExtPltt(void);
+void GX_SetBankForSubOBJExtPltt(void);
+void func_02004ce4(void);
+void func_02004d1c(void);
+void func_02004d30(void);
+void func_02004d54(void);
+void func_02004d68(void);
+void func_02004d7c(void);
+void func_02004d90(void);
+void func_02004da4(void);
+void func_02004dcc(void);
+void func_02004e8c(void);
+void func_02004ea0(void);
+void func_02004eb4(void);
+void func_02004ed8(void);
+void func_02004efc(void);
+void func_02004f10(void);
+void func_02004f24(void);
+void func_02004f38(void);
+void func_02004f4c(void);
+void func_02004f60(void);
+void func_02004f74(void);
+void func_02004f88(void);
+void func_02004fb0(void);
+void func_02004fd8(void);
+void GX_GetSizeOfX_(void);
+void GX_GetSizeOfTex(void);
+void GX_GetSizeOfTexPltt(void);
+void GX_GetSizeOfSubOBJ(void);
+
 extern char data_020bb080[];
 void func_0200415c(void);
 extern char data_020bb082[];

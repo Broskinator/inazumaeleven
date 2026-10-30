@@ -1,5 +1,24 @@
 // (asm for now)
 
+void func_02013f08(void);
+void func_02013f70(void);
+void func_02013fec(void);
+void func_02014030(void);
+void func_0201407c(void);
+void func_020141b4(void);
+void func_0201422c(void);
+void func_020142d4(void);
+void func_020143a4(void);
+void func_02014414(void);
+void func_02014654(void);
+void func_020146a0(void);
+void func_020149d0(void);
+void func_02014aa8(void);
+void func_02014bdc(void);
+void func_02014cc0(void);
+void func_02014d90(void);
+void func_02014ee0(void);
+
 void func_0200919c(void);
 void func_02013ce4(void);
 void func_02012844(void);

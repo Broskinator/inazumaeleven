@@ -1,5 +1,34 @@
 // (asm for now)
 
+void NNS_G3dRenderObjInit(void);
+void addLink_(void);
+void func_02027b04(void);
+void NNS_G3dRenderObjAddAnmObj(void);
+void removeLink_(void);
+void NNS_G3dRenderObjRemoveAnmObj(void);
+void func_02027cb0(void);
+void func_02027cc4(void);
+void func_02027ccc(void);
+void func_02027ce0(void);
+void func_02027cf4(void);
+void NNS_G3dTexLoad(void);
+void func_02027dc0(void);
+void func_02027e10(void);
+void func_02027e24(void);
+void NNS_G3dPlttLoad(void);
+void func_02027e7c(void);
+void bindMdlTex_Internal_(void);
+void releaseMdlTex_Internal_(void);
+void func_02028084(void);
+void NNS_G3dReleaseMdlTex(void);
+void func_02028204(void);
+void func_020282e0(void);
+void NNS_G3dReleaseMdlPltt(void);
+void NNS_G3dBindMdlSet(void);
+void NNS_G3dReleaseMdlSet(void);
+void func_020285a4(void);
+void func_020286e4(void);
+
 void func_0200919c(void);
 extern char data_020ab844[];
 extern char data_020ab840[];

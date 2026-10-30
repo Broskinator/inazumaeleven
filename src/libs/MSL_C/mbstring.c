@@ -1,5 +1,11 @@
 // (asm for now)
 
+void wctomb(void);
+void wcstombs(void);
+void func_02018328(void);
+void func_02018348(void);
+void memset(void);
+
 extern char data_020ab128[];
 void strncpy(void);
 void __fill_mem(void);

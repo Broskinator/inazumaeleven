@@ -1,5 +1,12 @@
 // (asm for now)
 
+void SND_DestroyWaveArc(void);
+void func_0200ad7c(void);
+void func_0200ad9c(void);
+void func_0200af48(void);
+void SND_SetWaveDataAddress(void);
+void SND_GetWaveDataAddress(void);
+
 void func_0200a298(void);
 void DC_StoreRange(void);
 void func_0200a2ac(void);

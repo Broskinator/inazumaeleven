@@ -1,5 +1,8 @@
 // (asm for now)
 
+void _ZNSt3tr16detail25shared_ptr_deleter_common7releaseEv(void);
+void _ZNSt3tr16detail25shared_ptr_deleter_common12release_weakEv(void);
+
 asm void _ZNSt3tr16detail25shared_ptr_deleter_common7releaseEv(void)
 {
     stmdb sp!, {r4, lr}

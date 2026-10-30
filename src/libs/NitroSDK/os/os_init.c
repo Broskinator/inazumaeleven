@@ -1,5 +1,17 @@
 // (asm for now)
 
+void OSi_WaitVCount0(void);
+void func_02006dd8(void);
+void func_02006de4(void);
+void func_02006e2c(void);
+void func_02006f48(void);
+void func_02006f90(void);
+void func_02006fa4(void);
+void func_02006fb8(void);
+void func_02007098(void);
+void func_0200713c(void);
+void func_02007150(void);
+
 void func_0200afc0(void);
 void func_02005598(void);
 void OS_InitIrqTable(void);

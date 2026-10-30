@@ -1,5 +1,12 @@
 // (asm for now)
 
+void NNS_G3dGetAnmByIdx(void);
+void func_0202c1c8(void);
+void func_0202c1f0(void);
+void NNSi_G3dGetTexPatAnmFV(void);
+void NNSi_G3dGetTexPatAnmDataByIdx(void);
+void func_0202c2c0(void);
+
 extern char data_020ab82c[];
 void MIi_CpuClear16(void);
 

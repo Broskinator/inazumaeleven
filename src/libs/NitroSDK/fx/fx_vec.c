@@ -1,5 +1,15 @@
 // (asm for now)
 
+void VEC_DotProduct(void);
+void func_02001fa4(void);
+void func_02002024(void);
+void func_02002084(void);
+void func_02002198(void);
+void func_020021f0(void);
+void func_0200226c(void);
+void func_020023fc(void);
+void func_02002400(void);
+
 void func_02001d60(void);
 extern char data_020a3cf8[];
 void GX_InitGXState(void);

@@ -1,5 +1,16 @@
 // (asm for now)
 
+void STD_CopyString(void);
+void func_02016d0c(void);
+void func_02016e10(void);
+void func_02016e30(void);
+void func_02016e34(void);
+void func_02016e58(void);
+void func_02016e5c(void);
+void STD_GetStringLength(void);
+void func_02016f44(void);
+void STD_ConcatenateString(void);
+
 asm void STD_CopyString(void)
 {
     ldrsb r2, [r1]

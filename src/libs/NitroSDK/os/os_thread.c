@@ -1,5 +1,39 @@
 // (asm for now)
 
+void OSi_RemoveLinkFromQueue(void);
+void OSi_RemoveSpecifiedLinkFromQueue(void);
+void OSi_RemoveMutexLinkFromQueue(void);
+void func_02005af4(void);
+void func_02005b50(void);
+void func_02005b98(void);
+void func_02005c5c(void);
+void func_02005da8(void);
+void OS_CreateThread(void);
+void func_02005ea8(void);
+void func_02005ec8(void);
+void OSi_ExitThread(void);
+void OSi_ExitThread_Destroy(void);
+void OS_DestroyThread(void);
+void OSi_CancelThreadAlarmForSleep(void);
+void func_02006048(void);
+void OS_IsThreadTerminated(void);
+void OS_SleepThread(void);
+void OS_WakeupThread(void);
+void OS_WakeupThreadDirect(void);
+void func_02006178(void);
+void func_020061a4(void);
+void func_020061c0(void);
+void OS_SetThreadStackWarningOffset(void);
+void func_0200628c(void);
+void func_02006334(void);
+void OS_Sleep(void);
+void OSi_SleepAlarmCallback(void);
+void func_020063fc(void);
+void func_02006424(void);
+void func_02006434(void);
+void OS_EnableScheduler(void);
+void func_02006498(void);
+
 extern char data_020bb104[];
 extern char data_020bb120[];
 void func_02008438(void);
