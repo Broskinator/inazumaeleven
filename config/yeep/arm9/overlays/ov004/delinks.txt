@@ -3,3 +3,7 @@
     .ctor       start:0x020fd27c end:0x020fd28c kind:rodata align:4
     .data       start:0x020fd2a0 end:0x020fd540 kind:data align:32
     .bss        start:0x020fd540 end:0x020fd540 kind:bss align:32
+
+src/ov004/Unk_ov004_020fc7e0.cpp:
+    complete
+    .text start:0x020fc7e0 end:0x020fd12c
