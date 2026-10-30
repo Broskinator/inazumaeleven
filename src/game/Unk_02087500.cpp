@@ -69,11 +69,11 @@ extern "C" void func_020888a4(void);
 extern "C" void func_020888cc(u8 *obj, int value);
 extern "C" void func_020888f0(void);
 extern "C" void func_02088934(u8 *obj, u16 color, u8 alpha);
-extern "C" void func_02088950(void);
+extern "C" s32 func_02088950(s32 arg0, s32 arg1);
 extern "C" void func_0208897c(void);
 extern "C" void func_02088990(void);
 extern "C" void **func_02088a38(void **obj);
-extern "C" void func_02088a5c(void);
+extern "C" s32 func_02088a5c(u8 *arg0, s32 arg1);
 extern "C" void func_02088aa0(void);
 extern "C" void func_02088ad0(void);
 extern "C" void func_02088b8c(void);
@@ -114,19 +114,19 @@ extern "C" char data_020d3d20[];
 extern "C" char data_020e88a0[];
 extern "C" void FX_SinCosTable_(void);
 extern "C" void G3X_SetClearColor(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" void MIi_CpuCopyFast(void);
+extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02001d60(void);
 extern "C" void func_02002bf4(void);
-extern "C" void func_02002c0c(void);
+extern "C" s32 func_02002c0c(...);
 extern "C" void func_02002c20(void);
 extern "C" void func_02008cb4(void);
 extern "C" void func_02022484(void);
@@ -1584,19 +1584,14 @@ extern "C" void func_02088934(u8 *obj, u16 color, u8 alpha)
     *(volatile u32 *)0x04000358 = color | (alpha << 16);     // (REG_FOG_COLOR)
 }
 
-extern "C" asm void func_02088950(void)
+extern "C" s32 func_02088950(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    movs r4, r1
-    mov r1, r0
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    add r1, r1, #0x24
-    mov r2, #0x20
-    bl MIi_CpuCopyFast
-    mov r0, r4
-    bl func_02002c0c
-    ldmia sp!, {r4, pc}
+    s32 v1;
+    if (arg1 == 0)
+        return arg0;
+    MIi_CpuCopyFast(arg1, (arg0 + 0x24), 0x20);
+    v1 = func_02002c0c(arg1);
+    return v1;
 }
 
 extern "C" void func_0208897c(void)
@@ -1659,24 +1654,15 @@ extern "C" void **func_02088a38(void **obj)
     return obj;
 }
 
-extern "C" asm void func_02088a5c(void)
+extern "C" s32 func_02088a5c(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r2, #0xc
-    mul r5, r1, r2
-    mov r6, r0
-    mov r4, #0
-    str r1, [r6, #4]
-    ldr r0, =data_020c47b4
-    mov r1, r5
-    mov r2, r4
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    mov r1, r4
-    mov r2, r5
-    str r0, [r6, #8]
-    bl MI_CpuFill8
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v0;
+    s32 v1;
+    *(s32 *)(arg0 + 0x4) = arg1;
+    v0 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, (arg1 * 0xC), 0, 1);
+    *(s32 *)(arg0 + 0x8) = v0;
+    v1 = MI_CpuFill8(v0, 0, (arg1 * 0xC));
+    return v1;
 }
 
 extern "C" asm void func_02088aa0(void)

@@ -3,8 +3,8 @@
 extern "C" void func_ov002_020fc7e0(void);
 extern "C" void func_ov002_020fc874(void);
 extern "C" void func_ov002_020fc8c4(void);
-extern "C" void func_ov002_020fcaa0(void);
-extern "C" void func_ov002_020fcad0(void);
+extern "C" s32 func_ov002_020fcaa0(s32 arg0, s32 arg1);
+extern "C" s32 func_ov002_020fcad0(s32 arg0, s32 arg1);
 extern "C" s32 func_ov002_020fcb10(s32 arg0);
 extern "C" void func_ov002_020fcb24(void);
 extern "C" void func_ov002_020fcb28(void);
@@ -44,7 +44,7 @@ extern "C" void G2_GetBG1CharPtr(void);
 extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc9cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
@@ -68,10 +68,10 @@ extern "C" void func_ov015_02133f94(void);
 extern "C" void func_ov015_021340c0(void);
 extern "C" s32 func_ov015_02134198(...);
 extern "C" void func_ov015_02134208(void);
-extern "C" void func_ov015_02134ccc(void);
-extern "C" void func_ov015_021353a4(void);
-extern "C" void func_ov015_02135440(void);
-extern "C" void func_ov015_02135e10(void);
+extern "C" s32 func_ov015_02134ccc(...);
+extern "C" s32 func_ov015_021353a4(...);
+extern "C" s32 func_ov015_02135440(...);
+extern "C" s32 func_ov015_02135e10(...);
 extern "C" void func_ov015_0213b364(void);
 extern "C" s32 func_ov015_0213b3fc(...);
 extern "C" void func_ov015_0213b540(void);
@@ -283,43 +283,38 @@ extern "C" asm void func_ov002_020fc8c4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov002_020fcaa0(void)
+extern "C" s32 func_ov002_020fcaa0(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    movs r4, r1
-    cmpne r4, #2
-    bne @L_020fcab8
-    mov r0, #1
-    bl func_ov015_02134ccc
-@L_020fcab8:
-    sub r0, r4, #1
-    cmp r0, #1
-    ldmhiia sp!, {r4, pc}
-    mov r0, #1
-    bl func_ov015_02135440
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    s32 v1;
+    r4 = arg1;
+    if ((r4 == 0 || r4 == 2)) {
+        func_ov015_02134ccc(1);
+    }
+    if ((u32)(r4 - 1) > (u32)1)
+        return (r4 - 1);
+    v1 = func_ov015_02135440(1);
+    return v1;
 }
 
-extern "C" asm void func_ov002_020fcad0(void)
+extern "C" s32 func_ov002_020fcad0(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    movs r4, r1
-    cmpne r4, #2
-    bne @L_020fcae4
-    bl func_ov015_021353a4
-@L_020fcae4:
-    sub r0, r4, #1
-    cmp r0, #1
-    bhi @L_020fcaf4
-    bl func_ov015_02135e10
-@L_020fcaf4:
-    cmp r4, #2
-    ldmneia sp!, {r4, pc}
-    mov r0, #0
-    mov r1, #0x6800000
-    mov r2, #0xa4000
-    bl MIi_CpuClearFast
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    s32 v1;
+    s32 v2;
+    r4 = arg1;
+    if ((r4 == 0 || r4 == 2)) {
+        func_ov015_021353a4();
+    }
+    arg0 = (r4 - 1);
+    if ((u32)arg0 <= (u32)1) {
+        v1 = func_ov015_02135e10();
+        arg0 = v1;
+    }
+    if (r4 != 2)
+        return arg0;
+    v2 = MIi_CpuClearFast(0, 0x6800000, 0xA4000);
+    return v2;
 }
 
 extern "C" s32 func_ov002_020fcb10(s32 arg0)

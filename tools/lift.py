@@ -87,6 +87,7 @@ class Tmp(Param):
         self.k, self.v, self.used = k, v, False
 
     def render(self):
+        self.used = True
         return f"t{self.k}"
 
     def ctype(self):
@@ -117,6 +118,7 @@ def settle(regs, stmts, tmps):
             stmts.append(("let", t))
             done[id(v)] = t
         regs[r] = done[id(v)]
+    return done
 
 
 class Local:
@@ -354,7 +356,9 @@ def lift(name, body, protos, variant=0):
             write(m[1], Load(LOAD[mn], read(m[2]), int(m[3] or "0", 0)))
             continue
         if mn in STORE and m:
-            settle(regs, stmts, tmps)
+            m_ = settle(regs, stmts, tmps)
+            if flags and m_:
+                flags = subst_flags(flags, m_)
             v, base = read(m[1]), read(m[2])
             if isinstance(v, Param) and v.i >= 0 and STORE[mn] != "s32":
                 v.type = STORE[mn]
@@ -438,7 +442,16 @@ def lift(name, body, protos, variant=0):
     for t in tmps:
         if t.used and isinstance(t.v, Param) and t.v.i >= 0:
             params.setdefault(t.v.i, t.v)
-    # (the C is written after the walk: the types of the parameters are known by then)
+    # (the C is written after the walk: the types of the parameters are known by then;
+    # twice, the first time for which temporaries are used)
+    for _ in range(2):
+        out = render_linear(stmts, ret, regs, low, size)
+    args = ", ".join(f"u8 *arg{i}" if params[i].ptr else f"{params[i].type} arg{i}" for i in range(n)) or "void"
+    decl = f"{ret}{'' if ret.endswith('*') else ' '}{name}({args})"
+    return decl, "".join(out), {c.name for c in calls}
+
+
+def render_linear(stmts, ret, regs, low, size):
     out = []
     if low is not None:
         out.append(f"    s32 local[{(size - low) // 4}];\n")
@@ -466,9 +479,7 @@ def lift(name, body, protos, variant=0):
                 out.append(f"    {c.name}({args});\n")
     if ret != "void":
         out.append(f"    return {value(regs['r0'], ret)};\n")
-    args = ", ".join(f"u8 *arg{i}" if params[i].ptr else f"{params[i].type} arg{i}" for i in range(n)) or "void"
-    decl = f"{ret}{'' if ret.endswith('*') else ' '}{name}({args})"
-    return decl, "".join(out), {c.name for c in calls}
+    return out
 
 
 class Var(Param):
@@ -763,7 +774,7 @@ def lift_cfg(name, body, protos, variant=0):
         if mn == "switch":
             return {op.split()[0]}, set()
         if mn in ("bl", "blx"):
-            return {"r0", "r1", "r2", "r3"} | set(regs_), {"r0", "r1", "r2", "r3", "r12"}
+            return CALL_USES.get(id(ins), set()) | set(regs_), {"r0", "r1", "r2", "r3", "r12"}
         if mn in ("cmp", "cmn", "tst") or mn in STORE:
             d = {regs_[1]} if mn in STORE and ("!" in op or re.search(r"\], #", op)) else set()
             return set(regs_), d
@@ -774,6 +785,16 @@ def lift_cfg(name, body, protos, variant=0):
         if c:
             u |= d     # (a conditional write keeps the old value otherwise)
         return u, d
+    # (a call reads the argument registers written for it, in its block)
+    CALL_USES = {}
+    for b in blocks:
+        seg_ = set()
+        for ins in b["insns"]:
+            if ins[1] in ("bl", "blx"):
+                CALL_USES[id(ins)] = seg_ & {"r0", "r1", "r2", "r3"}
+                seg_ = set()
+            else:
+                seg_ |= use_def(ins)[1]
     live_in = [set() for _ in blocks]
     changed_ = True
     while changed_:
@@ -863,7 +884,9 @@ def lift_cfg(name, body, protos, variant=0):
                     op = None
                 elif c or op == name or op not in protos:
                     raise Fail(f"call of {op}")
-                settle(regs, stmts, tmps)
+                m_ = settle(regs, stmts, tmps)
+                if state["flags"] and m_:
+                    state["flags"] = subst_flags(state["flags"], m_)
                 cl = Call(len(calls), op, dict(regs), set(seg), k == 0 and not calls)
                 if op is None:
                     cl.fp = fp
@@ -930,7 +953,9 @@ def lift_cfg(name, body, protos, variant=0):
             mm = re.match(r"(r\d+|lr), \[(r\d+|lr)(?:, (#-?\w+|-?(?:r\d+|lr)(?:, lsl #\w+)?))?\](!?)(?:, (#-?\w+))?$", op)
             if (mn in LOAD or mn in STORE) and mm:
                 if mn in STORE and not c:
-                    settle(regs, stmts, tmps)
+                    m_ = settle(regs, stmts, tmps)
+                    if state["flags"] and m_:
+                        state["flags"] = subst_flags(state["flags"], m_)
                 base = read(mm[2])
                 off = 0
                 if mm[3]:
@@ -950,7 +975,7 @@ def lift_cfg(name, body, protos, variant=0):
                     v = read(mm[1])
                     if isinstance(v, Param) and v.i >= 0 and STORE[mn] != "s32":
                         v.type = STORE[mn]
-                    st = ("store", STORE[mn], base, 0 if mm[5] else off, v)
+                    st = ("store", STORE[mn], base, 0 if mm[5] else off, given(v, state["flags"], c, True) if c else v)
                     stmts.append(("if", need_flags(), c, st) if c else st)
                 if mm[4] or mm[5]:
                     if c:
@@ -1020,7 +1045,7 @@ def lift_cfg(name, body, protos, variant=0):
             for home, v in order:
                 stmts.append(("assign", home, v))
                 used_vars.add(home)
-                if isinstance(v, Call):
+                if isinstance(v, (Call, Tmp)):
                     v.used = True
             if term:
                 m_ = {id(v): home for home, v in order}
@@ -1120,89 +1145,147 @@ def lift_cfg(name, body, protos, variant=0):
             return f"{sp_}v{c.k} = {f}({args});\n"
         return f"{sp_}{f}({args});\n"
 
-    def latch_of(h):
-        ls = [k for k, b in enumerate(blocks) if b.get("target") == h and k >= h]
-        return max(ls) if ls else None
+    # (the structure, from the dominators: a loop is a back edge to a block that dominates
+    # it; an if goes on where both of its ways meet, at the block that post-dominates it)
+    nb = len(blocks)
+    EXIT = nb
+    succ = [list(b["succ"]) or [EXIT] for b in blocks] + [[]]
+    preds = [[] for _ in range(nb + 1)]
+    for k in range(nb):
+        for x in succ[k]:
+            preds[x].append(k)
+    every = set(range(nb + 1))
+    dom = [every for _ in range(nb + 1)]
+    dom[0] = {0}
+    pdom = [every for _ in range(nb + 1)]
+    pdom[EXIT] = {EXIT}
+    again = True
+    while again:
+        again = False
+        for k in range(1, nb):
+            d = {k} | (set.intersection(*[dom[p] for p in preds[k]]) if preds[k] else set())
+            if d != dom[k]:
+                dom[k], again = d, True
+        for k in reversed(range(nb)):
+            d = {k} | set.intersection(*[pdom[x] for x in succ[k]])
+            if d != pdom[k]:
+                pdom[k], again = d, True
 
-    def emit(i, end, ind, loop=None, join=None, header_done=None):
+    def ipdom(k, within=None):
+        """the block where the ways from k meet (EXIT: they don't)"""
+        cands = pdom[k] - {k}
+        if within is not None:
+            cands = {c for c in cands if c in within} or {EXIT}
+        # (the nearest: the one post-dominated by all the others)
+        best = [c for c in cands if all(o == c or o in pdom[c] for o in cands)]
+        return best[0] if best else EXIT
+    loops = {}
+    for k in range(nb):
+        for x in succ[k]:
+            if x < nb and x in dom[k]:
+                if x in loops:
+                    raise Fail("a loop with two ends")
+                body_ = {x, k}
+                stack = [k]
+                while stack:
+                    y = stack.pop()
+                    for p in preds[y]:
+                        if p not in body_:
+                            body_.add(p)
+                            stack.append(p)
+                exits = {s for y in body_ for s in succ[y] if s not in body_ and s != EXIT}
+                if len(exits) > 1:
+                    raise Fail("a loop with two exits")
+                loops[x] = (k, body_, min(exits) if exits else None)
+    emitted = {}
+
+    def ind_(n):
+        return "    " * n
+
+    def region(b, stop, ind, loop):
+        """the C of the blocks from b to stop (not included)"""
         out = []
-        while i < end:
-            lt = latch_of(i)
-            if lt is not None and header_done != i:
-                if loop and lt >= loop[1]:
-                    raise Fail("loops")
-                lb = blocks[lt]
-                last = lb["insns"][-1]
-                if code[lt][1] is None and not last[2]:
-                    raise Fail("an endless loop")
-                body = emit(i, lt + 1, ind + 1, (i, lt, lt + 1), None, i)
-                cnd = code[lt][1]
-                out.append("    " * ind + "do {\n" + body + "    " * ind + f"}} while ({cond(*cnd)});\n")
-                i = lt + 1
+        while b != stop and b != EXIT and b is not None:
+            if loop and b == loop[3] and out:
+                break     # (back at the loop's start: the next time round)
+            if b in loops and not (loop and loop[3] == b):
+                latch, body_, ex = loops[b]
+                ctx = (b, latch, ex, b, body_)
+                inner = region(b, None, ind + 1, ctx)
+                lterm = code[latch][1]
+                if lterm is not None and blocks[latch].get("target") == b:
+                    out.append(ind_(ind) + "do {\n" + inner + ind_(ind) + f"}} while ({cond(*lterm)});\n")
+                elif lterm is not None and succ[latch][0] == b and blocks[latch].get("target") == ex:
+                    # (the end falls into the start; the branch leaves)
+                    out.append(ind_(ind) + "do {\n" + inner + ind_(ind) + f"}} while ({cond(*negate(lterm))});\n")
+                else:
+                    out.append(ind_(ind) + "for (;;) {\n" + inner + ind_(ind) + "}\n")
+                b = ex
                 continue
-            stmts, term = code[i]
+            emitted[b] = emitted.get(b, 0) + 1
+            if emitted[b] > 1 and (len(blocks[b]["insns"]) > 2 or blocks[b]["succ"]):
+                raise Fail("goto")     # (a block in two places: only a short return can be)
+            stmts, term = code[b]
             out += [render(st, ind) for st in stmts]
-            b = blocks[i]
-            if b.get("switch"):
-                ts = b["switch"]
-                tg = sorted(set(ts))
-                # (where the cases go on: the branches out of them after the last one)
-                jn, again = end, True
-                while again:
-                    again = False
-                    for k in range(tg[0], jn):
-                        t = blocks[k].get("target")
-                        if t is not None and tg[-1] < t < jn:
-                            jn, again = t, True
-                if any(blocks[k].get("target", -1) > jn for k in range(tg[0], jn)):
-                    raise Fail("a switch")
-                if tg[0] != i + 1 or jn > end:
-                    raise Fail("a switch")
+            bk = blocks[b]
+            if not bk["succ"]:
+                break     # (a return)
+            if bk.get("switch"):
+                ts = bk["switch"]
+                jn = ipdom(b, loop[4] if loop else None)
+                if loop and jn == EXIT and loop[2] is not None:
+                    jn = loop[2]
                 body = ""
-                starts = [t for t in tg if t < jn]
+                starts = sorted(set(ts) - {jn})
                 for n_, t in enumerate(starts):
-                    stop = starts[n_ + 1] if n_ + 1 < len(starts) else jn
+                    stop_ = starts[n_ + 1] if n_ + 1 < len(starts) else jn
                     labels = [f"case {k}:" for k, x in enumerate(ts[1:]) if x == t] + (["default:"] if ts[0] == t else [])
-                    body += "".join("    " * (ind + 1) + lb + "\n" for lb in labels)
-                    body += emit(t, stop, ind + 2, (-1, 10 ** 9, jn), None)
-                out.append("    " * ind + f"switch ({value(term[0][1])}) {{\n" + body + "    " * ind + "}\n")
-                i = jn
-                continue
-            t = b.get("target")
-            if t is None:
-                i += 1
-                continue
-            if loop and i == loop[1] and t == loop[0]:
-                i += 1     # (the loop's condition: in the while)
+                    body += "".join(ind_(ind + 1) + lb + "\n" for lb in labels)
+                    body += region(t, stop_, ind + 2, (loop[0], loop[1], jn, loop[3], loop[4]) if loop else (None, None, jn, None, set(range(nb))))
+                out.append(ind_(ind) + f"switch ({value(term[0][1])}) {{\n" + body + ind_(ind) + "}\n")
+                b = jn
                 continue
             if term is None:
-                if loop and t == loop[2]:
-                    out.append("    " * ind + "break;\n")
-                elif t == join and i == end - 1:
-                    pass
-                else:
-                    raise Fail("goto")
-                i += 1
+                s_ = succ[b][0]
+                if loop and s_ == loop[2]:
+                    out.append(ind_(ind) + "break;\n")
+                    break
+                if loop and s_ == loop[3]:
+                    if b != loop[1]:
+                        raise Fail("continue")
+                    break
+                b = s_
                 continue
+            t, f = bk["target"], b + 1
+            if loop and b == loop[1] and t == loop[3]:
+                break     # (the loop's condition: in the while)
+            if loop and b == loop[1] and f == loop[3] and t == loop[2]:
+                break     # (the same, the other way round)
             if loop and t == loop[2]:
-                out.append("    " * ind + f"if ({cond(*term)})\n" + "    " * ind + "    break;\n")
-                i += 1
+                out.append(ind_(ind) + f"if ({cond(*term)})\n" + ind_(ind + 1) + "break;\n")
+                b = f
                 continue
-            if not i < t <= end:
-                raise Fail("goto")
-            neg = (term[0], OPPOSITE[term[1]])
-            lb = blocks[t - 1]
-            y = lb.get("target")
-            if y is not None and code[t - 1][1] is None and t < y <= end and not (loop and y in (loop[0], loop[2])) and y != t:
-                then = emit(i + 1, t, ind + 1, loop, y)
-                els = emit(t, y, ind + 1, loop, None)
-                out.append("    " * ind + f"if ({cond(*neg)}) {{\n" + "".join(then) + "    " * ind + "} else {\n" + "".join(els) + "    " * ind + "}\n")
-                i = y
-            else:
-                then = emit(i + 1, t, ind + 1, loop, None)
-                out.append("    " * ind + f"if ({cond(*neg)}) {{\n" + "".join(then) + "    " * ind + "}\n")
-                i = t
+            if loop and f == loop[2]:
+                out.append(ind_(ind) + f"if ({cond(*negate(term))})\n" + ind_(ind + 1) + "break;\n")
+                b = t
+                continue
+            if loop and loop[3] in (t, f) and b != loop[1]:
+                raise Fail("continue")
+            jn = ipdom(b, loop[4] if loop else None)
+            then = region(f, jn, ind + 1, loop)
+            els = region(t, jn, ind + 1, loop)
+            if then and els:
+                out.append(ind_(ind) + f"if ({cond(*negate(term))}) {{\n" + then + ind_(ind) + "} else {\n" + els + ind_(ind) + "}\n")
+            elif then:
+                out.append(ind_(ind) + f"if ({cond(*negate(term))}) {{\n" + then + ind_(ind) + "}\n")
+            elif els:
+                out.append(ind_(ind) + f"if ({cond(*term)}) {{\n" + els + ind_(ind) + "}\n")
+            b = jn
         return "".join(out)
+
+    def emit(i, end, ind):
+        emitted.clear()
+        return region(0, None, ind, None)
     emit(0, len(blocks), 1)     # (once for the types: which variables are pointers)
     text = emit(0, len(blocks), 1)
     if "goto" in text:

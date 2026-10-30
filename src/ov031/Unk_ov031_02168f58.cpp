@@ -3,14 +3,14 @@
 extern "C" void func_ov031_02168f58(void);
 extern "C" void func_ov031_02169538(void);
 extern "C" void func_ov031_021695fc(void);
-extern "C" void func_ov031_02169b90(void);
-extern "C" void func_ov031_02169c98(void);
+extern "C" s32 func_ov031_02169b90(u8 *arg0, u8 *arg1);
+extern "C" s32 func_ov031_02169c98(u8 *arg0, u8 *arg1);
 extern "C" void func_ov031_02169da0(void);
 extern "C" void func_ov031_02169e48(void);
 extern "C" void func_ov031_02169fb8(void);
 extern "C" void func_ov031_0216a328(void);
 extern "C" void func_ov031_0216a3c8(void);
-extern "C" void func_ov031_0216a424(void);
+extern "C" s32 func_ov031_0216a424(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov031_0216a4a8(u8 *arg0, s32 arg1);
 extern "C" void func_ov031_0216a4c4(void);
 extern "C" void func_ov031_0216a4f8(void);
@@ -72,11 +72,11 @@ extern "C" void func_02017cdc(void);
 extern "C" void func_02022948(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
-extern "C" void func_020920c4(void);
-extern "C" void func_02093188(void);
-extern "C" void func_02093368(void);
-extern "C" void func_02093524(void);
-extern "C" void func_020939c8(void);
+extern "C" s32 func_020920c4(...);
+extern "C" s32 func_02093188(...);
+extern "C" s32 func_02093368(...);
+extern "C" s32 func_02093524(...);
+extern "C" s32 func_020939c8(...);
 extern "C" void func_0209b7b0(void);
 extern "C" void func_ov000_02116fcc(void);
 extern "C" s32 func_ov015_02132628(...);
@@ -87,7 +87,7 @@ extern "C" void func_ov015_021616a4(void);
 extern "C" void func_ov015_021616dc(void);
 extern "C" s32 func_ov015_02161710(...);
 extern "C" void func_ov015_02161760(void);
-extern "C" void func_ov015_02161c78(void);
+extern "C" s32 func_ov015_02161c78(...);
 extern "C" void func_ov015_02161d00(void);
 extern "C" void func_ov015_02161d24(void);
 extern "C" void func_ov015_02161dd4(void);
@@ -100,7 +100,7 @@ extern "C" void func_ov015_02162750(void);
 extern "C" void func_ov015_021629ac(void);
 extern "C" void func_ov015_021629c8(void);
 extern "C" void func_ov015_021629d0(void);
-extern "C" void func_ov015_02162fb4(void);
+extern "C" s32 func_ov015_02162fb4(...);
 extern "C" void func_ov031_02165d60(void);
 extern "C" void func_ov031_02165de0(void);
 extern "C" void func_ov031_02165e5c(void);
@@ -113,7 +113,7 @@ extern "C" void func_ov031_02166ef0(void);
 extern "C" void func_ov031_02167024(void);
 extern "C" void func_ov031_02167074(void);
 extern "C" void func_ov031_021670d8(void);
-extern "C" void func_ov031_02167274(void);
+extern "C" s32 func_ov031_02167274(...);
 extern "C" void func_ov031_021672fc(void);
 extern "C" void func_ov031_0216742c(void);
 extern "C" void func_ov031_021674e4(void);
@@ -947,140 +947,78 @@ extern "C" asm void func_ov031_021695fc(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov031_02169b90(void)
+extern "C" s32 func_ov031_02169b90(u8 *arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #8
-    mov r4, #0
-    mov r5, r0
-    str r4, [sp, #4]
-    mov r7, r1
-    bl func_ov031_02167274
-    ldr r6, [r5, #0xb4]
-    mov r9, #0x1e
-    add r2, sp, #4
-    mov r0, r5
-    mov r1, r7
-    mov r3, r4
-    str r6, [r7, #0x1c]
-    str r9, [r7, #0xa4]
-    str r4, [r7]
-    mov r8, #1
-    str r8, [sp]
-    bl func_ov031_0216a424
-    mov r7, r0
-    ldr r6, =data_020c46d4
-    mov r3, r9
-    ldr r0, [r6]
-    mov r1, r7
-    mov r2, r8
-    bl func_02093368
-    ldr r1, [r5, #0x144]
-    ldr r0, [r6]
-    and r3, r1, #0xff
-    mov r1, r7
-    mov r2, r8
-    bl func_02093188
-    str r4, [sp]
-    ldr r0, [r6]
-    mov r1, r7
-    mov r2, r8
-    mov r3, r4
-    bl func_020939c8
-    mov r0, #0x48
-    str r0, [sp]
-    ldr r0, [r6]
-    mov r1, r7
-    mov r2, r8
-    mov r3, #0x40
-    bl func_02093524
-    mov r0, #0x64
-    str r0, [sp]
-    ldr r0, =data_020c46c4
-    mov r1, #4
-    ldr r0, [r0]
-    mov r2, #8
-    mov r3, r4
-    bl func_ov015_02162fb4
-    cmp r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r5, #0xc0
-    mov r1, r4
-    mov r2, r4
-    mov r3, #0x100
-    str r5, [sp]
-    bl func_ov015_02161c78
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 local[1];
+    s32 v1;
+    s32 v6;
+    s32 v7;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    s32 t6;
+    *(s32 *)(((u8 *)local)) = 0;
+    func_ov031_02167274((s32)arg0, (s32)arg1);
+    t0 = *(s32 *)(arg0 + 0xB4);
+    *(s32 *)(arg1 + 0x1C) = t0;
+    *(s32 *)(arg1 + 0xA4) = 0x1E;
+    *(s32 *)(arg1) = 0;
+    v1 = func_ov031_0216a424((s32)arg0, (s32)arg1, ((u8 *)local), 0, 1);
+    t1 = *(s32 *)(data_020c46d4);
+    func_02093368(t1, v1, 1, 0x1E);
+    t2 = *(s32 *)(data_020c46d4);
+    t3 = (*(s32 *)(arg0 + 0x144) & 0xFF);
+    func_02093188(t2, v1, 1, t3);
+    t4 = *(s32 *)(data_020c46d4);
+    func_020939c8(t4, v1, 1, 0, 0);
+    t5 = *(s32 *)(data_020c46d4);
+    func_02093524(t5, v1, 1, 0x40, 0x48);
+    t6 = *(s32 *)(data_020c46c4);
+    v6 = func_ov015_02162fb4(t6, 4, 8, 0, 0x64);
+    if (v6 == 0)
+        return v6;
+    v7 = func_ov015_02161c78(v6, 0, 0, 0x100, 0xC0);
+    return v7;
 }
 
-extern "C" asm void func_ov031_02169c98(void)
+extern "C" s32 func_ov031_02169c98(u8 *arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #8
-    mov r4, #0
-    mov r5, r0
-    str r4, [sp, #4]
-    mov r7, r1
-    bl func_ov031_02167274
-    ldr r6, [r5, #0xb4]
-    mov r9, #0x1e
-    add r2, sp, #4
-    mov r0, r5
-    mov r1, r7
-    mov r3, r4
-    str r6, [r7, #0x1c]
-    str r9, [r7, #0xa4]
-    str r4, [r7]
-    mov r8, #1
-    str r8, [sp]
-    bl func_ov031_0216a424
-    mov r7, r0
-    ldr r6, =data_020c46d4
-    mov r3, r9
-    ldr r0, [r6]
-    mov r1, r7
-    mov r2, r8
-    bl func_02093368
-    ldr r1, [r5, #0x14c]
-    ldr r0, [r6]
-    and r3, r1, #0xff
-    mov r1, r7
-    mov r2, r8
-    bl func_02093188
-    str r4, [sp]
-    ldr r0, [r6]
-    mov r1, r7
-    mov r2, r8
-    mov r3, r4
-    bl func_020939c8
-    mov r0, #0x48
-    str r0, [sp]
-    ldr r0, [r6]
-    mov r1, r7
-    mov r2, r8
-    mov r3, #0x40
-    bl func_02093524
-    mov r0, #0x64
-    str r0, [sp]
-    ldr r0, =data_020c46c4
-    mov r1, #4
-    ldr r0, [r0]
-    mov r2, #8
-    mov r3, r4
-    bl func_ov015_02162fb4
-    cmp r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r5, #0xc0
-    mov r1, r4
-    mov r2, r4
-    mov r3, #0x100
-    str r5, [sp]
-    bl func_ov015_02161c78
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 local[1];
+    s32 v1;
+    s32 v6;
+    s32 v7;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    s32 t6;
+    *(s32 *)(((u8 *)local)) = 0;
+    func_ov031_02167274((s32)arg0, (s32)arg1);
+    t0 = *(s32 *)(arg0 + 0xB4);
+    *(s32 *)(arg1 + 0x1C) = t0;
+    *(s32 *)(arg1 + 0xA4) = 0x1E;
+    *(s32 *)(arg1) = 0;
+    v1 = func_ov031_0216a424((s32)arg0, (s32)arg1, ((u8 *)local), 0, 1);
+    t1 = *(s32 *)(data_020c46d4);
+    func_02093368(t1, v1, 1, 0x1E);
+    t2 = *(s32 *)(data_020c46d4);
+    t3 = (*(s32 *)(arg0 + 0x14C) & 0xFF);
+    func_02093188(t2, v1, 1, t3);
+    t4 = *(s32 *)(data_020c46d4);
+    func_020939c8(t4, v1, 1, 0, 0);
+    t5 = *(s32 *)(data_020c46d4);
+    func_02093524(t5, v1, 1, 0x40, 0x48);
+    t6 = *(s32 *)(data_020c46c4);
+    v6 = func_ov015_02162fb4(t6, 4, 8, 0, 0x64);
+    if (v6 == 0)
+        return v6;
+    v7 = func_ov015_02161c78(v6, 0, 0, 0x100, 0xC0);
+    return v7;
 }
 
 extern "C" asm void func_ov031_02169da0(void)
@@ -1531,40 +1469,28 @@ extern "C" asm void func_ov031_0216a3c8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov031_0216a424(void)
+extern "C" s32 func_ov031_0216a424(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r2
-    ldr r0, [r5]
-    mov r6, r1
-    cmp r0, #0x20
-    mov r4, r3
-    movge r0, #0
-    ldmgeia sp!, {r4, r5, r6, pc}
-    cmp r4, #1
-    movhs r0, #0
-    ldmhsia sp!, {r4, r5, r6, pc}
-    ldr r0, =data_020c46d4
-    ldr r1, [sp, #0x10]
-    ldr r0, [r0]
-    mov r2, #1
-    bl func_020920c4
-    add r2, r6, r4, lsl #1
-    ldrb r1, [r2, #0xa1]
-    cmp r1, #0
-    ldreq r1, [r5]
-    streqb r1, [r2, #0xa0]
-    ldr r1, [r5]
-    add r2, r6, #0xa1
-    add r1, r6, r1, lsl #2
-    str r0, [r1, #0x20]
-    ldrb r1, [r2, r4, lsl #1]
-    add r1, r1, #1
-    strb r1, [r2, r4, lsl #1]
-    ldr r1, [r5]
-    add r1, r1, #1
-    str r1, [r5]
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v0;
+    s32 t0;
+    u8 *t1;
+    s32 t2;
+    s32 t3;
+    if (*(s32 *)(arg2) >= 0x20)
+        return 0;
+    if ((u32)arg3 >= (u32)1)
+        return 0;
+    t0 = *(s32 *)(data_020c46d4);
+    v0 = func_020920c4(t0, arg4, 1, arg3);
+    if (*(u8 *)(((u8 *)(arg1 + (arg3 << 1))) + 0xA1) == 0)
+        *(u8 *)(((u8 *)(arg1 + (arg3 << 1))) + 0xA0) = *(s32 *)(arg2);
+    t1 = (u8 *)(arg1 + (*(s32 *)(arg2) << 2));
+    *(s32 *)(t1 + 0x20) = v0;
+    t2 = (*(u8 *)(((u8 *)(arg1 + 0xA1)) + (arg3 << 1)) + 1);
+    *(u8 *)(((u8 *)(arg1 + 0xA1)) + (arg3 << 1)) = t2;
+    t3 = (*(s32 *)(arg2) + 1);
+    *(s32 *)(arg2) = t3;
+    return v0;
 }
 
 extern "C" void func_ov031_0216a4a8(u8 *arg0, s32 arg1)

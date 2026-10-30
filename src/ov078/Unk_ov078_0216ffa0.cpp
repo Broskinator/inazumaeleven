@@ -15,10 +15,10 @@ extern "C" void func_ov078_0217063c(void);
 extern "C" void func_ov078_02170710(void);
 extern "C" void func_ov078_02170990(void);
 extern "C" void func_ov078_02170a28(void);
-extern "C" void func_ov078_02170b0c(void);
-extern "C" void func_ov078_02170bf0(void);
+extern "C" s32 func_ov078_02170b0c(...);
+extern "C" s32 func_ov078_02170bf0(...);
 extern "C" void func_ov078_02170cbc(void);
-extern "C" void func_ov078_02170d28(void);
+extern "C" s32 func_ov078_02170d28(u8 *arg0);
 extern "C" void func_ov078_02170d6c(void);
 extern "C" void func_ov078_02170e9c(void);
 extern "C" void func_ov078_02171028(void);
@@ -84,7 +84,7 @@ extern "C" void func_02017278(void);
 extern "C" void func_02020ef0(void);
 extern "C" void func_020802a0(void);
 extern "C" void func_0209d8b8(void);
-extern "C" void func_ov015_02130b14(void);
+extern "C" s32 func_ov015_02130b14(...);
 extern "C" void func_ov015_021319b0(void);
 extern "C" void func_ov015_02131cd4(void);
 extern "C" void func_ov015_02131da0(void);
@@ -905,7 +905,7 @@ extern "C" asm void func_ov078_02170a28(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov078_02170b0c(void)
+extern "C" asm s32 func_ov078_02170b0c(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #0x20
@@ -966,7 +966,7 @@ extern "C" asm void func_ov078_02170b0c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov078_02170bf0(void)
+extern "C" asm s32 func_ov078_02170bf0(...)
 {
     stmdb sp!, {r4, lr}
     sub sp, sp, #0x20
@@ -1051,25 +1051,20 @@ extern "C" asm void func_ov078_02170cbc(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov078_02170d28(void)
+extern "C" s32 func_ov078_02170d28(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldrh r0, [r5, #0x18]
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r1, #0
-    bl func_ov015_02130b14
-    movs r4, r0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r0, r5
-    mov r1, #2
-    mov r2, #8
-    bl func_ov078_02170b0c
-    mov r0, r5
-    mov r1, r4
-    bl func_ov078_02170bf0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v0;
+    s32 v2;
+    u16 t0;
+    if (*(u16 *)(arg0 + 0x18) == 0)
+        return *(u16 *)(arg0 + 0x18);
+    t0 = *(u16 *)(arg0 + 0x18);
+    v0 = func_ov015_02130b14(t0, 0);
+    if (v0 == 0)
+        return v0;
+    func_ov078_02170b0c((s32)arg0, 2, 8);
+    v2 = func_ov078_02170bf0((s32)arg0, v0);
+    return v2;
 }
 
 extern "C" asm void func_ov078_02170d6c(void)

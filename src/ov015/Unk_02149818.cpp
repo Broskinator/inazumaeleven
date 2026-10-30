@@ -3,7 +3,7 @@
 extern "C" void func_ov015_02149818(void);
 extern "C" void func_ov015_021498bc(void);
 extern "C" void func_ov015_02149920(void);
-extern "C" void func_ov015_02149aa8(void);
+extern "C" void func_ov015_02149aa8(u8 *arg0, u8 *arg1);
 extern "C" void func_ov015_02149acc(void);
 extern "C" void func_ov015_02149bbc(void);
 extern "C" void func_ov015_02149c58(void);
@@ -630,17 +630,13 @@ extern "C" asm void func_ov015_02149920(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02149aa8(void)
+extern "C" void func_ov015_02149aa8(u8 *arg0, u8 *arg1)
 {
-    ldr r2, [r1, #0xc]
-    ldr r2, [r2, #0xc]
-    str r2, [r0, #0x27c]
-    add r2, r0, r2, lsl #2
-    str r1, [r2, #0x214]
-    ldr r1, [r0, #0x27c]
-    add r1, r1, #1
-    str r1, [r0, #0x27c]
-    bx lr
+    s32 t0 = *(s32 *)(*(u8 * *)(arg1 + 0xC) + 0xC);
+    *(s32 *)(arg0 + 0x27C) = t0;
+    *(s32 *)(((u8 *)(arg0 + (t0 << 2))) + 0x214) = (s32)arg1;
+    s32 t1 = (*(s32 *)(arg0 + 0x27C) + 1);
+    *(s32 *)(arg0 + 0x27C) = t1;
 }
 
 extern "C" asm void func_ov015_02149acc(void)

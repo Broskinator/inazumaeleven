@@ -48,7 +48,7 @@ extern "C" int func_02090e0c(void *self);
 extern "C" BOOL func_02090e18(void *self, u8 *obj);
 extern "C" void func_02090e38(void);
 extern "C" void func_02090ee0(void);
-extern "C" void func_02090f68(void);
+extern "C" s32 func_02090f68(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3);
 extern "C" void func_02090fb8(void);
 extern "C" void func_02091004(void);
 extern "C" void func_020910ac(void);
@@ -1109,28 +1109,19 @@ extern "C" asm void func_02090ee0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02090f68(void)
+extern "C" s32 func_02090f68(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3)
 {
-    ldr r0, [r1]
-    cmp r3, r0
-    ldreq r0, [r3, #0x1c]
-    streq r0, [r1]
-    ldr r0, [r2]
-    cmp r3, r0
-    ldreq r0, [r3, #0x18]
-    streq r0, [r2]
-    ldr r1, [r3, #0x18]
-    cmp r1, #0
-    ldrne r0, [r3, #0x1c]
-    strne r0, [r1, #0x1c]
-    ldr r1, [r3, #0x1c]
-    cmp r1, #0
-    ldrne r0, [r3, #0x18]
-    strne r0, [r1, #0x18]
-    mov r0, #0
-    str r0, [r3, #0x18]
-    str r0, [r3, #0x1c]
-    bx lr
+    if ((s32)arg3 == *(s32 *)(arg1))
+        *(s32 *)(arg1) = *(s32 *)(arg3 + 0x1C);
+    if ((s32)arg3 == *(s32 *)(arg2))
+        *(s32 *)(arg2) = *(s32 *)(arg3 + 0x18);
+    if ((s32)*(u8 * *)(arg3 + 0x18) != 0)
+        *(s32 *)(*(u8 * *)(arg3 + 0x18) + 0x1C) = *(s32 *)(arg3 + 0x1C);
+    if ((s32)*(u8 * *)(arg3 + 0x1C) != 0)
+        *(s32 *)(*(u8 * *)(arg3 + 0x1C) + 0x18) = *(s32 *)(arg3 + 0x18);
+    *(s32 *)(arg3 + 0x18) = 0;
+    *(s32 *)(arg3 + 0x1C) = 0;
+    return 0;
 }
 
 extern "C" asm void func_02090fb8(void)

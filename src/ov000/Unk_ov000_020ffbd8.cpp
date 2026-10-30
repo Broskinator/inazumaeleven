@@ -17,7 +17,7 @@ extern "C" s32 func_ov000_0210048c(u8 *arg0, s32 arg1);
 extern "C" void func_ov000_0210050c(u8 *arg0);
 extern "C" void func_ov000_02100518(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov000_02100520(u8 *arg0, s32 arg1);
-extern "C" void func_ov000_02100534(void);
+extern "C" s32 func_ov000_02100534(void);
 extern "C" void func_ov000_02100594(void);
 extern "C" s32 func_ov000_0210070c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov000_02100784(void);
@@ -75,11 +75,11 @@ extern "C" char data_ov000_02117fcc[];
 extern "C" char data_ov000_02118710[];
 extern "C" char data_ov000_0211871c[];
 extern "C" char data_ov000_021187ac[];
-extern "C" void DC_FlushRange(void);
-extern "C" void G2_GetBG3CharPtr(void);
-extern "C" void G2_GetBG3ScrPtr(void);
+extern "C" s32 DC_FlushRange(...);
+extern "C" s32 G2_GetBG3CharPtr(...);
+extern "C" s32 G2_GetBG3ScrPtr(...);
 extern "C" s32 MI_CpuFill8(...);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052720Ev(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
@@ -823,33 +823,24 @@ extern "C" s32 func_ov000_02100520(u8 *arg0, s32 arg1)
     return ((*(s32 *)(arg0 + 0x10C) & (1 << arg1)) == 0 ? 0 : 1);
 }
 
-extern "C" asm void func_ov000_02100534(void)
+extern "C" s32 func_ov000_02100534(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    bl G2_GetBG3CharPtr
-    movs r5, r0
-    beq @L_02100564
-    mov r4, #0x40
-    mov r1, r5
-    mov r2, r4
-    mov r0, #0
-    bl MIi_CpuClearFast
-    mov r0, r5
-    mov r1, r4
-    bl DC_FlushRange
-@L_02100564:
-    bl G2_GetBG3ScrPtr
-    movs r5, r0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r4, #0x800
-    mov r1, r5
-    mov r2, r4
-    mov r0, #0
-    bl MIi_CpuClearFast
-    mov r0, r5
-    mov r1, r4
-    bl DC_FlushRange
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r5;
+    s32 v0;
+    s32 v3;
+    s32 v5;
+    v0 = G2_GetBG3CharPtr();
+    r5 = v0;
+    if (r5 != 0) {
+        MIi_CpuClearFast(0, r5, 0x40);
+        DC_FlushRange(r5, 0x40);
+    }
+    v3 = G2_GetBG3ScrPtr();
+    if (v3 == 0)
+        return v3;
+    MIi_CpuClearFast(0, v3, 0x800);
+    v5 = DC_FlushRange(v3, 0x800);
+    return v5;
 }
 
 extern "C" asm void func_ov000_02100594(void)

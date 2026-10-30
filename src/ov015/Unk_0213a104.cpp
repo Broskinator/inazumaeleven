@@ -4,7 +4,7 @@ extern "C" void func_ov015_0213a104(void);
 extern "C" void func_ov015_0213a160(void);
 extern "C" void func_ov015_0213a208(void);
 extern "C" void func_ov015_0213a48c(void);
-extern "C" void func_ov015_0213a4ac(void);
+extern "C" s32 func_ov015_0213a4ac(s32 arg0);
 extern "C" void func_ov015_0213a500(void);
 extern "C" void func_ov015_0213a56c(void);
 extern "C" void func_ov015_0213a65c(void);
@@ -88,7 +88,7 @@ extern "C" s32 func_ov015_0213c974(...);
 extern "C" void func_ov015_0213c9a0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213c9e4(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3);
 extern "C" s32 func_ov015_0213ca38(...);
-extern "C" void func_ov015_0213caa0(void);
+extern "C" s32 func_ov015_0213caa0(u8 *arg0);
 extern "C" void func_ov015_0213cc18(void);
 extern "C" void func_ov015_0213cd80(void);
 extern "C" void func_ov015_0213d054(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
@@ -115,7 +115,7 @@ extern "C" char data_ov015_02165738[];
 extern "C" char data_ov015_02165748[];
 extern "C" void DC_FlushRange(void);
 extern "C" void FX_SinCosTable_(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void MIi_CpuCopyFast(void);
 extern "C" void MTX_Identity44_(void);
 extern "C" void MTX_RotY44_(void);
@@ -139,7 +139,7 @@ extern "C" void func_020224cc(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
-extern "C" void func_02087b98(void);
+extern "C" s32 func_02087b98(...);
 extern "C" void func_02087bb0(void);
 extern "C" void func_02090d60(void);
 extern "C" void func_02090d84(void);
@@ -157,7 +157,7 @@ extern "C" void func_02093d1c(void);
 extern "C" void func_02093e2c(void);
 extern "C" void func_020961b4(void);
 extern "C" s32 func_0209657c(...);
-extern "C" void func_02096680(void);
+extern "C" s32 func_02096680(...);
 extern "C" void func_02096848(void);
 extern "C" void func_0209694c(void);
 extern "C" void func_02096994(void);
@@ -181,7 +181,7 @@ extern "C" void func_ov015_021320d0(void);
 extern "C" void func_ov015_0213225c(void);
 extern "C" void func_ov015_02137224(void);
 extern "C" void func_ov015_02137458(void);
-extern "C" void func_ov015_021395ac(void);
+extern "C" s32 func_ov015_021395ac(...);
 extern "C" s32 func_ov015_0213d498(...);
 extern "C" void func_ov015_0213d4a8(void);
 extern "C" void func_ov015_0213d518(void);
@@ -444,26 +444,22 @@ extern "C" asm void func_ov015_0213a48c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov015_0213a4ac(void)
+extern "C" s32 func_ov015_0213a4ac(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_ov015_021395ac
-    movs r3, r0
-    ldmmiia sp!, {r4, pc}
-    add r1, r4, r3, lsl #3
-    mov r2, #0
-    ldr r0, =data_020c46c8
-    strb r2, [r1, #0xcc]
-    ldr r0, [r0]
-    add r1, r3, #1
-    bl func_02087b98
-    ldr r2, =data_020c4694
-    mov r1, r0
-    ldr r0, [r2]
-    ldr r2, =0x7fff
-    bl func_02096680
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 t0;
+    s32 t1;
+    v0 = func_ov015_021395ac(arg0);
+    if (v0 < 0)
+        return v0;
+    *(u8 *)(((u8 *)(arg0 + (v0 << 3))) + 0xCC) = 0;
+    t0 = *(s32 *)(data_020c46c8);
+    v1 = func_02087b98(t0, (v0 + 1), 0, v0);
+    t1 = *(s32 *)(data_020c4694);
+    v2 = func_02096680(t1, v1, 0x7FFF);
+    return v2;
 }
 
 extern "C" asm void func_ov015_0213a500(void)
@@ -3216,99 +3212,71 @@ extern "C" asm s32 func_ov015_0213ca38(...)
     bx lr
 }
 
-extern "C" asm void func_ov015_0213caa0(void)
+extern "C" s32 func_ov015_0213caa0(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r10, #0x60000
-    mov r4, r0
-    mov r6, #0
-    mov lr, #0x1000
-    mov r3, #0x10000
-    sub r12, lr, #0xff000000
-    ldr r0, =0x1555
-    ldr r2, =0x536
-    ldr r1, =0xf21
-    mov r5, #0xc
-    sub r9, r10, #0xc0000
-    sub r8, r10, #0xe0000
-    mov r7, #0x80000
-    str r0, [r4, #8]
-    mov r0, r6
-    str r2, [r4]
-    mov r2, r5
-    str r1, [r4, #4]
-    add r1, r4, #0xdc
-    str r10, [r4, #0x14]
-    str r9, [r4, #0x18]
-    str r8, [r4, #0x1c]
-    str r7, [r4, #0x20]
-    str lr, [r4, #0xc]
-    str r12, [r4, #0x10]
-    str lr, [r4, #0x24]
-    str r12, [r4, #0x28]
-    str r6, [r4, #0x2c]
-    str lr, [r4, #0x30]
-    str r6, [r4, #0x34]
-    strh r6, [r4, #0x38]
-    strh r6, [r4, #0x3a]
-    str r6, [r4, #0x3c]
-    str r6, [r4, #0x40]
-    str lr, [r4, #0x44]
-    str r6, [r4, #0x48]
-    str r6, [r4, #0x4c]
-    str r6, [r4, #0x50]
-    str r6, [r4, #0x58]
-    str r6, [r4, #0x5c]
-    str r6, [r4, #0x60]
-    str r3, [r4, #0x54]
-    str r6, [r4, #0x64]
-    str r6, [r4, #0x68]
-    str lr, [r4, #0x6c]
-    str r6, [r4, #0x70]
-    str r6, [r4, #0x74]
-    str r6, [r4, #0x78]
-    str r6, [r4, #0x80]
-    str r6, [r4, #0x84]
-    str r6, [r4, #0x88]
-    str r3, [r4, #0x7c]
-    str r6, [r4, #0x8c]
-    str r6, [r4, #0x90]
-    str lr, [r4, #0x94]
-    str r6, [r4, #0x98]
-    str r6, [r4, #0x9c]
-    str r6, [r4, #0xa0]
-    str r6, [r4, #0xa8]
-    str r6, [r4, #0xac]
-    str r6, [r4, #0xb0]
-    str r3, [r4, #0xa4]
-    str r6, [r4, #0xb4]
-    str r6, [r4, #0xb8]
-    str lr, [r4, #0xbc]
-    str r6, [r4, #0xc0]
-    str r6, [r4, #0xc4]
-    str r6, [r4, #0xc8]
-    str r6, [r4, #0xd0]
-    str r6, [r4, #0xd4]
-    str r6, [r4, #0xd8]
-    str r3, [r4, #0xcc]
-    bl MIi_CpuClearFast
-    mov r0, r6
-    mov r2, r5
-    add r1, r4, #0xe8
-    bl MIi_CpuClearFast
-    mov r0, r6
-    mov r2, r5
-    add r1, r4, #0xf4
-    bl MIi_CpuClearFast
-    mov r0, r6
-    mov r2, r5
-    add r1, r4, #0x100
-    bl MIi_CpuClearFast
-    mov r0, r6
-    add r1, r4, #0x10c
-    mov r2, #0x20
-    bl MIi_CpuClearFast
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    s32 v4;
+    *(s32 *)(arg0 + 0x8) = 0x1555;
+    *(s32 *)(arg0) = 0x536;
+    *(s32 *)(arg0 + 0x4) = 0xF21;
+    *(s32 *)(arg0 + 0x14) = 0x60000;
+    *(s32 *)(arg0 + 0x18) = (0x60000 - 0xC0000);
+    *(s32 *)(arg0 + 0x1C) = (0x60000 - 0xE0000);
+    *(s32 *)(arg0 + 0x20) = 0x80000;
+    *(s32 *)(arg0 + 0xC) = 0x1000;
+    *(s32 *)(arg0 + 0x10) = (0x1000 - -0x1000000);
+    *(s32 *)(arg0 + 0x24) = 0x1000;
+    *(s32 *)(arg0 + 0x28) = (0x1000 - -0x1000000);
+    *(s32 *)(arg0 + 0x2C) = 0;
+    *(s32 *)(arg0 + 0x30) = 0x1000;
+    *(s32 *)(arg0 + 0x34) = 0;
+    *(u16 *)(arg0 + 0x38) = 0;
+    *(u16 *)(arg0 + 0x3A) = 0;
+    *(s32 *)(arg0 + 0x3C) = 0;
+    *(s32 *)(arg0 + 0x40) = 0;
+    *(s32 *)(arg0 + 0x44) = 0x1000;
+    *(s32 *)(arg0 + 0x48) = 0;
+    *(s32 *)(arg0 + 0x4C) = 0;
+    *(s32 *)(arg0 + 0x50) = 0;
+    *(s32 *)(arg0 + 0x58) = 0;
+    *(s32 *)(arg0 + 0x5C) = 0;
+    *(s32 *)(arg0 + 0x60) = 0;
+    *(s32 *)(arg0 + 0x54) = 0x10000;
+    *(s32 *)(arg0 + 0x64) = 0;
+    *(s32 *)(arg0 + 0x68) = 0;
+    *(s32 *)(arg0 + 0x6C) = 0x1000;
+    *(s32 *)(arg0 + 0x70) = 0;
+    *(s32 *)(arg0 + 0x74) = 0;
+    *(s32 *)(arg0 + 0x78) = 0;
+    *(s32 *)(arg0 + 0x80) = 0;
+    *(s32 *)(arg0 + 0x84) = 0;
+    *(s32 *)(arg0 + 0x88) = 0;
+    *(s32 *)(arg0 + 0x7C) = 0x10000;
+    *(s32 *)(arg0 + 0x8C) = 0;
+    *(s32 *)(arg0 + 0x90) = 0;
+    *(s32 *)(arg0 + 0x94) = 0x1000;
+    *(s32 *)(arg0 + 0x98) = 0;
+    *(s32 *)(arg0 + 0x9C) = 0;
+    *(s32 *)(arg0 + 0xA0) = 0;
+    *(s32 *)(arg0 + 0xA8) = 0;
+    *(s32 *)(arg0 + 0xAC) = 0;
+    *(s32 *)(arg0 + 0xB0) = 0;
+    *(s32 *)(arg0 + 0xA4) = 0x10000;
+    *(s32 *)(arg0 + 0xB4) = 0;
+    *(s32 *)(arg0 + 0xB8) = 0;
+    *(s32 *)(arg0 + 0xBC) = 0x1000;
+    *(s32 *)(arg0 + 0xC0) = 0;
+    *(s32 *)(arg0 + 0xC4) = 0;
+    *(s32 *)(arg0 + 0xC8) = 0;
+    *(s32 *)(arg0 + 0xD0) = 0;
+    *(s32 *)(arg0 + 0xD4) = 0;
+    *(s32 *)(arg0 + 0xD8) = 0;
+    *(s32 *)(arg0 + 0xCC) = 0x10000;
+    MIi_CpuClearFast(0, (arg0 + 0xDC), 0xC, 0x10000);
+    MIi_CpuClearFast(0, (arg0 + 0xE8), 0xC);
+    MIi_CpuClearFast(0, (arg0 + 0xF4), 0xC);
+    MIi_CpuClearFast(0, (arg0 + 0x100), 0xC);
+    v4 = MIi_CpuClearFast(0, (arg0 + 0x10C), 0x20);
+    return v4;
 }
 
 extern "C" asm void func_ov015_0213cc18(void)

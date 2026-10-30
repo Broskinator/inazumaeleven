@@ -17,7 +17,7 @@ extern "C" s32 func_0209b804(u8 *obj);
 extern "C" void func_0209b810(void);
 extern "C" void func_0209b904(void);
 extern "C" void func_0209b9c8(void);
-extern "C" void func_0209ba38(void);
+extern "C" s32 func_0209ba38(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_0209ba60(u8 *obj, u8 value);
 extern "C" u8 func_0209ba68(u8 *obj);
 extern "C" void func_0209ba70(u8 *obj, s32 value);
@@ -133,7 +133,7 @@ extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_02131994(void);
 extern "C" void func_ov015_02143750(void);
 extern "C" void sprintf(void);
-extern "C" void strcpy(void);
+extern "C" s32 strcpy(...);
 
 extern "C" void func_0209b7b0(u8 *obj, s32 a, s32 b)
 {
@@ -324,18 +324,13 @@ extern "C" asm void func_0209b9c8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_0209ba38(void)
+extern "C" s32 func_0209ba38(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, lr}
-    add lr, r0, r1, lsl #4
-    add r0, r0, #8
-    add r0, r0, r1, lsl #4
-    ldr r12, [sp, #8]
-    str r2, [lr, #4]
-    mov r1, r3
-    str r12, [lr, #0x10]
-    bl strcpy
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    *(s32 *)(((u8 *)(arg0 + (arg1 << 4))) + 0x4) = arg2;
+    *(s32 *)(((u8 *)(arg0 + (arg1 << 4))) + 0x10) = arg4;
+    v0 = strcpy(((arg0 + 8) + (arg1 << 4)), arg3, arg2, arg3);
+    return v0;
 }
 
 extern "C" void func_0209ba60(u8 *obj, u8 value)

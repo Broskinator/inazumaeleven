@@ -54,7 +54,7 @@ extern "C" void func_ov001_02128088(void);
 extern "C" void func_ov001_021280bc(void);
 extern "C" void func_ov001_02128144(void);
 extern "C" void func_ov001_0212816c(void);
-extern "C" void func_ov001_02128194(void);
+extern "C" s32 func_ov001_02128194(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov001_021281d0(void);
 
 extern "C" char data_020c4668[];
@@ -83,7 +83,7 @@ extern "C" char data_ov001_0212a998[];
 extern "C" char data_ov001_02130678[];
 extern "C" void DC_FlushRange(void);
 extern "C" void FX_SinCosTable_(void);
-extern "C" void MI_CpuCopy8(void);
+extern "C" s32 MI_CpuCopy8(...);
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void NNS_G3dGlbFlushVP(void);
@@ -3339,23 +3339,12 @@ extern "C" asm void func_ov001_0212816c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov001_02128194(void)
+extern "C" s32 func_ov001_02128194(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    add r12, r0, #0x11000
-    ldrb r4, [r12, #0x8d7]
-    mov r12, #0xb
-    mul r12, r1, r12
-    add r0, r0, #0x4c
-    add r0, r0, #0x11800
-    mov r1, r2
-    cmp r4, r3
-    add r0, r0, r12, lsl #1
-    mov r2, r3, lsl #1
-    movgt r4, r3
-    bl MI_CpuCopy8
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    s32 t0;
+    t0 = (*(u8 *)(((u8 *)(arg0 + 0x11000)) + 0x8D7) > arg3 ? arg3 : *(u8 *)(((u8 *)(arg0 + 0x11000)) + 0x8D7));
+    MI_CpuCopy8((((arg0 + 0x4C) + 0x11800) + ((arg1 * 0xB) << 1)), arg2, (arg3 << 1), arg3);
+    return t0;
 }
 
 extern "C" asm void func_ov001_021281d0(void)

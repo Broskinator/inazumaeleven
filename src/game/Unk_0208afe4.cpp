@@ -17,7 +17,7 @@ extern "C" void func_0208b508(void);
 extern "C" void func_0208b55c(s32 arg0, s32 arg1);
 extern "C" void func_0208b58c(void);
 extern "C" void func_0208b5f8(void);
-extern "C" void func_0208b658(void);
+extern "C" void func_0208b658(s32 arg0, s32 arg1, u8 arg2);
 extern "C" void func_0208b688(void);
 extern "C" void func_0208b6c0(void);
 extern "C" void func_0208b6f8(void);
@@ -655,20 +655,14 @@ extern "C" asm void func_0208b5f8(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_0208b658(void)
+extern "C" void func_0208b658(s32 arg0, s32 arg1, u8 arg2)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    mov r3, #0
-    mov r4, r2
-    add r2, sp, #0
-    str r3, [sp]
-    bl func_0208a764
-    ldr r0, [sp]
-    cmp r0, #0
-    strneb r4, [r0, #0xa]
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    s32 local[1];
+    *(s32 *)(((u8 *)local)) = 0;
+    func_0208a764(arg0, arg1, (s32)((u8 *)local), 0);
+    if ((s32)*(u8 * *)(((u8 *)local)) != 0)
+        *(u8 *)(*(u8 * *)(((u8 *)local)) + 0xA) = arg2;
+    return;
 }
 
 extern "C" asm void func_0208b688(void)

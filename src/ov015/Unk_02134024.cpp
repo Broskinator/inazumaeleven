@@ -45,8 +45,8 @@ extern "C" char *func_ov015_02134cc0(void);
 extern "C" void func_ov015_02134ccc(void);
 extern "C" void func_ov015_021353a4(void);
 extern "C" void func_ov015_02135440(void);
-extern "C" void func_ov015_02135e10(void);
-extern "C" void func_ov015_02135ea0(void);
+extern "C" s32 func_ov015_02135e10(void);
+extern "C" s32 func_ov015_02135ea0(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02135ef4(void);
 extern "C" void func_ov015_02135f24(void);
 extern "C" void func_ov015_02135fe0(void);
@@ -156,7 +156,7 @@ extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_0206dedcEv(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -170,9 +170,9 @@ extern "C" void func_02004d1c(void);
 extern "C" void func_02004d30(void);
 extern "C" void func_02004d54(void);
 extern "C" void func_02004d68(void);
-extern "C" void func_02004d7c(void);
-extern "C" void func_02004d90(void);
-extern "C" void func_02004da4(void);
+extern "C" s32 func_02004d7c(...);
+extern "C" s32 func_02004d90(...);
+extern "C" s32 func_02004da4(...);
 extern "C" void func_0200ca60(void);
 extern "C" void func_0200ca8c(void);
 extern "C" void func_0200cbec(void);
@@ -2225,70 +2225,42 @@ extern "C" asm void func_ov015_02135440(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02135e10(void)
+extern "C" s32 func_ov015_02135e10(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020c48e0
-    ldr r0, [r0, #0x14]
-    cmp r0, #0xd
-    addls pc, pc, r0, lsl #2
-    b @L_02135e7c
-    b @L_02135e7c
-    b @L_02135e60
-    b @L_02135e78
-    b @L_02135e7c
-    b @L_02135e6c
-    b @L_02135e60
-    b @L_02135e78
-    b @L_02135e7c
-    b @L_02135e7c
-    b @L_02135e60
-    b @L_02135e7c
-    b @L_02135e7c
-    b @L_02135e78
-    b @L_02135e60
-@L_02135e60:
-    bl func_02004d7c
-    bl func_02004da4
-    b @L_02135e7c
-@L_02135e6c:
-    bl func_02004d7c
-    bl func_02004d90
-    b @L_02135e7c
-@L_02135e78:
-    bl func_02004d7c
-@L_02135e7c:
-    ldr r3, =data_020c48e0
-    mov r1, #0
-    ldr r0, =data_020c48f8
-    mov r2, #0x10
-    str r1, [r3, #0x14]
-    bl MI_CpuFill8
-    ldmia sp!, {r3, pc}
+    s32 v5;
+    switch (*(s32 *)(data_020c48e0 + 0x14)) {
+        case 1:
+        case 5:
+        case 9:
+        case 13:
+            func_02004d7c();
+            func_02004da4();
+            break;
+        case 4:
+            func_02004d7c();
+            func_02004d90();
+            break;
+        case 2:
+        case 6:
+        case 12:
+            func_02004d7c();
+            break;
+    }
+    *(s32 *)(data_020c48e0 + 0x14) = 0;
+    v5 = MI_CpuFill8((s32)data_020c48f8, 0, 0x10, (s32)data_020c48e0);
+    return v5;
 }
 
-extern "C" asm void func_ov015_02135ea0(void)
+extern "C" s32 func_ov015_02135ea0(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, #0
-    mov r6, r1
-    mov r1, r4
-    mov r2, #8
-    mov r7, r0
-    bl MI_CpuFill8
-    mov r0, #0xc
-    mul r5, r6, r0
-    ldr r0, =data_020c47b4
-    mov r1, r5
-    mov r2, r4
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    mov r1, r4
-    mov r2, r5
-    str r0, [r7]
-    bl MI_CpuFill8
-    str r6, [r7, #4]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v1;
+    s32 v2;
+    MI_CpuFill8((s32)arg0, 0, 8);
+    v1 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, (arg1 * 0xC), 0, 1);
+    *(s32 *)(arg0) = v1;
+    v2 = MI_CpuFill8(v1, 0, (arg1 * 0xC));
+    *(s32 *)(arg0 + 0x4) = arg1;
+    return v2;
 }
 
 extern "C" asm void func_ov015_02135ef4(void)

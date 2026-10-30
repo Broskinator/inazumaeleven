@@ -18,16 +18,16 @@ extern "C" void func_02095154(void);
 extern "C" void func_02095544(void);
 extern "C" void func_020956f8(void);
 extern "C" void func_02095984(void);
-extern "C" void func_02095a40(void);
+extern "C" s32 func_02095a40(...);
 extern "C" void func_02095b9c(void);
-extern "C" void func_02095c24(void);
+extern "C" s32 func_02095c24(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3);
 extern "C" void func_02095c74(void);
 extern "C" void func_02095d14(void);
 extern "C" void func_02095d70(void);
 extern "C" s32 func_02095e04(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_02095e6c(void);
 extern "C" void func_02095ea0(void *obj);
-extern "C" void func_02095ea4(void);
+extern "C" void func_02095ea4(u8 *arg0, u8 *arg1);
 extern "C" int func_02095f2c(void *obj, int a, int b);
 extern "C" int func_02096048(void *obj);
 extern "C" int func_0209605c(void *obj);
@@ -688,7 +688,7 @@ extern "C" asm void func_02095984(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_02095a40(void)
+extern "C" asm s32 func_02095a40(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r1
@@ -826,28 +826,19 @@ extern "C" asm void func_02095b9c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02095c24(void)
+extern "C" s32 func_02095c24(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3)
 {
-    ldr r0, [r1]
-    cmp r3, r0
-    ldreq r0, [r3, #0x20]
-    streq r0, [r1]
-    ldr r0, [r2]
-    cmp r3, r0
-    ldreq r0, [r3, #0x1c]
-    streq r0, [r2]
-    ldr r1, [r3, #0x1c]
-    cmp r1, #0
-    ldrne r0, [r3, #0x20]
-    strne r0, [r1, #0x20]
-    ldr r1, [r3, #0x20]
-    cmp r1, #0
-    ldrne r0, [r3, #0x1c]
-    strne r0, [r1, #0x1c]
-    mov r0, #0
-    str r0, [r3, #0x1c]
-    str r0, [r3, #0x20]
-    bx lr
+    if ((s32)arg3 == *(s32 *)(arg1))
+        *(s32 *)(arg1) = *(s32 *)(arg3 + 0x20);
+    if ((s32)arg3 == *(s32 *)(arg2))
+        *(s32 *)(arg2) = *(s32 *)(arg3 + 0x1C);
+    if ((s32)*(u8 * *)(arg3 + 0x1C) != 0)
+        *(s32 *)(*(u8 * *)(arg3 + 0x1C) + 0x20) = *(s32 *)(arg3 + 0x20);
+    if ((s32)*(u8 * *)(arg3 + 0x20) != 0)
+        *(s32 *)(*(u8 * *)(arg3 + 0x20) + 0x1C) = *(s32 *)(arg3 + 0x1C);
+    *(s32 *)(arg3 + 0x1C) = 0;
+    *(s32 *)(arg3 + 0x20) = 0;
+    return 0;
 }
 
 extern "C" asm void func_02095c74(void)
@@ -1006,47 +997,35 @@ extern "C" void func_02095ea0(void *obj)
 {
 }
 
-extern "C" asm void func_02095ea4(void)
+extern "C" void func_02095ea4(u8 *arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    ldr r5, [r7, #0x28]
-    mov r6, r1
-    cmp r5, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02095ebc:
-    ldr r0, [r5]
-    cmp r0, #0
-    beq @L_02095f1c
-    ldrb r4, [r5, #6]
-    cmp r4, #1
-    blt @L_02095f1c
-@L_02095ed4:
-    mov r0, r7
-    mov r1, r5
-    mov r2, r4
-    bl func_02096110
-    movs r1, r0
-    beq @L_02095f10
-    ldr r0, [r7, #0x40]
-    tst r0, #1
-    beq @L_02095f04
-    ldrh r0, [r1, #0xa]
-    tst r0, #0x100
-    beq @L_02095f10
-@L_02095f04:
-    mov r0, r7
-    mov r2, r6
-    bl func_02095a40
-@L_02095f10:
-    sub r4, r4, #1
-    cmp r4, #1
-    bge @L_02095ed4
-@L_02095f1c:
-    ldr r5, [r5, #0x20]
-    cmp r5, #0
-    bne @L_02095ebc
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r4;
+    u8 *r5;
+    s32 r6;
+    u8 *r7;
+    s32 v0;
+    if (*(s32 *)(arg0 + 0x28) == 0)
+        return;
+    r5 = (u8 *)*(s32 *)(arg0 + 0x28);
+    r6 = (s32)arg1;
+    r7 = arg0;
+    do {
+        if (*(s32 *)(r5) != 0) {
+            r4 = *(u8 *)(r5 + 0x6);
+            if (r4 >= 1) {
+                do {
+                    v0 = func_02096110((s32)r7, (s32)r5, r4);
+                    arg1 = (u8 *)v0;
+                    if (((s32)arg1 != 0 && ((*(s32 *)(r7 + 0x40) & 1) == 0 || (*(u16 *)(arg1 + 0xA) & 0x100) != 0))) {
+                        func_02095a40((s32)r7, (s32)arg1, r6);
+                    }
+                    r4 = (r4 - 1);
+                } while (r4 >= 1);
+            }
+        }
+        r5 = (u8 *)*(s32 *)(r5 + 0x20);
+    } while ((s32)r5 != 0);
+    return;
 }
 
 extern "C" asm int func_02095f2c(void *obj, int a, int b)

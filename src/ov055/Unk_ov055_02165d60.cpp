@@ -12,7 +12,7 @@ extern "C" s32 func_ov055_02166274(void);
 extern "C" void func_ov055_02166298(void);
 extern "C" void func_ov055_021662d4(void);
 extern "C" void func_ov055_02166894(u8 *arg0);
-extern "C" void func_ov055_021668a0(void);
+extern "C" s32 func_ov055_021668a0(void);
 extern "C" void func_ov055_021668bc(u8 *arg0, s32 arg1);
 extern "C" void func_ov055_021668d0(void);
 extern "C" void func_ov055_02166960(void);
@@ -842,14 +842,11 @@ extern "C" void func_ov055_02166894(u8 *arg0)
     *(s32 *)(arg0 + 0x8) = 6;
 }
 
-extern "C" asm void func_ov055_021668a0(void)
+extern "C" s32 func_ov055_021668a0(void)
 {
-    ldr r0, =data_020c46c4
-    mov r1, #1
-    ldr r0, [r0]
-    add r0, r0, #0xf00
-    strh r1, [r0, #0x38]
-    bx lr
+    u8 *t0 = (u8 *)(*(s32 *)(data_020c46c4) + 0xF00);
+    *(u16 *)(t0 + 0x38) = 1;
+    return (s32)t0;
 }
 
 extern "C" void func_ov055_021668bc(u8 *arg0, s32 arg1)

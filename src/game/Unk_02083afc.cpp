@@ -62,7 +62,7 @@ extern "C" BOOL func_02084900(fx32 *x, fx32 *y, fx32 *rect, int a);
 extern "C" BOOL func_02084958(fx32 *pos, fx32 *rect, int a);
 extern "C" void func_02084970(void);
 extern "C" void func_02084aec(void);
-extern "C" void func_02084ba0(void);
+extern "C" s32 func_02084ba0(u8 *arg0, u8 *arg1);
 extern "C" void func_02084be8(void);
 extern "C" void func_02084c4c(void);
 extern "C" s32 func_02084c8c(u8 *obj);
@@ -91,7 +91,7 @@ extern "C" void func_02084fdc(void *data);
 extern "C" char data_020c47b4[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
-extern "C" void MIi_CpuCopyFast(void);
+extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206de54Eii(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -1298,26 +1298,20 @@ extern "C" asm void func_02084aec(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_02084ba0(void)
+extern "C" s32 func_02084ba0(u8 *arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    mov r0, r4
-    mov r1, r5
-    mov r2, #0x20
-    bl MIi_CpuCopyFast
-    ldrh r0, [r4, #0x42]
-    strh r0, [r5, #0x20]
-    ldrb r0, [r4, #0x54]
-    strb r0, [r5, #0x23]
-    ldrh r0, [r4, #0x48]
-    strh r0, [r5, #0x24]
-    ldrh r0, [r4, #0x4a]
-    strh r0, [r5, #0x26]
-    ldrb r0, [r4, #0x4c]
-    strb r0, [r5, #0x28]
-    ldmia sp!, {r3, r4, r5, pc}
+    MIi_CpuCopyFast((s32)arg1, (s32)arg0, 0x20);
+    u16 t0 = *(u16 *)(arg1 + 0x42);
+    *(u16 *)(arg0 + 0x20) = t0;
+    u8 t1 = *(u8 *)(arg1 + 0x54);
+    *(u8 *)(arg0 + 0x23) = t1;
+    u16 t2 = *(u16 *)(arg1 + 0x48);
+    *(u16 *)(arg0 + 0x24) = t2;
+    u16 t3 = *(u16 *)(arg1 + 0x4A);
+    *(u16 *)(arg0 + 0x26) = t3;
+    u8 t4 = *(u8 *)(arg1 + 0x4C);
+    *(u8 *)(arg0 + 0x28) = t4;
+    return t4;
 }
 
 extern "C" asm void func_02084be8(void)

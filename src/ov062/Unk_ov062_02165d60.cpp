@@ -10,7 +10,7 @@ extern "C" void func_ov062_02165ff8(void);
 extern "C" void func_ov062_021663ac(s32 arg0);
 extern "C" void func_ov062_021663d8(u8 *arg0);
 extern "C" void func_ov062_021663f8(void);
-extern "C" void func_ov062_02166424(void);
+extern "C" s32 func_ov062_02166424(void);
 extern "C" void func_ov062_02166454(void);
 extern "C" void func_ov062_02166810(void);
 extern "C" s32 func_ov062_02166a3c(...);
@@ -74,7 +74,7 @@ extern "C" void G2_GetBG1CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZN11TreasureBox13func_02052618Ei(void);
+extern "C" s32 _ZN11TreasureBox13func_02052618Ei(...);
 extern "C" void _ZN12SoundManager13func_0203a5c8Eiiii(void);
 extern "C" void _ZN12SoundManager13func_0203a6f8Eiii(void);
 extern "C" void _ZN12SoundManager13func_0203a7b4Ei(void);
@@ -614,19 +614,12 @@ extern "C" asm void func_ov062_021663f8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov062_02166424(void)
+extern "C" s32 func_ov062_02166424(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020d9978
-    mov r1, #0x40
-    bl _ZN11TreasureBox13func_02052618Ei
-    ldr r1, [r0]
-    mov r2, #0
-    str r2, [r0]
-    cmp r1, #0
-    moveq r2, #1
-    mov r0, r2
-    ldmia sp!, {r3, pc}
+    s32 v0 = _ZN11TreasureBox13func_02052618Ei((s32)data_020d9978, 0x40);
+    s32 t0 = *(s32 *)(((u8 *)v0));
+    *(s32 *)(((u8 *)v0)) = 0;
+    return (t0 == 0 ? 1 : 0);
 }
 
 extern "C" asm void func_ov062_02166454(void)

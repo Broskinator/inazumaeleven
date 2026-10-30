@@ -39,7 +39,7 @@ extern "C" void func_ov053_0216b168(u8 *arg0);
 extern "C" void func_ov053_0216b204(u8 *arg0);
 extern "C" void func_ov053_0216b2a4(u8 *arg0);
 extern "C" s32 func_ov053_0216b2c4(s32 arg0);
-extern "C" void func_ov053_0216b2d8(void);
+extern "C" s32 func_ov053_0216b2d8(u8 *arg0, s32 arg1);
 extern "C" void func_ov053_0216b2ec(void);
 
 extern "C" char data_020c4694[];
@@ -2429,13 +2429,11 @@ extern "C" s32 func_ov053_0216b2c4(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov053_0216b2d8(void)
+extern "C" s32 func_ov053_0216b2d8(u8 *arg0, s32 arg1)
 {
-    cmp r1, #1
-    moveq r1, #1
-    streq r1, [r0, #0x240]
-    mov r0, #1
-    bx lr
+    if (arg1 == 1)
+        *(s32 *)(arg0 + 0x240) = 1;
+    return 1;
 }
 
 extern "C" void func_ov053_0216b2ec(void)

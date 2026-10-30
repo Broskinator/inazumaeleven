@@ -16,7 +16,7 @@ extern "C" void func_ov014_0211ed94(void);
 extern "C" void func_ov014_0211ee0c(void);
 extern "C" void func_ov014_0211ef44(void);
 extern "C" void func_ov014_0211efc8(void);
-extern "C" void func_ov014_0211f000(void);
+extern "C" void func_ov014_0211f000(u8 arg0);
 extern "C" void func_ov014_0211f030(void);
 extern "C" void func_ov014_0211f110(void);
 extern "C" void func_ov014_0211f12c(s32 arg0, s32 arg1, s32 arg2);
@@ -87,7 +87,7 @@ extern "C" void OS_InitTick(void);
 extern "C" s32 OS_RestoreInterrupts(...);
 extern "C" void OS_WakeupThreadDirect(void);
 extern "C" void _ll_udiv(void);
-extern "C" void func_02000b64(void);
+extern "C" s32 func_02000b64(...);
 extern "C" void func_020079c4(void);
 extern "C" void func_02007be4(void);
 extern "C" void func_02007c20(void);
@@ -1139,18 +1139,12 @@ extern "C" asm void func_ov014_0211efc8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_0211f000(void)
+extern "C" void func_ov014_0211f000(u8 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =0x2000c4c
-    bl func_02000b64
-    ldr r0, =data_020bb120
-    ldr r0, [r0, #4]
-    ldr r0, [r0, #0xa4]
-    cmp r0, #0
-    strneb r4, [r0, #9]
-    ldmia sp!, {r4, pc}
+    func_02000b64(0x2000C4C);
+    if ((s32)*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) != 0)
+        *(u8 *)(*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) + 0x9) = arg0;
+    return;
 }
 
 extern "C" asm void func_ov014_0211f030(void)

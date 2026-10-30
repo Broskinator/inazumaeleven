@@ -28,7 +28,7 @@ extern "C" void func_ov019_02167438(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov019_0216747c(void);
 extern "C" void func_ov019_02167594(void);
 extern "C" void func_ov019_021678b8(void);
-extern "C" void func_ov019_02167ff0(void);
+extern "C" s32 func_ov019_02167ff0(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov019_02168074(void);
 extern "C" void func_ov019_021682f4(void);
 extern "C" void func_ov019_02168414(void);
@@ -106,7 +106,7 @@ extern "C" void func_02003ad8(void);
 extern "C" void func_02016d0c(void);
 extern "C" void func_02017278(void);
 extern "C" void func_02090dec(void);
-extern "C" void func_020920c4(void);
+extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
 extern "C" void func_02092544(void);
 extern "C" void func_0209263c(void);
@@ -2505,40 +2505,28 @@ extern "C" asm void func_ov019_021678b8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov019_02167ff0(void)
+extern "C" s32 func_ov019_02167ff0(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r2
-    ldr r0, [r5]
-    mov r6, r1
-    cmp r0, #0x10
-    mov r4, r3
-    movge r0, #0
-    ldmgeia sp!, {r4, r5, r6, pc}
-    cmp r4, #4
-    movhs r0, #0
-    ldmhsia sp!, {r4, r5, r6, pc}
-    ldr r0, =data_020c46d4
-    ldr r1, [sp, #0x10]
-    ldr r0, [r0]
-    mov r2, #1
-    bl func_020920c4
-    add r2, r6, r4, lsl #1
-    ldrb r1, [r2, #0x66]
-    cmp r1, #0
-    ldreq r1, [r5]
-    streqb r1, [r2, #0x65]
-    ldr r1, [r5]
-    add r2, r6, #0x66
-    add r1, r6, r1, lsl #2
-    str r0, [r1, #0x20]
-    ldrb r1, [r2, r4, lsl #1]
-    add r1, r1, #1
-    strb r1, [r2, r4, lsl #1]
-    ldr r1, [r5]
-    add r1, r1, #1
-    str r1, [r5]
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v0;
+    s32 t0;
+    u8 *t1;
+    s32 t2;
+    s32 t3;
+    if (*(s32 *)(arg2) >= 0x10)
+        return 0;
+    if ((u32)arg3 >= (u32)4)
+        return 0;
+    t0 = *(s32 *)(data_020c46d4);
+    v0 = func_020920c4(t0, arg4, 1, arg3);
+    if (*(u8 *)(((u8 *)(arg1 + (arg3 << 1))) + 0x66) == 0)
+        *(u8 *)(((u8 *)(arg1 + (arg3 << 1))) + 0x65) = *(s32 *)(arg2);
+    t1 = (u8 *)(arg1 + (*(s32 *)(arg2) << 2));
+    *(s32 *)(t1 + 0x20) = v0;
+    t2 = (*(u8 *)(((u8 *)(arg1 + 0x66)) + (arg3 << 1)) + 1);
+    *(u8 *)(((u8 *)(arg1 + 0x66)) + (arg3 << 1)) = t2;
+    t3 = (*(s32 *)(arg2) + 1);
+    *(s32 *)(arg2) = t3;
+    return v0;
 }
 
 extern "C" asm void func_ov019_02168074(void)

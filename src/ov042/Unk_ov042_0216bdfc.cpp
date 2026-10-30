@@ -11,7 +11,7 @@ extern "C" void func_ov042_0216cb98(void);
 extern "C" void func_ov042_0216cd7c(void);
 extern "C" void func_ov042_0216d1fc(void);
 extern "C" void func_ov042_0216d2a8(void);
-extern "C" void func_ov042_0216d9e4(void);
+extern "C" s32 func_ov042_0216d9e4(u8 *arg0);
 extern "C" void func_ov042_0216da1c(void);
 extern "C" void func_ov042_0216dc20(void);
 extern "C" void func_ov042_0216dd14(void);
@@ -135,7 +135,7 @@ extern "C" void func_ov015_0213b364(void);
 extern "C" void func_ov015_0213b3fc(void);
 extern "C" void func_ov015_0213b900(void);
 extern "C" void func_ov015_0213bfcc(void);
-extern "C" void func_ov015_0213c33c(void);
+extern "C" s32 func_ov015_0213c33c(...);
 extern "C" void func_ov015_021616a4(void);
 extern "C" void func_ov015_021616dc(void);
 extern "C" void func_ov015_02161760(void);
@@ -201,7 +201,7 @@ extern "C" void func_ov042_02167d9c(void);
 extern "C" void func_ov042_02167e7c(void);
 extern "C" void func_ov042_02167fe8(void);
 extern "C" void func_ov042_021680bc(void);
-extern "C" void func_ov042_021681b8(void);
+extern "C" s32 func_ov042_021681b8(...);
 extern "C" void func_ov042_0216826c(void);
 extern "C" void func_ov042_02168344(void);
 extern "C" void func_ov042_0216846c(void);
@@ -2151,21 +2151,14 @@ extern "C" asm void func_ov042_0216d2a8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov042_0216d9e4(void)
+extern "C" s32 func_ov042_0216d9e4(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #0x24]
-    cmp r0, #6
-    cmpne r0, #7
-    cmpne r0, #8
-    ldmneia sp!, {r4, pc}
-    ldr r0, =data_020c9660
-    mov r1, #0
-    bl func_ov015_0213c33c
-    mov r0, r4
-    bl func_ov042_021681b8
-    ldmia sp!, {r4, pc}
+    s32 v1;
+    if (((*(s32 *)(arg0 + 0x24) != 6 && *(s32 *)(arg0 + 0x24) != 7) && *(s32 *)(arg0 + 0x24) != 8))
+        return *(s32 *)(arg0 + 0x24);
+    func_ov015_0213c33c((s32)data_020c9660, 0);
+    v1 = func_ov042_021681b8((s32)arg0);
+    return v1;
 }
 
 extern "C" asm void func_ov042_0216da1c(void)

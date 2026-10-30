@@ -3,7 +3,7 @@
 extern "C" void func_ov024_02165d60(u8 *arg0, s32 arg1);
 extern "C" void func_ov024_02165d74(void);
 extern "C" s32 func_ov024_02165d78(s32 arg0);
-extern "C" void func_ov024_02165d8c(void);
+extern "C" s32 func_ov024_02165d8c(s32 arg0, s32 arg1, s32 arg2, u8 *arg3, s32 arg4);
 extern "C" void func_ov024_02165db8(void);
 extern "C" void func_ov024_02165e40(void);
 extern "C" s32 func_ov024_02165f3c(u8 *arg0);
@@ -65,7 +65,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" void G2S_GetBG0CharPtr(void);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void G2S_GetBG2CharPtr(void);
-extern "C" void MI_CpuCopy8(void);
+extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
@@ -128,19 +128,13 @@ extern "C" s32 func_ov024_02165d78(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov024_02165d8c(void)
+extern "C" s32 func_ov024_02165d8c(s32 arg0, s32 arg1, s32 arg2, u8 *arg3, s32 arg4)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r3
-    ldr r0, [r4]
-    add r0, r2, r0
-    ldr r2, [sp, #8]
-    bl MI_CpuCopy8
-    ldr r1, [r4]
-    ldr r0, [sp, #8]
-    add r0, r1, r0
-    str r0, [r4]
-    ldmia sp!, {r4, pc}
+    s32 t0 = (arg2 + *(s32 *)(arg3));
+    MI_CpuCopy8(t0, arg1, arg4, (s32)arg3);
+    s32 t1 = (*(s32 *)(arg3) + arg4);
+    *(s32 *)(arg3) = t1;
+    return t1;
 }
 
 extern "C" asm void func_ov024_02165db8(void)

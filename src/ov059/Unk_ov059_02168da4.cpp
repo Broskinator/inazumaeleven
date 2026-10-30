@@ -9,7 +9,7 @@ extern "C" void func_ov059_0216914c(void);
 extern "C" void func_ov059_021691fc(void);
 extern "C" s32 func_ov059_021692a8(...);
 extern "C" void func_ov059_021693dc(void);
-extern "C" void func_ov059_021693e0(void);
+extern "C" s32 func_ov059_021693e0(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" void func_ov059_02169448(void);
 extern "C" void func_ov059_0216944c(void);
 extern "C" void func_ov059_021694b4(void);
@@ -95,7 +95,7 @@ extern "C" void func_0208130c(void);
 extern "C" void func_02090dec(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
-extern "C" void func_020920c4(void);
+extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
 extern "C" void func_0209263c(void);
 extern "C" void func_02093188(void);
@@ -557,33 +557,26 @@ extern "C" void func_ov059_021693dc(void)
 {
 }
 
-extern "C" asm void func_ov059_021693e0(void)
+extern "C" s32 func_ov059_021693e0(s32 arg0, u8 *arg1, u8 *arg2)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r2
-    ldr r0, [r4]
-    mov r5, r1
-    cmp r0, #0x10
-    ldmgeia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c46d4
-    mov r1, #0xb
-    ldr r0, [r0]
-    mov r2, #1
-    bl func_020920c4
-    ldr r1, [r4]
-    add r1, r5, r1, lsl #2
-    str r0, [r1, #0x1c]
-    ldrb r0, [r5, #0x63]
-    cmp r0, #0
-    ldreq r0, [r4]
-    streqb r0, [r5, #0x62]
-    ldrb r0, [r5, #0x63]
-    add r0, r0, #1
-    strb r0, [r5, #0x63]
-    ldr r0, [r4]
-    add r0, r0, #1
-    str r0, [r4]
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v0;
+    s32 t0;
+    u8 *t1;
+    s32 t2;
+    s32 t3;
+    if (*(s32 *)(arg2) >= 0x10)
+        return *(s32 *)(arg2);
+    t0 = *(s32 *)(data_020c46d4);
+    v0 = func_020920c4(t0, 0xB, 1);
+    t1 = (u8 *)(arg1 + (*(s32 *)(arg2) << 2));
+    *(s32 *)(t1 + 0x1C) = v0;
+    if (*(u8 *)(arg1 + 0x63) == 0)
+        *(u8 *)(arg1 + 0x62) = *(s32 *)(arg2);
+    t2 = (*(u8 *)(arg1 + 0x63) + 1);
+    *(u8 *)(arg1 + 0x63) = t2;
+    t3 = (*(s32 *)(arg2) + 1);
+    *(s32 *)(arg2) = t3;
+    return t3;
 }
 
 extern "C" void func_ov059_02169448(void)
