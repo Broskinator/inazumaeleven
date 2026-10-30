@@ -201,6 +201,9 @@ def main():
     literal = any(t >= first_pool for t in real if addr <= t < addr + size) or \
         any(p < first_pool and words[p] is not None for p in dead) or \
         any(p > first_pool and p not in pool and p not in dead for p in words)
+    # (the same number twice in the pool: MW's asm would merge them, see docs/matching.md)
+    nums = [blob[p - base:p - base + 4] for p in pool if p not in loads]
+    literal = literal or len(nums) != len(set(nums))
     if literal:
         targets = real
         insns = [(p, struct.unpack("<I", blob[p - base:p - base + 4])[0]) if p in pool or p in dead else words[p]
