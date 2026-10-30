@@ -7,14 +7,14 @@ extern "C" s32 func_ov005_020fcac4(s32 arg0, s32 arg1);
 extern "C" s32 func_ov005_020fcb08(s32 arg0, s32 arg1);
 extern "C" s32 func_ov005_020fcb5c(s32 arg0);
 extern "C" void func_ov005_020fcb70(void);
-extern "C" void func_ov005_020fcb74(void);
+extern "C" void func_ov005_020fcb74(u8 *arg0, s32 arg1);
 extern "C" void func_ov005_020fcbb0(void);
 extern "C" void func_ov005_020fcbf4(void);
 extern "C" s32 func_ov005_020fcc58(...);
 extern "C" s32 func_ov005_020fcc9c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov005_020fccc4(void);
 extern "C" void func_ov005_020fcdb0(void);
-extern "C" void func_ov005_020fcdc8(void);
+extern "C" s32 func_ov005_020fcdc8(...);
 extern "C" void func_ov005_020fce34(void);
 extern "C" void func_ov005_020fce84(u8 *arg0);
 extern "C" void func_ov005_020fcee4(void);
@@ -349,24 +349,23 @@ extern "C" void func_ov005_020fcb70(void)
 {
 }
 
-extern "C" asm void func_ov005_020fcb74(void)
+extern "C" void func_ov005_020fcb74(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldrb r2, [r0, #0x1ac]
-    cmp r2, #0
-    beq @L_020fcb94
-    tst r1, #1
-    ldmeqia sp!, {r3, pc}
-    bl func_ov005_020fcdc8
-    ldmia sp!, {r3, pc}
-@L_020fcb94:
-    ldr r2, [r0, #0x190]
-    cmp r2, #7
-    ldmneia sp!, {r3, pc}
-    tst r1, #1
-    ldmeqia sp!, {r3, pc}
-    bl func_ov005_020fcdb0
-    ldmia sp!, {r3, pc}
+    s32 t0;
+    if (*(u8 *)(arg0 + 0x1AC) != 0) {
+        if ((arg1 & 1) == 0)
+            return;
+        func_ov005_020fcdc8();
+        return;
+    } else {
+        if (*(s32 *)(arg0 + 0x190) != 7)
+            return;
+        if ((arg1 & 1) == 0)
+            return;
+        t0 = *(s32 *)(arg0 + 0x190);
+        ((s32 (*)(...))func_ov005_020fcdb0)((s32)arg0, arg1, t0);
+        return;
+    }
 }
 
 extern "C" asm void func_ov005_020fcbb0(void)
@@ -524,7 +523,7 @@ extern "C" void func_ov005_020fcdb0(void)
     _ZN12SceneManager13func_0203e2fcEl(3);
 }
 
-extern "C" asm void func_ov005_020fcdc8(void)
+extern "C" asm s32 func_ov005_020fcdc8(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r4, =data_020c5e40

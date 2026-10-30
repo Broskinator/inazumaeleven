@@ -31,7 +31,7 @@ extern "C" void func_0208fac4(void);
 extern "C" void func_0208fc04(void);
 extern "C" void func_0208fc44(void);
 extern "C" void func_0208fc70(void);
-extern "C" void func_0208fd90(void);
+extern "C" void func_0208fd90(s32 arg0);
 extern "C" void func_0208fdf4(void);
 extern "C" void func_0208fe20(void);
 extern "C" void func_0208fe50(u8 *obj, void *object);
@@ -49,7 +49,7 @@ extern "C" void func_0208ff6c(u8 *obj, void *object);
 extern "C" void func_0208ff7c(void);
 
 extern "C" void FX_SinCosTable_(void);
-extern "C" void NNS_FndInitList(void);
+extern "C" s32 NNS_FndInitList(...);
 extern "C" void NNS_G3dGlbFlushVP(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001d80(void);
@@ -59,7 +59,7 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
 extern "C" void func_0202b608(void);
-extern "C" void func_0203274c(void);
+extern "C" s32 func_0203274c(...);
 
 extern "C" asm void func_0208e9d4(void)
 {
@@ -1412,34 +1412,26 @@ extern "C" asm void func_0208fc70(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_0208fd90(void)
+extern "C" void func_0208fd90(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r4, #8
-    mov r1, r4
-    add r0, r7, #0x26c
-    bl NNS_FndInitList
-    mov r1, r4
-    add r0, r7, #0x278
-    bl NNS_FndInitList
-    mov r1, r4
-    add r0, r7, #0x284
-    bl NNS_FndInitList
-    mov r6, #0
-    add r4, r7, #0x17c
-    mov r5, r6
-@L_0208fdcc:
-    add r2, r7, r6, lsl #4
-    str r5, [r2, #0x180]
-    add r0, r7, #0x26c
-    add r1, r4, r6, lsl #4
-    str r5, [r2, #0x17c]
-    bl func_0203274c
-    add r6, r6, #1
-    cmp r6, #0xf
-    blt @L_0208fdcc
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    NNS_FndInitList((arg0 + 0x26C), 8);
+    NNS_FndInitList((arg0 + 0x278), 8);
+    NNS_FndInitList((arg0 + 0x284), 8);
+    r6 = 0;
+    do {
+        *(s32 *)(((u8 *)(arg0 + (r6 << 4))) + 0x180) = 0;
+        *(s32 *)(((u8 *)(arg0 + (r6 << 4))) + 0x17C) = 0;
+        func_0203274c((arg0 + 0x26C), ((arg0 + 0x17C) + (r6 << 4)), (arg0 + (r6 << 4)));
+        r4 = (arg0 + 0x17C);
+        r5 = 0;
+        r6 = (r6 + 1);
+        r7 = arg0;
+    } while (r6 < 0xF);
+    return;
 }
 
 extern "C" asm void func_0208fdf4(void)

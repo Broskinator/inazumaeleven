@@ -16,7 +16,7 @@ extern "C" void func_ov018_021663b8(void);
 extern "C" void func_ov018_02166408(void);
 extern "C" void func_ov018_0216641c(void);
 extern "C" void func_ov018_02166490(void);
-extern "C" void func_ov018_02166608(void);
+extern "C" s32 func_ov018_02166608(u8 *arg0);
 extern "C" s32 func_ov018_0216666c(u8 *arg0, s32 arg1);
 extern "C" void func_ov018_021666c8(void);
 extern "C" s32 func_ov018_021667b0(u8 *arg0);
@@ -33,7 +33,7 @@ extern "C" void func_ov018_02166ce4(u8 *arg0);
 extern "C" void func_ov018_02166cf0(u8 *arg0);
 extern "C" void func_ov018_02166d0c(u8 *arg0);
 extern "C" char *func_ov018_02166d18(u8 *arg0);
-extern "C" void func_ov018_02166d30(void);
+extern "C" s32 func_ov018_02166d30(...);
 extern "C" void func_ov018_02166eb0(s32 arg0);
 extern "C" void func_ov018_02166ef0(void);
 extern "C" s32 func_ov018_02166fa8(...);
@@ -58,7 +58,7 @@ extern "C" void G2S_GetBG0CharPtr(void);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void G2S_GetBG2CharPtr(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
@@ -710,31 +710,17 @@ extern "C" asm void func_ov018_02166490(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov018_02166608(void)
+extern "C" s32 func_ov018_02166608(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldr r0, [r6, #0x30]
-    cmp r0, #4
-    cmpne r0, #5
-    ldmneia sp!, {r4, r5, r6, pc}
-    mov r5, #0
-    mov r4, #0x600
-    ldr r1, =data_020d2d20
-    mov r0, r5
-    mov r2, r4
-    bl MIi_CpuClearFast
-    ldr r1, =data_020d3520
-    mov r0, r5
-    mov r2, r4
-    bl MIi_CpuClearFast
-    mov r0, r6
-    bl func_ov018_02166eb0
-    mov r0, r6
-    bl func_ov018_02166d30
-    mov r0, r6
-    bl func_ov018_02166ff8
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v4;
+    if ((*(s32 *)(arg0 + 0x30) != 4 && *(s32 *)(arg0 + 0x30) != 5))
+        return *(s32 *)(arg0 + 0x30);
+    MIi_CpuClearFast(0, (s32)data_020d2d20, 0x600);
+    MIi_CpuClearFast(0, (s32)data_020d3520, 0x600);
+    func_ov018_02166eb0((s32)arg0);
+    func_ov018_02166d30((s32)arg0);
+    v4 = ((s32 (*)(...))func_ov018_02166ff8)((s32)arg0);
+    return v4;
 }
 
 extern "C" s32 func_ov018_0216666c(u8 *arg0, s32 arg1)
@@ -1148,7 +1134,7 @@ extern "C" char *func_ov018_02166d18(u8 *arg0)
     return data_ov018_02167200;
 }
 
-extern "C" asm void func_ov018_02166d30(void)
+extern "C" asm s32 func_ov018_02166d30(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x24

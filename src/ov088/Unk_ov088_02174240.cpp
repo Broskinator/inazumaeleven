@@ -4,7 +4,7 @@ extern "C" void func_ov088_02174240(void);
 extern "C" void func_ov088_02174800(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov088_02174830(void);
 extern "C" s32 func_ov088_021748f8(s32 arg0);
-extern "C" void func_ov088_0217490c(void);
+extern "C" s32 func_ov088_0217490c(s32 arg0);
 extern "C" s32 func_ov088_0217492c(s32 arg0);
 extern "C" s32 func_ov088_02174944(s32 arg0);
 extern "C" void func_ov088_0217495c(void);
@@ -506,16 +506,16 @@ extern "C" s32 func_ov088_021748f8(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov088_0217490c(void)
+extern "C" s32 func_ov088_0217490c(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    movs r4, r0
-    cmpne r4, #0
-    ldmeqia sp!, {r4, pc}
-    bl func_ov088_02174a34
-    mov r0, r4
-    bl func_ov088_021749f8
-    ldmia sp!, {r4, pc}
+    s32 v1;
+    if (arg0 == 0)
+        return arg0;
+    if (arg0 == 0)
+        return arg0;
+    func_ov088_02174a34(arg0);
+    v1 = ((s32 (*)(...))func_ov088_021749f8)(arg0);
+    return v1;
 }
 
 extern "C" s32 func_ov088_0217492c(s32 arg0)

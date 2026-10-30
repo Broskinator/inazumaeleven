@@ -43,11 +43,11 @@ extern "C" void func_0209da5c(void);
 extern "C" void func_0209da70(u32 value);
 extern "C" void func_0209da74(u32 value);
 extern "C" void func_0209da80(s32 a, s32 b);
-extern "C" void func_0209da94(void);
+extern "C" s32 func_0209da94(...);
 extern "C" void func_0209db9c(void);
 extern "C" void func_0209dc78(void);
 extern "C" void func_0209dcec(void);
-extern "C" void func_0209dd60(void);
+extern "C" s32 func_0209dd60(u8 *arg0, s32 arg1);
 extern "C" void func_0209ddd0(void);
 extern "C" void func_0209de0c(void);
 extern "C" void func_0209de28(void);
@@ -78,7 +78,7 @@ extern "C" char data_020fc74c[];
 extern "C" char data_020fc750[];
 extern "C" char data_020fc754[];
 extern "C" char data_020fc7d8[];
-extern "C" void FS_FindArchive(void);
+extern "C" s32 FS_FindArchive(...);
 extern "C" void FS_OpenFileFast(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
@@ -1072,7 +1072,7 @@ extern "C" void func_0209da80(s32 a, s32 b)
     data_020b4944[0] = b;
 }
 
-extern "C" asm void func_0209da94(void)
+extern "C" asm s32 func_0209da94(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x124
@@ -1276,36 +1276,35 @@ extern "C" asm void func_0209dcec(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_0209dd60(void)
+extern "C" s32 func_0209dd60(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r0
-    mov r0, r1
-    bl func_0209da94
-    movs r4, r0
-    beq @L_0209ddc0
-    ldr r6, =data_020fc7d8
-    ldr r0, [r6]
-    tst r0, #1
-    bne @L_0209dda4
-    ldr r0, =data_020bafe4
-    mov r1, #3
-    bl FS_FindArchive
-    str r0, [r6, #4]
-    ldr r0, [r6]
-    orr r0, r0, #1
-    str r0, [r6]
-@L_0209dda4:
-    ldr r1, =data_020fc7d8
-    mov r0, #1
-    ldr r1, [r1, #4]
-    str r1, [r5]
-    ldr r1, [r4, #4]
-    str r1, [r5, #4]
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0209ddc0:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *r4;
+    s32 r5;
+    u8 *r6;
+    s32 v0;
+    s32 v1;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    v0 = func_0209da94(arg1, arg1);
+    r4 = (u8 *)v0;
+    r5 = (s32)arg0;
+    if ((s32)r4 != 0) {
+        r6 = (u8 *)data_020fc7d8;
+        if ((*(s32 *)(r6) & 1) == 0) {
+            v1 = FS_FindArchive((s32)data_020bafe4, 3);
+            *(s32 *)(data_020fc7d8 + 0x4) = v1;
+            t0 = (*(s32 *)(data_020fc7d8) | 1);
+            *(s32 *)(data_020fc7d8) = t0;
+        }
+        t1 = *(s32 *)(data_020fc7d8 + 0x4);
+        *(s32 *)(arg0) = t1;
+        t2 = *(s32 *)(r4 + 0x4);
+        *(s32 *)(arg0 + 0x4) = t2;
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 extern "C" asm void func_0209ddd0(void)

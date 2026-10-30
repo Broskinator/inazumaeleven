@@ -57,8 +57,8 @@ extern "C" void func_020881ac(u8 *obj, int a);
 extern "C" void func_020881cc(u8 *obj, int a);
 extern "C" void func_0208852c(u8 *obj, int a);
 extern "C" s32 func_02088530(s32 arg0);
-extern "C" void func_02088580(void);
-extern "C" void func_020885b0(void);
+extern "C" s32 func_02088580(s32 arg0);
+extern "C" void func_020885b0(s32 arg0);
 extern "C" s32 func_020885d4(u8 *arg0);
 extern "C" s32 func_0208862c(u8 *arg0);
 extern "C" void func_0208868c(void);
@@ -149,8 +149,8 @@ extern "C" void func_02086f1c(void);
 extern "C" void func_02086f34(void);
 extern "C" void func_02086f98(void);
 extern "C" s32 func_02086fe0(...);
-extern "C" void func_02087038(void);
-extern "C" void func_0208706c(void);
+extern "C" s32 func_02087038(...);
+extern "C" s32 func_0208706c(...);
 extern "C" void func_020870c0(void);
 extern "C" void func_02087464(void);
 extern "C" void func_0209bab0(void);
@@ -1340,35 +1340,33 @@ extern "C" s32 func_02088530(s32 arg0)
     return 1;
 }
 
-extern "C" asm void func_02088580(void)
+extern "C" s32 func_02088580(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, #0
-    add r4, r0, #4
-@L_0208858c:
-    add r0, r4, r5, lsl #5
-    bl func_02087038
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    add r5, r5, #1
-    cmp r5, #4
-    blt @L_0208858c
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r4;
+    s32 r5;
+    s32 v0;
+    r5 = 0;
+    do {
+        v0 = func_02087038(((arg0 + 4) + (r5 << 5)));
+        if (v0 != 0)
+            return v0;
+        r4 = (arg0 + 4);
+        r5 = (r5 + 1);
+    } while (r5 < 4);
+    return 0;
 }
 
-extern "C" asm void func_020885b0(void)
+extern "C" void func_020885b0(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, #0
-    add r4, r0, #4
-@L_020885bc:
-    add r0, r4, r5, lsl #5
-    bl func_0208706c
-    add r5, r5, #1
-    cmp r5, #4
-    blt @L_020885bc
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r4;
+    s32 r5;
+    r5 = 0;
+    do {
+        func_0208706c(((arg0 + 4) + (r5 << 5)));
+        r4 = (arg0 + 4);
+        r5 = (r5 + 1);
+    } while (r5 < 4);
+    return;
 }
 
 extern "C" s32 func_020885d4(u8 *arg0)

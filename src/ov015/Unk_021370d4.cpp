@@ -28,7 +28,7 @@ extern "C" s32 func_ov015_021395f0(u8 *arg0);
 extern "C" void func_ov015_02139644(void);
 extern "C" void func_ov015_0213980c(void);
 extern "C" void func_ov015_0213998c(void);
-extern "C" void func_ov015_02139b58(void);
+extern "C" s32 func_ov015_02139b58(u8 *arg0);
 extern "C" s32 func_ov015_02139bd4(u8 *arg0);
 extern "C" s32 func_ov015_02139c28(u8 *arg0);
 extern "C" s32 func_ov015_02139c74(u8 *arg0);
@@ -3046,37 +3046,35 @@ extern "C" asm void func_ov015_0213998c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02139b58(void)
+extern "C" s32 func_ov015_02139b58(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    ldr r5, =data_020c46d4
-    ldr r2, [r4, #0x48]
-    ldr r0, [r5]
-    ldr r1, [r4, #0x98]
-    and r2, r2, #0xff
-    bl func_020922fc
-    mov r2, #0
-    ldr r0, [r5]
-    ldr r1, [r4, #0x98]
-    mov r3, r2
-    bl func_02092e18
-    ldr r1, [r4, #0x28]
-    ldr r0, [r4, #0x34]
-    ldr r5, =data_020c4694
-    mov r1, r1, lsl #0x10
-    mov r3, r0, lsl #0x10
-    ldr r0, [r5]
-    mov r2, r1, lsr #0x10
-    mov r3, r3, lsr #0x10
-    ldr r1, [r4, #0xc0]
-    bl func_02096354
-    ldr r0, [r5]
-    ldr r1, [r4, #0xc0]
-    mov r2, #2
-    bl func_0209657c
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    s32 t6;
+    s32 t7;
+    s32 t8;
+    s32 t9;
+    s32 t10;
+    t0 = *(s32 *)(data_020c46d4);
+    t1 = *(s32 *)(arg0 + 0x98);
+    t2 = (*(s32 *)(arg0 + 0x48) & 0xFF);
+    func_020922fc(t0, t1, t2);
+    t3 = *(s32 *)(data_020c46d4);
+    t4 = *(s32 *)(arg0 + 0x98);
+    func_02092e18(t3, t4, 0, 0);
+    t5 = *(s32 *)(data_020c4694);
+    t6 = *(s32 *)(arg0 + 0xC0);
+    t7 = ((u16)*(s32 *)(arg0 + 0x34));
+    t8 = ((u16)*(s32 *)(arg0 + 0x28));
+    func_02096354(t5, t6, t8, t7);
+    t9 = *(s32 *)(data_020c4694);
+    t10 = *(s32 *)(arg0 + 0xC0);
+    func_0209657c(t9, t10, 2);
+    return 1;
 }
 
 extern "C" s32 func_ov015_02139bd4(u8 *arg0)

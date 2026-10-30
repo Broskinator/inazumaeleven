@@ -18,7 +18,7 @@ extern "C" void func_ov044_02169628(void);
 extern "C" void func_ov044_021696a0(void);
 extern "C" void func_ov044_02169804(void);
 extern "C" void func_ov044_02169928(void);
-extern "C" void func_ov044_021699d4(void);
+extern "C" s32 func_ov044_021699d4(u8 *arg0);
 extern "C" void func_ov044_02169a2c(void);
 extern "C" void func_ov044_02169a98(void);
 extern "C" void func_ov044_02169b00(void);
@@ -53,7 +53,7 @@ extern "C" char data_ov044_0216a764[];
 extern "C" char data_ov044_0216a774[];
 extern "C" char data_ov044_0216a784[];
 extern "C" s32 MI_CpuFill8(...);
-extern "C" void _ZN12SoundManager9PlaySoundEi(void);
+extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206f064Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_020768fcEm(...);
 extern "C" void _ZN17UnkClass_020621b413func_02076ba0Ev(void);
@@ -84,7 +84,7 @@ extern "C" void func_ov015_02163040(void);
 extern "C" void func_ov015_021630d8(void);
 extern "C" void func_ov044_021663e4(void);
 extern "C" void func_ov044_02166a50(void);
-extern "C" void func_ov044_02166afc(void);
+extern "C" s32 func_ov044_02166afc(...);
 extern "C" void func_ov044_02167480(void);
 extern "C" void func_ov044_021674e8(void);
 extern "C" void func_ov044_02167658(void);
@@ -877,30 +877,25 @@ extern "C" asm void func_ov044_02169928(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov044_021699d4(void)
+extern "C" s32 func_ov044_021699d4(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r1, [r5, #0x10]
-    cmp r1, #0
-    bne @L_02169a10
-    mov r4, #2
-    mov r1, r4
-    bl func_ov044_02166afc
-    mov r0, r5
-    mov r1, r4
-    bl func_ov044_02169f3c
-    ldr r0, =data_020c5e40
-    mov r1, #1
-    bl _ZN12SoundManager9PlaySoundEi
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02169a10:
-    cmp r1, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c5e40
-    mov r1, #9
-    bl _ZN12SoundManager9PlaySoundEi
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r1;
+    s32 r5;
+    s32 v2;
+    s32 v3;
+    r1 = *(s32 *)(arg0 + 0x10);
+    r5 = (s32)arg0;
+    if (r1 == 0) {
+        func_ov044_02166afc((s32)arg0, 2);
+        ((s32 (*)(...))func_ov044_02169f3c)((s32)arg0, 2);
+        v2 = _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 1);
+        return v2;
+    } else {
+        if (r1 != 1)
+            return (s32)arg0;
+        v3 = _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 9);
+        return v3;
+    }
 }
 
 extern "C" asm void func_ov044_02169a2c(void)

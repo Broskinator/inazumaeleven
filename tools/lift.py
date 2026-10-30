@@ -65,6 +65,11 @@ class Bin:
         self.op, self.a, self.b = op, a, b
 
     def render(self):
+        a, b = self.a, self.b
+        if self.op in ("u>>", ">>") and isinstance(a, Bin) and a.op == "<<" and isinstance(b, Const) \
+                and isinstance(a.b, Const) and a.b.n == b.n and b.n in (16, 24):
+            t = {(16, "u>>"): "u16", (24, "u>>"): "u8", (16, ">>"): "s16", (24, ">>"): "s8"}[(b.n, self.op)]
+            return f"(({t}){a.a.render()})"
         if self.op == "u>>":
             return f"((u32){self.a.render()} >> {self.b.render()})"
         return f"({self.a.render()} {self.op} {self.b.render()})"
@@ -74,7 +79,12 @@ class Call:
     """The value a call returns (in r0, after the call)."""
     def __init__(self, k, name, regs, seg, first):
         self.k, self.name, self.regs, self.seg, self.first = k, name, regs, seg, first
-        self.used, self.args = False, []
+        self.used, self.args, self.cast = False, [], False
+
+    def callee(self):
+        if self.name is None:
+            return f"((s32 (*)(...)){self.fp.render()})"
+        return f"((s32 (*)(...)){self.name})" if self.cast else self.name
 
     def render(self):
         return f"v{self.k}"
@@ -394,6 +404,8 @@ def lift(name, body, protos, variant=0):
     # still in their registers before the first call; then the words stored on the stack)
     for c in calls:
         p = protos[c.name]
+        if isinstance(p, tuple) and (c.stack or max([int(r[1:]) + 1 for r in c.seg if r in ("r0", "r1", "r2", "r3")] + [0]) > len(p[1])):
+            p, c.cast = VAR, True
         if p in ("void(void)", VAR):
             n = max([int(r[1:]) + 1 for r in c.seg if r in ("r0", "r1", "r2", "r3")] + [0])
             if c.first:
@@ -474,9 +486,9 @@ def render_linear(stmts, ret, regs, low, size):
             c = s[1]
             args = ", ".join(value(v, t) for v, t in c.args)
             if c.used:
-                out.append(f"    {c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {c.name}({args});\n")
+                out.append(f"    {c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {c.callee()}({args});\n")
             else:
-                out.append(f"    {c.name}({args});\n")
+                out.append(f"    {c.callee()}({args});\n")
     if ret != "void":
         out.append(f"    return {value(regs['r0'], ret)};\n")
     return out
@@ -925,11 +937,27 @@ def lift_cfg(name, body, protos, variant=0):
             raise Fail(f"{r} before it's written")
     calls, callees, used_vars, tmps = [], set(), set(), []
 
+    def pkey(v, assigned):
+        """a key of v if it's a value that doesn't change (else None)"""
+        if isinstance(v, Const):
+            return ("c", v.n)
+        if isinstance(v, Sym):
+            return ("s", v.name, v.off)
+        if type(v) is Param and v.i >= 0 and v not in assigned:
+            return ("p", v.i)
+        if isinstance(v, Bin):
+            a, b = pkey(v.a, assigned), pkey(v.b, assigned)
+            return ("b", v.op, a, b) if a and b else None
+        return None
+    ENTRY = [{} for _ in blocks]
+    END = [{} for _ in blocks]
+
     def run(k):
         """the statements of block k, and its condition at the end (flags, cc) or None"""
         b = blocks[k]
         regs = {f"r{i}": P[i] for i in range(4)}
         regs.update(V)
+        regs.update(ENTRY[k])
         stmts, seg, flags = [], set(), None
         state = {"flags": None}
         out_args = {}
@@ -1130,6 +1158,7 @@ def lift_cfg(name, body, protos, variant=0):
                 continue
             raise Fail(f"{mn}{c} {op}")
         # (the registers needed after the block go to their variables)
+        END[k] = dict(regs)
         if b["succ"]:
             live = set().union(*[live_in[s] for s in b["succ"]])
             assign = {}
@@ -1139,6 +1168,8 @@ def lift_cfg(name, body, protos, variant=0):
                     raise Fail(f"register {r}")
                 if r not in regs:
                     continue     # (not set again since a call)
+                if all(r in ENTRY[x] for x in b["succ"]):
+                    continue     # (known where it goes: no variable)
                 if regs[r] is not home:
                     assign[r] = (home, regs[r])
             # (in an order where no variable is read after it's written)
@@ -1164,7 +1195,30 @@ def lift_cfg(name, body, protos, variant=0):
                         raise Fail("a compare of a variable written after it")
                 term = (new, term[1])
         return stmts, term
-    code = [run(k) for k in range(len(blocks))]
+    for _ in range(5):
+        calls.clear()
+        callees.clear()
+        used_vars.clear()
+        tmps.clear()
+        code = [run(k) for k in range(len(blocks))]
+        assigned = {st[1] for c_ in code for st in c_[0] if st[0] == "assign"}
+        entry = [{} for _ in blocks]
+        for k in range(1, len(blocks)):
+            preds_ = [j for j in range(len(blocks)) if k in blocks[j]["succ"]]
+            if not preds_:
+                continue
+            for r in live_in[k]:
+                ps = [j for j in preds_ if not (isinstance(END[j].get(r), Var) and END[j][r] is V.get(r))]
+                keys = [pkey(END[j].get(r), assigned) for j in ps]
+                if ps and keys[0] is not None and all(x == keys[0] for x in keys):
+                    entry[k][r] = END[ps[0]][r]
+        same = all({r: pkey(v, assigned) for r, v in entry[k].items()} == {r: pkey(v, assigned) for r, v in ENTRY[k].items()}
+                   for k in range(len(blocks)))
+        ENTRY[:] = entry
+        if same:
+            break
+    else:
+        raise Fail("values that don't settle")
     # (a branch, then a block with only a compare and a branch: one condition, && or ||)
     merged = True
     while merged:
@@ -1199,6 +1253,8 @@ def lift_cfg(name, body, protos, variant=0):
     # (the arguments of the calls, as in lift())
     for cl in calls:
         p = protos[cl.name] if cl.name else VAR
+        if isinstance(p, tuple) and (cl.stack or max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0]) > len(p[1])):
+            p, cl.cast = VAR, True
         if p in ("void(void)", VAR):
             n = max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0])
             if cl.first:
@@ -1249,7 +1305,7 @@ def lift_cfg(name, body, protos, variant=0):
             return f"{sp_}{home.render()} = {value(v, 'u8 *' if home.ptr else home.type if not isinstance(home, Var) else 's32')};\n"
         c = st[1]
         args = ", ".join(value(v, t) for v, t in c.args)
-        f = c.name or f"((s32 (*)(...)){c.fp.render()})"
+        f = c.callee()
         if c.used:
             return f"{sp_}v{c.k} = {f}({args});\n"
         return f"{sp_}{f}({args});\n"

@@ -19,7 +19,7 @@ extern "C" void func_ov003_0210ac8c(void);
 extern "C" void func_ov003_0210ae04(void);
 extern "C" void func_ov003_0210ae6c(void);
 extern "C" void func_ov003_0210aeb0(void);
-extern "C" void func_ov003_0210b028(void);
+extern "C" s32 func_ov003_0210b028(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov003_0210b0a4(void);
 extern "C" void func_ov003_0210b29c(void);
 
@@ -58,7 +58,7 @@ extern "C" void func_ov003_02108930(void);
 extern "C" void func_ov015_0213328c(void);
 extern "C" void func_ov015_02133c24(void);
 extern "C" void func_ov015_0213b540(void);
-extern "C" void func_ov015_0213b6ac(void);
+extern "C" s32 func_ov015_0213b6ac(...);
 extern "C" void func_ov015_0213b7f8(void);
 extern "C" void func_ov015_0213b900(void);
 extern "C" void func_ov015_0213b990(void);
@@ -2598,38 +2598,13 @@ extern "C" asm void func_ov003_0210aeb0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov003_0210b028(void)
+extern "C" s32 func_ov003_0210b028(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0x20
-    ldr lr, [r0, #0x620]
-    cmp lr, #0
-    addeq sp, sp, #0x20
-    ldmeqia sp!, {r3, pc}
-    mov r12, #1
-    mov r0, r1, lsl #0x18
-    mov r3, #0
-    mov r1, r2, lsl #0x18
-    str r12, [sp]
-    str r3, [sp, #4]
-    mov r0, r0, asr #0x18
-    str r0, [sp, #8]
-    mov r0, r1, asr #0x18
-    str r0, [sp, #0xc]
-    mov r1, #4
-    str r1, [sp, #0x10]
-    mov r0, #2
-    str r0, [sp, #0x14]
-    str r1, [sp, #0x18]
-    ldr r1, [lr, #0xc]
-    ldr r0, =data_020c9660
-    add r12, lr, r1
-    mov r1, r3
-    mov r2, r3
-    str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
-    add sp, sp, #0x20
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    if ((s32)*(u8 * *)(arg0 + 0x620) == 0)
+        return (s32)arg0;
+    v0 = func_ov015_0213b6ac((s32)data_020c9660, 0, 0, 0, 1, 0, ((s8)arg1), ((s8)arg2), 4, 2, 4, (*(u8 * *)(arg0 + 0x620) + *(s32 *)(*(u8 * *)(arg0 + 0x620) + 0xC)));
+    return v0;
 }
 
 extern "C" asm void func_ov003_0210b0a4(void)

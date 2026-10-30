@@ -70,7 +70,7 @@ extern "C" s32 func_ov001_02117274(...);
 extern "C" void func_ov001_0211729c(s32 arg0);
 extern "C" void func_ov001_021172d4(u8 *arg0);
 extern "C" void func_ov001_021172f4(void);
-extern "C" void func_ov001_02117434(void);
+extern "C" void func_ov001_02117434(s32 arg0);
 extern "C" void func_ov001_0211745c(void);
 extern "C" void func_ov001_0211767c(void);
 extern "C" void func_ov001_0211771c(void);
@@ -96,7 +96,7 @@ extern "C" void func_ov001_02117f90(void);
 extern "C" s32 func_ov001_021180a4(...);
 extern "C" void func_ov001_02118550(void);
 extern "C" void func_ov001_021186a0(u8 *arg0);
-extern "C" void func_ov001_021186c0(void);
+extern "C" void func_ov001_021186c0(s32 arg0);
 extern "C" void func_ov001_021186e8(void);
 extern "C" void func_ov001_02118858(void);
 extern "C" void func_ov001_02118910(void);
@@ -2150,19 +2150,19 @@ extern "C" asm void func_ov001_021172f4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov001_02117434(void)
+extern "C" void func_ov001_02117434(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, #0
-    add r5, r0, #0x40
-    mov r4, #0xc
-@L_02117444:
-    mla r0, r6, r4, r5
-    bl func_ov015_02134208
-    add r6, r6, #1
-    cmp r6, #4
-    blt @L_02117444
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    r6 = 0;
+    do {
+        func_ov015_02134208(((r6 * 0xC) + (arg0 + 0x40)));
+        r4 = 0xC;
+        r5 = (arg0 + 0x40);
+        r6 = (r6 + 1);
+    } while (r6 < 4);
+    return;
 }
 
 extern "C" asm void func_ov001_0211745c(void)
@@ -3378,19 +3378,19 @@ extern "C" void func_ov001_021186a0(u8 *arg0)
     func_ov001_02126240(*(s32 *)(arg0 + 0x3D8), (arg0 + 0x3D8), (s32)data_ov001_02128710);
 }
 
-extern "C" asm void func_ov001_021186c0(void)
+extern "C" void func_ov001_021186c0(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, #0
-    add r5, r0, #0x3d8
-    mov r4, #0xc
-@L_021186d0:
-    mla r0, r6, r4, r5
-    bl func_ov015_02134208
-    add r6, r6, #1
-    cmp r6, #5
-    blt @L_021186d0
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    r6 = 0;
+    do {
+        func_ov015_02134208(((r6 * 0xC) + (arg0 + 0x3D8)));
+        r4 = 0xC;
+        r5 = (arg0 + 0x3D8);
+        r6 = (r6 + 1);
+    } while (r6 < 5);
+    return;
 }
 
 extern "C" asm void func_ov001_021186e8(void)

@@ -55,7 +55,7 @@ extern "C" s32 func_ov001_021280bc(...);
 extern "C" s32 func_ov001_02128144(s32 arg0, s32 arg1);
 extern "C" s32 func_ov001_0212816c(s32 arg0, s32 arg1);
 extern "C" s32 func_ov001_02128194(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov001_021281d0(void);
+extern "C" s32 func_ov001_021281d0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 extern "C" char data_020c4668[];
 extern "C" char data_020c46d4[];
@@ -3331,19 +3331,11 @@ extern "C" s32 func_ov001_02128194(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return t0;
 }
 
-extern "C" asm void func_ov001_021281d0(void)
+extern "C" s32 func_ov001_021281d0(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    mov r12, #0xb
-    mul r12, r1, r12
-    add r0, r0, #0x4c
-    add r1, r0, #0x11800
-    cmp r3, #0xb
-    movgt r3, #0xb
-    mov r0, r2
-    add r1, r1, r12, lsl #1
-    mov r2, r3, lsl #1
-    bl MI_CpuCopy8
-    mov r0, #1
-    ldmia sp!, {r3, pc}
+    if (arg3 > 0xB) {
+        arg3 = 0xB;
+    }
+    MI_CpuCopy8(arg2, (((arg0 + 0x4C) + 0x11800) + ((arg1 * 0xB) << 1)), (arg3 << 1));
+    return 1;
 }

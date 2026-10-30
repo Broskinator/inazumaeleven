@@ -43,8 +43,8 @@ extern "C" s32 func_ov014_02118998(u8 *arg0);
 extern "C" void func_ov014_021189bc(void);
 extern "C" void func_ov014_021189c0(void);
 extern "C" void func_ov014_021189cc(void);
-extern "C" void func_ov014_021189d8(void);
-extern "C" void func_ov014_02118a0c(void);
+extern "C" s32 func_ov014_021189d8(s32 arg0, s32 arg1);
+extern "C" s32 func_ov014_02118a0c(s32 arg0, s32 arg1);
 extern "C" void func_ov014_02118a40(void);
 extern "C" void func_ov014_02118b78(void);
 extern "C" void func_ov014_02118ba4(void);
@@ -939,38 +939,22 @@ extern "C" void func_ov014_021189cc(void)
     OS_UnlockMutex();
 }
 
-extern "C" asm void func_ov014_021189d8(void)
+extern "C" s32 func_ov014_021189d8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r1
-    mov r5, r0
-    bl func_ov014_021189c0
-    add r1, r4, #0x8000
-    ldr r2, [r1, #0x48]
-    mov r0, r5
-    add r2, r2, #1
-    str r2, [r1, #0x48]
-    bl func_ov014_021189cc
-    add r0, r4, #0x8000
-    ldr r0, [r0, #0x48]
-    ldmia sp!, {r3, r4, r5, pc}
+    func_ov014_021189c0();
+    s32 t0 = (*(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) + 1);
+    *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) = t0;
+    ((s32 (*)(...))func_ov014_021189cc)(arg0, (arg1 + 0x8000), t0);
+    return *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48);
 }
 
-extern "C" asm void func_ov014_02118a0c(void)
+extern "C" s32 func_ov014_02118a0c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r1
-    mov r5, r0
-    bl func_ov014_021189c0
-    add r1, r4, #0x8000
-    ldr r2, [r1, #0x48]
-    mov r0, r5
-    sub r2, r2, #1
-    str r2, [r1, #0x48]
-    bl func_ov014_021189cc
-    add r0, r4, #0x8000
-    ldr r0, [r0, #0x48]
-    ldmia sp!, {r3, r4, r5, pc}
+    func_ov014_021189c0();
+    s32 t0 = (*(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) - 1);
+    *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) = t0;
+    ((s32 (*)(...))func_ov014_021189cc)(arg0, (arg1 + 0x8000), t0);
+    return *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48);
 }
 
 extern "C" asm void func_ov014_02118a40(void)
