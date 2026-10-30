@@ -55,7 +55,7 @@ extern "C" void func_0209deb0(void);
 extern "C" void func_0209df60(void);
 extern "C" void func_0209dfd4(s32 *obj, int i, s32 value);
 extern "C" void func_0209e020(void);
-extern "C" void func_0209e09c(void);
+extern "C" void func_0209e09c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_0209e0c0(s32 *obj, int i, s32 value);
 extern "C" void func_0209e0dc(void);
 
@@ -1512,17 +1512,15 @@ extern "C" asm void func_0209e020(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_0209e09c(void)
+extern "C" void func_0209e09c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    cmp r2, #0
-    movgt r3, #0xe10
-    mulgt r3, r2, r3
-    addgt r0, r0, r1, lsl #2
-    strgt r3, [r0, #4]
-    ldmgtia sp!, {r3, pc}
-    bl func_0209dfd4
-    ldmia sp!, {r3, pc}
+    if (arg2 > 0) {
+        *(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0x4) = (arg2 * 0xE10);
+        return;
+    } else {
+        func_0209dfd4((s32 *)arg0, arg1, arg2);
+        return;
+    }
 }
 
 extern "C" void func_0209e0c0(s32 *obj, int i, s32 value)

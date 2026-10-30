@@ -17,7 +17,7 @@ extern "C" void func_ov003_0210aa1c(void);
 extern "C" void func_ov003_0210ab30(void);
 extern "C" void func_ov003_0210ac8c(void);
 extern "C" s32 func_ov003_0210ae04(s32 arg0, u8 *arg1, u8 *arg2);
-extern "C" void func_ov003_0210ae6c(void);
+extern "C" s32 func_ov003_0210ae6c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov003_0210aeb0(void);
 extern "C" s32 func_ov003_0210b028(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov003_0210b0a4(void);
@@ -2471,28 +2471,27 @@ extern "C" s32 func_ov003_0210ae04(s32 arg0, u8 *arg1, u8 *arg2)
     return arg0;
 }
 
-extern "C" asm void func_ov003_0210ae6c(void)
+extern "C" s32 func_ov003_0210ae6c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    mov r12, #0
-    mov lr, #3
-@L_0210ae7c:
-    adds r4, r4, r2
-    movmi r4, lr
-    bmi @L_0210ae90
-    cmp r4, #3
-    movgt r4, r12
-@L_0210ae90:
-    add r3, r0, r4, lsl #2
-    ldr r3, [r3, #0x3f0]
-    cmp r3, #0
-    bge @L_0210aea8
-    cmp r1, r4
-    bne @L_0210ae7c
-@L_0210aea8:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    s32 r12;
+    s32 lr;
+    r4 = arg1;
+    r12 = 0;
+    lr = 3;
+    do {
+        r4 = (r4 + arg2);
+        if (r4 < 0) {
+            r4 = lr;
+        } else {
+            if (r4 > 3) {
+                r4 = r12;
+            }
+        }
+        if (*(s32 *)(((u8 *)(arg0 + (r4 << 2))) + 0x3F0) >= 0)
+            break;
+    } while (arg1 != r4);
+    return r4;
 }
 
 extern "C" asm void func_ov003_0210aeb0(void)

@@ -56,14 +56,14 @@ extern "C" void func_020816dc(u8 *bits, int i);
 extern "C" char data_020c5320[];
 extern "C" char data_020cb6e0[];
 extern "C" char data_020e88a0[];
-extern "C" void _ZN17UnkClass_020621b413func_0206deecEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206df08Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206f9e0Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206deecEv(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206df08Ev(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206f9e0Ev(...);
 extern "C" s32 _ZN17UnkClass_020621b413func_020744d4Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_02078844Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207c1b0Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0207c1b0Ev(...);
 extern "C" void func_0209bf9c(void);
-extern "C" void func_ov015_02130b14(void);
+extern "C" s32 func_ov015_02130b14(...);
 extern "C" void func_ov015_021319fc(void);
 extern "C" void gGameState(void);
 
@@ -514,129 +514,109 @@ extern "C" u16 func_020808c4(MatchPlayer *player, int i)
     return player->unk_98[i];
 }
 
-extern "C" asm void func_020808e8(void)
+extern "C" s32 func_020808e8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, #0
-    mov r7, r0
-    mov r6, r1
-    mov r5, r4
-@L_020808fc:
-    mov r0, r7
-    mov r1, r5
-    bl func_020808c4
-    cmp r6, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r5, #1
-    cmp r5, #4
-    blt @L_020808fc
-    mov r5, #0
-@L_02080924:
-    mov r0, r7
-    mov r1, r5
-    bl func_020808c4
-    cmp r0, #0
-    bne @L_02080950
-    add r0, r7, r5, lsl #1
-    strh r6, [r0, #0x98]
-    add r0, r7, r5
-    strb r4, [r0, #0xa4]
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02080950:
-    add r5, r5, #1
-    cmp r5, #4
-    blt @L_02080924
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    u16 v0;
+    u16 v1;
+    r4 = 0;
+    r5 = 0;
+    r6 = arg1;
+    r7 = arg0;
+    do {
+        v0 = func_020808c4((MatchPlayer *)r7, r5);
+        if (r6 == v0) {
+            return 0;
+        } else {
+            r5 = (r5 + 1);
+        }
+    } while (r5 < 4);
+    r5 = 0;
+    do {
+        v1 = func_020808c4((MatchPlayer *)r7, r5);
+        if (v1 == 0) {
+            *(u16 *)(((u8 *)(r7 + (r5 << 1))) + 0x98) = r6;
+            *(u8 *)(((u8 *)(r7 + r5)) + 0xA4) = r4;
+            return 1;
+        } else {
+            r5 = (r5 + 1);
+        }
+    } while (r5 < 4);
+    return 0;
 }
 
-extern "C" asm void func_02080964(void)
+extern "C" s32 func_02080964(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r7, r1
-    cmp r7, #4
-    mov r8, r0
-    mov r6, r2
-    mov r4, #0
-    cmpne r7, #5
-    movne r0, r4
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    cmp r3, #0
-    bne @L_020809a8
-    mov r0, r8
-    mov r1, r7
-    bl func_020808c4
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-@L_020809a8:
-    mov r5, #0
-@L_020809ac:
-    mov r0, r8
-    mov r1, r5
-    bl func_020808c4
-    cmp r6, r0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r5, r5, #1
-    cmp r5, #6
-    blt @L_020809ac
-    add r0, r8, r7, lsl #1
-    strh r6, [r0, #0x98]
-    add r0, r8, r7
-    strb r4, [r0, #0xa4]
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    s32 r8;
+    u16 v0;
+    u16 v1;
+    if ((arg1 != 4 && arg1 != 5))
+        return 0;
+    if (arg3 == 0) {
+        v0 = func_020808c4((MatchPlayer *)arg0, arg1);
+        if (v0 != 0)
+            return 0;
+    }
+    r4 = 0;
+    r5 = 0;
+    r6 = arg2;
+    r7 = arg1;
+    r8 = arg0;
+    do {
+        v1 = func_020808c4((MatchPlayer *)r8, r5);
+        if (r6 == v1)
+            return 0;
+        r5 = (r5 + 1);
+    } while (r5 < 6);
+    *(u16 *)(((u8 *)(r8 + (r7 << 1))) + 0x98) = r6;
+    *(u8 *)(((u8 *)(r8 + r7)) + 0xA4) = r4;
+    return 1;
 }
 
-extern "C" asm void func_020809e8(void)
+extern "C" s32 func_020809e8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r1
-    cmp r4, #4
-    mov r5, r0
-    cmpne r4, #5
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r5
-    mov r1, r4
-    bl func_020808c4
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    add r0, r5, r4, lsl #1
-    mov r1, #0
-    strh r1, [r0, #0x98]
-    add r0, r5, r4
-    strb r1, [r0, #0xa4]
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    u16 v0;
+    if ((arg1 != 4 && arg1 != 5)) {
+        return 0;
+    } else {
+        v0 = func_020808c4((MatchPlayer *)arg0, arg1);
+        if (v0 == 0) {
+            return 0;
+        } else {
+            *(u16 *)(((u8 *)(arg0 + (arg1 << 1))) + 0x98) = 0;
+            *(u8 *)(((u8 *)(arg0 + arg1)) + 0xA4) = 0;
+            return 1;
+        }
+    }
 }
 
-extern "C" asm void func_02080a38(void)
+extern "C" s32 func_02080a38(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, r1
-    mov r4, #0
-@L_02080a48:
-    mov r0, r6
-    mov r1, r4
-    bl func_020808c4
-    cmp r5, r0
-    bne @L_02080a6c
-    mov r0, r6
-    mov r1, r4
-    bl func_02080a80
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02080a6c:
-    add r4, r4, #1
-    cmp r4, #6
-    blt @L_02080a48
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    u16 v0;
+    s32 v1;
+    r4 = 0;
+    r5 = arg1;
+    r6 = arg0;
+    do {
+        v0 = func_020808c4((MatchPlayer *)r6, r4);
+        if (r5 == v0) {
+            v1 = ((s32 (*)(...))func_02080a80)(r6, r4);
+            return v1;
+        } else {
+            r4 = (r4 + 1);
+        }
+    } while (r4 < 6);
+    return 0;
 }
 
 extern "C" int func_02080a80(void)
@@ -885,130 +865,82 @@ extern "C" BOOL func_02080d50(MatchPlayer *player)
     return func_02080ca4(player, 0x1000);
 }
 
-extern "C" asm void func_02080d60(void)
+extern "C" void func_02080d60(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x10
-    bl func_02080c74
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c74((MatchPlayer *)v0, 0x10);
 }
 
-extern "C" asm void func_02080d9c(void)
+extern "C" void func_02080d9c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x10
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x10);
 }
 
-extern "C" asm void func_02080dd8(void)
+extern "C" void func_02080dd8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x20
-    bl func_02080c74
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c74((MatchPlayer *)v0, 0x20);
 }
 
-extern "C" asm void func_02080e14(void)
+extern "C" void func_02080e14(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x20
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x20);
 }
 
-extern "C" asm void func_02080e50(void)
+extern "C" void func_02080e50(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r1
-    mov r5, #0
-    mov r0, r6
-    mov r1, r5
-    bl func_ov015_02130b14
-    movs r4, r0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrh r0, [r4, #0xf0]
-    tst r0, #1
-    movne r5, #1
-    cmp r5, #1
-    ldmneia sp!, {r4, r5, r6, pc}
-    mov r0, r4
-    bl func_02080d40
-    cmp r0, #1
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r4
-    mov r1, #0x40
-    bl func_02080c74
-    ldr r0, =data_020e88a0
-    mov r1, r6
-    bl _ZN17UnkClass_020621b413func_0207c1b0Ev
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *r4;
+    s32 r5;
+    s32 v0;
+    BOOL v1;
+    v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    r4 = (u8 *)v0;
+    r5 = 0;
+    if ((*(u16 *)(r4 + 0xF0) & 1) != 0) {
+        r5 = 1;
+    }
+    if (r5 != 1)
+        return;
+    v1 = func_02080d40((MatchPlayer *)r4);
+    if (v1 == 1)
+        return;
+    func_02080c74((MatchPlayer *)r4, 0x40);
+    _ZN17UnkClass_020621b413func_0207c1b0Ev((s32)data_020e88a0, arg1);
+    return;
 }
 
-extern "C" asm void func_02080eb4(void)
+extern "C" void func_02080eb4(void)
 {
-    stmdb sp!, {r4, lr}
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206f9e0Ev
-    mov r0, r0, lsl #0x10
-    mov r4, #0
-    mov r1, r4
-    mov r0, r0, lsr #0x10
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x40
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    v0 = _ZN17UnkClass_020621b413func_0206f9e0Ev((s32)data_020e88a0);
+    v1 = func_ov015_02130b14(((u16)v0), 0);
+    if (v1 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v1) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v1, 0x40);
+    return;
 }
 
 extern "C" asm void func_02080f00(void)
@@ -1052,113 +984,81 @@ extern "C" asm void func_02080f00(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02080f8c(void)
+extern "C" void func_02080f8c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x80
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x80);
 }
 
-extern "C" asm void func_02080fc8(void)
+extern "C" void func_02080fc8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, #0
-    mov r0, r1
-    mov r1, r5
-    bl func_ov015_02130b14
-    movs r4, r0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrh r0, [r4, #0xf0]
-    tst r0, #1
-    movne r5, #1
-    cmp r5, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    bl func_02080d00
-    cmp r0, #1
-    bne @L_02081014
-    mov r0, r4
-    mov r1, #0x80
-    bl func_02080c84
-@L_02081014:
-    mov r0, r4
-    mov r1, #0x100
-    bl func_02080c74
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r4;
+    s32 r5;
+    s32 v0;
+    BOOL v1;
+    v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    r4 = (u8 *)v0;
+    r5 = 0;
+    if ((*(u16 *)(r4 + 0xF0) & 1) != 0) {
+        r5 = 1;
+    }
+    if (r5 != 1)
+        return;
+    v1 = func_02080d00((MatchPlayer *)r4);
+    if (v1 == 1) {
+        func_02080c84((MatchPlayer *)r4, 0x80);
+    }
+    func_02080c74((MatchPlayer *)r4, 0x100);
+    return;
 }
 
-extern "C" asm void func_02081024(void)
+extern "C" void func_02081024(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x100
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x100);
 }
 
-extern "C" asm void func_02081060(void)
+extern "C" void func_02081060(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, #0
-    mov r0, r1
-    mov r1, r5
-    bl func_ov015_02130b14
-    movs r4, r0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrh r0, [r4, #0xf0]
-    tst r0, #1
-    movne r5, #1
-    cmp r5, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    bl func_02080d10
-    cmp r0, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    mov r1, #0x200
-    bl func_02080c74
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r4;
+    s32 r5;
+    s32 v0;
+    BOOL v1;
+    v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    r4 = (u8 *)v0;
+    r5 = 0;
+    if ((*(u16 *)(r4 + 0xF0) & 1) != 0) {
+        r5 = 1;
+    }
+    if (r5 != 1)
+        return;
+    v1 = func_02080d10((MatchPlayer *)r4);
+    if (v1 != 1)
+        return;
+    func_02080c74((MatchPlayer *)r4, 0x200);
+    return;
 }
 
-extern "C" asm void func_020810b0(void)
+extern "C" void func_020810b0(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x200
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x200);
 }
 
 extern "C" asm void func_020810ec(void)
@@ -1217,104 +1117,67 @@ extern "C" asm void func_020810ec(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_020811b4(void)
+extern "C" void func_020811b4(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x400
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x400);
 }
 
-extern "C" asm void func_020811f0(void)
+extern "C" void func_020811f0(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, #0
-    mov r0, r1
-    mov r1, r5
-    bl func_ov015_02130b14
-    movs r4, r0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrh r0, [r4, #0xf0]
-    tst r0, #1
-    movne r5, #1
-    cmp r5, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    bl func_02080d30
-    cmp r0, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    mov r1, #0x800
-    bl func_02080c74
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r4;
+    s32 r5;
+    s32 v0;
+    BOOL v1;
+    v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    r4 = (u8 *)v0;
+    r5 = 0;
+    if ((*(u16 *)(r4 + 0xF0) & 1) != 0) {
+        r5 = 1;
+    }
+    if (r5 != 1)
+        return;
+    v1 = func_02080d30((MatchPlayer *)r4);
+    if (v1 != 1)
+        return;
+    func_02080c74((MatchPlayer *)r4, 0x800);
+    return;
 }
 
-extern "C" asm void func_02081240(void)
+extern "C" void func_02081240(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x800
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x800);
 }
 
-extern "C" asm void func_0208127c(void)
+extern "C" void func_0208127c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x1000
-    bl func_02080c74
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c74((MatchPlayer *)v0, 0x1000);
 }
 
-extern "C" asm void func_020812b8(void)
+extern "C" void func_020812b8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r4, #1
-    cmp r4, #1
-    ldmneia sp!, {r4, pc}
-    mov r1, #0x1000
-    bl func_02080c84
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130b14(arg1, 0);
+    if (v0 == 0)
+        return;
+    if (((*(u16 *)(((u8 *)v0) + 0xF0) & 1) != 0 ? 1 : 0) != 1)
+        return;
+    func_02080c84((MatchPlayer *)v0, 0x1000);
 }
 
 extern "C" u8 func_020812f4(MatchPlayer *player)
@@ -1332,46 +1195,43 @@ extern "C" u8 func_02081304(MatchPlayer *player)
     return player->unk_c5;
 }
 
-extern "C" asm void func_0208130c(void)
+extern "C" s32 func_0208130c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    cmp r1, #3
-    addls pc, pc, r1, lsl #2
-    b @L_02081348
-    b @L_02081348
-    b @L_02081330
-    b @L_02081338
-    b @L_02081340
-@L_02081330:
-    bl func_020812f4
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02081338:
-    bl func_020812fc
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02081340:
-    bl func_02081304
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02081348:
-    ldr r4, =data_020e88a0
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206deecEv
-    cmp r0, #0
-    beq @L_02081368
-    mov r0, r5
-    bl func_020812fc
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02081368:
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206df08Ev
-    cmp r0, #0
-    mov r0, r5
-    beq @L_02081384
-    bl func_02081304
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02081384:
-    bl func_020812f4
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 v0;
+    u8 v1;
+    u8 v2;
+    s32 v3;
+    u8 v4;
+    s32 v5;
+    u8 v6;
+    u8 v7;
+    switch (arg1) {
+        case 1:
+            v0 = func_020812f4((MatchPlayer *)arg0);
+            return v0;
+        case 2:
+            v1 = func_020812fc((MatchPlayer *)arg0);
+            return v1;
+        case 3:
+            v2 = func_02081304((MatchPlayer *)arg0);
+            return v2;
+        case 0:
+        default:
+            v3 = _ZN17UnkClass_020621b413func_0206deecEv((s32)data_020e88a0);
+            if (v3 != 0) {
+                v4 = func_020812fc((MatchPlayer *)arg0);
+                return v4;
+            } else {
+                v5 = _ZN17UnkClass_020621b413func_0206df08Ev((s32)data_020e88a0);
+                if (v5 != 0) {
+                    v6 = func_02081304((MatchPlayer *)arg0);
+                    return v6;
+                } else {
+                    v7 = func_020812f4((MatchPlayer *)arg0);
+                    return v7;
+                }
+            }
+    }
 }
 
 extern "C" void func_02081390(MatchPlayer *player, u8 value)

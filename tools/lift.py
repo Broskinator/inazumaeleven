@@ -195,8 +195,8 @@ def value(v, t="s32"):
         return f"({t})" + (f"({v.render()})" if v.off else v.render())
     if is_ptr(v) or t != "u8 *" and isinstance(v, Bin) and has_ptr(v):
         return v.render() if t == "u8 *" else f"({t}){v.render()}"     # (a pointer, as a word)
-    if t == "u8 *":
-        return f"(u8 *){v.render()}"
+    if t.endswith("*"):
+        return f"({t}){v.render()}"
     if t == "u32":
         return f"(u32){v.render()}"
     return v.render()
@@ -712,12 +712,31 @@ def unpredicate(insns):
                 raise Fail("a condition from before a label")
             out.append(last_cmp)
             note(last_cmp)
-        run = []
+        run, later = [], []
+
+        def regs_of(i_):
+            return set(re.findall(r"\b(?:r\d+|lr|sp)\b", i_[4]))
         while k < len(insns) and insns[k][0] is None and insns[k][2] == c and insns[k][1] not in ("b", "ret", "switch"):
             run.append((None, insns[k][1], "", insns[k][3], insns[k][4]))
             k += 1
             if sets_flags(run[-1]):
                 break     # (cmpeq: the flags after it are the second compare's, where it ran)
+            # (an instruction of its own in the middle of the run (scheduled there): after it)
+            j = k
+            while j < len(insns) and j - k < 3 and insns[j][0] is None and not insns[j][2] \
+                    and insns[j][1] not in ("b", "ret", "switch", "bl", "blx") and not sets_flags(insns[j]) \
+                    and insns[j][1] not in LOAD and insns[j][1] not in STORE:
+                j += 1
+            if j > k and j < len(insns) and insns[j][0] is None and insns[j][2] == c \
+                    and insns[j][1] not in ("b", "ret", "switch"):
+                mid = insns[k:j]
+                rest = [insns[j]]
+                used_ = set().union(*[regs_of(x) for x in run + rest])
+                if not any(regs_of(x) & used_ for x in mid):
+                    later += mid
+                    k = j
+        if later and any(sets_flags(r) for r in run):
+            raise Fail("a condition from before a label")
         lbl = f"P_{n}"
         n += 1
         out.append((None, "b", OPPOSITE[c], False, "@" + lbl))
@@ -729,6 +748,9 @@ def unpredicate(insns):
         out.append((lbl, None, "", False, ""))
         if any(sets_flags(r) for r in run):
             last_cmp = None
+        for x in later:
+            out.append(x)
+            note(x)
     # (threading: a branch on c to a label followed by a branch on c, or a return on c)
     for _ in range(100):
         changed = False
@@ -1200,7 +1222,7 @@ def lift_cfg(name, body, protos, variant=0):
                     raise Fail(f"register {r}")
                 if r not in regs:
                     continue     # (not set again since a call)
-                if all(r in ENTRY[x] for x in b["succ"]):
+                if all(r in ENTRY[x] for x in b["succ"] if r in live_in[x]):
                     continue     # (known where it goes: no variable)
                 if regs[r] is not home:
                     assign[r] = (home, regs[r])
@@ -1240,7 +1262,7 @@ def lift_cfg(name, body, protos, variant=0):
             if not preds_:
                 continue
             for r in live_in[k]:
-                ps = [j for j in preds_ if not (isinstance(END[j].get(r), Var) and END[j][r] is V.get(r))]
+                ps = [j for j in preds_ if not (isinstance(END[j].get(r), Var) and END[j][r] is V.get(r) and V[r] not in assigned)]
                 keys = [pkey(END[j].get(r), assigned) for j in ps]
                 if ps and keys[0] is not None and all(x == keys[0] for x in keys):
                     entry[k][r] = END[ps[0]][r]
@@ -1530,9 +1552,9 @@ def prototypes(t):
         elif ret == "s32" and args == "...":
             protos[nm] = VAR
         else:
-            ts = [re.match(r"(.*?) ?arg\d+$", a) for a in args.split(", ")] if args != "void" else []
+            ts = [re.match(r"(.*[\s*])(\w+)$", a.strip()) for a in args.split(",")] if args != "void" else []
             if all(ts):
-                protos[nm] = (ret, [m[1] for m in ts])
+                protos[nm] = (ret, [m[1].strip() for m in ts])
     # (a function in C keeps its declaration, 'void F(void)' too)
     for ret, nm in re.findall(r'^extern "C" (?!asm )(\w+ ?\**) ?(\w+)\(void\)\n\{', t, re.M):
         protos[nm] = (ret.strip(), [])

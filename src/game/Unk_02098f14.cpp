@@ -10,19 +10,19 @@ extern "C" void OS_UnlockMutex(OSMutex *mutex);
 
 extern "C" void func_02098f14(void);
 extern "C" void func_02098fac(void);
-extern "C" void func_02099058(void);
-extern "C" void func_02099088(void);
-extern "C" void func_020990b4(void);
+extern "C" s32 func_02099058(s32 arg0, s32 arg1);
+extern "C" s32 func_02099088(s32 arg0, s32 arg1);
+extern "C" s32 func_020990b4(s32 arg0, s32 arg1);
 extern "C" void func_020990e8(void);
 extern "C" void func_02099140(void);
-extern "C" void func_020991ac(void);
+extern "C" void func_020991ac(u8 *arg0);
 extern "C" void func_020991d8(void);
-extern "C" void func_0209920c(void);
+extern "C" void func_0209920c(u8 *arg0);
 extern "C" void func_02099238(void);
 extern "C" void func_0209926c(void);
 extern "C" void func_020992ec(void);
 extern "C" void func_02099370(u8 *obj);
-extern "C" void func_02099390(void);
+extern "C" s32 func_02099390(...);
 extern "C" s32 func_020995c4(s32 arg0, u8 *arg1);
 extern "C" s32 func_02099618(s32 arg0, u8 *arg1);
 extern "C" void func_02099664(void);
@@ -57,7 +57,7 @@ extern "C" void func_02099e78(void);
 extern "C" void func_02099f50(void);
 extern "C" u8 *func_02099fcc(u8 *obj);
 extern "C" u8 *func_02099fe0(void *obj);
-extern "C" void func_02099ffc(void);
+extern "C" s32 func_02099ffc(s32 arg0);
 extern "C" void func_0209a024(void);
 extern "C" void func_0209a120(void);
 extern "C" void func_0209a22c(void);
@@ -71,8 +71,8 @@ extern "C" char data_020abaa8[];
 extern "C" char data_020abaac[];
 extern "C" char data_020afde4[];
 extern "C" char data_020c46e4[];
-extern "C" void GX_BeginLoadTex(void);
-extern "C" void GX_BeginLoadTexPltt(void);
+extern "C" s32 GX_BeginLoadTex(...);
+extern "C" s32 GX_BeginLoadTexPltt(...);
 extern "C" void MTX_Identity43_(void);
 extern "C" void MTX_RotX43_(void);
 extern "C" void MTX_RotY43_(void);
@@ -103,11 +103,11 @@ extern "C" void func_0202323c(void);
 extern "C" void func_02027ccc(void);
 extern "C" void func_02027ce0(void);
 extern "C" void func_02027cf4(void);
-extern "C" void func_02027e10(void);
+extern "C" s32 func_02027e10(...);
 extern "C" void func_02027e24(void);
 extern "C" void func_02029094(void);
-extern "C" void func_0202b798(void);
-extern "C" void func_0202b9d8(void);
+extern "C" s32 func_0202b798(...);
+extern "C" s32 func_0202b9d8(...);
 extern "C" void func_0202bfb8(void);
 extern "C" void func_0202c11c(void);
 extern "C" void func_0203020c(void);
@@ -217,52 +217,28 @@ extern "C" asm void func_02098fac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02099058(void)
+extern "C" s32 func_02099058(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    add r0, r5, #8
-    bl OS_LockMutex
-    mov r0, r4
-    bl func_0202b798
-    mov r4, r0
-    add r0, r5, #8
-    bl OS_UnlockMutex
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, pc}
+    OS_LockMutex((OSMutex *)(arg0 + 8));
+    s32 v1 = func_0202b798(arg1);
+    OS_UnlockMutex((OSMutex *)(arg0 + 8));
+    return v1;
 }
 
-extern "C" asm void func_02099088(void)
+extern "C" s32 func_02099088(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    add r0, r5, #8
-    bl OS_LockMutex
-    mov r0, r4
-    bl func_0202b9d8
-    add r0, r5, #8
-    bl OS_UnlockMutex
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    OS_LockMutex((OSMutex *)(arg0 + 8));
+    func_0202b9d8(arg1);
+    OS_UnlockMutex((OSMutex *)(arg0 + 8));
+    return 1;
 }
 
-extern "C" asm void func_020990b4(void)
+extern "C" s32 func_020990b4(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    add r0, r5, #8
-    bl OS_LockMutex
-    mov r0, r5
-    mov r1, r4
-    bl func_02099390
-    mov r4, r0
-    add r0, r5, #8
-    bl OS_UnlockMutex
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, pc}
+    OS_LockMutex((OSMutex *)(arg0 + 8));
+    s32 v1 = func_02099390(arg0, arg1);
+    OS_UnlockMutex((OSMutex *)(arg0 + 8));
+    return v1;
 }
 
 extern "C" asm void func_020990e8(void)
@@ -324,19 +300,15 @@ extern "C" asm void func_02099140(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_020991ac(void)
+extern "C" void func_020991ac(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #8
-    bl OS_LockMutex
-    ldr r1, [r4, #0x30]
-    add r0, r1, #1
-    str r0, [r4, #0x30]
-    cmp r1, #0
-    ldmgtia sp!, {r4, pc}
-    bl GX_BeginLoadTex
-    ldmia sp!, {r4, pc}
+    OS_LockMutex((OSMutex *)(arg0 + 8));
+    s32 t0 = (*(s32 *)(arg0 + 0x30) + 1);
+    s32 t1 = *(s32 *)(arg0 + 0x30);
+    *(s32 *)(arg0 + 0x30) = t0;
+    if (t1 > 0)
+        return;
+    GX_BeginLoadTex(t0, t1);
 }
 
 extern "C" asm void func_020991d8(void)
@@ -357,19 +329,15 @@ extern "C" asm void func_020991d8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_0209920c(void)
+extern "C" void func_0209920c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #8
-    bl OS_LockMutex
-    ldr r1, [r4, #0x34]
-    add r0, r1, #1
-    str r0, [r4, #0x34]
-    cmp r1, #0
-    ldmgtia sp!, {r4, pc}
-    bl GX_BeginLoadTexPltt
-    ldmia sp!, {r4, pc}
+    OS_LockMutex((OSMutex *)(arg0 + 8));
+    s32 t0 = (*(s32 *)(arg0 + 0x34) + 1);
+    s32 t1 = *(s32 *)(arg0 + 0x34);
+    *(s32 *)(arg0 + 0x34) = t0;
+    if (t1 > 0)
+        return;
+    GX_BeginLoadTexPltt(t0, t1);
 }
 
 extern "C" asm void func_02099238(void)
@@ -479,7 +447,7 @@ extern "C" void func_02099370(u8 *obj)
     OS_UnlockMutex((OSMutex *)(obj + 8));
 }
 
-extern "C" asm void func_02099390(void)
+extern "C" asm s32 func_02099390(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r4, r1
@@ -1377,18 +1345,21 @@ extern "C" u8 *func_02099fe0(void *obj)
     return func_02099fcc(NNS_G3dGetTex(obj));
 }
 
-extern "C" asm void func_02099ffc(void)
+extern "C" s32 func_02099ffc(s32 arg0)
 {
-    stmdb sp!, {r3, lr}
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    bl NNS_G3dGetTex
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    bl func_02027e10
-    ldmia sp!, {r3, pc}
+    u8 *v0;
+    s32 v1;
+    if (arg0 == 0) {
+        return 0;
+    } else {
+        v0 = NNS_G3dGetTex((void *)arg0);
+        if (v0 == 0) {
+            return 0;
+        } else {
+            v1 = func_02027e10();
+            return v1;
+        }
+    }
 }
 
 extern "C" asm void func_0209a024(void)

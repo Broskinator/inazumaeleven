@@ -1,6 +1,6 @@
 #include "game/Unk_02084ff4.hpp"
 
-extern "C" void func_020860ac(void);     // (for the asm functions)
+extern "C" s32 func_020860ac(...);     // (for the asm functions)
 extern "C" void func_020864a8(void);     // (for the asm functions)
 extern "C" void func_020864b4(void);     // (for the asm functions)
 extern "C" BOOL func_02084d94(u8 *obj, u16 flags);
@@ -8,7 +8,7 @@ extern "C" BOOL func_02084de8(u8 *obj);
 extern "C" void *data_020af4c0[];     // (a vtable)
 
 extern "C" void func_02084ff4(void);
-extern "C" void func_020850e4(void);
+extern "C" s32 func_020850e4(...);
 extern "C" void func_02085154(s32 *list, s32 a, s32 b);
 extern "C" int func_02085190(s32 *list, s32 value);
 extern "C" BOOL func_020851c8(s32 *list, s32 value);
@@ -31,9 +31,9 @@ extern "C" s32 func_020854a8(u8 *arg0, u8 *arg1);
 extern "C" void func_020854d8(void);
 extern "C" int func_02085728(void *self, u8 *entry);
 extern "C" int func_02085770(void *self, u8 *entry, int b, int c);
-extern "C" void func_020857ac(void);
+extern "C" s32 func_020857ac(u8 *arg0, u8 *arg1, s32 arg2);
 extern "C" int func_02085828(void *self, u8 *entry);
-extern "C" void func_02085840(void);
+extern "C" s32 func_02085840(s32 arg0, u8 *arg1);
 extern "C" BOOL func_020858b0(void *self, u8 *obj);
 extern "C" void func_020858c8(void *self, u8 *obj, BOOL update);
 extern "C" void **func_020858fc(void **obj);
@@ -46,7 +46,7 @@ extern "C" void func_02085b6c(void *self);
 extern "C" u8 *func_02085ba4(void *self, int a);
 extern "C" u8 *func_02085bb4(u8 *self, int i);
 extern "C" u8 *func_02085be8(u8 *self);
-extern "C" void func_02085bfc(void);
+extern "C" s32 func_02085bfc(s32 arg0, s32 arg1);
 extern "C" u8 *func_02085c60(void *self, int n);
 extern "C" void func_02085c98(void);
 extern "C" void func_02085ce0(void);
@@ -54,7 +54,7 @@ extern "C" void func_02085d34(void);
 extern "C" void func_02085d88(void);
 extern "C" void func_02085dec(void *self, int value, int *high, int *low);
 extern "C" int func_02085e00(void *self, int a, int b, int c);
-extern "C" void func_02085e30(void);
+extern "C" s32 func_02085e30(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02085e78(void);
 extern "C" void func_02085ec0(void);
 extern "C" void func_02085ff8(void);
@@ -68,9 +68,9 @@ extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
 extern "C" void _ZdlPv(void);
 extern "C" void func_02084ba0(void);
 extern "C" void func_02084c4c(void);
-extern "C" void func_02084d7c(void);
+extern "C" s32 func_02084d7c(...);
 extern "C" void func_02084dac(void);
-extern "C" void func_02084dc0(void);
+extern "C" s32 func_02084dc0(...);
 extern "C" void func_02084e40(void);
 extern "C" void func_02084f84(void);
 extern "C" void func_02084fdc(void);
@@ -154,7 +154,7 @@ extern "C" asm void func_02084ff4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_020850e4(void)
+extern "C" asm s32 func_020850e4(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -628,42 +628,33 @@ extern "C" asm int func_02085770(void *self, u8 *entry, int b, int c)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_020857ac(void)
+extern "C" s32 func_020857ac(u8 *arg0, u8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    ldrb r3, [r1, #0xa6]
-    cmp r3, #3
-    addls pc, pc, r3, lsl #2
-    b @L_02085818
-    b @L_020857d0
-    b @L_020857e0
-    b @L_02085818
-    b @L_020857f0
-@L_020857d0:
-    ldr r2, =0xc352
-    mov r3, #3
-    bl func_02085770
-    ldmia sp!, {r3, pc}
-@L_020857e0:
-    ldr r2, =0xc351
-    mov r3, #3
-    bl func_02085770
-    ldmia sp!, {r3, pc}
-@L_020857f0:
-    cmp r2, #0
-    ldr r12, =0xc351
-    ble @L_02085808
-    ldr r3, [r0, #0x10]
-    cmp r2, r3
-    suble r12, r12, #1
-@L_02085808:
-    mov r2, r12
-    mov r3, #3
-    bl func_02085770
-    ldmia sp!, {r3, pc}
-@L_02085818:
-    mov r0, #1
-    ldmia sp!, {r3, pc}
+    s32 r12;
+    int v0;
+    int v1;
+    int v2;
+    switch (*(u8 *)(arg1 + 0xA6)) {
+        case 0:
+            v0 = func_02085770((void *)arg0, arg1, 0xC352, 3);
+            return v0;
+        case 1:
+            v1 = func_02085770((void *)arg0, arg1, 0xC351, 3);
+            return v1;
+        case 3:
+            r12 = 0xC351;
+            if (arg2 > 0) {
+                r12 = 0xC351;
+                if (arg2 <= *(s32 *)(arg0 + 0x10)) {
+                    r12 = (0xC351 - 1);
+                }
+            }
+            v2 = func_02085770((void *)arg0, arg1, r12, 3);
+            return v2;
+        case 2:
+        default:
+            return 1;
+    }
 }
 
 extern "C" int func_02085828(void *self, u8 *entry)
@@ -671,36 +662,35 @@ extern "C" int func_02085828(void *self, u8 *entry)
     return func_02085770(self, entry, 50000, 3);
 }
 
-extern "C" asm void func_02085840(void)
+extern "C" s32 func_02085840(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_02085374
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r1, [r4, #0x5c]
-    add r0, r5, #0x18
-    bl func_02085190
-    cmp r0, #0
-    movlt r0, #0
-    ldmltia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    mov r1, #0x8000
-    bl func_02084dc0
-    ldr r1, [r4, #0x5c]
-    add r0, r5, #0x18
-    bl func_020850e4
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r1, [r4, #0x5c]
-    mov r0, r5
-    mov r2, #0
-    bl func_020860ac
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    BOOL v0;
+    int v1;
+    s32 v3;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    v0 = func_02085374((void *)arg0, (u8 *)arg1);
+    if (v0 == 0) {
+        return 0;
+    } else {
+        t0 = *(s32 *)(arg1 + 0x5C);
+        v1 = func_02085190((s32 *)(arg0 + 0x18), t0);
+        if (v1 < 0) {
+            return 0;
+        } else {
+            func_02084dc0((s32)arg1, 0x8000);
+            t1 = *(s32 *)(arg1 + 0x5C);
+            v3 = func_020850e4((arg0 + 0x18), t1);
+            if (v3 == 0) {
+                return 0;
+            } else {
+                t2 = *(s32 *)(arg1 + 0x5C);
+                func_020860ac(arg0, t2, 0);
+                return 1;
+            }
+        }
+    }
 }
 
 extern "C" BOOL func_020858b0(void *self, u8 *obj)
@@ -917,35 +907,33 @@ extern "C" u8 *func_02085be8(u8 *self)
     return func_02085298(self, *(s32 *)(self + 0x2C), 0);
 }
 
-extern "C" asm void func_02085bfc(void)
+extern "C" s32 func_02085bfc(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, #0
-    mov r6, r1
-    mov r1, r4
-    mov r7, r0
-    bl func_0208530c
-    movs r5, r0
-    moveq r0, r4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r4, #1
-@L_02085c24:
-    mov r0, r7
-    mov r1, r5
-    bl func_02085374
-    cmp r0, #0
-    beq @L_02085c48
-    ldr r0, [r5, #0x5c]
-    cmp r0, r6
-    moveq r0, r4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02085c48:
-    add r4, r4, #1
-    cmp r4, #0x18
-    add r5, r5, #0xd4
-    ble @L_02085c24
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r4;
+    u8 *r5;
+    s32 r6;
+    s32 r7;
+    u8 *v0;
+    BOOL v1;
+    v0 = func_0208530c((u8 *)arg0, (u32)0);
+    r5 = (u8 *)v0;
+    if ((s32)r5 == 0) {
+        return 0;
+    } else {
+        r4 = 1;
+        r6 = arg1;
+        r7 = arg0;
+        do {
+            v1 = func_02085374((void *)r7, r5);
+            if ((v1 != 0 && *(s32 *)(r5 + 0x5C) == r6)) {
+                return r4;
+            } else {
+                r4 = (r4 + 1);
+                r5 = (u8 *)(r5 + 0xD4);
+            }
+        } while (r4 <= 0x18);
+        return 0;
+    }
 }
 
 extern "C" u8 *func_02085c60(void *self, int n)
@@ -1078,26 +1066,16 @@ extern "C" int func_02085e00(void *self, int a, int b, int c)
     return func_02085770(self, func_02085298(self, a, 0), b, c);
 }
 
-extern "C" asm void func_02085e30(void)
+extern "C" s32 func_02085e30(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r5, #0
-    mov r6, r2
-    mov r2, r5
-    mov r7, r0
-    bl func_02085298
-    mov r4, r0
-    mov r0, r7
-    mov r1, r4
-    bl func_02085374
-    cmp r0, #0
-    moveq r0, r5
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, r4
-    mov r1, r6
-    bl func_02084d7c
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *v0;
+    BOOL v1;
+    v0 = func_02085298((void *)arg0, arg1, 0);
+    v1 = func_02085374((void *)arg0, (u8 *)v0);
+    if (v1 == 0)
+        return 0;
+    func_02084d7c(v0, arg2);
+    return 1;
 }
 
 extern "C" asm void func_02085e78(void)

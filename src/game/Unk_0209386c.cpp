@@ -6,7 +6,7 @@ extern "C" void func_0209860c(void);     // (for the asm functions)
 extern "C" void func_02098710(void);     // (for the asm functions)
 extern "C" void func_02098930(void);     // (for the asm functions)
 extern "C" void func_02098b48(void);     // (for the asm functions)
-extern "C" void func_020960ac(void);     // (for the asm functions)
+extern "C" s32 func_020960ac(...);     // (for the asm functions)
 extern "C" void func_0209386c(void);
 extern "C" void func_02093928(void);
 extern "C" void func_020939c8(void);
@@ -25,7 +25,7 @@ extern "C" BOOL func_0209443c(u8 *obj);
 extern "C" void func_02094450(void);
 extern "C" void func_02094484(void);
 extern "C" BOOL func_020944b4(void *self, u8 *obj);
-extern "C" void func_020944d4(void);
+extern "C" s32 func_020944d4(s32 arg0);
 extern "C" void func_02094528(void);
 extern "C" void func_02094580(void *self, u8 *obj);
 extern "C" void func_020945ac(void);
@@ -991,31 +991,24 @@ extern "C" BOOL func_020944b4(void *self, u8 *obj)
     return (*(u16 *)(obj + 4) & 1) ? FALSE : TRUE;
 }
 
-extern "C" asm void func_020944d4(void)
+extern "C" s32 func_020944d4(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r0, [r5, #0x24]
-    mov r4, #1
-    cmp r0, #1
-    blt @L_02094520
-@L_020944ec:
-    mov r0, r5
-    mov r1, r4
-    bl func_020960ac
-    mov r1, r0
-    mov r0, r5
-    bl func_020944b4
-    cmp r0, #0
-    movne r0, r4
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldr r0, [r5, #0x24]
-    add r4, r4, #1
-    cmp r4, r0
-    ble @L_020944ec
-@L_02094520:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r4;
+    u8 *r5;
+    s32 v0;
+    BOOL v1;
+    r4 = 1;
+    r5 = (u8 *)arg0;
+    if (*(s32 *)(r5 + 0x24) >= 1) {
+        do {
+            v0 = func_020960ac((s32)r5, r4);
+            v1 = func_020944b4((void *)r5, (u8 *)v0);
+            if (v1 != 0)
+                return r4;
+            r4 = (r4 + 1);
+        } while (r4 <= *(s32 *)(r5 + 0x24));
+    }
+    return 0;
 }
 
 extern "C" asm void func_02094528(void)
