@@ -14,7 +14,7 @@ extern "C" void func_02081ae4(u8 *data, int i);
 extern "C" void func_02081b04(u8 *data, int i);
 extern "C" void func_02081b24(u8 *data, int i, int delta);
 extern "C" void func_02081b44(u8 *data);
-extern "C" void func_02081b70(void);
+extern "C" s32 func_02081b70(u8 *arg0, u8 *arg1);
 
 extern "C" char data_020cadf4[];
 extern "C" char data_020caf20[];
@@ -322,56 +322,38 @@ extern "C" void func_02081b44(u8 *data)
     MI_CpuCopy8(data + 0xF, data + 8, 7);
 }
 
-extern "C" asm void func_02081b70(void)
+extern "C" s32 func_02081b70(u8 *arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r0
-    mov r4, r1
-    ldrh r2, [r5]
-    ldrh r1, [r4]
-    ldr r0, =0x3e7
-    add r1, r2, r1
-    strh r1, [r5]
-    ldrh r1, [r5]
-    ldrh r2, [r5, #2]
-    cmp r1, r0
-    strhih r0, [r5]
-    ldrh r1, [r4, #2]
-    ldr r0, =0x3e7
-    add r1, r2, r1
-    strh r1, [r5, #2]
-    ldrh r1, [r5, #2]
-    cmp r1, r0
-    strhih r0, [r5, #2]
-    ldrsb r2, [r4, #4]
-    mov r0, r5
-    mov r1, #0
-    bl func_02081b24
-    mov r6, #1
-    ldrsb r2, [r4, #5]
-    mov r0, r5
-    mov r1, r6
-    bl func_02081b24
-    ldrsb r2, [r4, #6]
-    mov r0, r5
-    mov r1, #3
-    bl func_02081b24
-    ldrsb r2, [r4, #7]
-    mov r0, r5
-    mov r1, #2
-    bl func_02081b24
-    ldrsb r2, [r4, #8]
-    mov r0, r5
-    mov r1, #4
-    bl func_02081b24
-    ldrsb r2, [r4, #9]
-    mov r0, r5
-    mov r1, #6
-    bl func_02081b24
-    ldrsb r2, [r4, #0xa]
-    mov r0, r5
-    mov r1, #5
-    bl func_02081b24
-    mov r0, r6
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 t0;
+    s32 t2;
+    s8 t4;
+    s8 t5;
+    s8 t6;
+    s8 t7;
+    s8 t8;
+    s8 t9;
+    s8 t10;
+    t0 = (*(u16 *)(arg0) + *(u16 *)(arg1));
+    *(u16 *)(arg0) = t0;
+    if ((u32)*(u16 *)(arg0) > (u32)0x3E7)
+        *(u16 *)(arg0) = 0x3E7;
+    t2 = (*(u16 *)(arg0 + 0x2) + *(u16 *)(arg1 + 0x2));
+    *(u16 *)(arg0 + 0x2) = t2;
+    if ((u32)*(u16 *)(arg0 + 0x2) > (u32)0x3E7)
+        *(u16 *)(arg0 + 0x2) = 0x3E7;
+    t4 = *(s8 *)(arg1 + 0x4);
+    func_02081b24(arg0, 0, t4);
+    t5 = *(s8 *)(arg1 + 0x5);
+    func_02081b24(arg0, 1, t5);
+    t6 = *(s8 *)(arg1 + 0x6);
+    func_02081b24(arg0, 3, t6);
+    t7 = *(s8 *)(arg1 + 0x7);
+    func_02081b24(arg0, 2, t7);
+    t8 = *(s8 *)(arg1 + 0x8);
+    func_02081b24(arg0, 4, t8);
+    t9 = *(s8 *)(arg1 + 0x9);
+    func_02081b24(arg0, 6, t9);
+    t10 = *(s8 *)(arg1 + 0xA);
+    func_02081b24(arg0, 5, t10);
+    return 1;
 }

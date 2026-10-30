@@ -61,7 +61,7 @@ extern "C" void func_0209c044(void);
 extern "C" void func_0209c078(void);
 extern "C" void func_0209c0ac(void);
 extern "C" void func_0209c17c(void);
-extern "C" void func_0209c24c(void);
+extern "C" s32 func_0209c24c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_0209c33c(...);
 extern "C" void func_0209c380(u8 *arg0, u8 *arg1);
 extern "C" s32 func_0209c398(s32 arg0, u8 *arg1);
@@ -100,8 +100,8 @@ extern "C" char data_020c53b4[];
 extern "C" char data_020c8760[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020fc748[];
-extern "C" void DC_FlushRange(void);
-extern "C" void MI_CpuCopy8(void);
+extern "C" s32 DC_FlushRange(...);
+extern "C" s32 MI_CpuCopy8(...);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN17UnkClass_020621b413func_020690a8Eii(void);
@@ -940,68 +940,57 @@ extern "C" asm void func_0209c17c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_0209c24c(void)
+extern "C" s32 func_0209c24c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, r1
-    mov r6, r2
-    mov r5, r0
-    mov r0, r4
-    mov r1, r6
-    bl DC_FlushRange
-    ldrb r0, [r5, #0x65]
-    cmp r0, #0
-    bne @L_0209c310
-    ldr r0, [r5, #0x5c]
-    cmp r0, #1
-    moveq r0, #1
-    movne r0, #0
-    cmp r0, #0
-    beq @L_0209c2ec
-    mov r0, r5
-    bl func_0209bf9c
-    ldr r6, =data_020c5120
-    strb r0, [r6]
-    ldrb r0, [r5, #0x84]
-    cmp r0, #0
-    movne r0, #0
-    strneb r0, [r6, #1]
-    strneb r0, [r6, #2]
-    ldmneia sp!, {r4, r5, r6, pc}
-    ldr r2, [r5, #0x74]
-    ldr r1, =data_020c5124
-    mov r0, r2, lsr #2
-    strb r0, [r6, #1]
-    ldr r3, [r5, #0x78]
-    mov r0, r4
-    mov r3, r3, lsr #2
-    strb r3, [r6, #2]
-    bl MI_CpuCopy8
-    ldr r1, [r5, #0x74]
-    mov r0, r6
-    add r1, r1, #4
-    bl DC_FlushRange
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0209c2ec:
-    ldr r6, =data_020c5120
-    ldr r2, [r5, #0x78]
-    mov r0, r4
-    mov r1, r6
-    bl MI_CpuCopy8
-    ldr r1, [r5, #0x78]
-    mov r0, r6
-    bl DC_FlushRange
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0209c310:
-    ldr r5, =data_020c5120
-    mov r0, r4
-    mov r1, r5
-    mov r2, r6
-    bl MI_CpuCopy8
-    mov r0, r5
-    mov r1, r6
-    bl DC_FlushRange
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *r5;
+    u16 v1;
+    s32 v3;
+    s32 v5;
+    s32 v7;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    DC_FlushRange(arg1, arg2, arg2);
+    r5 = (u8 *)arg0;
+    if (*(u8 *)(r5 + 0x65) == 0) {
+        if (*(s32 *)(r5 + 0x5C) == 1) {
+            arg0 = 1;
+        } else {
+            arg0 = 0;
+        }
+        if (arg0 != 0) {
+            v1 = func_0209bf9c(r5);
+            *(u8 *)(data_020c5120) = v1;
+            if (*(u8 *)(r5 + 0x84) != 0) {
+                *(u8 *)(data_020c5120 + 0x1) = 0;
+                *(u8 *)(data_020c5120 + 0x2) = 0;
+                return 0;
+            } else {
+                t0 = ((u32)*(s32 *)(r5 + 0x74) >> 2);
+                t1 = *(s32 *)(r5 + 0x74);
+                *(u8 *)(data_020c5120 + 0x1) = t0;
+                t2 = ((u32)*(s32 *)(r5 + 0x78) >> 2);
+                *(u8 *)(data_020c5120 + 0x2) = t2;
+                MI_CpuCopy8(arg1, (s32)data_020c5124, t1, t2);
+                t3 = (*(s32 *)(r5 + 0x74) + 4);
+                v3 = DC_FlushRange((s32)data_020c5120, t3);
+                return v3;
+            }
+        } else {
+            t4 = *(s32 *)(r5 + 0x78);
+            MI_CpuCopy8(arg1, (s32)data_020c5120, t4);
+            t5 = *(s32 *)(r5 + 0x78);
+            v5 = DC_FlushRange((s32)data_020c5120, t5);
+            return v5;
+        }
+    } else {
+        MI_CpuCopy8(arg1, (s32)data_020c5120, arg2);
+        v7 = DC_FlushRange((s32)data_020c5120, arg2);
+        return v7;
+    }
 }
 
 extern "C" asm s32 func_0209c33c(...)

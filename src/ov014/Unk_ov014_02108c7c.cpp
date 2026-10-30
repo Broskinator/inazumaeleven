@@ -13,7 +13,7 @@ extern "C" void func_ov014_02109330(void);
 extern "C" void func_ov014_021093a0(void);
 extern "C" s32 func_ov014_021093e4(void);
 extern "C" s32 func_ov014_021093ec(u8 *arg0);
-extern "C" void func_ov014_0210940c(void);
+extern "C" s32 func_ov014_0210940c(u8 *arg0);
 extern "C" void func_ov014_02109540(void);
 extern "C" void func_ov014_021095f0(void);
 extern "C" s32 func_ov014_02109644(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -730,76 +730,67 @@ extern "C" s32 func_ov014_021093ec(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" asm void func_ov014_0210940c(void)
+extern "C" s32 func_ov014_0210940c(u8 *arg0)
 {
-    ldrb r1, [r0, #0x22]
-    ldrb r2, [r0, #0x16]
-    cmp r1, #0
-    ldreqb r1, [r0, #0x15]
-    cmp r2, #0xa
-    and r1, r1, #0xff
-    bhs @L_02109458
-    ldrb r0, [r0, #0x14]
-    cmp r0, #3
-    ldreq r0, =0xffff3864
-    subeq r3, r0, r1
-    beq @L_0210950c
-    cmp r0, #4
-    moveq r0, #0xc800
-    rsbeq r0, r0, #0
-    subeq r3, r0, r1
-    ldrne r0, =0xffff379c
-    subne r3, r0, r1
-    b @L_0210950c
-@L_02109458:
-    cmp r2, #0xd
-    ldrlo r0, =0xffff34e0
-    sublo r3, r0, r1
-    blo @L_0210950c
-    ldr r3, [r0, #0x10]
-    cmp r3, #0
-    ldreq r0, =0xffff3cb0
-    subeq r3, r0, r1
-    beq @L_0210950c
-    ldrb r0, [r0, #0xb]
-    mov r0, r0, lsl #0x18
-    mov r0, r0, lsr #0x1c
-    cmp r0, #1
-    ldreq r0, =0xffff3224
-    subeq r3, r0, r1
-    beq @L_0210950c
-    mvn r2, #0
-    cmp r3, r2
-    ldreq r0, =0xffff347c
-    subeq r3, r0, r1
-    beq @L_0210950c
-    sub r0, r2, #1
-    cmp r3, r0
-    ldreq r0, =0xffff3418
-    subeq r3, r0, r1
-    beq @L_0210950c
-    sub r0, r2, #2
-    cmp r3, r0
-    ldreq r0, =0xffff33b4
-    subeq r3, r0, r1
-    beq @L_0210950c
-    sub r0, r2, #3
-    cmp r3, r0
-    ldreq r0, =0xffff30f8
-    subeq r3, r0, r1
-    beq @L_0210950c
-    sub r0, r2, #4
-    cmp r3, r0
-    ldreq r0, =0xffff3094
-    subeq r3, r0, r1
-    beq @L_0210950c
-    sub r0, r2, #5
-    cmp r3, r0
-    ldreq r0, =0xffff3030
-    subeq r3, r0, r1
-@L_0210950c:
-    mov r0, r3
-    bx lr
+    s32 r1;
+    s32 r2;
+    s32 r3;
+    r1 = *(u8 *)(arg0 + 0x22);
+    r2 = *(u8 *)(arg0 + 0x16);
+    if (r1 == 0) {
+        r1 = *(u8 *)(arg0 + 0x15);
+    }
+    r1 = (r1 & 0xFF);
+    if ((u32)r2 < (u32)10) {
+        arg0 = (u8 *)*(u8 *)(arg0 + 0x14);
+        if ((s32)arg0 == 3) {
+            r3 = (-0xC79C - r1);
+        } else {
+            if ((s32)arg0 == 4) {
+                r3 = ((0 - 0xC800) - r1);
+            } else {
+                r3 = (-0xC864 - r1);
+            }
+        }
+    } else {
+        if ((u32)r2 < (u32)0xD) {
+            r3 = (-0xCB20 - r1);
+        } else {
+            r3 = *(s32 *)(arg0 + 0x10);
+            if (r3 == 0) {
+                r3 = (-0xC350 - r1);
+            } else {
+                if (((u32)(*(u8 *)(arg0 + 0xB) << 0x18) >> 0x1C) == 1) {
+                    r3 = (-0xCDDC - r1);
+                } else {
+                    if (r3 == -1) {
+                        r3 = (-0xCB84 - r1);
+                    } else {
+                        if (r3 == (-1 - 1)) {
+                            r3 = (-0xCBE8 - r1);
+                        } else {
+                            if (r3 == (-1 - 2)) {
+                                r3 = (-0xCC4C - r1);
+                            } else {
+                                if (r3 == (-1 - 3)) {
+                                    r3 = (-0xCF08 - r1);
+                                } else {
+                                    if (r3 == (-1 - 4)) {
+                                        r3 = (-0xCF6C - r1);
+                                    } else {
+                                        if (r3 == (-1 - 5)) {
+                                            r3 = (-0xCFD0 - r1);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return r3;
 }
 
 extern "C" asm void func_ov014_02109540(void)

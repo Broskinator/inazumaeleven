@@ -1252,7 +1252,7 @@ def lift_cfg(name, body, protos, variant=0):
                         raise Fail("a compare of a variable written after it")
                 term = (new, term[1])
         return stmts, term
-    for _ in range(5):
+    for _ in range(len(blocks) + 4):     # (a value goes on a block each time)
         calls.clear()
         callees.clear()
         used_vars.clear()
