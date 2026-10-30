@@ -1,0 +1,3551 @@
+#include "ov000/Unk_ov000_0210947c.hpp"
+
+extern "C" void func_ov000_0210947c(void);
+extern "C" void func_ov000_021094d0(void);
+extern "C" void func_ov000_02109510(void);
+extern "C" void func_ov000_02109514(void);
+extern "C" void func_ov000_02109518(void);
+extern "C" void func_ov000_021095b0(void);
+extern "C" void func_ov000_02109610(void);
+extern "C" void func_ov000_02109aa0(void);
+extern "C" void func_ov000_02109b60(void);
+extern "C" void func_ov000_02109e18(void);
+extern "C" void func_ov000_02109e64(void);
+extern "C" void func_ov000_02109e8c(void);
+extern "C" void func_ov000_0210a264(void);
+extern "C" void func_ov000_0210a5e8(void);
+extern "C" void func_ov000_0210a6bc(void);
+extern "C" void func_ov000_0210a788(void);
+extern "C" void func_ov000_0210a88c(void);
+extern "C" void func_ov000_0210ab38(void);
+extern "C" void func_ov000_0210adfc(void);
+extern "C" void func_ov000_0210ae34(void);
+extern "C" void func_ov000_0210aee4(void);
+extern "C" void func_ov000_0210afec(void);
+extern "C" void func_ov000_0210b034(void);
+extern "C" void func_ov000_0210b098(void);
+extern "C" void func_ov000_0210b0ac(void);
+extern "C" void func_ov000_0210b0e0(void);
+extern "C" void func_ov000_0210b170(void);
+extern "C" void func_ov000_0210b1a4(void);
+extern "C" void func_ov000_0210b1f8(void);
+extern "C" void func_ov000_0210b258(void);
+extern "C" void func_ov000_0210b2e4(void);
+extern "C" void func_ov000_0210b330(void);
+extern "C" void func_ov000_0210b474(void);
+extern "C" void func_ov000_0210b59c(void);
+extern "C" void func_ov000_0210b5f4(void);
+extern "C" void func_ov000_0210b6b4(void);
+extern "C" void func_ov000_0210b8a4(void);
+extern "C" void func_ov000_0210b93c(void);
+extern "C" void func_ov000_0210b948(void);
+extern "C" void func_ov000_0210b954(void);
+extern "C" void func_ov000_0210bbd0(void);
+extern "C" void func_ov000_0210bd50(void);
+extern "C" void func_ov000_0210bf0c(void);
+extern "C" void func_ov000_0210bf4c(void);
+extern "C" void func_ov000_0210bfec(void);
+extern "C" void func_ov000_0210c050(void);
+extern "C" void func_ov000_0210c25c(void);
+extern "C" void func_ov000_0210c36c(void);
+extern "C" void func_ov000_0210c454(void);
+
+extern "C" char data_020c46a8[];
+extern "C" char data_020c46b4[];
+extern "C" char data_020c46bc[];
+extern "C" char data_020c46cc[];
+extern "C" char data_020c46d0[];
+extern "C" char data_020c4ab4[];
+extern "C" char data_020c9660[];
+extern "C" char data_020d9a04[];
+extern "C" char data_020e88a0[];
+extern "C" char data_ov000_02117640[];
+extern "C" char data_ov000_02117688[];
+extern "C" char data_ov000_021181c4[];
+extern "C" char data_ov000_02118238[];
+extern "C" char data_ov000_021183f4[];
+extern "C" char data_ov000_021183f8[];
+extern "C" char data_ov000_02118414[];
+extern "C" char data_ov000_02118430[];
+extern "C" char data_ov000_02118448[];
+extern "C" char data_ov000_02118460[];
+extern "C" char data_ov000_02118478[];
+extern "C" char data_ov000_02118494[];
+extern "C" char data_ov000_021184ac[];
+extern "C" char data_ov000_021184c4[];
+extern "C" char data_ov000_02118710[];
+extern "C" void DC_FlushRange(void);
+extern "C" void FX_SinCosTable_(void);
+extern "C" void G2S_GetBG0CharPtr(void);
+extern "C" void G2S_GetBG1CharPtr(void);
+extern "C" void G2S_GetBG2CharPtr(void);
+extern "C" void MI_CpuFill8(void);
+extern "C" void MIi_CpuClearFast(void);
+extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
+extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
+extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
+extern "C" void _ZN17UnkClass_020621b413func_0206f70cEv(void);
+extern "C" void _ZN17UnkClass_020621b413func_02078844Ev(void);
+extern "C" void _ZN17UnkClass_020621b413func_0207aa94Ei(void);
+extern "C" void _ZN17UnkClass_020621b413func_0207c6b4Ev(void);
+extern "C" void _ZN17UnkClass_020621b413func_0207d308EPh(void);
+extern "C" void _ZdlPv(void);
+extern "C" void func_02001f08(void);
+extern "C" void func_02001f38(void);
+extern "C" void func_0200226c(void);
+extern "C" void func_02003a68(void);
+extern "C" void func_02003b48(void);
+extern "C" void func_02017278(void);
+extern "C" void func_020224cc(void);
+extern "C" void func_0202273c(void);
+extern "C" void func_02022b2c(void);
+extern "C" void func_0202300c(void);
+extern "C" void func_0202323c(void);
+extern "C" void func_020823a0(void);
+extern "C" void func_02084c8c(void);
+extern "C" void func_02084d50(void);
+extern "C" void func_02084d74(void);
+extern "C" void func_02084d7c(void);
+extern "C" void func_02084dd8(void);
+extern "C" void func_02084e70(void);
+extern "C" void func_02085228(void);
+extern "C" void func_02085298(void);
+extern "C" void func_0208530c(void);
+extern "C" void func_02085374(void);
+extern "C" void func_0208539c(void);
+extern "C" void func_020853cc(void);
+extern "C" void func_02085444(void);
+extern "C" void func_020854a8(void);
+extern "C" void func_020854d8(void);
+extern "C" void func_020857ac(void);
+extern "C" void func_02085828(void);
+extern "C" void func_020858b0(void);
+extern "C" void func_020858c8(void);
+extern "C" void func_02085bb4(void);
+extern "C" void func_02099a2c(void);
+extern "C" void func_02099a94(void);
+extern "C" void func_0209d8b8(void);
+extern "C" void func_ov000_02108710(void);
+extern "C" void func_ov000_02110dc0(void);
+extern "C" void func_ov000_02110e00(void);
+extern "C" void func_ov000_02110e04(void);
+extern "C" void func_ov000_02110e9c(void);
+extern "C" void func_ov015_021309f8(void);
+extern "C" void func_ov015_02130b14(void);
+extern "C" void func_ov015_02130e28(void);
+extern "C" void func_ov015_021319bc(void);
+extern "C" void func_ov015_02131cd4(void);
+extern "C" void func_ov015_02131d4c(void);
+extern "C" void func_ov015_02131da0(void);
+extern "C" void func_ov015_02132240(void);
+extern "C" void func_ov015_021322b0(void);
+extern "C" void func_ov015_021322d8(void);
+extern "C" void func_ov015_02132984(void);
+extern "C" void func_ov015_02132a04(void);
+extern "C" void func_ov015_02132b7c(void);
+extern "C" void func_ov015_02133088(void);
+extern "C" void func_ov015_02133dc8(void);
+extern "C" void func_ov015_02133e24(void);
+extern "C" void func_ov015_02133e50(void);
+extern "C" void func_ov015_02133e8c(void);
+extern "C" void func_ov015_02133f94(void);
+extern "C" void func_ov015_02134024(void);
+extern "C" void func_ov015_021340c0(void);
+extern "C" void func_ov015_02134198(void);
+extern "C" void func_ov015_02134208(void);
+extern "C" void func_ov015_0213447c(void);
+extern "C" void func_ov015_02134504(void);
+extern "C" void func_ov015_02134554(void);
+extern "C" void func_ov015_02135440(void);
+extern "C" void func_ov015_02135e10(void);
+extern "C" void func_ov015_0213b364(void);
+extern "C" void func_ov015_0213b3fc(void);
+extern "C" void func_ov015_0213b6ac(void);
+extern "C" void func_ov015_0213b900(void);
+extern "C" void func_ov015_0213c33c(void);
+extern "C" void func_ov015_0213d4d8(void);
+extern "C" void gGameState(void);
+
+extern "C" asm void func_ov000_0210947c(void)
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    ldr r1, [r4, #0x14]
+    cmp r1, #8
+    ldmeqia sp!, {r4, pc}
+    ldr r1, =0x4001010
+    mov r2, #0
+    str r2, [r1]
+    bl func_ov000_02108710
+    add r0, r4, #4
+    bl func_ov000_02110e9c
+    add r0, r4, #4
+    ldr r1, [r0]
+    ldr r1, [r1]
+    blx r1
+    add r0, r4, #4
+    ldr r1, [r0]
+    ldr r1, [r1, #0x10]
+    blx r1
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_021094d0(void)
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    ldr r2, =data_ov000_021181c4
+    ldr r1, =data_ov000_02118238
+    add r0, r4, #4
+    str r2, [r4]
+    str r1, [r4, #4]
+    bl func_ov000_02110e04
+    add r0, r4, #4
+    bl func_ov000_02110e00
+    mov r0, r4
+    bl _ZdlPv
+    mov r0, r4
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_02109510(void)
+{
+    bx lr
+}
+
+extern "C" asm void func_ov000_02109514(void)
+{
+    bx lr
+}
+
+extern "C" asm void func_ov000_02109518(void)
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r0
+    mov r4, #0
+    mov r1, r4
+    add r0, r5, #0x10
+    mov r2, #8
+    bl MI_CpuFill8
+    ldr r0, =data_020e88a0
+    mov r1, r4
+    add r2, r5, #0x10
+    mov r3, #4
+    str r4, [sp]
+    bl _ZN17UnkClass_020621b413func_02078844Ev
+    cmp r0, #4
+    ldmgeia sp!, {r3, r4, r5, pc}
+    mov r0, r4
+@L_02109558:
+    add r1, r5, r4, lsl #1
+    ldrh r1, [r1, #0x10]
+    cmp r1, #0
+    bne @L_0210959c
+    add r1, r4, #1
+    cmp r1, #4
+    bge @L_0210959c
+@L_02109574:
+    add r3, r5, r1, lsl #1
+    ldrh r2, [r3, #0x10]
+    cmp r2, #0
+    addne r1, r5, r4, lsl #1
+    strneh r2, [r1, #0x10]
+    strneh r0, [r3, #0x10]
+    bne @L_0210959c
+    add r1, r1, #1
+    cmp r1, #4
+    blt @L_02109574
+@L_0210959c:
+    add r4, r4, #1
+    cmp r4, #3
+    blt @L_02109558
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+extern "C" asm void func_ov000_021095b0(void)
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, lr}
+    mov r7, #0
+    ldr r5, =data_020c46bc
+    mov r8, r0
+    mov r6, r7
+    mov r4, #0xc
+@L_021095c8:
+    add r0, r8, r7, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_021095fc
+    mov r1, r6
+    bl func_ov015_02130b14
+    cmp r0, #0
+    mlane r1, r7, r4, r8
+    ldrne r1, [r1, #0x19c]
+    cmpne r1, #0
+    beq @L_021095fc
+    ldr r2, [r5]
+    bl func_ov015_02131da0
+@L_021095fc:
+    add r7, r7, #1
+    cmp r7, #4
+    blt @L_021095c8
+    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+}
+
+extern "C" asm void func_ov000_02109610(void)
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x3c
+    mov r10, r0
+    add r0, r10, #0x18
+    mov r1, #8
+    mov r4, #2
+    mov r11, #0
+    bl func_ov015_02133e24
+    mov r9, r11
+    add r6, r10, #0x18
+@L_02109638:
+    add r0, r10, r9, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_02109704
+    mov r1, #0
+    bl func_ov015_02130b14
+    movs r7, r0
+    beq @L_02109704
+    mov r0, #0x14
+    mul r5, r9, r0
+    add r8, r6, r5
+    mov r0, r8
+    mov r1, #6
+    mov r2, r4
+    bl func_ov015_02133e50
+    ldr r0, [r6, r5]
+    cmp r0, #0
+    ldrne r0, [r8, #4]
+    cmpne r0, #0
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    beq @L_02109704
+    mov r0, r8
+    bl func_ov015_02133dc8
+    mov r0, #3
+    stmia sp, {r0, r4}
+    ldr r0, [r8, #4]
+    add r3, r7, #0x20
+    str r0, [sp, #8]
+    ldrh r0, [r8, #0xc]
+    mov r1, r11
+    mov r2, #6
+    mov r0, r0, lsl #3
+    str r0, [sp, #0xc]
+    ldrh r0, [r8, #0xe]
+    mov r0, r0, lsl #3
+    str r0, [sp, #0x10]
+    str r11, [sp, #0x14]
+    ldr r0, =data_020c46b4
+    str r11, [sp, #0x18]
+    ldr r0, [r0]
+    ldr r5, [r0]
+    ldr r5, [r5, #8]
+    blx r5
+    ldrh r2, [r8, #0xc]
+    ldrh r1, [r8, #0xe]
+    ldr r0, [r8, #4]
+    mul r1, r2, r1
+    mov r1, r1, lsl #5
+    bl DC_FlushRange
+@L_02109704:
+    add r9, r9, #1
+    cmp r9, #4
+    blt @L_02109638
+    mov r2, #2
+    add r0, r10, #0x68
+    mov r1, #0xe
+    mov r7, #1
+    mov r4, #3
+    mov r8, r2
+    mov r5, #0
+    bl func_ov015_02133e50
+    ldr r0, [r10, #0x68]
+    cmp r0, #0
+    ldrne r0, [r10, #0x6c]
+    cmpne r0, #0
+    movne r0, r7
+    moveq r0, #0
+    cmp r0, #0
+    beq @L_021098a8
+    add r0, r10, #0x68
+    bl func_ov015_02133dc8
+    ldr r0, =data_020e88a0
+    mov r1, r5
+    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    mov r6, r0
+    cmp r6, #0x3c
+    blt @L_021097bc
+    mov r0, #0x62
+    bl func_0209d8b8
+    stmia sp, {r4, r5}
+    ldr r1, [r10, #0x6c]
+    mov r3, r0
+    str r1, [sp, #8]
+    ldrh r2, [r10, #0x74]
+    ldr r6, =data_020c46a8
+    mov r1, #0x1a
+    mov r0, r2, lsl #3
+    str r0, [sp, #0xc]
+    ldrh r0, [r10, #0x76]
+    mov r2, #2
+    mov r0, r0, lsl #3
+    str r0, [sp, #0x10]
+    str r5, [sp, #0x14]
+    str r5, [sp, #0x18]
+    ldr r0, [r6]
+    b @L_02109884
+@L_021097bc:
+    mov r9, #0x63
+    mov r0, r9
+    bl func_0209d8b8
+    stmia sp, {r4, r5}
+    ldr r1, [r10, #0x6c]
+    mov r3, r0
+    str r1, [sp, #8]
+    ldrh r11, [r10, #0x74]
+    ldr r0, =data_020c46a8
+    mov r1, r5
+    mov r11, r11, lsl #3
+    str r11, [sp, #0xc]
+    ldrh r11, [r10, #0x76]
+    mov r2, #2
+    mov r11, r11, lsl #3
+    str r11, [sp, #0x10]
+    str r5, [sp, #0x14]
+    str r5, [sp, #0x18]
+    ldr r0, [r0]
+    ldr r11, [r0]
+    ldr r11, [r11, #8]
+    blx r11
+    cmp r6, #0x63
+    movgt r6, r9
+    add r9, sp, #0x2c
+    ldr r2, =data_ov000_021183f4
+    mov r0, r9
+    mov r3, r6
+    mov r1, #0x10
+    bl func_02017278
+    add r6, sp, #0x1c
+    mov r0, r9
+    mov r1, r6
+    bl func_ov015_02133088
+    stmia sp, {r4, r5}
+    ldr r1, [r10, #0x6c]
+    mov r3, r6
+    str r1, [sp, #8]
+    ldrh r6, [r10, #0x74]
+    ldr r0, =data_020c46a8
+    mov r1, #0x54
+    mov r6, r6, lsl #3
+    str r6, [sp, #0xc]
+    ldrh r6, [r10, #0x76]
+    mov r2, #2
+    mov r6, r6, lsl #3
+    str r6, [sp, #0x10]
+    str r5, [sp, #0x14]
+    str r5, [sp, #0x18]
+    ldr r0, [r0]
+@L_02109884:
+    ldr r6, [r0]
+    ldr r6, [r6, #8]
+    blx r6
+    ldrh r2, [r10, #0x74]
+    ldrh r1, [r10, #0x76]
+    ldr r0, [r10, #0x6c]
+    mul r1, r2, r1
+    mov r1, r1, lsl #5
+    bl DC_FlushRange
+@L_021098a8:
+    add r0, r10, #0x7c
+    mov r1, #0xb
+    mov r2, #2
+    bl func_ov015_02133e50
+    ldr r0, [r10, #0x7c]
+    cmp r0, #0
+    ldrne r0, [r10, #0x80]
+    cmpne r0, #0
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    beq @L_021099d4
+    add r0, r10, #0x7c
+    bl func_ov015_02133dc8
+    mov r0, #0x3d
+    bl func_0209d8b8
+    stmia sp, {r4, r5}
+    mov r3, r0
+    ldr r0, [r10, #0x80]
+    ldr r6, =data_020c46a8
+    str r0, [sp, #8]
+    ldrh r0, [r10, #0x88]
+    mov r1, r5
+    mov r2, r8
+    mov r0, r0, lsl #3
+    str r0, [sp, #0xc]
+    ldrh r0, [r10, #0x8a]
+    mov r0, r0, lsl #3
+    str r0, [sp, #0x10]
+    str r5, [sp, #0x14]
+    str r5, [sp, #0x18]
+    ldr r0, [r6]
+    ldr r9, [r0]
+    ldr r9, [r9, #8]
+    blx r9
+    ldr r0, =data_020e88a0
+    mov r1, r5
+    bl _ZN17UnkClass_020621b413func_0207aa94Ei
+    mov r9, r0
+    mov r0, #0x64
+    bl func_0209d8b8
+    mov r3, r9
+    add r9, sp, #0x2c
+    mov r2, r0
+    mov r1, #0x10
+    mov r0, r9
+    bl func_02017278
+    mov r0, r9
+    add r9, sp, #0x1c
+    mov r1, r9
+    bl func_ov015_02133088
+    stmia sp, {r4, r5}
+    ldr r0, [r10, #0x80]
+    mov r2, r8
+    str r0, [sp, #8]
+    ldrh r0, [r10, #0x88]
+    mov r3, r9
+    mov r1, #0x3c
+    mov r0, r0, lsl #3
+    str r0, [sp, #0xc]
+    ldrh r0, [r10, #0x8a]
+    mov r0, r0, lsl #3
+    str r0, [sp, #0x10]
+    str r5, [sp, #0x14]
+    str r5, [sp, #0x18]
+    ldr r0, [r6]
+    ldr r5, [r0]
+    ldr r5, [r5, #8]
+    blx r5
+    ldrh r2, [r10, #0x88]
+    ldrh r1, [r10, #0x8a]
+    ldr r0, [r10, #0x80]
+    mul r1, r2, r1
+    mov r1, r1, lsl #5
+    bl DC_FlushRange
+@L_021099d4:
+    mov r5, #1
+    mov r2, r5
+    add r0, r10, #0x90
+    mov r1, #8
+    bl func_ov015_02133e50
+    ldr r0, [r10, #0x90]
+    cmp r0, #0
+    ldrne r0, [r10, #0x94]
+    cmpne r0, #0
+    moveq r5, #0
+    cmp r5, #0
+    beq @L_02109a78
+    add r0, r10, #0x90
+    bl func_ov015_02133dc8
+    mov r0, #0x65
+    bl func_0209d8b8
+    stmia sp, {r4, r7}
+    ldr r2, [r10, #0x94]
+    mov r3, r0
+    str r2, [sp, #8]
+    ldrh r2, [r10, #0x9c]
+    mov r1, #0
+    ldr r4, =data_020c46b4
+    mov r0, r2, lsl #3
+    str r0, [sp, #0xc]
+    ldrh r0, [r10, #0x9e]
+    mov r2, r1
+    mov r0, r0, lsl #3
+    str r0, [sp, #0x10]
+    str r1, [sp, #0x14]
+    str r1, [sp, #0x18]
+    ldr r0, [r4]
+    ldr r4, [r0]
+    ldr r4, [r4, #8]
+    blx r4
+    ldrh r2, [r10, #0x9c]
+    ldrh r1, [r10, #0x9e]
+    ldr r0, [r10, #0x94]
+    mul r1, r2, r1
+    mov r1, r1, lsl #5
+    bl DC_FlushRange
+@L_02109a78:
+    add r0, r10, #0xa4
+    mov r1, #0x14
+    mov r2, #2
+    bl func_ov015_02133e50
+    add sp, sp, #0x3c
+    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_02109aa0(void)
+{
+    stmdb sp!, {r4, r5, lr}
+    sub sp, sp, #0x1c
+    mov r5, r0
+    ldr r0, [r5, #0xa4]
+    ldr r4, [r5, #0x130]
+    cmp r0, #0
+    ldrne r0, [r5, #0xa8]
+    cmpne r0, #0
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    addeq sp, sp, #0x1c
+    ldmeqia sp!, {r4, r5, pc}
+    add r0, r5, #0xa4
+    bl func_ov015_02133dc8
+    cmp r4, #0
+    beq @L_02109b3c
+    mov r0, #3
+    str r0, [sp]
+    mov r0, #1
+    str r0, [sp, #4]
+    ldr r0, [r5, #0xa8]
+    mov r1, #0
+    str r0, [sp, #8]
+    ldrh r2, [r5, #0xb0]
+    ldr r0, =data_020c46a8
+    mov r3, r4
+    mov r2, r2, lsl #3
+    str r2, [sp, #0xc]
+    ldrh r4, [r5, #0xb2]
+    mov r2, #2
+    mov r4, r4, lsl #3
+    str r4, [sp, #0x10]
+    str r1, [sp, #0x14]
+    str r1, [sp, #0x18]
+    ldr r0, [r0]
+    ldr r4, [r0]
+    ldr r4, [r4, #8]
+    blx r4
+@L_02109b3c:
+    ldrh r2, [r5, #0xb0]
+    ldrh r1, [r5, #0xb2]
+    ldr r0, [r5, #0xa8]
+    mul r1, r2, r1
+    mov r1, r1, lsl #5
+    bl DC_FlushRange
+    add sp, sp, #0x1c
+    ldmia sp!, {r4, r5, pc}
+}
+
+extern "C" asm void func_ov000_02109b60(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x18
+    mov r10, r0
+    str r1, [r10, #0xc]
+    cmp r1, #1
+    mov r5, #0
+    beq @L_02109b88
+    cmp r1, #2
+    beq @L_02109be0
+    b @L_02109ddc
+@L_02109b88:
+    ldr r0, =data_ov000_021183f8
+    add r1, r10, #0xb8
+    bl func_ov015_02133f94
+    ldr r1, =gGameState
+    ldr r0, =data_ov000_02118414
+    add r1, r1, #0x400
+    ldrsb r2, [r1, #0xd8]
+    add r1, r10, #0x124
+    mov r3, #0x20
+    mov r2, r2, lsl #5
+    str r5, [sp]
+    bl func_ov015_02134024
+    ldr r0, =data_ov000_02118430
+    add r1, r10, #0x1cc
+    bl func_ov015_02133f94
+    ldr r0, =data_ov000_02118448
+    add r1, r10, #0x1d8
+    bl func_ov015_02133f94
+    ldr r0, =data_ov000_02118460
+    add r1, r10, #0x1e4
+    bl func_ov015_02133f94
+    b @L_02109ddc
+@L_02109be0:
+    ldr r0, [r10, #0x124]
+    cmp r0, #0
+    beq @L_02109c08
+    str r5, [sp]
+    ldrh r2, [r0, #0x1e]
+    ldr r0, =data_ov000_02118478
+    add r1, r10, #0x130
+    mov r2, r2, lsl #5
+    mov r3, #0x18
+    bl func_ov015_02134024
+@L_02109c08:
+    bl func_ov015_021319bc
+    mov r1, r0
+    ldr r0, =data_020e88a0
+    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    mov r7, r0
+    mov r8, #0
+    add r4, r10, #0xb8
+    b @L_02109dd4
+@L_02109c28:
+    add r0, r10, r8, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_02109dd0
+    mov r1, r5
+    bl func_ov015_02130b14
+    movs r6, r0
+    beq @L_02109dd0
+    str r5, [sp, #8]
+    add r1, r10, r8, lsl #1
+    ldrh r1, [r1, #0x10]
+    ldr r0, =data_020e88a0
+    bl _ZN17UnkClass_020621b413func_0206f70cEv
+    movs r9, r0
+    beq @L_02109c9c
+    ldrh r0, [r6, #0x44]
+    add r1, r10, r8, lsl #1
+    mov r2, r5
+    str r0, [sp, #8]
+    ldrh r1, [r1, #0x10]
+    ldr r0, =data_020e88a0
+    bl func_020823a0
+    mov r1, r9, lsl #0x10
+    ldr r0, =data_020e88a0
+    ldrh r11, [r6, #0x44]
+    mov r1, r1, lsr #0x10
+    mov r2, r5
+    bl func_020823a0
+    strh r11, [r6, #0x44]
+@L_02109c9c:
+    ldr r0, [r10, #0x1cc]
+    cmp r0, #0
+    beq @L_02109cf0
+    add r0, sp, #0x10
+    str r0, [sp]
+    ldr r0, [r10, #0x1cc]
+    mov r1, r6
+    mov r2, r5
+    add r3, sp, #0x14
+    bl func_ov015_0213447c
+    cmp r0, #0
+    beq @L_02109cf0
+    add r2, r8, #0xf
+    mov r1, #0xc
+    mla r1, r2, r1, r4
+    mov r0, #1
+    str r0, [sp]
+    ldr r0, =data_ov000_02118494
+    ldr r2, [sp, #0x14]
+    ldr r3, [sp, #0x10]
+    bl func_ov015_02134024
+@L_02109cf0:
+    mov r0, r7
+    mov r1, r6
+    bl func_ov015_02131d4c
+    ldrh r1, [r7, #0x28]
+    str r0, [sp, #0xc]
+    mov r0, r6
+    cmp r1, #0
+    ldreqh r1, [r7, #0x26]
+    bl func_ov015_02131cd4
+    mov r11, r0
+    ldr r0, [r10, #0x1d8]
+    cmp r0, #0
+    beq @L_02109d74
+    add r0, sp, #0x14
+    str r0, [sp]
+    add r0, sp, #0x10
+    str r0, [sp, #4]
+    ldr r0, [r10, #0x1d8]
+    ldr r3, [sp, #0xc]
+    mov r1, r6
+    mov r2, r11
+    bl func_ov015_02134504
+    cmp r0, #0
+    beq @L_02109d74
+    add r2, r8, #0xb
+    mov r1, #0xc
+    mla r1, r2, r1, r4
+    mov r0, #1
+    str r0, [sp]
+    ldr r0, =data_ov000_021184ac
+    ldr r2, [sp, #0x14]
+    ldr r3, [sp, #0x10]
+    bl func_ov015_02134024
+@L_02109d74:
+    ldr r0, [r10, #0x1e4]
+    cmp r0, #0
+    beq @L_02109dc4
+    add r0, sp, #0x10
+    str r0, [sp]
+    ldr r2, [sp, #0xc]
+    ldr r0, [r10, #0x1e4]
+    mov r1, r11
+    add r3, sp, #0x14
+    bl func_ov015_02134554
+    cmp r0, #0
+    beq @L_02109dc4
+    add r2, r8, #0x13
+    mov r1, #0xc
+    mla r1, r2, r1, r4
+    str r5, [sp]
+    ldr r0, =data_ov000_021184c4
+    ldr r2, [sp, #0x14]
+    ldr r3, [sp, #0x10]
+    bl func_ov015_02134024
+@L_02109dc4:
+    cmp r9, #0
+    ldrne r0, [sp, #8]
+    strneh r0, [r6, #0x44]
+@L_02109dd0:
+    add r8, r8, #1
+@L_02109dd4:
+    cmp r8, #4
+    blt @L_02109c28
+@L_02109ddc:
+    mov r0, #1
+    str r0, [r10, #8]
+    add sp, sp, #0x18
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_02109e18(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, lr}
+    ldr r6, [r0, #0xb8]
+    cmp r6, #0
+    ldrne r7, =data_ov000_02117640
+    ldrne r1, [r7]
+    cmpne r1, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
+    add r5, r0, #0xb8
+    mov r4, #0xc
+@L_02109e3c:
+    ldr r2, [r7, #4]
+    mov r0, r1
+    mla r1, r2, r4, r5
+    mov r2, r6
+    bl func_ov015_021340c0
+    ldr r1, [r7, #8]!
+    cmp r1, #0
+    bne @L_02109e3c
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+}
+
+extern "C" asm void func_ov000_02109e64(void)
+{
+    stmdb sp!, {r4, r5, r6, lr}
+    mov r6, #0
+    add r5, r0, #0xb8
+    mov r4, #0xc
+@L_02109e74:
+    mla r0, r6, r4, r5
+    bl func_ov015_02134208
+    add r6, r6, #1
+    cmp r6, #0x1a
+    blt @L_02109e74
+    ldmia sp!, {r4, r5, r6, pc}
+}
+
+extern "C" asm void func_ov000_02109e8c(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    mov r10, r0
+    ldr r8, [r10, #0xd0]
+    mov r5, #0
+    cmp r8, #0
+    mov r6, #1
+    mov r7, r5
+    beq @L_02109ed4
+    mov r4, #2
+    mov r0, r8
+    mov r1, r6
+    mov r2, r4
+    bl func_ov015_02132a04
+    mov r7, r0
+    mov r0, r8
+    mov r1, r6
+    mov r2, r4
+    bl func_ov015_021322b0
+@L_02109ed4:
+    ldr r8, [r10, #0xdc]
+    cmp r8, #0
+    beq @L_02109f04
+    mov r4, #2
+    mov r0, r8
+    mov r2, r4
+    add r1, r7, #1
+    bl func_ov015_02132a04
+    mov r0, r8
+    mov r2, r4
+    mov r1, #1
+    bl func_ov015_021322b0
+@L_02109f04:
+    mov r9, #0
+    mov r7, r9
+    add r4, r10, #0x18
+    mov r11, #0xc
+@L_02109f14:
+    add r0, r10, r7, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_02109fb8
+    mov r1, r5
+    bl func_ov015_02130b14
+    cmp r0, #0
+    beq @L_02109fb8
+    mla r8, r7, r11, r10
+    ldr r0, [r8, #0x13c]
+    cmp r0, #0
+    beq @L_02109f54
+    add r1, r9, #1
+    add r2, r7, #5
+    bl func_ov015_02132a04
+    mov r9, r0
+@L_02109f54:
+    ldr r0, [r8, #0x19c]
+    cmp r0, #0
+    beq @L_02109f6c
+    mov r1, r6
+    add r2, r7, #5
+    bl func_ov015_021322d8
+@L_02109f6c:
+    mov r0, #0x14
+    mul r1, r7, r0
+    ldr r0, [r4, r1]
+    add r2, r4, r1
+    cmp r0, #0
+    ldrne r1, [r2, #4]
+    mov r3, r5
+    cmpne r1, #0
+    movne r3, r6
+    cmp r3, #0
+    beq @L_02109fb8
+    ldrh r8, [r2, #0xc]
+    ldrh r1, [r2, #0xe]
+    add r2, r9, #1
+    mov r3, r5
+    mul r1, r8, r1
+    mov r1, r1, lsl #1
+    bl func_ov015_02132984
+    mov r9, r0
+@L_02109fb8:
+    add r7, r7, #1
+    cmp r7, #4
+    blt @L_02109f14
+    ldr r7, [r10, #0xe8]
+    mov r4, #0
+    cmp r7, #0
+    mov r5, #1
+    beq @L_0210a000
+    mov r6, #4
+    mov r0, r7
+    mov r2, r6
+    add r1, r9, #1
+    bl func_ov015_02132a04
+    mov r9, r0
+    mov r0, r7
+    mov r2, r6
+    mov r1, r5
+    bl func_ov015_021322b0
+@L_0210a000:
+    ldr r6, [r10, #0xc4]
+    cmp r6, #0
+    beq @L_0210a02c
+    mov r0, r6
+    mov r2, r5
+    add r1, r9, #1
+    bl func_ov015_02132a04
+    mov r0, r6
+    mov r1, r5
+    mov r2, r5
+    bl func_ov015_021322b0
+@L_0210a02c:
+    mov r7, #0
+    mov r6, r7
+    mov r8, #0xc
+@L_0210a038:
+    add r0, r10, r6, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_0210a088
+    mov r1, r4
+    bl func_ov015_02130b14
+    cmp r0, #0
+    mlane r0, r6, r8, r10
+    ldrne r9, [r0, #0x16c]
+    cmpne r9, #0
+    beq @L_0210a088
+    mov r0, r9
+    add r1, r7, #1
+    add r2, r6, #9
+    bl func_ov015_02132a04
+    mov r7, r0
+    mov r0, r9
+    mov r1, r5
+    add r2, r6, #9
+    bl func_ov015_021322b0
+@L_0210a088:
+    add r6, r6, #1
+    cmp r6, #4
+    blt @L_0210a038
+    ldr r5, [r10, #0x10c]
+    cmp r5, #0
+    beq @L_0210a0c8
+    mov r4, #3
+    mov r0, r5
+    mov r2, r4
+    add r1, r7, #1
+    bl func_ov015_02132a04
+    mov r7, r0
+    mov r0, r5
+    mov r2, r4
+    mov r1, #1
+    bl func_ov015_021322b0
+@L_0210a0c8:
+    ldr r5, [r10, #0x118]
+    cmp r5, #0
+    beq @L_0210a0fc
+    mov r4, #2
+    mov r0, r5
+    mov r2, r4
+    add r1, r7, #1
+    bl func_ov015_02132a04
+    mov r7, r0
+    mov r0, r5
+    mov r2, r4
+    mov r1, #1
+    bl func_ov015_021322b0
+@L_0210a0fc:
+    ldr r5, [r10, #0xf4]
+    cmp r5, #0
+    beq @L_0210a130
+    mov r4, #4
+    mov r0, r5
+    mov r2, r4
+    add r1, r7, #1
+    bl func_ov015_02132a04
+    mov r7, r0
+    mov r0, r5
+    mov r2, r4
+    mov r1, #1
+    bl func_ov015_021322b0
+@L_0210a130:
+    ldr r5, [r10, #0x100]
+    cmp r5, #0
+    beq @L_0210a164
+    mov r4, #4
+    mov r0, r5
+    mov r2, r4
+    add r1, r7, #1
+    bl func_ov015_02132a04
+    mov r7, r0
+    mov r0, r5
+    mov r2, r4
+    mov r1, #1
+    bl func_ov015_021322b0
+@L_0210a164:
+    ldr r0, [r10, #0x68]
+    mov r2, #0
+    cmp r0, #0
+    ldrne r1, [r10, #0x6c]
+    cmpne r1, #0
+    movne r2, #1
+    cmp r2, #0
+    beq @L_0210a1a4
+    ldrh r4, [r10, #0x74]
+    ldrh r1, [r10, #0x76]
+    add r2, r7, #1
+    mov r3, #0
+    mul r1, r4, r1
+    mov r1, r1, lsl #1
+    bl func_ov015_02132984
+    mov r7, r0
+@L_0210a1a4:
+    ldr r0, [r10, #0x7c]
+    mov r2, #0
+    cmp r0, #0
+    ldrne r1, [r10, #0x80]
+    cmpne r1, #0
+    movne r2, #1
+    cmp r2, #0
+    beq @L_0210a1e4
+    ldrh r4, [r10, #0x88]
+    ldrh r1, [r10, #0x8a]
+    add r2, r7, #1
+    mov r3, #0
+    mul r1, r4, r1
+    mov r1, r1, lsl #1
+    bl func_ov015_02132984
+    mov r7, r0
+@L_0210a1e4:
+    ldr r0, [r10, #0x90]
+    mov r2, #0
+    cmp r0, #0
+    ldrne r1, [r10, #0x94]
+    cmpne r1, #0
+    movne r2, #1
+    cmp r2, #0
+    beq @L_0210a224
+    ldrh r4, [r10, #0x9c]
+    ldrh r1, [r10, #0x9e]
+    add r2, r7, #1
+    mov r3, #0
+    mul r1, r4, r1
+    mov r1, r1, lsl #1
+    bl func_ov015_02132984
+    mov r7, r0
+@L_0210a224:
+    ldr r0, [r10, #0xa4]
+    mov r2, #0
+    cmp r0, #0
+    ldrne r1, [r10, #0xa8]
+    cmpne r1, #0
+    movne r2, #1
+    cmp r2, #0
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    ldrh r4, [r10, #0xb0]
+    ldrh r1, [r10, #0xb2]
+    add r2, r7, #1
+    mov r3, #0
+    mul r1, r4, r1
+    mov r1, r1, lsl #1
+    bl func_ov015_02132984
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_0210a264(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    mov r10, r0
+    mov r5, #1
+    mov r4, #0x20
+    bl G2S_GetBG0CharPtr
+    mov r6, #0
+    mov r1, r0
+    mov r0, r6
+    mov r2, r4
+    bl MIi_CpuClearFast
+    bl G2S_GetBG0CharPtr
+    mov r1, r4
+    bl DC_FlushRange
+    ldr r1, [r10, #0xd0]
+    cmp r1, #0
+    beq @L_0210a2b4
+    mov r0, r6
+    mov r2, r4
+    bl func_ov015_02132b7c
+    mov r4, r0
+@L_0210a2b4:
+    ldr r1, [r10, #0xdc]
+    cmp r1, #0
+    beq @L_0210a2cc
+    mov r2, r4
+    mov r0, #0
+    bl func_ov015_02132b7c
+@L_0210a2cc:
+    mov r9, #0x20
+    bl G2S_GetBG1CharPtr
+    mov r8, #0
+    mov r1, r0
+    mov r0, r8
+    mov r2, r9
+    bl MIi_CpuClearFast
+    bl G2S_GetBG1CharPtr
+    mov r1, r9
+    bl DC_FlushRange
+    add r4, r10, #0x18
+    mov r11, #0xc
+@L_0210a2fc:
+    add r0, r10, r8, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_0210a394
+    mov r1, r6
+    bl func_ov015_02130b14
+    cmp r0, #0
+    beq @L_0210a394
+    mla r0, r8, r11, r10
+    ldr r1, [r0, #0x13c]
+    cmp r1, #0
+    beq @L_0210a33c
+    mov r0, r5
+    mov r2, r9
+    bl func_ov015_02132b7c
+    mov r9, r0
+@L_0210a33c:
+    mov r0, #0x14
+    mul r1, r8, r0
+    ldr r0, [r4, r1]
+    add r7, r4, r1
+    cmp r0, #0
+    ldrne r0, [r7, #4]
+    cmpne r0, #0
+    movne r0, r5
+    moveq r0, r6
+    cmp r0, #0
+    beq @L_0210a394
+    ldrh r3, [r7, #0xc]
+    ldrh r2, [r7, #0xe]
+    ldr r0, [r7, #4]
+    mov r1, r9
+    mul r2, r3, r2
+    mov r2, r2, lsl #5
+    bl func_02003a68
+    ldrh r1, [r7, #0xc]
+    ldrh r0, [r7, #0xe]
+    mul r0, r1, r0
+    add r9, r9, r0, lsl #5
+@L_0210a394:
+    add r8, r8, #1
+    cmp r8, #4
+    blt @L_0210a2fc
+    ldr r1, [r10, #0xe8]
+    mov r8, #2
+    cmp r1, #0
+    mov r4, #0
+    beq @L_0210a3c4
+    mov r2, r9
+    mov r0, #1
+    bl func_ov015_02132b7c
+    mov r9, r0
+@L_0210a3c4:
+    ldr r1, [r10, #0xc4]
+    cmp r1, #0
+    beq @L_0210a3dc
+    mov r2, r9
+    mov r0, #1
+    bl func_ov015_02132b7c
+@L_0210a3dc:
+    mov r6, #0x20
+    bl G2S_GetBG2CharPtr
+    mov r5, #0
+    mov r1, r0
+    mov r0, r5
+    mov r2, r6
+    bl MIi_CpuClearFast
+    bl G2S_GetBG2CharPtr
+    mov r1, r6
+    bl DC_FlushRange
+    mov r7, #0xc
+@L_0210a408:
+    add r0, r10, r5, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_0210a444
+    mov r1, r4
+    bl func_ov015_02130b14
+    cmp r0, #0
+    mlane r0, r5, r7, r10
+    ldrne r1, [r0, #0x16c]
+    cmpne r1, #0
+    beq @L_0210a444
+    mov r0, r8
+    mov r2, r6
+    bl func_ov015_02132b7c
+    mov r6, r0
+@L_0210a444:
+    add r5, r5, #1
+    cmp r5, #4
+    blt @L_0210a408
+    ldr r1, [r10, #0x10c]
+    cmp r1, #0
+    beq @L_0210a46c
+    mov r2, r6
+    mov r0, #2
+    bl func_ov015_02132b7c
+    mov r6, r0
+@L_0210a46c:
+    ldr r1, [r10, #0x118]
+    cmp r1, #0
+    beq @L_0210a488
+    mov r2, r6
+    mov r0, #2
+    bl func_ov015_02132b7c
+    mov r6, r0
+@L_0210a488:
+    ldr r1, [r10, #0xf4]
+    cmp r1, #0
+    beq @L_0210a4a4
+    mov r2, r6
+    mov r0, #2
+    bl func_ov015_02132b7c
+    mov r6, r0
+@L_0210a4a4:
+    ldr r1, [r10, #0x100]
+    cmp r1, #0
+    beq @L_0210a4c0
+    mov r2, r6
+    mov r0, #2
+    bl func_ov015_02132b7c
+    mov r6, r0
+@L_0210a4c0:
+    ldr r0, [r10, #0x68]
+    cmp r0, #0
+    ldrne r0, [r10, #0x6c]
+    cmpne r0, #0
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    beq @L_0210a50c
+    ldrh r3, [r10, #0x74]
+    ldrh r2, [r10, #0x76]
+    ldr r0, [r10, #0x6c]
+    mov r1, r6
+    mul r2, r3, r2
+    mov r2, r2, lsl #5
+    bl func_02003b48
+    ldrh r1, [r10, #0x74]
+    ldrh r0, [r10, #0x76]
+    mul r0, r1, r0
+    add r6, r6, r0, lsl #5
+@L_0210a50c:
+    ldr r0, [r10, #0x7c]
+    cmp r0, #0
+    ldrne r0, [r10, #0x80]
+    cmpne r0, #0
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    beq @L_0210a558
+    ldrh r3, [r10, #0x88]
+    ldrh r2, [r10, #0x8a]
+    ldr r0, [r10, #0x80]
+    mov r1, r6
+    mul r2, r3, r2
+    mov r2, r2, lsl #5
+    bl func_02003b48
+    ldrh r1, [r10, #0x88]
+    ldrh r0, [r10, #0x8a]
+    mul r0, r1, r0
+    add r6, r6, r0, lsl #5
+@L_0210a558:
+    ldr r0, [r10, #0x90]
+    cmp r0, #0
+    ldrne r0, [r10, #0x94]
+    cmpne r0, #0
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    beq @L_0210a5a4
+    ldrh r3, [r10, #0x9c]
+    ldrh r2, [r10, #0x9e]
+    ldr r0, [r10, #0x94]
+    mov r1, r6
+    mul r2, r3, r2
+    mov r2, r2, lsl #5
+    bl func_02003b48
+    ldrh r1, [r10, #0x9c]
+    ldrh r0, [r10, #0x9e]
+    mul r0, r1, r0
+    add r6, r6, r0, lsl #5
+@L_0210a5a4:
+    ldr r0, [r10, #0xa4]
+    cmp r0, #0
+    ldrne r0, [r10, #0xa8]
+    cmpne r0, #0
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    beq @L_0210a5e0
+    ldrh r3, [r10, #0xb0]
+    ldrh r2, [r10, #0xb2]
+    ldr r0, [r10, #0xa8]
+    mov r1, r6
+    mul r2, r3, r2
+    mov r2, r2, lsl #5
+    bl func_02003b48
+@L_0210a5e0:
+    bl func_ov015_02132240
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_0210a5e8(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x20
+    ldr r4, [r0, #0x10c]
+    mov r10, r1
+    cmp r4, #0
+    mov r9, r3
+    addeq sp, sp, #0x20
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    ldr r0, [r4, #0xc]
+    cmp r9, #0x63
+    add r8, r4, r0
+    mov r0, r2, lsl #0x18
+    ldr r4, =0x66666667
+    movgt r9, #0x63
+    add r10, r10, #2
+    mov r5, r0, asr #0x18
+    mov r7, #1
+    mov r6, #0
+    mov r11, #2
+@L_0210a634:
+    smull r1, r2, r4, r9
+    mov r0, r9, lsr #0x1f
+    add r2, r0, r2, asr #2
+    mov r0, #0xa
+    smull r1, r2, r0, r2
+    str r7, [sp]
+    mov r0, r10, lsl #0x18
+    sub r2, r9, r1
+    add r1, r8, r2, lsl #3
+    str r6, [sp, #4]
+    mov r0, r0, asr #0x18
+    str r0, [sp, #8]
+    str r5, [sp, #0xc]
+    str r11, [sp, #0x10]
+    str r11, [sp, #0x14]
+    mov r0, #3
+    str r0, [sp, #0x18]
+    str r1, [sp, #0x1c]
+    ldr r0, =data_020c9660
+    mov r1, r7
+    mov r2, r6
+    mov r3, r6
+    bl func_ov015_0213b6ac
+    mov r1, r9
+    smull r0, r9, r4, r1
+    mov r0, r1, lsr #0x1f
+    add r9, r0, r9, asr #2
+    sub r10, r10, #2
+    cmp r9, #0
+    bgt @L_0210a634
+    add sp, sp, #0x20
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_0210a6bc(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x20
+    ldr r4, [r0, #0x118]
+    mov r10, r1
+    cmp r4, #0
+    mov r9, r3
+    addeq sp, sp, #0x20
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    ldr r1, [r4, #0xc]
+    ldr r0, =0x270f
+    add r8, r4, r1
+    cmp r9, r0
+    movhi r9, r0
+    mov r0, r2, lsl #0x18
+    ldr r4, =0xcccccccd
+    add r10, r10, #4
+    mov r5, r0, asr #0x18
+    mov r7, #1
+    mov r6, #0
+    mov r11, #2
+@L_0210a70c:
+    umull r0, r1, r9, r4
+    mov r1, r1, lsr #3
+    mov r0, #0xa
+    umull r1, r2, r0, r1
+    str r7, [sp]
+    mov r0, r10, lsl #0x18
+    sub r1, r9, r1
+    mov r0, r0, asr #0x18
+    str r6, [sp, #4]
+    str r0, [sp, #8]
+    str r5, [sp, #0xc]
+    str r7, [sp, #0x10]
+    str r11, [sp, #0x14]
+    add r1, r8, r1, lsl #2
+    str r11, [sp, #0x18]
+    str r1, [sp, #0x1c]
+    ldr r0, =data_020c9660
+    mov r1, r7
+    mov r2, r6
+    mov r3, r6
+    bl func_ov015_0213b6ac
+    mov r1, r9
+    umull r0, r9, r1, r4
+    sub r10, r10, #1
+    movs r9, r9, lsr #3
+    bne @L_0210a70c
+    add sp, sp, #0x20
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_0210a788(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x20
+    mov r10, r1
+    mov r6, r2
+    ldr r5, [sp, #0x48]
+    ldr r4, =0x3e7
+    ldr r1, [sp, #0x4c]
+    cmp r5, r4
+    ldr r2, =0x3e7
+    movgt r5, r4
+    cmp r1, r2
+    movgt r1, r2
+    mov r2, #0xc
+    mla r0, r3, r2, r0
+    cmp r5, r1
+    ldr r3, [r0, #0xb8]
+    movgt r5, r1
+    cmp r3, #0
+    addeq sp, sp, #0x20
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    ldr r2, [r3, #0xc]
+    mov r0, r5, lsl #5
+    add r4, r3, r2
+    bl func_0202273c
+    movs r8, r0
+    bne @L_0210a7f8
+    cmp r5, #0
+    movgt r8, #1
+@L_0210a7f8:
+    mov r0, r6, lsl #0x18
+    mov r9, #0
+    mov r5, r0, asr #0x18
+    add r4, r4, #0x10
+    mov r7, #1
+    mov r6, r9
+    mov r11, #4
+@L_0210a814:
+    mov r3, r8
+    cmp r8, #0
+    ble @L_0210a868
+    str r7, [sp]
+    mov r0, r10, lsl #0x18
+    str r6, [sp, #4]
+    mov r0, r0, asr #0x18
+    str r0, [sp, #8]
+    str r5, [sp, #0xc]
+    str r7, [sp, #0x10]
+    cmp r8, #8
+    movgt r3, #8
+    str r7, [sp, #0x14]
+    ldr r0, =data_020c9660
+    sub r3, r4, r3, lsl #1
+    str r11, [sp, #0x18]
+    str r3, [sp, #0x1c]
+    mov r1, r7
+    mov r2, r6
+    mov r3, r6
+    bl func_ov015_0213b6ac
+@L_0210a868:
+    add r9, r9, #1
+    cmp r9, #4
+    sub r8, r8, #8
+    add r10, r10, #1
+    blt @L_0210a814
+    add sp, sp, #0x20
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_0210a88c(void)
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, lr}
+    sub sp, sp, #0x20
+    mov r8, r1
+    mov r7, r0
+    mov r1, r8, lsl #0x1f
+    add r0, r8, r8, lsr #31
+    mov r3, r1, lsr #0x1b
+    mov r1, r0, asr #1
+    ldr r12, [r7, #0xdc]
+    mov r0, r3, lsl #0x18
+    mov r1, r1, lsl #0x1b
+    mov r6, r2
+    cmp r12, #0
+    mov r5, r0, asr #0x18
+    mov r4, r1, asr #0x18
+    beq @L_0210a90c
+    mov r1, #1
+    str r1, [sp]
+    mov r3, #0
+    stmib sp, {r3, r5}
+    str r4, [sp, #0xc]
+    mov r0, #0x10
+    str r0, [sp, #0x10]
+    mov r0, #8
+    str r0, [sp, #0x14]
+    mov r2, #2
+    str r2, [sp, #0x18]
+    ldr lr, [r12, #0xc]
+    ldr r0, =data_020c9660
+    add r12, r12, lr
+    str r12, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210a90c:
+    add r1, r8, #0xb
+    mov r0, #0xc
+    mla r0, r1, r0, r7
+    ldr r12, [r0, #0xb8]
+    cmp r12, #0
+    beq @L_0210a968
+    mov r1, #1
+    str r1, [sp]
+    mov r3, #0
+    stmib sp, {r3, r5}
+    add r0, r8, #5
+    str r4, [sp, #0xc]
+    mov r2, #8
+    str r2, [sp, #0x10]
+    str r2, [sp, #0x14]
+    and r0, r0, #0xff
+    str r0, [sp, #0x18]
+    ldr r2, [r12, #0xc]
+    ldr r0, =data_020c9660
+    add r12, r12, r2
+    mov r2, r1
+    str r12, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210a968:
+    add r1, r8, #0xf
+    mov r0, #0xc
+    mla r0, r1, r0, r7
+    ldr r12, [r0, #0xb8]
+    cmp r12, #0
+    beq @L_0210a9c0
+    mov r1, #1
+    mov r2, #0
+    stmia sp, {r1, r2, r5}
+    add r0, r8, #9
+    str r4, [sp, #0xc]
+    mov r3, #8
+    str r3, [sp, #0x10]
+    str r3, [sp, #0x14]
+    and r0, r0, #0xff
+    str r0, [sp, #0x18]
+    ldr r3, [r12, #0xc]
+    ldr r0, =data_020c9660
+    add r12, r12, r3
+    mov r3, r2
+    str r12, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210a9c0:
+    mov r0, #0x14
+    mul r0, r8, r0
+    add r1, r7, #0x18
+    ldr lr, [r1, r0]
+    add r12, r1, r0
+    cmp lr, #0
+    ldrne r0, [r12, #4]
+    mov r1, #0
+    cmpne r0, #0
+    movne r1, #1
+    cmp r1, #0
+    beq @L_0210aa40
+    mov r1, #1
+    add r0, r5, #9
+    mov r0, r0, lsl #0x18
+    str r1, [sp]
+    mov r3, #0
+    str r3, [sp, #4]
+    mov r0, r0, asr #0x18
+    str r0, [sp, #8]
+    str r4, [sp, #0xc]
+    ldrh r8, [r12, #0xc]
+    ldr r0, =data_020c9660
+    mov r2, r1
+    and r8, r8, #0xff
+    str r8, [sp, #0x10]
+    ldrh r8, [r12, #0xe]
+    and r8, r8, #0xff
+    str r8, [sp, #0x14]
+    str r3, [sp, #0x18]
+    str lr, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210aa40:
+    ldrb r3, [r6, #0xaa]
+    mov r0, r7
+    add r1, r5, #0xb
+    add r2, r4, #2
+    bl func_ov000_0210a5e8
+    ldr r2, [r7, #0xe8]
+    cmp r2, #0
+    beq @L_0210aac0
+    mov r1, #1
+    add r0, r5, #9
+    mov r0, r0, lsl #0x18
+    add r3, r4, #4
+    mov r8, r3, lsl #0x18
+    str r1, [sp]
+    mov r3, #0
+    str r3, [sp, #4]
+    mov r0, r0, asr #0x18
+    str r0, [sp, #8]
+    mov r0, r8, asr #0x18
+    str r0, [sp, #0xc]
+    mov r0, #7
+    str r0, [sp, #0x10]
+    mov r0, #2
+    str r0, [sp, #0x14]
+    mov r0, #4
+    str r0, [sp, #0x18]
+    ldr r8, [r2, #0xc]
+    ldr r0, =data_020c9660
+    add r8, r2, r8
+    mov r2, r1
+    str r8, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210aac0:
+    ldrsh r2, [r6, #0x94]
+    mov r0, r7
+    add r1, r5, #0xb
+    str r2, [sp]
+    ldrsh r8, [r6, #0xd0]
+    add r2, r4, #4
+    mov r3, #5
+    str r8, [sp, #4]
+    bl func_ov000_0210a788
+    ldrsh r2, [r6, #0x96]
+    mov r0, r7
+    add r1, r5, #0xb
+    str r2, [sp]
+    ldrsh r8, [r6, #0xd2]
+    add r2, r4, #5
+    mov r3, #6
+    str r8, [sp, #4]
+    bl func_ov000_0210a788
+    ldr r0, =data_020e88a0
+    mov r1, r6
+    bl _ZN17UnkClass_020621b413func_0207d308EPh
+    add r1, r5, #0xa
+    add r2, r4, #6
+    mov r3, r0
+    mov r0, r7
+    bl func_ov000_0210a6bc
+    add sp, sp, #0x20
+    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+}
+
+extern "C" asm void func_ov000_0210ab38(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, lr}
+    sub sp, sp, #0x20
+    ldr r7, =data_020c9660
+    mov r6, #1
+    mov r5, #0
+    mov r4, r0
+    mov r0, r7
+    mov r1, r6
+    mov r2, r5
+    bl func_ov015_0213b900
+    ldr r3, [r4, #0xd0]
+    cmp r3, #0
+    beq @L_0210abb0
+    str r6, [sp]
+    str r5, [sp, #4]
+    str r5, [sp, #8]
+    str r5, [sp, #0xc]
+    mov r0, #0x20
+    str r0, [sp, #0x10]
+    mov r0, #0x18
+    str r0, [sp, #0x14]
+    mov r2, #2
+    str r2, [sp, #0x18]
+    ldr r1, [r3, #0xc]
+    mov r0, r7
+    add r7, r3, r1
+    mov r1, r6
+    mov r3, r5
+    str r7, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210abb0:
+    mov r6, #0
+@L_0210abb4:
+    add r0, r4, r6, lsl #1
+    ldrh r0, [r0, #0x10]
+    cmp r0, #0
+    beq @L_0210abe0
+    mov r1, r5
+    bl func_ov015_02130b14
+    movs r2, r0
+    beq @L_0210abe0
+    mov r0, r4
+    mov r1, r6
+    bl func_ov000_0210a88c
+@L_0210abe0:
+    add r6, r6, #1
+    cmp r6, #4
+    blt @L_0210abb4
+    ldr r5, [r4, #0xc4]
+    cmp r5, #0
+    beq @L_0210ac40
+    mov r1, #1
+    str r1, [sp]
+    mov r3, #0
+    str r3, [sp, #4]
+    str r3, [sp, #8]
+    mov r0, #0x10
+    str r0, [sp, #0xc]
+    mov r0, #0x20
+    str r0, [sp, #0x10]
+    mov r0, #7
+    str r0, [sp, #0x14]
+    str r1, [sp, #0x18]
+    ldr r2, [r5, #0xc]
+    ldr r0, =data_020c9660
+    add r5, r5, r2
+    mov r2, r1
+    str r5, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210ac40:
+    ldr r5, [r4, #0x68]
+    mov r1, #0
+    cmp r5, #0
+    ldrne r0, [r4, #0x6c]
+    cmpne r0, #0
+    movne r1, #1
+    cmp r1, #0
+    beq @L_0210aca8
+    mov r2, #0
+    mov r1, #1
+    stmia sp, {r1, r2}
+    mov r0, #3
+    str r0, [sp, #8]
+    mov r0, #0x11
+    str r0, [sp, #0xc]
+    ldrh r6, [r4, #0x74]
+    ldr r0, =data_020c9660
+    mov r3, r2
+    and r6, r6, #0xff
+    str r6, [sp, #0x10]
+    ldrh r6, [r4, #0x76]
+    and r6, r6, #0xff
+    str r6, [sp, #0x14]
+    str r2, [sp, #0x18]
+    str r5, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210aca8:
+    ldr r5, [r4, #0x7c]
+    mov r1, #0
+    cmp r5, #0
+    ldrne r0, [r4, #0x80]
+    cmpne r0, #0
+    movne r1, #1
+    cmp r1, #0
+    beq @L_0210ad10
+    mov r2, #0
+    mov r1, #1
+    stmia sp, {r1, r2}
+    mov r0, #0x13
+    str r0, [sp, #8]
+    mov r0, #0x11
+    str r0, [sp, #0xc]
+    ldrh r6, [r4, #0x88]
+    ldr r0, =data_020c9660
+    mov r3, r2
+    and r6, r6, #0xff
+    str r6, [sp, #0x10]
+    ldrh r6, [r4, #0x8a]
+    and r6, r6, #0xff
+    str r6, [sp, #0x14]
+    str r2, [sp, #0x18]
+    str r5, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210ad10:
+    ldr r5, [r4, #0x90]
+    mov r1, #0
+    cmp r5, #0
+    ldrne r0, [r4, #0x94]
+    cmpne r0, #0
+    movne r1, #1
+    cmp r1, #0
+    beq @L_0210ad78
+    mov r2, #0
+    mov r1, #1
+    stmia sp, {r1, r2}
+    mov r0, #0xc
+    str r0, [sp, #8]
+    mov r0, #0x13
+    str r0, [sp, #0xc]
+    ldrh r6, [r4, #0x9c]
+    ldr r0, =data_020c9660
+    mov r3, r2
+    and r6, r6, #0xff
+    str r6, [sp, #0x10]
+    ldrh r6, [r4, #0x9e]
+    and r6, r6, #0xff
+    str r6, [sp, #0x14]
+    str r2, [sp, #0x18]
+    str r5, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+@L_0210ad78:
+    ldr r5, [r4, #0xa4]
+    mov r1, #0
+    cmp r5, #0
+    ldrne r0, [r4, #0xa8]
+    cmpne r0, #0
+    movne r1, #1
+    cmp r1, #0
+    addeq sp, sp, #0x20
+    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
+    ldrh r3, [r4, #0xb0]
+    mov r1, #1
+    mov r2, #0
+    rsb r0, r3, #0x20
+    add r0, r0, r0, lsr #31
+    mov r0, r0, lsl #0x17
+    stmia sp, {r1, r2}
+    mov r0, r0, asr #0x18
+    str r0, [sp, #8]
+    mov r0, #0x14
+    str r0, [sp, #0xc]
+    and r0, r3, #0xff
+    str r0, [sp, #0x10]
+    ldrh r4, [r4, #0xb2]
+    ldr r0, =data_020c9660
+    mov r3, r2
+    and r4, r4, #0xff
+    str r4, [sp, #0x14]
+    str r2, [sp, #0x18]
+    str r5, [sp, #0x1c]
+    bl func_ov015_0213b6ac
+    add sp, sp, #0x20
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+}
+
+extern "C" asm void func_ov000_0210adfc(void)
+{
+    stmdb sp!, {r4, lr}
+    ldr r1, =data_020c4ab4
+    ldr r2, [r1, #0xc4]
+    cmp r2, #0
+    cmpne r2, #0x8d
+    moveq r0, #0
+    ldmeqia sp!, {r4, pc}
+    mov r4, #1
+    ldr r0, [r0, #4]
+    mov r1, r4
+    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    mov r0, r4
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_0210ae34(void)
+{
+    stmdb sp!, {r4, r5, r6, lr}
+    mov r6, r0
+    bl func_ov000_0210adfc
+    cmp r0, #0
+    movne r0, #6
+    strne r0, [r6, #8]
+    ldmneia sp!, {r4, r5, r6, pc}
+    ldr r0, [r6, #4]
+    mov r5, #1
+    ldr r2, [r0]
+    mov r1, r5
+    ldr r2, [r2, #0x28]
+    blx r2
+    mov r0, #6
+    bl func_ov015_02135440
+    ldr r0, =data_020c4ab4
+    mov r4, #0
+    strb r4, [r0, #0x70]
+    strb r4, [r0, #0x71]
+    bl func_ov015_021319bc
+    mov r1, r0
+    ldr r0, =data_020e88a0
+    mov r2, r4
+    mov r3, r4
+    bl _ZN17UnkClass_020621b413func_0207c6b4Ev
+    str r4, [r6, #8]
+    ldr r0, =data_020c9660
+    mov r1, r5
+    bl func_ov015_0213b364
+    mov r1, r4
+    add r0, r6, #0xb8
+    mov r2, #0x138
+    bl MI_CpuFill8
+    mov r0, r6
+    bl func_ov000_02109518
+    mov r0, r6
+    bl func_ov000_02109610
+    mov r0, r6
+    mov r1, r5
+    bl func_ov000_02109b60
+    ldmia sp!, {r4, r5, r6, pc}
+}
+
+extern "C" asm void func_ov000_0210aee4(void)
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    ldr r1, [r4, #8]
+    cmp r1, #5
+    addls pc, pc, r1, lsl #2
+    ldmia sp!, {r4, pc}
+    dcd 0xe8bd8010
+    dcd 0xea000003
+    dcd 0xe8bd8010
+    dcd 0xea000021
+    dcd 0xea000027
+    dcd 0xea000030
+    dcd 0xe28400b8
+    dcd 0xe3a0101a
+    dcd 0xeb00a47d
+    dcd 0xe3500000
+    dcd 0x08bd8010
+    dcd 0xe594000c
+    dcd 0xe3500001
+    dcd 0x0a000002
+    dcd 0xe3500002
+    dcd 0x0a000006
+    dcd 0xe8bd8010
+    dcd 0xe1a00004
+    dcd 0xebfffbb3
+    dcd 0xe1a00004
+    dcd 0xe3a01002
+    dcd 0xebfffb02
+    dcd 0xe8bd8010
+    dcd 0xe1a00004
+    dcd 0xebfff993
+    dcd 0xe2840f73
+    dcd 0xeb00a4a7
+    dcd 0xe2840f76
+    dcd 0xeb00a4a5
+    dcd 0xe2840f79
+    dcd 0xeb00a4a3
+    dcd 0xe1a00004
+    dcd 0xebfffac7
+    dcd 0xe1a00004
+    dcd 0xebfffbc0
+    dcd 0xe3a00002
+    dcd 0xe5840008
+    dcd 0xe8bd8010
+    dcd 0xe3a01004
+    dcd 0xe5841008
+    dcd 0xebfffee5
+    dcd 0xe1a00004
+    dcd 0xe5901000
+    dcd 0xe591104c
+    dcd 0xe12fff31
+    dcd 0xe1a00004
+    dcd 0xebffff90
+    dcd 0xe3500000
+    dcd 0x0a000005
+    dcd 0xe1a00004
+    dcd 0xe5901000
+    dcd 0xe5911050
+    dcd 0xe12fff31
+    dcd 0xe3a00005
+    dcd 0xe5840008
+    dcd 0xe59f0008
+    dcd 0xe3a01001
+    dcd 0xeb00c3f9
+    dcd 0xe8bd8010
+    dcd data_020c9660
+}
+
+extern "C" asm void func_ov000_0210afec(void)
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    ldr r1, [r4, #8]
+    cmp r1, #2
+    beq @L_0210b010
+    cmp r1, #4
+    cmpne r1, #5
+    beq @L_0210b020
+    ldmia sp!, {r4, pc}
+@L_0210b010:
+    bl func_ov000_0210a264
+    mov r0, #3
+    str r0, [r4, #8]
+    ldmia sp!, {r4, pc}
+@L_0210b020:
+    ldr r0, =data_020c9660
+    mov r1, #1
+    bl func_ov015_0213c33c
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_0210b034(void)
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r0
+    ldr r0, [r5, #8]
+    cmp r0, #6
+    ldmeqia sp!, {r3, r4, r5, pc}
+    add r0, r5, #0xb8
+    mov r1, #0x1a
+    bl func_ov015_02134198
+    mov r0, r5
+    bl func_ov000_02109e64
+    add r0, r5, #0x18
+    mov r1, #8
+    bl func_ov015_02133e8c
+    mov r4, #1
+    ldr r0, =data_020c9660
+    mov r1, r4
+    bl func_ov015_0213b3fc
+    bl func_ov015_02135e10
+    ldr r0, [r5, #4]
+    mov r1, r4
+    ldr r2, [r0]
+    ldr r2, [r2, #0xc]
+    blx r2
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+extern "C" asm void func_ov000_0210b098(void)
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r0
+    bl _ZdlPv
+    mov r0, r4
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_0210b0ac(void)
+{
+    stmdb sp!, {r0, r1, r2, r3}
+    ldr r3, [sp, #8]
+    ldr r1, [r0, #4]
+    ldr r2, [sp, #0xc]
+    cmp r3, r1
+    movne r1, #1
+    strneb r1, [r0, #0xc]
+    ldr r1, [sp, #4]
+    stmia r0, {r1, r3}
+    str r2, [r0, #8]
+    ldrb r0, [r0, #0xc]
+    add sp, sp, #0x10
+    bx lr
+}
+
+extern "C" asm void func_ov000_0210b0e0(void)
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r0
+    mov r4, r1
+    bl func_020854a8
+    cmp r0, #0
+    bne @L_0210b120
+    mov r0, r5
+    mov r1, r4
+    bl func_0208539c
+    cmp r0, #0
+    bne @L_0210b120
+    mov r0, r5
+    mov r1, r4
+    bl func_020853cc
+    cmp r0, #0
+    beq @L_0210b164
+@L_0210b120:
+    add r0, r5, #0x1000
+    ldr r0, [r0, #0x8ec]
+    tst r0, #1
+    beq @L_0210b164
+    ldr r1, [r5, #0xc]
+    mov r0, #0x1800
+    umull r3, r2, r1, r0
+    mov r1, r1, asr #0x1f
+    mla r2, r1, r0, r2
+    adds r3, r3, #0x800
+    adc r2, r2, #0
+    mov r0, r3, lsr #0xc
+    ldr r1, =0x555
+    orr r0, r0, r2, lsl #20
+    cmp r0, r1
+    subge r0, r1, #1
+    ldmia sp!, {r3, r4, r5, pc}
+@L_0210b164:
+    ldr r0, [r5, #0xc]
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+extern "C" asm void func_ov000_0210b170(void)
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    ldr r3, [r1, #0xa0]
+    mov r5, r2
+    add r4, r3, r5
+    bl func_ov000_0210b0e0
+    cmp r4, #0
+    movlt r4, #0
+    cmp r5, #0
+    ble @L_0210b19c
+    cmp r4, r0
+    movge r4, r0
+@L_0210b19c:
+    mov r0, r4
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+extern "C" asm void func_ov000_0210b1a4(void)
+{
+    stmdb sp!, {r4, lr}
+    ldr lr, [sp, #0xc]
+    ldr r4, [sp, #8]
+    cmp r3, lr
+    movgt r0, r3
+    movgt r3, lr
+    ldr r12, [sp, #0x10]
+    movgt lr, r0
+    cmp r4, r12
+    movgt r0, r4
+    movgt r4, r12
+    movgt r12, r0
+    cmp r1, r3
+    cmpge r2, r4
+    blt @L_0210b1f0
+    cmp r1, lr
+    cmple r2, r12
+    movle r0, #1
+    ldmleia sp!, {r4, pc}
+@L_0210b1f0:
+    mov r0, #0
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_0210b1f8(void)
+{
+    stmdb sp!, {r4, lr}
+    mov r0, r1, asr #4
+    mov r4, r0, lsl #1
+    add r0, r4, #1
+    mov r1, r0, lsl #1
+    ldr r12, =FX_SinCosTable_
+    mov r0, r4, lsl #1
+    ldrsh r1, [r12, r1]
+    ldrsh r0, [r12, r0]
+    mov r12, #0
+    smull r4, lr, r1, r2
+    adds r4, r4, #0x800
+    smull r2, r1, r0, r2
+    adc r0, lr, #0
+    mov r4, r4, lsr #0xc
+    orr r4, r4, r0, lsl #20
+    adds r2, r2, #0x800
+    adc r0, r1, #0
+    mov r1, r2, lsr #0xc
+    stmia r3, {r4, r12}
+    orr r1, r1, r0, lsl #20
+    str r1, [r3, #8]
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_0210b258(void)
+{
+    stmdb sp!, {r4, r5, lr}
+    sub sp, sp, #0xc
+    mov r0, r2
+    add r2, sp, #0
+    mov r5, r3
+    ldr r4, [sp, #0x18]
+    bl func_02001f38
+    ldr r0, [sp, #8]
+    ldr r1, [sp]
+    bl func_0200226c
+    mov r0, r0, asr #4
+    mov r3, r0, lsl #1
+    add r0, r3, #1
+    ldr r2, =FX_SinCosTable_
+    mov r0, r0, lsl #1
+    ldrsh r1, [r2, r0]
+    mov r0, r3, lsl #1
+    ldrsh r0, [r2, r0]
+    smull r2, r3, r1, r5
+    adds r12, r2, #0x800
+    smull r2, r1, r0, r5
+    adc r0, r3, #0
+    mov r3, r12, lsr #0xc
+    orr r3, r3, r0, lsl #20
+    adds r2, r2, #0x800
+    str r3, [r4]
+    mov r3, #0
+    adc r0, r1, #0
+    mov r1, r2, lsr #0xc
+    str r3, [r4, #4]
+    orr r1, r1, r0, lsl #20
+    str r1, [r4, #8]
+    add sp, sp, #0xc
+    ldmia sp!, {r4, r5, pc}
+}
+
+extern "C" asm void func_ov000_0210b2e4(void)
+{
+    stmdb sp!, {r4, lr}
+    mov r4, r1
+    ldrb r1, [r4, #0x69]
+    cmp r1, #0
+    addeq r1, r0, #0x1000
+    ldreqb r1, [r1, #0x41c]
+    cmpeq r1, #0
+    ldmeqia sp!, {r4, pc}
+    add r0, r0, #0x1000
+    ldrh r1, [r4, #0x6a]
+    ldr r0, [r0, #0x414]
+    add r0, r1, r0
+    mov r0, r0, lsl #0x10
+    mov r0, r0, lsr #0x10
+    bl func_ov015_02130e28
+    mov r1, #0
+    strb r0, [r4, #0x64]
+    strb r1, [r4, #0x69]
+    ldmia sp!, {r4, pc}
+}
+
+extern "C" asm void func_ov000_0210b330(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
+    sub sp, sp, #0x14
+    mov r8, r2
+    ldr r2, [sp, #0x3c]
+    add r5, sp, #8
+    mov r4, #0
+    mov r10, r0
+    mov r9, r1
+    mov r7, r3
+    str r4, [r5]
+    str r4, [r5, #4]
+    str r4, [r5, #8]
+    cmp r2, #0
+    ldr r6, [sp, #0x38]
+    beq @L_0210b378
+    mov r0, r8
+    mov r1, r7
+    bl func_02099a2c
+@L_0210b378:
+    ldrb r5, [sp, #0x40]
+    add r4, sp, #8
+    mov r0, r10
+    mov r1, r9
+    mov r2, r8
+    mov r3, r7
+    stmia sp, {r4, r5}
+    bl func_020854d8
+    mov r5, r0
+    tst r5, #1
+    bne @L_0210b3d0
+    cmp r6, #0
+    beq @L_0210b3c4
+    ldr r0, [sp, #8]
+    str r0, [r6]
+    ldr r0, [sp, #0xc]
+    str r0, [r6, #4]
+    ldr r0, [sp, #0x10]
+    str r0, [r6, #8]
+@L_0210b3c4:
+    add sp, sp, #0x14
+    mov r0, r5
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+@L_0210b3d0:
+    ldr r1, [sp, #8]
+    mov r0, r10
+    str r1, [r7]
+    ldr r2, [sp, #0xc]
+    mov r1, r9
+    str r2, [r7, #4]
+    ldr r3, [sp, #0x10]
+    mov r2, r8
+    str r3, [r7, #8]
+    mov r3, r7
+    str r4, [sp]
+    bl func_ov000_0210b474
+    tst r0, #1
+    bne @L_0210b448
+    ldrb r1, [sp, #0x40]
+    cmp r1, #0
+    addne r1, r10, #0x1000
+    movne r2, #1
+    strneb r2, [r1, #0x8f8]
+    cmp r6, #0
+    addeq sp, sp, #0x14
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    ldr r1, [sp, #8]
+    str r1, [r6]
+    ldr r1, [sp, #0xc]
+    str r1, [r6, #4]
+    ldr r1, [sp, #0x10]
+    add sp, sp, #0x14
+    str r1, [r6, #8]
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+@L_0210b448:
+    cmp r6, #0
+    beq @L_0210b468
+    ldr r1, [r7]
+    str r1, [r6]
+    ldr r1, [r7, #4]
+    str r1, [r6, #4]
+    ldr r1, [r7, #8]
+    str r1, [r6, #8]
+@L_0210b468:
+    orr r0, r0, r5
+    add sp, sp, #0x14
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+}
+
+extern "C" asm void func_ov000_0210b474(void)
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0xc
+    mov r5, #0
+    mov r9, r1
+    mov r10, r0
+    mov r1, r5
+    mov r8, r2
+    mov r7, r3
+    ldr r6, [sp, #0x30]
+    bl func_0208530c
+    mov r4, r0
+    mov r0, r10
+    mov r1, r9
+    bl func_02085444
+    cmp r0, #0
+    beq @L_0210b578
+    add r11, sp, #0
+@L_0210b4b8:
+    mov r0, r10
+    mov r1, r4
+    bl func_02085374
+    cmp r0, #0
+    beq @L_0210b568
+    mov r0, r4
+    bl func_02084dd8
+    cmp r0, #0
+    cmpne r9, r4
+    beq @L_0210b568
+    mov r0, r10
+    mov r1, r4
+    bl func_02085444
+    cmp r0, #0
+    beq @L_0210b568
+    mov r0, r7
+    mov r2, r11
+    add r1, r4, #0x84
+    bl func_02001f38
+    mov r0, r7
+    add r1, r4, #0x84
+    bl func_02099a94
+    ldr r2, [r9, #0x9c]
+    ldr r1, [r4, #0x9c]
+    add r1, r2, r1
+    cmp r0, r1
+    bge @L_0210b568
+    mov r0, r8
+    add r1, r4, #0x84
+    bl func_02099a94
+    ldr r2, [r9, #0x9c]
+    ldr r1, [r4, #0x9c]
+    add r1, r2, r1
+    cmp r0, r1
+    blt @L_0210b568
+    ldr r1, [r8]
+    add sp, sp, #0xc
+    str r1, [r6]
+    ldr r1, [r8, #4]
+    mov r0, #2
+    str r1, [r6, #4]
+    ldr r1, [r8, #8]
+    str r1, [r6, #8]
+    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+@L_0210b568:
+    add r5, r5, #1
+    cmp r5, #0x18
+    add r4, r4, #0xd4
+    blt @L_0210b4b8
+@L_0210b578:
+    ldr r1, [r7]
+    mov r0, #1
+    str r1, [r6]
+    ldr r1, [r7, #4]
+    str r1, [r6, #4]
+    ldr r1, [r7, #8]
+    str r1, [r6, #8]
+    add sp, sp, #0xc
+    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_0210b59c(void)
+{
+    stmdb sp!, {r3, r4, r5, lr}
+    mov r5, r0
+    mov r4, r1
+    bl func_020858b0
+    cmp r0, #0
+    ldmneia sp!, {r3, r4, r5, pc}
+    ldrb r0, [r4, #0x2c]
+    cmp r0, #0
+    ldmeqia sp!, {r3, r4, r5, pc}
+    cmp r0, #1
+    beq @L_0210b5d4
+    cmp r0, #2
+    beq @L_0210b5e4
+    ldmia sp!, {r3, r4, r5, pc}
+@L_0210b5d4:
+    mov r0, r5
+    mov r1, r4
+    bl func_ov000_0210b6b4
+    ldmia sp!, {r3, r4, r5, pc}
+@L_0210b5e4:
+    mov r0, r5
+    mov r1, r4
+    bl func_ov000_0210b8a4
+    ldmia sp!, {r3, r4, r5, pc}
+}
+
+extern "C" asm void func_ov000_0210b5f4(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, lr}
+    mov r5, r1
+    ldrb r7, [r5, #0x2d]
+    mov r6, r0
+    mov r4, #0
+    cmp r7, #4
+    addls pc, pc, r7, lsl #2
+    b @L_0210b68c
+    dcd 0xea00001c
+    dcd 0xea000019
+    dcd 0xea000014
+    dcd 0xea000015
+    dcd 0xeaffffff
+    dcd 0xe59f007c
+    dcd 0xebfd5796
+    dcd 0xe2471004
+    dcd 0xe3a02001
+    dcd 0xe1100112
+    dcd 0x0a000007
+    dcd 0xe5d51065
+    dcd 0xe59f0064
+    dcd 0xe1510000
+    dcd 0x0a00000f
+    dcd 0xe1a00006
+    dcd 0xe1a01005
+    dcd 0xebfde872
+    dcd 0xea00000b
+    dcd 0xe1a00006
+    dcd 0xe1a01005
+    dcd 0xeb000158
+    dcd 0xe1a04000
+    dcd 0xea000006
+    dcd 0xeb0000b6
+    dcd 0xeafffffb
+    dcd 0xeb0001b3
+    dcd 0xeafffff9
+    dcd 0xeb000220
+    dcd 0xeafffff7
+@L_0210b68c:
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    dcd 0xe3540000
+    dcd 0x08bd80f8
+    dcd 0xe1a00006
+    dcd 0xe1a01005
+    dcd 0xe3a02001
+    dcd 0xebfde887
+    dcd 0xe8bd80f8
+    dcd data_020d9a04
+    dcd 0x0000c350
+}
+
+extern "C" asm void func_ov000_0210b6b4(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, lr}
+    sub sp, sp, #0x18
+    mov r6, r1
+    mov r7, r0
+    add r0, r6, #0x84
+    add r1, r6, #0x40
+    bl func_02099a94
+    mov r0, #0xa
+    bl func_ov015_021309f8
+    ldr r1, [r6, #0x50]
+    add r2, r0, r0, lsl #3
+    str r1, [sp]
+    ldr r0, [r6, #0x54]
+    add r5, r2, #0x5a
+    str r0, [sp, #4]
+    ldr r1, [r6, #0x58]
+    mov r0, r7
+    str r1, [sp, #8]
+    ldr r1, [r6, #0x84]
+    ldr r2, [r6, #0x8c]
+    ldr r3, [r6, #0x4c]
+    bl func_ov000_0210b1a4
+    cmp r0, #0
+    bne @L_0210b750
+    ldr r2, [r6, #0x4c]
+    ldr r0, [r6, #0x54]
+    mov r1, #0
+    add r0, r2, r0
+    add r0, r0, r0, lsr #31
+    mov r0, r0, asr #1
+    str r0, [sp, #0xc]
+    str r1, [sp, #0x10]
+    ldr r1, [r6, #0x50]
+    ldr r0, [r6, #0x58]
+    add r0, r1, r0
+    add r0, r0, r0, lsr #31
+    mov r0, r0, asr #1
+    str r0, [sp, #0x14]
+    b @L_0210b83c
+@L_0210b750:
+    mov r4, #2
+    mov r0, r4
+    bl func_ov015_021309f8
+    adds r0, r0, #1
+    mov r0, r4
+    beq @L_0210b788
+    bl func_ov015_021309f8
+    add r0, r0, #1
+    mov r0, r0, lsl #0xc
+    bl func_020224cc
+    mov r1, r0
+    mov r0, #0x3f000000
+    bl func_0202300c
+    b @L_0210b7a0
+@L_0210b788:
+    bl func_ov015_021309f8
+    add r0, r0, #1
+    mov r0, r0, lsl #0xc
+    bl func_020224cc
+    mov r1, #0x3f000000
+    bl func_0202323c
+@L_0210b7a0:
+    bl func_02022b2c
+    mov r4, r0
+    mov r0, #8
+    bl func_ov015_021309f8
+    ldr r1, =0xaaa
+    mov r2, r4, asr #0x1f
+    umull r12, r3, r4, r1
+    mla r3, r2, r1, r3
+    adds r2, r12, #0x800
+    adc r1, r3, #0
+    mov r2, r2, lsr #0xc
+    add r4, sp, #0xc
+    mov r0, r0, lsl #0x1d
+    orr r2, r2, r1, lsl #20
+    mov r1, r0, lsr #0x10
+    mov r0, r7
+    mov r3, r4
+    bl func_ov000_0210b1f8
+    mov r0, r4
+    mov r2, r4
+    add r1, r6, #0x84
+    bl func_02001f08
+    ldr r1, [r6, #0x50]
+    mov r0, r7
+    str r1, [sp]
+    ldr r1, [r6, #0x54]
+    str r1, [sp, #4]
+    ldr r1, [r6, #0x58]
+    str r1, [sp, #8]
+    ldr r1, [sp, #0xc]
+    ldr r2, [sp, #0x14]
+    ldr r3, [r6, #0x4c]
+    bl func_ov000_0210b1a4
+    cmp r0, #0
+    moveq r0, #1
+    addeq sp, sp, #0x18
+    streqb r0, [r6, #0x2d]
+    streqh r5, [r6, #0x2e]
+    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0210b83c:
+    mov r0, r6
+    mov r1, #0x55
+    mov r2, #1
+    bl func_02084d50
+    ldr r0, [sp, #0xc]
+    add r1, sp, #0xc
+    str r0, [r6, #0x30]
+    ldr r2, [sp, #0x10]
+    add r0, r6, #0x84
+    str r2, [r6, #0x34]
+    ldr r3, [sp, #0x14]
+    mov r2, #2
+    str r3, [r6, #0x38]
+    strb r2, [r6, #0x2d]
+    strh r5, [r6, #0x2e]
+    bl func_02099a94
+    sub r1, r0, #0x11
+    ldr r2, =0x78787879
+    mov r0, r1, lsr #0x1f
+    smull r1, r3, r2, r1
+    add r3, r0, r3, asr #3
+    str r3, [r6, #0x3c]
+    add sp, sp, #0x18
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+}
+
+extern "C" asm void func_ov000_0210b8a4(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, lr}
+    sub sp, sp, #0xc
+    mov r4, #0
+    mov r5, r1
+    mov r1, r4
+    mov r6, r0
+    bl func_02085bb4
+    cmp r5, #0
+    addeq sp, sp, #0xc
+    ldmeqia sp!, {r3, r4, r5, r6, pc}
+    ldr r1, [r5, #0x5c]
+    add r0, r6, #0x18
+    bl func_02085228
+    cmp r0, #0
+    addle sp, sp, #0xc
+    ldmleia sp!, {r3, r4, r5, r6, pc}
+    sub r2, r0, #1
+    mov r1, #0xc
+    mla r1, r2, r1, r6
+    mov r2, #0x55
+    add r1, r1, #0x1000
+    ldr r3, [r1, #0x8b8]
+    mul r2, r0, r2
+    str r3, [sp]
+    str r4, [sp, #4]
+    ldr r0, [r1, #0x8bc]
+    add r1, sp, #0
+    sub r2, r0, r2
+    add r0, r5, #0x84
+    str r2, [sp, #8]
+    bl func_02099a94
+    sub r0, r0, #0x11
+    cmp r0, #0x800
+    movge r0, #3
+    strgeb r0, [r5, #0x2d]
+    strgeh r4, [r5, #0x2e]
+    add sp, sp, #0xc
+    ldmia sp!, {r3, r4, r5, r6, pc}
+}
+
+extern "C" asm void func_ov000_0210b93c(void)
+{
+    add r0, r0, #0x1000
+    ldrb r0, [r0, #0x8f8]
+    bx lr
+}
+
+extern "C" asm void func_ov000_0210b948(void)
+{
+    add r0, r0, #0x1000
+    strb r1, [r0, #0x8f8]
+    bx lr
+}
+
+extern "C" asm void func_ov000_0210b954(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
+    sub sp, sp, #0x28
+    movs r9, r1
+    mov r10, r0
+    mov r7, #1
+    mov r8, #0
+    addeq sp, sp, #0x28
+    moveq r0, r7
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    ldr r0, [r9, #0x30]
+    add r1, sp, #0x1c
+    str r0, [sp, #0x1c]
+    ldr r2, [r9, #0x34]
+    add r0, r9, #0x84
+    str r2, [sp, #0x20]
+    ldr r2, [r9, #0x38]
+    str r2, [sp, #0x24]
+    bl func_02099a94
+    sub r4, r0, #0x11
+    add r1, r10, #0x1000
+    ldr r2, [r9, #0xa0]
+    ldr r0, [r1, #0x8e8]
+    cmp r4, #0x11
+    mul r3, r2, r0
+    addle sp, sp, #0x28
+    movle r0, r7
+    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    add r2, sp, #0x1c
+    cmp r4, r3
+    movlt r3, r4
+    mov r4, r2
+    mov r0, r10
+    add r1, r9, #0x84
+    str r4, [sp]
+    bl func_ov000_0210b258
+    mov r0, r4
+    mov r2, r0
+    add r1, r9, #0x84
+    bl func_02001f08
+    add r0, r10, #0x1000
+    mov r1, #0
+    strb r1, [r0, #0x8f8]
+    ldrh r1, [r9, #0x6a]
+    strh r1, [sp, #0xc]
+    ldr r0, [r0, #0x8ec]
+    tst r0, #1
+    beq @L_0210bad4
+    ldrh r0, [r9, #0x20]
+    cmp r0, #1
+    bne @L_0210bad4
+    ldr r1, [sp, #0x20]
+    ldr r0, [r9, #0x88]
+    ldr r6, [sp, #0x1c]
+    ldr r2, [r9, #0x84]
+    sub r0, r1, r0
+    add r5, r0, r0, lsr #31
+    sub r2, r6, r2
+    add r4, r2, r2, lsr #31
+    ldr r3, [sp, #0x24]
+    ldr r0, [r9, #0x8c]
+    sub r2, r6, r4, asr #1
+    sub r0, r3, r0
+    add r6, r0, r0, lsr #31
+    sub r0, r3, r6, asr #1
+    sub r1, r1, r5, asr #1
+    str r2, [sp, #0x1c]
+    str r1, [sp, #0x20]
+    str r0, [sp, #0x24]
+    add r11, sp, #0x10
+    str r11, [sp]
+    add r0, sp, #0xc
+    str r0, [sp, #4]
+    mov r0, r10
+    mov r1, r9
+    add r3, sp, #0x1c
+    str r7, [sp, #8]
+    add r2, r9, #0x84
+    bl func_ov000_0210b330
+    ldr r3, [sp, #0x1c]
+    ldr r2, [sp, #0x20]
+    ldr r1, [sp, #0x24]
+    add r3, r3, r4, asr #1
+    add r2, r2, r5, asr #1
+    add r1, r1, r6, asr #1
+    str r3, [sp, #0x1c]
+    str r2, [sp, #0x20]
+    str r1, [sp, #0x24]
+    tst r0, #1
+    beq @L_0210bafc
+    str r11, [sp]
+    add r0, sp, #0xc
+    str r0, [sp, #4]
+    mov r0, r10
+    mov r1, r9
+    add r3, sp, #0x1c
+    b @L_0210baf0
+@L_0210bad4:
+    add r1, sp, #0x10
+    str r1, [sp]
+    add r0, sp, #0xc
+    str r0, [sp, #4]
+    add r3, sp, #0x1c
+    mov r0, r10
+    mov r1, r9
+@L_0210baf0:
+    add r2, r9, #0x84
+    str r7, [sp, #8]
+    bl func_ov000_0210b330
+@L_0210bafc:
+    tst r0, #1
+    moveq r8, #1
+    moveq r4, #0
+    beq @L_0210bb1c
+    add r1, sp, #0x10
+    add r0, r9, #0x84
+    bl func_02099a94
+    mov r4, r0
+@L_0210bb1c:
+    ldr r2, [r9, #0x84]
+    ldr r1, [r9, #0x88]
+    ldr r0, [r9, #0x8c]
+    str r2, [r9, #0x78]
+    str r1, [r9, #0x7c]
+    str r0, [r9, #0x80]
+    ldr r1, [sp, #0x10]
+    mov r0, r9
+    str r1, [r9, #0x84]
+    ldr r1, [sp, #0x14]
+    str r1, [r9, #0x88]
+    ldr r1, [sp, #0x18]
+    str r1, [r9, #0x8c]
+    ldrh r1, [sp, #0xc]
+    bl func_02084d7c
+    mov r0, r10
+    mov r1, r9
+    bl func_020854a8
+    cmp r0, #0
+    beq @L_0210bb8c
+    mov r0, #0
+    str r0, [sp]
+    ldrh r3, [r9, #0x6a]
+    add r0, r10, #0x420
+    ldr r1, [r9, #0x84]
+    ldr r2, [r9, #0x8c]
+    add r0, r0, #0x1000
+    bl func_02084e70
+@L_0210bb8c:
+    mov r0, r10
+    mov r1, r9
+    mov r2, r4
+    bl func_020857ac
+    ldrb r0, [r9, #0x2c]
+    cmp r0, #1
+    bne @L_0210bbc4
+    ldr r1, [r9, #0x3c]
+    sub r0, r1, #1
+    cmp r1, #0
+    str r0, [r9, #0x3c]
+    addlt sp, sp, #0x28
+    movlt r0, #1
+    ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+@L_0210bbc4:
+    mov r0, r8
+    add sp, sp, #0x28
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+}
+
+extern "C" asm void func_ov000_0210bbd0(void)
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, lr}
+    sub sp, sp, #0x28
+    movs r6, r1
+    mov r7, r0
+    addeq sp, sp, #0x28
+    moveq r0, #1
+    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
+    add r0, r6, #0x30
+    add r3, sp, #0x1c
+    ldmia r0, {r0, r1, r2}
+    stmia r3, {r0, r1, r2}
+    mov r1, r3
+    add r0, r6, #0x84
+    bl func_02099a94
+    sub r4, r0, #0x11
+    add r1, r7, #0x1000
+    cmp r4, #0x11
+    ldr r2, [r6, #0xa0]
+    ldr r0, [r1, #0x8e8]
+    addle sp, sp, #0x28
+    mul r3, r2, r0
+    movle r0, #1
+    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
+    cmp r4, r3
+    movlt r3, r4
+    add r4, sp, #0x1c
+    mov r0, r7
+    mov r2, r4
+    add r1, r6, #0x84
+    str r4, [sp]
+    bl func_ov000_0210b258
+    mov r0, r4
+    mov r2, r4
+    add r1, r6, #0x84
+    bl func_02001f08
+    add r0, r7, #0x1000
+    mov r5, #0
+    strb r5, [r0, #0x8f8]
+    ldrh r0, [r6, #0x6a]
+    add r8, sp, #0x10
+    mov r3, r4
+    strh r0, [sp, #0xc]
+    add r0, sp, #0xc
+    str r8, [sp]
+    str r0, [sp, #4]
+    mov r0, #1
+    str r0, [sp, #8]
+    mov r0, r7
+    mov r1, r6
+    add r2, r6, #0x84
+    bl func_ov000_0210b330
+    ands r4, r0, #1
+    beq @L_0210bcb4
+    mov r1, r8
+    add r0, r6, #0x84
+    bl func_02099a94
+    mov r5, r0
+@L_0210bcb4:
+    ldr r2, [r6, #0x84]
+    ldr r1, [r6, #0x88]
+    ldr r0, [r6, #0x8c]
+    str r2, [r6, #0x78]
+    str r1, [r6, #0x7c]
+    str r0, [r6, #0x80]
+    ldr r1, [sp, #0x10]
+    mov r0, r6
+    str r1, [r6, #0x84]
+    ldr r1, [sp, #0x14]
+    str r1, [r6, #0x88]
+    ldr r1, [sp, #0x18]
+    str r1, [r6, #0x8c]
+    ldrh r1, [sp, #0xc]
+    bl func_02084d7c
+    mov r0, r7
+    mov r1, r6
+    bl func_020854a8
+    cmp r0, #0
+    beq @L_0210bd24
+    mov r0, #0
+    str r0, [sp]
+    ldrh r3, [r6, #0x6a]
+    add r0, r7, #0x420
+    ldr r1, [r6, #0x84]
+    ldr r2, [r6, #0x8c]
+    add r0, r0, #0x1000
+    bl func_02084e70
+@L_0210bd24:
+    cmp r4, #0
+    mov r0, r7
+    mov r1, r6
+    bne @L_0210bd3c
+    bl func_02085828
+    b @L_0210bd44
+@L_0210bd3c:
+    mov r2, r5
+    bl func_020857ac
+@L_0210bd44:
+    mov r0, #0
+    add sp, sp, #0x28
+    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+}
+
+extern "C" asm void func_ov000_0210bd50(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+    sub sp, sp, #0x28
+    mov r6, #0
+    mov r7, r1
+    mov r1, r6
+    mov r8, r0
+    bl func_02085bb4
+    cmp r7, #0
+    addeq sp, sp, #0x28
+    moveq r0, #1
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    ldr r1, [r7, #0x5c]
+    add r0, r8, #0x18
+    bl func_02085228
+    cmp r0, #0
+    addle sp, sp, #0x28
+    movle r0, #1
+    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    sub r2, r0, #1
+    mov r1, #0xc
+    mla r1, r2, r1, r8
+    mov r2, #0x55
+    add r1, r1, #0x1000
+    ldr r3, [r1, #0x8b8]
+    mul r2, r0, r2
+    str r3, [sp, #0x1c]
+    str r6, [sp, #0x20]
+    ldr r0, [r1, #0x8bc]
+    add r1, sp, #0x1c
+    sub r2, r0, r2
+    add r0, r7, #0x84
+    str r2, [sp, #0x24]
+    bl func_02099a94
+    ldr r1, [sp, #0x1c]
+    sub r4, r0, #0x11
+    cmp r1, #0
+    ldreq r0, [sp, #0x24]
+    cmpeq r0, #0
+    beq @L_0210bdf4
+    cmp r4, #0x11
+    bge @L_0210be00
+@L_0210bdf4:
+    add sp, sp, #0x28
+    mov r0, #1
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+@L_0210be00:
+    mov r0, r8
+    mov r1, r7
+    bl func_ov000_0210b0e0
+    add r1, r8, #0x1000
+    mov r5, r0
+    ldr r1, [r1, #0x8e8]
+    mov r0, r8
+    mul r3, r5, r1
+    cmp r3, r4
+    movgt r3, r4
+    add r4, sp, #0x1c
+    mov r2, r4
+    add r1, r7, #0x84
+    str r4, [sp]
+    bl func_ov000_0210b258
+    mov r0, r4
+    mov r2, r4
+    add r1, r7, #0x84
+    bl func_02001f08
+    ldrh r0, [r7, #0x6a]
+    mov r3, r4
+    add r9, sp, #0x10
+    strh r0, [sp, #0xc]
+    str r9, [sp]
+    add r0, sp, #0xc
+    mov r4, #0
+    stmib sp, {r0, r4}
+    mov r0, r8
+    mov r1, r7
+    add r2, r7, #0x84
+    bl func_ov000_0210b330
+    tst r0, #1
+    moveq r6, #1
+    beq @L_0210be98
+    mov r1, r9
+    add r0, r7, #0x84
+    bl func_02099a94
+    mov r4, r0
+@L_0210be98:
+    ldr r2, [r7, #0x84]
+    ldr r1, [r7, #0x88]
+    ldr r0, [r7, #0x8c]
+    str r2, [r7, #0x78]
+    str r1, [r7, #0x7c]
+    str r0, [r7, #0x80]
+    ldr r1, [sp, #0x10]
+    mov r0, r7
+    str r1, [r7, #0x84]
+    ldr r1, [sp, #0x14]
+    str r1, [r7, #0x88]
+    ldr r1, [sp, #0x18]
+    str r1, [r7, #0x8c]
+    ldrh r1, [sp, #0xc]
+    bl func_02084d7c
+    mov r0, r7
+    mov r1, r5
+    mov r2, #0
+    bl func_02084d50
+    mov r0, r7
+    mov r1, #3
+    bl func_02084d74
+    mov r0, r8
+    mov r1, r7
+    mov r2, r4
+    bl func_020857ac
+    mov r0, r6
+    add sp, sp, #0x28
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+}
+
+extern "C" asm void func_ov000_0210bf0c(void)
+{
+    cmp r1, #0
+    moveq r0, #1
+    bxeq lr
+    add r0, r0, #0x1000
+    ldrsh r2, [r1, #0x2e]
+    ldr r0, [r0, #0x8e8]
+    cmp r2, r0
+    movle r0, #0
+    strleh r0, [r1, #0x2e]
+    strleb r0, [r1, #0x2d]
+    movle r0, #1
+    movgt r0, r0, lsl #0x10
+    subgt r0, r2, r0, asr #16
+    strgth r0, [r1, #0x2e]
+    movgt r0, #0
+    bx lr
+}
+
+extern "C" asm void func_ov000_0210bf4c(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+    ldr r12, =data_020c46cc
+    mov r4, r0
+    ldr r0, [r12]
+    mov r6, #0
+    mov r9, r1
+    mov r1, r6
+    mov r8, r2
+    mov r7, r3
+    bl func_02085bb4
+    cmp r0, #0
+    moveq r0, r6
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    bl func_02084c8c
+    mov r1, r0
+    mov r0, r4
+    mov r2, r6
+    bl func_02085298
+    movs r5, r0
+    moveq r0, r6
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    str r9, [r5, #0x30]
+    str r8, [r5, #0x34]
+    str r7, [r5, #0x38]
+    add r1, r4, #0x1000
+    ldr r3, [r1, #0x8ec]
+    mov r2, #2
+    orr r3, r3, #1
+    str r3, [r1, #0x8ec]
+    strb r2, [r5, #0x2d]
+    mov r1, #3
+    bl func_02084d74
+    ldr r2, [r4, #4]
+    mov r0, r4
+    mov r1, r5
+    bl func_ov000_0210b170
+    str r0, [r5, #0xa0]
+    mov r0, #1
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+}
+
+extern "C" asm void func_ov000_0210bfec(void)
+{
+    stmdb sp!, {r4, r5, r6, lr}
+    ldr r1, =data_020c46cc
+    mov r6, r0
+    mov r5, #0
+    ldr r0, [r1]
+    mov r1, r5
+    bl func_02085bb4
+    cmp r0, #0
+    moveq r0, r5
+    ldmeqia sp!, {r4, r5, r6, pc}
+    bl func_02084c8c
+    mov r1, r0
+    mov r0, r6
+    mov r2, r5
+    bl func_02085298
+    movs r4, r0
+    moveq r0, r5
+    ldmeqia sp!, {r4, r5, r6, pc}
+    mov r0, r6
+    mov r1, r4
+    bl func_ov000_0210b0e0
+    str r0, [r4, #0xa0]
+    mov r0, #1
+    ldmia sp!, {r4, r5, r6, pc}
+}
+
+extern "C" asm void func_ov000_0210c050(void)
+{
+    stmdb sp!, {r4, r5, r6, r7, lr}
+    sub sp, sp, #0x2c
+    ldr r12, =data_ov000_02117688
+    add r7, sp, #0x18
+    mov r6, r0
+    mov r4, r1
+    mov r5, r3
+    mov r2, #4
+@L_0210c070:
+    ldrh r0, [r12, #2]
+    ldrh r1, [r12], #4
+    subs r2, r2, #1
+    strh r0, [r7, #2]
+    strh r1, [r7], #4
+    bne @L_0210c070
+    ldr r0, =data_020c46d0
+    ldrh r1, [r12]
+    ldr r0, [r0]
+    strh r1, [r7]
+    bl func_ov015_0213d4d8
+    add r3, sp, #0xc
+    ldmia r0, {r0, r1, r2}
+    stmia r3, {r0, r1, r2}
+    ldr r0, =gGameState
+    ldrb r0, [r0, #0x9b7]
+    cmp r0, #0
+    bne @L_0210c0d0
+    tst r5, #2
+    addne r0, r6, #0x1000
+    ldrne r1, [r0, #0x8ec]
+    orrne r1, r1, #1
+    strne r1, [r0, #0x8ec]
+    b @L_0210c0f4
+@L_0210c0d0:
+    add r1, r6, #0x1000
+    ldr r2, [r1, #0x8ec]
+    add r0, r6, #0xec
+    orr r2, r2, #1
+    str r2, [r1, #0x8ec]
+    tst r5, #2
+    add r1, r0, #0x1800
+    bicne r0, r2, #1
+    strne r0, [r1]
+@L_0210c0f4:
+    mov r7, #0
+    mov r0, r6
+    mov r1, r4
+    mov r2, r7
+    bl func_02085298
+    movs r4, r0
+    addeq sp, sp, #0x2c
+    moveq r0, r7
+    ldmeqia sp!, {r4, r5, r6, r7, pc}
+    ldrb r0, [r4, #0x2d]
+    cmp r0, #0
+    streq r7, [r4, #0xa0]
+    tst r5, #0xf0
+    bne @L_0210c180
+    ldr r0, [r4, #0xa0]
+    cmp r0, #1
+    ble @L_0210c148
+    ldrsb r0, [r4, #0xb9]
+    tst r0, #4
+    movne r5, #1
+    bne @L_0210c170
+@L_0210c148:
+    mov r5, #0
+    cmp r5, #0
+    bgt @L_0210c170
+    ldr r0, [r4, #0xa0]
+    cmp r0, #0
+    ble @L_0210c170
+    mov r0, r6
+    mov r1, r4
+    mov r2, #1
+    bl func_020858c8
+@L_0210c170:
+    add sp, sp, #0x2c
+    str r5, [r4, #0xa0]
+    mov r0, #0
+    ldmia sp!, {r4, r5, r6, r7, pc}
+@L_0210c180:
+    mov r1, #4
+    tst r5, #0x40
+    subne r1, r1, #3
+    bne @L_0210c198
+    tst r5, #0x80
+    addne r1, r1, #3
+@L_0210c198:
+    tst r5, #0x20
+    subne r1, r1, #1
+    bne @L_0210c1ac
+    tst r5, #0x10
+    addne r1, r1, #1
+@L_0210c1ac:
+    add r0, sp, #0x18
+    mov r1, r1, lsl #1
+    ldrh r2, [r0, r1]
+    ldr r1, [sp, #0x10]
+    mov r0, r6
+    sub r1, r2, r1
+    mov r2, r1, lsl #0x10
+    mov r1, r4
+    mov r7, r2, lsr #0x10
+    bl func_ov000_0210b0e0
+    mov r2, r0
+    add r5, sp, #0
+    mov r0, r6
+    mov r1, r7
+    mov r3, r5
+    mov r2, r2, lsl #1
+    bl func_ov000_0210b1f8
+    mov r1, r5
+    add r0, r4, #0x84
+    add r2, r4, #0x30
+    bl func_02001f08
+    mov r1, #2
+    strb r1, [r4, #0x2d]
+    mov r0, r4
+    mov r1, #3
+    bl func_02084d74
+    ldr r0, [r4, #0xa0]
+    cmp r0, #0
+    ble @L_0210c230
+    mov r0, r6
+    mov r1, r4
+    bl func_ov000_0210b0e0
+    b @L_0210c240
+@L_0210c230:
+    ldr r2, [r6, #4]
+    mov r0, r6
+    mov r1, r4
+    bl func_ov000_0210b170
+@L_0210c240:
+    str r0, [r4, #0xa0]
+    mov r0, #1
+    add sp, sp, #0x2c
+    ldmia sp!, {r4, r5, r6, r7, pc}
+}
+
+extern "C" asm void func_ov000_0210c25c(void)
+{
+    stmdb sp!, {r0, r1, r2, r3}
+    stmdb sp!, {r4, r5, r6, r7, lr}
+    sub sp, sp, #0xc
+    mov r7, #0
+    mov r2, r7
+    ldr r5, [sp, #0x30]
+    mov r6, r0
+    bl func_02085298
+    movs r4, r0
+    addeq sp, sp, #0xc
+    moveq r0, r7
+    ldmeqia sp!, {r4, r5, r6, r7, lr}
+    addeq sp, sp, #0x10
+    bxeq lr
+    ldrb r0, [r4, #0x2d]
+    cmp r0, #0
+    ldr r0, [sp, #0x28]
+    streq r7, [r4, #0xa0]
+    cmp r0, #0
+    cmpeq r5, #0
+    addeq sp, sp, #0xc
+    moveq r0, #0
+    ldmeqia sp!, {r4, r5, r6, r7, lr}
+    addeq sp, sp, #0x10
+    bxeq lr
+    ldr r0, =data_ov000_02118710
+    ldr r0, [r0]
+    bl func_ov000_02110dc0
+    mov r0, r0, asr #0xc
+    cmp r0, #0x28
+    addge r0, r6, #0x1000
+    ldrge r1, [r0, #0x8ec]
+    orrge r1, r1, #1
+    strge r1, [r0, #0x8ec]
+    ldr r1, [sp, #0x28]
+    mov r0, r5
+    bl func_0200226c
+    mov r7, r0
+    mov r0, r6
+    mov r1, r4
+    bl func_ov000_0210b0e0
+    mov r2, r0
+    add r5, sp, #0
+    mov r0, r6
+    mov r1, r7
+    mov r2, r2, lsl #1
+    mov r3, r5
+    bl func_ov000_0210b1f8
+    mov r1, r5
+    add r0, r4, #0x84
+    add r2, r4, #0x30
+    bl func_02001f08
+    mov r0, #2
+    strb r0, [r4, #0x2d]
+    mov r0, r4
+    mov r1, #3
+    bl func_02084d74
+    ldr r2, [r6, #4]
+    mov r0, r6
+    mov r1, r4
+    bl func_ov000_0210b170
+    str r0, [r4, #0xa0]
+    mov r0, #1
+    add sp, sp, #0xc
+    ldmia sp!, {r4, r5, r6, r7, lr}
+    add sp, sp, #0x10
+    bx lr
+}
+
+extern "C" asm void func_ov000_0210c36c(void)
+{
+    stmdb sp!, {r4, r5, r6, r7, r8, lr}
+    mov r7, r0
+    cmp r1, #0
+    movgt r1, #2
+    movle r1, #0
+    add r0, r7, #0x1000
+    str r1, [r0, #0x8e8]
+    mov r5, #0
+    mov r0, r7
+    mov r1, r5
+    mov r6, r2
+    bl func_0208530c
+    movs r4, r0
+    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
+    ldr r0, =data_020c46d0
+    ldr r0, [r0]
+    bl func_ov015_0213d4d8
+    mov r1, r0
+    add r0, r7, #0x410
+    add r0, r0, #0x1000
+    ldmia r1, {r1, r2, r3}
+    bl func_ov000_0210b0ac
+    add r8, r7, #0x1000
+    b @L_0210c42c
+@L_0210c3cc:
+    mov r0, r7
+    mov r1, r4
+    bl func_02085374
+    cmp r0, #0
+    beq @L_0210c424
+    mov r0, r4
+    bl func_02084dd8
+    cmp r0, #0
+    ldrne r0, [r8, #0x8e8]
+    cmpne r0, #0
+    ble @L_0210c418
+    cmp r6, #0
+    beq @L_0210c40c
+    mov r0, r7
+    mov r1, r4
+    bl func_ov000_0210b59c
+@L_0210c40c:
+    mov r0, r7
+    mov r1, r4
+    bl func_ov000_0210b5f4
+@L_0210c418:
+    mov r0, r7
+    mov r1, r4
+    bl func_ov000_0210b2e4
+@L_0210c424:
+    add r5, r5, #1
+    add r4, r4, #0xd4
+@L_0210c42c:
+    cmp r5, #0x18
+    blt @L_0210c3cc
+    add r0, r7, #0x1000
+    ldr r1, [r0, #0x8ec]
+    mov r2, #0
+    bic r1, r1, #1
+    strb r2, [r0, #0x41c]
+    str r1, [r0, #0x8ec]
+    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+}
+
+extern "C" asm void func_ov000_0210c454(void)
+{
+    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
+    mov r6, #0
+    mov r8, r2
+    mov r2, r6
+    mov r9, r0
+    bl func_02085298
+    movs r4, r0
+    subeq r0, r6, #1
+    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    mov r0, r9
+    mov r1, r6
+    bl func_0208530c
+    mov r5, r0
+    mov r7, r6
+@L_0210c48c:
+    mov r0, r9
+    mov r1, r5
+    bl func_02085374
+    cmp r0, #0
+    beq @L_0210c4f4
+    mov r0, r5
+    bl func_02084dd8
+    cmp r0, #0
+    cmpne r5, r4
+    beq @L_0210c4f4
+    mov r0, r9
+    mov r1, r5
+    bl func_0208539c
+    cmp r0, #0
+    bne @L_0210c4f4
+    mov r0, r9
+    mov r1, r5
+    bl func_020853cc
+    cmp r0, #0
+    bne @L_0210c4f4
+    add r0, r4, #0x84
+    add r1, r5, #0x84
+    bl func_02099a94
+    cmp r0, r8
+    movle r8, r0
+    movle r6, r5
+@L_0210c4f4:
+    add r7, r7, #1
+    cmp r7, #0x18
+    add r5, r5, #0xd4
+    blt @L_0210c48c
+    mvn r0, #0
+    cmp r6, #0
+    ldrne r0, [r6, #0x5c]
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+}
