@@ -117,7 +117,7 @@ extern "C" void func_ov016_02148b7c(s32 arg0);
 extern "C" void func_ov016_02148bd8(void);
 extern "C" s32 func_ov016_02148c04(void);
 extern "C" void func_ov016_02148c1c(void);
-extern "C" void func_ov016_02148c74(void);
+extern "C" s32 func_ov016_02148c74(void);
 extern "C" s32 func_ov016_02148cc4(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov016_02148d00(void);
 extern "C" void func_ov016_02148d2c(s32 arg0);
@@ -188,7 +188,7 @@ extern "C" char data_ov016_02158b10[];
 extern "C" char data_ov016_02158b10_b[];
 extern "C" char data_ov016_02158b1c[];
 extern "C" char data_ov016_02158b1c_b[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MIi_CpuClear16(void);
 extern "C" s32 MIi_CpuCopy16(...);
@@ -196,7 +196,7 @@ extern "C" void MIi_CpuCopy32(void);
 extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" void func_02003298(void);
 extern "C" void func_02003358(void);
-extern "C" void func_02003758(void);
+extern "C" s32 func_02003758(...);
 extern "C" void func_02003ad8(void);
 extern "C" void func_02008580(void);
 extern "C" void func_0200878c(void);
@@ -2954,27 +2954,18 @@ extern "C" asm void func_ov016_02148c1c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov016_02148c74(void)
+extern "C" s32 func_ov016_02148c74(void)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r4, =data_ov016_02158b10
-    ldr r2, [r4]
-    ldrb r0, [r2, #0x604]
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r6, #0x600
-    mov r1, r6
-    add r0, r2, #4
-    bl DC_FlushRange
-    ldr r0, [r4]
-    mov r5, #0
-    mov r1, r5
-    mov r2, r6
-    add r0, r0, #4
-    bl func_02003758
-    ldr r0, [r4]
-    strb r5, [r0, #0x604]
-    ldmia sp!, {r4, r5, r6, pc}
+    if (*(u8 *)(*(u8 * *)(data_ov016_02158b10) + 0x604) == 0)
+        return *(u8 *)(*(u8 * *)(data_ov016_02158b10) + 0x604);
+    s32 t0 = (s32)(*(u8 * *)(data_ov016_02158b10) + 4);
+    u8 *t1 = *(u8 * *)(data_ov016_02158b10);
+    DC_FlushRange(t0, 0x600, t1);
+    s32 t2 = (*(s32 *)(data_ov016_02158b10) + 4);
+    func_02003758(t2, 0, 0x600);
+    u8 *t3 = (u8 *)*(s32 *)(data_ov016_02158b10);
+    *(u8 *)(t3 + 0x604) = 0;
+    return (s32)t3;
 }
 
 extern "C" s32 func_ov016_02148cc4(s32 arg0, s32 arg1, s32 arg2)

@@ -182,11 +182,18 @@ def is_ptr(v):
     return isinstance(v, Load) and v.t == "u8 *" or isinstance(v, Param) and v.ptr or isinstance(v, Local)
 
 
+def has_ptr(v):
+    """whether an expression has a pointer in it (pointer arithmetic, a pointer in C)"""
+    if isinstance(v, Bin):
+        return has_ptr(v.a) or has_ptr(v.b)
+    return is_ptr(v)
+
+
 def value(v, t="s32"):
     """v as an expression of type t (for a store or an argument)"""
     if isinstance(v, Sym):
         return f"({t})" + (f"({v.render()})" if v.off else v.render())
-    if is_ptr(v):
+    if is_ptr(v) or t != "u8 *" and isinstance(v, Bin) and has_ptr(v):
         return v.render() if t == "u8 *" else f"({t}){v.render()}"     # (a pointer, as a word)
     if t == "u8 *":
         return f"(u8 *){v.render()}"

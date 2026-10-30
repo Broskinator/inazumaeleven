@@ -22,9 +22,9 @@ extern "C" void func_ov001_021072cc(void);
 extern "C" void func_ov001_02107420(void);
 extern "C" void func_ov001_021074c0(void);
 extern "C" void func_ov001_02107660(void);
-extern "C" void func_ov001_021078ac(void);
+extern "C" s32 func_ov001_021078ac(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov001_021078fc(void);
-extern "C" void func_ov001_021079e0(void);
+extern "C" s32 func_ov001_021079e0(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov001_02107a30(void);
 extern "C" void func_ov001_02107b20(void);
 extern "C" void func_ov001_02107bf8(void);
@@ -2092,28 +2092,24 @@ extern "C" asm void func_ov001_02107660(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov001_021078ac(void)
+extern "C" s32 func_ov001_021078ac(u8 *arg0, s32 arg1, s32 arg2)
 {
-    ldrb r0, [r0, #0x21]
-    cmp r0, #0
-    beq @L_021078f0
-    ldr r0, =data_ov001_02130664
-    ldrsh r3, [r0]
-    cmp r1, r3
-    blt @L_021078f0
-    add r3, r3, #0x18
-    cmp r1, r3
-    bge @L_021078f0
-    ldrsh r0, [r0, #2]
-    cmp r2, r0
-    blt @L_021078f0
-    add r0, r0, #0x18
-    cmp r2, r0
-    movlt r0, #1
-    bxlt lr
-@L_021078f0:
-    mov r0, #0
-    bx lr
+    s32 r3;
+    if (*(u8 *)(arg0 + 0x21) != 0) {
+        arg0 = (u8 *)data_ov001_02130664;
+        r3 = *(s16 *)(data_ov001_02130664);
+        if (arg1 >= r3) {
+            arg0 = (u8 *)data_ov001_02130664;
+            if (arg1 < (r3 + 0x18)) {
+                arg0 = (u8 *)*(s16 *)(data_ov001_02130664 + 0x2);
+                if (arg2 >= (s32)arg0) {
+                    if (arg2 < (s32)(arg0 + 0x18))
+                        return 1;
+                }
+            }
+        }
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov001_021078fc(void)
@@ -2174,28 +2170,24 @@ extern "C" asm void func_ov001_021078fc(void)
     ldmia sp!, {r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_021079e0(void)
+extern "C" s32 func_ov001_021079e0(u8 *arg0, s32 arg1, s32 arg2)
 {
-    ldrb r0, [r0, #0x22]
-    cmp r0, #0
-    beq @L_02107a24
-    ldr r0, =data_ov001_02130660
-    ldrsh r3, [r0]
-    cmp r1, r3
-    blt @L_02107a24
-    add r3, r3, #0x18
-    cmp r1, r3
-    bge @L_02107a24
-    ldrsh r0, [r0, #2]
-    cmp r2, r0
-    blt @L_02107a24
-    add r0, r0, #0x18
-    cmp r2, r0
-    movlt r0, #1
-    bxlt lr
-@L_02107a24:
-    mov r0, #0
-    bx lr
+    s32 r3;
+    if (*(u8 *)(arg0 + 0x22) != 0) {
+        arg0 = (u8 *)data_ov001_02130660;
+        r3 = *(s16 *)(data_ov001_02130660);
+        if (arg1 >= r3) {
+            arg0 = (u8 *)data_ov001_02130660;
+            if (arg1 < (r3 + 0x18)) {
+                arg0 = (u8 *)*(s16 *)(data_ov001_02130660 + 0x2);
+                if (arg2 >= (s32)arg0) {
+                    if (arg2 < (s32)(arg0 + 0x18))
+                        return 1;
+                }
+            }
+        }
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov001_02107a30(void)

@@ -23,8 +23,8 @@ extern "C" void func_0209926c(void);
 extern "C" void func_020992ec(void);
 extern "C" void func_02099370(u8 *obj);
 extern "C" void func_02099390(void);
-extern "C" void func_020995c4(void);
-extern "C" void func_02099618(void);
+extern "C" s32 func_020995c4(s32 arg0, u8 *arg1);
+extern "C" s32 func_02099618(s32 arg0, u8 *arg1);
 extern "C" void func_02099664(void);
 extern "C" void func_020996ec(void);
 extern "C" int func_02099764(void *a);
@@ -111,8 +111,8 @@ extern "C" void func_0202b9d8(void);
 extern "C" void func_0202bfb8(void);
 extern "C" void func_0202c11c(void);
 extern "C" void func_0203020c(void);
-extern "C" void func_02098a8c(void);
-extern "C" void func_02098ab8(void);
+extern "C" s32 func_02098a8c(...);
+extern "C" s32 func_02098ab8(...);
 extern "C" void func_02098cdc(void);
 extern "C" void func_02098d30(void);
 extern "C" void func_0209a798(void);
@@ -632,52 +632,36 @@ extern "C" asm void func_02099390(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_020995c4(void)
+extern "C" s32 func_020995c4(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    mov r4, r1
-    ldrh r1, [r4, #0xc]
-    movs r2, r1, lsl #3
-    addeq sp, sp, #8
-    ldmeqia sp!, {r4, pc}
-    mov r1, #0
-    str r1, [sp]
-    str r1, [sp, #4]
-    ldr r1, [r4, #8]
-    ldr r3, [r4, #0x14]
-    mov r1, r1, lsl #0x10
-    mov r1, r1, lsr #0xd
-    add r3, r4, r3
-    bl func_02098a8c
-    ldrh r0, [r4, #0x10]
-    orr r0, r0, #1
-    strh r0, [r4, #0x10]
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    if ((*(u16 *)(arg1 + 0xC) << 3) == 0)
+        return arg0;
+    t0 = ((u32)(*(s32 *)(arg1 + 0x8) << 0x10) >> 0xD);
+    t1 = (*(u16 *)(arg1 + 0xC) << 3);
+    t2 = (s32)(arg1 + *(s32 *)(arg1 + 0x14));
+    func_02098a8c(arg0, t0, t1, t2, 0, 0);
+    t3 = (*(u16 *)(arg1 + 0x10) | 1);
+    *(u16 *)(arg1 + 0x10) = t3;
+    return t3;
 }
 
-extern "C" asm void func_02099618(void)
+extern "C" s32 func_02099618(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    mov r2, #0
-    str r2, [sp]
-    mov r4, r1
-    str r2, [sp, #4]
-    ldr r1, [r4, #0x2c]
-    ldrh r2, [r4, #0x30]
-    ldr r3, [r4, #0x38]
-    mov r1, r1, lsl #0x10
-    mov r1, r1, lsr #0xd
-    mov r2, r2, lsl #3
-    add r3, r4, r3
-    bl func_02098ab8
-    ldrh r0, [r4, #0x32]
-    orr r0, r0, #1
-    strh r0, [r4, #0x32]
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    t0 = ((u32)(*(s32 *)(arg1 + 0x2C) << 0x10) >> 0xD);
+    t1 = (*(u16 *)(arg1 + 0x30) << 3);
+    t2 = (s32)(arg1 + *(s32 *)(arg1 + 0x38));
+    func_02098ab8(arg0, t0, t1, t2, 0, 0);
+    t3 = (*(u16 *)(arg1 + 0x32) | 1);
+    *(u16 *)(arg1 + 0x32) = t3;
+    return t3;
 }
 
 extern "C" asm void func_02099664(void)
