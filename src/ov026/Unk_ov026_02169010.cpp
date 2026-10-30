@@ -6,7 +6,7 @@ extern "C" void func_ov026_02169760(void);
 extern "C" void func_ov026_02169804(void);
 extern "C" void func_ov026_021698a8(void);
 extern "C" void func_ov026_0216991c(u8 *arg0);
-extern "C" void func_ov026_0216997c(void);
+extern "C" s32 func_ov026_0216997c(s32 arg0, s32 arg1);
 extern "C" void func_ov026_0216998c(u8 *arg0);
 extern "C" void func_ov026_021699f8(void);
 extern "C" void func_ov026_02169b74(void);
@@ -767,12 +767,10 @@ extern "C" void func_ov026_0216991c(u8 *arg0)
     *(s32 *)(arg0 + 0xC14) = 0;
 }
 
-extern "C" asm void func_ov026_0216997c(void)
+extern "C" s32 func_ov026_0216997c(s32 arg0, s32 arg1)
 {
-    add r0, r0, r1, lsl #2
-    mov r1, #0
-    str r1, [r0, #0xbd4]
-    bx lr
+    *(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0xBD4) = 0;
+    return (arg0 + (arg1 << 2));
 }
 
 extern "C" void func_ov026_0216998c(u8 *arg0)

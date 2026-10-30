@@ -10,7 +10,7 @@ is written from them, and tools/fncmp.py checks each function: the ones that don
 declaration 's32 F(...)' when it has none with types, so it can be called with any
 arguments (the calls are the same as with a prototype).
 """
-import os, re, subprocess, sys
+import os, re, subprocess, sys, time
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LOAD = {"ldr": "s32", "ldrh": "u16", "ldrsh": "s16", "ldrb": "u8", "ldrsb": "s8"}
@@ -63,6 +63,8 @@ class Bin:
         self.op, self.a, self.b = op, a, b
 
     def render(self):
+        if self.op == "u>>":
+            return f"((u32){self.a.render()} >> {self.b.render()})"
         return f"({self.a.render()} {self.op} {self.b.render()})"
 
 
@@ -103,11 +105,20 @@ def addr(base, off):
         base.t = "u8 *"
     elif isinstance(base, Sym) and base.func:
         raise Fail("a function as an address")
+    elif isinstance(base, Const):
+        return f"((u8 *)0x{base.n:X})" + (f" + 0x{off:X}" if isinstance(off, int) and off > 0 else
+                                         f" - 0x{-off:X}" if isinstance(off, int) and off < 0 else
+                                         "" if isinstance(off, int) else f" + {value(off)}")
     elif not isinstance(base, (Sym, Local)):
-        raise Fail("address")
+        b = f"((u8 *){base.render()})"
+        if not isinstance(off, int):
+            return f"{b} + {value(off)}"
+        return b + (f" + 0x{off:X}" if off > 0 else f" - 0x{-off:X}" if off < 0 else "")
     b = base.render()
     if isinstance(base, Sym) and base.off:
         b = f"({b})"
+    if not isinstance(off, int):
+        return f"{b} + {value(off)}"     # (a register)
     return b + (f" + 0x{off:X}" if off > 0 else f" - 0x{-off:X}" if off < 0 else "")
 
 
@@ -139,6 +150,20 @@ OPPOSITE.update({b: a for a, b in list(OPPOSITE.items())})
 
 
 def cond(flags, cc):
+    if flags[0] == "logic":
+        # (two branches made one: (a op b), or with cc "f" its negation)
+        _, op, a, b = flags
+        if cc == "f":
+            op, a, b = {"&&": "||", "||": "&&"}[op], negate(a), negate(b)
+        return f"({cond(*a)} {op} {cond(*b)})"
+    if flags[0] == "if":
+        # (cmp<c1> after a compare: the flags of the second one where c1 held, else the first's)
+        _, f1, c1, f2 = flags
+        if cc == OPPOSITE.get(c1):
+            return f"({cond(f1, cc)} || {cond(f2, cc)})"
+        if cc == c1:
+            return f"({cond(f1, c1)} && {cond(f2, cc)})"
+        return f"({cond(f1, c1)} ? {cond(f2, cc)} : {cond(f1, cc)})"
     kind, a, b = flags
     if kind == "tst":
         if cc not in ("eq", "ne"):
@@ -389,6 +414,679 @@ def lift(name, body, protos):
     return decl, "".join(out), {c.name for c in calls}
 
 
+class Var(Param):
+    """A register's variable (r4-r12; r0-r3 are the parameters' variables)."""
+    def __init__(self, reg):
+        super().__init__(-1)
+        self.reg = reg
+
+    def render(self):
+        return self.reg
+
+
+REGS = [f"r{i}" for i in range(13)] + ["lr"]
+CONDS = ("eq", "ne", "gt", "ge", "lt", "le", "hi", "hs", "cs", "lo", "cc", "ls", "mi", "pl")
+BASES = sorted(list(LOAD) + list(STORE) + ["add", "sub", "rsb", "and", "orr", "eor", "bic", "mul", "mla",
+                                         "mov", "mvn", "cmp", "cmn", "tst", "b", "bl", "blx", "bx"], key=len, reverse=True)
+OPPOSITE.update({"mi": "pl", "pl": "mi", "t": "f", "f": "t"})
+COND.update({"mi": "<", "pl": ">="})
+
+
+def split_mnemonic(mn):
+    """(base, condition, s) of a mnemonic such as 'addeqs' or 'ldreqh', or None"""
+    for b in BASES:
+        for c in ("",) + CONDS:
+            if mn in (b + c, b + c + "s"):
+                return b, c, mn.endswith("s") and mn != b + c
+            if len(b) > 3 and b[:3] in ("ldr", "str") and mn == b[:3] + c + b[3:]:
+                return b, c, False
+    return None
+
+
+def subst(v, m):
+    """v with the values in m (id -> variable) replaced"""
+    if id(v) in m:
+        return m[id(v)]
+    if isinstance(v, Bin):
+        a, b = subst(v.a, m), subst(v.b, m)
+        return v if a is v.a and b is v.b else Bin(v.op, a, b)
+    if isinstance(v, Load):
+        b = subst(v.base, m)
+        o = v.off if isinstance(v.off, int) else subst(v.off, m)
+        return v if b is v.base and o is v.off else Load(v.t, b, o)
+    if isinstance(v, Tern):
+        return Tern(subst_flags(v.flags, m), v.cc, subst(v.a, m), subst(v.b, m))
+    return v
+
+
+def subst_flags(f, m):
+    if f[0] == "if":
+        return ("if", subst_flags(f[1], m), f[2], subst_flags(f[3], m))
+    return (f[0], subst(f[1], m), subst(f[2], m))
+
+
+def flag_values(f):
+    """the values compared, at the top"""
+    if f[0] == "if":
+        return flag_values(f[1]) + flag_values(f[3])
+    return [f[1], f[2]]
+
+
+def flag_refs(f):
+    if f[0] == "if":
+        return flag_refs(f[1]) | flag_refs(f[3])
+    return refs(f[1]) | refs(f[2])
+
+
+def refs(v):
+    """the variables in v"""
+    if isinstance(v, Param):
+        return {v}
+    if isinstance(v, Bin):
+        return refs(v.a) | refs(v.b)
+    if isinstance(v, Load):
+        return refs(v.base) | (refs(v.off) if not isinstance(v.off, int) else set())
+    if isinstance(v, Tern):
+        return flag_refs(v.flags) | refs(v.a) | refs(v.b)
+    if isinstance(v, Call):
+        return {v}
+    return set()
+
+
+def negate(term):
+    return (term[0], OPPOSITE[term[1]])
+
+
+def given(v, flags, cc, true):
+    """v where the condition (flags, cc) is known to be true (or false)"""
+    if isinstance(v, Tern) and v.flags is flags:
+        if v.cc == cc:
+            return given(v.a if true else v.b, flags, cc, true)
+        if v.cc == OPPOSITE[cc]:
+            return given(v.b if true else v.a, flags, cc, true)
+    return v
+
+
+def lift_cfg(name, body, protos):
+    """(declaration, C body, callees) of an asm function with branches, or raises Fail.
+
+    The asm is cut into blocks; in a block the registers are expressions as in lift(),
+    and at its end the registers that are still needed are written to their variables.
+    The blocks are put back together as if/else and do/while (what MW makes of them).
+    """
+    lines = [l.strip() for l in body.strip().split("\n")]
+    frame, push = None, 0
+    m = re.match(r"stmdb sp!, \{((?:r\d+, )*)lr\}$", lines[0])
+    if m:
+        frame = m[1]
+        push = 4 * (frame.count(",") + 1)
+        lines = lines[1:]
+    size = 0
+    m = re.match(r"sub sp, sp, #(\w+)$", lines[0]) if frame is not None else None
+    if m:
+        size = imm(m[1])
+        lines = lines[1:]
+    ret_line = f"sp!, {{{frame}pc}}" if frame is not None else None
+    # (the locals: from the lowest address taken or loaded; the stores below are arguments)
+    low, nstack = None, 0
+    for line in lines:
+        m = re.match(r"(?:add \w+, sp, #(\w+)|add \w+, sp|ldr\w* \w+, \[sp(?:, #(\w+))?\])$", line)
+        if m:
+            off = imm(m[1] or m[2] or "0")
+            if off < size or not m[0].startswith("ldr"):
+                low = off if low is None else min(low, off)
+            elif off >= size + push:
+                nstack = max(nstack, (off - size - push) // 4 + 1)
+    if low is not None and (low % 4 or low >= size):
+        raise Fail("locals")
+    for j, line in enumerate(lines):
+        m = re.match(r"addls pc, pc, (r\d+), lsl #2$", line)
+        if not m:
+            continue
+        cmps = [l for l in lines[:j] if re.match(r"cmp %s, #" % m[1], l)]
+        if not cmps:
+            raise Fail("a switch")
+        n = imm(cmps[-1].split("#")[1]) + 2
+        bs = lines[j + 1:j + 1 + n]
+        if len(bs) != n or not all(re.match(r"b @\w+$", l) for l in bs):
+            raise Fail("a switch")
+        lines[j:j + 1 + n] = ["@switch " + m[1] + " " + " ".join(l[3:] for l in bs)]
+    # (the instructions: (label, base, condition, s, operands))
+    insns = []
+    for n_, line in enumerate(lines):
+        if line.startswith("@switch "):
+            insns.append((None, "switch", "", False, line[8:]))
+            continue
+        m = re.match(r"add(\w\w)? sp, sp, #(\w+)$", line)
+        if m and size and imm(m[2]) == size:
+            # (the end of the frame, before a return: other instructions can come between)
+            for nxt in lines[n_ + 1:]:
+                if nxt == f"ldm{m[1] or ''}ia {ret_line}":
+                    break
+                if nxt.endswith(":") or re.match(r"b", nxt) or "sp" in nxt:
+                    raise Fail("the end of the frame")
+            else:
+                raise Fail("the end of the frame")
+            continue
+        if line.endswith(":"):
+            insns.append((line[:-1].lstrip("@"), None, "", False, ""))
+            continue
+        m = re.match(r"(\w+)\s+(.*)$", line)
+        if not m:
+            raise Fail(line)
+        mn, op = m[1], m[2].strip()
+        mm = re.match(r"ldm(\w\w)?ia$", mn)
+        if mm and frame is not None and op == ret_line:
+            insns.append((None, "ret", mm[1] or "", False, ""))
+            continue
+        if mn.startswith("bx") and op == "lr" and frame is None:
+            insns.append((None, "ret", mn[2:], False, ""))
+            continue
+        if re.search(r"\bpc\b", op) or re.search(r"\bsp\b", op) and not (
+                re.match(r"(r\d+|lr), \[sp(, #\w+)?\]$", op) or re.match(r"add$", mn) and re.match(r"(r\d+|lr), sp(, #\w+)?$", op)):
+            raise Fail("the stack: " + line)
+        sp = split_mnemonic(mn)
+        if not sp:
+            raise Fail(line)
+        insns.append((None,) + sp + (op,))
+    # (blocks: from a label or after a branch or a return)
+    blocks, cur = [], None
+    for ins in insns:
+        if ins[0] is not None:
+            cur = {"label": ins[0], "insns": []}
+            blocks.append(cur)
+            continue
+        if cur is None:
+            cur = {"label": None, "insns": []}
+            blocks.append(cur)
+        cur["insns"].append(ins)
+        if ins[1] in ("b", "switch") or ins[1] == "ret" and not ins[2]:
+            cur = None
+    blocks = [b for b in blocks if b["insns"] or b["label"]]
+    index = {b["label"]: k for k, b in enumerate(blocks) if b["label"]}
+    for k, b in enumerate(blocks):
+        last = b["insns"][-1] if b["insns"] else None
+        b["succ"] = []
+        if last and last[1] == "switch":
+            ts = last[4].split()[1:]
+            if any(t not in index for t in ts):
+                raise Fail("a branch out of the function")
+            b["switch"] = [index[t] for t in ts]
+            b["succ"] = sorted(set(b["switch"]))
+        elif last and last[1] == "b":
+            t = last[4].lstrip("@")
+            if t not in index:
+                raise Fail("a branch out of the function")
+            b["target"] = index[t]
+            b["succ"].append(index[t])
+            if last[2]:
+                b["succ"].append(k + 1)
+        elif not (last and last[1] == "ret" and not last[2]):
+            if k + 1 >= len(blocks):
+                raise Fail("no return at the end")
+            b["succ"].append(k + 1)
+    # (does the function return a value: r0 written other than by a call)
+    returns = any(i[1] not in ("str", "strh", "strb", "cmp", "cmn", "tst", "b", "bl", "ret")
+                  and re.match(r"r0\b", i[4]) for b in blocks for i in b["insns"])
+    # (liveness of the registers, at the start of each block)
+
+    def use_def(ins):
+        _, mn, c, s, op = ins
+        regs_ = re.findall(r"\b(r\d+|lr)\b", op)
+        if mn == "ret":
+            return ({"r0"} if returns else set()), set()
+        if mn == "b":
+            return set(), set()
+        if mn == "switch":
+            return {op.split()[0]}, set()
+        if mn in ("bl", "blx"):
+            return {"r0", "r1", "r2", "r3"} | set(regs_), {"r0", "r1", "r2", "r3", "r12"}
+        if mn in ("cmp", "cmn", "tst") or mn in STORE:
+            d = {regs_[1]} if mn in STORE and ("!" in op or re.search(r"\], #", op)) else set()
+            return set(regs_), d
+        d = {regs_[0]} if regs_ else set()
+        u = set(regs_[1:])
+        if mn in LOAD and ("!" in op or re.search(r"\], #", op)):
+            d.add(regs_[1])
+        if c:
+            u |= d     # (a conditional write keeps the old value otherwise)
+        return u, d
+    live_in = [set() for _ in blocks]
+    changed_ = True
+    while changed_:
+        changed_ = False
+        for k in reversed(range(len(blocks))):
+            live = set().union(*[live_in[s] for s in blocks[k]["succ"]]) if blocks[k]["succ"] else set()
+            for ins in reversed(blocks[k]["insns"]):
+                u, d = use_def(ins)
+                live = (live - d) | u
+            if live != live_in[k]:
+                live_in[k], changed_ = live, True
+    nparams = max([int(r[1:]) + 1 for r in live_in[0] if r in ("r0", "r1", "r2", "r3")] + [0])
+    if nstack:
+        nparams = 4 + nstack
+    P = [Param(i) if i < nparams else Var(f"r{i}") for i in range(max(4, nparams))]
+    V = {r: Var(r) for r in REGS[4:]}
+    for r in live_in[0]:
+        if r not in ("r0", "r1", "r2", "r3"):
+            raise Fail(f"{r} before it's written")
+    calls, callees, used_vars = [], set(), set()
+
+    def run(k):
+        """the statements of block k, and its condition at the end (flags, cc) or None"""
+        b = blocks[k]
+        regs = {f"r{i}": P[i] for i in range(4)}
+        regs.update(V)
+        stmts, seg, flags = [], set(), None
+        state = {"flags": None}
+        out_args = {}
+
+        def read(r):
+            if r not in regs:
+                raise Fail(f"register {r}")
+            v = regs[r]
+            if isinstance(v, Call):
+                v.used = True
+            return v
+
+        def write(r, v, c=""):
+            if c:
+                v = Tern(need_flags(), c, v, read(r))
+            regs[r] = v
+            seg.add(r)
+
+        def need_flags():
+            if not state["flags"]:
+                raise Fail("a condition without a compare")
+            return state["flags"]
+
+        def operand(s):
+            s = s.strip()
+            if s.startswith("#"):
+                return Const(imm(s))
+            m = re.match(r"(r\d+|lr), (lsl|lsr|asr) (#\w+|r\d+)$", s)
+            if m:
+                amt = Const(imm(m[3])) if m[3].startswith("#") else read(m[3])
+                return Bin({"lsl": "<<", "lsr": "u>>", "asr": ">>"}[m[2]], read(m[1]), amt)
+            if re.match(r"(r\d+|lr)$", s):
+                return read(s)
+            raise Fail(f"operand {s}")
+        term = None
+        for n_, (_, mn, c, s, op) in enumerate(b["insns"]):
+            last = n_ == len(b["insns"]) - 1
+            if mn == "ret":
+                v = regs["r0"] if returns else None
+                if c:
+                    fl = need_flags()
+                    stmts.append(("return if", c, fl, given(v, fl, c, True) if v is not None else None))
+                    # (after it, the condition is false)
+                    for r in list(regs):
+                        regs[r] = given(regs[r], fl, c, False)
+                else:
+                    stmts.append(("return", v))
+                continue
+            if mn == "b":
+                if c:
+                    term = (need_flags(), c)
+                continue
+            if mn == "switch":
+                term = (("switch", read(op.split()[0]), Const(0)), "sw")
+                continue
+            if mn in ("bl", "blx"):
+                if mn == "blx":
+                    if c or not re.match(r"(r\d+|lr)$", op):
+                        raise Fail("blx")
+                    fp = read(op)
+                    op = None
+                elif c or op == name or op not in protos:
+                    raise Fail(f"call of {op}")
+                cl = Call(len(calls), op, dict(regs), set(seg), k == 0 and not calls)
+                if op is None:
+                    cl.fp = fp
+                cl.stack = dict(out_args)
+                out_args.clear()
+                calls.append(cl)
+                if op:
+                    callees.add(op)
+                stmts.append(("call", cl))
+                for r in ("r1", "r2", "r3", "r12"):
+                    regs.pop(r, None)
+                regs["r0"] = cl
+                seg.clear()
+                state["flags"] = None
+                continue
+            m = re.match(r"(r\d+|lr), (.*)$", op)
+            if mn in ("cmp", "cmn", "tst"):
+                bv = operand(m[2])
+                if mn == "cmn":
+                    if not isinstance(bv, Const):
+                        raise Fail("cmn")
+                    bv = Const(-bv.n & 0xFFFFFFFF)
+                fl = ("tst" if mn == "tst" else "cmp", read(m[1]), bv)
+                state["flags"] = ("if", need_flags(), c, fl) if c else fl
+                continue
+            mm = re.match(r"(r\d+|lr), =(\w+)(?:\+(0x[0-9a-f]+))?$", op)
+            if mn == "ldr" and mm:
+                if mm[2][0].isdigit():
+                    v = Const(int(mm[2], 0) + int(mm[3] or "0", 16))
+                else:
+                    v = Sym(mm[2], int(mm[3] or "0", 16))
+                    v.func = mm[2] in protos
+                write(mm[1], v, c)
+                continue
+            mm = re.match(r"(r\d+|lr), \[sp(?:, #(\w+))?\]$", op)
+            if mm and (mn in LOAD or mn in STORE):
+                if c:
+                    raise Fail("a conditional access to the stack")
+                off = imm(mm[2] or "0")
+                if mn in LOAD:
+                    if off >= size + push and (frame is not None or size == 0):
+                        if (off - size - push) % 4 or mn != "ldr":
+                            raise Fail("a parameter on the stack")
+                        write(mm[1], P[4 + (off - size - push) // 4])
+                    elif low is not None and low <= off < size:
+                        write(mm[1], Load(LOAD[mn], Local(0), off - low))
+                    else:
+                        raise Fail("a load from the stack")
+                else:
+                    v = read(mm[1])
+                    if low is not None and low <= off < size:
+                        stmts.append(("store", STORE[mn], Local(0), off - low, v))
+                    elif off < size and mn == "str" and off % 4 == 0:
+                        out_args[off // 4] = v
+                    else:
+                        raise Fail("a store to the stack")
+                continue
+            mm = re.match(r"(r\d+|lr), sp(?:, #(\w+))?$", op)
+            if mn == "add" and mm:
+                if c or low is None:
+                    raise Fail("the stack")
+                write(mm[1], Local(imm(mm[2] or "0") - low))
+                continue
+            mm = re.match(r"(r\d+|lr), \[(r\d+|lr)(?:, (#-?\w+|-?(?:r\d+|lr)(?:, lsl #\w+)?))?\](!?)(?:, (#-?\w+))?$", op)
+            if (mn in LOAD or mn in STORE) and mm:
+                base = read(mm[2])
+                off = 0
+                if mm[3]:
+                    if mm[3].startswith("#"):
+                        off = imm(mm[3])
+                        off = off - (1 << 32) if off & 0x80000000 else off
+                    elif mm[3].startswith("-"):
+                        raise Fail("a negative register offset")
+                    else:
+                        off = operand(mm[3])
+                if mm[5] and off:
+                    raise Fail("address")
+                if mn in LOAD:
+                    v = Load(LOAD[mn], base, 0 if mm[5] else off)
+                    write(mm[1], v, c)
+                else:
+                    v = read(mm[1])
+                    if isinstance(v, Param) and not isinstance(v, Var) and STORE[mn] != "s32":
+                        v.type = STORE[mn]
+                    st = ("store", STORE[mn], base, 0 if mm[5] else off, v)
+                    stmts.append(("if", need_flags(), c, st) if c else st)
+                if mm[4] or mm[5]:
+                    if c:
+                        raise Fail("a conditional writeback")
+                    upd = imm(mm[5]) if mm[5] else off
+                    if not isinstance(upd, int):
+                        upd = upd
+                    elif upd & 0x80000000:
+                        upd -= 1 << 32
+                    regs[mm[2]] = Bin("+", base, upd if not isinstance(upd, int) else Const(upd & 0xFFFFFFFF))
+                    seg.add(mm[2])
+                continue
+            if mn in ("mov", "mvn") and m:
+                v = operand(m[2])
+                if mn == "mvn":
+                    v = Const(~v.n & 0xFFFFFFFF) if isinstance(v, Const) else Bin("^", v, Const(0xFFFFFFFF))
+                write(m[1], v, c)
+                if s:
+                    state["flags"] = ("zero", regs[m[1]], Const(0))
+                continue
+            mm = re.match(r"(r\d+|lr), (r\d+|lr), (.*)$", op)
+            if mn in ("add", "sub", "rsb", "and", "orr", "eor", "bic", "mul") and mm:
+                a, bv = read(mm[2]), operand(mm[3])
+                if mn == "rsb":
+                    v = Bin("-", bv, a)
+                elif mn == "bic":
+                    v = Bin("&", a, Const(~bv.n & 0xFFFFFFFF)) if isinstance(bv, Const) else Fail
+                    if v is Fail:
+                        raise Fail("bic")
+                elif mn == "mul":
+                    v = Bin("*", a, bv)
+                else:
+                    v = Bin(OPS[mn], a, bv)
+                write(mm[1], v, c)
+                if s:
+                    if c:
+                        raise Fail("a conditional s")
+                    state["flags"] = ("cmp", a, bv) if mn == "sub" else ("zero", regs[mm[1]], Const(0))
+                continue
+            mm = re.match(r"(r\d+), (r\d+), (r\d+), (r\d+)$", op)
+            if mn == "mla" and mm:
+                write(mm[1], Bin("+", Bin("*", read(mm[2]), read(mm[3])), read(mm[4])), c)
+                continue
+            raise Fail(f"{mn}{c} {op}")
+        # (the registers needed after the block go to their variables)
+        if b["succ"]:
+            live = set().union(*[live_in[s] for s in b["succ"]])
+            assign = {}
+            for r in sorted(live, key=REGS.index):
+                home = P[int(r[1:])] if r in ("r0", "r1", "r2", "r3") else V.get(r)
+                if home is None:
+                    raise Fail(f"register {r}")
+                if r not in regs:
+                    continue     # (not set again since a call)
+                if regs[r] is not home:
+                    assign[r] = (home, regs[r])
+            # (in an order where no variable is read after it's written)
+            order, todo = [], dict(assign)
+            while todo:
+                for r, (home, v) in list(todo.items()):
+                    if not any(o is not home and o in refs(v) for o2, (o, _) in todo.items() if o2 != r):
+                        order.append((home, v))
+                        del todo[r]
+                        break
+                else:
+                    raise Fail("registers swapped")
+            for home, v in order:
+                stmts.append(("assign", home, v))
+                used_vars.add(home)
+                if isinstance(v, Call):
+                    v.used = True
+            if term:
+                m_ = {id(v): home for home, v in order}
+                new = subst_flags(term[0], m_)
+                for home, v in order:
+                    if home in flag_refs(term[0]) and not any(x is v for x in flag_values(term[0])):
+                        raise Fail("a compare of a variable written after it")
+                term = (new, term[1])
+        return stmts, term
+    code = [run(k) for k in range(len(blocks))]
+    # (a branch, then a block with only a compare and a branch: one condition, && or ||)
+    merged = True
+    while merged:
+        merged = False
+        for i in range(len(blocks) - 2):
+            b1, b2 = blocks[i], blocks[i + 1]
+            if "target" not in b1 or "target" not in b2:
+                continue
+            if code[i][1] is None or code[i + 1][1] is None or code[i + 1][0]:
+                continue
+            if any(b.get("target") == i + 1 for b in blocks):
+                continue
+            t, u = b1["target"], b2["target"]
+            if u <= i + 1:
+                continue
+            if t == i + 2:
+                term = (("logic", "&&", negate(code[i][1]), code[i + 1][1]), "t")
+            elif t == u:
+                term = (("logic", "||", code[i][1], code[i + 1][1]), "t")
+            else:
+                continue
+            code[i] = (code[i][0], term)
+            del code[i + 1], blocks[i + 1], live_in[i + 1]
+            b1["target"] = u
+            for b in blocks:
+                if b.get("target") is not None and b["target"] > i + 1:
+                    b["target"] -= 1
+            for b in blocks:
+                b["succ"] = [x - 1 if x > i + 1 else x for x in b["succ"]]
+            merged = True
+            break
+    # (the arguments of the calls, as in lift())
+    for cl in calls:
+        p = protos[cl.name] if cl.name else VAR
+        if p in ("void(void)", VAR):
+            n = max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0])
+            if cl.first:
+                n = max([n] + [i + 1 for i in range(min(nparams, 4)) if cl.regs.get(f"r{i}") is P[i]])
+            if cl.stack:
+                if sorted(cl.stack) != list(range(len(cl.stack))):
+                    raise Fail("arguments on the stack")
+                n = 4 + len(cl.stack)
+            types = ["s32"] * n
+        else:
+            types = p[1]
+        for i, t in enumerate(types):
+            v = cl.regs.get(f"r{i}") if i < 4 else cl.stack.get(i - 4)
+            if v is None:
+                raise Fail("an argument after a call")
+            if isinstance(v, Call):
+                v.used = True
+            cl.args.append((v, t))
+        cl.ret = "s32" if p in ("void(void)", VAR) else p[0]
+        if cl.used and cl.ret == "void":
+            raise Fail("the value of a void function")
+    ret = "s32" if returns else "void"
+
+    def render(st, ind):
+        sp_ = "    " * ind
+        if st[0] == "store":
+            _, t, base, off, v = st
+            return f"{sp_}*({t} *)({addr(base, off)}) = {value(v, t)};\n"
+        if st[0] == "if":
+            return f"{sp_}if ({cond(st[1], st[2])})\n" + render(st[3], ind + 1)
+        if st[0] == "return if":
+            _, cc, fl, v = st
+            if returns and v is None:
+                raise Fail("a return without a value")
+            return f"{sp_}if ({cond(fl, cc)})\n{sp_}    return{' ' + value(v, ret) if returns else ''};\n"
+        if st[0] == "return":
+            if returns and st[1] is None:
+                raise Fail("a return without a value")
+            return f"{sp_}return{' ' + value(st[1], ret) if returns else ''};\n"
+        if st[0] == "assign":
+            home, v = st[1], st[2]
+            return f"{sp_}{home.render()} = {value(v, 'u8 *' if home.ptr else home.type if not isinstance(home, Var) else 's32')};\n"
+        c = st[1]
+        args = ", ".join(value(v, t) for v, t in c.args)
+        f = c.name or f"((s32 (*)(...)){c.fp.render()})"
+        if c.used:
+            return f"{sp_}{c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {f}({args});\n"
+        return f"{sp_}{f}({args});\n"
+
+    def latch_of(h):
+        ls = [k for k, b in enumerate(blocks) if b.get("target") == h and k >= h]
+        return max(ls) if ls else None
+
+    def emit(i, end, ind, loop=None, join=None, header_done=None):
+        out = []
+        while i < end:
+            lt = latch_of(i)
+            if lt is not None and header_done != i:
+                if loop and lt >= loop[1]:
+                    raise Fail("loops")
+                lb = blocks[lt]
+                last = lb["insns"][-1]
+                if code[lt][1] is None and not last[2]:
+                    raise Fail("an endless loop")
+                body = emit(i, lt + 1, ind + 1, (i, lt, lt + 1), None, i)
+                cnd = code[lt][1]
+                out.append("    " * ind + "do {\n" + body + "    " * ind + f"}} while ({cond(*cnd)});\n")
+                i = lt + 1
+                continue
+            stmts, term = code[i]
+            out += [render(st, ind) for st in stmts]
+            b = blocks[i]
+            if b.get("switch"):
+                ts = b["switch"]
+                tg = sorted(set(ts))
+                # (where the cases go on: the branches out of them after the last one)
+                jn, again = end, True
+                while again:
+                    again = False
+                    for k in range(tg[0], jn):
+                        t = blocks[k].get("target")
+                        if t is not None and tg[-1] < t < jn:
+                            jn, again = t, True
+                if any(blocks[k].get("target", -1) > jn for k in range(tg[0], jn)):
+                    raise Fail("a switch")
+                if tg[0] != i + 1 or jn > end:
+                    raise Fail("a switch")
+                body = ""
+                starts = [t for t in tg if t < jn]
+                for n_, t in enumerate(starts):
+                    stop = starts[n_ + 1] if n_ + 1 < len(starts) else jn
+                    labels = [f"case {k}:" for k, x in enumerate(ts[1:]) if x == t] + (["default:"] if ts[0] == t else [])
+                    body += "".join("    " * (ind + 1) + lb + "\n" for lb in labels)
+                    body += emit(t, stop, ind + 2, (-1, 10 ** 9, jn), None)
+                out.append("    " * ind + f"switch ({value(term[0][1])}) {{\n" + body + "    " * ind + "}\n")
+                i = jn
+                continue
+            t = b.get("target")
+            if t is None:
+                i += 1
+                continue
+            if loop and i == loop[1] and t == loop[0]:
+                i += 1     # (the loop's condition: in the while)
+                continue
+            if term is None:
+                if loop and t == loop[2]:
+                    out.append("    " * ind + "break;\n")
+                elif t == join and i == end - 1:
+                    pass
+                else:
+                    raise Fail("goto")
+                i += 1
+                continue
+            if loop and t == loop[2]:
+                out.append("    " * ind + f"if ({cond(*term)})\n" + "    " * ind + "    break;\n")
+                i += 1
+                continue
+            if not i < t <= end:
+                raise Fail("goto")
+            neg = (term[0], OPPOSITE[term[1]])
+            lb = blocks[t - 1]
+            y = lb.get("target")
+            if y is not None and code[t - 1][1] is None and t < y <= end and not (loop and y in (loop[0], loop[2])) and y != t:
+                then = emit(i + 1, t, ind + 1, loop, y)
+                els = emit(t, y, ind + 1, loop, None)
+                out.append("    " * ind + f"if ({cond(*neg)}) {{\n" + "".join(then) + "    " * ind + "} else {\n" + "".join(els) + "    " * ind + "}\n")
+                i = y
+            else:
+                then = emit(i + 1, t, ind + 1, loop, None)
+                out.append("    " * ind + f"if ({cond(*neg)}) {{\n" + "".join(then) + "    " * ind + "}\n")
+                i = t
+        return "".join(out)
+    emit(0, len(blocks), 1)     # (once for the types: which variables are pointers)
+    text = emit(0, len(blocks), 1)
+    if "goto" in text:
+        raise Fail("goto")
+    locals_ = sorted({v for v in used_vars if isinstance(v, Var)}, key=lambda v: REGS.index(v.reg))
+    for v in list(V.values()) + [p for p in P if isinstance(p, Var)]:
+        if v.ptr and v not in locals_:
+            locals_.append(v)
+    decls = "".join(f"    {'u8 *' if v.ptr else 's32 '}{v.reg};\n" for v in locals_)
+    args = ", ".join(f"u8 *arg{i}" if P[i].ptr else f"{P[i].type} arg{i}" for i in range(nparams)) or "void"
+    if low is not None:
+        decls = f"    s32 local[{(size - low) // 4}];\n" + decls
+    decl = f"{ret} {name}({args})"
+    return decl, decls + text, callees
+
+
 def prototypes(t):
     """name -> 'void(void)', VAR or (return type, [parameter types]) of the declarations
     of a file that can be called"""
@@ -419,6 +1117,16 @@ def apply(t, name, block, decl, body, protos, callees):
     return t
 
 
+def save(path, text):
+    for k in range(20):
+        try:
+            open(path, "w", newline="\n").write(text)
+            return
+        except OSError:
+            time.sleep(0.5)
+    open(path, "w", newline="\n").write(text)
+
+
 def lift_file(src, sizes, failed):
     """Lifts what it can of a file; the number of functions lifted."""
     t = open(src).read()
@@ -426,10 +1134,15 @@ def lift_file(src, sizes, failed):
     blocks = list(re.finditer(r'^extern "C" asm void (\w+)\(void\)\n\{\n(.*?)\n\}\n', t, re.M | re.S))
     cand = {}
     for b in blocks:
-        if b[2].count("\n") > 400 or "@" in b[2] or b[1] in failed:
+        if b[2].count("\n") > 400 or b[1] in failed:
             continue
         try:
-            cand[b[1]] = (b[0],) + lift(b[1], b[2], protos)
+            try:
+                cand[b[1]] = (b[0],) + (lift_cfg if "@" in b[2] else lift)(b[1], b[2], protos)
+            except (Fail, KeyError):
+                if "@" in b[2]:
+                    raise
+                cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos)
         except (Fail, KeyError):
             failed.add(b[1])
     # (a function that calls another one lifted now waits: the callee's declaration changes)
@@ -439,7 +1152,7 @@ def lift_file(src, sizes, failed):
     orig = t
     for name, (block, decl, body, callees) in cand.items():
         t = apply(t, name, block, decl, body, protos, callees)
-    open(src, "w", newline="\n").write(t)
+    save(src, t)
     r =subprocess.run([sys.executable, f"{ROOT}/tools/fncmp.py", src, *cand], capture_output=True, text=True)
     good = set()
     for mm in re.finditer(r"^(\w+): OK \((\d+) bytes\)", r.stdout, re.M):
@@ -448,7 +1161,7 @@ def lift_file(src, sizes, failed):
     failed |= set(cand) - good
     if r.returncode and not re.search(r"^\w+: .*bytes\)$", r.stdout, re.M):
         # (the functions with the errors stay asm, and the others are tried again)
-        open(src, "w", newline="\n").write(orig)
+        save(src, orig)
         lines, bad, func = t.split("\n"), set(), {}
         for k, line in enumerate(lines):
             mm = re.match(r'extern "C" .*?(\w+)\([^)]*\)$', line)
@@ -470,7 +1183,7 @@ def lift_file(src, sizes, failed):
     for name, (block, decl, body, callees) in cand.items():
         if name in good:
             t = apply(t, name, block, decl, body, protos, callees)
-    open(src, "w", newline="\n").write(t)
+    save(src, t)
     return len(good)
 
 

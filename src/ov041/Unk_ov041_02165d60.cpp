@@ -20,7 +20,7 @@ extern "C" s32 func_ov041_02166c74(u8 *arg0);
 extern "C" void func_ov041_02166cac(void);
 extern "C" s32 func_ov041_02166f20(u8 *arg0);
 extern "C" void func_ov041_02166f54(void);
-extern "C" void func_ov041_02167000(void);
+extern "C" void func_ov041_02167000(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov041_02167034(void);
 extern "C" void func_ov041_02167184(u8 *arg0, s32 arg1);
 extern "C" void func_ov041_02167194(void);
@@ -1484,21 +1484,16 @@ extern "C" asm void func_ov041_02166f54(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov041_02167000(void)
+extern "C" void func_ov041_02167000(u8 *arg0, s32 arg1, s32 arg2)
 {
-    ldr r3, =data_020c4ab4
-    ldrb r3, [r3, #0x69]
-    cmp r3, #0
-    beq @L_0216701c
-    cmp r1, #0
-    cmpeq r2, #0
-    bxne lr
-@L_0216701c:
-    mov r3, #7
-    str r1, [r0, #0x38]
-    str r2, [r0, #0x3c]
-    str r3, [r0, #0xc]
-    bx lr
+    if (*(u8 *)(data_020c4ab4 + 0x69) != 0) {
+        if ((arg1 != 0 || arg2 != 0))
+            return;
+    }
+    *(s32 *)(arg0 + 0x38) = arg1;
+    *(s32 *)(arg0 + 0x3C) = arg2;
+    *(s32 *)(arg0 + 0xC) = 7;
+    return;
 }
 
 extern "C" asm void func_ov041_02167034(void)

@@ -4,8 +4,8 @@ extern "C" void func_02097c74(void);     // (for the asm functions)
 extern "C" void func_02098710(void);     // (for the asm functions)
 extern "C" void func_02098824(void);     // (for the asm functions)
 extern "C" void func_02097858(void);     // (for the asm functions)
-extern "C" void func_02097880(void);     // (for the asm functions)
-extern "C" void func_02092270(void);     // (for the asm functions)
+extern "C" s32 func_02097880(...);     // (for the asm functions)
+extern "C" s32 func_02092270(...);     // (for the asm functions)
 extern "C" int func_0209926c(void *a, void *table);
 extern "C" int func_020992ec(void *a, void *table);
 extern "C" int func_ov015_021460d4(void *a);
@@ -58,7 +58,7 @@ extern "C" void func_020917c0(void *self, u8 *obj, u8 flags);
 extern "C" void func_020917d0(void);
 extern "C" void func_02091930(void);
 extern "C" void func_02091c64(void);
-extern "C" void func_02091cec(void);
+extern "C" s32 func_02091cec(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" BOOL func_02091d54(void *self);
 extern "C" int func_02091d64(void *self);
 extern "C" void func_02091d74(void);
@@ -91,7 +91,7 @@ extern "C" void MTX_RotZ43_(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11FileManager7ReleaseEPv(void);
 extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZdlPv(void);
 extern "C" void __cxa_vec_cleanup(void);
@@ -2060,36 +2060,27 @@ extern "C" asm void func_02091c64(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_02091cec(void)
+extern "C" s32 func_02091cec(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r0, [r5, #0x1c]
-    cmp r0, #0
-    beq @L_02091d30
-    ldr r4, [r5, #0x20]
-    cmp r4, #1
-    blt @L_02091d24
-@L_02091d0c:
-    mov r0, r5
-    mov r1, r4
-    bl func_02092270
-    sub r4, r4, #1
-    cmp r4, #1
-    bge @L_02091d0c
-@L_02091d24:
-    ldr r1, [r5, #0x1c]
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_02091d30:
-    mov r0, r5
-    bl func_02097880
-    mov r0, #0
-    str r0, [r5, #0x1c]
-    str r0, [r5, #0x20]
-    str r0, [r5, #0x24]
-    str r0, [r5, #0x28]
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r4;
+    u8 *r5;
+    r5 = (u8 *)arg0;
+    if (*(s32 *)(r5 + 0x1C) != 0) {
+        r4 = *(s32 *)(r5 + 0x20);
+        if (r4 >= 1) {
+            do {
+                func_02092270((s32)r5, r4);
+                r4 = (r4 - 1);
+            } while (r4 >= 1);
+        }
+        _ZN8GameHeap4FreeEPv((s32)data_020c47b4, *(s32 *)(r5 + 0x1C));
+    }
+    func_02097880((s32)r5);
+    *(s32 *)(r5 + 0x1C) = 0;
+    *(s32 *)(r5 + 0x20) = 0;
+    *(s32 *)(r5 + 0x24) = 0;
+    *(s32 *)(r5 + 0x28) = 0;
+    return 0;
 }
 
 extern "C" BOOL func_02091d54(void *self)

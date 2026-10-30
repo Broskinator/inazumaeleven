@@ -12,7 +12,7 @@ extern "C" void func_ov001_02115f28(void);
 extern "C" void func_ov001_02115fc4(void);
 extern "C" void func_ov001_02116014(void);
 extern "C" void func_ov001_02116080(void);
-extern "C" void func_ov001_02116164(void);
+extern "C" s32 func_ov001_02116164(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov001_0211619c(void);
 extern "C" void func_ov001_02116318(void);
 extern "C" void func_ov001_021163f0(void);
@@ -88,7 +88,7 @@ extern "C" s32 func_ov001_02117cf8(u8 *arg0);
 extern "C" void func_ov001_02117d00(void);
 extern "C" void func_ov001_02117dec(s32 arg0);
 extern "C" void func_ov001_02117e1c(void);
-extern "C" void func_ov001_02117ef8(void);
+extern "C" s32 func_ov001_02117ef8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov001_02117f2c(u8 *arg0);
 extern "C" s32 func_ov001_02117f40(u8 *arg0);
 extern "C" void func_ov001_02117f54(void);
@@ -212,7 +212,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206ce7cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206ce9cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206e3d4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02077bd4Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_02077ce4Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_02077ce4Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0207924cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_020792ccEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207934cEv(void);
@@ -286,10 +286,10 @@ extern "C" s32 func_ov001_0211490c(...);
 extern "C" s32 func_ov001_0211506c(...);
 extern "C" void func_ov001_02122d40(void);
 extern "C" void func_ov001_021232c8(void);
-extern "C" void func_ov001_02123680(void);
+extern "C" s32 func_ov001_02123680(...);
 extern "C" void func_ov001_021239c8(void);
 extern "C" s32 func_ov001_02124540(...);
-extern "C" void func_ov001_02125440(void);
+extern "C" s32 func_ov001_02125440(...);
 extern "C" void func_ov001_02125cd0(void);
 extern "C" s32 func_ov001_0212602c(...);
 extern "C" s32 func_ov001_02126240(...);
@@ -318,7 +318,7 @@ extern "C" s32 func_ov015_02133e50(...);
 extern "C" void func_ov015_02133e8c(void);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
-extern "C" void func_ov015_02134208(void);
+extern "C" s32 func_ov015_02134208(...);
 extern "C" s32 func_ov015_02136680(...);
 extern "C" s32 func_ov015_02136734(...);
 extern "C" void func_ov015_0213782c(void);
@@ -872,22 +872,21 @@ extern "C" asm void func_ov001_02116080(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov001_02116164(void)
+extern "C" s32 func_ov001_02116164(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, r0
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_02077ce4Ev
-    add r5, r4, #0xc
-    mov r6, #0
-    mov r4, #0xc
-@L_02116180:
-    mla r0, r6, r4, r5
-    bl func_ov015_02134208
-    add r6, r6, #1
-    cmp r6, #3
-    blt @L_02116180
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    _ZN17UnkClass_020621b413func_02077ce4Ev((s32)data_020e88a0, arg1, arg2, arg3);
+    r4 = 0xC;
+    r5 = (arg0 + 0xC);
+    r6 = 0;
+    do {
+        s32 v1 = func_ov015_02134208(((r6 * r4) + r5));
+        arg0 = v1;
+        r6 = (r6 + 1);
+    } while (r6 < 3);
+    return arg0;
 }
 
 extern "C" asm void func_ov001_0211619c(void)
@@ -2869,22 +2868,15 @@ extern "C" asm void func_ov001_02117e1c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_02117ef8(void)
+extern "C" s32 func_ov001_02117ef8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #8]
-    cmp r0, #5
-    bne @L_02117f18
-    add r0, r4, #0x14
-    mov r1, #6
-    bl func_ov001_02125440
-@L_02117f18:
-    ldr r1, [r4, #8]
-    add r0, r4, #0x14
-    bl func_ov001_02123680
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    r4 = (u8 *)arg0;
+    if (*(s32 *)(r4 + 0x8) == 5) {
+        func_ov001_02125440((r4 + 0x14), 6);
+    }
+    func_ov001_02123680((r4 + 0x14), *(s32 *)(r4 + 0x8));
+    return 1;
 }
 
 extern "C" s32 func_ov001_02117f2c(u8 *arg0)

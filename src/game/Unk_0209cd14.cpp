@@ -16,7 +16,7 @@ extern "C" void func_0209cd14(BOOL a);
 extern "C" void func_0209cd30(void);
 extern "C" void func_0209d024(void);
 extern "C" void func_0209d1d4(void);
-extern "C" void func_0209d240(void);
+extern "C" s32 func_0209d240(void);
 extern "C" void func_0209d264(void);
 extern "C" void func_0209d2a0(void);
 extern "C" void func_0209d2dc(void);
@@ -452,17 +452,19 @@ extern "C" asm void func_0209d1d4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_0209d240(void)
+extern "C" s32 func_0209d240(void)
 {
-    mov r2, #0
-    ldr r0, =data_020fc754
-    mov r1, r2
-@L_0209d24c:
-    str r1, [r0, r2, lsl #2]
-    add r2, r2, #1
-    cmp r2, #0x10
-    blt @L_0209d24c
-    bx lr
+    u8 *r0;
+    s32 r1;
+    s32 r2;
+    r0 = (u8 *)data_020fc754;
+    r1 = 0;
+    r2 = 0;
+    do {
+        *(s32 *)(r0 + (r2 << 2)) = r1;
+        r2 = (r2 + 1);
+    } while (r2 < 0x10);
+    return (s32)r0;
 }
 
 extern "C" asm void func_0209d264(void)

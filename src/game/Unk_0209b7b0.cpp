@@ -47,7 +47,7 @@ extern "C" void func_0209bebc(void *obj);
 extern "C" BOOL func_0209bec8(void);
 extern "C" void func_0209bedc(u8 *obj, s32 value);
 extern "C" s32 func_0209bee4(u8 *obj);
-extern "C" void func_0209beec(void);
+extern "C" void func_0209beec(s32 arg0);
 extern "C" void func_0209bf0c(void);
 extern "C" BOOL func_0209bf44(u8 *obj);
 extern "C" BOOL func_0209bf60(u8 *obj);
@@ -700,17 +700,17 @@ extern "C" s32 func_0209bee4(u8 *obj)
     return *(s32 *)(obj + 0x58);
 }
 
-extern "C" asm void func_0209beec(void)
+extern "C" void func_0209beec(s32 arg0)
 {
-    mov r3, #0
-    mov r2, r3
-@L_0209bef4:
-    add r1, r0, r3, lsl #2
-    add r3, r3, #1
-    str r2, [r1, #0x278]
-    cmp r3, #0x10
-    blt @L_0209bef4
-    bx lr
+    s32 r2;
+    s32 r3;
+    r2 = 0;
+    r3 = 0;
+    do {
+        *(s32 *)(((u8 *)(arg0 + (r3 << 2))) + 0x278) = r2;
+        r3 = (r3 + 1);
+    } while (r3 < 0x10);
+    return;
 }
 
 extern "C" asm void func_0209bf0c(void)

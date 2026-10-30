@@ -4,7 +4,7 @@ extern "C" void func_ov016_0214c08c(void);
 extern "C" void func_ov016_0214c118(void);
 extern "C" void func_ov016_0214c170(void);
 extern "C" void func_ov016_0214c218(void);
-extern "C" void func_ov016_0214c254(void);
+extern "C" s32 func_ov016_0214c254(...);
 extern "C" void func_ov016_0214c368(void);
 extern "C" void func_ov016_0214c3b0(void);
 extern "C" void func_ov016_0214c480(void);
@@ -86,7 +86,7 @@ extern "C" void func_ov016_0214eab8(void);
 extern "C" void func_ov016_0214eaf4(void);
 extern "C" void func_ov016_0214eb38(void);
 extern "C" void func_ov016_0214ec84(void);
-extern "C" void func_ov016_0214ed68(void);
+extern "C" u16 func_ov016_0214ed68(void);
 extern "C" void func_ov016_0214ed80(void);
 extern "C" void func_ov016_0214ef34(void);
 extern "C" void func_ov016_0214efa8(void);
@@ -329,7 +329,7 @@ extern "C" asm void func_ov016_0214c218(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov016_0214c254(void)
+extern "C" asm s32 func_ov016_0214c254(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x28
@@ -2964,15 +2964,9 @@ extern "C" asm void func_ov016_0214e65c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_0214e704(void)
+extern "C" void func_ov016_0214e704(void)
 {
-    ldr r0, =data_ov016_02158b48
-    ldr r12, =func_ov016_0214c254
-    ldr r2, [r0]
-    add r0, r2, #0x600
-    ldrh r1, [r0, #0x48]
-    ldr r0, [r2, #0xac8]
-    bx r12
+    func_ov016_0214c254(*(s32 *)(*(u8 * *)(data_ov016_02158b48) + 0xAC8), *(u16 *)(((u8 *)(*(u8 * *)(data_ov016_02158b48) + 0x600)) + 0x48), (s32)*(u8 * *)(data_ov016_02158b48));
 }
 
 extern "C" asm void func_ov016_0214e728(void)
@@ -3425,13 +3419,9 @@ extern "C" asm void func_ov016_0214ec84(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov016_0214ed68(void)
+extern "C" u16 func_ov016_0214ed68(void)
 {
-    ldr r0, =data_ov016_02158b48
-    ldr r0, [r0]
-    add r0, r0, #0x100
-    ldrh r0, [r0, #0x44]
-    bx lr
+    return *(u16 *)(((u8 *)(*(s32 *)(data_ov016_02158b48) + 0x100)) + 0x44);
 }
 
 extern "C" asm void func_ov016_0214ed80(void)

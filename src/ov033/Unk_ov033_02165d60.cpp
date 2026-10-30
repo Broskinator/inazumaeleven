@@ -19,11 +19,11 @@ extern "C" void func_ov033_0216678c(void);
 extern "C" void func_ov033_0216682c(void);
 extern "C" void func_ov033_02166914(void);
 extern "C" void func_ov033_021669f8(void);
-extern "C" void func_ov033_02166a7c(void);
+extern "C" void func_ov033_02166a7c(u8 *arg0);
 extern "C" void func_ov033_02166a98(void);
 extern "C" void func_ov033_02166ad0(void);
 extern "C" void func_ov033_02166afc(void);
-extern "C" void func_ov033_02166b3c(void);
+extern "C" void func_ov033_02166b3c(u8 *arg0, s32 arg1);
 extern "C" void func_ov033_02166b70(void);
 extern "C" void func_ov033_02166c14(void);
 extern "C" void func_ov033_02166ca4(void);
@@ -49,7 +49,7 @@ extern "C" char data_ov033_021671dc[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203df24Ev(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_0202273c(void);
@@ -1010,14 +1010,10 @@ extern "C" asm void func_ov033_021669f8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov033_02166a7c(void)
+extern "C" void func_ov033_02166a7c(u8 *arg0)
 {
-    add r1, r0, #0x3000
-    mov r2, #6
-    ldr r0, [r0, #4]
-    ldr r12, =_ZN17UnkClass_0203dc7c13func_0203df24Ev
-    str r2, [r1, #0xb54]
-    bx r12
+    *(s32 *)(((u8 *)(arg0 + 0x3000)) + 0xB54) = 6;
+    _ZN17UnkClass_0203dc7c13func_0203df24Ev(*(s32 *)(arg0 + 0x4), (arg0 + 0x3000), 6);
 }
 
 extern "C" asm void func_ov033_02166a98(void)
@@ -1071,21 +1067,19 @@ extern "C" asm void func_ov033_02166afc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov033_02166b3c(void)
+extern "C" void func_ov033_02166b3c(u8 *arg0, s32 arg1)
 {
-    ldr r2, =data_ov033_02167120
-    mov r3, #0
-    str r2, [r0]
-    str r1, [r0, #4]
-    mov r2, r3
-@L_02166b50:
-    add r1, r0, r3, lsl #2
-    add r1, r1, #0x3000
-    add r3, r3, #1
-    str r2, [r1, #0xb68]
-    cmp r3, #0xa
-    blo @L_02166b50
-    bx lr
+    s32 r2;
+    s32 r3;
+    *(s32 *)(arg0) = (s32)data_ov033_02167120;
+    *(s32 *)(arg0 + 0x4) = arg1;
+    r2 = 0;
+    r3 = 0;
+    do {
+        *(s32 *)(((u8 *)((arg0 + (r3 << 2)) + 0x3000)) + 0xB68) = r2;
+        r3 = (r3 + 1);
+    } while ((u32)r3 < (u32)10);
+    return;
 }
 
 extern "C" asm void func_ov033_02166b70(void)

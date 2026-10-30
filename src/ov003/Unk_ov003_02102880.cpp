@@ -49,7 +49,7 @@ extern "C" s32 func_ov003_02103ff4(s32 arg0);
 extern "C" void func_ov003_02104008(void);
 extern "C" void func_ov003_02104040(void);
 extern "C" s32 func_ov003_02104094(void);
-extern "C" void func_ov003_021040b8(void);
+extern "C" s32 func_ov003_021040b8(void);
 extern "C" void func_ov003_021040e4(void);
 extern "C" void func_ov003_02104150(s32 arg0);
 extern "C" void func_ov003_02104174(u8 *arg0);
@@ -115,7 +115,7 @@ extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e090Eii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_0207aba0Ev(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
@@ -1891,18 +1891,10 @@ extern "C" s32 func_ov003_02104094(void)
     return (v0 >= 0xB ? 1 : 0);
 }
 
-extern "C" asm void func_ov003_021040b8(void)
+extern "C" s32 func_ov003_021040b8(void)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    ldr r0, =data_020e88a0
-    mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
-    ldrb r0, [r0, #0x2d]
-    cmp r0, #0
-    movne r4, #1
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    s32 v0 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)data_020e88a0, 0);
+    return (*(u8 *)(((u8 *)v0) + 0x2D) != 0 ? 1 : 0);
 }
 
 extern "C" asm void func_ov003_021040e4(void)

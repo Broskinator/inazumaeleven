@@ -27,7 +27,7 @@ extern "C" void func_020853ec(void);
 extern "C" BOOL func_02085430(void *self, u8 *obj);
 extern "C" void func_02085444(void);
 extern "C" BOOL func_02085488(void *self, u8 *obj);
-extern "C" void func_020854a8(void);
+extern "C" s32 func_020854a8(u8 *arg0, u8 *arg1);
 extern "C" void func_020854d8(void);
 extern "C" int func_02085728(void *self, u8 *entry);
 extern "C" int func_02085770(void *self, u8 *entry, int b, int c);
@@ -415,21 +415,17 @@ extern "C" BOOL func_02085488(void *self, u8 *obj)
     return func_02084d94(obj, 0x8000);
 }
 
-extern "C" asm void func_020854a8(void)
+extern "C" s32 func_020854a8(u8 *arg0, u8 *arg1)
 {
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    ldr r1, [r1, #0x5c]
-    mov r2, #0
-    cmp r1, #0
-    ble @L_020854d0
-    ldr r0, [r0, #0x18]
-    cmp r0, r1
-    moveq r2, #1
-@L_020854d0:
-    mov r0, r2
-    bx lr
+    s32 r2;
+    if ((s32)arg1 == 0)
+        return 0;
+    arg1 = (u8 *)*(s32 *)(arg1 + 0x5C);
+    r2 = 0;
+    if ((s32)arg1 > 0) {
+        r2 = (*(s32 *)(arg0 + 0x18) == (s32)arg1 ? 1 : r2);
+    }
+    return r2;
 }
 
 extern "C" asm void func_020854d8(void)

@@ -47,8 +47,8 @@ extern "C" void func_ov037_0216b80c(void);
 extern "C" void func_ov037_0216b810(void);
 extern "C" void func_ov037_0216b8f8(void);
 extern "C" void func_ov037_0216b948(void);
-extern "C" void func_ov037_0216b994(void);
-extern "C" void func_ov037_0216b9f4(void);
+extern "C" s32 func_ov037_0216b994(u8 *arg0, s32 arg1, s32 arg2);
+extern "C" s32 func_ov037_0216b9f4(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov037_0216ba54(...);
 extern "C" void func_ov037_0216baa0(u8 *arg0);
 extern "C" void func_ov037_0216baf0(u8 *arg0);
@@ -3261,64 +3261,40 @@ extern "C" asm void func_ov037_0216b948(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov037_0216b994(void)
+extern "C" s32 func_ov037_0216b994(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    cmp r2, #0xd
-    movge r0, #0
-    ldmgeia sp!, {r3, pc}
-    mov lr, #0
-    mov r3, #0x1c
-@L_0216b9ac:
-    mul r12, lr, r3
-    ldrsh r12, [r0, r12]
-    cmp r1, r12
-    beq @L_0216b9c8
-    add lr, lr, #1
-    cmp lr, #0x40
-    blo @L_0216b9ac
-@L_0216b9c8:
-    cmp lr, #0x40
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    add r2, lr, r2
-    mov r1, #0x1c
-    mla r0, r2, r1, r0
-    ldrsh r0, [r0, #0x18]
-    sub r0, r0, #1
-    mov r0, r0, lsl #0x10
-    mov r0, r0, asr #0x10
-    ldmia sp!, {r3, pc}
+    s32 r3;
+    s32 lr;
+    if (arg2 >= 0xD)
+        return 0;
+    r3 = 0x1C;
+    lr = 0;
+    do {
+        if (arg1 == *(s16 *)(arg0 + (lr * r3)))
+            break;
+        lr = (lr + 1);
+    } while ((u32)lr < (u32)0x40);
+    if (lr == 0x40)
+        return 0;
+    return (((*(s16 *)(((u8 *)(((lr + arg2) * 0x1C) + arg0)) + 0x18) - 1) << 0x10) >> 0x10);
 }
 
-extern "C" asm void func_ov037_0216b9f4(void)
+extern "C" s32 func_ov037_0216b9f4(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    cmp r2, #0xd
-    movge r0, #0
-    ldmgeia sp!, {r3, pc}
-    mov lr, #0
-    mov r3, #0x1c
-@L_0216ba0c:
-    mul r12, lr, r3
-    ldrsh r12, [r0, r12]
-    cmp r1, r12
-    beq @L_0216ba28
-    add lr, lr, #1
-    cmp lr, #0x40
-    blo @L_0216ba0c
-@L_0216ba28:
-    cmp lr, #0x40
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    add r2, lr, r2
-    mov r1, #0x1c
-    mla r0, r2, r1, r0
-    ldrsh r0, [r0, #0x1a]
-    sub r0, r0, #1
-    mov r0, r0, lsl #0x10
-    mov r0, r0, asr #0x10
-    ldmia sp!, {r3, pc}
+    s32 r3;
+    s32 lr;
+    if (arg2 >= 0xD)
+        return 0;
+    r3 = 0x1C;
+    lr = 0;
+    do {
+        if (arg1 == *(s16 *)(arg0 + (lr * r3)))
+            break;
+        lr = (lr + 1);
+    } while ((u32)lr < (u32)0x40);
+    if (lr == 0x40)
+        return 0;
+    return (((*(s16 *)(((u8 *)(((lr + arg2) * 0x1C) + arg0)) + 0x1A) - 1) << 0x10) >> 0x10);
 }
 
 extern "C" asm s32 func_ov037_0216ba54(...)

@@ -6,7 +6,7 @@ extern "C" void func_ov001_020fc8d4(void);
 extern "C" void func_ov001_020fcc8c(void);
 extern "C" void func_ov001_020fccf0(void);
 extern "C" void func_ov001_020fcd70(void);
-extern "C" void func_ov001_020fcf64(void);
+extern "C" s32 func_ov001_020fcf64(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov001_020fcf90(void);
 extern "C" void func_ov001_020fd134(void);
 extern "C" void func_ov001_020fd274(void);
@@ -41,7 +41,7 @@ extern "C" void func_ov001_020fe9c4(void);
 extern "C" char *func_ov001_020fe9f4(void);
 extern "C" void func_ov001_020fea10(void);
 extern "C" void func_ov001_020fea34(void);
-extern "C" void func_ov001_020fea8c(void);
+extern "C" void func_ov001_020fea8c(u8 *arg0);
 extern "C" void func_ov001_020feae0(void);
 extern "C" void func_ov001_020fec14(void);
 extern "C" void func_ov001_020fecfc(void);
@@ -134,7 +134,7 @@ extern "C" void _ZN12SoundManager13func_0203b3c8Ei(void);
 extern "C" void _ZN12SoundManager13func_0203bc60Eii(void);
 extern "C" void _ZN12SoundManager6IsIdleEv(void);
 extern "C" void _ZN12SoundManager8SetSceneEiii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203dde0Ei(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203dde0Ei(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203de9cEP9UnkObjectP16UnkOverlayObject(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203df40Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
@@ -205,7 +205,7 @@ extern "C" void func_ov015_02134ccc(void);
 extern "C" void func_ov015_021353a4(void);
 extern "C" void func_ov015_02135440(void);
 extern "C" void func_ov015_02135e10(void);
-extern "C" void func_ov015_02137808(void);
+extern "C" s32 func_ov015_02137808(...);
 extern "C" void func_ov015_0213a48c(void);
 extern "C" void func_ov015_0213a894(void);
 extern "C" void func_ov015_0213ab48(void);
@@ -718,19 +718,13 @@ extern "C" asm void func_ov001_020fcd70(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov001_020fcf64(void)
+extern "C" s32 func_ov001_020fcf64(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    bl _ZN17UnkClass_0203dc7c13func_0203dde0Ei
-    cmp r4, #0
-    bne @L_020fcf84
-    ldr r0, =data_020c4648
-    ldr r0, [r0]
-    bl func_ov015_02137808
-@L_020fcf84:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
+    _ZN17UnkClass_0203dc7c13func_0203dde0Ei(arg0, arg1, arg2, arg3);
+    if (arg1 == 0) {
+        func_ov015_02137808(*(s32 *)(data_020c4648));
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov001_020fcf90(void)
@@ -2614,26 +2608,19 @@ extern "C" asm void func_ov001_020fea34(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_020fea8c(void)
+extern "C" void func_ov001_020fea8c(u8 *arg0)
 {
-    mov r12, #0
-    ldr r2, =data_ov001_02130668
-    str r12, [r0, #0x44]
-    ldr r1, =data_ov001_02130654
-    strh r12, [r2]
-    strh r12, [r2, #2]
-    str r12, [r1]
-    mov r3, #2
-    add r1, r0, #0x400
-    ldr r2, =data_ov001_02130650
-    strh r12, [r1, #0x2c]
-    strb r3, [r0, #0x42e]
-    strb r3, [r0, #0x42f]
-    strb r12, [r2, #3]
-    strb r12, [r2, #2]
-    strb r12, [r2, #1]
-    strb r12, [r2]
-    bx lr
+    *(s32 *)(arg0 + 0x44) = 0;
+    *(u16 *)(data_ov001_02130668) = 0;
+    *(u16 *)(data_ov001_02130668 + 0x2) = 0;
+    *(s32 *)(data_ov001_02130654) = 0;
+    *(u16 *)(((u8 *)(arg0 + 0x400)) + 0x2C) = 0;
+    *(u8 *)(arg0 + 0x42E) = 2;
+    *(u8 *)(arg0 + 0x42F) = 2;
+    *(u8 *)(data_ov001_02130650 + 0x3) = 0;
+    *(u8 *)(data_ov001_02130650 + 0x2) = 0;
+    *(u8 *)(data_ov001_02130650 + 0x1) = 0;
+    *(u8 *)(data_ov001_02130650) = 0;
 }
 
 extern "C" asm void func_ov001_020feae0(void)

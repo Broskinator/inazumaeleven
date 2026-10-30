@@ -14,7 +14,7 @@ extern "C" void func_0209e25c(void);
 extern "C" void func_0209e298(void);
 extern "C" void func_0209e360(void);
 extern "C" void func_0209e5cc(void **obj);
-extern "C" void func_0209e5ec(void);
+extern "C" s32 func_0209e5ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_0209e654(void);
 extern "C" void func_0209e78c(void);
 extern "C" void func_0209e83c(void);
@@ -27,7 +27,7 @@ extern "C" char data_020bb01c[];
 extern "C" char data_020bb028[];
 extern "C" s32 MI_CpuCopy8(...);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void STD_CompareString(void);
 extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
@@ -354,36 +354,35 @@ extern "C" void func_0209e5cc(void **obj)
     data_020c47b4.Free(*obj);
 }
 
-extern "C" asm void func_0209e5ec(void)
+extern "C" s32 func_0209e5ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r7, #0
-    mov r11, r0
-    mov r6, r7
-    mov r5, #0x20
-    mov r4, #0x28
-@L_0209e604:
-    ldr r1, [r11]
-    mov r0, #0x144
-    mla r8, r7, r0, r1
-    mov r9, #0
-@L_0209e614:
-    mla r10, r9, r4, r8
-    mov r0, r6
-    mov r1, r10
-    mov r2, r5
-    bl MIi_CpuClearFast
-    str r6, [r10, #0x20]
-    add r9, r9, #1
-    str r6, [r10, #0x24]
-    cmp r9, #8
-    blt @L_0209e614
-    add r7, r7, #1
-    str r6, [r8, #0x140]
-    cmp r7, #0x200
-    blt @L_0209e604
-    str r6, [r11, #4]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    u8 *r8;
+    s32 r9;
+    u8 *r11;
+    r4 = 0x28;
+    r5 = 0x20;
+    r6 = 0;
+    r7 = 0;
+    r11 = (u8 *)arg0;
+    do {
+        r8 = (u8 *)((r7 * 0x144) + *(s32 *)(r11));
+        r9 = 0;
+        do {
+            s32 v0 = MIi_CpuClearFast(r6, ((r9 * r4) + r8), r5);
+            *(s32 *)(((u8 *)((r9 * r4) + r8)) + 0x20) = r6;
+            *(s32 *)(((u8 *)((r9 * r4) + r8)) + 0x24) = r6;
+            arg0 = v0;
+            r9 = (r9 + 1);
+        } while (r9 < 8);
+        *(s32 *)(r8 + 0x140) = r6;
+        r7 = (r7 + 1);
+    } while (r7 < 0x200);
+    *(s32 *)(r11 + 0x4) = r6;
+    return arg0;
 }
 
 extern "C" asm void func_0209e654(void)

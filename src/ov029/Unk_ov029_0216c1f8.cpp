@@ -7,13 +7,13 @@ extern "C" s32 func_ov029_0216c3b0(...);
 extern "C" s32 func_ov029_0216c4a8(...);
 extern "C" s32 func_ov029_0216c534(...);
 extern "C" void func_ov029_0216c640(void);
-extern "C" void func_ov029_0216c7ac(void);
+extern "C" s32 func_ov029_0216c7ac(s32 arg0);
 extern "C" void func_ov029_0216c7d8(void);
-extern "C" void func_ov029_0216c918(void);
+extern "C" void func_ov029_0216c918(s32 arg0);
 extern "C" void func_ov029_0216c958(void);
 extern "C" void func_ov029_0216c9f0(void);
 extern "C" void func_ov029_0216ca64(void);
-extern "C" void func_ov029_0216cb18(void);
+extern "C" void func_ov029_0216cb18(s32 arg0);
 extern "C" void func_ov029_0216cb8c(void);
 extern "C" void func_ov029_0216cc54(void);
 extern "C" void func_ov029_0216ccd8(void);
@@ -29,7 +29,7 @@ extern "C" char data_020e88a0[];
 extern "C" char data_ov029_0216d084[];
 extern "C" char data_ov029_0216d18c[];
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206dfa4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076848Ev(void);
@@ -66,7 +66,7 @@ extern "C" void func_020920c4(void);
 extern "C" void func_0209342c(void);
 extern "C" void func_02093524(void);
 extern "C" void func_0209386c(void);
-extern "C" void func_02093928(void);
+extern "C" s32 func_02093928(...);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_02130b14(void);
 extern "C" void func_ov015_021319bc(void);
@@ -473,19 +473,11 @@ extern "C" asm void func_ov029_0216c640(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov029_0216c7ac(void)
+extern "C" s32 func_ov029_0216c7ac(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0xbc0
-    mov r4, #0
-    mov r1, r4
-    add r0, r0, #0x8000
-    mov r2, #0x28
-    bl MI_CpuFill8
-    add r0, r5, #0x8000
-    str r4, [r0, #0xbe8]
-    ldmia sp!, {r3, r4, r5, pc}
+    MI_CpuFill8(((arg0 + 0xBC0) + 0x8000), 0, 0x28);
+    *(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xBE8) = 0;
+    return (arg0 + 0x8000);
 }
 
 extern "C" asm void func_ov029_0216c7d8(void)
@@ -571,23 +563,10 @@ extern "C" asm void func_ov029_0216c7d8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov029_0216c918(void)
+extern "C" void func_ov029_0216c918(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0xbc0
-    add r0, r0, #0x8000
-    mov r1, #0
-    mov r2, #0x14
-    bl MI_CpuFill8
-    ldr r0, =data_020c46d4
-    add r1, r4, #0x8000
-    ldr r0, [r0]
-    ldr r1, [r1, #0x9e4]
-    mov r2, #1
-    mov r3, #2
-    bl func_02093928
-    ldmia sp!, {r4, pc}
+    MI_CpuFill8(((arg0 + 0xBC0) + 0x8000), 0, 0x14);
+    func_02093928(*(s32 *)(data_020c46d4), *(s32 *)(((u8 *)(arg0 + 0x8000)) + 0x9E4), 1, 2);
 }
 
 extern "C" asm void func_ov029_0216c958(void)
@@ -716,36 +695,12 @@ extern "C" asm void func_ov029_0216ca64(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov029_0216cb18(void)
+extern "C" void func_ov029_0216cb18(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    add r0, r6, #0x3d4
-    add r0, r0, #0x8800
-    mov r1, #0
-    mov r2, #0x14
-    bl MI_CpuFill8
-    ldr r4, =data_020c46d4
-    add r1, r6, #0x8000
-    mov r5, #2
-    ldr r0, [r4]
-    ldr r1, [r1, #0x9e4]
-    mov r3, r5
-    mov r2, #1
-    bl func_02093928
-    add r1, r6, #0x8000
-    ldr r0, [r4]
-    ldr r1, [r1, #0x9e4]
-    mov r2, r5
-    mov r3, r5
-    bl func_02093928
-    ldr r0, [r4]
-    add r1, r6, #0x8000
-    ldr r1, [r1, #0x9e4]
-    mov r3, r5
-    mov r2, #3
-    bl func_02093928
-    ldmia sp!, {r4, r5, r6, pc}
+    MI_CpuFill8(((arg0 + 0x3D4) + 0x8800), 0, 0x14);
+    func_02093928(*(s32 *)(data_020c46d4), *(s32 *)(((u8 *)(arg0 + 0x8000)) + 0x9E4), 1, 2);
+    func_02093928(*(s32 *)(data_020c46d4), *(s32 *)(((u8 *)(arg0 + 0x8000)) + 0x9E4), 2, 2);
+    func_02093928(*(s32 *)(data_020c46d4), *(s32 *)(((u8 *)(arg0 + 0x8000)) + 0x9E4), 3, 2);
 }
 
 extern "C" asm void func_ov029_0216cb8c(void)

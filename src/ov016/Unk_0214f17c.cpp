@@ -91,10 +91,10 @@ extern "C" s32 func_ov016_02151498(s32 arg0, s32 arg1);
 extern "C" void func_ov016_021514b0(void);
 extern "C" void func_ov016_02151570(void);
 extern "C" s32 func_ov016_021516d4(...);
-extern "C" void func_ov016_02151714(void);
-extern "C" void func_ov016_02151740(void);
+extern "C" s32 func_ov016_02151714(u8 *arg0, s32 arg1);
+extern "C" s32 func_ov016_02151740(u8 *arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov016_02151788(void);
-extern "C" void func_ov016_0215180c(void);
+extern "C" s32 func_ov016_0215180c(void);
 extern "C" void func_ov016_021518d0(void);
 extern "C" void func_ov016_0215195c(void);
 extern "C" void func_ov016_02151988(void);
@@ -143,9 +143,9 @@ extern "C" void G2S_GetBG0ScrPtr(void);
 extern "C" void G2_GetBG0CharPtr(void);
 extern "C" void G2_GetBG0ScrPtr(void);
 extern "C" void G2x_ChangeBlendBrightness_(void);
-extern "C" void GX_SetBankForSubBGExtPltt(void);
-extern "C" void GX_SetBankForSubOBJ(void);
-extern "C" void GX_SetBankForSubOBJExtPltt(void);
+extern "C" s32 GX_SetBankForSubBGExtPltt(...);
+extern "C" s32 GX_SetBankForSubOBJ(...);
+extern "C" s32 GX_SetBankForSubOBJExtPltt(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClear16(void);
 extern "C" s32 MIi_CpuClearFast(...);
@@ -174,16 +174,16 @@ extern "C" s32 func_02003410(...);
 extern "C" s32 func_02003474(...);
 extern "C" void func_02003918(void);
 extern "C" void func_02003988(void);
-extern "C" void func_020041f4(void);
-extern "C" void func_020043f8(void);
-extern "C" void func_02004528(void);
-extern "C" void func_02004620(void);
-extern "C" void func_020046bc(void);
-extern "C" void func_02004834(void);
-extern "C" void func_02004910(void);
+extern "C" s32 func_020041f4(...);
+extern "C" s32 func_020043f8(...);
+extern "C" s32 func_02004528(...);
+extern "C" s32 func_02004620(...);
+extern "C" s32 func_020046bc(...);
+extern "C" s32 func_02004834(...);
+extern "C" s32 func_02004910(...);
 extern "C" s32 func_02004a10(...);
 extern "C" s32 func_02004ab4(...);
-extern "C" void func_02004ad8(void);
+extern "C" s32 func_02004ad8(...);
 extern "C" s32 func_02004e8c(...);
 extern "C" s32 func_02004ea0(...);
 extern "C" s32 func_02004eb4(...);
@@ -2844,45 +2844,38 @@ extern "C" asm s32 func_ov016_021516d4(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov016_02151714(void)
+extern "C" s32 func_ov016_02151714(u8 *arg0, s32 arg1)
 {
-    cmp r1, #0
-    mov r3, #0
-    ble @L_02151738
-@L_02151720:
-    ldrb r2, [r0, r3]
-    cmp r2, #0
-    beq @L_02151738
-    add r3, r3, #1
-    cmp r3, r1
-    blt @L_02151720
-@L_02151738:
-    mov r0, r3
-    bx lr
+    s32 r3;
+    r3 = 0;
+    if (arg1 > 0) {
+        do {
+            if (*(u8 *)(arg0 + r3) == 0)
+                break;
+            r3 = (r3 + 1);
+        } while (r3 < arg1);
+    }
+    return r3;
 }
 
-extern "C" asm void func_ov016_02151740(void)
+extern "C" s32 func_ov016_02151740(u8 *arg0, u8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    sub r12, r2, #1
-    cmp r12, #0
-    mov lr, #0
-    ble @L_02151774
-@L_02151754:
-    ldrb r3, [r1, lr]
-    cmp r3, #0
-    beq @L_02151774
-    mov r2, lr, lsl #1
-    add lr, lr, #1
-    strh r3, [r0, r2]
-    cmp lr, r12
-    blt @L_02151754
-@L_02151774:
-    mov r1, lr, lsl #1
-    mov r2, #0
-    strh r2, [r0, r1]
-    mov r0, lr
-    ldmia sp!, {r3, pc}
+    s32 r3;
+    s32 r12;
+    s32 lr;
+    r12 = (arg2 - 1);
+    lr = 0;
+    if (r12 > 0) {
+        do {
+            r3 = *(u8 *)(arg1 + lr);
+            if (r3 == 0)
+                break;
+            *(u16 *)(arg0 + (lr << 1)) = r3;
+            lr = (lr + 1);
+        } while (lr < r12);
+    }
+    *(u16 *)(arg0 + (lr << 1)) = 0;
+    return lr;
 }
 
 extern "C" void func_ov016_02151788(void)
@@ -2917,54 +2910,36 @@ extern "C" void func_ov016_02151788(void)
     func_ov016_021518d0();
 }
 
-extern "C" asm void func_ov016_0215180c(void)
+extern "C" s32 func_ov016_0215180c(void)
 {
-    stmdb sp!, {r4, lr}
-    bl func_02004e8c
-    bl func_02004ea0
-    bl func_02004f60
-    bl func_02004f74
-    bl func_ov016_021518d0
-    ldr r4, =data_ov016_02158b90
-    ldr r0, [r4]
-    bl func_020041f4
-    ldr r0, [r4, #4]
-    bl func_020043f8
-    ldr r0, [r4, #8]
-    bl func_02004528
-    ldr r0, [r4, #0xc]
-    bl func_02004620
-    ldr r0, [r4, #0x10]
-    bl func_020046bc
-    ldr r0, [r4, #0x14]
-    bl func_02004834
-    ldr r0, [r4, #0x18]
-    bl func_02004910
-    ldr r0, [r4, #0x1c]
-    bl func_02004ad8
-    ldr r0, [r4, #0x20]
-    bl GX_SetBankForSubOBJ
-    ldr r0, [r4, #0x24]
-    bl GX_SetBankForSubBGExtPltt
-    ldr r0, [r4, #0x28]
-    bl GX_SetBankForSubOBJExtPltt
-    ldr r0, [r4, #0x30]
-    bl func_02004ab4
-    mov r3, #0
-    ldr r2, =0x4000050
-    ldr r0, =0x4001014
-    strh r3, [r2]
-    add r1, r2, #0x1000
-    strh r3, [r1]
-    str r3, [r2, #-0x40]
-    str r3, [r2, #-0x3c]
-    str r3, [r2, #-0x38]
-    str r3, [r2, #-0x34]
-    str r3, [r2, #0xfc0]
-    str r3, [r0]
-    str r3, [r0, #4]
-    str r3, [r0, #8]
-    ldmia sp!, {r4, pc}
+    func_02004e8c();
+    func_02004ea0();
+    func_02004f60();
+    func_02004f74();
+    func_ov016_021518d0();
+    func_020041f4(*(s32 *)(data_ov016_02158b90));
+    func_020043f8(*(s32 *)(data_ov016_02158b90 + 0x4));
+    func_02004528(*(s32 *)(data_ov016_02158b90 + 0x8));
+    func_02004620(*(s32 *)(data_ov016_02158b90 + 0xC));
+    func_020046bc(*(s32 *)(data_ov016_02158b90 + 0x10));
+    func_02004834(*(s32 *)(data_ov016_02158b90 + 0x14));
+    func_02004910(*(s32 *)(data_ov016_02158b90 + 0x18));
+    func_02004ad8(*(s32 *)(data_ov016_02158b90 + 0x1C));
+    GX_SetBankForSubOBJ(*(s32 *)(data_ov016_02158b90 + 0x20));
+    GX_SetBankForSubBGExtPltt(*(s32 *)(data_ov016_02158b90 + 0x24));
+    GX_SetBankForSubOBJExtPltt(*(s32 *)(data_ov016_02158b90 + 0x28));
+    func_02004ab4(*(s32 *)(data_ov016_02158b90 + 0x30));
+    *(u16 *)(((u8 *)0x4000050)) = 0;
+    *(u16 *)(((u8 *)(0x4000050 + 0x1000))) = 0;
+    *(s32 *)(((u8 *)0x4000050) - 0x40) = 0;
+    *(s32 *)(((u8 *)0x4000050) - 0x3C) = 0;
+    *(s32 *)(((u8 *)0x4000050) - 0x38) = 0;
+    *(s32 *)(((u8 *)0x4000050) - 0x34) = 0;
+    *(s32 *)(((u8 *)0x4000050) + 0xFC0) = 0;
+    *(s32 *)(((u8 *)0x4001014)) = 0;
+    *(s32 *)(((u8 *)0x4001014) + 0x4) = 0;
+    *(s32 *)(((u8 *)0x4001014) + 0x8) = 0;
+    return 0x4001014;
 }
 
 extern "C" void func_ov016_021518d0(void)

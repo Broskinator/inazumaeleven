@@ -1,6 +1,6 @@
 #include "ov057/Unk_ov057_02165d60.hpp"
 
-extern "C" void func_ov057_02165d60(void);
+extern "C" s32 func_ov057_02165d60(s32 arg0);
 extern "C" void func_ov057_02165da4(void);
 extern "C" void func_ov057_02165ddc(u8 *arg0, s32 arg1);
 extern "C" void func_ov057_02165de4(void);
@@ -168,24 +168,15 @@ extern "C" void gEntryPool(void);
 extern "C" void gGameState(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov057_02165d60(void)
+extern "C" s32 func_ov057_02165d60(s32 arg0)
 {
-    cmp r0, #0
-    blt @L_02165d94
-    cmp r0, #0xa
-    bge @L_02165d94
-    ldr r1, =0x834
-    ldr r2, =data_020cb6e0
-    mul r1, r0, r1
-    ldr r0, [r2, #0x26c]
-    add r0, r0, #8
-    ldrb r0, [r0, r1]
-    cmp r0, #0
-    movne r0, #1
-    bxne lr
-@L_02165d94:
-    mov r0, #0
-    bx lr
+    if (arg0 >= 0) {
+        if (arg0 < 10) {
+            if (*(u8 *)(((u8 *)(*(s32 *)(data_020cb6e0 + 0x26C) + 8)) + (arg0 * 0x834)) != 0)
+                return 1;
+        }
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov057_02165da4(void)

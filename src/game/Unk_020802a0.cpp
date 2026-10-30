@@ -126,23 +126,20 @@ extern "C" u16 func_0208033c(u16 *list, u32 i)
     return list[i] & 0xFFF;
 }
 
-extern "C" asm void func_02080368(void)
+extern "C" s32 func_02080368(u8 *arg0, s32 arg1)
 {
-    mov r3, #0
-@L_0208036c:
-    mov r2, r3, lsl #1
-    ldrh r2, [r0, r2]
-    cmp r2, #0
-    beq @L_02080388
-    cmp r1, r2
-    moveq r0, #1
-    bxeq lr
-@L_02080388:
-    add r3, r3, #1
-    cmp r3, #0x10
-    blt @L_0208036c
-    mov r0, #0
-    bx lr
+    s32 r2;
+    s32 r3;
+    r3 = 0;
+    do {
+        r2 = *(u16 *)(arg0 + (r3 << 1));
+        if (r2 != 0) {
+            if (arg1 == r2)
+                return 1;
+        }
+        r3 = (r3 + 1);
+    } while (r3 < 0x10);
+    return 0;
 }
 
 extern "C" asm void func_0208039c(void)
@@ -290,24 +287,22 @@ extern "C" asm void func_0208051c(void)
     bx lr
 }
 
-extern "C" asm void func_02080564(void)
+extern "C" s32 func_02080564(u8 *arg0, s32 arg1)
 {
-    ldr r2, =0xfff
-    mov r12, #0
-@L_0208056c:
-    mov r3, r12, lsl #1
-    ldrh r3, [r0, r3]
-    tst r3, r2
-    beq @L_02080588
-    cmp r1, r3
-    addeq r0, r12, #1
-    bxeq lr
-@L_02080588:
-    add r12, r12, #1
-    cmp r12, #0x10
-    blt @L_0208056c
-    mov r0, #0
-    bx lr
+    s32 r2;
+    s32 r3;
+    s32 r12;
+    r2 = 0xFFF;
+    r12 = 0;
+    do {
+        r3 = *(u16 *)(arg0 + (r12 << 1));
+        if ((r3 & r2) != 0) {
+            if (arg1 == r3)
+                return (r12 + 1);
+        }
+        r12 = (r12 + 1);
+    } while (r12 < 0x10);
+    return 0;
 }
 
 extern "C" asm void func_020805a0(void)
@@ -476,23 +471,20 @@ extern "C" u16 func_020807b4(u8 *data)
     return *(u16 *)(data + 8) & 0xFFF;
 }
 
-extern "C" asm void func_020807d0(void)
+extern "C" s32 func_020807d0(u8 *arg0, s32 arg1)
 {
-    mov r3, #0
-@L_020807d4:
-    mov r2, r3, lsl #1
-    ldrh r2, [r0, r2]
-    cmp r2, #0
-    beq @L_020807f0
-    cmp r1, r2
-    moveq r0, #1
-    bxeq lr
-@L_020807f0:
-    add r3, r3, #1
-    cmp r3, #4
-    blt @L_020807d4
-    mov r0, #0
-    bx lr
+    s32 r2;
+    s32 r3;
+    r3 = 0;
+    do {
+        r2 = *(u16 *)(arg0 + (r3 << 1));
+        if (r2 != 0) {
+            if (arg1 == r2)
+                return 1;
+        }
+        r3 = (r3 + 1);
+    } while (r3 < 4);
+    return 0;
 }
 
 extern "C" int func_02080804(MatchPlayer *player)

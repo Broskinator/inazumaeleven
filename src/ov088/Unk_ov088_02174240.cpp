@@ -33,7 +33,7 @@ extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1);
 extern "C" void func_ov088_02175720(void);
 extern "C" void func_ov088_02175770(void);
 extern "C" void func_ov088_021757d8(void);
-extern "C" void func_ov088_02175858(void);
+extern "C" s32 func_ov088_02175858(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov088_02175880(void);
 extern "C" void func_ov088_02175894(void);
 extern "C" void func_ov088_02175898(void);
@@ -50,7 +50,7 @@ extern "C" char data_ov088_02180a60[];
 extern "C" void FS_ReadFile(void);
 extern "C" void FS_ReadFileAsync(void);
 extern "C" void FS_SeekFile(void);
-extern "C" void FS_WaitAsync(void);
+extern "C" s32 FS_WaitAsync(...);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void MIi_CpuCopyFast(void);
@@ -1610,19 +1610,15 @@ extern "C" asm void func_ov088_021757d8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov088_02175858(void)
+extern "C" s32 func_ov088_02175858(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldrb r0, [r4, #0x10]
-    cmp r0, #1
-    bne @L_02175874
-    ldr r0, [r4, #0xc]
-    bl FS_WaitAsync
-@L_02175874:
-    mov r0, #0
-    strb r0, [r4, #0x10]
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    r4 = (u8 *)arg0;
+    if (*(u8 *)(r4 + 0x10) == 1) {
+        FS_WaitAsync(*(s32 *)(r4 + 0xC));
+    }
+    *(u8 *)(r4 + 0x10) = 0;
+    return 0;
 }
 
 extern "C" asm void func_ov088_02175880(void)

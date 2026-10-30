@@ -22,8 +22,8 @@ extern "C" s32 func_ov014_020fd420(u8 *arg0);
 extern "C" void func_ov014_020fd428(void);
 extern "C" void func_ov014_020fd770(void);
 extern "C" char *func_ov014_020fd8f0(void);
-extern "C" void func_ov014_020fd90c(void);
-extern "C" void func_ov014_020fd938(void);
+extern "C" s32 func_ov014_020fd90c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 func_ov014_020fd938(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" u8 func_ov014_020fd964(void);
 extern "C" void func_ov014_020fd974(void);
 extern "C" char *func_ov014_020fd9bc(void);
@@ -152,11 +152,11 @@ extern "C" void func_0209b2bc(void);
 extern "C" void func_0209bebc(void);
 extern "C" void func_0209d668(void);
 extern "C" void func_0209d8b8(void);
-extern "C" void func_ov014_0210929c(void);
+extern "C" s32 func_ov014_0210929c(...);
 extern "C" void func_ov014_02110acc(void);
 extern "C" void func_ov014_02110ba8(void);
 extern "C" s32 func_ov014_02110bfc(...);
-extern "C" void func_ov014_02111688(void);
+extern "C" s32 func_ov014_02111688(...);
 extern "C" void func_ov014_02111750(void);
 extern "C" void func_ov015_02132224(void);
 extern "C" void func_ov015_021322b0(void);
@@ -1397,34 +1397,24 @@ extern "C" char *func_ov014_020fd8f0(void)
     return data_ov014_021260c0;
 }
 
-extern "C" asm void func_ov014_020fd90c(void)
+extern "C" s32 func_ov014_020fd90c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov014_021260c0
-    ldrb r0, [r0]
-    cmp r0, #0
-    bne @L_020fd928
-    bl func_ov014_0210929c
-    bl func_ov014_02111688
-@L_020fd928:
-    ldr r0, =data_ov014_021260c0
-    ldrb r0, [r0]
-    ldmia sp!, {r3, pc}
+    arg0 = *(u8 *)(data_ov014_021260c0);
+    if (arg0 == 0) {
+        func_ov014_0210929c();
+        func_ov014_02111688();
+    }
+    return *(u8 *)(data_ov014_021260c0);
 }
 
-extern "C" asm void func_ov014_020fd938(void)
+extern "C" s32 func_ov014_020fd938(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov014_021260c0
-    ldrb r0, [r0, #1]
-    cmp r0, #0
-    bne @L_020fd954
-    bl func_ov014_0210929c
-    bl func_ov014_02111688
-@L_020fd954:
-    ldr r0, =data_ov014_021260c0
-    ldrb r0, [r0, #1]
-    ldmia sp!, {r3, pc}
+    arg0 = *(u8 *)(data_ov014_021260c0 + 0x1);
+    if (arg0 == 0) {
+        func_ov014_0210929c();
+        func_ov014_02111688();
+    }
+    return *(u8 *)(data_ov014_021260c0 + 0x1);
 }
 
 extern "C" u8 func_ov014_020fd964(void)

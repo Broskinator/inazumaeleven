@@ -6,7 +6,7 @@ extern "C" void func_ov015_02130878(void);
 extern "C" void func_ov015_02130920(void);
 extern "C" s32 func_ov015_021309a4(...);
 extern "C" s32 func_ov015_021309f8(...);
-extern "C" void func_ov015_02130a4c(void);
+extern "C" s32 func_ov015_02130a4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02130a84(s32 arg0);
 extern "C" void func_ov015_02130ab8(void);
 extern "C" void func_ov015_02130ad4(void);
@@ -19,7 +19,7 @@ extern "C" s32 func_ov015_02130ce0(...);
 extern "C" void func_ov015_02130d8c(void);
 extern "C" s32 func_ov015_02130e28(s32 arg0);
 extern "C" void func_ov015_02130e40(void);
-extern "C" void func_ov015_02130e54(void);
+extern "C" s32 func_ov015_02130e54(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02130e80(void);
 extern "C" void func_ov015_02130f1c(void);
 extern "C" void func_ov015_02130fd4(void);
@@ -282,22 +282,15 @@ extern "C" asm s32 func_ov015_021309f8(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov015_02130a4c(void)
+extern "C" s32 func_ov015_02130a4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    movs r5, r0
-    beq @L_02130a78
-    mov r4, #0x18
-    ldr r0, =data_020c4874
-    mov r1, r5
-    mov r2, r4
-    bl MI_CpuCopy8
-    mov r0, r5
-    mov r1, r4
-    bl DC_FlushRange
-@L_02130a78:
-    ldr r0, =data_020c4874
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r5;
+    r5 = arg0;
+    if (r5 != 0) {
+        MI_CpuCopy8((s32)data_020c4874, r5, 0x18);
+        DC_FlushRange(r5, 0x18);
+    }
+    return (s32)data_020c4874;
 }
 
 extern "C" void func_ov015_02130a84(s32 arg0)
@@ -567,20 +560,18 @@ extern "C" asm void func_ov015_02130e40(void)
     bx lr
 }
 
-extern "C" asm void func_ov015_02130e54(void)
+extern "C" s32 func_ov015_02130e54(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    adds r2, r0, r2
-    bmi @L_02130e78
-    cmp r0, #0x100
-    bge @L_02130e78
-    adds r0, r1, r3
-    bmi @L_02130e78
-    cmp r1, #0xc0
-    movlt r0, #1
-    bxlt lr
-@L_02130e78:
-    mov r0, #0
-    bx lr
+    if ((arg0 + arg2) >= 0) {
+        if (arg0 < 0x100) {
+            arg0 = (arg1 + arg3);
+            if (arg0 >= 0) {
+                if (arg1 < 0xC0)
+                    return 1;
+            }
+        }
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov015_02130e80(void)

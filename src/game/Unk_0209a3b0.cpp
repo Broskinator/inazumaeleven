@@ -27,7 +27,7 @@ extern "C" s32 func_0209ac80(u8 *obj);
 extern "C" void func_0209ac8c(void);
 extern "C" void func_0209ae70(void);
 extern "C" u8 *func_0209b034(u8 *obj);
-extern "C" void func_0209b040(void);
+extern "C" void func_0209b040(s32 arg0);
 extern "C" void func_0209b06c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" u8 *func_0209b0a4(u8 *obj);
 extern "C" u8 *func_0209b0b0(u8 *obj, s32 *value);
@@ -986,20 +986,17 @@ extern "C" u8 *func_0209b034(u8 *obj)
     return obj + 0x93C;
 }
 
-extern "C" asm void func_0209b040(void)
+extern "C" void func_0209b040(s32 arg0)
 {
-    mov r12, #0
-    mov r1, #0x38
-@L_0209b048:
-    mla r2, r12, r1, r0
-    add r3, r0, r12
-    add r12, r12, #1
-    ldrb r3, [r3, #0x5d4]
-    add r2, r2, #0x4000
-    cmp r12, #0x40
-    str r3, [r2, #0xcbc]
-    blt @L_0209b048
-    bx lr
+    s32 r1;
+    s32 r12;
+    r1 = 0x38;
+    r12 = 0;
+    do {
+        *(s32 *)(((u8 *)(((r12 * r1) + arg0) + 0x4000)) + 0xCBC) = *(u8 *)(((u8 *)(arg0 + r12)) + 0x5D4);
+        r12 = (r12 + 1);
+    } while (r12 < 0x40);
+    return;
 }
 
 extern "C" void func_0209b06c(u8 *arg0, s32 arg1, s32 arg2)
