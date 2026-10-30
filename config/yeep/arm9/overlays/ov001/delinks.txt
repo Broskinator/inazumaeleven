@@ -8,3 +8,7 @@
 src/ov001/Unk_ov001_020fc7e0.cpp:
     complete
     .text start:0x020fc7e0 end:0x020ffb28
+
+src/ov001/Unk_ov001_020ffb28.cpp:
+    complete
+    .text start:0x020ffb28 end:0x02102bcc
