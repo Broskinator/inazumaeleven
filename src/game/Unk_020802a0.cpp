@@ -82,32 +82,31 @@ extern "C" void func_020802b8(u16 *list)
     MI_CpuFill8(list, 0, 16 * sizeof(u16));
 }
 
-extern "C" asm void func_020802cc(void)
+extern "C" void func_020802cc(u8 *arg0, s32 arg1, u16 arg2)
 {
-    stmdb sp!, {r4, lr}
-    cmp r1, #0
-    ldmltia sp!, {r4, pc}
-    cmp r1, #0x10
-    ldmgeia sp!, {r4, pc}
-    ldr r3, =0xfff
-    tst r2, r3
-    moveq r2, #0
-    cmp r2, #0
-    beq @L_02080318
-    mov r4, #0
-    mov r3, r4
-@L_020802fc:
-    mov lr, r4, lsl #1
-    ldrh r12, [r0, lr]
-    add r4, r4, #1
-    cmp r2, r12
-    streqh r3, [r0, lr]
-    cmp r4, #0x10
-    blt @L_020802fc
-@L_02080318:
-    mov r1, r1, lsl #1
-    strh r2, [r0, r1]
-    ldmia sp!, {r4, pc}
+    s32 r3;
+    s32 r4;
+    s32 lr;
+    if (arg1 < 0)
+        return;
+    if (arg1 >= 0x10)
+        return;
+    if ((arg2 & 0xFFF) == 0) {
+        arg2 = 0;
+    }
+    if (arg2 != 0) {
+        r4 = 0;
+        r3 = 0;
+        do {
+            lr = (r4 << 1);
+            if (arg2 == *(u16 *)(arg0 + lr)) {
+                *(u16 *)(arg0 + lr) = r3;
+            }
+            r4 = (r4 + 1);
+        } while (r4 < 0x10);
+    }
+    *(u16 *)(arg0 + (arg1 << 1)) = arg2;
+    return;
 }
 
 extern "C" u16 func_02080328(u16 *list, u32 i)

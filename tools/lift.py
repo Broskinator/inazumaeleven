@@ -1246,20 +1246,37 @@ def lift_cfg(name, body, protos, variant=0):
                 if isinstance(v, (Call, Tmp)):
                     v.used = True
             if term:
-                m_ = {id(v): home for home, v in order}
-                new = subst_flags(term[0], m_)
-                for home, v in order:
-                    if home in flag_refs(term[0]) and not any(x is v for x in flag_values(term[0])):
+                late = [(home, v) for home, v in order
+                        if home in flag_refs(term[0]) and not any(x is v for x in flag_values(term[0]))]
+                if late:
+                    sc = b["succ"]
+                    one = [x for x in sc if preds0[x] == [k] and blocks[x]["succ"] == [y for y in sc if y != x]]
+                    if len(sc) != 2 or not one:
                         raise Fail("a compare of a variable written after it")
+                    s1 = one[0]
+                    j = [y for y in sc if y != s1][0]
+                    for home, v in late:
+                        r_ = [r for r, (h, _) in assign.items() if h is home][0]
+                        if sorted(preds0[j]) != sorted([k, s1]) or any(r_ in use_def(i_)[0] | use_def(i_)[1] for i_ in blocks[s1]["insns"]) or has_load(v) \
+                                or any(not isinstance(x, Param) or isinstance(x, Tmp) for x in refs(v)):
+                            raise Fail("a compare of a variable written after it")
+                        stmts.remove(("assign", home, v))
+                    SINK[k] = (s1, j, late)
+                m_ = {id(v): home for home, v in order if not any(v is x for _, x in late)}
+                new = subst_flags(term[0], m_)
                 term = (new, term[1])
         return stmts, term
+    preds0 = [[j for j in range(len(blocks)) if x in blocks[j]["succ"]] for x in range(len(blocks))]
+    SINK = {}
     for _ in range(len(blocks) + 4):     # (a value goes on a block each time)
+        SINK.clear()
         calls.clear()
         callees.clear()
         used_vars.clear()
         tmps.clear()
         code = [run(k) for k in range(len(blocks))]
         assigned = {st[1] for c_ in code for st in c_[0] if st[0] == "assign"}
+        assigned |= {home for (_, _, late) in SINK.values() for home, _ in late}
         entry = [{} for _ in blocks]
         for k in range(1, len(blocks)):
             preds_ = [j for j in range(len(blocks)) if k in blocks[j]["succ"]]
@@ -1277,6 +1294,12 @@ def lift_cfg(name, body, protos, variant=0):
             break
     else:
         raise Fail("values that don't settle")
+    for k, (s1, j, late) in SINK.items():
+        # (the if's block mustn't change what the assignment reads)
+        if any(st[0] == "assign" and (st[1] in [h for h, _ in late] or any(st[1] in refs(v) for _, v in late))
+               for st in code[s1][0]):
+            raise Fail("a compare of a variable written after it")
+        code[j] = ([("assign", home, v) for home, v in late] + code[j][0], code[j][1])
     # (a branch, then a block with only a compare and a branch: one condition, && or ||)
     merged = True
     while merged:
