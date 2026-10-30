@@ -22,7 +22,7 @@ extern "C" void func_0208f300(u8 *obj, u8 value);
 extern "C" u8 func_0208f308(u8 *obj);
 extern "C" void func_0208f310(void);
 extern "C" void func_0208f3c0(void);
-extern "C" void func_0208f628(void);
+extern "C" void func_0208f628(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_0208f6ac(void);
 extern "C" void func_0208f750(void);
 extern "C" void func_0208f7c8(void);
@@ -900,41 +900,33 @@ extern "C" asm void func_0208f3c0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_0208f628(void)
+extern "C" void func_0208f628(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r8, [sp, #0x18]
-    sub r7, r1, #0x30000
-    add r6, r3, #0x30000
-    rsb r5, r3, r1, lsl #1
-    rsb r4, r1, r3, lsl #1
-    rsb lr, r8, r2, lsl #1
-    rsb r12, r2, r8, lsl #1
-    str r7, [r0, #0x11c]
-    str r2, [r0, #0x120]
-    str r6, [r0, #0x124]
-    str r2, [r0, #0x128]
-    str r6, [r0, #0x12c]
-    str r8, [r0, #0x130]
-    str r7, [r0, #0x134]
-    str r8, [r0, #0x138]
-    str r5, [r0, #0x13c]
-    str r2, [r0, #0x140]
-    str r4, [r0, #0x144]
-    str r2, [r0, #0x148]
-    str r3, [r0, #0x14c]
-    str lr, [r0, #0x150]
-    str r3, [r0, #0x154]
-    str r12, [r0, #0x158]
-    str r4, [r0, #0x15c]
-    str r8, [r0, #0x160]
-    str r5, [r0, #0x164]
-    str r8, [r0, #0x168]
-    str r1, [r0, #0x16c]
-    str r12, [r0, #0x170]
-    str r1, [r0, #0x174]
-    str lr, [r0, #0x178]
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    *(s32 *)(arg0 + 0x11C) = (arg1 - 0x30000);
+    *(s32 *)(arg0 + 0x120) = arg2;
+    *(s32 *)(arg0 + 0x124) = (arg3 + 0x30000);
+    *(s32 *)(arg0 + 0x128) = arg2;
+    *(s32 *)(arg0 + 0x12C) = (arg3 + 0x30000);
+    *(s32 *)(arg0 + 0x130) = arg4;
+    *(s32 *)(arg0 + 0x134) = (arg1 - 0x30000);
+    *(s32 *)(arg0 + 0x138) = arg4;
+    *(s32 *)(arg0 + 0x13C) = ((arg1 << 1) - arg3);
+    *(s32 *)(arg0 + 0x140) = arg2;
+    *(s32 *)(arg0 + 0x144) = ((arg3 << 1) - arg1);
+    *(s32 *)(arg0 + 0x148) = arg2;
+    *(s32 *)(arg0 + 0x14C) = arg3;
+    *(s32 *)(arg0 + 0x150) = ((arg2 << 1) - arg4);
+    *(s32 *)(arg0 + 0x154) = arg3;
+    *(s32 *)(arg0 + 0x158) = ((arg4 << 1) - arg2);
+    *(s32 *)(arg0 + 0x15C) = ((arg3 << 1) - arg1);
+    *(s32 *)(arg0 + 0x160) = arg4;
+    *(s32 *)(arg0 + 0x164) = ((arg1 << 1) - arg3);
+    *(s32 *)(arg0 + 0x168) = arg4;
+    *(s32 *)(arg0 + 0x16C) = arg1;
+    *(s32 *)(arg0 + 0x170) = ((arg4 << 1) - arg2);
+    *(s32 *)(arg0 + 0x174) = arg1;
+    *(s32 *)(arg0 + 0x178) = ((arg2 << 1) - arg4);
+    return;
 }
 
 extern "C" asm void func_0208f6ac(void)

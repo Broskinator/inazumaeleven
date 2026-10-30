@@ -15,7 +15,7 @@ extern "C" void func_ov052_02166668(void);
 extern "C" void func_ov052_021666d4(void);
 extern "C" void func_ov052_021667a8(void);
 extern "C" void func_ov052_02166834(void);
-extern "C" void func_ov052_02166944(void);
+extern "C" s32 func_ov052_02166944(u8 *arg0, s32 arg1);
 extern "C" void func_ov052_02166978(void);
 extern "C" void func_ov052_02166af4(void);
 extern "C" void func_ov052_02166b14(void);
@@ -1009,23 +1009,16 @@ extern "C" asm void func_ov052_02166834(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov052_02166944(void)
+extern "C" s32 func_ov052_02166944(u8 *arg0, s32 arg1)
 {
-    ldr r2, [r0, #0x160]
-    cmp r2, #0
-    moveq r0, #0
-    bxeq lr
-    cmp r1, #0
-    blt @L_02166968
-    ldr r0, [r0, #0x164]
-    cmp r1, r0
-    blt @L_02166970
-@L_02166968:
-    mov r0, #0
-    bx lr
-@L_02166970:
-    add r0, r2, r1, lsl #2
-    bx lr
+    s32 r2;
+    if (*(s32 *)(arg0 + 0x160) == 0)
+        return 0;
+    r2 = *(s32 *)(arg0 + 0x160);
+    if ((arg1 < 0 || arg1 >= *(s32 *)(arg0 + 0x164))) {
+        return 0;
+    }
+    return (r2 + (arg1 << 2));
 }
 
 extern "C" asm void func_ov052_02166978(void)

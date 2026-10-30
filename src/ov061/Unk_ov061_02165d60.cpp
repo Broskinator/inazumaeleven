@@ -24,7 +24,7 @@ extern "C" void func_ov061_021671cc(void);
 extern "C" void func_ov061_021671e8(void);
 extern "C" s32 func_ov061_021672b4(...);
 extern "C" void func_ov061_021677f0(void);
-extern "C" void func_ov061_02167888(void);
+extern "C" s32 func_ov061_02167888(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov061_021678ec(...);
 extern "C" void func_ov061_02167980(void);
 extern "C" void func_ov061_02167a40(void);
@@ -154,7 +154,7 @@ extern "C" void func_ov015_0213c3dc(void);
 extern "C" void func_ov015_021491a0(void);
 extern "C" void func_ov061_0216912c(void);
 extern "C" void func_ov087_0217fec8(void);
-extern "C" void func_ov087_021802e4(void);
+extern "C" s32 func_ov087_021802e4(...);
 extern "C" void func_ov087_021815e4(void);
 extern "C" void func_ov087_02181c08(void);
 extern "C" void gGameState(void);
@@ -2034,38 +2034,24 @@ extern "C" asm void func_ov061_021677f0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov061_02167888(void)
+extern "C" s32 func_ov061_02167888(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020e88a0
-    bl func_ov087_021802e4
-    add r0, r0, #4
-    cmp r0, #4
-    addls pc, pc, r0, lsl #2
-    b @L_021678e0
-    b @L_021678d8
-    b @L_021678d0
-    b @L_021678c8
-    b @L_021678c0
-    b @L_021678b8
-@L_021678b8:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
-@L_021678c0:
-    mov r0, #0x11
-    ldmia sp!, {r3, pc}
-@L_021678c8:
-    mov r0, #0x12
-    ldmia sp!, {r3, pc}
-@L_021678d0:
-    mov r0, #0x13
-    ldmia sp!, {r3, pc}
-@L_021678d8:
-    mov r0, #0x13
-    ldmia sp!, {r3, pc}
-@L_021678e0:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    v0 = func_ov087_021802e4((s32)data_020e88a0, arg1, arg2, arg3);
+    switch ((v0 + 4)) {
+        case 4:
+            return 0;
+        case 3:
+            return 0x11;
+        case 2:
+            return 0x12;
+        case 1:
+            return 0x13;
+        case 0:
+            return 0x13;
+        default:
+            return 0;
+    }
 }
 
 extern "C" asm s32 func_ov061_021678ec(...)

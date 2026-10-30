@@ -18,7 +18,7 @@ extern "C" void func_ov053_02166664(void);
 extern "C" void func_ov053_02166750(void);
 extern "C" void func_ov053_02166ab8(void);
 extern "C" void func_ov053_02166e1c(void);
-extern "C" void func_ov053_02166f4c(void);
+extern "C" s32 func_ov053_02166f4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov053_02166fc4(void);
 extern "C" void func_ov053_02167114(void);
 extern "C" void func_ov053_021671f4(u8 *arg0);
@@ -69,7 +69,7 @@ extern "C" void MI_CpuCopy8(void);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_020739ccEi(...);
 extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);
 extern "C" void func_02091d64(void);
 extern "C" void func_020920c4(void);
@@ -1350,43 +1350,29 @@ extern "C" asm void func_ov053_02166e1c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov053_02166f4c(void)
+extern "C" s32 func_ov053_02166f4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020739ccEi
-    ldrb r0, [r0]
-    cmp r0, #9
-    addls pc, pc, r0, lsl #2
-    b @L_02166fb8
-    b @L_02166fb8
-    b @L_02166fb8
-    b @L_02166fb8
-    b @L_02166fb8
-    b @L_02166fb8
-    b @L_02166f90
-    b @L_02166f98
-    b @L_02166fa0
-    b @L_02166fa8
-    b @L_02166fb0
-@L_02166f90:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
-@L_02166f98:
-    mov r0, #1
-    ldmia sp!, {r3, pc}
-@L_02166fa0:
-    mov r0, #2
-    ldmia sp!, {r3, pc}
-@L_02166fa8:
-    mov r0, #3
-    ldmia sp!, {r3, pc}
-@L_02166fb0:
-    mov r0, #4
-    ldmia sp!, {r3, pc}
-@L_02166fb8:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    v0 = _ZN17UnkClass_020621b413func_020739ccEi((s32)data_020e88a0, arg1, arg2, arg3);
+    switch (*(u8 *)(((u8 *)v0))) {
+        case 5:
+            return 0;
+        case 6:
+            return 1;
+        case 7:
+            return 2;
+        case 8:
+            return 3;
+        case 9:
+            return 4;
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        default:
+            return 0;
+    }
 }
 
 extern "C" asm void func_ov053_02166fc4(void)

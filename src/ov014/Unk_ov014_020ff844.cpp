@@ -26,7 +26,7 @@ extern "C" void func_ov014_02100994(void);
 extern "C" void func_ov014_02100a38(void);
 extern "C" void func_ov014_02100a7c(s32 arg0);
 extern "C" s32 func_ov014_02100a9c(s32 arg0);
-extern "C" void func_ov014_02100ab0(void);
+extern "C" s32 func_ov014_02100ab0(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_02100b00(u8 *arg0);
 extern "C" void func_ov014_02100b34(void);
 extern "C" void func_ov014_02100b88(void);
@@ -52,7 +52,7 @@ extern "C" void func_ov014_0210181c(s32 arg0);
 extern "C" void func_ov014_0210182c(void);
 extern "C" void func_ov014_021018b4(s32 arg0);
 extern "C" void func_ov014_021018ec(void);
-extern "C" void func_ov014_021019f4(void);
+extern "C" s32 func_ov014_021019f4(s32 arg0);
 extern "C" void func_ov014_02101a08(void);
 extern "C" void func_ov014_02101a24(void);
 extern "C" void func_ov014_02101a74(void);
@@ -1413,28 +1413,15 @@ extern "C" s32 func_ov014_02100a9c(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov014_02100ab0(void)
+extern "C" s32 func_ov014_02100ab0(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    ldr r1, [r4]
-    mov r2, r0
-    cmp r1, #0xf
-    cmpne r1, #0xe
-    mvnne r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r0, [r4, #4]
-    cmp r0, #9
-    mvnhs r0, #0
-    ldmhsia sp!, {r4, pc}
-    mov r0, r4
-    add r1, r2, #0xc
-    mov r2, #0x14
-    bl MI_CpuCopy8
-    mov r0, #0
-    strb r0, [r4, #0x10]
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    if ((*(s32 *)(arg1) != 0xF && *(s32 *)(arg1) != 0xE))
+        return -1;
+    if ((u32)*(s32 *)(arg1 + 0x4) >= (u32)9)
+        return -1;
+    MI_CpuCopy8((s32)arg1, (arg0 + 0xC), 0x14, arg3);
+    *(u8 *)(arg1 + 0x10) = 0;
+    return 1;
 }
 
 extern "C" s32 func_ov014_02100b00(u8 *arg0)
@@ -2460,12 +2447,9 @@ extern "C" asm void func_ov014_021018ec(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_021019f4(void)
+extern "C" s32 func_ov014_021019f4(s32 arg0)
 {
-    ldr r1, =0xffff
-    eors r0, r0, r1
-    moveq r0, r1
-    bx lr
+    return ((arg0 ^ 0xFFFF) == 0 ? 0xFFFF : (arg0 ^ 0xFFFF));
 }
 
 extern "C" asm void func_ov014_02101a08(void)

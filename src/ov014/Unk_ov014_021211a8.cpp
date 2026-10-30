@@ -33,7 +33,7 @@ extern "C" void func_ov014_02121f34(void);
 extern "C" void func_ov014_02121f88(void);
 extern "C" void func_ov014_02122040(void);
 extern "C" void func_ov014_021221f0(void);
-extern "C" void func_ov014_02122244(void);
+extern "C" void func_ov014_02122244(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" char *func_ov014_02122264(void);
 extern "C" void func_ov014_02122270(void);
 extern "C" void func_ov014_021222b4(void);
@@ -1334,15 +1334,12 @@ extern "C" void func_ov014_021221f0(void)
     OS_InitMutex((s32)data_ov014_0212d588);
 }
 
-extern "C" asm void func_ov014_02122244(void)
+extern "C" void func_ov014_02122244(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, =data_ov014_0212d57c
-    ldr r12, [r12, #0x28]
-    cmp r12, #0
-    ldmeqia sp!, {r3, pc}
-    blx r12
-    ldmia sp!, {r3, pc}
+    if (*(s32 *)(data_ov014_0212d57c + 0x28) == 0)
+        return;
+    ((s32 (*)(...))*(s32 *)(data_ov014_0212d57c + 0x28))(arg0, arg1, arg2, arg3);
+    return;
 }
 
 extern "C" char *func_ov014_02122264(void)

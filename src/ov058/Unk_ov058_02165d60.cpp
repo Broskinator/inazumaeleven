@@ -2,7 +2,7 @@
 
 extern "C" void func_ov058_02165d60(void);
 extern "C" void func_ov058_02165d98(u8 *arg0, s32 arg1);
-extern "C" void func_ov058_02165da0(void);
+extern "C" s32 func_ov058_02165da0(s32 arg0, s32 arg1);
 extern "C" void func_ov058_02165ea0(void);
 extern "C" void func_ov058_02166120(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov058_02166140(void);
@@ -160,88 +160,56 @@ extern "C" void func_ov058_02165d98(u8 *arg0, s32 arg1)
     *(s32 *)(arg0 + 0x54) = arg1;
 }
 
-extern "C" asm void func_ov058_02165da0(void)
+extern "C" s32 func_ov058_02165da0(s32 arg0, s32 arg1)
 {
-    cmp r1, #0x1c
-    addls pc, pc, r1, lsl #2
-    b @L_02165e98
-    b @L_02165e98
-    b @L_02165e98
-    b @L_02165e98
-    b @L_02165e98
-    b @L_02165e20
-    b @L_02165e28
-    b @L_02165e30
-    b @L_02165e38
-    b @L_02165e40
-    b @L_02165e48
-    b @L_02165e50
-    b @L_02165e58
-    b @L_02165e60
-    b @L_02165e68
-    b @L_02165e70
-    b @L_02165e70
-    b @L_02165e70
-    b @L_02165e78
-    b @L_02165e78
-    b @L_02165e78
-    b @L_02165e80
-    b @L_02165e80
-    b @L_02165e80
-    b @L_02165e88
-    b @L_02165e88
-    b @L_02165e88
-    b @L_02165e90
-    b @L_02165e90
-    b @L_02165e90
-@L_02165e20:
-    mov r0, #0
-    bx lr
-@L_02165e28:
-    mov r0, #1
-    bx lr
-@L_02165e30:
-    mov r0, #2
-    bx lr
-@L_02165e38:
-    mov r0, #3
-    bx lr
-@L_02165e40:
-    mov r0, #4
-    bx lr
-@L_02165e48:
-    mov r0, #5
-    bx lr
-@L_02165e50:
-    mov r0, #6
-    bx lr
-@L_02165e58:
-    mov r0, #7
-    bx lr
-@L_02165e60:
-    mov r0, #8
-    bx lr
-@L_02165e68:
-    mov r0, #9
-    bx lr
-@L_02165e70:
-    mov r0, #0
-    bx lr
-@L_02165e78:
-    mov r0, #1
-    bx lr
-@L_02165e80:
-    mov r0, #2
-    bx lr
-@L_02165e88:
-    mov r0, #3
-    bx lr
-@L_02165e90:
-    mov r0, #4
-    bx lr
-@L_02165e98:
-    mvn r0, #0
-    bx lr
+    switch (arg1) {
+        case 4:
+            return 0;
+        case 5:
+            return 1;
+        case 6:
+            return 2;
+        case 7:
+            return 3;
+        case 8:
+            return 4;
+        case 9:
+            return 5;
+        case 10:
+            return 6;
+        case 11:
+            return 7;
+        case 12:
+            return 8;
+        case 13:
+            return 9;
+        case 14:
+        case 15:
+        case 16:
+            return 0;
+        case 17:
+        case 18:
+        case 19:
+            return 1;
+        case 20:
+        case 21:
+        case 22:
+            return 2;
+        case 23:
+        case 24:
+        case 25:
+            return 3;
+        case 26:
+        case 27:
+        case 28:
+            return 4;
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        default:
+            return -1;
+    }
 }
 
 extern "C" asm void func_ov058_02165ea0(void)

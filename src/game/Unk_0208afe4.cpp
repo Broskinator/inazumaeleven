@@ -31,8 +31,8 @@ extern "C" void **func_0208b934(void **obj);
 extern "C" int func_0208b954(void);
 extern "C" void func_0208b95c(u8 *arg0, s32 arg1);
 extern "C" void func_0208b988(void);
-extern "C" void func_0208ba30(void);
-extern "C" void func_0208baa4(void);
+extern "C" s32 func_0208ba30(s32 arg0, s32 arg1);
+extern "C" s32 func_0208baa4(s32 arg0, s32 arg1);
 extern "C" void func_0208bb18(void);
 extern "C" u8 *func_0208bcd0(void *self, int a);
 extern "C" void func_0208bd04(void);
@@ -64,8 +64,8 @@ extern "C" void func_0208ce5c(void);
 extern "C" void func_0208cee0(void);
 extern "C" void func_0208cf4c(void);
 extern "C" s32 func_0208cf78(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_0208cfd0(void);
-extern "C" void func_0208d054(void);
+extern "C" s32 func_0208cfd0(s32 arg0, s32 arg1);
+extern "C" s32 func_0208d054(s32 arg0, s32 arg1);
 
 extern "C" char data_020a1cf8[];
 extern "C" char data_020a72a4[];
@@ -948,72 +948,44 @@ extern "C" asm void func_0208b988(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_0208ba30(void)
+extern "C" s32 func_0208ba30(s32 arg0, s32 arg1)
 {
-    cmp r1, #5
-    addls pc, pc, r1, lsl #2
-    b @L_0208ba84
-    b @L_0208ba54
-    b @L_0208ba6c
-    b @L_0208ba5c
-    b @L_0208ba7c
-    b @L_0208ba64
-    b @L_0208ba74
-@L_0208ba54:
-    ldr r0, =data_020af860
-    bx lr
-@L_0208ba5c:
-    ldr r0, =data_020af880
-    bx lr
-@L_0208ba64:
-    ldr r0, =data_020af8a0
-    bx lr
-@L_0208ba6c:
-    ldr r0, =data_020af8c0
-    bx lr
-@L_0208ba74:
-    ldr r0, =data_020af8e0
-    bx lr
-@L_0208ba7c:
-    ldr r0, =data_020af900
-    bx lr
-@L_0208ba84:
-    mov r0, #0
-    bx lr
+    switch (arg1) {
+        case 0:
+            return (s32)data_020af860;
+        case 2:
+            return (s32)data_020af880;
+        case 4:
+            return (s32)data_020af8a0;
+        case 1:
+            return (s32)data_020af8c0;
+        case 5:
+            return (s32)data_020af8e0;
+        case 3:
+            return (s32)data_020af900;
+        default:
+            return 0;
+    }
 }
 
-extern "C" asm void func_0208baa4(void)
+extern "C" s32 func_0208baa4(s32 arg0, s32 arg1)
 {
-    cmp r1, #5
-    addls pc, pc, r1, lsl #2
-    b @L_0208baf8
-    b @L_0208bac8
-    b @L_0208bae0
-    b @L_0208bad0
-    b @L_0208baf0
-    b @L_0208bad8
-    b @L_0208bae8
-@L_0208bac8:
-    ldr r0, =data_020af920
-    bx lr
-@L_0208bad0:
-    ldr r0, =data_020af940
-    bx lr
-@L_0208bad8:
-    ldr r0, =data_020af960
-    bx lr
-@L_0208bae0:
-    ldr r0, =data_020af980
-    bx lr
-@L_0208bae8:
-    ldr r0, =data_020af9a0
-    bx lr
-@L_0208baf0:
-    ldr r0, =data_020af9c0
-    bx lr
-@L_0208baf8:
-    mov r0, #0
-    bx lr
+    switch (arg1) {
+        case 0:
+            return (s32)data_020af920;
+        case 2:
+            return (s32)data_020af940;
+        case 4:
+            return (s32)data_020af960;
+        case 1:
+            return (s32)data_020af980;
+        case 5:
+            return (s32)data_020af9a0;
+        case 3:
+            return (s32)data_020af9c0;
+        default:
+            return 0;
+    }
 }
 
 extern "C" asm void func_0208bb18(void)
@@ -2507,78 +2479,46 @@ extern "C" s32 func_0208cf78(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return 1;
 }
 
-extern "C" asm void func_0208cfd0(void)
+extern "C" s32 func_0208cfd0(s32 arg0, s32 arg1)
 {
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    b @L_0208d030
-    b @L_0208cff8
-    b @L_0208d000
-    b @L_0208d008
-    b @L_0208d010
-    b @L_0208d018
-    b @L_0208d020
-    b @L_0208d028
-@L_0208cff8:
-    ldr r0, =data_020afa24
-    bx lr
-@L_0208d000:
-    ldr r0, =data_020afa44
-    bx lr
-@L_0208d008:
-    ldr r0, =data_020afa64
-    bx lr
-@L_0208d010:
-    ldr r0, =data_020afa84
-    bx lr
-@L_0208d018:
-    ldr r0, =data_020afaa8
-    bx lr
-@L_0208d020:
-    ldr r0, =data_020afac8
-    bx lr
-@L_0208d028:
-    ldr r0, =data_020afaec
-    bx lr
-@L_0208d030:
-    mov r0, #0
-    bx lr
+    switch (arg1) {
+        case 0:
+            return (s32)data_020afa24;
+        case 1:
+            return (s32)data_020afa44;
+        case 2:
+            return (s32)data_020afa64;
+        case 3:
+            return (s32)data_020afa84;
+        case 4:
+            return (s32)data_020afaa8;
+        case 5:
+            return (s32)data_020afac8;
+        case 6:
+            return (s32)data_020afaec;
+        default:
+            return 0;
+    }
 }
 
-extern "C" asm void func_0208d054(void)
+extern "C" s32 func_0208d054(s32 arg0, s32 arg1)
 {
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    b @L_0208d0b4
-    b @L_0208d07c
-    b @L_0208d084
-    b @L_0208d08c
-    b @L_0208d094
-    b @L_0208d09c
-    b @L_0208d0a4
-    b @L_0208d0ac
-@L_0208d07c:
-    ldr r0, =data_020afb0c
-    bx lr
-@L_0208d084:
-    ldr r0, =data_020afb2c
-    bx lr
-@L_0208d08c:
-    ldr r0, =data_020afb4c
-    bx lr
-@L_0208d094:
-    ldr r0, =data_020afb6c
-    bx lr
-@L_0208d09c:
-    ldr r0, =data_020afb90
-    bx lr
-@L_0208d0a4:
-    ldr r0, =data_020afbb0
-    bx lr
-@L_0208d0ac:
-    ldr r0, =data_020afbd4
-    bx lr
-@L_0208d0b4:
-    mov r0, #0
-    bx lr
+    switch (arg1) {
+        case 0:
+            return (s32)data_020afb0c;
+        case 1:
+            return (s32)data_020afb2c;
+        case 2:
+            return (s32)data_020afb4c;
+        case 3:
+            return (s32)data_020afb6c;
+        case 4:
+            return (s32)data_020afb90;
+        case 5:
+            return (s32)data_020afbb0;
+        case 6:
+            return (s32)data_020afbd4;
+        default:
+            return 0;
+    }
 }

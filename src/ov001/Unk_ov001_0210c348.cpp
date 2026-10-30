@@ -32,7 +32,7 @@ extern "C" void func_ov001_0210d894(void);
 extern "C" void func_ov001_0210dc6c(void);
 extern "C" s32 func_ov001_0210dd90(...);
 extern "C" s32 func_ov001_0210de94(...);
-extern "C" void func_ov001_0210dee0(void);
+extern "C" s32 func_ov001_0210dee0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov001_0210def4(s32 arg0, s32 arg1);
 extern "C" void func_ov001_0210defc(void);
 extern "C" void func_ov001_0210df2c(void);
@@ -1935,13 +1935,9 @@ extern "C" asm s32 func_ov001_0210de94(...)
     bx lr
 }
 
-extern "C" asm void func_ov001_0210dee0(void)
+extern "C" s32 func_ov001_0210dee0(s32 arg0, s32 arg1, s32 arg2)
 {
-    mov r2, r2, asr #6
-    mov r0, #0xa
-    mul r0, r2, r0
-    add r0, r0, r1, asr #6
-    bx lr
+    return (((arg2 >> 6) * 10) + (arg1 >> 6));
 }
 
 extern "C" s32 func_ov001_0210def4(s32 arg0, s32 arg1)

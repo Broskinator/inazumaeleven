@@ -17,8 +17,8 @@ extern "C" s32 func_ov062_02166a3c(...);
 extern "C" void func_ov062_02166c1c(void);
 extern "C" void func_ov062_02166d30(void);
 extern "C" void func_ov062_02166ddc(void);
-extern "C" void func_ov062_02166e44(void);
-extern "C" void func_ov062_02166e90(void);
+extern "C" s32 func_ov062_02166e44(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 func_ov062_02166e90(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov062_02166ee4(u8 *arg0, s32 arg1);
 extern "C" void func_ov062_02166f28(u8 *arg0, s32 arg1);
 extern "C" void func_ov062_02166f6c(void);
@@ -1315,50 +1315,24 @@ extern "C" asm void func_ov062_02166ddc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov062_02166e44(void)
+extern "C" s32 func_ov062_02166e44(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    add r0, r5, r4, lsl #2
-    ldr r0, [r0, #0x28]
-    cmp r0, #0
-    ldmleia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c5e40
-    mov r1, #8
-    bl _ZN12SoundManager9PlaySoundEi
-    add r2, r5, #0x28
-    ldr r1, [r2, r4, lsl #2]
-    add r0, r5, r4
-    sub r1, r1, #1
-    str r1, [r2, r4, lsl #2]
-    mov r1, #1
-    strb r1, [r0, #0x24]
-    ldmia sp!, {r3, r4, r5, pc}
+    if (*(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0x28) <= 0)
+        return *(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0x28);
+    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 8, arg2, arg3);
+    *(s32 *)(((u8 *)(arg0 + 0x28)) + (arg1 << 2)) = (*(s32 *)(((u8 *)(arg0 + 0x28)) + (arg1 << 2)) - 1);
+    *(u8 *)(((u8 *)(arg0 + arg1)) + 0x24) = 1;
+    return (arg0 + arg1);
 }
 
-extern "C" asm void func_ov062_02166e90(void)
+extern "C" s32 func_ov062_02166e90(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    add r0, r5, r4, lsl #2
-    ldr r1, [r0, #0x28]
-    ldr r0, [r0, #0x30]
-    add r1, r1, #6
-    cmp r1, r0
-    ldmgeia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c5e40
-    mov r1, #8
-    bl _ZN12SoundManager9PlaySoundEi
-    add r2, r5, #0x28
-    ldr r1, [r2, r4, lsl #2]
-    add r0, r5, r4
-    add r1, r1, #1
-    str r1, [r2, r4, lsl #2]
-    mov r1, #1
-    strb r1, [r0, #0x24]
-    ldmia sp!, {r3, r4, r5, pc}
+    if ((*(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0x28) + 6) >= *(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0x30))
+        return *(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0x30);
+    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 8, arg2, arg3);
+    *(s32 *)(((u8 *)(arg0 + 0x28)) + (arg1 << 2)) = (*(s32 *)(((u8 *)(arg0 + 0x28)) + (arg1 << 2)) + 1);
+    *(u8 *)(((u8 *)(arg0 + arg1)) + 0x24) = 1;
+    return (arg0 + arg1);
 }
 
 extern "C" void func_ov062_02166ee4(u8 *arg0, s32 arg1)

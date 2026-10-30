@@ -29,7 +29,7 @@ extern "C" void func_ov059_02166e20(void);
 extern "C" void func_ov059_02166f54(s32 arg0);
 extern "C" s32 func_ov059_02166f70(...);
 extern "C" void func_ov059_02167084(void);
-extern "C" void func_ov059_021672e8(void);
+extern "C" void func_ov059_021672e8(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov059_02167338(u8 *arg0, s32 arg1);
 extern "C" void func_ov059_02167344(void);
 extern "C" void func_ov059_02167440(void);
@@ -1717,32 +1717,27 @@ extern "C" asm void func_ov059_02167084(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov059_021672e8(void)
+extern "C" void func_ov059_021672e8(u8 *arg0, s32 arg1)
 {
-    cmp r1, #3
-    addls pc, pc, r1, lsl #2
-    b @L_02167330
-    b @L_02167330
-    b @L_02167304
-    b @L_02167304
-    b @L_02167330
-@L_02167304:
-    mov r12, #0
-    mov r2, #0x34
-@L_0216730c:
-    mla r3, r12, r2, r0
-    ldr r3, [r3, #0xa4]
-    cmp r3, #0
-    bne @L_02167328
-    add r12, r12, #1
-    cmp r12, #4
-    blt @L_0216730c
-@L_02167328:
-    cmp r12, #4
-    moveq r1, #3
-@L_02167330:
-    str r1, [r0, #0xc]
-    bx lr
+    s32 r2;
+    s32 r12;
+    switch (arg1) {
+        case 1:
+        case 2:
+            r2 = 0x34;
+            r12 = 0;
+            do {
+                if (*(s32 *)(((u8 *)((r12 * r2) + arg0)) + 0xA4) != 0)
+                    break;
+                r12 = (r12 + 1);
+            } while (r12 < 4);
+            arg1 = (r12 == 4 ? 3 : arg1);
+        case 0:
+        case 3:
+        default:
+            *(s32 *)(arg0 + 0xC) = arg1;
+            return;
+    }
 }
 
 extern "C" s32 func_ov059_02167338(u8 *arg0, s32 arg1)

@@ -53,7 +53,7 @@ extern "C" void func_ov014_02113934(void);
 extern "C" void func_ov014_02113948(s32 arg0);
 extern "C" void func_ov014_0211395c(void);
 extern "C" void func_ov014_021139a0(void);
-extern "C" void func_ov014_021139ac(void);
+extern "C" s32 func_ov014_021139ac(s32 arg0);
 extern "C" s32 func_ov014_021139b8(void);
 extern "C" void func_ov014_021139c0(void);
 extern "C" void func_ov014_021139e4(void);
@@ -2246,11 +2246,9 @@ extern "C" void func_ov014_021139a0(void)
     func_ov014_021180ac();
 }
 
-extern "C" asm void func_ov014_021139ac(void)
+extern "C" s32 func_ov014_021139ac(s32 arg0)
 {
-    tst r0, #0x8000
-    bicne r0, r0, #0x8000
-    bx lr
+    return ((arg0 & 0x8000) != 0 ? (arg0 & -0x8001) : arg0);
 }
 
 extern "C" s32 func_ov014_021139b8(void)

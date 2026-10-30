@@ -19,6 +19,8 @@ OPS = {"add": "+", "sub": "-", "and": "&", "orr": "|", "eor": "^"}
 COND = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<=",
         "hi": ">", "hs": ">=", "cs": ">=", "lo": "<", "cc": "<", "ls": "<="}
 VAR = "s32(...)"
+FUNCS = {}     # (name -> address, of the functions of the module)
+VARIANTS, VARIANT = 2, {}     # (how many ways a function can be written, and the one to try next)
 
 
 class Fail(Exception):
@@ -78,6 +80,45 @@ class Call:
         return f"v{self.k}"
 
 
+class Tmp(Param):
+    """A loaded value kept in a variable (it's needed after a store or a call)."""
+    def __init__(self, k, v):
+        super().__init__(-1)
+        self.k, self.v, self.used = k, v, False
+
+    def render(self):
+        return f"t{self.k}"
+
+    def ctype(self):
+        if self.ptr or is_ptr(self.v):
+            return "u8 *"
+        return self.v.t if isinstance(self.v, Load) and self.v.t != "u8 *" else "s32"
+
+
+def has_load(v):
+    if isinstance(v, Load):
+        return True
+    if isinstance(v, Bin):
+        return has_load(v.a) or has_load(v.b)
+    if isinstance(v, Tern):
+        return has_load(v.a) or has_load(v.b) or any(has_load(x) for x in v.flags[1:] if not isinstance(x, (str, tuple)))
+    return False
+
+
+def settle(regs, stmts, tmps):
+    """the registers with loaded values to temporaries (before a store or a call)"""
+    done = {}
+    for r, v in list(regs.items()):
+        if isinstance(v, Tmp) or not has_load(v):
+            continue
+        if id(v) not in done:
+            t = Tmp(len(tmps), v)
+            tmps.append(t)
+            stmts.append(("let", t))
+            done[id(v)] = t
+        regs[r] = done[id(v)]
+
+
 class Local:
     """The address of the function's local variables (an array on the stack), plus off."""
     def __init__(self, off):
@@ -99,9 +140,7 @@ class Tern:
 def addr(base, off):
     if isinstance(base, Param):
         base.ptr = True
-    elif isinstance(base, Load):
-        if base.t != "s32":
-            raise Fail("a halfword as a pointer")
+    elif isinstance(base, Load) and base.t in ("s32", "u8 *"):
         base.t = "u8 *"
     elif isinstance(base, Sym) and base.func:
         raise Fail("a function as an address")
@@ -173,18 +212,19 @@ def cond(flags, cc):
     return f"{value(a, t)} {COND[cc]} {value(b, t)}"
 
 
-def lift(name, body, protos):
-    """(declaration, C body, callees) of an asm function, or raises Fail."""
+def lift(name, body, protos, variant=0):
+    """(declaration, C body, callees) of an asm function, or raises Fail. variant 1: the
+    other return type (void or a value)."""
     regs = {f"r{i}": Param(i) for i in range(4)}
-    params, stmts, seg, tail, calls, flags, out_args = {}, [], set(), None, [], None, {}
+    params, stmts, seg, tail, calls, flags, out_args, tmps = {}, [], set(), None, [], None, {}, []
 
     def read(r):
         if r not in regs:
             raise Fail(f"register {r}")
         v = regs[r]
-        if isinstance(v, Param) and v.i not in params:
+        if isinstance(v, Param) and v.i >= 0 and v.i not in params:
             params[v.i] = v
-        if isinstance(v, Call):
+        if isinstance(v, (Call, Tmp)):
             v.used = True
         return v
 
@@ -195,6 +235,7 @@ def lift(name, body, protos):
     def call(f):
         if f == name or f not in protos:
             raise Fail(f"call of {f}")
+        settle(regs, stmts, tmps)
         c = Call(len(calls), f, dict(regs), set(seg), not calls)
         c.stack = dict(out_args)
         out_args.clear()
@@ -313,8 +354,9 @@ def lift(name, body, protos):
             write(m[1], Load(LOAD[mn], read(m[2]), int(m[3] or "0", 0)))
             continue
         if mn in STORE and m:
+            settle(regs, stmts, tmps)
             v, base = read(m[1]), read(m[2])
-            if isinstance(v, Param) and STORE[mn] != "s32":
+            if isinstance(v, Param) and v.i >= 0 and STORE[mn] != "s32":
                 v.type = STORE[mn]
             stmts.append(("store", STORE[mn], base, int(m[3] or "0", 0), v))
             continue
@@ -363,9 +405,9 @@ def lift(name, body, protos):
             v = c.regs.get(f"r{i}") if i < 4 else c.stack.get(i - 4)
             if v is None:
                 raise Fail("an argument after a call")
-            if isinstance(v, Param) and v.i not in params:
+            if isinstance(v, Param) and v.i >= 0 and v.i not in params:
                 params[v.i] = v
-            if isinstance(v, Call):
+            if isinstance(v, (Call, Tmp)):
                 v.used = True
             c.args.append((v, t))
         c.ret = "s32" if p in ("void(void)", VAR) else p[0]
@@ -375,8 +417,10 @@ def lift(name, body, protos):
     for i in range(n):
         params.setdefault(i, Param(i))
     ret = "void"
-    if "r0" in seg and not tail:
+    if ("r0" in seg) != bool(variant & 1) and not tail:
         v = regs["r0"]
+        if v is None:
+            raise Fail("no value")
         if isinstance(v, Load):
             ret = v.t
         elif isinstance(v, Sym):
@@ -387,11 +431,24 @@ def lift(name, body, protos):
             ret = v.ret
         else:
             ret = "s32"
+    # (the values returned are used)
+    for v in [s[3] for s in stmts if s[0] == "return if"] + [regs.get("r0")]:
+        if ret != "void" and isinstance(v, (Call, Tmp)):
+            v.used = True
+    for t in tmps:
+        if t.used and isinstance(t.v, Param) and t.v.i >= 0:
+            params.setdefault(t.v.i, t.v)
     # (the C is written after the walk: the types of the parameters are known by then)
     out = []
     if low is not None:
         out.append(f"    s32 local[{(size - low) // 4}];\n")
     for s in stmts:
+        if s[0] == "let":
+            t = s[1]
+            if t.used:
+                ty = t.ctype()
+                out.append(f"    {ty}{'' if ty.endswith('*') else ' '}t{t.k} = {value(t.v, ty)};\n")
+            continue
         if s[0] == "store":
             _, t, base, off, v = s
             out.append(f"    *({t} *)({addr(base, off)}) = {value(v, t)};\n")
@@ -507,7 +564,80 @@ def given(v, flags, cc, true):
     return v
 
 
-def lift_cfg(name, body, protos):
+def switches(lines, a0, ret):
+    """lines with each jump table (cmp rX, #N; addls pc, pc, rX, lsl #2; N + 2 branches, the
+    default's first) as one line '@switch rX default case0 case1 ...'. The branches can be
+    words (dcd 0xeaXXXXXX: romasm took the table for data); their targets get labels. An
+    entry that is a return (ret) is a case of its own. a0: the address of the first line,
+    or None."""
+    if not any(re.match(r"addls pc, pc, r\d+, lsl #2$", l) for l in lines):
+        return lines
+    # (the address of each line, from a label)
+    k0 = next((k for k, l in enumerate(lines) if re.match(r"@L_[0-9a-f]+:$", l)), None)
+    if k0 is not None:
+        a0 = int(lines[k0][3:-1], 16) - 4 * sum(1 for l in lines[:k0] if not l.endswith(":"))
+    if a0 is None:
+        raise Fail("a switch without a label")
+    # (the word of the return: in a table, it's a return of its own)
+    m = re.match(r"ldmia sp!, \{((?:r\d+, )*)pc\}$", ret)
+    word = 0xE8BD8000 | sum(1 << int(r[1:]) for r in re.findall(r"r\d+", m[1])) if m else 0xE12FFF1E
+    addrs, a = [], a0
+    for l in lines:
+        addrs.append(a)
+        if not l.endswith(":"):
+            a += 4
+    new_labels, out, j = {}, [], 0
+    while j < len(lines):
+        m = re.match(r"addls pc, pc, (r\d+), lsl #2$", lines[j])
+        if not m:
+            out.append((lines[j], addrs[j]))
+            j += 1
+            continue
+        cmps = [l for l in lines[:j] if re.match(r"cmp %s, #" % m[1], l)]
+        if not cmps:
+            raise Fail("a switch")
+        n = imm(cmps[-1].split("#")[1]) + 2
+        targets, extra = [], []
+        for e, l in enumerate(lines[j + 1:j + 1 + n]):
+            if l == ret or l == f"dcd {word:#010x}":
+                t = addrs[j + 1 + e]
+                new_labels[t] = f"L_{t:08x}"
+                targets.append(f"L_{t:08x}")
+                extra.append((ret, t))
+                continue
+            if l.endswith(":"):
+                raise Fail("a switch")
+            mm = re.match(r"b @(\w+)$", l)
+            md = re.match(r"dcd 0x(ea[0-9a-f]{6})$", l)
+            if mm:
+                targets.append(mm[1])
+            elif md:
+                off = int(md[1], 16) & 0xFFFFFF
+                off = off - (1 << 24) if off & 0x800000 else off
+                t = addrs[j + 1 + e] + 8 + 4 * off
+                new_labels[t] = f"L_{t:08x}"
+                targets.append(f"L_{t:08x}")
+            else:
+                raise Fail("a switch")
+        if len(targets) != n:
+            raise Fail("a switch")
+        out.append(("@switch " + m[1] + " " + " ".join(targets), None))
+        out += extra
+        j += 1 + n
+    # (the labels the tables need)
+    have = {int(l[3:-1], 16) for l, _ in out if re.match(r"@L_[0-9a-f]+:$", l)}
+    res = []
+    for l, a in out:
+        if a in new_labels and a not in have and not l.endswith(":"):
+            res.append(f"@{new_labels[a]}:")
+            have.add(a)
+        res.append(l)
+    if any(t not in have for t in new_labels):
+        raise Fail("a case in the middle of an instruction")
+    return res
+
+
+def lift_cfg(name, body, protos, variant=0):
     """(declaration, C body, callees) of an asm function with branches, or raises Fail.
 
     The asm is cut into blocks; in a block the registers are expressions as in lift(),
@@ -539,18 +669,9 @@ def lift_cfg(name, body, protos):
                 nstack = max(nstack, (off - size - push) // 4 + 1)
     if low is not None and (low % 4 or low >= size):
         raise Fail("locals")
-    for j, line in enumerate(lines):
-        m = re.match(r"addls pc, pc, (r\d+), lsl #2$", line)
-        if not m:
-            continue
-        cmps = [l for l in lines[:j] if re.match(r"cmp %s, #" % m[1], l)]
-        if not cmps:
-            raise Fail("a switch")
-        n = imm(cmps[-1].split("#")[1]) + 2
-        bs = lines[j + 1:j + 1 + n]
-        if len(bs) != n or not all(re.match(r"b @\w+$", l) for l in bs):
-            raise Fail("a switch")
-        lines[j:j + 1 + n] = ["@switch " + m[1] + " " + " ".join(l[3:] for l in bs)]
+    a0 = FUNCS.get(name)
+    lines = switches(lines, a0 + 4 * (frame is not None) + 4 * (size > 0) if a0 is not None else None,
+                     f"ldmia {ret_line}" if frame is not None else "bx lr")
     # (the instructions: (label, base, condition, s, operands))
     insns = []
     for n_, line in enumerate(lines):
@@ -628,6 +749,8 @@ def lift_cfg(name, body, protos):
     # (does the function return a value: r0 written other than by a call)
     returns = any(i[1] not in ("str", "strh", "strb", "cmp", "cmn", "tst", "b", "bl", "ret")
                   and re.match(r"r0\b", i[4]) for b in blocks for i in b["insns"])
+    if variant & 1:
+        returns = not returns
     # (liveness of the registers, at the start of each block)
 
     def use_def(ins):
@@ -670,7 +793,7 @@ def lift_cfg(name, body, protos):
     for r in live_in[0]:
         if r not in ("r0", "r1", "r2", "r3"):
             raise Fail(f"{r} before it's written")
-    calls, callees, used_vars = [], set(), set()
+    calls, callees, used_vars, tmps = [], set(), set(), []
 
     def run(k):
         """the statements of block k, and its condition at the end (flags, cc) or None"""
@@ -685,7 +808,7 @@ def lift_cfg(name, body, protos):
             if r not in regs:
                 raise Fail(f"register {r}")
             v = regs[r]
-            if isinstance(v, Call):
+            if isinstance(v, (Call, Tmp)):
                 v.used = True
             return v
 
@@ -740,6 +863,7 @@ def lift_cfg(name, body, protos):
                     op = None
                 elif c or op == name or op not in protos:
                     raise Fail(f"call of {op}")
+                settle(regs, stmts, tmps)
                 cl = Call(len(calls), op, dict(regs), set(seg), k == 0 and not calls)
                 if op is None:
                     cl.fp = fp
@@ -805,6 +929,8 @@ def lift_cfg(name, body, protos):
                 continue
             mm = re.match(r"(r\d+|lr), \[(r\d+|lr)(?:, (#-?\w+|-?(?:r\d+|lr)(?:, lsl #\w+)?))?\](!?)(?:, (#-?\w+))?$", op)
             if (mn in LOAD or mn in STORE) and mm:
+                if mn in STORE and not c:
+                    settle(regs, stmts, tmps)
                 base = read(mm[2])
                 off = 0
                 if mm[3]:
@@ -822,7 +948,7 @@ def lift_cfg(name, body, protos):
                     write(mm[1], v, c)
                 else:
                     v = read(mm[1])
-                    if isinstance(v, Param) and not isinstance(v, Var) and STORE[mn] != "s32":
+                    if isinstance(v, Param) and v.i >= 0 and STORE[mn] != "s32":
                         v.type = STORE[mn]
                     st = ("store", STORE[mn], base, 0 if mm[5] else off, v)
                     stmts.append(("if", need_flags(), c, st) if c else st)
@@ -964,6 +1090,8 @@ def lift_cfg(name, body, protos):
 
     def render(st, ind):
         sp_ = "    " * ind
+        if st[0] == "let":
+            return f"{sp_}t{st[1].k} = {value(st[1].v, st[1].ctype())};\n" if st[1].used else ""
         if st[0] == "store":
             _, t, base, off, v = st
             return f"{sp_}*({t} *)({addr(base, off)}) = {value(v, t)};\n"
@@ -971,10 +1099,14 @@ def lift_cfg(name, body, protos):
             return f"{sp_}if ({cond(st[1], st[2])})\n" + render(st[3], ind + 1)
         if st[0] == "return if":
             _, cc, fl, v = st
+            if returns and isinstance(v, (Call, Tmp)):
+                v.used = True
             if returns and v is None:
                 raise Fail("a return without a value")
             return f"{sp_}if ({cond(fl, cc)})\n{sp_}    return{' ' + value(v, ret) if returns else ''};\n"
         if st[0] == "return":
+            if returns and isinstance(st[1], (Call, Tmp)):
+                st[1].used = True
             if returns and st[1] is None:
                 raise Fail("a return without a value")
             return f"{sp_}return{' ' + value(st[1], ret) if returns else ''};\n"
@@ -985,7 +1117,7 @@ def lift_cfg(name, body, protos):
         args = ", ".join(value(v, t) for v, t in c.args)
         f = c.name or f"((s32 (*)(...)){c.fp.render()})"
         if c.used:
-            return f"{sp_}{c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {f}({args});\n"
+            return f"{sp_}v{c.k} = {f}({args});\n"
         return f"{sp_}{f}({args});\n"
 
     def latch_of(h):
@@ -1083,6 +1215,8 @@ def lift_cfg(name, body, protos):
     args = ", ".join(f"u8 *arg{i}" if P[i].ptr else f"{P[i].type} arg{i}" for i in range(nparams)) or "void"
     if low is not None:
         decls = f"    s32 local[{(size - low) // 4}];\n" + decls
+    decls += "".join(f"    {c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k};\n" for c in calls if c.used)
+    decls += "".join(f"    {t.ctype()}{'' if t.ctype().endswith('*') else ' '}t{t.k};\n" for t in tmps if t.used)
     decl = f"{ret} {name}({args})"
     return decl, decls + text, callees
 
@@ -1136,15 +1270,19 @@ def lift_file(src, sizes, failed):
     for b in blocks:
         if b[2].count("\n") > 400 or b[1] in failed:
             continue
+        v = VARIANT.get(b[1], 0)
         try:
             try:
-                cand[b[1]] = (b[0],) + (lift_cfg if "@" in b[2] else lift)(b[1], b[2], protos)
+                cand[b[1]] = (b[0],) + (lift_cfg if "@" in b[2] else lift)(b[1], b[2], protos, v)
             except (Fail, KeyError):
                 if "@" in b[2]:
                     raise
-                cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos)
+                cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, v)
         except (Fail, KeyError):
-            failed.add(b[1])
+            if v + 1 < VARIANTS:
+                VARIANT[b[1]] = v + 1
+            else:
+                failed.add(b[1])
     # (a function that calls another one lifted now waits: the callee's declaration changes)
     cand = {n: c for n, c in cand.items() if not any(f in cand for f in c[3])}
     if not cand:
@@ -1158,7 +1296,17 @@ def lift_file(src, sizes, failed):
     for mm in re.finditer(r"^(\w+): OK \((\d+) bytes\)", r.stdout, re.M):
         if sizes.get(mm[1]) == int(mm[2]):
             good.add(mm[1])
-    failed |= set(cand) - good
+    def next_variant(names):
+        """True if some of names are tried again (written another way)"""
+        again = False
+        for n_ in names:
+            v = VARIANT.get(n_, 0)
+            if v + 1 < VARIANTS:
+                VARIANT[n_] = v + 1
+                again = True
+            else:
+                failed.add(n_)
+        return again
     if r.returncode and not re.search(r"^\w+: .*bytes\)$", r.stdout, re.M):
         # (the functions with the errors stay asm, and the others are tried again)
         save(src, orig)
@@ -1175,16 +1323,18 @@ def lift_file(src, sizes, failed):
             bad |= {f for f in re.findall(r"(\w+)\(", lines[n - 1]) if f in cand}
         if not bad:
             print(f"{src}: does not compile with the C\n{r.stdout[-600:]}")
+            failed |= set(cand)
             return 0
-        failed -= set(cand) - bad
+        next_variant(bad)
         return -1
+    again = next_variant(set(cand) - good)
     # (the ones that don't match go back to asm)
     t = orig
     for name, (block, decl, body, callees) in cand.items():
         if name in good:
             t = apply(t, name, block, decl, body, protos, callees)
     save(src, t)
-    return len(good)
+    return len(good) or (-1 if again else 0)
 
 
 def main():
@@ -1199,6 +1349,9 @@ def main():
                 mm = re.match(r"(\S+) kind:function\S*size=(0x[0-9a-f]+)\S* addr", line)
                 if mm:
                     sizes[mm[1]] = int(mm[2], 16)
+                mm = re.match(r"(\S+) kind:function\S* addr:(0x[0-9a-f]+)", line)
+                if mm:
+                    FUNCS[mm[1]] = int(mm[2], 16)
         failed, total = set(), 0
         while True:
             n = lift_file(src, sizes, failed)

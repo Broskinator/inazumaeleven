@@ -48,10 +48,10 @@ extern "C" void func_02096ef4(void);
 extern "C" void func_02096f70(void *obj);
 extern "C" void func_02096f9c(void);
 extern "C" void func_0209700c(void);
-extern "C" void func_020970b0(void);
+extern "C" s32 func_020970b0(u8 *arg0, s32 arg1);
 extern "C" void func_020970e0(void);
-extern "C" void func_02097128(void);
-extern "C" void func_02097178(void);
+extern "C" s32 func_02097128(s32 arg0, u8 *arg1);
+extern "C" s32 func_02097178(s32 arg0, u8 *arg1);
 extern "C" void func_020971c8(void);
 extern "C" void func_020972fc(void);
 extern "C" void func_02097434(void);
@@ -967,22 +967,12 @@ extern "C" asm void func_0209700c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_020970b0(void)
+extern "C" s32 func_020970b0(u8 *arg0, s32 arg1)
 {
-    cmp r1, #0
-    ble @L_020970c4
-    ldrsh r2, [r0, #4]
-    cmp r1, r2
-    ble @L_020970cc
-@L_020970c4:
-    mov r0, #0
-    bx lr
-@L_020970cc:
-    ldr r2, [r0]
-    sub r1, r1, #1
-    mov r0, #0x60
-    mla r0, r1, r0, r2
-    bx lr
+    if ((arg1 <= 0 || arg1 > *(s16 *)(arg0 + 0x4))) {
+        return 0;
+    }
+    return (((arg1 - 1) * 0x60) + *(s32 *)(arg0));
 }
 
 extern "C" asm void func_020970e0(void)
@@ -1008,56 +998,44 @@ extern "C" asm void func_020970e0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02097128(void)
+extern "C" s32 func_02097128(s32 arg0, u8 *arg1)
 {
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    ldrb r0, [r1, #0x32]
-    cmp r0, #8
-    addls pc, pc, r0, lsl #2
-    b @L_02097170
-    b @L_02097170
-    b @L_02097170
-    b @L_02097168
-    b @L_02097170
-    b @L_02097168
-    b @L_02097168
-    b @L_02097170
-    b @L_02097168
-    b @L_02097168
-@L_02097168:
-    mov r0, #1
-    bx lr
-@L_02097170:
-    mov r0, #0
-    bx lr
+    if ((s32)arg1 == 0)
+        return 0;
+    switch (*(u8 *)(arg1 + 0x32)) {
+        case 2:
+        case 4:
+        case 5:
+        case 7:
+        case 8:
+            return 1;
+        case 0:
+        case 1:
+        case 3:
+        case 6:
+        default:
+            return 0;
+    }
 }
 
-extern "C" asm void func_02097178(void)
+extern "C" s32 func_02097178(s32 arg0, u8 *arg1)
 {
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    ldrb r0, [r1, #0x32]
-    cmp r0, #8
-    addls pc, pc, r0, lsl #2
-    b @L_020971c0
-    b @L_020971c0
-    b @L_020971c0
-    b @L_020971c0
-    b @L_020971b8
-    b @L_020971b8
-    b @L_020971b8
-    b @L_020971c0
-    b @L_020971c0
-    b @L_020971b8
-@L_020971b8:
-    mov r0, #1
-    bx lr
-@L_020971c0:
-    mov r0, #0
-    bx lr
+    if ((s32)arg1 == 0)
+        return 0;
+    switch (*(u8 *)(arg1 + 0x32)) {
+        case 3:
+        case 4:
+        case 5:
+        case 8:
+            return 1;
+        case 0:
+        case 1:
+        case 2:
+        case 6:
+        case 7:
+        default:
+            return 0;
+    }
 }
 
 extern "C" asm void func_020971c8(void)

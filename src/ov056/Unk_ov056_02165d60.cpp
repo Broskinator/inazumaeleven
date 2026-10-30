@@ -10,7 +10,7 @@ extern "C" void func_ov056_02165efc(u8 *arg0);
 extern "C" void func_ov056_02165f2c(void);
 extern "C" void func_ov056_02165f84(void);
 extern "C" void func_ov056_02165fbc(u8 *arg0, s32 arg1);
-extern "C" void func_ov056_02165fcc(void);
+extern "C" s32 func_ov056_02165fcc(s32 arg0, s32 arg1);
 extern "C" void func_ov056_0216615c(void);
 extern "C" void func_ov056_021666a8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov056_021666c8(void);
@@ -272,119 +272,97 @@ extern "C" void func_ov056_02165fbc(u8 *arg0, s32 arg1)
     func_ov056_02168de4();
 }
 
-extern "C" asm void func_ov056_02165fcc(void)
+extern "C" s32 func_ov056_02165fcc(s32 arg0, s32 arg1)
 {
-    cmp r1, #0x4a
-    addls pc, pc, r1, lsl #2
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166104
-    b @L_02166104
-    b @L_02166104
-    b @L_0216610c
-    b @L_0216610c
-    b @L_0216610c
-    b @L_02166114
-    b @L_02166114
-    b @L_02166114
-    b @L_02166154
-    b @L_02166104
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166104
-    b @L_02166104
-    b @L_0216610c
-    b @L_0216610c
-    b @L_02166154
-    b @L_02166154
-    b @L_02166104
-    b @L_02166154
-    b @L_02166104
-    b @L_02166104
-    b @L_02166104
-    b @L_0216610c
-    b @L_0216610c
-    b @L_0216610c
-    b @L_02166114
-    b @L_02166114
-    b @L_02166114
-    b @L_0216611c
-    b @L_0216611c
-    b @L_0216611c
-    b @L_02166124
-    b @L_02166124
-    b @L_02166124
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166154
-    b @L_02166104
-    b @L_02166104
-    b @L_02166104
-    b @L_02166104
-    b @L_02166154
-    b @L_02166104
-    b @L_0216610c
-    b @L_02166114
-    b @L_0216611c
-    b @L_02166124
-    b @L_0216612c
-    b @L_02166134
-    b @L_0216613c
-    b @L_02166144
-    b @L_0216614c
-    b @L_02166104
-    b @L_02166104
-    b @L_02166104
-    b @L_0216610c
-    b @L_0216610c
-    b @L_0216610c
-@L_02166104:
-    mov r0, #0
-    bx lr
-@L_0216610c:
-    mov r0, #1
-    bx lr
-@L_02166114:
-    mov r0, #2
-    bx lr
-@L_0216611c:
-    mov r0, #3
-    bx lr
-@L_02166124:
-    mov r0, #4
-    bx lr
-@L_0216612c:
-    mov r0, #5
-    bx lr
-@L_02166134:
-    mov r0, #6
-    bx lr
-@L_0216613c:
-    mov r0, #7
-    bx lr
-@L_02166144:
-    mov r0, #8
-    bx lr
-@L_0216614c:
-    mov r0, #9
-    bx lr
-@L_02166154:
-    mvn r0, #0
-    bx lr
+    switch (arg1) {
+        case 5:
+        case 6:
+        case 7:
+        case 15:
+        case 25:
+        case 26:
+        case 31:
+        case 33:
+        case 34:
+        case 35:
+        case 54:
+        case 55:
+        case 56:
+        case 57:
+        case 59:
+        case 69:
+        case 70:
+        case 71:
+            return 0;
+        case 8:
+        case 9:
+        case 10:
+        case 27:
+        case 28:
+        case 36:
+        case 37:
+        case 38:
+        case 60:
+        case 72:
+        case 73:
+        case 74:
+            return 1;
+        case 11:
+        case 12:
+        case 13:
+        case 39:
+        case 40:
+        case 41:
+        case 61:
+            return 2;
+        case 42:
+        case 43:
+        case 44:
+        case 62:
+            return 3;
+        case 45:
+        case 46:
+        case 47:
+        case 63:
+            return 4;
+        case 64:
+            return 5;
+        case 65:
+            return 6;
+        case 66:
+            return 7;
+        case 67:
+            return 8;
+        case 68:
+            return 9;
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 14:
+        case 16:
+        case 17:
+        case 18:
+        case 19:
+        case 20:
+        case 21:
+        case 22:
+        case 23:
+        case 24:
+        case 29:
+        case 30:
+        case 32:
+        case 48:
+        case 49:
+        case 50:
+        case 51:
+        case 52:
+        case 53:
+        case 58:
+        default:
+            return -1;
+    }
 }
 
 extern "C" asm void func_ov056_0216615c(void)

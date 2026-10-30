@@ -1,7 +1,7 @@
 #include "ov043/Unk_ov043_02165d60.hpp"
 
 extern "C" void func_ov043_02165d60(void);
-extern "C" void func_ov043_02165e10(void);
+extern "C" void func_ov043_02165e10(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov043_02165e20(...);
 extern "C" void func_ov043_02166064(u8 *arg0);
 extern "C" void func_ov043_0216607c(u8 *arg0);
@@ -19,7 +19,7 @@ extern "C" void func_ov043_02166b9c(void);
 extern "C" void func_ov043_02166c2c(void);
 extern "C" void func_ov043_02166c88(void);
 extern "C" void func_ov043_02166cd0(void);
-extern "C" void func_ov043_02166cf8(void);
+extern "C" s32 func_ov043_02166cf8(u8 *arg0);
 extern "C" void func_ov043_02166d30(void);
 extern "C" void func_ov043_02166d80(void);
 extern "C" void func_ov043_02166ebc(void);
@@ -185,12 +185,11 @@ extern "C" asm void func_ov043_02165d60(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov043_02165e10(void)
+extern "C" void func_ov043_02165e10(u8 *arg0, s32 arg1)
 {
-    ldr r2, [r0, #4]
-    cmp r2, r1
-    strne r1, [r0, #4]
-    bx lr
+    if (*(s32 *)(arg0 + 0x4) != arg1)
+        *(s32 *)(arg0 + 0x4) = arg1;
+    return;
 }
 
 extern "C" asm s32 func_ov043_02165e20(...)
@@ -1231,24 +1230,16 @@ extern "C" asm void func_ov043_02166cd0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov043_02166cf8(void)
+extern "C" s32 func_ov043_02166cf8(u8 *arg0)
 {
-    ldr r1, [r0, #0x38]
-    cmp r1, #0
-    ldrne r0, [r0, #0x30]
-    bxne lr
-    ldr r1, [r0, #0x18]
-    cmp r1, #0
-    beq @L_02166d20
-    ldr r0, [r0, #0x1c]
-    cmp r1, r0
-    beq @L_02166d28
-@L_02166d20:
-    mvn r0, #0
-    bx lr
-@L_02166d28:
-    add r0, r1, #1
-    bx lr
+    s32 r1;
+    if (*(s32 *)(arg0 + 0x38) != 0)
+        return *(s32 *)(arg0 + 0x30);
+    r1 = *(s32 *)(arg0 + 0x18);
+    if ((r1 == 0 || r1 != *(s32 *)(arg0 + 0x1C))) {
+        return -1;
+    }
+    return (r1 + 1);
 }
 
 extern "C" asm void func_ov043_02166d30(void)

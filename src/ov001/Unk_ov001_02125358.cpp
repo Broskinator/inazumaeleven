@@ -21,8 +21,8 @@ extern "C" void func_ov001_02126284(void);
 extern "C" void func_ov001_021262ec(void);
 extern "C" void func_ov001_02126338(void);
 extern "C" void func_ov001_021263a0(void);
-extern "C" void func_ov001_021263b4(void);
-extern "C" void func_ov001_02126458(void);
+extern "C" s32 func_ov001_021263b4(...);
+extern "C" s32 func_ov001_02126458(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov001_02126498(s32 arg0);
 extern "C" void func_ov001_021264cc(void);
 extern "C" void func_ov001_02126554(void);
@@ -87,7 +87,7 @@ extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void NNS_G3dGlbFlushVP(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206ad68Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b3fcEv(void);
@@ -1253,7 +1253,7 @@ extern "C" asm void func_ov001_021263a0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov001_021263b4(void)
+extern "C" asm s32 func_ov001_021263b4(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -1298,23 +1298,15 @@ extern "C" asm void func_ov001_021263b4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_02126458(void)
+extern "C" s32 func_ov001_02126458(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r0, =data_020e88a0
-    mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
-    mov r4, r0
-    mov r0, r5
-    bl func_ov001_021263b4
-    cmp r0, #0
-    ldrneb r0, [r4, #0x2d]
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldrh r0, [r4, #0x2a]
-    cmp r0, #0
-    ldreqh r0, [r4, #0x20]
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v0;
+    s32 v1;
+    v0 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)data_020e88a0, arg0, arg2, arg3);
+    v1 = func_ov001_021263b4(arg0);
+    if (v1 != 0)
+        return *(u8 *)(((u8 *)v0) + 0x2D);
+    return (*(u16 *)(((u8 *)v0) + 0x2A) == 0 ? *(u16 *)(((u8 *)v0) + 0x20) : *(u16 *)(((u8 *)v0) + 0x2A));
 }
 
 extern "C" s32 func_ov001_02126498(s32 arg0)

@@ -6,7 +6,7 @@ extern "C" void func_ov001_02115a68(void);
 extern "C" void func_ov001_02115af8(void);
 extern "C" void func_ov001_02115ca4(void);
 extern "C" s32 func_ov001_02115e0c(u8 *arg0);
-extern "C" void func_ov001_02115e20(void);
+extern "C" s32 func_ov001_02115e20(u8 *arg0);
 extern "C" void func_ov001_02115e54(void);
 extern "C" void func_ov001_02115f28(void);
 extern "C" void func_ov001_02115fc4(void);
@@ -639,23 +639,13 @@ extern "C" s32 func_ov001_02115e0c(u8 *arg0)
     return ((u32)*(s32 *)(arg0 + 0x8) > (u32)2 ? 1 : 0);
 }
 
-extern "C" asm void func_ov001_02115e20(void)
+extern "C" s32 func_ov001_02115e20(u8 *arg0)
 {
-    ldr r0, [r0, #8]
-    cmp r0, #0
-    cmpne r0, #1
-    cmpne r0, #2
-    cmpne r0, #0x33
-    beq @L_02115e44
-    sub r0, r0, #0x65
-    cmp r0, #1
-    bhi @L_02115e4c
-@L_02115e44:
-    mov r0, #0
-    bx lr
-@L_02115e4c:
-    mov r0, #1
-    bx lr
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x8);
+    if ((((((s32)arg0 == 0 || (s32)arg0 == 1) || (s32)arg0 == 2) || (s32)arg0 == 0x33) || (u32)(arg0 - 0x65) <= (u32)1)) {
+        return 0;
+    }
+    return 1;
 }
 
 extern "C" asm void func_ov001_02115e54(void)

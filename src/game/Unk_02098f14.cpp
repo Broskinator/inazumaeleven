@@ -48,7 +48,7 @@ extern "C" void func_02099bcc(s8 *obj, int flags);
 extern "C" void func_02099be4(void);
 extern "C" void func_02099c48(void);
 extern "C" int func_02099c94(u8 *obj, int a);
-extern "C" void func_02099cc8(void);
+extern "C" s32 func_02099cc8(u8 *arg0, s32 arg1);
 extern "C" u8 *func_02099cfc(u8 *obj, int a);
 extern "C" void func_02099d18(void);
 extern "C" int func_02099d90(int i);
@@ -1166,23 +1166,14 @@ extern "C" asm int func_02099c94(u8 *obj, int a)
     bx lr
 }
 
-extern "C" asm void func_02099cc8(void)
+extern "C" s32 func_02099cc8(u8 *arg0, s32 arg1)
 {
-    cmp r0, #0
-    moveq r0, #0
-    bxeq lr
-    cmp r1, #0
-    blt @L_02099ce8
-    ldr r2, [r0]
-    cmp r1, r2
-    blo @L_02099cf0
-@L_02099ce8:
-    mov r0, #0
-    bx lr
-@L_02099cf0:
-    add r0, r0, r1, lsl #3
-    ldr r0, [r0, #8]
-    bx lr
+    if ((s32)arg0 == 0)
+        return 0;
+    if ((arg1 < 0 || (u32)arg1 >= (u32)*(s32 *)(arg0))) {
+        return 0;
+    }
+    return *(s32 *)(((u8 *)(arg0 + (arg1 << 3))) + 0x8);
 }
 
 extern "C" u8 *func_02099cfc(u8 *obj, int a)

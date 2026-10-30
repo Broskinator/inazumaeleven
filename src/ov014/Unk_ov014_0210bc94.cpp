@@ -22,16 +22,16 @@ extern "C" void func_ov014_0210d150(void);
 extern "C" void func_ov014_0210d210(void);
 extern "C" void func_ov014_0210d2ec(void);
 extern "C" void func_ov014_0210d3f4(void);
-extern "C" void func_ov014_0210d478(void);
+extern "C" s32 func_ov014_0210d478(s32 arg0);
 extern "C" void func_ov014_0210d484(void);
 extern "C" void func_ov014_0210d4d0(void);
 extern "C" void func_ov014_0210d50c(void);
 extern "C" void func_ov014_0210d5ac(void);
 extern "C" void func_ov014_0210d6f4(void);
 extern "C" void func_ov014_0210d834(void);
-extern "C" void func_ov014_0210dad8(void);
+extern "C" s32 func_ov014_0210dad8(...);
 extern "C" void func_ov014_0210db2c(void);
-extern "C" void func_ov014_0210db78(void);
+extern "C" s32 func_ov014_0210db78(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_0210dbb8(void);
 extern "C" void func_ov014_0210dc30(void);
 extern "C" void func_ov014_0210dd00(void);
@@ -196,8 +196,8 @@ extern "C" void func_ov014_0211f000(void);
 extern "C" void func_ov014_02122270(void);
 extern "C" void func_ov014_021222b4(void);
 extern "C" void strcmp(void);
-extern "C" void strcpy(void);
-extern "C" void strlen(void);
+extern "C" s32 strcpy(...);
+extern "C" s32 strlen(...);
 extern "C" void strncmp(void);
 extern "C" void strncpy(void);
 extern "C" void strstr(void);
@@ -1754,11 +1754,9 @@ extern "C" asm void func_ov014_0210d3f4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_0210d478(void)
+extern "C" s32 func_ov014_0210d478(s32 arg0)
 {
-    tst r0, #0x8000
-    bicne r0, r0, #0x8000
-    bx lr
+    return ((arg0 & 0x8000) != 0 ? (arg0 & -0x8001) : arg0);
 }
 
 extern "C" asm void func_ov014_0210d484(void)
@@ -2194,7 +2192,7 @@ extern "C" asm void func_ov014_0210d834(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_0210dad8(void)
+extern "C" asm s32 func_ov014_0210dad8(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -2244,24 +2242,18 @@ extern "C" asm void func_ov014_0210db2c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0210db78(void)
+extern "C" s32 func_ov014_0210db78(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r2
-    mov r5, r3
-    bl func_ov014_0210dad8
-    movs r4, r0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    bl strlen
-    cmp r0, r5
-    movge r0, #0
-    ldmgeia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    mov r1, r4
-    bl strcpy
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v0;
+    s32 v1;
+    v0 = func_ov014_0210dad8(arg0, arg1, arg2, arg3);
+    if (v0 == 0)
+        return 0;
+    v1 = strlen(v0);
+    if (v1 >= arg3)
+        return 0;
+    strcpy(arg2, v0);
+    return 1;
 }
 
 extern "C" asm void func_ov014_0210dbb8(void)

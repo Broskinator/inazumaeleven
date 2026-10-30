@@ -7,7 +7,7 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
 extern "C" void func_0209e134(void);
 extern "C" void func_0209e174(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_0209e1c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_0209e220(void);
+extern "C" s32 func_0209e220(u8 *arg0);
 extern "C" void func_0209e248(s32 *obj);
 extern "C" void func_0209e258(void *obj);
 extern "C" void func_0209e25c(void);
@@ -72,20 +72,12 @@ extern "C" void func_0209e1c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
     MI_CpuCopy8(arg4, (arg0 + 0x16), 2);
 }
 
-extern "C" asm void func_0209e220(void)
+extern "C" s32 func_0209e220(u8 *arg0)
 {
-    ldrb r1, [r0, #0x14]
-    cmp r1, #0
-    beq @L_0209e238
-    ldrb r0, [r0, #0x15]
-    cmp r0, #0
-    beq @L_0209e240
-@L_0209e238:
-    mov r0, #0
-    bx lr
-@L_0209e240:
-    mov r0, #1
-    bx lr
+    if ((*(u8 *)(arg0 + 0x14) == 0 || *(u8 *)(arg0 + 0x15) != 0)) {
+        return 0;
+    }
+    return 1;
 }
 
 extern "C" void func_0209e248(s32 *obj)

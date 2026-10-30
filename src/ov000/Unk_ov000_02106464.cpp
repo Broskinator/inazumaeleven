@@ -55,8 +55,8 @@ extern "C" void func_ov000_02108ce4(void);
 extern "C" void func_ov000_02108ce8(void);
 extern "C" void func_ov000_02108d80(void);
 extern "C" void func_ov000_02108e04(void);
-extern "C" void func_ov000_02108eac(void);
-extern "C" void func_ov000_02108ed0(void);
+extern "C" s32 func_ov000_02108eac(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5, u8 *arg6);
+extern "C" s32 func_ov000_02108ed0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov000_02108f08(void);
 extern "C" void func_ov000_021090c0(void);
 extern "C" void func_ov000_02109400(void);
@@ -104,7 +104,7 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052468Ev(void);
 extern "C" void _ZN11TreasureBox13func_020524f0El(void);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" void _ZN17UnkClass_0205480013func_0205d02cEv(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205d204Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205d2acEv(void);
@@ -3126,34 +3126,19 @@ extern "C" asm void func_ov000_02108e04(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov000_02108eac(void)
+extern "C" s32 func_ov000_02108eac(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5, u8 *arg6)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [sp, #8]
-    ldr lr, [sp, #0xc]
-    sub r1, r1, r3
-    ldr r0, [sp, #0x10]
-    str r1, [lr]
-    sub r1, r2, r12
-    str r1, [r0]
-    ldmia sp!, {r3, pc}
+    *(s32 *)(arg5) = (arg1 - arg3);
+    *(s32 *)(arg6) = (arg2 - arg4);
+    return (s32)arg6;
 }
 
-extern "C" asm void func_ov000_02108ed0(void)
+extern "C" s32 func_ov000_02108ed0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_020c4ab4
-    ldr r2, [r1, #0xc4]
-    cmp r2, #0
-    cmpne r2, #0x83
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r4, #1
-    ldr r0, [r0, #0x10]
-    mov r1, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    if ((*(s32 *)(data_020c4ab4 + 0xC4) == 0 || *(s32 *)(data_020c4ab4 + 0xC4) == 0x83))
+        return 0;
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii(*(s32 *)(arg0 + 0x10), 1, *(s32 *)(data_020c4ab4 + 0xC4), arg3);
+    return 1;
 }
 
 extern "C" asm void func_ov000_02108f08(void)

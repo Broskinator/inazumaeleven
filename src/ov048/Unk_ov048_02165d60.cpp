@@ -17,7 +17,7 @@ extern "C" void func_ov048_02166904(void);
 extern "C" void func_ov048_02166a6c(void);
 extern "C" void func_ov048_02166bf8(void);
 extern "C" void func_ov048_02166d40(void);
-extern "C" void func_ov048_02166e88(void);
+extern "C" s32 func_ov048_02166e88(s32 arg0, s32 arg1);
 extern "C" s32 func_ov048_02166f24(...);
 extern "C" void func_ov048_02166f68(s32 arg0);
 extern "C" void func_ov048_02166f88(void);
@@ -1340,59 +1340,35 @@ extern "C" asm void func_ov048_02166d40(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov048_02166e88(void)
+extern "C" s32 func_ov048_02166e88(s32 arg0, s32 arg1)
 {
-    cmp r1, #0xb
-    addls pc, pc, r1, lsl #2
-    b @L_02166f1c
-    b @L_02166f1c
-    b @L_02166ec4
-    b @L_02166ecc
-    b @L_02166ed4
-    b @L_02166edc
-    b @L_02166f0c
-    b @L_02166f14
-    b @L_02166ee4
-    b @L_02166f04
-    b @L_02166eec
-    b @L_02166ef4
-    b @L_02166efc
-@L_02166ec4:
-    mov r0, #0
-    bx lr
-@L_02166ecc:
-    mov r0, #1
-    bx lr
-@L_02166ed4:
-    mov r0, #2
-    bx lr
-@L_02166edc:
-    mov r0, #2
-    bx lr
-@L_02166ee4:
-    mvn r0, #0
-    bx lr
-@L_02166eec:
-    mvn r0, #0
-    bx lr
-@L_02166ef4:
-    mvn r0, #0
-    bx lr
-@L_02166efc:
-    mvn r0, #0
-    bx lr
-@L_02166f04:
-    mvn r0, #0
-    bx lr
-@L_02166f0c:
-    mov r0, #2
-    bx lr
-@L_02166f14:
-    mov r0, #3
-    bx lr
-@L_02166f1c:
-    mvn r0, #0
-    bx lr
+    switch (arg1) {
+        case 1:
+            return 0;
+        case 2:
+            return 1;
+        case 3:
+            return 2;
+        case 4:
+            return 2;
+        case 7:
+            return -1;
+        case 9:
+            return -1;
+        case 10:
+            return -1;
+        case 11:
+            return -1;
+        case 8:
+            return -1;
+        case 5:
+            return 2;
+        case 6:
+            return 3;
+        case 0:
+        default:
+            return -1;
+    }
 }
 
 extern "C" asm s32 func_ov048_02166f24(...)

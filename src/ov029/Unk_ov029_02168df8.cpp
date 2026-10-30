@@ -39,10 +39,10 @@ extern "C" void func_ov029_0216b754(void);
 extern "C" void func_ov029_0216b774(s32 arg0);
 extern "C" void func_ov029_0216b7e8(void);
 extern "C" void func_ov029_0216b9d0(void);
-extern "C" void func_ov029_0216bb4c(void);
-extern "C" void func_ov029_0216bb6c(void);
-extern "C" void func_ov029_0216bb8c(void);
-extern "C" void func_ov029_0216bbac(void);
+extern "C" s32 func_ov029_0216bb4c(s32 arg0);
+extern "C" s32 func_ov029_0216bb6c(s32 arg0);
+extern "C" s32 func_ov029_0216bb8c(s32 arg0);
+extern "C" s32 func_ov029_0216bbac(s32 arg0);
 extern "C" void func_ov029_0216bbcc(void);
 
 extern "C" char data_020c46c4[];
@@ -3162,52 +3162,24 @@ extern "C" asm void func_ov029_0216b9d0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov029_0216bb4c(void)
+extern "C" s32 func_ov029_0216bb4c(s32 arg0)
 {
-    add r1, r0, #0x8000
-    ldr r3, [r1, #0xadc]
-    ldr r2, [r1, #0xa80]
-    mov r1, #0x68
-    add r2, r3, r2, lsl #4
-    mla r0, r2, r1, r0
-    ldrh r0, [r0, #0x40]
-    bx lr
+    return *(u16 *)(((u8 *)(((*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xADC) + (*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xA80) << 4)) * 0x68) + arg0)) + 0x40);
 }
 
-extern "C" asm void func_ov029_0216bb6c(void)
+extern "C" s32 func_ov029_0216bb6c(s32 arg0)
 {
-    add r1, r0, #0x8000
-    ldr r2, [r1, #0xadc]
-    ldr r1, [r1, #0xa80]
-    add r3, r0, #0x78
-    add r1, r2, r1, lsl #4
-    mov r0, #0x68
-    mla r0, r1, r0, r3
-    bx lr
+    return (((*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xADC) + (*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xA80) << 4)) * 0x68) + (arg0 + 0x78));
 }
 
-extern "C" asm void func_ov029_0216bb8c(void)
+extern "C" s32 func_ov029_0216bb8c(s32 arg0)
 {
-    add r1, r0, #0x8000
-    ldr r3, [r1, #0xadc]
-    ldr r2, [r1, #0xa80]
-    mov r1, #0x68
-    add r2, r3, r2, lsl #4
-    mla r0, r2, r1, r0
-    ldr r0, [r0, #0x54]
-    bx lr
+    return *(s32 *)(((u8 *)(((*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xADC) + (*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xA80) << 4)) * 0x68) + arg0)) + 0x54);
 }
 
-extern "C" asm void func_ov029_0216bbac(void)
+extern "C" s32 func_ov029_0216bbac(s32 arg0)
 {
-    add r1, r0, #0x8000
-    ldr r3, [r1, #0xadc]
-    ldr r2, [r1, #0xa80]
-    mov r1, #0x68
-    add r2, r3, r2, lsl #4
-    mla r0, r2, r1, r0
-    ldr r0, [r0, #0x48]
-    bx lr
+    return *(s32 *)(((u8 *)(((*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xADC) + (*(s32 *)(((u8 *)(arg0 + 0x8000)) + 0xA80) << 4)) * 0x68) + arg0)) + 0x48);
 }
 
 extern "C" asm void func_ov029_0216bbcc(void)

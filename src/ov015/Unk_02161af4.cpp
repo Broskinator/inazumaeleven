@@ -9,7 +9,7 @@ extern "C" s32 func_ov015_02161c5c(...);
 extern "C" void func_ov015_02161c78(void);
 extern "C" void func_ov015_02161c90(u8 *arg0, u16 arg1);
 extern "C" void func_ov015_02161c98(u8 *arg0, u16 arg1);
-extern "C" void func_ov015_02161ca0(void);
+extern "C" void func_ov015_02161ca0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" u8 func_ov015_02161cf8(u8 *arg0);
 extern "C" void func_ov015_02161d00(void);
 extern "C" void func_ov015_02161d24(u8 *arg0, u8 arg1, u8 arg2, u8 arg3);
@@ -61,7 +61,7 @@ extern "C" void func_ov015_02163040(void);
 extern "C" void func_ov015_021630d8(void);
 extern "C" s32 func_ov015_02163100(...);
 extern "C" void func_ov015_021631c8(void);
-extern "C" void func_ov015_02163208(void);
+extern "C" s32 func_ov015_02163208(s32 arg0, s32 arg1);
 extern "C" s32 func_ov015_02163214(...);
 extern "C" void func_ov015_02163254(void);
 extern "C" void func_ov015_02163408(void);
@@ -116,7 +116,7 @@ extern "C" s32 func_ov015_021646c4(...);
 extern "C" void func_ov015_021646d8(void);
 extern "C" s32 func_ov015_021646ec(s32 arg0);
 extern "C" void func_ov015_02164710(s32 arg0);
-extern "C" void func_ov015_0216473c(void);
+extern "C" s32 func_ov015_0216473c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 
 extern "C" char data_020c464c[];
 extern "C" char data_020c4668[];
@@ -141,8 +141,8 @@ extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02016e10(void);
-extern "C" void func_02027e24(void);
-extern "C" void func_02027e7c(void);
+extern "C" s32 func_02027e24(...);
+extern "C" s32 func_02027e7c(...);
 extern "C" void func_02028084(void);
 extern "C" void func_020282e0(void);
 extern "C" void func_020920c4(void);
@@ -333,32 +333,24 @@ extern "C" void func_ov015_02161c98(u8 *arg0, u16 arg1)
     *(u16 *)(arg0 + 0x32) = arg1;
 }
 
-extern "C" asm void func_ov015_02161ca0(void)
+extern "C" void func_ov015_02161ca0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldrb r1, [r0, #0x10]
-    cmp r1, #0
-    beq @L_02161cc4
-    ldr r1, [r0, #0x24]
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    blx r1
-    ldmia sp!, {r3, pc}
-@L_02161cc4:
-    ldrb r1, [r0, #0xe]
-    cmp r1, #1
-    bne @L_02161ce4
-    ldr r1, [r0, #0x1c]
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    blx r1
-    ldmia sp!, {r3, pc}
-@L_02161ce4:
-    ldr r1, [r0, #0x20]
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    blx r1
-    ldmia sp!, {r3, pc}
+    if (*(u8 *)(arg0 + 0x10) != 0) {
+        if (*(s32 *)(arg0 + 0x24) == 0)
+            return;
+        ((s32 (*)(...))*(s32 *)(arg0 + 0x24))((s32)arg0, *(s32 *)(arg0 + 0x24));
+        return;
+    }
+    if (*(u8 *)(arg0 + 0xE) == 1) {
+        if (*(s32 *)(arg0 + 0x1C) == 0)
+            return;
+        ((s32 (*)(...))*(s32 *)(arg0 + 0x1C))((s32)arg0, *(s32 *)(arg0 + 0x1C));
+        return;
+    }
+    if (*(s32 *)(arg0 + 0x20) == 0)
+        return;
+    ((s32 (*)(...))*(s32 *)(arg0 + 0x20))((s32)arg0, *(s32 *)(arg0 + 0x20));
+    return;
 }
 
 extern "C" u8 func_ov015_02161cf8(u8 *arg0)
@@ -1866,11 +1858,9 @@ extern "C" asm void func_ov015_021631c8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov015_02163208(void)
+extern "C" s32 func_ov015_02163208(s32 arg0, s32 arg1)
 {
-    mov r0, #8
-    mov r0, r0, lsl r1
-    bx lr
+    return (8 << arg1);
 }
 
 extern "C" asm s32 func_ov015_02163214(...)
@@ -3390,19 +3380,12 @@ extern "C" void func_ov015_02164710(s32 arg0)
     func_ov015_02164630(arg0, 0);
 }
 
-extern "C" asm void func_ov015_0216473c(void)
+extern "C" s32 func_ov015_0216473c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    movs r6, r0
-    mov r5, r1
-    cmpne r5, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    bl func_02027e7c
-    mov r4, r0
-    mov r0, r6
-    mov r1, r5
-    bl func_02027e24
-    mov r0, r4
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v0;
+    if ((arg0 == 0 || arg1 == 0))
+        return 0;
+    v0 = func_02027e7c(arg0, arg1, arg2, arg3);
+    func_02027e24(arg0, arg1);
+    return v0;
 }

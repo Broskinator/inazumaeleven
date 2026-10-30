@@ -34,12 +34,12 @@ extern "C" void func_020987fc(void);
 extern "C" void func_02098824(void);
 extern "C" void func_02098900(void);
 extern "C" void func_02098930(void);
-extern "C" void func_02098a0c(void);
+extern "C" s32 func_02098a0c(...);
 extern "C" void func_02098a8c(void);
 extern "C" void func_02098ab8(void);
 extern "C" void func_02098ae4(void);
-extern "C" void func_02098b48(void);
-extern "C" void func_02098bac(void);
+extern "C" s32 func_02098b48(s32 arg0);
+extern "C" s32 func_02098bac(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_02098ca8(void);
 extern "C" void func_02098cdc(void);
 extern "C" void func_02098d30(void);
@@ -51,22 +51,22 @@ extern "C" char data_020c4668[];
 extern "C" char data_020c47b4[];
 extern "C" void GX_GetSizeOfTex(void);
 extern "C" void GX_GetSizeOfTexPltt(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void NNS_GfdFreeLnkPlttVram(void);
 extern "C" void NNS_GfdInitLnkPlttVramManager(void);
 extern "C" void NNS_GfdInitLnkTexVramManager(void);
-extern "C" void OS_InitMutex(void);
+extern "C" s32 OS_InitMutex(...);
 extern "C" void _ZN11FileManager6CancelEPvi(void);
 extern "C" void _ZN11FileManager7ReleaseEPv(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_02003eec(void);
 extern "C" void func_020040b0(void);
-extern "C" void func_02030128(void);
+extern "C" s32 func_02030128(...);
 extern "C" void func_02030188(void);
 extern "C" void func_0203020c(void);
 extern "C" void func_02030278(void);
-extern "C" void func_02030490(void);
+extern "C" s32 func_02030490(...);
 extern "C" void func_020304ec(void);
 extern "C" void func_02030604(void);
 extern "C" void func_02096eb4(void);
@@ -91,7 +91,7 @@ extern "C" void func_0209926c(void);
 extern "C" void func_020992ec(void);
 extern "C" void func_02099cc8(void);
 extern "C" void func_02099cfc(void);
-extern "C" void func_0209a45c(void);
+extern "C" s32 func_0209a45c(...);
 extern "C" void func_0209a4d8(void);
 extern "C" void func_0209a638(void);
 extern "C" void func_0209aa5c(void);
@@ -1238,7 +1238,7 @@ extern "C" asm void func_02098930(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02098a0c(void)
+extern "C" asm s32 func_02098a0c(...)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -1339,106 +1339,65 @@ extern "C" asm void func_02098ae4(void)
     bx lr
 }
 
-extern "C" asm void func_02098b48(void)
+extern "C" s32 func_02098b48(s32 arg0)
 {
-    cmp r0, #7
-    addls pc, pc, r0, lsl #2
-    b @L_02098ba4
-    b @L_02098ba4
-    b @L_02098b74
-    b @L_02098b7c
-    b @L_02098b84
-    b @L_02098b8c
-    b @L_02098ba4
-    b @L_02098b94
-    b @L_02098b9c
-@L_02098b74:
-    mov r0, #0
-    bx lr
-@L_02098b7c:
-    mov r0, #0x20
-    bx lr
-@L_02098b84:
-    mov r0, #0x20
-    bx lr
-@L_02098b8c:
-    mov r0, #0x200
-    bx lr
-@L_02098b94:
-    mov r0, #0
-    bx lr
-@L_02098b9c:
-    mov r0, #0
-    bx lr
-@L_02098ba4:
-    mov r0, #0
-    bx lr
+    switch (arg0) {
+        case 1:
+            return 0;
+        case 2:
+            return 0x20;
+        case 3:
+            return 0x20;
+        case 4:
+            return 0x200;
+        case 6:
+            return 0;
+        case 7:
+            return 0;
+        case 0:
+        case 5:
+        default:
+            return 0;
+    }
 }
 
-extern "C" asm void func_02098bac(void)
+extern "C" s32 func_02098bac(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r9, r0
-    mov r6, #0
-    mov r4, r1
-    add r0, r9, #8
-    mov r8, r2
-    mov r7, r3
-    str r6, [r9]
-    str r6, [r9, #4]
-    str r6, [r9, #0x20]
-    str r6, [r9, #0x24]
-    str r6, [r9, #0x28]
-    str r6, [r9, #0x2c]
-    str r6, [r9, #0x30]
-    str r6, [r9, #0x34]
-    bl OS_InitMutex
-    cmp r4, #0
-    cmpgt r8, #0
-    str r6, [r9, #0x38]
-    movle r0, #0
-    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r4
-    bl func_02030128
-    mov r4, #1
-    mov r1, r0
-    ldr r5, =data_020c47b4
-    mov r2, r6
-    mov r0, r5
-    mov r3, r4
-    str r1, [r9, #0x24]
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r9]
-    mov r0, r8
-    bl func_02030490
-    mov r1, r0
-    mov r0, r5
-    mov r2, r6
-    mov r3, r4
-    str r1, [r9, #0x28]
-    bl _ZN8GameHeap5AllocEiii
-    ldr r1, [r9]
-    str r0, [r9, #4]
-    cmp r1, #0
-    cmpne r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r2, [r9, #0x24]
-    mov r0, r6
-    bl MIi_CpuClearFast
-    ldr r1, [r9, #4]
-    ldr r2, [r9, #0x28]
-    mov r0, r6
-    bl MIi_CpuClearFast
-    mov r0, r9
-    bl func_02098a0c
-    cmp r0, #0
-    moveq r0, r6
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r7
-    bl func_0209a45c
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 v3;
+    s32 v4;
+    s32 v7;
+    *(s32 *)(arg0) = 0;
+    *(s32 *)(arg0 + 0x4) = 0;
+    *(s32 *)(arg0 + 0x20) = 0;
+    *(s32 *)(arg0 + 0x24) = 0;
+    *(s32 *)(arg0 + 0x28) = 0;
+    *(s32 *)(arg0 + 0x2C) = 0;
+    *(s32 *)(arg0 + 0x30) = 0;
+    *(s32 *)(arg0 + 0x34) = 0;
+    v0 = OS_InitMutex((arg0 + 8), arg1, arg2, arg3);
+    *(s32 *)(arg0 + 0x38) = 0;
+    if ((arg1 <= 0 || arg2 <= 0))
+        return 0;
+    v1 = func_02030128(arg1);
+    *(s32 *)(arg0 + 0x24) = v1;
+    v2 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, v1, 0, 1);
+    *(s32 *)(arg0) = v2;
+    v3 = func_02030490(arg2);
+    *(s32 *)(arg0 + 0x28) = v3;
+    v4 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, v3, 0, 1);
+    *(s32 *)(arg0 + 0x4) = v4;
+    if ((*(s32 *)(arg0) == 0 || v4 == 0))
+        return 0;
+    MIi_CpuClearFast(0, *(s32 *)(arg0), *(s32 *)(arg0 + 0x24));
+    MIi_CpuClearFast(0, *(s32 *)(arg0 + 0x4), *(s32 *)(arg0 + 0x28));
+    v7 = func_02098a0c((s32)arg0);
+    if (v7 == 0)
+        return 0;
+    func_0209a45c(arg3);
+    return 1;
 }
 
 extern "C" asm void func_02098ca8(void)

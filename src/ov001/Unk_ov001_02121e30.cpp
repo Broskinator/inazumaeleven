@@ -8,7 +8,7 @@ extern "C" void func_ov001_021221e4(void);
 extern "C" s32 func_ov001_02122250(s32 arg0);
 extern "C" void func_ov001_02122264(void);
 extern "C" s32 func_ov001_02122378(s32 arg0);
-extern "C" void func_ov001_0212238c(void);
+extern "C" s32 func_ov001_0212238c(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov001_021223f4(u8 *arg0);
 extern "C" void func_ov001_02122428(void);
 extern "C" void func_ov001_0212247c(void);
@@ -81,7 +81,7 @@ extern "C" char data_ov001_021306c0[];
 extern "C" void DC_FlushRange(void);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void G2S_GetBG2CharPtr(void);
-extern "C" void MI_CpuCopy8(void);
+extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN17UnkClass_020621b413func_020690a8Eii(void);
@@ -552,34 +552,15 @@ extern "C" s32 func_ov001_02122378(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov001_0212238c(void)
+extern "C" s32 func_ov001_0212238c(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    ldr r1, [r4]
-    mov r2, r0
-    cmp r1, #0x5a
-    cmpne r1, #0x62
-    cmpne r1, #0x76
-    cmpne r1, #0x77
-    cmpne r1, #0x3f
-    cmpne r1, #0x40
-    cmpne r1, #0x37
-    cmpne r1, #0x48
-    mvnne r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r0, [r4, #4]
-    cmp r0, #0xa
-    mvnhs r0, #0
-    ldmhsia sp!, {r4, pc}
-    mov r0, r4
-    add r1, r2, #0xc
-    mov r2, #0x14
-    bl MI_CpuCopy8
-    mov r0, #0
-    strb r0, [r4, #0x10]
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    if ((((((((*(s32 *)(arg1) != 0x5A && *(s32 *)(arg1) != 0x62) && *(s32 *)(arg1) != 0x76) && *(s32 *)(arg1) != 0x77) && *(s32 *)(arg1) != 0x3F) && *(s32 *)(arg1) != 0x40) && *(s32 *)(arg1) != 0x37) && *(s32 *)(arg1) != 0x48))
+        return -1;
+    if ((u32)*(s32 *)(arg1 + 0x4) >= (u32)10)
+        return -1;
+    MI_CpuCopy8((s32)arg1, (arg0 + 0xC), 0x14, arg3);
+    *(u8 *)(arg1 + 0x10) = 0;
+    return 1;
 }
 
 extern "C" s32 func_ov001_021223f4(u8 *arg0)

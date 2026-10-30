@@ -357,28 +357,19 @@ extern "C" asm void func_020805a0(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_02080650(void)
+extern "C" s32 func_02080650(s32 arg0, s32 arg1)
 {
-    cmp r1, #0
-    ble @L_02080660
-    cmp r1, #5
-    blt @L_02080668
-@L_02080660:
-    mov r0, #0
-    bx lr
-@L_02080668:
-    mov r3, #0
-@L_0208066c:
-    add r2, r0, r3
-    ldrb r2, [r2, #0xa]
-    cmp r1, r2
-    moveq r0, #0
-    bxeq lr
-    add r3, r3, #1
-    cmp r3, #4
-    blt @L_0208066c
-    mov r0, #1
-    bx lr
+    s32 r3;
+    if ((arg1 <= 0 || arg1 >= 5)) {
+        return 0;
+    }
+    r3 = 0;
+    do {
+        if (arg1 == *(u8 *)(((u8 *)(arg0 + r3)) + 0xA))
+            return 0;
+        r3 = (r3 + 1);
+    } while (r3 < 4);
+    return 1;
 }
 
 extern "C" asm void func_02080694(void)

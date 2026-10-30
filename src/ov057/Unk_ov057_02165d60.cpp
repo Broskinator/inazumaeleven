@@ -3,7 +3,7 @@
 extern "C" s32 func_ov057_02165d60(s32 arg0);
 extern "C" void func_ov057_02165da4(void);
 extern "C" void func_ov057_02165ddc(u8 *arg0, s32 arg1);
-extern "C" void func_ov057_02165de4(void);
+extern "C" s32 func_ov057_02165de4(u8 *arg0, s32 arg1);
 extern "C" void func_ov057_02165f1c(void);
 extern "C" void func_ov057_02166274(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov057_02166294(void);
@@ -34,7 +34,7 @@ extern "C" void func_ov057_0216792c(void);
 extern "C" void func_ov057_0216797c(void);
 extern "C" void func_ov057_02167a14(void);
 extern "C" void func_ov057_02167cd4(void);
-extern "C" void func_ov057_02167d40(void);
+extern "C" s32 func_ov057_02167d40(s32 arg0, s32 arg1);
 extern "C" void func_ov057_02167d5c(void);
 extern "C" void func_ov057_02167e24(void);
 extern "C" void func_ov057_02167f08(void);
@@ -202,105 +202,66 @@ extern "C" void func_ov057_02165ddc(u8 *arg0, s32 arg1)
     *(s32 *)(arg0 + 0x5C) = arg1;
 }
 
-extern "C" asm void func_ov057_02165de4(void)
+extern "C" s32 func_ov057_02165de4(u8 *arg0, s32 arg1)
 {
-    ldr r0, [r0, #0xc]
-    cmp r0, #0
-    bne @L_02165ec8
-    cmp r1, #0x16
-    addls pc, pc, r1, lsl #2
-    b @L_02165ec0
-    b @L_02165ec0
-    b @L_02165ec0
-    b @L_02165ec0
-    b @L_02165ec0
-    b @L_02165e58
-    b @L_02165e60
-    b @L_02165e68
-    b @L_02165e70
-    b @L_02165e78
-    b @L_02165e80
-    b @L_02165e88
-    b @L_02165e90
-    b @L_02165e98
-    b @L_02165ea0
-    b @L_02165ea8
-    b @L_02165ea8
-    b @L_02165ea8
-    b @L_02165eb0
-    b @L_02165eb0
-    b @L_02165eb0
-    b @L_02165eb8
-    b @L_02165eb8
-    b @L_02165eb8
-@L_02165e58:
-    mov r0, #0
-    bx lr
-@L_02165e60:
-    mov r0, #1
-    bx lr
-@L_02165e68:
-    mov r0, #2
-    bx lr
-@L_02165e70:
-    mov r0, #3
-    bx lr
-@L_02165e78:
-    mov r0, #4
-    bx lr
-@L_02165e80:
-    mov r0, #5
-    bx lr
-@L_02165e88:
-    mov r0, #6
-    bx lr
-@L_02165e90:
-    mov r0, #7
-    bx lr
-@L_02165e98:
-    mov r0, #8
-    bx lr
-@L_02165ea0:
-    mov r0, #9
-    bx lr
-@L_02165ea8:
-    mov r0, #0xa
-    bx lr
-@L_02165eb0:
-    mov r0, #0xb
-    bx lr
-@L_02165eb8:
-    mov r0, #0xc
-    bx lr
-@L_02165ec0:
-    mvn r0, #0
-    bx lr
-@L_02165ec8:
-    sub r0, r1, #0xe
-    cmp r0, #8
-    addls pc, pc, r0, lsl #2
-    b @L_02165f14
-    b @L_02165efc
-    b @L_02165efc
-    b @L_02165efc
-    b @L_02165f04
-    b @L_02165f04
-    b @L_02165f04
-    b @L_02165f0c
-    b @L_02165f0c
-    b @L_02165f0c
-@L_02165efc:
-    mov r0, #0
-    bx lr
-@L_02165f04:
-    mov r0, #1
-    bx lr
-@L_02165f0c:
-    mov r0, #2
-    bx lr
-@L_02165f14:
-    mvn r0, #0
-    bx lr
+    if (*(s32 *)(arg0 + 0xC) == 0) {
+        switch (arg1) {
+            case 4:
+                return 0;
+            case 5:
+                return 1;
+            case 6:
+                return 2;
+            case 7:
+                return 3;
+            case 8:
+                return 4;
+            case 9:
+                return 5;
+            case 10:
+                return 6;
+            case 11:
+                return 7;
+            case 12:
+                return 8;
+            case 13:
+                return 9;
+            case 14:
+            case 15:
+            case 16:
+                return 10;
+            case 17:
+            case 18:
+            case 19:
+                return 0xB;
+            case 20:
+            case 21:
+            case 22:
+                return 0xC;
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            default:
+                return -1;
+        }
+    }
+    switch ((arg1 - 0xE)) {
+        case 0:
+        case 1:
+        case 2:
+            return 0;
+        case 3:
+        case 4:
+        case 5:
+            return 1;
+        case 6:
+        case 7:
+        case 8:
+            return 2;
+        default:
+            return -1;
+    }
 }
 
 extern "C" asm void func_ov057_02165f1c(void)
@@ -2347,15 +2308,9 @@ extern "C" asm void func_ov057_02167cd4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov057_02167d40(void)
+extern "C" s32 func_ov057_02167d40(s32 arg0, s32 arg1)
 {
-    add r2, r0, #0x194
-    mov r0, #0x74
-    mla r0, r1, r0, r2
-    ldrb r1, [r0, #0x6f]
-    cmp r1, #0
-    moveq r0, #0
-    bx lr
+    return (*(u8 *)(((u8 *)((arg1 * 0x74) + (arg0 + 0x194))) + 0x6F) == 0 ? 0 : ((arg1 * 0x74) + (arg0 + 0x194)));
 }
 
 extern "C" asm void func_ov057_02167d5c(void)
