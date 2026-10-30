@@ -2640,7 +2640,7 @@ extern "C" asm void func_ov000_02111784(void)
     ldr r0, [r2, r1]
     add r1, r2, r1
     tst r0, #1
-    ldmibne r1, {r5, r6}
+    ldmneib r1, {r5, r6}
     ldrne r7, [r1, #0xc]
     ldrne r4, [r1, #0x10]
     bne @L_021117f4

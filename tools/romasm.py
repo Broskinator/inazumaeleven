@@ -326,7 +326,10 @@ def main():
         if m:
             mn = m.group(1) + m.group(3) + m.group(2)
         # MWCC syntax: ldm<cond>ia, stm<cond>db
-        if mn[:3] in ("ldm", "stm") and len(mn) in (3, 5) and not mn.endswith(("ia", "db", "ib", "da")):
+        m = re.match(r"(ldm|stm)(ia|ib|da|db)(eq|ne|hs|lo|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|cs|cc)$", mn)
+        if m:
+            mn = m.group(1) + m.group(3) + m.group(2)     # (ldmibne -> ldmneib)
+        elif mn[:3] in ("ldm", "stm") and len(mn) in (3, 5) and not mn.endswith(("ia", "db", "ib", "da")):
             mn = mn[:3] + mn[3:] + "ia"
         if mn.startswith("push"):
             mn, op = "stm" + mn[4:] + "db", "sp!, " + op

@@ -1812,7 +1812,7 @@ extern "C" asm void func_ov014_0210d484(void)
     cmp r0, #0
     moveq r0, r4
     addne r1, r0, r5
-    stmibne r6, {r0, r1}
+    stmneib r6, {r0, r1}
     strne r5, [r6, #0xc]
     movne r0, #1
     ldmia sp!, {r4, r5, r6, pc}
