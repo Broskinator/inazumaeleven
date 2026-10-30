@@ -41,6 +41,110 @@ def pc_outside(i, op, start, end):
     return bool(m) and not start <= i.address + 8 + int(m.group(1) or "0", 0) < end
 
 
+def thumb(addr, size, blob, base, names, calls, loads):
+    """The lines of a Thumb function. Each instruction has its address in a comment, for
+    tools/thumbfix.py: the ones MW assembles differently become dcbs. The literal pools stay
+    in place (the loads as they are, the pool words as dcds), and so does the data after a
+    return no branch goes past."""
+    import struct
+    md = capstone.Cs(capstone.CS_ARCH_ARM, capstone.CS_MODE_THUMB)
+    md.syntax = capstone.CS_OPT_SYNTAX_NOREGNAME
+    ins, p = {}, addr
+    while p < addr + size:
+        i = next(md.disasm(blob[p - base:p - base + 4], p), None)
+        ins[p] = i
+        p += i.size if i else 2
+
+    def lit(i):
+        m = re.match(r"\w+, \[pc(?:, #(0x[0-9a-f]+|\d+))?\]$", i.op_str)
+        return ((i.address + 4) & ~3) + int(m.group(1) or "0", 0) if m and i.mnemonic.startswith("ldr") else None
+
+    def stop(i):
+        return i.mnemonic in ("b", "bx") or i.mnemonic == "pop" and "pc" in i.op_str
+    dead, pool = {p for p, i in ins.items() if i is None}, set()
+    for _ in range(10):
+        live = [i for p, i in ins.items() if p not in dead and p not in pool and p - 2 not in pool]
+        pool, real = set(), set()
+        for i in live:
+            if lit(i) is not None and addr <= lit(i) < addr + size:
+                pool.add(lit(i))
+            if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
+                real.add(int(i.op_str[1:], 16))
+        new, off = set(dead), False
+        for p in sorted(ins):
+            if p in real:
+                off = False
+            if p in pool or p - 2 in pool:
+                continue
+            if off:
+                new.add(p)
+            elif p not in new and ins[p] is not None and stop(ins[p]):
+                off = True
+        if new == dead:
+            break
+        dead = new
+
+    def raw(p, n):
+        return [f"    dcb {b:#04x}" for b in blob[p - base:p - base + n]]
+    out, p = [], addr
+    while p < addr + size:
+        if p in real:
+            out.append(f"@L_{p:08x}:")
+        if p in pool:
+            value = f"{struct.unpack('<I', blob[p - base:p - base + 4])[0]:#010x}"
+            if p in loads:
+                to, add = loads[p]
+                # (a Thumb function's address +1 by its name: the linker sets the bit)
+                name = to if isinstance(to, str) else names.get(to, names.get(to & ~1, f"data_{to:08x}"))
+                if not name.startswith(".L_"):
+                    value = name + (f"+{add:#x}" if add else "")
+            out.append(f"    dcd {value}")
+            p += 4
+            continue
+        i = ins.get(p)
+        n = i.size if i else 2
+        if i is None or p in dead:
+            out += raw(p, n)
+            p += n
+            continue
+        mn, op = i.mnemonic, i.op_str
+        if i.id == capstone.arm.ARM_INS_B and op.startswith("#"):
+            to = int(op[1:], 16)
+            op = f"@L_{to:08x}" if to in real else None
+        elif mn in ("bl", "blx") and op.startswith("#"):
+            c = calls.get(p)
+            if mn == "blx" or c is None:
+                op = None     # (a call of ARM code, or without a relocation: as it is)
+            elif isinstance(c, tuple):
+                op = f"func_ov{c[1]:03d}_{c[2]:08x}"
+            else:
+                op = c if isinstance(c, str) else names.get(c, names.get(c | 1, f"func_{c:08x}"))
+                if op.startswith(".L_"):
+                    op = None
+            mn = "bl"
+        elif mn == "adr":
+            op = None
+        else:
+            # MWCC (pre-UAL) Thumb syntax: the flags are set without an s
+            m = re.match(r"(add|sub|mov|lsl|lsr|asr|ror|and|orr|eor|bic|mvn|mul|neg|adc|sbc)s$", mn)
+            if m:
+                mn = m.group(1)
+            if mn in ("ldm", "stm"):
+                mn += "ia"
+            m = re.match(r"(r\d+), (r\d+), (r\d+)$", op)
+            if mn == "mul" and m and m.group(1) == m.group(3):
+                op = f"{m.group(1)}, {m.group(2)}"     # (rd = rd * rm)
+            m = re.match(r"(r\d+), (r\d+), #0$", op)
+            if mn == "rsbs" and m:
+                mn, op = "neg", f"{m.group(1)}, {m.group(2)}"
+        if op is None:
+            out += raw(p, n)
+        else:
+            out.append(f"    {mn} {op} // {p:#010x}")
+        p += n
+    return out
+
+
 def main():
     # --ov N: the function is in overlay N
     ov = None
@@ -53,12 +157,14 @@ def main():
     cls = sys.argv[2] if len(sys.argv) > 2 else None
     cfg = f"{ROOT}/config/yeep/arm9" if ov is None else f"{ROOT}/config/yeep/arm9/{ov}" if isinstance(ov, str) else \
         f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}"
-    names, sizes = {}, {}
+    names, sizes, thumbs = {}, {}, set()
     for line in open(f"{cfg}/symbols.txt"):
-        m = re.match(r"(\S+) kind:function\(\w+,size=(0x[0-9a-f]+)\S*\) addr:(0x[0-9a-f]+)", line)
+        m = re.match(r"(\S+) kind:function\((\w+),size=(0x[0-9a-f]+)\S*\) addr:(0x[0-9a-f]+)", line)
         if m:
-            names[int(m.group(3), 16)] = m.group(1)
-            sizes[int(m.group(3), 16)] = int(m.group(2), 16)
+            names[int(m.group(4), 16)] = m.group(1)
+            sizes[int(m.group(4), 16)] = int(m.group(3), 16)
+            if m.group(2) == "thumb":
+                thumbs.add(int(m.group(4), 16))
     calls = {}
     loads = {}
     if ov is not None:
@@ -136,6 +242,9 @@ def main():
                     f"{ROOT}/extract/yeep/arm9_overlays/ov{ov:03d}.bin", "rb").read()
         base = int(re.search(r"\.text\s+start:(0x[0-9a-f]+)", open(f"{cfg}/delinks.txt").read()).group(1), 16)
     size = sizes[addr]
+    if addr in thumbs:
+        emit(thumb(addr, size, blob, base, names, calls, loads))
+        return
     md = capstone.Cs(capstone.CS_ARCH_ARM, capstone.CS_MODE_ARM)
     md.syntax = capstone.CS_OPT_SYNTAX_NOREGNAME
     # the code ends where the literal pool starts
@@ -358,10 +467,14 @@ def main():
                 with open(lcf, "a", newline="\n") as f:
                     f.write(f"{op} = 0x{op[5:]};\n")
         out.append(f"    {mn} {op}")
+    emit(out)
+
+
+def emit(out):
     print("\n".join(out))
     # the C++ functions of other classes and the data it uses need a declaration
     for line in out:
-        m = re.match(r"\s*(?:b\S*|ldr\S*|dcd)\s+(?:\w+, =)?([A-Za-z_]\w*)(?:\+0x[0-9a-f]+)?$", line)
+        m = re.match(r"\s*(?:b\S*|ldr\S*|dcd)\s+(?:\w+, =)?([A-Za-z_]\w*)(?:\+0x[0-9a-f]+)?(?: // \S+)?$", line)
         if m and (m.group(1).startswith("r") and m.group(1)[1:].isdigit() or m.group(1) in ("sp", "lr", "pc")):
             m = None
         if m:

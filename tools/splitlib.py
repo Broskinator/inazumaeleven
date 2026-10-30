@@ -6,7 +6,7 @@ usage: [IE_OV=N] tools/splitlib.py LO HI PATH
 The range is in the main module, or in overlay N (or the TCM N: itcm, dtcm). PATH is the file under src/ without
 ".c" (e.g. libs/NitroSDK/fx/fx_vec). The functions keep their symbols' names (asm bodies from tools/romasm.py). A delinks entry that has just the
 range's .text (an incomplete libs/ one) is replaced by the new file's; in a gap, the new
-entry goes in by address. Thumb code and unreachable epilogues are not handled (exit 2).
+entry goes in by address. Unreachable epilogues are not handled (exit 2).
 """
 import os, re, struct, subprocess, sys
 
@@ -29,9 +29,6 @@ else:
     blob, base = open("extract/yeep/arm9/arm9.bin", "rb").read(), 0x02000000
 if not funcs:
     sys.exit(f"no functions in {lo:#x}-{hi:#x}")
-if any(kind != "arm" for _, _, kind in funcs):
-    print("thumb code")
-    sys.exit(2)
 tails = subprocess.run([sys.executable, "tools/findtails.py", f"{lo:x}", f"{hi:x}"], capture_output=True, text=True).stdout.strip()
 if tails:
     print("tails:", tails)
@@ -60,11 +57,19 @@ for a, name, kind in funcs:
             if d not in decls:
                 decls.append(d)
     body = r.stdout.rstrip()
-    # (words up to the next function, or to the end: data, as dcds after this one)
+    # (words up to the next function, or to the end: data, as dcds after this one, or
+    # dcbs for a halfword)
     nxt = next((b for b, _, _ in funcs if b > a), hi)
-    for w in range(sizes[a], nxt - a, 4):
-        body += f"\n    dcd {struct.unpack('<I', blob[a + w - base:a + w - base + 4])[0]:#010x}"
-    bodies.append(f"asm void {name}(void)\n{{\n{body}\n}}\n")
+    w = sizes[a]
+    while w < nxt - a:
+        if nxt - a - w >= 4 and (a + w) % 4 == 0:
+            body += f"\n    dcd {struct.unpack('<I', blob[a + w - base:a + w - base + 4])[0]:#010x}"
+            w += 4
+        else:
+            body += "".join(f"\n    dcb {b:#04x}" for b in blob[a + w - base:a + w - base + 2])
+            w += 2
+    asm = f"asm void {name}(void)\n{{\n{body}\n}}\n"
+    bodies.append(f"#pragma thumb on\n{asm}#pragma thumb off\n" if kind == "thumb" else asm)
 
 src = f"src/{path}.c"
 os.makedirs(os.path.dirname(src), exist_ok=True)
@@ -75,6 +80,11 @@ with open(src, "w", newline="\n") as f:
     if decls:
         f.write("\n".join(decls) + "\n\n")
     f.write("\n".join(bodies))
+if any(kind == "thumb" for _, _, kind in funcs):
+    # (MW encodes some Thumb instructions in other ways: those are written as bytes)
+    r = subprocess.run([sys.executable, "tools/thumbfix.py", src], capture_output=True, text=True)
+    if r.returncode:
+        sys.exit(r.stdout + r.stderr)
 
 t = open(f"{CFG}/delinks.txt").read()
 entry = f"{src}:\n    complete\n    .text start:{lo:#010x} end:{hi:#010x}\n"
