@@ -161,27 +161,27 @@ extern "C" s32 func_0208039c(u8 *arg0, s32 arg1)
     return 0;
 }
 
-extern "C" asm void func_020803e8(void)
+extern "C" s32 func_020803e8(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, #0
-    mov r7, r0
-    mov r5, r6
-    mov r4, r6
-@L_020803fc:
-    mov r0, r7
-    mov r1, r5
-    bl func_02080328
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    addne r0, r6, #1
-    add r5, r5, #1
-    andne r6, r0, #0xff
-    cmp r5, #0x10
-    blt @L_020803fc
-    mov r0, r6
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    u16 v0;
+    s32 v1;
+    r6 = 0;
+    r7 = arg0;
+    r5 = 0;
+    r4 = 0;
+    do {
+        v0 = func_02080328((u16 *)r7, (u32)r5);
+        v1 = func_ov015_02130b14(v0, r4);
+        if (v1 != 0) {
+            r6 = ((r6 + 1) & 0xFF);
+        }
+        r5 = (r5 + 1);
+    } while (r5 < 0x10);
+    return r6;
 }
 
 extern "C" s32 func_02080430(u8 *arg0, s32 arg1)

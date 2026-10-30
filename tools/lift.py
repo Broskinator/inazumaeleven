@@ -1015,6 +1015,7 @@ def lift_cfg(name, body, protos, variant=0):
         stmts, seg, flags = [], set(), None
         state = {"flags": None}
         out_args = {}
+        wpos = {}
 
         def read(r):
             if r not in regs:
@@ -1029,6 +1030,7 @@ def lift_cfg(name, body, protos, variant=0):
                 v = Tern(need_flags(), c, v, read(r))
             regs[r] = v
             seg.add(r)
+            wpos[r] = max(wpos.values(), default=0) + 1
 
         def need_flags():
             if not state["flags"]:
@@ -1216,7 +1218,8 @@ def lift_cfg(name, body, protos, variant=0):
         if b["succ"]:
             live = set().union(*[live_in[s] for s in b["succ"]])
             assign = {}
-            for r in sorted(live, key=REGS.index):
+            # (in the order they were written: MW keeps the order of the C)
+            for r in sorted(live, key=lambda r: (wpos.get(r, 0), REGS.index(r))):
                 home = P[int(r[1:])] if r in ("r0", "r1", "r2", "r3") else V.get(r)
                 if home is None:
                     raise Fail(f"register {r}")
