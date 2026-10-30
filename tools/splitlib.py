@@ -40,6 +40,14 @@ for line in open(f"{CFG}/symbols.txt"):
         funcs.append((int(m[2], 16), m[1], "data"))
         sizes[int(m[2], 16)] = 0
 funcs.sort()
+if funcs[0][0] > lo:
+    # (data before the first function: a block of its own, in symbols.txt for
+    # tools/lcfextra.py to keep)
+    funcs.insert(0, (lo, f"data_{lo:08x}", "data"))
+    sizes[lo] = 0
+    syms = open(f"{CFG}/symbols.txt").read()
+    if f"data_{lo:08x} " not in syms:
+        open(f"{CFG}/symbols.txt", "w", newline="\n").write(f"data_{lo:08x} kind:data(any) addr:{lo:#010x}\n" + syms)
 
 own = {n for _, n, _ in funcs}
 decls, bodies = [], []

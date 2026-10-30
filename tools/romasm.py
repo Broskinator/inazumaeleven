@@ -52,6 +52,9 @@ def thumb(addr, size, blob, base, names, calls, loads):
     ins, p = {}, addr
     while p < addr + size:
         i = next(md.disasm(blob[p - base:p - base + 4], p), None)
+        if i is not None and (i.mnemonic in ("cbz", "cbnz") or i.mnemonic.startswith("it") or
+                              i.size == 4 and i.mnemonic not in ("bl", "blx")):
+            i = None     # (Thumb-2: not on the ARM946E-S, data)
         ins[p] = i
         p += i.size if i else 2
 
@@ -68,7 +71,7 @@ def thumb(addr, size, blob, base, names, calls, loads):
         for i in live:
             if lit(i) is not None and addr <= lit(i) < addr + size:
                 pool.add(lit(i))
-            if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
+            if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#") and addr <= int(i.op_str[1:], 16) < addr + size:
                 real.add(int(i.op_str[1:], 16))
         new, off = set(dead), False
         for p in sorted(ins):
@@ -131,6 +134,8 @@ def thumb(addr, size, blob, base, names, calls, loads):
                 mn = m.group(1)
             if mn in ("ldm", "stm"):
                 mn += "ia"
+            if mn == "svc":
+                mn, op = "swi", op.lstrip("#")     # (no #)
             m = re.match(r"(r\d+), (r\d+), (r\d+)$", op)
             if mn == "mul" and m and m.group(1) == m.group(3):
                 op = f"{m.group(1)}, {m.group(2)}"     # (rd = rd * rm)
@@ -454,6 +459,8 @@ def main():
         elif mn.startswith("pop"):
             mn, op = "ldm" + mn[3:] + "ia", "sp!, " + op
         # MWCC syntax for the system instructions
+        if mn.startswith("svc"):
+            mn, op = "swi" + mn[3:], op.lstrip("#")
         if mn[:3] in ("mcr", "mrc"):
             op = op.replace("#", "")
         if mn[:3] in ("mrs", "msr"):

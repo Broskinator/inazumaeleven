@@ -7,6 +7,10 @@
     .bss        start:0x020bb040 end:0x020fc7e0 kind:bss align:32
 
 
+src/libs/Unk_02000000.c:
+    complete
+    .text start:0x02000000 end:0x02000800
+
 src/libs/Unk_02000800.c:
     complete
     .text start:0x02000800 end:0x02000950
@@ -23,10 +27,12 @@ src/libs/NitroSDK/fx/fx_mtx33.c:
     complete
     .text start:0x02000cb4 end:0x02000da0
 
-libs/NitroSDK/fx/fx_mtx43.c:
+src/libs/NitroSDK/fx/fx_mtx43.c:
+    complete
     .text start:0x02000da0 end:0x020015c0
 
-libs/NitroSDK/fx/fx_mtx44.c:
+src/libs/NitroSDK/fx/fx_mtx44.c:
+    complete
     .text start:0x020015c0 end:0x02001db4
 
 src/libs/NitroSDK/fx/fx_cp.c:
@@ -153,7 +159,8 @@ src/libs/NitroSDK/mi/mi_dma_gxcommand.c:
     complete
     .text start:0x0200913c end:0x02009168
 
-libs/NitroSDK/mi/mi_memory.c:
+src/libs/NitroSDK/mi/mi_memory.c:
+    complete
     .text start:0x02009168 end:0x02009be0
 
 src/libs/NitroSDK/mi/mi_uncompress.c:

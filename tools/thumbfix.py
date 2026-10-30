@@ -47,14 +47,26 @@ def elf_functions(path):
 
 
 flags = re.search(r"^CFLAGS\s*:=\s*(.*?)(?<!\\)\n", open("Makefile").read().replace("\\\n", " "), re.M | re.S)[1].split()
-for _ in range(3):
+for _ in range(20):
     with tempfile.TemporaryDirectory() as tmp:
         o = os.path.join(tmp, "t.o")
         r = subprocess.run([os.path.abspath("tools/mwccarm/dsi/1.2/mwccarm.exe"), *flags, "-c", src, "-o", o], capture_output=True, text=True,
                            env=dict(os.environ, LM_LICENSE_FILE=os.path.abspath("tools/mwccarm/license.dat"),
                                     MWCIncludes=os.path.abspath("include")))
         if r.returncode:
-            sys.exit(r.stdout + r.stderr)
+            # (an instruction MW can't assemble, in data decoded as code: as bytes)
+            lines, bad = open(src).read().split("\n"), 0
+            for n in set(int(x) for x in re.findall(r"^[^:\n]*:(\d+):", r.stdout + r.stderr, re.M)):
+                m = re.match(r"    \S+.* // (0x[0-9a-f]+)$", lines[n - 1])
+                if m:
+                    a = int(m[1], 16)
+                    size = 4 if lines[n - 1].split()[0] in ("bl", "blx") else 2
+                    lines[n - 1] = "\n".join(f"    dcb {b:#04x}" for b in blob[a - base:a - base + size])
+                    bad += 1
+            if not bad:
+                sys.exit(r.stdout + r.stderr)
+            open(src, "w", newline="\n").write("\n".join(lines))
+            continue
         built = elf_functions(o)
     lines, func, changed = open(src).read().split("\n"), None, 0
     for k, line in enumerate(lines):
