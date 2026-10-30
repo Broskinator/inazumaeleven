@@ -1,5 +1,6 @@
 #include "ov014/Unk_ov014_0211b0e0.hpp"
 
+extern "C" void WBT_CancelCurrentCommand(void);
 extern "C" void func_ov014_0211b0e0(void);
 extern "C" void func_ov014_0211b1a8(void);
 extern "C" void func_ov014_0211b1f0(void);
@@ -641,7 +642,7 @@ extern "C" asm void func_ov014_0211b6e0(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void Free_211b0e0::WBT_CancelCurrentCommand()
+extern "C" asm void WBT_CancelCurrentCommand(void)
 {
     stmdb sp!, {r3, lr}
     mov r1, r0
