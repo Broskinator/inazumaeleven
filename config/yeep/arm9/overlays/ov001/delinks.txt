@@ -20,3 +20,7 @@ src/ov001/Unk_ov001_02102bcc.cpp:
 src/ov001/Unk_ov001_02105c40.cpp:
     complete
     .text start:0x02105c40 end:0x021091c0
+
+src/ov001/Unk_ov001_021091c0.cpp:
+    complete
+    .text start:0x021091c0 end:0x0210c348
