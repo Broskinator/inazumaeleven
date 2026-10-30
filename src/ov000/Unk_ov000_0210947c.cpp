@@ -23,7 +23,7 @@ extern "C" void func_ov000_0210ae34(void);
 extern "C" void func_ov000_0210aee4(void);
 extern "C" void func_ov000_0210afec(void);
 extern "C" void func_ov000_0210b034(void);
-extern "C" void func_ov000_0210b098(void);
+extern "C" s32 func_ov000_0210b098(s32 arg0);
 extern "C" void func_ov000_0210b0ac(void);
 extern "C" void func_ov000_0210b0e0(void);
 extern "C" void func_ov000_0210b170(void);
@@ -89,7 +89,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02078844Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207aa94Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207c6b4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207d308EPh(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_02001f08(void);
 extern "C" void func_02001f38(void);
 extern "C" void func_0200226c(void);
@@ -2096,13 +2096,10 @@ extern "C" asm void func_ov000_0210b034(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov000_0210b098(void)
+extern "C" s32 func_ov000_0210b098(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" asm void func_ov000_0210b0ac(void)

@@ -32,7 +32,7 @@ extern "C" void func_ov079_021726d4(void);
 extern "C" void func_ov079_02172c68(void);
 extern "C" void func_ov079_02172cc8(void);
 extern "C" void func_ov079_02172d90(void);
-extern "C" void func_ov079_02172e3c(void);
+extern "C" s32 func_ov079_02172e3c(...);
 extern "C" void func_ov079_02172ef0(void);
 extern "C" void func_ov079_02172f24(void);
 extern "C" void func_ov079_02172f40(void);
@@ -134,7 +134,7 @@ extern "C" void func_ov015_02134554(void);
 extern "C" void func_ov015_0213b6ac(void);
 extern "C" void func_ov015_0213b7f8(void);
 extern "C" void func_ov015_0213b870(void);
-extern "C" void func_ov015_0213bfcc(void);
+extern "C" s32 func_ov015_0213bfcc(...);
 extern "C" void gGameState(void);
 extern "C" void sprintf(void);
 
@@ -3314,7 +3314,7 @@ extern "C" asm void func_ov079_02172d90(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov079_02172e3c(void)
+extern "C" asm s32 func_ov079_02172e3c(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x20
@@ -3375,14 +3375,10 @@ extern "C" asm void func_ov079_02172ef0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov079_02172f24(void)
+extern "C" void func_ov079_02172f24(void)
 {
-    stmdb sp!, {r3, lr}
-    bl func_ov079_02172e3c
-    ldr r0, =data_020c9660
-    mov r1, #1
-    bl func_ov015_0213bfcc
-    ldmia sp!, {r3, pc}
+    func_ov079_02172e3c();
+    func_ov015_0213bfcc((s32)data_020c9660, 1);
 }
 
 extern "C" asm void func_ov079_02172f40(void)

@@ -5,11 +5,11 @@ extern "C" void func_ov001_02121f78(void);
 extern "C" void func_ov001_02122050(void);
 extern "C" void func_ov001_02122188(void);
 extern "C" void func_ov001_021221e4(void);
-extern "C" void func_ov001_02122250(void);
+extern "C" s32 func_ov001_02122250(s32 arg0);
 extern "C" void func_ov001_02122264(void);
-extern "C" void func_ov001_02122378(void);
+extern "C" s32 func_ov001_02122378(s32 arg0);
 extern "C" void func_ov001_0212238c(void);
-extern "C" void func_ov001_021223f4(void);
+extern "C" s32 func_ov001_021223f4(u8 *arg0);
 extern "C" void func_ov001_02122428(void);
 extern "C" void func_ov001_0212247c(void);
 extern "C" void func_ov001_021224a4(void);
@@ -22,7 +22,7 @@ extern "C" void func_ov001_02122ad0(void);
 extern "C" void func_ov001_02122b54(void);
 extern "C" void func_ov001_02122bac(void);
 extern "C" void func_ov001_02122c04(void);
-extern "C" void func_ov001_02122c5c(void);
+extern "C" s32 func_ov001_02122c5c(s32 arg0);
 extern "C" void func_ov001_02122c70(void);
 extern "C" void func_ov001_02122c84(void);
 extern "C" void func_ov001_02122cbc(void);
@@ -82,29 +82,29 @@ extern "C" void DC_FlushRange(void);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void G2S_GetBG2CharPtr(void);
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN17UnkClass_020621b413func_020690a8Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b3a4Eim(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa0Eh(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfb4Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206d828Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206d828Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206d840Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206d8e0Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206d8f8Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206d910Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206d940Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206d958Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206dedcEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206df34Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206d8f8Ev(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206d910Ev(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206d940Ev(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206d958Ev(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206dedcEv(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206df34Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0207f7ccEv(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8SetUnk1CEhh(void);
 extern "C" void _ZN9EntryPool6CreateEi(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
 extern "C" void func_020036e8(void);
 extern "C" void func_020037c8(void);
@@ -158,7 +158,7 @@ extern "C" void func_ov015_02133dc8(void);
 extern "C" void func_ov015_02133e24(void);
 extern "C" void func_ov015_02133e50(void);
 extern "C" void func_ov015_02133e8c(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
@@ -464,13 +464,10 @@ extern "C" asm void func_ov001_021221e4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov001_02122250(void)
+extern "C" s32 func_ov001_02122250(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" asm void func_ov001_02122264(void)
@@ -549,13 +546,10 @@ extern "C" asm void func_ov001_02122264(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov001_02122378(void)
+extern "C" s32 func_ov001_02122378(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" asm void func_ov001_0212238c(void)
@@ -588,20 +582,12 @@ extern "C" asm void func_ov001_0212238c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov001_021223f4(void)
+extern "C" s32 func_ov001_021223f4(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x34
-    mov r1, #0
-    mov r2, #0x54
-    bl MI_CpuFill8
-    ldr r0, =data_ov001_0212a898
-    add r1, r4, #0x34
-    bl func_ov015_02133f94
-    mov r0, #1
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    MI_CpuFill8((arg0 + 0x34), 0, 0x54);
+    func_ov015_02133f94((s32)data_ov001_0212a898, (arg0 + 0x34));
+    *(s32 *)(arg0 + 0x8) = 1;
+    return 1;
 }
 
 extern "C" asm void func_ov001_02122428(void)
@@ -1182,20 +1168,15 @@ extern "C" asm void func_ov001_02122c04(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_02122c5c(void)
+extern "C" s32 func_ov001_02122c5c(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
-extern "C" asm void func_ov001_02122c70(void)
+extern "C" void func_ov001_02122c70(void)
 {
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_0206d828Ev
-    bx r12
+    _ZN17UnkClass_020621b413func_0206d828Ev((s32)data_020e88a0);
 }
 
 extern "C" asm void func_ov001_02122c84(void)
@@ -1215,39 +1196,29 @@ extern "C" asm void func_ov001_02122c84(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov001_02122cbc(void)
+extern "C" void func_ov001_02122cbc(void)
 {
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_0206d8f8Ev
-    bx r12
+    _ZN17UnkClass_020621b413func_0206d8f8Ev((s32)data_020e88a0);
 }
 
-extern "C" asm void func_ov001_02122cd0(void)
+extern "C" void func_ov001_02122cd0(void)
 {
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_0206d910Ev
-    bx r12
+    _ZN17UnkClass_020621b413func_0206d910Ev((s32)data_020e88a0);
 }
 
-extern "C" asm void func_ov001_02122ce4(void)
+extern "C" void func_ov001_02122ce4(void)
 {
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_0206df34Ev
-    bx r12
+    _ZN17UnkClass_020621b413func_0206df34Ev((s32)data_020e88a0);
 }
 
-extern "C" asm void func_ov001_02122cf8(void)
+extern "C" void func_ov001_02122cf8(void)
 {
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_0206dedcEv
-    bx r12
+    _ZN17UnkClass_020621b413func_0206dedcEv((s32)data_020e88a0);
 }
 
-extern "C" asm void func_ov001_02122d0c(void)
+extern "C" void func_ov001_02122d0c(void)
 {
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_0206d958Ev
-    bx r12
+    _ZN17UnkClass_020621b413func_0206d958Ev((s32)data_020e88a0);
 }
 
 extern "C" asm void func_ov001_02122d20(void)
@@ -1306,11 +1277,9 @@ extern "C" asm void func_ov001_02122d40(void)
     bx lr
 }
 
-extern "C" asm void func_ov001_02122dd4(void)
+extern "C" void func_ov001_02122dd4(void)
 {
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_0206d940Ev
-    bx r12
+    _ZN17UnkClass_020621b413func_0206d940Ev((s32)data_020e88a0);
 }
 
 extern "C" asm void func_ov001_02122de8(void)

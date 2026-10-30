@@ -7,7 +7,7 @@ extern "C" void func_ov000_020ffe64(void);
 extern "C" void func_ov000_020fffd8(void);
 extern "C" void func_ov000_020ffff4(void);
 extern "C" void func_ov000_02100104(void);
-extern "C" void func_ov000_021001a4(void);
+extern "C" void func_ov000_021001a4(s32 arg0);
 extern "C" void func_ov000_021001b8(void);
 extern "C" void func_ov000_0210028c(void);
 extern "C" void func_ov000_021002d4(void);
@@ -23,9 +23,9 @@ extern "C" void func_ov000_0210070c(void);
 extern "C" void func_ov000_02100784(void);
 extern "C" void func_ov000_021008f4(void);
 extern "C" void func_ov000_021009b4(void);
-extern "C" void func_ov000_02100a38(void);
+extern "C" s32 func_ov000_02100a38(u8 *arg0, s32 arg1);
 extern "C" void func_ov000_02100a58(void);
-extern "C" void func_ov000_02100b3c(void);
+extern "C" s32 func_ov000_02100b3c(...);
 extern "C" void func_ov000_02100bec(void);
 extern "C" void func_ov000_02100c7c(void);
 extern "C" void func_ov000_02100cc8(void);
@@ -78,7 +78,7 @@ extern "C" char data_ov000_021187ac[];
 extern "C" void DC_FlushRange(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void G2_GetBG3ScrPtr(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052720Ev(void);
@@ -595,12 +595,9 @@ extern "C" asm void func_ov000_02100104(void)
     bx lr
 }
 
-extern "C" asm void func_ov000_021001a4(void)
+extern "C" void func_ov000_021001a4(s32 arg0)
 {
-    ldr r12, =MI_CpuFill8
-    mov r1, #0
-    mov r2, #0xe
-    bx r12
+    MI_CpuFill8(arg0, 0, 0xE);
 }
 
 extern "C" asm void func_ov000_021001b8(void)
@@ -1203,16 +1200,11 @@ extern "C" asm void func_ov000_021009b4(void)
     ldmia sp!, {r4, r5, pc}
 }
 
-extern "C" asm void func_ov000_02100a38(void)
+extern "C" s32 func_ov000_02100a38(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r2, r1
-    mov r1, #0
-    mov r4, r0
-    bl func_ov000_02100b3c
-    mov r0, #1
-    strb r0, [r4, #0x9a]
-    ldmia sp!, {r4, pc}
+    func_ov000_02100b3c(arg0, 0, arg1);
+    *(u8 *)(arg0 + 0x9A) = 1;
+    return 1;
 }
 
 extern "C" asm void func_ov000_02100a58(void)
@@ -1281,7 +1273,7 @@ extern "C" asm void func_ov000_02100a58(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov000_02100b3c(void)
+extern "C" asm s32 func_ov000_02100b3c(...)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0xc

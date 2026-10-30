@@ -26,7 +26,7 @@ extern "C" void func_ov001_020fdef4(void);
 extern "C" void func_ov001_020fe0b0(void);
 extern "C" void func_ov001_020fe488(void);
 extern "C" void func_ov001_020fe4b8(void);
-extern "C" void func_ov001_020fe4f8(void);
+extern "C" s32 func_ov001_020fe4f8(s32 arg0);
 extern "C" void func_ov001_020fe50c(void);
 extern "C" void func_ov001_020fe510(void);
 extern "C" void func_ov001_020fe560(void);
@@ -156,7 +156,7 @@ extern "C" void _ZN9EntryPool13SetExt0BufferEPv(void);
 extern "C" void _ZN9EntryPool13SetExt1BufferEPv(void);
 extern "C" void _ZN9EntryPool15ClearExt0BufferEv(void);
 extern "C" void _ZN9EntryPool15ClearExt1BufferEv(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void _Znam(void);
 extern "C" void _Znwm(void);
 extern "C" void func_02003678(void);
@@ -2224,13 +2224,10 @@ extern "C" asm void func_ov001_020fe4b8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov001_020fe4f8(void)
+extern "C" s32 func_ov001_020fe4f8(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov001_020fe50c(void)

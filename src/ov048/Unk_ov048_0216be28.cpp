@@ -36,7 +36,7 @@ extern "C" void func_ov048_0216e504(void);
 extern "C" void func_ov048_0216e8bc(void);
 extern "C" void func_ov048_0216e8c0(void);
 extern "C" void func_ov048_0216e9f8(void);
-extern "C" void func_ov048_0216eab8(void);
+extern "C" s32 func_ov048_0216eab8(s32 arg0);
 extern "C" void func_ov048_0216eacc(void);
 
 extern "C" char data_020c4650[];
@@ -63,7 +63,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206faa0Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_020731c4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
 extern "C" void func_01ffdbb0(void);
 extern "C" void func_01ffdcc4(void);
@@ -3294,13 +3294,10 @@ extern "C" asm void func_ov048_0216e9f8(void)
     ldmia sp!, {r4, r5, pc}
 }
 
-extern "C" asm void func_ov048_0216eab8(void)
+extern "C" s32 func_ov048_0216eab8(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov048_0216eacc(void)

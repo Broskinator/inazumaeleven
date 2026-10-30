@@ -1,6 +1,6 @@
 #include "ov037/Unk_ov037_02165d60.hpp"
 
-extern "C" void func_ov037_02165d60(void);
+extern "C" void func_ov037_02165d60(s32 arg0);
 extern "C" void func_ov037_02165d7c(void);
 extern "C" void func_ov037_02165e0c(void);
 extern "C" void func_ov037_02165e48(void);
@@ -129,7 +129,7 @@ extern "C" void func_ov000_021148a8(void);
 extern "C" void func_ov000_02114a8c(void);
 extern "C" void func_ov000_02114c1c(void);
 extern "C" void func_ov015_02130b14(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
 extern "C" void func_ov015_02134208(void);
@@ -161,13 +161,9 @@ extern "C" void func_ov037_0216bb48(void);
 extern "C" void func_ov037_0216bb7c(void);
 extern "C" void func_ov037_0216bd84(void);
 
-extern "C" asm void func_ov037_02165d60(void)
+extern "C" void func_ov037_02165d60(s32 arg0)
 {
-    mov r1, r0
-    ldr r0, =data_ov037_0216c27c
-    ldr r12, =func_ov015_02133f94
-    add r1, r1, #0x30
-    bx r12
+    func_ov015_02133f94((s32)data_ov037_0216c27c, (arg0 + 0x30));
 }
 
 extern "C" asm void func_ov037_02165d7c(void)

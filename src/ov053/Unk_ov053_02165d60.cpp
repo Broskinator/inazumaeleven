@@ -1,6 +1,6 @@
 #include "ov053/Unk_ov053_02165d60.hpp"
 
-extern "C" void func_ov053_02165d60(void);
+extern "C" void func_ov053_02165d60(s32 arg0);
 extern "C" void func_ov053_02165d8c(void);
 extern "C" void func_ov053_02165e3c(void);
 extern "C" void func_ov053_02165f04(void);
@@ -100,7 +100,7 @@ extern "C" void func_ov015_02130b14(void);
 extern "C" void func_ov015_02131cd4(void);
 extern "C" void func_ov015_02131da0(void);
 extern "C" void func_ov015_0213328c(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_02134198(void);
 extern "C" void func_ov015_02134208(void);
 extern "C" void func_ov015_0213447c(void);
@@ -133,17 +133,10 @@ extern "C" void func_ov053_0216b204(void);
 extern "C" void func_ov053_0216b2a4(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov053_02165d60(void)
+extern "C" void func_ov053_02165d60(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_ov053_0216b4dc
-    add r1, r4, #0x18
-    bl func_ov015_02133f94
-    ldr r0, =data_ov053_0216b4f8
-    add r1, r4, #0x24
-    bl func_ov015_02133f94
-    ldmia sp!, {r4, pc}
+    func_ov015_02133f94((s32)data_ov053_0216b4dc, (arg0 + 0x18));
+    func_ov015_02133f94((s32)data_ov053_0216b4f8, (arg0 + 0x24));
 }
 
 extern "C" asm void func_ov053_02165d8c(void)

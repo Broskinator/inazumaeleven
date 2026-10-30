@@ -10,7 +10,7 @@ extern "C" void func_ov054_02169230(void);
 extern "C" void func_ov054_0216929c(void);
 extern "C" void func_ov054_02169344(void);
 extern "C" void func_ov054_0216935c(void);
-extern "C" void func_ov054_021693b8(void);
+extern "C" s32 func_ov054_021693b8(s32 arg0);
 extern "C" void func_ov054_021693cc(void);
 
 extern "C" char data_020c46b8[];
@@ -22,7 +22,7 @@ extern "C" char data_020e88a0[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206ea30Eit(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_020808c4(void);
 extern "C" void func_02092270(void);
 extern "C" void func_0209386c(void);
@@ -36,7 +36,7 @@ extern "C" void func_ov015_02136330(void);
 extern "C" void func_ov015_021619f4(void);
 extern "C" void func_ov015_02161bf4(void);
 extern "C" void func_ov015_02162140(void);
-extern "C" void func_ov015_021624f0(void);
+extern "C" s32 func_ov015_021624f0(...);
 extern "C" void func_ov015_02162e84(void);
 extern "C" void func_ov015_02162ed0(void);
 extern "C" void func_ov015_02162f70(void);
@@ -467,12 +467,9 @@ extern "C" asm void func_ov054_0216929c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov054_02169344(void)
+extern "C" void func_ov054_02169344(void)
 {
-    ldr r0, =data_020c46c4
-    ldr r12, =func_ov015_021624f0
-    ldr r0, [r0]
-    bx r12
+    func_ov015_021624f0(*(s32 *)(data_020c46c4));
 }
 
 extern "C" asm void func_ov054_0216935c(void)
@@ -501,13 +498,10 @@ extern "C" asm void func_ov054_0216935c(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov054_021693b8(void)
+extern "C" s32 func_ov054_021693b8(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov054_021693cc(void)

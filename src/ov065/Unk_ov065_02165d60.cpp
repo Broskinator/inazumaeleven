@@ -52,7 +52,7 @@ extern "C" void func_ov065_02167fa0(void);
 extern "C" void func_ov065_021680d0(void);
 extern "C" void func_ov065_02168278(void);
 extern "C" void func_ov065_021682b8(void);
-extern "C" void func_ov065_0216833c(void);
+extern "C" s32 func_ov065_0216833c(s32 arg0);
 extern "C" void func_ov065_02168350(void);
 
 extern "C" char data_020c463a[];
@@ -78,12 +78,12 @@ extern "C" char data_ov065_02168560[];
 extern "C" char data_ov065_02168580[];
 extern "C" char data_ov065_021685a0[];
 extern "C" char data_ov065_021685c0[];
-extern "C" void DC_FlushRange(void);
-extern "C" void G2_GetBG1CharPtr(void);
+extern "C" s32 DC_FlushRange(...);
+extern "C" s32 G2_GetBG1CharPtr(...);
 extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN12SceneManager13func_0203e2fcEl(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203df24Ev(void);
@@ -95,7 +95,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206ce7cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_02077c4cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_02077ce4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_020795b4Ev(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003678(void);
 extern "C" void func_02003758(void);
 extern "C" void func_02003838(void);
@@ -127,7 +127,7 @@ extern "C" void func_02097aa0(void);
 extern "C" void func_02097b3c(void);
 extern "C" void func_02097c74(void);
 extern "C" void func_02097ca8(void);
-extern "C" void func_ov015_02132224(void);
+extern "C" s32 func_ov015_02132224(...);
 extern "C" void func_ov015_02132628(void);
 extern "C" void func_ov015_02133f94(void);
 extern "C" void func_ov015_02134118(void);
@@ -138,7 +138,7 @@ extern "C" void func_ov015_02136080(void);
 extern "C" void func_ov015_0213b364(void);
 extern "C" void func_ov015_0213b3fc(void);
 extern "C" void func_ov015_0213b900(void);
-extern "C" void func_ov015_0213bfcc(void);
+extern "C" s32 func_ov015_0213bfcc(...);
 extern "C" void func_ov015_021616a4(void);
 extern "C" void func_ov015_021616dc(void);
 extern "C" void func_ov015_02161710(void);
@@ -1228,20 +1228,13 @@ extern "C" asm void func_ov065_02166bfc(void)
     bx lr
 }
 
-extern "C" asm void func_ov065_02166c24(void)
+extern "C" void func_ov065_02166c24(void)
 {
-    stmdb sp!, {r4, lr}
-    bl G2_GetBG1CharPtr
-    mov r4, #0x20
-    mov r1, r0
-    mov r2, r4
-    mov r0, #0
-    bl MIi_CpuClearFast
-    bl G2_GetBG1CharPtr
-    mov r1, r4
-    bl DC_FlushRange
-    bl func_ov015_02132224
-    ldmia sp!, {r4, pc}
+    s32 v0 = G2_GetBG1CharPtr();
+    MIi_CpuClearFast(0, v0, 0x20);
+    s32 v2 = G2_GetBG1CharPtr();
+    DC_FlushRange(v2, 0x20);
+    func_ov015_02132224();
 }
 
 extern "C" asm void func_ov065_02166c54(void)
@@ -2511,12 +2504,9 @@ extern "C" asm void func_ov065_02167df4(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov065_02167e74(void)
+extern "C" void func_ov065_02167e74(void)
 {
-    ldr r0, =data_020c9660
-    ldr r12, =func_ov015_0213bfcc
-    mov r1, #0
-    bx r12
+    func_ov015_0213bfcc((s32)data_020c9660, 0);
 }
 
 extern "C" asm void func_ov065_02167e8c(void)
@@ -2840,13 +2830,10 @@ extern "C" asm void func_ov065_021682b8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov065_0216833c(void)
+extern "C" s32 func_ov065_0216833c(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov065_02168350(void)

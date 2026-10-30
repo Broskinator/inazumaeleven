@@ -29,7 +29,7 @@ extern "C" void func_ov082_02171688(void);
 extern "C" void func_ov082_021716e0(void);
 extern "C" void func_ov082_02171738(void);
 extern "C" void func_ov082_0217178c(void);
-extern "C" void func_ov082_021718e8(void);
+extern "C" s32 func_ov082_021718e8(s32 arg0);
 extern "C" void func_ov082_021718fc(void);
 
 extern "C" char data_020c46a8[];
@@ -52,7 +52,7 @@ extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
 extern "C" void func_02003988(void);
 extern "C" void func_02003b48(void);
@@ -1858,13 +1858,10 @@ extern "C" asm void func_ov082_0217178c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov082_021718e8(void)
+extern "C" s32 func_ov082_021718e8(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov082_021718fc(void)

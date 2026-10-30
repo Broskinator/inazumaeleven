@@ -3,7 +3,7 @@
 extern "C" char data_020c47b4[];
 
 extern "C" void func_0209a3b0(void);
-extern "C" void func_0209a420(void);
+extern "C" void func_0209a420(u8 *arg0);
 extern "C" void func_0209a450(u8 *obj);
 extern "C" void func_0209a45c(void);
 extern "C" void func_0209a4d8(void);
@@ -84,7 +84,7 @@ extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN12SoundManager13func_0203a4d4EiPKci(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206cfc8Ev(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_02003eec(void);
 extern "C" void func_02004038(void);
 extern "C" void func_020040b0(void);
@@ -127,19 +127,11 @@ extern "C" asm void func_0209a3b0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_0209a420(void)
+extern "C" void func_0209a420(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, #0
-    ldr r0, =data_020c47b4
-    mov r2, r4
-    mov r1, #0x8000
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r5, #0x1c]
-    str r4, [r5, #0x20]
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v0 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, 0x8000, 0, 1);
+    *(s32 *)(arg0 + 0x1C) = v0;
+    *(s32 *)(arg0 + 0x20) = 0;
 }
 
 extern "C" void func_0209a450(u8 *obj)

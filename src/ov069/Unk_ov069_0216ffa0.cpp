@@ -14,7 +14,7 @@ extern "C" void func_ov069_021703bc(void);
 extern "C" void func_ov069_021703c0(void);
 extern "C" void func_ov069_021703fc(void);
 extern "C" void func_ov069_02170414(void);
-extern "C" void func_ov069_021705e0(void);
+extern "C" s32 func_ov069_021705e0(s32 arg0);
 extern "C" void func_ov069_021705f4(void);
 extern "C" void func_ov069_021705f8(void);
 extern "C" void func_ov069_021705fc(void);
@@ -23,11 +23,11 @@ extern "C" char data_020c46d4[];
 extern "C" char data_ov069_021706ec[];
 extern "C" char data_ov069_02170720[];
 extern "C" void G2x_ChangeBlendBrightness_(void);
-extern "C" void GXx_SetMasterBrightness_(void);
+extern "C" s32 GXx_SetMasterBrightness_(...);
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void _Znam(void);
 extern "C" void func_020255e4(void);
 extern "C" void func_02091d54(void);
@@ -366,12 +366,9 @@ extern "C" asm void func_ov069_021703c0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov069_021703fc(void)
+extern "C" void func_ov069_021703fc(void)
 {
-    ldr r0, =0x400006c
-    ldr r12, =GXx_SetMasterBrightness_
-    mov r1, #0
-    bx r12
+    GXx_SetMasterBrightness_(0x400006C, 0);
 }
 
 extern "C" asm void func_ov069_02170414(void)
@@ -506,13 +503,10 @@ extern "C" asm void func_ov069_02170414(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov069_021705e0(void)
+extern "C" s32 func_ov069_021705e0(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov069_021705f4(void)

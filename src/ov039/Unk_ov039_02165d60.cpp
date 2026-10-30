@@ -1,6 +1,6 @@
 #include "ov039/Unk_ov039_02165d60.hpp"
 
-extern "C" void func_ov039_02165d60(void);
+extern "C" void func_ov039_02165d60(s32 arg0);
 extern "C" void func_ov039_02165d8c(void);
 extern "C" void func_ov039_02165dc8(void);
 extern "C" void func_ov039_02165e60(void);
@@ -36,9 +36,9 @@ extern "C" void func_ov039_02167124(void);
 extern "C" void func_ov039_021671f4(void);
 extern "C" void func_ov039_021673e0(void);
 extern "C" void func_ov039_021673e4(void);
-extern "C" void func_ov039_02167428(void);
+extern "C" s32 func_ov039_02167428(s32 arg0);
 extern "C" void func_ov039_0216743c(void);
-extern "C" void func_ov039_02167440(void);
+extern "C" void func_ov039_02167440(s32 arg0);
 extern "C" void func_ov039_0216746c(void);
 extern "C" void func_ov039_02167544(void);
 extern "C" void func_ov039_021675b4(void);
@@ -60,7 +60,7 @@ extern "C" void func_ov039_02168264(void);
 extern "C" void func_ov039_02168308(void);
 extern "C" void func_ov039_02168628(void);
 extern "C" void func_ov039_0216862c(void);
-extern "C" void func_ov039_02168690(void);
+extern "C" s32 func_ov039_02168690(s32 arg0);
 extern "C" void func_ov039_021686a4(void);
 
 extern "C" char data_020c466c[];
@@ -102,7 +102,7 @@ extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" void _ZN8TextFont8SetUnk1CEhh(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
 extern "C" void func_02016d0c(void);
 extern "C" void func_020224cc(void);
@@ -143,7 +143,7 @@ extern "C" void func_0209b7b0(void);
 extern "C" void func_0209d668(void);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov015_021319bc(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
 extern "C" void func_ov015_02134208(void);
@@ -178,17 +178,10 @@ extern "C" void func_ov015_02163dd4(void);
 extern "C" void func_ov015_02163ed4(void);
 extern "C" void func_ov015_02163edc(void);
 
-extern "C" asm void func_ov039_02165d60(void)
+extern "C" void func_ov039_02165d60(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_ov039_021688bc
-    add r1, r4, #0x18
-    bl func_ov015_02133f94
-    ldr r0, =data_ov039_021688d8
-    add r1, r4, #0x24
-    bl func_ov015_02133f94
-    ldmia sp!, {r4, pc}
+    func_ov015_02133f94((s32)data_ov039_021688bc, (arg0 + 0x18));
+    func_ov015_02133f94((s32)data_ov039_021688d8, (arg0 + 0x24));
 }
 
 extern "C" asm void func_ov039_02165d8c(void)
@@ -1788,30 +1781,20 @@ extern "C" asm void func_ov039_021673e4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov039_02167428(void)
+extern "C" s32 func_ov039_02167428(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov039_0216743c(void)
 {
 }
 
-extern "C" asm void func_ov039_02167440(void)
+extern "C" void func_ov039_02167440(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_ov039_021689f0
-    add r1, r4, #0x10
-    bl func_ov015_02133f94
-    ldr r0, =data_ov039_02168a0c
-    add r1, r4, #0x1c
-    bl func_ov015_02133f94
-    ldmia sp!, {r4, pc}
+    func_ov015_02133f94((s32)data_ov039_021689f0, (arg0 + 0x10));
+    func_ov015_02133f94((s32)data_ov039_02168a0c, (arg0 + 0x1C));
 }
 
 extern "C" asm void func_ov039_0216746c(void)
@@ -3070,13 +3053,10 @@ extern "C" asm void func_ov039_0216862c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov039_02168690(void)
+extern "C" s32 func_ov039_02168690(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov039_021686a4(void)

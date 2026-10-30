@@ -26,7 +26,7 @@ extern "C" void func_ov001_02104258(void);
 extern "C" void func_ov001_02104278(void);
 extern "C" void func_ov001_02104388(void);
 extern "C" void func_ov001_0210449c(void);
-extern "C" void func_ov001_02104600(void);
+extern "C" void func_ov001_02104600(u8 *arg0);
 extern "C" void func_ov001_02104628(void);
 extern "C" void func_ov001_02104690(void);
 extern "C" void func_ov001_02104750(void);
@@ -65,7 +65,7 @@ extern "C" char data_ov001_02130668[];
 extern "C" char data_ov001_02130670[];
 extern "C" char data_ov001_02130678[];
 extern "C" char data_ov001_02130688[];
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052720Ev(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
@@ -1936,18 +1936,10 @@ extern "C" asm void func_ov001_0210449c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov001_02104600(void)
+extern "C" void func_ov001_02104600(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x68
-    mov r4, #0
-    mov r1, r4
-    add r0, r0, #0x400
-    mov r2, #0x40
-    bl MI_CpuFill8
-    strb r4, [r5, #0x4a8]
-    ldmia sp!, {r3, r4, r5, pc}
+    MI_CpuFill8(((arg0 + 0x68) + 0x400), 0, 0x40);
+    *(u8 *)(arg0 + 0x4A8) = 0;
 }
 
 extern "C" asm void func_ov001_02104628(void)

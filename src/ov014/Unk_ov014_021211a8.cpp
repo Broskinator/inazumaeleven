@@ -37,13 +37,13 @@ extern "C" void func_ov014_02122244(void);
 extern "C" char *func_ov014_02122264(void);
 extern "C" void func_ov014_02122270(void);
 extern "C" void func_ov014_021222b4(void);
-extern "C" void func_ov014_02122310(void);
+extern "C" void func_ov014_02122310(s32 arg0);
 extern "C" void func_ov014_02122330(void);
 extern "C" void func_ov014_02122448(void);
-extern "C" void func_ov014_02122480(void);
+extern "C" void func_ov014_02122480(s32 arg0);
 extern "C" void func_ov014_02122498(void);
-extern "C" void func_ov014_021224d8(void);
-extern "C" void func_ov014_02122510(void);
+extern "C" s32 func_ov014_021224d8(...);
+extern "C" void func_ov014_02122510(s32 arg0, s32 arg1);
 extern "C" void func_ov014_02122520(void);
 extern "C" void func_ov014_02122568(void);
 extern "C" void func_ov014_0212259c(void);
@@ -87,16 +87,16 @@ extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void MIi_CpuCopyFast(void);
 extern "C" void OS_CancelAlarm(void);
-extern "C" void OS_DisableInterrupts(void);
+extern "C" s32 OS_DisableInterrupts(...);
 extern "C" void OS_InitMutex(void);
 extern "C" void OS_LockMutex(void);
-extern "C" void OS_RestoreInterrupts(void);
+extern "C" s32 OS_RestoreInterrupts(...);
 extern "C" void OS_UnlockMutex(void);
 extern "C" void OS_WakeupThread(void);
 extern "C" void WMi_GetStatusAddress(void);
 extern "C" void func_02007d68(void);
 extern "C" void func_02009594(void);
-extern "C" void func_020095c4(void);
+extern "C" s32 func_020095c4(...);
 extern "C" void func_020123ec(void);
 extern "C" void func_02012640(void);
 extern "C" void func_020131c0(void);
@@ -1418,15 +1418,11 @@ extern "C" asm void func_ov014_021222b4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02122310(void)
+extern "C" void func_ov014_02122310(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl OS_DisableInterrupts
-    ldr r1, =data_ov014_0212d57c
-    str r4, [r1, #0x28]
-    bl OS_RestoreInterrupts
-    ldmia sp!, {r4, pc}
+    s32 v0 = OS_DisableInterrupts(arg0);
+    *(s32 *)(data_ov014_0212d57c + 0x28) = arg0;
+    OS_RestoreInterrupts(v0, (s32)data_ov014_0212d57c);
 }
 
 extern "C" asm void func_ov014_02122330(void)
@@ -1524,12 +1520,9 @@ extern "C" asm void func_ov014_02122448(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov014_02122480(void)
+extern "C" void func_ov014_02122480(s32 arg0)
 {
-    ldr r1, =data_ov014_0212d5ac
-    ldr r12, =func_020095c4
-    mov r2, #6
-    bx r12
+    func_020095c4(arg0, (s32)data_ov014_0212d5ac, 6);
 }
 
 extern "C" asm void func_ov014_02122498(void)
@@ -1553,7 +1546,7 @@ extern "C" asm void func_ov014_02122498(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_021224d8(void)
+extern "C" asm s32 func_ov014_021224d8(...)
 {
     stmdb sp!, {r3, lr}
     cmp r2, #0
@@ -1573,11 +1566,9 @@ extern "C" asm void func_ov014_021224d8(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov014_02122510(void)
+extern "C" void func_ov014_02122510(s32 arg0, s32 arg1)
 {
-    ldr r12, =func_ov014_021224d8
-    mov r2, #6
-    bx r12
+    func_ov014_021224d8(arg0, arg1, 6);
 }
 
 extern "C" asm void func_ov014_02122520(void)

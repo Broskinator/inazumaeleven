@@ -1,9 +1,9 @@
 #include "ov088/Unk_ov088_02174240.hpp"
 
 extern "C" void func_ov088_02174240(void);
-extern "C" void func_ov088_02174800(void);
+extern "C" void func_ov088_02174800(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov088_02174830(void);
-extern "C" void func_ov088_021748f8(void);
+extern "C" s32 func_ov088_021748f8(s32 arg0);
 extern "C" void func_ov088_0217490c(void);
 extern "C" void func_ov088_0217492c(void);
 extern "C" void func_ov088_02174944(void);
@@ -14,9 +14,9 @@ extern "C" void func_ov088_021749c8(void);
 extern "C" void func_ov088_021749ec(void);
 extern "C" void func_ov088_021749f8(void);
 extern "C" void func_ov088_02174a04(u8 *arg0);
-extern "C" void func_ov088_02174a34(void);
-extern "C" void func_ov088_02174a48(void);
-extern "C" void func_ov088_02174fe0(void);
+extern "C" s32 func_ov088_02174a34(s32 arg0);
+extern "C" s32 func_ov088_02174a48(...);
+extern "C" s32 func_ov088_02174fe0(...);
 extern "C" s32 func_ov088_02175144(u8 *arg0);
 extern "C" s32 func_ov088_0217514c(u8 *arg0);
 extern "C" void func_ov088_02175154(void);
@@ -29,7 +29,7 @@ extern "C" void func_ov088_021755fc(void);
 extern "C" void func_ov088_02175668(void);
 extern "C" void func_ov088_021756d4(void);
 extern "C" void func_ov088_021756e0(void);
-extern "C" void func_ov088_021756ec(void);
+extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1);
 extern "C" void func_ov088_02175720(void);
 extern "C" void func_ov088_02175770(void);
 extern "C" void func_ov088_021757d8(void);
@@ -56,9 +56,9 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" void MIi_CpuCopyFast(void);
 extern "C" void _ZN11MoviePlayer12FreeCallbackEPv(void);
 extern "C" void _ZN11MoviePlayer13AllocCallbackEm(void);
-extern "C" void func_02000b64(void);
-extern "C" void func_0200c974(void);
-extern "C" void func_0200c980(void);
+extern "C" s32 func_02000b64(...);
+extern "C" s32 func_0200c974(...);
+extern "C" s32 func_0200c980(...);
 extern "C" void func_02175b00(void);
 extern "C" void func_02175cfc(void);
 
@@ -436,19 +436,10 @@ extern "C" asm void func_ov088_02174240(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, r12, pc}
 }
 
-extern "C" asm void func_ov088_02174800(void)
+extern "C" void func_ov088_02174800(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldr r0, =0x2000c64
-    mov r5, r1
-    mov r4, r2
-    bl func_02000b64
-    mov r0, r6
-    mov r1, r5
-    mov r2, r4
-    bl func_ov088_02174a48
-    ldmia sp!, {r4, r5, r6, pc}
+    func_02000b64(0x2000C64, arg1, arg2);
+    func_ov088_02174a48(arg0, arg1, arg2);
 }
 
 extern "C" asm void func_ov088_02174830(void)
@@ -509,13 +500,10 @@ extern "C" asm void func_ov088_02174830(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov088_021748f8(void)
+extern "C" s32 func_ov088_021748f8(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_ov088_021756e0
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    func_ov088_021756e0();
+    return arg0;
 }
 
 extern "C" asm void func_ov088_0217490c(void)
@@ -626,16 +614,13 @@ extern "C" void func_ov088_02174a04(u8 *arg0)
     *(s32 *)(arg0 + 0x94) = 0;
 }
 
-extern "C" asm void func_ov088_02174a34(void)
+extern "C" s32 func_ov088_02174a34(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_ov088_02174fe0
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    func_ov088_02174fe0(arg0);
+    return arg0;
 }
 
-extern "C" asm void func_ov088_02174a48(void)
+extern "C" asm s32 func_ov088_02174a48(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #8
@@ -1006,7 +991,7 @@ extern "C" asm void func_ov088_02174a48(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov088_02174fe0(void)
+extern "C" asm s32 func_ov088_02174fe0(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
@@ -1522,21 +1507,15 @@ extern "C" void func_ov088_021756e0(void)
     _ZN11MoviePlayer12FreeCallbackEPv();
 }
 
-extern "C" asm void func_ov088_021756ec(void)
+extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r0, r1
-    str r1, [r4, #0xc]
-    bl func_0200c974
-    str r0, [r4, #4]
-    ldr r0, [r4, #0xc]
-    bl func_0200c980
-    mov r1, #0
-    str r0, [r4, #8]
-    strb r1, [r4, #0x10]
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    *(s32 *)(arg0 + 0xC) = arg1;
+    s32 v0 = func_0200c974(arg1, arg1);
+    *(s32 *)(arg0 + 0x4) = v0;
+    s32 v1 = func_0200c980(*(s32 *)(arg0 + 0xC));
+    *(s32 *)(arg0 + 0x8) = v1;
+    *(u8 *)(arg0 + 0x10) = 0;
+    return 1;
 }
 
 extern "C" asm void func_ov088_02175720(void)

@@ -1,13 +1,13 @@
 #include "ov041/Unk_ov041_0216be1c.hpp"
 
 extern "C" void func_ov041_0216be1c(void);
-extern "C" void func_ov041_0216bf48(void);
+extern "C" s32 func_ov041_0216bf48(s32 arg0);
 extern "C" void func_ov041_0216bf5c(void);
 
 extern "C" char data_020c46d4[];
 extern "C" char data_ov041_0216c01c[];
 extern "C" char data_ov041_0216c034[];
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_0209386c(void);
 extern "C" void func_02093928(void);
 
@@ -89,13 +89,10 @@ extern "C" asm void func_ov041_0216be1c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov041_0216bf48(void)
+extern "C" s32 func_ov041_0216bf48(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov041_0216bf5c(void)

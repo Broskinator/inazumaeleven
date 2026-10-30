@@ -9,7 +9,7 @@ extern "C" void func_ov035_02169130(void);
 extern "C" void func_ov035_02169184(void);
 extern "C" void func_ov035_021692a4(void);
 extern "C" void func_ov035_021693e4(void);
-extern "C" void func_ov035_021693e8(void);
+extern "C" u8 *func_ov035_021693e8(u8 *arg0, s32 arg1);
 extern "C" void func_ov035_02169414(void);
 extern "C" void func_ov035_02169a4c(void);
 extern "C" void func_ov035_02169b28(void);
@@ -21,7 +21,7 @@ extern "C" void func_ov035_02169f44(void);
 extern "C" void func_ov035_0216a070(void);
 extern "C" void func_ov035_0216a334(void);
 extern "C" void func_ov035_0216a338(void);
-extern "C" void func_ov035_0216a3b4(void);
+extern "C" s32 func_ov035_0216a3b4(s32 arg0);
 extern "C" void func_ov035_0216a3c8(void);
 
 extern "C" char data_020c4642[];
@@ -53,7 +53,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0207b00cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207bfd0Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02082d80Ev(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_0202273c(void);
 extern "C" void func_02090dec(void);
 extern "C" void func_02091d54(void);
@@ -563,18 +563,13 @@ extern "C" void func_ov035_021693e4(void)
 {
 }
 
-extern "C" asm void func_ov035_021693e8(void)
+extern "C" u8 *func_ov035_021693e8(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    ldr r2, =data_ov035_0216a5e0
-    mov r4, r0
-    str r2, [r4]
-    str r1, [r4, #4]
-    bl func_ov035_02169f2c
-    mov r1, #0
-    mov r0, r4
-    str r1, [r4, #0x3bc]
-    ldmia sp!, {r4, pc}
+    *(s32 *)(arg0) = (s32)data_ov035_0216a5e0;
+    *(s32 *)(arg0 + 0x4) = arg1;
+    func_ov035_02169f2c(arg0);
+    *(s32 *)(arg0 + 0x3BC) = 0;
+    return arg0;
 }
 
 extern "C" asm void func_ov035_02169414(void)
@@ -1655,13 +1650,10 @@ extern "C" asm void func_ov035_0216a338(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov035_0216a3b4(void)
+extern "C" s32 func_ov035_0216a3b4(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov035_0216a3c8(void)

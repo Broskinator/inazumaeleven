@@ -1,17 +1,14 @@
 #include "ov037/Unk_ov037_0216bea0.hpp"
 
-extern "C" void func_ov037_0216bea0(void);
+extern "C" s32 func_ov037_0216bea0(s32 arg0);
 extern "C" void func_ov037_0216beb4(void);
 
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 
-extern "C" asm void func_ov037_0216bea0(void)
+extern "C" s32 func_ov037_0216bea0(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov037_0216beb4(void)

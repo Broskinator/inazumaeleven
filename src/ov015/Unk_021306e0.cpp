@@ -4,10 +4,10 @@ extern "C" void func_ov015_021306e0(void);
 extern "C" void func_ov015_021307e4(void);
 extern "C" void func_ov015_02130878(void);
 extern "C" void func_ov015_02130920(void);
-extern "C" void func_ov015_021309a4(void);
-extern "C" void func_ov015_021309f8(void);
+extern "C" s32 func_ov015_021309a4(...);
+extern "C" s32 func_ov015_021309f8(...);
 extern "C" void func_ov015_02130a4c(void);
-extern "C" void func_ov015_02130a84(void);
+extern "C" void func_ov015_02130a84(s32 arg0);
 extern "C" void func_ov015_02130ab8(void);
 extern "C" void func_ov015_02130ad4(void);
 extern "C" void func_ov015_02130ae8(void);
@@ -31,9 +31,9 @@ extern "C" char data_020c485c[];
 extern "C" char data_020c4874[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov015_02165d40[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void FX_SinCosTable_(void);
-extern "C" void MI_CpuCopy8(void);
+extern "C" s32 MI_CpuCopy8(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" void _ZN9EntryPool9RemoveAllEv(void);
@@ -234,7 +234,7 @@ extern "C" asm void func_ov015_02130920(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov015_021309a4(void)
+extern "C" asm s32 func_ov015_021309a4(...)
 {
     stmdb sp!, {r4, lr}
     cmp r0, #0
@@ -258,7 +258,7 @@ extern "C" asm void func_ov015_021309a4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov015_021309f8(void)
+extern "C" asm s32 func_ov015_021309f8(...)
 {
     stmdb sp!, {r4, lr}
     cmp r0, #0
@@ -300,31 +300,18 @@ extern "C" asm void func_ov015_02130a4c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov015_02130a84(void)
+extern "C" void func_ov015_02130a84(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r5, =data_020c4874
-    mov r4, #0x18
-    mov r1, r5
-    mov r2, r4
-    bl MI_CpuCopy8
-    mov r0, r5
-    mov r1, r4
-    bl DC_FlushRange
-    ldmia sp!, {r3, r4, r5, pc}
+    if (arg0 == 0)
+        return;
+    MI_CpuCopy8(arg0, (s32)data_020c4874, 0x18);
+    DC_FlushRange((s32)data_020c4874, 0x18);
 }
 
-extern "C" asm void func_ov015_02130ab8(void)
+extern "C" void func_ov015_02130ab8(void)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #1
-    mov r0, r4
-    bl func_ov015_021309a4
-    mov r0, r4
-    bl func_ov015_021309f8
-    ldmia sp!, {r4, pc}
+    func_ov015_021309a4(1);
+    func_ov015_021309f8(1);
 }
 
 extern "C" asm void func_ov015_02130ad4(void)

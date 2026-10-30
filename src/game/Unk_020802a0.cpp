@@ -59,7 +59,7 @@ extern "C" char data_020e88a0[];
 extern "C" void _ZN17UnkClass_020621b413func_0206deecEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206df08Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206f9e0Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020744d4Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_020744d4Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_02078844Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207c1b0Ev(void);
 extern "C" void func_0209bf9c(void);
@@ -689,12 +689,9 @@ extern "C" int func_02080a80(void)
     return 0;
 }
 
-extern "C" asm void func_02080a88(void)
+extern "C" void func_02080a88(s32 arg0)
 {
-    mov r1, r0
-    ldr r0, =data_020e88a0
-    ldr r12, =_ZN17UnkClass_020621b413func_020744d4Ev
-    bx r12
+    _ZN17UnkClass_020621b413func_020744d4Ev((s32)data_020e88a0, arg0);
 }
 
 extern "C" BOOL func_02080aa0(MatchPlayer *player)

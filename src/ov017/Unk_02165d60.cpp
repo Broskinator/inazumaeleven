@@ -2,7 +2,7 @@
 
 extern "C" void func_ov017_02165d60(u8 *arg0, s32 arg1);
 extern "C" void func_ov017_02165d74(void);
-extern "C" void func_ov017_02165d78(void);
+extern "C" s32 func_ov017_02165d78(s32 arg0);
 extern "C" void func_ov017_02165d8c(void);
 extern "C" void func_ov017_02165dc0(void);
 extern "C" void func_ov017_02165e84(void);
@@ -48,7 +48,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8TextFont12GetCharWidthEPKc(void);
 extern "C" void _ZN8TextFont12GetTextWidthEPKc(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_0202273c(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
@@ -85,13 +85,10 @@ extern "C" void func_ov017_02165d74(void)
 {
 }
 
-extern "C" asm void func_ov017_02165d78(void)
+extern "C" s32 func_ov017_02165d78(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" asm void func_ov017_02165d8c(void)

@@ -1,10 +1,10 @@
 #include "ov038/Unk_ov038_02168e24.hpp"
 
-extern "C" void func_ov038_02168e24(void);
+extern "C" void func_ov038_02168e24(u8 *arg0);
 extern "C" void func_ov038_02168e40(void);
 extern "C" void func_ov038_02168ed4(void);
 extern "C" void func_ov038_02168f28(void);
-extern "C" void func_ov038_02168f94(void);
+extern "C" void func_ov038_02168f94(s32 arg0);
 extern "C" void func_ov038_02168fb0(void);
 extern "C" void func_ov038_02169034(void);
 extern "C" void func_ov038_0216947c(void);
@@ -14,7 +14,7 @@ extern "C" void func_ov038_02169668(void);
 extern "C" void func_ov038_02169780(void);
 extern "C" void func_ov038_02169794(void);
 extern "C" void func_ov038_021697a8(void);
-extern "C" void func_ov038_021697bc(void);
+extern "C" void func_ov038_021697bc(u8 *arg0);
 extern "C" void func_ov038_021697e4(void);
 extern "C" void func_ov038_02169918(void);
 extern "C" void func_ov038_02169954(void);
@@ -32,7 +32,7 @@ extern "C" void func_ov038_0216a268(void);
 extern "C" void func_ov038_0216a360(void);
 extern "C" void func_ov038_0216a3bc(void);
 extern "C" void func_ov038_0216a498(void);
-extern "C" void func_ov038_0216a604(void);
+extern "C" s32 func_ov038_0216a604(s32 arg0);
 extern "C" void func_ov038_0216a618(void);
 
 extern "C" char data_020c46c4[];
@@ -47,8 +47,8 @@ extern "C" char data_ov038_0216a644[];
 extern "C" char data_ov038_0216a678[];
 extern "C" char data_ov038_0216a6a8[];
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN12SoundManager9PlaySoundEi(void);
+extern "C" s32 MI_CpuFill8(...);
+extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206dfa4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076848Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
@@ -59,7 +59,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0207bee8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207d244Ev(void);
 extern "C" void _ZN9EntryPool4SwapEii(void);
 extern "C" void _ZN9EntryPool6RemoveEi(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_0202273c(void);
 extern "C" void func_02081398(void);
 extern "C" void func_020823a0(void);
@@ -104,13 +104,10 @@ extern "C" void func_ov038_02167470(void);
 extern "C" void func_ov038_02167530(void);
 extern "C" void gEntryPool(void);
 
-extern "C" asm void func_ov038_02168e24(void)
+extern "C" void func_ov038_02168e24(u8 *arg0)
 {
-    mov r1, #1
-    str r1, [r0, #0x9bc]
-    ldr r0, =data_020c5e40
-    ldr r12, =_ZN12SoundManager9PlaySoundEi
-    bx r12
+    *(s32 *)(arg0 + 0x9BC) = 1;
+    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 1);
 }
 
 extern "C" asm void func_ov038_02168e40(void)
@@ -212,14 +209,9 @@ extern "C" asm void func_ov038_02168f28(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov038_02168f94(void)
+extern "C" void func_ov038_02168f94(s32 arg0)
 {
-    add r0, r0, #0x94
-    ldr r12, =MI_CpuFill8
-    add r0, r0, #0x800
-    mov r1, #0
-    mov r2, #0x80
-    bx r12
+    MI_CpuFill8(((arg0 + 0x94) + 0x800), 0, 0x80);
 }
 
 extern "C" asm void func_ov038_02168fb0(void)
@@ -784,18 +776,10 @@ extern "C" asm void func_ov038_021697a8(void)
     bx lr
 }
 
-extern "C" asm void func_ov038_021697bc(void)
+extern "C" void func_ov038_021697bc(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x18c
-    mov r4, #0
-    mov r1, r4
-    add r0, r0, #0x800
-    mov r2, #0x28
-    bl MI_CpuFill8
-    str r4, [r5, #0x9b4]
-    ldmia sp!, {r3, r4, r5, pc}
+    MI_CpuFill8(((arg0 + 0x18C) + 0x800), 0, 0x28);
+    *(s32 *)(arg0 + 0x9B4) = 0;
 }
 
 extern "C" asm void func_ov038_021697e4(void)
@@ -1785,13 +1769,10 @@ extern "C" asm void func_ov038_0216a498(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov038_0216a604(void)
+extern "C" s32 func_ov038_0216a604(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov038_0216a618(void)

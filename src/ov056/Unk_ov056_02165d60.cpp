@@ -1,18 +1,18 @@
 #include "ov056/Unk_ov056_02165d60.hpp"
 
-extern "C" void func_ov056_02165d60(void);
+extern "C" s32 func_ov056_02165d60(...);
 extern "C" void func_ov056_02165db0(void);
 extern "C" void func_ov056_02165df4(void);
 extern "C" void func_ov056_02165e2c(void);
 extern "C" void func_ov056_02165e84(void);
-extern "C" void func_ov056_02165ecc(void);
-extern "C" void func_ov056_02165efc(void);
+extern "C" void func_ov056_02165ecc(u8 *arg0);
+extern "C" void func_ov056_02165efc(u8 *arg0);
 extern "C" void func_ov056_02165f2c(void);
 extern "C" void func_ov056_02165f84(void);
 extern "C" void func_ov056_02165fbc(u8 *arg0, s32 arg1);
 extern "C" void func_ov056_02165fcc(void);
 extern "C" void func_ov056_0216615c(void);
-extern "C" void func_ov056_021666a8(void);
+extern "C" void func_ov056_021666a8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov056_021666c8(void);
 extern "C" void func_ov056_02166770(void);
 extern "C" void func_ov056_021667ec(void);
@@ -77,8 +77,8 @@ extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203df24Ev(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e090Eii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -108,7 +108,7 @@ extern "C" void func_ov015_0213b6ac(void);
 extern "C" void func_ov015_0213b990(void);
 extern "C" void func_ov015_0213be3c(void);
 extern "C" void func_ov015_0213be90(void);
-extern "C" void func_ov015_0213c3dc(void);
+extern "C" s32 func_ov015_0213c3dc(...);
 extern "C" void func_ov015_0213c530(void);
 extern "C" void func_ov015_0213c5e0(void);
 extern "C" void func_ov015_0213c6d0(void);
@@ -119,7 +119,7 @@ extern "C" void func_ov056_0216a88c(void);
 extern "C" void func_ov056_0216a9c8(void);
 extern "C" void func_ov056_0216af18(void);
 
-extern "C" asm void func_ov056_02165d60(void)
+extern "C" asm s32 func_ov056_02165d60(...)
 {
     ldr r1, =0x400000e
     ldrh r0, [r1]
@@ -227,36 +227,20 @@ extern "C" asm void func_ov056_02165e84(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov056_02165ecc(void)
+extern "C" void func_ov056_02165ecc(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #4]
-    mov r1, #6
-    str r1, [r4, #8]
-    bl _ZN17UnkClass_0203dc7c13func_0203df24Ev
-    ldr r0, [r4, #4]
-    mov r1, #0
-    mov r2, #0x1e
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    bl func_ov056_02165d60
-    ldmia sp!, {r4, pc}
+    *(s32 *)(arg0 + 0x8) = 6;
+    _ZN17UnkClass_0203dc7c13func_0203df24Ev(*(s32 *)(arg0 + 0x4), 6);
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii(*(s32 *)(arg0 + 0x4), 0, 0x1E);
+    func_ov056_02165d60();
 }
 
-extern "C" asm void func_ov056_02165efc(void)
+extern "C" void func_ov056_02165efc(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #4]
-    mov r1, #6
-    str r1, [r4, #8]
-    bl _ZN17UnkClass_0203dc7c13func_0203df24Ev
-    ldr r0, [r4, #4]
-    mov r1, #0
-    mov r2, #0x1f
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    bl func_ov056_02165d60
-    ldmia sp!, {r4, pc}
+    *(s32 *)(arg0 + 0x8) = 6;
+    _ZN17UnkClass_0203dc7c13func_0203df24Ev(*(s32 *)(arg0 + 0x4), 6);
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii(*(s32 *)(arg0 + 0x4), 0, 0x1F);
+    func_ov056_02165d60();
 }
 
 extern "C" asm void func_ov056_02165f2c(void)
@@ -805,14 +789,9 @@ extern "C" asm void func_ov056_0216615c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov056_021666a8(void)
+extern "C" void func_ov056_021666a8(s32 arg0, s32 arg1, s32 arg2)
 {
-    ldr r0, =data_020c9660
-    mov r3, r2
-    mov r2, r1
-    ldr r12, =func_ov015_0213c3dc
-    mov r1, #0
-    bx r12
+    func_ov015_0213c3dc((s32)data_020c9660, 0, arg1, arg2);
 }
 
 extern "C" asm void func_ov056_021666c8(void)

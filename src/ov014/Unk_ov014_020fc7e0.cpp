@@ -38,16 +38,16 @@ extern "C" void func_ov014_020fdd00(void);
 extern "C" void func_ov014_020fe01c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov014_020fe028(void);
 extern "C" void func_ov014_020fe39c(void);
-extern "C" void func_ov014_020fe3a0(void);
+extern "C" s32 func_ov014_020fe3a0(s32 arg0);
 extern "C" void func_ov014_020fe3b4(void);
 extern "C" void func_ov014_020fe3e8(void);
 extern "C" void func_ov014_020fe3ec(void);
 extern "C" void func_ov014_020fe518(void);
 extern "C" void func_ov014_020fe5b4(void);
-extern "C" void func_ov014_020fe64c(void);
-extern "C" void func_ov014_020fe668(void);
+extern "C" void func_ov014_020fe64c(s32 arg0, s32 arg1);
+extern "C" void func_ov014_020fe668(s32 arg0, s32 arg1);
 extern "C" void func_ov014_020fe684(void);
-extern "C" void func_ov014_020fe688(void);
+extern "C" s32 func_ov014_020fe688(s32 arg0);
 extern "C" void func_ov014_020fe69c(void);
 extern "C" void func_ov014_020fe6d4(void);
 extern "C" void func_ov014_020fe710(void);
@@ -57,12 +57,12 @@ extern "C" void func_ov014_020fe7c0(void);
 extern "C" void func_ov014_020fea24(u8 *arg0, s32 arg1);
 extern "C" void func_ov014_020fea2c(void);
 extern "C" void func_ov014_020fea78(void);
-extern "C" void func_ov014_020fed24(void);
+extern "C" void func_ov014_020fed24(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov014_020fed44(void);
 extern "C" void func_ov014_020fed98(void);
 extern "C" void func_ov014_020fede0(void);
 extern "C" void func_ov014_020feec0(void);
-extern "C" void func_ov014_020fefb0(void);
+extern "C" s32 func_ov014_020fefb0(u8 *arg0);
 extern "C" void func_ov014_020fefe4(void);
 extern "C" void func_ov014_020ff030(void);
 extern "C" void func_ov014_020ff058(void);
@@ -108,7 +108,7 @@ extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void GXx_SetMasterBrightness_(void);
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void OS_Sleep(void);
 extern "C" void SND_Init(void);
@@ -132,11 +132,11 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e224Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207f1d0Ev(void);
 extern "C" void _ZN4Main13func_02040574Ev(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
 extern "C" void func_020026e8(void);
 extern "C" void func_02003758(void);
@@ -168,7 +168,7 @@ extern "C" void func_ov015_02132a04(void);
 extern "C" void func_ov015_02132af0(void);
 extern "C" void func_ov015_021330b4(void);
 extern "C" void func_ov015_02133dc8(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_02134208(void);
 extern "C" void func_ov015_02134bd8(void);
@@ -181,7 +181,7 @@ extern "C" void func_ov015_0213b6ac(void);
 extern "C" void func_ov015_0213b990(void);
 extern "C" void func_ov015_0213be3c(void);
 extern "C" void func_ov015_0213be90(void);
-extern "C" void func_ov015_0213c3dc(void);
+extern "C" s32 func_ov015_0213c3dc(...);
 extern "C" void func_ov015_0213c530(void);
 extern "C" void func_ov015_0213c5e0(void);
 extern "C" void func_ov015_0213c6d0(void);
@@ -2158,13 +2158,10 @@ extern "C" void func_ov014_020fe39c(void)
 {
 }
 
-extern "C" asm void func_ov014_020fe3a0(void)
+extern "C" s32 func_ov014_020fe3a0(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" asm void func_ov014_020fe3b4(void)
@@ -2350,36 +2347,26 @@ extern "C" asm void func_ov014_020fe5b4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_020fe64c(void)
+extern "C" void func_ov014_020fe64c(s32 arg0, s32 arg1)
 {
-    ldr r0, =data_020c47b4
-    ldr r12, =_ZN8GameHeap5AllocEiii
-    mov r2, #0
-    mov r3, #1
-    bx r12
+    _ZN8GameHeap5AllocEiii((s32)data_020c47b4, arg1, 0, 1);
 }
 
-extern "C" asm void func_ov014_020fe668(void)
+extern "C" void func_ov014_020fe668(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    ldmia sp!, {r3, pc}
+    if (arg1 == 0)
+        return;
+    _ZN8GameHeap4FreeEPv((s32)data_020c47b4, arg1);
 }
 
 extern "C" void func_ov014_020fe684(void)
 {
 }
 
-extern "C" asm void func_ov014_020fe688(void)
+extern "C" s32 func_ov014_020fe688(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" asm void func_ov014_020fe69c(void)
@@ -2847,14 +2834,9 @@ extern "C" asm void func_ov014_020fea78(void)
     dcd data_020c47a4
 }
 
-extern "C" asm void func_ov014_020fed24(void)
+extern "C" void func_ov014_020fed24(s32 arg0, s32 arg1, s32 arg2)
 {
-    ldr r0, =data_020c9660
-    mov r3, r2
-    mov r2, r1
-    ldr r12, =func_ov015_0213c3dc
-    mov r1, #0
-    bx r12
+    func_ov015_0213c3dc((s32)data_020c9660, 0, arg1, arg2);
 }
 
 extern "C" asm void func_ov014_020fed44(void)
@@ -3031,20 +3013,12 @@ extern "C" asm void func_ov014_020feec0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_020fefb0(void)
+extern "C" s32 func_ov014_020fefb0(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x35c
-    mov r1, #0
-    mov r2, #0x84
-    bl MI_CpuFill8
-    ldr r0, =data_ov014_0212456c
-    add r1, r4, #0x35c
-    bl func_ov015_02133f94
-    mov r0, #1
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    MI_CpuFill8((arg0 + 0x35C), 0, 0x84);
+    func_ov015_02133f94((s32)data_ov014_0212456c, (arg0 + 0x35C));
+    *(s32 *)(arg0 + 0x8) = 1;
+    return 1;
 }
 
 extern "C" asm void func_ov014_020fefe4(void)

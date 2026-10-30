@@ -34,7 +34,7 @@ extern "C" void func_ov081_02170c08(void);
 extern "C" void func_ov081_02170c90(void);
 extern "C" void func_ov081_02170dbc(void);
 extern "C" void func_ov081_02170e00(void);
-extern "C" void func_ov081_02170e9c(void);
+extern "C" s32 func_ov081_02170e9c(s32 arg0);
 extern "C" void func_ov081_02170eb0(void);
 
 extern "C" char data_020c47b4[];
@@ -60,7 +60,7 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
 extern "C" void func_02003988(void);
 extern "C" void func_02003a68(void);
@@ -87,7 +87,7 @@ extern "C" void func_ov015_0213b3fc(void);
 extern "C" void func_ov015_0213b6ac(void);
 extern "C" void func_ov015_0213b7f8(void);
 extern "C" void func_ov015_0213b870(void);
-extern "C" void func_ov015_0213bfcc(void);
+extern "C" s32 func_ov015_0213bfcc(...);
 extern "C" void func_ov015_0213c33c(void);
 extern "C" void sprintf(void);
 
@@ -737,12 +737,9 @@ extern "C" asm void func_ov081_02170790(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov081_02170870(void)
+extern "C" void func_ov081_02170870(void)
 {
-    ldr r0, =data_020c9660
-    ldr r12, =func_ov015_0213bfcc
-    mov r1, #1
-    bx r12
+    func_ov015_0213bfcc((s32)data_020c9660, 1);
 }
 
 extern "C" asm void func_ov081_02170888(void)
@@ -1193,13 +1190,10 @@ extern "C" asm void func_ov081_02170e00(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov081_02170e9c(void)
+extern "C" s32 func_ov081_02170e9c(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov081_02170eb0(void)

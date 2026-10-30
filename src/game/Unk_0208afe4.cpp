@@ -29,7 +29,7 @@ extern "C" void func_0208b8cc(void);
 extern "C" void func_0208b90c(void);
 extern "C" void **func_0208b934(void **obj);
 extern "C" int func_0208b954(void);
-extern "C" void func_0208b95c(void);
+extern "C" void func_0208b95c(u8 *arg0, s32 arg1);
 extern "C" void func_0208b988(void);
 extern "C" void func_0208ba30(void);
 extern "C" void func_0208baa4(void);
@@ -39,7 +39,7 @@ extern "C" void func_0208bd04(void);
 extern "C" void func_0208bf50(void *self, u8 *entry);
 extern "C" void func_0208c0c0(void *self, u8 *entry);
 extern "C" void func_0208c114(void);
-extern "C" void func_0208c178(void);
+extern "C" u8 *func_0208c178(u8 *arg0);
 extern "C" void **func_0208c1ac(void **obj);
 extern "C" void func_0208c1cc(void);
 extern "C" void func_0208c1f4(void);
@@ -102,8 +102,8 @@ extern "C" char data_020c464c[];
 extern "C" char data_020c467c[];
 extern "C" char data_020c47b4[];
 extern "C" void FX_SinCosTable_(void);
-extern "C" void MIi_CpuClearFast(void);
-extern "C" void MTX_Identity43_(void);
+extern "C" s32 MIi_CpuClearFast(...);
+extern "C" s32 MTX_Identity43_(...);
 extern "C" void NNS_G3dGlbFlushVP(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -119,7 +119,7 @@ extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
 extern "C" void func_020286e4(void);
 extern "C" void func_0202b608(void);
-extern "C" void func_02088a38(void);
+extern "C" s32 func_02088a38(...);
 extern "C" void func_02088a5c(void);
 extern "C" void func_02088aa0(void);
 extern "C" void func_02088b8c(void);
@@ -907,19 +907,11 @@ extern "C" int func_0208b954(void)
     return 0;
 }
 
-extern "C" asm void func_0208b95c(void)
+extern "C" void func_0208b95c(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    mov r1, r5
-    mov r0, #0
-    mov r2, #0x8c
-    bl MIi_CpuClearFast
-    add r0, r5, #0x2c
-    str r4, [r5, #0x5c]
-    bl MTX_Identity43_
-    ldmia sp!, {r3, r4, r5, pc}
+    MIi_CpuClearFast(0, arg0, 0x8C);
+    *(s32 *)(arg0 + 0x5C) = arg1;
+    MTX_Identity43_((arg0 + 0x2C));
 }
 
 extern "C" asm void func_0208b988(void)
@@ -1506,20 +1498,15 @@ extern "C" asm void func_0208c114(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0208c178(void)
+extern "C" u8 *func_0208c178(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_02088a38
-    mov r1, #0
-    ldr r2, =data_020af844
-    mov r0, r4
-    str r2, [r4]
-    str r1, [r4, #0xc]
-    str r1, [r4, #0x10]
-    str r1, [r4, #0x18]
-    str r1, [r4, #0x14]
-    ldmia sp!, {r4, pc}
+    func_02088a38(arg0);
+    *(s32 *)(arg0) = (s32)data_020af844;
+    *(s32 *)(arg0 + 0xC) = 0;
+    *(s32 *)(arg0 + 0x10) = 0;
+    *(s32 *)(arg0 + 0x18) = 0;
+    *(s32 *)(arg0 + 0x14) = 0;
+    return arg0;
 }
 
 extern "C" void **func_0208c1ac(void **obj)

@@ -1,7 +1,7 @@
 #include "ov020/Unk_ov020_02165d60.hpp"
 
 extern "C" void func_ov020_02165d60(u8 *arg0, u16 arg1, u8 arg2, u8 arg3);
-extern "C" void func_ov020_02165d70(void);
+extern "C" void func_ov020_02165d70(s32 arg0);
 extern "C" void func_ov020_02165d8c(void);
 extern "C" void func_ov020_02165e2c(void);
 extern "C" void func_ov020_02165ef0(void);
@@ -47,7 +47,7 @@ extern "C" void func_ov020_02168434(void);
 extern "C" void func_ov020_0216858c(void);
 extern "C" void func_ov020_0216871c(void);
 extern "C" void func_ov020_02168720(void);
-extern "C" void func_ov020_0216879c(void);
+extern "C" s32 func_ov020_0216879c(s32 arg0);
 extern "C" void func_ov020_021687b0(void);
 
 extern "C" char data_020c46a8[];
@@ -85,7 +85,7 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207aaf4Ev(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003678(void);
 extern "C" void func_02003758(void);
 extern "C" void func_02003838(void);
@@ -129,7 +129,7 @@ extern "C" void func_ov015_02132224(void);
 extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_02132984(void);
 extern "C" void func_ov015_02132c08(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
 extern "C" void func_ov015_02134208(void);
@@ -169,13 +169,9 @@ extern "C" void func_ov020_02165d60(u8 *arg0, u16 arg1, u8 arg2, u8 arg3)
     *(u8 *)(arg0 + 0x3) = arg3;
 }
 
-extern "C" asm void func_ov020_02165d70(void)
+extern "C" void func_ov020_02165d70(s32 arg0)
 {
-    mov r1, r0
-    ldr r0, =data_ov020_021689bc
-    ldr r12, =func_ov015_02133f94
-    add r1, r1, #0x18
-    bx r12
+    func_ov015_02133f94((s32)data_ov020_021689bc, (arg0 + 0x18));
 }
 
 extern "C" asm void func_ov020_02165d8c(void)
@@ -3093,13 +3089,10 @@ extern "C" asm void func_ov020_02168720(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov020_0216879c(void)
+extern "C" s32 func_ov020_0216879c(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" void func_ov020_021687b0(void)

@@ -2,12 +2,12 @@
 
 extern "C" void func_ov024_02165d60(u8 *arg0, s32 arg1);
 extern "C" void func_ov024_02165d74(void);
-extern "C" void func_ov024_02165d78(void);
+extern "C" s32 func_ov024_02165d78(s32 arg0);
 extern "C" void func_ov024_02165d8c(void);
 extern "C" void func_ov024_02165db8(void);
 extern "C" void func_ov024_02165e40(void);
 extern "C" void func_ov024_02165f3c(void);
-extern "C" void func_ov024_02165fa8(void);
+extern "C" void func_ov024_02165fa8(s32 arg0);
 extern "C" void func_ov024_02165fc4(void);
 extern "C" void func_ov024_02166010(void);
 extern "C" void func_ov024_02166058(void);
@@ -75,7 +75,7 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void _Znam(void);
 extern "C" void func_02003608(void);
 extern "C" void func_020036e8(void);
@@ -89,7 +89,7 @@ extern "C" void func_ov015_0213264c(void);
 extern "C" void func_ov015_021327c8(void);
 extern "C" void func_ov015_02132a04(void);
 extern "C" void func_ov015_02132b7c(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
@@ -122,13 +122,10 @@ extern "C" void func_ov024_02165d74(void)
 {
 }
 
-extern "C" asm void func_ov024_02165d78(void)
+extern "C" s32 func_ov024_02165d78(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZdlPv
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    _ZdlPv(arg0);
+    return arg0;
 }
 
 extern "C" asm void func_ov024_02165d8c(void)
@@ -282,13 +279,9 @@ extern "C" asm void func_ov024_02165f3c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov024_02165fa8(void)
+extern "C" void func_ov024_02165fa8(s32 arg0)
 {
-    mov r1, r0
-    ldr r0, =data_ov024_02167b7c
-    ldr r12, =func_ov015_02133f94
-    add r1, r1, #0x294
-    bx r12
+    func_ov015_02133f94((s32)data_ov024_02167b7c, (arg0 + 0x294));
 }
 
 extern "C" asm void func_ov024_02165fc4(void)
