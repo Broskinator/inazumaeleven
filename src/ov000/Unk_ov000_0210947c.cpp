@@ -208,14 +208,12 @@ extern "C" asm void func_ov000_021094d0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov000_02109510(void)
+extern "C" void func_ov000_02109510(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov000_02109514(void)
+extern "C" void func_ov000_02109514(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov000_02109518(void)

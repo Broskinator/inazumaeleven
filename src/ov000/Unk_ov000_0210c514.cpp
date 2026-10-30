@@ -15,7 +15,7 @@ extern "C" void func_ov000_0210d344(void);
 extern "C" void func_ov000_0210d394(void);
 extern "C" void func_ov000_0210d3e0(void);
 extern "C" void func_ov000_0210d408(void);
-extern "C" void func_ov000_0210d420(void);
+extern "C" void func_ov000_0210d420(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov000_0210d430(void);
 extern "C" void func_ov000_0210d4c8(void);
 extern "C" void func_ov000_0210d5a4(void);
@@ -1179,12 +1179,11 @@ extern "C" asm void func_ov000_0210d408(void)
     bx lr
 }
 
-extern "C" asm void func_ov000_0210d420(void)
+extern "C" void func_ov000_0210d420(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    str r1, [r0, #0x24]
-    str r2, [r0, #0x28]
-    str r3, [r0, #0x2c]
-    bx lr
+    *(s32 *)(arg0 + 0x24) = arg1;
+    *(s32 *)(arg0 + 0x28) = arg2;
+    *(s32 *)(arg0 + 0x2C) = arg3;
 }
 
 extern "C" asm void func_ov000_0210d430(void)

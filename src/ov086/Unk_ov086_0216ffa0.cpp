@@ -1271,7 +1271,6 @@ extern "C" asm void func_ov086_0217104c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov086_02171060(void)
+extern "C" void func_ov086_02171060(void)
 {
-    bx lr
 }

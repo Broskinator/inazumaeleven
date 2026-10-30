@@ -34,13 +34,13 @@ extern "C" void func_ov014_021048c0(void);
 extern "C" void func_ov014_02104aa4(void);
 extern "C" void func_ov014_02104b14(void);
 extern "C" void func_ov014_02104bbc(void);
-extern "C" void func_ov014_02104c00(void);
+extern "C" void func_ov014_02104c00(s32 arg0);
 extern "C" void func_ov014_02104c14(void);
 extern "C" void func_ov014_02104c2c(void);
 extern "C" void func_ov014_02104c54(void);
 extern "C" void func_ov014_02104cb4(void);
 extern "C" void func_ov014_02104d00(void);
-extern "C" void func_ov014_02104d20(void);
+extern "C" void func_ov014_02104d20(u8 *arg0);
 extern "C" void func_ov014_02104d38(void);
 extern "C" void func_ov014_02104d54(void);
 extern "C" void func_ov014_02104e04(void);
@@ -2574,12 +2574,9 @@ extern "C" asm void func_ov014_02104bbc(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov014_02104c00(void)
+extern "C" void func_ov014_02104c00(s32 arg0)
 {
-    ldr r1, =data_020bb120
-    ldr r1, [r1, #4]
-    str r0, [r1, #0xa4]
-    bx lr
+    *(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) = arg0;
 }
 
 extern "C" asm void func_ov014_02104c14(void)
@@ -2662,13 +2659,9 @@ extern "C" asm void func_ov014_02104d00(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_02104d20(void)
+extern "C" void func_ov014_02104d20(u8 *arg0)
 {
-    ldr r1, =data_020bb120
-    ldr r1, [r1, #4]
-    ldr r1, [r1, #0xa4]
-    str r1, [r0, #0xa4]
-    bx lr
+    *(s32 *)(arg0 + 0xA4) = *(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4);
 }
 
 extern "C" asm void func_ov014_02104d38(void)

@@ -1,6 +1,6 @@
 #include "ov076/Unk_ov076_0216ffa0.hpp"
 
-extern "C" void func_ov076_0216ffa0(void);
+extern "C" s32 func_ov076_0216ffa0(void);
 extern "C" void func_ov076_0216ffa8(void);
 extern "C" void func_ov076_02170030(void);
 extern "C" void func_ov076_02170054(void);
@@ -8,7 +8,7 @@ extern "C" void func_ov076_02170094(void);
 extern "C" void func_ov076_021700d4(void);
 extern "C" void func_ov076_02170124(void);
 extern "C" void func_ov076_021701bc(void);
-extern "C" void func_ov076_02170228(void);
+extern "C" s32 func_ov076_02170228(void);
 extern "C" void func_ov076_02170230(void);
 extern "C" void func_ov076_021703bc(void);
 extern "C" void func_ov076_021703c0(void);
@@ -46,10 +46,9 @@ extern "C" void func_02097c74(void);
 extern "C" void func_02097ca8(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov076_0216ffa0(void)
+extern "C" s32 func_ov076_0216ffa0(void)
 {
-    mov r0, #1
-    bx lr
+    return 1;
 }
 
 extern "C" asm void func_ov076_0216ffa8(void)
@@ -234,10 +233,9 @@ extern "C" asm void func_ov076_021701bc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov076_02170228(void)
+extern "C" s32 func_ov076_02170228(void)
 {
-    mov r0, #1
-    bx lr
+    return 1;
 }
 
 extern "C" asm void func_ov076_02170230(void)
@@ -346,9 +344,8 @@ extern "C" asm void func_ov076_02170230(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov076_021703bc(void)
+extern "C" void func_ov076_021703bc(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov076_021703c0(void)
@@ -518,17 +515,14 @@ extern "C" asm void func_ov076_021705e0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov076_021705f4(void)
+extern "C" void func_ov076_021705f4(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov076_021705f8(void)
+extern "C" void func_ov076_021705f8(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov076_021705fc(void)
+extern "C" void func_ov076_021705fc(void)
 {
-    bx lr
 }

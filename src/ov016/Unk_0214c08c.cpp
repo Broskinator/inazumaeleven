@@ -16,8 +16,8 @@ extern "C" void func_ov016_0214c828(void);
 extern "C" void func_ov016_0214c920(void);
 extern "C" void func_ov016_0214c934(void);
 extern "C" void func_ov016_0214c964(void);
-extern "C" void func_ov016_0214cc80(void);
-extern "C" void func_ov016_0214cc94(void);
+extern "C" void func_ov016_0214cc80(u16 arg0);
+extern "C" u16 func_ov016_0214cc94(void);
 extern "C" void func_ov016_0214cca8(void);
 extern "C" void func_ov016_0214cd00(void);
 extern "C" void func_ov016_0214cdc8(void);
@@ -47,9 +47,9 @@ extern "C" void func_ov016_0214d68c(void);
 extern "C" void func_ov016_0214d6b0(void);
 extern "C" void func_ov016_0214d6e0(void);
 extern "C" void func_ov016_0214d714(void);
-extern "C" void func_ov016_0214d73c(void);
-extern "C" void func_ov016_0214d750(void);
-extern "C" void func_ov016_0214d764(void);
+extern "C" void func_ov016_0214d73c(s32 arg0);
+extern "C" u16 func_ov016_0214d750(void);
+extern "C" s32 func_ov016_0214d764(void);
 extern "C" void func_ov016_0214d778(void);
 extern "C" void func_ov016_0214d854(void);
 extern "C" void func_ov016_0214d8f4(void);
@@ -61,7 +61,7 @@ extern "C" void func_ov016_0214dbc4(void);
 extern "C" void func_ov016_0214dbe4(void);
 extern "C" void func_ov016_0214dc30(void);
 extern "C" void func_ov016_0214dc80(void);
-extern "C" void func_ov016_0214dddc(void);
+extern "C" void func_ov016_0214dddc(s32 arg0);
 extern "C" void func_ov016_0214ddf0(void);
 extern "C" void func_ov016_0214de18(void);
 extern "C" void func_ov016_0214deb8(void);
@@ -92,7 +92,7 @@ extern "C" void func_ov016_0214ef34(void);
 extern "C" void func_ov016_0214efa8(void);
 extern "C" void func_ov016_0214f010(void);
 extern "C" void func_ov016_0214f064(void);
-extern "C" void func_ov016_0214f074(void);
+extern "C" s32 func_ov016_0214f074(void);
 extern "C" void func_ov016_0214f07c(void);
 
 extern "C" char data_ov016_02154ea2[];
@@ -1046,20 +1046,14 @@ extern "C" asm void func_ov016_0214c964(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov016_0214cc80(void)
+extern "C" void func_ov016_0214cc80(u16 arg0)
 {
-    ldr r1, =data_ov016_02158b3c
-    ldr r1, [r1]
-    strh r0, [r1]
-    bx lr
+    *(u16 *)(*(u8 * *)(data_ov016_02158b3c)) = arg0;
 }
 
-extern "C" asm void func_ov016_0214cc94(void)
+extern "C" u16 func_ov016_0214cc94(void)
 {
-    ldr r0, =data_ov016_02158b3c
-    ldr r0, [r0]
-    ldrh r0, [r0]
-    bx lr
+    return *(u16 *)(*(u8 * *)(data_ov016_02158b3c));
 }
 
 extern "C" asm void func_ov016_0214cca8(void)
@@ -1850,28 +1844,19 @@ extern "C" asm void func_ov016_0214d714(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_0214d73c(void)
+extern "C" void func_ov016_0214d73c(s32 arg0)
 {
-    ldr r1, =data_ov016_02158b40
-    ldr r1, [r1, #4]
-    str r0, [r1, #8]
-    bx lr
+    *(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x8) = arg0;
 }
 
-extern "C" asm void func_ov016_0214d750(void)
+extern "C" u16 func_ov016_0214d750(void)
 {
-    ldr r0, =data_ov016_02158b40
-    ldr r0, [r0, #4]
-    ldrh r0, [r0, #0x52]
-    bx lr
+    return *(u16 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x52);
 }
 
-extern "C" asm void func_ov016_0214d764(void)
+extern "C" s32 func_ov016_0214d764(void)
 {
-    ldr r0, =data_ov016_02158b40
-    ldr r0, [r0, #4]
-    ldr r0, [r0, #0x40]
-    bx lr
+    return *(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x40);
 }
 
 extern "C" asm void func_ov016_0214d778(void)
@@ -2332,12 +2317,9 @@ extern "C" asm void func_ov016_0214dc80(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_0214dddc(void)
+extern "C" void func_ov016_0214dddc(s32 arg0)
 {
-    ldr r1, =data_ov016_02158b40
-    ldr r1, [r1, #4]
-    str r0, [r1, #0x4c]
-    bx lr
+    *(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x4C) = arg0;
 }
 
 extern "C" asm void func_ov016_0214ddf0(void)
@@ -3672,10 +3654,9 @@ extern "C" asm void func_ov016_0214f064(void)
     bx r12
 }
 
-extern "C" asm void func_ov016_0214f074(void)
+extern "C" s32 func_ov016_0214f074(void)
 {
-    mov r0, #1
-    bx lr
+    return 1;
 }
 
 extern "C" asm void func_ov016_0214f07c(void)

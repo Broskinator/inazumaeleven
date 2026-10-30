@@ -1809,9 +1809,8 @@ extern "C" asm void func_ov000_020fde6c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov000_020fde88(void)
+extern "C" void func_ov000_020fde88(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov000_020fde8c(void)
@@ -1835,10 +1834,9 @@ extern "C" asm void func_ov000_020fdeb0(void)
     bx r12
 }
 
-extern "C" asm void func_ov000_020fdec8(void)
+extern "C" void func_ov000_020fdec8(void)
 {
-    ldr r12, =func_ov015_0213397c
-    bx r12
+    func_ov015_0213397c();
 }
 
 extern "C" asm void func_ov000_020fded4(void)
@@ -2052,29 +2050,24 @@ extern "C" asm void func_ov000_020fe1f8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov000_020fe20c(void)
+extern "C" void func_ov000_020fe20c(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov000_020fe210(void)
+extern "C" void func_ov000_020fe210(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov000_020fe214(void)
+extern "C" void func_ov000_020fe214(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov000_020fe218(void)
+extern "C" void func_ov000_020fe218(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov000_020fe21c(void)
+extern "C" void func_ov000_020fe21c(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov000_020fe220(void)
@@ -2199,14 +2192,12 @@ extern "C" asm void func_ov000_020fe2f8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov000_020fe3f4(void)
+extern "C" void func_ov000_020fe3f4(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov000_020fe3f8(void)
+extern "C" void func_ov000_020fe3f8(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov000_020fe3fc(void)

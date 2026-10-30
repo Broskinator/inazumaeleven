@@ -2494,14 +2494,12 @@ extern "C" asm void func_ov000_02104ef8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov000_02104f54(void)
+extern "C" void func_ov000_02104f54(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov000_02104f58(void)
+extern "C" void func_ov000_02104f58(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov000_02104f5c(void)

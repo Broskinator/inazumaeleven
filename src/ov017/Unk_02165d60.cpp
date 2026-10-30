@@ -1,6 +1,6 @@
 #include "ov017/Unk_02165d60.hpp"
 
-extern "C" void func_ov017_02165d60(void);
+extern "C" void func_ov017_02165d60(u8 *arg0, s32 arg1);
 extern "C" void func_ov017_02165d74(void);
 extern "C" void func_ov017_02165d78(void);
 extern "C" void func_ov017_02165d8c(void);
@@ -75,17 +75,14 @@ extern "C" void func_ov015_0213328c(void);
 extern "C" void func_ov015_02134b08(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov017_02165d60(void)
+extern "C" void func_ov017_02165d60(u8 *arg0, s32 arg1)
 {
-    ldr r2, =data_ov017_02167790
-    str r1, [r0, #4]
-    str r2, [r0]
-    bx lr
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(s32 *)(arg0) = (s32)data_ov017_02167790;
 }
 
-extern "C" asm void func_ov017_02165d74(void)
+extern "C" void func_ov017_02165d74(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov017_02165d78(void)
@@ -1432,9 +1429,8 @@ extern "C" asm void func_ov017_02166e28(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov017_021670a8(void)
+extern "C" void func_ov017_021670a8(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov017_021670ac(void)

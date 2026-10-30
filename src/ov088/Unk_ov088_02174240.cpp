@@ -13,12 +13,12 @@ extern "C" void func_ov088_021749a4(void);
 extern "C" void func_ov088_021749c8(void);
 extern "C" void func_ov088_021749ec(void);
 extern "C" void func_ov088_021749f8(void);
-extern "C" void func_ov088_02174a04(void);
+extern "C" void func_ov088_02174a04(u8 *arg0);
 extern "C" void func_ov088_02174a34(void);
 extern "C" void func_ov088_02174a48(void);
 extern "C" void func_ov088_02174fe0(void);
-extern "C" void func_ov088_02175144(void);
-extern "C" void func_ov088_0217514c(void);
+extern "C" s32 func_ov088_02175144(u8 *arg0);
+extern "C" s32 func_ov088_0217514c(u8 *arg0);
 extern "C" void func_ov088_02175154(void);
 extern "C" void func_ov088_0217528c(void);
 extern "C" void func_ov088_02175368(void);
@@ -602,32 +602,28 @@ extern "C" asm void func_ov088_021749c8(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov088_021749ec(void)
+extern "C" void func_ov088_021749ec(void)
 {
-    ldr r12, =_ZN11MoviePlayer13AllocCallbackEm
-    bx r12
+    _ZN11MoviePlayer13AllocCallbackEm();
 }
 
-extern "C" asm void func_ov088_021749f8(void)
+extern "C" void func_ov088_021749f8(void)
 {
-    ldr r12, =_ZN11MoviePlayer12FreeCallbackEPv
-    bx r12
+    _ZN11MoviePlayer12FreeCallbackEPv();
 }
 
-extern "C" asm void func_ov088_02174a04(void)
+extern "C" void func_ov088_02174a04(u8 *arg0)
 {
-    mov r1, #0
-    str r1, [r0]
-    str r1, [r0, #0x5c]
-    str r1, [r0, #0x60]
-    str r1, [r0, #0x68]
-    str r1, [r0, #0x6c]
-    str r1, [r0, #0x70]
-    str r1, [r0, #0x74]
-    str r1, [r0, #0x64]
-    str r1, [r0, #0x58]
-    str r1, [r0, #0x94]
-    bx lr
+    *(s32 *)(arg0) = 0;
+    *(s32 *)(arg0 + 0x5C) = 0;
+    *(s32 *)(arg0 + 0x60) = 0;
+    *(s32 *)(arg0 + 0x68) = 0;
+    *(s32 *)(arg0 + 0x6C) = 0;
+    *(s32 *)(arg0 + 0x70) = 0;
+    *(s32 *)(arg0 + 0x74) = 0;
+    *(s32 *)(arg0 + 0x64) = 0;
+    *(s32 *)(arg0 + 0x58) = 0;
+    *(s32 *)(arg0 + 0x94) = 0;
 }
 
 extern "C" asm void func_ov088_02174a34(void)
@@ -1117,16 +1113,14 @@ extern "C" asm void func_ov088_02174fe0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov088_02175144(void)
+extern "C" s32 func_ov088_02175144(u8 *arg0)
 {
-    ldr r0, [r0, #0x18]
-    bx lr
+    return *(s32 *)(arg0 + 0x18);
 }
 
-extern "C" asm void func_ov088_0217514c(void)
+extern "C" s32 func_ov088_0217514c(u8 *arg0)
 {
-    ldr r0, [r0, #0xc]
-    bx lr
+    return *(s32 *)(arg0 + 0xC);
 }
 
 extern "C" asm void func_ov088_02175154(void)
@@ -1518,16 +1512,14 @@ extern "C" asm void func_ov088_02175668(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov088_021756d4(void)
+extern "C" void func_ov088_021756d4(void)
 {
-    ldr r12, =_ZN11MoviePlayer13AllocCallbackEm
-    bx r12
+    _ZN11MoviePlayer13AllocCallbackEm();
 }
 
-extern "C" asm void func_ov088_021756e0(void)
+extern "C" void func_ov088_021756e0(void)
 {
-    ldr r12, =_ZN11MoviePlayer12FreeCallbackEPv
-    bx r12
+    _ZN11MoviePlayer12FreeCallbackEPv();
 }
 
 extern "C" asm void func_ov088_021756ec(void)
@@ -1663,9 +1655,8 @@ extern "C" asm void func_ov088_02175880(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov088_02175894(void)
+extern "C" void func_ov088_02175894(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov088_02175898(void)

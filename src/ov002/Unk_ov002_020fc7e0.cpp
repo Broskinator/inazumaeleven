@@ -331,9 +331,8 @@ extern "C" asm void func_ov002_020fcb10(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov002_020fcb24(void)
+extern "C" void func_ov002_020fcb24(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov002_020fcb28(void)

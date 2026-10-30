@@ -1340,9 +1340,8 @@ extern "C" asm void func_ov033_02166d50(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov033_02166eec(void)
+extern "C" void func_ov033_02166eec(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov033_02166ef0(void)
@@ -1370,9 +1369,8 @@ extern "C" asm void func_ov033_02166ef0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov033_02166f50(void)
+extern "C" void func_ov033_02166f50(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov033_02166f54(void)

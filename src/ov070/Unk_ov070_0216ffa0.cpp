@@ -3091,17 +3091,14 @@ extern "C" asm void func_ov070_02172a34(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov070_02172a48(void)
+extern "C" void func_ov070_02172a48(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov070_02172a4c(void)
+extern "C" void func_ov070_02172a4c(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov070_02172a50(void)
+extern "C" void func_ov070_02172a50(void)
 {
-    bx lr
 }

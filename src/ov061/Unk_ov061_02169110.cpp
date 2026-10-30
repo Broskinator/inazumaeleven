@@ -15,7 +15,7 @@ extern "C" void func_ov061_021699a8(void);
 extern "C" void func_ov061_02169a60(void);
 extern "C" void func_ov061_02169bc8(void);
 extern "C" void func_ov061_02169c40(void);
-extern "C" void func_ov061_02169c54(void);
+extern "C" s32 func_ov061_02169c54(u8 *arg0);
 extern "C" void func_ov061_02169c5c(void);
 
 extern "C" char data_020c4648[];
@@ -892,13 +892,11 @@ extern "C" asm void func_ov061_02169c40(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov061_02169c54(void)
+extern "C" s32 func_ov061_02169c54(u8 *arg0)
 {
-    ldr r0, [r0, #8]
-    bx lr
+    return *(s32 *)(arg0 + 0x8);
 }
 
-extern "C" asm void func_ov061_02169c5c(void)
+extern "C" void func_ov061_02169c5c(void)
 {
-    bx lr
 }

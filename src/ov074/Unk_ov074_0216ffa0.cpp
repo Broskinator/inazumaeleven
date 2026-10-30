@@ -1,6 +1,6 @@
 #include "ov074/Unk_ov074_0216ffa0.hpp"
 
-extern "C" void func_ov074_0216ffa0(void);
+extern "C" void func_ov074_0216ffa0(u8 *arg0, s32 arg1);
 extern "C" void func_ov074_0216ffbc(void);
 extern "C" void func_ov074_02170074(void);
 extern "C" void func_ov074_021700c8(void);
@@ -70,14 +70,11 @@ extern "C" void func_ov015_0213b870(void);
 extern "C" void func_ov015_0213c33c(void);
 extern "C" void strcpy(void);
 
-extern "C" asm void func_ov074_0216ffa0(void)
+extern "C" void func_ov074_0216ffa0(u8 *arg0, s32 arg1)
 {
-    ldr r3, =data_ov074_02171180
-    mov r2, #0
-    str r3, [r0]
-    str r1, [r0, #4]
-    str r2, [r0, #0xe0]
-    bx lr
+    *(s32 *)(arg0) = (s32)data_ov074_02171180;
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(s32 *)(arg0 + 0xE0) = 0;
 }
 
 extern "C" asm void func_ov074_0216ffbc(void)
@@ -1200,9 +1197,8 @@ extern "C" asm void func_ov074_02170ce4(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov074_02170f90(void)
+extern "C" void func_ov074_02170f90(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov074_02170f94(void)
@@ -1264,7 +1260,6 @@ extern "C" asm void func_ov074_02171024(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov074_02171038(void)
+extern "C" void func_ov074_02171038(void)
 {
-    bx lr
 }

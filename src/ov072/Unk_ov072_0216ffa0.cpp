@@ -1,6 +1,6 @@
 #include "ov072/Unk_ov072_0216ffa0.hpp"
 
-extern "C" void func_ov072_0216ffa0(void);
+extern "C" void func_ov072_0216ffa0(u8 *arg0, s32 arg1);
 extern "C" void func_ov072_0216ffbc(void);
 extern "C" void func_ov072_02170134(void);
 extern "C" void func_ov072_02170144(void);
@@ -104,14 +104,11 @@ extern "C" void func_ov015_0213bfcc(void);
 extern "C" void func_ov015_0213c33c(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov072_0216ffa0(void)
+extern "C" void func_ov072_0216ffa0(u8 *arg0, s32 arg1)
 {
-    ldr r3, =data_ov072_02171dcc
-    mov r2, #0
-    str r3, [r0]
-    str r1, [r0, #4]
-    str r2, [r0, #0x14]
-    bx lr
+    *(s32 *)(arg0) = (s32)data_ov072_02171dcc;
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(s32 *)(arg0 + 0x14) = 0;
 }
 
 extern "C" asm void func_ov072_0216ffbc(void)
@@ -2072,7 +2069,6 @@ extern "C" asm void func_ov072_02171ba0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov072_02171bb4(void)
+extern "C" void func_ov072_02171bb4(void)
 {
-    bx lr
 }

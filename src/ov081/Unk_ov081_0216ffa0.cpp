@@ -1,6 +1,6 @@
 #include "ov081/Unk_ov081_0216ffa0.hpp"
 
-extern "C" void func_ov081_0216ffa0(void);
+extern "C" void func_ov081_0216ffa0(u8 *arg0, s32 arg1);
 extern "C" void func_ov081_0216ffbc(void);
 extern "C" void func_ov081_02170124(void);
 extern "C" void func_ov081_02170134(void);
@@ -91,14 +91,11 @@ extern "C" void func_ov015_0213bfcc(void);
 extern "C" void func_ov015_0213c33c(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov081_0216ffa0(void)
+extern "C" void func_ov081_0216ffa0(u8 *arg0, s32 arg1)
 {
-    ldr r3, =data_ov081_02170f80
-    mov r2, #0
-    str r3, [r0]
-    str r1, [r0, #4]
-    str r2, [r0, #0x14]
-    bx lr
+    *(s32 *)(arg0) = (s32)data_ov081_02170f80;
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(s32 *)(arg0 + 0x14) = 0;
 }
 
 extern "C" asm void func_ov081_0216ffbc(void)
@@ -210,9 +207,8 @@ extern "C" asm void func_ov081_02170124(void)
     bx lr
 }
 
-extern "C" asm void func_ov081_02170134(void)
+extern "C" void func_ov081_02170134(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov081_02170138(void)
@@ -280,9 +276,8 @@ extern "C" asm void func_ov081_021701c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov081_02170218(void)
+extern "C" void func_ov081_02170218(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov081_0217021c(void)
@@ -560,9 +555,8 @@ extern "C" asm void func_ov081_021704f8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov081_021705f0(void)
+extern "C" void func_ov081_021705f0(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov081_021705f4(void)
@@ -625,9 +619,8 @@ extern "C" asm void func_ov081_021705f4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov081_021706d0(void)
+extern "C" void func_ov081_021706d0(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov081_021706d4(void)
@@ -1209,7 +1202,6 @@ extern "C" asm void func_ov081_02170e9c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov081_02170eb0(void)
+extern "C" void func_ov081_02170eb0(void)
 {
-    bx lr
 }

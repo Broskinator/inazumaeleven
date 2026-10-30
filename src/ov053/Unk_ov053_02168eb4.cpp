@@ -6,7 +6,7 @@ extern "C" void func_ov053_02169680(void);
 extern "C" void func_ov053_021699ec(void);
 extern "C" void func_ov053_02169a28(void);
 extern "C" void func_ov053_02169a6c(void);
-extern "C" void func_ov053_02169aa8(void);
+extern "C" void func_ov053_02169aa8(u8 *arg0, s32 arg1);
 extern "C" void func_ov053_02169abc(void);
 extern "C" void func_ov053_02169c54(void);
 extern "C" void func_ov053_02169ee0(void);
@@ -960,12 +960,10 @@ extern "C" asm void func_ov053_02169a6c(void)
     bx lr
 }
 
-extern "C" asm void func_ov053_02169aa8(void)
+extern "C" void func_ov053_02169aa8(u8 *arg0, s32 arg1)
 {
-    ldr r2, =data_ov053_0216b470
-    str r1, [r0, #4]
-    str r2, [r0]
-    bx lr
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(s32 *)(arg0) = (s32)data_ov053_0216b470;
 }
 
 extern "C" asm void func_ov053_02169abc(void)
@@ -1319,9 +1317,8 @@ extern "C" asm void func_ov053_02169ee0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov053_02169fdc(void)
+extern "C" void func_ov053_02169fdc(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov053_02169fe0(void)
@@ -2659,7 +2656,6 @@ extern "C" asm void func_ov053_0216b2d8(void)
     bx lr
 }
 
-extern "C" asm void func_ov053_0216b2ec(void)
+extern "C" void func_ov053_0216b2ec(void)
 {
-    bx lr
 }

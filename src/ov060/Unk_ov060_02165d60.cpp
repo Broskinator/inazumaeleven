@@ -1,6 +1,6 @@
 #include "ov060/Unk_ov060_02165d60.hpp"
 
-extern "C" void func_ov060_02165d60(void);
+extern "C" void func_ov060_02165d60(u8 *arg0, s32 arg1);
 extern "C" void func_ov060_02165d7c(void);
 extern "C" void func_ov060_02165e68(void);
 extern "C" void func_ov060_02165e98(void);
@@ -42,7 +42,7 @@ extern "C" void func_ov060_021683fc(void);
 extern "C" void func_ov060_02168474(void);
 extern "C" void func_ov060_02168568(void);
 extern "C" void func_ov060_021685dc(void);
-extern "C" void func_ov060_021685f0(void);
+extern "C" s32 func_ov060_021685f0(u8 *arg0);
 extern "C" void func_ov060_021685f8(void);
 
 extern "C" char data_020c4648[];
@@ -182,14 +182,11 @@ extern "C" void func_ov015_021491a0(void);
 extern "C" void func_ov087_02181c08(void);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov060_02165d60(void)
+extern "C" void func_ov060_02165d60(u8 *arg0, s32 arg1)
 {
-    ldr r3, =data_ov060_02168770
-    mov r2, #0
-    str r3, [r0]
-    str r1, [r0, #4]
-    strb r2, [r0, #0x2f]
-    bx lr
+    *(s32 *)(arg0) = (s32)data_ov060_02168770;
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(u8 *)(arg0 + 0x2F) = 0;
 }
 
 extern "C" asm void func_ov060_02165d7c(void)
@@ -2997,13 +2994,11 @@ extern "C" asm void func_ov060_021685dc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov060_021685f0(void)
+extern "C" s32 func_ov060_021685f0(u8 *arg0)
 {
-    ldr r0, [r0, #8]
-    bx lr
+    return *(s32 *)(arg0 + 0x8);
 }
 
-extern "C" asm void func_ov060_021685f8(void)
+extern "C" void func_ov060_021685f8(void)
 {
-    bx lr
 }

@@ -1,6 +1,6 @@
 #include "ov050/Unk_ov050_02165d60.hpp"
 
-extern "C" void func_ov050_02165d60(void);
+extern "C" void func_ov050_02165d60(u8 *arg0, s32 arg1);
 extern "C" void func_ov050_02165d74(void);
 extern "C" void func_ov050_02165f1c(void);
 extern "C" void func_ov050_02166018(void);
@@ -18,7 +18,7 @@ extern "C" void func_ov050_02166738(void);
 extern "C" void func_ov050_02166838(void);
 extern "C" void func_ov050_021669a0(void);
 extern "C" void func_ov050_021669a4(void);
-extern "C" void func_ov050_021669ec(void);
+extern "C" void func_ov050_021669ec(u8 *arg0, s32 arg1);
 extern "C" void func_ov050_021669fc(void);
 extern "C" void func_ov050_02166bec(void);
 extern "C" void func_ov050_02166d0c(void);
@@ -198,12 +198,10 @@ extern "C" void func_ov015_021629d0(void);
 extern "C" void func_ov015_02162f70(void);
 extern "C" void func_ov015_02163040(void);
 
-extern "C" asm void func_ov050_02165d60(void)
+extern "C" void func_ov050_02165d60(u8 *arg0, s32 arg1)
 {
-    ldr r2, =data_ov050_02168e70
-    str r1, [r0, #4]
-    str r2, [r0]
-    bx lr
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(s32 *)(arg0) = (s32)data_ov050_02168e70;
 }
 
 extern "C" asm void func_ov050_02165d74(void)
@@ -855,9 +853,8 @@ extern "C" asm void func_ov050_02166660(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov050_021666d8(void)
+extern "C" void func_ov050_021666d8(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov050_021666dc(void)
@@ -1065,9 +1062,8 @@ extern "C" asm void func_ov050_02166838(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov050_021669a0(void)
+extern "C" void func_ov050_021669a0(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov050_021669a4(void)
@@ -1092,12 +1088,10 @@ extern "C" asm void func_ov050_021669a4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov050_021669ec(void)
+extern "C" void func_ov050_021669ec(u8 *arg0, s32 arg1)
 {
-    mov r2, #5
-    str r1, [r0, #0x10]
-    str r2, [r0, #0xc]
-    bx lr
+    *(s32 *)(arg0 + 0x10) = arg1;
+    *(s32 *)(arg0 + 0xC) = 5;
 }
 
 extern "C" asm void func_ov050_021669fc(void)
@@ -3474,7 +3468,6 @@ extern "C" asm void func_ov050_02168bc8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov050_02168bdc(void)
+extern "C" void func_ov050_02168bdc(void)
 {
-    bx lr
 }

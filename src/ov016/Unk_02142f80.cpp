@@ -31,7 +31,7 @@ extern "C" void func_ov016_0214492c(void);
 extern "C" void func_ov016_021449d4(void);
 extern "C" void func_ov016_02144a74(void);
 extern "C" void func_ov016_02144ab4(void);
-extern "C" void func_ov016_02144ad4(void);
+extern "C" void func_ov016_02144ad4(u8 arg0);
 extern "C" void func_ov016_02144ae4(void);
 extern "C" void func_ov016_02144b04(void);
 extern "C" void func_ov016_02144b98(void);
@@ -2156,11 +2156,9 @@ extern "C" asm void func_ov016_02144ab4(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_02144ad4(void)
+extern "C" void func_ov016_02144ad4(u8 arg0)
 {
-    ldr r1, =data_ov016_02158acc
-    strb r0, [r1, #1]
-    bx lr
+    *(u8 *)(data_ov016_02158acc + 0x1) = arg0;
 }
 
 extern "C" asm void func_ov016_02144ae4(void)
@@ -2273,14 +2271,12 @@ extern "C" asm void func_ov016_02144c54(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_02144c7c(void)
+extern "C" void func_ov016_02144c7c(void)
 {
-    bx lr
 }
 
-extern "C" asm void func_ov016_02144c80(void)
+extern "C" void func_ov016_02144c80(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov016_02144c84(void)
@@ -2466,9 +2462,8 @@ extern "C" asm void func_ov016_02144eb4(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_02144eec(void)
+extern "C" void func_ov016_02144eec(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov016_02144ef0(void)
@@ -2783,9 +2778,8 @@ extern "C" asm void func_ov016_021452e0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_02145318(void)
+extern "C" void func_ov016_02145318(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov016_0214531c(void)
@@ -3066,9 +3060,8 @@ extern "C" asm void func_ov016_021456d8(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_021456e8(void)
+extern "C" void func_ov016_021456e8(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov016_021456ec(void)
@@ -3305,9 +3298,8 @@ extern "C" asm void func_ov016_021459f0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_02145a28(void)
+extern "C" void func_ov016_02145a28(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov016_02145a2c(void)

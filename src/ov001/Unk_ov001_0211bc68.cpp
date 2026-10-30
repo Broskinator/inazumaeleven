@@ -1,11 +1,11 @@
 #include "ov001/Unk_ov001_0211bc68.hpp"
 
-extern "C" void func_ov001_0211bc68(void);
-extern "C" void func_ov001_0211bc78(void);
+extern "C" void func_ov001_0211bc68(u8 *arg0, s32 arg1);
+extern "C" s32 func_ov001_0211bc78(u8 *arg0);
 extern "C" void func_ov001_0211bc80(void);
 extern "C" void func_ov001_0211bca4(void);
 extern "C" void func_ov001_0211bcb4(void);
-extern "C" void func_ov001_0211bcd0(void);
+extern "C" void func_ov001_0211bcd0(u8 *arg0, s32 arg1);
 extern "C" void func_ov001_0211bce4(void);
 extern "C" void func_ov001_0211c108(void);
 extern "C" void func_ov001_0211c31c(void);
@@ -175,18 +175,15 @@ extern "C" void func_ov015_02162fb4(void);
 extern "C" void gGameState(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov001_0211bc68(void)
+extern "C" void func_ov001_0211bc68(u8 *arg0, s32 arg1)
 {
-    mov r2, #5
-    str r1, [r0, #0x14]
-    str r2, [r0, #0x10]
-    bx lr
+    *(s32 *)(arg0 + 0x14) = arg1;
+    *(s32 *)(arg0 + 0x10) = 5;
 }
 
-extern "C" asm void func_ov001_0211bc78(void)
+extern "C" s32 func_ov001_0211bc78(u8 *arg0)
 {
-    ldr r0, [r0, #0x14]
-    bx lr
+    return *(s32 *)(arg0 + 0x14);
 }
 
 extern "C" asm void func_ov001_0211bc80(void)
@@ -221,12 +218,10 @@ extern "C" asm void func_ov001_0211bcb4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov001_0211bcd0(void)
+extern "C" void func_ov001_0211bcd0(u8 *arg0, s32 arg1)
 {
-    ldr r2, =data_ov001_0212a138
-    str r1, [r0, #4]
-    str r2, [r0]
-    bx lr
+    *(s32 *)(arg0 + 0x4) = arg1;
+    *(s32 *)(arg0) = (s32)data_ov001_0212a138;
 }
 
 extern "C" asm void func_ov001_0211bce4(void)
@@ -1206,9 +1201,8 @@ extern "C" asm void func_ov001_0211cb54(void)
     bx lr
 }
 
-extern "C" asm void func_ov001_0211cb74(void)
+extern "C" void func_ov001_0211cb74(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov001_0211cb78(void)
