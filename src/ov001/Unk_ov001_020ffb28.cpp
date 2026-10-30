@@ -31,7 +31,7 @@ extern "C" void func_ov001_0210266c(void);
 extern "C" void func_ov001_021027d4(void);
 extern "C" void func_ov001_02102850(void);
 extern "C" void func_ov001_021028a4(void);
-extern "C" void func_ov001_021028f0(void);
+extern "C" void func_ov001_021028f0(u8 *arg0);
 extern "C" void func_ov001_021029a4(void);
 extern "C" void func_ov001_02102ab0(void);
 
@@ -75,7 +75,7 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_02063430Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206aa54Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206ace8Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206ad94Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_0206b308Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206b3fcEv(void);
@@ -143,7 +143,7 @@ extern "C" void func_ov001_02126554(void);
 extern "C" void func_ov001_0212662c(void);
 extern "C" void func_ov001_02126634(void);
 extern "C" s32 func_ov015_02130ae8(...);
-extern "C" void func_ov015_0213179c(void);
+extern "C" s32 func_ov015_0213179c(...);
 extern "C" void func_ov015_021317c8(void);
 extern "C" void func_ov015_021318f4(void);
 extern "C" void func_ov015_02131910(void);
@@ -3331,53 +3331,41 @@ extern "C" void func_ov001_021028a4(void)
     _ZN11TreasureBox13func_02052720Ev((s32)data_020d9978, 0x10006, 0, 0, 0);
 }
 
-extern "C" asm void func_ov001_021028f0(void)
+extern "C" void func_ov001_021028f0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    mov r4, r0
-    ldr r0, [r4, #0x4ac]
-    cmp r0, #7
-    moveq r0, #0xf
-    streq r0, [r4, #0x4ac]
-    beq @L_0210292c
-    cmp r0, #9
-    moveq r0, #0x10
-    streq r0, [r4, #0x4ac]
-    beq @L_0210292c
-    cmp r0, #0xe
-    moveq r0, #0x11
-    streq r0, [r4, #0x4ac]
-@L_0210292c:
-    mov r2, #0
-    ldr r0, =data_020d9978
-    ldr r1, =0x10005
-    mov r3, r2
-    str r2, [sp]
-    bl _ZN11TreasureBox13func_02052720Ev
-    cmp r0, #0
-    addeq sp, sp, #4
-    ldmeqia sp!, {r3, r4, pc}
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206ace8Ev
-    cmp r0, #0
-    bne @L_02102968
-    mov r0, r4
-    bl func_ov001_021028a4
-@L_02102968:
-    bl func_ov015_0213179c
-    cmp r0, #0
-    mov r0, r4
-    beq @L_02102988
-    mov r1, #0x46
-    bl func_ov001_020ffb28
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
-@L_02102988:
-    mov r1, #0x47
-    bl func_ov001_0210006c
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    u8 *r4;
+    s32 v0;
+    s32 v1;
+    s32 v3;
+    r4 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x4AC);
+    if ((s32)arg0 == 7) {
+        *(s32 *)(r4 + 0x4AC) = 0xF;
+    } else {
+        if ((s32)arg0 == 9) {
+            *(s32 *)(r4 + 0x4AC) = 0x10;
+        } else {
+            if ((s32)arg0 == 0xE) {
+                *(s32 *)(r4 + 0x4AC) = 0x11;
+            }
+        }
+    }
+    v0 = _ZN11TreasureBox13func_02052720Ev((s32)((u8 *)&data_020d9978), 0x10005, 0, 0, 0);
+    if (v0 == 0)
+        return;
+    v1 = _ZN17UnkClass_020621b413func_0206ace8Ev((s32)((u8 *)&data_020e88a0));
+    if (v1 == 0) {
+        ((s32 (*)(...))func_ov001_021028a4)((s32)r4);
+    }
+    v3 = func_ov015_0213179c();
+    arg0 = r4;
+    if (v3 != 0) {
+        func_ov001_020ffb28((s32)arg0, 0x46);
+        return;
+    } else {
+        func_ov001_0210006c(arg0, 0x47);
+        return;
+    }
 }
 
 extern "C" asm void func_ov001_021029a4(void)

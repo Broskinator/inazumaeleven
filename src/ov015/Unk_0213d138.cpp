@@ -38,7 +38,7 @@ extern "C" void func_ov015_0213f0b0(void);
 extern "C" void func_ov015_0213f0bc(void);
 extern "C" void func_ov015_0213f100(void);
 extern "C" void func_ov015_0213f338(void);
-extern "C" void func_ov015_0213f8bc(void);
+extern "C" s32 func_ov015_0213f8bc(s32 arg0);
 extern "C" void func_ov015_0213f908(void);
 extern "C" s32 func_ov015_0213fbcc(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3, s32 arg4);
 extern "C" void func_ov015_0213fc58(void);
@@ -125,7 +125,7 @@ extern "C" void func_ov001_02127da4(void);
 extern "C" void func_ov001_02127db8(void);
 extern "C" void func_ov015_021309f8(void);
 extern "C" void func_ov015_02130ae8(void);
-extern "C" void func_ov015_02130e28(void);
+extern "C" s32 func_ov015_02130e28(...);
 extern "C" void func_ov015_02131704(void);
 extern "C" void func_ov015_02131948(void);
 extern "C" void func_ov015_021319b0(void);
@@ -2929,29 +2929,32 @@ extern "C" asm void func_ov015_0213f338(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_0213f8bc(void)
+extern "C" s32 func_ov015_0213f8bc(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_ov015_02130e28
-    cmp r0, #0
-    beq @L_0213f8d8
-    cmp r0, #4
-    ldmneia sp!, {r4, pc}
-@L_0213f8d8:
-    cmp r4, #0x4000
-    blo @L_0213f8f8
-    cmp r4, #0xc000
-    bhs @L_0213f8f8
-    cmp r0, #0
-    moveq r0, #7
-    movne r0, #5
-    ldmia sp!, {r4, pc}
-@L_0213f8f8:
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #3
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    s32 v0;
+    v0 = func_ov015_02130e28(arg0);
+    r4 = arg0;
+    arg0 = v0;
+    if (arg0 != 0) {
+        if (arg0 != 4)
+            return arg0;
+    }
+    if (((u32)r4 >= (u32)0x4000 && (u32)r4 < (u32)0xC000)) {
+        if (arg0 == 0) {
+            arg0 = 7;
+        } else {
+            arg0 = 5;
+        }
+        return arg0;
+    } else {
+        if (arg0 == 0) {
+            arg0 = 1;
+        } else {
+            arg0 = 3;
+        }
+        return arg0;
+    }
 }
 
 extern "C" asm void func_ov015_0213f908(void)

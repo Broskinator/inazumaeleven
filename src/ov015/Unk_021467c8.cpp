@@ -28,7 +28,7 @@ extern "C" void func_ov015_021474d0(s32 arg0);
 extern "C" void func_ov015_021474e8(void);
 extern "C" s32 func_ov015_021474f4(s32 arg0, s32 arg1);
 extern "C" s32 func_ov015_02147510(u8 *arg0, s32 arg1);
-extern "C" void func_ov015_02147554(void);
+extern "C" s32 func_ov015_02147554(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02147590(...);
 extern "C" void func_ov015_021475c8(void);
 extern "C" void func_ov015_021476bc(void);
@@ -47,7 +47,7 @@ extern "C" void func_ov015_02147a58(void);
 extern "C" s32 func_ov015_02147ad8(...);
 extern "C" void func_ov015_02147ccc(void);
 extern "C" void func_ov015_02147ed4(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov015_02147f00(void);
+extern "C" s32 func_ov015_02147f00(...);
 extern "C" s32 func_ov015_02147ffc(...);
 extern "C" s32 func_ov015_02148058(...);
 extern "C" s32 func_ov015_02148114(s32 arg0, u8 *arg1);
@@ -1216,22 +1216,21 @@ extern "C" s32 func_ov015_02147510(u8 *arg0, s32 arg1)
     return 1;
 }
 
-extern "C" asm void func_ov015_02147554(void)
+extern "C" s32 func_ov015_02147554(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r3, =data_020c464c
-    mov r5, r0
-    ldr r0, [r3]
-    mov r3, #6
-    bl func_ov015_02147f00
-    movs r4, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r0, r5
-    bl func_ov015_02147590
-    str r4, [r5, #4]
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r4;
+    s32 v0;
+    s32 t0;
+    t0 = *(s32 *)(((u8 *)&data_020c464c));
+    v0 = func_ov015_02147f00(t0, arg1, arg2, 6);
+    r4 = v0;
+    if (r4 == 0) {
+        return 0;
+    } else {
+        func_ov015_02147590((s32)arg0);
+        *(s32 *)(arg0 + 0x4) = r4;
+        return 1;
+    }
 }
 
 extern "C" asm s32 func_ov015_02147590(...)
@@ -1916,7 +1915,7 @@ extern "C" void func_ov015_02147ed4(s32 arg0, s32 arg1, s32 arg2)
     func_ov015_02147ad8(arg0, arg1, arg2, 1, 0, 0, 0, 1);
 }
 
-extern "C" asm void func_ov015_02147f00(void)
+extern "C" asm s32 func_ov015_02147f00(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r8, r0

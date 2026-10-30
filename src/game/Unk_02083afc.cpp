@@ -37,7 +37,7 @@ extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2);
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
 extern "C" void func_020841e8(void);
-extern "C" void func_02084248(void);
+extern "C" s32 func_02084248(s32 arg0);
 extern "C" BOOL func_02084284(int value, int a, int b);
 extern "C" void func_020842b0(void);
 extern "C" BOOL func_020842f8(fx32 value);
@@ -98,7 +98,7 @@ extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001d80(void);
 extern "C" void func_02099adc(void);
-extern "C" void func_ov015_02131854(void);
+extern "C" s32 func_ov015_02131854(...);
 
 extern "C" asm void func_02083afc(void)
 {
@@ -613,23 +613,25 @@ extern "C" asm void func_020841e8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_02084248(void)
+extern "C" s32 func_02084248(s32 arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, =data_020c4920
-    mov r2, r0
-    ldr r0, [r1, #0x48]
-    cmp r0, #0
-    blt @L_02084278
-    ldrsh r1, [r2, #0xf4]
-    bl func_ov015_02131854
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
-@L_02084278:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    u8 *r2;
+    s32 v0;
+    s16 t0;
+    r2 = (u8 *)arg0;
+    arg0 = *(s32 *)(((u8 *)&data_020c4920) + 0x48);
+    if (arg0 >= 0) {
+        t0 = *(s16 *)(r2 + 0xF4);
+        v0 = func_ov015_02131854(arg0, t0);
+        if (v0 != 0) {
+            arg0 = 1;
+        } else {
+            arg0 = 0;
+        }
+        return arg0;
+    } else {
+        return 0;
+    }
 }
 
 extern "C" BOOL func_02084284(int value, int a, int b)

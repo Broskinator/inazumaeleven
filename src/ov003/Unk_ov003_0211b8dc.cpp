@@ -1,9 +1,9 @@
 #include "ov003/Unk_ov003_0211b8dc.hpp"
 
 extern "C" void func_ov003_0211b8dc(void);
-extern "C" void func_ov003_0211baa4(void);
+extern "C" s32 func_ov003_0211baa4(s32 arg0);
 extern "C" void func_ov003_0211bae0(void);
-extern "C" void func_ov003_0211bd8c(void);
+extern "C" s32 func_ov003_0211bd8c(...);
 extern "C" void func_ov003_0211bfa0(void);
 extern "C" void func_ov003_0211bfc4(void);
 extern "C" void func_ov003_0211c01c(void);
@@ -31,7 +31,7 @@ extern "C" void func_0209c56c(void);
 extern "C" void func_0209c5a4(void);
 extern "C" void func_0209c5d0(void);
 extern "C" void func_0209c6a8(void);
-extern "C" void func_0209c7f4(void);
+extern "C" s32 func_0209c7f4(...);
 extern "C" void func_ov015_02131754(void);
 extern "C" void gGameState(void);
 extern "C" void rand(void);
@@ -160,22 +160,23 @@ extern "C" asm void func_ov003_0211b8dc(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov003_0211baa4(void)
+extern "C" s32 func_ov003_0211baa4(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_020c5320
-    bl func_0209c7f4
-    cmp r0, #1
-    addeq r0, r4, #0x2000
-    moveq r1, #7
-    streq r1, [r0, #0x9f4]
-    ldmeqia sp!, {r4, pc}
-    cmn r0, #1
-    ldmneia sp!, {r4, pc}
-    mov r0, r4
-    bl func_ov003_0211bd8c
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    s32 v0;
+    s32 v1;
+    v0 = func_0209c7f4((s32)((u8 *)&data_020c5320));
+    r4 = arg0;
+    arg0 = v0;
+    if (arg0 == 1) {
+        *(s32 *)(((u8 *)(r4 + 0x2000)) + 0x9F4) = 7;
+        return (r4 + 0x2000);
+    } else {
+        if (arg0 != -1)
+            return arg0;
+        v1 = func_ov003_0211bd8c(r4);
+        return v1;
+    }
 }
 
 extern "C" asm void func_ov003_0211bae0(void)
@@ -355,7 +356,7 @@ extern "C" asm void func_ov003_0211bae0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov003_0211bd8c(void)
+extern "C" asm s32 func_ov003_0211bd8c(...)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0xc

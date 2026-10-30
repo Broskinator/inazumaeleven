@@ -25,7 +25,7 @@ extern "C" void func_ov087_02181b10(void);
 extern "C" void func_ov087_02181c08(void);
 extern "C" s32 func_ov087_02181cbc(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov087_02181cf8(s32 arg0, s32 arg1);
-extern "C" void func_ov087_02181d0c(void);
+extern "C" s32 func_ov087_02181d0c(s32 arg0, s32 arg1);
 extern "C" void func_ov087_02181d4c(void);
 extern "C" void func_ov087_02181e68(void);
 extern "C" void func_ov087_02181e78(void);
@@ -1622,24 +1622,24 @@ extern "C" s32 func_ov087_02181cf8(s32 arg0, s32 arg1)
     return (*(u8 *)(((u8 *)(arg0 + arg1)) + 0x238) == 0 ? 0xB : *(u8 *)(((u8 *)(arg0 + arg1)) + 0x238));
 }
 
-extern "C" asm void func_ov087_02181d0c(void)
+extern "C" s32 func_ov087_02181d0c(s32 arg0, s32 arg1)
 {
-    add r2, r0, r1
-    add r1, r2, #0x11000
-    ldrb r1, [r1, #0x892]
-    cmp r1, #0
-    moveq r0, #1
-    bxeq lr
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x89e]
-    cmp r0, #0
-    movne r0, #1
-    bxne lr
-    ldrb r0, [r2, #0x238]
-    cmp r1, r0
-    movhs r1, r0
-    mov r0, r1
-    bx lr
+    u8 *r2;
+    r2 = (u8 *)(arg0 + arg1);
+    arg1 = *(u8 *)(((u8 *)((arg0 + arg1) + 0x11000)) + 0x892);
+    if (arg1 == 0) {
+        return 1;
+    } else {
+        if (*(u8 *)(((u8 *)(arg0 + 0x11000)) + 0x89E) != 0) {
+            return 1;
+        } else {
+            arg0 = *(u8 *)(r2 + 0x238);
+            if ((u32)arg1 >= (u32)arg0) {
+                arg1 = arg0;
+            }
+            return arg1;
+        }
+    }
 }
 
 extern "C" asm void func_ov087_02181d4c(void)

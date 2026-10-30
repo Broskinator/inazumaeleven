@@ -48,7 +48,7 @@ extern "C" BOOL func_0209bec8(void);
 extern "C" void func_0209bedc(u8 *obj, s32 value);
 extern "C" s32 func_0209bee4(u8 *obj);
 extern "C" void func_0209beec(s32 arg0);
-extern "C" void func_0209bf0c(void);
+extern "C" s32 func_0209bf0c(s32 arg0);
 extern "C" BOOL func_0209bf44(u8 *obj);
 extern "C" BOOL func_0209bf60(u8 *obj);
 extern "C" s32 func_0209bf7c(void);
@@ -57,8 +57,8 @@ extern "C" u16 func_0209bf9c(u8 *obj);
 extern "C" u16 func_0209bfe8(u8 *obj);
 extern "C" void func_0209bff0(u8 *obj);
 extern "C" void func_0209c004(void);
-extern "C" void func_0209c044(void);
-extern "C" void func_0209c078(void);
+extern "C" s32 func_0209c044(void);
+extern "C" s32 func_0209c078(void);
 extern "C" void func_0209c0ac(void);
 extern "C" void func_0209c17c(void);
 extern "C" s32 func_0209c24c(s32 arg0, s32 arg1, s32 arg2);
@@ -66,15 +66,15 @@ extern "C" s32 func_0209c33c(...);
 extern "C" void func_0209c380(u8 *arg0, u8 *arg1);
 extern "C" s32 func_0209c398(s32 arg0, u8 *arg1);
 extern "C" void func_0209c3bc(void);
-extern "C" void func_0209c420(void);
-extern "C" void func_0209c480(void);
+extern "C" s32 func_0209c420(...);
+extern "C" s32 func_0209c480(u8 *arg0);
 extern "C" u8 *func_0209c4bc(u8 *obj, int i);
 extern "C" void func_0209c4d8(void);
 extern "C" void func_0209c50c(void);
-extern "C" void func_0209c56c(void);
+extern "C" char *func_0209c56c(u8 *arg0);
 extern "C" void func_0209c5a4(u8 *arg0);
 extern "C" void func_0209c5d0(u8 *arg0);
-extern "C" void func_0209c5fc(void);
+extern "C" void func_0209c5fc(u8 *arg0);
 extern "C" void func_0209c628(u8 *obj);
 extern "C" void func_0209c648(void);
 extern "C" void func_0209c6a8(u8 *arg0, u8 arg1);
@@ -108,8 +108,8 @@ extern "C" void _ZN17UnkClass_020621b413func_020690a8Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207f7ccEv(void);
 extern "C" void _ZN8Wireless13func_0203c0f4EP8GameHeap(void);
 extern "C" void _ZN8Wireless13func_0203c170Emtt(void);
-extern "C" void _ZN8Wireless13func_0203c358Ev(void);
-extern "C" void _ZN8Wireless13func_0203c364Ei(void);
+extern "C" s32 _ZN8Wireless13func_0203c358Ev(...);
+extern "C" s32 _ZN8Wireless13func_0203c364Ei(...);
 extern "C" void _ZN8Wireless13func_0203c3bcEPvt(void);
 extern "C" void _ZN8Wireless13func_0203c420Ei(void);
 extern "C" void _ZN8Wireless13func_0203c4a8Ev(void);
@@ -117,7 +117,7 @@ extern "C" void _ZN8Wireless13func_0203c540Ev(void);
 extern "C" void _ZN8Wireless13func_0203c67cEv(void);
 extern "C" void _ZN8Wireless13func_0203c9ecEi(void);
 extern "C" void _ZN8Wireless13func_0203cb90EPFvtPvtE(void);
-extern "C" void _ZN8Wireless13func_0203cbecEi(void);
+extern "C" s32 _ZN8Wireless13func_0203cbecEi(...);
 extern "C" void _ZN8Wireless13func_0203cc08EtPvm(void);
 extern "C" void _ZN8Wireless13func_0203cdf8EtPKv(void);
 extern "C" void _ZN8Wireless13func_0203cebcEt(void);
@@ -125,7 +125,7 @@ extern "C" void _ZN8Wireless13func_0203d04cEttt(void);
 extern "C" void _ZN8Wireless13func_0203d2b8EtPh(void);
 extern "C" void _ZN8Wireless13func_0203d8d0Ev(void);
 extern "C" void _ZN8Wireless13func_0203d960Eti(void);
-extern "C" void _ZN8Wireless13func_0203da3cEv(void);
+extern "C" s32 _ZN8Wireless13func_0203da3cEv(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02008564(void);
 extern "C" void func_02008580(void);
@@ -703,21 +703,25 @@ extern "C" void func_0209beec(s32 arg0)
     return;
 }
 
-extern "C" asm void func_0209bf0c(void)
+extern "C" s32 func_0209bf0c(s32 arg0)
 {
-    stmdb sp!, {r3, lr}
-    bl func_0209bf44
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020cb980
-    bl _ZN8Wireless13func_0203c358Ev
-    cmp r0, #3
-    movgt r0, #3
-    ldmgtia sp!, {r3, pc}
-    cmp r0, #0
-    movlt r0, #0
-    ldmia sp!, {r3, pc}
+    BOOL v0;
+    s32 v1;
+    v0 = func_0209bf44((u8 *)arg0);
+    if (v0 == 0) {
+        return 0;
+    } else {
+        v1 = _ZN8Wireless13func_0203c358Ev((s32)((u8 *)&data_020cb980));
+        arg0 = v1;
+        if (arg0 > 3) {
+            return 3;
+        } else {
+            if (arg0 < 0) {
+                arg0 = 0;
+            }
+            return arg0;
+        }
+    }
 }
 
 extern "C" BOOL func_0209bf44(u8 *obj)
@@ -797,34 +801,22 @@ extern "C" asm void func_0209c004(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0209c044(void)
+extern "C" s32 func_0209c044(void)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_020fc748
-    ldrb r0, [r4]
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r0, =data_020cb980
-    mov r1, #0
-    bl _ZN8Wireless13func_0203c364Ei
-    mov r0, #1
-    strb r0, [r4]
-    ldmia sp!, {r4, pc}
+    if (*(u8 *)(((u8 *)&data_020fc748)) != 0)
+        return *(u8 *)(((u8 *)&data_020fc748));
+    _ZN8Wireless13func_0203c364Ei((s32)((u8 *)&data_020cb980), 0);
+    *(u8 *)(((u8 *)&data_020fc748)) = 1;
+    return 1;
 }
 
-extern "C" asm void func_0209c078(void)
+extern "C" s32 func_0209c078(void)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_020fc748
-    ldrb r0, [r4]
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020cb980
-    mov r1, #1
-    bl _ZN8Wireless13func_0203c364Ei
-    mov r0, #0
-    strb r0, [r4]
-    ldmia sp!, {r4, pc}
+    if (*(u8 *)(((u8 *)&data_020fc748)) == 0)
+        return *(u8 *)(((u8 *)&data_020fc748));
+    _ZN8Wireless13func_0203c364Ei((s32)((u8 *)&data_020cb980), 1);
+    *(u8 *)(((u8 *)&data_020fc748)) = 0;
+    return 0;
 }
 
 extern "C" asm void func_0209c0ac(void)
@@ -1063,7 +1055,7 @@ extern "C" asm void func_0209c3bc(void)
     bx lr
 }
 
-extern "C" asm void func_0209c420(void)
+extern "C" asm s32 func_0209c420(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
@@ -1093,22 +1085,17 @@ extern "C" asm void func_0209c420(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_0209c480(void)
+extern "C" s32 func_0209c480(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldrb r1, [r4, #0x84]
-    cmp r1, #0
-    ldmeqia sp!, {r4, pc}
-    ldr r1, [r4, #0x7c]
-    ldr r2, [r4, #0x80]
-    bl func_0209c420
-    ldr r1, [r4, #0x8c]
-    ldr r0, =data_020cb980
-    bl _ZN8Wireless13func_0203cbecEi
-    mov r0, #0
-    strb r0, [r4, #0x84]
-    ldmia sp!, {r4, pc}
+    if (*(u8 *)(arg0 + 0x84) == 0)
+        return (s32)arg0;
+    s32 t0 = *(s32 *)(arg0 + 0x7C);
+    s32 t1 = *(s32 *)(arg0 + 0x80);
+    func_0209c420((s32)arg0, t0, t1);
+    s32 t2 = *(s32 *)(arg0 + 0x8C);
+    _ZN8Wireless13func_0203cbecEi((s32)((u8 *)&data_020cb980), t2);
+    *(u8 *)(arg0 + 0x84) = 0;
+    return 0;
 }
 
 extern "C" u8 *func_0209c4bc(u8 *obj, int i)
@@ -1172,20 +1159,13 @@ extern "C" asm void func_0209c50c(void)
     bx lr
 }
 
-extern "C" asm void func_0209c56c(void)
+extern "C" char *func_0209c56c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, #1
-    mov r5, #0
-    mov r1, r4
-    str r5, [r0, #0x5c]
-    bl func_0209bedc
-    ldr r0, =data_020cb980
-    mov r1, r4
-    bl _ZN8Wireless13func_0203c364Ei
-    ldr r0, =data_020fc748
-    strb r5, [r0]
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0 + 0x5C) = 0;
+    func_0209bedc(arg0, 1);
+    _ZN8Wireless13func_0203c364Ei((s32)((u8 *)&data_020cb980), 1);
+    *(u8 *)(((u8 *)&data_020fc748)) = 0;
+    return (char *)((u8 *)&data_020fc748);
 }
 
 extern "C" void func_0209c5a4(u8 *arg0)
@@ -1206,18 +1186,11 @@ extern "C" void func_0209c5d0(u8 *arg0)
     ((s32 (*)(...))func_0209bedc)((s32)arg0, 6, 2);
 }
 
-extern "C" asm void func_0209c5fc(void)
+extern "C" void func_0209c5fc(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_020cb980
-    bl _ZN8Wireless13func_0203da3cEv
-    mov r2, #2
-    mov r0, r4
-    mov r1, #6
-    str r2, [r4, #0x5c]
-    bl func_0209bedc
-    ldmia sp!, {r4, pc}
+    _ZN8Wireless13func_0203da3cEv((s32)((u8 *)&data_020cb980));
+    *(s32 *)(arg0 + 0x5C) = 2;
+    ((s32 (*)(...))func_0209bedc)((s32)arg0, 6, 2);
 }
 
 extern "C" void func_0209c628(u8 *obj)

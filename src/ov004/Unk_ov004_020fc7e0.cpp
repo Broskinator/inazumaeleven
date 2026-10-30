@@ -10,7 +10,7 @@ extern "C" void func_ov004_020fcb30(void);
 extern "C" void func_ov004_020fcb34(void);
 extern "C" void func_ov004_020fcb64(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov004_020fcbbc(u8 *arg0);
-extern "C" void func_ov004_020fcbfc(void);
+extern "C" s32 func_ov004_020fcbfc(u8 *arg0);
 extern "C" void func_ov004_020fcc4c(void);
 extern "C" s32 func_ov004_020fcc58(u8 *arg0);
 extern "C" s32 func_ov004_020fcc7c(s32 arg0);
@@ -52,7 +52,7 @@ extern "C" void GXS_BeginLoadBGExtPltt(void);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void OS_Sleep(void);
 extern "C" s32 _ZN11MoviePlayer4StopEv(...);
-extern "C" void _ZN12SceneManager13func_0203e2fcEl(void);
+extern "C" s32 _ZN12SceneManager13func_0203e2fcEl(...);
 extern "C" void _ZN12SoundManager13AreBanksReadyEv(void);
 extern "C" void _ZN12SoundManager6IsIdleEv(void);
 extern "C" void _ZN12SoundManager8SetSceneEiii(void);
@@ -77,8 +77,8 @@ extern "C" s32 func_02004d1c(...);
 extern "C" void func_ov015_02132240(void);
 extern "C" void func_ov015_021324c4(void);
 extern "C" s32 func_ov015_021338dc(...);
-extern "C" void func_ov015_0213393c(void);
-extern "C" void func_ov015_0213396c(void);
+extern "C" s32 func_ov015_0213393c(...);
+extern "C" s32 func_ov015_0213396c(...);
 extern "C" void func_ov015_0213397c(void);
 extern "C" s32 func_ov015_02133efc(...);
 extern "C" s32 func_ov015_02134ccc(...);
@@ -378,29 +378,29 @@ extern "C" s32 func_ov004_020fcbbc(u8 *arg0)
     return v1;
 }
 
-extern "C" asm void func_ov004_020fcbfc(void)
+extern "C" s32 func_ov004_020fcbfc(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0x10]
-    ldr r0, [r4, #8]
-    add r1, r1, #1
-    str r1, [r4, #0x10]
-    cmp r0, #1
-    beq @L_020fcc24
-    cmp r0, #2
-    ldmneia sp!, {r4, pc}
-@L_020fcc24:
-    bl func_ov015_0213396c
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    add r0, r4, #0x14
-    bl func_ov015_0213393c
-    mov r1, #0
-    mov r0, #1
-    str r1, [r4, #8]
-    bl _ZN12SceneManager13func_0203e2fcEl
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    s32 v0;
+    s32 v2;
+    s32 t0;
+    s32 t1;
+    t0 = *(s32 *)(arg0 + 0x8);
+    t1 = (*(s32 *)(arg0 + 0x10) + 1);
+    *(s32 *)(arg0 + 0x10) = t1;
+    r4 = arg0;
+    arg0 = (u8 *)t0;
+    if ((s32)arg0 != 1) {
+        if ((s32)arg0 != 2)
+            return (s32)arg0;
+    }
+    v0 = func_ov015_0213396c();
+    if (v0 != 0)
+        return v0;
+    func_ov015_0213393c((s32)(r4 + 0x14));
+    *(s32 *)(r4 + 0x8) = 0;
+    v2 = _ZN12SceneManager13func_0203e2fcEl(1, 0);
+    return v2;
 }
 
 extern "C" void func_ov004_020fcc4c(void)

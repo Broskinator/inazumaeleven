@@ -16,7 +16,7 @@ extern "C" void func_ov015_02130b94(void);
 extern "C" void func_ov015_02130c18(void);
 extern "C" void func_ov015_02130cb8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02130ce0(...);
-extern "C" void func_ov015_02130d8c(void);
+extern "C" s32 func_ov015_02130d8c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02130e28(s32 arg0);
 extern "C" s32 func_ov015_02130e40(s32 arg0);
 extern "C" s32 func_ov015_02130e54(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -501,49 +501,45 @@ extern "C" asm s32 func_ov015_02130ce0(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02130d8c(void)
+extern "C" s32 func_ov015_02130d8c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    movs r6, r0
-    mov r5, r1
-    mov r4, r2
-    cmpne r5, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r2, #0x60
-    bl MI_CpuCopy8
-    add r0, r6, #0x60
-    add r1, r5, #0x60
-    mov r2, #0x70
-    bl MI_CpuCopy8
-    add r0, r6, #0xd0
-    add r1, r5, #0xd0
-    mov r2, #0x18
-    bl MI_CpuCopy8
-    cmp r4, #0
-    beq @L_02130e0c
-    ldr r0, [r6, #0xe8]
-    cmp r0, #0
-    ldrne r1, [r5, #0xe8]
-    cmpne r1, #0
-    beq @L_02130df0
-    mov r2, #0x20
-    bl MI_CpuCopy8
-@L_02130df0:
-    ldr r0, [r6, #0xec]
-    cmp r0, #0
-    ldrne r1, [r5, #0xec]
-    cmpne r1, #0
-    beq @L_02130e0c
-    mov r2, #0x90
-    bl MI_CpuCopy8
-@L_02130e0c:
-    ldrh r0, [r6, #0xf0]
-    strh r0, [r5, #0xf0]
-    ldrb r0, [r6, #0xf2]
-    strb r0, [r5, #0xf2]
-    ldrsh r0, [r6, #0xf4]
-    strh r0, [r5, #0xf4]
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *r5;
+    u8 *r6;
+    u16 t0;
+    u8 t1;
+    s16 t2;
+    if (arg0 == 0)
+        return arg0;
+    if (arg1 == 0)
+        return arg0;
+    MI_CpuCopy8(arg0, arg1, 0x60);
+    MI_CpuCopy8((arg0 + 0x60), (arg1 + 0x60), 0x70);
+    MI_CpuCopy8((arg0 + 0xD0), (arg1 + 0xD0), 0x18);
+    r6 = (u8 *)arg0;
+    r5 = (u8 *)arg1;
+    if (arg2 != 0) {
+        arg0 = *(s32 *)(r6 + 0xE8);
+        if (arg0 != 0) {
+            arg1 = *(s32 *)(r5 + 0xE8);
+            if (arg1 != 0) {
+                MI_CpuCopy8(arg0, arg1, 0x20);
+            }
+        }
+        arg0 = *(s32 *)(r6 + 0xEC);
+        if (arg0 != 0) {
+            arg1 = *(s32 *)(r5 + 0xEC);
+            if (arg1 != 0) {
+                MI_CpuCopy8(arg0, arg1, 0x90);
+            }
+        }
+    }
+    t0 = *(u16 *)(r6 + 0xF0);
+    *(u16 *)(r5 + 0xF0) = t0;
+    t1 = *(u8 *)(r6 + 0xF2);
+    *(u8 *)(r5 + 0xF2) = t1;
+    t2 = *(s16 *)(r6 + 0xF4);
+    *(u16 *)(r5 + 0xF4) = t2;
+    return t2;
 }
 
 extern "C" s32 func_ov015_02130e28(s32 arg0)

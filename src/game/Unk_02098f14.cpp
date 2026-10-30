@@ -16,9 +16,9 @@ extern "C" s32 func_020990b4(s32 arg0, s32 arg1);
 extern "C" void func_020990e8(void);
 extern "C" void func_02099140(void);
 extern "C" void func_020991ac(u8 *arg0);
-extern "C" void func_020991d8(void);
+extern "C" void func_020991d8(u8 *arg0);
 extern "C" void func_0209920c(u8 *arg0);
-extern "C" void func_02099238(void);
+extern "C" void func_02099238(u8 *arg0);
 extern "C" void func_0209926c(void);
 extern "C" void func_020992ec(void);
 extern "C" void func_02099370(u8 *obj);
@@ -61,7 +61,7 @@ extern "C" s32 func_02099ffc(s32 arg0);
 extern "C" void func_0209a024(void);
 extern "C" void func_0209a120(void);
 extern "C" void func_0209a22c(void);
-extern "C" void func_0209a2ac(void);
+extern "C" s32 func_0209a2ac(s32 arg0);
 extern "C" void func_0209a300(void);
 
 extern "C" char data_020a4478[];
@@ -80,7 +80,7 @@ extern "C" void MTX_RotZ43_(void);
 extern "C" void NNS_G3dBindMdlSet(void);
 extern "C" void NNS_GfdFreeLnkPlttVram(void);
 extern "C" void VEC_DotProduct(void);
-extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
+extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void func_020011fc(void);
 extern "C" void func_02001d60(void);
@@ -90,9 +90,9 @@ extern "C" void func_02001fa4(void);
 extern "C" void func_02002084(void);
 extern "C" void func_020021f0(void);
 extern "C" void func_02003eec(void);
-extern "C" void func_02004038(void);
+extern "C" s32 func_02004038(...);
 extern "C" void func_020040b0(void);
-extern "C" void func_02004120(void);
+extern "C" s32 func_02004120(...);
 extern "C" void func_02004fd8(void);
 extern "C" void func_02008450(void);
 extern "C" void func_02018328(void);
@@ -105,7 +105,7 @@ extern "C" void func_02027ce0(void);
 extern "C" void func_02027cf4(void);
 extern "C" s32 func_02027e10(...);
 extern "C" void func_02027e24(void);
-extern "C" void func_02029094(void);
+extern "C" s32 func_02029094(...);
 extern "C" s32 func_0202b798(...);
 extern "C" s32 func_0202b9d8(...);
 extern "C" void func_0202bfb8(void);
@@ -311,22 +311,19 @@ extern "C" void func_020991ac(u8 *arg0)
     GX_BeginLoadTex(t0, t1);
 }
 
-extern "C" asm void func_020991d8(void)
+extern "C" void func_020991d8(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #0x30]
-    cmp r0, #0
-    ble @L_02099200
-    sub r0, r0, #1
-    str r0, [r4, #0x30]
-    cmp r0, #0
-    bgt @L_02099200
-    bl func_02004038
-@L_02099200:
-    add r0, r4, #8
-    bl OS_UnlockMutex
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    r4 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x30);
+    if ((s32)arg0 > 0) {
+        *(s32 *)(r4 + 0x30) = (s32)(arg0 - 1);
+        if ((s32)(arg0 - 1) <= 0) {
+            func_02004038();
+        }
+    }
+    OS_UnlockMutex((OSMutex *)(r4 + 8));
+    return;
 }
 
 extern "C" void func_0209920c(u8 *arg0)
@@ -340,22 +337,19 @@ extern "C" void func_0209920c(u8 *arg0)
     GX_BeginLoadTexPltt(t0, t1);
 }
 
-extern "C" asm void func_02099238(void)
+extern "C" void func_02099238(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #0x34]
-    cmp r0, #0
-    ble @L_02099260
-    sub r0, r0, #1
-    str r0, [r4, #0x34]
-    cmp r0, #0
-    bgt @L_02099260
-    bl func_02004120
-@L_02099260:
-    add r0, r4, #8
-    bl OS_UnlockMutex
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    r4 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x34);
+    if ((s32)arg0 > 0) {
+        *(s32 *)(r4 + 0x34) = (s32)(arg0 - 1);
+        if ((s32)(arg0 - 1) <= 0) {
+            func_02004120();
+        }
+    }
+    OS_UnlockMutex((OSMutex *)(r4 + 8));
+    return;
 }
 
 extern "C" asm void func_0209926c(void)
@@ -1539,27 +1533,24 @@ extern "C" asm void func_0209a22c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0209a2ac(void)
+extern "C" s32 func_0209a2ac(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_020c46e4
-    ldr r1, =data_020afde4
-    bl _ZN10ConfigFile6GetIntEPKc
-    ldr r2, =0x4000320
-    cmp r0, #0
-    ldrh r1, [r2]
-    ble @L_0209a2e8
-    cmp r1, r0
-    ldmltia sp!, {r4, pc}
-    sub r0, r2, #0x2c0
-    ldrh r0, [r0]
-    tst r0, #0x1000
-    ldmneia sp!, {r4, pc}
-@L_0209a2e8:
-    mov r0, r4
-    bl func_02029094
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    s32 r4;
+    s32 v0;
+    s32 v1;
+    v0 = _ZN10ConfigFile6GetIntEPKc((s32)((u8 *)&data_020c46e4), (s32)((u8 *)&data_020afde4));
+    r4 = arg0;
+    arg0 = v0;
+    r1 = *(u16 *)(((u8 *)0x4000320));
+    if (arg0 > 0) {
+        if (r1 < arg0)
+            return arg0;
+        if ((*(u16 *)(((u8 *)(0x4000320 - 0x2C0))) & 0x1000) != 0)
+            return *(u16 *)(((u8 *)(0x4000320 - 0x2C0)));
+    }
+    v1 = func_02029094(r4);
+    return v1;
 }
 
 extern "C" asm void func_0209a300(void)

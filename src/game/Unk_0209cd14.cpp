@@ -10,14 +10,14 @@ extern "C" s32 data_020b40e8[];
 extern "C" s32 data_020b4944[];
 extern "C" u8 data_020a7520[];
 extern "C" u8 data_020aabf8[];
-extern "C" void func_0209d378(void);
+extern "C" s32 func_0209d378(void);
 
 extern "C" void func_0209cd14(BOOL a);
 extern "C" void func_0209cd30(void);
 extern "C" void func_0209d024(void);
 extern "C" void func_0209d1d4(void);
 extern "C" s32 func_0209d240(void);
-extern "C" void func_0209d264(void);
+extern "C" s32 func_0209d264(...);
 extern "C" void func_0209d2a0(void);
 extern "C" void func_0209d2dc(void);
 extern "C" void func_0209d350(void);
@@ -467,7 +467,7 @@ extern "C" s32 func_0209d240(void)
     return (s32)r0;
 }
 
-extern "C" asm void func_0209d264(void)
+extern "C" asm s32 func_0209d264(...)
 {
     ldr r2, =data_020fc750
     ldr r0, [r2]
@@ -548,16 +548,14 @@ extern "C" asm void func_0209d350(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0209d378(void)
+extern "C" s32 func_0209d378(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020fc74c
-    ldr r1, =data_020fc794
-    ldr r0, [r0, #4]
-    ldr r0, [r1, r0, lsl #2]
-    blx r0
-    bl func_0209d264
-    ldmia sp!, {r3, pc}
+    s32 v1;
+    s32 t0;
+    t0 = *(s32 *)(((u8 *)&data_020fc794) + (*(s32 *)(((u8 *)&data_020fc74c) + 0x4) << 2));
+    ((s32 (*)(...))*(s32 *)(((u8 *)&data_020fc794) + (*(s32 *)(((u8 *)&data_020fc74c) + 0x4) << 2)))(t0, (s32)((u8 *)&data_020fc794));
+    v1 = func_0209d264();
+    return v1;
 }
 
 extern "C" asm int func_0209d3a0(void *callback)

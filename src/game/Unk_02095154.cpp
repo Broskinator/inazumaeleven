@@ -12,7 +12,7 @@ extern "C" void func_02098824(void);     // (for the asm functions)
 extern "C" void func_02098ae4(void);     // (for the asm functions)
 extern "C" void func_0209657c(void);     // (for the asm functions)
 extern "C" void func_02096eb4(void);     // (for the asm functions)
-extern "C" void func_02097858(void);     // (for the asm functions)
+extern "C" s32 func_02097858(...);     // (for the asm functions)
 extern "C" s32 func_02097880(...);     // (for the asm functions)
 extern "C" void func_02095154(void);
 extern "C" void func_02095544(void);
@@ -23,7 +23,7 @@ extern "C" void func_02095b9c(void);
 extern "C" s32 func_02095c24(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3);
 extern "C" void func_02095c74(void);
 extern "C" void func_02095d14(void);
-extern "C" void func_02095d70(void);
+extern "C" s32 func_02095d70(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02095e04(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_02095e6c(void);
 extern "C" void func_02095ea0(void *obj);
@@ -55,13 +55,13 @@ extern "C" void DC_FlushRange(void);
 extern "C" void FX_SinCosTable_(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void MIi_CpuCopy32(void);
 extern "C" void NNS_G3dGlbFlushVP(void);
 extern "C" void NNS_G3dWorldPosToScrPos(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_020224cc(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
@@ -914,45 +914,28 @@ extern "C" asm void func_02095d14(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02095d70(void)
+extern "C" s32 func_02095d70(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    mov r5, #0
-    mov r7, r2
-    cmp r1, #0
-    cmpgt r7, #0
-    str r5, [r8, #0x20]
-    str r5, [r8, #0x24]
-    str r5, [r8, #0x28]
-    str r5, [r8, #0x2c]
-    str r5, [r8, #0x40]
-    movle r0, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    add r0, r8, #4
-    bl func_02097858
-    mov r0, #0x24
-    mul r6, r7, r0
-    mov r4, #1
-    ldr r0, =data_020c47b4
-    mov r1, r6
-    mov r2, r5
-    mov r3, r4
-    bl _ZN8GameHeap5AllocEiii
-    movs r1, r0
-    str r1, [r8, #0x20]
-    bne @L_02095de8
-    mov r0, r8
-    bl func_02095ea0
-    mov r0, r5
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
-@L_02095de8:
-    mov r0, r5
-    mov r2, r6
-    bl MIi_CpuClearFast
-    mov r0, r4
-    str r7, [r8, #0x24]
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 v1;
+    *(s32 *)(arg0 + 0x20) = 0;
+    *(s32 *)(arg0 + 0x24) = 0;
+    *(s32 *)(arg0 + 0x28) = 0;
+    *(s32 *)(arg0 + 0x2C) = 0;
+    *(s32 *)(arg0 + 0x40) = 0;
+    if ((arg1 <= 0 || arg2 <= 0))
+        return 0;
+    func_02097858((s32)(arg0 + 4), arg1, arg2);
+    v1 = _ZN8GameHeap5AllocEiii((s32)((u8 *)&data_020c47b4), (arg2 * 0x24), 0, 1);
+    *(s32 *)(arg0 + 0x20) = v1;
+    arg1 = v1;
+    if (arg1 == 0) {
+        func_02095ea0((void *)arg0);
+        return 0;
+    } else {
+        MIi_CpuClearFast(0, arg1, (arg2 * 0x24));
+        *(s32 *)(arg0 + 0x24) = arg2;
+        return 1;
+    }
 }
 
 extern "C" s32 func_02095e04(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

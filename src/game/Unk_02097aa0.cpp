@@ -15,7 +15,7 @@ extern "C" void func_02097e78(void *obj, int a);
 extern "C" void func_02097eb8(void *obj, int a);
 extern "C" void func_02097ef8(void);
 extern "C" void func_02097f48(void);
-extern "C" void func_02097f98(void);
+extern "C" s32 func_02097f98(u8 *arg0, s32 arg1);
 extern "C" void func_02097fcc(void);
 extern "C" void func_02098098(void);
 extern "C" void func_02098164(void);
@@ -457,21 +457,21 @@ extern "C" asm void func_02097f48(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02097f98(void)
+extern "C" s32 func_02097f98(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    add r0, r0, #4
-    bl func_020970b0
-    cmp r0, #0
-    moveq r0, #1
-    ldmeqia sp!, {r3, pc}
-    ldrb r1, [r0, #0x5c]
-    cmp r1, #0
-    ldreqb r0, [r0, #0x5d]
-    cmpeq r0, #0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, pc}
+    u8 *v0;
+    v0 = func_020970b0((void *)(arg0 + 4), arg1);
+    arg0 = (u8 *)v0;
+    if ((s32)arg0 == 0) {
+        return 1;
+    } else {
+        if ((*(u8 *)(arg0 + 0x5C) == 0 && *(u8 *)(arg0 + 0x5D) == 0)) {
+            arg0 = (u8 *)1;
+        } else {
+            arg0 = (u8 *)0;
+        }
+        return (s32)arg0;
+    }
 }
 
 extern "C" asm void func_02097fcc(void)

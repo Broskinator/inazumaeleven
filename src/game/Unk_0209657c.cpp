@@ -32,13 +32,13 @@ extern "C" void func_02096b74(void *self, int a, u16 value);
 extern "C" void func_02096b8c(void);
 extern "C" void func_02096c10(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02096c54(...);
-extern "C" void func_02096c8c(void);
+extern "C" s32 func_02096c8c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_02096cb8(void);
 extern "C" void func_02096d18(u8 *obj, u32 flags);
 extern "C" void func_02096d28(u8 *obj, u32 flags);
 extern "C" void func_02096d3c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_02096d64(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern "C" void func_02096d8c(void);
+extern "C" s32 func_02096d8c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_02096db8(void);
 extern "C" void func_02096e0c(void);
 extern "C" void func_02096e60(void);
@@ -636,20 +636,21 @@ extern "C" asm s32 func_02096c54(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_02096c8c(void)
+extern "C" s32 func_02096c8c(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    bl func_020960ec
-    cmp r0, #0
-    beq @L_02096cb0
-    ldrh r0, [r0, #0xa]
-    tst r0, #2
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
-@L_02096cb0:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    u8 *v0;
+    v0 = func_020960ec((void *)arg0, arg1, arg2);
+    arg0 = (u8 *)v0;
+    if ((s32)arg0 != 0) {
+        if ((*(u16 *)(arg0 + 0xA) & 2) != 0) {
+            arg0 = (u8 *)1;
+        } else {
+            arg0 = (u8 *)0;
+        }
+        return (s32)arg0;
+    } else {
+        return 0;
+    }
 }
 
 extern "C" asm void func_02096cb8(void)
@@ -719,19 +720,19 @@ extern "C" void func_02096d64(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, 
     return;
 }
 
-extern "C" asm void func_02096d8c(void)
+extern "C" s32 func_02096d8c(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    bl func_020960ec
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldrb r1, [r0, #0x1a]
-    cmp r1, #0
-    moveq r1, #1
-    streqb r1, [r0, #0x1b]
-    ldrb r0, [r0, #0x1b]
-    ldmia sp!, {r3, pc}
+    u8 *v0;
+    v0 = func_020960ec((void *)arg0, arg1, arg2);
+    arg0 = (u8 *)v0;
+    if ((s32)arg0 == 0) {
+        return 0;
+    } else {
+        if (*(u8 *)(arg0 + 0x1A) == 0) {
+            *(u8 *)(arg0 + 0x1B) = 1;
+        }
+        return *(u8 *)(arg0 + 0x1B);
+    }
 }
 
 extern "C" asm void func_02096db8(void)

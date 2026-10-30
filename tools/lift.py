@@ -49,7 +49,8 @@ class Sym:
         self.name, self.off, self.func = name, off, False
 
     def render(self):
-        return self.name + (f" + 0x{self.off:X}" if self.off else "")
+        # (its address as bytes, whatever the symbol's declared type is)
+        return f"((u8 *)&{self.name})" + (f" + 0x{self.off:X}" if self.off else "")
 
 
 class Load:
@@ -967,6 +968,12 @@ def lift_cfg(name, body, protos, variant=0):
         for ins in b["insns"]:
             if ins[1] in ("bl", "blx"):
                 CALL_USES[id(ins)] = seg_ & {"r0", "r1", "r2", "r3"} - ({ins[4]} if ins[1] == "blx" else set())
+                # (and the ones below the last one written: the arguments before it)
+                n_ = max([int(r[1:]) + 1 for r in CALL_USES[id(ins)]] + [0])
+                CALL_USES[id(ins)] |= {f"r{i}" for i in range(n_)} - ({ins[4]} if ins[1] == "blx" else set())
+                p_ = protos.get(ins[4]) if ins[1] == "bl" else None
+                if isinstance(p_, tuple):     # (a function with parameters reads them all)
+                    CALL_USES[id(ins)] |= {f"r{i}" for i in range(min(4, len(p_[1])))}
                 seg_ = set()
             else:
                 seg_ |= use_def(ins)[1]
@@ -1234,7 +1241,7 @@ def lift_cfg(name, body, protos, variant=0):
             order, todo = [], dict(assign)
             while todo:
                 for r, (home, v) in list(todo.items()):
-                    if not any(o is not home and o in refs(v) for o2, (o, _) in todo.items() if o2 != r):
+                    if not any(home in refs(v2) for o2, (_, v2) in todo.items() if o2 != r):     # (nothing still to go reads it)
                         order.append((home, v))
                         del todo[r]
                         break
@@ -1550,8 +1557,12 @@ def lift_cfg(name, body, protos, variant=0):
     def emit(i, end, ind):
         emitted.clear()
         return region(0, None, ind, None)
-    emit(0, len(blocks), 1)     # (once for the types: which variables are pointers)
+    # (again until the types settle: which variables are pointers, which temporaries are used)
     text = emit(0, len(blocks), 1)
+    for _ in range(4):
+        prev, text = text, emit(0, len(blocks), 1)
+        if text == prev:
+            break
     if "goto" in text:
         raise Fail("goto")
     locals_ = sorted({v for v in used_vars if isinstance(v, Var)}, key=lambda v: REGS.index(v.reg))

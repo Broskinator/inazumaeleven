@@ -47,7 +47,7 @@ extern "C" void func_ov000_02110e04(void);
 extern "C" void func_ov000_02110e10(void);
 extern "C" void func_ov000_02110e9c(void);
 extern "C" void func_ov000_02110ef0(u8 *arg0);
-extern "C" void func_ov000_02110f10(void);
+extern "C" s32 func_ov000_02110f10(...);
 extern "C" void func_ov000_02110f34(void);
 extern "C" s32 func_ov000_02110f64(...);
 extern "C" void func_ov000_02110f78(void);
@@ -58,7 +58,7 @@ extern "C" void func_ov000_021110d8(void);
 extern "C" void func_ov000_02111134(void);
 extern "C" void func_ov000_02111174(void);
 extern "C" void func_ov000_021111d4(void);
-extern "C" void func_ov000_021111f0(void);
+extern "C" s32 func_ov000_021111f0(s32 arg0);
 extern "C" void func_ov000_02111228(void);
 extern "C" void func_ov000_02111244(s32 arg0);
 extern "C" void func_ov000_0211127c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -114,7 +114,7 @@ extern "C" void func_02002198(void);
 extern "C" void func_020021f0(void);
 extern "C" void func_0200226c(void);
 extern "C" s32 func_020033b4(...);
-extern "C" void func_02003474(void);
+extern "C" s32 func_02003474(...);
 extern "C" s32 func_02003534(...);
 extern "C" void func_0200878c(void);
 extern "C" s32 func_02016d0c(...);
@@ -1872,7 +1872,7 @@ extern "C" void func_ov000_02110ef0(u8 *arg0)
     MIi_CpuClearFast(0xC0, *(s32 *)(arg0 + 0x4), 0x400);
 }
 
-extern "C" asm void func_ov000_02110f10(void)
+extern "C" asm s32 func_ov000_02110f10(...)
 {
     ldr r0, [r0, #4]
     cmp r0, #0
@@ -2071,22 +2071,16 @@ extern "C" void func_ov000_021111d4(void)
     MIi_CpuClearFast(0xC0, 0x7000400, 0x400);
 }
 
-extern "C" asm void func_ov000_021111f0(void)
+extern "C" s32 func_ov000_021111f0(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, #0
-    mov r1, r6
-    bl func_ov000_02110f10
-    movs r5, r0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r4, #0x400
-    mov r1, r4
-    bl DC_FlushRange
-    mov r0, r5
-    mov r1, r6
-    mov r2, r4
-    bl func_02003474
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v0;
+    s32 v2;
+    v0 = func_ov000_02110f10(arg0, 0);
+    if (v0 == 0)
+        return v0;
+    DC_FlushRange(v0, 0x400);
+    v2 = func_02003474(v0, 0, 0x400);
+    return v2;
 }
 
 extern "C" void func_ov000_02111228(void)

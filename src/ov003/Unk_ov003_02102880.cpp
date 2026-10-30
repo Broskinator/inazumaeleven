@@ -13,7 +13,7 @@ extern "C" s32 func_ov003_02102bb0(s32 arg0);
 extern "C" void func_ov003_02102bc4(u8 *arg0, s32 arg1);
 extern "C" void func_ov003_02102bec(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov003_02102c38(u8 *arg0);
-extern "C" void func_ov003_02102c74(void);
+extern "C" s32 func_ov003_02102c74(u8 *arg0);
 extern "C" void func_ov003_02102cbc(void);
 extern "C" s32 func_ov003_02102cc8(u8 *arg0);
 extern "C" s32 func_ov003_02102cec(s32 arg0);
@@ -162,8 +162,8 @@ extern "C" s32 func_ov015_02132628(...);
 extern "C" void func_ov015_02132984(void);
 extern "C" void func_ov015_021334b8(void);
 extern "C" s32 func_ov015_021338dc(...);
-extern "C" void func_ov015_0213393c(void);
-extern "C" void func_ov015_0213396c(void);
+extern "C" s32 func_ov015_0213393c(...);
+extern "C" s32 func_ov015_0213396c(...);
 extern "C" void func_ov015_0213397c(void);
 extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_021340c0(void);
@@ -462,27 +462,26 @@ extern "C" s32 func_ov003_02102c38(u8 *arg0)
     return v1;
 }
 
-extern "C" asm void func_ov003_02102c74(void)
+extern "C" s32 func_ov003_02102c74(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #8]
-    cmp r0, #1
-    beq @L_02102c90
-    cmp r0, #2
-    ldmneia sp!, {r4, pc}
-@L_02102c90:
-    bl func_ov015_0213396c
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    add r0, r4, #0x10
-    bl func_ov015_0213393c
-    mov r1, #0
-    ldr r0, [r4, #4]
-    mov r2, #0xa
-    str r1, [r4, #8]
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    s32 v0;
+    s32 v2;
+    s32 t0;
+    r4 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x8);
+    if ((s32)arg0 != 1) {
+        if ((s32)arg0 != 2)
+            return (s32)arg0;
+    }
+    v0 = func_ov015_0213396c();
+    if (v0 != 0)
+        return v0;
+    func_ov015_0213393c((s32)(r4 + 0x10));
+    t0 = *(s32 *)(r4 + 0x4);
+    *(s32 *)(r4 + 0x8) = 0;
+    v2 = _ZN17UnkClass_0203dc7c13func_0203e04cEii(t0, 0, 10);
+    return v2;
 }
 
 extern "C" void func_ov003_02102cbc(void)
