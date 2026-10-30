@@ -339,6 +339,10 @@ src/libs/MSL_C/math_sun.c:
     complete
     .text start:0x0201d4c0 end:0x0201d4ec
 
+src/libs/Unk_0201d4ec.c:
+    complete
+    .text start:0x0201d4ec end:0x0202034c
+
 src/libs/MSL_C/k_sin.c:
     complete
     .text start:0x0202034c end:0x020205c8
@@ -358,6 +362,10 @@ src/libs/MSL_CPP/locale.c:
 src/libs/MSL_CPP/msl_thread.c:
     complete
     .text start:0x0202139c end:0x020213f8
+
+src/libs/Unk_020213f8.c:
+    complete
+    .text start:0x020213f8 end:0x020252f8
 
 src/libs/Runtime/mwexception.c:
     complete

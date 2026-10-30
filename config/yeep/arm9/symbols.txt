@@ -1034,10 +1034,10 @@ func_020223a4 kind:function(arm,size=0x5c) addr:0x020223a4
 func_02022400 kind:function(arm,size=0x84) addr:0x02022400
 func_02022484 kind:function(arm,size=0x48) addr:0x02022484
 func_020224cc kind:function(arm,size=0x48) addr:0x020224cc
-func_02022514 kind:function(arm,size=0x1c0) addr:0x02022514
-.L_02022524 kind:label(arm) addr:0x02022524
-_ll_udiv kind:function(arm,size=0x48) addr:0x020226d4
-.L_020226e0 kind:label(arm) addr:0x020226e0
+func_02022514 kind:function(arm,size=0x10) addr:0x02022514
+func_02022524 kind:function(arm,size=0x1b0) addr:0x02022524
+_ll_udiv kind:function(arm,size=0xc) addr:0x020226d4
+func_020226e0 kind:function(arm,size=0x3c) addr:0x020226e0
 func_0202271c kind:function(arm,size=0x20) addr:0x0202271c
 func_0202273c kind:function(arm,size=0x20c) addr:0x0202273c
 func_02022948 kind:function(arm,size=0x1e4) addr:0x02022948

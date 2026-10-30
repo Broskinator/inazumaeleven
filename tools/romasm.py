@@ -34,10 +34,10 @@ def module_names(mod):
     return _tables[mod]
 
 
-def pc_before(i, op, start):
-    """A load of data before the function that starts at START (it stays as it is)."""
+def pc_outside(i, op, start, end):
+    """A load of data outside the function [START, END) (it stays as it is)."""
     m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", op)
-    return bool(m) and i.address + 8 + int(m.group(1) or "0", 0) < start
+    return bool(m) and not start <= i.address + 8 + int(m.group(1) or "0", 0) < end
 
 
 def main():
@@ -151,7 +151,7 @@ def main():
         insns.append(i)
         m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", i.op_str)
         if m:
-            if pc + 8 + int(m.group(1) or "0", 0) >= addr:     # (not data before the function)
+            if addr <= pc + 8 + int(m.group(1) or "0", 0) < addr + size:     # (not data outside the function)
                 end = min(end, pc + 8 + int(m.group(1) or "0", 0))
         pc += 4
     targets = set()
@@ -160,24 +160,51 @@ def main():
             continue
         if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
             targets.add(int(i.op_str[1:], 16))
-    # (code after a literal pool in the middle: the function is written word by word, its
-    # loads as they are and the pool as dcds, MW's own pool would go at the end)
-    literal = any(end <= t < addr + size for t in targets)
+    # (a function with data in it: after a return, up to the next place a branch of the real
+    # code goes, a table; or code after a literal pool in the middle. It is written word by
+    # word: its loads as they are, the pool and the data as dcds, MW's own pool would go at
+    # the end.)
+    words = {}
+    for p in range(addr, addr + size, 4):
+        words[p] = None if any(s <= p < e for s, e in data) else next(md.disasm(blob[p - base:p - base + 4], p), None)
+    PCREL = r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]"
+
+    def stop(i):
+        return (i.mnemonic == "bx" and i.op_str == "lr" or i.mnemonic == "b" or
+                i.mnemonic in ("pop", "ldm") and "pc" in i.op_str or i.mnemonic == "mov" and i.op_str.startswith("pc,"))
+    dead, pool = {p for p, i in words.items() if i is None}, set()
+    for _ in range(10):
+        live = [i for p, i in words.items() if p not in dead and p not in pool]
+        pool = set()
+        real = set()
+        for i in live:
+            m = re.search(PCREL, i.op_str)
+            if m and addr <= i.address + 8 + int(m.group(1) or "0", 0) < addr + size:
+                pool.add(i.address + 8 + int(m.group(1) or "0", 0))
+            if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
+                real.add(int(i.op_str[1:], 16))
+        new, off = set(dead), False
+        for p in sorted(words):
+            if p in real:
+                off = False
+            if p in pool:
+                continue
+            if off:
+                new.add(p)
+            elif p not in new and stop(words[p]):
+                off = True
+        new -= pool
+        if new == dead:
+            break
+        dead = new
+    first_pool = min(pool, default=addr + size)
+    literal = any(t >= first_pool for t in real if addr <= t < addr + size) or \
+        any(p < first_pool and words[p] is not None for p in dead) or \
+        any(p > first_pool and p not in pool and p not in dead for p in words)
     if literal:
-        insns, pool, pc = [], set(), addr
-        while pc < addr + size:
-            i = None if pc in pool or any(a <= pc < b for a, b in data) else \
-                next(md.disasm(blob[pc - base:pc - base + 4], pc), None)
-            if i is None:
-                insns.append((pc, struct.unpack("<I", blob[pc - base:pc - base + 4])[0]))
-            else:
-                insns.append(i)
-                m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", i.op_str)
-                if m:
-                    pool.add(pc + 8 + int(m.group(1) or "0", 0))
-                if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
-                    targets.add(int(i.op_str[1:], 16))
-            pc += 4
+        targets = real
+        insns = [(p, struct.unpack("<I", blob[p - base:p - base + 4])[0]) if p in pool or p in dead else words[p]
+                 for p in sorted(words)]
     out = []
     pools = {}
     for i in insns:
@@ -252,7 +279,7 @@ def main():
             # (a call of a Thumb function has no relocation: 'bl NAME', the linker makes it a blx)
             to = int(op[1:], 16)
             mn, op = "bl", names.get(to, names.get(to | 1, f"func_{to:08x}"))
-        elif "[pc" in op and not literal and not pc_before(i, op, addr):
+        elif "[pc" in op and not literal and not pc_outside(i, op, addr, addr + size):
             m = re.search(r"\[pc(?:, #(-?0x[0-9a-f]+|-?\d+))?\]", op)
             lit = i.address + 8 + int(m.group(1) or "0", 0)
             if lit in loads:
@@ -282,6 +309,14 @@ def main():
         if m and op.count(",") == 2:
             rd, rm, sh = [x.strip() for x in op.split(",")]
             mn, op = "mov" + m.group(3) + m.group(2), f"{rd}, {rm}, {m.group(1)} {sh}"
+        m = re.match(r"rrx(s?)(\w*)$", mn)
+        if m and op.count(",") == 1:
+            mn, op = "mov" + m.group(2) + m.group(1), op + ", rrx"
+        # MWCC (pre-UAL) syntax: the condition before the s (andseq -> andeqs)
+        m = re.match(r"(and|eor|sub|rsb|add|adc|sbc|rsc|orr|mov|bic|mvn|mul|mla|umull|umlal|smull|smlal)s"
+                     r"(eq|ne|hs|lo|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|cs|cc)$", mn)
+        if m:
+            mn = m.group(1) + m.group(2) + "s"
         # MWCC syntax for push/pop
         # MWCC (pre-UAL) syntax: ldr<cond>b, str<cond>h, ...
         m = re.match(r"(ldr|str)(sb|sh|b|h|d)(eq|ne|hs|lo|mi|pl|vs|vc|hi|ls|ge|lt|gt|le|cs|cc)$", mn)
