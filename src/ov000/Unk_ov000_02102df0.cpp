@@ -8,7 +8,7 @@ extern "C" void func_ov000_02102fc4(void);
 extern "C" void func_ov000_02103014(s32 arg0, s32 arg1);
 extern "C" void func_ov000_02103028(void);
 extern "C" void func_ov000_02103130(void);
-extern "C" void func_ov000_021031c0(void);
+extern "C" s32 func_ov000_021031c0(s32 arg0, s32 arg1);
 extern "C" void func_ov000_021031e4(void);
 extern "C" void func_ov000_021037bc(u8 *arg0);
 extern "C" void func_ov000_021037fc(void);
@@ -472,17 +472,18 @@ extern "C" asm void func_ov000_02103130(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov000_021031c0(void)
+extern "C" s32 func_ov000_021031c0(s32 arg0, s32 arg1)
 {
-    cmp r1, #1
-    movhs r0, #0
-    bxhs lr
-    add r0, r0, r1, lsl #3
-    ldrb r0, [r0, #0x165]
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    bx lr
+    if ((u32)arg1 >= (u32)1) {
+        return 0;
+    } else {
+        if (*(u8 *)(((u8 *)(arg0 + (arg1 << 3))) + 0x165) == 0) {
+            arg0 = 1;
+        } else {
+            arg0 = 0;
+        }
+        return arg0;
+    }
 }
 
 extern "C" asm void func_ov000_021031e4(void)

@@ -14,7 +14,7 @@ extern "C" void func_ov063_02166264(void);
 extern "C" void func_ov063_021662e4(void);
 extern "C" void func_ov063_021663a0(void);
 extern "C" void func_ov063_02166450(void);
-extern "C" void func_ov063_02166498(void);
+extern "C" s32 func_ov063_02166498(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
 extern "C" void func_ov063_021664c0(u8 *arg0);
 extern "C" void func_ov063_02166558(void);
 extern "C" void func_ov063_021666c8(void);
@@ -707,18 +707,14 @@ extern "C" asm void func_ov063_02166450(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov063_02166498(void)
+extern "C" s32 func_ov063_02166498(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6)
 {
-    cmp r1, r3
-    ldrgt r0, [sp, #4]
-    cmpgt r0, r1
-    ldrgt r0, [sp]
-    cmpgt r2, r0
-    ldrgt r0, [sp, #8]
-    cmpgt r0, r2
-    movgt r0, #1
-    movle r0, #0
-    bx lr
+    if ((((arg1 > arg3 && arg5 > arg1) && arg2 > arg4) && arg6 > arg2)) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" void func_ov063_021664c0(u8 *arg0)

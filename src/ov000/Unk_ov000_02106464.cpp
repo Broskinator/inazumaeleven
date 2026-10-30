@@ -43,7 +43,7 @@ extern "C" void func_ov000_021082ec(void);
 extern "C" void func_ov000_0210839c(void);
 extern "C" void func_ov000_02108438(void);
 extern "C" void func_ov000_021084a8(void);
-extern "C" void func_ov000_0210853c(void);
+extern "C" s32 func_ov000_0210853c(s32 arg0);
 extern "C" void func_ov000_021085d0(void);
 extern "C" void func_ov000_021086a8(s32 arg0);
 extern "C" s32 func_ov000_021086bc(...);
@@ -159,13 +159,13 @@ extern "C" void func_ov015_02132568(void);
 extern "C" void func_ov015_02132a04(void);
 extern "C" void func_ov015_02132b7c(void);
 extern "C" void func_ov015_021330b0(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" s32 func_ov015_02134118(...);
 extern "C" void func_ov015_02134198(void);
 extern "C" void func_ov015_02134208(void);
 extern "C" void func_ov015_0213e11c(void);
 extern "C" void gGameState(void);
-extern "C" void sprintf(void);
+extern "C" s32 sprintf(...);
 
 extern "C" asm void func_ov000_02106464(void)
 {
@@ -2448,43 +2448,34 @@ extern "C" asm void func_ov000_021084a8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov000_0210853c(void)
+extern "C" s32 func_ov000_0210853c(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #0x80
-    mov r4, #0
-    mov r5, r0
-    mov r1, r4
-    bl func_ov000_021086bc
-    mov r0, r5
-    bl func_ov000_0210796c
-    cmp r0, #0
-    beq @L_02108584
-    ldr r0, =data_ov000_0211825c
-    add r1, r5, #0x18
-    bl func_ov015_02133f94
-    ldr r0, =data_ov000_02118278
-    add r1, r5, #0x60
-    bl func_ov015_02133f94
-    add sp, sp, #0x80
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02108584:
-    add r0, r5, #0x100
-    ldrsb r0, [r0, #0x5c]
-    cmp r0, #0
-    addeq sp, sp, #0x80
-    streq r4, [r5, #0x18]
-    ldmeqia sp!, {r3, r4, r5, pc}
-    add r4, sp, #0
-    ldr r1, =data_ov000_02118294
-    mov r0, r4
-    add r2, r5, #0x15c
-    bl sprintf
-    mov r0, r4
-    add r1, r5, #0x18
-    bl func_ov015_02133f94
-    add sp, sp, #0x80
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 local[32];
+    s32 r4;
+    u8 *r5;
+    s32 v1;
+    s32 v3;
+    s32 v5;
+    func_ov000_021086bc(arg0, 0);
+    v1 = func_ov000_0210796c(arg0);
+    r4 = 0;
+    r5 = (u8 *)arg0;
+    if (v1 != 0) {
+        func_ov015_02133f94((s32)data_ov000_0211825c, (s32)(r5 + 0x18));
+        v3 = func_ov015_02133f94((s32)data_ov000_02118278, (s32)(r5 + 0x60));
+        return v3;
+    } else {
+        arg0 = *(s8 *)(((u8 *)(r5 + 0x100)) + 0x5C);
+        r4 = 0;
+        if (arg0 == 0) {
+            *(s32 *)(r5 + 0x18) = 0;
+            return arg0;
+        } else {
+            sprintf((s32)((u8 *)local), (s32)data_ov000_02118294, (s32)(r5 + 0x15C));
+            v5 = func_ov015_02133f94((s32)((u8 *)local), (s32)(r5 + 0x18));
+            return v5;
+        }
+    }
 }
 
 extern "C" asm void func_ov000_021085d0(void)

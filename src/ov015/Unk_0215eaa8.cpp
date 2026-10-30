@@ -58,7 +58,7 @@ extern "C" void func_ov015_02160bac(void);
 extern "C" s32 func_ov015_02160cd0(s32 arg0, u8 *arg1);
 extern "C" void func_ov015_02160ce0(s32 arg0);
 extern "C" void func_ov015_02160cf8(void);
-extern "C" void func_ov015_02160d50(void);
+extern "C" s32 func_ov015_02160d50(s32 arg0);
 extern "C" void func_ov015_02160d80(void);
 extern "C" void func_ov015_02160e70(void);
 extern "C" void func_ov015_0216145c(void);
@@ -2688,21 +2688,18 @@ extern "C" asm void func_ov015_02160cf8(void)
     bx lr
 }
 
-extern "C" asm void func_ov015_02160d50(void)
+extern "C" s32 func_ov015_02160d50(s32 arg0)
 {
-    mov r2, #0
-@L_02160d54:
-    add r1, r0, r2, lsl #5
-    ldrb r1, [r1, #8]
-    cmp r1, #0
-    addeq r0, r0, #4
-    addeq r0, r0, r2, lsl #5
-    bxeq lr
-    add r2, r2, #1
-    cmp r2, #0x20
-    blt @L_02160d54
-    mov r0, #0
-    bx lr
+    s32 r2;
+    r2 = 0;
+    do {
+        if (*(u8 *)(((u8 *)(arg0 + (r2 << 5))) + 0x8) == 0) {
+            return ((arg0 + 4) + (r2 << 5));
+        } else {
+            r2 = (r2 + 1);
+        }
+    } while (r2 < 0x20);
+    return 0;
 }
 
 extern "C" asm void func_ov015_02160d80(void)

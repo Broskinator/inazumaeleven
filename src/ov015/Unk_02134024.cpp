@@ -2,7 +2,7 @@
 
 extern "C" void func_ov015_02134024(void);
 extern "C" void func_ov015_02134040(void);
-extern "C" void func_ov015_021340c0(void);
+extern "C" s32 func_ov015_021340c0(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
 extern "C" s32 func_ov015_02134208(u8 *arg0);
@@ -148,7 +148,7 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
-extern "C" void _ZN11FileManager10FindInPackEPKcPPvS2_(void);
+extern "C" s32 _ZN11FileManager10FindInPackEPKcPPvS2_(...);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11FileManager6CancelEPvi(void);
 extern "C" void _ZN11FileManager7ReleaseEPv(void);
@@ -274,29 +274,23 @@ extern "C" asm void func_ov015_02134040(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov015_021340c0(void)
+extern "C" s32 func_ov015_021340c0(s32 arg0, u8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    mov lr, r0
-    mov r4, r1
-    mov r12, #0
-    mov r3, r2
-    ldr r0, =data_020c6364
-    mov r1, lr
-    mov r2, r4
-    strb r12, [r4, #0xa]
-    strb r12, [r4, #8]
-    strb r12, [r4, #9]
-    bl _ZN11FileManager10FindInPackEPKcPPvS2_
-    str r0, [r4, #4]
-    cmp r0, #0
-    movne r0, #1
-    strneb r0, [r4, #8]
-    ldr r0, [r4, #4]
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    *(u8 *)(arg1 + 0xA) = 0;
+    *(u8 *)(arg1 + 0x8) = 0;
+    *(u8 *)(arg1 + 0x9) = 0;
+    v0 = _ZN11FileManager10FindInPackEPKcPPvS2_((s32)data_020c6364, arg0, (s32)arg1, arg2);
+    *(s32 *)(arg1 + 0x4) = v0;
+    if (v0 != 0) {
+        *(u8 *)(arg1 + 0x8) = 1;
+    }
+    if (*(s32 *)(arg1 + 0x4) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_ov015_02134118(void)

@@ -14,7 +14,7 @@ extern "C" void func_ov003_02113a70(void);
 extern "C" s32 func_ov003_02113b04(s32 arg0);
 extern "C" void func_ov003_02113b4c(void);
 extern "C" void func_ov003_021146bc(void);
-extern "C" void func_ov003_02114b7c(void);
+extern "C" s32 func_ov003_02114b7c(u16 arg0, s32 arg1, u8 *arg2, u8 *arg3);
 extern "C" void func_ov003_02114ba4(void);
 extern "C" void func_ov003_02114c5c(void);
 extern "C" void func_ov003_02114d4c(void);
@@ -2661,18 +2661,17 @@ extern "C" asm void func_ov003_021146bc(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov003_02114b7c(void)
+extern "C" s32 func_ov003_02114b7c(u16 arg0, s32 arg1, u8 *arg2, u8 *arg3)
 {
-    cmp r1, #8
-    movlt r0, r1, lsl #5
-    strlth r0, [r2]
-    movlt r0, #0x40
-    subge r0, r1, #8
-    movge r0, r0, lsl #5
-    strgeh r0, [r2]
-    movge r0, #0x68
-    strh r0, [r3]
-    bx lr
+    if (arg1 < 8) {
+        *(u16 *)(arg2) = (arg1 << 5);
+        arg0 = 0x40;
+    } else {
+        *(u16 *)(arg2) = ((arg1 - 8) << 5);
+        arg0 = 0x68;
+    }
+    *(u16 *)(arg3) = arg0;
+    return arg0;
 }
 
 extern "C" asm void func_ov003_02114ba4(void)

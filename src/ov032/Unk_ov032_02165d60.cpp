@@ -32,7 +32,7 @@ extern "C" void func_ov032_02167424(void);
 extern "C" s32 func_ov032_021676cc(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov032_02167704(...);
 extern "C" s32 func_ov032_02167744(...);
-extern "C" void func_ov032_02167784(void);
+extern "C" s32 func_ov032_02167784(u8 *arg0, s32 arg1);
 extern "C" void func_ov032_021677c4(void);
 extern "C" void func_ov032_021679c0(void);
 extern "C" void func_ov032_02167a74(void);
@@ -1922,23 +1922,18 @@ extern "C" asm s32 func_ov032_02167744(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov032_02167784(void)
+extern "C" s32 func_ov032_02167784(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    ldr r2, [r0]
-    mov r4, r1
-    ldr r2, [r2, #0x6c]
-    blx r2
-    mov r1, r4, lsl #1
-    ldrh r1, [r0, r1]
-    ldr r0, =0xffe0
-    and r0, r1, r0
-    mov r0, r0, asr #5
-    mov r0, r0, lsl #0x10
-    movs r0, r0, lsr #0x10
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 t0;
+    t0 = *(s32 *)(*(u8 * *)(arg0) + 0x6C);
+    v0 = ((s32 (*)(...))*(s32 *)(*(u8 * *)(arg0) + 0x6C))((s32)arg0, arg1, t0);
+    if (((u16)((*(u16 *)(((u8 *)v0) + (arg1 << 1)) & 0xFFE0) >> 5)) != 0) {
+        arg0 = (u8 *)1;
+    } else {
+        arg0 = (u8 *)0;
+    }
+    return (s32)arg0;
 }
 
 extern "C" asm void func_ov032_021677c4(void)

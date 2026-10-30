@@ -38,7 +38,7 @@ extern "C" void func_ov000_02101880(void);
 extern "C" void func_ov000_021019dc(void);
 extern "C" void func_ov000_02101bec(void);
 extern "C" void func_ov000_02101c70(void);
-extern "C" void func_ov000_02101cf8(void);
+extern "C" s32 func_ov000_02101cf8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov000_02101d24(void);
 extern "C" void func_ov000_02101d60(void);
 extern "C" void func_ov000_02102530(void);
@@ -2418,19 +2418,18 @@ extern "C" asm void func_ov000_02101c70(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov000_02101cf8(void)
+extern "C" s32 func_ov000_02101cf8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    sub r0, r1, r2
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    cmp r0, #0x8000
-    rsbge r0, r0, #0x10000
-    movge r0, r0, lsl #0x10
-    movge r0, r0, lsr #0x10
-    cmp r0, r3
-    movle r0, #1
-    movgt r0, #0
-    bx lr
+    arg0 = ((u16)(arg1 - arg2));
+    if (arg0 >= 0x8000) {
+        arg0 = ((u16)(0x10000 - ((u16)(arg1 - arg2))));
+    }
+    if (arg0 <= arg3) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_ov000_02101d24(void)

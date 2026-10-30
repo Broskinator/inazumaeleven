@@ -6,7 +6,7 @@ extern "C" void func_ov015_0213d1d0(u8 *arg0);
 extern "C" void func_ov015_0213d1f0(void);
 extern "C" void func_ov015_0213d290(void);
 extern "C" void func_ov015_0213d330(void);
-extern "C" void func_ov015_0213d3f4(void);
+extern "C" void func_ov015_0213d3f4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov015_0213d454(void);
 extern "C" void func_ov015_0213d484(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_0213d498(...);
@@ -346,31 +346,29 @@ extern "C" asm void func_ov015_0213d330(void)
     bx lr
 }
 
-extern "C" asm void func_ov015_0213d3f4(void)
+extern "C" void func_ov015_0213d3f4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r2
-    mov r4, r1
-    mov r5, r3
-    bl func_ov015_0213d498
-    orr r1, r6, #4
-    strh r1, [r0, #0x38]
-    ldr r1, [r0, #0x7c]
-    cmp r5, #0
-    str r1, [r0, #0xcc]
-    str r4, [r0, #0xa4]
-    str r5, [r0, #0x100]
-    ldrh r2, [r0, #0x3a]
-    ldreq r1, =0xfff7
-    andeq r1, r2, r1
-    streqh r1, [r0, #0x3a]
-    streq r4, [r0, #0x7c]
-    orrne r2, r2, #8
-    ldrne r1, [sp, #0x10]
-    strneh r2, [r0, #0x3a]
-    strne r1, [r0, #0x108]
-    strne r1, [r0, #0x104]
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 v0;
+    s32 t0;
+    v0 = func_ov015_0213d498((s32)arg0, arg1, arg2, arg3);
+    *(u16 *)(((u8 *)v0) + 0x38) = (arg2 | 4);
+    t0 = *(s32 *)(((u8 *)v0) + 0x7C);
+    *(s32 *)(((u8 *)v0) + 0xCC) = t0;
+    *(s32 *)(((u8 *)v0) + 0xA4) = arg1;
+    *(s32 *)(((u8 *)v0) + 0x100) = arg3;
+    arg0 = (u8 *)v0;
+    arg2 = *(u16 *)(((u8 *)v0) + 0x3A);
+    r4 = arg1;
+    if (arg3 == 0) {
+        *(u16 *)(arg0 + 0x3A) = (arg2 & 0xFFF7);
+        *(s32 *)(arg0 + 0x7C) = arg1;
+    } else {
+        *(u16 *)(arg0 + 0x3A) = (arg2 | 8);
+        *(s32 *)(arg0 + 0x108) = arg4;
+        *(s32 *)(arg0 + 0x104) = arg4;
+    }
+    return;
 }
 
 extern "C" asm void func_ov015_0213d454(void)

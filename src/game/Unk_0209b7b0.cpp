@@ -64,7 +64,7 @@ extern "C" void func_0209c17c(void);
 extern "C" void func_0209c24c(void);
 extern "C" s32 func_0209c33c(...);
 extern "C" void func_0209c380(u8 *arg0, u8 *arg1);
-extern "C" void func_0209c398(void);
+extern "C" s32 func_0209c398(s32 arg0, u8 *arg1);
 extern "C" void func_0209c3bc(void);
 extern "C" void func_0209c420(void);
 extern "C" void func_0209c480(void);
@@ -1038,17 +1038,16 @@ extern "C" void func_0209c380(u8 *arg0, u8 *arg1)
     *(u16 *)(arg1) = v0;
 }
 
-extern "C" asm void func_0209c398(void)
+extern "C" s32 func_0209c398(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    bl func_0209c33c
-    ldrh r1, [r4]
-    mov r0, r0, lsl #0x10
-    cmp r1, r0, lsr #16
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    v0 = func_0209c33c(arg0, (s32)arg1);
+    if (*(u16 *)(arg1) == ((u16)v0)) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_0209c3bc(void)

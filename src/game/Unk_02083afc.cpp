@@ -44,7 +44,7 @@ extern "C" BOOL func_020842f8(fx32 value);
 extern "C" BOOL func_02084324(fx32 value);
 extern "C" void func_02084350(void);
 extern "C" void func_020843b0(void);
-extern "C" void func_02084428(void);
+extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_02084470(void);
 extern "C" void func_020844dc(void);
 extern "C" void func_0208454c(void);
@@ -756,28 +756,19 @@ extern "C" asm void func_020843b0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02084428(void)
+extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2)
 {
-    ldr r3, [r0]
-    cmp r1, r3
-    blt @L_0208445c
-    ldr r3, [r0, #8]
-    cmp r1, r3
-    bgt @L_0208445c
-    ldr r1, [r0, #4]
-    cmp r2, r1
-    blt @L_0208445c
-    ldr r0, [r0, #0xc]
-    cmp r2, r0
-    movle r0, #1
-    ble @L_02084460
-@L_0208445c:
-    mov r0, #0
-@L_02084460:
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    bx lr
+    if ((((arg1 >= *(s32 *)(arg0) && arg1 <= *(s32 *)(arg0 + 0x8)) && arg2 >= *(s32 *)(arg0 + 0x4)) && arg2 <= *(s32 *)(arg0 + 0xC))) {
+        arg0 = (u8 *)1;
+    } else {
+        arg0 = (u8 *)0;
+    }
+    if ((s32)arg0 != 0) {
+        arg0 = (u8 *)1;
+    } else {
+        arg0 = (u8 *)0;
+    }
+    return (s32)arg0;
 }
 
 extern "C" asm void func_02084470(void)

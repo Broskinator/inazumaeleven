@@ -5,7 +5,7 @@ extern "C" s32 func_ov083_0216ffc0(...);
 extern "C" void func_ov083_021700ec(void);
 extern "C" s32 func_ov083_021701ac(...);
 extern "C" void func_ov083_021701e4(u8 *arg0, s32 arg1);
-extern "C" void func_ov083_02170210(void);
+extern "C" s32 func_ov083_02170210(u8 *arg0, u8 *arg1);
 extern "C" void func_ov083_0217023c(void);
 extern "C" void func_ov083_02170634(void);
 extern "C" void func_ov083_0217079c(void);
@@ -241,19 +241,20 @@ extern "C" void func_ov083_021701e4(u8 *arg0, s32 arg1)
     return;
 }
 
-extern "C" asm void func_ov083_02170210(void)
+extern "C" s32 func_ov083_02170210(u8 *arg0, u8 *arg1)
 {
-    cmp r1, #0
-    mvneq r0, #0
-    bxeq lr
-    str r1, [r0, #0x38]
-    ldr r1, [r1]
-    cmp r1, #0x45
-    movne r1, #0
-    strne r1, [r0, #0x38]
-    subne r0, r1, #1
-    moveq r0, #0
-    bx lr
+    if ((s32)arg1 == 0) {
+        return -1;
+    } else {
+        *(s32 *)(arg0 + 0x38) = (s32)arg1;
+        if (*(s32 *)(arg1) != 0x45) {
+            *(s32 *)(arg0 + 0x38) = 0;
+            arg0 = (u8 *)(0 - 1);
+        } else {
+            arg0 = (u8 *)0;
+        }
+        return (s32)arg0;
+    }
 }
 
 extern "C" asm void func_ov083_0217023c(void)

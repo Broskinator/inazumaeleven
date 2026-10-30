@@ -10,7 +10,7 @@ extern "C" s32 func_ov014_0210c328(...);
 extern "C" void func_ov014_0210c5c8(void);
 extern "C" void func_ov014_0210c91c(void);
 extern "C" void func_ov014_0210ca2c(void);
-extern "C" void func_ov014_0210cac8(void);
+extern "C" s32 func_ov014_0210cac8(s32 arg0, s32 arg1);
 extern "C" void func_ov014_0210cb84(s32 arg0);
 extern "C" void func_ov014_0210cbc4(void);
 extern "C" void func_ov014_0210cc3c(void);
@@ -30,7 +30,7 @@ extern "C" void func_ov014_0210d5ac(void);
 extern "C" void func_ov014_0210d6f4(void);
 extern "C" void func_ov014_0210d834(void);
 extern "C" s32 func_ov014_0210dad8(...);
-extern "C" void func_ov014_0210db2c(void);
+extern "C" s32 func_ov014_0210db2c(s32 arg0, s32 arg1, u8 *arg2, s32 arg3);
 extern "C" s32 func_ov014_0210db78(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_0210dbb8(void);
 extern "C" void func_ov014_0210dc30(void);
@@ -140,7 +140,7 @@ extern "C" void MI_CpuFill8(void);
 extern "C" s32 OS_CreateThread(...);
 extern "C" void OS_DisableInterrupts(void);
 extern "C" void OS_GetTick(void);
-extern "C" void OS_InitMutex(void);
+extern "C" s32 OS_InitMutex(...);
 extern "C" s32 OS_IsThreadTerminated(...);
 extern "C" s32 OS_LockMutex(...);
 extern "C" void OS_RestoreInterrupts(void);
@@ -187,7 +187,7 @@ extern "C" void func_ov014_02110504(void);
 extern "C" void func_ov014_0211054c(void);
 extern "C" void func_ov014_0211059c(void);
 extern "C" void func_ov014_021107d4(void);
-extern "C" void func_ov014_02110950(void);
+extern "C" s32 func_ov014_02110950(...);
 extern "C" void func_ov014_02110be4(void);
 extern "C" void func_ov014_02111068(void);
 extern "C" void func_ov014_0211c274(void);
@@ -1103,54 +1103,28 @@ extern "C" asm void func_ov014_0210ca2c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_0210cac8(void)
+extern "C" s32 func_ov014_0210cac8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    sub sp, sp, #8
-    mov r6, r0
-    add r0, r6, #0x34
-    add r2, r6, #0x1000
-    mov r4, #0
-    add r0, r0, #0x1c00
-    mov r5, r1
-    str r4, [r2, #0xc4c]
-    bl OS_InitMutex
-    add r0, r6, #0x254
-    add r0, r0, #0x1800
-    bl OS_InitMutex
-    add r0, r6, #0x1000
-    ldr r0, [r0, #0x18]
-    cmp r0, #1
-    ldreq r0, =data_ov014_02128ccc
-    moveq r1, #1
-    streq r1, [r0]
-    ldrne r0, =data_ov014_02128ccc
-    strne r4, [r0]
-    add r0, r6, #0x1000
-    ldr r0, [r0, #0xbe0]
-    cmp r0, #0
-    beq @L_0210cb44
-    add r0, r6, #0x374
-    add r0, r0, #0x1800
-    bl OS_IsThreadTerminated
-    cmp r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r4, r5, r6, pc}
-@L_0210cb44:
-    add r0, r6, #0x374
-    mov r1, #0x1000
-    str r1, [sp]
-    ldr r1, =func_ov014_0210cd98
-    mov r2, r6
-    add r0, r0, #0x1800
-    add r3, r6, #0x1000
-    str r5, [sp, #4]
-    bl OS_CreateThread
-    add r0, r6, #0x374
-    add r0, r0, #0x1800
-    bl OS_WakeupThreadDirect
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 v2;
+    s32 v4;
+    *(s32 *)(((u8 *)(arg0 + 0x1000)) + 0xC4C) = 0;
+    OS_InitMutex(((arg0 + 0x34) + 0x1C00), arg1, (arg0 + 0x1000));
+    OS_InitMutex(((arg0 + 0x254) + 0x1800));
+    r4 = 0;
+    if (*(s32 *)(((u8 *)(arg0 + 0x1000)) + 0x18) == 1) {
+        *(s32 *)(data_ov014_02128ccc) = 1;
+    } else {
+        *(s32 *)(data_ov014_02128ccc) = 0;
+    }
+    if (*(s32 *)(((u8 *)(arg0 + 0x1000)) + 0xBE0) != 0) {
+        v2 = OS_IsThreadTerminated(((arg0 + 0x374) + 0x1800));
+        if (v2 == 0)
+            return v2;
+    }
+    OS_CreateThread(((arg0 + 0x374) + 0x1800), (s32)func_ov014_0210cd98, arg0, (arg0 + 0x1000), 0x1000, arg1);
+    v4 = OS_WakeupThreadDirect(((arg0 + 0x374) + 0x1800));
+    return v4;
 }
 
 extern "C" void func_ov014_0210cb84(s32 arg0)
@@ -2219,27 +2193,32 @@ extern "C" asm s32 func_ov014_0210dad8(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0210db2c(void)
+extern "C" s32 func_ov014_0210db2c(s32 arg0, s32 arg1, u8 *arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r2
-    mov r5, r3
-    bl func_ov014_0210dad8
-    movs r4, r0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    bl strlen
-    mov r1, r0
-    mov r0, r4
-    mov r2, r6
-    mov r3, r5
-    bl func_ov014_02110950
-    cmn r0, #1
-    ldmeqia sp!, {r4, r5, r6, pc}
-    cmp r0, r5
-    movlo r1, #0
-    strlob r1, [r6, r0]
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    v0 = func_ov014_0210dad8(arg0, arg1, (s32)arg2, arg3);
+    r4 = v0;
+    r5 = arg3;
+    r6 = (s32)arg2;
+    if (r4 == 0) {
+        return 0;
+    } else {
+        v1 = strlen();
+        v2 = func_ov014_02110950(r4, v1, (s32)arg2, arg3);
+        if (v2 == -1)
+            return v2;
+        arg0 = v2;
+        r6 = (s32)arg2;
+        if ((u32)arg0 < (u32)arg3) {
+            *(u8 *)(arg2 + arg0) = 0;
+        }
+        return arg0;
+    }
 }
 
 extern "C" s32 func_ov014_0210db78(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

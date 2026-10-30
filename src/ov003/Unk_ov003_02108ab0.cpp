@@ -16,7 +16,7 @@ extern "C" void func_ov003_0210a910(void);
 extern "C" void func_ov003_0210aa1c(void);
 extern "C" void func_ov003_0210ab30(void);
 extern "C" void func_ov003_0210ac8c(void);
-extern "C" void func_ov003_0210ae04(void);
+extern "C" s32 func_ov003_0210ae04(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" void func_ov003_0210ae6c(void);
 extern "C" void func_ov003_0210aeb0(void);
 extern "C" s32 func_ov003_0210b028(u8 *arg0, s32 arg1, s32 arg2);
@@ -2444,36 +2444,31 @@ extern "C" asm void func_ov003_0210ac8c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov003_0210ae04(void)
+extern "C" s32 func_ov003_0210ae04(s32 arg0, u8 *arg1, u8 *arg2)
 {
-    mov r12, #0
-@L_0210ae08:
-    ldrb r3, [r1, r12]
-    ldrb r0, [r2, r12]
-    cmp r3, r0
-    movne r0, #0
-    bxne lr
-    add r12, r12, #1
-    cmp r12, #6
-    blt @L_0210ae08
-    mov r12, #0
-@L_0210ae2c:
-    add r3, r1, r12
-    add r0, r2, r12
-    ldrsb r3, [r3, #6]
-    ldrsb r0, [r0, #6]
-    cmp r3, r0
-    movne r0, #0
-    bxne lr
-    add r12, r12, #1
-    cmp r12, #0x11
-    blt @L_0210ae2c
-    ldrb r1, [r1, #0x17]
-    ldrb r0, [r2, #0x17]
-    cmp r1, r0
-    moveq r0, #1
-    movne r0, #0
-    bx lr
+    s32 r12;
+    r12 = 0;
+    do {
+        if (*(u8 *)(arg1 + r12) != *(u8 *)(arg2 + r12)) {
+            return 0;
+        } else {
+            r12 = (r12 + 1);
+        }
+    } while (r12 < 6);
+    r12 = 0;
+    do {
+        if (*(s8 *)(((u8 *)(arg1 + r12)) + 0x6) != *(s8 *)(((u8 *)(arg2 + r12)) + 0x6)) {
+            return 0;
+        } else {
+            r12 = (r12 + 1);
+        }
+    } while (r12 < 0x11);
+    if (*(u8 *)(arg1 + 0x17) == *(u8 *)(arg2 + 0x17)) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_ov003_0210ae6c(void)

@@ -44,7 +44,7 @@ extern "C" void func_ov016_0214a0f8(s32 arg0);
 extern "C" void func_ov016_0214a134(void);
 extern "C" s32 func_ov016_0214a1dc(...);
 extern "C" s32 func_ov016_0214a32c(...);
-extern "C" void func_ov016_0214a3b4(void);
+extern "C" s32 func_ov016_0214a3b4(s32 arg0);
 extern "C" void func_ov016_0214a3d0(void);
 extern "C" void func_ov016_0214a494(void);
 extern "C" void func_ov016_0214a4c0(s32 arg0);
@@ -67,7 +67,7 @@ extern "C" void func_ov016_0214ac48(void);
 extern "C" void func_ov016_0214ad1c(void);
 extern "C" void func_ov016_0214adf0(void);
 extern "C" void func_ov016_0214aec4(void);
-extern "C" void func_ov016_0214af98(void);
+extern "C" s32 func_ov016_0214af98(void);
 extern "C" s32 func_ov016_0214afc4(s32 arg0);
 extern "C" void func_ov016_0214b010(s32 arg0);
 extern "C" void func_ov016_0214b058(void);
@@ -1507,15 +1507,18 @@ extern "C" asm s32 func_ov016_0214a32c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov016_0214a3b4(void)
+extern "C" s32 func_ov016_0214a3b4(s32 arg0)
 {
-    cmp r0, #0x39
-    subls r0, r0, #0x30
-    bxls lr
-    cmp r0, #0x46
-    subls r0, r0, #0x37
-    subhi r0, r0, #0x57
-    bx lr
+    if ((u32)arg0 <= (u32)0x39) {
+        return (arg0 - 0x30);
+    } else {
+        if ((u32)arg0 <= (u32)0x46) {
+            arg0 = (arg0 - 0x37);
+        } else {
+            arg0 = (arg0 - 0x57);
+        }
+        return arg0;
+    }
 }
 
 extern "C" asm void func_ov016_0214a3d0(void)
@@ -2286,18 +2289,20 @@ extern "C" asm void func_ov016_0214aec4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov016_0214af98(void)
+extern "C" s32 func_ov016_0214af98(void)
 {
-    ldr r0, =data_ov016_02158b2c
-    ldr r0, [r0, #4]
-    cmp r0, #0
-    moveq r0, #1
-    bxeq lr
-    ldrb r0, [r0, #0x18]
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    bx lr
+    u8 *r0;
+    r0 = (u8 *)*(s32 *)(data_ov016_02158b2c + 0x4);
+    if ((s32)r0 == 0) {
+        return 1;
+    } else {
+        if (*(u8 *)(r0 + 0x18) == 0) {
+            r0 = (u8 *)1;
+        } else {
+            r0 = (u8 *)0;
+        }
+        return (s32)r0;
+    }
 }
 
 extern "C" s32 func_ov016_0214afc4(s32 arg0)

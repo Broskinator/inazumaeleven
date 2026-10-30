@@ -748,7 +748,7 @@ def unpredicate(insns):
             if nx[1] == "b" and nx[2] == ins[2] and nx[4].lstrip("@") != tgt:
                 out[j] = ins[:4] + ("@" + nx[4].lstrip("@"),)
                 changed = True
-            elif nx[1] == "b" and nx[2] == OPPOSITE[ins[2]]:
+            elif nx[1] in ("b", "ret") and nx[2] == OPPOSITE[ins[2]]:
                 nl = f"Q_{t}"
                 if not (t + 1 < len(out) and out[t + 1][0] == nl):
                     out.insert(t + 1, (nl, None, "", False, ""))
@@ -769,9 +769,34 @@ def unpredicate(insns):
             continue
         res.append(ins)
     # (the labels nothing goes to any more: gone, so the flags go on in the block)
-    used = {ins[4].lstrip("@") for ins in res if ins[0] is None and ins[1] == "b"}
-    used |= {x for ins in res if ins[0] is None and ins[1] == "switch" for x in ins[4].split()[1:]}
-    return [ins for ins in res if ins[0] is None or ins[0] in used]
+    # (two labels in a row: one)
+    alias = {}
+    for j in range(len(res) - 1, 0, -1):
+        if res[j][0] is not None and res[j - 1][0] is not None:
+            alias[res[j - 1][0]] = alias.get(res[j][0], res[j][0])
+    if alias:
+        res = [ins for ins in res if ins[0] not in alias]
+        res = [ins[:4] + ("@" + alias.get(ins[4][1:], ins[4][1:]),) if ins[0] is None and ins[1] == "b" else
+               ins[:4] + (" ".join([ins[4].split()[0]] + [alias.get(x, x) for x in ins[4].split()[1:]]),) if ins[0] is None and ins[1] == "switch" else ins
+               for ins in res]
+    # (and what comes after a return or a branch, up to a label: never runs)
+    while True:
+        used = {ins[4].lstrip("@") for ins in res if ins[0] is None and ins[1] == "b"}
+        used |= {x for ins in res if ins[0] is None and ins[1] == "switch" for x in ins[4].split()[1:]}
+        new, dead = [], False
+        for ins in res:
+            if ins[0] is not None:
+                if ins[0] not in used:
+                    continue
+                dead = False
+            elif dead:
+                continue
+            new.append(ins)
+            if ins[0] is None and ins[1] in ("b", "ret") and not ins[2]:
+                dead = True
+        if len(new) == len(res):
+            return new
+        res = new
 
 
 def lift_cfg(name, body, protos, variant=0):
@@ -1366,6 +1391,24 @@ def lift_cfg(name, body, protos, variant=0):
                             body_.add(p)
                             stack.append(p)
                 exits = {s for y in body_ for s in succ[y] if s not in body_ and s != EXIT}
+                # (the blocks from another exit that only return: in the loop, a return
+                # from it; the loop's own exit is where its end goes)
+                own = [s for s in succ[k] if s != x and s not in body_]
+                if len(exits) > 1 and own and own[0] in exits:
+                    def ahead(s):
+                        seen, st = {s}, [s]
+                        while st:
+                            for z in succ[st.pop()]:
+                                if z != EXIT and z not in seen and z not in body_:
+                                    seen.add(z)
+                                    st.append(z)
+                        return seen
+                    main_ = ahead(own[0])
+                    for s in exits - {own[0]}:
+                        r_ = ahead(s)
+                        if not r_ & main_ and all(p in body_ or p in r_ for z in r_ for p in preds[z]):
+                            body_ |= r_
+                    exits = {s for y in body_ for s in succ[y] if s not in body_ and s != EXIT}
                 if len(exits) > 1:
                     raise Fail("a loop with two exits")
                 loops[x] = (k, body_, min(exits) if exits else None)
@@ -1531,14 +1574,14 @@ def lift_file(src, sizes, failed):
             if "@" not in b[2] and v < 2:
                 try:
                     cand[b[1]] = (b[0],) + lift(b[1], b[2], protos, v)
-                except (Fail, KeyError):
+                except (Fail, KeyError, IndexError):
                     VARIANT[b[1]] = v = 2
             if b[1] not in cand:
                 w = v - 2 if "@" not in b[2] else v
                 if w >= 4:
                     raise Fail("no more variants")
                 cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, w)
-        except (Fail, KeyError):
+        except (Fail, KeyError, IndexError):
             if v + 1 < VARIANTS:
                 VARIANT[b[1]] = v + 1
             else:

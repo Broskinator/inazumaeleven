@@ -16,7 +16,7 @@ extern "C" void func_ov062_02166810(void);
 extern "C" s32 func_ov062_02166a3c(...);
 extern "C" void func_ov062_02166c1c(void);
 extern "C" s32 func_ov062_02166d30(...);
-extern "C" void func_ov062_02166ddc(void);
+extern "C" s32 func_ov062_02166ddc(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov062_02166e44(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov062_02166e90(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov062_02166ee4(u8 *arg0, s32 arg1);
@@ -69,10 +69,10 @@ extern "C" char data_ov062_02168c38[];
 extern "C" char data_ov062_02168c44[];
 extern "C" char data_ov062_02168c48[];
 extern "C" char data_ov062_02168c4c[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void G2_GetBG1CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZN11TreasureBox13func_02052618Ei(...);
 extern "C" void _ZN12SoundManager13func_0203a5c8Eiiii(void);
@@ -1277,34 +1277,31 @@ extern "C" asm s32 func_ov062_02166d30(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov062_02166ddc(void)
+extern "C" s32 func_ov062_02166ddc(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    ldr r0, [r4]
-    cmp r0, #0
-    ldrne r0, [r4, #4]
-    cmpne r0, #0
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r3, [r4, #0xc]
-    ldrh r2, [r4, #0xe]
-    ldr r0, [r4, #4]
-    mov r1, #0
-    mul r2, r3, r2
-    mov r2, r2, lsl #5
-    bl MI_CpuFill8
-    ldrh r2, [r4, #0xc]
-    ldrh r1, [r4, #0xe]
-    ldr r0, [r4, #4]
-    mul r1, r2, r1
-    mov r1, r1, lsl #5
-    bl DC_FlushRange
-    mov r0, #1
-    strb r0, [r4, #0x10]
-    ldmia sp!, {r4, pc}
+    s32 t0;
+    s32 t1;
+    u16 t2;
+    s32 t3;
+    u16 t4;
+    s32 t5;
+    if ((*(s32 *)(arg1) != 0 && *(s32 *)(arg1 + 0x4) != 0)) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    if (arg0 == 0)
+        return arg0;
+    t0 = *(s32 *)(arg1 + 0x4);
+    t1 = ((*(u16 *)(arg1 + 0xC) * *(u16 *)(arg1 + 0xE)) << 5);
+    t2 = *(u16 *)(arg1 + 0xC);
+    MI_CpuFill8(t0, 0, t1, t2);
+    t3 = *(s32 *)(arg1 + 0x4);
+    t4 = *(u16 *)(arg1 + 0xC);
+    t5 = ((*(u16 *)(arg1 + 0xC) * *(u16 *)(arg1 + 0xE)) << 5);
+    DC_FlushRange(t3, t5, t4);
+    *(u8 *)(arg1 + 0x10) = 1;
+    return 1;
 }
 
 extern "C" s32 func_ov062_02166e44(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

@@ -142,28 +142,23 @@ extern "C" s32 func_02080368(u8 *arg0, s32 arg1)
     return 0;
 }
 
-extern "C" asm void func_0208039c(void)
+extern "C" s32 func_0208039c(u8 *arg0, s32 arg1)
 {
-    ldr r2, =0xfff
-    mov r3, #0
-    and r1, r1, r2
-    mov r1, r1, lsl #0x10
-    mov r12, r1, lsr #0x10
-@L_020803b0:
-    mov r1, r3, lsl #1
-    ldrh r1, [r0, r1]
-    cmp r1, #0
-    beq @L_020803d0
-    and r1, r1, r2
-    cmp r12, r1
-    moveq r0, #1
-    bxeq lr
-@L_020803d0:
-    add r3, r3, #1
-    cmp r3, #0x10
-    blt @L_020803b0
-    mov r0, #0
-    bx lr
+    s32 r2;
+    s32 r3;
+    s32 r12;
+    r2 = 0xFFF;
+    r3 = 0;
+    r12 = ((u16)(arg1 & 0xFFF));
+    do {
+        arg1 = *(u16 *)(arg0 + (r3 << 1));
+        if ((arg1 != 0 && r12 == (arg1 & r2))) {
+            return 1;
+        } else {
+            r3 = (r3 + 1);
+        }
+    } while (r3 < 0x10);
+    return 0;
 }
 
 extern "C" asm void func_020803e8(void)
@@ -189,21 +184,18 @@ extern "C" asm void func_020803e8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02080430(void)
+extern "C" s32 func_02080430(u8 *arg0, s32 arg1)
 {
-    mov r3, #0
-@L_02080434:
-    add r2, r0, r3
-    ldrb r2, [r2, #0xa]
-    cmp r1, r2
-    moveq r1, r3, lsl #1
-    ldreqh r0, [r0, r1]
-    bxeq lr
-    add r3, r3, #1
-    cmp r3, #0x10
-    blt @L_02080434
-    mov r0, #0
-    bx lr
+    s32 r3;
+    r3 = 0;
+    do {
+        if (arg1 == *(u8 *)(((u8 *)(arg0 + r3)) + 0xA)) {
+            return *(u16 *)(arg0 + (r3 << 1));
+        } else {
+            r3 = (r3 + 1);
+        }
+    } while (r3 < 0x10);
+    return 0;
 }
 
 extern "C" asm void func_02080460(void)
@@ -235,56 +227,45 @@ extern "C" asm void func_02080460(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_020804bc(void)
+extern "C" s32 func_020804bc(u8 *arg0, s32 arg1, u8 *arg2)
 {
-    stmdb sp!, {r3, lr}
-    ldr r3, =0xfff
-    mov r12, #0
-    and r1, r1, r3
-    mov r1, r1, lsl #0x10
-    mov lr, r1, lsr #0x10
-@L_020804d4:
-    mov r1, r12, lsl #1
-    ldrh r1, [r0, r1]
-    cmp r1, #0
-    beq @L_02080504
-    and r1, r1, r3
-    cmp lr, r1
-    bne @L_02080504
-    cmp r2, #0
-    addne r0, r12, #1
-    strne r0, [r2]
-    mov r0, #1
-    ldmia sp!, {r3, pc}
-@L_02080504:
-    add r12, r12, #1
-    cmp r12, #0xb
-    blt @L_020804d4
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    s32 r3;
+    s32 r12;
+    s32 lr;
+    r3 = 0xFFF;
+    r12 = 0;
+    lr = ((u16)(arg1 & 0xFFF));
+    do {
+        arg1 = *(u16 *)(arg0 + (r12 << 1));
+        if ((arg1 != 0 && lr == (arg1 & r3))) {
+            if ((s32)arg2 != 0) {
+                *(s32 *)(arg2) = (r12 + 1);
+            }
+            return 1;
+        } else {
+            r12 = (r12 + 1);
+        }
+    } while (r12 < 0xB);
+    return 0;
 }
 
-extern "C" asm void func_0208051c(void)
+extern "C" s32 func_0208051c(u8 *arg0, s32 arg1)
 {
-    ldr r2, =0xfff
-    mov r3, #0
-    and r1, r1, r2
-    mov r1, r1, lsl #0x10
-    mov r12, r1, lsr #0x10
-@L_02080530:
-    mov r1, r3, lsl #1
-    ldrh r1, [r0, r1]
-    ands r1, r1, r2
-    beq @L_0208054c
-    cmp r12, r1
-    addeq r0, r3, #1
-    bxeq lr
-@L_0208054c:
-    add r3, r3, #1
-    cmp r3, #0x10
-    blt @L_02080530
-    mov r0, #0
-    bx lr
+    s32 r2;
+    s32 r3;
+    s32 r12;
+    r2 = 0xFFF;
+    r3 = 0;
+    r12 = ((u16)(arg1 & 0xFFF));
+    do {
+        arg1 = (*(u16 *)(arg0 + (r3 << 1)) & r2);
+        if ((arg1 != 0 && r12 == arg1)) {
+            return (r3 + 1);
+        } else {
+            r3 = (r3 + 1);
+        }
+    } while (r3 < 0x10);
+    return 0;
 }
 
 extern "C" s32 func_02080564(u8 *arg0, s32 arg1)

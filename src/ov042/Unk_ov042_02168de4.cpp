@@ -39,8 +39,8 @@ extern "C" void func_ov042_0216b60c(void);
 extern "C" void func_ov042_0216b778(void);
 extern "C" void func_ov042_0216bcd4(void);
 extern "C" void func_ov042_0216bd14(void);
-extern "C" void func_ov042_0216bd80(void);
-extern "C" void func_ov042_0216bdd8(void);
+extern "C" s32 func_ov042_0216bd80(u8 *arg0);
+extern "C" s32 func_ov042_0216bdd8(u8 *arg0, s32 arg1);
 
 extern "C" char data_020c4694[];
 extern "C" char data_020c46a8[];
@@ -60,7 +60,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" void MATH_QSort(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -3398,39 +3398,46 @@ extern "C" asm void func_ov042_0216bd14(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov042_0216bd80(void)
+extern "C" s32 func_ov042_0216bd80(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    ldr r0, [r0, #0x634]
-    cmp r0, #0
-    ldmgtia sp!, {r4, pc}
-    ldr r4, =data_020c4ab4
-    ldr r0, =data_020e88a0
-    ldrb r1, [r4, #0x68]
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrb r1, [r4, #0x70]
-    cmp r1, #0
-    ldrneh r0, [r0, #0x24]
-    ldmneia sp!, {r4, pc}
-    ldrb r1, [r4, #0x71]
-    cmp r1, #0
-    ldrneh r0, [r0, #0x3e]
-    ldreqh r0, [r0, #0x22]
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    s32 v0;
+    u8 t0;
+    if (*(s32 *)(arg0 + 0x634) > 0)
+        return *(s32 *)(arg0 + 0x634);
+    t0 = *(u8 *)(data_020c4ab4 + 0x68);
+    v0 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)data_020e88a0, t0);
+    arg0 = (u8 *)v0;
+    r4 = (u8 *)data_020c4ab4;
+    if ((s32)arg0 == 0) {
+        return 0;
+    } else {
+        r4 = (u8 *)data_020c4ab4;
+        if (*(u8 *)(r4 + 0x70) != 0) {
+            return *(u16 *)(arg0 + 0x24);
+        } else {
+            if (*(u8 *)(data_020c4ab4 + 0x71) != 0) {
+                arg0 = (u8 *)*(u16 *)(arg0 + 0x3E);
+            } else {
+                arg0 = (u8 *)*(u16 *)(arg0 + 0x22);
+            }
+            return (s32)arg0;
+        }
+    }
 }
 
-extern "C" asm void func_ov042_0216bdd8(void)
+extern "C" s32 func_ov042_0216bdd8(u8 *arg0, s32 arg1)
 {
-    cmp r1, #0
-    movlt r0, #0
-    bxlt lr
-    ldr r2, [r0, #0x3e8]
-    cmp r2, #0
-    moveq r0, #0
-    movne r0, #0x60
-    mlane r0, r1, r0, r2
-    bx lr
+    s32 r2;
+    if (arg1 < 0) {
+        return 0;
+    } else {
+        r2 = *(s32 *)(arg0 + 0x3E8);
+        if (r2 == 0) {
+            arg0 = (u8 *)0;
+        } else {
+            arg0 = (u8 *)((arg1 * 0x60) + r2);
+        }
+        return (s32)arg0;
+    }
 }

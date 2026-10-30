@@ -38,7 +38,7 @@ extern "C" void func_ov016_0213b3a0(s32 arg0, s32 arg1);
 extern "C" s32 func_ov016_0213b3b4(u8 *arg0, u8 *arg1);
 extern "C" u8 func_ov016_0213b3dc(void);
 extern "C" s32 func_ov016_0213b3ec(void);
-extern "C" void func_ov016_0213b404(void);
+extern "C" s32 func_ov016_0213b404(s32 arg0);
 extern "C" char *func_ov016_0213b420(void);
 extern "C" s32 func_ov016_0213b434(void);
 extern "C" void func_ov016_0213b474(void);
@@ -1850,14 +1850,14 @@ extern "C" s32 func_ov016_0213b3ec(void)
     return ((u32)(*(s32 *)(data_ov016_02158a4c + 0x8) << 0x1C) >> 0x1C);
 }
 
-extern "C" asm void func_ov016_0213b404(void)
+extern "C" s32 func_ov016_0213b404(s32 arg0)
 {
-    ldr r1, =data_ov016_02158a4c
-    ldr r1, [r1, #8]
-    tst r0, r1, lsr #4
-    movne r0, #1
-    moveq r0, #0
-    bx lr
+    if ((arg0 & ((u32)*(s32 *)(data_ov016_02158a4c + 0x8) >> 4)) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" char *func_ov016_0213b420(void)

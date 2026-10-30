@@ -69,12 +69,12 @@ extern "C" s32 func_ov015_0213bf84(s32 arg0, s32 arg1);
 extern "C" void func_ov015_0213bfcc(void);
 extern "C" void func_ov015_0213c33c(void);
 extern "C" void func_ov015_0213c3dc(void);
-extern "C" void func_ov015_0213c488(void);
+extern "C" void func_ov015_0213c488(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213c4c0(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_0213c4f0(u8 *arg0);
 extern "C" void func_ov015_0213c4fc(u8 *arg0);
 extern "C" void func_ov015_0213c530(void);
-extern "C" void func_ov015_0213c58c(void);
+extern "C" s32 func_ov015_0213c58c(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_0213c5b4(u8 *arg0);
 extern "C" void func_ov015_0213c5bc(void);
 extern "C" void func_ov015_0213c5e0(void);
@@ -2778,23 +2778,22 @@ extern "C" asm void func_ov015_0213c3dc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov015_0213c488(void)
+extern "C" void func_ov015_0213c488(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    add r12, r0, #0x24
-    mov lr, #0
-@L_0213c494:
-    ldrb r0, [r12]
-    cmp r0, r1
-    ldreqb r0, [r12, #1]
-    cmpeq r0, r2
-    streq r3, [r12, #0x38]
-    ldmeqia sp!, {r3, pc}
-    add lr, lr, #1
-    cmp lr, #0x30
-    add r12, r12, #0x3c
-    blt @L_0213c494
-    ldmia sp!, {r3, pc}
+    u8 *r12;
+    s32 lr;
+    r12 = (u8 *)(arg0 + 0x24);
+    lr = 0;
+    do {
+        if ((*(u8 *)(r12) == arg1 && *(u8 *)(r12 + 0x1) == arg2)) {
+            *(s32 *)(r12 + 0x38) = arg3;
+            return;
+        } else {
+            r12 = (u8 *)(r12 + 0x3C);
+            lr = (lr + 1);
+        }
+    } while (lr < 0x30);
+    return;
 }
 
 extern "C" void func_ov015_0213c4c0(u8 *arg0, s32 arg1)
@@ -2847,18 +2846,20 @@ extern "C" asm void func_ov015_0213c530(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov015_0213c58c(void)
+extern "C" s32 func_ov015_0213c58c(u8 *arg0, s32 arg1)
 {
-    ldr r2, [r0, #0xc]
-    cmp r2, #0
-    moveq r0, #0
-    bxeq lr
-    ldr r0, [r0, #8]
-    cmp r1, r0
-    movge r0, #0
-    addlt r0, r1, r1, lsl #2
-    addlt r0, r2, r0
-    bx lr
+    s32 r2;
+    r2 = *(s32 *)(arg0 + 0xC);
+    if (r2 == 0) {
+        return 0;
+    } else {
+        if (arg1 >= *(s32 *)(arg0 + 0x8)) {
+            arg0 = (u8 *)0;
+        } else {
+            arg0 = (u8 *)(r2 + (arg1 + (arg1 << 2)));
+        }
+        return (s32)arg0;
+    }
 }
 
 extern "C" s32 func_ov015_0213c5b4(u8 *arg0)

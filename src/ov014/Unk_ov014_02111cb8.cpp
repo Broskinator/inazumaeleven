@@ -1,6 +1,6 @@
 #include "ov014/Unk_ov014_02111cb8.hpp"
 
-extern "C" void func_ov014_02111cb8(void);
+extern "C" s32 func_ov014_02111cb8(s32 arg0);
 extern "C" s32 func_ov014_02111d10(s32 arg0);
 extern "C" void func_ov014_02111d1c(void);
 extern "C" void func_ov014_02111d38(void);
@@ -91,7 +91,7 @@ extern "C" s32 func_ov014_021144fc(u8 *arg0);
 extern "C" void func_ov014_02114504(void);
 extern "C" s32 func_ov014_02114600(s32 arg0, s32 arg1);
 extern "C" void func_ov014_0211468c(void);
-extern "C" void func_ov014_02114794(void);
+extern "C" s32 func_ov014_02114794(s32 arg0);
 extern "C" void func_ov014_021147c8(void);
 extern "C" void func_ov014_02114864(void);
 extern "C" void func_ov014_021148a8(void);
@@ -229,33 +229,30 @@ extern "C" s32 func_ov014_0211e3b4(...);
 extern "C" void strlen(void);
 extern "C" void strncmp(void);
 
-extern "C" asm void func_ov014_02111cb8(void)
+extern "C" s32 func_ov014_02111cb8(s32 arg0)
 {
-    cmp r0, #0x41
-    blo @L_02111ccc
-    cmp r0, #0x5a
-    subls r0, r0, #0x41
-    bxls lr
-@L_02111ccc:
-    cmp r0, #0x61
-    blo @L_02111ce0
-    cmp r0, #0x7a
-    subls r0, r0, #0x47
-    bxls lr
-@L_02111ce0:
-    cmp r0, #0x30
-    blo @L_02111cf4
-    cmp r0, #0x39
-    addls r0, r0, #4
-    bxls lr
-@L_02111cf4:
-    cmp r0, #0x2e
-    moveq r0, #0x3e
-    bxeq lr
-    cmp r0, #0x2d
-    moveq r0, #0x3f
-    mvnne r0, #0
-    bx lr
+    if (((u32)arg0 >= (u32)0x41 && (u32)arg0 <= (u32)0x5A)) {
+        return (arg0 - 0x41);
+    } else {
+        if (((u32)arg0 >= (u32)0x61 && (u32)arg0 <= (u32)0x7A)) {
+            return (arg0 - 0x47);
+        } else {
+            if (((u32)arg0 >= (u32)0x30 && (u32)arg0 <= (u32)0x39)) {
+                return (arg0 + 4);
+            } else {
+                if (arg0 == 0x2E) {
+                    return 0x3E;
+                } else {
+                    if (arg0 == 0x2D) {
+                        arg0 = 0x3F;
+                    } else {
+                        arg0 = -1;
+                    }
+                    return arg0;
+                }
+            }
+        }
+    }
 }
 
 extern "C" s32 func_ov014_02111d10(s32 arg0)
@@ -3287,22 +3284,21 @@ extern "C" asm void func_ov014_0211468c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_02114794(void)
+extern "C" s32 func_ov014_02114794(s32 arg0)
 {
-    add r0, r0, #1
-    and r0, r0, #0xff
-    cmp r0, #0x7b
-    moveq r0, #0x30
-    beq @L_021147bc
-    cmp r0, #0x5b
-    moveq r0, #0x61
-    beq @L_021147bc
-    cmp r0, #0x3a
-    moveq r0, #0x41
-@L_021147bc:
-    mov r0, r0, lsl #0x18
-    mov r0, r0, asr #0x18
-    bx lr
+    arg0 = ((arg0 + 1) & 0xFF);
+    if (arg0 == 0x7B) {
+        arg0 = 0x30;
+    } else {
+        if (arg0 == 0x5B) {
+            arg0 = 0x61;
+        } else {
+            if (arg0 == 0x3A) {
+                arg0 = 0x41;
+            }
+        }
+    }
+    return ((s8)arg0);
 }
 
 extern "C" asm void func_ov014_021147c8(void)
