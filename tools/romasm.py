@@ -24,6 +24,7 @@ def module_names(mod):
     """{address: name} of a module's symbols ("main" or an overlay number)."""
     if mod not in _tables:
         path = f"{ROOT}/config/yeep/arm9/symbols.txt" if mod == "main" else \
+            f"{ROOT}/config/yeep/arm9/{mod}/symbols.txt" if mod in ("itcm", "dtcm") else \
             f"{ROOT}/config/yeep/arm9/overlays/ov{mod:03d}/symbols.txt"
         table = {}
         for line in open(path):
@@ -45,11 +46,13 @@ def main():
     ov = None
     if "--ov" in sys.argv:
         i = sys.argv.index("--ov")
-        ov = int(sys.argv[i + 1])
+        ov = sys.argv[i + 1]
+        ov = ov if ov in ("itcm", "dtcm") else int(ov)     # (or a TCM)
         del sys.argv[i:i + 2]
     addr = int(sys.argv[1], 16)
     cls = sys.argv[2] if len(sys.argv) > 2 else None
-    cfg = f"{ROOT}/config/yeep/arm9" if ov is None else f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}"
+    cfg = f"{ROOT}/config/yeep/arm9" if ov is None else f"{ROOT}/config/yeep/arm9/{ov}" if isinstance(ov, str) else \
+        f"{ROOT}/config/yeep/arm9/overlays/ov{ov:03d}"
     names, sizes = {}, {}
     for line in open(f"{cfg}/symbols.txt"):
         m = re.match(r"(\S+) kind:function\(\w+,size=(0x[0-9a-f]+)\S*\) addr:(0x[0-9a-f]+)", line)
@@ -74,8 +77,10 @@ def main():
             elif m.group(5) == "overlay" and int(m.group(6)) != ov:
                 o = int(m.group(6))
                 name = module_names(o).get(to, f"func_ov{o:03d}_{to:08x}" if "call" in kind else f"data_ov{o:03d}_{to:08x}")
-            elif m.group(5) == "overlay":
+            elif m.group(5) == "overlay" or m.group(5) == ov:
                 name = None     # (this overlay: named below)
+            elif m.group(5) in ("itcm", "dtcm"):
+                name = module_names(m.group(5)).get(to, f"func_{to:08x}" if "call" in kind else f"data_{to:08x}")
             else:
                 continue
             if "call" in kind:
@@ -127,7 +132,8 @@ def main():
     if ov is None:
         blob, base = open(f"{ROOT}/extract/yeep/arm9/arm9.bin", "rb").read(), 0x02000000
     else:
-        blob = open(f"{ROOT}/extract/yeep/arm9_overlays/ov{ov:03d}.bin", "rb").read()
+        blob = open(f"{ROOT}/extract/yeep/arm9/{ov}.bin" if isinstance(ov, str) else
+                    f"{ROOT}/extract/yeep/arm9_overlays/ov{ov:03d}.bin", "rb").read()
         base = int(re.search(r"\.text\s+start:(0x[0-9a-f]+)", open(f"{cfg}/delinks.txt").read()).group(1), 16)
     size = sizes[addr]
     md = capstone.Cs(capstone.CS_ARCH_ARM, capstone.CS_MODE_ARM)

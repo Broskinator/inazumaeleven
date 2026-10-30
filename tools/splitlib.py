@@ -3,7 +3,7 @@
 
 usage: [IE_OV=N] tools/splitlib.py LO HI PATH
 
-The range is in the main module, or in overlay N. PATH is the file under src/ without
+The range is in the main module, or in overlay N (or the TCM N: itcm, dtcm). PATH is the file under src/ without
 ".c" (e.g. libs/NitroSDK/fx/fx_vec). The functions keep their symbols' names (asm bodies from tools/romasm.py). A delinks entry that has just the
 range's .text (an incomplete libs/ one) is replaced by the new file's; in a gap, the new
 entry goes in by address. Thumb code and unreachable epilogues are not handled (exit 2).
@@ -12,7 +12,7 @@ import os, re, struct, subprocess, sys
 
 lo, hi, path = int(sys.argv[1], 16), int(sys.argv[2], 16), sys.argv[3]
 OV = os.environ.get("IE_OV")     # (IE_OV=N: overlay N)
-CFG = "config/yeep/arm9" + (f"/overlays/ov{int(OV):03d}" if OV else "")
+CFG = "config/yeep/arm9" + ((f"/{OV}" if OV in ("itcm", "dtcm") else f"/overlays/ov{int(OV):03d}") if OV else "")
 
 funcs, sizes = [], {}
 for line in open(f"{CFG}/symbols.txt"):
@@ -22,7 +22,8 @@ for line in open(f"{CFG}/symbols.txt"):
         sizes[int(m[4], 16)] = int(m[3], 16)
 funcs.sort()
 if OV:
-    blob = open(f"extract/yeep/arm9_overlays/ov{int(OV):03d}.bin", "rb").read()
+    blob = open(f"extract/yeep/arm9/{OV}.bin" if OV in ("itcm", "dtcm") else
+                f"extract/yeep/arm9_overlays/ov{int(OV):03d}.bin", "rb").read()
     base = int(re.search(r"\.text\s+start:(0x[0-9a-f]+)", open(f"{CFG}/delinks.txt").read()).group(1), 16)
 else:
     blob, base = open("extract/yeep/arm9/arm9.bin", "rb").read(), 0x02000000
@@ -87,6 +88,6 @@ else:
             t = t[:m.start()] + entry + "\n" + t[m.start():]
             break
     else:
-        sys.exit("no place for the entry")
+        t = t.rstrip("\n") + "\n\n" + entry     # (after the last one)
 open(f"{CFG}/delinks.txt", "w", newline="\n").write(t)
 print(f"{src}: {len(funcs)} functions")

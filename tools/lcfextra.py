@@ -27,6 +27,8 @@ cfg = os.path.join(os.path.dirname(os.path.abspath(extra)))
 mods = {"main": cfg}
 for d in glob.glob(os.path.join(cfg, "overlays", "ov*")):
     mods[int(os.path.basename(d)[2:])] = d
+for tcm in ("itcm", "dtcm"):
+    mods[tcm] = os.path.join(cfg, tcm)
 keep = []
 for m, d in mods.items():
     t = open(os.path.join(d, "delinks.txt")).read()
