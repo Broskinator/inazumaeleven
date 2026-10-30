@@ -62,7 +62,7 @@ extern "C" void func_020885b0(s32 arg0);
 extern "C" s32 func_020885d4(u8 *arg0);
 extern "C" s32 func_0208862c(u8 *arg0);
 extern "C" void func_0208868c(void);
-extern "C" void func_020887f0(void);
+extern "C" void func_020887f0(u8 *arg0, u16 arg1, u8 arg2, u8 arg3);
 extern "C" void func_02088824(void);
 extern "C" void func_02088864(void);
 extern "C" void func_020888a4(void);
@@ -113,7 +113,7 @@ extern "C" char data_020c47b4[];
 extern "C" char data_020d3d20[];
 extern "C" char data_020e88a0[];
 extern "C" void FX_SinCosTable_(void);
-extern "C" void G3X_SetClearColor(void);
+extern "C" s32 G3X_SetClearColor(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 MIi_CpuCopyFast(...);
@@ -1476,20 +1476,14 @@ extern "C" asm void func_0208868c(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_020887f0(void)
+extern "C" void func_020887f0(u8 *arg0, u16 arg1, u8 arg2, u8 arg3)
 {
-    stmdb sp!, {r3, lr}
-    mov r12, r0
-    strb r2, [r12, #0xa]
-    strh r1, [r12, #8]
-    strb r3, [r12, #0xb]
-    str r3, [sp]
-    ldrh r0, [r12, #8]
-    ldrb r1, [r12, #0xa]
-    ldr r2, =0x7fff
-    mov r3, #0x3f
-    bl G3X_SetClearColor
-    ldmia sp!, {r3, pc}
+    *(u8 *)(arg0 + 0xA) = arg2;
+    *(u16 *)(arg0 + 0x8) = arg1;
+    *(u8 *)(arg0 + 0xB) = arg3;
+    u16 t0 = *(u16 *)(arg0 + 0x8);
+    u8 t1 = *(u8 *)(arg0 + 0xA);
+    G3X_SetClearColor(t0, t1, 0x7FFF, 0x3F, arg3);
 }
 
 extern "C" asm void func_02088824(void)

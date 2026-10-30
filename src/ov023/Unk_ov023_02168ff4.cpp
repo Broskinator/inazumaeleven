@@ -3,7 +3,7 @@
 extern "C" void func_ov023_02168ff4(void);
 extern "C" void func_ov023_0216932c(void);
 extern "C" void func_ov023_021698e8(void);
-extern "C" void func_ov023_02169a90(void);
+extern "C" s32 func_ov023_02169a90(u8 *arg0);
 extern "C" void func_ov023_02169c60(void);
 extern "C" void func_ov023_02169d4c(void);
 extern "C" void func_ov023_02169dc8(void);
@@ -17,33 +17,33 @@ extern "C" char data_020c4ab4[];
 extern "C" char data_020c5e40[];
 extern "C" char data_020c9660[];
 extern "C" char data_020cac1c[];
-extern "C" void G2_GetBG1ScrPtr(void);
+extern "C" s32 G2_GetBG1ScrPtr(...);
 extern "C" void G2_GetBG2ScrPtr(void);
-extern "C" void G2_GetBG3ScrPtr(void);
-extern "C" void MI_CpuFill8(void);
-extern "C" void STD_CopyString(void);
-extern "C" void STD_GetStringLength(void);
+extern "C" s32 G2_GetBG3ScrPtr(...);
+extern "C" s32 MI_CpuFill8(...);
+extern "C" s32 STD_CopyString(...);
+extern "C" s32 STD_GetStringLength(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e1ecEv(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZN8TextFontD1Ev(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003bb8(void);
-extern "C" void func_02009380(void);
-extern "C" void func_02016d0c(void);
+extern "C" s32 func_02009380(...);
+extern "C" s32 func_02016d0c(...);
 extern "C" s32 func_0209e258(...);
 extern "C" void func_0209e5cc(void);
 extern "C" void func_ov015_0213257c(void);
 extern "C" void func_ov015_02132c08(void);
-extern "C" void func_ov015_02133e24(void);
-extern "C" void func_ov015_02133e50(void);
+extern "C" s32 func_ov015_02133e24(...);
+extern "C" s32 func_ov015_02133e50(...);
 extern "C" void func_ov015_02133e8c(void);
 extern "C" void func_ov015_02134ccc(void);
 extern "C" void func_ov015_021353a4(void);
-extern "C" void func_ov015_0213b364(void);
+extern "C" s32 func_ov015_0213b364(...);
 extern "C" void func_ov015_0213b3fc(void);
-extern "C" void func_ov015_0213b478(void);
+extern "C" s32 func_ov015_0213b478(...);
 extern "C" void func_ov015_0213b540(void);
 extern "C" void func_ov015_0213b990(void);
 extern "C" void func_ov015_0213ba04(void);
@@ -51,17 +51,17 @@ extern "C" void func_ov015_0213be3c(void);
 extern "C" void func_ov015_0213be90(void);
 extern "C" void func_ov015_0213bfcc(void);
 extern "C" void func_ov015_0213c33c(void);
-extern "C" void func_ov015_0213c4c0(void);
+extern "C" s32 func_ov015_0213c4c0(...);
 extern "C" void func_ov015_0213c4fc(void);
 extern "C" void func_ov015_0213c730(void);
-extern "C" void func_ov023_02165d60(void);
+extern "C" s32 func_ov023_02165d60(...);
 extern "C" void func_ov023_02165e18(void);
 extern "C" void func_ov023_02165ea8(void);
 extern "C" void func_ov023_02165ebc(void);
 extern "C" void func_ov023_02165ee8(void);
 extern "C" void func_ov023_02165f10(void);
 extern "C" void func_ov023_021663a8(void);
-extern "C" void func_ov023_02166684(void);
+extern "C" s32 func_ov023_02166684(...);
 extern "C" void func_ov023_021666f4(void);
 extern "C" void func_ov023_02166734(void);
 extern "C" void func_ov023_021667d4(void);
@@ -71,7 +71,7 @@ extern "C" void func_ov023_02166a20(void);
 extern "C" void func_ov023_02166c64(void);
 extern "C" void func_ov023_02166e8c(void);
 extern "C" void func_ov023_021670c0(void);
-extern "C" void func_ov023_0216714c(void);
+extern "C" s32 func_ov023_0216714c(...);
 extern "C" void func_ov023_02167178(void);
 extern "C" void func_ov023_0216720c(void);
 extern "C" void func_ov023_02167724(void);
@@ -803,120 +803,71 @@ extern "C" asm void func_ov023_021698e8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov023_02169a90(void)
+extern "C" s32 func_ov023_02169a90(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r3, #0
-    mov r4, r0
-    sub r2, r3, #1
-    mov r1, #1
-    ldr r0, =data_020c4ab4
-    str r3, [r4, #0x34]
-    str r3, [r4, #0x38]
-    str r3, [r4, #0x3c]
-    strb r3, [r4, #0x40]
-    str r2, [r4, #0x44]
-    str r2, [r4, #0x48]
-    str r3, [r4, #0x78]
-    strb r3, [r4, #0x84]
-    str r3, [r4, #0x88]
-    strb r3, [r4, #0x178]
-    strb r3, [r4, #0x179]
-    strb r3, [r4, #0x17a]
-    str r3, [r4, #0x17c]
-    str r3, [r4, #0x54]
-    str r3, [r4, #0x58]
-    strh r3, [r4, #0x5c]
-    str r3, [r4, #0x60]
-    str r3, [r4, #0x64]
-    strh r3, [r4, #0x68]
-    str r3, [r4, #0x6c]
-    str r3, [r4, #0x70]
-    strh r3, [r4, #0x74]
-    str r3, [r4, #0x7c]
-    str r3, [r4, #0x4c]
-    str r1, [r4, #0x50]
-    mov r1, #3
-    str r1, [r0, #4]
-    ldr r0, [r4, #4]
-    bl _ZN17UnkClass_0203dc7c13func_0203e1ecEv
-    cmp r0, #0x1a
-    bne @L_02169b2c
-    mov r0, r4
-    bl func_ov023_0216714c
-@L_02169b2c:
-    mov r7, #0
-    mov r5, #3
-    mov r1, r7
-    mov r2, r5
-    add r0, r4, #0x2f4
-    bl MI_CpuFill8
-    ldr r0, =data_020c47a4
-    mov r1, r5
-    bl func_ov015_0213c4c0
-    mov r6, #1
-    mov r1, r6
-    add r0, r4, #0x2f8
-    bl func_ov015_02133e24
-    add r0, r4, #0x2f8
-    mov r1, #0x16
-    mov r2, #6
-    bl func_ov015_02133e50
-    mov r0, r4
-    mov r1, r7
-    bl func_ov023_02166684
-    mov r5, #0x70
-    add r0, r4, #0x94
-    mov r1, r7
-    mov r2, r5
-    bl func_02009380
-    mov r2, r5
-    add r0, r4, #0x104
-    mov r1, r7
-    bl func_02009380
-    ldr r1, =data_020cac1c
-    add r0, r4, #0x94
-    bl STD_CopyString
-    add r0, r4, #0x104
-    add r1, r4, #0x94
-    mov r2, #0xc
-    bl func_02016d0c
-    ldr r5, =data_020c47b4
-    mov r1, #0x2580
-    mov r0, r5
-    mov r2, r7
-    mov r3, r6
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r4, #0x8c]
-    mov r2, r7
-    mov r3, r6
-    mov r0, r5
-    mov r1, #0x258
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r4, #0x90]
-    add r0, r4, #0x104
-    bl STD_GetStringLength
-    mov r6, #0
-    ldr r7, =data_020c9660
-    str r0, [r4, #0x174]
-    cmp r0, #0xb
-    movgt r0, #0xb
-    strgt r0, [r4, #0x174]
-    mov r0, r7
-    mov r1, r6
-    bl func_ov015_0213b364
-    bl G2_GetBG3ScrPtr
-    mov r5, r0
-    bl G2_GetBG1ScrPtr
-    mov r3, r0
-    mov r2, r5
-    mov r1, r6
-    mov r0, r7
-    str r6, [sp]
-    bl func_ov015_0213b478
-    mov r0, r4
-    bl func_ov023_02165d60
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v0;
+    s32 v11;
+    s32 v12;
+    s32 v13;
+    s32 v15;
+    s32 v16;
+    s32 v18;
+    s32 t0;
+    *(s32 *)(arg0 + 0x34) = 0;
+    *(s32 *)(arg0 + 0x38) = 0;
+    *(s32 *)(arg0 + 0x3C) = 0;
+    *(u8 *)(arg0 + 0x40) = 0;
+    *(s32 *)(arg0 + 0x44) = (0 - 1);
+    *(s32 *)(arg0 + 0x48) = (0 - 1);
+    *(s32 *)(arg0 + 0x78) = 0;
+    *(u8 *)(arg0 + 0x84) = 0;
+    *(s32 *)(arg0 + 0x88) = 0;
+    *(u8 *)(arg0 + 0x178) = 0;
+    *(u8 *)(arg0 + 0x179) = 0;
+    *(u8 *)(arg0 + 0x17A) = 0;
+    *(s32 *)(arg0 + 0x17C) = 0;
+    *(s32 *)(arg0 + 0x54) = 0;
+    *(s32 *)(arg0 + 0x58) = 0;
+    *(u16 *)(arg0 + 0x5C) = 0;
+    *(s32 *)(arg0 + 0x60) = 0;
+    *(s32 *)(arg0 + 0x64) = 0;
+    *(u16 *)(arg0 + 0x68) = 0;
+    *(s32 *)(arg0 + 0x6C) = 0;
+    *(s32 *)(arg0 + 0x70) = 0;
+    *(u16 *)(arg0 + 0x74) = 0;
+    *(s32 *)(arg0 + 0x7C) = 0;
+    *(s32 *)(arg0 + 0x4C) = 0;
+    *(s32 *)(arg0 + 0x50) = 1;
+    *(s32 *)(data_020c4ab4 + 0x4) = 3;
+    t0 = *(s32 *)(arg0 + 0x4);
+    v0 = _ZN17UnkClass_0203dc7c13func_0203e1ecEv(t0, 3, (0 - 1), 0);
+    if (v0 == 0x1A) {
+        func_ov023_0216714c((s32)arg0);
+    }
+    MI_CpuFill8((s32)(arg0 + 0x2F4), 0, 3);
+    func_ov015_0213c4c0((s32)data_020c47a4, 3);
+    func_ov015_02133e24((s32)(arg0 + 0x2F8), 1);
+    func_ov015_02133e50((s32)(arg0 + 0x2F8), 0x16, 6);
+    func_ov023_02166684((s32)arg0, 0);
+    func_02009380((s32)(arg0 + 0x94), 0, 0x70);
+    func_02009380((s32)(arg0 + 0x104), 0, 0x70);
+    STD_CopyString((s32)(arg0 + 0x94), (s32)data_020cac1c);
+    func_02016d0c((s32)(arg0 + 0x104), (s32)(arg0 + 0x94), 0xC);
+    v11 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, 0x2580, 0, 1);
+    *(s32 *)(arg0 + 0x8C) = v11;
+    v12 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, 0x258, 0, 1);
+    *(s32 *)(arg0 + 0x90) = v12;
+    v13 = STD_GetStringLength((s32)(arg0 + 0x104));
+    *(s32 *)(arg0 + 0x174) = v13;
+    if (v13 > 0xB) {
+        *(s32 *)(arg0 + 0x174) = 0xB;
+    }
+    func_ov015_0213b364((s32)data_020c9660, 0);
+    v15 = G2_GetBG3ScrPtr();
+    v16 = G2_GetBG1ScrPtr();
+    func_ov015_0213b478((s32)data_020c9660, 0, v15, v16, 0);
+    v18 = func_ov023_02165d60((s32)arg0);
+    return v18;
 }
 
 extern "C" asm void func_ov023_02169c60(void)

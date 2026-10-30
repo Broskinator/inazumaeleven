@@ -13,7 +13,7 @@ extern "C" void func_ov033_02166144(void);
 extern "C" s32 func_ov033_02166224(...);
 extern "C" void func_ov033_02166490(void);
 extern "C" void func_ov033_021665cc(void);
-extern "C" void func_ov033_02166670(void);
+extern "C" s32 func_ov033_02166670(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov033_021666f8(void);
 extern "C" void func_ov033_0216678c(void);
 extern "C" void func_ov033_0216682c(void);
@@ -58,10 +58,10 @@ extern "C" void func_02091d64(void);
 extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
 extern "C" void func_02092544(void);
-extern "C" void func_02093188(void);
+extern "C" s32 func_02093188(...);
 extern "C" void func_02093368(void);
-extern "C" void func_02093524(void);
-extern "C" void func_020939c8(void);
+extern "C" s32 func_02093524(...);
+extern "C" s32 func_020939c8(...);
 extern "C" void func_02093bb0(void);
 extern "C" void func_02097898(void);
 extern "C" void func_02097aa0(void);
@@ -727,41 +727,25 @@ extern "C" asm void func_ov033_021665cc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov033_02166670(void)
+extern "C" s32 func_ov033_02166670(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    movs r4, r3
-    mov r6, r1
-    mov r5, r2
-    ldmmiia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r4, #5
-    ldmgeia sp!, {r3, r4, r5, r6, r7, pc}
-    add r3, r4, #3
-    add r0, r0, r3, lsl #2
-    add r0, r0, #0x3000
-    ldr r7, =data_020c46d4
-    ldr r3, [r0, #0xb68]
-    ldr r0, [r7]
-    and r3, r3, #0xff
-    bl func_02093188
-    mov r3, #0
-    str r3, [sp]
-    ldr r0, [r7]
-    mov r1, r6
-    mov r2, r5
-    bl func_020939c8
-    mov r0, #0x18
-    mul r0, r4, r0
-    add r0, r0, #0x28
-    mov r0, r0, lsl #0x10
-    mov r0, r0, asr #0x10
-    str r0, [sp]
-    ldr r0, [r7]
-    mov r1, r6
-    mov r2, r5
-    mov r3, #8
-    bl func_02093524
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v2;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    if (arg3 < 0)
+        return arg0;
+    if (arg3 >= 5)
+        return arg0;
+    t0 = *(s32 *)(data_020c46d4);
+    t1 = (*(s32 *)(((u8 *)((arg0 + ((arg3 + 3) << 2)) + 0x3000)) + 0xB68) & 0xFF);
+    func_02093188(t0, arg1, arg2, t1);
+    t2 = *(s32 *)(data_020c46d4);
+    func_020939c8(t2, arg1, arg2, 0, 0);
+    t3 = *(s32 *)(data_020c46d4);
+    v2 = func_02093524(t3, arg1, arg2, 8, ((s16)((arg3 * 0x18) + 0x28)));
+    return v2;
 }
 
 extern "C" asm void func_ov033_021666f8(void)

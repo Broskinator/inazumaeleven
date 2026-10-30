@@ -62,7 +62,7 @@ extern "C" char data_ov001_0213064c[];
 extern "C" char data_ov001_0213065c[];
 extern "C" char data_ov001_02130668[];
 extern "C" char data_ov001_02130678[];
-extern "C" void _ZN11TreasureBox13func_02052720Ev(void);
+extern "C" s32 _ZN11TreasureBox13func_02052720Ev(...);
 extern "C" s32 _ZN11TreasureBox13func_02052d48EP17UnkClass_0203dc7c(...);
 extern "C" void _ZN12SoundManager13func_0203a5c8Eiiii(void);
 extern "C" void _ZN12SoundManager13func_0203a6f8Eiii(void);
@@ -77,7 +77,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206aa54Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206ad94Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206b308Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206b308Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206b3fcEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b5a0Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfecEv(void);
@@ -142,7 +142,7 @@ extern "C" void func_ov001_021264cc(void);
 extern "C" void func_ov001_02126554(void);
 extern "C" void func_ov001_0212662c(void);
 extern "C" void func_ov001_02126634(void);
-extern "C" void func_ov015_02130ae8(void);
+extern "C" s32 func_ov015_02130ae8(...);
 extern "C" void func_ov015_0213179c(void);
 extern "C" void func_ov015_021317c8(void);
 extern "C" void func_ov015_021318f4(void);
@@ -3319,24 +3319,16 @@ extern "C" asm void func_ov001_02102850(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov001_021028a4(void)
+extern "C" void func_ov001_021028a4(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206b308Ev
-    cmp r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldrsh r0, [r0, #4]
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    ldmeqia sp!, {r3, pc}
-    mov r2, #0
-    ldr r0, =data_020d9978
-    ldr r1, =0x10006
-    mov r3, r2
-    str r2, [sp]
-    bl _ZN11TreasureBox13func_02052720Ev
-    ldmia sp!, {r3, pc}
+    s32 v0 = _ZN17UnkClass_020621b413func_0206b308Ev((s32)data_020e88a0);
+    if (v0 == 0)
+        return;
+    s16 t0 = *(s16 *)(((u8 *)v0) + 0x4);
+    s32 v1 = func_ov015_02130ae8(t0);
+    if (v1 == 0)
+        return;
+    _ZN11TreasureBox13func_02052720Ev((s32)data_020d9978, 0x10006, 0, 0, 0);
 }
 
 extern "C" asm void func_ov001_021028f0(void)

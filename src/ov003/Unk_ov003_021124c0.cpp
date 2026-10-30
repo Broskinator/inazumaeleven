@@ -10,7 +10,7 @@ extern "C" s32 func_ov003_021138bc(...);
 extern "C" void func_ov003_021138e8(s32 arg0, s32 arg1);
 extern "C" s32 func_ov003_02113910(...);
 extern "C" void func_ov003_02113938(u8 *arg0);
-extern "C" void func_ov003_02113a70(void);
+extern "C" void func_ov003_02113a70(u8 *arg0);
 extern "C" s32 func_ov003_02113b04(s32 arg0);
 extern "C" void func_ov003_02113b4c(void);
 extern "C" void func_ov003_021146bc(void);
@@ -1491,44 +1491,23 @@ extern "C" void func_ov003_02113938(u8 *arg0)
     func_02093524(*(s32 *)(data_020c46d4), *(s32 *)(arg0 + 0x180), 4, 0x100, 0xC0);
 }
 
-extern "C" asm void func_ov003_02113a70(void)
+extern "C" void func_ov003_02113a70(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, #0xc0
-    ldr r4, =data_020c46d4
-    mov r5, #0x100
-    mov r7, r0
-    str r6, [sp]
-    ldr r0, [r4]
-    ldr r1, [r7, #0x164]
-    mov r3, r5
-    mov r2, #1
-    bl func_02093524
-    str r6, [sp]
-    ldr r0, [r4]
-    ldr r1, [r7, #0x164]
-    mov r3, r5
-    mov r2, #2
-    bl func_02093524
-    str r6, [sp]
-    ldr r0, [r4]
-    ldr r1, [r7, #0x164]
-    mov r2, #3
-    mov r3, r5
-    bl func_02093524
-    str r6, [sp]
-    ldr r0, [r4]
-    ldr r1, [r7, #0x164]
-    mov r2, #4
-    mov r3, r5
-    bl func_02093524
-    str r6, [sp]
-    ldr r0, [r4]
-    ldr r1, [r7, #0x164]
-    mov r3, r5
-    mov r2, #5
-    bl func_02093524
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 t0 = *(s32 *)(data_020c46d4);
+    s32 t1 = *(s32 *)(arg0 + 0x164);
+    func_02093524(t0, t1, 1, 0x100, 0xC0);
+    s32 t2 = *(s32 *)(data_020c46d4);
+    s32 t3 = *(s32 *)(arg0 + 0x164);
+    func_02093524(t2, t3, 2, 0x100, 0xC0);
+    s32 t4 = *(s32 *)(data_020c46d4);
+    s32 t5 = *(s32 *)(arg0 + 0x164);
+    func_02093524(t4, t5, 3, 0x100, 0xC0);
+    s32 t6 = *(s32 *)(data_020c46d4);
+    s32 t7 = *(s32 *)(arg0 + 0x164);
+    func_02093524(t6, t7, 4, 0x100, 0xC0);
+    s32 t8 = *(s32 *)(data_020c46d4);
+    s32 t9 = *(s32 *)(arg0 + 0x164);
+    func_02093524(t8, t9, 5, 0x100, 0xC0);
 }
 
 extern "C" s32 func_ov003_02113b04(s32 arg0)

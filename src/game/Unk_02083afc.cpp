@@ -48,8 +48,8 @@ extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_02084470(void);
 extern "C" void func_020844dc(void);
 extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2);
-extern "C" void func_020845e0(void);
-extern "C" void func_020846dc(void);
+extern "C" s32 func_020845e0(...);
+extern "C" s32 func_020846dc(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" BOOL func_02084788(MatchPoint *point);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
 extern "C" BOOL func_020847d0(int value);
@@ -868,7 +868,7 @@ extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2)
     return 0;
 }
 
-extern "C" asm void func_020845e0(void)
+extern "C" asm s32 func_020845e0(...)
 {
     stmdb sp!, {r3, lr}
     cmp r1, r2
@@ -944,51 +944,29 @@ extern "C" asm void func_020845e0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_020846dc(void)
+extern "C" s32 func_020846dc(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r8, r0
-    mov r5, r1
-    mov r7, r2
-    mov r0, r5
-    mov r1, r8
-    mov r6, r3
-    bl func_020840b4
-    mov r4, r0
-    mov r0, r5
-    mov r1, r7
-    bl func_020840b4
-    mov r9, r0
-    mov r0, r5
-    mov r1, r6
-    bl func_020840b4
-    mov r2, r0
-    mov r0, r4
-    mov r4, #1
-    mov r5, #0
-    mov r1, r9
-    mov r3, r4
-    str r5, [sp]
-    bl func_020845e0
-    cmp r0, #0
-    moveq r0, r5
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r7
-    mov r1, r8
-    bl func_020840b4
-    mov r8, r0
-    mov r0, r7
-    mov r1, r6
-    bl func_020840b4
-    add r1, r9, #0x8000
-    mov r1, r1, lsl #0x10
-    mov r2, r0
-    mov r0, r8
-    mov r3, r4
-    mov r1, r1, lsr #0x10
-    str r5, [sp]
-    bl func_020845e0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 r9;
+    u16 v0;
+    u16 v1;
+    u16 v2;
+    s32 v3;
+    u16 v4;
+    u16 v5;
+    s32 v6;
+    v0 = func_020840b4((MatchPoint *)arg1, (MatchPoint *)arg0);
+    v1 = func_020840b4((MatchPoint *)arg1, (MatchPoint *)arg2);
+    v2 = func_020840b4((MatchPoint *)arg1, (MatchPoint *)arg3);
+    v3 = func_020845e0(v0, v1, v2, 1, 0);
+    r9 = v1;
+    if (v3 == 0) {
+        return 0;
+    } else {
+        v4 = func_020840b4((MatchPoint *)arg2, (MatchPoint *)arg0);
+        v5 = func_020840b4((MatchPoint *)arg2, (MatchPoint *)arg3);
+        v6 = func_020845e0(v4, ((u16)(r9 + 0x8000)), v5, 1, 0);
+        return v6;
+    }
 }
 
 extern "C" BOOL func_02084788(MatchPoint *point)

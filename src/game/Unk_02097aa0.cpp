@@ -35,8 +35,8 @@ extern "C" s32 func_02098824(...);
 extern "C" void func_02098900(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02098930(...);
 extern "C" s32 func_02098a0c(...);
-extern "C" void func_02098a8c(void);
-extern "C" void func_02098ab8(void);
+extern "C" s32 func_02098a8c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
+extern "C" s32 func_02098ab8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 extern "C" void func_02098ae4(void);
 extern "C" s32 func_02098b48(s32 arg0);
 extern "C" s32 func_02098bac(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -92,8 +92,8 @@ extern "C" void func_020992ec(void);
 extern "C" void func_02099cc8(void);
 extern "C" void func_02099cfc(void);
 extern "C" s32 func_0209a45c(...);
-extern "C" void func_0209a4d8(void);
-extern "C" void func_0209a638(void);
+extern "C" s32 func_0209a4d8(...);
+extern "C" s32 func_0209a638(...);
 extern "C" void func_0209aa5c(void);
 
 extern "C" void func_02097aa0(u8 *obj, int id)
@@ -1232,34 +1232,16 @@ extern "C" asm s32 func_02098a0c(...)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02098a8c(void)
+extern "C" s32 func_02098a8c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
-    stmdb sp!, {r3, lr}
-    mov r0, r1
-    mov r1, r3
-    ldr r12, [sp, #0xc]
-    ldr r3, [sp, #8]
-    str r12, [sp]
-    bl func_0209a4d8
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0 = func_0209a4d8(arg1, arg3, arg2, arg4, arg5);
+    return (v0 != 0 ? 1 : 0);
 }
 
-extern "C" asm void func_02098ab8(void)
+extern "C" s32 func_02098ab8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
-    stmdb sp!, {r3, lr}
-    mov r0, r1
-    mov r1, r3
-    ldr r12, [sp, #0xc]
-    ldr r3, [sp, #8]
-    str r12, [sp]
-    bl func_0209a638
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0 = func_0209a638(arg1, arg3, arg2, arg4, arg5);
+    return (v0 != 0 ? 1 : 0);
 }
 
 extern "C" asm void func_02098ae4(void)

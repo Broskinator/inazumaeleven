@@ -14,7 +14,7 @@ extern "C" s32 func_ov014_0211220c(...);
 extern "C" void func_ov014_021122dc(void);
 extern "C" void func_ov014_02112374(void);
 extern "C" void func_ov014_0211246c(void);
-extern "C" void func_ov014_02112508(void);
+extern "C" void func_ov014_02112508(s32 arg0);
 extern "C" void func_ov014_0211252c(void);
 extern "C" s32 func_ov014_021127b4(...);
 extern "C" void func_ov014_0211285c(s32 arg0, s32 arg1);
@@ -164,7 +164,7 @@ extern "C" s32 OS_WakeupThreadDirect(...);
 extern "C" void STD_CompareString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ll_udiv(void);
-extern "C" void func_02005978(void);
+extern "C" s32 func_02005978(...);
 extern "C" s32 func_02006048(...);
 extern "C" void func_020068c0(void);
 extern "C" void func_02008564(void);
@@ -816,16 +816,9 @@ extern "C" asm void func_ov014_0211246c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_02112508(void)
+extern "C" void func_ov014_02112508(s32 arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, =data_ov014_02125c2c
-    mov r12, #3
-    mov r1, #0x21
-    mov r3, #5
-    str r12, [sp]
-    bl func_02005978
-    ldmia sp!, {r3, pc}
+    func_02005978(arg0, 0x21, (s32)data_ov014_02125c2c, 5, 3);
 }
 
 extern "C" asm void func_ov014_0211252c(void)

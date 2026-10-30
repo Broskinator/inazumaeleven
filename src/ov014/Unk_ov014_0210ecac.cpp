@@ -44,8 +44,8 @@ extern "C" void func_ov014_02110acc(void);
 extern "C" s32 func_ov014_02110ba8(void);
 extern "C" s32 func_ov014_02110bc8(void);
 extern "C" void func_ov014_02110be4(void);
-extern "C" void func_ov014_02110bfc(void);
-extern "C" void func_ov014_02110c38(void);
+extern "C" void func_ov014_02110bfc(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 func_ov014_02110c38(...);
 extern "C" void func_ov014_02110cf4(s32 arg0);
 extern "C" s32 func_ov014_02110d04(s32 arg0);
 extern "C" s32 func_ov014_02110d0c(u8 *arg0, s32 arg1);
@@ -137,7 +137,7 @@ extern "C" s32 OS_UnlockMutex(...);
 extern "C" void OS_WakeupThreadDirect(void);
 extern "C" s32 WaitByLoop(...);
 extern "C" void atoi(void);
-extern "C" void func_02000b64(void);
+extern "C" s32 func_02000b64(...);
 extern "C" void func_02005978(void);
 extern "C" s32 func_02006048(...);
 extern "C" void func_02006334(void);
@@ -2338,25 +2338,13 @@ extern "C" asm void func_ov014_02110be4(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_02110bfc(void)
+extern "C" void func_ov014_02110bfc(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    ldr r0, =0x2000bdc
-    mov r6, r1
-    mov r5, r2
-    mov r4, r3
-    bl func_02000b64
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    mov r0, #1
-    str r4, [sp]
-    bl func_ov014_02110c38
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    func_02000b64(0x2000BDC, arg1, arg2, arg3);
+    func_ov014_02110c38(1, arg0, arg1, arg2, arg3);
 }
 
-extern "C" asm void func_ov014_02110c38(void)
+extern "C" asm s32 func_ov014_02110c38(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldr r1, [sp, #0x20]

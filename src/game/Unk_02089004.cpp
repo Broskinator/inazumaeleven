@@ -39,7 +39,7 @@ extern "C" void **func_02089480(void **obj);
 extern "C" void **func_020894ac(void **obj);
 extern "C" void **func_020894d4(void **obj);
 extern "C" void **func_020894f4(void **obj);
-extern "C" void func_02089514(void);
+extern "C" s32 func_02089514(u8 *arg0);
 extern "C" s32 func_02089584(s32 arg0);
 extern "C" void func_020895d0(void);
 extern "C" void func_02089674(void);
@@ -103,7 +103,7 @@ extern "C" char data_ov015_0216581c[];
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 __cxa_vec_cleanup(...);
-extern "C" void __cxa_vec_ctor(void);
+extern "C" s32 __cxa_vec_ctor(...);
 extern "C" void __cxa_vec_delete(void);
 extern "C" void __cxa_vec_new(void);
 extern "C" void func_02001f08(void);
@@ -505,31 +505,13 @@ extern "C" void **func_020894f4(void **obj)
     return obj;
 }
 
-extern "C" asm void func_02089514(void)
+extern "C" s32 func_02089514(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_ov015_0216581c
-    mov r5, r0
-    mov r4, #5
-    ldr r12, =func_020894f4
-    str r1, [r5]
-    ldr r3, =func_020894d4
-    mov r1, r4
-    add r0, r5, #0x4c
-    mov r2, #0x14
-    str r12, [sp]
-    bl __cxa_vec_ctor
-    ldr r12, =func_020894ac
-    ldr r3, =func_02089480
-    mov r1, r4
-    add r0, r5, #0xb0
-    mov r2, #0x30
-    str r12, [sp]
-    bl __cxa_vec_ctor
-    add r0, r5, #0x1a0
-    bl func_ov015_02164494
-    mov r0, r5
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0) = (s32)data_ov015_0216581c;
+    __cxa_vec_ctor((s32)(arg0 + 0x4C), 5, 0x14, (s32)func_020894d4, (s32)func_020894f4);
+    __cxa_vec_ctor((s32)(arg0 + 0xB0), 5, 0x30, (s32)func_02089480, (s32)func_020894ac);
+    func_ov015_02164494((void *)(arg0 + 0x1A0));
+    return (s32)arg0;
 }
 
 extern "C" s32 func_02089584(s32 arg0)

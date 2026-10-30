@@ -2,12 +2,12 @@
 
 extern "C" void func_ov003_020fc7e0(s32 arg0);
 extern "C" void func_ov003_020fc80c(void);
-extern "C" void func_ov003_020fc86c(void);
+extern "C" void func_ov003_020fc86c(u8 *arg0);
 extern "C" void func_ov003_020fc8a8(void);
-extern "C" void func_ov003_020fc960(void);
+extern "C" s32 func_ov003_020fc960(...);
 extern "C" s32 func_ov003_020fca0c(...);
 extern "C" void func_ov003_020fcad0(void);
-extern "C" void func_ov003_020fcbe0(void);
+extern "C" void func_ov003_020fcbe0(u8 *arg0);
 extern "C" s32 func_ov003_020fcc60(...);
 extern "C" void func_ov003_020fcd98(void);
 extern "C" void func_ov003_020fce3c(void);
@@ -160,14 +160,14 @@ extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
 extern "C" void func_020922fc(void);
 extern "C" void func_02092544(void);
-extern "C" void func_0209263c(void);
+extern "C" s32 func_0209263c(...);
 extern "C" s32 func_02092e18(...);
 extern "C" s32 func_02093188(...);
 extern "C" s32 func_02093368(...);
 extern "C" void func_02093524(void);
 extern "C" void func_0209386c(void);
 extern "C" void func_02093928(void);
-extern "C" void func_020939c8(void);
+extern "C" s32 func_020939c8(...);
 extern "C" void func_02093bf4(void);
 extern "C" void func_02093ca8(void);
 extern "C" void func_02094154(void);
@@ -203,7 +203,7 @@ extern "C" s32 func_ov015_02134ccc(...);
 extern "C" void func_ov015_021353a4(void);
 extern "C" void func_ov015_02135440(void);
 extern "C" void func_ov015_02135e10(void);
-extern "C" void func_ov015_02136080(void);
+extern "C" s32 func_ov015_02136080(...);
 extern "C" void func_ov015_0213b364(void);
 extern "C" s32 func_ov015_0213b3fc(...);
 extern "C" void func_ov015_0213b6ac(void);
@@ -266,21 +266,11 @@ extern "C" asm void func_ov003_020fc80c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov003_020fc86c(void)
+extern "C" void func_ov003_020fc86c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, #0
-    mov r5, r0
-    str r4, [sp]
-    ldr r1, [r5, #0x40]
-    ldr r0, =data_ov003_0211d730
-    ldr r2, =data_ov003_0211c264
-    add r3, r5, #0x58
-    bl func_ov015_02136080
-    mov r0, r5
-    mov r1, r4
-    bl func_ov003_020fc960
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 t0 = *(s32 *)(arg0 + 0x40);
+    func_ov015_02136080((s32)data_ov003_0211d730, t0, (s32)data_ov003_0211c264, (s32)(arg0 + 0x58), 0);
+    func_ov003_020fc960((s32)arg0, 0);
 }
 
 extern "C" asm void func_ov003_020fc8a8(void)
@@ -334,7 +324,7 @@ extern "C" asm void func_ov003_020fc8a8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov003_020fc960(void)
+extern "C" asm s32 func_ov003_020fc960(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     movs r4, r1
@@ -522,39 +512,20 @@ extern "C" asm void func_ov003_020fcad0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov003_020fcbe0(void)
+extern "C" void func_ov003_020fcbe0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    ldr r0, [r7, #0x68]
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r4, =data_020c46d4
-    mov r6, #1
-    ldr r0, [r4]
-    mov r1, r6
-    mov r2, r6
-    bl func_020920c4
-    mov r5, r0
-    str r5, [r7, #0x68]
-    ldr r0, [r4]
-    mov r1, r5
-    sub r3, r6, #2
-    mov r2, #0x1f4
-    bl func_0209263c
-    ldr r2, [r7, #0x58]
-    ldr r0, [r4]
-    mov r1, r5
-    and r3, r2, #0xff
-    mov r2, r6
-    bl func_02093188
-    mov r1, r5
-    mov r2, r6
-    mov r3, #0
-    str r3, [sp]
-    ldr r0, [r4]
-    bl func_020939c8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    if (*(s32 *)(arg0 + 0x68) != 0)
+        return;
+    s32 t0 = *(s32 *)(data_020c46d4);
+    s32 v0 = func_020920c4(t0, 1, 1);
+    *(s32 *)(arg0 + 0x68) = v0;
+    s32 t1 = *(s32 *)(data_020c46d4);
+    func_0209263c(t1, v0, 0x1F4, (1 - 2));
+    s32 t2 = *(s32 *)(data_020c46d4);
+    s32 t3 = (*(s32 *)(arg0 + 0x58) & 0xFF);
+    func_02093188(t2, v0, 1, t3);
+    s32 t4 = *(s32 *)(data_020c46d4);
+    func_020939c8(t4, v0, 1, 0, 0);
 }
 
 extern "C" asm s32 func_ov003_020fcc60(...)

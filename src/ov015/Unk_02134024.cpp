@@ -1,7 +1,7 @@
 #include "ov015/Unk_02134024.hpp"
 
-extern "C" void func_ov015_02134024(void);
-extern "C" void func_ov015_02134040(void);
+extern "C" void func_ov015_02134024(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
+extern "C" s32 func_ov015_02134040(...);
 extern "C" s32 func_ov015_021340c0(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
@@ -227,18 +227,14 @@ extern "C" s32 sprintf(...);
 extern "C" void strcmp(void);
 extern "C" void strrchr(void);
 
-extern "C" asm void func_ov015_02134024(void)
+extern "C" void func_ov015_02134024(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, lr}
-    mov lr, #0
-    ldr r12, [sp, #8]
-    str lr, [r1]
-    str r12, [sp]
-    bl func_ov015_02134040
-    ldmia sp!, {r3, pc}
+    *(s32 *)(arg1) = 0;
+    func_ov015_02134040(arg0, (s32)arg1, arg2, arg3, arg4);
+    return;
 }
 
-extern "C" asm void func_ov015_02134040(void)
+extern "C" asm s32 func_ov015_02134040(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x10

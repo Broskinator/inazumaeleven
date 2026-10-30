@@ -192,7 +192,7 @@ extern "C" s32 _ZN11TreasureBox13func_020524f0El(...);
 extern "C" void _ZN11TreasureBox13func_02052534Ev(void);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052600Ev(void);
-extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
+extern "C" s32 _ZN11TreasureBox13func_02052628Eiiii(...);
 extern "C" void _ZN11TreasureBox13func_02052720Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052da8Ell(void);
 extern "C" s32 _ZN12SoundManager13func_0203a7b4Ei(...);
@@ -264,7 +264,7 @@ extern "C" void func_0208dc5c(void);
 extern "C" void func_02090a10(void);
 extern "C" void func_02090bc8(void);
 extern "C" void func_02091d54(void);
-extern "C" void func_02091d64(void);
+extern "C" s32 func_02091d64(...);
 extern "C" void func_02095e6c(void);
 extern "C" void func_02095ea0(void);
 extern "C" void func_0209bebc(void);
@@ -1236,31 +1236,14 @@ extern "C" void func_ov001_02116688(void)
 {
 }
 
-extern "C" asm void func_ov001_0211668c(void)
+extern "C" void func_ov001_0211668c(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r5, =data_020c5e40
-    mov r4, #0
-    mov r0, r5
-    mov r1, r4
-    bl _ZN12SoundManager13func_0203a7b4Ei
-    mov r0, r5
-    mov r1, r4
-    bl _ZN12SoundManager13func_0203b3c8Ei
-    mov r0, r5
-    mov r1, r4
-    mov r2, r4
-    bl _ZN12SoundManager13func_0203bc60Eii
-    ldr r0, =data_020c46d4
-    ldr r0, [r0]
-    bl func_02091d64
-    str r4, [sp]
-    mov r3, r4
-    ldr r0, =data_020d9978
-    mov r1, #1
-    mov r2, #2
-    bl _ZN11TreasureBox13func_02052628Eiiii
-    ldmia sp!, {r3, r4, r5, pc}
+    _ZN12SoundManager13func_0203a7b4Ei((s32)data_020c5e40, 0);
+    _ZN12SoundManager13func_0203b3c8Ei((s32)data_020c5e40, 0);
+    _ZN12SoundManager13func_0203bc60Eii((s32)data_020c5e40, 0, 0);
+    s32 t0 = *(s32 *)(data_020c46d4);
+    func_02091d64(t0);
+    _ZN11TreasureBox13func_02052628Eiiii((s32)data_020d9978, 1, 2, 0, 0);
 }
 
 extern "C" s32 func_ov001_021166f4(s32 arg0)

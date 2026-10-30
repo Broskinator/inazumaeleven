@@ -17,7 +17,7 @@ extern "C" void func_ov014_02121958(void);
 extern "C" s32 func_ov014_021219f4(...);
 extern "C" void func_ov014_02121a38(void);
 extern "C" s32 func_ov014_02121a8c(...);
-extern "C" void func_ov014_02121b34(void);
+extern "C" s32 func_ov014_02121b34(void);
 extern "C" void func_ov014_02121b9c(void);
 extern "C" s32 func_ov014_02121ba8(void);
 extern "C" void func_ov014_02121bb0(void);
@@ -86,7 +86,7 @@ extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void MIi_CpuCopyFast(void);
-extern "C" void OS_CancelAlarm(void);
+extern "C" s32 OS_CancelAlarm(...);
 extern "C" s32 OS_DisableInterrupts(...);
 extern "C" s32 OS_InitMutex(...);
 extern "C" void OS_LockMutex(void);
@@ -94,7 +94,7 @@ extern "C" s32 OS_RestoreInterrupts(...);
 extern "C" void OS_UnlockMutex(void);
 extern "C" void OS_WakeupThread(void);
 extern "C" void WMi_GetStatusAddress(void);
-extern "C" void func_02007d68(void);
+extern "C" s32 func_02007d68(...);
 extern "C" void func_02009594(void);
 extern "C" s32 func_020095c4(...);
 extern "C" void func_020123ec(void);
@@ -817,32 +817,23 @@ extern "C" asm s32 func_ov014_02121a8c(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02121b34(void)
+extern "C" s32 func_ov014_02121b34(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    bl OS_DisableInterrupts
-    ldr r5, =data_ov014_0212d574
-    mov r4, r0
-    ldr r0, [r5, #4]
-    add r0, r0, #0x294
-    add r0, r0, #0x1000
-    bl OS_CancelAlarm
-    ldr r1, [r5, #4]
-    add r0, r1, #0x1000
-    ldrb r0, [r0, #0x2de]
-    cmp r0, #9
-    bne @L_02121b84
-    add r0, r1, #0x294
-    mov r2, #0
-    ldr r1, =0x22f5341
-    ldr r3, =func_ov014_02121b9c
-    add r0, r0, #0x1000
-    str r2, [sp]
-    bl func_02007d68
-@L_02121b84:
-    mov r0, r4
-    bl OS_RestoreInterrupts
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r1;
+    s32 r4;
+    s32 v0;
+    s32 v3;
+    s32 t0;
+    v0 = OS_DisableInterrupts();
+    t0 = ((*(s32 *)(data_ov014_0212d574 + 0x4) + 0x294) + 0x1000);
+    OS_CancelAlarm(t0);
+    r4 = v0;
+    r1 = *(s32 *)(data_ov014_0212d574 + 0x4);
+    if (*(u8 *)(((u8 *)(r1 + 0x1000)) + 0x2DE) == 9) {
+        func_02007d68(((r1 + 0x294) + 0x1000), 0x22F5341, 0, (s32)func_ov014_02121b9c, 0);
+    }
+    v3 = OS_RestoreInterrupts(r4);
+    return v3;
 }
 
 extern "C" void func_ov014_02121b9c(void)

@@ -358,8 +358,8 @@ def lift(name, body, protos, variant=0):
                 v = read(m[1])
                 if low is not None and low <= off < size:
                     stmts.append(("store", STORE[mn], Local(0), off - low, v))
-                elif off < size and mn == "str" and off % 4 == 0:
-                    out_args[off // 4] = v
+                elif (off < size or size == 0 and off == 0 and (frame or "").startswith("r3,")) and mn == "str" and off % 4 == 0:
+                    out_args[off // 4] = v     # (r3 pushed: a word for an argument on the stack)
                 else:
                     raise Fail("a store to the stack")
             continue
@@ -1132,8 +1132,8 @@ def lift_cfg(name, body, protos, variant=0):
                     v = read(mm[1])
                     if low is not None and low <= off < size:
                         stmts.append(("store", STORE[mn], Local(0), off - low, v))
-                    elif off < size and mn == "str" and off % 4 == 0:
-                        out_args[off // 4] = v
+                    elif (off < size or size == 0 and off == 0 and (frame or "").startswith("r3,")) and mn == "str" and off % 4 == 0:
+                        out_args[off // 4] = v     # (r3 pushed: a word for an argument on the stack)
                     else:
                         raise Fail("a store to the stack")
                 continue
