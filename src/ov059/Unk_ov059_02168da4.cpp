@@ -54,13 +54,13 @@ extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" char data_ov059_0216b710[];
 extern "C" char data_ov059_0216b718[];
-extern "C" void DC_FlushRange(void);
-extern "C" void G2_GetBG1CharPtr(void);
-extern "C" void G2_GetBG2CharPtr(void);
-extern "C" void G2_GetBG3CharPtr(void);
+extern "C" s32 DC_FlushRange(...);
+extern "C" s32 G2_GetBG1CharPtr(...);
+extern "C" s32 G2_GetBG2CharPtr(...);
+extern "C" s32 G2_GetBG3CharPtr(...);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN12SoundManager13func_0203a5c8Eiiii(void);
 extern "C" void _ZN12SoundManager13func_0203a6f8Eiii(void);
 extern "C" void _ZN12SoundManager13func_0203a7b4Ei(void);
@@ -86,9 +86,9 @@ extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_01ffed6c(void);
 extern "C" void func_01ffede8(void);
-extern "C" void func_02003678(void);
-extern "C" void func_02003758(void);
-extern "C" void func_02003838(void);
+extern "C" s32 func_02003678(...);
+extern "C" s32 func_02003758(...);
+extern "C" s32 func_02003838(...);
 extern "C" void func_0202273c(void);
 extern "C" void func_02022948(void);
 extern "C" void func_0208130c(void);
@@ -405,49 +405,23 @@ extern "C" asm void func_ov059_021690e4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov059_0216914c(void)
+extern "C" void func_ov059_0216914c(void)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    bl G2_GetBG3CharPtr
-    mov r5, #0x20
-    mov r6, #0
-    mov r1, r0
-    mov r0, r6
-    mov r2, r5
-    bl MIi_CpuClearFast
-    bl G2_GetBG3CharPtr
-    mov r1, r5
-    bl DC_FlushRange
-    mov r4, #0x800
-    ldr r0, =data_020d0d20
-    mov r1, r6
-    mov r2, r4
-    bl func_02003838
-    bl G2_GetBG1CharPtr
-    mov r1, r0
-    mov r0, r6
-    mov r2, r5
-    bl MIi_CpuClearFast
-    bl G2_GetBG1CharPtr
-    mov r1, r5
-    bl DC_FlushRange
-    ldr r0, =data_020d1520
-    mov r1, r6
-    mov r2, r4
-    bl func_02003678
-    bl G2_GetBG2CharPtr
-    mov r1, r0
-    mov r0, r6
-    mov r2, r5
-    bl MIi_CpuClearFast
-    bl G2_GetBG2CharPtr
-    mov r1, r5
-    bl DC_FlushRange
-    mov r1, r6
-    mov r2, r4
-    ldr r0, =data_020d1d20
-    bl func_02003758
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 v0 = G2_GetBG3CharPtr();
+    MIi_CpuClearFast(0, v0, 0x20);
+    s32 v2 = G2_GetBG3CharPtr();
+    DC_FlushRange(v2, 0x20);
+    func_02003838((s32)data_020d0d20, 0, 0x800);
+    s32 v5 = G2_GetBG1CharPtr();
+    MIi_CpuClearFast(0, v5, 0x20);
+    s32 v7 = G2_GetBG1CharPtr();
+    DC_FlushRange(v7, 0x20);
+    func_02003678((s32)data_020d1520, 0, 0x800);
+    s32 v10 = G2_GetBG2CharPtr();
+    MIi_CpuClearFast(0, v10, 0x20);
+    s32 v12 = G2_GetBG2CharPtr();
+    DC_FlushRange(v12, 0x20);
+    func_02003758((s32)data_020d1d20, 0, 0x800);
 }
 
 extern "C" asm void func_ov059_021691fc(void)

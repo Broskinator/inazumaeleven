@@ -1,11 +1,11 @@
 #include "ov001/Unk_ov001_021159c0.hpp"
 
-extern "C" void func_ov001_021159c0(void);
+extern "C" void func_ov001_021159c0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov001_021159f8(void);
 extern "C" void func_ov001_02115a68(void);
 extern "C" void func_ov001_02115af8(void);
 extern "C" void func_ov001_02115ca4(void);
-extern "C" void func_ov001_02115e0c(void);
+extern "C" s32 func_ov001_02115e0c(u8 *arg0);
 extern "C" void func_ov001_02115e20(void);
 extern "C" void func_ov001_02115e54(void);
 extern "C" void func_ov001_02115f28(void);
@@ -21,7 +21,7 @@ extern "C" s32 func_ov001_02116420(s32 arg0);
 extern "C" s32 func_ov001_02116434(u8 *arg0);
 extern "C" void func_ov001_0211643c(void);
 extern "C" void func_ov001_02116440(void);
-extern "C" void func_ov001_02116444(void);
+extern "C" void func_ov001_02116444(s32 arg0, s32 arg1);
 extern "C" void func_ov001_02116460(void);
 extern "C" void func_ov001_02116464(void);
 extern "C" void func_ov001_02116488(void);
@@ -81,7 +81,7 @@ extern "C" void func_ov001_02117824(void);
 extern "C" void func_ov001_02117894(void);
 extern "C" void func_ov001_021179b0(void);
 extern "C" void func_ov001_02117b0c(void);
-extern "C" void func_ov001_02117ba0(void);
+extern "C" void func_ov001_02117ba0(u8 *arg0);
 extern "C" void func_ov001_02117c8c(void);
 extern "C" s32 func_ov001_02117ce4(s32 arg0);
 extern "C" s32 func_ov001_02117cf8(u8 *arg0);
@@ -89,8 +89,8 @@ extern "C" void func_ov001_02117d00(void);
 extern "C" void func_ov001_02117dec(s32 arg0);
 extern "C" void func_ov001_02117e1c(void);
 extern "C" void func_ov001_02117ef8(void);
-extern "C" void func_ov001_02117f2c(void);
-extern "C" void func_ov001_02117f40(void);
+extern "C" s32 func_ov001_02117f2c(u8 *arg0);
+extern "C" s32 func_ov001_02117f40(u8 *arg0);
 extern "C" void func_ov001_02117f54(void);
 extern "C" void func_ov001_02117f90(void);
 extern "C" s32 func_ov001_021180a4(...);
@@ -186,8 +186,8 @@ extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZN11MoviePlayer4StopEv(void);
-extern "C" void _ZN11TreasureBox13func_020523bcEv(void);
+extern "C" s32 _ZN11MoviePlayer4StopEv(...);
+extern "C" s32 _ZN11TreasureBox13func_020523bcEv(...);
 extern "C" s32 _ZN11TreasureBox13func_020524f0El(...);
 extern "C" void _ZN11TreasureBox13func_02052534Ev(void);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
@@ -195,9 +195,9 @@ extern "C" void _ZN11TreasureBox13func_02052600Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
 extern "C" void _ZN11TreasureBox13func_02052720Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052da8Ell(void);
-extern "C" void _ZN12SoundManager13func_0203a7b4Ei(void);
-extern "C" void _ZN12SoundManager13func_0203b3c8Ei(void);
-extern "C" void _ZN12SoundManager13func_0203bc60Eii(void);
+extern "C" s32 _ZN12SoundManager13func_0203a7b4Ei(...);
+extern "C" s32 _ZN12SoundManager13func_0203b3c8Ei(...);
+extern "C" s32 _ZN12SoundManager13func_0203bc60Eii(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
@@ -279,11 +279,11 @@ extern "C" void func_ov001_0210d894(void);
 extern "C" void func_ov001_02110358(void);
 extern "C" void func_ov001_021105f8(void);
 extern "C" void func_ov001_02113630(void);
-extern "C" void func_ov001_02113830(void);
+extern "C" s32 func_ov001_02113830(...);
 extern "C" void func_ov001_02113c94(void);
 extern "C" void func_ov001_02113e04(void);
-extern "C" void func_ov001_0211490c(void);
-extern "C" void func_ov001_0211506c(void);
+extern "C" s32 func_ov001_0211490c(...);
+extern "C" s32 func_ov001_0211506c(...);
 extern "C" void func_ov001_02122d40(void);
 extern "C" void func_ov001_021232c8(void);
 extern "C" void func_ov001_02123680(void);
@@ -313,8 +313,8 @@ extern "C" void func_ov015_021330b4(void);
 extern "C" void func_ov015_021334b8(void);
 extern "C" void func_ov015_0213397c(void);
 extern "C" void func_ov015_02133dc8(void);
-extern "C" void func_ov015_02133e24(void);
-extern "C" void func_ov015_02133e50(void);
+extern "C" s32 func_ov015_02133e24(...);
+extern "C" s32 func_ov015_02133e50(...);
 extern "C" void func_ov015_02133e8c(void);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
@@ -323,7 +323,7 @@ extern "C" s32 func_ov015_02136680(...);
 extern "C" s32 func_ov015_02136734(...);
 extern "C" void func_ov015_0213782c(void);
 extern "C" void func_ov015_0213a8b8(void);
-extern "C" void func_ov015_0213b364(void);
+extern "C" s32 func_ov015_0213b364(...);
 extern "C" void func_ov015_0213b3fc(void);
 extern "C" void func_ov015_0213b540(void);
 extern "C" void func_ov015_0213b6ac(void);
@@ -334,7 +334,7 @@ extern "C" void func_ov015_0213be3c(void);
 extern "C" void func_ov015_0213be90(void);
 extern "C" void func_ov015_0213c33c(void);
 extern "C" s32 func_ov015_0213c3dc(...);
-extern "C" void func_ov015_0213c4c0(void);
+extern "C" s32 func_ov015_0213c4c0(...);
 extern "C" void func_ov015_0213c4f0(void);
 extern "C" void func_ov015_0213c4fc(void);
 extern "C" void func_ov015_0213c530(void);
@@ -347,22 +347,13 @@ extern "C" void func_ov015_0213d3f4(void);
 extern "C" void func_ov015_02142dfc(void);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov001_021159c0(void)
+extern "C" void func_ov001_021159c0(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r1
-    mov r6, r0
-    mov r4, r2
-    bl func_ov001_0211490c
-    cmp r5, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    mov r1, r4
-    bl func_ov001_0211506c
-    mov r0, r6
-    mov r1, r4
-    bl func_ov001_02113830
-    ldmia sp!, {r4, r5, r6, pc}
+    func_ov001_0211490c(arg0, arg1, arg2);
+    if (arg1 != 0)
+        return;
+    func_ov001_0211506c(arg0, arg2);
+    func_ov001_02113830(arg0, arg2);
 }
 
 extern "C" asm void func_ov001_021159f8(void)
@@ -643,13 +634,9 @@ extern "C" asm void func_ov001_02115ca4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_02115e0c(void)
+extern "C" s32 func_ov001_02115e0c(u8 *arg0)
 {
-    ldr r0, [r0, #8]
-    cmp r0, #2
-    movhi r0, #1
-    movls r0, #0
-    bx lr
+    return ((u32)*(s32 *)(arg0 + 0x8) > (u32)2 ? 1 : 0);
 }
 
 extern "C" asm void func_ov001_02115e20(void)
@@ -1097,14 +1084,11 @@ extern "C" void func_ov001_02116440(void)
 {
 }
 
-extern "C" asm void func_ov001_02116444(void)
+extern "C" void func_ov001_02116444(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    tst r1, #8
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4f60
-    bl _ZN11MoviePlayer4StopEv
-    ldmia sp!, {r3, pc}
+    if ((arg1 & 8) == 0)
+        return;
+    _ZN11MoviePlayer4StopEv((s32)data_020c4f60, arg1);
 }
 
 extern "C" void func_ov001_02116460(void)
@@ -2687,62 +2671,29 @@ extern "C" asm void func_ov001_02117b0c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov001_02117ba0(void)
+extern "C" void func_ov001_02117ba0(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, #0
-    mov r5, r0
-    sub r3, r6, #1
-    ldr r2, =data_ov001_0212a9e3
-    ldr r0, =data_020c9660
-    mov r1, r6
-    str r6, [r5, #8]
-    strb r6, [r5, #0x11]
-    strb r6, [r5, #0x12]
-    str r3, [r5, #0x14]
-    str r3, [r5, #0x18]
-    str r6, [r5, #0x1c]
-    str r6, [r5, #0x20]
-    str r6, [r5, #0x24]
-    strb r6, [r5, #0x28]
-    strb r6, [r2]
-    bl func_ov015_0213b364
-    mov r1, r6
-    add r0, r5, #0x2c
-    mov r2, #0x14
-    bl MI_CpuFill8
-    mov r4, #1
-    mov r1, r4
-    add r0, r5, #0x2c
-    bl func_ov015_02133e24
-    add r0, r5, #0x2c
-    mov r1, #0x18
-    mov r2, #6
-    bl func_ov015_02133e50
-    add r0, r5, #0x29
-    mov r1, r6
-    mov r2, r4
-    bl MI_CpuFill8
-    mov r1, r4
-    ldr r0, =data_020c47a4
-    bl func_ov015_0213c4c0
-    mov r0, r5
-    bl func_ov001_0211729c
-    ldr r5, =data_020c5e40
-    mov r4, #0x64
-    mov r0, r5
-    mov r1, r4
-    bl _ZN12SoundManager13func_0203a7b4Ei
-    mov r0, r5
-    mov r1, r6
-    bl _ZN12SoundManager13func_0203b3c8Ei
-    mov r0, r5
-    mov r1, r6
-    mov r2, r4
-    bl _ZN12SoundManager13func_0203bc60Eii
-    ldr r0, =data_020d9978
-    bl _ZN11TreasureBox13func_020523bcEv
-    ldmia sp!, {r4, r5, r6, pc}
+    *(s32 *)(arg0 + 0x8) = 0;
+    *(u8 *)(arg0 + 0x11) = 0;
+    *(u8 *)(arg0 + 0x12) = 0;
+    *(s32 *)(arg0 + 0x14) = (0 - 1);
+    *(s32 *)(arg0 + 0x18) = (0 - 1);
+    *(s32 *)(arg0 + 0x1C) = 0;
+    *(s32 *)(arg0 + 0x20) = 0;
+    *(s32 *)(arg0 + 0x24) = 0;
+    *(u8 *)(arg0 + 0x28) = 0;
+    *(u8 *)(data_ov001_0212a9e3) = 0;
+    func_ov015_0213b364((s32)data_020c9660, 0, (s32)data_ov001_0212a9e3, (0 - 1));
+    MI_CpuFill8((arg0 + 0x2C), 0, 0x14);
+    func_ov015_02133e24((arg0 + 0x2C), 1);
+    func_ov015_02133e50((arg0 + 0x2C), 0x18, 6);
+    MI_CpuFill8((arg0 + 0x29), 0, 1);
+    func_ov015_0213c4c0((s32)data_020c47a4, 1);
+    func_ov001_0211729c((s32)arg0);
+    _ZN12SoundManager13func_0203a7b4Ei((s32)data_020c5e40, 0x64);
+    _ZN12SoundManager13func_0203b3c8Ei((s32)data_020c5e40, 0);
+    _ZN12SoundManager13func_0203bc60Eii((s32)data_020c5e40, 0, 0x64);
+    _ZN11TreasureBox13func_020523bcEv((s32)data_020d9978);
 }
 
 extern "C" asm void func_ov001_02117c8c(void)
@@ -2936,22 +2887,14 @@ extern "C" asm void func_ov001_02117ef8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov001_02117f2c(void)
+extern "C" s32 func_ov001_02117f2c(u8 *arg0)
 {
-    ldr r0, [r0, #8]
-    cmp r0, #2
-    movhi r0, #1
-    movls r0, #0
-    bx lr
+    return ((u32)*(s32 *)(arg0 + 0x8) > (u32)2 ? 1 : 0);
 }
 
-extern "C" asm void func_ov001_02117f40(void)
+extern "C" s32 func_ov001_02117f40(u8 *arg0)
 {
-    ldr r0, [r0, #8]
-    cmp r0, #2
-    movhi r0, #1
-    movls r0, #0
-    bx lr
+    return ((u32)*(s32 *)(arg0 + 0x8) > (u32)2 ? 1 : 0);
 }
 
 extern "C" asm void func_ov001_02117f54(void)

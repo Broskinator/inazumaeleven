@@ -56,11 +56,11 @@ extern "C" void func_020881a4(u8 *obj, s32 value);
 extern "C" void func_020881ac(u8 *obj, int a);
 extern "C" void func_020881cc(u8 *obj, int a);
 extern "C" void func_0208852c(u8 *obj, int a);
-extern "C" void func_02088530(void);
+extern "C" s32 func_02088530(s32 arg0);
 extern "C" void func_02088580(void);
 extern "C" void func_020885b0(void);
-extern "C" void func_020885d4(void);
-extern "C" void func_0208862c(void);
+extern "C" s32 func_020885d4(u8 *arg0);
+extern "C" s32 func_0208862c(u8 *arg0);
 extern "C" void func_0208868c(void);
 extern "C" void func_020887f0(void);
 extern "C" void func_02088824(void);
@@ -115,7 +115,7 @@ extern "C" char data_020e88a0[];
 extern "C" void FX_SinCosTable_(void);
 extern "C" void G3X_SetClearColor(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void MIi_CpuCopyFast(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
@@ -123,7 +123,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void _ZdlPv(void);
+extern "C" s32 _ZdlPv(...);
 extern "C" void func_02001d60(void);
 extern "C" void func_02002bf4(void);
 extern "C" void func_02002c0c(void);
@@ -148,7 +148,7 @@ extern "C" void func_02086ecc(void);
 extern "C" void func_02086f1c(void);
 extern "C" void func_02086f34(void);
 extern "C" void func_02086f98(void);
-extern "C" void func_02086fe0(void);
+extern "C" s32 func_02086fe0(...);
 extern "C" void func_02087038(void);
 extern "C" void func_0208706c(void);
 extern "C" void func_020870c0(void);
@@ -1331,24 +1331,13 @@ extern "C" void func_0208852c(u8 *obj, int a)
 {
 }
 
-extern "C" asm void func_02088530(void)
+extern "C" s32 func_02088530(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, =data_020af58c
-    add r0, r4, #4
-    bl func_02086fe0
-    ldr r1, =data_020af5a8
-    add r0, r4, #0x24
-    bl func_02086fe0
-    ldr r1, =data_020af5c4
-    add r0, r4, #0x44
-    bl func_02086fe0
-    ldr r1, =data_020af5e0
-    add r0, r4, #0x64
-    bl func_02086fe0
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    func_02086fe0((arg0 + 4), (s32)data_020af58c);
+    func_02086fe0((arg0 + 0x24), (s32)data_020af5a8);
+    func_02086fe0((arg0 + 0x44), (s32)data_020af5c4);
+    func_02086fe0((arg0 + 0x64), (s32)data_020af5e0);
+    return 1;
 }
 
 extern "C" asm void func_02088580(void)
@@ -1382,56 +1371,27 @@ extern "C" asm void func_020885b0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_020885d4(void)
+extern "C" s32 func_020885d4(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r3, =data_020af61c
-    mov r4, #0
-    mov r0, r4
-    add r1, r5, #8
-    mov r2, #4
-    str r3, [r5]
-    bl MIi_CpuClearFast
-    mov r0, r4
-    add r1, r5, #0xc
-    mov r2, #0x10
-    bl MIi_CpuClearFast
-    mov r0, r4
-    add r1, r5, #0x1c
-    mov r2, #0x28
-    bl MIi_CpuClearFast
-    mov r0, r5
-    strb r4, [r5, #0x44]
-    strb r4, [r5, #0x45]
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0) = (s32)data_020af61c;
+    MIi_CpuClearFast(0, (arg0 + 8), 4, (s32)data_020af61c);
+    MIi_CpuClearFast(0, (arg0 + 0xC), 0x10);
+    MIi_CpuClearFast(0, (arg0 + 0x1C), 0x28);
+    *(u8 *)(arg0 + 0x44) = 0;
+    *(u8 *)(arg0 + 0x45) = 0;
+    return (s32)arg0;
 }
 
-extern "C" asm void func_0208862c(void)
+extern "C" s32 func_0208862c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r3, =data_020af61c
-    mov r4, #0
-    mov r0, r4
-    add r1, r5, #8
-    mov r2, #4
-    str r3, [r5]
-    bl MIi_CpuClearFast
-    mov r0, r4
-    add r1, r5, #0xc
-    mov r2, #0x10
-    bl MIi_CpuClearFast
-    mov r0, r4
-    add r1, r5, #0x1c
-    mov r2, #0x28
-    bl MIi_CpuClearFast
-    mov r0, r5
-    strb r4, [r5, #0x44]
-    strb r4, [r5, #0x45]
-    bl _ZdlPv
-    mov r0, r5
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0) = (s32)data_020af61c;
+    MIi_CpuClearFast(0, (arg0 + 8), 4, (s32)data_020af61c);
+    MIi_CpuClearFast(0, (arg0 + 0xC), 0x10);
+    MIi_CpuClearFast(0, (arg0 + 0x1C), 0x28);
+    *(u8 *)(arg0 + 0x44) = 0;
+    *(u8 *)(arg0 + 0x45) = 0;
+    _ZdlPv((s32)arg0);
+    return (s32)arg0;
 }
 
 extern "C" asm void func_0208868c(void)

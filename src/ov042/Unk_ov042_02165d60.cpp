@@ -1,8 +1,8 @@
 #include "ov042/Unk_ov042_02165d60.hpp"
 
 extern "C" void func_ov042_02165d60(void);
-extern "C" void func_ov042_02165da0(void);
-extern "C" void func_ov042_02165dd8(void);
+extern "C" s32 func_ov042_02165da0(...);
+extern "C" void func_ov042_02165dd8(u8 *arg0, s32 arg1);
 extern "C" void func_ov042_02165e14(void);
 extern "C" void func_ov042_02165eac(void);
 extern "C" void func_ov042_02165f90(void);
@@ -159,7 +159,7 @@ extern "C" void func_02097aa0(void);
 extern "C" void func_02097b3c(void);
 extern "C" void func_02097c74(void);
 extern "C" void func_02097ca8(void);
-extern "C" void func_0209bf0c(void);
+extern "C" s32 func_0209bf0c(...);
 extern "C" void func_0209bf8c(void);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov001_021232c8(void);
@@ -245,7 +245,7 @@ extern "C" asm void func_ov042_02165d60(void)
     bx lr
 }
 
-extern "C" asm void func_ov042_02165da0(void)
+extern "C" asm s32 func_ov042_02165da0(...)
 {
     ldrsb r2, [r1]
     mov r0, #1
@@ -265,22 +265,16 @@ extern "C" asm void func_ov042_02165da0(void)
     bx lr
 }
 
-extern "C" asm void func_ov042_02165dd8(void)
+extern "C" void func_ov042_02165dd8(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r3, #1
-    mov r2, #0x5a
-    str r3, [r4, #0xf4c]
-    str r2, [r4, #0xf48]
-    str r1, [r4, #0xf54]
-    strb r3, [r4, #0xf58]
-    bl func_ov042_02165da0
-    strb r0, [r4, #0xf59]
-    ldr r0, =data_020c5320
-    bl func_0209bf0c
-    str r0, [r4, #0xf50]
-    ldmia sp!, {r4, pc}
+    *(s32 *)(arg0 + 0xF4C) = 1;
+    *(s32 *)(arg0 + 0xF48) = 0x5A;
+    *(s32 *)(arg0 + 0xF54) = arg1;
+    *(u8 *)(arg0 + 0xF58) = 1;
+    s32 v0 = func_ov042_02165da0((s32)arg0, arg1, 0x5A, 1);
+    *(u8 *)(arg0 + 0xF59) = v0;
+    s32 v1 = func_0209bf0c((s32)data_020c5320);
+    *(s32 *)(arg0 + 0xF50) = v1;
 }
 
 extern "C" asm void func_ov042_02165e14(void)

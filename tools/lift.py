@@ -44,7 +44,7 @@ class Const:
 
 class Sym:
     def __init__(self, name, off):
-        self.name, self.off = name, off
+        self.name, self.off, self.func = name, off, False
 
     def render(self):
         return self.name + (f" + 0x{self.off:X}" if self.off else "")
@@ -76,6 +76,24 @@ class Call:
         return f"v{self.k}"
 
 
+class Local:
+    """The address of the function's local variables (an array on the stack), plus off."""
+    def __init__(self, off):
+        self.off = off
+
+    def render(self):
+        return "((u8 *)local" + (f" + 0x{self.off:X})" if self.off else ")")
+
+
+class Tern:
+    """cond ? a : b (a conditional move)"""
+    def __init__(self, flags, cc, a, b):
+        self.flags, self.cc, self.a, self.b = flags, cc, a, b
+
+    def render(self):
+        return f"({cond(self.flags, self.cc)} ? {value(self.a)} : {value(self.b)})"
+
+
 def addr(base, off):
     if isinstance(base, Param):
         base.ptr = True
@@ -83,7 +101,9 @@ def addr(base, off):
         if base.t != "s32":
             raise Fail("a halfword as a pointer")
         base.t = "u8 *"
-    elif not isinstance(base, Sym):
+    elif isinstance(base, Sym) and base.func:
+        raise Fail("a function as an address")
+    elif not isinstance(base, (Sym, Local)):
         raise Fail("address")
     b = base.render()
     if isinstance(base, Sym) and base.off:
@@ -96,19 +116,42 @@ def imm(s):
     return int(s, 0) & 0xFFFFFFFF
 
 
+def is_ptr(v):
+    return isinstance(v, Load) and v.t == "u8 *" or isinstance(v, Param) and v.ptr or isinstance(v, Local)
+
+
 def value(v, t="s32"):
     """v as an expression of type t (for a store or an argument)"""
     if isinstance(v, Sym):
         return f"({t})" + (f"({v.render()})" if v.off else v.render())
-    if isinstance(v, Load) and v.t == "u8 *" or isinstance(v, Param) and v.ptr:
+    if is_ptr(v):
         return v.render() if t == "u8 *" else f"({t}){v.render()}"     # (a pointer, as a word)
-    return v.render() if t != "u8 *" else f"(u8 *){v.render()}"
+    if t == "u8 *":
+        return f"(u8 *){v.render()}"
+    if t == "u32":
+        return f"(u32){v.render()}"
+    return v.render()
+
+
+UNSIGNED = ("hi", "lo", "cc", "hs", "cs", "ls")
+OPPOSITE = {"eq": "ne", "gt": "le", "ge": "lt", "hi": "ls", "hs": "lo", "cs": "cc"}
+OPPOSITE.update({b: a for a, b in list(OPPOSITE.items())})
+
+
+def cond(flags, cc):
+    kind, a, b = flags
+    if kind == "tst":
+        if cc not in ("eq", "ne"):
+            raise Fail("a condition of tst")
+        return f"({value(a)} & {value(b)}) {COND[cc]} 0"
+    t = "u32" if cc in UNSIGNED else "s32"
+    return f"{value(a, t)} {COND[cc]} {value(b, t)}"
 
 
 def lift(name, body, protos):
     """(declaration, C body, callees) of an asm function, or raises Fail."""
     regs = {f"r{i}": Param(i) for i in range(4)}
-    params, stmts, seg, tail, calls, flags = {}, [], set(), None, [], None
+    params, stmts, seg, tail, calls, flags, out_args = {}, [], set(), None, [], None, {}
 
     def read(r):
         if r not in regs:
@@ -128,6 +171,8 @@ def lift(name, body, protos):
         if f == name or f not in protos:
             raise Fail(f"call of {f}")
         c = Call(len(calls), f, dict(regs), set(seg), not calls)
+        c.stack = dict(out_args)
+        out_args.clear()
         calls.append(c)
         stmts.append(("call", c))
         for r in ("r1", "r2", "r3", "r12"):
@@ -144,13 +189,30 @@ def lift(name, body, protos):
             return Bin({"lsl": "<<", "lsr": ">>", "asr": ">>"}[m[2]], read(m[1]), Const(imm(m[3])))
         return read(s)
     lines = [l.strip() for l in body.strip().split("\n")]
-    frame = None
+    frame, size, push = None, 0, 0
     m = re.match(r"stmdb sp!, \{((?:r\d+, )*)lr\}$", lines[0])
     if m:
         frame = m[1]
+        push = 4 * (frame.count(",") + 1)
         if lines[-1] != f"ldmia sp!, {{{frame}pc}}":
             raise Fail("epilogue")
         lines = lines[1:]
+        m = re.match(r"sub sp, sp, #(\w+)$", lines[0])
+        if m:
+            size = imm(m[1])
+            if lines[-2] != f"add sp, sp, #{m[1]}":
+                raise Fail("the stack at the end")
+            lines = lines[1:-2] + lines[-1:]
+    # (the locals: from the lowest address taken or loaded; the stores below are arguments)
+    low = None
+    for line in lines:
+        m = re.match(r"(?:add \w+, sp, #(\w+)|add \w+, sp|ldr\w* \w+, \[sp(?:, #(\w+))?\])$", line)
+        if m:
+            off = imm(m[1] or m[2] or "0")
+            if off < size or not m[0].startswith("ldr"):
+                low = off if low is None else min(low, off)
+    if low is not None and (low % 4 or low >= size):
+        raise Fail("locals")
     for k, line in enumerate(lines):
         last = k == len(lines) - 1
         m = re.match(r"(\w+)\s+(.*)$", line)
@@ -170,28 +232,56 @@ def lift(name, body, protos):
             flags = None
             continue
         m = re.match(r"(r\d+), (.*)$", op)
-        if mn in ("cmp", "cmn") and m:
+        if mn in ("cmp", "cmn", "tst") and m:
             b = operand(m[2])
             if mn == "cmn":
                 if not isinstance(b, Const):
                     raise Fail("cmn")
                 b = Const(-b.n & 0xFFFFFFFF)
-            flags = (read(m[1]), b)
+            flags = ("tst" if mn == "tst" else "cmp", read(m[1]), b)
             continue
         m = re.match(r"ldm(\w\w)ia$", mn) if frame is not None else re.match(r"bx(\w\w)$", mn)
         if m and m[1] in COND and op == (f"sp!, {{{frame}pc}}" if frame is not None else "lr"):
-            if not flags:
+            if not flags or size:
                 raise Fail("a condition without a compare")
-            stmts.append(("return if", m[1]) + flags)
+            stmts.append(("return if", m[1], flags, regs.get("r0")))
             continue
         m = re.match(r"(r\d+|r12), =(\w+)(?:\+(0x[0-9a-f]+))?$", op)
         if mn == "ldr" and m:
             if m[2][0].isdigit():
                 write(m[1], Const(int(m[2], 0) + int(m[3] or "0", 16)))     # (a number)
-            elif m[2] in protos and m[1] != "r12":     # (r12: a tail call)
-                raise Fail("the address of a function")
             else:
-                write(m[1], Sym(m[2], int(m[3] or "0", 16)))
+                s = Sym(m[2], int(m[3] or "0", 16))
+                s.func = m[2] in protos and m[1] != "r12"     # (r12: a tail call)
+                write(m[1], s)
+            continue
+        m = re.match(r"(r\d+), \[sp(?:, #(\w+))?\]$", op)
+        if m and (mn in LOAD or mn in STORE):
+            off = imm(m[2] or "0")
+            if mn in LOAD:
+                if off >= size + push and frame is not None or frame is None and size == 0:
+                    if (off - size - push) % 4 or mn != "ldr":
+                        raise Fail("a parameter on the stack")
+                    p = Param(4 + (off - size - push) // 4)
+                    params.setdefault(p.i, p)
+                    write(m[1], params[p.i])
+                elif low is not None and low <= off < size:
+                    write(m[1], Load(LOAD[mn], Local(0), off - low))
+                else:
+                    raise Fail("a load from the stack")
+            else:
+                v = read(m[1])
+                if low is not None and low <= off < size:
+                    stmts.append(("store", STORE[mn], Local(0), off - low, v))
+                elif off < size and mn == "str" and off % 4 == 0:
+                    out_args[off // 4] = v
+                else:
+                    raise Fail("a store to the stack")
+            continue
+        m = re.match(r"(r\d+), sp(?:, #(\w+))?$", op)
+        if mn == "add" and m:
+            off = imm(m[2] or "0")
+            write(m[1], Local(off - low))
             continue
         m = re.match(r"(r\d+), \[(r\d+)(?:, #(-?0x[0-9a-f]+|-?\d+))?\]$", op)
         if mn in LOAD and m:
@@ -204,12 +294,21 @@ def lift(name, body, protos):
             stmts.append(("store", STORE[mn], base, int(m[3] or "0", 0), v))
             continue
         m = re.match(r"(r\d+), (.*)$", op)
-        if mn in ("mov", "mvn") and m:
+        mm = re.match(r"(mov|mvn)(\w\w)?$", mn)
+        if mm and m and (not mm[2] or mm[2] in COND):
             v = operand(m[2])
-            if mn == "mvn":
+            if mm[1] == "mvn":
                 if not isinstance(v, Const):
                     raise Fail("mvn")
                 v = Const(~v.n & 0xFFFFFFFF)
+            if mm[2]:
+                if not flags:
+                    raise Fail("a condition without a compare")
+                old = read(m[1])
+                if isinstance(old, Tern) and old.flags is flags and OPPOSITE[old.cc] == mm[2]:
+                    v = Tern(flags, old.cc, old.a, v)
+                else:
+                    v = Tern(flags, mm[2], v, old)
             write(m[1], v)
             continue
         m = re.match(r"(r\d+), (r\d+), (.*)$", op)
@@ -221,18 +320,22 @@ def lift(name, body, protos):
     else:
         raise Fail("no return")
     # (the arguments of the calls: the registers written for them, and the parameters
-    # still in their registers before the first call)
+    # still in their registers before the first call; then the words stored on the stack)
     for c in calls:
         p = protos[c.name]
         if p in ("void(void)", VAR):
             n = max([int(r[1:]) + 1 for r in c.seg if r in ("r0", "r1", "r2", "r3")] + [0])
             if c.first:
-                n = max([n] + [i + 1 for i in params if isinstance(c.regs.get(f"r{i}"), Param) and c.regs[f"r{i}"].i == i])
+                n = max([n] + [i + 1 for i in params if i < 4 and isinstance(c.regs.get(f"r{i}"), Param) and c.regs[f"r{i}"].i == i])
+            if c.stack:
+                if sorted(c.stack) != list(range(len(c.stack))):
+                    raise Fail("arguments on the stack")
+                n = 4 + len(c.stack)
             types = ["s32"] * n
         else:
             types = p[1]
         for i, t in enumerate(types):
-            v = c.regs.get(f"r{i}")
+            v = c.regs.get(f"r{i}") if i < 4 else c.stack.get(i - 4)
             if v is None:
                 raise Fail("an argument after a call")
             if isinstance(v, Param) and v.i not in params:
@@ -246,23 +349,6 @@ def lift(name, body, protos):
     n = max(params) + 1 if params else 0
     for i in range(n):
         params.setdefault(i, Param(i))
-    # (the C is written after the walk: the types of the parameters are known by then)
-    out = []
-    for s in stmts:
-        if s[0] == "store":
-            _, t, base, off, v = s
-            out.append(f"    *({t} *)({addr(base, off)}) = {value(v, t)};\n")
-        elif s[0] == "return if":
-            _, cc, a, b = s
-            t = "u32" if cc in ("hi", "lo", "cc", "hs", "cs", "ls") else "s32"
-            out.append(f"    if ({value(a, t)} {COND[cc]} {value(b, t)})\n        return;\n")
-        else:
-            c = s[1]
-            args = ", ".join(value(v, t) for v, t in c.args)
-            if c.used:
-                out.append(f"    {c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {c.name}({args});\n")
-            else:
-                out.append(f"    {c.name}({args});\n")
     ret = "void"
     if "r0" in seg and not tail:
         v = regs["r0"]
@@ -270,16 +356,35 @@ def lift(name, body, protos):
             ret = v.t
         elif isinstance(v, Sym):
             ret = "char *"
-        elif isinstance(v, Param) and v.ptr:
+        elif is_ptr(v):
             ret = "u8 *"
         elif isinstance(v, Call):
             ret = v.ret
         else:
             ret = "s32"
-        out.append(f"    return {v.render()};\n")
-    if ret != "void" and any(s[0] == "return if" for s in stmts):
-        raise Fail("a value and a return without one")
-    args =", ".join(f"u8 *arg{i}" if params[i].ptr else f"{params[i].type} arg{i}" for i in range(n)) or "void"
+    # (the C is written after the walk: the types of the parameters are known by then)
+    out = []
+    if low is not None:
+        out.append(f"    s32 local[{(size - low) // 4}];\n")
+    for s in stmts:
+        if s[0] == "store":
+            _, t, base, off, v = s
+            out.append(f"    *({t} *)({addr(base, off)}) = {value(v, t)};\n")
+        elif s[0] == "return if":
+            _, cc, fl, v = s
+            if ret != "void" and v is None:
+                raise Fail("a return without a value")
+            out.append(f"    if ({cond(fl, cc)})\n        return{' ' + value(v, ret) if ret != 'void' else ''};\n")
+        else:
+            c = s[1]
+            args = ", ".join(value(v, t) for v, t in c.args)
+            if c.used:
+                out.append(f"    {c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {c.name}({args});\n")
+            else:
+                out.append(f"    {c.name}({args});\n")
+    if ret != "void":
+        out.append(f"    return {value(regs['r0'], ret)};\n")
+    args = ", ".join(f"u8 *arg{i}" if params[i].ptr else f"{params[i].type} arg{i}" for i in range(n)) or "void"
     decl = f"{ret}{'' if ret.endswith('*') else ' '}{name}({args})"
     return decl, "".join(out), {c.name for c in calls}
 
@@ -321,7 +426,7 @@ def lift_file(src, sizes, failed):
     blocks = list(re.finditer(r'^extern "C" asm void (\w+)\(void\)\n\{\n(.*?)\n\}\n', t, re.M | re.S))
     cand = {}
     for b in blocks:
-        if b[2].count("\n") > 12 or "@" in b[2] or b[1] in failed:
+        if b[2].count("\n") > 400 or "@" in b[2] or b[1] in failed:
             continue
         try:
             cand[b[1]] = (b[0],) + lift(b[1], b[2], protos)

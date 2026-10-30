@@ -22,7 +22,7 @@ extern "C" void func_ov001_02103e00(void);
 extern "C" void func_ov001_02103e60(void);
 extern "C" void func_ov001_02103f10(void);
 extern "C" void func_ov001_02103f78(void);
-extern "C" void func_ov001_02104258(void);
+extern "C" s32 func_ov001_02104258(void);
 extern "C" void func_ov001_02104278(void);
 extern "C" void func_ov001_02104388(void);
 extern "C" void func_ov001_0210449c(void);
@@ -74,7 +74,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b508Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b5a0Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206bfa8Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfecEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bff4Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206d188Ev(void);
@@ -1659,15 +1659,10 @@ extern "C" asm void func_ov001_02103f78(void)
     dcd data_020c4824
 }
 
-extern "C" asm void func_ov001_02104258(void)
+extern "C" s32 func_ov001_02104258(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206bfa8Ev
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0 = _ZN17UnkClass_020621b413func_0206bfa8Ev((s32)data_020e88a0);
+    return (v0 == 0 ? 1 : 0);
 }
 
 extern "C" asm void func_ov001_02104278(void)

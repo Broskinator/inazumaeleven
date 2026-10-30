@@ -20,8 +20,8 @@ extern "C" void func_ov000_0211468c(void);
 extern "C" void func_ov000_021148a8(void);
 extern "C" void func_ov000_02114a8c(void);
 extern "C" void func_ov000_02114c1c(void);
-extern "C" void func_ov000_02114db4(void);
-extern "C" void func_ov000_02114df8(void);
+extern "C" void func_ov000_02114db4(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 func_ov000_02114df8(...);
 
 extern "C" char data_020c47b4[];
 extern "C" char data_020cac9c[];
@@ -2633,27 +2633,12 @@ extern "C" asm void func_ov000_02114c1c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov000_02114db4(void)
+extern "C" void func_ov000_02114db4(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {lr}
-    sub sp, sp, #0x14
-    ldr r3, =data_020cac9c
-    ldrb r12, [r3, #0x20]
-    str r12, [sp]
-    ldrb r12, [r3, #0x22]
-    str r12, [sp, #4]
-    ldrb r12, [r3, #0x21]
-    str r12, [sp, #8]
-    ldrb r12, [r3, #0x25]
-    str r12, [sp, #0xc]
-    ldrb r12, [r3, #0x23]
-    str r12, [sp, #0x10]
-    bl func_ov000_02114df8
-    add sp, sp, #0x14
-    ldmia sp!, {pc}
+    func_ov000_02114df8(arg0, arg1, arg2, (s32)data_020cac9c, *(u8 *)(data_020cac9c + 0x20), *(u8 *)(data_020cac9c + 0x22), *(u8 *)(data_020cac9c + 0x21), *(u8 *)(data_020cac9c + 0x25), *(u8 *)(data_020cac9c + 0x23));
 }
 
-extern "C" asm void func_ov000_02114df8(void)
+extern "C" asm s32 func_ov000_02114df8(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x294

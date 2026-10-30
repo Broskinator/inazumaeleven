@@ -5,7 +5,7 @@ extern "C" void func_ov003_02115e58(void);
 extern "C" void func_ov003_02115f7c(void);
 extern "C" void func_ov003_02116050(void);
 extern "C" void func_ov003_02116234(void);
-extern "C" void func_ov003_021163fc(void);
+extern "C" s32 func_ov003_021163fc(...);
 extern "C" void func_ov003_02116488(void);
 extern "C" void func_ov003_0211654c(void);
 extern "C" s32 func_ov003_021165fc(...);
@@ -26,7 +26,7 @@ extern "C" void func_ov003_02117020(void);
 extern "C" void func_ov003_0211705c(void);
 extern "C" void func_ov003_02117098(void);
 extern "C" void func_ov003_021171f0(void);
-extern "C" void func_ov003_021172d4(void);
+extern "C" void func_ov003_021172d4(u8 *arg0);
 extern "C" void func_ov003_02117330(void);
 extern "C" s32 func_ov003_0211738c(u8 *arg0);
 extern "C" void func_ov003_021173b8(s32 arg0);
@@ -132,7 +132,7 @@ extern "C" void func_ov003_02113714(void);
 extern "C" void func_ov003_021138bc(void);
 extern "C" s32 func_ov003_021138e8(...);
 extern "C" s32 func_ov003_02113910(...);
-extern "C" void func_ov003_02113b4c(void);
+extern "C" s32 func_ov003_02113b4c(...);
 extern "C" void func_ov015_02131cd4(void);
 extern "C" void func_ov015_02131da0(void);
 extern "C" void func_ov015_02132240(void);
@@ -923,7 +923,7 @@ extern "C" asm void func_ov003_02116234(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov003_021163fc(void)
+extern "C" asm s32 func_ov003_021163fc(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -1939,30 +1939,17 @@ extern "C" asm void func_ov003_021171f0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov003_021172d4(void)
+extern "C" void func_ov003_021172d4(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, #1
-    ldr r0, =data_020c5e40
-    mov r1, r5
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r4, #0
-    mov r0, r6
-    mov r1, r4
-    bl func_ov003_021163fc
-    mov r0, r6
-    mov r1, r5
-    bl func_ov003_021163fc
-    mov r1, #2
-    mov r0, r6
-    str r4, [r6, #0x5d8]
-    str r1, [r6, #0x5c8]
-    strb r5, [r6, #0x5d7]
-    strb r4, [r6, #0x608]
-    str r1, [r6, #0x34]
-    bl func_ov003_02113b4c
-    ldmia sp!, {r4, r5, r6, pc}
+    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 1);
+    func_ov003_021163fc(arg0, 0);
+    func_ov003_021163fc(arg0, 1);
+    *(s32 *)(arg0 + 0x5D8) = 0;
+    *(s32 *)(arg0 + 0x5C8) = 2;
+    *(u8 *)(arg0 + 0x5D7) = 1;
+    *(u8 *)(arg0 + 0x608) = 0;
+    *(s32 *)(arg0 + 0x34) = 2;
+    func_ov003_02113b4c((s32)arg0, 2);
 }
 
 extern "C" asm void func_ov003_02117330(void)

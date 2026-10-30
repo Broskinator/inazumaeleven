@@ -1,14 +1,14 @@
 #include "ov051/Unk_ov051_02165d60.hpp"
 
-extern "C" void func_ov051_02165d60(void);
+extern "C" s32 func_ov051_02165d60(u8 *arg0, s32 arg1);
 extern "C" void func_ov051_02165da8(void);
-extern "C" void func_ov051_02165e08(void);
+extern "C" s32 func_ov051_02165e08(...);
 extern "C" s32 func_ov051_02165ea0(...);
 extern "C" void func_ov051_02165f28(void);
 extern "C" void func_ov051_02165fa0(void);
-extern "C" void func_ov051_02166070(void);
+extern "C" s32 func_ov051_02166070(...);
 extern "C" void func_ov051_021660e0(void);
-extern "C" void func_ov051_02166118(void);
+extern "C" void func_ov051_02166118(u8 *arg0);
 extern "C" void func_ov051_02166170(void);
 extern "C" void func_ov051_02166230(void);
 extern "C" void func_ov051_02166234(s32 arg0);
@@ -20,9 +20,9 @@ extern "C" char data_020c5e40[];
 extern "C" char data_020d9978[];
 extern "C" char data_ov051_0216636c[];
 extern "C" char data_ov051_02166388[];
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN11TreasureBox13func_02052618Ei(void);
-extern "C" void _ZN12SoundManager9PlaySoundEi(void);
+extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_020920c4(void);
@@ -41,24 +41,16 @@ extern "C" void func_ov015_02134118(void);
 extern "C" s32 func_ov015_02134198(...);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov051_02165d60(void)
+extern "C" s32 func_ov051_02165d60(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #0x20]
-    cmp r0, #4
-    ldmneia sp!, {r4, pc}
-    ldr r0, =0x2fff
-    tst r1, r0
-    ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c5e40
-    mov r1, #1
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r0, r4
-    bl func_ov051_02166070
-    mov r0, #6
-    str r0, [r4, #0x20]
-    ldmia sp!, {r4, pc}
+    if (*(s32 *)(arg0 + 0x20) != 4)
+        return *(s32 *)(arg0 + 0x20);
+    if ((arg1 & 0x2FFF) == 0)
+        return 0x2FFF;
+    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 1);
+    func_ov051_02166070((s32)arg0);
+    *(s32 *)(arg0 + 0x20) = 6;
+    return 6;
 }
 
 extern "C" asm void func_ov051_02165da8(void)
@@ -89,7 +81,7 @@ extern "C" asm void func_ov051_02165da8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov051_02165e08(void)
+extern "C" asm s32 func_ov051_02165e08(...)
 {
     stmdb sp!, {r4, r5, lr}
     sub sp, sp, #0x114
@@ -258,7 +250,7 @@ extern "C" asm void func_ov051_02165fa0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov051_02166070(void)
+extern "C" asm s32 func_ov051_02166070(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -313,30 +305,15 @@ extern "C" asm void func_ov051_021660e0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov051_02166118(void)
+extern "C" void func_ov051_02166118(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, #0
-    mov r1, r5
-    add r0, r6, #4
-    mov r2, #0xc
-    bl MI_CpuFill8
-    mov r4, #4
-    mov r1, r5
-    mov r2, r4
-    add r0, r6, #0x10
-    bl MI_CpuFill8
-    mov r1, r5
-    mov r2, r4
-    add r0, r6, #0x14
-    bl MI_CpuFill8
-    mov r0, r6
-    str r5, [r6, #0x20]
-    strb r5, [r6, #0x28]
-    str r5, [r6, #0x24]
-    bl func_ov051_02165e08
-    ldmia sp!, {r4, r5, r6, pc}
+    MI_CpuFill8((arg0 + 4), 0, 0xC);
+    MI_CpuFill8((arg0 + 0x10), 0, 4);
+    MI_CpuFill8((arg0 + 0x14), 0, 4);
+    *(s32 *)(arg0 + 0x20) = 0;
+    *(u8 *)(arg0 + 0x28) = 0;
+    *(s32 *)(arg0 + 0x24) = 0;
+    func_ov051_02165e08((s32)arg0);
 }
 
 extern "C" asm void func_ov051_02166170(void)

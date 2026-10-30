@@ -1,6 +1,6 @@
 #include "ov000/Unk_ov000_02102df0.hpp"
 
-extern "C" void func_ov000_02102df0(void);
+extern "C" void func_ov000_02102df0(u8 *arg0);
 extern "C" void func_ov000_02102e68(u8 *arg0);
 extern "C" void func_ov000_02102e90(void);
 extern "C" void func_ov000_02102f58(void);
@@ -10,7 +10,7 @@ extern "C" void func_ov000_02103028(void);
 extern "C" void func_ov000_02103130(void);
 extern "C" void func_ov000_021031c0(void);
 extern "C" void func_ov000_021031e4(void);
-extern "C" void func_ov000_021037bc(void);
+extern "C" void func_ov000_021037bc(u8 *arg0);
 extern "C" void func_ov000_021037fc(void);
 extern "C" void func_ov000_021038f4(void);
 extern "C" void func_ov000_02103a90(void);
@@ -21,7 +21,7 @@ extern "C" void func_ov000_02103cc0(void);
 extern "C" void func_ov000_02103f7c(void);
 extern "C" void func_ov000_02104b40(void);
 extern "C" void func_ov000_02104c60(void);
-extern "C" void func_ov000_02104ef8(void);
+extern "C" s32 func_ov000_02104ef8(...);
 extern "C" void func_ov000_02104f54(void);
 extern "C" void func_ov000_02104f58(void);
 extern "C" void func_ov000_02104f5c(void);
@@ -78,7 +78,7 @@ extern "C" void _ZN11TreasureBox13func_020524f0El(void);
 extern "C" void _ZN11TreasureBox13func_02052534Ev(void);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052600Ev(void);
-extern "C" void _ZN11TreasureBox13func_02053874Ev(void);
+extern "C" s32 _ZN11TreasureBox13func_02053874Ev(...);
 extern "C" void _ZN11TreasureBox13func_02053888Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205d7e0Ev(void);
@@ -104,7 +104,7 @@ extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
 extern "C" void func_0202b608(void);
 extern "C" void func_02084c8c(void);
-extern "C" void func_02085b6c(void);
+extern "C" s32 func_02085b6c(...);
 extern "C" void func_02085ba4(void);
 extern "C" void func_02085bb4(void);
 extern "C" void func_02085e00(void);
@@ -112,9 +112,9 @@ extern "C" void func_0208661c(void);
 extern "C" void func_02086ac8(void);
 extern "C" void func_0208720c(void);
 extern "C" void func_02087284(void);
-extern "C" void func_020873ac(void);
+extern "C" s32 func_020873ac(...);
 extern "C" void func_02087464(void);
-extern "C" void func_0208786c(void);
+extern "C" s32 func_0208786c(...);
 extern "C" void func_02087b98(void);
 extern "C" void func_02087be0(void);
 extern "C" void func_0208803c(void);
@@ -122,12 +122,12 @@ extern "C" void func_020881ac(void);
 extern "C" void func_020885b0(void);
 extern "C" void func_020887f0(void);
 extern "C" void func_0208afe4(void);
-extern "C" void func_0208b508(void);
+extern "C" s32 func_0208b508(...);
 extern "C" void func_0208c3b4(void);
-extern "C" void func_0208cab0(void);
+extern "C" s32 func_0208cab0(...);
 extern "C" void func_0208ce5c(void);
 extern "C" void func_0208dc5c(void);
-extern "C" void func_0208e114(void);
+extern "C" s32 func_0208e114(...);
 extern "C" void func_0208e508(void);
 extern "C" void func_02090a10(void);
 extern "C" void func_02090bc8(void);
@@ -158,7 +158,7 @@ extern "C" void func_0209ac74(void);
 extern "C" void func_0209ac80(void);
 extern "C" void func_0209b034(void);
 extern "C" void func_0209b0d4(void);
-extern "C" void func_0209b230(void);
+extern "C" s32 func_0209b230(...);
 extern "C" void func_0209b428(void);
 extern "C" void func_0209b438(void);
 extern "C" void func_0209b448(void);
@@ -230,32 +230,15 @@ extern "C" void func_ov015_02162f70(void);
 extern "C" void gGameState(void);
 extern "C" void memset(void);
 
-extern "C" asm void func_ov000_02102df0(void)
+extern "C" void func_ov000_02102df0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020c46c8
-    mov r5, r0
-    ldr r0, [r4]
-    mov r1, #1
-    bl func_0208786c
-    ldr r0, [r4]
-    bl func_020873ac
-    ldr r0, =data_020c46cc
-    ldr r0, [r0]
-    bl func_02085b6c
-    ldr r1, [r5, #0xa4]
-    ldr r0, =data_020d9978
-    bl _ZN11TreasureBox13func_02053874Ev
-    ldr r0, =data_020c4660
-    ldr r0, [r0]
-    bl func_0208cab0
-    ldr r0, =data_020c4674
-    ldr r0, [r0]
-    bl func_0208b508
-    ldr r0, =data_020c4678
-    ldr r0, [r0]
-    bl func_0208e114
-    ldmia sp!, {r3, r4, r5, pc}
+    func_0208786c(*(s32 *)(data_020c46c8), 1);
+    func_020873ac(*(s32 *)(data_020c46c8));
+    func_02085b6c(*(s32 *)(data_020c46cc));
+    _ZN11TreasureBox13func_02053874Ev((s32)data_020d9978, *(s32 *)(arg0 + 0xA4));
+    func_0208cab0(*(s32 *)(data_020c4660));
+    func_0208b508(*(s32 *)(data_020c4674));
+    func_0208e114(*(s32 *)(data_020c4678));
 }
 
 extern "C" void func_ov000_02102e68(u8 *arg0)
@@ -906,22 +889,14 @@ extern "C" asm void func_ov000_021031e4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov000_021037bc(void)
+extern "C" void func_ov000_021037bc(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_020c484c
-    mov r4, r0
-    ldr r1, [r1]
-    ldr r0, =data_020d3d20
-    bl func_0209b230
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    str r0, [r4, #0x160]
-    mov r1, #0xc
-    mov r0, r4
-    str r1, [r4, #8]
-    bl func_ov000_02104ef8
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_0209b230((s32)data_020d3d20, *(s32 *)(data_020c484c));
+    if (v0 == 0)
+        return;
+    *(s32 *)(arg0 + 0x160) = v0;
+    *(s32 *)(arg0 + 0x8) = 0xC;
+    func_ov000_02104ef8((s32)arg0, 0xC);
 }
 
 extern "C" asm void func_ov000_021037fc(void)
@@ -2455,7 +2430,7 @@ extern "C" asm void func_ov000_02104c60(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov000_02104ef8(void)
+extern "C" asm s32 func_ov000_02104ef8(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, =data_020c46cc

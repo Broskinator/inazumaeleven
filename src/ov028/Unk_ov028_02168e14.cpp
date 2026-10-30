@@ -12,7 +12,7 @@ extern "C" void func_ov028_02169aa4(void);
 extern "C" void func_ov028_02169bb0(void);
 extern "C" void func_ov028_02169c54(void);
 extern "C" void func_ov028_02169d1c(void);
-extern "C" void func_ov028_02169d68(void);
+extern "C" s32 func_ov028_02169d68(...);
 extern "C" void func_ov028_02169da8(void);
 extern "C" void func_ov028_02169de8(void);
 extern "C" void func_ov028_02169e14(void);
@@ -36,7 +36,7 @@ extern "C" void func_ov028_0216a99c(void);
 extern "C" void func_ov028_0216aabc(void);
 extern "C" void func_ov028_0216aae8(void);
 extern "C" void func_ov028_0216ac38(void);
-extern "C" void func_ov028_0216ae38(void);
+extern "C" s32 func_ov028_0216ae38(void);
 extern "C" void func_ov028_0216ae50(void);
 extern "C" void func_ov028_0216aeb0(void);
 extern "C" void func_ov028_0216afa0(void);
@@ -1218,7 +1218,7 @@ extern "C" asm void func_ov028_02169d1c(void)
     bx lr
 }
 
-extern "C" asm void func_ov028_02169d68(void)
+extern "C" asm s32 func_ov028_02169d68(...)
 {
     add r1, r0, #0x3000
     ldr r2, [r1, #0x61c]
@@ -2399,14 +2399,10 @@ extern "C" asm void func_ov028_0216ac38(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov028_0216ae38(void)
+extern "C" s32 func_ov028_0216ae38(void)
 {
-    stmdb sp!, {r3, lr}
-    bl func_ov028_02169d68
-    tst r0, #0x5a0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0 = func_ov028_02169d68();
+    return ((v0 & 0x5A0) == 0 ? 1 : 0);
 }
 
 extern "C" asm void func_ov028_0216ae50(void)

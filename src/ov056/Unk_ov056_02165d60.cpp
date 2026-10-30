@@ -17,7 +17,7 @@ extern "C" void func_ov056_021666c8(void);
 extern "C" void func_ov056_02166770(void);
 extern "C" void func_ov056_021667ec(void);
 extern "C" void func_ov056_02166a04(void);
-extern "C" void func_ov056_02166af4(void);
+extern "C" s32 func_ov056_02166af4(u8 *arg0);
 extern "C" void func_ov056_02166b38(void);
 extern "C" void func_ov056_02166b84(void);
 extern "C" void func_ov056_02166bd4(void);
@@ -74,7 +74,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" void G2_GetBG1CharPtr(void);
 extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
@@ -100,7 +100,7 @@ extern "C" void func_ov015_02132a04(void);
 extern "C" void func_ov015_02132af0(void);
 extern "C" void func_ov015_021330b4(void);
 extern "C" void func_ov015_02133dc8(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_02134208(void);
 extern "C" void func_ov015_0213b540(void);
@@ -1094,23 +1094,13 @@ extern "C" asm void func_ov056_02166a04(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov056_02166af4(void)
+extern "C" s32 func_ov056_02166af4(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x14c
-    mov r1, #0
-    mov r2, #0x15c
-    bl MI_CpuFill8
-    ldr r0, =data_ov056_0216b6bc
-    add r1, r4, #0x14c
-    bl func_ov015_02133f94
-    ldr r0, =data_ov056_0216b6d8
-    add r1, r4, #0x29c
-    bl func_ov015_02133f94
-    mov r0, #1
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    MI_CpuFill8((arg0 + 0x14C), 0, 0x15C);
+    func_ov015_02133f94((s32)data_ov056_0216b6bc, (arg0 + 0x14C));
+    func_ov015_02133f94((s32)data_ov056_0216b6d8, (arg0 + 0x29C));
+    *(s32 *)(arg0 + 0x8) = 1;
+    return 1;
 }
 
 extern "C" asm void func_ov056_02166b38(void)

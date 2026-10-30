@@ -11,11 +11,11 @@ extern "C" void func_ov015_02130a84(s32 arg0);
 extern "C" void func_ov015_02130ab8(void);
 extern "C" void func_ov015_02130ad4(void);
 extern "C" void func_ov015_02130ae8(void);
-extern "C" void func_ov015_02130b14(void);
+extern "C" s32 func_ov015_02130b14(...);
 extern "C" void func_ov015_02130b94(void);
 extern "C" void func_ov015_02130c18(void);
-extern "C" void func_ov015_02130cb8(void);
-extern "C" void func_ov015_02130ce0(void);
+extern "C" void func_ov015_02130cb8(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 func_ov015_02130ce0(...);
 extern "C" void func_ov015_02130d8c(void);
 extern "C" s32 func_ov015_02130e28(s32 arg0);
 extern "C" void func_ov015_02130e40(void);
@@ -36,7 +36,7 @@ extern "C" void FX_SinCosTable_(void);
 extern "C" s32 MI_CpuCopy8(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN9EntryPool3GetEi(void);
-extern "C" void _ZN9EntryPool9RemoveAllEv(void);
+extern "C" s32 _ZN9EntryPool9RemoveAllEv(...);
 extern "C" void func_02022484(void);
 extern "C" void func_0202273c(void);
 extern "C" void func_02022b2c(void);
@@ -314,11 +314,9 @@ extern "C" void func_ov015_02130ab8(void)
     func_ov015_021309f8(1);
 }
 
-extern "C" asm void func_ov015_02130ad4(void)
+extern "C" void func_ov015_02130ad4(void)
 {
-    ldr r0, =gEntryPool
-    ldr r12, =_ZN9EntryPool9RemoveAllEv
-    bx r12
+    _ZN9EntryPool9RemoveAllEv((s32)gEntryPool);
 }
 
 extern "C" asm void func_ov015_02130ae8(void)
@@ -337,7 +335,7 @@ extern "C" asm void func_ov015_02130ae8(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov015_02130b14(void)
+extern "C" asm s32 func_ov015_02130b14(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r5, #0
@@ -456,21 +454,13 @@ extern "C" asm void func_ov015_02130c18(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02130cb8(void)
+extern "C" void func_ov015_02130cb8(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    cmp r2, #0
-    movne r2, #1
-    mov r4, #0
-    moveq r2, #0
-    mov r3, r4
-    bl func_ov015_02130ce0
-    mov r1, r4
-    bl func_ov015_02130b14
-    ldmia sp!, {r4, pc}
+    s32 v0 = func_ov015_02130ce0(arg0, arg1, (arg2 != 0 ? 1 : 0), 0);
+    func_ov015_02130b14(v0, 0);
 }
 
-extern "C" asm void func_ov015_02130ce0(void)
+extern "C" asm s32 func_ov015_02130ce0(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r5, #0

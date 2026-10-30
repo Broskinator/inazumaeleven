@@ -10,9 +10,9 @@ extern "C" void func_ov017_02165fac(void);
 extern "C" void func_ov017_02166574(void);
 extern "C" void func_ov017_021665e4(void);
 extern "C" void func_ov017_02166688(void);
-extern "C" void func_ov017_02166d80(void);
+extern "C" void func_ov017_02166d80(s32 arg0, u8 *arg1);
 extern "C" void func_ov017_02166db8(void);
-extern "C" void func_ov017_02166e28(void);
+extern "C" s32 func_ov017_02166e28(...);
 extern "C" void func_ov017_021670a8(void);
 extern "C" void func_ov017_021670ac(void);
 extern "C" void func_ov017_021670e4(void);
@@ -36,7 +36,7 @@ extern "C" char data_ov017_02167824[];
 extern "C" char data_ov017_02167844[];
 extern "C" char data_ov017_02167864[];
 extern "C" void STD_ConcatenateString(void);
-extern "C" void STD_CopyString(void);
+extern "C" s32 STD_CopyString(...);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11FileManager7ReleaseEPv(void);
@@ -1192,22 +1192,11 @@ extern "C" asm void func_ov017_02166688(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov017_02166d80(void)
+extern "C" void func_ov017_02166d80(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x204
-    add r4, sp, #0
-    mov r5, r1
-    mov r0, r4
-    add r1, r5, #0x44
-    bl STD_CopyString
-    ldrb r3, [r5, #0x355]
-    ldr r2, [r5, #0x350]
-    mov r1, r4
-    add r0, r5, #0x44
-    bl func_ov017_02166e28
-    add sp, sp, #0x204
-    ldmia sp!, {r4, r5, pc}
+    s32 local[129];
+    STD_CopyString((s32)((u8 *)local), (arg1 + 0x44));
+    func_ov017_02166e28((arg1 + 0x44), (s32)((u8 *)local), *(s32 *)(arg1 + 0x350), *(u8 *)(arg1 + 0x355));
 }
 
 extern "C" asm void func_ov017_02166db8(void)
@@ -1241,7 +1230,7 @@ extern "C" asm void func_ov017_02166db8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov017_02166e28(void)
+extern "C" asm s32 func_ov017_02166e28(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0xc0

@@ -28,7 +28,7 @@ extern "C" void func_0209ac8c(void);
 extern "C" void func_0209ae70(void);
 extern "C" u8 *func_0209b034(u8 *obj);
 extern "C" void func_0209b040(void);
-extern "C" void func_0209b06c(void);
+extern "C" void func_0209b06c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" u8 *func_0209b0a4(u8 *obj);
 extern "C" u8 *func_0209b0b0(u8 *obj, s32 *value);
 extern "C" void func_0209b0c8(u8 *obj, s32 value);
@@ -79,7 +79,7 @@ extern "C" void GX_BeginLoadTex(void);
 extern "C" void GX_BeginLoadTexPltt(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void STD_CopyString(void);
+extern "C" s32 STD_CopyString(...);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN12SoundManager13func_0203a4d4EiPKci(void);
@@ -1002,22 +1002,11 @@ extern "C" asm void func_0209b040(void)
     bx lr
 }
 
-extern "C" asm void func_0209b06c(void)
+extern "C" void func_0209b06c(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x1a8
-    add r3, r5, #0x188
-    mov r4, r1
-    add r0, r0, #0x400
-    add r1, r3, #0x400
-    str r2, [r5, #0x5c8]
-    bl STD_CopyString
-    add r0, r5, #0x188
-    mov r1, r4
-    add r0, r0, #0x400
-    bl STD_CopyString
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0 + 0x5C8) = arg2;
+    STD_CopyString(((arg0 + 0x1A8) + 0x400), ((arg0 + 0x188) + 0x400), arg2, (arg0 + 0x188));
+    STD_CopyString(((arg0 + 0x188) + 0x400), arg1);
 }
 
 extern "C" u8 *func_0209b0a4(u8 *obj)

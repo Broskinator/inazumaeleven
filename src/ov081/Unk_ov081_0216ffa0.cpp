@@ -4,7 +4,7 @@ extern "C" void func_ov081_0216ffa0(u8 *arg0, s32 arg1);
 extern "C" void func_ov081_0216ffbc(void);
 extern "C" void func_ov081_02170124(void);
 extern "C" void func_ov081_02170134(void);
-extern "C" void func_ov081_02170138(void);
+extern "C" s32 func_ov081_02170138(u8 *arg0);
 extern "C" void func_ov081_0217018c(void);
 extern "C" void func_ov081_021701c4(void);
 extern "C" void func_ov081_02170218(void);
@@ -55,7 +55,7 @@ extern "C" char data_ov081_0217107c[];
 extern "C" void DC_FlushRange(void);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void G2S_GetBG2CharPtr(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
@@ -74,7 +74,7 @@ extern "C" void func_ov015_02132984(void);
 extern "C" void func_ov015_02132a04(void);
 extern "C" void func_ov015_02132b7c(void);
 extern "C" void func_ov015_021330b4(void);
-extern "C" void func_ov015_02133f94(void);
+extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_02134024(void);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_02134118(void);
@@ -211,26 +211,14 @@ extern "C" void func_ov081_02170134(void)
 {
 }
 
-extern "C" asm void func_ov081_02170138(void)
+extern "C" s32 func_ov081_02170138(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x17c
-    mov r1, #0
-    mov r2, #0x24
-    bl MI_CpuFill8
-    ldr r0, =data_ov081_02170fec
-    add r1, r4, #0x17c
-    bl func_ov015_02133f94
-    ldr r0, =data_ov081_02171004
-    add r1, r4, #0x188
-    bl func_ov015_02133f94
-    ldr r0, =data_ov081_0217101c
-    add r1, r4, #0x194
-    bl func_ov015_02133f94
-    mov r0, #1
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    MI_CpuFill8((arg0 + 0x17C), 0, 0x24);
+    func_ov015_02133f94((s32)data_ov081_02170fec, (arg0 + 0x17C));
+    func_ov015_02133f94((s32)data_ov081_02171004, (arg0 + 0x188));
+    func_ov015_02133f94((s32)data_ov081_0217101c, (arg0 + 0x194));
+    *(s32 *)(arg0 + 0x8) = 1;
+    return 1;
 }
 
 extern "C" asm void func_ov081_0217018c(void)

@@ -10,7 +10,7 @@ extern "C" void func_ov003_02102b40(void);
 extern "C" void func_ov003_02102b70(void);
 extern "C" void func_ov003_02102ba4(void);
 extern "C" s32 func_ov003_02102bb0(s32 arg0);
-extern "C" void func_ov003_02102bc4(void);
+extern "C" void func_ov003_02102bc4(u8 *arg0, s32 arg1);
 extern "C" void func_ov003_02102bec(void);
 extern "C" void func_ov003_02102c38(void);
 extern "C" void func_ov003_02102c74(void);
@@ -48,7 +48,7 @@ extern "C" void func_ov003_02103fd0(s32 arg0);
 extern "C" s32 func_ov003_02103ff4(s32 arg0);
 extern "C" void func_ov003_02104008(void);
 extern "C" void func_ov003_02104040(void);
-extern "C" void func_ov003_02104094(void);
+extern "C" s32 func_ov003_02104094(void);
 extern "C" void func_ov003_021040b8(void);
 extern "C" void func_ov003_021040e4(void);
 extern "C" void func_ov003_02104150(s32 arg0);
@@ -107,7 +107,7 @@ extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void STD_GetStringLength(void);
-extern "C" void _ZN11MoviePlayer4StopEv(void);
+extern "C" s32 _ZN11MoviePlayer4StopEv(...);
 extern "C" void _ZN11SaveManager8GetSlotsEv(void);
 extern "C" s32 _ZN12SceneManager13func_0203e2fcEl(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
@@ -117,7 +117,7 @@ extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e090Eii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207aba0Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0207aba0Ev(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_01ffb2e0(void);
@@ -427,17 +427,13 @@ extern "C" s32 func_ov003_02102bb0(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov003_02102bc4(void)
+extern "C" void func_ov003_02102bc4(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldrb r0, [r0, #0xc]
-    cmp r0, #0
-    ldmneia sp!, {r3, pc}
-    tst r1, #1
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4f60
-    bl _ZN11MoviePlayer4StopEv
-    ldmia sp!, {r3, pc}
+    if (*(u8 *)(arg0 + 0xC) != 0)
+        return;
+    if ((arg1 & 1) == 0)
+        return;
+    _ZN11MoviePlayer4StopEv((s32)data_020c4f60, arg1);
 }
 
 extern "C" asm void func_ov003_02102bec(void)
@@ -1889,16 +1885,10 @@ extern "C" asm void func_ov003_02104040(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov003_02104094(void)
+extern "C" s32 func_ov003_02104094(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020e88a0
-    mov r1, #2
-    bl _ZN17UnkClass_020621b413func_0207aba0Ev
-    cmp r0, #0xb
-    movge r0, #1
-    movlt r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0 = _ZN17UnkClass_020621b413func_0207aba0Ev((s32)data_020e88a0, 2);
+    return (v0 >= 0xB ? 1 : 0);
 }
 
 extern "C" asm void func_ov003_021040b8(void)

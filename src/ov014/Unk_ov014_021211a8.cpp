@@ -83,12 +83,12 @@ extern "C" char data_ov014_0212d5b5[];
 extern "C" void DC_InvalidateRange(void);
 extern "C" void DC_StoreRange(void);
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void MIi_CpuCopyFast(void);
 extern "C" void OS_CancelAlarm(void);
 extern "C" s32 OS_DisableInterrupts(...);
-extern "C" void OS_InitMutex(void);
+extern "C" s32 OS_InitMutex(...);
 extern "C" void OS_LockMutex(void);
 extern "C" s32 OS_RestoreInterrupts(...);
 extern "C" void OS_UnlockMutex(void);
@@ -1330,26 +1330,16 @@ extern "C" asm void func_ov014_02122040(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_021221f0(void)
+extern "C" void func_ov014_021221f0(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_ov014_0212d57c
-    ldrb r0, [r4]
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, #1
-    mov r5, #0
-    strb r0, [r4]
-    ldr r0, =data_ov014_0212d5ac
-    mov r1, r5
-    mov r2, #6
-    strh r5, [r4, #0x24]
-    bl MI_CpuFill8
-    str r5, [r4, #8]
-    ldr r0, =data_ov014_0212d588
-    str r5, [r4, #4]
-    bl OS_InitMutex
-    ldmia sp!, {r3, r4, r5, pc}
+    if (*(u8 *)(data_ov014_0212d57c) != 0)
+        return;
+    *(u8 *)(data_ov014_0212d57c) = 1;
+    *(u16 *)(data_ov014_0212d57c + 0x24) = 0;
+    MI_CpuFill8((s32)data_ov014_0212d5ac, 0, 6);
+    *(s32 *)(data_ov014_0212d57c + 0x8) = 0;
+    *(s32 *)(data_ov014_0212d57c + 0x4) = 0;
+    OS_InitMutex((s32)data_ov014_0212d588);
 }
 
 extern "C" asm void func_ov014_02122244(void)

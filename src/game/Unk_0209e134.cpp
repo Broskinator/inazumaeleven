@@ -5,8 +5,8 @@ extern GameHeap data_020c47b4;
 extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
 
 extern "C" void func_0209e134(void);
-extern "C" void func_0209e174(void);
-extern "C" void func_0209e1c8(void);
+extern "C" void func_0209e174(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+extern "C" void func_0209e1c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_0209e220(void);
 extern "C" void func_0209e248(s32 *obj);
 extern "C" void func_0209e258(void *obj);
@@ -25,7 +25,7 @@ extern "C" char data_020aac48[];
 extern "C" char data_020bb000[];
 extern "C" char data_020bb01c[];
 extern "C" char data_020bb028[];
-extern "C" void MI_CpuCopy8(void);
+extern "C" s32 MI_CpuCopy8(...);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void STD_CompareString(void);
@@ -56,55 +56,20 @@ extern "C" asm void func_0209e134(void)
     bx lr
 }
 
-extern "C" asm void func_0209e174(void)
+extern "C" void func_0209e174(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, r2
-    add r0, r7, #4
-    mov r2, #8
-    mov r5, r3
-    bl MI_CpuCopy8
-    mov r4, #2
-    mov r1, r6
-    mov r2, r4
-    add r0, r7, #0x18
-    bl MI_CpuCopy8
-    mov r1, r5
-    mov r2, r4
-    add r0, r7, #0x1a
-    bl MI_CpuCopy8
-    ldr r1, [sp, #0x18]
-    add r0, r7, #0x16
-    mov r2, r4
-    bl MI_CpuCopy8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    MI_CpuCopy8((arg0 + 4), arg1, 8, arg3);
+    MI_CpuCopy8((arg0 + 0x18), arg2, 2);
+    MI_CpuCopy8((arg0 + 0x1A), arg3, 2);
+    MI_CpuCopy8((arg0 + 0x16), arg4, 2);
 }
 
-extern "C" asm void func_0209e1c8(void)
+extern "C" void func_0209e1c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, r2
-    mov r0, r1
-    add r1, r7, #4
-    mov r2, #8
-    mov r5, r3
-    bl MI_CpuCopy8
-    mov r4, #2
-    mov r0, r6
-    mov r2, r4
-    add r1, r7, #0x18
-    bl MI_CpuCopy8
-    mov r0, r5
-    mov r2, r4
-    add r1, r7, #0x1a
-    bl MI_CpuCopy8
-    add r1, r7, #0x16
-    mov r2, r4
-    ldr r0, [sp, #0x18]
-    bl MI_CpuCopy8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    MI_CpuCopy8(arg1, (arg0 + 4), 8, arg3);
+    MI_CpuCopy8(arg2, (arg0 + 0x18), 2);
+    MI_CpuCopy8(arg3, (arg0 + 0x1A), 2);
+    MI_CpuCopy8(arg4, (arg0 + 0x16), 2);
 }
 
 extern "C" asm void func_0209e220(void)

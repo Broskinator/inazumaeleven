@@ -8,7 +8,7 @@ extern "C" void func_ov055_02165f64(void);
 extern "C" s32 func_ov055_02166010(...);
 extern "C" void func_ov055_02166088(void);
 extern "C" void func_ov055_02166184(void);
-extern "C" void func_ov055_02166274(void);
+extern "C" s32 func_ov055_02166274(void);
 extern "C" void func_ov055_02166298(void);
 extern "C" void func_ov055_021662d4(void);
 extern "C" void func_ov055_02166894(u8 *arg0);
@@ -41,7 +41,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_02077bd4Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_02077ce4Ev(...);
@@ -75,7 +75,7 @@ extern "C" void func_02097fcc(void);
 extern "C" void func_020982a0(void);
 extern "C" void func_0209d668(void);
 extern "C" void func_ov015_02131538(void);
-extern "C" void func_ov015_021319bc(void);
+extern "C" s32 func_ov015_021319bc(...);
 extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_02134118(void);
 extern "C" void func_ov015_02134198(void);
@@ -438,16 +438,11 @@ extern "C" asm void func_ov055_02166184(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov055_02166274(void)
+extern "C" s32 func_ov055_02166274(void)
 {
-    stmdb sp!, {r3, lr}
-    bl func_ov015_021319bc
-    mov r1, r0
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
-    cmp r0, #0
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0 = func_ov015_021319bc();
+    s32 v1 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)data_020e88a0, v0);
+    return (v1 == 0 ? 0 : v1);
 }
 
 extern "C" asm void func_ov055_02166298(void)

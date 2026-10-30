@@ -16,7 +16,7 @@ extern "C" void func_ov005_020fccc4(void);
 extern "C" void func_ov005_020fcdb0(void);
 extern "C" void func_ov005_020fcdc8(void);
 extern "C" void func_ov005_020fce34(void);
-extern "C" void func_ov005_020fce84(void);
+extern "C" void func_ov005_020fce84(u8 *arg0);
 extern "C" void func_ov005_020fcee4(void);
 extern "C" void func_ov005_020fd3a4(void);
 extern "C" void func_ov005_020fd3a8(void);
@@ -54,7 +54,7 @@ extern "C" char data_ov005_020fdc54[];
 extern "C" char data_ov005_020fdc80[];
 extern "C" void DC_FlushRange(void);
 extern "C" void GXS_BeginLoadBGExtPltt(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void OS_Sleep(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
@@ -593,32 +593,21 @@ extern "C" asm void func_ov005_020fce34(void)
     bx lr
 }
 
-extern "C" asm void func_ov005_020fce84(void)
+extern "C" void func_ov005_020fce84(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, #0
-    mov r5, r0
-    sub r3, r4, #0xc0
-    mov r1, r4
-    add r0, r5, #0x1b4
-    mov r2, #0xc
-    str r4, [r5, #0x190]
-    str r4, [r5, #0x198]
-    str r3, [r5, #0x194]
-    str r4, [r5, #0x19c]
-    str r4, [r5, #0x1a0]
-    str r4, [r5, #0x1a8]
-    strb r4, [r5, #0x1a4]
-    strb r4, [r5, #0x1ac]
-    bl MI_CpuFill8
-    mov r1, r4
-    add r0, r5, #4
-    mov r2, #0x18c
-    str r4, [r5, #0x1b4]
-    str r4, [r5, #0x1b8]
-    str r4, [r5, #0x1bc]
-    bl MI_CpuFill8
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0 + 0x190) = 0;
+    *(s32 *)(arg0 + 0x198) = 0;
+    *(s32 *)(arg0 + 0x194) = (0 - 0xC0);
+    *(s32 *)(arg0 + 0x19C) = 0;
+    *(s32 *)(arg0 + 0x1A0) = 0;
+    *(s32 *)(arg0 + 0x1A8) = 0;
+    *(u8 *)(arg0 + 0x1A4) = 0;
+    *(u8 *)(arg0 + 0x1AC) = 0;
+    MI_CpuFill8((arg0 + 0x1B4), 0, 0xC, (0 - 0xC0));
+    *(s32 *)(arg0 + 0x1B4) = 0;
+    *(s32 *)(arg0 + 0x1B8) = 0;
+    *(s32 *)(arg0 + 0x1BC) = 0;
+    MI_CpuFill8((arg0 + 4), 0, 0x18C);
 }
 
 extern "C" asm void func_ov005_020fcee4(void)

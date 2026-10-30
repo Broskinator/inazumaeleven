@@ -20,7 +20,7 @@ extern "C" void MIi_CpuClear16(void);
 extern "C" void MIi_CpuCopy16(void);
 extern "C" void OS_DisableInterrupts(void);
 extern "C" void OS_RestoreInterrupts(void);
-extern "C" void WM_SetIndCallback(void);
+extern "C" s32 WM_SetIndCallback(...);
 extern "C" void WM_StartMPEx(void);
 extern "C" void func_02008450(void);
 extern "C" void func_02008564(void);
@@ -36,9 +36,9 @@ extern "C" void func_020138d8(void);
 extern "C" void func_02013994(void);
 extern "C" void func_02013b28(void);
 extern "C" void func_02015160(void);
-extern "C" void func_020151b4(void);
+extern "C" s32 func_020151b4(...);
 extern "C" void func_ov089_02178580(void);
-extern "C" void func_ov089_021789d0(void);
+extern "C" s32 func_ov089_021789d0(...);
 
 extern "C" asm void func_ov089_02176bfc(void)
 {
@@ -100,29 +100,12 @@ extern "C" asm void func_ov089_02176c64(void)
     bx lr
 }
 
-extern "C" asm void func_ov089_02176cc4(void)
+extern "C" void func_ov089_02176cc4(void)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    ldr r4, =func_ov089_02176d64
-    mov r0, r4
-    bl WM_SetIndCallback
-    mov r1, r0
-    mov r0, #0x80
-    bl func_ov089_021789d0
-    ldr r3, =data_ov089_021791ec
-    mov r0, r4
-    ldrh r1, [r3]
-    str r1, [sp]
-    ldrh r1, [r3, #4]
-    ldrh r2, [r3, #2]
-    ldrh r3, [r3, #6]
-    bl func_020151b4
-    mov r1, r0
-    mov r0, #0x1d
-    bl func_ov089_021789d0
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    s32 v0 = WM_SetIndCallback((s32)func_ov089_02176d64);
+    func_ov089_021789d0(0x80, v0);
+    s32 v2 = func_020151b4((s32)func_ov089_02176d64, *(u16 *)(data_ov089_021791ec + 0x4), *(u16 *)(data_ov089_021791ec + 0x2), *(u16 *)(data_ov089_021791ec + 0x6), *(u16 *)(data_ov089_021791ec));
+    func_ov089_021789d0(0x1D, v2);
 }
 
 extern "C" asm void func_ov089_02176d20(void)
