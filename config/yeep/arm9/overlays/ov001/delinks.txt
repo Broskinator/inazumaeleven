@@ -48,3 +48,7 @@ src/ov001/Unk_ov001_021189fc.cpp:
 src/ov001/Unk_ov001_0211bc68.cpp:
     complete
     .text start:0x0211bc68 end:0x0211ec68
+
+src/ov001/Unk_ov001_0211ec68.cpp:
+    complete
+    .text start:0x0211ec68 end:0x02121e30
