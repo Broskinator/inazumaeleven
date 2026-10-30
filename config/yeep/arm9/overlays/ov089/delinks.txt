@@ -5,28 +5,36 @@
     .bss        start:0x02179220 end:0x02179360 kind:bss align:32
 
 
-libs/NitroSDK/mb/mb_parent.c:
+src/libs/NitroSDK/mb/mb_parent.c:
+    complete
     .text start:0x02174240 end:0x02175b60
 
-libs/NitroSDK/mb/mb_fileinfo.c:
+src/libs/NitroSDK/mb/mb_fileinfo.c:
+    complete
     .text start:0x02175b60 end:0x0217631c
 
-libs/NitroSDK/mb/mb_common.c:
+src/libs/NitroSDK/mb/mb_common.c:
+    complete
     .text start:0x0217631c end:0x021765a8
 
-libs/NitroSDK/mb/mb_gameinfo.c:
+src/libs/NitroSDK/mb/mb_gameinfo.c:
+    complete
     .text start:0x021765a8 end:0x02176bfc
 
-libs/NitroSDK/mb/mb_wm_base.c:
+src/libs/NitroSDK/mb/mb_wm_base.c:
+    complete
     .text start:0x02178178 end:0x02178a1c
 
-libs/NitroSDK/mb/mb_cache.c:
+src/libs/NitroSDK/mb/mb_cache.c:
+    complete
     .text start:0x02178a1c end:0x02178c2c
 
-libs/NitroSDK/mb/mb_task.c:
+src/libs/NitroSDK/mb/mb_task.c:
+    complete
     .text start:0x02178c2c end:0x02178ecc
 
-libs/NitroSDK/mb/mb_block.c:
+src/libs/NitroSDK/mb/mb_block.c:
+    complete
     .text start:0x02178ecc end:0x02179194
 
 src/ov089/Unk_ov089_02176bfc.cpp:
