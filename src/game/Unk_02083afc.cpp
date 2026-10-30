@@ -33,7 +33,7 @@ extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b);
 extern "C" int func_020840e0(int a, int b);
 extern "C" void func_02084100(void);
 extern "C" void func_0208413c(void);
-extern "C" void func_02084188(void);
+extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2);
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
 extern "C" void func_020841e8(void);
@@ -558,25 +558,20 @@ extern "C" asm void func_0208413c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_02084188(void)
+extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2)
 {
-    add r0, r0, #0x10000
-    sub r0, r0, r1
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    tst r0, #0x8000
-    beq @L_020841b4
-    cmp r2, #0
-    rsbne r0, r0, #0x10000
-    movne r0, r0, lsl #0x10
-    movne r0, r0, lsr #0x10
-    bx lr
-@L_020841b4:
-    cmp r2, #0
-    rsbeq r0, r0, #0x10000
-    moveq r0, r0, lsl #0x10
-    moveq r0, r0, lsr #0x10
-    bx lr
+    arg0 = ((u32)(((arg0 + 0x10000) - arg1) << 0x10) >> 0x10);
+    if ((arg0 & 0x8000) != 0) {
+        if (arg2 != 0) {
+            arg0 = ((u32)((0x10000 - arg0) << 0x10) >> 0x10);
+        }
+        return arg0;
+    } else {
+        if (arg2 == 0) {
+            arg0 = ((u32)((0x10000 - arg0) << 0x10) >> 0x10);
+        }
+        return arg0;
+    }
 }
 
 extern "C" u8 func_020841c8(int i)

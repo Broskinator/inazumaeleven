@@ -93,7 +93,7 @@ extern "C" void func_ov015_02149210(void);
 extern "C" void func_ov015_02149214(void);
 extern "C" void func_ov015_02149218(u8 *arg0);
 extern "C" void func_ov015_0214922c(u8 *arg0, s32 arg1);
-extern "C" void func_ov015_02149240(void);
+extern "C" s32 func_ov015_02149240(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_0214927c(u8 *arg0);
 extern "C" void func_ov015_02149294(void);
 extern "C" void func_ov015_021493f8(void);
@@ -152,7 +152,7 @@ extern "C" void _ZN12Unk_0205dee013func_0205ff3cEv(void);
 extern "C" s32 _ZN12Unk_0205dee013func_02060204Ev(...);
 extern "C" s32 _ZN17UnkClass_0206029413func_02060448Ev(...);
 extern "C" s32 _ZN17UnkClass_0206029413func_02060480EPv(...);
-extern "C" void _ZN17UnkClass_0206029413func_02060858Ei(void);
+extern "C" s32 _ZN17UnkClass_0206029413func_02060858Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_020768e4EPhi(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
@@ -3325,23 +3325,21 @@ extern "C" void func_ov015_0214922c(u8 *arg0, s32 arg1)
     *(s32 *)(arg0 + 0x248) = 0;
 }
 
-extern "C" asm void func_ov015_02149240(void)
+extern "C" s32 func_ov015_02149240(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #4]
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldr r2, [r4, #0x248]
-    cmp r2, #0
-    movne r0, #0
-    ldmneia sp!, {r4, pc}
-    str r1, [r4, #0x240]
-    bl _ZN17UnkClass_0206029413func_02060858Ei
-    str r0, [r4, #8]
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 t0;
+    s32 t1;
+    if (*(s32 *)(arg0 + 0x4) == 0)
+        return 0;
+    if (*(s32 *)(arg0 + 0x248) != 0)
+        return 0;
+    t0 = *(s32 *)(arg0 + 0x4);
+    t1 = *(s32 *)(arg0 + 0x248);
+    *(s32 *)(arg0 + 0x240) = arg1;
+    v0 = _ZN17UnkClass_0206029413func_02060858Ei(t0, arg1, t1);
+    *(s32 *)(arg0 + 0x8) = v0;
+    return 1;
 }
 
 extern "C" s32 func_ov015_0214927c(u8 *arg0)

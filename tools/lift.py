@@ -20,7 +20,7 @@ COND = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<=",
         "hi": ">", "hs": ">=", "cs": ">=", "lo": "<", "cc": "<", "ls": "<="}
 VAR = "s32(...)"
 FUNCS = {}     # (name -> address, of the functions of the module)
-VARIANTS, VARIANT = 2, {}     # (how many ways a function can be written, and the one to try next)
+VARIANTS, VARIANT = 6, {}     # (how many ways a function can be written, and the one to try next)
 
 
 class Fail(Exception):
@@ -648,6 +648,113 @@ def switches(lines, a0, ret):
     return res
 
 
+def unpredicate(insns):
+    """insns with each run of conditional instructions (not branches or returns) made a
+    branch around it, the way it was written: 'moveq r0, #1; ldreq r1, [r2]' is
+    'bne L; mov r0, #1; ldr r1, [r2]; L:'. Branches to a label followed by a branch on the
+    same condition go on to its target (the flags are known there), and the same for the
+    end of a run, so 'moveq; movne' becomes an if/else."""
+    out, k, n = [], 0, 0
+    last_cmp, crossed, written = None, False, set()
+
+    def sets_flags(ins):
+        return ins[1] in ("cmp", "cmn", "tst", "bl", "blx") or ins[3]
+
+    def defs(ins):
+        if ins[1] in STORE or ins[1] in ("cmp", "cmn", "tst", "b", "ret", "switch"):
+            return set()
+        if ins[1] in ("bl", "blx"):
+            return {"r0", "r1", "r2", "r3", "r12"}
+        m = re.match(r"(r\d+|lr)\b", ins[4])
+        return {m[1]} if m else set()
+
+    def note(ins):
+        nonlocal last_cmp, crossed, written
+        if ins[0] is not None:
+            crossed = crossed or not re.match(r"[PQ]_", ins[0])
+        elif sets_flags(ins):
+            last_cmp = ins if ins[1] in ("cmp", "cmn", "tst") and not ins[2] else None
+            crossed, written = False, set()
+        else:
+            written |= defs(ins)
+            if re.search(r"\]!|\], #", ins[4]):
+                written |= set(re.findall(r"\[(r\d+)", ins[4]))
+    while k < len(insns):
+        ins = insns[k]
+        if ins[0] is not None or not ins[2] or ins[1] in ("b", "ret", "switch"):
+            out.append(ins)
+            note(ins)
+            k += 1
+            continue
+        c = ins[2]
+        if crossed:
+            # (the compare is before a label: again here, if its registers are the same)
+            if last_cmp is None or set(re.findall(r"r\d+|lr", last_cmp[4])) & written:
+                raise Fail("a condition from before a label")
+            out.append(last_cmp)
+            note(last_cmp)
+        run = []
+        while k < len(insns) and insns[k][0] is None and insns[k][2] == c and insns[k][1] not in ("b", "ret", "switch"):
+            run.append((None, insns[k][1], "", insns[k][3], insns[k][4]))
+            k += 1
+            if sets_flags(run[-1]):
+                break     # (cmpeq: the flags after it are the second compare's, where it ran)
+        lbl = f"P_{n}"
+        n += 1
+        out.append((None, "b", OPPOSITE[c], False, "@" + lbl))
+        for r in run:
+            out.append(r)
+            note(r)
+        # (the end of the run: the condition still holds there, if the run kept the flags)
+        out.append((None, "end", "" if any(sets_flags(r) for r in run) else c, False, lbl))
+        out.append((lbl, None, "", False, ""))
+        if any(sets_flags(r) for r in run):
+            last_cmp = None
+    # (threading: a branch on c to a label followed by a branch on c, or a return on c)
+    for _ in range(100):
+        changed = False
+        pos = {ins[0]: j for j, ins in enumerate(out) if ins[0] is not None}
+        for j, ins in enumerate(out):
+            if not (ins[0] is None and ins[1] in ("b", "end") and ins[2]):
+                continue
+            tgt = ins[4].lstrip("@")
+            if tgt not in pos:
+                continue
+            t = pos[tgt]
+            while t < len(out) and (out[t][0] is not None or out[t][1] == "end"):
+                t += 1
+            if t >= len(out):
+                continue
+            nx = out[t]
+            if nx[1] == "b" and nx[2] == ins[2] and nx[4].lstrip("@") != tgt:
+                out[j] = ins[:4] + ("@" + nx[4].lstrip("@"),)
+                changed = True
+            elif nx[1] == "b" and nx[2] == OPPOSITE[ins[2]]:
+                nl = f"Q_{t}"
+                if not (t + 1 < len(out) and out[t + 1][0] == nl):
+                    out.insert(t + 1, (nl, None, "", False, ""))
+                out[j] = ins[:4] + ("@" + nl,)
+                changed = True
+                break
+            elif nx[1] == "ret" and nx[2] == ins[2]:
+                out[j] = (None, "ret", ins[2] if ins[1] == "b" else "", False, "")
+                changed = True
+        if not changed:
+            break
+    # (a run's end that goes on somewhere else: a branch there)
+    res = []
+    for ins in out:
+        if ins[1] == "end":
+            if ins[4].startswith("@"):
+                res.append((None, "b", "", False, ins[4]))
+            continue
+        res.append(ins)
+    # (the labels nothing goes to any more: gone, so the flags go on in the block)
+    used = {ins[4].lstrip("@") for ins in res if ins[0] is None and ins[1] == "b"}
+    used |= {x for ins in res if ins[0] is None and ins[1] == "switch" for x in ins[4].split()[1:]}
+    return [ins for ins in res if ins[0] is None or ins[0] in used]
+
+
 def lift_cfg(name, body, protos, variant=0):
     """(declaration, C body, callees) of an asm function with branches, or raises Fail.
 
@@ -671,7 +778,7 @@ def lift_cfg(name, body, protos, variant=0):
     # (the locals: from the lowest address taken or loaded; the stores below are arguments)
     low, nstack = None, 0
     for line in lines:
-        m = re.match(r"(?:add \w+, sp, #(\w+)|add \w+, sp|ldr\w* \w+, \[sp(?:, #(\w+))?\])$", line)
+        m = re.match(r"(?:add (?!sp)\w+, sp, #(\w+)|add (?!sp)\w+, sp|ldr\w* \w+, \[sp(?:, #(\w+))?\])$", line)
         if m:
             off = imm(m[1] or m[2] or "0")
             if off < size or not m[0].startswith("ldr"):
@@ -721,6 +828,8 @@ def lift_cfg(name, body, protos, variant=0):
         if not sp:
             raise Fail(line)
         insns.append((None,) + sp + (op,))
+    if not variant & 2:
+        insns = unpredicate(insns)
     # (blocks: from a label or after a branch or a return)
     blocks, cur = [], None
     for ins in insns:
@@ -1355,12 +1464,17 @@ def lift_file(src, sizes, failed):
             continue
         v = VARIANT.get(b[1], 0)
         try:
-            try:
-                cand[b[1]] = (b[0],) + (lift_cfg if "@" in b[2] else lift)(b[1], b[2], protos, v)
-            except (Fail, KeyError):
-                if "@" in b[2]:
-                    raise
-                cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, v)
+            # (variants: lift() 0-1 (without branches), then lift_cfg() 0-3)
+            if "@" not in b[2] and v < 2:
+                try:
+                    cand[b[1]] = (b[0],) + lift(b[1], b[2], protos, v)
+                except (Fail, KeyError):
+                    VARIANT[b[1]] = v = 2
+            if b[1] not in cand:
+                w = v - 2 if "@" not in b[2] else v
+                if w >= 4:
+                    raise Fail("no more variants")
+                cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, w)
         except (Fail, KeyError):
             if v + 1 < VARIANTS:
                 VARIANT[b[1]] = v + 1

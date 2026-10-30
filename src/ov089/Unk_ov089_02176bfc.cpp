@@ -1,7 +1,7 @@
 #include "ov089/Unk_ov089_02176bfc.hpp"
 
 extern "C" void func_ov089_02176bfc(void);
-extern "C" void func_ov089_02176c64(void);
+extern "C" s32 func_ov089_02176c64(void);
 extern "C" void func_ov089_02176cc4(void);
 extern "C" s32 func_ov089_02176d20(s32 arg0);
 extern "C" void func_ov089_02176d64(void);
@@ -72,32 +72,28 @@ extern "C" asm void func_ov089_02176bfc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov089_02176c64(void)
+extern "C" s32 func_ov089_02176c64(void)
 {
-    ldr r1, =data_ov089_021792d0
-    mov r0, #0
-    ldr r12, [r1, #0xc]
-    mov r3, r0
-    add r1, r12, #0x500
-    ldrh r1, [r1, #0x28]
-    mov r2, r0
-    cmp r1, #1
-    ldreqb r1, [r12, #0x50c]
-    cmpeq r1, #0
-    moveq r3, #1
-    cmp r3, #0
-    beq @L_02176ca8
-    add r1, r12, #0x500
-    ldrh r1, [r1, #0x26]
-    cmp r1, #0
-    moveq r2, #1
-@L_02176ca8:
-    cmp r2, #0
-    addne r1, r12, #0x500
-    ldrneh r1, [r1, #0x2a]
-    cmpne r1, #0
-    movne r0, #1
-    bx lr
+    s32 r0;
+    s32 r2;
+    s32 r3;
+    u8 *r12;
+    r0 = 0;
+    r2 = 0;
+    r3 = 0;
+    r12 = (u8 *)*(s32 *)(data_ov089_021792d0 + 0xC);
+    if ((*(u16 *)(((u8 *)(r12 + 0x500)) + 0x28) == 1 && *(u8 *)(r12 + 0x50C) == 0)) {
+        r3 = 1;
+    }
+    if (r3 != 0) {
+        if (*(u16 *)(((u8 *)(r12 + 0x500)) + 0x26) == 0) {
+            r2 = 1;
+        }
+    }
+    if ((r2 != 0 && *(u16 *)(((u8 *)(r12 + 0x500)) + 0x2A) != 0)) {
+        r0 = 1;
+    }
+    return r0;
 }
 
 extern "C" void func_ov089_02176cc4(void)

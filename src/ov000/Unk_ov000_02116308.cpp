@@ -1,6 +1,6 @@
 #include "ov000/Unk_ov000_02116308.hpp"
 
-extern "C" void func_ov000_02116308(void);
+extern "C" s32 func_ov000_02116308(s32 arg0, s32 arg1);
 extern "C" void func_ov000_02116348(void);
 extern "C" void func_ov000_02116530(void);
 extern "C" void func_ov000_021168bc(void);
@@ -55,24 +55,17 @@ extern "C" void func_ov015_02133efc(void);
 extern "C" void func_ov015_02134208(void);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov000_02116308(void)
+extern "C" s32 func_ov000_02116308(s32 arg0, s32 arg1)
 {
-    cmp r1, #0xe7
-    blt @L_0211633c
-    cmp r1, #0xf0
-    bgt @L_0211633c
-    ldr r0, =data_020cafe0
-    sub r1, r1, #0xe7
-    ldrh r2, [r0, #0xf6]
-    mov r0, #1
-    mov r1, r0, lsl r1
-    mov r2, r2, lsl #0x13
-    tst r1, r2, lsr #22
-    movne r0, #2
-    bx lr
-@L_0211633c:
-    mov r0, #0
-    bx lr
+    if ((arg1 >= 0xE7 && arg1 <= 0xF0)) {
+        arg0 = 1;
+        if (((arg0 << (arg1 - 0xE7)) & ((u32)(*(u16 *)(data_020cafe0 + 0xF6) << 0x13) >> 0x16)) != 0) {
+            arg0 = 2;
+        }
+        return arg0;
+    } else {
+        return 0;
+    }
 }
 
 extern "C" asm void func_ov000_02116348(void)

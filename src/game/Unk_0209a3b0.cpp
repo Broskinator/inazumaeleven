@@ -44,7 +44,7 @@ extern "C" void func_0209b1e4(u8 *obj, u8 value);
 extern "C" void func_0209b1ec(void);
 extern "C" void func_0209b230(void);
 extern "C" void func_0209b288(u8 *obj, s32 a, s32 b);
-extern "C" void func_0209b298(void);
+extern "C" s32 func_0209b298(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" void func_0209b2bc(void);
 extern "C" void func_0209b3bc(void);
 extern "C" u8 *func_0209b3f8(u8 *obj);
@@ -1176,17 +1176,20 @@ extern "C" void func_0209b288(u8 *obj, s32 a, s32 b)
     *(s32 *)(obj + 0x5BF8) = b;
 }
 
-extern "C" asm void func_0209b298(void)
+extern "C" s32 func_0209b298(s32 arg0, u8 *arg1, u8 *arg2)
 {
-    cmp r1, #0
-    addne r3, r0, #0x5000
-    ldrne r3, [r3, #0xbf4]
-    strne r3, [r1]
-    cmp r2, #0
-    addne r0, r0, #0x5000
-    ldrne r0, [r0, #0xbf8]
-    strne r0, [r2]
-    bx lr
+    s32 t0;
+    s32 t1;
+    if ((s32)arg1 != 0) {
+        t0 = *(s32 *)(((u8 *)(arg0 + 0x5000)) + 0xBF4);
+        *(s32 *)(arg1) = t0;
+    }
+    if ((s32)arg2 != 0) {
+        t1 = *(s32 *)(((u8 *)(arg0 + 0x5000)) + 0xBF8);
+        *(s32 *)(arg2) = t1;
+        arg0 = t1;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_0209b2bc(void)

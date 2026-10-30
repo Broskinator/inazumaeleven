@@ -1,6 +1,6 @@
 #include "ov003/Unk_ov003_02102880.hpp"
 
-extern "C" void func_ov003_02102880(void);
+extern "C" void func_ov003_02102880(u8 *arg0, s32 arg1);
 extern "C" void func_ov003_021028a8(void);
 extern "C" void func_ov003_02102900(void);
 extern "C" void func_ov003_021029a8(void);
@@ -148,7 +148,7 @@ extern "C" void func_0209c17c(void);
 extern "C" void func_0209c628(void);
 extern "C" void func_0209c648(void);
 extern "C" void func_ov003_02102254(void);
-extern "C" void func_ov003_0210269c(void);
+extern "C" s32 func_ov003_0210269c(...);
 extern "C" void func_ov003_02102720(void);
 extern "C" void func_ov003_02102760(void);
 extern "C" void func_ov003_021076d0(void);
@@ -186,18 +186,18 @@ extern "C" void func_ov015_0213c33c(void);
 extern "C" s32 func_ov015_0213c3dc(...);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov003_02102880(void)
+extern "C" void func_ov003_02102880(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, [r0, #8]
-    cmp r2, #3
-    ldreqb r2, [r0, #0xc]
-    cmpeq r2, #0
-    ldmneia sp!, {r3, pc}
-    tst r1, #1
-    ldmeqia sp!, {r3, pc}
-    bl func_ov003_0210269c
-    ldmia sp!, {r3, pc}
+    u8 t0;
+    if (*(s32 *)(arg0 + 0x8) != 3)
+        return;
+    if (*(u8 *)(arg0 + 0xC) != 0)
+        return;
+    if ((arg1 & 1) == 0)
+        return;
+    t0 = *(u8 *)(arg0 + 0xC);
+    func_ov003_0210269c((s32)arg0, arg1, t0);
+    return;
 }
 
 extern "C" asm void func_ov003_021028a8(void)

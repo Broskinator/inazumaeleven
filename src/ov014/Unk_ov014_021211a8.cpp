@@ -45,7 +45,7 @@ extern "C" void func_ov014_02122498(void);
 extern "C" s32 func_ov014_021224d8(...);
 extern "C" void func_ov014_02122510(s32 arg0, s32 arg1);
 extern "C" void func_ov014_02122520(void);
-extern "C" void func_ov014_02122568(void);
+extern "C" s32 func_ov014_02122568(s32 arg0);
 extern "C" void func_ov014_0212259c(void);
 extern "C" void func_ov014_0212261c(void);
 extern "C" void func_ov014_0212267c(void);
@@ -1570,21 +1570,15 @@ extern "C" asm void func_ov014_02122520(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02122568(void)
+extern "C" s32 func_ov014_02122568(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_ov014_02121808
-    cmp r4, #0x1c
-    movhs r0, #3
-    ldmhsia sp!, {r4, pc}
-    cmp r4, #0x16
-    movhs r0, #2
-    ldmhsia sp!, {r4, pc}
-    mov r0, #1
-    cmp r4, #0x10
-    movlo r0, #0
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    v0 = func_ov014_02121808();
+    if ((u32)arg0 >= (u32)0x1C)
+        return 3;
+    if ((u32)arg0 >= (u32)0x16)
+        return 2;
+    return ((u32)arg0 < (u32)0x10 ? 0 : 1);
 }
 
 extern "C" asm void func_ov014_0212259c(void)

@@ -23,7 +23,7 @@ extern "C" s32 func_ov046_02169eb4(u8 *arg0);
 extern "C" s32 func_ov046_02169ee4(s32 arg0);
 extern "C" void func_ov046_02169ef8(u8 *arg0, s32 arg1);
 extern "C" void func_ov046_02169f00(void);
-extern "C" void func_ov046_02169f04(void);
+extern "C" void func_ov046_02169f04(u8 *arg0);
 extern "C" void func_ov046_02169f24(void);
 extern "C" void func_ov046_02169f64(void);
 extern "C" void func_ov046_0216a048(s32 arg0);
@@ -1101,16 +1101,12 @@ extern "C" void func_ov046_02169f00(void)
 {
 }
 
-extern "C" asm void func_ov046_02169f04(void)
+extern "C" void func_ov046_02169f04(u8 *arg0)
 {
-    ldrb r1, [r0, #0x58]
-    cmp r1, #0
-    ldrne r1, [r0, #0x54]
-    ldrne r1, [r1, #8]
-    cmpne r1, #0
-    movne r1, #1
-    strneb r1, [r0, #0x5a]
-    bx lr
+    if ((*(u8 *)(arg0 + 0x58) != 0 && *(s32 *)(*(u8 * *)(arg0 + 0x54) + 0x8) != 0)) {
+        *(u8 *)(arg0 + 0x5A) = 1;
+    }
+    return;
 }
 
 extern "C" asm void func_ov046_02169f24(void)

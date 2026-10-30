@@ -13,7 +13,7 @@ extern "C" s32 func_ov016_02149464(void);
 extern "C" void func_ov016_02149498(void);
 extern "C" s32 func_ov016_02149560(void);
 extern "C" void func_ov016_02149594(void);
-extern "C" void func_ov016_02149628(void);
+extern "C" s32 func_ov016_02149628(u8 *arg0);
 extern "C" void func_ov016_02149688(void);
 extern "C" void func_ov016_021496e8(void);
 extern "C" void func_ov016_021498c4(void);
@@ -213,7 +213,7 @@ extern "C" s32 func_ov016_02151b94(...);
 extern "C" s32 func_ov016_02151c30(...);
 extern "C" s32 func_ov016_02151c38(...);
 extern "C" void func_ov016_02151c58(void);
-extern "C" void memcmp(void);
+extern "C" s32 memcmp(...);
 
 extern "C" asm void func_ov016_02149068(void)
 {
@@ -605,31 +605,32 @@ extern "C" asm void func_ov016_02149594(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov016_02149628(void)
+extern "C" s32 func_ov016_02149628(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    ldr r1, =data_ov016_02158b20
-    mov r7, #0
-    ldr r1, [r1]
-    ldr r6, =data_ov016_02154dc0
-    add r9, r1, #0x1300
-    mov r8, r7
-    str r9, [r0]
-    mov r5, #6
-    mov r4, #0x2a
-@L_02149650:
-    mla r0, r8, r4, r9
-    mov r1, r6
-    mov r2, r5
-    add r0, r0, #0x20
-    bl memcmp
-    cmp r0, #0
-    add r8, r8, #1
-    addne r7, r7, #1
-    cmp r8, #0x14
-    blt @L_02149650
-    mov r0, r7
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    s32 r8;
+    s32 r9;
+    s32 v0;
+    s32 t1;
+    t1 = (*(s32 *)(data_ov016_02158b20) + 0x1300);
+    *(s32 *)(arg0) = t1;
+    r4 = 0x2A;
+    r5 = 6;
+    r6 = (s32)data_ov016_02154dc0;
+    r7 = 0;
+    r8 = 0;
+    r9 = t1;
+    do {
+        v0 = memcmp((((r8 * r4) + r9) + 0x20), r6, r5);
+        r8 = (r8 + 1);
+        if (v0 != 0) {
+            r7 = (r7 + 1);
+        }
+    } while (r8 < 0x14);
+    return r7;
 }
 
 extern "C" asm void func_ov016_02149688(void)

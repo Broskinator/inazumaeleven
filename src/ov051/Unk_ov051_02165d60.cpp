@@ -1,7 +1,7 @@
 #include "ov051/Unk_ov051_02165d60.hpp"
 
 extern "C" s32 func_ov051_02165d60(u8 *arg0, s32 arg1);
-extern "C" void func_ov051_02165da8(void);
+extern "C" s32 func_ov051_02165da8(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov051_02165e08(...);
 extern "C" s32 func_ov051_02165ea0(...);
 extern "C" void func_ov051_02165f28(void);
@@ -53,32 +53,25 @@ extern "C" s32 func_ov051_02165d60(u8 *arg0, s32 arg1)
     return 6;
 }
 
-extern "C" asm void func_ov051_02165da8(void)
+extern "C" s32 func_ov051_02165da8(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldrb r0, [r4, #0x28]
-    cmp r0, #0
-    bne @L_02165dc8
-    ldrh r0, [r1, #4]
-    cmp r0, #1
-    ldmeqia sp!, {r4, pc}
-@L_02165dc8:
-    ldr r0, [r4, #0x20]
-    mov r2, #1
-    strb r2, [r4, #0x28]
-    cmp r0, #4
-    ldreqh r0, [r1, #4]
-    cmpeq r0, #1
-    ldmneia sp!, {r4, pc}
-    ldr r0, =data_020c5e40
-    mov r1, r2
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r0, r4
-    bl func_ov051_02166070
-    mov r0, #6
-    str r0, [r4, #0x20]
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    s32 t0;
+    r4 = (u8 *)arg0;
+    if (*(u8 *)(r4 + 0x28) == 0) {
+        if (*(u16 *)(arg1 + 0x4) == 1)
+            return *(u16 *)(arg1 + 0x4);
+    }
+    t0 = *(s32 *)(r4 + 0x20);
+    *(u8 *)(r4 + 0x28) = 1;
+    if (t0 != 4)
+        return t0;
+    if (*(u16 *)(arg1 + 0x4) != 1)
+        return *(u16 *)(arg1 + 0x4);
+    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 1, 1);
+    func_ov051_02166070((s32)r4);
+    *(s32 *)(r4 + 0x20) = 6;
+    return 6;
 }
 
 extern "C" asm s32 func_ov051_02165e08(...)

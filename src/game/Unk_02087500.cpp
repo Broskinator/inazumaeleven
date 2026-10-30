@@ -82,7 +82,7 @@ extern "C" s32 func_02088cac(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02088cfc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02088d4c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02088da0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_02088df4(void);
+extern "C" s32 func_02088df4(void);
 extern "C" void func_02088eb0(void);
 
 extern "C" char data_020aad64[];
@@ -117,7 +117,7 @@ extern "C" void G3X_SetClearColor(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 MIi_CpuCopyFast(...);
-extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
+extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
@@ -129,10 +129,10 @@ extern "C" void func_02002bf4(void);
 extern "C" s32 func_02002c0c(...);
 extern "C" void func_02002c20(void);
 extern "C" void func_02008cb4(void);
-extern "C" void func_02022484(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" s32 func_02022484(...);
+extern "C" s32 func_02022b2c(...);
+extern "C" s32 func_0202300c(...);
+extern "C" s32 func_0202323c(...);
 extern "C" void func_0202b4c4(void);
 extern "C" void func_0202b540(void);
 extern "C" void func_0202b608(void);
@@ -168,7 +168,7 @@ extern "C" void func_ov015_021349b4(void);
 extern "C" void func_ov015_021349c0(void);
 extern "C" void func_ov015_021349c4(void);
 extern "C" void func_ov015_02134a08(void);
-extern "C" void func_ov015_0213d054(void);
+extern "C" s32 func_ov015_0213d054(...);
 extern "C" void func_ov015_0213d4e8(void);
 extern "C" void func_ov015_0213da48(void);
 extern "C" s32 func_ov015_02145a88(...);
@@ -1899,49 +1899,37 @@ extern "C" s32 func_02088da0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     return 1;
 }
 
-extern "C" asm void func_02088df4(void)
+extern "C" s32 func_02088df4(void)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    ldr r4, =data_020c46e4
-    ldr r1, =data_020af670
-    mov r0, r4
-    bl _ZN10ConfigFile6GetIntEPKc
-    cmp r0, #0
-    ble @L_02088e38
-    ldr r1, =data_020af680
-    mov r0, r4
-    bl _ZN10ConfigFile6GetIntEPKc
-    mov r0, r0, lsl #0xc
-    bl func_02022484
-    mov r1, r0
-    mov r0, #0x3f000000
-    bl func_0202300c
-    b @L_02088e54
-@L_02088e38:
-    ldr r1, =data_020af690
-    mov r0, r4
-    bl _ZN10ConfigFile6GetIntEPKc
-    mov r0, r0, lsl #0xc
-    bl func_02022484
-    mov r1, #0x3f000000
-    bl func_0202323c
-@L_02088e54:
-    bl func_02022b2c
-    cmp r0, #0
-    ldreq r0, =0x1001000
-    mov r2, #0x1000
-    str r2, [sp]
-    add r1, r0, #0x1000
-    str r1, [sp, #4]
-    ldr r0, =data_020c46d0
-    ldr r1, =0x536
-    ldr r0, [r0]
-    ldr r3, =0x1555
-    sub r2, r2, #0xdf
-    bl func_ov015_0213d054
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    s32 r0;
+    s32 r4;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 v4;
+    s32 v5;
+    s32 v7;
+    s32 v8;
+    s32 t0;
+    v0 = _ZN10ConfigFile6GetIntEPKc((s32)data_020c46e4, (s32)data_020af670);
+    r4 = (s32)data_020c46e4;
+    if (v0 > 0) {
+        v1 = _ZN10ConfigFile6GetIntEPKc(r4, (s32)data_020af680);
+        v2 = func_02022484((v1 << 0xC));
+        func_0202300c(0x3F000000, v2);
+    } else {
+        v4 = _ZN10ConfigFile6GetIntEPKc(r4, (s32)data_020af690);
+        v5 = func_02022484((v4 << 0xC));
+        func_0202323c(v5, 0x3F000000);
+    }
+    v7 = func_02022b2c();
+    r0 = v7;
+    if (r0 == 0) {
+        r0 = 0x1001000;
+    }
+    t0 = *(s32 *)(data_020c46d0);
+    v8 = func_ov015_0213d054(t0, 0x536, (0x1000 - 0xDF), 0x1555, 0x1000, (r0 + 0x1000));
+    return v8;
 }
 
 extern "C" asm void func_02088eb0(void)

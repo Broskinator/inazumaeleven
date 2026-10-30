@@ -3,21 +3,21 @@
 extern "C" void func_ov015_02131004(void);
 extern "C" void func_ov015_021311c4(void);
 extern "C" void func_ov015_02131374(void);
-extern "C" void func_ov015_02131398(void);
-extern "C" void func_ov015_021313d4(void);
+extern "C" s32 func_ov015_02131398(u8 *arg0, u8 *arg1);
+extern "C" void func_ov015_021313d4(u8 *arg0);
 extern "C" void func_ov015_0213140c(void);
 extern "C" void func_ov015_0213142c(void);
 extern "C" void func_ov015_021314a8(void);
 extern "C" void func_ov015_02131538(void);
 extern "C" char *func_ov015_02131688(void);
 extern "C" s32 func_ov015_021316a8(u8 *arg0, u8 *arg1);
-extern "C" void func_ov015_021316cc(void);
-extern "C" void func_ov015_02131704(void);
+extern "C" s32 func_ov015_021316cc(...);
+extern "C" s32 func_ov015_02131704(u8 arg0);
 extern "C" void func_ov015_02131754(void);
 extern "C" void func_ov015_02131770(void);
 extern "C" void func_ov015_0213178c(void);
 extern "C" void func_ov015_0213179c(void);
-extern "C" void func_ov015_021317c8(void);
+extern "C" s32 func_ov015_021317c8(...);
 extern "C" void func_ov015_021317f8(void);
 extern "C" u8 func_ov015_02131808(void);
 extern "C" void func_ov015_02131818(s32 arg0);
@@ -31,7 +31,7 @@ extern "C" s32 func_ov015_02131910(void);
 extern "C" void func_ov015_0213192c(void);
 extern "C" void func_ov015_02131948(void);
 extern "C" void func_ov015_02131970(void);
-extern "C" void func_ov015_02131994(void);
+extern "C" s32 func_ov015_02131994(...);
 extern "C" void func_ov015_021319b0(void);
 extern "C" s32 func_ov015_021319bc(void);
 extern "C" s32 func_ov015_021319dc(void);
@@ -44,7 +44,7 @@ extern "C" void func_ov015_02131b28(void);
 extern "C" void func_ov015_02131b60(void);
 extern "C" s32 func_ov015_02131bb4(...);
 extern "C" void func_ov015_02131bd0(void);
-extern "C" void func_ov015_02131bec(void);
+extern "C" s32 func_ov015_02131bec(void);
 extern "C" void func_ov015_02131c30(void);
 extern "C" s32 func_ov015_02131c8c(...);
 extern "C" s32 func_ov015_02131cd4(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -118,7 +118,7 @@ extern "C" void func_ov015_021335c0(void);
 extern "C" void func_ov015_021335d4(void);
 extern "C" void func_ov015_02133724(void);
 extern "C" void func_ov015_021338dc(s32 arg0);
-extern "C" void func_ov015_0213393c(void);
+extern "C" s32 func_ov015_0213393c(u8 *arg0);
 extern "C" s32 func_ov015_0213396c(void);
 extern "C" void func_ov015_0213397c(void);
 extern "C" void func_ov015_02133ba8(void);
@@ -225,10 +225,10 @@ extern "C" void _ZN12SoundManager13func_0203a154Ev(void);
 extern "C" void _ZN12SoundManager13func_0203a7b4Ei(void);
 extern "C" void _ZN12SoundManager13func_0203bc60Eii(void);
 extern "C" void _ZN12SoundManager6UpdateEv(void);
-extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206bf98Ev(void);
+extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206bf98Ev(...);
 extern "C" s32 _ZN17UnkClass_020621b413func_0206de64Ev(...);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12GetTextWidthEPKc(void);
@@ -546,39 +546,36 @@ extern "C" asm void func_ov015_02131374(void)
     bx lr
 }
 
-extern "C" asm void func_ov015_02131398(void)
+extern "C" s32 func_ov015_02131398(u8 *arg0, u8 *arg1)
 {
-    ldr r12, [r0]
-    cmp r12, #0x80000000
-    ldrne r2, [r1]
-    cmpne r2, #0x80000000
-    bxeq lr
-    ldr r2, =data_020c4de0
-    ldr r3, [r2, #0xd4]
-    rsb r3, r12, r3, lsl #1
-    str r3, [r0]
-    ldr r2, [r2, #0xd8]
-    ldr r0, [r1]
-    rsb r0, r0, r2, lsl #1
-    str r0, [r1]
-    bx lr
+    s32 t0;
+    s32 t2;
+    if (*(s32 *)(arg0) == -0x80000000)
+        return (s32)arg0;
+    if (*(s32 *)(arg1) == -0x80000000)
+        return (s32)arg0;
+    t0 = ((*(s32 *)(data_020c4de0 + 0xD4) << 1) - *(s32 *)(arg0));
+    *(s32 *)(arg0) = t0;
+    t2 = ((*(s32 *)(data_020c4de0 + 0xD8) << 1) - *(s32 *)(arg1));
+    *(s32 *)(arg1) = t2;
+    return t2;
 }
 
-extern "C" asm void func_ov015_021313d4(void)
+extern "C" void func_ov015_021313d4(u8 *arg0)
 {
-    ldr r12, [r0]
-    cmp r12, #0x80000000
-    ldrne r3, [r0, #4]
-    cmpne r3, #0x80000000
-    bxeq lr
-    ldr r1, =data_020c4de0
-    ldr r2, [r1, #0xd4]
-    rsb r2, r12, r2, lsl #1
-    str r2, [r0]
-    ldr r1, [r1, #0xd8]
-    rsb r1, r3, r1, lsl #1
-    str r1, [r0, #4]
-    bx lr
+    s32 t0;
+    s32 t1;
+    s32 t3;
+    if (*(s32 *)(arg0) == -0x80000000)
+        return;
+    if (*(s32 *)(arg0 + 0x4) == -0x80000000)
+        return;
+    t0 = ((*(s32 *)(data_020c4de0 + 0xD4) << 1) - *(s32 *)(arg0));
+    t1 = *(s32 *)(arg0 + 0x4);
+    *(s32 *)(arg0) = t0;
+    t3 = ((*(s32 *)(data_020c4de0 + 0xD8) << 1) - t1);
+    *(s32 *)(arg0 + 0x4) = t3;
+    return;
 }
 
 extern "C" asm void func_ov015_0213140c(void)
@@ -783,7 +780,7 @@ extern "C" s32 func_ov015_021316a8(u8 *arg0, u8 *arg1)
     return t1;
 }
 
-extern "C" asm void func_ov015_021316cc(void)
+extern "C" asm s32 func_ov015_021316cc(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x20
@@ -800,25 +797,20 @@ extern "C" asm void func_ov015_021316cc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov015_02131704(void)
+extern "C" s32 func_ov015_02131704(u8 arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_ov015_021317c8
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    mov r0, r4
-    bl func_ov015_021316cc
-    mov r1, r0
-    ldr r0, =data_020c5e40
-    bl _ZN12SoundManager9PlaySoundEi
-    ldr r0, =data_020c480c
-    ldr r1, =data_020c4810
-    ldrb r2, [r0]
-    strb r4, [r1]
-    add r1, r2, #1
-    strb r1, [r0]
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    u8 t0;
+    v0 = func_ov015_021317c8(arg0);
+    if (v0 != 0)
+        return v0;
+    v1 = func_ov015_021316cc(arg0);
+    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, v1);
+    t0 = *(u8 *)(data_020c480c);
+    *(u8 *)(data_020c4810) = arg0;
+    *(u8 *)(data_020c480c) = (t0 + 1);
+    return (s32)data_020c480c;
 }
 
 extern "C" asm void func_ov015_02131754(void)
@@ -861,7 +853,7 @@ extern "C" asm void func_ov015_0213179c(void)
     bx lr
 }
 
-extern "C" asm void func_ov015_021317c8(void)
+extern "C" asm s32 func_ov015_021317c8(...)
 {
     ldr r1, =gGameState
     mov r0, #0
@@ -986,7 +978,7 @@ extern "C" asm void func_ov015_02131970(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov015_02131994(void)
+extern "C" asm s32 func_ov015_02131994(...)
 {
     stmdb sp!, {r3, lr}
     bl func_ov015_02130ae8
@@ -1166,25 +1158,25 @@ extern "C" asm void func_ov015_02131bd0(void)
     bx lr
 }
 
-extern "C" asm void func_ov015_02131bec(void)
+extern "C" s32 func_ov015_02131bec(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, =data_020c4920
-    ldr r0, [r1, #0x48]
-    cmp r0, #0
-    blt @L_02131c08
-    bl func_ov015_02131994
-    ldmia sp!, {r3, pc}
-@L_02131c08:
-    ldr r0, [r1, #0x4c]
-    cmp r0, #0
-    blt @L_02131c1c
-    bl func_ov015_02131994
-    ldmia sp!, {r3, pc}
-@L_02131c1c:
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206bf98Ev
-    ldmia sp!, {r3, pc}
+    u8 *r1;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    r1 = (u8 *)data_020c4920;
+    if (*(s32 *)(r1 + 0x48) >= 0) {
+        v0 = func_ov015_02131994();
+        return v0;
+    } else {
+        if (*(s32 *)(r1 + 0x4C) >= 0) {
+            v1 = func_ov015_02131994();
+            return v1;
+        } else {
+            v2 = _ZN17UnkClass_020621b413func_0206bf98Ev((s32)data_020e88a0);
+            return v2;
+        }
+    }
 }
 
 extern "C" asm void func_ov015_02131c30(void)
@@ -3192,18 +3184,18 @@ extern "C" void func_ov015_021338dc(s32 arg0)
     *(s32 *)(data_ov015_02165d50 + 0x8) = 1;
 }
 
-extern "C" asm void func_ov015_0213393c(void)
+extern "C" s32 func_ov015_0213393c(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    cmp r0, #0
-    ldreq r0, =data_ov015_02165d50
-    ldreq r0, [r0, #4]
-    ldr r1, [r0, #0x20]
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    s32 t0;
+    if ((s32)arg0 == 0) {
+        arg0 = (u8 *)*(s32 *)(data_ov015_02165d50 + 0x4);
+    }
+    if (*(s32 *)(arg0 + 0x20) == 0)
+        return (s32)arg0;
+    t0 = *(s32 *)(arg0 + 0x20);
+    v0 = _ZN8GameHeap4FreeEPv((s32)data_020c47b4, t0);
+    return v0;
 }
 
 extern "C" s32 func_ov015_0213396c(void)

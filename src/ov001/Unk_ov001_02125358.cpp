@@ -32,7 +32,7 @@ extern "C" void func_ov001_02126634(void);
 extern "C" void func_ov001_02126690(void);
 extern "C" void func_ov001_02126820(void);
 extern "C" void func_ov001_0212694c(s32 arg0);
-extern "C" void func_ov001_02126970(void);
+extern "C" s32 func_ov001_02126970(s32 arg0, s32 arg1);
 extern "C" s32 func_ov001_02126990(s32 arg0, u8 arg1);
 extern "C" void func_ov001_0212699c(void);
 extern "C" void func_ov001_02126b08(void);
@@ -50,10 +50,10 @@ extern "C" void func_ov001_02127db8(void);
 extern "C" void func_ov001_02127dcc(void);
 extern "C" void func_ov001_02127e5c(void);
 extern "C" void func_ov001_02127fa4(void);
-extern "C" void func_ov001_02128088(void);
-extern "C" void func_ov001_021280bc(void);
-extern "C" void func_ov001_02128144(void);
-extern "C" void func_ov001_0212816c(void);
+extern "C" s32 func_ov001_02128088(s32 arg0, s32 arg1);
+extern "C" s32 func_ov001_021280bc(...);
+extern "C" s32 func_ov001_02128144(s32 arg0, s32 arg1);
+extern "C" s32 func_ov001_0212816c(s32 arg0, s32 arg1);
 extern "C" s32 func_ov001_02128194(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov001_021281d0(void);
 
@@ -157,7 +157,7 @@ extern "C" void func_ov015_0213b7f8(void);
 extern "C" void func_ov015_02142dfc(void);
 extern "C" void func_ov015_02142ec8(void);
 extern "C" void func_ov015_02143664(void);
-extern "C" void func_ov015_021443dc(void);
+extern "C" s32 func_ov015_021443dc(...);
 extern "C" void func_ov087_0217fde0(void);
 extern "C" void gGameState(void);
 extern "C" s32 sprintf(...);
@@ -1646,16 +1646,15 @@ extern "C" void func_ov001_0212694c(s32 arg0)
     return;
 }
 
-extern "C" asm void func_ov001_02126970(void)
+extern "C" s32 func_ov001_02126970(s32 arg0, s32 arg1)
 {
-    cmp r1, #0
-    bxlt lr
-    cmp r1, #0x10
-    movlt r2, #0xe50
-    mlalt r0, r1, r2, r0
-    movlt r1, #0
-    strlt r1, [r0, #0xe40]
-    bx lr
+    if (arg1 < 0)
+        return arg0;
+    if (arg1 < 0x10) {
+        *(s32 *)(((u8 *)((arg1 * 0xE50) + arg0)) + 0xE40) = 0;
+        arg0 = ((arg1 * 0xE50) + arg0);
+    }
+    return arg0;
 }
 
 extern "C" s32 func_ov001_02126990(s32 arg0, u8 arg1)
@@ -3255,25 +3254,22 @@ extern "C" asm void func_ov001_02127fa4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_02128088(void)
+extern "C" s32 func_ov001_02128088(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r0, r1
-    bl func_ov015_021443dc
-    cmp r0, #0
-    mov r0, r4
-    beq @L_021280b0
-    mov r1, #1
-    bl func_ov001_021280bc
-    ldmia sp!, {r4, pc}
-@L_021280b0:
-    mov r1, #2
-    bl func_ov001_021280bc
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    v0 = func_ov015_021443dc(arg1, arg1);
+    if (v0 != 0) {
+        v1 = func_ov001_021280bc(arg0, 1);
+        return v1;
+    } else {
+        v2 = func_ov001_021280bc(arg0, 2);
+        return v2;
+    }
 }
 
-extern "C" asm void func_ov001_021280bc(void)
+extern "C" asm s32 func_ov001_021280bc(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -3311,32 +3307,20 @@ extern "C" asm void func_ov001_021280bc(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov001_02128144(void)
+extern "C" s32 func_ov001_02128144(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    cmp r1, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    add r0, r0, #0x154
-    add r0, r0, #0x400
-    mov r2, #0x18
-    bl MI_CpuCopy8
-    mov r0, #1
-    ldmia sp!, {r3, pc}
+    if (arg1 == 0)
+        return 0;
+    MI_CpuCopy8(((arg0 + 0x154) + 0x400), arg1, 0x18);
+    return 1;
 }
 
-extern "C" asm void func_ov001_0212816c(void)
+extern "C" s32 func_ov001_0212816c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    cmp r1, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    add r0, r0, #0x16c
-    add r0, r0, #0x400
-    mov r2, #0x18
-    bl MI_CpuCopy8
-    mov r0, #1
-    ldmia sp!, {r3, pc}
+    if (arg1 == 0)
+        return 0;
+    MI_CpuCopy8(((arg0 + 0x16C) + 0x400), arg1, 0x18);
+    return 1;
 }
 
 extern "C" s32 func_ov001_02128194(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

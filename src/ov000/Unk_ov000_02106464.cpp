@@ -15,7 +15,7 @@ extern "C" void func_ov000_02106fbc(void);
 extern "C" s32 func_ov000_02107008(u8 *arg0);
 extern "C" u8 func_ov000_02107028(u8 *arg0);
 extern "C" void func_ov000_02107030(void);
-extern "C" void func_ov000_02107064(void);
+extern "C" s32 func_ov000_02107064(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov000_0210707c(void);
 extern "C" void func_ov000_021070c8(void);
 extern "C" void func_ov000_02107154(void);
@@ -978,14 +978,15 @@ extern "C" asm void func_ov000_02107030(void)
     bx lr
 }
 
-extern "C" asm void func_ov000_02107064(void)
+extern "C" s32 func_ov000_02107064(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    cmp r1, r3
-    subge r1, r3, #1
-    cmp r1, r2
-    movlt r1, r2
-    mov r0, r1
-    bx lr
+    if (arg1 >= arg3) {
+        arg1 = (arg3 - 1);
+    }
+    if (arg1 < arg2) {
+        arg1 = arg2;
+    }
+    return arg1;
 }
 
 extern "C" asm void func_ov000_0210707c(void)

@@ -47,7 +47,7 @@ extern "C" void func_ov014_02113760(void);
 extern "C" void func_ov014_02113834(void);
 extern "C" void func_ov014_0211388c(void);
 extern "C" void func_ov014_02113898(void);
-extern "C" void func_ov014_021138a4(void);
+extern "C" s32 func_ov014_021138a4(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov014_02113914(s32 arg0, u8 *arg1);
 extern "C" void func_ov014_02113934(void);
 extern "C" void func_ov014_02113948(s32 arg0);
@@ -153,14 +153,14 @@ extern "C" char data_ov014_02128fb0[];
 extern "C" char data_ov014_02129030[];
 extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
-extern "C" void OS_CreateThread(void);
-extern "C" void OS_InitMessageQueue(void);
+extern "C" s32 OS_CreateThread(...);
+extern "C" s32 OS_InitMessageQueue(...);
 extern "C" s32 OS_InitMutex(...);
 extern "C" s32 OS_LockMutex(...);
 extern "C" s32 OS_SendMessage(...);
 extern "C" void OS_Sleep(void);
 extern "C" s32 OS_UnlockMutex(...);
-extern "C" void OS_WakeupThreadDirect(void);
+extern "C" s32 OS_WakeupThreadDirect(...);
 extern "C" void STD_CompareString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ll_udiv(void);
@@ -181,8 +181,8 @@ extern "C" void func_ov014_02111c74(void);
 extern "C" void func_ov014_02115030(void);
 extern "C" void func_ov014_021155a4(void);
 extern "C" s32 func_ov014_0211571c(...);
-extern "C" void func_ov014_02115a78(void);
-extern "C" void func_ov014_02115a90(void);
+extern "C" s32 func_ov014_02115a78(...);
+extern "C" s32 func_ov014_02115a90(...);
 extern "C" void func_ov014_021180ac(void);
 extern "C" void func_ov014_02118220(void);
 extern "C" s32 func_ov014_02118258(...);
@@ -2166,36 +2166,23 @@ extern "C" void func_ov014_02113898(void)
     OS_LockMutex();
 }
 
-extern "C" asm void func_ov014_021138a4(void)
+extern "C" s32 func_ov014_021138a4(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    sub sp, sp, #8
-    mov r6, r0
-    mov r5, r1
-    mov r4, r2
-    bl func_ov014_02115a90
-    cmp r0, #0
-    bne @L_021138dc
-    mov r0, r6
-    add r1, r6, #0x20
-    mov r2, #3
-    bl OS_InitMessageQueue
-    mov r0, r6
-    bl func_ov014_02115a78
-@L_021138dc:
-    mov r0, #0x2000
-    str r0, [sp]
-    ldr r1, =func_ov014_021139a0
-    add r0, r6, #0x2c
-    add r3, r4, #0x2000
-    mov r2, #0
-    str r5, [sp, #4]
-    bl OS_CreateThread
-    add r0, r6, #0x2c
-    bl OS_WakeupThreadDirect
-    mov r0, #1
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 v0;
+    v0 = func_ov014_02115a90(arg0, arg1, arg2);
+    r4 = arg2;
+    r5 = arg1;
+    r6 = arg0;
+    if (v0 == 0) {
+        OS_InitMessageQueue(r6, (r6 + 0x20), 3);
+        func_ov014_02115a78(r6);
+    }
+    OS_CreateThread((r6 + 0x2C), (s32)func_ov014_021139a0, 0, (r4 + 0x2000), 0x2000, r5);
+    OS_WakeupThreadDirect((r6 + 0x2C));
+    return 1;
 }
 
 extern "C" void func_ov014_02113914(s32 arg0, u8 *arg1)

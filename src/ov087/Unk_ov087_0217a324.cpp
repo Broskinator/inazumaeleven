@@ -35,7 +35,7 @@ extern "C" void func_ov087_0217cd20(void);
 extern "C" void func_ov087_0217cd3c(void);
 extern "C" void func_ov087_0217cf1c(void);
 extern "C" void func_ov087_0217d034(void);
-extern "C" void func_ov087_0217d0ac(void);
+extern "C" void func_ov087_0217d0ac(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov087_0217d158(void);
 extern "C" void func_ov087_0217d18c(void);
 extern "C" void func_ov087_0217d29c(void);
@@ -61,7 +61,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02063e7cEP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_02063ec8EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_02065178Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02065414EP11MatchPlayer(void);
-extern "C" void _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiP10MatchPointS3_i(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiP10MatchPointS3_i(...);
 extern "C" void _ZN17UnkClass_020621b413func_020659f8EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_02065a04EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_020663b0Ev(void);
@@ -107,7 +107,7 @@ extern "C" s32 _ZN17UnkClass_020621b413func_02078498Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_020784ecEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_02078520Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02078664Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer(...);
 extern "C" void _ZN17UnkClass_020621b413func_02078f8cEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_02078fa4EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207900cEi(void);
@@ -146,7 +146,7 @@ extern "C" void func_020842b0(void);
 extern "C" void func_02084350(void);
 extern "C" void func_02084788(void);
 extern "C" void func_020847b0(void);
-extern "C" void func_02084870(void);
+extern "C" s32 func_02084870(...);
 extern "C" void func_ov001_021280bc(void);
 extern "C" void func_ov015_021309a4(void);
 extern "C" void func_ov015_021309f8(void);
@@ -3353,51 +3353,33 @@ extern "C" asm void func_ov087_0217d034(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov087_0217d0ac(void)
+extern "C" void func_ov087_0217d0ac(s32 arg0, u8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0xc
-    mov r5, r0
-    mov r4, r1
-    mov r7, r2
-    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
-    ldr r1, =data_020c4920
-    mov r6, r0
-    ldr r0, [r1, #0x48]
-    bl func_ov015_02130ae8
-    cmp r7, #0
-    beq @L_0217d12c
-    ldrh r0, [r6, #0x12]
-    tst r0, #2
-    bne @L_0217d12c
-    mov r0, r4
-    bl func_02084870
-    cmp r0, #0
-    bne @L_0217d12c
-    ldr r0, [r4, #0xec]
-    ldrh r0, [r0, #0x1c]
-    cmp r0, #2
-    beq @L_0217d12c
-    mov r12, #0
-    str r12, [sp]
-    mov r2, #2
-    str r12, [sp, #4]
-    mov r0, r5
-    mov r1, r4
-    sub r3, r2, #3
-    str r12, [sp, #8]
-    bl _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiP10MatchPointS3_i
-@L_0217d12c:
-    cmp r4, #0
-    addeq sp, sp, #0xc
-    ldmeqia sp!, {r4, r5, r6, r7, pc}
-    ldr r1, [r4, #0xec]
-    ldrb r0, [r1, #0x2f]
-    cmp r0, #0
-    moveq r0, #1
-    streqb r0, [r1, #0x2f]
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    u8 *r4;
+    s32 r5;
+    u8 *r6;
+    s32 v0;
+    s32 v2;
+    s32 t0;
+    v0 = _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer(arg0, (s32)arg1, arg2);
+    t0 = *(s32 *)(data_020c4920 + 0x48);
+    func_ov015_02130ae8(t0, (s32)data_020c4920);
+    r4 = arg1;
+    r5 = arg0;
+    r6 = (u8 *)v0;
+    if ((arg2 != 0 && (*(u16 *)(r6 + 0x12) & 2) == 0)) {
+        v2 = func_02084870((s32)r4);
+        if ((v2 == 0 && *(u16 *)(*(u8 * *)(r4 + 0xEC) + 0x1C) != 2)) {
+            _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiP10MatchPointS3_i(r5, (s32)r4, 2, (2 - 3), 0, 0, 0);
+        }
+    }
+    if ((s32)r4 == 0)
+        return;
+    arg1 = (u8 *)*(s32 *)(r4 + 0xEC);
+    if (*(u8 *)(arg1 + 0x2F) == 0) {
+        *(u8 *)(arg1 + 0x2F) = 1;
+    }
+    return;
 }
 
 extern "C" asm void func_ov087_0217d158(void)
