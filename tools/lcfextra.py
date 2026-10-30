@@ -34,12 +34,14 @@ for m, d in mods.items():
               re.findall(r"^\S+:\n    complete\n    \.text start:(0x[0-9a-f]+) end:(0x[0-9a-f]+)", t, re.M)]
     if not ranges:
         continue
-    for line in open(os.path.join(d, "symbols.txt")):
-        s = re.match(r"(\S+) kind:function\S* addr:(0x[0-9a-f]+)", line)
-        if s:
-            a = int(s.group(2), 16)
-            if any(lo <= a < hi for lo, hi in ranges):
-                keep.append(s.group(1))
+    syms = open(os.path.join(d, "symbols.txt")).read()
+    funcs = [(int(a, 16), int(n, 16)) for n, a in re.findall(r"kind:function\(\w+,size=(0x[0-9a-f]+)\S* addr:(0x[0-9a-f]+)", syms)]
+    for s in re.finditer(r"^(\S+) kind:(function|data)\S* addr:(0x[0-9a-f]+)", syms, re.M):
+        a = int(s.group(3), 16)
+        # (and the data between the functions, BuildInfo say: tools/splitlib.py writes it as asm)
+        if any(lo <= a < hi for lo, hi in ranges) and \
+           (s.group(2) == "function" or not any(f <= a < f + n for f, n in funcs)):
+            keep.append(s.group(1))
 if keep and "FORCE_ACTIVE" not in text:
     text = text.replace("KEEP_SECTION {", "FORCE_ACTIVE {\n    " + ",\n    ".join(keep) + "\n}\n\nKEEP_SECTION {", 1)
 open(lcf, "w", newline="\n").write(text)

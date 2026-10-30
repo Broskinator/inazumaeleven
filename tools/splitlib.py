@@ -30,11 +30,21 @@ tails = subprocess.run([sys.executable, "tools/findtails.py", f"{lo:x}", f"{hi:x
 if tails:
     print("tails:", tails)
     sys.exit(2)
+# (a data symbol between the functions, BuildInfo say: a block of dcds of that name)
+for line in open(f"{CFG}/symbols.txt"):
+    m = re.match(r"(\S+) kind:data\S* addr:(0x[0-9a-f]+)", line)
+    if m and lo <= int(m[2], 16) < hi and not any(a <= int(m[2], 16) < a + sizes[a] for a, _, _ in funcs):
+        funcs.append((int(m[2], 16), m[1], "data"))
+        sizes[int(m[2], 16)] = 0
+funcs.sort()
 
 own = {n for _, n, _ in funcs}
 decls, bodies = [], []
-for a, name, _ in funcs:
-    r = subprocess.run([sys.executable, "tools/romasm.py", hex(a)], capture_output=True, text=True)
+for a, name, kind in funcs:
+    if kind == "data":
+        r = subprocess.CompletedProcess([], 0, "", "")
+    else:
+        r = subprocess.run([sys.executable, "tools/romasm.py", hex(a)], capture_output=True, text=True)
     if r.returncode:
         sys.exit(f"{a:#x}: {r.stderr}")
     for d in r.stderr.splitlines():

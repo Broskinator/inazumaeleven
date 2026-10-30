@@ -11,7 +11,8 @@ src/libs/Unk_02000800.c:
     complete
     .text start:0x02000800 end:0x02000950
 
-libs/NitroSDK/init/crt0.c:
+src/libs/NitroSDK/init/crt0.c:
+    complete
     .text start:0x02000950 end:0x02000c9c
 
 src/libs/NitroSDK/fx/fx_mtx22.c:
