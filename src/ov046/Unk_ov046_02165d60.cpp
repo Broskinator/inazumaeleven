@@ -1,6 +1,6 @@
 #include "ov046/Unk_ov046_02165d60.hpp"
 
-extern "C" void func_ov046_02165d60(void);
+extern "C" void func_ov046_02165d60(s32 arg0, s32 arg1);
 extern "C" void func_ov046_02165d74(void);
 extern "C" void func_ov046_02165df0(void);
 extern "C" void func_ov046_02165e10(void);
@@ -135,12 +135,10 @@ extern "C" void func_ov046_02169170(void);
 extern "C" void func_ov046_02169928(void);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov046_02165d60(void)
+extern "C" void func_ov046_02165d60(s32 arg0, s32 arg1)
 {
-    ldr r2, =data_ov046_0216b060
-    str r0, [r2, #4]
-    str r1, [r2]
-    bx lr
+    *(s32 *)(data_ov046_0216b060 + 0x4) = arg0;
+    *(s32 *)(data_ov046_0216b060) = arg1;
 }
 
 extern "C" asm void func_ov046_02165d74(void)
@@ -319,9 +317,8 @@ extern "C" asm void func_ov046_02165ed0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov046_02165fb0(void)
+extern "C" void func_ov046_02165fb0(void)
 {
-    bx lr
 }
 
 extern "C" asm void func_ov046_02165fb4(void)

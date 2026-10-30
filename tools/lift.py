@@ -115,7 +115,12 @@ def lift(name, body, decls):
             break
         m = re.match(r"(r\d+|r12), =(\w+)(?:\+(0x[0-9a-f]+))?$", op)
         if mn == "ldr" and m:
-            regs[m[1]] = Sym(m[2], int(m[3] or "0", 16))
+            if m[2][0].isdigit():
+                regs[m[1]] = Const(int(m[2], 0) + int(m[3] or "0", 16))     # (a number)
+            elif m[2] in decls and m[1] != "r12":     # (r12: a tail call)
+                raise Fail("the address of a function")
+            else:
+                regs[m[1]] = Sym(m[2], int(m[3] or "0", 16))
             wrote.add(m[1])
             continue
         m = re.match(r"(r\d+), \[(r\d+)(?:, #(-?0x[0-9a-f]+|-?\d+))?\]$", op)
@@ -162,7 +167,12 @@ def lift(name, body, decls):
     for s in stmts:
         if s[0] == "store":
             _, t, base, off, v = s
-            value = f"({t})" + (f"({v.render()})" if v.off else v.render()) if isinstance(v, Sym) else v.render()
+            if isinstance(v, Sym):
+                value = f"({t})" + (f"({v.render()})" if v.off else v.render())
+            elif isinstance(v, Load) and v.t == "u8 *" or isinstance(v, Param) and v.ptr:
+                value = f"({t}){v.render()}"     # (a pointer, stored as a word)
+            else:
+                value = v.render()
             out.append(f"    *({t} *)({addr(base, off)}) = {value};\n")
         else:
             out.append(f"    {s[1]}();\n")
