@@ -966,7 +966,7 @@ def lift_cfg(name, body, protos, variant=0):
         seg_ = set()
         for ins in b["insns"]:
             if ins[1] in ("bl", "blx"):
-                CALL_USES[id(ins)] = seg_ & {"r0", "r1", "r2", "r3"}
+                CALL_USES[id(ins)] = seg_ & {"r0", "r1", "r2", "r3"} - ({ins[4]} if ins[1] == "blx" else set())
                 seg_ = set()
             else:
                 seg_ |= use_def(ins)[1]
@@ -1073,14 +1073,15 @@ def lift_cfg(name, body, protos, variant=0):
                 if mn == "blx":
                     if c or not re.match(r"(r\d+|lr)$", op):
                         raise Fail("blx")
-                    fp = read(op)
+                    fp, fpreg = read(op), op
                     op = None
                 elif c or op == name or op not in protos:
                     raise Fail(f"call of {op}")
                 m_ = settle(regs, stmts, tmps)
                 if state["flags"] and m_:
                     state["flags"] = subst_flags(state["flags"], m_)
-                cl = Call(len(calls), op, dict(regs), set(seg), k == 0 and not calls)
+                # (the register of the function called: not an argument)
+                cl = Call(len(calls), op, dict(regs), set(seg) - ({fpreg} if op is None else set()), k == 0 and not calls)
                 if op is None:
                     cl.fp = fp
                 cl.stack = dict(out_args)
