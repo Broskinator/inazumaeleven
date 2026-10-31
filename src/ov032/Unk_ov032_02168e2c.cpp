@@ -1,4 +1,5 @@
 #include "ov032/Unk_ov032_02168e2c.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov032_02168e2c(void);
 extern "C" s32 func_ov032_02168ea0(...);
@@ -27,8 +28,8 @@ extern "C" void func_ov032_0216aa84(void);
 extern "C" void func_ov032_0216aa88(void);
 extern "C" void func_ov032_0216ab18(void);
 extern "C" void func_ov032_0216ab50(void);
-extern "C" void func_ov032_0216ac88(void);
-extern "C" void func_ov032_0216acfc(void);
+extern "C" s32 func_ov032_0216ac88(u8 *arg0);
+extern "C" s32 func_ov032_0216acfc(u8 *arg0);
 extern "C" void func_ov032_0216ad70(void);
 extern "C" s32 func_ov032_0216ad74(s32 arg0);
 
@@ -2187,72 +2188,38 @@ extern "C" asm void func_ov032_0216ab50(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov032_0216ac88(void)
+extern "C" s32 func_ov032_0216ac88(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldrb r2, [r5, #0x3e7]
-    mov r4, #0x5c
-    mla r1, r2, r4, r5
-    ldrb r1, [r1, #0x43c]
-    cmp r1, #2
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldr r1, [r0]
-    ldr r1, [r1, #0x6c]
-    blx r1
-    ldrb r2, [r5, #0x3e7]
-    mla r1, r2, r4, r5
-    ldrb r1, [r1, #0x43e]
-    mov r1, r1, lsl #1
-    ldrh r1, [r0, r1]
-    and r0, r1, #0x1000
-    mov r0, r0, asr #0xc
-    and r1, r1, #0xe000
-    mov r0, r0, lsl #0x10
-    mov r1, r1, asr #0xd
-    movs r0, r0, lsr #0x10
-    bne @L_0216acf4
-    cmp r1, #1
-    movge r0, #1
-    ldmgeia sp!, {r3, r4, r5, pc}
-@L_0216acf4:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r1;
+    s32 v0;
+    if (*(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43C) != 2) {
+        return 0;
+    } else {
+        v0 = ((VCall *)arg0)->f27();
+        r1 = ((*(u16 *)(((u8 *)v0) + (*(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43E) << 1)) & 0xE000) >> 0xD);
+        if ((((u16)((*(u16 *)(((u8 *)v0) + (*(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43E) << 1)) & 0x1000) >> 0xC)) == 0 && r1 >= 1)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
 
-extern "C" asm void func_ov032_0216acfc(void)
+extern "C" s32 func_ov032_0216acfc(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldrb r2, [r5, #0x3e7]
-    mov r4, #0x5c
-    mla r1, r2, r4, r5
-    ldrb r1, [r1, #0x43c]
-    cmp r1, #2
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldr r1, [r0]
-    ldr r1, [r1, #0x6c]
-    blx r1
-    ldrb r2, [r5, #0x3e7]
-    mla r1, r2, r4, r5
-    ldrb r1, [r1, #0x43e]
-    mov r1, r1, lsl #1
-    ldrh r1, [r0, r1]
-    and r0, r1, #0x800
-    mov r0, r0, asr #0xb
-    and r1, r1, #0xe000
-    mov r0, r0, lsl #0x10
-    mov r1, r1, asr #0xd
-    movs r0, r0, lsr #0x10
-    bne @L_0216ad68
-    cmp r1, #3
-    movge r0, #1
-    ldmgeia sp!, {r3, r4, r5, pc}
-@L_0216ad68:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r1;
+    s32 v0;
+    if (*(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43C) != 2) {
+        return 0;
+    } else {
+        v0 = ((VCall *)arg0)->f27();
+        r1 = ((*(u16 *)(((u8 *)v0) + (*(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43E) << 1)) & 0xE000) >> 0xD);
+        if ((((u16)((*(u16 *)(((u8 *)v0) + (*(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43E) << 1)) & 0x800) >> 0xB)) == 0 && r1 >= 3)) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
 
 extern "C" void func_ov032_0216ad70(void)

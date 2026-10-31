@@ -1,4 +1,5 @@
 #include "ov051/Unk_ov051_02165d60.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_ov051_02165d60(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov051_02165da8(s32 arg0, u8 *arg1);
@@ -7,7 +8,7 @@ extern "C" s32 func_ov051_02165ea0(...);
 extern "C" void func_ov051_02165f28(void);
 extern "C" void func_ov051_02165fa0(void);
 extern "C" s32 func_ov051_02166070(...);
-extern "C" void func_ov051_021660e0(void);
+extern "C" s32 func_ov051_021660e0(u8 *arg0);
 extern "C" void func_ov051_02166118(u8 *arg0);
 extern "C" void func_ov051_02166170(void);
 extern "C" void func_ov051_02166230(void);
@@ -23,7 +24,7 @@ extern "C" char data_ov051_02166388[];
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN11TreasureBox13func_02052618Ei(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e0ccEi(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_020920c4(void);
 extern "C" void func_02092270(void);
@@ -279,23 +280,20 @@ extern "C" asm s32 func_ov051_02166070(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov051_021660e0(void)
+extern "C" s32 func_ov051_021660e0(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, [r0, #0x24]
-    cmp r1, #2
-    bne @L_02166100
-    ldr r0, [r0, #0x1c]
-    mov r1, #0
-    bl _ZN17UnkClass_0203dc7c13func_0203e0ccEi
-    ldmia sp!, {r3, pc}
-@L_02166100:
-    mov r1, #3
-    str r1, [r0, #0x20]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x4c]
-    blx r1
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    s32 v1;
+    s32 t0;
+    if (*(s32 *)(arg0 + 0x24) == 2) {
+        t0 = *(s32 *)(arg0 + 0x1C);
+        v0 = _ZN17UnkClass_0203dc7c13func_0203e0ccEi(t0, 0);
+        return v0;
+    } else {
+        *(s32 *)(arg0 + 0x20) = 3;
+        v1 = ((VCall *)arg0)->f19();
+        return v1;
+    }
 }
 
 extern "C" void func_ov051_02166118(u8 *arg0)

@@ -20,7 +20,7 @@ COND = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<=",
         "hi": ">", "hs": ">=", "cs": ">=", "lo": "<", "cc": "<", "ls": "<="}
 VAR = "s32(...)"
 FUNCS = {}     # (name -> address, of the functions of the module)
-VARIANTS, VARIANT = 6, {}     # (how many ways a function can be written, and the one to try next)
+VARIANTS, VARIANT = 10, {}     # (how many ways a function can be written, and the one to try next)
 
 
 class Fail(Exception):
@@ -243,7 +243,14 @@ def cond(flags, cc):
             raise Fail("a condition of tst")
         return f"({value(a)} & {value(b)}) {COND[cc]} 0"
     t = "u32" if cc in UNSIGNED else "s32"
+    if SWAP[0] and kind == "cmp" and not isinstance(b, Const):
+        return f"{value(b, t)} {COND[SWAPPED[cc]]} {value(a, t)}"
     return f"{value(a, t)} {COND[cc]} {value(b, t)}"
+
+
+SWAP = [False]
+SWAPPED = {"eq": "eq", "ne": "ne", "gt": "lt", "lt": "gt", "ge": "le", "le": "ge",
+           "hi": "lo", "lo": "hi", "cc": "hi", "hs": "ls", "cs": "ls", "ls": "hs"}
 
 
 def lift(name, body, protos, variant=0):
@@ -836,6 +843,7 @@ def unpredicate(insns):
 
 
 def lift_cfg(name, body, protos, variant=0):
+    SWAP[0] = bool(variant & 4)
     """(declaration, C body, callees) of an asm function with branches, or raises Fail.
 
     The asm is cut into blocks; in a block the registers are expressions as in lift(),
@@ -981,6 +989,8 @@ def lift_cfg(name, body, protos, variant=0):
         for ins in b["insns"]:
             if ins[1] in ("bl", "blx"):
                 CALL_USES[id(ins)] = seg_ & {"r0", "r1", "r2", "r3"} - ({ins[4]} if ins[1] == "blx" else set())
+                if ins[1] == "blx" and ins[4] != "r0":
+                    CALL_USES[id(ins)].add("r0")
                 # (and the ones below the last one written: the arguments before it)
                 n_ = max([int(r[1:]) + 1 for r in CALL_USES[id(ins)]] + [0])
                 CALL_USES[id(ins)] |= {f"r{i}" for i in range(n_)} - ({ins[4]} if ins[1] == "blx" else set())
@@ -1101,7 +1111,11 @@ def lift_cfg(name, body, protos, variant=0):
                 if state["flags"] and m_:
                     state["flags"] = subst_flags(state["flags"], m_)
                 # (the register of the function called: not an argument)
-                cl = Call(len(calls), op, dict(regs), set(seg) - ({fpreg} if op is None else set()), k == 0 and not calls)
+                seg_ = set(seg) - ({fpreg} if op is None else set())
+                if op is None and isinstance(fp, Load) and isinstance(fp.base, Load) and fp.base.off == 0 \
+                        and "r0" in regs and fpreg != "r0" and regs["r0"] is fp.base.base:
+                    seg_.add("r0")
+                cl = Call(len(calls), op, dict(regs), seg_, k == 0 and not calls)
                 if op is None:
                     cl.fp = fp
                 cl.stack = dict(out_args)
@@ -1651,7 +1665,7 @@ def lift_file(src, sizes, failed):
                     VARIANT[b[1]] = v = 2
             if b[1] not in cand:
                 w = v - 2 if "@" not in b[2] else v
-                if w >= 4:
+                if w >= 8:
                     raise Fail("no more variants")
                 cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, w)
         except (Fail, KeyError, IndexError):

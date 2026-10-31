@@ -17,7 +17,7 @@ extern "C" s32 func_ov043_02166714(...);
 extern "C" void func_ov043_02166828(void);
 extern "C" void func_ov043_0216696c(void);
 extern "C" void func_ov043_02166b9c(void);
-extern "C" void func_ov043_02166c2c(void);
+extern "C" s32 func_ov043_02166c2c(u8 *arg0);
 extern "C" void func_ov043_02166c88(void);
 extern "C" void func_ov043_02166cd0(s32 arg0);
 extern "C" s32 func_ov043_02166cf8(u8 *arg0);
@@ -85,7 +85,7 @@ extern "C" s32 func_020939c8(...);
 extern "C" void func_02093ca8(void);
 extern "C" s32 func_02093d1c(...);
 extern "C" void func_02097898(void);
-extern "C" void func_02097aa0(void);
+extern "C" s32 func_02097aa0(...);
 extern "C" void func_02097b3c(void);
 extern "C" s32 func_02097ca8(...);
 extern "C" void func_0209b06c(void);
@@ -108,7 +108,7 @@ extern "C" void func_ov015_02132a04(void);
 extern "C" void func_ov015_02132af0(void);
 extern "C" void func_ov015_02133f94(void);
 extern "C" void func_ov015_021340c0(void);
-extern "C" void func_ov015_02134118(void);
+extern "C" s32 func_ov015_02134118(...);
 extern "C" void func_ov015_02134198(void);
 extern "C" s32 func_ov015_02134208(...);
 extern "C" void func_ov015_02134ccc(void);
@@ -1154,31 +1154,28 @@ extern "C" asm void func_ov043_02166b9c(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov043_02166c2c(void)
+extern "C" s32 func_ov043_02166c2c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #0x44]
-    cmp r0, #0
-    beq @L_02166c58
-    ldr r1, [r0]
-    ldr r1, [r1, #4]
-    blx r1
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-@L_02166c58:
-    ldr r0, =data_020c46d4
-    ldr r1, [r4, #0x48]
-    ldr r0, [r0]
-    bl func_02097aa0
-    cmp r0, #0
-    movgt r0, #0
-    ldmgtia sp!, {r4, pc}
-    add r0, r4, #0x68
-    mov r1, #0x16
-    bl func_ov015_02134118
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 t1;
+    s32 t2;
+    r4 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x44);
+    if ((s32)arg0 != 0) {
+        v0 = ((VCall *)arg0)->f1();
+        if (v0 == 0)
+            return 0;
+    }
+    t1 = *(s32 *)(((u8 *)&data_020c46d4));
+    t2 = *(s32 *)(r4 + 0x48);
+    v1 = func_02097aa0(t1, t2);
+    if (v1 > 0)
+        return 0;
+    v2 = func_ov015_02134118((s32)(r4 + 0x68), 0x16);
+    return v2;
 }
 
 extern "C" asm void func_ov043_02166c88(void)

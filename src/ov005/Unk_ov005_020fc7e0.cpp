@@ -1,7 +1,8 @@
 #include "ov005/Unk_ov005_020fc7e0.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov005_020fc7e0(void);
-extern "C" void func_ov005_020fc93c(void);
+extern "C" s32 func_ov005_020fc93c(u8 *arg0);
 extern "C" void func_ov005_020fc98c(void);
 extern "C" s32 func_ov005_020fcac4(s32 arg0, s32 arg1);
 extern "C" s32 func_ov005_020fcb08(s32 arg0, s32 arg1);
@@ -188,30 +189,21 @@ extern "C" asm void func_ov005_020fc7e0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov005_020fc93c(void)
+extern "C" s32 func_ov005_020fc93c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #0x80]
-    cmp r0, #0
-    beq @L_020fc95c
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-@L_020fc95c:
-    ldr r0, [r4, #0x84]
-    cmp r0, #0
-    beq @L_020fc974
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-@L_020fc974:
-    mov r0, r4
-    ldr r2, [r0]
-    mov r1, #2
-    ldr r2, [r2, #0x28]
-    blx r2
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    s32 v2;
+    r4 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x80);
+    if ((s32)arg0 != 0) {
+        ((VCall *)arg0)->f8();
+    }
+    arg0 = (u8 *)*(s32 *)(r4 + 0x84);
+    if ((s32)arg0 != 0) {
+        ((VCall *)arg0)->f8();
+    }
+    v2 = ((VCall *)r4)->f10(2);
+    return v2;
 }
 
 extern "C" asm void func_ov005_020fc98c(void)

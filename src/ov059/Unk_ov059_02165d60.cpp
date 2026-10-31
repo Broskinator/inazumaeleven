@@ -1,4 +1,5 @@
 #include "ov059/Unk_ov059_02165d60.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_ov059_02165d60(u8 *arg0);
 extern "C" s32 func_ov059_02165d80(u8 *arg0);
@@ -12,7 +13,7 @@ extern "C" void func_ov059_02165e78(void);
 extern "C" void func_ov059_02165e98(void);
 extern "C" void func_ov059_02165f28(void);
 extern "C" s32 func_ov059_02165f48(u8 *arg0);
-extern "C" void func_ov059_02165f68(void);
+extern "C" s32 func_ov059_02165f68(u8 *arg0);
 extern "C" s32 func_ov059_02165fc4(s32 arg0);
 extern "C" void func_ov059_02165fd8(void);
 extern "C" void func_ov059_02165fdc(u8 *arg0);
@@ -112,9 +113,9 @@ extern "C" void _ZN17UnkClass_020621b413func_0206d6b4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206de44Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206e174Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206e330Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206e3a8Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206e3a8Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206e6bcEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206e738Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206e738Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_020765d4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);
@@ -368,31 +369,23 @@ extern "C" s32 func_ov059_02165f48(u8 *arg0)
     return v0;
 }
 
-extern "C" asm void func_ov059_02165f68(void)
+extern "C" s32 func_ov059_02165f68(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r0, [r5, #8]
-    cmp r0, #0
-    beq @L_02165fa0
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-    ldr r0, [r5, #8]
-    cmp r0, #0
-    beq @L_02165fa0
-    ldr r1, [r0]
-    ldr r1, [r1, #4]
-    blx r1
-@L_02165fa0:
-    ldr r4, =data_020e88a0
-    mov r1, #0
-    mov r0, r4
-    str r1, [r5, #8]
-    bl _ZN17UnkClass_020621b413func_0206e738Ev
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206e3a8Ev
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r5;
+    s32 v3;
+    r5 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x8);
+    if ((s32)arg0 != 0) {
+        ((VCall *)arg0)->f8();
+        arg0 = (u8 *)*(s32 *)(r5 + 0x8);
+        if ((s32)arg0 != 0) {
+            ((VCall *)arg0)->f1();
+        }
+    }
+    *(s32 *)(r5 + 0x8) = 0;
+    _ZN17UnkClass_020621b413func_0206e738Ev((s32)((u8 *)&data_020e88a0), 0);
+    v3 = _ZN17UnkClass_020621b413func_0206e3a8Ev((s32)((u8 *)&data_020e88a0));
+    return v3;
 }
 
 extern "C" s32 func_ov059_02165fc4(s32 arg0)
