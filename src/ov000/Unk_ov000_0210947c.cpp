@@ -1,6 +1,7 @@
 #include "ov000/Unk_ov000_0210947c.hpp"
+#include "game/vcall.hpp"
 
-extern "C" void func_ov000_0210947c(void);
+extern "C" s32 func_ov000_0210947c(u8 *arg0);
 extern "C" s32 func_ov000_021094d0(u8 *arg0);
 extern "C" void func_ov000_02109510(void);
 extern "C" void func_ov000_02109514(void);
@@ -125,11 +126,11 @@ extern "C" s32 func_02085bb4(...);
 extern "C" void func_02099a2c(void);
 extern "C" void func_02099a94(void);
 extern "C" void func_0209d8b8(void);
-extern "C" void func_ov000_02108710(void);
+extern "C" s32 func_ov000_02108710(...);
 extern "C" void func_ov000_02110dc0(void);
 extern "C" s32 func_ov000_02110e00(...);
 extern "C" s32 func_ov000_02110e04(...);
-extern "C" void func_ov000_02110e9c(void);
+extern "C" s32 func_ov000_02110e9c(...);
 extern "C" void func_ov015_021309f8(void);
 extern "C" void func_ov015_02130b14(void);
 extern "C" s32 func_ov015_02130e28(...);
@@ -166,28 +167,17 @@ extern "C" void func_ov015_0213c33c(void);
 extern "C" void func_ov015_0213d4d8(void);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov000_0210947c(void)
+extern "C" s32 func_ov000_0210947c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0x14]
-    cmp r1, #8
-    ldmeqia sp!, {r4, pc}
-    ldr r1, =0x4001010
-    mov r2, #0
-    str r2, [r1]
-    bl func_ov000_02108710
-    add r0, r4, #4
-    bl func_ov000_02110e9c
-    add r0, r4, #4
-    ldr r1, [r0]
-    ldr r1, [r1]
-    blx r1
-    add r0, r4, #4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x10]
-    blx r1
-    ldmia sp!, {r4, pc}
+    s32 v3;
+    if (*(s32 *)(arg0 + 0x14) == 8)
+        return (s32)arg0;
+    *(s32 *)(((u8 *)0x4001010)) = 0;
+    func_ov000_02108710((s32)arg0, 0x4001010, 0);
+    func_ov000_02110e9c((s32)(arg0 + 4));
+    ((VCall *)(arg0 + 4))->f0();
+    v3 = ((VCall *)(arg0 + 4))->f4();
+    return v3;
 }
 
 extern "C" s32 func_ov000_021094d0(u8 *arg0)

@@ -1,4 +1,5 @@
 #include "ov003/Unk_ov003_020ff864.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_ov003_020ff864(u8 *arg0);
 extern "C" void func_ov003_020ff898(void);
@@ -58,7 +59,7 @@ extern "C" void func_ov003_021025b4(void);
 extern "C" s32 func_ov003_0210265c(s32 arg0);
 extern "C" s32 func_ov003_02102680(s32 arg0);
 extern "C" void func_ov003_0210269c(void);
-extern "C" void func_ov003_02102720(void);
+extern "C" s32 func_ov003_02102720(u8 *arg0);
 extern "C" void func_ov003_02102760(void);
 
 extern "C" char data_020c4678[];
@@ -129,7 +130,7 @@ extern "C" void _ZN12SoundManager6IsIdleEv(void);
 extern "C" void _ZN12SoundManager8SetSceneEiii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc9cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203de9cEP9UnkObjectP16UnkOverlayObject(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e090Eii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e114Eii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
@@ -3397,23 +3398,16 @@ extern "C" asm void func_ov003_0210269c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov003_02102720(void)
+extern "C" s32 func_ov003_02102720(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r1, #4
-    str r1, [r4, #8]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x50]
-    blx r1
-    ldr r0, =data_020c4ab4
-    mov r1, #2
-    str r1, [r0, #0x64]
-    ldr r0, [r4, #4]
-    mov r1, #0
-    mov r2, #0xa
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    ldmia sp!, {r4, pc}
+    s32 v1;
+    s32 t1;
+    *(s32 *)(arg0 + 0x8) = 4;
+    ((VCall *)arg0)->f20();
+    *(s32 *)(((u8 *)&data_020c4ab4) + 0x64) = 2;
+    t1 = *(s32 *)(arg0 + 0x4);
+    v1 = _ZN17UnkClass_0203dc7c13func_0203e04cEii(t1, 0, 10);
+    return v1;
 }
 
 extern "C" asm void func_ov003_02102760(void)

@@ -1,4 +1,5 @@
 #include "ov057/Unk_ov057_02165d60.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_ov057_02165d60(s32 arg0);
 extern "C" void func_ov057_02165da4(void);
@@ -30,7 +31,7 @@ extern "C" s32 func_ov057_021676e0(u8 *arg0);
 extern "C" void func_ov057_02167710(void);
 extern "C" void func_ov057_021677b8(void);
 extern "C" void func_ov057_02167834(void);
-extern "C" void func_ov057_0216792c(void);
+extern "C" s32 func_ov057_0216792c(u8 *arg0);
 extern "C" void func_ov057_0216797c(void);
 extern "C" void func_ov057_02167a14(void);
 extern "C" void func_ov057_02167cd4(void);
@@ -101,7 +102,7 @@ extern "C" void OS_Sleep(void);
 extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e090Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206e5e4Ev(void);
@@ -2011,28 +2012,19 @@ extern "C" asm void func_ov057_02167834(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov057_0216792c(void)
+extern "C" s32 func_ov057_0216792c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r1, #6
-    str r1, [r5, #8]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x50]
-    blx r1
-    ldr r0, [r5, #4]
-    mov r4, #1
-    str r4, [r0, #0x8c]
-    ldr r5, [r5, #4]
-    mov r1, #0
-    mov r0, r5
-    mov r2, #0x1c
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    mov r0, r5
-    mov r1, r4
-    mov r2, #0xf
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v2;
+    u8 *t1;
+    s32 t2;
+    *(s32 *)(arg0 + 0x8) = 6;
+    ((VCall *)arg0)->f20();
+    t1 = (u8 *)*(s32 *)(arg0 + 0x4);
+    *(s32 *)(t1 + 0x8C) = 1;
+    t2 = *(s32 *)(arg0 + 0x4);
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii(t2, 0, 0x1C);
+    v2 = _ZN17UnkClass_0203dc7c13func_0203e04cEii(t2, 1, 0xF);
+    return v2;
 }
 
 extern "C" asm void func_ov057_0216797c(void)

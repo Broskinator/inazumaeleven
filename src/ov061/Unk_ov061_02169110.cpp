@@ -1,4 +1,5 @@
 #include "ov061/Unk_ov061_02169110.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov061_02169110(void);
 extern "C" void func_ov061_0216912c(void);
@@ -13,7 +14,7 @@ extern "C" void func_ov061_02169734(s32 arg0, s32 arg1);
 extern "C" void func_ov061_02169780(void);
 extern "C" void func_ov061_021699a8(void);
 extern "C" void func_ov061_02169a60(void);
-extern "C" void func_ov061_02169bc8(void);
+extern "C" s32 func_ov061_02169bc8(u8 *arg0);
 extern "C" s32 func_ov061_02169c40(s32 arg0);
 extern "C" s32 func_ov061_02169c54(u8 *arg0);
 extern "C" void func_ov061_02169c5c(void);
@@ -60,21 +61,21 @@ extern "C" void func_ov015_02132224(void);
 extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_021322d8(void);
 extern "C" void func_ov015_02133e50(void);
-extern "C" void func_ov015_02133e8c(void);
+extern "C" s32 func_ov015_02133e8c(...);
 extern "C" void func_ov015_02134118(void);
-extern "C" void func_ov015_02134198(void);
+extern "C" s32 func_ov015_02134198(...);
 extern "C" s32 func_ov015_02134208(...);
 extern "C" void func_ov015_0213447c(void);
 extern "C" void func_ov015_02134504(void);
 extern "C" void func_ov015_02134554(void);
-extern "C" void func_ov015_02136680(void);
+extern "C" s32 func_ov015_02136680(...);
 extern "C" void func_ov015_02136734(void);
 extern "C" void func_ov015_0213782c(void);
 extern "C" void func_ov015_0213a688(void);
 extern "C" void func_ov015_0213a690(void);
 extern "C" void func_ov015_0213a8b8(void);
 extern "C" void func_ov015_0213b364(void);
-extern "C" void func_ov015_0213b3fc(void);
+extern "C" s32 func_ov015_0213b3fc(...);
 extern "C" s32 func_ov015_0213bfcc(...);
 extern "C" void func_ov015_0213c33c(void);
 extern "C" void func_ov061_02166514(void);
@@ -88,7 +89,7 @@ extern "C" void func_ov061_0216899c(void);
 extern "C" s32 func_ov061_02168c4c(...);
 extern "C" void func_ov061_02168cf0(void);
 extern "C" void func_ov087_0217fde0(void);
-extern "C" void func_ov087_02181e68(void);
+extern "C" s32 func_ov087_02181e68(...);
 extern "C" void gGameState(void);
 
 extern "C" asm void func_ov061_02169110(void)
@@ -835,35 +836,20 @@ extern "C" asm void func_ov061_02169a60(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov061_02169bc8(void)
+extern "C" s32 func_ov061_02169bc8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_020c4648
-    mov r5, r0
-    ldr r0, [r1]
-    bl func_ov015_02136680
-    mov r4, #0
-    ldr r0, =data_020c9660
-    mov r1, r4
-    bl func_ov015_0213b3fc
-    ldr r0, =data_020e88a0
-    bl func_ov087_02181e68
-    mov r0, r5
-    ldr r1, [r0]
-    ldr r1, [r1, #0x6c]
-    blx r1
-    add r0, r5, #0x64
-    add r0, r0, #0x400
-    mov r1, #0x23
-    str r4, [r5, #8]
-    bl func_ov015_02134198
-    mov r0, r5
-    bl func_ov061_02169668
-    add r0, r5, #0x14
-    add r0, r0, #0x400
-    mov r1, #4
-    bl func_ov015_02133e8c
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v6;
+    s32 t0;
+    t0 = *(s32 *)(((u8 *)&data_020c4648));
+    func_ov015_02136680(t0, (s32)((u8 *)&data_020c4648));
+    func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 0);
+    func_ov087_02181e68((s32)((u8 *)&data_020e88a0));
+    ((VCall *)arg0)->f27();
+    *(s32 *)(arg0 + 0x8) = 0;
+    func_ov015_02134198((s32)((arg0 + 0x64) + 0x400), 0x23);
+    func_ov061_02169668((s32)arg0);
+    v6 = func_ov015_02133e8c((s32)((arg0 + 0x14) + 0x400), 4);
+    return v6;
 }
 
 extern "C" s32 func_ov061_02169c40(s32 arg0)

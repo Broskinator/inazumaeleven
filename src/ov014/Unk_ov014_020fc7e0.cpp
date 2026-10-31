@@ -1,4 +1,5 @@
 #include "ov014/Unk_ov014_020fc7e0.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov014_020fc7e0(void);
 extern "C" void func_ov014_020fc8a0(void);
@@ -50,7 +51,7 @@ extern "C" void func_ov014_020fe684(void);
 extern "C" s32 func_ov014_020fe688(s32 arg0);
 extern "C" s32 func_ov014_020fe69c(...);
 extern "C" void func_ov014_020fe6d4(u8 *arg0);
-extern "C" void func_ov014_020fe710(void);
+extern "C" s32 func_ov014_020fe710(u8 *arg0);
 extern "C" void func_ov014_020fe750(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov014_020fe788(void);
 extern "C" void func_ov014_020fe7c0(void);
@@ -124,7 +125,7 @@ extern "C" void _ZN12SoundManager6UpdateEv(void);
 extern "C" void _ZN12SoundManager8SetSceneEiii(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203de9cEP9UnkObjectP16UnkOverlayObject(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e114Eii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
@@ -2367,23 +2368,16 @@ extern "C" void func_ov014_020fe6d4(u8 *arg0)
     _ZN12SceneManager13func_0203e2fcEl(1);
 }
 
-extern "C" asm void func_ov014_020fe710(void)
+extern "C" s32 func_ov014_020fe710(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r1, #5
-    str r1, [r4, #8]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x50]
-    blx r1
-    ldr r0, =data_020c4ab4
-    mov r1, #4
-    str r1, [r0, #0x64]
-    ldr r0, [r4, #4]
-    mov r1, #0
-    mov r2, #0x16
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    ldmia sp!, {r4, pc}
+    s32 v1;
+    s32 t1;
+    *(s32 *)(arg0 + 0x8) = 5;
+    ((VCall *)arg0)->f20();
+    *(s32 *)(((u8 *)&data_020c4ab4) + 0x64) = 4;
+    t1 = *(s32 *)(arg0 + 0x4);
+    v1 = _ZN17UnkClass_0203dc7c13func_0203e04cEii(t1, 0, 0x16);
+    return v1;
 }
 
 extern "C" void func_ov014_020fe750(u8 *arg0, s32 arg1, s32 arg2)

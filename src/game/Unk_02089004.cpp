@@ -1,4 +1,5 @@
 #include "game/Unk_02089004.hpp"
+#include "game/vcall.hpp"
 #include "nitro/mi.h"
 
 extern "C" void func_0208b508(void);     // (for the asm functions)
@@ -32,8 +33,8 @@ extern "C" s32 func_02089118(...);
 extern "C" s32 func_0208918c(s32 arg0, u8 *arg1);
 extern "C" int func_02089204(void *self, u8 *obj);
 extern "C" void func_02089214(void);
-extern "C" void func_02089350(void);
-extern "C" void func_02089384(void);
+extern "C" s32 func_02089350(u8 *arg0);
+extern "C" s32 func_02089384(u8 *arg0);
 extern "C" void func_020893b4(void);
 extern "C" void **func_02089480(void **obj);
 extern "C" void **func_020894ac(void **obj);
@@ -398,35 +399,20 @@ extern "C" asm void func_02089214(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02089350(void)
+extern "C" s32 func_02089350(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, =data_ov015_02165848
-    add r0, r4, #0xc
-    str r1, [r4]
-    bl func_0209d678
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #8]
-    blx r1
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    *(s32 *)(arg0) = (s32)((u8 *)&data_ov015_02165848);
+    ((s32 (*)(...))func_0209d678)((s32)(arg0 + 0xC), (s32)((u8 *)&data_ov015_02165848));
+    ((VCall *)arg0)->f2();
+    return (s32)arg0;
 }
 
-extern "C" asm void func_02089384(void)
+extern "C" s32 func_02089384(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_ov015_02165848
-    mov r4, r0
-    str r1, [r4]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-    add r0, r4, #0xc
-    bl func_0209d684
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    *(s32 *)(arg0) = (s32)((u8 *)&data_ov015_02165848);
+    ((VCall *)arg0)->f8();
+    func_0209d684((void *)(arg0 + 0xC));
+    return (s32)arg0;
 }
 
 extern "C" asm void func_020893b4(void)

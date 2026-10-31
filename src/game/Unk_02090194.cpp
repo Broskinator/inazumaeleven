@@ -1,4 +1,5 @@
 #include "game/Unk_02090194.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_02097c74(void);     // (for the asm functions)
 extern "C" void func_02098710(void);     // (for the asm functions)
@@ -21,8 +22,8 @@ extern "C" int func_0209020c(void);
 extern "C" s32 func_0209022c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_02090280(void *self);
 extern "C" void func_02090320(void);
-extern "C" void func_02090448(void);
-extern "C" void func_020904c8(void);
+extern "C" s32 func_02090448(u8 *arg0);
+extern "C" s32 func_020904c8(u8 *arg0);
 extern "C" void func_02090550(void *self);
 extern "C" s32 func_02090568(u8 *arg0);
 extern "C" void func_02090594(void *self);
@@ -93,8 +94,8 @@ extern "C" void _ZN11FileManager7ReleaseEPv(void);
 extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
-extern "C" void _ZdlPv(void);
-extern "C" void __cxa_vec_cleanup(void);
+extern "C" s32 _ZdlPv(...);
+extern "C" s32 __cxa_vec_cleanup(...);
 extern "C" void __cxa_vec_ctor(void);
 extern "C" void func_02000e88(void);
 extern "C" void func_02001d60(void);
@@ -116,7 +117,7 @@ extern "C" void func_02099cc8(void);
 extern "C" void func_02099d90(void);
 extern "C" s32 func_02099f50(...);
 extern "C" void func_0209d678(void);
-extern "C" void func_0209d684(void);
+extern "C" s32 func_0209d684(...);
 extern "C" void func_ov015_02130fd4(void);
 extern "C" s32 func_ov015_02133f94(...);
 extern "C" s32 func_ov015_02134118(...);
@@ -144,7 +145,7 @@ extern "C" s32 func_ov015_02145f20(...);
 extern "C" s32 func_ov015_02145ff0(...);
 extern "C" void func_ov015_0214625c(void);
 extern "C" void func_ov015_02164494(void);
-extern "C" void func_ov015_021644b4(void);
+extern "C" s32 func_ov015_021644b4(...);
 
 extern "C" asm void func_02090194(void)
 {
@@ -314,70 +315,31 @@ extern "C" asm void func_02090320(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02090448(void)
+extern "C" s32 func_02090448(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_020afc78
-    mov r5, r0
-    str r1, [r5]
-    bl func_02090280
-    ldr r1, =data_ov015_02165848
-    add r0, r5, #0x22c
-    str r1, [r5, #0x22c]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-    add r0, r5, #0x238
-    bl func_0209d684
-    add r0, r5, #0x210
-    bl func_ov015_021644b4
-    add r0, r5, #0x120
-    mov r4, #5
-    mov r1, r4
-    mov r2, #0x30
-    ldr r3, =func_020894ac
-    bl __cxa_vec_cleanup
-    mov r1, r4
-    add r0, r5, #0xbc
-    mov r2, #0x14
-    ldr r3, =func_020894f4
-    bl __cxa_vec_cleanup
-    mov r0, r5
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0) = (s32)((u8 *)&data_020afc78);
+    ((s32 (*)(...))func_02090280)((s32)arg0, (s32)((u8 *)&data_020afc78));
+    *(s32 *)(arg0 + 0x22C) = (s32)((u8 *)&data_ov015_02165848);
+    ((VCall *)(arg0 + 0x22C))->f8();
+    func_0209d684((s32)(arg0 + 0x238));
+    func_ov015_021644b4((s32)(arg0 + 0x210));
+    __cxa_vec_cleanup((s32)(arg0 + 0x120), 5, 0x30, (s32)((u8 *)&func_020894ac));
+    __cxa_vec_cleanup((s32)(arg0 + 0xBC), 5, 0x14, (s32)((u8 *)&func_020894f4));
+    return (s32)arg0;
 }
 
-extern "C" asm void func_020904c8(void)
+extern "C" s32 func_020904c8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_020afc78
-    mov r5, r0
-    str r1, [r5]
-    bl func_02090280
-    ldr r1, =data_ov015_02165848
-    add r0, r5, #0x22c
-    str r1, [r5, #0x22c]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-    add r0, r5, #0x238
-    bl func_0209d684
-    add r0, r5, #0x210
-    bl func_ov015_021644b4
-    add r0, r5, #0x120
-    mov r4, #5
-    mov r1, r4
-    mov r2, #0x30
-    ldr r3, =func_020894ac
-    bl __cxa_vec_cleanup
-    mov r1, r4
-    add r0, r5, #0xbc
-    mov r2, #0x14
-    ldr r3, =func_020894f4
-    bl __cxa_vec_cleanup
-    mov r0, r5
-    bl _ZdlPv
-    mov r0, r5
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0) = (s32)((u8 *)&data_020afc78);
+    ((s32 (*)(...))func_02090280)((s32)arg0, (s32)((u8 *)&data_020afc78));
+    *(s32 *)(arg0 + 0x22C) = (s32)((u8 *)&data_ov015_02165848);
+    ((VCall *)(arg0 + 0x22C))->f8();
+    func_0209d684((s32)(arg0 + 0x238));
+    func_ov015_021644b4((s32)(arg0 + 0x210));
+    __cxa_vec_cleanup((s32)(arg0 + 0x120), 5, 0x30, (s32)((u8 *)&func_020894ac));
+    __cxa_vec_cleanup((s32)(arg0 + 0xBC), 5, 0x14, (s32)((u8 *)&func_020894f4));
+    _ZdlPv((s32)arg0);
+    return (s32)arg0;
 }
 
 extern "C" void func_02090550(void *self)

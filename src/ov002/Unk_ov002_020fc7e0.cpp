@@ -1,6 +1,7 @@
 #include "ov002/Unk_ov002_020fc7e0.hpp"
+#include "game/vcall.hpp"
 
-extern "C" void func_ov002_020fc7e0(void);
+extern "C" s32 func_ov002_020fc7e0(u8 *arg0);
 extern "C" void func_ov002_020fc874(void);
 extern "C" void func_ov002_020fc8c4(void);
 extern "C" s32 func_ov002_020fcaa0(s32 arg0, s32 arg1);
@@ -46,9 +47,9 @@ extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203dc9cEv(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e114Eii(void);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203dc9cEv(...);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e114Eii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
@@ -61,7 +62,7 @@ extern "C" void func_020039f8(void);
 extern "C" void func_02003bb8(void);
 extern "C" void func_ov015_02132224(void);
 extern "C" void func_ov015_021322b0(void);
-extern "C" void func_ov015_021324c4(void);
+extern "C" s32 func_ov015_021324c4(...);
 extern "C" s32 func_ov015_021326e0(...);
 extern "C" void func_ov015_02132984(void);
 extern "C" void func_ov015_02133f94(void);
@@ -86,45 +87,22 @@ extern "C" s32 func_ov015_0213c4fc(...);
 extern "C" void func_ov015_0213c530(void);
 extern "C" s32 func_ov015_0213c730(...);
 
-extern "C" asm void func_ov002_020fc7e0(void)
+extern "C" s32 func_ov002_020fc7e0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r2, [r0]
-    mov r6, #2
-    ldr r2, [r2, #0xc]
-    mov r7, r0
-    mov r1, r6
-    blx r2
-    mov r5, #0
-    mov r0, r7
-    str r5, [r7, #0x80]
-    str r5, [r7, #0x84]
-    bl _ZN17UnkClass_0203dc7c13func_0203dc9cEv
-    mov r0, r7
-    mov r1, r5
-    mov r2, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
-    mov r4, #1
-    mov r0, r7
-    mov r1, r4
-    mov r2, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
-    mov r2, r6
-    mov r0, r7
-    mov r1, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    mov r1, r4
-    mov r0, r7
-    mov r2, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    strb r5, [r7, #0x89]
-    strb r5, [r7, #0x88]
-    bl func_ov015_021324c4
-    mov r0, r7
-    ldr r1, [r0]
-    ldr r1, [r1, #0x34]
-    blx r1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v7;
+    ((VCall *)arg0)->f3(2);
+    *(s32 *)(arg0 + 0x80) = 0;
+    *(s32 *)(arg0 + 0x84) = 0;
+    _ZN17UnkClass_0203dc7c13func_0203dc9cEv((s32)arg0);
+    _ZN17UnkClass_0203dc7c13func_0203e114Eii((s32)arg0, 0, 0);
+    _ZN17UnkClass_0203dc7c13func_0203e114Eii((s32)arg0, 1, 0);
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii((s32)arg0, 0, 2);
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii((s32)arg0, 1, 0);
+    *(u8 *)(arg0 + 0x89) = 0;
+    *(u8 *)(arg0 + 0x88) = 0;
+    func_ov015_021324c4();
+    v7 = ((VCall *)arg0)->f13();
+    return v7;
 }
 
 extern "C" asm void func_ov002_020fc874(void)

@@ -1,8 +1,9 @@
 #include "ov001/Unk_ov001_020ffb28.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_ov001_020ffb28(...);
 extern "C" char *func_ov001_0210006c(u8 *arg0, s32 arg1);
-extern "C" void func_ov001_021000a0(void);
+extern "C" s32 func_ov001_021000a0(u8 *arg0);
 extern "C" void func_ov001_0210010c(void);
 extern "C" void func_ov001_0210044c(void);
 extern "C" void func_ov001_021004e4(void);
@@ -119,7 +120,7 @@ extern "C" void func_ov001_02104b58(void);
 extern "C" void func_ov001_02104be8(void);
 extern "C" void func_ov001_0210650c(void);
 extern "C" void func_ov001_02106968(void);
-extern "C" void func_ov001_02106eb8(void);
+extern "C" s32 func_ov001_02106eb8(...);
 extern "C" void func_ov001_02107ec4(void);
 extern "C" void func_ov001_02108108(void);
 extern "C" void func_ov001_02108128(void);
@@ -535,35 +536,26 @@ extern "C" char *func_ov001_0210006c(u8 *arg0, s32 arg1)
     return data_ov001_02130638;
 }
 
-extern "C" asm void func_ov001_021000a0(void)
+extern "C" s32 func_ov001_021000a0(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, [r0]
-    mov r4, r0
-    ldr r1, [r1, #0x4c]
-    blx r1
-    ldr r0, =data_ov001_0213064c
-    ldr r0, [r0]
-    str r0, [r4, #8]
-    cmp r0, #5
-    ldmeqia sp!, {r4, pc}
-    cmp r0, #0x66
-    bne @L_021000f0
-    mov r1, #0
-    mov r0, r4
-    str r1, [r4, #0x4ac]
-    bl func_ov001_02106eb8
-    mov r0, r4
-    mov r1, #4
-    bl func_ov001_020ffb28
-    ldmia sp!, {r4, pc}
-@L_021000f0:
-    mov r2, #0
-    mov r0, r4
-    mov r1, #4
-    str r2, [r4, #0x4ac]
-    bl func_ov001_020ffb28
-    ldmia sp!, {r4, pc}
+    s32 v2;
+    s32 v3;
+    s32 t1;
+    ((VCall *)arg0)->f19();
+    t1 = *(s32 *)(((u8 *)&data_ov001_0213064c));
+    *(s32 *)(arg0 + 0x8) = t1;
+    if (t1 == 5)
+        return t1;
+    if (t1 == 0x66) {
+        *(s32 *)(arg0 + 0x4AC) = 0;
+        func_ov001_02106eb8((s32)arg0, 0);
+        v2 = func_ov001_020ffb28((s32)arg0, 4);
+        return v2;
+    } else {
+        *(s32 *)(arg0 + 0x4AC) = 0;
+        v3 = func_ov001_020ffb28((s32)arg0, 4, 0);
+        return v3;
+    }
 }
 
 extern "C" asm void func_ov001_0210010c(void)

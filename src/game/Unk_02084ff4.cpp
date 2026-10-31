@@ -1,4 +1,5 @@
 #include "game/Unk_02084ff4.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_020860ac(...);     // (for the asm functions)
 extern "C" void func_020864a8(void);     // (for the asm functions)
@@ -51,7 +52,7 @@ extern "C" u8 *func_02085c60(void *self, int n);
 extern "C" void func_02085c98(void);
 extern "C" void func_02085ce0(void);
 extern "C" void func_02085d34(void);
-extern "C" void func_02085d88(void);
+extern "C" s32 func_02085d88(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02085dec(void *self, int value, int *high, int *low);
 extern "C" int func_02085e00(void *self, int a, int b, int c);
 extern "C" s32 func_02085e30(s32 arg0, s32 arg1, s32 arg2);
@@ -1026,33 +1027,21 @@ extern "C" asm void func_02085d34(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02085d88(void)
+extern "C" s32 func_02085d88(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, [r0]
-    ldr r3, =0xfff
-    ldr r4, [r4]
-    mov r5, r0
-    and r1, r1, r3
-    blx r4
-    mov r4, r0
-    mov r0, r5
-    ldr r2, [r0]
-    mov r1, r4
-    ldr r2, [r2, #4]
-    blx r2
-    cmp r0, #0
-    beq @L_02085de0
-    mov r0, r5
-    mov r1, r4
-    mov r2, #0
-    bl func_02085298
-    cmp r0, #0
-    movne r0, r4
-    ldmneia sp!, {r3, r4, r5, pc}
-@L_02085de0:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r4;
+    s32 v0;
+    s32 v1;
+    u8 *v2;
+    v0 = ((VCall *)arg0)->f0((arg1 & 0xFFF), arg2, 0xFFF);
+    v1 = ((VCall *)arg0)->f1(v0);
+    r4 = v0;
+    if (v1 != 0) {
+        v2 = func_02085298((void *)arg0, r4, 0);
+        if (v2 != 0)
+            return r4;
+    }
+    return 0;
 }
 
 extern "C" void func_02085dec(void *self, int value, int *high, int *low)

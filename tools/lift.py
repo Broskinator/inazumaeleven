@@ -90,6 +90,20 @@ class Call:
     def render(self):
         return f"v{self.k}"
 
+    def text(self):
+        """the call: 'f(args)'"""
+        fp, args = getattr(self, "fp", None), self.args
+        if self.name is None and isinstance(fp, Load) and isinstance(fp.off, int) and fp.off % 4 == 0 \
+                and 0 <= fp.off < 4 * VSLOTS and isinstance(fp.base, Load) and fp.base.off == 0 and args:
+            this = args[0][0]
+            if this is fp.base.base or this.render() == fp.base.base.render():
+                rest = ", ".join(value(v, t) for v, t in args[1:])
+                return f"((VCall *){this.render()})->f{fp.off // 4}({rest})"
+        return f"{self.callee()}({', '.join(value(v, t) for v, t in args)})"
+
+
+VSLOTS = 128     # (the methods of VCall, in include/game/vcall.hpp)
+
 
 class Tmp(Param):
     """A loaded value kept in a variable (it's needed after a store or a call)."""
@@ -492,11 +506,10 @@ def render_linear(stmts, ret, regs, low, size):
             out.append(f"    if ({cond(fl, cc)})\n        return{' ' + value(v, ret) if ret != 'void' else ''};\n")
         else:
             c = s[1]
-            args = ", ".join(value(v, t) for v, t in c.args)
             if c.used:
-                out.append(f"    {c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {c.callee()}({args});\n")
+                out.append(f"    {c.ret}{'' if c.ret.endswith('*') else ' '}v{c.k} = {c.text()};\n")
             else:
-                out.append(f"    {c.callee()}({args});\n")
+                out.append(f"    {c.text()};\n")
     if ret != "void":
         out.append(f"    return {value(regs['r0'], ret)};\n")
     return out
@@ -1392,11 +1405,9 @@ def lift_cfg(name, body, protos, variant=0):
             home, v = st[1], st[2]
             return f"{sp_}{home.render()} = {value(v, 'u8 *' if home.ptr else home.type if not isinstance(home, Var) else 's32')};\n"
         c = st[1]
-        args = ", ".join(value(v, t) for v, t in c.args)
-        f = c.callee()
         if c.used:
-            return f"{sp_}v{c.k} = {f}({args});\n"
-        return f"{sp_}{f}({args});\n"
+            return f"{sp_}v{c.k} = {c.text()};\n"
+        return f"{sp_}{c.text()};\n"
 
     # (the structure, from the dominators: a loop is a back edge to a block that dominates
     # it; an if goes on where both of its ways meet, at the block that post-dominates it)
@@ -1601,6 +1612,8 @@ def prototypes(t):
 
 def apply(t, name, block, decl, body, protos, callees):
     t = t.replace(block, f'extern "C" {decl}\n{{\n{body}}}\n', 1)
+    if "(VCall *)" in body and '#include "game/vcall.hpp"' not in t:
+        t = re.sub(r'^(#include [^\n]*\n)', r'\1#include "game/vcall.hpp"\n', t, count=1, flags=re.M)
     t = re.sub(r'^extern "C" void %s\(void\);' % name, f'extern "C" {decl};', t, count=1, flags=re.M)
     for f in callees:
         if protos[f] == "void(void)":
