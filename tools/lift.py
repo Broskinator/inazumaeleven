@@ -846,8 +846,38 @@ def unpredicate(insns):
         res = new
 
 
+def tails(insns):
+    """insns with each 'b L' (forward) to a short run of instructions without branches in
+    it that is also reached another way made a copy of the run: MW makes one of the same
+    code at the end of both ways of an if ('if (c) f(a); else f(b);')."""
+    pos = {ins[0]: j for j, ins in enumerate(insns) if ins[0] is not None}
+    out = []
+    for j, ins in enumerate(insns):
+        if ins[0] is None and ins[1] == "b" and not ins[2] and ins[4].lstrip("@") in pos:
+            t = pos[ins[4].lstrip("@")]
+            e = t + 1
+            while e < len(insns) and insns[e][0] is None and insns[e][1] not in ("b", "ret", "switch"):
+                e += 1
+            run = insns[t + 1:e]
+            before = insns[t - 1] if t > 0 else None
+            reached = before is not None and not (before[0] is None and before[1] in ("b", "ret", "switch") and not before[2])
+            if t > j and 1 <= len(run) <= 8 and e < len(insns) and reached:
+                end = insns[e]
+                if end[0] is not None:
+                    out += run + [(None, "b", "", False, "@" + end[0])]
+                    continue
+                if end[1] in ("b", "ret") and not end[2]:
+                    out += run + [end]
+                    continue
+        out.append(ins)
+    # (the labels nothing goes to any more: gone, so what falls into them is one block)
+    used = {ins[4].lstrip("@") for ins in out if ins[0] is None and ins[1] == "b"}
+    used |= {x for ins in out if ins[0] is None and ins[1] == "switch" for x in ins[4].split()[1:]}
+    return [ins for ins in out if ins[0] is None or ins[0] in used]
+
+
 def lift_cfg(name, body, protos, variant=0):
-    SWAP[0] = bool(variant & 4)
+    SWAP[0] = False     # (the other order of compares: tried as a variant once, little came of it)
     """(declaration, C body, callees) of an asm function with branches, or raises Fail.
 
     The asm is cut into blocks; in a block the registers are expressions as in lift(),
@@ -922,6 +952,8 @@ def lift_cfg(name, body, protos, variant=0):
         insns.append((None,) + sp + (op,))
     if not variant & 2:
         insns = unpredicate(insns)
+    if variant & 4:
+        insns = tails(insns)
     # (blocks: from a label or after a branch or a return)
     blocks, cur = [], None
     for ins in insns:

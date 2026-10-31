@@ -8,7 +8,7 @@ extern "C" void func_ov058_02165ea0(void);
 extern "C" void func_ov058_02166120(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov058_02166140(u8 *arg0);
 extern "C" void func_ov058_02166180(void);
-extern "C" void func_ov058_021661c8(void);
+extern "C" void func_ov058_021661c8(u8 *arg0);
 extern "C" void func_ov058_02166290(void);
 extern "C" s32 func_ov058_02166380(u8 *arg0);
 extern "C" void func_ov058_021663b4(void);
@@ -81,7 +81,7 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
-extern "C" void _ZN12SoundManager9PlaySoundEi(void);
+extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e090Eii(...);
@@ -124,7 +124,7 @@ extern "C" s32 func_ov015_0213b900(...);
 extern "C" s32 func_ov015_0213b990(...);
 extern "C" s32 func_ov015_0213ba04(...);
 extern "C" s32 func_ov015_0213bb80(...);
-extern "C" void func_ov015_0213be3c(void);
+extern "C" s32 func_ov015_0213be3c(...);
 extern "C" void func_ov015_0213be90(void);
 extern "C" void func_ov015_0213bfcc(void);
 extern "C" s32 func_ov015_0213c33c(...);
@@ -133,9 +133,9 @@ extern "C" void func_ov015_0213c4c0(void);
 extern "C" s32 func_ov015_0213c4f0(...);
 extern "C" s32 func_ov015_0213c4fc(...);
 extern "C" void func_ov015_0213c530(void);
-extern "C" void func_ov015_0213c5e0(void);
+extern "C" s32 func_ov015_0213c5e0(...);
 extern "C" s32 func_ov015_0213c6d0(...);
-extern "C" void func_ov015_0213c730(void);
+extern "C" s32 func_ov015_0213c730(...);
 extern "C" void gGameState(void);
 
 extern "C" void func_ov058_02165d60(void)
@@ -424,60 +424,45 @@ extern "C" asm void func_ov058_02166180(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov058_021661c8(void)
+extern "C" void func_ov058_021661c8(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, r0
-    ldr r0, [r4, #0xc]
-    cmp r0, #0
-    bne @L_02166244
-    ldr r0, [r4, #0x20]
-    sub r0, r0, #0xe
-    cmp r0, #0xe
-    addls pc, pc, r0, lsl #2
-    b @L_02166244
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_0216622c
-    b @L_02166238
-    b @L_02166238
-    b @L_02166238
-@L_0216622c:
-    ldr r0, =data_020c5e40
-    mov r1, #1
-    b @L_02166240
-@L_02166238:
-    ldr r0, =data_020c5e40
-    mov r1, #4
-@L_02166240:
-    bl _ZN12SoundManager9PlaySoundEi
-@L_02166244:
-    ldr r6, =data_020c47a4
-    ldr r1, [r4, #0x1c]
-    mov r0, r6
-    bl func_ov015_0213c5e0
-    movs r5, r0
-    bmi @L_02166278
-    mov r0, r6
-    mov r1, r5
-    mov r2, #1
-    bl func_ov015_0213c730
-    ldr r0, =data_020c9660
-    mov r1, r5
-    bl func_ov015_0213be3c
-@L_02166278:
-    ldr r0, [r4, #0x1c]
-    str r0, [r4, #0x28]
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r5;
+    s32 v2;
+    s32 t0;
+    s32 t1;
+    if (*(s32 *)(arg0 + 0xC) == 0) {
+        switch ((*(s32 *)(arg0 + 0x20) - 0xE)) {
+            case 0:
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+                _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&data_020c5e40), 1);
+                break;
+            case 12:
+            case 13:
+            case 14:
+                _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&data_020c5e40), 4);
+                break;
+        }
+    }
+    t0 = *(s32 *)(arg0 + 0x1C);
+    v2 = func_ov015_0213c5e0((s32)((u8 *)&data_020c47a4), t0);
+    r5 = v2;
+    if (r5 >= 0) {
+        func_ov015_0213c730((s32)((u8 *)&data_020c47a4), r5, 1);
+        func_ov015_0213be3c((s32)((u8 *)&data_020c9660), r5);
+    }
+    t1 = *(s32 *)(arg0 + 0x1C);
+    *(s32 *)(arg0 + 0x28) = t1;
+    return;
 }
 
 extern "C" asm void func_ov058_02166290(void)

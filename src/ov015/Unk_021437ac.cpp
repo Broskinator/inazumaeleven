@@ -77,7 +77,7 @@ extern "C" s32 func_ov015_021459f8(...);
 extern "C" void func_ov015_02145a10(void);
 extern "C" void func_ov015_02145a40(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02145a48(u8 *arg0, u8 arg1);
-extern "C" void func_ov015_02145a50(void);
+extern "C" void func_ov015_02145a50(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_02145a74(u8 *arg0);
 extern "C" void func_ov015_02145a88(void);
 extern "C" void func_ov015_02145ad0(s32 arg0, s32 arg1, s32 arg2);
@@ -2684,16 +2684,18 @@ extern "C" void func_ov015_02145a48(u8 *arg0, u8 arg1)
     *(u8 *)(arg0 + 0x48) = arg1;
 }
 
-extern "C" asm void func_ov015_02145a50(void)
+extern "C" void func_ov015_02145a50(u8 *arg0, s32 arg1)
 {
-    cmp r1, #0
-    ldrneh r1, [r0, #0x40]
-    ldreqh r2, [r0, #0x40]
-    orrne r1, r1, #8
-    ldreq r1, =0xfff7
-    andeq r1, r2, r1
-    strh r1, [r0, #0x40]
-    bx lr
+    s32 r2;
+    if (arg1 != 0) {
+        arg1 = *(u16 *)(arg0 + 0x40);
+        *(u16 *)(arg0 + 0x40) = (arg1 | 8);
+        return;
+    } else {
+        r2 = *(u16 *)(arg0 + 0x40);
+        *(u16 *)(arg0 + 0x40) = (r2 & 0xFFF7);
+        return;
+    }
 }
 
 extern "C" s32 func_ov015_02145a74(u8 *arg0)
