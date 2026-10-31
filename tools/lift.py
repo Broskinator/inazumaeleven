@@ -297,7 +297,7 @@ def lift(name, body, protos, variant=0):
             return Const(imm(s))
         m = re.match(r"(r\d+), (lsl|lsr|asr) #(\w+)$", s)
         if m:
-            return Bin({"lsl": "<<", "lsr": ">>", "asr": ">>"}[m[2]], read(m[1]), Const(imm(m[3])))
+            return Bin({"lsl": "<<", "lsr": "u>>", "asr": ">>"}[m[2]], read(m[1]), Const(imm(m[3])))
         return read(s)
     lines = [l.strip() for l in body.strip().split("\n")]
     frame, size, push = None, 0, 0
