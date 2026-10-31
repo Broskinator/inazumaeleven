@@ -20,7 +20,7 @@ COND = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<=",
         "hi": ">", "hs": ">=", "cs": ">=", "lo": "<", "cc": "<", "ls": "<="}
 VAR = "s32(...)"
 FUNCS = {}     # (name -> address, of the functions of the module)
-VARIANTS, VARIANT = 12, {}     # (how many ways a function can be written, and the one to try next)
+VARIANTS, VARIANT = 20, {}     # (how many ways a function can be written, and the one to try next)
 
 
 class Fail(Exception):
@@ -1362,6 +1362,8 @@ def lift_cfg(name, body, protos, variant=0):
                 keys = [pkey(END[j].get(r), assigned) for j in ps]
                 if ps and keys[0] is not None and all(x == keys[0] for x in keys):
                     entry[k][r] = END[ps[0]][r]
+        if variant & 8:
+            entry = [{} for _ in blocks]     # (no values carried into blocks: each in its variable)
         same = all({r: pkey(v, assigned) for r, v in entry[k].items()} == {r: pkey(v, assigned) for r, v in ENTRY[k].items()}
                    for k in range(len(blocks)))
         ENTRY[:] = entry
@@ -1735,7 +1737,7 @@ def lift_file(src, sizes, failed):
                     VARIANT[b[1]] = v = 4
             if b[1] not in cand:
                 w = v - 4 if "@" not in b[2] else v
-                if w >= 8:
+                if w >= 16:
                     raise Fail("no more variants")
                 cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, w)
         except (Fail, KeyError, IndexError):

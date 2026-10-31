@@ -2,7 +2,7 @@
 #include "game/vcall.hpp"
 
 extern "C" void func_ov001_021159c0(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov001_021159f8(void);
+extern "C" s32 func_ov001_021159f8(u8 *arg0);
 extern "C" void func_ov001_02115a68(void);
 extern "C" void func_ov001_02115af8(void);
 extern "C" void func_ov001_02115ca4(void);
@@ -271,7 +271,7 @@ extern "C" void func_02095ea0(void);
 extern "C" void func_0209bebc(void);
 extern "C" void func_0209bf8c(void);
 extern "C" void func_0209bf9c(void);
-extern "C" void func_0209c4d8(void);
+extern "C" s32 func_0209c4d8(...);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov001_020fe9f4(void);
 extern "C" void func_ov001_0210d3e0(void);
@@ -285,7 +285,7 @@ extern "C" void func_ov001_02113c94(void);
 extern "C" void func_ov001_02113e04(void);
 extern "C" s32 func_ov001_0211490c(...);
 extern "C" s32 func_ov001_0211506c(...);
-extern "C" void func_ov001_02122d40(void);
+extern "C" s32 func_ov001_02122d40(...);
 extern "C" void func_ov001_021232c8(void);
 extern "C" s32 func_ov001_02123680(...);
 extern "C" void func_ov001_021239c8(void);
@@ -357,34 +357,30 @@ extern "C" void func_ov001_021159c0(s32 arg0, s32 arg1, s32 arg2)
     func_ov001_02113830(arg0, arg2);
 }
 
-extern "C" asm void func_ov001_021159f8(void)
+extern "C" s32 func_ov001_021159f8(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    mov r1, #0
-    str r1, [r0, #0x68]
-    strh r1, [r0, #0x74]
-    strh r1, [r0, #0x76]
-    str r1, [r0, #0x424]
-    add r0, r0, #0x6c
-    mov r2, #8
-    bl MI_CpuFill8
-    ldr r0, =data_020c5320
-    mov r1, #7
-    bl func_0209c4d8
-    bl func_ov001_02122d40
-    cmp r0, #0
-    ldrne r0, =data_020c4b80
-    movne r1, #0x46
-    ldreq r0, =data_020c4b80
-    moveq r1, #0x38
-    strb r1, [r0, #2]
-    ldr r0, =data_020c4b80
-    mov r1, #0
-    strb r1, [r0, #3]
-    ldrb r1, [r0, #0x1f]
-    bic r1, r1, #0xf
-    strb r1, [r0, #0x1f]
-    ldmia sp!, {r3, pc}
+    s32 r1;
+    s32 v2;
+    s32 t0;
+    *(s32 *)(arg0 + 0x68) = 0;
+    *(u16 *)(arg0 + 0x74) = 0;
+    *(u16 *)(arg0 + 0x76) = 0;
+    *(s32 *)(arg0 + 0x424) = 0;
+    MI_CpuFill8((s32)(arg0 + 0x6C), 0, 8);
+    func_0209c4d8((s32)((u8 *)&data_020c5320), 7);
+    v2 = func_ov001_02122d40();
+    if (v2 != 0) {
+        arg0 = (u8 *)((u8 *)&data_020c4b80);
+        r1 = 0x46;
+    } else {
+        arg0 = (u8 *)((u8 *)&data_020c4b80);
+        r1 = 0x38;
+    }
+    *(u8 *)(arg0 + 0x2) = r1;
+    *(u8 *)(((u8 *)&data_020c4b80) + 0x3) = 0;
+    t0 = (*(u8 *)(((u8 *)&data_020c4b80) + 0x1F) & -0x10);
+    *(u8 *)(((u8 *)&data_020c4b80) + 0x1F) = t0;
+    return (s32)((u8 *)&data_020c4b80);
 }
 
 extern "C" asm void func_ov001_02115a68(void)

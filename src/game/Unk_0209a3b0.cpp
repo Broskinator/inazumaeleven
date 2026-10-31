@@ -11,7 +11,7 @@ extern "C" void func_0209a638(void);
 extern "C" void func_0209a798(void);
 extern "C" void func_0209a97c(void);
 extern "C" void func_0209a9f0(void);
-extern "C" void func_0209aa5c(void);
+extern "C" s32 func_0209aa5c(u8 *arg0);
 extern "C" void func_0209aac0(void);
 extern "C" void func_0209ab34(void);
 extern "C" void func_0209ab38(void);
@@ -78,7 +78,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" void GX_BeginLoadTex(void);
 extern "C" void GX_BeginLoadTexPltt(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 STD_CopyString(...);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
@@ -560,31 +560,30 @@ extern "C" asm void func_0209a9f0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0209aa5c(void)
+extern "C" s32 func_0209aa5c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_020fc724
-    ldr r12, =data_020fc724_b
-    ldr r1, [r1, #0x1c]
-    cmp r1, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r1, [r0]
-    add r1, r1, #0x1f
-    bic r2, r1, #0x1f
-    str r2, [r0]
-    ldr r5, [r12, #0x20]
-    rsb r0, r5, #0x8000
-    cmp r2, r0
-    mov r0, #0
-    ldmgtia sp!, {r3, r4, r5, pc}
-    ldr r4, [r12, #0x1c]
-    add r3, r5, r2
-    add r1, r4, r5
-    str r3, [r12, #0x20]
-    bl MIi_CpuClearFast
-    add r0, r4, r5
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r12;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    r12 = (u8 *)((u8 *)&data_020fc724_b);
+    if (*(s32 *)(((u8 *)&data_020fc724) + 0x1C) == 0) {
+        return 0;
+    } else {
+        t1 = ((*(s32 *)(arg0) + 0x1F) & -0x20);
+        *(s32 *)(arg0) = t1;
+        if (t1 > (0x8000 - *(s32 *)(r12 + 0x20)))
+            return 0;
+        t2 = (*(s32 *)(r12 + 0x1C) + *(s32 *)(r12 + 0x20));
+        t3 = (*(s32 *)(r12 + 0x20) + t1);
+        t4 = *(s32 *)(r12 + 0x1C);
+        t5 = *(s32 *)(r12 + 0x20);
+        *(s32 *)(r12 + 0x20) = t3;
+        MIi_CpuClearFast(0, t2, t1, t3);
+        return (t4 + t5);
+    }
 }
 
 extern "C" asm void func_0209aac0(void)

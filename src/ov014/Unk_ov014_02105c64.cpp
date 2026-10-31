@@ -29,7 +29,7 @@ extern "C" s32 func_ov014_02107128(s32 arg0);
 extern "C" void func_ov014_021071d0(void);
 extern "C" s32 func_ov014_02107330(s32 arg0);
 extern "C" s32 func_ov014_021073cc(void);
-extern "C" void func_ov014_021073d4(void);
+extern "C" s32 func_ov014_021073d4(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov014_02107450(void);
 extern "C" void func_ov014_021074e0(void);
 extern "C" void func_ov014_02107664(void);
@@ -161,7 +161,7 @@ extern "C" void func_ov014_02121370(void);
 extern "C" void func_ov014_02121700(void);
 extern "C" void func_ov014_02122040(void);
 extern "C" s32 func_ov014_021222b4(...);
-extern "C" void strncmp(void);
+extern "C" s32 strncmp(...);
 
 extern "C" asm s32 func_ov014_02105c64(...)
 {
@@ -1771,43 +1771,39 @@ extern "C" s32 func_ov014_021073cc(void)
     return 0;
 }
 
-extern "C" asm void func_ov014_021073d4(void)
+extern "C" s32 func_ov014_021073d4(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r6, r0
-    ldrh r3, [r6, #0xa]
-    mov r5, r1
-    mov r4, r2
-    cmp r3, #0x20
-    bne @L_021073fc
-    bl func_ov014_02107330
-    cmp r0, #0
-    ldmgtia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_021073fc:
-    cmp r5, #0
-    mov r8, #0
-    ble @L_02107448
-    ldrh r9, [r6, #0xa]
-    and r7, r9, #0xff
-@L_02107410:
-    ldrb r0, [r4, #3]
-    cmp r7, r0
-    bne @L_02107438
-    mov r2, r9
-    add r0, r6, #0xc
-    add r1, r4, #4
-    bl strncmp
-    cmp r0, #0
-    ldreqb r0, [r4, #1]
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02107438:
-    add r8, r8, #1
-    cmp r8, r5
-    add r4, r4, #0x24
-    blt @L_02107410
-@L_02107448:
-    mvn r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 *r4;
+    s32 r5;
+    u8 *r6;
+    s32 r7;
+    s32 r8;
+    s32 r9;
+    s32 v0;
+    s32 v1;
+    r6 = (u8 *)arg0;
+    r5 = arg1;
+    r4 = (u8 *)arg2;
+    if (*(u16 *)(r6 + 0xA) == 0x20) {
+        v0 = func_ov014_02107330(arg0);
+        if (v0 > 0)
+            return v0;
+    }
+    r8 = 0;
+    if (r5 > 0) {
+        r9 = *(u16 *)(r6 + 0xA);
+        r7 = (*(u16 *)(r6 + 0xA) & 0xFF);
+        do {
+            if (r7 == *(u8 *)(r4 + 0x3)) {
+                v1 = strncmp((s32)(r6 + 0xC), (s32)(r4 + 4), r9);
+                if (v1 == 0)
+                    return *(u8 *)(r4 + 0x1);
+            }
+            r8 = (r8 + 1);
+            r4 = (u8 *)(r4 + 0x24);
+        } while (r8 < r5);
+    }
+    return -1;
 }
 
 extern "C" asm void func_ov014_02107450(void)
