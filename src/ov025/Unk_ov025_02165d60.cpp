@@ -3,7 +3,7 @@
 extern "C" s32 func_ov025_02165d60(...);
 extern "C" void func_ov025_02165d98(u8 *arg0, s32 arg1);
 extern "C" char *func_ov025_02165dc4(void);
-extern "C" void func_ov025_02165df4(void);
+extern "C" s32 func_ov025_02165df4(u8 *arg0);
 extern "C" void func_ov025_02165e18(void);
 extern "C" void func_ov025_02165e94(void);
 extern "C" void func_ov025_02165fa0(void);
@@ -198,16 +198,16 @@ extern "C" char *func_ov025_02165dc4(void)
     return data_020c4b80;
 }
 
-extern "C" asm void func_ov025_02165df4(void)
+extern "C" s32 func_ov025_02165df4(u8 *arg0)
 {
-    ldr r1, [r0, #0x18]
-    ldr r2, =data_020c4b84
-    strb r1, [r2]
-    ldr r1, [r0, #0x1c]
-    strb r1, [r2, #1]
-    ldr r0, [r0, #0x20]
-    strb r0, [r2, #2]
-    bx lr
+    u8 *p0 = (u8 *)&data_020c4b84;
+    s32 t0 = *(s32 *)(arg0 + 0x18);
+    *(u8 *)(p0) = t0;
+    s32 t1 = *(s32 *)(arg0 + 0x1C);
+    *(u8 *)(p0 + 0x1) = t1;
+    s32 t2 = *(s32 *)(arg0 + 0x20);
+    *(u8 *)(p0 + 0x2) = t2;
+    return t2;
 }
 
 extern "C" asm void func_ov025_02165e18(void)

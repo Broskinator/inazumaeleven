@@ -20,7 +20,7 @@ COND = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<=",
         "hi": ">", "hs": ">=", "cs": ">=", "lo": "<", "cc": "<", "ls": "<="}
 VAR = "s32(...)"
 FUNCS = {}     # (name -> address, of the functions of the module)
-VARIANTS, VARIANT = 10, {}     # (how many ways a function can be written, and the one to try next)
+VARIANTS, VARIANT = 12, {}     # (how many ways a function can be written, and the one to try next)
 
 
 class Fail(Exception):
@@ -1027,6 +1027,9 @@ def lift_cfg(name, body, protos, variant=0):
                 CALL_USES[id(ins)] = seg_ & {"r0", "r1", "r2", "r3"} - ({ins[4]} if ins[1] == "blx" else set())
                 if ins[1] == "blx" and ins[4] != "r0":
                     CALL_USES[id(ins)].add("r0")
+                if ins[1] == "blx" and ins[4] in ("r1", "r2", "r3"):
+                    # (MW takes the first register after the arguments for the function)
+                    CALL_USES[id(ins)] |= {f"r{i}" for i in range(int(ins[4][1:]))}
                 # (and the ones below the last one written: the arguments before it)
                 n_ = max([int(r[1:]) + 1 for r in CALL_USES[id(ins)]] + [0])
                 CALL_USES[id(ins)] |= {f"r{i}" for i in range(n_)} - ({ins[4]} if ins[1] == "blx" else set())
@@ -1148,6 +1151,8 @@ def lift_cfg(name, body, protos, variant=0):
                     state["flags"] = subst_flags(state["flags"], m_)
                 # (the register of the function called: not an argument)
                 seg_ = set(seg) - ({fpreg} if op is None else set())
+                if op is None and fpreg in ("r1", "r2", "r3"):
+                    seg_ |= {f"r{i}" for i in range(int(fpreg[1:]))}
                 if op is None and isinstance(fp, Load) and isinstance(fp.base, Load) and fp.base.off == 0 \
                         and "r0" in regs and fpreg != "r0" and regs["r0"] is fp.base.base:
                     seg_.add("r0")
@@ -1689,6 +1694,25 @@ def save(path, text):
     open(path, "w", newline="\n").write(text)
 
 
+def sym_ptrs(body):
+    """body with each symbol used more than once through a pointer variable to it ('u8 *p0
+    = (u8 *)&data;'), the way MW gives it a register of its own"""
+    syms = re.findall(r"\(\(u8 \*\)&(\w+)\)", body)
+    many = [x for x in dict.fromkeys(syms) if syms.count(x) > 1]
+    if not many:
+        raise Fail("no symbol used twice")
+    head = ""
+    for k, x in enumerate(many):
+        body = body.replace(f"((u8 *)&{x})", f"p{k}")
+        head += f"    u8 *p{k} = (u8 *)&{x};\n"
+    lines = body.split("\n")
+    # (after the declarations at the start)
+    n = 0
+    while n < len(lines) and re.match(r"    [\w ]+\*? ?\w+(\[\d+\])?;$", lines[n]):
+        n += 1
+    return "\n".join(lines[:n] + [head.rstrip("\n")] + lines[n:])
+
+
 def lift_file(src, sizes, failed):
     """Lifts what it can of a file; the number of functions lifted."""
     t = open(src).read()
@@ -1700,14 +1724,17 @@ def lift_file(src, sizes, failed):
             continue
         v = VARIANT.get(b[1], 0)
         try:
-            # (variants: lift() 0-1 (without branches), then lift_cfg() 0-3)
-            if "@" not in b[2] and v < 2:
+            # (variants: lift() 0-3 (without branches), then lift_cfg() 0-7)
+            if "@" not in b[2] and v < 4:
                 try:
-                    cand[b[1]] = (b[0],) + lift(b[1], b[2], protos, v)
+                    d_, body_, cl_ = lift(b[1], b[2], protos, v & 1)
+                    if v & 2:
+                        body_ = sym_ptrs(body_)
+                    cand[b[1]] = (b[0], d_, body_, cl_)
                 except (Fail, KeyError, IndexError):
-                    VARIANT[b[1]] = v = 2
+                    VARIANT[b[1]] = v = 4
             if b[1] not in cand:
-                w = v - 2 if "@" not in b[2] else v
+                w = v - 4 if "@" not in b[2] else v
                 if w >= 8:
                     raise Fail("no more variants")
                 cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, w)
