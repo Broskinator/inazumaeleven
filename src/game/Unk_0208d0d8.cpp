@@ -21,7 +21,7 @@ extern "C" void func_0208d4d4(void);
 extern "C" s32 func_0208d51c(...);
 extern "C" s32 func_0208d5a8(...);
 extern "C" void func_0208d7b0(void);
-extern "C" void func_0208d950(void);
+extern "C" s32 func_0208d950(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_0208d9e8(void);
 extern "C" void func_0208db54(void *obj);
 extern "C" void func_0208dc5c(void);
@@ -81,7 +81,7 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void __cxa_vec_delete(void);
 extern "C" void __cxa_vec_new(void);
-extern "C" void atoi(void);
+extern "C" s32 atoi(...);
 extern "C" void func_020170b8(void);
 extern "C" void func_020286e4(void);
 extern "C" void func_0202b608(void);
@@ -736,52 +736,41 @@ extern "C" asm void func_0208d7b0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_0208d950(void)
+extern "C" s32 func_0208d950(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r2
-    cmp r1, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    bl func_0208d34c
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrsb r1, [r0]
-    cmp r1, #0x6d
-    cmpne r1, #0x4d
-    bne @L_0208d994
-    ldrsb r1, [r0, #1]
-    cmp r1, #0x6f
-    cmpne r1, #0x4f
-    beq @L_0208d99c
-@L_0208d994:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
-@L_0208d99c:
-    mov r2, #0
-@L_0208d9a0:
-    add r1, r0, r2
-    ldrsb r1, [r1, #2]
-    cmp r1, #0x30
-    blt @L_0208d9b8
-    cmp r1, #0x39
-    ble @L_0208d9c0
-@L_0208d9b8:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
-@L_0208d9c0:
-    add r2, r2, #1
-    cmp r2, #4
-    blt @L_0208d9a0
-    cmp r4, #0
-    beq @L_0208d9e0
-    add r0, r0, #2
-    bl atoi
-    str r0, [r4]
-@L_0208d9e0:
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    u8 *r4;
+    s32 v0;
+    s32 v1;
+    r4 = (u8 *)arg2;
+    if (arg1 == 0) {
+        return 0;
+    } else {
+        v0 = func_0208d34c((s32)arg0, arg1);
+        arg0 = (u8 *)v0;
+        if ((s32)arg0 == 0) {
+            return 0;
+        } else {
+            arg1 = *(s8 *)(arg0);
+            if (((arg1 != 0x6D && arg1 != 0x4D) || (arg1 = *(s8 *)(arg0 + 0x1), (arg1 != 0x6F && arg1 != 0x4F)))) {
+                return 0;
+            } else {
+                arg2 = 0;
+                do {
+                    arg1 = *(s8 *)(((u8 *)(arg0 + arg2)) + 0x2);
+                    if ((arg1 < 0x30 || arg1 > 0x39)) {
+                        return 0;
+                    } else {
+                        arg2 = (arg2 + 1);
+                    }
+                } while (arg2 < 4);
+                if ((s32)r4 != 0) {
+                    v1 = atoi((s32)(arg0 + 2));
+                    *(s32 *)(r4) = v1;
+                }
+                return 1;
+            }
+        }
+    }
 }
 
 extern "C" asm void func_0208d9e8(void)

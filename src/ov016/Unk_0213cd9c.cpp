@@ -100,7 +100,7 @@ extern "C" void func_ov016_0213e85c(void);
 extern "C" void func_ov016_0213e860(void);
 extern "C" s32 func_ov016_0213e864(void);
 extern "C" s32 func_ov016_0213e8c0(void);
-extern "C" void func_ov016_0213e91c(void);
+extern "C" s32 func_ov016_0213e91c(void);
 extern "C" char *func_ov016_0213e9ec(void);
 extern "C" s32 func_ov016_0213ea00(void);
 extern "C" void func_ov016_0213ea20(void);
@@ -1888,61 +1888,37 @@ extern "C" s32 func_ov016_0213e8c0(void)
     return v4;
 }
 
-extern "C" asm void func_ov016_0213e91c(void)
+extern "C" s32 func_ov016_0213e91c(void)
 {
-    stmdb sp!, {r4, lr}
-    ldr r0, =data_ov016_02158aa4
-    ldrb r1, [r0]
-    cmp r1, #0
-    bne @L_0213e93c
-    ldrb r0, [r0, #1]
-    cmp r0, #0
-    bne @L_0213e948
-@L_0213e93c:
-    bl func_ov016_0213b6cc
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-@L_0213e948:
-    mov r4, #0
-    mov r0, r4
-    bl func_ov016_021501bc
-    mov r0, r4
-    mov r1, #0x15
-    bl func_ov016_021505a4
-    ldr r0, =data_ov016_02158aa4
-    ldrb r0, [r0, #1]
-    cmp r0, #0
-    bne @L_0213e980
-    bl func_ov016_02137668
-    mov r0, #1
-    mov r1, r0
-    bl func_ov016_021505a4
-@L_0213e980:
-    mov r4, #1
-    mov r1, r4
-    mov r0, #0
-    bl func_ov016_0213b364
-    ldr r0, =data_ov016_02158aa4
-    ldrb r1, [r0]
-    cmp r1, #0
-    beq @L_0213e9ac
-    ldr r0, =func_ov016_0213e2a0
-    bl func_ov016_0213b354
-    ldmia sp!, {r4, pc}
-@L_0213e9ac:
-    ldrb r0, [r0, #1]
-    cmp r0, #0
-    bne @L_0213e9d0
-    mov r0, r4
-    mov r1, r4
-    bl func_ov016_021505a4
-    ldr r0, =func_ov016_0213cf50
-    bl func_ov016_0213b354
-    ldmia sp!, {r4, pc}
-@L_0213e9d0:
-    ldr r0, =func_ov016_0213d670
-    bl func_ov016_0213b354
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v6;
+    s32 v8;
+    s32 v9;
+    if ((*(u8 *)(((u8 *)&data_ov016_02158aa4)) != 0 || *(u8 *)(((u8 *)&data_ov016_02158aa4) + 0x1) == 0)) {
+        v0 = func_ov016_0213b6cc();
+        if (v0 == 0)
+            return v0;
+    }
+    func_ov016_021501bc(0);
+    func_ov016_021505a4(0, 0x15);
+    if (*(u8 *)(((u8 *)&data_ov016_02158aa4) + 0x1) == 0) {
+        func_ov016_02137668();
+        func_ov016_021505a4(1, 1);
+    }
+    func_ov016_0213b364(0, 1);
+    if (*(u8 *)(((u8 *)&data_ov016_02158aa4)) != 0) {
+        v6 = func_ov016_0213b354((s32)((u8 *)&func_ov016_0213e2a0));
+        return v6;
+    } else {
+        if (*(u8 *)(((u8 *)&data_ov016_02158aa4) + 0x1) == 0) {
+            func_ov016_021505a4(1, 1);
+            v8 = func_ov016_0213b354((s32)((u8 *)&func_ov016_0213cf50));
+            return v8;
+        } else {
+            v9 = func_ov016_0213b354((s32)((u8 *)&func_ov016_0213d670));
+            return v9;
+        }
+    }
 }
 
 extern "C" char *func_ov016_0213e9ec(void)

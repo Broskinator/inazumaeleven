@@ -22,7 +22,7 @@ extern "C" void func_02093e2c(void);
 extern "C" void func_02093edc(void);
 extern "C" void func_02094154(void);
 extern "C" BOOL func_0209443c(u8 *obj);
-extern "C" void func_02094450(void);
+extern "C" s32 func_02094450(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_02094484(void);
 extern "C" BOOL func_020944b4(void *self, u8 *obj);
 extern "C" s32 func_020944d4(s32 arg0);
@@ -948,23 +948,15 @@ extern "C" BOOL func_0209443c(u8 *obj)
     return (*(u16 *)(obj + 4) & 2) ? TRUE : FALSE;
 }
 
-extern "C" asm void func_02094450(void)
+extern "C" s32 func_02094450(s32 arg0, u8 *arg1, s32 arg2)
 {
-    ldr r0, [r1]
-    cmp r2, #0
-    add r3, r1, r0
-    blt @L_0209446c
-    ldrh r0, [r3]
-    cmp r2, r0
-    blt @L_02094474
-@L_0209446c:
-    mov r0, #0
-    bx lr
-@L_02094474:
-    add r0, r3, r2, lsl #2
-    ldr r0, [r0, #4]
-    add r0, r1, r0
-    bx lr
+    u8 *r3;
+    r3 = (u8 *)(arg1 + *(s32 *)(arg1));
+    if ((arg2 < 0 || arg2 >= *(u16 *)(r3))) {
+        return 0;
+    } else {
+        return (s32)(arg1 + *(s32 *)(((u8 *)(r3 + (arg2 << 2))) + 0x4));
+    }
 }
 
 extern "C" asm void func_02094484(void)

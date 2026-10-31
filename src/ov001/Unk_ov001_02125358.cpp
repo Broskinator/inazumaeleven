@@ -45,8 +45,8 @@ extern "C" void func_ov001_0212746c(void);
 extern "C" void func_ov001_021275b0(void);
 extern "C" void func_ov001_02127a54(void);
 extern "C" void func_ov001_02127b60(void);
-extern "C" void func_ov001_02127da4(void);
-extern "C" void func_ov001_02127db8(void);
+extern "C" s32 func_ov001_02127da4(s32 arg0, s32 arg1);
+extern "C" s32 func_ov001_02127db8(s32 arg0, s32 arg1);
 extern "C" void func_ov001_02127dcc(void);
 extern "C" void func_ov001_02127e5c(void);
 extern "C" void func_ov001_02127fa4(void);
@@ -3044,22 +3044,24 @@ extern "C" asm void func_ov001_02127b60(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov001_02127da4(void)
+extern "C" s32 func_ov001_02127da4(s32 arg0, s32 arg1)
 {
-    cmp r1, #5
-    cmpne r1, #2
-    moveq r0, #1
-    movne r0, #0
-    bx lr
+    if ((arg1 == 5 || arg1 == 2)) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
-extern "C" asm void func_ov001_02127db8(void)
+extern "C" s32 func_ov001_02127db8(s32 arg0, s32 arg1)
 {
-    cmp r1, #4
-    cmpne r1, #1
-    moveq r0, #1
-    movne r0, #0
-    bx lr
+    if ((arg1 == 4 || arg1 == 1)) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_ov001_02127dcc(void)

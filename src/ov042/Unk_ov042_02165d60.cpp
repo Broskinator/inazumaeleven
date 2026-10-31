@@ -1,6 +1,6 @@
 #include "ov042/Unk_ov042_02165d60.hpp"
 
-extern "C" void func_ov042_02165d60(void);
+extern "C" s32 func_ov042_02165d60(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov042_02165da0(...);
 extern "C" void func_ov042_02165dd8(u8 *arg0, s32 arg1);
 extern "C" void func_ov042_02165e14(void);
@@ -223,26 +223,17 @@ extern "C" void func_ov087_0218099c(void);
 extern "C" void func_ov087_02181d4c(void);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov042_02165d60(void)
+extern "C" s32 func_ov042_02165d60(s32 arg0, s32 arg1, s32 arg2)
 {
-    cmp r1, #4
-    movhs r0, #0
-    bxhs lr
-    cmp r2, #0
-    blt @L_02165d84
-    add r3, r0, r1, lsl #1
-    ldrb r1, [r3, #0x75]
-    cmp r2, r1
-    blt @L_02165d8c
-@L_02165d84:
-    mov r0, #0
-    bx lr
-@L_02165d8c:
-    ldrb r1, [r3, #0x74]
-    add r1, r2, r1
-    add r0, r0, r1, lsl #2
-    ldr r0, [r0, #0x30]
-    bx lr
+    if ((u32)arg1 >= (u32)4) {
+        return 0;
+    } else {
+        if ((arg2 < 0 || arg2 >= *(u8 *)(((u8 *)(arg0 + (arg1 << 1))) + 0x75))) {
+            return 0;
+        } else {
+            return *(s32 *)(((u8 *)(arg0 + ((arg2 + *(u8 *)(((u8 *)(arg0 + (arg1 << 1))) + 0x74)) << 2))) + 0x30);
+        }
+    }
 }
 
 extern "C" asm s32 func_ov042_02165da0(...)

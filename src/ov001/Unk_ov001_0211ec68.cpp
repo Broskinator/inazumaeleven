@@ -1,6 +1,6 @@
 #include "ov001/Unk_ov001_0211ec68.hpp"
 
-extern "C" void func_ov001_0211ec68(void);
+extern "C" s32 func_ov001_0211ec68(s32 arg0);
 extern "C" void func_ov001_0211ecdc(void);
 extern "C" void func_ov001_0211f324(void);
 extern "C" void func_ov001_0211f38c(void);
@@ -64,10 +64,10 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN17UnkClass_020621b413func_020690a8Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b3dcEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206de4cEv(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206de4cEv(...);
 extern "C" void _ZN17UnkClass_020621b413func_0207620cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207f7ccEv(void);
-extern "C" void _ZN17UnkClass_0206ee3413func_0206efb0Ei(void);
+extern "C" s32 _ZN17UnkClass_0206ee3413func_0206efb0Ei(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02001d60(void);
 extern "C" void func_02003608(void);
@@ -131,37 +131,37 @@ extern "C" void func_ov015_0213c33c(void);
 extern "C" void gGameState(void);
 extern "C" void sprintf(void);
 
-extern "C" asm void func_ov001_0211ec68(void)
+extern "C" s32 func_ov001_0211ec68(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldrb r0, [r6, #0x12]
-    cmp r0, #0
-    bne @L_0211ecc4
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206de4cEv
-    movs r5, r0
-    beq @L_0211ecc4
-    mov r1, #0
-    bl _ZN17UnkClass_0206ee3413func_0206efb0Ei
-    mov r4, r0
-    mov r0, r5
-    mov r1, #1
-    bl _ZN17UnkClass_0206ee3413func_0206efb0Ei
-    cmp r4, #1
-    cmpne r4, #6
-    cmpne r0, #1
-    cmpne r0, #6
-    moveq r0, #1
-    streqb r0, [r6, #0x12]
-    movne r0, #2
-    strneb r0, [r6, #0x12]
-@L_0211ecc4:
-    ldrb r0, [r6, #0x12]
-    cmp r0, #1
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r5;
+    u8 *r6;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    r6 = (u8 *)arg0;
+    if (*(u8 *)(r6 + 0x12) == 0) {
+        v0 = _ZN17UnkClass_020621b413func_0206de4cEv((s32)((u8 *)&data_020e88a0));
+        arg0 = v0;
+        r5 = v0;
+        if (r5 != 0) {
+            v1 = _ZN17UnkClass_0206ee3413func_0206efb0Ei(arg0, 0);
+            v2 = _ZN17UnkClass_0206ee3413func_0206efb0Ei(r5, 1);
+            r4 = v1;
+            arg0 = v2;
+            if ((((r4 == 1 || r4 == 6) || arg0 == 1) || arg0 == 6)) {
+                *(u8 *)(r6 + 0x12) = 1;
+            } else {
+                *(u8 *)(r6 + 0x12) = 2;
+            }
+        }
+    }
+    if (*(u8 *)(r6 + 0x12) == 1) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_ov001_0211ecdc(void)

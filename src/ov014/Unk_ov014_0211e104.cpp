@@ -11,8 +11,8 @@ extern "C" s32 func_ov014_0211ea08(u8 *arg0);
 extern "C" void func_ov014_0211ead4(void);
 extern "C" void func_ov014_0211eb28(void);
 extern "C" void func_ov014_0211ec00(void);
-extern "C" void func_ov014_0211ec50(void);
-extern "C" void func_ov014_0211ed94(void);
+extern "C" s32 func_ov014_0211ec50(...);
+extern "C" s32 func_ov014_0211ed94(u8 *arg0);
 extern "C" void func_ov014_0211ee0c(void);
 extern "C" void func_ov014_0211ef44(void);
 extern "C" void func_ov014_0211efc8(void);
@@ -862,7 +862,7 @@ extern "C" asm void func_ov014_0211ec00(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_0211ec50(void)
+extern "C" asm s32 func_ov014_0211ec50(...)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -948,41 +948,24 @@ extern "C" asm void func_ov014_0211ec50(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0211ed94(void)
+extern "C" s32 func_ov014_0211ed94(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r4, [r5, #0xc]
-    ldr r0, [r4, #0x824]
-    cmp r0, #0
-    ldrneb r0, [r4, #0x456]
-    cmpne r0, #0
-    bne @L_0211edbc
-    mov r0, r5
-    bl func_ov014_0211ec50
-@L_0211edbc:
-    ldr r1, [r4, #0x824]
-    cmp r1, #0
-    ldrneb r0, [r4, #0x456]
-    cmpne r0, #0
-    ldrne r1, [r4, #0x828]
-    ldrne r0, [r4, #0x82c]
-    subne r0, r1, r0
-    ldmneia sp!, {r3, r4, r5, pc}
-    cmp r1, #0
-    bne @L_0211ee04
-    ldrb r0, [r5, #8]
-    cmp r0, #4
-    bne @L_0211edfc
-    ldrb r0, [r4, #0x455]
-    cmp r0, #9
-    bne @L_0211ee04
-@L_0211edfc:
-    mvn r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0211ee04:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r1;
+    u8 *r4;
+    r4 = (u8 *)*(s32 *)(arg0 + 0xC);
+    if ((*(s32 *)(r4 + 0x824) == 0 || *(u8 *)(r4 + 0x456) == 0)) {
+        func_ov014_0211ec50((s32)arg0);
+    }
+    r1 = *(s32 *)(r4 + 0x824);
+    if ((r1 != 0 && *(u8 *)(r4 + 0x456) != 0)) {
+        return (*(s32 *)(r4 + 0x828) - *(s32 *)(r4 + 0x82C));
+    } else {
+        if ((r1 == 0 && (*(u8 *)(arg0 + 0x8) != 4 || *(u8 *)(r4 + 0x455) == 9))) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
 }
 
 extern "C" asm void func_ov014_0211ee0c(void)

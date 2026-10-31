@@ -6,7 +6,7 @@ extern "C" s32 func_ov014_0211b1a8(...);
 extern "C" void func_ov014_0211b1f0(void);
 extern "C" s32 func_ov014_0211b258(void);
 extern "C" void func_ov014_0211b2c0(void);
-extern "C" void func_ov014_0211b390(void);
+extern "C" s32 func_ov014_0211b390(u8 *arg0);
 extern "C" s32 func_ov014_0211b3d8(s32 arg0);
 extern "C" void func_ov014_0211b3e4(void);
 extern "C" void func_ov014_0211b400(void);
@@ -349,28 +349,28 @@ extern "C" asm void func_ov014_0211b2c0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0211b390(void)
+extern "C" s32 func_ov014_0211b390(u8 *arg0)
 {
-    ldr r2, [r0, #0xa0]
-    mov r3, #0
-    cmp r2, #0
-    beq @L_0211b3d0
-    ldrsb r1, [r0, #0xaf]
-    cmp r1, #1
-    bne @L_0211b3bc
-    ldr r0, [r2, #0x104]
-    cmp r0, #0
-    ldrneh r3, [r0, #4]
-    b @L_0211b3d0
-@L_0211b3bc:
-    cmp r1, #0
-    cmpne r1, #4
-    ldreq r1, [r0, #0x50]
-    ldreq r0, [r2, #0xf8]
-    subeq r3, r1, r0
-@L_0211b3d0:
-    mov r0, r3
-    bx lr
+    s32 r1;
+    u8 *r2;
+    s32 r3;
+    r2 = (u8 *)*(s32 *)(arg0 + 0xA0);
+    r3 = 0;
+    if ((s32)r2 != 0) {
+        r1 = *(s8 *)(arg0 + 0xAF);
+        if (r1 == 1) {
+            r3 = 0;
+            arg0 = (u8 *)*(s32 *)(r2 + 0x104);
+            if ((s32)arg0 != 0) {
+                r3 = *(u16 *)(arg0 + 0x4);
+            }
+        } else {
+            if ((r1 == 0 || (r3 = 0, r1 == 4))) {
+                r3 = (*(s32 *)(arg0 + 0x50) - *(s32 *)(r2 + 0xF8));
+            }
+        }
+    }
+    return r3;
 }
 
 extern "C" s32 func_ov014_0211b3d8(s32 arg0)

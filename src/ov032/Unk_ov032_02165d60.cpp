@@ -36,7 +36,7 @@ extern "C" s32 func_ov032_02167784(u8 *arg0, s32 arg1);
 extern "C" void func_ov032_021677c4(void);
 extern "C" s32 func_ov032_021679c0(u8 *arg0);
 extern "C" void func_ov032_02167a74(void);
-extern "C" void func_ov032_02167b24(void);
+extern "C" s32 func_ov032_02167b24(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov032_02167b78(void);
 extern "C" s32 func_ov032_02167dc0(...);
 extern "C" void func_ov032_021684d8(void);
@@ -2155,30 +2155,28 @@ extern "C" asm void func_ov032_02167a74(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov032_02167b24(void)
+extern "C" s32 func_ov032_02167b24(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    cmp r1, r2
-    mvneq r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r4, #0
-    mov r3, #0xa
-@L_02167b3c:
-    mla r12, r4, r3, r0
-    add r12, r12, #0x1000
-    ldrsh lr, [r12, #0x18]
-    cmp r1, lr
-    ldreqsh r12, [r12, #0x1a]
-    cmpeq r1, r12
-    cmpeq r2, lr
-    cmpeq r2, r12
-    moveq r0, r4
-    ldmeqia sp!, {r4, pc}
-    add r4, r4, #1
-    cmp r4, #0x84
-    blt @L_02167b3c
-    mvn r0, #0
-    ldmia sp!, {r4, pc}
+    s32 r3;
+    s32 r4;
+    u8 *r12;
+    s32 lr;
+    if (arg1 == arg2) {
+        return -1;
+    } else {
+        r4 = 0;
+        r3 = 10;
+        do {
+            r12 = (u8 *)(((r4 * r3) + arg0) + 0x1000);
+            lr = *(s16 *)(((u8 *)(((r4 * r3) + arg0) + 0x1000)) + 0x18);
+            if ((((arg1 == lr && (r12 = (u8 *)*(s16 *)(r12 + 0x1A), arg1 == (s32)r12)) && arg2 == lr) && arg2 == (s32)r12)) {
+                return r4;
+            } else {
+                r4 = (r4 + 1);
+            }
+        } while (r4 < 0x84);
+        return -1;
+    }
 }
 
 extern "C" asm void func_ov032_02167b78(void)

@@ -74,7 +74,7 @@ extern "C" void func_ov014_02113e70(void);
 extern "C" void func_ov014_02113e7c(s32 arg0, s32 arg1);
 extern "C" void func_ov014_02113e90(void);
 extern "C" void func_ov014_02113f34(void);
-extern "C" void func_ov014_02113f9c(void);
+extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1);
 extern "C" void func_ov014_02114010(void);
 extern "C" void func_ov014_0211409c(void);
 extern "C" void func_ov014_02114188(void);
@@ -2673,45 +2673,28 @@ extern "C" asm void func_ov014_02113f34(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_02113f9c(void)
+extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1)
 {
-    mov r2, #0
-    cmp r1, #0
-    mov r3, r2
-    ldrsb r12, [r0], #1
-    cmpgt r1, #0
-    ble @L_02114008
-@L_02113fb4:
-    cmp r12, #0x30
-    blt @L_02113fc4
-    cmp r12, #0x39
-    ble @L_02113fec
-@L_02113fc4:
-    cmp r12, #0x41
-    blt @L_02113fd4
-    cmp r12, #0x5a
-    ble @L_02113fec
-@L_02113fd4:
-    cmp r12, #0x61
-    blt @L_02113fe4
-    cmp r12, #0x7a
-    ble @L_02113fec
-@L_02113fe4:
-    cmp r12, #0x20
-    bne @L_02113ff4
-@L_02113fec:
-    add r3, r3, #1
-    b @L_02113ff8
-@L_02113ff4:
-    add r3, r3, #3
-@L_02113ff8:
-    add r2, r2, #1
-    cmp r2, r1
-    ldrsb r12, [r0], #1
-    blt @L_02113fb4
-@L_02114008:
-    mov r0, r3
-    bx lr
+    s32 r2;
+    s32 r3;
+    s32 r12;
+    r2 = 0;
+    r3 = 0;
+    r12 = *(s8 *)(arg0);
+    arg0 = (u8 *)(arg0 + 1);
+    if ((arg1 > 0 && arg1 > 0)) {
+        do {
+            if (((((r12 >= 0x30 && r12 <= 0x39) || (r12 >= 0x41 && r12 <= 0x5A)) || (r12 >= 0x61 && r12 <= 0x7A)) || r12 == 0x20)) {
+                r3 = (r3 + 1);
+            } else {
+                r3 = (r3 + 3);
+            }
+            r2 = (r2 + 1);
+            r12 = *(s8 *)(arg0);
+            arg0 = (u8 *)(arg0 + 1);
+        } while (r2 < arg1);
+    }
+    return r3;
 }
 
 extern "C" asm void func_ov014_02114010(void)

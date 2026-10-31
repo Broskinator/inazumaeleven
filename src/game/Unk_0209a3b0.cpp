@@ -41,7 +41,7 @@ extern "C" s32 func_0209b1cc(u8 *obj);
 extern "C" void func_0209b1d4(u8 *obj, s32 value);
 extern "C" s32 func_0209b1dc(u8 *obj);
 extern "C" void func_0209b1e4(u8 *obj, u8 value);
-extern "C" void func_0209b1ec(void);
+extern "C" s32 func_0209b1ec(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_0209b230(void);
 extern "C" void func_0209b288(u8 *obj, s32 a, s32 b);
 extern "C" s32 func_0209b298(s32 arg0, u8 *arg1, u8 *arg2);
@@ -1117,26 +1117,22 @@ extern "C" void func_0209b1e4(u8 *obj, u8 value)
     obj[0x623] = value;
 }
 
-extern "C" asm void func_0209b1ec(void)
+extern "C" s32 func_0209b1ec(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    mov lr, #0
-@L_0209b1f4:
-    add r12, r0, lr, lsl #3
-    ldr r3, [r12, #0x624]
-    cmp r1, r3
-    ldrne r3, [r12, #0x628]
-    cmpne r3, #0
-    addeq r0, r0, lr, lsl #3
-    streq r1, [r0, #0x624]
-    streq r2, [r0, #0x628]
-    moveq r0, #1
-    ldmeqia sp!, {r3, pc}
-    add lr, lr, #1
-    cmp lr, #4
-    blt @L_0209b1f4
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    u8 *r12;
+    s32 lr;
+    lr = 0;
+    do {
+        r12 = (u8 *)(arg0 + (lr << 3));
+        if ((arg1 == *(s32 *)(r12 + 0x624) || *(s32 *)(r12 + 0x628) == 0)) {
+            *(s32 *)(((u8 *)(arg0 + (lr << 3))) + 0x624) = arg1;
+            *(s32 *)(((u8 *)(arg0 + (lr << 3))) + 0x628) = arg2;
+            return 1;
+        } else {
+            lr = (lr + 1);
+        }
+    } while (lr < 4);
+    return 0;
 }
 
 extern "C" asm void func_0209b230(void)

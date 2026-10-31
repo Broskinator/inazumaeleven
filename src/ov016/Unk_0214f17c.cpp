@@ -1,7 +1,7 @@
 #include "ov016/Unk_0214f17c.hpp"
 
 extern "C" s32 func_ov016_0214f17c(...);
-extern "C" void func_ov016_0214f1b0(void);
+extern "C" s32 func_ov016_0214f1b0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov016_0214f208(void);
 extern "C" s32 func_ov016_0214f2dc(void);
 extern "C" s32 func_ov016_0214f330(...);
@@ -219,8 +219,8 @@ extern "C" s32 func_02026ef4(...);
 extern "C" void func_020273f8(void);
 extern "C" s32 func_ov016_0213b3dc(...);
 extern "C" s32 func_ov016_0214f07c(...);
-extern "C" void memcmp(void);
-extern "C" void strlen(void);
+extern "C" s32 memcmp(...);
+extern "C" s32 strlen(...);
 
 extern "C" asm s32 func_ov016_0214f17c(...)
 {
@@ -238,30 +238,29 @@ extern "C" asm s32 func_ov016_0214f17c(...)
     bx lr
 }
 
-extern "C" asm void func_ov016_0214f1b0(void)
+extern "C" s32 func_ov016_0214f1b0(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, r1
-    mov r7, r0
-    mov r5, r2
-    bl strlen
-    mov r4, r0
-    mov r0, r6
-    bl strlen
-    cmp r4, r5
-    cmpge r0, r5
-    movlt r0, #0
-    ldmltia sp!, {r3, r4, r5, r6, r7, pc}
-    sub r1, r0, r5
-    sub r3, r4, r5
-    mov r2, r5
-    add r0, r7, r3
-    add r1, r6, r1
-    bl memcmp
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r4;
+    s32 r7;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    v0 = strlen(arg0, arg1, arg2);
+    v1 = strlen(arg1);
+    r7 = arg0;
+    r4 = v0;
+    arg0 = v1;
+    if ((r4 < arg2 || arg0 < arg2)) {
+        return 0;
+    } else {
+        v2 = memcmp((r7 + (r4 - arg2)), (arg1 + (arg0 - arg2)), arg2, (r4 - arg2));
+        if (v2 == 0) {
+            arg0 = 1;
+        } else {
+            arg0 = 0;
+        }
+        return arg0;
+    }
 }
 
 extern "C" s32 func_ov016_0214f208(void)

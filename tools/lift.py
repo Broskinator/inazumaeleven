@@ -237,6 +237,10 @@ def cond(flags, cc):
         if cc == c1:
             return f"({cond(f1, c1)} && {cond(f2, cc)})"
         return f"({cond(f1, c1)} ? {cond(f2, cc)} : {cond(f1, cc)})"
+    if flags[0] == "seq":
+        _, sets, f = flags
+        sets_ = ", ".join(f"{h.render()} = {value(v, 'u8 *' if h.ptr else 's32')}" for h, v in sets)
+        return f"({sets_}, {cond(f, cc)})"
     kind, a, b = flags
     if kind == "tst":
         if cc not in ("eq", "ne"):
@@ -1342,22 +1346,29 @@ def lift_cfg(name, body, protos, variant=0):
             b1, b2 = blocks[i], blocks[i + 1]
             if "target" not in b1 or "target" not in b2:
                 continue
-            if code[i][1] is None or code[i + 1][1] is None or code[i + 1][0]:
+            if code[i][1] is None or code[i + 1][1] is None:
+                continue
+            if code[i + 1][0] and not all(st[0] == "assign" and not isinstance(st[2], (Call, Tmp))
+                                          for st in code[i + 1][0]):
                 continue
             if any(b.get("target") == i + 1 for b in blocks):
                 continue
             t, u = b1["target"], b2["target"]
             if u <= i + 1:
                 continue
+            second = code[i + 1][1]
+            if code[i + 1][0]:
+                second = (("seq", [(st[1], st[2]) for st in code[i + 1][0]], second[0]), second[1])
             if t == i + 2:
-                term = (("logic", "&&", negate(code[i][1]), code[i + 1][1]), "t")
+                term = (("logic", "&&", negate(code[i][1]), second), "t")
             elif t == u:
-                term = (("logic", "||", code[i][1], code[i + 1][1]), "t")
+                term = (("logic", "||", code[i][1], second), "t")
             else:
                 continue
             code[i] = (code[i][0], term)
             del code[i + 1], blocks[i + 1], live_in[i + 1]
             b1["target"] = u
+            b1["succ"] = [i + 2, u]     # (on into the block after the second, or to its target)
             for b in blocks:
                 if b.get("target") is not None and b["target"] > i + 1:
                     b["target"] -= 1
