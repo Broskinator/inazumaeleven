@@ -65,7 +65,7 @@ extern "C" s32 _ZN17UnkClass_020621b413func_0207c1b0Ev(...);
 extern "C" void func_0209bf9c(void);
 extern "C" s32 func_ov015_02130b14(...);
 extern "C" void func_ov015_021319fc(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" int func_020802a0(MatchPlayer *player)
 {
@@ -468,41 +468,26 @@ extern "C" void func_02080830(MatchPlayer *player, int i, u16 a, u16 b)
     player->unk_7c[i * 2 + 1] = b;
 }
 
-extern "C" asm void func_0208084c(void)
+extern "C" s32 func_0208084c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    cmp r1, #0
-    blt @L_02080860
-    cmp r1, #6
-    ble @L_02080868
-@L_02080860:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
-@L_02080868:
-    cmp r2, #0
-    blt @L_02080878
-    cmp r2, #1
-    ble @L_02080880
-@L_02080878:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
-@L_02080880:
-    ldr r3, =gGameState
-    add r2, r2, r1, lsl #1
-    ldrb r1, [r3, #0x1b]
-    add r2, r0, r2, lsl #1
-    ldrh r4, [r2, #0x7c]
-    cmp r1, #0
-    bne @L_020808b4
-    ldr r1, =0xfff
-    ands r4, r4, r1
-    beq @L_020808b4
-    bl func_02080b90
-    cmp r0, #1
-    orreq r4, r4, #0x8000
-@L_020808b4:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    u8 v0;
+    if ((arg1 < 0 || arg1 > 6)) {
+        return 0;
+    } else {
+        if ((arg2 < 0 || arg2 > 1)) {
+            return 0;
+        } else {
+            r4 = *(u16 *)(((u8 *)(arg0 + ((arg2 + (arg1 << 1)) << 1))) + 0x7C);
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x1B) == 0 && (r4 = (r4 & 0xFFF), r4 != 0))) {
+                v0 = func_02080b90((MatchPlayer *)arg0);
+                if (v0 == 1) {
+                    r4 = (r4 | 0x8000);
+                }
+            }
+            return r4;
+        }
+    }
 }
 
 extern "C" u16 func_020808c4(MatchPlayer *player, int i)
@@ -1293,158 +1278,144 @@ extern "C" asm void func_020813a8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02081438(void)
+extern "C" s32 func_02081438(u8 *arg0)
 {
-    ldrb r1, [r0, #0xbf]
-    cmp r1, #0
-    ldreqb r0, [r0, #0xdb]
-    bxeq lr
-    cmp r1, #1
-    bne @L_02081474
-    ldr r1, =gGameState
-    ldrb r1, [r1, #0x98]
-    cmp r1, #0
-    ldreq r1, =data_020cb6e0
-    ldreqb r1, [r1, #0x288]
-    cmpeq r1, #0
-    ldrneb r0, [r0, #0xdb]
-    moveq r0, #1
-    bx lr
-@L_02081474:
-    ldrb r0, [r0, #0xdb]
-    bx lr
+    s32 r1;
+    r1 = *(u8 *)(arg0 + 0xBF);
+    if (r1 == 0) {
+        return *(u8 *)(arg0 + 0xDB);
+    } else {
+        if (r1 == 1) {
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x98) != 0 || *(u8 *)(((u8 *)&data_020cb6e0) + 0x288) != 0)) {
+                arg0 = (u8 *)*(u8 *)(arg0 + 0xDB);
+            } else {
+                arg0 = (u8 *)1;
+            }
+            return (s32)arg0;
+        } else {
+            return *(u8 *)(arg0 + 0xDB);
+        }
+    }
 }
 
-extern "C" asm void func_02081484(void)
+extern "C" s32 func_02081484(u8 *arg0)
 {
-    ldrb r1, [r0, #0xbf]
-    cmp r1, #0
-    ldreqb r0, [r0, #0xd9]
-    bxeq lr
-    cmp r1, #1
-    bne @L_020814c0
-    ldr r1, =gGameState
-    ldrb r1, [r1, #0x98]
-    cmp r1, #0
-    ldreq r1, =data_020cb6e0
-    ldreqb r1, [r1, #0x288]
-    cmpeq r1, #0
-    ldrneb r0, [r0, #0xd9]
-    moveq r0, #1
-    bx lr
-@L_020814c0:
-    ldrb r0, [r0, #0xd9]
-    bx lr
+    s32 r1;
+    r1 = *(u8 *)(arg0 + 0xBF);
+    if (r1 == 0) {
+        return *(u8 *)(arg0 + 0xD9);
+    } else {
+        if (r1 == 1) {
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x98) != 0 || *(u8 *)(((u8 *)&data_020cb6e0) + 0x288) != 0)) {
+                arg0 = (u8 *)*(u8 *)(arg0 + 0xD9);
+            } else {
+                arg0 = (u8 *)1;
+            }
+            return (s32)arg0;
+        } else {
+            return *(u8 *)(arg0 + 0xD9);
+        }
+    }
 }
 
-extern "C" asm void func_020814d0(void)
+extern "C" s32 func_020814d0(u8 *arg0)
 {
-    ldrb r1, [r0, #0xbf]
-    cmp r1, #0
-    ldreqb r0, [r0, #0xde]
-    bxeq lr
-    cmp r1, #1
-    bne @L_0208150c
-    ldr r1, =gGameState
-    ldrb r1, [r1, #0x98]
-    cmp r1, #0
-    ldreq r1, =data_020cb6e0
-    ldreqb r1, [r1, #0x288]
-    cmpeq r1, #0
-    ldrneb r0, [r0, #0xde]
-    moveq r0, #1
-    bx lr
-@L_0208150c:
-    ldrb r0, [r0, #0xde]
-    bx lr
+    s32 r1;
+    r1 = *(u8 *)(arg0 + 0xBF);
+    if (r1 == 0) {
+        return *(u8 *)(arg0 + 0xDE);
+    } else {
+        if (r1 == 1) {
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x98) != 0 || *(u8 *)(((u8 *)&data_020cb6e0) + 0x288) != 0)) {
+                arg0 = (u8 *)*(u8 *)(arg0 + 0xDE);
+            } else {
+                arg0 = (u8 *)1;
+            }
+            return (s32)arg0;
+        } else {
+            return *(u8 *)(arg0 + 0xDE);
+        }
+    }
 }
 
-extern "C" asm void func_0208151c(void)
+extern "C" s32 func_0208151c(u8 *arg0)
 {
-    ldrb r1, [r0, #0xbf]
-    cmp r1, #0
-    ldreqb r0, [r0, #0xdd]
-    bxeq lr
-    cmp r1, #1
-    bne @L_02081558
-    ldr r1, =gGameState
-    ldrb r1, [r1, #0x98]
-    cmp r1, #0
-    ldreq r1, =data_020cb6e0
-    ldreqb r1, [r1, #0x288]
-    cmpeq r1, #0
-    ldrneb r0, [r0, #0xdd]
-    moveq r0, #1
-    bx lr
-@L_02081558:
-    ldrb r0, [r0, #0xdd]
-    bx lr
+    s32 r1;
+    r1 = *(u8 *)(arg0 + 0xBF);
+    if (r1 == 0) {
+        return *(u8 *)(arg0 + 0xDD);
+    } else {
+        if (r1 == 1) {
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x98) != 0 || *(u8 *)(((u8 *)&data_020cb6e0) + 0x288) != 0)) {
+                arg0 = (u8 *)*(u8 *)(arg0 + 0xDD);
+            } else {
+                arg0 = (u8 *)1;
+            }
+            return (s32)arg0;
+        } else {
+            return *(u8 *)(arg0 + 0xDD);
+        }
+    }
 }
 
-extern "C" asm void func_02081568(void)
+extern "C" s32 func_02081568(u8 *arg0)
 {
-    ldrb r1, [r0, #0xbf]
-    cmp r1, #0
-    ldreqb r0, [r0, #0xda]
-    bxeq lr
-    cmp r1, #1
-    bne @L_020815a4
-    ldr r1, =gGameState
-    ldrb r1, [r1, #0x98]
-    cmp r1, #0
-    ldreq r1, =data_020cb6e0
-    ldreqb r1, [r1, #0x288]
-    cmpeq r1, #0
-    ldrneb r0, [r0, #0xda]
-    moveq r0, #1
-    bx lr
-@L_020815a4:
-    ldrb r0, [r0, #0xda]
-    bx lr
+    s32 r1;
+    r1 = *(u8 *)(arg0 + 0xBF);
+    if (r1 == 0) {
+        return *(u8 *)(arg0 + 0xDA);
+    } else {
+        if (r1 == 1) {
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x98) != 0 || *(u8 *)(((u8 *)&data_020cb6e0) + 0x288) != 0)) {
+                arg0 = (u8 *)*(u8 *)(arg0 + 0xDA);
+            } else {
+                arg0 = (u8 *)1;
+            }
+            return (s32)arg0;
+        } else {
+            return *(u8 *)(arg0 + 0xDA);
+        }
+    }
 }
 
-extern "C" asm void func_020815b4(void)
+extern "C" s32 func_020815b4(u8 *arg0)
 {
-    ldrb r1, [r0, #0xbf]
-    cmp r1, #0
-    ldreqb r0, [r0, #0xd8]
-    bxeq lr
-    cmp r1, #1
-    bne @L_020815f0
-    ldr r1, =gGameState
-    ldrb r1, [r1, #0x98]
-    cmp r1, #0
-    ldreq r1, =data_020cb6e0
-    ldreqb r1, [r1, #0x288]
-    cmpeq r1, #0
-    ldrneb r0, [r0, #0xd8]
-    moveq r0, #1
-    bx lr
-@L_020815f0:
-    ldrb r0, [r0, #0xd8]
-    bx lr
+    s32 r1;
+    r1 = *(u8 *)(arg0 + 0xBF);
+    if (r1 == 0) {
+        return *(u8 *)(arg0 + 0xD8);
+    } else {
+        if (r1 == 1) {
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x98) != 0 || *(u8 *)(((u8 *)&data_020cb6e0) + 0x288) != 0)) {
+                arg0 = (u8 *)*(u8 *)(arg0 + 0xD8);
+            } else {
+                arg0 = (u8 *)1;
+            }
+            return (s32)arg0;
+        } else {
+            return *(u8 *)(arg0 + 0xD8);
+        }
+    }
 }
 
-extern "C" asm void func_02081600(void)
+extern "C" s32 func_02081600(u8 *arg0)
 {
-    ldrb r1, [r0, #0xbf]
-    cmp r1, #0
-    ldreqb r0, [r0, #0xdc]
-    bxeq lr
-    cmp r1, #1
-    bne @L_0208163c
-    ldr r1, =gGameState
-    ldrb r1, [r1, #0x98]
-    cmp r1, #0
-    ldreq r1, =data_020cb6e0
-    ldreqb r1, [r1, #0x288]
-    cmpeq r1, #0
-    ldrneb r0, [r0, #0xdc]
-    moveq r0, #1
-    bx lr
-@L_0208163c:
-    ldrb r0, [r0, #0xdc]
-    bx lr
+    s32 r1;
+    r1 = *(u8 *)(arg0 + 0xBF);
+    if (r1 == 0) {
+        return *(u8 *)(arg0 + 0xDC);
+    } else {
+        if (r1 == 1) {
+            if ((*(u8 *)(((u8 *)&gGameState) + 0x98) != 0 || *(u8 *)(((u8 *)&data_020cb6e0) + 0x288) != 0)) {
+                arg0 = (u8 *)*(u8 *)(arg0 + 0xDC);
+            } else {
+                arg0 = (u8 *)1;
+            }
+            return (s32)arg0;
+        } else {
+            return *(u8 *)(arg0 + 0xDC);
+        }
+    }
 }
 
 extern "C" s32 func_0208164c(s32 *table, int level)

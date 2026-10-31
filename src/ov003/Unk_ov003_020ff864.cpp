@@ -60,7 +60,7 @@ extern "C" s32 func_ov003_0210265c(s32 arg0);
 extern "C" s32 func_ov003_02102680(s32 arg0);
 extern "C" void func_ov003_0210269c(void);
 extern "C" s32 func_ov003_02102720(u8 *arg0);
-extern "C" void func_ov003_02102760(void);
+extern "C" s32 func_ov003_02102760(void);
 
 extern "C" char data_020c4678[];
 extern "C" char data_020c46a8[];
@@ -119,11 +119,11 @@ extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void OS_Sleep(void);
-extern "C" void STD_GetStringLength(void);
-extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
-extern "C" void _ZN11SaveManager8GetUnk20Ev(void);
-extern "C" void _ZN11TreasureBox13func_02052384Ev(void);
-extern "C" void _ZN11TreasureBox13func_020526ccEi(void);
+extern "C" s32 STD_GetStringLength(...);
+extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
+extern "C" s32 _ZN11SaveManager8GetUnk20Ev(...);
+extern "C" s32 _ZN11TreasureBox13func_02052384Ev(...);
+extern "C" s32 _ZN11TreasureBox13func_020526ccEi(...);
 extern "C" s32 _ZN12SceneManager13func_0203e2fcEl(...);
 extern "C" void _ZN12SoundManager13AreBanksReadyEv(void);
 extern "C" void _ZN12SoundManager6IsIdleEv(void);
@@ -137,7 +137,7 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e224Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_0207f140Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02083054Ev(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -147,7 +147,7 @@ extern "C" void _ZN8TextFontC1Ev(void);
 extern "C" void _ZN9PoolEntry8GetData1Ev(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
-extern "C" void func_01ffcb50(void);
+extern "C" s32 func_01ffcb50(...);
 extern "C" void func_02003598(void);
 extern "C" void func_02003758(void);
 extern "C" void func_02003918(void);
@@ -155,11 +155,11 @@ extern "C" void func_02003bb8(void);
 extern "C" void func_02003c98(void);
 extern "C" void func_02003d24(void);
 extern "C" void func_02003d98(void);
-extern "C" void func_02016d0c(void);
-extern "C" void func_02017278(void);
-extern "C" void func_02085934(void);
-extern "C" void func_0208e870(void);
-extern "C" void func_0209ab38(void);
+extern "C" s32 func_02016d0c(...);
+extern "C" s32 func_02017278(...);
+extern "C" s32 func_02085934(...);
+extern "C" s32 func_0208e870(...);
+extern "C" s32 func_0209ab38(...);
 extern "C" void func_0209b2bc(void);
 extern "C" s32 func_0209b3f8(...);
 extern "C" s32 func_0209be60(...);
@@ -167,11 +167,11 @@ extern "C" s32 func_0209c24c(...);
 extern "C" s32 func_0209c380(...);
 extern "C" void func_0209c7a0(void);
 extern "C" void func_0209c7f4(void);
-extern "C" void func_0209d8b8(void);
+extern "C" s32 func_0209d8b8(...);
 extern "C" void func_0209e248(void);
 extern "C" void func_ov003_020ff2bc(void);
 extern "C" s32 func_ov003_0210eb14(...);
-extern "C" void func_ov015_02130ad4(void);
+extern "C" s32 func_ov015_02130ad4(...);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_02131688(void);
 extern "C" void func_ov015_02132224(void);
@@ -213,7 +213,7 @@ extern "C" void func_ov039_02167ebc(void);
 extern "C" void func_ov042_0216be58(void);
 extern "C" void func_ov048_0216ced8(void);
 extern "C" void func_ov052_021692bc(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 extern "C" void memcmp(void);
 
 extern "C" s32 func_ov003_020ff864(u8 *arg0)
@@ -3410,67 +3410,39 @@ extern "C" s32 func_ov003_02102720(u8 *arg0)
     return v1;
 }
 
-extern "C" asm void func_ov003_02102760(void)
+extern "C" s32 func_ov003_02102760(void)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r0, =data_020cab8c
-    cmp r0, #0
-    beq @L_0210277c
-    ldr r1, =data_020c4ac8
-    mov r2, #0x19
-    bl func_02016d0c
-@L_0210277c:
-    ldr r0, =data_020c4ac8
-    bl STD_GetStringLength
-    ldr r4, =data_020c4c70
-    ldr r6, =gGameState
-    mov r5, #0
-    mov r0, r4
-    str r5, [r6, #0x4c8]
-    bl _ZN11SaveManager8GetUnk20Ev
-    ldr r1, =data_020c46cc
-    str r0, [r6, #0x9c8]
-    ldr r0, [r1]
-    bl func_02085934
-    ldr r0, =data_020c4678
-    ldr r0, [r0]
-    bl func_0208e870
-    bl func_ov015_02130ad4
-    ldr r6, =data_020e88a0
-    mov r1, r5
-    mov r0, r6
-    mov r8, #1
-    mov r2, r8
-    mov r3, r8
-    bl func_01ffcb50
-    mov r0, r6
-    mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
-    mov r6, r0
-    ldr r0, =0x186
-    bl func_0209d8b8
-    mov r2, r0
-    mov r0, r6
-    mov r1, #0x1f
-    bl func_02017278
-    ldr r0, =data_020c46e4
-    ldr r1, =data_ov003_0211ddbc
-    bl _ZN10ConfigFile6GetIntEPKc
-    mov r7, r0
-    ldr r6, =data_020d9978
-    mov r0, r6
-    bl _ZN11TreasureBox13func_02052384Ev
-    mov r0, r6
-    mov r1, r7
-    bl _ZN11TreasureBox13func_020526ccEi
-    str r8, [r4, #0x28]
-    str r5, [r4, #0x2c]
-    strb r8, [r4, #0x40]
-    ldr r0, =data_020d3d20
-    bl func_0209ab38
-    mov r0, #6
-    bl func_ov015_02132628
-    mov r0, #3
-    bl _ZN12SceneManager13func_0203e2fcEl
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 v2;
+    s32 v7;
+    s32 v8;
+    s32 v10;
+    s32 v15;
+    s32 t0;
+    s32 t1;
+    if ((s32)((u8 *)&data_020cab8c) != 0) {
+        func_02016d0c((s32)((u8 *)&data_020cab8c), (s32)((u8 *)&data_020c4ac8), 0x19);
+    }
+    STD_GetStringLength((s32)((u8 *)&data_020c4ac8));
+    *(s32 *)(((u8 *)&gGameState) + 0x4C8) = 0;
+    v2 = _ZN11SaveManager8GetUnk20Ev((s32)((u8 *)&data_020c4c70));
+    *(s32 *)(((u8 *)&gGameState) + 0x9C8) = v2;
+    t0 = *(s32 *)(((u8 *)&data_020c46cc));
+    func_02085934(t0, (s32)((u8 *)&data_020c46cc));
+    t1 = *(s32 *)(((u8 *)&data_020c4678));
+    func_0208e870(t1);
+    func_ov015_02130ad4();
+    func_01ffcb50((s32)((u8 *)&data_020e88a0), 0, 1, 1);
+    v7 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)((u8 *)&data_020e88a0), 0);
+    v8 = func_0209d8b8(0x186);
+    func_02017278(v7, 0x1F, v8);
+    v10 = _ZN10ConfigFile6GetIntEPKc((s32)((u8 *)&data_020c46e4), (s32)((u8 *)&data_ov003_0211ddbc));
+    _ZN11TreasureBox13func_02052384Ev((s32)((u8 *)&data_020d9978));
+    _ZN11TreasureBox13func_020526ccEi((s32)((u8 *)&data_020d9978), v10);
+    *(s32 *)(((u8 *)&data_020c4c70) + 0x28) = 1;
+    *(s32 *)(((u8 *)&data_020c4c70) + 0x2C) = 0;
+    *(u8 *)(((u8 *)&data_020c4c70) + 0x40) = 1;
+    func_0209ab38((s32)((u8 *)&data_020d3d20));
+    func_ov015_02132628(6);
+    v15 = _ZN12SceneManager13func_0203e2fcEl(3);
+    return v15;
 }

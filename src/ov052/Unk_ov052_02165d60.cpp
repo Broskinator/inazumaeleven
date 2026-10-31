@@ -10,7 +10,7 @@ extern "C" s32 func_ov052_0216624c(...);
 extern "C" void func_ov052_021662f8(void);
 extern "C" void func_ov052_021663fc(void);
 extern "C" void func_ov052_0216643c(void);
-extern "C" void func_ov052_0216663c(void);
+extern "C" s32 func_ov052_0216663c(void);
 extern "C" void func_ov052_02166668(void);
 extern "C" void func_ov052_021666d4(void);
 extern "C" void func_ov052_021667a8(void);
@@ -147,7 +147,7 @@ extern "C" void func_02097ca8(void);
 extern "C" void func_02097ef8(void);
 extern "C" void func_02097fcc(void);
 extern "C" void func_020982a0(void);
-extern "C" void func_0209bf0c(void);
+extern "C" s32 func_0209bf0c(...);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov015_02130b14(void);
 extern "C" void func_ov015_0213178c(void);
@@ -188,7 +188,7 @@ extern "C" void func_ov015_02163d08(void);
 extern "C" void func_ov015_02163d70(void);
 extern "C" void func_ov015_02163dd4(void);
 extern "C" void func_ov052_02169d8c(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" void func_ov052_02165d60(s32 arg0)
 {
@@ -777,17 +777,15 @@ extern "C" asm void func_ov052_0216643c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov052_0216663c(void)
+extern "C" s32 func_ov052_0216663c(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1a]
-    cmp r0, #0
-    mvneq r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c5320
-    bl func_0209bf0c
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    if (*(u8 *)(((u8 *)&gGameState) + 0x1A) == 0) {
+        return -1;
+    } else {
+        v0 = func_0209bf0c((s32)((u8 *)&data_020c5320));
+        return v0;
+    }
 }
 
 extern "C" asm void func_ov052_02166668(void)

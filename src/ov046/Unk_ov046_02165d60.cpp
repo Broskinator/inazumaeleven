@@ -3,7 +3,7 @@
 extern "C" void func_ov046_02165d60(s32 arg0, s32 arg1);
 extern "C" s32 func_ov046_02165d74(...);
 extern "C" void func_ov046_02165df0(s32 arg0);
-extern "C" void func_ov046_02165e10(void);
+extern "C" u8 func_ov046_02165e10(void);
 extern "C" void func_ov046_02165e20(void);
 extern "C" void func_ov046_02165e6c(void);
 extern "C" void func_ov046_02165e78(s32 arg0);
@@ -133,7 +133,7 @@ extern "C" void func_ov015_021629c8(void);
 extern "C" s32 func_ov015_02162f70(...);
 extern "C" void func_ov046_02169170(void);
 extern "C" void func_ov046_02169928(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" void func_ov046_02165d60(s32 arg0, s32 arg1)
 {
@@ -187,11 +187,9 @@ extern "C" void func_ov046_02165df0(s32 arg0)
     return;
 }
 
-extern "C" asm void func_ov046_02165e10(void)
+extern "C" u8 func_ov046_02165e10(void)
 {
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x4f4]
-    bx lr
+    return *(u8 *)(((u8 *)&gGameState) + 0x4F4);
 }
 
 extern "C" asm void func_ov046_02165e20(void)

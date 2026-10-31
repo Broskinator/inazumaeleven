@@ -40,7 +40,7 @@ extern "C" void func_ov001_020fe8dc(void);
 extern "C" void func_ov001_020fe8fc(void);
 extern "C" void func_ov001_020fe9c4(void);
 extern "C" char *func_ov001_020fe9f4(void);
-extern "C" void func_ov001_020fea10(void);
+extern "C" char *func_ov001_020fea10(void);
 extern "C" s32 func_ov001_020fea34(u8 *arg0, s32 arg1);
 extern "C" void func_ov001_020fea8c(u8 *arg0);
 extern "C" void func_ov001_020feae0(void);
@@ -229,7 +229,7 @@ extern "C" void func_ov090_02174694(void);
 extern "C" void func_ov090_021746d0(void);
 extern "C" void func_ov090_0217470c(void);
 extern "C" void gEntryPool(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 extern "C" void rand(void);
 
 extern "C" asm void func_ov001_020fc7e0(void)
@@ -2572,15 +2572,12 @@ extern "C" char *func_ov001_020fe9f4(void)
     return data_ov001_02130614;
 }
 
-extern "C" asm void func_ov001_020fea10(void)
+extern "C" char *func_ov001_020fea10(void)
 {
-    ldr r1, =gGameState
-    ldr r0, =data_ov001_02130614
-    ldr r2, [r1, #4]
-    mov r1, #0
-    str r2, [r0, #0x10]
-    strb r1, [r0]
-    bx lr
+    s32 t0 = *(s32 *)(((u8 *)&gGameState) + 0x4);
+    *(s32 *)(((u8 *)&data_ov001_02130614) + 0x10) = t0;
+    *(u8 *)(((u8 *)&data_ov001_02130614)) = 0;
+    return (char *)((u8 *)&data_ov001_02130614);
 }
 
 extern "C" s32 func_ov001_020fea34(u8 *arg0, s32 arg1)

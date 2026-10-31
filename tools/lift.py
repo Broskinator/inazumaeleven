@@ -363,7 +363,7 @@ def lift(name, body, protos, variant=0):
                 write(m[1], Const(int(m[2], 0) + int(m[3] or "0", 16)))     # (a number)
             else:
                 s = Sym(m[2], int(m[3] or "0", 16))
-                s.func = m[2] in protos and m[1] != "r12"     # (r12: a tail call)
+                s.func = is_func(m[2], protos) and m[1] != "r12"     # (r12: a tail call)
                 write(m[1], s)
             continue
         m = re.match(r"(r\d+), \[sp(?:, #(\w+))?\]$", op)
@@ -1187,7 +1187,7 @@ def lift_cfg(name, body, protos, variant=0):
                     v = Const(int(mm[2], 0) + int(mm[3] or "0", 16))
                 else:
                     v = Sym(mm[2], int(mm[3] or "0", 16))
-                    v.func = mm[2] in protos
+                    v.func = is_func(mm[2], protos)
                 write(mm[1], v, c)
                 continue
             mm = re.match(r"(r\d+|lr), \[sp(?:, #(\w+))?\]$", op)
@@ -1674,8 +1674,17 @@ def prototypes(t):
     return protos
 
 
+def is_func(nm, protos):
+    """whether a symbol is a function (a declaration 'void F(void)' can be data, for asm)"""
+    return nm in protos and (nm in FUNCS or not FUNCS)
+
+
 def apply(t, name, block, decl, body, protos, callees):
     t = t.replace(block, f'extern "C" {decl}\n{{\n{body}}}\n', 1)
+    # (data declared as a function for asm, used from C: an array)
+    for d in set(re.findall(r"\(u8 \*\)&(\w+)\)", body)):
+        if FUNCS and d not in FUNCS:
+            t = re.sub(r'^extern "C" void %s\(void\);' % d, f'extern "C" char {d}[];', t, count=1, flags=re.M)
     if "(VCall *)" in body and '#include "game/vcall.hpp"' not in t:
         t = re.sub(r'^(#include [^\n]*\n)', r'\1#include "game/vcall.hpp"\n', t, count=1, flags=re.M)
     t = re.sub(r'^extern "C" void %s\(void\);' % name, f'extern "C" {decl};', t, count=1, flags=re.M)

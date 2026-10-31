@@ -50,7 +50,7 @@ extern "C" void func_0209dcec(void);
 extern "C" s32 func_0209dd60(u8 *arg0, s32 arg1);
 extern "C" void func_0209ddd0(void);
 extern "C" void func_0209de0c(void);
-extern "C" void func_0209de28(void);
+extern "C" s32 func_0209de28(s32 arg0, s32 arg1);
 extern "C" void func_0209deb0(void);
 extern "C" void func_0209df60(void);
 extern "C" void func_0209dfd4(s32 *obj, int i, s32 value);
@@ -94,9 +94,9 @@ extern "C" void func_0209c4bc(void);
 extern "C" void func_0209c9e0(void);
 extern "C" void func_0209cba8(void);
 extern "C" void func_ov015_021317c8(void);
-extern "C" void func_ov015_021319bc(void);
+extern "C" s32 func_ov015_021319bc(...);
 extern "C" void func_ov015_021319fc(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" void func_0209cd14(BOOL a)
 {
@@ -1329,41 +1329,33 @@ extern "C" void func_0209de0c(void)
     func_0209da80((s32)data_020a7520, (s32)data_020aabf8);
 }
 
-extern "C" asm void func_0209de28(void)
+extern "C" s32 func_0209de28(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r2, =gGameState
-    mov r5, r0
-    ldrb r0, [r2, #0x1a]
-    mov r4, r1
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    add r0, r5, r4
-    ldrb r0, [r0, #0x18]
-    cmp r0, #1
-    movlo r0, #1
-    movhs r0, #0
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_ov015_021319bc
-    cmp r4, r0
-    bne @L_0209de84
-    ldrb r0, [r5, #0x14]
-    cmp r0, #0
-    movne r0, #1
-    strneb r0, [r5, #0x15]
-@L_0209de84:
-    add r3, r5, #0x18
-    ldrb r2, [r3, r4]
-    ldr r1, =0x6270
-    add r0, r5, r4, lsl #2
-    add r2, r2, #1
-    strb r2, [r3, r4]
-    str r1, [r0, #4]
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r5;
+    s32 v0;
+    s32 t0;
+    r5 = (u8 *)arg0;
+    if (*(u8 *)(((u8 *)&gGameState) + 0x1A) != 0) {
+        return 0;
+    } else {
+        if ((u32)*(u8 *)(((u8 *)(r5 + arg1)) + 0x18) < (u32)1) {
+            arg0 = 1;
+        } else {
+            arg0 = 0;
+        }
+        if (arg0 == 0) {
+            return 0;
+        } else {
+            v0 = func_ov015_021319bc();
+            if ((arg1 == v0 && *(u8 *)(r5 + 0x14) != 0)) {
+                *(u8 *)(r5 + 0x15) = 1;
+            }
+            t0 = (*(u8 *)(((u8 *)(r5 + 0x18)) + arg1) + 1);
+            *(u8 *)(((u8 *)(r5 + 0x18)) + arg1) = t0;
+            *(s32 *)(((u8 *)(r5 + (arg1 << 2))) + 0x4) = 0x6270;
+            return 1;
+        }
+    }
 }
 
 extern "C" asm void func_0209deb0(void)

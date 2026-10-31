@@ -44,7 +44,7 @@ extern "C" void func_ov003_0211a524(void);
 extern "C" void func_ov003_0211a538(void);
 extern "C" void func_ov003_0211a618(void);
 extern "C" s32 func_ov003_0211a748(u8 *arg0);
-extern "C" void func_ov003_0211a788(void);
+extern "C" void func_ov003_0211a788(s32 arg0);
 extern "C" void func_ov003_0211a7ec(void);
 extern "C" s32 func_ov003_0211a8e0(...);
 extern "C" void func_ov003_0211aaa0(void);
@@ -179,12 +179,12 @@ extern "C" s32 func_ov015_0213c33c(...);
 extern "C" s32 func_ov015_0213c3dc(...);
 extern "C" void func_ov015_0213c4c0(void);
 extern "C" void func_ov015_0213c4f0(void);
-extern "C" void func_ov015_0213c4fc(void);
+extern "C" s32 func_ov015_0213c4fc(...);
 extern "C" void func_ov015_0213c530(void);
 extern "C" void func_ov015_0213c5e0(void);
 extern "C" s32 func_ov015_0213c6d0(...);
 extern "C" void func_ov015_0213c730(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 extern "C" void rand(void);
 
 extern "C" asm s32 func_ov003_021188a4(...)
@@ -2234,29 +2234,15 @@ extern "C" s32 func_ov003_0211a748(u8 *arg0)
     return v2;
 }
 
-extern "C" asm void func_ov003_0211a788(void)
+extern "C" void func_ov003_0211a788(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, #0
-    ldr r0, =data_020c9660
-    mov r1, r4
-    bl func_ov015_0213b3fc
-    ldr r0, =data_020c47a4
-    bl func_ov015_0213c4fc
-    add r0, r5, #0x7c
-    mov r1, #0xc
-    bl func_ov015_02134198
-    mov r0, r5
-    bl func_ov003_02119abc
-    ldr r0, =data_020c5320
-    bl func_0209be60
-    ldr r1, =gGameState
-    add r0, r5, #0x68
-    strb r4, [r1, #0x1a]
-    mov r1, #1
-    bl func_ov015_02133e8c
-    ldmia sp!, {r3, r4, r5, pc}
+    func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 0);
+    func_ov015_0213c4fc((s32)((u8 *)&data_020c47a4));
+    func_ov015_02134198((arg0 + 0x7C), 0xC);
+    func_ov003_02119abc(arg0);
+    func_0209be60((s32)((u8 *)&data_020c5320));
+    *(u8 *)(((u8 *)&gGameState) + 0x1A) = 0;
+    func_ov015_02133e8c((arg0 + 0x68), 1);
 }
 
 extern "C" asm void func_ov003_0211a7ec(void)

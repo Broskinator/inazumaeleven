@@ -49,7 +49,7 @@ extern "C" void func_ov003_0210e148(void);
 extern "C" char *func_ov003_0210e1a0(s32 arg0);
 extern "C" s32 func_ov003_0210e1f8(s32 arg0);
 extern "C" void func_ov003_0210e20c(u8 *arg0);
-extern "C" void func_ov003_0210e218(void);
+extern "C" void func_ov003_0210e218(s32 arg0, u8 arg1);
 extern "C" void func_ov003_0210e268(s32 arg0);
 extern "C" void func_ov003_0210e278(u8 *arg0);
 extern "C" void func_ov003_0210e2a0(void);
@@ -207,7 +207,7 @@ extern "C" void func_ov044_02169928(void);
 extern "C" s32 func_ov046_02166110(...);
 extern "C" void func_ov046_02167ae4(void);
 extern "C" s32 func_ov046_02169844(...);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" asm void func_ov003_0210bd08(void)
 {
@@ -2693,28 +2693,18 @@ extern "C" void func_ov003_0210e20c(u8 *arg0)
     *(u8 *)(arg0 + 0x5A) = 1;
 }
 
-extern "C" asm void func_ov003_0210e218(void)
+extern "C" void func_ov003_0210e218(s32 arg0, u8 arg1)
 {
-    stmdb sp!, {r3, lr}
-    add r2, r0, r1
-    ldrb r2, [r2, #0x5a]
-    cmp r2, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r2, =gGameState
-    add r3, r0, r1, lsl #2
-    strb r1, [r2, #0x4f4]
-    ldr r1, [r3, #0x54]
-    ldr r1, [r1, #8]
-    cmp r1, #0
-    bne @L_0210e258
-    ldr r1, [r0]
-    ldr r1, [r1, #0x7c]
-    blx r1
-    ldmia sp!, {r3, pc}
-@L_0210e258:
-    mov r1, #2
-    bl func_ov046_02166110
-    ldmia sp!, {r3, pc}
+    if (*(u8 *)(((u8 *)(arg0 + arg1)) + 0x5A) == 0)
+        return;
+    *(u8 *)(((u8 *)&gGameState) + 0x4F4) = arg1;
+    if (*(s32 *)(*(u8 * *)(((u8 *)(arg0 + (arg1 << 2))) + 0x54) + 0x8) == 0) {
+        ((VCall *)arg0)->f31();
+        return;
+    } else {
+        func_ov046_02166110(arg0, 2);
+        return;
+    }
 }
 
 extern "C" void func_ov003_0210e268(s32 arg0)

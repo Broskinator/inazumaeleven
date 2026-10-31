@@ -42,7 +42,7 @@ extern "C" void func_ov001_0211e64c(void);
 extern "C" void func_ov001_0211e84c(void);
 extern "C" void func_ov001_0211e938(void);
 extern "C" void func_ov001_0211e9cc(void);
-extern "C" void func_ov001_0211eac8(void);
+extern "C" s32 func_ov001_0211eac8(s32 arg0);
 extern "C" s32 func_ov001_0211eb18(s32 arg0);
 extern "C" void func_ov001_0211eb2c(u8 *arg0);
 extern "C" void func_ov001_0211ebe8(u8 *arg0);
@@ -145,10 +145,10 @@ extern "C" void func_ov015_02132b7c(void);
 extern "C" void func_ov015_02133d50(void);
 extern "C" void func_ov015_02133e24(void);
 extern "C" void func_ov015_02133e50(void);
-extern "C" void func_ov015_02133e8c(void);
+extern "C" s32 func_ov015_02133e8c(...);
 extern "C" s32 func_ov015_02134024(...);
 extern "C" void func_ov015_02134118(void);
-extern "C" void func_ov015_02134198(void);
+extern "C" s32 func_ov015_02134198(...);
 extern "C" s32 func_ov015_02134208(...);
 extern "C" void func_ov015_02134300(void);
 extern "C" void func_ov015_02135ef4(void);
@@ -172,7 +172,7 @@ extern "C" s32 func_ov015_02162e84(...);
 extern "C" s32 func_ov015_02162ed0(...);
 extern "C" s32 func_ov015_02162f70(...);
 extern "C" void func_ov015_02162fb4(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 extern "C" void sprintf(void);
 
 extern "C" void func_ov001_0211bc68(u8 *arg0, s32 arg1)
@@ -3248,26 +3248,18 @@ extern "C" asm void func_ov001_0211e9cc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_0211eac8(void)
+extern "C" s32 func_ov001_0211eac8(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =gGameState
-    mov r4, r0
-    ldrb r0, [r1, #0x1a]
-    cmp r0, #0
-    ldrne r1, =0x4001000
-    ldrne r0, [r1]
-    bicne r0, r0, #0xe000
-    strne r0, [r1]
-    add r0, r4, #0x94
-    mov r1, #0xf
-    bl func_ov015_02134198
-    mov r0, r4
-    bl func_ov001_0211da14
-    add r0, r4, #0x2c
-    mov r1, #4
-    bl func_ov015_02133e8c
-    ldmia sp!, {r4, pc}
+    s32 v2;
+    s32 t0;
+    if (*(u8 *)(((u8 *)&gGameState) + 0x1A) != 0) {
+        t0 = (*(s32 *)(((u8 *)0x4001000)) & -0xE001);
+        *(s32 *)(((u8 *)0x4001000)) = t0;
+    }
+    func_ov015_02134198((arg0 + 0x94), 0xF);
+    func_ov001_0211da14(arg0);
+    v2 = func_ov015_02133e8c((arg0 + 0x2C), 4);
+    return v2;
 }
 
 extern "C" s32 func_ov001_0211eb18(s32 arg0)

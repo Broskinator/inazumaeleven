@@ -16,7 +16,7 @@ extern "C" void func_ov025_021661b8(u8 *arg0);
 extern "C" void func_ov025_021661f8(void);
 extern "C" void func_ov025_02166248(void);
 extern "C" void func_ov025_021662ac(void);
-extern "C" void func_ov025_02166360(void);
+extern "C" void func_ov025_02166360(s32 arg0);
 extern "C" void func_ov025_02166398(void);
 extern "C" void func_ov025_021664c8(void);
 extern "C" void func_ov025_02166618(u8 *arg0, s32 arg1);
@@ -70,7 +70,7 @@ extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206ce9cEv(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206ce9cEv(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206de4cEv(void);
 extern "C" void _ZN17UnkClass_0206ee3413func_0206efc4Ev(void);
 extern "C" void _ZN17UnkClass_0206ee3413func_0206efd4Ev(void);
@@ -79,7 +79,7 @@ extern "C" void _ZN17UnkClass_0206ee3413func_0206effcEv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_01ffba24(void);
+extern "C" s32 func_01ffba24(...);
 extern "C" void func_02003bb8(void);
 extern "C" void func_020224cc(void);
 extern "C" void func_02022b2c(void);
@@ -158,7 +158,7 @@ extern "C" void func_ov015_021629ac(void);
 extern "C" void func_ov015_021629c8(void);
 extern "C" void func_ov015_021629d0(void);
 extern "C" void func_ov015_02163040(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" asm s32 func_ov025_02165d60(...)
 {
@@ -585,20 +585,11 @@ extern "C" asm void func_ov025_021662ac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov025_02166360(void)
+extern "C" void func_ov025_02166360(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020e88a0
-    mov r5, r0
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206ce9cEv
-    mov r1, r0
-    ldr r3, =gGameState
-    mov r0, r4
-    add r2, r5, #0x70
-    strb r1, [r3, #0x7f]
-    bl func_01ffba24
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v0 = _ZN17UnkClass_020621b413func_0206ce9cEv((s32)((u8 *)&data_020e88a0));
+    *(u8 *)(((u8 *)&gGameState) + 0x7F) = v0;
+    func_01ffba24((s32)((u8 *)&data_020e88a0), v0, (arg0 + 0x70), (s32)((u8 *)&gGameState));
 }
 
 extern "C" asm void func_ov025_02166398(void)

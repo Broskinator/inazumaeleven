@@ -38,7 +38,7 @@ extern "C" s32 func_ov000_02110980(u8 *arg0);
 extern "C" void func_ov000_021109b0(void);
 extern "C" void func_ov000_02110b18(u8 *arg0);
 extern "C" void func_ov000_02110b28(void);
-extern "C" void func_ov000_02110d58(void);
+extern "C" s32 func_ov000_02110d58(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov000_02110dc0(u8 *arg0);
 extern "C" void func_ov000_02110dc8(u8 *arg0, u8 arg1);
 extern "C" s32 func_ov000_02110dd0(u8 *arg0);
@@ -91,7 +91,7 @@ extern "C" char data_ov000_02118644[];
 extern "C" char data_ov000_02118658[];
 extern "C" char data_ov000_021188ec[];
 extern "C" s32 DC_FlushRange(...);
-extern "C" void FX_SinCosTable_(void);
+extern "C" char FX_SinCosTable_[];
 extern "C" void GX_GetSizeOfSubOBJ(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
@@ -1737,33 +1737,30 @@ extern "C" asm void func_ov000_02110b28(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov000_02110d58(void)
+extern "C" s32 func_ov000_02110d58(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_ov000_02110338
-    cmp r0, #0
-    mov r0, #0
-    streq r0, [r4]
-    streq r0, [r4, #4]
-    streq r0, [r4, #8]
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrh r1, [r5, #0x12]
-    ldr r2, =FX_SinCosTable_
-    mov r1, r1, asr #4
-    mov r1, r1, lsl #2
-    ldrsh r1, [r2, r1]
-    str r0, [r4, #4]
-    str r1, [r4]
-    ldrh r0, [r5, #0x12]
-    mov r0, r0, asr #4
-    mov r0, r0, lsl #1
-    add r0, r0, #1
-    mov r0, r0, lsl #1
-    ldrsh r0, [r2, r0]
-    str r0, [r4, #8]
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r4;
+    u8 *r5;
+    s32 v0;
+    s16 t0;
+    s16 t1;
+    v0 = func_ov000_02110338(arg0, arg1, arg2, arg3);
+    r5 = (u8 *)arg0;
+    r4 = (u8 *)arg1;
+    arg0 = 0;
+    if (v0 == 0) {
+        *(s32 *)(r4) = arg0;
+        *(s32 *)(r4 + 0x4) = arg0;
+        *(s32 *)(r4 + 0x8) = arg0;
+        return arg0;
+    } else {
+        t0 = *(s16 *)(((u8 *)&FX_SinCosTable_) + ((*(u16 *)(r5 + 0x12) >> 4) << 2));
+        *(s32 *)(r4 + 0x4) = arg0;
+        *(s32 *)(r4) = t0;
+        t1 = *(s16 *)(((u8 *)&FX_SinCosTable_) + ((((*(u16 *)(r5 + 0x12) >> 4) << 1) + 1) << 1));
+        *(s32 *)(r4 + 0x8) = t1;
+        return t1;
+    }
 }
 
 extern "C" s32 func_ov000_02110dc0(u8 *arg0)
