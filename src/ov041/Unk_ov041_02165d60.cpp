@@ -23,7 +23,7 @@ extern "C" void func_ov041_02166f54(void);
 extern "C" void func_ov041_02167000(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov041_02167034(void);
 extern "C" void func_ov041_02167184(u8 *arg0, s32 arg1);
-extern "C" void func_ov041_02167194(void);
+extern "C" void func_ov041_02167194(s32 arg0);
 extern "C" void func_ov041_021671f4(void);
 extern "C" void func_ov041_021672d0(s32 arg0);
 extern "C" void func_ov041_02167300(s32 arg0);
@@ -118,13 +118,13 @@ extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
 extern "C" void func_020812fc(void);
-extern "C" void func_0208720c(void);
+extern "C" s32 func_0208720c(...);
 extern "C" void func_02087284(void);
-extern "C" void func_020872a4(void);
+extern "C" s32 func_020872a4(...);
 extern "C" void func_02087b68(void);
 extern "C" void func_02087be0(void);
 extern "C" void func_0208803c(void);
-extern "C" void func_02088530(void);
+extern "C" s32 func_02088530(...);
 extern "C" s32 func_02088580(...);
 extern "C" void func_020885b0(void);
 extern "C" void func_02088864(void);
@@ -1602,31 +1602,15 @@ extern "C" void func_ov041_02167184(u8 *arg0, s32 arg1)
     *(s32 *)(arg0 + 0xC) = 5;
 }
 
-extern "C" asm void func_ov041_02167194(void)
+extern "C" void func_ov041_02167194(s32 arg0)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0xc
-    add r0, r0, #0x90
-    add r0, r0, #0x3000
-    mov r1, #0
-    mov r2, #0x18
-    bl MI_CpuFill8
-    ldr r4, =data_020c46c8
-    ldr r0, [r4]
-    bl func_0208720c
-    mov r2, #2
-    mov r0, #0x4000
-    stmia sp, {r0, r2}
-    mov r0, #0x6400
-    str r0, [sp, #8]
-    ldr r0, [r4]
-    mov r3, r2
-    mov r1, #0x94000
-    bl func_020872a4
-    ldr r0, [r4]
-    bl func_02088530
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, pc}
+    MI_CpuFill8(((arg0 + 0x90) + 0x3000), 0, 0x18);
+    s32 t0 = *(s32 *)(((u8 *)&data_020c46c8));
+    func_0208720c(t0);
+    s32 t1 = *(s32 *)(((u8 *)&data_020c46c8));
+    func_020872a4(t1, 0x94000, 2, 2, 0x4000, 2, 0x6400);
+    s32 t2 = *(s32 *)(((u8 *)&data_020c46c8));
+    func_02088530(t2);
 }
 
 extern "C" asm void func_ov041_021671f4(void)

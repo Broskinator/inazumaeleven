@@ -15,7 +15,7 @@ extern "C" void func_ov047_0216a464(void);
 extern "C" void func_ov047_0216a468(void);
 extern "C" s32 func_ov047_0216a51c(s32 arg0);
 extern "C" void func_ov047_0216a530(void);
-extern "C" void func_ov047_0216a534(void);
+extern "C" void func_ov047_0216a534(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov047_0216a574(void);
 extern "C" void func_ov047_0216a5a4(void);
 extern "C" void func_ov047_0216a5d4(void);
@@ -60,7 +60,7 @@ extern "C" void _Znwm(void);
 extern "C" void func_02017a7c(void);
 extern "C" void func_02018328(void);
 extern "C" void func_0201a508(void);
-extern "C" void func_02020ddc(void);
+extern "C" s32 func_02020ddc(...);
 extern "C" void func_02020ef0(void);
 extern "C" void func_0202273c(void);
 extern "C" void func_02091d54(void);
@@ -1563,24 +1563,17 @@ extern "C" void func_ov047_0216a530(void)
 {
 }
 
-extern "C" asm void func_ov047_0216a534(void)
+extern "C" void func_ov047_0216a534(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    ldr r12, [r0]
-    mov lr, r1
-    mov r1, r12, lsl #0x1f
-    movs r1, r1, lsr #0x1f
-    ldreqb r1, [r0]
-    moveq r1, r1, lsl #0x18
-    moveq r1, r1, lsr #0x19
-    ldrne r1, [r0, #4]
-    stmia sp, {r2, r3}
-    mov r3, lr
-    mov r2, #0
-    bl func_02020ddc
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    s32 lr;
+    lr = arg1;
+    if (((u32)(*(s32 *)(arg0) << 0x1F) >> 0x1F) == 0) {
+        arg1 = ((u32)(*(u8 *)(arg0) << 0x18) >> 0x19);
+    } else {
+        arg1 = *(s32 *)(arg0 + 0x4);
+    }
+    func_02020ddc((s32)arg0, arg1, 0, lr, arg2, arg3);
+    return;
 }
 
 extern "C" asm void func_ov047_0216a574(void)
