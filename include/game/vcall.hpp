@@ -136,4 +136,9 @@ struct VCall {
     virtual s32 f127(...);
 };
 
+// Words passed together by value (a struct of them, loaded with an ldm)
+struct W2 { s32 w[2]; };
+struct W3 { s32 w[3]; };
+struct W4 { s32 w[4]; };
+
 #endif // GAME_VCALL_HPP

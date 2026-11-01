@@ -55,7 +55,7 @@ class Sym:
 
 class Load:
     def __init__(self, t, base, off):
-        self.t, self.base, self.off = t, base, off
+        self.t, self.base, self.off, self.ldm = t, base, off, False
 
     def render(self):
         return f"*({self.t} *)({addr(self.base, self.off)})"
@@ -99,10 +99,33 @@ class Call:
             if this is fp.base.base or this.render() == fp.base.base.render():
                 rest = ", ".join(value(v, t) for v, t in args[1:])
                 return f"((VCall *){this.render()})->f{fp.off // 4}({rest})"
-        return f"{self.callee()}({', '.join(value(v, t) for v, t in args)})"
+        return f"{self.callee()}({', '.join(struct_args(args))})"
 
 
 VSLOTS = 128     # (the methods of VCall, in include/game/vcall.hpp)
+
+
+def struct_args(args):
+    """the arguments, words loaded together (ldm) one struct of them ('*(W3 *)(p + 0x84)':
+    MW loads a struct passed by value with an ldm)"""
+    out, i = [], 0
+    args = [(x.v if isinstance(x, Tmp) and isinstance(x.v, Load) and x.v.ldm else x, t) for x, t in args]
+    while i < len(args):
+        v, t = args[i]
+        n = 1
+        if isinstance(v, Load) and v.ldm and v.t == "s32" and isinstance(v.off, int) and t == "s32":
+            while i + n < len(args) and n < 4:
+                w, tw = args[i + n]
+                if not (isinstance(w, Load) and w.ldm and w.t == "s32" and tw == "s32" and w.off == v.off + 4 * n
+                        and w.base.render() == v.base.render()):
+                    break
+                n += 1
+        if n > 1:
+            out.append(f"*(W{n} *)({addr(v.base, v.off)})")
+        else:
+            out.append(value(v, t))
+        i += n
+    return out
 
 
 class Tmp(Param):
@@ -284,7 +307,7 @@ def stm_sp(lines):
             if op == "ldm" and base in regs_:
                 seq = [x for x in seq if x[0] != base] + [x for x in seq if x[0] == base]
             for r, o in seq:
-                out.append(f"{mn} {r}, [{base}, #{o:#x}]" if o else f"{mn} {r}, [{base}]")
+                out.append(f"{mn} {r}, [{base}, #0X{o:X}]" if op == "ldm" else f"{mn} {r}, [{base}, #{o:#x}]" if o else f"{mn} {r}, [{base}]")
             if wb:
                 out.append(f"add {base}, {base}, #{4 * len(regs_):#x}")
             continue
@@ -429,9 +452,11 @@ def lift(name, body, protos, variant=0):
             off = imm(m[2] or "0")
             write(m[1], Local(off - low))
             continue
-        m = re.match(r"(r\d+), \[(r\d+)(?:, #(-?0x[0-9a-f]+|-?\d+))?\]$", op)
+        m = re.match(r"(r\d+), \[(r\d+)(?:, #(-?0[xX][0-9a-fA-F]+|-?\d+))?\]$", op)
         if mn in LOAD and m:
-            write(m[1], Load(LOAD[mn], read(m[2]), int(m[3] or "0", 0)))
+            v = Load(LOAD[mn], read(m[2]), int(m[3] or "0", 0))
+            v.ldm = "0X" in op
+            write(m[1], v)
             continue
         if mn in STORE and m:
             m_ = settle(regs, stmts, tmps)
@@ -1274,6 +1299,7 @@ def lift_cfg(name, body, protos, variant=0):
                     raise Fail("address")
                 if mn in LOAD:
                     v = Load(LOAD[mn], base, 0 if mm[5] else off)
+                    v.ldm = "0X" in op
                     write(mm[1], v, c)
                 else:
                     v = read(mm[1])
@@ -1720,7 +1746,7 @@ def apply(t, name, block, decl, body, protos, callees):
     for d in set(re.findall(r"\(u8 \*\)&(\w+)\)", body)):
         if FUNCS and d not in FUNCS:
             t = re.sub(r'^extern "C" void %s\(void\);' % d, f'extern "C" char {d}[];', t, count=1, flags=re.M)
-    if "(VCall *)" in body and '#include "game/vcall.hpp"' not in t:
+    if re.search(r"\((VCall|W\d) \*\)", body) and '#include "game/vcall.hpp"' not in t:
         t = re.sub(r'^(#include [^\n]*\n)', r'\1#include "game/vcall.hpp"\n', t, count=1, flags=re.M)
     t = re.sub(r'^extern "C" void %s\(void\);' % name, f'extern "C" {decl};', t, count=1, flags=re.M)
     for f in callees:
