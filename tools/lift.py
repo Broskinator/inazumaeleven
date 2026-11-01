@@ -1586,18 +1586,20 @@ def lift_cfg(name, body, protos, variant=0):
                 # (the blocks from another exit that only return: in the loop, a return
                 # from it; the loop's own exit is where its end goes)
                 own = [s for s in succ[k] if s != x and s not in body_]
+                own = own or [s for s in succ[x] if s not in body_]     # (a while: its test at the start)
                 if len(exits) > 1 and own and own[0] in exits:
-                    def ahead(s):
+                    def ahead(s, stop=None):
                         seen, st = {s}, [s]
                         while st:
                             for z in succ[st.pop()]:
-                                if z != EXIT and z not in seen and z not in body_:
+                                if z != EXIT and z not in seen and z not in body_ and z != stop:
                                     seen.add(z)
                                     st.append(z)
                         return seen
                     main_ = ahead(own[0])
                     for s in exits - {own[0]}:
-                        r_ = ahead(s)
+                        # (blocks that only return, or that go on to the loop's exit: a break)
+                        r_ = ahead(s, own[0])
                         if not r_ & main_ and all(p in body_ or p in r_ for z in r_ for p in preds[z]):
                             body_ |= r_
                     exits = {s for y in body_ for s in succ[y] if s not in body_ and s != EXIT}
@@ -1618,6 +1620,17 @@ def lift_cfg(name, body, protos, variant=0):
             if b in loops and not (loop and loop[3] == b):
                 latch, body_, ex = loops[b]
                 ctx = (b, latch, ex, b, body_)
+                hterm = code[b][1]
+                hs = [y for y in succ[b] if y in body_ and y != b]
+                if hterm is not None and not code[b][0] and ex in succ[b] and len(hs) == 1 and b != latch:
+                    # (the test at the start, alone in its block: a while, which MW makes 'b test;
+                    # body; test: b<c> body')
+                    emitted[b] = emitted.get(b, 0) + 1
+                    inner = region(hs[0], None, ind + 1, ctx)
+                    stay = hterm if blocks[b].get("target") == hs[0] else negate(hterm)
+                    out.append(ind_(ind) + f"while ({cond(*stay)}) {{\n" + inner + ind_(ind) + "}\n")
+                    b = ex
+                    continue
                 inner = region(b, None, ind + 1, ctx)
                 lterm = code[latch][1]
                 if lterm is not None and blocks[latch].get("target") == b:

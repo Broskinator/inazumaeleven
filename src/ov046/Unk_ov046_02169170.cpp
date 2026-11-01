@@ -34,7 +34,7 @@ extern "C" void func_ov046_0216a0e8(s32 arg0, s32 arg1);
 extern "C" s32 func_ov046_0216a0fc(s32 arg0);
 extern "C" void func_ov046_0216a110(void);
 extern "C" void func_ov046_0216a114(u8 *arg0);
-extern "C" void func_ov046_0216a120(void);
+extern "C" s32 func_ov046_0216a120(s32 arg0);
 extern "C" void func_ov046_0216a164(s32 arg0, u8 arg1);
 extern "C" s32 func_ov046_0216a1d0(u8 *arg0);
 extern "C" void func_ov046_0216a200(s32 arg0);
@@ -1229,28 +1229,21 @@ extern "C" void func_ov046_0216a114(u8 *arg0)
     *(u8 *)(arg0 + 0x5A) = 1;
 }
 
-extern "C" asm void func_ov046_0216a120(void)
+extern "C" s32 func_ov046_0216a120(s32 arg0)
 {
-    mov r2, #0
-    mov r3, r2
-@L_0216a128:
-    add r1, r0, r3
-    ldrb r1, [r1, #0x58]
-    cmp r1, #0
-    beq @L_0216a150
-    add r1, r0, r3, lsl #2
-    ldr r1, [r1, #0x54]
-    ldr r1, [r1, #8]
-    cmp r1, #0
-    moveq r2, r3
-    beq @L_0216a15c
-@L_0216a150:
-    add r3, r3, #1
-    cmp r3, #1
-    blt @L_0216a128
-@L_0216a15c:
-    mov r0, r2
-    bx lr
+    s32 r2;
+    s32 r3;
+    r2 = 0;
+    r3 = 0;
+    do {
+        if ((*(u8 *)(((u8 *)(arg0 + r3)) + 0x58) != 0 && *(s32 *)(*(u8 * *)(((u8 *)(arg0 + (r3 << 2))) + 0x54) + 0x8) == 0)) {
+            r2 = r3;
+            break;
+        } else {
+            r3 = (r3 + 1);
+        }
+    } while (r3 < 1);
+    return r2;
 }
 
 extern "C" void func_ov046_0216a164(s32 arg0, u8 arg1)
