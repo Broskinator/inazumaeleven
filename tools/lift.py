@@ -461,7 +461,7 @@ def lift(name, body, protos, variant=0):
             c.args.append((v, t))
         c.ret = "s32" if p in ("void(void)", VAR) else p[0]
         if c.used and c.ret == "void":
-            raise Fail("the value of a void function")
+            c.cast, c.ret = True, "s32"     # (it returns something after all: through a cast)
     n = max(params) + 1 if params else 0
     for i in range(n):
         params.setdefault(i, Param(i))
@@ -1440,7 +1440,7 @@ def lift_cfg(name, body, protos, variant=0):
             cl.args.append((v, t))
         cl.ret = "s32" if p in ("void(void)", VAR) else p[0]
         if cl.used and cl.ret == "void":
-            raise Fail("the value of a void function")
+            cl.cast, cl.ret = True, "s32"     # (it returns something after all: through a cast)
     ret = "s32" if returns else "void"
 
     def render(st, ind):

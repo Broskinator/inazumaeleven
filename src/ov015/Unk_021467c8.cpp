@@ -35,8 +35,8 @@ extern "C" void func_ov015_021475c8(void);
 extern "C" void func_ov015_021476bc(void);
 extern "C" void func_ov015_021476f0(void);
 extern "C" s32 func_ov015_02147730(u8 *arg0);
-extern "C" void func_ov015_0214775c(void);
-extern "C" void func_ov015_02147840(void);
+extern "C" s32 func_ov015_0214775c(s32 arg0, s32 arg1);
+extern "C" s32 func_ov015_02147840(...);
 extern "C" void func_ov015_02147878(u8 *arg0);
 extern "C" void func_ov015_02147898(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_021478a8(void);
@@ -138,8 +138,8 @@ extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" void NNS_G3dGetAnmByIdx(void);
-extern "C" void NNS_G3dRenderObjAddAnmObj(void);
+extern "C" s32 NNS_G3dGetAnmByIdx(...);
+extern "C" s32 NNS_G3dRenderObjAddAnmObj(...);
 extern "C" void NNS_G3dRenderObjRemoveAnmObj(void);
 extern "C" void OS_InitMutex(void);
 extern "C" s32 OS_LockMutex(...);
@@ -169,7 +169,7 @@ extern "C" void func_02003918(void);
 extern "C" void func_020039f8(void);
 extern "C" void func_02003ad8(void);
 extern "C" void func_02003bb8(void);
-extern "C" void func_02027960(void);
+extern "C" s32 func_02027960(...);
 extern "C" void func_0202bdfc(void);
 extern "C" s32 func_02099058(...);
 extern "C" s32 func_02099088(...);
@@ -202,8 +202,8 @@ extern "C" void func_ov015_021348c4(void);
 extern "C" s32 func_ov015_02144eb8(...);
 extern "C" void func_ov015_02144f58(void);
 extern "C" void func_ov015_02145554(void);
-extern "C" void func_ov015_021455fc(void);
-extern "C" void func_ov015_021456e0(void);
+extern "C" s32 func_ov015_021455fc(...);
+extern "C" s32 func_ov015_021456e0(...);
 extern "C" void func_ov015_021457b4(void);
 extern "C" void func_ov015_021457fc(void);
 extern "C" void func_ov015_021458e8(void);
@@ -1370,71 +1370,68 @@ extern "C" s32 func_ov015_02147730(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov015_0214775c(void)
+extern "C" s32 func_ov015_0214775c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_ov015_02147878
-    cmp r0, #0
-    bne @L_02147788
-    ldr r0, [r5, #0xc]
-    cmp r0, #0
-    ldrne r0, [r5, #0x10]
-    cmpne r0, #0
-    bne @L_02147790
-@L_02147788:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02147790:
-    ldr r0, [r5, #4]
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r5
-    bl func_ov015_02147840
-    ldr r0, [r5, #0x10]
-    ldr r0, [r0, #8]
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r5
-    bl func_ov015_021474bc
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrh r1, [r5, #0xa]
-    bl NNS_G3dGetAnmByIdx
-    mov r6, r0
-    cmp r4, #0
-    bne @L_021477f0
-    ldr r0, [r5, #0x10]
-    bl func_ov015_021456e0
-    mov r4, r0
-@L_021477f0:
-    ldr r0, [r5, #4]
-    ldrb r0, [r0, #0x28]
-    cmp r0, #9
-    cmpeq r4, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldr r0, [r5, #0x10]
-    bl func_ov015_021455fc
-    mov r2, r0
-    ldr r0, [r5, #0xc]
-    mov r1, r6
-    mov r3, r4
-    bl func_02027960
-    ldr r0, [r5, #0x10]
-    ldr r1, [r5, #0xc]
-    ldr r0, [r0, #8]
-    bl NNS_G3dRenderObjAddAnmObj
-    mov r0, #1
-    strb r0, [r5, #8]
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    u8 *r5;
+    s32 r6;
+    s32 v0;
+    s32 v2;
+    s32 v3;
+    s32 v4;
+    s32 v5;
+    u16 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    v0 = ((s32 (*)(...))func_ov015_02147878)((u8 *)arg0);
+    r5 = (u8 *)arg0;
+    if (((v0 != 0 || *(s32 *)(r5 + 0xC) == 0) || *(s32 *)(r5 + 0x10) == 0)) {
+        return 0;
+    } else {
+        if (*(s32 *)(r5 + 0x4) == 0) {
+            return 0;
+        } else {
+            func_ov015_02147840((s32)r5);
+            if (*(s32 *)(*(u8 * *)(r5 + 0x10) + 0x8) == 0) {
+                return 0;
+            } else {
+                v2 = func_ov015_021474bc(r5);
+                arg0 = v2;
+                if (arg0 == 0) {
+                    return 0;
+                } else {
+                    t0 = *(u16 *)(r5 + 0xA);
+                    v3 = NNS_G3dGetAnmByIdx(arg0, t0);
+                    r4 = arg1;
+                    r6 = v3;
+                    if (r4 == 0) {
+                        t1 = *(s32 *)(r5 + 0x10);
+                        v4 = func_ov015_021456e0(t1);
+                        r4 = v4;
+                    }
+                    if ((*(u8 *)(*(u8 * *)(r5 + 0x4) + 0x28) == 9 && r4 == 0)) {
+                        return 0;
+                    } else {
+                        t2 = *(s32 *)(r5 + 0x10);
+                        v5 = func_ov015_021455fc(t2);
+                        t3 = *(s32 *)(r5 + 0xC);
+                        func_02027960(t3, r6, v5, r4);
+                        t4 = *(s32 *)(*(u8 * *)(r5 + 0x10) + 0x8);
+                        t5 = *(s32 *)(r5 + 0xC);
+                        NNS_G3dRenderObjAddAnmObj(t4, t5);
+                        *(u8 *)(r5 + 0x8) = 1;
+                        return 1;
+                    }
+                }
+            }
+        }
+    }
 }
 
-extern "C" asm void func_ov015_02147840(void)
+extern "C" asm s32 func_ov015_02147840(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
