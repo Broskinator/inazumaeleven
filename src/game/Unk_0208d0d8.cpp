@@ -17,7 +17,7 @@ extern "C" void func_0208d3d8(void);
 extern "C" void *func_0208d434(void *self, void *a, void *b);
 extern "C" void *func_0208d450(void *self, void *a, void *b);
 extern "C" s32 func_0208d46c(...);
-extern "C" void func_0208d4d4(void);
+extern "C" s32 func_0208d4d4(...);
 extern "C" s32 func_0208d51c(...);
 extern "C" s32 func_0208d5a8(...);
 extern "C" void func_0208d7b0(void);
@@ -29,8 +29,8 @@ extern "C" void func_0208dd58(s32 arg0, s32 arg1, u8 arg2);
 extern "C" int func_0208dd88(void *self, int a);
 extern "C" int func_0208de5c(void *self);
 extern "C" int func_0208de6c(void *self);
-extern "C" void func_0208de7c(void);
-extern "C" void func_0208dec8(void);
+extern "C" s32 func_0208de7c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
+extern "C" s32 func_0208dec8(...);
 extern "C" void func_0208e064(void);
 extern "C" void func_0208e0e4(s32 arg0, s32 arg1);
 extern "C" s32 func_0208e114(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -418,7 +418,7 @@ extern "C" asm s32 func_0208d46c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_0208d4d4(void)
+extern "C" asm s32 func_0208d4d4(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, #0
@@ -1094,30 +1094,23 @@ extern "C" int func_0208de6c(void *self)
     return func_0208dd88(self, 1);
 }
 
-extern "C" asm void func_0208de7c(void)
+extern "C" s32 func_0208de7c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #8
-    mov r7, r0
-    mov r6, r1
-    mov r5, r2
-    mov r4, r3
-    bl func_0208d4d4
-    movs r1, r0
-    addmi sp, sp, #8
-    mvnmi r0, #0
-    ldmmiia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrb r12, [sp, #0x20]
-    mov r0, r7
-    mov r2, r6
-    mov r3, r5
-    stmia sp, {r4, r12}
-    bl func_0208dec8
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r6;
+    s32 v0;
+    s32 v1;
+    v0 = func_0208d4d4(arg0, arg1, arg2, arg3);
+    r6 = arg1;
+    arg1 = v0;
+    if (arg1 < 0) {
+        return -1;
+    } else {
+        v1 = func_0208dec8(arg0, arg1, r6, arg2, arg3, arg4);
+        return v1;
+    }
 }
 
-extern "C" asm void func_0208dec8(void)
+extern "C" asm s32 func_0208dec8(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x18

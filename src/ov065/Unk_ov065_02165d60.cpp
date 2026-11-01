@@ -17,7 +17,7 @@ extern "C" void func_ov065_021668cc(void);
 extern "C" void func_ov065_02166a8c(void);
 extern "C" void func_ov065_02166af8(void);
 extern "C" s32 func_ov065_02166ba4(u8 *arg0, s32 arg1);
-extern "C" void func_ov065_02166bfc(void);
+extern "C" void func_ov065_02166bfc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" void func_ov065_02166c24(void);
 extern "C" s32 func_ov065_02166c54(...);
 extern "C" void func_ov065_02166e0c(s32 arg0);
@@ -1153,18 +1153,16 @@ extern "C" s32 func_ov065_02166ba4(u8 *arg0, s32 arg1)
     return 4;
 }
 
-extern "C" asm void func_ov065_02166bfc(void)
+extern "C" void func_ov065_02166bfc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
-    cmp r1, #0
-    bxle lr
-    sub r1, r1, #3
-    cmp r1, #1
-    bxhi lr
-    ldrb r1, [sp]
-    cmp r1, #0
-    movne r1, #0
-    strne r1, [r0, #0x58]
-    bx lr
+    if (arg1 <= 0)
+        return;
+    if ((u32)(arg1 - 3) > (u32)1)
+        return;
+    if (arg4 != 0) {
+        *(s32 *)(arg0 + 0x58) = 0;
+    }
+    return;
 }
 
 extern "C" void func_ov065_02166c24(void)

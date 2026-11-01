@@ -380,7 +380,9 @@ def lift(name, body, protos, variant=0):
             off = imm(m[1] or m[2] or "0")
             if off < size or not m[0].startswith("ldr"):
                 low = off if low is None else min(low, off)
-    if low is not None and (low % 4 or low >= size):
+    if low is not None:
+        low &= ~3     # (the locals from a word: a byte array can start in the middle of one)
+    if low is not None and low >= size:
         raise Fail("locals")
     for k, line in enumerate(lines):
         last = k == len(lines) - 1
@@ -969,7 +971,9 @@ def lift_cfg(name, body, protos, variant=0):
                 low = off if low is None else min(low, off)
             elif off >= size + push:
                 nstack = max(nstack, (off - size - push) // 4 + 1)
-    if low is not None and (low % 4 or low >= size):
+    if low is not None:
+        low &= ~3     # (the locals from a word: a byte array can start in the middle of one)
+    if low is not None and low >= size:
         raise Fail("locals")
     a0 = FUNCS.get(name)
     lines = switches(lines, a0 + 4 * (frame is not None) + 4 * (size > 0) if a0 is not None else None,
