@@ -429,10 +429,12 @@ def lift(name, body, protos, variant=0):
             off = imm(m[2] or "0")
             if mn in LOAD:
                 if off >= size + push and frame is not None or frame is None and size == 0:
-                    if (off - size - push) % 4 or mn != "ldr":
+                    if (off - size - push) % 4 or mn not in LOAD:
                         raise Fail("a parameter on the stack")
                     p = Param(4 + (off - size - push) // 4)
                     params.setdefault(p.i, p)
+                    if LOAD[mn] != "s32":
+                        params[p.i].type = LOAD[mn]
                     write(m[1], params[p.i])
                 elif low is not None and low <= off < size:
                     write(m[1], Load(LOAD[mn], Local(0), off - low))
@@ -1257,8 +1259,10 @@ def lift_cfg(name, body, protos, variant=0):
                 off = imm(mm[2] or "0")
                 if mn in LOAD:
                     if off >= size + push and (frame is not None or size == 0):
-                        if (off - size - push) % 4 or mn != "ldr":
+                        if (off - size - push) % 4 or mn not in LOAD:
                             raise Fail("a parameter on the stack")
+                        if LOAD[mn] != "s32":
+                            P[4 + (off - size - push) // 4].type = LOAD[mn]
                         write(mm[1], P[4 + (off - size - push) // 4])
                     elif low is not None and low <= off < size:
                         write(mm[1], Load(LOAD[mn], Local(0), off - low))

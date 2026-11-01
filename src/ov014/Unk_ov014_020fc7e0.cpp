@@ -29,7 +29,7 @@ extern "C" u8 func_ov014_020fd964(void);
 extern "C" void func_ov014_020fd974(void);
 extern "C" char *func_ov014_020fd9bc(void);
 extern "C" void func_ov014_020fd9d0(void);
-extern "C" void func_ov014_020fda40(void);
+extern "C" s32 func_ov014_020fda40(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_020fdaac(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_020fdadc(s32 arg0, s32 arg1);
 extern "C" void func_ov014_020fdb1c(void);
@@ -1479,35 +1479,35 @@ extern "C" asm void func_ov014_020fd9d0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_020fda40(void)
+extern "C" s32 func_ov014_020fda40(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    mov r3, #0
-    ldr r2, =data_ov014_021260c4
-    mov r12, r3
-@L_020fda58:
-    ldr r0, [r2, r12, lsl #3]
-    cmp r0, r1
-    bne @L_020fda7c
-    ldr r1, =data_ov014_021260c8
-    mov r0, #0
-    ldr r3, [r1, r12, lsl #3]
-    str r0, [r2, r12, lsl #3]
-    str r0, [r1, r12, lsl #3]
-    b @L_020fda88
-@L_020fda7c:
-    add r12, r12, #1
-    cmp r12, #0x40
-    blt @L_020fda58
-@L_020fda88:
-    cmp r3, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c47b4
-    mov r1, r3
-    bl _ZN8GameHeap4FreeEPv
-    ldmia sp!, {r3, pc}
+    u8 *r2;
+    s32 r3;
+    s32 r12;
+    s32 v0;
+    s32 t0;
+    if (arg1 == 0)
+        return arg0;
+    r3 = 0;
+    r2 = (u8 *)((u8 *)&data_ov014_021260c4);
+    r12 = 0;
+    do {
+        arg0 = *(s32 *)(r2 + (r12 << 3));
+        if (arg0 == arg1) {
+            t0 = *(s32 *)(((u8 *)&data_ov014_021260c8) + (r12 << 3));
+            *(s32 *)(r2 + (r12 << 3)) = 0;
+            *(s32 *)(((u8 *)&data_ov014_021260c8) + (r12 << 3)) = 0;
+            arg0 = 0;
+            r3 = t0;
+            break;
+        } else {
+            r12 = (r12 + 1);
+        }
+    } while (r12 < 0x40);
+    if (r3 == 0)
+        return arg0;
+    v0 = _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r3);
+    return v0;
 }
 
 extern "C" s32 func_ov014_020fdaac(s32 arg0, s32 arg1)
