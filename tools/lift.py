@@ -257,6 +257,41 @@ SWAPPED = {"eq": "eq", "ne": "ne", "gt": "lt", "lt": "gt", "ge": "le", "le": "ge
            "hi": "lo", "lo": "hi", "cc": "hi", "hs": "ls", "cs": "ls", "ls": "hs"}
 
 
+def stm_sp(lines):
+    """lines with 'stmia sp, {r0, r1}' (arguments on the stack, MW makes one of the stores)
+    as the stores: 'str r0, [sp]', 'str r1, [sp, #4]' ('stmib': from sp + 4)"""
+    out = []
+    for l in lines:
+        m = re.match(r"stm(ia|ib|ea|fa)? sp, \{([^}]*)\}$", l)
+        if m:
+            regs_ = [x.strip() for x in m[2].split(",")]
+            off = 4 if m[1] in ("ib", "fa") else 0
+            for k, r in enumerate(regs_):
+                o = off + 4 * k
+                out.append(f"str {r}, [sp, #{o:#x}]" if o else f"str {r}, [sp]")
+            continue
+        # (ldmia/stmia of other registers (a struct copied): the loads and stores, the base
+        # register last if it's loaded too; with '!' the base goes on after them)
+        m = re.match(r"(ldm|stm)ia (r\d+|lr)(!?), \{([^}]*)\}$", l)
+        if m and "-" not in m[4]:
+            op, base, wb = m[1], m[2], m[3]
+            regs_ = [x.strip() for x in m[4].split(",")]
+            if wb and base in regs_:
+                out.append(l)
+                continue
+            mn = "ldr" if op == "ldm" else "str"
+            seq = [(r, 4 * k) for k, r in enumerate(regs_)]
+            if op == "ldm" and base in regs_:
+                seq = [x for x in seq if x[0] != base] + [x for x in seq if x[0] == base]
+            for r, o in seq:
+                out.append(f"{mn} {r}, [{base}, #{o:#x}]" if o else f"{mn} {r}, [{base}]")
+            if wb:
+                out.append(f"add {base}, {base}, #{4 * len(regs_):#x}")
+            continue
+        out.append(l)
+    return out
+
+
 def lift(name, body, protos, variant=0):
     """(declaration, C body, callees) of an asm function, or raises Fail. variant 1: the
     other return type (void or a value)."""
@@ -299,7 +334,7 @@ def lift(name, body, protos, variant=0):
         if m:
             return Bin({"lsl": "<<", "lsr": "u>>", "asr": ">>"}[m[2]], read(m[1]), Const(imm(m[3])))
         return read(s)
-    lines = [l.strip() for l in body.strip().split("\n")]
+    lines = stm_sp([l.strip() for l in body.strip().split("\n")])
     frame, size, push = None, 0, 0
     m = re.match(r"stmdb sp!, \{((?:r\d+, )*)lr\}$", lines[0])
     if m:
@@ -884,7 +919,7 @@ def lift_cfg(name, body, protos, variant=0):
     and at its end the registers that are still needed are written to their variables.
     The blocks are put back together as if/else and do/while (what MW makes of them).
     """
-    lines = [l.strip() for l in body.strip().split("\n")]
+    lines = stm_sp([l.strip() for l in body.strip().split("\n")])
     frame, push = None, 0
     m = re.match(r"stmdb sp!, \{((?:r\d+, )*)lr\}$", lines[0])
     if m:

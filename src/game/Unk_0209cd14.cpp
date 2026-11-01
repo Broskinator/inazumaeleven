@@ -48,7 +48,7 @@ extern "C" void func_0209db9c(void);
 extern "C" void func_0209dc78(void);
 extern "C" void func_0209dcec(void);
 extern "C" s32 func_0209dd60(u8 *arg0, s32 arg1);
-extern "C" void func_0209ddd0(void);
+extern "C" s32 func_0209ddd0(s32 arg0, s32 arg1);
 extern "C" void func_0209de0c(void);
 extern "C" s32 func_0209de28(s32 arg0, s32 arg1);
 extern "C" void func_0209deb0(void);
@@ -79,7 +79,7 @@ extern "C" char data_020fc750[];
 extern "C" char data_020fc754[];
 extern "C" char data_020fc7d8[];
 extern "C" s32 FS_FindArchive(...);
-extern "C" void FS_OpenFileFast(void);
+extern "C" s32 FS_OpenFileFast(...);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void STD_CompareString(void);
@@ -1305,23 +1305,24 @@ extern "C" s32 func_0209dd60(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_0209ddd0(void)
+extern "C" s32 func_0209ddd0(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #8
-    add r4, sp, #0
-    mov r5, r0
-    mov r0, r4
-    bl func_0209dd60
-    cmp r0, #0
-    addeq sp, sp, #8
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r0, r5
-    ldmia r4, {r1, r2}
-    bl FS_OpenFileFast
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 local[2];
+    u8 *r4;
+    s32 v0;
+    s32 v1;
+    s32 t0;
+    s32 t1;
+    v0 = func_0209dd60(((u8 *)local), arg1);
+    r4 = ((u8 *)local);
+    if (v0 == 0) {
+        return 0;
+    } else {
+        t0 = *(s32 *)(r4);
+        t1 = *(s32 *)(r4 + 0x4);
+        v1 = FS_OpenFileFast(arg0, t0, t1);
+        return v1;
+    }
 }
 
 extern "C" void func_0209de0c(void)

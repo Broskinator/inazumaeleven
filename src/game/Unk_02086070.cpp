@@ -7,7 +7,7 @@ extern "C" void func_02097898(void);     // (for the asm functions)
 extern "C" void func_02096148(void);     // (for the asm functions)
 extern "C" void func_02096160(void);     // (for the asm functions)
 extern "C" void func_020962f4(void);     // (for the asm functions)
-extern "C" void func_02087500(void);     // (for the asm functions)
+extern "C" s32 func_02087500(...);     // (for the asm functions)
 extern "C" u8 *func_02085298(void *self, int a, int b);
 extern "C" BOOL func_02085488(void *self, u8 *obj);
 extern "C" BOOL func_020854a8(void *self, u8 *obj);
@@ -81,7 +81,7 @@ extern "C" void func_02087284(void *self);
 extern "C" void func_020872a4(void);
 extern "C" void func_020873ac(void *self);
 extern "C" void func_02087464(void);
-extern "C" void func_020874cc(void);
+extern "C" void func_020874cc(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 
 extern "C" char data_020af4f4[];
 extern "C" char data_020af50c[];
@@ -1421,19 +1421,8 @@ extern "C" asm void func_02087464(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_020874cc(void)
+extern "C" void func_020874cc(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0xc
-    ldr lr, [sp, #0x18]
-    mov r4, r2
-    stmia sp, {r3, lr}
-    ldr r12, [sp, #0x1c]
-    mov r2, r1
-    mov r3, r4
-    mov r1, #0
-    str r12, [sp, #8]
-    bl func_02087500
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, pc}
+    func_02087500(arg0, 0, arg1, arg2, arg3, arg4, arg5);
+    return;
 }

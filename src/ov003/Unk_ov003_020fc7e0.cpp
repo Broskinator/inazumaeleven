@@ -10,8 +10,8 @@ extern "C" s32 func_ov003_020fca0c(...);
 extern "C" void func_ov003_020fcad0(void);
 extern "C" void func_ov003_020fcbe0(u8 *arg0);
 extern "C" s32 func_ov003_020fcc60(...);
-extern "C" void func_ov003_020fcd98(void);
-extern "C" void func_ov003_020fce3c(void);
+extern "C" s32 func_ov003_020fcd98(s32 arg0);
+extern "C" s32 func_ov003_020fce3c(s32 arg0);
 extern "C" s32 func_ov003_020fcee4(s32 arg0);
 extern "C" void func_ov003_020fd028(void);
 extern "C" void func_ov003_020fd0cc(u8 *arg0);
@@ -612,95 +612,32 @@ extern "C" asm s32 func_ov003_020fcc60(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov003_020fcd98(void)
+extern "C" s32 func_ov003_020fcd98(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x1c
-    mov r1, #0x92
-    str r1, [sp]
-    mov r6, #1
-    mov r1, #0xa4
-    stmib sp, {r1, r6}
-    mov r5, #0
-    str r5, [sp, #0xc]
-    str r6, [sp, #0x10]
-    str r5, [sp, #0x14]
-    mov r1, r6
-    mov r2, r6
-    mov r3, r5
-    str r5, [sp, #0x18]
-    bl func_ov003_020fcc60
-    movs r4, r0
-    addeq sp, sp, #0x1c
-    ldmeqia sp!, {r3, r4, r5, r6, pc}
-    mov r1, r5
-    mov r2, r6
-    mov r3, r5
-    add r0, r4, #0x3a
-    bl func_ov015_02161d00
-    mov r1, r5
-    mov r2, r5
-    mov r3, r5
-    add r0, r4, #0x3a
-    bl func_ov015_02161d24
-    mov r1, r5
-    mov r2, r6
-    mov r3, r5
-    add r0, r4, #0x3e
-    bl func_ov015_02161d00
-    add r0, r4, #0x3e
-    mov r2, r6
-    mov r1, r5
-    mov r3, r5
-    bl func_ov015_02161d24
-    add sp, sp, #0x1c
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    s32 v0;
+    s32 v4;
+    v0 = func_ov003_020fcc60(arg0, 1, 1, 0, 0x92, 0xA4, 1, 0, 1, 0, 0);
+    if (v0 == 0)
+        return v0;
+    func_ov015_02161d00((v0 + 0x3A), 0, 1, 0);
+    func_ov015_02161d24((v0 + 0x3A), 0, 0, 0);
+    func_ov015_02161d00((v0 + 0x3E), 0, 1, 0);
+    v4 = func_ov015_02161d24((v0 + 0x3E), 0, 1, 0);
+    return v4;
 }
 
-extern "C" asm void func_ov003_020fce3c(void)
+extern "C" s32 func_ov003_020fce3c(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x1c
-    mov r1, #0xca
-    str r1, [sp]
-    mov r7, #2
-    mov r1, #0xa4
-    stmib sp, {r1, r7}
-    mov r6, #0
-    str r6, [sp, #0xc]
-    mov r5, #1
-    str r7, [sp, #0x10]
-    str r6, [sp, #0x14]
-    mov r1, r7
-    mov r2, r5
-    mov r3, r7
-    str r6, [sp, #0x18]
-    bl func_ov003_020fcc60
-    movs r4, r0
-    addeq sp, sp, #0x1c
-    ldmeqia sp!, {r4, r5, r6, r7, pc}
-    mov r1, r6
-    mov r2, r5
-    mov r3, r6
-    add r0, r4, #0x3a
-    bl func_ov015_02161d00
-    mov r1, r6
-    mov r2, r7
-    mov r3, r6
-    add r0, r4, #0x3a
-    bl func_ov015_02161d24
-    mov r1, r6
-    mov r2, r5
-    mov r3, r6
-    add r0, r4, #0x3e
-    bl func_ov015_02161d00
-    add r0, r4, #0x3e
-    mov r1, r6
-    mov r3, r6
-    mov r2, #3
-    bl func_ov015_02161d24
-    add sp, sp, #0x1c
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    s32 v0;
+    s32 v4;
+    v0 = func_ov003_020fcc60(arg0, 2, 1, 2, 0xCA, 0xA4, 2, 0, 2, 0, 0);
+    if (v0 == 0)
+        return v0;
+    func_ov015_02161d00((v0 + 0x3A), 0, 1, 0);
+    func_ov015_02161d24((v0 + 0x3A), 0, 2, 0);
+    func_ov015_02161d00((v0 + 0x3E), 0, 1, 0);
+    v4 = func_ov015_02161d24((v0 + 0x3E), 0, 3, 0);
+    return v4;
 }
 
 extern "C" s32 func_ov003_020fcee4(s32 arg0)
