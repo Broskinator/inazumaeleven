@@ -243,6 +243,9 @@ def value(v, t="s32"):
 UNSIGNED = ("hi", "lo", "cc", "hs", "cs", "ls")
 OPPOSITE = {"eq": "ne", "gt": "le", "ge": "lt", "hi": "ls", "hs": "lo", "cs": "cc"}
 OPPOSITE.update({b: a for a, b in list(OPPOSITE.items())})
+# (after a cmp, the conditions each condition makes true as well: equal is N, V clear and C set)
+IMPLIES = {"eq": {"le", "ge", "ls", "hs", "cs"}, "lt": {"le", "ne"}, "gt": {"ge", "ne"},
+           "lo": {"ls", "ne"}, "cc": {"ls", "ne"}, "hi": {"hs", "cs", "ne"}}
 
 
 def cond(flags, cc):
@@ -824,8 +827,27 @@ def unpredicate(insns):
                 if not any(regs_of(x) & used_ for x in mid):
                     later += mid
                     k = j
-        if later and any(sets_flags(r) for r in run):
-            raise Fail("a condition from before a label")
+        # (instructions of their own after the run, before something on its condition (a
+        # conditional return): before the run, so the flags go on into it)
+        j = k
+        while j < len(insns) and j - k < 3 and insns[j][0] is None and not insns[j][2] \
+                and insns[j][1] not in ("b", "ret", "switch", "bl", "blx") and not sets_flags(insns[j]) \
+                and insns[j][1] not in LOAD and insns[j][1] not in STORE:
+            j += 1
+        if later and k < len(insns) and insns[k][0] is None and insns[k][2] in (c, OPPOSITE[c]):
+            # (the ones from the middle too, when something on the condition follows the run)
+            for x in later:
+                out.append(x)
+                note(x)
+            later = []
+        if j > k and j < len(insns) and insns[j][0] is None and insns[j][2] in (c, OPPOSITE[c]):
+            mid = insns[k:j]
+            used_ = set().union(*[regs_of(x) for x in run])
+            if not any(regs_of(x) & used_ for x in mid):
+                for x in mid:
+                    out.append(x)
+                    note(x)
+                k = j
         lbl = f"P_{n}"
         n += 1
         out.append((None, "b", OPPOSITE[c], False, "@" + lbl))
@@ -856,6 +878,19 @@ def unpredicate(insns):
             if t >= len(out):
                 continue
             nx = out[t]
+            # (the flags from a cmp just before: a condition that makes the other true too)
+            q = j - 1
+            while q >= 0 and out[q][0] is None and not sets_flags(out[q]) and out[q][1] != "end":
+                q -= 1
+            after_cmp = q >= 0 and out[q][0] is None and out[q][1] == "cmp" and not out[q][2]
+
+            def imp(c1, c2):
+                return c1 == c2 or (after_cmp and c2 in IMPLIES.get(c1, ()))
+            if nx[0] is None and nx[1] in ("b", "ret") and nx[2] and nx[2] != ins[2] and nx[2] != OPPOSITE[ins[2]]:
+                if imp(ins[2], nx[2]):
+                    nx = nx[:2] + (ins[2],) + nx[3:]
+                elif imp(ins[2], OPPOSITE[nx[2]]):
+                    nx = nx[:2] + (OPPOSITE[ins[2]],) + nx[3:]
             if nx[1] == "b" and nx[2] == ins[2] and nx[4].lstrip("@") != tgt:
                 out[j] = ins[:4] + ("@" + nx[4].lstrip("@"),)
                 changed = True
@@ -1395,25 +1430,31 @@ def lift_cfg(name, body, protos, variant=0):
                 if late:
                     sc = b["succ"]
                     one = [x for x in sc if preds0[x] == [k] and blocks[x]["succ"] == [y for y in sc if y != x]]
-                    if len(sc) != 2 or not one:
-                        raise Fail("a compare of a variable written after it")
-                    s1 = one[0]
-                    j = [y for y in sc if y != s1][0]
-                    for home, v in late:
-                        r_ = [r for r, (h, _) in assign.items() if h is home][0]
-                        if sorted(preds0[j]) != sorted([k, s1]) or any(r_ in use_def(i_)[0] | use_def(i_)[1] for i_ in blocks[s1]["insns"]) or has_load(v) \
-                                or any(not isinstance(x, Param) or isinstance(x, Tmp) for x in refs(v)):
-                            raise Fail("a compare of a variable written after it")
-                        stmts.remove(("assign", home, v))
-                    SINK[k] = (s1, j, late)
+                    ok = len(sc) == 2 and one
+                    if ok:
+                        s1 = one[0]
+                        j = [y for y in sc if y != s1][0]
+                        for home, v in late:
+                            r_ = [r for r, (h, _) in assign.items() if h is home][0]
+                            if sorted(preds0[j]) != sorted([k, s1]) or any(r_ in use_def(i_)[0] | use_def(i_)[1] for i_ in blocks[s1]["insns"]) or has_load(v) \
+                                    or any(not isinstance(x, Param) or isinstance(x, Tmp) for x in refs(v)):
+                                ok = False
+                    if ok:
+                        for home, v in late:
+                            stmts.remove(("assign", home, v))
+                        SINK[k] = (s1, j, late)
+                    else:
+                        FAILS.append("a compare of a variable written after it")
+                        late = []
                 m_ = {id(v): home for home, v in order if not any(v is x for _, x in late)}
                 new = subst_flags(term[0], m_)
                 term = (new, term[1])
         return stmts, term
     preds0 = [[j for j in range(len(blocks)) if x in blocks[j]["succ"]] for x in range(len(blocks))]
-    SINK = {}
+    SINK, FAILS = {}, []
     for _ in range(len(blocks) + 4):     # (a value goes on a block each time)
         SINK.clear()
+        FAILS.clear()
         calls.clear()
         callees.clear()
         used_vars.clear()
@@ -1440,6 +1481,8 @@ def lift_cfg(name, body, protos, variant=0):
             break
     else:
         raise Fail("values that don't settle")
+    if FAILS:
+        raise Fail(FAILS[0])
     for k, (s1, j, late) in SINK.items():
         # (the if's block mustn't change what the assignment reads)
         if any(st[0] == "assign" and (st[1] in [h for h, _ in late] or any(st[1] in refs(v) for _, v in late))
@@ -1538,6 +1581,8 @@ def lift_cfg(name, body, protos, variant=0):
             home, v = st[1], st[2]
             return f"{sp_}{home.render()} = {value(v, 'u8 *' if home.ptr else home.type if not isinstance(home, Var) else 's32')};\n"
         c = st[1]
+        if c.used and c.ret == "void":
+            c.cast, c.ret = True, "s32"     # (it returns something after all: through a cast)
         if c.used:
             return f"{sp_}v{c.k} = {c.text()};\n"
         return f"{sp_}{c.text()};\n"

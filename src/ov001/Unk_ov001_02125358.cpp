@@ -10,11 +10,11 @@ extern "C" s32 func_ov001_02125ef8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov001_02125f64(void);
 extern "C" void func_ov001_0212602c(s32 arg0, s32 arg1);
 extern "C" void func_ov001_02126064(s32 arg0, s32 arg1);
-extern "C" void func_ov001_0212609c(void);
+extern "C" void func_ov001_0212609c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" void func_ov001_021260f0(s32 arg0, s32 arg1);
-extern "C" void func_ov001_02126128(void);
+extern "C" void func_ov001_02126128(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" void func_ov001_0212617c(s32 arg0, s32 arg1);
-extern "C" void func_ov001_021261b4(void);
+extern "C" void func_ov001_021261b4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" void func_ov001_02126208(s32 arg0, s32 arg1);
 extern "C" void func_ov001_02126240(void);
 extern "C" void func_ov001_02126284(void);
@@ -150,7 +150,7 @@ extern "C" s32 func_ov015_02132a38(...);
 extern "C" void func_ov015_02132af0(void);
 extern "C" void func_ov015_02132b7c(void);
 extern "C" s32 func_ov015_02133f94(...);
-extern "C" void func_ov015_02134024(void);
+extern "C" s32 func_ov015_02134024(...);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_0213b6ac(void);
 extern "C" void func_ov015_0213b7f8(void);
@@ -1023,28 +1023,11 @@ extern "C" void func_ov001_02126064(s32 arg0, s32 arg1)
     func_ov015_02133f94((s32)((u8 *)local), arg1);
 }
 
-extern "C" asm void func_ov001_0212609c(void)
+extern "C" void func_ov001_0212609c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x54
-    mov r7, r1
-    add r4, sp, #4
-    mov r5, r0
-    mov r6, r2
-    mov r2, r5
-    ldr r1, =data_ov001_0212a8fc
-    mov r0, r4
-    mov r5, r3
-    bl sprintf
-    ldrb r12, [sp, #0x68]
-    mov r0, r4
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    str r12, [sp]
-    bl func_ov015_02134024
-    add sp, sp, #0x54
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    s32 local[20];
+    sprintf((s32)((u8 *)local), (s32)((u8 *)&data_ov001_0212a8fc), arg0, arg3);
+    func_ov015_02134024((s32)((u8 *)local), arg1, arg2, arg3, arg4);
 }
 
 extern "C" void func_ov001_021260f0(s32 arg0, s32 arg1)
@@ -1054,28 +1037,11 @@ extern "C" void func_ov001_021260f0(s32 arg0, s32 arg1)
     func_ov015_02133f94((s32)((u8 *)local), arg1);
 }
 
-extern "C" asm void func_ov001_02126128(void)
+extern "C" void func_ov001_02126128(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x54
-    mov r7, r1
-    add r4, sp, #4
-    mov r5, r0
-    mov r6, r2
-    mov r2, r5
-    ldr r1, =data_ov001_0212a92c
-    mov r0, r4
-    mov r5, r3
-    bl sprintf
-    ldrb r12, [sp, #0x68]
-    mov r0, r4
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    str r12, [sp]
-    bl func_ov015_02134024
-    add sp, sp, #0x54
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    s32 local[20];
+    sprintf((s32)((u8 *)local), (s32)((u8 *)&data_ov001_0212a92c), arg0, arg3);
+    func_ov015_02134024((s32)((u8 *)local), arg1, arg2, arg3, arg4);
 }
 
 extern "C" void func_ov001_0212617c(s32 arg0, s32 arg1)
@@ -1085,28 +1051,11 @@ extern "C" void func_ov001_0212617c(s32 arg0, s32 arg1)
     func_ov015_02133f94((s32)((u8 *)local), arg1);
 }
 
-extern "C" asm void func_ov001_021261b4(void)
+extern "C" void func_ov001_021261b4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x54
-    mov r7, r1
-    add r4, sp, #4
-    mov r5, r0
-    mov r6, r2
-    mov r2, r5
-    ldr r1, =data_ov001_0212a958
-    mov r0, r4
-    mov r5, r3
-    bl sprintf
-    ldrb r12, [sp, #0x68]
-    mov r0, r4
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    str r12, [sp]
-    bl func_ov015_02134024
-    add sp, sp, #0x54
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    s32 local[20];
+    sprintf((s32)((u8 *)local), (s32)((u8 *)&data_ov001_0212a958), arg0, arg3);
+    func_ov015_02134024((s32)((u8 *)local), arg1, arg2, arg3, arg4);
 }
 
 extern "C" void func_ov001_02126208(s32 arg0, s32 arg1)

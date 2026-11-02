@@ -38,10 +38,10 @@ extern "C" void func_ov014_02120024(void);
 extern "C" void func_ov014_02120090(void);
 extern "C" void func_ov014_021200b8(void);
 extern "C" void func_ov014_021200e8(void);
-extern "C" void func_ov014_02120184(void);
+extern "C" void func_ov014_02120184(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_021201e4(void);
 extern "C" void func_ov014_02120224(void);
-extern "C" void func_ov014_021202cc(void);
+extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_02120330(void);
 extern "C" void func_ov014_02120368(void);
 extern "C" void func_ov014_0212039c(void);
@@ -2268,35 +2268,33 @@ extern "C" asm void func_ov014_021200e8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_02120184(void)
+extern "C" void func_ov014_02120184(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    cmp r3, #0
-    mov r4, #0
-    ble @L_021201b8
-@L_02120194:
-    mov lr, r4, lsl #1
-    ldrh r12, [r1, lr]
-    add r2, r2, r12
-    strh r2, [r0, lr]
-    movs r2, r2, lsr #0x10
-    beq @L_021201b8
-    add r4, r4, #1
-    cmp r4, r3
-    blt @L_02120194
-@L_021201b8:
-    cmp r0, r1
-    addne r4, r4, #1
-    cmpne r4, r3
-    ldmgeia sp!, {r4, pc}
-@L_021201c8:
-    mov r12, r4, lsl #1
-    ldrh r2, [r1, r12]
-    add r4, r4, #1
-    cmp r4, r3
-    strh r2, [r0, r12]
-    blt @L_021201c8
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    s32 t0;
+    u16 t2;
+    r4 = 0;
+    if (arg3 > 0) {
+        do {
+            t0 = (arg2 + *(u16 *)(arg1 + (r4 << 1)));
+            *(u16 *)(arg0 + (r4 << 1)) = t0;
+            arg2 = ((u32)t0 >> 0x10);
+            if (arg2 == 0)
+                break;
+            r4 = (r4 + 1);
+        } while (r4 < arg3);
+    }
+    if ((s32)arg0 == (s32)arg1)
+        return;
+    if ((r4 + 1) >= arg3)
+        return;
+    r4 = (r4 + 1);
+    do {
+        t2 = *(u16 *)(arg1 + (r4 << 1));
+        *(u16 *)(arg0 + (r4 << 1)) = t2;
+        r4 = (r4 + 1);
+    } while (r4 < arg3);
+    return;
 }
 
 extern "C" asm void func_ov014_021201e4(void)
@@ -2370,36 +2368,35 @@ extern "C" asm void func_ov014_02120224(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_021202cc(void)
+extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    cmp r3, #0
-    mov r4, #0
-    ble @L_02120304
-@L_021202dc:
-    mov lr, r4, lsl #1
-    ldrh r12, [r1, lr]
-    sub r12, r12, r2
-    mov r2, r12, lsr #0x10
-    strh r12, [r0, lr]
-    ands r2, r2, #1
-    beq @L_02120304
-    add r4, r4, #1
-    cmp r4, r3
-    blt @L_021202dc
-@L_02120304:
-    cmp r0, r1
-    addne r4, r4, #1
-    cmpne r4, r3
-    ldmgeia sp!, {r4, pc}
-@L_02120314:
-    mov r12, r4, lsl #1
-    ldrh r2, [r1, r12]
-    add r4, r4, #1
-    cmp r4, r3
-    strh r2, [r0, r12]
-    blt @L_02120314
-    ldmia sp!, {r4, pc}
+    s32 r4;
+    s32 t0;
+    s32 t1;
+    u16 t2;
+    r4 = 0;
+    if (arg3 > 0) {
+        do {
+            t0 = ((u32)(*(u16 *)(arg1 + (r4 << 1)) - arg2) >> 0x10);
+            t1 = (*(u16 *)(arg1 + (r4 << 1)) - arg2);
+            *(u16 *)(arg0 + (r4 << 1)) = t1;
+            arg2 = (t0 & 1);
+            if (arg2 == 0)
+                break;
+            r4 = (r4 + 1);
+        } while (r4 < arg3);
+    }
+    if ((s32)arg0 == (s32)arg1)
+        return;
+    if ((r4 + 1) >= arg3)
+        return;
+    r4 = (r4 + 1);
+    do {
+        t2 = *(u16 *)(arg1 + (r4 << 1));
+        *(u16 *)(arg0 + (r4 << 1)) = t2;
+        r4 = (r4 + 1);
+    } while (r4 < arg3);
+    return;
 }
 
 extern "C" asm void func_ov014_02120330(void)
