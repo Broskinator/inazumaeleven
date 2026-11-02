@@ -80,7 +80,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0207c064Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207c110Ev(void);
 extern "C" void _Znam(void);
 extern "C" void func_02017278(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_020255e4(void);
 extern "C" void func_02085b4c(void);
 extern "C" void func_02085d88(void);
@@ -2828,7 +2828,7 @@ extern "C" asm void func_ov029_0216b7e8(void)
     ldr r2, [r3, r6]
     ldr r0, [r10, r6]
     sub r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r9, r8
     add r1, r1, #0x8000
     str r0, [r1, #0xaf0]
@@ -2836,7 +2836,7 @@ extern "C" asm void func_ov029_0216b7e8(void)
     ldr r0, [r5, r6]
     mov r1, r7
     sub r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r9, r8
     add r1, r1, #0x8000
     cmp r11, #0

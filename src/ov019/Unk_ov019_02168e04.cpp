@@ -49,7 +49,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02078ea8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207b00cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207bfd0Ev(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" s32 func_0202273c(...);
+extern "C" s32 _s32_div_f(...);
 extern "C" s32 func_02091d54(...);
 extern "C" void func_02091d64(void);
 extern "C" s32 func_02093ca8(...);
@@ -285,7 +285,7 @@ extern "C" s32 func_ov019_02169080(s32 arg0, u8 *arg1, s32 arg2)
     t0 = (*(s16 *)(arg1 + 0xBA) * *(s32 *)(arg1 + 0xC));
     t1 = (*(s32 *)(arg1 + 0x4) - *(s32 *)(arg1 + 0x8));
     t2 = *(s32 *)(arg1 + 0x4);
-    v0 = func_0202273c(t0, t1, arg2, t2);
+    v0 = _s32_div_f(t0, t1, arg2, t2);
     t3 = (*(s16 *)(arg1 + 0xB6) + v0);
     t4 = *(s16 *)(arg1 + 0xB4);
     v1 = func_ov019_02168f14(arg0, (s32)arg1, t4, t3, arg2);

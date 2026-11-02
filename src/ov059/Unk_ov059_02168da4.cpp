@@ -89,8 +89,8 @@ extern "C" void func_01ffede8(void);
 extern "C" s32 func_02003678(...);
 extern "C" s32 func_02003758(...);
 extern "C" s32 func_02003838(...);
-extern "C" void func_0202273c(void);
-extern "C" void func_02022948(void);
+extern "C" void _s32_div_f(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_0208130c(void);
 extern "C" void func_02090dec(void);
 extern "C" void func_02091d54(void);
@@ -991,7 +991,7 @@ extern "C" asm void func_ov059_021699dc(void)
     blt @L_02169b10
     mov r0, r5
     mov r1, r7
-    bl func_0202273c
+    bl _s32_div_f
     mov r12, r0
     ldr r3, =0x66666667
     mov r1, #0
@@ -1266,7 +1266,7 @@ extern "C" asm s32 func_ov059_02169d84(...)
     sub r1, r0, r9
     mul r0, r1, r11
     sub r1, r7, r9
-    bl func_02022948
+    bl _u32_div_f
     mov r8, r0
 @L_02169ec4:
     ldr r1, [r6, #4]
@@ -1287,7 +1287,7 @@ extern "C" asm s32 func_ov059_02169d84(...)
     mul r0, r1, r11
 @L_02169f00:
     sub r1, r7, r9
-    bl func_02022948
+    bl _u32_div_f
     mov r9, r0
     cmp r9, #0x64
     movgt r9, #0x64
@@ -1716,7 +1716,7 @@ extern "C" asm void func_ov059_0216a38c(void)
     mov r1, r7
     rsb r0, r0, #0x64
     mul r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     ldr r2, =0x51eb851f
     ldrb r6, [r6, #6]
     smull r3, r1, r2, r0
@@ -1727,7 +1727,7 @@ extern "C" asm void func_ov059_0216a38c(void)
     rsb r2, r6, #0x64
     mul r0, r1, r2
     mov r1, r7
-    bl func_0202273c
+    bl _s32_div_f
     ldr r1, =0x51eb851f
     smull r2, r3, r1, r0
     mov r0, r0, lsr #0x1f

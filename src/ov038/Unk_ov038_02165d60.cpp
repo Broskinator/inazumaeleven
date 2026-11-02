@@ -117,7 +117,7 @@ extern "C" s32 _Znam(...);
 extern "C" void func_01ffbbb0(void);
 extern "C" void func_02017278(void);
 extern "C" void func_020224cc(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -558,7 +558,7 @@ extern "C" asm void func_ov038_0216620c(void)
     ldr r2, [r1, r12, lsl #2]
     ldr r1, [r0, r4, lsl #2]
     add r0, r3, r2
-    bl func_0202273c
+    bl _s32_div_f
     mov r2, r1
     mov r0, r5
     mov r1, r4

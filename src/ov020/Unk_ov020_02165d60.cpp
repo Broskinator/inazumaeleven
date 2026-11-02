@@ -90,7 +90,7 @@ extern "C" void func_02003678(void);
 extern "C" void func_02003758(void);
 extern "C" void func_02003838(void);
 extern "C" void func_02003ad8(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02090dec(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
@@ -1986,7 +1986,7 @@ extern "C" asm s32 func_ov020_02167a34(...)
     ldr r1, [r4, #8]
     mov r6, r2
     sub r1, r3, r1
-    bl func_0202273c
+    bl _s32_div_f
     str r6, [sp]
     mov r12, r0
     ldrsh r3, [r4, #0xa6]
@@ -2206,7 +2206,7 @@ extern "C" asm void func_ov020_02167d48(void)
     add r1, r0, #1
     mul r0, r1, r2
     ldrsh r1, [r4, #0xaa]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r3, [r4, #4]
     ldr r2, [r4, #8]
     mov r1, r0

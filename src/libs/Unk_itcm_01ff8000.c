@@ -347,7 +347,7 @@ void func_0209b5fc(void);
 void func_ov015_021309f8(void);
 void _ZN17UnkClass_020621b413func_0206cd08Ev(void);
 void _ZN17UnkClass_020621b413func_0206d970Ev(void);
-void func_0202273c(void);
+void _s32_div_f(void);
 void func_0209bb34(void);
 extern char data_020ca760[];
 void func_ov015_02131bb4(void);
@@ -6173,7 +6173,7 @@ asm void func_01ffcb50(void)
     mov r0, #0x64
     mul r0, r1, r0
     mov r1, r9
-    bl func_0202273c
+    bl _s32_div_f
     ldr r4, =data_020d3d20
     and r1, r0, #0xff
     mov r0, r4

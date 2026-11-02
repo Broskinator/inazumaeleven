@@ -102,7 +102,7 @@ extern "C" void func_02001d60(void);
 extern "C" void func_02001f08(void);
 extern "C" void func_02001f38(void);
 extern "C" void func_02022484(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -1213,7 +1213,7 @@ extern "C" asm void func_020910ac(void)
 @L_020911d8:
     ldr r0, [sp, #8]
     mov r1, r9
-    bl func_02022948
+    bl _u32_div_f
     mov r9, r0
 @L_020911e8:
     ldrb r1, [r8, #0x34]

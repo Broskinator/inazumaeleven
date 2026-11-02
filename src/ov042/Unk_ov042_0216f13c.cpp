@@ -17,7 +17,7 @@ extern "C" char data_020c5e40[];
 extern "C" char data_ov042_0216f908[];
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_020920c4(void);
 extern "C" void func_02092270(void);
 extern "C" void func_02093188(void);
@@ -166,7 +166,7 @@ extern "C" asm void func_ov042_0216f2d4(void)
     ldr r1, [sp, #0x20]
     add r0, r3, r0
     mov r7, r2
-    bl func_0202273c
+    bl _s32_div_f
     add r0, r6, r5, lsl #2
     str r1, [r0, #0xedc]
     ldr r0, [r6, #0xeec]

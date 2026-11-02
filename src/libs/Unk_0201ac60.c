@@ -25,7 +25,7 @@ void func_02022058(void);
 void func_0201a704(void);
 void fabs(void);
 extern char data_020bf3e4[];
-void func_02022948(void);
+void _u32_div_f(void);
 
 asm void func_0201ac60(void)
 {
@@ -1183,7 +1183,7 @@ asm void func_0201bc10(void)
     beq @L_0201bccc
     mov r1, r9
     mvn r0, #0
-    bl func_02022948
+    bl _u32_div_f
     str r0, [sp, #4]
 @L_0201bccc:
     mvn r11, #0
@@ -1283,7 +1283,7 @@ asm void func_0201bc10(void)
     bne @L_0201be28
     mov r0, r11
     mov r1, r9
-    bl func_02022948
+    bl _u32_div_f
     str r0, [sp, #4]
 @L_0201be28:
     cmp r6, #0x80

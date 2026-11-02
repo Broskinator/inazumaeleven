@@ -146,7 +146,7 @@ extern "C" void func_020083c0(void);
 extern "C" void func_0200846c(void);
 extern "C" void func_020084fc(void);
 extern "C" void func_0200a550(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_02040c00(void);
 extern "C" void func_02081f28(void);
 extern "C" void func_0209b2bc(void);
@@ -1353,13 +1353,13 @@ extern "C" asm void func_ov014_020fd770(void)
     add r1, r6, #1
     orr r5, r0, r2, lsl #8
     mov r0, r5
-    bl func_02022948
+    bl _u32_div_f
     cmp r1, #0
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
     mov r0, r5
     add r1, r6, #1
-    bl func_02022948
+    bl _u32_div_f
     mov r5, r0
     cmp r5, #0xff
     movhi r0, #0

@@ -75,7 +75,7 @@ extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02016d0c(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" s32 func_02088864(...);
 extern "C" void func_02089758(void);
 extern "C" s32 func_02089764(...);
@@ -941,7 +941,7 @@ extern "C" asm s32 func_ov052_0216cc18(...)
     ldr r1, [r4, #8]
     mov r6, r2
     sub r1, r3, r1
-    bl func_0202273c
+    bl _s32_div_f
     str r6, [sp]
     mov lr, r0
     ldrsh r1, [r4, #0x70]
@@ -995,7 +995,7 @@ extern "C" asm void func_ov052_0216cd14(void)
     add r0, r1, r12
     mov r4, r3
     add r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     mov r2, r1
     mov r12, #1
     mov r0, r6
@@ -1624,7 +1624,7 @@ extern "C" asm void func_ov052_0216d528(void)
     add r1, r0, #1
     mul r0, r1, r2
     ldrsh r1, [r4, #0x9c]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r3, [r4, #4]
     ldr r1, [r4, #8]
     mov r2, r0

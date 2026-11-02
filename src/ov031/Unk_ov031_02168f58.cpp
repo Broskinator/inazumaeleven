@@ -69,7 +69,7 @@ extern "C" void func_01ffed6c(void);
 extern "C" void func_01ffede8(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02017cdc(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
 extern "C" s32 func_020920c4(...);
@@ -892,7 +892,7 @@ extern "C" asm void func_ov031_021695fc(void)
 @L_02169ab4:
     mov r0, r10
     mov r1, r6
-    bl func_02022948
+    bl _u32_div_f
     mov r1, #0
     str r1, [sp]
     mov r0, r0, lsl #0x10

@@ -96,7 +96,7 @@ extern "C" void func_01ff9630(void);
 extern "C" s32 func_01ff96bc(...);
 extern "C" void func_01ff9780(void);
 extern "C" void func_01ffb72c(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_0208e908(void);
 extern "C" void func_0208f2d0(void);
 extern "C" void func_0209bf8c(void);
@@ -1643,7 +1643,7 @@ extern "C" asm void func_ov001_021010bc(void)
     sub r0, r0, r2
     add r0, r1, r0
     sub r0, r0, #1
-    bl func_0202273c
+    bl _s32_div_f
     cmp r0, #0
     movlt r0, #0
     cmp r0, #0xa

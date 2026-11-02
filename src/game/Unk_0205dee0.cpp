@@ -94,7 +94,7 @@ extern "C" void _ZN9ChunkFileC1Ev(void);
 extern "C" void _ZN9ChunkFileD1Ev(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_020095c4(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_0209d668(void);
 extern "C" void func_ov015_021309f8(void);
 extern "C" void func_ov015_02130b14(void);
@@ -1495,7 +1495,7 @@ asm void Unk_0205dee0::func_0205f15c()
     ldrsh r1, [r4, #0xd2]
     mov r8, #0x64
     smulbb r0, r0, r8
-    bl func_0202273c
+    bl _s32_div_f
     mov r2, r6
     mov r6, r0
     add r0, r10, #0x1000
@@ -1656,7 +1656,7 @@ asm void Unk_0205dee0::func_0205f49c()
     smulbb r3, r3, r8
     add r0, r6, r2, lsr #29
     add r0, r3, r0, asr #3
-    bl func_0202273c
+    bl _s32_div_f
     mov r9, r0
     mov r3, r9, lsl #0x10
     mov r7, #1
@@ -1719,7 +1719,7 @@ asm void Unk_0205dee0::func_0205f49c()
     smulbb r3, r3, r8
     add r0, r6, r2, lsr #27
     add r0, r3, r0, asr #5
-    bl func_0202273c
+    bl _s32_div_f
     mov r9, r0
     mov r3, r9, lsl #0x10
     mov r7, #2

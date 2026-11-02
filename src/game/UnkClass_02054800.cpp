@@ -231,7 +231,7 @@ extern "C" void func_02001f38(void);
 extern "C" void func_020021f0(void);
 extern "C" void func_02016d0c(void);
 extern "C" void func_02022348(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
@@ -1731,11 +1731,11 @@ asm void UnkClass_02054800::func_02055ba8()
     sub r0, r2, r0
     str r0, [r4, r7]
     ldr r0, [r5, r7]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [r5, r7]
     ldr r0, [r4, r7]
     mov r1, r6
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r8, #0x23
     add r1, r1, #0x1f00
     str r0, [r4, r7]
@@ -1857,7 +1857,7 @@ asm void UnkClass_02054800::func_02055dac()
     rsb lr, r3, r3, lsl #5
     sub r0, r3, r2
     str lr, [r12, #0xf48]
-    bl func_0202273c
+    bl _s32_div_f
     mul r3, r4, r6
     add r2, r5, r3
     add r1, r5, #0x23
@@ -2594,7 +2594,7 @@ asm void UnkClass_02054800::func_020567fc()
     strh r1, [r0, #0x9a]
     ldrsb r1, [r0, #0x98]
     ldr r0, [sp, #4]
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r4, #0x1e00
     strh r0, [r1, #0x9c]
     add sp, sp, #0xc
@@ -2659,7 +2659,7 @@ asm void UnkClass_02054800::func_020568c4()
     strh r1, [r0, #0x9a]
     ldrsb r1, [r0, #0x98]
     ldr r0, [sp, #4]
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r7, #0x1e00
     strh r0, [r1, #0x9c]
     add sp, sp, #0xc
@@ -3852,7 +3852,7 @@ asm void UnkClass_02054800::func_02057630()
     ldrsb r2, [r0, #0x99]
     ldrsb r1, [r0, #0x98]
     add r0, r2, r1
-    bl func_0202273c
+    bl _s32_div_f
     add r0, r10, #0x1000
     strb r1, [r0, #0xe99]
     ldr r0, =data_020c5e40
@@ -5815,7 +5815,7 @@ asm void UnkClass_02054800::func_0205968c()
     ldr r0, [r10, #0xd4]
     ldr r1, [r10, #0xd8]
     mov r0, r0, lsl #6
-    bl func_0202273c
+    bl _s32_div_f
     mov r8, r0
     add r0, r8, #0x70
     mul r1, r0, r4
@@ -5861,7 +5861,7 @@ asm void UnkClass_02054800::func_0205968c()
     ldr r0, [r10, #0xd4]
     ldr r1, [r10, #0xd8]
     mov r0, r0, lsl #6
-    bl func_0202273c
+    bl _s32_div_f
     rsb r8, r0, #0x40
     add r0, r8, #0x70
     mul r1, r0, r4
@@ -6283,15 +6283,15 @@ asm void UnkClass_02054800::func_02059d04()
     mov r1, r5
     str r0, [sp, #0x10]
     str r2, [sp, #0x18]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     ldr r12, [sp, #0x10]
     ldr r2, =0xb60b60b
     ldr r8, [sp, #0x14]
@@ -6838,7 +6838,7 @@ asm void UnkClass_02054800::func_0205a568()
     str r6, [sp, #0x10]
     str lr, [sp, #0x14]
     str r12, [sp, #0x18]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r1, =0xb60b60b
     mov r2, #0xb6
     umull r5, r3, r0, r1
@@ -8035,7 +8035,7 @@ asm void UnkClass_02054800::func_0205b6a8()
     add r5, r0, r5, asr #5
     mov r0, r7
     mov r1, r1, asr #1
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r6, r6, lsr #31
     mov r1, r1, asr #1
     sub r1, r1, #1
@@ -8101,7 +8101,7 @@ asm void UnkClass_02054800::func_0205b7a8()
     ldmia sp!, {r4, r5, r6, pc}
 @L_0205b858:
     sub r0, r5, r2
-    bl func_0202273c
+    bl _s32_div_f
     ldr r1, =0xb60b60b
     mov r2, #0xb6
     umull r5, r3, r0, r1
@@ -8194,7 +8194,7 @@ asm void UnkClass_02054800::func_0205b8ac()
     ldr r1, [sp, #0x34]
     addlt r0, r0, #0x168
     strh r3, [sp]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r1, =0xb60b60b
     mov r2, #0xb6
     umull r4, r3, r0, r1
@@ -8312,7 +8312,7 @@ asm void UnkClass_02054800::func_0205ba1c()
     ldr r1, [sp, #0x34]
     addlt r0, r0, #0x168
     strh r3, [sp]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r1, =0xb60b60b
     mov r2, #0xb6
     umull r4, r3, r0, r1
@@ -9399,15 +9399,15 @@ asm void UnkClass_02054800::func_0205c988()
     mov r1, r5
     str r0, [sp, #0x10]
     str r2, [sp, #0x18]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     ldr r12, [sp, #0x10]
     ldr r2, =0xb60b60b
     ldr r8, [sp, #0x14]
@@ -10137,15 +10137,15 @@ asm void UnkClass_02054800::func_0205d3f4()
     mov r1, r5
     str r0, [sp, #0x10]
     str r2, [sp, #0x18]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     ldr r12, [sp, #0x10]
     ldr r2, =0xb60b60b
     ldr r8, [sp, #0x14]

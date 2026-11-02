@@ -79,7 +79,7 @@ extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" void _ZN9EntryPool4SwapEii(void);
 extern "C" void _ZN9EntryPool6RemoveEi(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02080460(void);
 extern "C" void func_02081390(void);
 extern "C" void func_02081398(void);
@@ -1968,7 +1968,7 @@ extern "C" asm void func_ov028_0216a99c(void)
     ldr r0, [r0, #0x658]
     mov r1, r8
     add r0, r0, #1
-    bl func_0202273c
+    bl _s32_div_f
     mov r3, r6, lsl #0x10
     add r0, r9, #0x3000
     str r1, [r0, #0x658]
@@ -2034,7 +2034,7 @@ extern "C" asm void func_ov028_0216aae8(void)
     ldr r5, [r2, #0x678]
     ldr r7, [r2, #0x670]
     mov r11, #2
-    bl func_0202273c
+    bl _s32_div_f
     add r0, r10, #0x3000
     str r1, [r0, #0x66c]
     mov r0, r8, lsl #0x10

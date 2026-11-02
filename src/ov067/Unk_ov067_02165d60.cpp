@@ -113,7 +113,7 @@ extern "C" s32 _ZdlPv(...);
 extern "C" void func_01ffcb50(void);
 extern "C" void func_02003bb8(void);
 extern "C" void func_020224cc(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -2174,7 +2174,7 @@ extern "C" asm s32 func_ov067_02167b18(...)
     sub r3, r5, r0
     ldr r1, [r6, #0x5c]
     add r0, r2, r3
-    bl func_0202273c
+    bl _s32_div_f
     mov r0, r5, lsr #0x1f
     smull r2, r3, r4, r5
     add r3, r0, r3, asr #1
@@ -2205,7 +2205,7 @@ extern "C" asm s32 func_ov067_02167b84(...)
     sub r3, r5, r0
     ldr r1, [r6, #0x5c]
     add r0, r2, r3
-    bl func_0202273c
+    bl _s32_div_f
     mov r0, r5, lsr #0x1f
     smull r2, r3, r4, r5
     add r3, r0, r3, asr #1
@@ -2539,13 +2539,13 @@ extern "C" asm void func_ov067_02168090(void)
     str r0, [r6, #0x30]
     sub r0, r2, r1
     mov r1, r4
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [r6, #0x38]
     ldr r2, [r6, #0x30]
     ldr r0, [r6, #0x28]
     mov r1, r4
     sub r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [r6, #0x3c]
     ldr r2, [r6, #0x2c]
     ldr r0, [r6, #0x24]
@@ -2553,7 +2553,7 @@ extern "C" asm void func_ov067_02168090(void)
     ble @L_02168144
     mov r1, r4
     sub r0, r0, r2
-    bl func_0202273c
+    bl _s32_div_f
     rsb r0, r0, #0
     str r0, [r6, #0x38]
 @L_02168144:
@@ -2563,7 +2563,7 @@ extern "C" asm void func_ov067_02168090(void)
     ble @L_02168168
     mov r1, r4
     sub r0, r0, r2
-    bl func_0202273c
+    bl _s32_div_f
     rsb r0, r0, #0
     str r0, [r6, #0x3c]
 @L_02168168:
@@ -2805,7 +2805,7 @@ extern "C" asm s32 func_ov067_021683dc(...)
 @L_021684c0:
     ldr r1, [r10, #0x5c]
     add r0, r2, #5
-    bl func_0202273c
+    bl _s32_div_f
     mov r6, #4
     mov r8, r1
     mov r0, r10

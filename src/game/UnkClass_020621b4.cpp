@@ -307,7 +307,7 @@ extern "C" void _ZdlPv(void);
 extern "C" void func_01fff13c(void);
 extern "C" s32 func_01fff184(UnkClass_020621b4 *self, fx32 x, fx32 y);     // (the length of (x, y))
 extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
 extern "C" void func_ov001_02127dcc(void);
 extern "C" u8 func_ov015_02130e28(u16 angle);    // (the direction as one of 8)
@@ -464,7 +464,7 @@ extern "C" void func_02021adc(void);
 extern "C" void func_02021f44(void);
 extern "C" void func_02022400(void);
 extern "C" void func_020224cc(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_02022bac(void);
 extern "C" void func_02023890(void);
 extern "C" void func_0209e174(void);
@@ -1769,7 +1769,7 @@ asm void UnkClass_020621b4::func_02063550(MatchPlayer *player, int a, int b, int
     mov r0, #0x64
     mul r0, r5, r0
     ldrb r1, [r1, #6]
-    bl func_0202273c
+    bl _s32_div_f
     mov r0, r0, lsl #0x10
     mov r5, r0, lsr #0x10
 @L_020635a8:
@@ -8631,7 +8631,7 @@ asm int UnkClass_020621b4::func_02069394(int a, int b, int c, int d, u8 e, int f
 @L_02069f18:
     mul r0, r5, r11
     ldrb r1, [r6, #6]
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r10, #1
     mov r1, r1, lsl #0x10
     mov r5, r0
@@ -8687,7 +8687,7 @@ asm int UnkClass_020621b4::func_02069394(int a, int b, int c, int d, u8 e, int f
 @L_02069fe0:
     mul r0, r5, r4
     ldrb r1, [r6, #6]
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r10, #1
     mov r1, r1, lsl #0x10
     mov r5, r0
@@ -8744,7 +8744,7 @@ asm void UnkClass_020621b4::func_0206a078()
     add r1, r4, #0x11000
     ldr r1, [r1, #0x92c]
     mov r0, r0, lsl #0xe
-    bl func_0202273c
+    bl _s32_div_f
     add r1, r4, #0x11000
     mov r2, r0, asr #4
     ldr r0, =FX_SinCosTable_
@@ -9027,7 +9027,7 @@ asm void UnkClass_020621b4::func_0206a494()
     cmpgt r1, #0
     movle r0, #0
     ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    bl func_0202273c
+    bl _s32_div_f
     sub r7, r0, #1
     cmp r7, #0
     movle r0, #0
@@ -12587,7 +12587,7 @@ asm void UnkClass_020621b4::func_0206d6b4()
     add r5, r0, r1
     ldr r1, [r4, #0xc]
     add r0, r2, r5, lsr #8
-    bl func_02022948
+    bl _u32_div_f
     ldr r0, [r4]
     add r4, sp, #8
     ldr r1, [r0, r1, lsl #2]

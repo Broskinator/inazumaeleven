@@ -180,7 +180,7 @@ extern "C" s32 _ZdlPv(...);
 extern "C" void func_01ff8ca4(void);
 extern "C" void func_02000e88(void);
 extern "C" void func_02002d6c(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" s32 func_02027cb0(...);
 extern "C" s32 func_02027cc4(...);
 extern "C" void func_02028084(void);
@@ -374,7 +374,7 @@ extern "C" asm void func_ov015_021438cc(void)
     bne @L_02143990
     mov r0, r8
     mov r1, r4
-    bl func_02022948
+    bl _u32_div_f
     ldr r0, [r5, r1, lsl #2]
     add sp, sp, #0x1c
     str r0, [r9]
@@ -1013,7 +1013,7 @@ extern "C" asm void func_ov015_021441f8(void)
     bhs @L_02144304
     mov r0, r7
     mov r1, r6
-    bl func_02022948
+    bl _u32_div_f
     add r0, sp, #0xc
     ldr r0, [r0, r1, lsl #2]
     add sp, sp, #0x1c

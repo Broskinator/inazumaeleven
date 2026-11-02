@@ -167,7 +167,7 @@ extern "C" void func_020068c0(void);
 extern "C" void func_020069fc(void);
 extern "C" void func_02008438(void);
 extern "C" void func_020095c4(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" s32 func_ov014_0210146c(...);
 extern "C" void func_ov014_021015b0(void);
 extern "C" void func_ov014_021017c8(void);
@@ -3207,7 +3207,7 @@ extern "C" asm void func_ov014_0211a91c(void)
     ble @L_0211a9a4
     mov r0, r4
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     cmp r0, #0
     mulgt r0, r5, r0
     ldmgtia sp!, {r3, r4, r5, pc}

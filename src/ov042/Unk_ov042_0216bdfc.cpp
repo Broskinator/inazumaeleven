@@ -71,7 +71,7 @@ extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" void _Znwm(void);
 extern "C" void func_01ffbbb0(void);
 extern "C" void func_02017278(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_0208720c(void);
 extern "C" void func_02087284(void);
 extern "C" void func_020872a4(void);
@@ -972,7 +972,7 @@ extern "C" asm s32 func_ov042_0216c868(...)
     ldr r9, [r8, #0x588]
     mov r0, r5
     mov r1, r9
-    bl func_0202273c
+    bl _s32_div_f
     mul r6, r9, r0
     str r6, [r8, #0x58c]
     cmp r7, #0
@@ -1000,7 +1000,7 @@ extern "C" asm s32 func_ov042_0216c868(...)
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r8, #0x580]
     ldr r1, [r8, #0x588]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r0, [r8, #0x58c]
     add r0, r0, r1
     str r0, [r8, #0x580]
@@ -1018,7 +1018,7 @@ extern "C" asm s32 func_ov042_0216c868(...)
     cmp r0, r6
     ldr r0, [r8, #0x580]
     strle r4, [r8, #0x58c]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r0, [r8, #0x58c]
     add r0, r0, r1
     str r0, [r8, #0x580]
@@ -1078,11 +1078,11 @@ extern "C" asm void func_ov042_0216ca08(void)
     ldr r0, [r5, #0x584]
     ldr r1, [r5, #0x588]
     sub r0, r0, #1
-    bl func_0202273c
+    bl _s32_div_f
     add r6, r0, #1
     ldr r0, [r5, #0x580]
     ldr r1, [r5, #0x588]
-    bl func_0202273c
+    bl _s32_div_f
     add r9, r0, #1
     ldr r2, =0x66666667
     cmp r6, #1

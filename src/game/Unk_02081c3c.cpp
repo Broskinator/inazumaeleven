@@ -39,7 +39,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0207dbf4Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207e334Eiiii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207e5a4EPhii(void);
 extern "C" void _ZN9EntryPool4SwapEii(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_020802cc(void);
 extern "C" void func_02080328(void);
 extern "C" void func_02080730(void);
@@ -217,7 +217,7 @@ extern "C" asm int func_02081d20(u8 *data, int i, int a)
 @L_02081e68:
     mov r0, r8
     mov r1, r7
-    bl func_02022948
+    bl _u32_div_f
     mov r0, r1, lsl #0x10
     mov r1, r11
     movs r0, r0, asr #0x10

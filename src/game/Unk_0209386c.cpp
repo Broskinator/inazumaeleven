@@ -48,8 +48,8 @@ extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02000e88(void);
 extern "C" void func_02017ce8(void);
 extern "C" void func_02022484(void);
-extern "C" void func_0202273c(void);
-extern "C" void func_02022948(void);
+extern "C" void _s32_div_f(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -601,7 +601,7 @@ extern "C" asm void func_02093edc(void)
     mov r0, r5, lsl r0
     mul r0, r1, r0
     mov r1, r6
-    bl func_0202273c
+    bl _s32_div_f
     ldr r1, [sp, #0x20]
     mov r4, r0
     add r0, r4, #0x20
@@ -640,7 +640,7 @@ extern "C" asm void func_02093edc(void)
     ldr r2, [sp]
     str r6, [r2, #0x18]
     str r3, [r2, #0x1c]
-    bl func_0202273c
+    bl _s32_div_f
     mov r10, r0
     ldr r0, [sp, #0x14]
     ldrb r1, [r0, #2]
@@ -768,7 +768,7 @@ extern "C" asm void func_02094154(void)
     str r0, [sp, #0x34]
     ldr r0, [sp, #0x30]
     ldr r0, [r0, #0x10]
-    bl func_02022948
+    bl _u32_div_f
     mov r1, #0
     mov r0, r0, lsr #1
     str r0, [sp, #0x24]
@@ -804,7 +804,7 @@ extern "C" asm void func_02094154(void)
 @L_02094270:
     mul r0, r5, r0
     mov r1, r6
-    bl func_0202273c
+    bl _s32_div_f
     mov r4, r0
     ldr r0, [sp, #0x30]
     add r2, r4, #0x30
@@ -836,7 +836,7 @@ extern "C" asm void func_02094154(void)
     str r2, [r0, #0x1c]
     add r4, r0, #0x20
     mov r0, #8
-    bl func_0202273c
+    bl _s32_div_f
     mov r10, r0
     ldr r0, [sp, #0x24]
     cmp r0, #0
@@ -1172,7 +1172,7 @@ extern "C" asm void func_020946d8(void)
     mov r4, r0
     ldr r0, [sp, #0xc]
     mov r1, r4
-    bl func_02022948
+    bl _u32_div_f
     ldrb r1, [r8, #8]
     cmp r1, r0
     ldr r0, [sp, #0x10]

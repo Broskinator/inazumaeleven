@@ -117,7 +117,7 @@ extern "C" s32 _ZdlPv(...);
 extern "C" s32 func_02003678(...);
 extern "C" s32 func_02003758(...);
 extern "C" s32 func_02003838(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02090dec(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
@@ -2608,7 +2608,7 @@ extern "C" asm void func_ov030_021682d4(void)
     blt @L_02168408
     mov r0, r5
     mov r1, r7
-    bl func_0202273c
+    bl _s32_div_f
     mov r12, r0
     ldr r3, =0x66666667
     mov r1, #0

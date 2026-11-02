@@ -60,7 +60,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0207d244Ev(void);
 extern "C" void _ZN9EntryPool4SwapEii(void);
 extern "C" void _ZN9EntryPool6RemoveEi(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02081398(void);
 extern "C" s32 func_020823a0(...);
 extern "C" void func_02084e08(void);
@@ -911,7 +911,7 @@ extern "C" asm void func_ov038_02169a44(void)
     add r0, r0, #1
     ldr r5, [r7, #0x868]
     mov r6, #1
-    bl func_0202273c
+    bl _s32_div_f
     mov r3, r8, lsl #0x10
     mov r0, r9, lsl #0x10
     str r1, [r7, #0x99c]
@@ -1055,7 +1055,7 @@ extern "C" asm void func_ov038_02169c80(void)
     ldr r9, [r5, #0x868]
     ldr r8, [r5, #0x9b4]
     mov r11, #0
-    bl func_0202273c
+    bl _s32_div_f
     mov r0, r10, lsl #0x10
     mov r10, r1
     mov r2, r0, asr #0x10

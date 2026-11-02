@@ -109,8 +109,8 @@ extern "C" void func_020142d4(void);
 extern "C" void func_020143a4(void);
 extern "C" void func_020151b4(void);
 extern "C" void func_02015aa0(void);
-extern "C" void func_0202273c(void);
-extern "C" void func_02022948(void);
+extern "C" void _s32_div_f(void);
+extern "C" void _u32_div_f(void);
 
 extern "C" asm void func_ov014_021211a8(void)
 {
@@ -1605,7 +1605,7 @@ extern "C" asm void func_ov014_0212259c(void)
     add r0, r0, r2
     blt @L_021225f4
 @L_02122608:
-    bl func_0202273c
+    bl _s32_div_f
 @L_0212260c:
     and r0, r0, #0xff
     ldmia sp!, {r3, pc}
@@ -2373,7 +2373,7 @@ extern "C" asm void func_ov014_02122fbc(void)
     beq @L_02123124
     add r0, r8, #0x2000
     ldr r0, [r0, #0x2e4]
-    bl func_02022948
+    bl _u32_div_f
     cmp r1, #0
     bne @L_02123124
     ldr r0, [pc, #0x124]

@@ -23,7 +23,7 @@ void func_ov089_02178cc8(void);
 void MBi_InitTaskThread(void);
 extern char data_ov089_02179194[];
 void func_0200878c(void);
-void func_02022948(void);
+void _u32_div_f(void);
 
 asm void MBi_ReadSegmentHeader(void)
 {
@@ -388,7 +388,7 @@ asm void MBi_MakeBlockInfoTable(void)
     ldr r8, [r7, #8]
     add r0, r8, r1
     sub r0, r0, #1
-    bl func_02022948
+    bl _u32_div_f
     mov r1, r9, lsl #1
     ldrh r3, [r6, r1]
     mov r2, r0, lsl #0x10

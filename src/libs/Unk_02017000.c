@@ -45,7 +45,7 @@ extern char data_020aafe0[];
 void func_0201c058(void);
 void __memrchr(void);
 void func_02018328(void);
-void func_02022948(void);
+void _u32_div_f(void);
 
 asm void STD_CompareString(void)
 {
@@ -1275,7 +1275,7 @@ asm void func_02017da4(void)
     cmp r0, #2
     mov r0, r6
     strne r4, [r9, #0x28]
-    bl func_02022948
+    bl _u32_div_f
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }

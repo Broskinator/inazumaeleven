@@ -17,7 +17,7 @@ void OS_RestoreInterrupts(void);
 void MI_CpuFill8(void);
 void func_02006334(void);
 extern char data_ov089_02179348[];
-void func_0202273c(void);
+void _s32_div_f(void);
 
 asm void MBi_InitTaskThread(void)
 {
@@ -215,7 +215,7 @@ asm void func_ov089_02178ea0(void)
     mov r5, #0x1e
     mov r0, r5
     str r1, [r4, #8]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [r4, #0xc]
     str r5, [r4, #0x10]
     ldmia sp!, {r3, r4, r5, pc}

@@ -50,7 +50,7 @@ extern "C" void _ZN12SceneManager13func_0203e30cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203df08Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203df24Ev(void);
 extern "C" void func_02017cdc(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_0209ac40(void);
 extern "C" void func_ov000_020fdde4(void);
 extern "C" void func_ov015_0213257c(void);
@@ -226,7 +226,7 @@ asm void TreasureBox::func_02051d20()
     mov r4, r0
     mov r0, #0x100
     mov r1, r5
-    bl func_0202273c
+    bl _s32_div_f
     mul r0, r5, r0
     cmp r0, r4
     bne @L_02051e8c

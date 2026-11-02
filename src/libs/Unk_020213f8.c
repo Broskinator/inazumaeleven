@@ -22,8 +22,8 @@ void func_02022524(void);
 void _ll_udiv(void);
 void func_020226e0(void);
 void func_0202271c(void);
-void func_0202273c(void);
-void func_02022948(void);
+void _s32_div_f(void);
+void _u32_div_f(void);
 void func_02022b2c(void);
 void func_02022b60(void);
 void func_02022bac(void);
@@ -1391,7 +1391,7 @@ asm void func_02022524(void)
     orrs r6, r5, r6
     bne @L_02022578
     mov r1, r2
-    bl func_0202273c
+    bl _s32_div_f
     ands r4, r4, #1
     movne r0, r1
     mov r1, r0, asr #0x1f
@@ -1541,7 +1541,7 @@ asm void func_0202271c(void)
     bx lr
 }
 
-asm void func_0202273c(void)
+asm void _s32_div_f(void)
 {
     eor r12, r0, r1
     and r12, r12, #0x80000000
@@ -1677,7 +1677,7 @@ asm void func_0202273c(void)
     bx lr
 }
 
-asm void func_02022948(void)
+asm void _u32_div_f(void)
 {
     cmp r1, #0
     bxeq lr

@@ -53,7 +53,7 @@ extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e0ccEi(...);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" s32 func_02091d54(...);
 extern "C" void func_02091d64(void);
 extern "C" s32 func_020920c4(...);
@@ -865,7 +865,7 @@ extern "C" asm void func_ov033_02166914(void)
 @L_02166944:
     mov r0, r5
     mov r1, r6
-    bl func_0202273c
+    bl _s32_div_f
     mov r7, r0
     mul r0, r6, r7
     cmp r7, #0

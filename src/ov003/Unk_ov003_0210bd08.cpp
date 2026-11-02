@@ -125,7 +125,7 @@ extern "C" void _ZN9GameState9SaveExtraEPv(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003758(void);
 extern "C" void func_02003bb8(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
 extern "C" void func_02098ca8(void);
@@ -1175,7 +1175,7 @@ extern "C" asm void func_ov003_0210cb68(void)
     blt @L_0210cbb8
     ldr r1, [r9, #0x38]
     add r0, r8, r1
-    bl func_0202273c
+    bl _s32_div_f
     ldr r0, [r9, #0xc]
     mov r2, r1
     str r2, [r9, #0x34]

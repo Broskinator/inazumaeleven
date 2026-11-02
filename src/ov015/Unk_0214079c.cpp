@@ -126,7 +126,7 @@ extern "C" void func_02001d80(void);
 extern "C" void func_0200226c(void);
 extern "C" void func_02022348(void);
 extern "C" void func_02022484(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_02022e2c(void);
 extern "C" void func_0202300c(void);
@@ -3030,7 +3030,7 @@ extern "C" asm void func_ov015_02142fa0(void)
     bhs @L_0214310c
     mov r0, r8
     mov r1, r6
-    bl func_02022948
+    bl _u32_div_f
     add r0, sp, #0x10
     ldr r0, [r0, r1, lsl #2]
     add sp, sp, #0x20
@@ -3111,7 +3111,7 @@ extern "C" asm void func_ov015_02142fa0(void)
     bhs @L_02143238
     mov r0, r8
     mov r1, r6
-    bl func_02022948
+    bl _u32_div_f
     add r0, sp, #0x10
     ldr r0, [r0, r1, lsl #2]
     add sp, sp, #0x20

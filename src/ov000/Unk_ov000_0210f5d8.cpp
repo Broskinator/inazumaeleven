@@ -120,7 +120,7 @@ extern "C" s32 func_02003534(...);
 extern "C" void func_0200878c(void);
 extern "C" s32 func_02016d0c(...);
 extern "C" void func_02022484(void);
-extern "C" s32 func_0202273c(...);
+extern "C" s32 _s32_div_f(...);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -547,7 +547,7 @@ extern "C" void func_ov000_0210fb34(u8 *arg0, u8 *arg1, s32 arg2)
     t0 = (*(s16 *)(arg1 + 0xD6) * *(s32 *)(arg1 + 0xB4));
     t1 = (*(s32 *)(arg1 + 0xA8) - *(s32 *)(arg1 + 0xAC));
     t2 = *(s32 *)(arg1 + 0xA8);
-    v0 = func_0202273c(t0, t1, t2);
+    v0 = _s32_div_f(t0, t1, t2);
     t3 = (*(s16 *)(arg1 + 0xD2) + v0);
     t4 = *(s16 *)(arg1 + 0xD0);
     func_ov000_0210fa98((s32)arg0, (s32)arg1, t4, t3, arg2);
@@ -957,7 +957,7 @@ extern "C" asm void func_ov000_021101a4(void)
     cmp r1, #0
     ble @L_021101d0
     add r0, r2, r1
-    bl func_0202273c
+    bl _s32_div_f
     mov r2, r1
 @L_021101d0:
     mov r0, r5
@@ -2791,27 +2791,27 @@ extern "C" asm void func_ov000_02111cb0(void)
     str r1, [sp, #8]
     ldr r1, [r7, #4]
     ldr r1, [r1, #0x1c]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp]
     ldr r1, [r7, #4]
     ldr r0, [sp, #4]
     ldr r1, [r1, #0x1c]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #4]
     ldr r1, [r7, #4]
     ldr r0, [sp, #8]
     ldr r1, [r1, #0x1c]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [sp, #8]
     ldr r1, [r7, #4]
     ldr r0, [r5, #0x10]
     ldr r1, [r1, #0x1c]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [r5, #0x10]
     ldr r1, [r7, #4]
     ldr r0, [r5, #0x14]
     ldr r1, [r1, #0x1c]
-    bl func_0202273c
+    bl _s32_div_f
     str r0, [r5, #0x14]
     ldrsb r0, [r5, #0xc]
     cmp r0, #4
@@ -3298,11 +3298,11 @@ extern "C" void func_ov000_02112420(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3)
     *(s32 *)(((u8 *)local)) = *(s32 *)(arg3);
     *(s32 *)(((u8 *)local) + 0x4) = *(s32 *)(arg3 + 0x4);
     *(s32 *)(((u8 *)local) + 0x8) = *(s32 *)(arg3 + 0x8);
-    s32 v0 = func_0202273c(*(s32 *)(arg3), *(s32 *)(*(u8 * *)(arg0 + 0x4) + 0x1C), arg2, (s32)arg3);
+    s32 v0 = _s32_div_f(*(s32 *)(arg3), *(s32 *)(*(u8 * *)(arg0 + 0x4) + 0x1C), arg2, (s32)arg3);
     *(s32 *)(((u8 *)local)) = v0;
-    s32 v1 = func_0202273c(*(s32 *)(((u8 *)local) + 0x4), *(s32 *)(*(u8 * *)(arg0 + 0x4) + 0x1C));
+    s32 v1 = _s32_div_f(*(s32 *)(((u8 *)local) + 0x4), *(s32 *)(*(u8 * *)(arg0 + 0x4) + 0x1C));
     *(s32 *)(((u8 *)local) + 0x4) = v1;
-    s32 v2 = func_0202273c(*(s32 *)(((u8 *)local) + 0x8), *(s32 *)(*(u8 * *)(arg0 + 0x4) + 0x1C));
+    s32 v2 = _s32_div_f(*(s32 *)(((u8 *)local) + 0x8), *(s32 *)(*(u8 * *)(arg0 + 0x4) + 0x1C));
     *(s32 *)(((u8 *)local) + 0x8) = v2;
     func_ov000_0211233c((s32)arg0, arg1, arg2, (s32)((u8 *)local));
 }

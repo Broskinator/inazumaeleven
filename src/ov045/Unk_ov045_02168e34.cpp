@@ -46,7 +46,7 @@ extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_020920c4(void);
 extern "C" void func_02092270(void);
 extern "C" void func_02093188(void);
@@ -1089,7 +1089,7 @@ extern "C" asm void func_ov045_02169c6c(void)
     ldr r0, [r2, r4, lsl #2]
     ldr r1, [r1]
     add r0, r7, r0
-    bl func_0202273c
+    bl _s32_div_f
     mov r8, r1
     cmp r5, #0
     bne @L_02169d18

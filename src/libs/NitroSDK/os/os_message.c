@@ -16,7 +16,7 @@ void func_02006cac(void);
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
 void OS_SleepThread(void);
-void func_0202273c(void);
+void _s32_div_f(void);
 void OS_WakeupThread(void);
 extern char data_020bb120[];
 void OSi_RemoveMutexLinkFromQueue(void);
@@ -66,7 +66,7 @@ asm void OS_SendMessage(void)
 @L_02006888:
     ldr r0, [r5, #0x18]
     add r0, r0, r2
-    bl func_0202273c
+    bl _s32_div_f
     ldr r2, [r5, #0x10]
     add r0, r5, #8
     str r4, [r2, r1, lsl #2]
@@ -114,7 +114,7 @@ asm void func_020068c0(void)
     ldr r0, [r6, #0x18]
     ldr r1, [r6, #0x14]
     add r0, r0, #1
-    bl func_0202273c
+    bl _s32_div_f
     ldr r2, [r6, #0x1c]
     mov r0, r6
     sub r2, r2, #1
@@ -158,7 +158,7 @@ asm void func_02006960(void)
     ldr r0, [r6, #0x18]
     add r0, r0, r1
     sub r0, r0, #1
-    bl func_0202273c
+    bl _s32_div_f
     ldr r0, [r6, #0x10]
     str r1, [r6, #0x18]
     str r5, [r0, r1, lsl #2]

@@ -66,7 +66,7 @@ extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" void func_01fff00c(void);
 extern "C" void func_02017278(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" s32 func_020808c4(...);
 extern "C" void func_02082c8c(void);
 extern "C" void func_02090dcc(void);
@@ -1641,7 +1641,7 @@ extern "C" asm void func_ov048_0216a80c(void)
     mov r4, r1
     ldmia r4, {r0, r1}
     add r0, r1, r0
-    bl func_0202273c
+    bl _s32_div_f
     ldmia r4, {r2, r3}
     mov r0, r3, asr #2
     mov r1, r2, asr #2
@@ -2309,7 +2309,7 @@ extern "C" asm void func_ov048_0216b004(void)
     add r0, r1, r7
     mov r1, r7
     add r0, r6, r0
-    bl func_0202273c
+    bl _s32_div_f
     mov r0, r1, lsl #1
     ldrh r0, [r4, r0]
     cmp r0, #0

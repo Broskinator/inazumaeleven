@@ -10,7 +10,7 @@ void func_020194dc(void);
 void func_02019bec(void);
 
 extern char data_020a44f8[];
-void func_02022948(void);
+void _u32_div_f(void);
 void func_020226e0(void);
 void _ll_udiv(void);
 void func_0201ce20(void);
@@ -542,11 +542,11 @@ asm void func_020189f8(void)
 @L_02018b00:
     mov r0, r10
     mov r1, r4
-    bl func_02022948
+    bl _u32_div_f
     mov r9, r1
     mov r0, r10
     mov r1, r4
-    bl func_02022948
+    bl _u32_div_f
     cmp r9, #0xa
     mov r10, r0
     addlt r9, r9, #0x30

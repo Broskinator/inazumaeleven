@@ -49,7 +49,7 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8TextFont12GetCharWidthEPKc(void);
 extern "C" void _ZN8TextFont12GetTextWidthEPKc(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
 extern "C" void func_020920c4(void);
@@ -1103,7 +1103,7 @@ extern "C" asm void func_ov017_02166688(void)
     add r0, r1, r0, lsr #30
     mov r1, r0, asr #2
     add r0, r2, r0, asr #2
-    bl func_0202273c
+    bl _s32_div_f
     str r1, [r4, #0x38]
     cmp r1, r5
     beq @L_02166c50

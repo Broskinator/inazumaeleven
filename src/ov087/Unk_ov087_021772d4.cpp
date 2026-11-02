@@ -72,7 +72,7 @@ extern "C" void func_01fff184(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001d80(void);
 extern "C" void func_0200226c(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02080b00(void);
 extern "C" void func_02080b38(void);
 extern "C" void func_02080b90(void);
@@ -521,7 +521,7 @@ extern "C" asm void func_ov087_02177634(void)
     mov r0, r4
     ldr r4, =FX_SinCosTable_
     mov r11, #0
-    bl func_0202273c
+    bl _s32_div_f
     movs r5, r0
     ldrb r0, [r9, #0x58]
     movmi r5, r11

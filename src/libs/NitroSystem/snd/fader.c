@@ -6,7 +6,7 @@ void NNSi_SndFaderGet(void);
 void NNSi_SndFaderUpdate(void);
 void NNSi_SndFaderIsFinished(void);
 
-void func_0202273c(void);
+void _s32_div_f(void);
 
 asm void NNSi_SndFaderInit(void)
 {
@@ -44,7 +44,7 @@ asm void NNSi_SndFaderGet(void)
     ldr r0, [r0, #4]
     sub r0, r0, r4
     mul r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     add r0, r4, r0
     ldmia sp!, {r4, pc}
 }

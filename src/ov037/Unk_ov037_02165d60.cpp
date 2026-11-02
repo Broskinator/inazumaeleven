@@ -85,7 +85,7 @@ extern "C" void func_01ffca10(void);
 extern "C" s32 func_02003678(...);
 extern "C" s32 func_02003758(...);
 extern "C" s32 func_02003838(...);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_020802a0(void);
 extern "C" void func_020819ac(void);
 extern "C" void func_02081a6c(void);
@@ -2061,7 +2061,7 @@ extern "C" asm void func_ov037_02167a78(void)
 @L_02167b38:
     ldr r0, [sp, #4]
     mov r1, r7
-    bl func_0202273c
+    bl _s32_div_f
     mov r12, r0
     ldr r3, =0x66666667
     mov r1, #0
@@ -3149,7 +3149,7 @@ extern "C" asm void func_ov037_02168a88(void)
     ldmia r6, {r0, r1}
     add r0, r1, r0
     add r0, r5, r0
-    bl func_0202273c
+    bl _s32_div_f
     mov r2, r1
     mov r12, #1
     mov r0, r7
@@ -3181,7 +3181,7 @@ extern "C" asm void func_ov037_02168ae8(void)
 @L_02168b1c:
     add r0, r1, r9
     add r0, r7, r0
-    bl func_0202273c
+    bl _s32_div_f
     mov r7, r1
     mov r0, r5
     add r1, r7, #1

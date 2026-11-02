@@ -105,7 +105,7 @@ extern "C" void func_01ffed6c(void);
 extern "C" void func_01ffede8(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02022484(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -2289,7 +2289,7 @@ extern "C" asm void func_ov037_0216ad6c(void)
     ldmeqia sp!, {r3, r4, r5, pc}
     ldr r1, [r5, #0xf68]
     add r0, r4, #1
-    bl func_0202273c
+    bl _s32_div_f
     cmp r4, #0
     movgt r0, #0
     movle r0, #3

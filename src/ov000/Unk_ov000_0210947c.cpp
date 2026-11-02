@@ -98,7 +98,7 @@ extern "C" void func_02003a68(void);
 extern "C" void func_02003b48(void);
 extern "C" void func_02017278(void);
 extern "C" void func_020224cc(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -1485,7 +1485,7 @@ extern "C" asm void func_ov000_0210a788(void)
     ldr r2, [r3, #0xc]
     mov r0, r5, lsl #5
     add r4, r3, r2
-    bl func_0202273c
+    bl _s32_div_f
     movs r8, r0
     bne @L_0210a7f8
     cmp r5, #0

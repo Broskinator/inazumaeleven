@@ -127,7 +127,7 @@ extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
 extern "C" void func_02003bb8(void);
 extern "C" void func_02022484(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02022b2c(void);
 extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
@@ -444,7 +444,7 @@ extern "C" asm void func_ov052_02169144(void)
     add r1, r0, #1
     mul r0, r1, r2
     ldrsh r1, [r4, #0x9c]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r3, [r4, #4]
     ldr r1, [r4, #8]
     mov r2, r0

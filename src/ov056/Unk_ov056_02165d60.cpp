@@ -85,7 +85,7 @@ extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void func_020027c8(void);
 extern "C" void func_02003758(void);
 extern "C" void func_02003bb8(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02094154(void);
 extern "C" void func_02097aa0(void);
 extern "C" void func_02097b3c(void);
@@ -703,7 +703,7 @@ extern "C" asm void func_ov056_0216615c(void)
     add r0, r3, #1
     smulbb r1, r2, r1
 @L_0216663c:
-    bl func_0202273c
+    bl _s32_div_f
     mov r0, r8
     bl func_ov056_02165fbc
     add r0, r8, #0x3000

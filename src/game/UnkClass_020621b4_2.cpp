@@ -390,7 +390,7 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" void func_01fff13c(void);
 extern "C" void func_02001d80(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_ov015_021309f8(void);
 extern "C" void func_ov015_02131970(void);
 extern "C" void func_ov015_02142824(void);
@@ -467,7 +467,7 @@ extern "C" void _Znwm(void);
 extern "C" void func_02017a7c(void);
 extern "C" void func_02018348(void);
 extern "C" void func_0201a508(void);
-extern "C" void func_02022948(void);
+extern "C" void _u32_div_f(void);
 extern "C" char data_020a71d0[];
 extern "C" char data_020af274[];
 extern "C" void func_ov015_021318a4(void);
@@ -1433,11 +1433,11 @@ asm void UnkClass_020621b4::func_0206fbd0()
     mov r0, #0x64
     mul r0, r8, r0
     mov r1, r9
-    bl func_0202273c
+    bl _s32_div_f
     mov r1, r9
     mov r9, r0
     sub r0, r8, #1
-    bl func_0202273c
+    bl _s32_div_f
     cmp r0, #0
     movlt r0, r7
     cmp r4, #0
@@ -2298,7 +2298,7 @@ asm void UnkDeque_0207076c::func_02070854()
     ldr r1, [r10, #0x14]
     sub r0, r0, #1
     str r2, [r10, #0x10]
-    bl func_02022948
+    bl _u32_div_f
     ldr r2, [r10, #8]
     add r0, r10, #8
     str r5, [r2, r1, lsl #2]
@@ -2385,7 +2385,7 @@ asm void UnkDeque_0207076c::func_02070854()
     ldr r1, [r10, #0x14]
     add r0, r2, r0
     sub r0, r0, #1
-    bl func_02022948
+    bl _u32_div_f
     ldr r2, [r10, #8]
     add r0, r10, #8
     str r8, [r2, r1, lsl #2]
@@ -2412,7 +2412,7 @@ asm void UnkDeque_0207076c::func_02070854()
     add r8, sp, #0xb4
     beq @L_02070a68
     add r0, r1, r1
-    bl func_02022948
+    bl _u32_div_f
 @L_02070a68:
     ldr r5, [r8]
     ldr r2, [r8, #4]
@@ -2481,7 +2481,7 @@ asm void UnkDeque_0207076c::func_02070854()
     ldr r1, [r9, #0xc]
     add r0, r2, r0
     sub r0, r0, #1
-    bl func_02022948
+    bl _u32_div_f
     ldr r2, [r9]
     mov r0, r9
     str r8, [r2, r1, lsl #2]
@@ -2502,7 +2502,7 @@ asm void UnkDeque_0207076c::func_02070854()
     ldr r2, [r10, #0xc]
     ldr r0, [r10, #0x10]
     add r0, r2, r0
-    bl func_02022948
+    bl _u32_div_f
 @L_02070bc0:
     ldr r6, [r10, #8]
     ldr r3, [r10, #0xc]
@@ -2624,7 +2624,7 @@ asm void UnkDeque_0207076c::func_02070d64()
     ldr r2, [r5, #0xc]
     ldr r0, [r5, #0x10]
     add r0, r2, r0
-    bl func_02022948
+    bl _u32_div_f
     mov r3, r1
 @L_02070da4:
     ldr r2, [r5, #8]
@@ -2706,7 +2706,7 @@ asm void UnkDeque_0207076c::func_02070e44()
     ldr r2, [r6, #4]
     ldr r0, [r6, #8]
     add r0, r2, r0
-    bl func_02022948
+    bl _u32_div_f
     mov r4, r1
 @L_02070ebc:
     ldr r2, [r6]
@@ -2768,7 +2768,7 @@ asm void UnkDeque_0207076c::func_02070f6c()
     bhs @L_02070fc0
     ldr r0, [r6, #4]
     add r0, r0, r3
-    bl func_02022948
+    bl _u32_div_f
     ldr r0, [r6]
     add sp, sp, #0x38
     adds r1, r0, r1, lsl #2
@@ -2810,7 +2810,7 @@ asm void UnkDeque_0207076c::func_02070f6c()
     ldr r2, [r6, #4]
     ldr r0, [r6, #8]
     add r0, r2, r0
-    bl func_02022948
+    bl _u32_div_f
 @L_02071040:
     ldr r2, [r6]
     mov r5, #0
@@ -3082,7 +3082,7 @@ asm void UnkDeque_0207076c::func_02071214()
     moveq r1, #0
     beq @L_02071450
     add r0, r0, r2
-    bl func_02022948
+    bl _u32_div_f
 @L_02071450:
     ldr r5, [r10]
     ldr r2, [r10, #4]
@@ -3246,7 +3246,7 @@ asm void UnkDeque_0207076c::func_02071214()
     ldr r2, [r10, #4]
     ldr r0, [r10, #8]
     add r0, r2, r0
-    bl func_02022948
+    bl _u32_div_f
 @L_020716c8:
     ldr r2, [r10]
     add r4, sp, #0x190
@@ -3650,7 +3650,7 @@ asm void UnkDeque_0207076c::func_02071c68()
     ldr r2, [r5, #0xc]
     ldr r0, [r5, #0x10]
     add r0, r2, r0
-    bl func_02022948
+    bl _u32_div_f
     mov r3, r1
 @L_02071ca8:
     ldr r2, [r5, #8]
@@ -3879,7 +3879,7 @@ asm void UnkDeque_0207076c::func_02071fb0()
     ldr r1, [r7, #0xc]
     add r0, r3, r0
     mov r5, r2
-    bl func_02022948
+    bl _u32_div_f
     ldr r2, [r7]
     ldr r0, [r5]
     add r4, r2, r1, lsl #2
@@ -4069,7 +4069,7 @@ asm void UnkDeque_0207076c::func_02072230()
     ldr r0, [r7, #8]
     ldr r1, [r7, #0xc]
     add r0, r2, r0
-    bl func_02022948
+    bl _u32_div_f
     add r4, r4, r1, lsl #2
     mov r0, r5
     mov r1, r6
@@ -7402,7 +7402,7 @@ asm void UnkClass_020621b4::func_02074f90()
     bhs @L_020750c0
     mov r0, r11
     mov r1, r8
-    bl func_02022948
+    bl _u32_div_f
     ldr r0, [r7, r1, lsl #2]
     add sp, sp, #0x34
     str r0, [r5]
@@ -7456,7 +7456,7 @@ asm void UnkClass_020621b4::func_02074f90()
     bhs @L_02075188
     mov r0, r11
     mov r1, r9
-    bl func_02022948
+    bl _u32_div_f
     ldr r0, [r7, r1, lsl #2]
     add sp, sp, #0x34
     str r0, [r5]
@@ -10876,7 +10876,7 @@ asm void UnkClass_020621b4::func_02077fa0()
 @L_020780f0:
     bl rand
     mov r1, r7
-    bl func_0202273c
+    bl _s32_div_f
     mov r3, #0
     add r2, sp, #0
     b @L_0207812c
@@ -11000,7 +11000,7 @@ asm void UnkClass_020621b4::func_02078148()
 @L_02078298:
     bl rand
     mov r1, r6
-    bl func_0202273c
+    bl _s32_div_f
     mov r3, #0
     add r2, sp, #0
     b @L_020782d4
@@ -18308,7 +18308,7 @@ asm void UnkClass_020621b4::func_0207e810()
     ldmleia sp!, {r3, r4, r5, pc}
     mov r0, #0x64
     mul r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -18340,7 +18340,7 @@ asm void UnkClass_020621b4::func_0207e884()
     ldmleia sp!, {r3, r4, r5, pc}
     mov r0, #0x64
     mul r0, r2, r0
-    bl func_0202273c
+    bl _s32_div_f
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -20024,7 +20024,7 @@ asm u8 UnkClass_020621b4::func_0207ff44(int a, int b, int c)
     add r0, r6, r6, lsr #31
     mov r1, r6
     add r0, r7, r0, asr #1
-    bl func_0202273c
+    bl _s32_div_f
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }

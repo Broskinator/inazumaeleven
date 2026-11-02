@@ -34,7 +34,7 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02016d0c(void);
-extern "C" void func_0202273c(void);
+extern "C" void _s32_div_f(void);
 extern "C" void func_02091d54(void);
 extern "C" void func_02091d64(void);
 extern "C" void func_0209b7b0(void);
@@ -275,7 +275,7 @@ extern "C" asm void func_ov036_02169090(void)
     add r1, r0, #1
     mul r0, r1, r2
     ldrsh r1, [r4, #0xa2]
-    bl func_0202273c
+    bl _s32_div_f
     ldr r3, [r4, #4]
     ldr r2, [r4, #8]
     mov r1, r0
