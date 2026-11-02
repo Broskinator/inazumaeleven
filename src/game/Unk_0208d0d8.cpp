@@ -13,7 +13,7 @@ extern "C" int func_0208d30c(void *self, int a);
 extern "C" s32 func_0208d31c(...);
 extern "C" s32 func_0208d34c(s32 arg0, s32 arg1);
 extern "C" void func_0208d38c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_0208d3d8(void);
+extern "C" void func_0208d3d8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void *func_0208d434(void *self, void *a, void *b);
 extern "C" void *func_0208d450(void *self, void *a, void *b);
 extern "C" s32 func_0208d46c(...);
@@ -346,31 +346,17 @@ extern "C" void func_0208d38c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return;
 }
 
-extern "C" asm void func_0208d3d8(void)
+extern "C" void func_0208d3d8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x24
-    movs r12, r2
-    mov r5, r0
-    mov r2, r1
-    bpl @L_0208d400
-    ldr r2, [sp, #0x30]
-    bl func_0208d450
-    add sp, sp, #0x24
-    ldmia sp!, {r4, r5, pc}
-@L_0208d400:
-    add r4, sp, #4
-    str r3, [sp]
-    ldr r1, =data_020afc1c
-    mov r0, r4
-    mov r3, r12
-    bl sprintf
-    ldr r2, [sp, #0x30]
-    mov r0, r5
-    mov r1, r4
-    bl func_0208d450
-    add sp, sp, #0x24
-    ldmia sp!, {r4, r5, pc}
+    s32 local[8];
+    if (arg2 < 0) {
+        func_0208d450((void *)arg0, (void *)arg1, (void *)arg4);
+        return;
+    } else {
+        sprintf((s32)((u8 *)local), (s32)((u8 *)&data_020afc1c), arg1, arg2, arg3);
+        func_0208d450((void *)arg0, (void *)((u8 *)local), (void *)arg4);
+        return;
+    }
 }
 
 extern "C" void *func_0208d434(void *self, void *a, void *b)

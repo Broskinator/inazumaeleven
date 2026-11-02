@@ -82,7 +82,7 @@ extern "C" void func_02084dac(u8 *obj, int flags);
 extern "C" void func_02084dc0(u8 *obj, int flags);
 extern "C" BOOL func_02084dd8(u8 *obj);
 extern "C" BOOL func_02084de8(u8 *obj);
-extern "C" void func_02084e08(void);
+extern "C" s32 func_02084e08(s32 arg0, s32 arg1);
 extern "C" void func_02084e40(u8 *obj, s32 a, s32 b);
 extern "C" void func_02084e70(void);
 extern "C" void func_02084f84(void);
@@ -1440,23 +1440,21 @@ extern "C" BOOL func_02084de8(u8 *obj)
     return result;
 }
 
-extern "C" asm void func_02084e08(void)
+extern "C" s32 func_02084e08(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_02084de8
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    cmp r4, #0
-    mov r0, r5
-    mov r1, #2
-    beq @L_02084e38
-    bl func_02084dac
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02084e38:
-    bl func_02084dc0
-    ldmia sp!, {r3, r4, r5, pc}
+    BOOL v0;
+    s32 v1;
+    s32 v2;
+    v0 = func_02084de8((u8 *)arg0);
+    if (v0 != 0)
+        return v0;
+    if (arg1 != 0) {
+        v1 = ((s32 (*)(...))func_02084dac)((u8 *)arg0, 2);
+        return v1;
+    } else {
+        v2 = ((s32 (*)(...))func_02084dc0)((u8 *)arg0, 2);
+        return v2;
+    }
 }
 
 extern "C" void func_02084e40(u8 *obj, s32 a, s32 b)

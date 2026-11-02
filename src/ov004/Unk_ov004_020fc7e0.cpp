@@ -8,7 +8,7 @@ extern "C" s32 func_ov004_020fca84(s32 arg0, s32 arg1);
 extern "C" s32 func_ov004_020fcac8(s32 arg0, s32 arg1);
 extern "C" s32 func_ov004_020fcb1c(s32 arg0);
 extern "C" void func_ov004_020fcb30(void);
-extern "C" void func_ov004_020fcb34(void);
+extern "C" s32 func_ov004_020fcb34(u8 *arg0, s32 arg1);
 extern "C" void func_ov004_020fcb64(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov004_020fcbbc(u8 *arg0);
 extern "C" s32 func_ov004_020fcbfc(u8 *arg0);
@@ -321,19 +321,19 @@ extern "C" void func_ov004_020fcb30(void)
 {
 }
 
-extern "C" asm void func_ov004_020fcb34(void)
+extern "C" s32 func_ov004_020fcb34(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, [r0, #0x10]
-    cmp r2, #0x1e
-    ldrgeb r0, [r0, #0xc]
-    cmpge r0, #0
-    ldmneia sp!, {r3, pc}
-    tst r1, #1
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4f60
-    bl _ZN11MoviePlayer4StopEv
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    s32 t0;
+    if (*(s32 *)(arg0 + 0x10) < 0x1E)
+        return (s32)arg0;
+    if (*(u8 *)(arg0 + 0xC) != 0)
+        return *(u8 *)(arg0 + 0xC);
+    if ((arg1 & 1) == 0)
+        return *(u8 *)(arg0 + 0xC);
+    t0 = *(s32 *)(arg0 + 0x10);
+    v0 = _ZN11MoviePlayer4StopEv((s32)((u8 *)&data_020c4f60), arg1, t0);
+    return v0;
 }
 
 extern "C" void func_ov004_020fcb64(u8 *arg0, u8 *arg1)

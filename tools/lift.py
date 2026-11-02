@@ -683,6 +683,10 @@ def given(v, flags, cc, true):
             return given(v.a if true else v.b, flags, cc, true)
         if v.cc == OPPOSITE[cc]:
             return given(v.b if true else v.a, flags, cc, true)
+    # (a call's value compared equal to a number: that number (MW knows it there))
+    if isinstance(v, Call) and flags[0] in ("cmp", "zero") and flags[1] is v and isinstance(flags[2], Const) \
+            and (cc, true) in (("eq", True), ("ne", False)):
+        return flags[2]
     return v
 
 
@@ -948,7 +952,17 @@ def unpredicate(insns):
 def tails(insns):
     """insns with each 'b L' (forward) to a short run of instructions without branches in
     it that is also reached another way made a copy of the run: MW makes one of the same
-    code at the end of both ways of an if ('if (c) f(a); else f(b);')."""
+    code at the end of both ways of an if ('if (c) f(a); else f(b);'). Again on what
+    comes of it, for the end of a run that is the start of another one."""
+    for _ in range(4):
+        new = tails1(insns)
+        if new == insns:
+            break
+        insns = new
+    return insns
+
+
+def tails1(insns):
     pos = {ins[0]: j for j, ins in enumerate(insns) if ins[0] is not None}
     out = []
     for j, ins in enumerate(insns):
@@ -960,7 +974,9 @@ def tails(insns):
             run = insns[t + 1:e]
             before = insns[t - 1] if t > 0 else None
             reached = before is not None and not (before[0] is None and before[1] in ("b", "ret", "switch") and not before[2])
-            if t > j and 1 <= len(run) <= 8 and e < len(insns) and reached:
+            # (back to code above (a case of a switch): if it doesn't go on to here)
+            back = t < j and any(x[0] is None and x[1] in ("b", "ret") and not x[2] for x in insns[e:j])
+            if (t > j or back) and 1 <= len(run) <= 8 and e < len(insns) and reached:
                 end = insns[e]
                 if end[0] is not None:
                     out += run + [(None, "b", "", False, "@" + end[0])]
@@ -1470,6 +1486,15 @@ def lift_cfg(name, body, protos, variant=0):
             for r in live_in[k]:
                 ps = [j for j in preds_ if not (isinstance(END[j].get(r), Var) and END[j][r] is V.get(r) and V[r] not in assigned)]
                 keys = [pkey(END[j].get(r), assigned) for j in ps]
+                H = P[int(r[1:])] if r in ("r0", "r1", "r2", "r3") else V.get(r)
+                if H is not None and any(END[j].get(r) is H for j in ps):
+                    # (the variable is only ever given the one value the others have: no
+                    # variable)
+                    ok = [j for j in ps if END[j].get(r) is not H]
+                    ks = [pkey(END[j].get(r), assigned) for j in ok]
+                    vals = [pkey(st[2], assigned) for c_ in code for st in c_[0] if st[0] == "assign" and st[1] is H]
+                    if ok and ks[0] is not None and all(x == ks[0] for x in ks + vals):
+                        ps, keys = ok, ks
                 if ps and keys[0] is not None and all(x == keys[0] for x in keys):
                     entry[k][r] = END[ps[0]][r]
         if variant & 8:
@@ -1613,13 +1638,41 @@ def lift_cfg(name, body, protos, variant=0):
             if d != pdom[k]:
                 pdom[k], again = d, True
 
-    def ipdom(k, within=None):
+    def ipdom(k, within=None, latch=None):
         """the block where the ways from k meet (EXIT: they don't)"""
         cands = pdom[k] - {k}
         if within is not None:
             cands = {c for c in cands if c in within} or {EXIT}
         # (the nearest: the one post-dominated by all the others)
         best = [c for c in cands if all(o == c or o in pdom[c] for o in cands)]
+        if (not best or best[0] == EXIT) and latch is not None and k != latch:
+            # (in a loop, the ways that return don't count: where the others meet on the
+            # way to the loop's end)
+            reach = {latch}
+            changed = True
+            while changed:
+                changed = False
+                for y in within:
+                    if y not in reach and any(z in reach for z in succ[y]):
+                        reach.add(y)
+                        changed = True
+            if k in reach:
+                pd = {y: set(reach) for y in reach}
+                pd[latch] = {latch}
+                changed = True
+                while changed:
+                    changed = False
+                    for y in reach:
+                        if y == latch:
+                            continue
+                        ss = [z for z in succ[y] if z in reach]
+                        new = {y} | set.intersection(*[pd[z] for z in ss])
+                        if new != pd[y]:
+                            pd[y], changed = new, True
+                c2 = pd[k] - {k}
+                b2 = [c for c in c2 if all(o == c or o in pd[c] for o in c2)]
+                if b2:
+                    return b2[0]
         return best[0] if best else EXIT
     loops = {}
     for k in range(nb):
@@ -1708,6 +1761,21 @@ def lift_cfg(name, body, protos, variant=0):
                 jn = ipdom(b, loop[4] if loop else None)
                 if loop and jn == EXIT and loop[2] is not None:
                     jn = loop[2]
+                if jn == EXIT:
+                    # (a case that returns: the switch goes on at the first block more than
+                    # one case gets to)
+                    def reach(s):
+                        seen, st = {s}, [s]
+                        while st:
+                            for z in succ[st.pop()]:
+                                if z != EXIT and z not in seen and (not loop or z in loop[4]):
+                                    seen.add(z)
+                                    st.append(z)
+                        return seen
+                    rs = [reach(t) for t in sorted(set(ts))]
+                    cand = [z for z in range(nb) if z not in ts and sum(z in r_ for r_ in rs) > 1]
+                    if cand:
+                        jn = min(cand)
                 body = ""
                 starts = sorted(set(ts) - {jn})
                 for n_, t in enumerate(starts):
@@ -1744,7 +1812,7 @@ def lift_cfg(name, body, protos, variant=0):
                 continue
             if loop and loop[3] in (t, f) and b != loop[1]:
                 raise Fail("continue")
-            jn = ipdom(b, loop[4] if loop else None)
+            jn = ipdom(b, loop[4] if loop else None, loop[1] if loop else None)
             then = region(f, jn, ind + 1, loop)
             els = region(t, jn, ind + 1, loop)
             if then and els:

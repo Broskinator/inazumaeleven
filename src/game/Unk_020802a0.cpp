@@ -1233,49 +1233,49 @@ extern "C" void func_020813a0(MatchPlayer *player, u8 value)
     player->unk_c5 = value;
 }
 
-extern "C" asm void func_020813a8(void)
+extern "C" s32 func_020813a8(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, r1
-    cmp r2, #3
-    addls pc, pc, r2, lsl #2
-    b @L_020813e8
-    b @L_020813e8
-    b @L_020813d0
-    b @L_020813d8
-    b @L_020813e0
-@L_020813d0:
-    bl func_02081390
-    ldmia sp!, {r4, r5, r6, pc}
-@L_020813d8:
-    bl func_02081398
-    ldmia sp!, {r4, r5, r6, pc}
-@L_020813e0:
-    bl func_020813a0
-    ldmia sp!, {r4, r5, r6, pc}
-@L_020813e8:
-    ldr r4, =data_020e88a0
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206deecEv
-    cmp r0, #0
-    beq @L_0208140c
-    mov r0, r6
-    mov r1, r5
-    bl func_02081398
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0208140c:
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206df08Ev
-    cmp r0, #0
-    mov r0, r6
-    mov r1, r5
-    beq @L_0208142c
-    bl func_020813a0
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0208142c:
-    bl func_02081390
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r5;
+    s32 r6;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 v3;
+    s32 v4;
+    s32 v5;
+    s32 v6;
+    s32 v7;
+    r6 = arg0;
+    r5 = arg1;
+    switch (arg2) {
+        case 1:
+            v0 = ((s32 (*)(...))func_02081390)((MatchPlayer *)arg0, arg1);
+            return v0;
+        case 2:
+            v1 = ((s32 (*)(...))func_02081398)((MatchPlayer *)arg0, arg1);
+            return v1;
+        case 3:
+            v2 = ((s32 (*)(...))func_020813a0)((MatchPlayer *)arg0, arg1);
+            return v2;
+        case 0:
+        default:
+            v3 = _ZN17UnkClass_020621b413func_0206deecEv((s32)((u8 *)&data_020e88a0));
+            if (v3 != 0) {
+                v4 = ((s32 (*)(...))func_02081398)((MatchPlayer *)r6, r5);
+                return v4;
+            } else {
+                v5 = _ZN17UnkClass_020621b413func_0206df08Ev((s32)((u8 *)&data_020e88a0));
+                arg0 = r6;
+                arg1 = r5;
+                if (v5 != 0) {
+                    v6 = ((s32 (*)(...))func_020813a0)((MatchPlayer *)arg0, arg1);
+                    return v6;
+                } else {
+                    v7 = ((s32 (*)(...))func_02081390)((MatchPlayer *)arg0, arg1);
+                    return v7;
+                }
+            }
+    }
 }
 
 extern "C" s32 func_02081438(u8 *arg0)
