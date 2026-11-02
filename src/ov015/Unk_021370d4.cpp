@@ -19,7 +19,7 @@ extern "C" void func_ov015_02138d18(void);
 extern "C" void func_ov015_02138f6c(void);
 extern "C" void func_ov015_021390a4(void);
 extern "C" void func_ov015_0213927c(void);
-extern "C" void func_ov015_02139280(void);
+extern "C" void func_ov015_02139280(u8 *arg0);
 extern "C" s32 func_ov015_021392f0(s32 arg0);
 extern "C" void func_ov015_02139384(void);
 extern "C" void func_ov015_021394ec(void);
@@ -57,7 +57,7 @@ extern "C" char data_ov015_021656bc[];
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a9d0Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206ace8Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206b628Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_0206d9a0Ev(...);
@@ -94,7 +94,7 @@ extern "C" s32 func_02092544(...);
 extern "C" void func_0209263c(void);
 extern "C" void func_02092758(void);
 extern "C" void func_020929cc(void);
-extern "C" void func_02092c48(void);
+extern "C" s32 func_02092c48(...);
 extern "C" s32 func_02092d3c(...);
 extern "C" s32 func_02092e18(...);
 extern "C" s32 func_02093188(...);
@@ -2463,34 +2463,25 @@ extern "C" void func_ov015_0213927c(void)
 {
 }
 
-extern "C" asm void func_ov015_02139280(void)
+extern "C" void func_ov015_02139280(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #4
-    mov r6, r0
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206ace8Ev
-    cmp r0, #0
-    ldrne r1, [r6, #0x19c]
-    ldrne r0, [r6, #0x1a0]
-    cmpne r1, r0
-    addge sp, sp, #4
-    ldmgeia sp!, {r3, r4, r5, r6, pc}
-    ldr r4, =data_020c46d4
-    mov r5, #1
-    ldr r0, [r4]
-    ldr r1, [r6, #0xa4]
-    mov r3, r5
-    mov r2, #2
-    bl func_02092c48
-    mov r3, #0
-    str r3, [sp]
-    ldr r0, [r4]
-    ldr r1, [r6, #0xa4]
-    mov r2, r5
-    bl func_02093524
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    s32 v0;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    v0 = _ZN17UnkClass_020621b413func_0206ace8Ev((s32)((u8 *)&data_020e88a0));
+    if (v0 == 0)
+        return;
+    if (*(s32 *)(arg0 + 0x19C) >= *(s32 *)(arg0 + 0x1A0))
+        return;
+    t0 = *(s32 *)(((u8 *)&data_020c46d4));
+    t1 = *(s32 *)(arg0 + 0xA4);
+    func_02092c48(t0, t1, 2, 1);
+    t2 = *(s32 *)(((u8 *)&data_020c46d4));
+    t3 = *(s32 *)(arg0 + 0xA4);
+    func_02093524(t2, t3, 1, 0, 0);
+    return;
 }
 
 extern "C" s32 func_ov015_021392f0(s32 arg0)

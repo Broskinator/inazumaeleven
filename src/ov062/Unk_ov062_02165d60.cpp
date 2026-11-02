@@ -1,4 +1,5 @@
 #include "ov062/Unk_ov062_02165d60.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov062_02165d60(void);
 extern "C" void func_ov062_02165e4c(s32 arg0);
@@ -38,7 +39,7 @@ extern "C" s32 func_ov062_02168698(u8 *arg0);
 extern "C" s32 func_ov062_021686f4(u8 *arg0);
 extern "C" void func_ov062_02168818(void);
 extern "C" void func_ov062_021688e0(void);
-extern "C" void func_ov062_02168948(void);
+extern "C" s32 func_ov062_02168948(u8 *arg0);
 extern "C" s32 func_ov062_021689e8(s32 arg0);
 extern "C" s32 func_ov062_021689fc(u8 *arg0);
 extern "C" void func_ov062_02168a04(void);
@@ -95,7 +96,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206da44Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206dedcEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206e840Et(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206e84cEv(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003758(void);
@@ -104,7 +105,7 @@ extern "C" void func_02022948(void);
 extern "C" void func_0209bf8c(void);
 extern "C" void func_0209c4d8(void);
 extern "C" void func_0209dfd4(void);
-extern "C" void func_ov001_020fe9f4(void);
+extern "C" s32 func_ov001_020fe9f4(...);
 extern "C" s32 func_ov001_02122c84(...);
 extern "C" void func_ov001_02122cbc(void);
 extern "C" void func_ov001_02122d0c(void);
@@ -132,13 +133,13 @@ extern "C" void func_ov015_02132984(void);
 extern "C" void func_ov015_02133ba8(void);
 extern "C" s32 func_ov015_02133e24(...);
 extern "C" s32 func_ov015_02133e50(...);
-extern "C" void func_ov015_02133e8c(void);
+extern "C" s32 func_ov015_02133e8c(...);
 extern "C" void func_ov015_02133efc(void);
 extern "C" void func_ov015_02134118(void);
-extern "C" void func_ov015_02134198(void);
+extern "C" s32 func_ov015_02134198(...);
 extern "C" s32 func_ov015_02134208(...);
 extern "C" s32 func_ov015_0213b364(...);
-extern "C" void func_ov015_0213b3fc(void);
+extern "C" s32 func_ov015_0213b3fc(...);
 extern "C" void func_ov015_0213b540(void);
 extern "C" void func_ov015_0213b6ac(void);
 extern "C" void func_ov015_0213b7f8(void);
@@ -155,7 +156,7 @@ extern "C" void func_ov015_0213c33c(void);
 extern "C" s32 func_ov015_0213c3dc(...);
 extern "C" s32 func_ov015_0213c4c0(...);
 extern "C" void func_ov015_0213c4f0(void);
-extern "C" void func_ov015_0213c4fc(void);
+extern "C" s32 func_ov015_0213c4fc(...);
 extern "C" void func_ov015_0213c530(void);
 extern "C" void func_ov015_0213c5e0(void);
 extern "C" void func_ov015_0213c6d0(void);
@@ -3042,47 +3043,28 @@ extern "C" asm void func_ov062_021688e0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov062_02168948(void)
+extern "C" s32 func_ov062_02168948(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x24
-    add r0, r0, #0x400
-    mov r1, #0xb
-    bl func_ov015_02134198
-    mov r0, r4
-    bl func_ov062_021663f8
-    add r0, r4, #0x3fc
-    mov r1, #2
-    bl func_ov015_02133e8c
-    ldr r1, [r4, #0x38]
-    cmp r1, #0
-    beq @L_02168990
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r4, #0x38]
-@L_02168990:
-    ldr r1, [r4, #0x3c]
-    cmp r1, #0
-    beq @L_021689ac
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r4, #0x3c]
-@L_021689ac:
-    ldr r0, =data_020c9660
-    mov r1, #0
-    bl func_ov015_0213b3fc
-    ldr r0, =data_020c47a4
-    bl func_ov015_0213c4fc
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x6c]
-    blx r1
-    mov r0, r4
-    bl func_ov001_020fe9f4
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    s32 v8;
+    func_ov015_02134198((s32)((arg0 + 0x24) + 0x400), 0xB);
+    func_ov062_021663f8((s32)arg0);
+    func_ov015_02133e8c((s32)(arg0 + 0x3FC), 2);
+    r1 = *(s32 *)(arg0 + 0x38);
+    if (r1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+        *(s32 *)(arg0 + 0x38) = 0;
+    }
+    r1 = *(s32 *)(arg0 + 0x3C);
+    if (r1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+        *(s32 *)(arg0 + 0x3C) = 0;
+    }
+    func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 0);
+    func_ov015_0213c4fc((s32)((u8 *)&data_020c47a4));
+    ((VCall *)arg0)->f27();
+    v8 = func_ov001_020fe9f4((s32)arg0);
+    return v8;
 }
 
 extern "C" s32 func_ov062_021689e8(s32 arg0)

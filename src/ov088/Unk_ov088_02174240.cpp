@@ -32,7 +32,7 @@ extern "C" void func_ov088_021756e0(void);
 extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1);
 extern "C" void func_ov088_02175720(void);
 extern "C" void func_ov088_02175770(void);
-extern "C" void func_ov088_021757d8(void);
+extern "C" s32 func_ov088_021757d8(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov088_02175858(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov088_02175880(u8 *arg0);
 extern "C" void func_ov088_02175894(void);
@@ -48,8 +48,8 @@ extern "C" char data_ov088_021806f0[];
 extern "C" char data_ov088_02180a38[];
 extern "C" char data_ov088_02180a60[];
 extern "C" void FS_ReadFile(void);
-extern "C" void FS_ReadFileAsync(void);
-extern "C" void FS_SeekFile(void);
+extern "C" s32 FS_ReadFileAsync(...);
+extern "C" s32 FS_SeekFile(...);
 extern "C" s32 FS_WaitAsync(...);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
@@ -1584,40 +1584,36 @@ extern "C" asm void func_ov088_02175770(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov088_021757d8(void)
+extern "C" s32 func_ov088_021757d8(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r7, r0
-    mov r0, #0x200
-    ldr r3, [r7, #8]
-    rsb r0, r0, #0
-    mov r6, r1
-    and r1, r3, r0
-    mov r5, r2
-    sub r4, r3, r1
-    add r9, r5, r4
-    tst r9, r0, lsr #23
-    andne r0, r9, r0
-    addne r9, r0, #0x200
-    mov r8, #0
-    ldr r0, [r7, #0xc]
-    mov r2, r8
-    bl FS_SeekFile
-    ldr r0, [r7, #0xc]
-    mov r1, r6
-    mov r2, r9
-    bl FS_ReadFileAsync
-    sub r1, r8, #1
-    cmp r0, r1
-    moveq r0, r8
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r0, [r7, #8]
-    mov r1, #1
-    add r2, r0, r5
-    mov r0, r4
-    str r2, [r7, #8]
-    strb r1, [r7, #0x10]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 r4;
+    s32 r6;
+    s32 r8;
+    s32 r9;
+    s32 v1;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    r6 = arg1;
+    arg1 = (*(s32 *)(arg0 + 0x8) & (0 - 0x200));
+    r4 = (*(s32 *)(arg0 + 0x8) - (*(s32 *)(arg0 + 0x8) & (0 - 0x200)));
+    r9 = (arg2 + (*(s32 *)(arg0 + 0x8) - (*(s32 *)(arg0 + 0x8) & (0 - 0x200))));
+    if ((r9 & ((u32)(0 - 0x200) >> 0x17)) != 0) {
+        r9 = ((r9 & (0 - 0x200)) + 0x200);
+    }
+    t0 = *(s32 *)(arg0 + 0xC);
+    r8 = 0;
+    FS_SeekFile(t0, arg1, 0);
+    t1 = *(s32 *)(arg0 + 0xC);
+    v1 = FS_ReadFileAsync(t1, r6, r9);
+    if (v1 == (r8 - 1)) {
+        return r8;
+    } else {
+        t2 = (*(s32 *)(arg0 + 0x8) + arg2);
+        *(s32 *)(arg0 + 0x8) = t2;
+        *(u8 *)(arg0 + 0x10) = 1;
+        return r4;
+    }
 }
 
 extern "C" s32 func_ov088_02175858(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

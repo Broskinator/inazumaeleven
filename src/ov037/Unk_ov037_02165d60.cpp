@@ -16,7 +16,7 @@ extern "C" void func_ov037_021663d8(void);
 extern "C" void func_ov037_02166428(void);
 extern "C" void func_ov037_02166510(void);
 extern "C" void func_ov037_0216661c(void);
-extern "C" void func_ov037_02166870(void);
+extern "C" s32 func_ov037_02166870(u8 *arg0);
 extern "C" void func_ov037_021668d8(void);
 extern "C" void func_ov037_02166a84(void);
 extern "C" void func_ov037_02166bd4(void);
@@ -75,7 +75,7 @@ extern "C" void _ZN17UnkClass_020621b413func_020777e4Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a534Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207b00cEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207bfd0Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0207bfd0Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_02082d80Ev(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -898,33 +898,30 @@ extern "C" asm void func_ov037_0216661c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov037_02166870(void)
+extern "C" s32 func_ov037_02166870(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r7, r0
-    ldr r0, [r7, #0x15c]
-    mov r6, #0
-    cmp r0, #0
-    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r5, =data_020e88a0
-    ldr r9, =0xfff
-    mov r4, #1
-    mov r8, #0xc
-@L_02166898:
-    mla r0, r6, r8, r7
-    ldrh r2, [r0, #0xe8]
-    mov r0, r5
-    mov r1, r4
-    and r2, r2, r9
-    mov r2, r2, lsl #0x10
-    mov r3, r4
-    mov r2, r2, lsr #0x10
-    bl _ZN17UnkClass_020621b413func_0207bfd0Ev
-    ldr r0, [r7, #0x15c]
-    add r6, r6, #1
-    cmp r6, r0
-    blt @L_02166898
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    u8 *r7;
+    s32 r8;
+    s32 r9;
+    s32 t0;
+    r6 = 0;
+    if (*(s32 *)(arg0 + 0x15C) <= 0)
+        return *(s32 *)(arg0 + 0x15C);
+    r7 = arg0;
+    r5 = (s32)((u8 *)&data_020e88a0);
+    r9 = 0xFFF;
+    r4 = 1;
+    r8 = 0xC;
+    do {
+        t0 = ((u16)(*(u16 *)(((u8 *)((r6 * r8) + r7)) + 0xE8) & r9));
+        _ZN17UnkClass_020621b413func_0207bfd0Ev(r5, r4, t0, r4);
+        arg0 = (u8 *)*(s32 *)(r7 + 0x15C);
+        r6 = (r6 + 1);
+    } while (r6 < (s32)arg0);
+    return (s32)arg0;
 }
 
 extern "C" asm void func_ov037_021668d8(void)

@@ -32,7 +32,7 @@ extern "C" s32 func_ov015_02147510(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_02147554(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02147590(...);
 extern "C" void func_ov015_021475c8(void);
-extern "C" void func_ov015_021476bc(void);
+extern "C" s32 func_ov015_021476bc(u8 *arg0);
 extern "C" void func_ov015_021476f0(void);
 extern "C" s32 func_ov015_02147730(u8 *arg0);
 extern "C" s32 func_ov015_0214775c(s32 arg0, s32 arg1);
@@ -158,7 +158,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_020768e4EPhi(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003598(void);
@@ -1318,21 +1318,17 @@ extern "C" asm void func_ov015_021475c8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov015_021476bc(void)
+extern "C" s32 func_ov015_021476bc(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_ov015_02147840
-    ldr r1, [r4, #0xc]
-    cmp r1, #0
-    beq @L_021476dc
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_021476dc:
-    mov r0, #0
-    str r0, [r4, #0xc]
-    str r0, [r4, #0x10]
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    func_ov015_02147840((s32)arg0);
+    r1 = *(s32 *)(arg0 + 0xC);
+    if (r1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+    }
+    *(s32 *)(arg0 + 0xC) = 0;
+    *(s32 *)(arg0 + 0x10) = 0;
+    return 0;
 }
 
 extern "C" asm void func_ov015_021476f0(void)

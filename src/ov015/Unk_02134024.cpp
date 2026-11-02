@@ -4,10 +4,10 @@ extern "C" void func_ov015_02134024(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 
 extern "C" s32 func_ov015_02134040(...);
 extern "C" s32 func_ov015_021340c0(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov015_02134118(void);
-extern "C" void func_ov015_02134198(void);
+extern "C" void func_ov015_02134198(s32 arg0, s32 arg1);
 extern "C" s32 func_ov015_02134208(u8 *arg0);
 extern "C" s32 func_ov015_02134244(s32 arg0);
-extern "C" void func_ov015_02134268(void);
+extern "C" s32 func_ov015_02134268(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov015_02134300(...);
 extern "C" s32 func_ov015_0213446c(...);
 extern "C" void func_ov015_0213447c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
@@ -149,8 +149,8 @@ extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" s32 _ZN11FileManager10FindInPackEPKcPPvS2_(...);
-extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
-extern "C" void _ZN11FileManager6CancelEPvi(void);
+extern "C" s32 _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(...);
+extern "C" s32 _ZN11FileManager6CancelEPvi(...);
 extern "C" void _ZN11FileManager7ReleaseEPv(void);
 extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
@@ -328,38 +328,27 @@ extern "C" asm void func_ov015_02134118(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov015_02134198(void)
+extern "C" void func_ov015_02134198(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r7, r1
-    mov r8, r0
-    cmp r7, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r4, =data_020c47b4
-    mov r6, #1
-    mov r5, #0
-@L_021341b8:
-    ldr r1, [r8]
-    cmp r1, #0
-    ldrneb r0, [r8, #9]
-    cmpne r0, #0
-    beq @L_021341f0
-    ldrb r0, [r8, #8]
-    cmp r0, #0
-    bne @L_021341f0
-    ldr r0, [r4]
-    cmp r0, #0
-    beq @L_021341ec
-    mov r2, r6
-    bl _ZN11FileManager6CancelEPvi
-@L_021341ec:
-    str r5, [r8]
-@L_021341f0:
-    sub r7, r7, #1
-    cmp r7, #0
-    add r8, r8, #0xc
-    bgt @L_021341b8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 r7;
+    u8 *r8;
+    if (arg1 <= 0)
+        return;
+    r7 = arg1;
+    r8 = (u8 *)arg0;
+    do {
+        arg1 = *(s32 *)(r8);
+        if (((arg1 != 0 && *(u8 *)(r8 + 0x9) != 0) && *(u8 *)(r8 + 0x8) == 0)) {
+            arg0 = *(s32 *)(((u8 *)&data_020c47b4));
+            if (arg0 != 0) {
+                _ZN11FileManager6CancelEPvi(arg0, arg1, 1);
+            }
+            *(s32 *)(r8) = 0;
+        }
+        r7 = (r7 - 1);
+        r8 = (u8 *)(r8 + 0xC);
+    } while (r7 > 0);
+    return;
 }
 
 extern "C" s32 func_ov015_02134208(u8 *arg0)
@@ -383,46 +372,27 @@ extern "C" s32 func_ov015_02134244(s32 arg0)
     return (v0 == 0 ? 1 : 0);
 }
 
-extern "C" asm void func_ov015_02134268(void)
+extern "C" s32 func_ov015_02134268(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #0x18
-    mov r5, r3
-    ldr r3, =data_020c47b4
-    mov r12, r0
-    ldr r0, [r3]
-    mov r4, #0
-    mov r7, r1
-    mov r6, r2
-    str r4, [sp, #0x14]
-    cmp r0, #0
-    beq @L_021342bc
-    str r4, [sp]
-    str r4, [sp, #4]
-    str r4, [sp, #8]
-    mov r4, #1
-    str r4, [sp, #0xc]
-    add r2, sp, #0x14
-    mov r1, r12
-    str r4, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_021342bc:
-    ldr r0, [sp, #0x14]
-    cmp r0, #0
-    addeq sp, sp, #0x18
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    bl func_ov015_02134300
-    mov r4, r0
-    ldr r1, [sp, #0x14]
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, r4
-    add sp, sp, #0x18
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 local[1];
+    s32 r12;
+    s32 v1;
+    s32 t0;
+    *(s32 *)(((u8 *)local)) = 0;
+    r12 = arg0;
+    arg0 = *(s32 *)(((u8 *)&data_020c47b4));
+    if (arg0 != 0) {
+        _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(arg0, r12, (s32)((u8 *)local), (s32)((u8 *)&data_020c47b4), 0, 0, 0, 1, 1);
+    }
+    arg0 = *(s32 *)(((u8 *)local));
+    if (arg0 == 0) {
+        return 0;
+    } else {
+        v1 = func_ov015_02134300(arg0, arg1, arg2, arg3);
+        t0 = *(s32 *)(((u8 *)local));
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), t0);
+        return v1;
+    }
 }
 
 extern "C" asm s32 func_ov015_02134300(...)

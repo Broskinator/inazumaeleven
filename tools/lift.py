@@ -20,7 +20,7 @@ COND = {"eq": "==", "ne": "!=", "gt": ">", "ge": ">=", "lt": "<", "le": "<=",
         "hi": ">", "hs": ">=", "cs": ">=", "lo": "<", "cc": "<", "ls": "<="}
 VAR = "s32(...)"
 FUNCS = {}     # (name -> address, of the functions of the module)
-VARIANTS, VARIANT = 20, {}     # (how many ways a function can be written, and the one to try next)
+VARIANTS, VARIANT = 36, {}     # (how many ways a function can be written, and the one to try next)
 
 
 class Fail(Exception):
@@ -71,9 +71,38 @@ class Bin:
                 and isinstance(a.b, Const) and a.b.n == b.n and b.n in (16, 24):
             t = {(16, "u>>"): "u16", (24, "u>>"): "u8", (16, ">>"): "s16", (24, ">>"): "s8"}[(b.n, self.op)]
             return f"(({t}){a.a.render()})"
+        if self.op == ">>" and isinstance(b, Const) and isinstance(a, Bin) and a.op == "+" and isinstance(a.b, Bin) \
+                and a.b.op == "u>>" and isinstance(a.b.b, Const) and a.b.b.n == 32 - b.n:
+            # (MW's signed division by a power of two: (x + (x >> (k - 1) u>> (32 - k))) >> k)
+            sh = a.b.a
+            if b.n == 1 and sh is a.a or isinstance(sh, Bin) and sh.op == ">>" and sh.a is a.a \
+                    and isinstance(sh.b, Const) and sh.b.n == b.n - 1:
+                return f"({a.a.render()} / {1 << b.n})"
         if self.op == "u>>":
             return f"((u32){self.a.render()} >> {self.b.render()})"
+        if self.op in ("u/", "u%"):
+            return f"((u32){self.a.render()} {self.op[1]} (u32){self.b.render()})"
+        if self.op == "^" and isinstance(b, Const) and b.n in (-1, 0xFFFFFFFF) and not isinstance(a, Const):
+            return f"(~{self.a.render()})"     # (mvn)
         return f"({self.a.render()} {self.op} {self.b.render()})"
+
+
+def fold_mod(v):
+    """v, or x % 2^k if it's MW's signed remainder by a power of two: 'a = x u>> 31;
+    b = (x << n) - a; a + ror(b, n)' (n = 32 - k)"""
+    if isinstance(v, Bin) and v.op == "+" and isinstance(v.b, Bin) and v.b.op == "ror":
+        a, b, n = v.a, v.b.a, v.b.b
+        if isinstance(n, Const) and isinstance(b, Bin) and b.op == "-" and b.b is a and isinstance(b.a, Bin) \
+                and b.a.op == "<<" and isinstance(b.a.b, Const) and b.a.b.n == n.n and isinstance(a, Bin) \
+                and a.op == "u>>" and isinstance(a.b, Const) and a.b.n == 31 and a.a is b.a.a:
+            return Bin("%", a.a, Const(1 << (32 - n.n)))
+    if isinstance(v, Bin) and (v.op == "ror" or isinstance(v.b, Bin) and v.b.op == "ror"):
+        raise Fail("ror")
+    return v
+
+
+# (the runtime's division: the quotient in r0, the remainder in r1; C's / and %)
+DIV = {"_s32_div_f": ("/", "%"), "_u32_div_f": ("u/", "u%")}
 
 
 class Call:
@@ -188,6 +217,9 @@ class Tern:
 
 
 def addr(base, off):
+    if isinstance(base, Bin) and base.op == "+" and isinstance(base.b, Const) and isinstance(off, int) \
+            and isinstance(base.a, (Param, Load)) and base.b.n < 0x10000:
+        return addr(base.a, off + base.b.n)     # ('add r0, r0, #0x1900; ldrh r1, [r0, #0xf4]': one offset)
     if isinstance(base, Param):
         base.ptr = True
     elif isinstance(base, Load) and base.t in ("s32", "u8 *"):
@@ -265,7 +297,14 @@ def cond(flags, cc):
         return f"({cond(f1, c1)} ? {cond(f2, cc)} : {cond(f1, cc)})"
     if flags[0] == "seq":
         _, sets, f = flags
-        sets_ = ", ".join(f"{h.render()} = {value(v, 'u8 *' if h.ptr else 's32')}" for h, v in sets)
+
+        def one(h, v):
+            if h == "call":     # (a call in the condition: 'a == 4 && f() != 0')
+                if v.used and v.ret == "void":
+                    v.cast, v.ret = True, "s32"
+                return f"v{v.k} = {v.text()}" if v.used else v.text()
+            return f"{h.render()} = {value(v, 'u8 *' if h.ptr else 's32')}"
+        sets_ = ", ".join(one(h, v) for h, v in sets)
         return f"({sets_}, {cond(f, cc)})"
     kind, a, b = flags
     if kind == "tst":
@@ -339,6 +378,13 @@ def lift(name, body, protos, variant=0):
         seg.add(r)
 
     def call(f):
+        if f in DIV:
+            a, b_ = read("r0"), read("r1")
+            for r in ("r2", "r3", "r12"):
+                regs.pop(r, None)
+            regs["r0"], regs["r1"] = Bin(DIV[f][0], a, b_), Bin(DIV[f][1], a, b_)
+            seg.clear()
+            return
         if f == name or f not in protos:
             raise Fail(f"call of {f}")
         settle(regs, stmts, tmps)
@@ -356,9 +402,9 @@ def lift(name, body, protos, variant=0):
         s = s.strip()
         if s.startswith("#"):
             return Const(imm(s))
-        m = re.match(r"(r\d+), (lsl|lsr|asr) #(\w+)$", s)
+        m = re.match(r"(r\d+), (lsl|lsr|asr|ror) #(\w+)$", s)
         if m:
-            return Bin({"lsl": "<<", "lsr": "u>>", "asr": ">>"}[m[2]], read(m[1]), Const(imm(m[3])))
+            return Bin({"lsl": "<<", "lsr": "u>>", "asr": ">>", "ror": "ror"}[m[2]], read(m[1]), Const(imm(m[3])))
         return read(s)
     lines = stm_sp([l.strip() for l in body.strip().split("\n")])
     frame, size, push = None, 0, 0
@@ -479,9 +525,7 @@ def lift(name, body, protos, variant=0):
         if mm and m and (not mm[2] or mm[2] in COND):
             v = operand(m[2])
             if mm[1] == "mvn":
-                if not isinstance(v, Const):
-                    raise Fail("mvn")
-                v = Const(~v.n & 0xFFFFFFFF)
+                v = Const(~v.n & 0xFFFFFFFF) if isinstance(v, Const) else Bin("^", v, Const(0xFFFFFFFF))
             if mm[2]:
                 if not flags:
                     raise Fail("a condition without a compare")
@@ -493,9 +537,12 @@ def lift(name, body, protos, variant=0):
             write(m[1], v)
             continue
         m = re.match(r"(r\d+), (r\d+), (.*)$", op)
+        if mn == "rsb" and m:
+            write(m[1], fold_mod(Bin("-", operand(m[3]), read(m[2]))))
+            continue
         if mn in OPS and m:
             a, b = read(m[2]), operand(m[3])
-            write(m[1], Bin(OPS[mn], a, b))
+            write(m[1], fold_mod(Bin(OPS[mn], a, b)))
             continue
         raise Fail(line)
     else:
@@ -508,6 +555,8 @@ def lift(name, body, protos, variant=0):
             p, c.cast = VAR, True
         if p in ("void(void)", VAR):
             n = max([int(r[1:]) + 1 for r in c.seg if r in ("r0", "r1", "r2", "r3")] + [0])
+            if p == "void(void)" and (mangled_args(c.name) or 0) <= 4:
+                n = max(n, mangled_args(c.name) or 0)
             if c.first:
                 n = max([n] + [i + 1 for i in params if i < 4 and isinstance(c.regs.get(f"r{i}"), Param) and c.regs[f"r{i}"].i == i])
             if c.stack:
@@ -615,7 +664,7 @@ def split_mnemonic(mn):
     """(base, condition, s) of a mnemonic such as 'addeqs' or 'ldreqh', or None"""
     for b in BASES:
         for c in ("",) + CONDS:
-            if mn in (b + c, b + c + "s"):
+            if mn == b + c or mn == b + c + "s" and b[:3] not in ("ldr", "str"):     # ('strhs': str on hs)
                 return b, c, mn.endswith("s") and mn != b + c
             if len(b) > 3 and b[:3] in ("ldr", "str") and mn == b[:3] + c + b[3:]:
                 return b, c, False
@@ -949,6 +998,32 @@ def unpredicate(insns):
         res = new
 
 
+def hoist_chains(insns):
+    """insns with an instruction in the middle of a chain of compares ('cmp; cmpne; strb;
+    cmpne') before the chain, where it doesn't change what they compare: MW scheduled it
+    there, and the chain is one condition."""
+    out = list(insns)
+    for j in range(len(out)):
+        x = out[j]
+        if x[0] is not None or x[2] or x[1] in ("b", "ret", "switch", "bl", "blx", "cmp", "cmn", "tst") or x[3]:
+            continue
+        s_ = j - 1
+        while s_ >= 0 and out[s_][0] is None and out[s_][1] in ("cmp", "cmn", "tst") and out[s_][2]:
+            s_ -= 1
+        if s_ == j - 1 or s_ < 0 or out[s_][0] is not None or out[s_][1] not in ("cmp", "cmn", "tst") or out[s_][2]:
+            continue
+        if j + 1 >= len(out) or out[j + 1][0] is not None or out[j + 1][1] not in ("cmp", "cmn", "tst") or not out[j + 1][2]:
+            continue     # (only in the middle of a chain)
+        rx = set(re.findall(r"\br\d+\b|\blr\b", x[4]))
+        if any(rx & set(re.findall(r"\br\d+\b|\blr\b", out[q][4])) for q in range(s_, j)) and x[1] not in STORE:
+            continue
+        m = re.match(r"(r\d+|lr)\b", x[4])
+        if x[1] not in STORE and m and any(m[1] in re.findall(r"\br\d+\b|\blr\b", out[q][4]) for q in range(s_, j)):
+            continue
+        out.insert(s_, out.pop(j))
+    return out
+
+
 def tails(insns):
     """insns with each 'b L' (forward) to a short run of instructions without branches in
     it that is also reached another way made a copy of the run: MW makes one of the same
@@ -1024,6 +1099,10 @@ def lift_cfg(name, body, protos, variant=0):
                 nstack = max(nstack, (off - size - push) // 4 + 1)
     if low is not None:
         low &= ~3     # (the locals from a word: a byte array can start in the middle of one)
+    if low == 0 and size == 0 and frame is not None and frame.startswith("r3,") \
+            and any(re.match(r"add (?!sp)\w+, sp(, #0)?$", line) for line in lines):
+        # (a word whose address is taken, in the place of the r3 pushed (MW keeps one there))
+        size, push = 4, push - 4
     if low is not None and low >= size:
         raise Fail("locals")
     a0 = FUNCS.get(name)
@@ -1068,7 +1147,7 @@ def lift_cfg(name, body, protos, variant=0):
             raise Fail(line)
         insns.append((None,) + sp + (op,))
     if not variant & 2:
-        insns = unpredicate(insns)
+        insns = unpredicate(hoist_chains(insns))
     if variant & 4:
         insns = tails(insns)
     # (blocks: from a label or after a branch or a return)
@@ -1136,9 +1215,18 @@ def lift_cfg(name, body, protos, variant=0):
             u |= d     # (a conditional write keeps the old value otherwise)
         return u, d
     # (a call reads the argument registers written for it, in its block)
-    CALL_USES = {}
-    for b in blocks:
+    CALL_USES, CALL_N = {}, {}
+    # (the blocks a call may come before: there, a parameter of a typed function that isn't
+    # written for it isn't one (the call before took the register))
+    called = [False] * len(blocks)
+    for _ in range(len(blocks) + 1):
+        for k_, b in enumerate(blocks):
+            if called[k_] or any(i[1] in ("bl", "blx") for i in b["insns"]):
+                for x in b["succ"]:
+                    called[x] = True
+    for k_, b in enumerate(blocks):
         seg_ = set()
+        before = called[k_]
         for ins in b["insns"]:
             if ins[1] in ("bl", "blx"):
                 CALL_USES[id(ins)] = seg_ & {"r0", "r1", "r2", "r3"} - ({ins[4]} if ins[1] == "blx" else set())
@@ -1151,11 +1239,39 @@ def lift_cfg(name, body, protos, variant=0):
                 n_ = max([int(r[1:]) + 1 for r in CALL_USES[id(ins)]] + [0])
                 CALL_USES[id(ins)] |= {f"r{i}" for i in range(n_)} - ({ins[4]} if ins[1] == "blx" else set())
                 p_ = protos.get(ins[4]) if ins[1] == "bl" else None
-                if isinstance(p_, tuple):     # (a function with parameters reads them all)
+                if isinstance(p_, tuple) and before and len(p_[1]) <= 4 and \
+                        not all(f"r{i}" in seg_ for i in range(len(p_[1]))):
+                    CALL_N[id(ins)] = max([int(r[1:]) + 1 for r in CALL_USES[id(ins)]] + [0])
+                elif isinstance(p_, tuple):     # (a function with parameters reads them all)
                     CALL_USES[id(ins)] |= {f"r{i}" for i in range(min(4, len(p_[1])))}
+                elif p_ == "void(void)":     # (and a C++ one, the ones its name has)
+                    CALL_USES[id(ins)] |= {f"r{i}" for i in range(min(4, mangled_args(ins[4]) or 0))}
                 seg_ = set()
+                before = True
             else:
                 seg_ |= use_def(ins)[1]
+    # (the parameters passed on to the first call as they came: MW keeps them in their
+    # registers, so the first register written before it is one after them ('ldr r1, =D'
+    # with r0 a parameter))
+    FIRSTP = {}
+    wr, low_r = set(), None
+    for b in blocks:
+        for ins in b["insns"]:
+            if ins[1] in ("bl", "blx"):
+                if low_r:
+                    FIRSTP[id(ins)] = {f"r{i}" for i in range(low_r)} - wr
+                    CALL_USES[id(ins)] |= FIRSTP[id(ins)]
+                break
+            u_, d_ = use_def(ins)
+            if u_ & {"r0", "r1", "r2", "r3"} - wr:
+                break     # (a parameter read: it's known anyway)
+            for r in sorted(d_ & {"r0", "r1", "r2", "r3"}):
+                if low_r is None and not wr:
+                    low_r = int(r[1:])
+                wr.add(r)
+        else:
+            continue
+        break
     live_in = [set() for _ in blocks]
     changed_ = True
     while changed_:
@@ -1196,12 +1312,15 @@ def lift_cfg(name, body, protos, variant=0):
         """the statements of block k, and its condition at the end (flags, cc) or None"""
         b = blocks[k]
         regs = {f"r{i}": P[i] for i in range(4)}
+        if k:
+            regs.update(HOME)
         regs.update(V)
         regs.update(ENTRY[k])
         stmts, seg, flags = [], set(), None
         state = {"flags": None}
         out_args = {}
         wpos = {}
+        retpos = []     # (the returns on a condition: where in stmts, and the writes before them)
 
         def read(r):
             if r not in regs:
@@ -1227,10 +1346,12 @@ def lift_cfg(name, body, protos, variant=0):
             s = s.strip()
             if s.startswith("#"):
                 return Const(imm(s))
-            m = re.match(r"(r\d+|lr), (lsl|lsr|asr) (#\w+|r\d+)$", s)
+            m = re.match(r"(r\d+|lr), (lsl|lsr|asr|ror) (#\w+|r\d+)$", s)
             if m:
                 amt = Const(imm(m[3])) if m[3].startswith("#") else read(m[3])
-                return Bin({"lsl": "<<", "lsr": "u>>", "asr": ">>"}[m[2]], read(m[1]), amt)
+                if m[2] == "ror" and not isinstance(amt, Const):
+                    raise Fail("ror")
+                return Bin({"lsl": "<<", "lsr": "u>>", "asr": ">>", "ror": "ror"}[m[2]], read(m[1]), amt)
             if re.match(r"(r\d+|lr)$", s):
                 return read(s)
             raise Fail(f"operand {s}")
@@ -1242,6 +1363,7 @@ def lift_cfg(name, body, protos, variant=0):
                 if c:
                     fl = need_flags()
                     stmts.append(("return if", c, fl, given(v, fl, c, True) if v is not None else None))
+                    retpos.append((len(stmts) - 1, max(wpos.values(), default=0)))
                     # (after it, the condition is false)
                     for r in list(regs):
                         regs[r] = given(regs[r], fl, c, False)
@@ -1261,6 +1383,15 @@ def lift_cfg(name, body, protos, variant=0):
                         raise Fail("blx")
                     fp, fpreg = read(op), op
                     op = None
+                elif op in DIV and not c:
+                    a, b_ = read("r0"), read("r1")
+                    for r in ("r2", "r3", "r12"):
+                        regs.pop(r, None)
+                    write("r0", Bin(DIV[op][0], a, b_))
+                    write("r1", Bin(DIV[op][1], a, b_))
+                    seg.clear()
+                    state["flags"] = None
+                    continue
                 elif c or op == name or op not in protos:
                     raise Fail(f"call of {op}")
                 m_ = settle(regs, stmts, tmps)
@@ -1273,7 +1404,10 @@ def lift_cfg(name, body, protos, variant=0):
                 if op is None and isinstance(fp, Load) and isinstance(fp.base, Load) and fp.base.off == 0 \
                         and "r0" in regs and fpreg != "r0" and regs["r0"] is fp.base.base:
                     seg_.add("r0")
+                if id(b["insns"][n_]) in FIRSTP:
+                    seg_ |= {r for r in FIRSTP[id(b["insns"][n_])] if r in regs}
                 cl = Call(len(calls), op, dict(regs), seg_, k == 0 and not calls)
+                cl.nmax = CALL_N.get(id(b["insns"][n_]))
                 if op is None:
                     cl.fp = fp
                 cl.stack = dict(out_args)
@@ -1282,6 +1416,7 @@ def lift_cfg(name, body, protos, variant=0):
                 if op:
                     callees.add(op)
                 stmts.append(("call", cl))
+                retpos.append((len(stmts) - 1, max(wpos.values(), default=0)))
                 for r in ("r1", "r2", "r3", "r12"):
                     regs.pop(r, None)
                 regs["r0"] = cl
@@ -1397,7 +1532,7 @@ def lift_cfg(name, body, protos, variant=0):
                 elif mn == "mul":
                     v = Bin("*", a, bv)
                 else:
-                    v = Bin(OPS[mn], a, bv)
+                    v = fold_mod(Bin(OPS[mn], a, bv))
                 write(mm[1], v, c)
                 if s:
                     if c:
@@ -1416,7 +1551,7 @@ def lift_cfg(name, body, protos, variant=0):
             assign = {}
             # (in the order they were written: MW keeps the order of the C)
             for r in sorted(live, key=lambda r: (wpos.get(r, 0), REGS.index(r))):
-                home = P[int(r[1:])] if r in ("r0", "r1", "r2", "r3") else V.get(r)
+                home = HOME.get(r) or (P[int(r[1:])] if r in ("r0", "r1", "r2", "r3") else V.get(r))
                 if home is None:
                     raise Fail(f"register {r}")
                 if r not in regs:
@@ -1436,7 +1571,16 @@ def lift_cfg(name, body, protos, variant=0):
                 else:
                     raise Fail("registers swapped")
             for home, v in order:
-                stmts.append(("assign", home, v))
+                # (a number written before a return on a condition (a loop's counter): before
+                # it, the way it was written)
+                r_ = [r for r, (h, _) in assign.items() if h is home][0]
+                at = [q for q, w in retpos if wpos.get(r_, 0) <= w] if isinstance(v, Const) and isinstance(home, Var) else []
+                if at and not any(home in flag_refs(st[2]) or (st[3] is not None and home in refs(st[3]))
+                                  for st in stmts[at[0]:] if st[0] == "return if"):
+                    stmts.insert(at[0], ("assign", home, v))
+                    retpos[:] = [(q + 1 if q >= at[0] else q, w) for q, w in retpos]
+                else:
+                    stmts.append(("assign", home, v))
                 used_vars.add(home)
                 if isinstance(v, (Call, Tmp)):
                     v.used = True
@@ -1461,21 +1605,41 @@ def lift_cfg(name, body, protos, variant=0):
                         SINK[k] = (s1, j, late)
                     else:
                         FAILS.append("a compare of a variable written after it")
+                        # (a parameter's register written after the compare reads it: a
+                        # variable of its own, the parameter is read before)
+                        for home, v in late:
+                            r_ = [r for r, (h, _) in assign.items() if h is home][0]
+                            if isinstance(home, Param) and r_ not in HOME:
+                                FAILS_R.add(r_)
                         late = []
                 m_ = {id(v): home for home, v in order if not any(v is x for _, x in late)}
                 new = subst_flags(term[0], m_)
                 term = (new, term[1])
         return stmts, term
     preds0 = [[j for j in range(len(blocks)) if x in blocks[j]["succ"]] for x in range(len(blocks))]
-    SINK, FAILS = {}, []
-    for _ in range(len(blocks) + 4):     # (a value goes on a block each time)
+    SINK, FAILS, HOME, FAILS_R = {}, [], {}, set()
+    for _ in range(2 * len(blocks) + 8):     # (a value goes on a block each time)
         SINK.clear()
         FAILS.clear()
+        FAILS_R.clear()
         calls.clear()
         callees.clear()
         used_vars.clear()
         tmps.clear()
         code = [run(k) for k in range(len(blocks))]
+        if variant & 16 and not HOME:
+            # (variant 16: the argument registers given other values at the end of a block get
+            # variables of their own, not the parameter's)
+            own = {f"r{st[1].i}" for c_ in code for st in c_[0] if st[0] == "assign" and type(st[1]) is Param
+                   and 0 <= st[1].i < 4 and st[2] is not st[1]}
+            if not own or any(0 in blocks[j]["succ"] for j in range(len(blocks))):
+                raise Fail("no variables of their own")
+            FAILS_R |= own
+        if FAILS_R and not any(0 in blocks[j]["succ"] for j in range(len(blocks))):
+            for r in FAILS_R:
+                HOME[r] = Var(r)
+            ENTRY[:] = [{} for _ in blocks]
+            continue
         assigned = {st[1] for c_ in code for st in c_[0] if st[0] == "assign"}
         assigned |= {home for (_, _, late) in SINK.values() for home, _ in late}
         entry = [{} for _ in blocks]
@@ -1486,7 +1650,7 @@ def lift_cfg(name, body, protos, variant=0):
             for r in live_in[k]:
                 ps = [j for j in preds_ if not (isinstance(END[j].get(r), Var) and END[j][r] is V.get(r) and V[r] not in assigned)]
                 keys = [pkey(END[j].get(r), assigned) for j in ps]
-                H = P[int(r[1:])] if r in ("r0", "r1", "r2", "r3") else V.get(r)
+                H = HOME.get(r) or (P[int(r[1:])] if r in ("r0", "r1", "r2", "r3") else V.get(r))
                 if H is not None and any(END[j].get(r) is H for j in ps):
                     # (the variable is only ever given the one value the others have: no
                     # variable)
@@ -1497,6 +1661,11 @@ def lift_cfg(name, body, protos, variant=0):
                         ps, keys = ok, ks
                 if ps and keys[0] is not None and all(x == keys[0] for x in keys):
                     entry[k][r] = END[ps[0]][r]
+                    # (a number the blocks before put in the variable: the variable ('n = 0;
+                    # if (c) n++;'))
+                    if isinstance(H, Var) and isinstance(entry[k][r], Const) and \
+                            all(any(st[0] == "assign" and st[1] is H for st in code[j][0]) for j in preds_):
+                        del entry[k][r]
         if variant & 8:
             entry = [{} for _ in blocks]     # (no values carried into blocks: each in its variable)
         same = all({r: pkey(v, assigned) for r, v in entry[k].items()} == {r: pkey(v, assigned) for r, v in ENTRY[k].items()}
@@ -1524,7 +1693,7 @@ def lift_cfg(name, body, protos, variant=0):
                 continue
             if code[i][1] is None or code[i + 1][1] is None:
                 continue
-            if code[i + 1][0] and not all(st[0] == "assign" and not isinstance(st[2], (Call, Tmp))
+            if code[i + 1][0] and not all(st[0] == "assign" and not isinstance(st[2], (Call, Tmp)) or st[0] == "call"
                                           for st in code[i + 1][0]):
                 continue
             if any(b.get("target") == i + 1 for b in blocks):
@@ -1534,7 +1703,7 @@ def lift_cfg(name, body, protos, variant=0):
                 continue
             second = code[i + 1][1]
             if code[i + 1][0]:
-                second = (("seq", [(st[1], st[2]) for st in code[i + 1][0]], second[0]), second[1])
+                second = (("seq", [("call", st[1]) if st[0] == "call" else (st[1], st[2]) for st in code[i + 1][0]], second[0]), second[1])
             if t == i + 2:
                 term = (("logic", "&&", negate(code[i][1]), second), "t")
             elif t == u:
@@ -1557,8 +1726,14 @@ def lift_cfg(name, body, protos, variant=0):
         p = protos[cl.name] if cl.name else VAR
         if isinstance(p, tuple) and (cl.stack or max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0]) > len(p[1])):
             p, cl.cast = VAR, True
+        if isinstance(p, tuple) and getattr(cl, "nmax", None) is not None and cl.nmax < len(p[1]):
+            # (fewer arguments than its declaration: the ones written for it)
+            p, cl.cast = VAR, True
+            cl.seg = set(cl.seg) | {f"r{i}" for i in range(cl.nmax)}
         if p in ("void(void)", VAR):
             n = max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0])
+            if p == "void(void)" and cl.name and (mangled_args(cl.name) or 0) <= 4:
+                n = max(n, mangled_args(cl.name) or 0)
             if cl.first:
                 n = max([n] + [i + 1 for i in range(min(nparams, 4)) if cl.regs.get(f"r{i}") is P[i]])
             if cl.stack:
@@ -1684,6 +1859,8 @@ def lift_cfg(name, body, protos, variant=0):
                 stack = [k]
                 while stack:
                     y = stack.pop()
+                    if y == x:
+                        continue     # (the start of the loop (a loop of one block): not what's before it)
                     for p in preds[y]:
                         if p not in body_:
                             body_.add(p)
@@ -1709,6 +1886,26 @@ def lift_cfg(name, body, protos, variant=0):
                         if not r_ & main_ and all(p in body_ or p in r_ for z in r_ for p in preds[z]):
                             body_ |= r_
                     exits = {s for y in body_ for s in succ[y] if s not in body_ and s != EXIT}
+                if len(exits) > 1:
+                    # (the exits go on to one block: what each does before it, in the loop (a
+                    # break), and the loop goes on there)
+                    def ahead2(s, stop=None):
+                        seen, st = {s}, [s]
+                        while st:
+                            for z in succ[st.pop()]:
+                                if z != EXIT and z not in seen and z not in body_ and z != stop:
+                                    seen.add(z)
+                                    st.append(z)
+                        return seen
+                    common = set.intersection(*[ahead2(s) for s in exits])
+                    if common:
+                        J = min(common)
+                        rs = [ahead2(s, J) - {J} for s in exits if s != J]
+                        allr = set().union(*rs)
+                        if sum(len(r_) for r_ in rs) == len(allr) and \
+                                all(p in body_ or p in allr for z in allr for p in preds[z]):
+                            body_ |= allr
+                            exits = {s for y in body_ for s in succ[y] if s not in body_ and s != EXIT}
                 if len(exits) > 1:
                     raise Fail("a loop with two exits")
                 loops[x] = (k, body_, min(exits) if exits else None)
@@ -1869,6 +2066,126 @@ def prototypes(t):
     return protos
 
 
+def mangled_args(nm):
+    """the number of arguments of a C++ function from its mangled name ('this' too, for a
+    function in a class), or None"""
+    if not nm.startswith("_Z"):
+        return None
+    s, i = nm, 2
+
+    def ident():
+        nonlocal i
+        m = re.match(r"\d+", s[i:])
+        if not m:
+            return False
+        i += len(m[0]) + int(m[0])
+        return i <= len(s)
+
+    def name_():
+        nonlocal i
+        if s[i:i + 1].isdigit():
+            ok = ident()
+        elif re.match(r"C[123]|D[012]", s[i:i + 2]):
+            i += 2
+            ok = True
+        elif re.match(r"[a-z][a-zA-Z]", s[i:i + 2]):
+            i += 2     # (an operator)
+            ok = True
+        elif s.startswith("St", i):
+            i += 2
+            ok = ident()
+        else:
+            return False
+        if ok and s.startswith("I", i):
+            i += 1
+            while i < len(s) and s[i] != "E":
+                if not type_():
+                    return False
+            i += 1
+        return ok
+
+    def nested():
+        nonlocal i
+        i += 1
+        while s[i:i + 1] in ("K", "V", "r"):
+            i += 1
+        while i < len(s) and s[i] != "E":
+            if s[i] == "S":
+                if not subst():
+                    return False
+            elif not name_():
+                return False
+        i += 1
+        return i <= len(s)
+
+    def subst():
+        nonlocal i
+        m = re.match(r"S[0-9A-Z]*_|S[tabsiod]", s[i:])
+        if not m:
+            return False
+        i += len(m[0])
+        return True
+
+    def type_():
+        nonlocal i
+        if i >= len(s):
+            return False
+        ch = s[i]
+        if ch in "vbcahstijlmxynofdez":
+            i += 1
+            return True
+        if ch in "PRKVrO":
+            i += 1
+            return type_()
+        if ch == "N":
+            return nested()
+        if ch == "S":
+            if not subst():
+                return False
+            if s.startswith("I", i):
+                i += 1
+                while i < len(s) and s[i] != "E":
+                    if not type_():
+                        return False
+                i += 1
+            return True
+        if ch == "F":
+            i += 1
+            while i < len(s) and s[i] != "E":
+                if not type_():
+                    return False
+            i += 1
+            return True
+        if ch == "A":
+            m = re.match(r"A\d*_", s[i:])
+            if not m:
+                return False
+            i += len(m[0])
+            return type_()
+        if ch == "M":
+            i += 1
+            return type_() and type_()
+        if ch.isdigit():
+            return name_()
+        return False
+    if s.startswith("N", i):
+        this = 1
+        if not nested():
+            return None
+    else:
+        this = 0
+        if not name_():
+            return None
+    n = 0
+    if s[i:] == "v":
+        return this
+    while i < len(s):
+        if not type_():
+            return None
+        n += 1
+    return this + n
+
+
 def is_func(nm, protos):
     """whether a symbol is a function (a declaration 'void F(void)' can be data, for asm)"""
     return nm in protos and (nm in FUNCS or not FUNCS)
@@ -1941,7 +2258,7 @@ def lift_file(src, sizes, failed):
                     VARIANT[b[1]] = v = 4
             if b[1] not in cand:
                 w = v - 4 if "@" not in b[2] else v
-                if w >= 16:
+                if w >= 32:
                     raise Fail("no more variants")
                 cand[b[1]] = (b[0],) + lift_cfg(b[1], b[2], protos, w)
         except (Fail, KeyError, IndexError):

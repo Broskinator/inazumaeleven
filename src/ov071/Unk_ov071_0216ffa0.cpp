@@ -23,7 +23,7 @@ extern "C" void func_ov071_021709f0(void);
 extern "C" void func_ov071_02170aac(void);
 extern "C" void func_ov071_02170b2c(void);
 extern "C" void func_ov071_02170c28(void);
-extern "C" void func_ov071_02170c6c(void);
+extern "C" s32 func_ov071_02170c6c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov071_02170cec(s32 arg0);
 extern "C" void func_ov071_02170d00(void);
 
@@ -41,7 +41,7 @@ extern "C" void G2S_GetBG2CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN11FileManager6CancelEPvi(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
@@ -62,9 +62,9 @@ extern "C" s32 func_ov015_02134118(...);
 extern "C" s32 func_ov015_02134198(...);
 extern "C" s32 func_ov015_02134208(...);
 extern "C" void func_ov015_02135440(void);
-extern "C" void func_ov015_02135e10(void);
+extern "C" s32 func_ov015_02135e10(...);
 extern "C" void func_ov015_0213b364(void);
-extern "C" void func_ov015_0213b3fc(void);
+extern "C" s32 func_ov015_0213b3fc(...);
 extern "C" s32 func_ov015_0213b6ac(...);
 extern "C" void func_ov015_0213b870(void);
 extern "C" void func_ov015_0213bfcc(void);
@@ -869,40 +869,27 @@ extern "C" asm void func_ov071_02170c28(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov071_02170c6c(void)
+extern "C" s32 func_ov071_02170c6c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    bl func_ov071_021709bc
-    mov r0, r5
-    bl func_ov071_021708ac
-    ldr r1, [r5, #0x24]
-    cmp r1, #0
-    beq @L_02170c9c
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r5, #0x24]
-@L_02170c9c:
-    ldr r1, [r5, #0x28]
-    cmp r1, #0
-    beq @L_02170cb8
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r5, #0x28]
-@L_02170cb8:
-    mov r4, #1
-    ldr r0, =data_020c9660
-    mov r1, r4
-    bl func_ov015_0213b3fc
-    bl func_ov015_02135e10
-    ldr r0, [r5, #4]
-    mov r1, r4
-    ldr r2, [r0]
-    ldr r2, [r2, #0xc]
-    blx r2
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 v6;
+    u8 *t0;
+    func_ov071_021709bc((s32)arg0, arg1, arg2, arg3);
+    ((s32 (*)(...))func_ov071_021708ac)((s32)arg0);
+    arg1 = *(s32 *)(arg0 + 0x24);
+    if (arg1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), arg1);
+        *(s32 *)(arg0 + 0x24) = 0;
+    }
+    arg1 = *(s32 *)(arg0 + 0x28);
+    if (arg1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), arg1);
+        *(s32 *)(arg0 + 0x28) = 0;
+    }
+    func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 1);
+    func_ov015_02135e10();
+    t0 = *(u8 * *)(arg0 + 0x4);
+    v6 = ((s32 (*)(...))*(s32 *)(*(u8 * *)(*(u8 * *)(arg0 + 0x4)) + 0xC))(t0, 1);
+    return v6;
 }
 
 extern "C" s32 func_ov071_02170cec(s32 arg0)

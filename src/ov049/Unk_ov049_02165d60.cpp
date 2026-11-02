@@ -9,7 +9,7 @@ extern "C" void func_ov049_02165e88(void);
 extern "C" void func_ov049_021660ac(void);
 extern "C" void func_ov049_02166128(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov049_02166138(u8 *arg0);
-extern "C" void func_ov049_02166178(void);
+extern "C" s32 func_ov049_02166178(u8 *arg0);
 extern "C" void func_ov049_021661b4(void);
 extern "C" void func_ov049_02166684(void);
 extern "C" s32 func_ov049_021667f8(s32 arg0);
@@ -72,7 +72,7 @@ extern "C" void _ZN17UnkClass_020621b413func_02078f14Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207d830Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207dac0Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207e334Eiiii(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003678(void);
@@ -112,7 +112,7 @@ extern "C" s32 func_ov015_02133f94(...);
 extern "C" s32 func_ov015_02134024(...);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_02134118(void);
-extern "C" void func_ov015_02134208(void);
+extern "C" s32 func_ov015_02134208(...);
 extern "C" void func_ov015_0213447c(void);
 extern "C" void func_ov015_02134504(void);
 extern "C" void func_ov015_02134554(void);
@@ -375,23 +375,19 @@ extern "C" s32 func_ov049_02166138(u8 *arg0)
     return v1;
 }
 
-extern "C" asm void func_ov049_02166178(void)
+extern "C" s32 func_ov049_02166178(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, #0
-    add r5, r7, #0xbc
-    mov r4, #0xc
-@L_0216618c:
-    mla r0, r6, r4, r5
-    bl func_ov015_02134208
-    add r6, r6, #1
-    cmp r6, #0xf
-    blt @L_0216618c
-    ldr r1, [r7, #0x10]
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r6;
+    s32 v1;
+    s32 t0;
+    r6 = 0;
+    do {
+        func_ov015_02134208((s32)((r6 * 0xC) + (arg0 + 0xBC)));
+        r6 = (r6 + 1);
+    } while (r6 < 0xF);
+    t0 = *(s32 *)(arg0 + 0x10);
+    v1 = _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), t0);
+    return v1;
 }
 
 extern "C" asm void func_ov049_021661b4(void)

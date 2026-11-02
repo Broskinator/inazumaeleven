@@ -52,7 +52,7 @@ extern "C" void func_ov026_02167f3c(void);
 extern "C" void func_ov026_02168124(void);
 extern "C" void func_ov026_021681cc(void);
 extern "C" void func_ov026_021682e0(void);
-extern "C" void func_ov026_021684b4(void);
+extern "C" s32 func_ov026_021684b4(u8 *arg0);
 extern "C" s32 func_ov026_02168598(u8 *arg0);
 extern "C" s32 func_ov026_02168630(...);
 extern "C" void func_ov026_02168678(void);
@@ -2851,66 +2851,29 @@ extern "C" asm void func_ov026_021682e0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov026_021684b4(void)
+extern "C" s32 func_ov026_021684b4(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #0x20
-    mov r4, r0
-    ldr r12, [r4, #0xaf0]
-    cmp r12, #0
-    beq @L_02168510
-    mov r2, #1
-    mov r1, #0
-    str r2, [sp]
-    stmib sp, {r1, r2}
-    mov r0, #8
-    str r0, [sp, #0xc]
-    mov r0, #0x1e
-    str r0, [sp, #0x10]
-    mov r0, #0xa
-    str r0, [sp, #0x14]
-    str r2, [sp, #0x18]
-    ldr r3, [r12, #0xc]
-    ldr r0, =data_020c9660
-    add r12, r12, r3
-    mov r3, r1
-    str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
-@L_02168510:
-    ldr r12, [r4, #0xcf8]
-    add r0, r4, #0xf8
-    add lr, r0, #0xc00
-    cmp r12, #0
-    ldrne r0, [lr, #4]
-    mov r1, #0
-    cmpne r0, #0
-    movne r1, #1
-    cmp r1, #0
-    beq @L_02168584
-    mov r1, #0
-    mov r0, #1
-    stmia sp, {r0, r1}
-    mov r0, #2
-    str r0, [sp, #8]
-    mov r0, #8
-    str r0, [sp, #0xc]
-    ldrh r3, [lr, #0xc]
-    ldr r0, =data_020c9660
-    mov r2, r1
-    and r3, r3, #0xff
-    str r3, [sp, #0x10]
-    ldrh lr, [lr, #0xe]
-    mov r3, r1
-    and lr, lr, #0xff
-    str lr, [sp, #0x14]
-    str r1, [sp, #0x18]
-    str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
-@L_02168584:
-    mov r0, r4
-    bl func_ov026_02168598
-    add sp, sp, #0x20
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    u8 *r4;
+    u8 *r12;
+    u8 *lr;
+    s32 v2;
+    r4 = arg0;
+    r12 = (u8 *)*(s32 *)(arg0 + 0xAF0);
+    if ((s32)r12 != 0) {
+        func_ov015_0213b6ac((s32)((u8 *)&data_020c9660), 0, 1, 0, 1, 0, 1, 8, 0x1E, 10, 1, (s32)(r12 + *(s32 *)(r12 + 0xC)));
+    }
+    r12 = (u8 *)*(s32 *)(r4 + 0xCF8);
+    lr = (u8 *)((r4 + 0xF8) + 0xC00);
+    r1 = 0;
+    if (((s32)r12 != 0 && *(s32 *)(lr + 0x4) != 0)) {
+        r1 = 1;
+    }
+    if (r1 != 0) {
+        func_ov015_0213b6ac((s32)((u8 *)&data_020c9660), 0, 0, 0, 1, 0, 2, 8, (*(u16 *)(lr + 0xC) & 0xFF), (*(u16 *)(lr + 0xE) & 0xFF), 0, (s32)r12);
+    }
+    v2 = func_ov026_02168598(r4);
+    return v2;
 }
 
 extern "C" s32 func_ov026_02168598(u8 *arg0)
