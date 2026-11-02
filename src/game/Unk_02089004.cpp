@@ -82,7 +82,7 @@ extern "C" void *func_0208a704(void *self, int a);
 extern "C" void func_0208a718(u8 *obj);
 extern "C" int func_0208a730(void *self, int a, int b);
 extern "C" int func_0208a748(void *self, int a);
-extern "C" void func_0208a764(void);
+extern "C" s32 func_0208a764(u8 *arg0, s32 arg1, u8 *arg2);
 extern "C" void func_0208a7cc(void);
 extern "C" void func_0208a824(void);
 extern "C" void func_0208a8cc(void);
@@ -1846,39 +1846,26 @@ extern "C" int func_0208a748(void *self, int a)
     return value - 1;
 }
 
-extern "C" asm void func_0208a764(void)
+extern "C" s32 func_0208a764(u8 *arg0, s32 arg1, u8 *arg2)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r2
-    bl func_0208a748
-    cmp r0, #0
-    blt @L_0208a794
-    ldr r1, [r5, #0xc]
-    cmp r0, r1
-    bge @L_0208a794
-    ldr r2, [r5, #0x14]
-    cmp r2, #0
-    bne @L_0208a79c
-@L_0208a794:
-    mov r2, #0
-    b @L_0208a7a4
-@L_0208a79c:
-    mov r1, #0x3c
-    mla r2, r0, r1, r2
-@L_0208a7a4:
-    cmp r2, #0
-    beq @L_0208a7b8
-    ldrh r1, [r2, #8]
-    tst r1, #1
-    bne @L_0208a7c0
-@L_0208a7b8:
-    mvn r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0208a7c0:
-    cmp r4, #0
-    strne r2, [r4]
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r0;
+    u8 *r2;
+    int v0;
+    v0 = func_0208a748((void *)arg0, arg1);
+    r0 = v0;
+    if (((r0 < 0 || r0 >= *(s32 *)(arg0 + 0xC)) || (r2 = (u8 *)*(s32 *)(arg0 + 0x14), (s32)r2 == 0))) {
+        r2 = (u8 *)0;
+    } else {
+        r2 = (u8 *)((r0 * 0x3C) + r2);
+    }
+    if (((s32)r2 == 0 || (*(u16 *)(r2 + 0x8) & 1) == 0)) {
+        return -1;
+    } else {
+        if ((s32)arg2 != 0) {
+            *(s32 *)(arg2) = (s32)r2;
+        }
+        return r0;
+    }
 }
 
 extern "C" asm void func_0208a7cc(void)

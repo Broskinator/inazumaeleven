@@ -1,7 +1,7 @@
 #include "ov016/Unk_02142f80.hpp"
 
 extern "C" void func_ov016_02142f80(void);
-extern "C" void func_ov016_021430f8(void);
+extern "C" s32 func_ov016_021430f8(s32 arg0);
 extern "C" void func_ov016_02143164(u8 arg0);
 extern "C" void func_ov016_0214319c(void);
 extern "C" void func_ov016_021433bc(void);
@@ -203,7 +203,7 @@ extern "C" s32 func_ov016_02149434(...);
 extern "C" s32 func_ov016_02149498(...);
 extern "C" void func_ov016_02149628(void);
 extern "C" s32 func_ov016_02149918(...);
-extern "C" void func_ov016_0214992c(void);
+extern "C" s32 func_ov016_0214992c(...);
 extern "C" s32 func_ov016_02149940(...);
 extern "C" void func_ov016_02149d20(void);
 extern "C" s32 func_ov016_02149dec(...);
@@ -340,36 +340,33 @@ extern "C" asm void func_ov016_02142f80(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov016_021430f8(void)
+extern "C" s32 func_ov016_021430f8(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    bl func_ov016_02149918
-    ldrb r1, [r0, #0xf5]
-    cmp r1, r4
-    ldmeqia sp!, {r3, r4, r5, pc}
-    cmp r4, #0
-    beq @L_02143134
-    ldr r0, =data_ov016_02158acc
-    mov r5, #1
-    ldr r0, [r0, #8]
-    ldrb r0, [r0, #0x43]
-    cmp r0, #0
-    moveq r5, #0
-    b @L_02143148
-@L_02143134:
-    ldr r1, =data_ov016_02158acc
-    ldrb r2, [r0, #0xf6]
-    ldr r0, [r1, #8]
-    mov r5, #0
-    strb r2, [r0, #0x43]
-@L_02143148:
-    mov r0, r4
-    bl func_ov016_0214992c
-    mov r0, r5
-    bl func_ov016_02149940
-    bl func_ov016_02143708
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *r0;
+    s32 r5;
+    s32 v0;
+    s32 v3;
+    u8 *t0;
+    u8 t1;
+    v0 = func_ov016_02149918(arg0);
+    if (*(u8 *)(((u8 *)v0) + 0xF5) == arg0)
+        return v0;
+    r0 = (u8 *)v0;
+    if (arg0 != 0) {
+        r5 = 1;
+        if (*(u8 *)(*(u8 * *)(((u8 *)&data_ov016_02158acc) + 0x8) + 0x43) == 0) {
+            r5 = 0;
+        }
+    } else {
+        t0 = (u8 *)*(s32 *)(((u8 *)&data_ov016_02158acc) + 0x8);
+        t1 = *(u8 *)(r0 + 0xF6);
+        *(u8 *)(t0 + 0x43) = t1;
+        r5 = 0;
+    }
+    func_ov016_0214992c(arg0);
+    func_ov016_02149940(r5);
+    v3 = func_ov016_02143708();
+    return v3;
 }
 
 extern "C" void func_ov016_02143164(u8 arg0)

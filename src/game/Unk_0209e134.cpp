@@ -4,13 +4,13 @@
 extern GameHeap data_020c47b4;
 extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
 
-extern "C" void func_0209e134(void);
+extern "C" s32 func_0209e134(s32 arg0, s32 arg1);
 extern "C" void func_0209e174(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_0209e1c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_0209e220(u8 *arg0);
 extern "C" void func_0209e248(s32 *obj);
 extern "C" void func_0209e258(void *obj);
-extern "C" void func_0209e25c(void);
+extern "C" s32 func_0209e25c(u8 *arg0);
 extern "C" void func_0209e298(void);
 extern "C" void func_0209e360(void);
 extern "C" void func_0209e5cc(void **obj);
@@ -32,28 +32,32 @@ extern "C" void STD_CompareString(void);
 extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_02016e10(void);
 extern "C" void func_02016e5c(void);
 extern "C" void func_020170b8(void);
 
-extern "C" asm void func_0209e134(void)
+extern "C" s32 func_0209e134(s32 arg0, s32 arg1)
 {
-    add r0, r0, r1, lsl #2
-    ldr r0, [r0, #4]
-    mov r1, #1
-    cmp r0, #0
-    movle r1, #0
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    ldr r1, =0x6270
-    cmp r0, r1
-    movgt r0, r1
-    bxgt lr
-    cmp r0, #0
-    movlt r0, #0
-    bx lr
+    s32 r1;
+    arg0 = *(s32 *)(((u8 *)(arg0 + (arg1 << 2))) + 0x4);
+    r1 = 1;
+    if (arg0 <= 0) {
+        r1 = 0;
+    }
+    if (r1 == 0) {
+        return 0;
+    } else {
+        r1 = 0x6270;
+        if (arg0 > r1) {
+            return r1;
+        } else {
+            if (arg0 < 0) {
+                arg0 = 0;
+            }
+            return arg0;
+        }
+    }
 }
 
 extern "C" void func_0209e174(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
@@ -90,23 +94,16 @@ extern "C" void func_0209e258(void *obj)
 {
 }
 
-extern "C" asm void func_0209e25c(void)
+extern "C" s32 func_0209e25c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4]
-    cmp r0, #0
-    bne @L_0209e288
-    ldr r0, =data_020c47b4
-    mov r1, #0x28800
-    mov r2, #0
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r4]
-@L_0209e288:
-    mov r0, r4
-    bl func_0209e5ec
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    if (*(s32 *)(arg0) == 0) {
+        v0 = _ZN8GameHeap5AllocEiii((s32)((u8 *)&data_020c47b4), 0x28800, 0, 1);
+        *(s32 *)(arg0) = v0;
+    }
+    v1 = ((s32 (*)(...))func_0209e5ec)((s32)arg0);
+    return v1;
 }
 
 extern "C" asm void func_0209e298(void)

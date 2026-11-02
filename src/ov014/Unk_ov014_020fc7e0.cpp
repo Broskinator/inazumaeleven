@@ -16,7 +16,7 @@ extern "C" void func_ov014_020fd0c8(void);
 extern "C" void func_ov014_020fd180(void);
 extern "C" void func_ov014_020fd1d8(void);
 extern "C" s32 func_ov014_020fd264(u8 *arg0);
-extern "C" void func_ov014_020fd284(void);
+extern "C" s32 func_ov014_020fd284(u8 *arg0);
 extern "C" void func_ov014_020fd2a8(void);
 extern "C" s32 func_ov014_020fd3f0(u8 *arg0);
 extern "C" s32 func_ov014_020fd420(u8 *arg0);
@@ -28,7 +28,7 @@ extern "C" s32 func_ov014_020fd938(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" u8 func_ov014_020fd964(void);
 extern "C" void func_ov014_020fd974(void);
 extern "C" char *func_ov014_020fd9bc(void);
-extern "C" void func_ov014_020fd9d0(void);
+extern "C" s32 func_ov014_020fd9d0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov014_020fda40(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_020fdaac(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_020fdadc(s32 arg0, s32 arg1);
@@ -922,16 +922,9 @@ extern "C" s32 func_ov014_020fd264(u8 *arg0)
     return ((u32)*(u8 *)(data_020cb0a0 + 0x1) < (u32)*(u8 *)(arg0 + 0x198) ? 1 : 0);
 }
 
-extern "C" asm void func_ov014_020fd284(void)
+extern "C" s32 func_ov014_020fd284(u8 *arg0)
 {
-    ldr r1, =data_020cb0a0
-    ldrb r0, [r0, #0x199]
-    ldrb r1, [r1]
-    mvn r1, r1
-    tst r1, r0
-    movne r0, #1
-    moveq r0, #0
-    bx lr
+    return (((~*(u8 *)(((u8 *)&data_020cb0a0))) & *(u8 *)(arg0 + 0x199)) != 0 ? 1 : 0);
 }
 
 extern "C" asm void func_ov014_020fd2a8(void)
@@ -1448,35 +1441,24 @@ extern "C" char *func_ov014_020fd9bc(void)
     return data_ov014_021260c0;
 }
 
-extern "C" asm void func_ov014_020fd9d0(void)
+extern "C" s32 func_ov014_020fd9d0(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r2
-    mov r4, #0
-    ldr r0, =data_020c47b4
-    mov r2, r4
-    add r1, r1, r5
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    sub r2, r5, #1
-    add r1, r0, r5
-    mvn r2, r2
-    sub r1, r1, #1
-    and r3, r2, r1
-    ldr r2, =data_ov014_021260c4
-@L_020fda08:
-    ldr r1, [r2, r4, lsl #3]
-    cmp r1, #0
-    ldreq r1, =data_ov014_021260c8
-    streq r3, [r2, r4, lsl #3]
-    streq r0, [r1, r4, lsl #3]
-    beq @L_020fda2c
-    add r4, r4, #1
-    cmp r4, #0x40
-    blt @L_020fda08
-@L_020fda2c:
-    mov r0, r3
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r3;
+    s32 r4;
+    s32 v0;
+    r4 = 0;
+    v0 = _ZN8GameHeap5AllocEiii((s32)((u8 *)&data_020c47b4), (arg1 + arg2), 0, 1);
+    arg0 = v0;
+    r3 = ((~(arg2 - 1)) & ((v0 + arg2) - 1));
+    do {
+        if (*(s32 *)(((u8 *)&data_ov014_021260c4) + (r4 << 3)) == 0) {
+            *(s32 *)(((u8 *)&data_ov014_021260c4) + (r4 << 3)) = r3;
+            *(s32 *)(((u8 *)&data_ov014_021260c8) + (r4 << 3)) = arg0;
+            break;
+        }
+        r4 = (r4 + 1);
+    } while (r4 < 0x40);
+    return r3;
 }
 
 extern "C" s32 func_ov014_020fda40(s32 arg0, s32 arg1)

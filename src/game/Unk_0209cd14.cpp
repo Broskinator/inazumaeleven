@@ -19,8 +19,8 @@ extern "C" void func_0209d1d4(void);
 extern "C" s32 func_0209d240(void);
 extern "C" s32 func_0209d264(...);
 extern "C" void func_0209d2a0(void);
-extern "C" void func_0209d2dc(void);
-extern "C" void func_0209d350(void);
+extern "C" s32 func_0209d2dc(...);
+extern "C" void func_0209d350(s32 arg0);
 extern "C" int func_0209d3a0(void *callback);
 extern "C" void func_0209d420(s32 value);
 extern "C" void func_0209d444(void);
@@ -499,7 +499,7 @@ extern "C" asm void func_0209d2a0(void)
     mov pc, lr
 }
 
-extern "C" asm void func_0209d2dc(void)
+extern "C" asm s32 func_0209d2dc(...)
 {
     str lr, [sp, #-4]!
     str r12, [sp, #-4]!
@@ -533,19 +533,17 @@ extern "C" asm void func_0209d2dc(void)
     mov pc, r2
 }
 
-extern "C" asm void func_0209d350(void)
+extern "C" void func_0209d350(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, #0
-    cmp r5, #0
-    ldmleia sp!, {r3, r4, r5, pc}
-@L_0209d364:
-    bl func_0209d2dc
-    add r4, r4, #1
-    cmp r4, r5
-    blt @L_0209d364
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r4;
+    r4 = 0;
+    if (arg0 <= 0)
+        return;
+    do {
+        func_0209d2dc();
+        r4 = (r4 + 1);
+    } while (r4 < arg0);
+    return;
 }
 
 extern "C" s32 func_0209d378(void)

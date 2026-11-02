@@ -1,13 +1,14 @@
 #include "ov077/Unk_ov077_0216ffa0.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_ov077_0216ffa0(...);
 extern "C" s32 func_ov077_0217003c(...);
 extern "C" s32 func_ov077_0217006c(...);
 extern "C" s32 func_ov077_02170094(...);
-extern "C" void func_ov077_02170148(void);
+extern "C" s32 func_ov077_02170148(...);
 extern "C" void func_ov077_0217025c(u8 *arg0);
 extern "C" void func_ov077_02170270(u8 *arg0);
-extern "C" void func_ov077_021702b4(void);
+extern "C" s32 func_ov077_021702b4(u8 *arg0);
 extern "C" void func_ov077_02170320(s32 arg0);
 extern "C" s32 func_ov077_02170340(s32 arg0);
 extern "C" void func_ov077_02170354(void);
@@ -21,7 +22,7 @@ extern "C" char data_020d2d20[];
 extern "C" char data_020d3520[];
 extern "C" char data_ov077_0217044c[];
 extern "C" char data_ov077_02170458[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void G2S_GetBG0CharPtr(void);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void MI_CpuFill8(void);
@@ -29,7 +30,7 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
 extern "C" void func_020036e8(void);
-extern "C" void func_020037c8(void);
+extern "C" s32 func_020037c8(...);
 extern "C" void func_02003988(void);
 extern "C" void func_02003b48(void);
 extern "C" void func_ov015_02132240(void);
@@ -159,7 +160,7 @@ extern "C" asm s32 func_ov077_02170094(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov077_02170148(void)
+extern "C" asm s32 func_ov077_02170148(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -248,36 +249,24 @@ extern "C" void func_ov077_02170270(u8 *arg0)
     *(s32 *)(arg0 + 0x8) = 2;
 }
 
-extern "C" asm void func_ov077_021702b4(void)
+extern "C" s32 func_ov077_021702b4(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    ldr r1, [r4, #8]
-    cmp r1, #2
-    beq @L_021702d4
-    cmp r1, #3
-    beq @L_021702f4
-    ldmia sp!, {r3, r4, r5, pc}
-@L_021702d4:
-    bl func_ov077_02170148
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x4c]
-    blx r1
-    mov r0, #3
-    str r0, [r4, #8]
-    ldmia sp!, {r3, r4, r5, pc}
-@L_021702f4:
-    ldr r5, =data_020d2520
-    mov r4, #0x800
-    mov r0, r5
-    mov r1, r4
-    bl DC_FlushRange
-    mov r0, r5
-    mov r2, r4
-    mov r1, #0
-    bl func_020037c8
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r1;
+    s32 v3;
+    r1 = *(s32 *)(arg0 + 0x8);
+    switch (r1) {
+        default:
+            return (s32)arg0;
+        case 2:
+            func_ov077_02170148((s32)arg0, r1);
+            ((VCall *)arg0)->f19();
+            *(s32 *)(arg0 + 0x8) = 3;
+            return 3;
+        case 3:
+            DC_FlushRange((u8 *)((u8 *)&data_020d2520), 0x800);
+            v3 = func_020037c8((u8 *)((u8 *)&data_020d2520), 0, 0x800);
+            return v3;
+    }
 }
 
 extern "C" void func_ov077_02170320(s32 arg0)

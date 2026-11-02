@@ -10,9 +10,9 @@ extern "C" s32 func_ov015_02130a4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02130a84(s32 arg0);
 extern "C" void func_ov015_02130ab8(void);
 extern "C" void func_ov015_02130ad4(void);
-extern "C" void func_ov015_02130ae8(void);
+extern "C" s32 func_ov015_02130ae8(s32 arg0);
 extern "C" s32 func_ov015_02130b14(...);
-extern "C" void func_ov015_02130b94(void);
+extern "C" s32 func_ov015_02130b94(s32 arg0);
 extern "C" void func_ov015_02130c18(void);
 extern "C" void func_ov015_02130cb8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02130ce0(...);
@@ -35,7 +35,7 @@ extern "C" s32 DC_FlushRange(...);
 extern "C" void FX_SinCosTable_(void);
 extern "C" s32 MI_CpuCopy8(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void _ZN9EntryPool3GetEi(void);
+extern "C" s32 _ZN9EntryPool3GetEi(...);
 extern "C" s32 _ZN9EntryPool9RemoveAllEv(...);
 extern "C" void func_02022484(void);
 extern "C" void _s32_div_f(void);
@@ -45,8 +45,8 @@ extern "C" void func_0202323c(void);
 extern "C" void func_0202b608(void);
 extern "C" void func_02080b90(void);
 extern "C" void func_0208130c(void);
-extern "C" void func_02082604(void);
-extern "C" void gEntryPool(void);
+extern "C" s32 func_02082604(...);
+extern "C" char gEntryPool[];
 
 extern "C" asm void func_ov015_021306e0(void)
 {
@@ -312,20 +312,15 @@ extern "C" void func_ov015_02130ad4(void)
     _ZN9EntryPool9RemoveAllEv((s32)gEntryPool);
 }
 
-extern "C" asm void func_ov015_02130ae8(void)
+extern "C" s32 func_ov015_02130ae8(s32 arg0)
 {
-    stmdb sp!, {r3, lr}
-    movs r1, r0
-    bmi @L_02130afc
-    cmp r1, #0x84
-    blt @L_02130b04
-@L_02130afc:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
-@L_02130b04:
-    ldr r0, =gEntryPool
-    bl _ZN9EntryPool3GetEi
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    if ((arg0 < 0 || arg0 >= 0x84)) {
+        return 0;
+    } else {
+        v0 = _ZN9EntryPool3GetEi((s32)((u8 *)&gEntryPool), arg0);
+        return v0;
+    }
 }
 
 extern "C" asm s32 func_ov015_02130b14(...)
@@ -365,41 +360,44 @@ extern "C" asm s32 func_ov015_02130b14(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov015_02130b94(void)
+extern "C" s32 func_ov015_02130b94(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r7, r0
-    mov r1, r7, lsl #0x10
-    ldr r0, =data_020e88a0
-    mov r1, r1, lsr #0x10
-    bl func_02082604
-    mov r5, #0
-    ldr r4, =gEntryPool
-    mov r6, r0
-    mov r8, r5
-    mov r9, #1
-@L_02130bc0:
-    mov r0, r4
-    mov r1, r5
-    bl _ZN9EntryPool3GetEi
-    cmp r0, #0
-    beq @L_02130bfc
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r1, r9
-    moveq r1, r8
-    cmp r1, #0
-    beq @L_02130bfc
-    ldrh r1, [r0, #0x42]
-    cmp r7, r1
-    cmpne r6, r1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02130bfc:
-    add r5, r5, #1
-    cmp r5, #0x84
-    blt @L_02130bc0
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 *r0;
+    s32 r1;
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    s32 r8;
+    s32 r9;
+    s32 v0;
+    s32 v1;
+    v0 = func_02082604((s32)((u8 *)&data_020e88a0), ((u16)arg0));
+    r7 = arg0;
+    r5 = 0;
+    r4 = (s32)((u8 *)&gEntryPool);
+    r6 = v0;
+    r8 = 0;
+    r9 = 1;
+    do {
+        v1 = _ZN9EntryPool3GetEi(r4, r5);
+        r0 = (u8 *)v1;
+        if ((s32)r0 != 0) {
+            if ((*(u16 *)(r0 + 0xF0) & 1) != 0) {
+                r1 = r9;
+            } else {
+                r1 = r8;
+            }
+            if (r1 != 0) {
+                if (r7 == *(u16 *)(r0 + 0x42))
+                    return (s32)r0;
+                if (r6 == *(u16 *)(r0 + 0x42))
+                    return (s32)r0;
+            }
+        }
+        r5 = (r5 + 1);
+    } while (r5 < 0x84);
+    return 0;
 }
 
 extern "C" asm void func_ov015_02130c18(void)

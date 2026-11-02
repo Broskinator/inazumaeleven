@@ -24,12 +24,12 @@ extern "C" s32 func_ov000_0210dd64(...);
 extern "C" s32 func_ov000_0210ddf4(u8 *arg0);
 extern "C" void func_ov000_0210de08(void);
 extern "C" void func_ov000_0210deb8(void);
-extern "C" void func_ov000_0210df0c(void);
-extern "C" void func_ov000_0210df58(void);
+extern "C" s32 func_ov000_0210df0c(u8 *arg0);
+extern "C" s32 func_ov000_0210df58(u8 *arg0);
 extern "C" void func_ov000_0210df84(void);
 extern "C" void func_ov000_0210dff0(void);
-extern "C" void func_ov000_0210e090(void);
-extern "C" void func_ov000_0210e100(void);
+extern "C" void func_ov000_0210e090(u8 *arg0, s32 arg1, s32 arg2);
+extern "C" s32 func_ov000_0210e100(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov000_0210e17c(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" s32 func_ov000_0210e1dc(u8 *arg0, u8 *arg1, u8 *arg2);
 extern "C" s32 func_ov000_0210e24c(u8 *arg0, u8 *arg1, u8 *arg2);
@@ -64,9 +64,9 @@ extern "C" void DC_FlushRange(void);
 extern "C" void FX_SinCosTable_(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MTX_RotY43_(void);
-extern "C" void STD_GetStringLength(void);
+extern "C" s32 STD_GetStringLength(...);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -77,7 +77,7 @@ extern "C" void func_02001d60(void);
 extern "C" void func_02001f38(void);
 extern "C" void func_02002024(void);
 extern "C" void func_020021f0(void);
-extern "C" void func_02016d0c(void);
+extern "C" s32 func_02016d0c(...);
 extern "C" void func_02084d7c(void);
 extern "C" void func_02084dd8(void);
 extern "C" void func_02085298(void);
@@ -1890,42 +1890,31 @@ extern "C" asm void func_ov000_0210deb8(void)
     bx lr
 }
 
-extern "C" asm void func_ov000_0210df0c(void)
+extern "C" s32 func_ov000_0210df0c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0x1c]
-    cmp r1, #0
-    beq @L_0210df44
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    ldr r0, [r4, #0x18]
-    cmp r0, #0
-    beq @L_0210df44
-    ldr r2, [r4, #0x10]
-    mov r1, #0
-    mov r2, r2, lsl #2
-    bl MI_CpuFill8
-@L_0210df44:
-    mov r0, #0
-    str r0, [r4, #0x1c]
-    str r0, [r4, #0x14]
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    u8 *r4;
+    s32 t0;
+    r4 = arg0;
+    r1 = *(s32 *)(arg0 + 0x1C);
+    if ((r1 != 0 && (_ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1), arg0 = (u8 *)*(s32 *)(r4 + 0x18), (s32)arg0 != 0))) {
+        t0 = (*(s32 *)(r4 + 0x10) << 2);
+        MI_CpuFill8((s32)arg0, 0, t0);
+    }
+    *(s32 *)(r4 + 0x1C) = 0;
+    *(s32 *)(r4 + 0x14) = 0;
+    return 0;
 }
 
-extern "C" asm void func_ov000_0210df58(void)
+extern "C" s32 func_ov000_0210df58(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0x18]
-    cmp r1, #0
-    beq @L_0210df74
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_0210df74:
-    mov r0, #0
-    str r0, [r4, #0x18]
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    r1 = *(s32 *)(arg0 + 0x18);
+    if (r1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+    }
+    *(s32 *)(arg0 + 0x18) = 0;
+    return 0;
 }
 
 extern "C" asm void func_ov000_0210df84(void)
@@ -2005,74 +1994,70 @@ extern "C" asm void func_ov000_0210dff0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov000_0210e090(void)
+extern "C" void func_ov000_0210e090(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [r0, #0x18]
-    cmp r12, #0
-    ldmeqia sp!, {r3, pc}
-    cmp r1, #0
-    ldmltia sp!, {r3, pc}
-    ldr r3, [r0, #0x10]
-    cmp r1, r3
-    ldmgeia sp!, {r3, pc}
-    ldr r3, [r0, #0x1c]
-    cmp r3, #0
-    ldrne r0, [r0, #0x14]
-    cmpne r0, #0
-    ble @L_0210e0f8
-    cmp r2, #0
-    ldreq r0, [r12, r1, lsl #2]
-    moveq r1, #0
-    streqb r1, [r0]
-    ldmeqia sp!, {r3, pc}
-    sub r3, r0, #1
-    ldr r0, [r12, r1, lsl #2]
-    mov r3, r3, lsl #0x10
-    mov r1, r2
-    mov r2, r3, lsr #0x10
-    bl func_02016d0c
-    ldmia sp!, {r3, pc}
-@L_0210e0f8:
-    str r2, [r12, r1, lsl #2]
-    ldmia sp!, {r3, pc}
+    s32 r0;
+    u8 *r12;
+    u8 *t0;
+    s32 t1;
+    if (*(s32 *)(arg0 + 0x18) == 0)
+        return;
+    if (arg1 < 0)
+        return;
+    if (arg1 >= *(s32 *)(arg0 + 0x10))
+        return;
+    r12 = (u8 *)*(s32 *)(arg0 + 0x18);
+    if ((*(s32 *)(arg0 + 0x1C) != 0 && (r0 = *(s32 *)(arg0 + 0x14), r0 > 0))) {
+        if (arg2 == 0) {
+            t0 = (u8 *)*(s32 *)(r12 + (arg1 << 2));
+            *(u8 *)(t0) = 0;
+            return;
+        } else {
+            t1 = *(s32 *)(r12 + (arg1 << 2));
+            func_02016d0c(t1, arg2, ((u16)(r0 - 1)), ((r0 - 1) << 0x10));
+            return;
+        }
+    } else {
+        *(s32 *)(r12 + (arg1 << 2)) = arg2;
+        return;
+    }
 }
 
-extern "C" asm void func_ov000_0210e100(void)
+extern "C" s32 func_ov000_0210e100(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    ldr r0, [r7, #0x10]
-    mov r5, r2
-    cmp r5, r0
-    movge r5, r0
-    ldr r0, [r7, #0x18]
-    mov r6, r1
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r5, #0
-    ldmltia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r6, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r4, #0
-    cmp r5, #0
-    ldmleia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0210e144:
-    mov r0, r7
-    mov r1, r4
-    mov r2, r6
-    bl func_ov000_0210e090
-    cmp r6, #0
-    beq @L_0210e16c
-    mov r0, r6
-    bl STD_GetStringLength
-    add r0, r0, #1
-    add r6, r6, r0
-@L_0210e16c:
-    add r4, r4, #1
-    cmp r4, r5
-    blt @L_0210e144
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    u8 *r7;
+    s32 v0;
+    s32 v1;
+    r7 = arg0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x10);
+    r5 = arg2;
+    if (r5 >= (s32)arg0) {
+        r5 = (s32)arg0;
+    }
+    if (*(s32 *)(r7 + 0x18) == 0)
+        return *(s32 *)(r7 + 0x18);
+    if (r5 < 0)
+        return *(s32 *)(r7 + 0x18);
+    if (arg1 == 0)
+        return *(s32 *)(r7 + 0x18);
+    r4 = 0;
+    if (r5 <= 0)
+        return *(s32 *)(r7 + 0x18);
+    r6 = arg1;
+    do {
+        v0 = ((s32 (*)(...))func_ov000_0210e090)(r7, r4, r6);
+        arg0 = (u8 *)v0;
+        if (r6 != 0) {
+            v1 = STD_GetStringLength(r6);
+            arg0 = (u8 *)(v1 + 1);
+            r6 = (r6 + (v1 + 1));
+        }
+        r4 = (r4 + 1);
+    } while (r4 < r5);
+    return (s32)arg0;
 }
 
 extern "C" s32 func_ov000_0210e17c(s32 arg0, u8 *arg1, u8 *arg2)

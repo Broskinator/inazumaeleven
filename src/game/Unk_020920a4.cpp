@@ -7,7 +7,7 @@ extern "C" int func_02091d74(void *self, BOOL a);
 extern "C" int func_020920a4(void *self);
 extern "C" int func_020920b4(void *self);
 extern "C" void func_020920c4(void);
-extern "C" void func_02092270(void);
+extern "C" s32 func_02092270(u8 *arg0, s32 arg1);
 extern "C" void func_020922fc(void);
 extern "C" void func_020923e0(void);
 extern "C" void func_0209249c(void);
@@ -38,8 +38,8 @@ extern "C" void func_02093734(void);
 extern "C" void func_020937dc(void);
 
 extern "C" char data_020c47b4[];
-extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 MIi_CpuClearFast(...);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02022484(void);
 extern "C" void func_02022b2c(void);
@@ -47,7 +47,7 @@ extern "C" void func_0202300c(void);
 extern "C" void func_0202323c(void);
 extern "C" void func_02090e38(void);
 extern "C" void func_02090ee0(void);
-extern "C" void func_02090f68(void);
+extern "C" s32 func_02090f68(...);
 extern "C" void func_020917c0(void);
 extern "C" void func_02091f68(void);
 extern "C" void func_02091f80(void);
@@ -185,47 +185,33 @@ extern "C" asm void func_020920c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02092270(void)
+extern "C" s32 func_02092270(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    ldr r3, [r0, #0x1c]
-    cmp r3, #0
-    ldrne r2, [r0, #0x20]
-    cmpne r2, #0
-    movle r4, #0
-    ble @L_020922ac
-    cmp r1, #0
-    ble @L_0209229c
-    cmp r1, r2
-    ble @L_020922a4
-@L_0209229c:
-    mov r4, #0
-    b @L_020922ac
-@L_020922a4:
-    sub r1, r1, #1
-    add r4, r3, r1, lsl #5
-@L_020922ac:
-    cmp r4, #0
-    ldmeqia sp!, {r4, pc}
-    ldrh r1, [r4, #4]
-    tst r1, #1
-    beq @L_020922d0
-    mov r3, r4
-    add r1, r0, #0x24
-    add r2, r0, #0x28
-    bl func_02090f68
-@L_020922d0:
-    ldr r1, [r4]
-    cmp r1, #0
-    beq @L_020922e4
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_020922e4:
-    mov r1, r4
-    mov r0, #0
-    mov r2, #0x20
-    bl MIi_CpuClearFast
-    ldmia sp!, {r4, pc}
+    s32 r2;
+    s32 r3;
+    u8 *r4;
+    s32 v2;
+    r3 = *(s32 *)(arg0 + 0x1C);
+    if ((r3 == 0 || (r2 = *(s32 *)(arg0 + 0x20), r2 <= 0))) {
+        r4 = (u8 *)0;
+    } else {
+        if ((arg1 <= 0 || arg1 > r2)) {
+            r4 = (u8 *)0;
+        } else {
+            r4 = (u8 *)(r3 + ((arg1 - 1) << 5));
+        }
+    }
+    if ((s32)r4 == 0)
+        return (s32)arg0;
+    if ((*(u16 *)(r4 + 0x4) & 1) != 0) {
+        func_02090f68((s32)arg0, (s32)(arg0 + 0x24), (s32)(arg0 + 0x28), (s32)r4);
+    }
+    arg1 = *(s32 *)(r4);
+    if (arg1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), arg1);
+    }
+    v2 = MIi_CpuClearFast(0, (s32)r4, 0x20);
+    return v2;
 }
 
 extern "C" asm void func_020922fc(void)

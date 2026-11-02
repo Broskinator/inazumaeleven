@@ -23,7 +23,7 @@ extern "C" s32 func_ov003_02107938(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
 extern "C" void func_ov003_021079bc(void);
 extern "C" void func_ov003_02108098(void);
 extern "C" void func_ov003_02108108(void);
-extern "C" void func_ov003_02108164(void);
+extern "C" s32 func_ov003_02108164(u8 *arg0);
 extern "C" void func_ov003_021081ac(void);
 extern "C" void func_ov003_02108558(void);
 extern "C" void func_ov003_02108680(void);
@@ -79,9 +79,9 @@ extern "C" void func_0209d668(void);
 extern "C" void func_ov003_021040e4(void);
 extern "C" void func_ov003_02104944(void);
 extern "C" void func_ov003_0210ae6c(void);
-extern "C" void func_ov015_02132224(void);
+extern "C" s32 func_ov015_02132224(...);
 extern "C" s32 func_ov015_021322b0(...);
-extern "C" void func_ov015_021322d8(void);
+extern "C" s32 func_ov015_021322d8(...);
 extern "C" void func_ov015_02132984(void);
 extern "C" s32 func_ov015_02132a04(...);
 extern "C" s32 func_ov015_02132af0(...);
@@ -2790,26 +2790,20 @@ extern "C" asm void func_ov003_02108108(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov003_02108164(void)
+extern "C" s32 func_ov003_02108164(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldrb r1, [r0, #0x228]
-    cmp r1, #0
-    ldrne r3, [r0, #0x590]
-    cmpne r3, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r1, [r0, #0x88]
-    ldr r2, [r3, #4]
-    mov r0, r1, asr #1
-    add r0, r1, r0, lsr #30
-    add r1, r3, r2
-    mov r0, r0, asr #2
-    add r0, r1, r0, lsl #5
-    mov r1, #0
-    mov r2, #5
-    bl func_ov015_021322d8
-    bl func_ov015_02132224
-    ldmia sp!, {r3, pc}
+    s32 v1;
+    s32 t0;
+    u8 *t1;
+    if (*(u8 *)(arg0 + 0x228) == 0)
+        return (s32)arg0;
+    if ((s32)*(u8 * *)(arg0 + 0x590) == 0)
+        return (s32)arg0;
+    t0 = (s32)((*(u8 * *)(arg0 + 0x590) + *(s32 *)(*(u8 * *)(arg0 + 0x590) + 0x4)) + ((*(s32 *)(arg0 + 0x88) / 4) << 5));
+    t1 = *(u8 * *)(arg0 + 0x590);
+    func_ov015_021322d8(t0, 0, 5, t1);
+    v1 = func_ov015_02132224();
+    return v1;
 }
 
 extern "C" asm void func_ov003_021081ac(void)

@@ -24,9 +24,9 @@ extern "C" void func_02085324(void);
 extern "C" BOOL func_02085374(void *self, u8 *obj);
 extern "C" BOOL func_0208539c(u8 *self, u8 *obj);
 extern "C" BOOL func_020853cc(u8 *obj, u8 *other);
-extern "C" void func_020853ec(void);
+extern "C" s32 func_020853ec(s32 arg0, s32 arg1);
 extern "C" BOOL func_02085430(void *self, u8 *obj);
-extern "C" void func_02085444(void);
+extern "C" s32 func_02085444(s32 arg0, s32 arg1);
 extern "C" BOOL func_02085488(void *self, u8 *obj);
 extern "C" s32 func_020854a8(u8 *arg0, u8 *arg1);
 extern "C" s32 func_020854d8(...);
@@ -357,27 +357,18 @@ extern "C" BOOL func_020853cc(u8 *obj, u8 *other)
     return func_02085208(obj + 0x18, *(s32 *)(other + 0x5C));
 }
 
-extern "C" asm void func_020853ec(void)
+extern "C" s32 func_020853ec(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_0208539c
-    cmp r0, #0
-    bne @L_02085418
-    mov r0, r5
-    mov r1, r4
-    bl func_020853cc
-    cmp r0, #0
-    beq @L_02085420
-@L_02085418:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02085420:
-    mov r0, r4
-    mov r1, #8
-    bl func_02084d94
-    ldmia sp!, {r3, r4, r5, pc}
+    BOOL v0;
+    BOOL v1;
+    BOOL v2;
+    v0 = func_0208539c((u8 *)arg0, (u8 *)arg1);
+    if ((v0 != 0 || (v1 = func_020853cc((u8 *)arg0, (u8 *)arg1), v1 != 0))) {
+        return 0;
+    } else {
+        v2 = func_02084d94((u8 *)arg1, 8);
+        return v2;
+    }
 }
 
 extern "C" BOOL func_02085430(void *self, u8 *obj)
@@ -385,27 +376,18 @@ extern "C" BOOL func_02085430(void *self, u8 *obj)
     return func_02084d94(obj, 0x20);
 }
 
-extern "C" asm void func_02085444(void)
+extern "C" s32 func_02085444(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_0208539c
-    cmp r0, #0
-    bne @L_02085470
-    mov r0, r5
-    mov r1, r4
-    bl func_020853cc
-    cmp r0, #0
-    beq @L_02085478
-@L_02085470:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02085478:
-    mov r0, r4
-    mov r1, #0x10
-    bl func_02084d94
-    ldmia sp!, {r3, r4, r5, pc}
+    BOOL v0;
+    BOOL v1;
+    BOOL v2;
+    v0 = func_0208539c((u8 *)arg0, (u8 *)arg1);
+    if ((v0 != 0 || (v1 = func_020853cc((u8 *)arg0, (u8 *)arg1), v1 != 0))) {
+        return 0;
+    } else {
+        v2 = func_02084d94((u8 *)arg1, 0x10);
+        return v2;
+    }
 }
 
 extern "C" BOOL func_02085488(void *self, u8 *obj)

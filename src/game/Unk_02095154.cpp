@@ -25,7 +25,7 @@ extern "C" void func_02095c74(void);
 extern "C" void func_02095d14(void);
 extern "C" s32 func_02095d70(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02095e04(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_02095e6c(void);
+extern "C" s32 func_02095e6c(u8 *arg0);
 extern "C" void func_02095ea0(void *obj);
 extern "C" void func_02095ea4(u8 *arg0, u8 *arg1);
 extern "C" int func_02095f2c(void *obj, int a, int b);
@@ -59,7 +59,7 @@ extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void MIi_CpuCopy32(void);
 extern "C" void NNS_G3dGlbFlushVP(void);
 extern "C" void NNS_G3dWorldPosToScrPos(void);
-extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
+extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_020224cc(void);
@@ -961,19 +961,15 @@ extern "C" s32 func_02095e04(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return 0;
 }
 
-extern "C" asm void func_02095e6c(void)
+extern "C" s32 func_02095e6c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_020c46e4
-    ldr r1, =data_020afd28
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x44]
-    cmp r0, #0x20
-    movhs r0, #0x10
-    strhs r0, [r4, #0x44]
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    v0 = _ZN10ConfigFile6GetIntEPKc((s32)((u8 *)&data_020c46e4), (s32)((u8 *)&data_020afd28));
+    *(s32 *)(arg0 + 0x44) = v0;
+    if ((u32)v0 >= (u32)0x20) {
+        *(s32 *)(arg0 + 0x44) = 0x10;
+    }
+    return 1;
 }
 
 extern "C" void func_02095ea0(void *obj)

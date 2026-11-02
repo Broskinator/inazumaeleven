@@ -27,7 +27,7 @@ extern "C" void func_ov056_02166d54(void);
 extern "C" void func_ov056_0216734c(void);
 extern "C" s32 func_ov056_021673bc(u8 *arg0);
 extern "C" void func_ov056_02167440(void);
-extern "C" void func_ov056_021674e4(void);
+extern "C" s32 func_ov056_021674e4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4, u8 arg5, u8 arg6, s32 arg7, s32 arg8);
 extern "C" s32 func_ov056_02167608(...);
 extern "C" s32 func_ov056_02167724(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov056_021677a8(u8 *arg0);
@@ -70,7 +70,7 @@ extern "C" char data_ov056_0216b390[];
 extern "C" char data_ov056_0216b6b8[];
 extern "C" char data_ov056_0216b6bc[];
 extern "C" char data_ov056_0216b6d8[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void G2_GetBG1CharPtr(void);
 extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
@@ -80,8 +80,8 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e090Eii(...);
-extern "C" void _ZN8TextFont10SetSpacingEii(void);
-extern "C" void _ZN8TextFont12ResetSpacingEv(void);
+extern "C" s32 _ZN8TextFont10SetSpacingEii(...);
+extern "C" s32 _ZN8TextFont12ResetSpacingEv(...);
 extern "C" void func_020027c8(void);
 extern "C" void func_02003758(void);
 extern "C" void func_02003bb8(void);
@@ -98,8 +98,8 @@ extern "C" s32 func_ov015_021322b0(...);
 extern "C" void func_ov015_02132984(void);
 extern "C" s32 func_ov015_02132a04(...);
 extern "C" s32 func_ov015_02132af0(...);
-extern "C" void func_ov015_021330b4(void);
-extern "C" void func_ov015_02133dc8(void);
+extern "C" s32 func_ov015_021330b4(...);
+extern "C" s32 func_ov015_02133dc8(...);
 extern "C" s32 func_ov015_02133f94(...);
 extern "C" void func_ov015_021340c0(void);
 extern "C" void func_ov015_02134208(void);
@@ -1672,79 +1672,47 @@ extern "C" asm void func_ov056_02167440(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov056_021674e4(void)
+extern "C" s32 func_ov056_021674e4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s8 arg4, u8 arg5, u8 arg6, s32 arg7, s32 arg8)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x20
-    mov r4, #0x14
-    mul r4, r1, r4
-    add r0, r0, #0xc0
-    ldr r12, [r0, r4]
-    add r5, r0, r4
-    cmp r12, #0
-    ldrne r0, [r5, #4]
-    mov r6, r2
-    mov r2, #0
-    cmpne r0, #0
-    movne r2, #1
-    cmp r2, #0
-    addeq sp, sp, #0x20
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r0, r1, #0x2f
-    and r0, r0, #0xff
-    str r0, [sp]
-    mov r4, #1
-    str r4, [sp, #4]
-    ldrsb r1, [sp, #0x38]
-    str r3, [sp, #8]
-    ldrb r0, [sp, #0x3c]
-    str r1, [sp, #0xc]
-    mov r8, #0
-    str r0, [sp, #0x10]
-    ldrb r1, [sp, #0x40]
-    ldr r0, =data_020c9660
-    mov r2, r8
-    str r1, [sp, #0x14]
-    str r8, [sp, #0x18]
-    mov r1, r8
-    mov r3, r8
-    str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
-    mov r0, r5
-    bl func_ov015_02133dc8
-    ldr r7, =data_020c46a8
-    mov r1, r4
-    ldr r0, [r7]
-    mov r2, #4
-    bl _ZN8TextFont10SetSpacingEii
-    mov r1, #3
-    str r1, [sp]
-    stmib sp, {r1, r4}
-    ldr r2, [sp, #0x44]
-    str r8, [sp, #0xc]
-    ldr r1, [sp, #0x48]
-    str r2, [sp, #0x10]
-    str r1, [sp, #0x14]
-    str r4, [sp, #0x18]
-    str r4, [sp, #0x1c]
-    ldrh r2, [r5, #0xc]
-    ldrh r3, [r5, #0xe]
-    ldr r1, [r5, #4]
-    mov r0, r6
-    mov r2, r2, lsl #3
-    mov r3, r3, lsl #3
-    bl func_ov015_021330b4
-    ldr r0, [r7]
-    bl _ZN8TextFont12ResetSpacingEv
-    strb r4, [r5, #0x10]
-    ldrh r2, [r5, #0xc]
-    ldrh r1, [r5, #0xe]
-    ldr r0, [r5, #4]
-    mul r1, r2, r1
-    mov r1, r1, lsl #5
-    bl DC_FlushRange
-    add sp, sp, #0x20
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 r0;
+    u8 *r5;
+    s32 r6;
+    s32 r12;
+    s32 v5;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    u16 t6;
+    s32 t7;
+    r0 = (arg0 + 0xC0);
+    r12 = *(s32 *)(((u8 *)(arg0 + 0xC0)) + (arg1 * 0x14));
+    r5 = (u8 *)((arg0 + 0xC0) + (arg1 * 0x14));
+    r6 = arg2;
+    arg2 = 0;
+    if ((r12 != 0 && (r0 = *(s32 *)(r5 + 0x4), r0 != 0))) {
+        arg2 = 1;
+    }
+    if (arg2 == 0)
+        return r0;
+    func_ov015_0213b6ac((s32)((u8 *)&data_020c9660), 0, 0, 0, ((arg1 + 0x2F) & 0xFF), 1, arg3, arg4, arg5, arg6, 0, r12);
+    func_ov015_02133dc8((s32)r5);
+    t0 = *(s32 *)(((u8 *)&data_020c46a8));
+    _ZN8TextFont10SetSpacingEii(t0, 1, 4);
+    t1 = *(s32 *)(r5 + 0x4);
+    t2 = (*(u16 *)(r5 + 0xC) << 3);
+    t3 = (*(u16 *)(r5 + 0xE) << 3);
+    func_ov015_021330b4(r6, t1, t2, t3, 3, 3, 1, 0, arg7, arg8, 1, 1);
+    t4 = *(s32 *)(((u8 *)&data_020c46a8));
+    _ZN8TextFont12ResetSpacingEv(t4);
+    *(u8 *)(r5 + 0x10) = 1;
+    t5 = *(s32 *)(r5 + 0x4);
+    t6 = *(u16 *)(r5 + 0xC);
+    t7 = ((*(u16 *)(r5 + 0xC) * *(u16 *)(r5 + 0xE)) << 5);
+    v5 = DC_FlushRange(t5, t7, t6);
+    return v5;
 }
 
 extern "C" asm s32 func_ov056_02167608(...)

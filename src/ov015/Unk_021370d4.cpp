@@ -3,7 +3,7 @@
 extern "C" void func_ov015_021370d4(void);
 extern "C" void func_ov015_021371a0(void);
 extern "C" void func_ov015_02137224(void);
-extern "C" void func_ov015_02137458(void);
+extern "C" s32 func_ov015_02137458(s32 arg0);
 extern "C" void func_ov015_02137808(void);
 extern "C" void func_ov015_0213782c(void);
 extern "C" void func_ov015_02137c98(void);
@@ -25,9 +25,9 @@ extern "C" void func_ov015_02139384(void);
 extern "C" void func_ov015_021394ec(void);
 extern "C" s32 func_ov015_021395ac(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov015_021395f0(u8 *arg0);
-extern "C" void func_ov015_02139644(void);
-extern "C" void func_ov015_0213980c(void);
-extern "C" void func_ov015_0213998c(void);
+extern "C" s32 func_ov015_02139644(...);
+extern "C" s32 func_ov015_0213980c(...);
+extern "C" s32 func_ov015_0213998c(...);
 extern "C" s32 func_ov015_02139b58(u8 *arg0);
 extern "C" s32 func_ov015_02139bd4(u8 *arg0);
 extern "C" s32 func_ov015_02139c28(u8 *arg0);
@@ -35,7 +35,7 @@ extern "C" s32 func_ov015_02139c74(u8 *arg0);
 extern "C" s32 func_ov015_02139cc4(u8 *arg0);
 extern "C" s32 func_ov015_02139d34(u8 *arg0);
 extern "C" s32 func_ov015_02139db0(u8 *arg0);
-extern "C" void func_ov015_02139e44(void);
+extern "C" s32 func_ov015_02139e44(...);
 extern "C" void func_ov015_02139f38(void);
 
 extern "C" char data_020c4678[];
@@ -87,19 +87,19 @@ extern "C" void func_0208e4c4(void);
 extern "C" void func_0208e798(void);
 extern "C" void func_02090dcc(void);
 extern "C" void func_02090dec(void);
-extern "C" void func_020920c4(void);
+extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
 extern "C" s32 func_020922fc(...);
 extern "C" s32 func_02092544(...);
 extern "C" void func_0209263c(void);
-extern "C" void func_02092758(void);
+extern "C" s32 func_02092758(...);
 extern "C" void func_020929cc(void);
 extern "C" s32 func_02092c48(...);
 extern "C" s32 func_02092d3c(...);
 extern "C" s32 func_02092e18(...);
 extern "C" s32 func_02093188(...);
 extern "C" s32 func_02093368(...);
-extern "C" void func_0209342c(void);
+extern "C" s32 func_0209342c(...);
 extern "C" void func_020934ac(void);
 extern "C" s32 func_02093524(...);
 extern "C" void func_020936b4(void);
@@ -111,12 +111,12 @@ extern "C" s32 func_020939c8(...);
 extern "C" void func_02093a48(void);
 extern "C" void func_02093bf4(void);
 extern "C" void func_02093ca8(void);
-extern "C" void func_02093d1c(void);
+extern "C" s32 func_02093d1c(...);
 extern "C" void func_02093e2c(void);
 extern "C" void func_02095ea4(void);
 extern "C" void func_02096170(void);
 extern "C" void func_020961b4(void);
-extern "C" void func_020961f0(void);
+extern "C" s32 func_020961f0(...);
 extern "C" void func_020962f4(void);
 extern "C" s32 func_02096354(...);
 extern "C" s32 func_02096500(...);
@@ -141,7 +141,7 @@ extern "C" s32 func_ov015_02130ae8(...);
 extern "C" void func_ov015_02130e54(void);
 extern "C" void func_ov015_02130f1c(void);
 extern "C" void func_ov015_021317c8(void);
-extern "C" void func_ov015_02131808(void);
+extern "C" s32 func_ov015_02131808(...);
 extern "C" void func_ov015_021319bc(void);
 extern "C" void func_ov015_02131a44(void);
 extern "C" void func_ov015_02134118(void);
@@ -159,13 +159,13 @@ extern "C" void func_ov015_0213a160(void);
 extern "C" void func_ov015_0213a208(void);
 extern "C" void func_ov015_0213a75c(void);
 extern "C" s32 func_ov015_0213a8b8(...);
-extern "C" void func_ov015_0213ae50(void);
+extern "C" s32 func_ov015_0213ae50(...);
 extern "C" void func_ov015_02140da4(void);
 extern "C" void func_ov015_02143664(void);
 extern "C" void func_ov087_0217e800(void);
 extern "C" void func_ov087_0217e818(void);
 extern "C" void func_ov087_0217e844(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" asm void func_ov015_021370d4(void)
 {
@@ -424,250 +424,221 @@ extern "C" asm void func_ov015_02137224(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov015_02137458(void)
+extern "C" s32 func_ov015_02137458(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r6, r0
-    ldr r0, [r6, #0x1c]
-    mov r5, #1
-    tst r0, #1
-    movne r0, r5
-    moveq r0, #0
-    mov r4, #2
-    ldr r7, =data_020c46d4
-    cmp r0, #0
-    beq @L_021374f4
-    mov r8, #0x16
-    ldr r0, [r7]
-    mov r1, r8
-    mov r2, r5
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0x84]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-    ldr r0, [r7]
-    mov r1, r8
-    mov r2, r5
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0x88]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-    ldr r0, [r7]
-    mov r1, r8
-    mov r2, r5
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0x8c]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-@L_021374f4:
-    ldr r0, [r6, #0x1c]
-    tst r0, #0x40
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02137530
-    ldr r0, [r7]
-    mov r1, #4
-    mov r2, #1
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0x90]
-    ldr r0, [r7]
-    mov r2, #2
-    bl func_02092d3c
-@L_02137530:
-    ldr r0, [r6, #0x1c]
-    tst r0, #0x1e
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02137590
-    ldr r0, [r7]
-    mov r2, r5
-    mov r1, #7
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0x94]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-    ldr r0, [r7]
-    mov r2, r5
-    mov r1, #0xa
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0xa0]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-@L_02137590:
-    ldr r0, [r6, #0x1c]
-    tst r0, #0x20
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_021375f4
-    ldr r0, [r7]
-    mov r1, r4
-    mov r2, r5
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0x98]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-    ldr r0, [r7]
-    ldr r1, [r6, #0x98]
-    mov r2, r4
-    mov r3, #0x10
-    bl func_0209342c
-    ldr r0, =data_020c4694
-    mov r1, r5
-    ldr r0, [r0]
-    bl func_020961f0
-    str r0, [r6, #0xc0]
-@L_021375f4:
-    mov r8, #1
-    ldr r0, [r7]
-    mov r2, r8
-    mov r1, #0x16
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0x9c]
-    ldr r0, [r7]
-    mov r2, #2
-    bl func_02092d3c
-    ldr r0, [r6, #0x1c]
-    tst r0, #0x100
-    moveq r8, #0
-    cmp r8, #0
-    beq @L_02137654
-    mov r1, #1
-    ldr r0, [r7]
-    mov r2, r1
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0xa4]
-    ldr r0, [r7]
-    mov r2, #2
-    bl func_02092d3c
-@L_02137654:
-    ldr r0, [r6, #0x1c]
-    tst r0, #0x200
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02137680
-    ldr r0, =data_020c4694
-    mov r1, #0x20
-    ldr r0, [r0]
-    bl func_020961f0
-    str r0, [r6, #0xc4]
-@L_02137680:
-    ldr r0, [r6, #0x1c]
-    tst r0, #0x800
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_021376e0
-    ldr r0, [r7]
-    mov r1, r5
-    mov r2, r5
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0xa8]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-    ldr r0, [r7]
-    mov r1, r5
-    mov r2, r5
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0xac]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-@L_021376e0:
-    ldr r0, [r6, #0x1c]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02137790
-    ldr r0, [r7]
-    mov r2, r5
-    mov r1, #0x16
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0xb0]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02092d3c
-    ldr r0, [r7]
-    ldr r1, [r6, #0xb0]
-    mov r2, #0x10
-    bl func_02092758
-    ldr r0, [r7]
-    mov r2, r5
-    mov r1, r4
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0xb8]
-    ldr r0, [r7]
-    mov r2, r4
-    bl func_02093d1c
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1b]
-    cmp r0, #0
-    bne @L_0213776c
-    bl func_ov015_02131808
-    cmp r0, #0
-    beq @L_02137790
-@L_0213776c:
-    ldr r0, [r7]
-    mov r1, #0x16
-    mov r2, #1
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r6, #0xb4]
-    ldr r0, [r7]
-    mov r2, #2
-    bl func_02092d3c
-@L_02137790:
-    mov r0, r6
-    bl func_ov015_021395f0
-    mov r0, r6
-    bl func_ov015_02139644
-    mov r0, r6
-    bl func_ov015_0213980c
-    mov r0, r6
-    bl func_ov015_0213998c
-    mov r0, r6
-    bl func_ov015_02139b58
-    mov r0, r6
-    bl func_ov015_02139bd4
-    mov r0, r6
-    bl func_ov015_02139c28
-    mov r0, r6
-    bl func_ov015_02139c74
-    mov r0, r6
-    bl func_ov015_02139cc4
-    mov r0, r6
-    bl func_ov015_02139d34
-    mov r0, r6
-    bl func_ov015_02139db0
-    mov r0, r6
-    bl func_ov015_0213ae50
-    mov r0, r6
-    bl func_ov015_02139e44
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 r4;
+    s32 r5;
+    u8 *r6;
+    s32 r8;
+    s32 v0;
+    s32 v2;
+    s32 v4;
+    s32 v6;
+    s32 v8;
+    s32 v10;
+    s32 v12;
+    s32 v15;
+    s32 v16;
+    s32 v18;
+    s32 v20;
+    s32 v21;
+    s32 v23;
+    s32 v25;
+    s32 v28;
+    s32 v30;
+    s32 v31;
+    s32 v45;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    s32 t5;
+    s32 t6;
+    s32 t7;
+    s32 t8;
+    s32 t9;
+    s32 t10;
+    s32 t11;
+    s32 t12;
+    s32 t13;
+    s32 t14;
+    s32 t15;
+    s32 t16;
+    s32 t17;
+    s32 t18;
+    s32 t19;
+    s32 t20;
+    s32 t21;
+    s32 t22;
+    s32 t23;
+    s32 t24;
+    s32 t25;
+    s32 t26;
+    s32 t27;
+    s32 t28;
+    s32 t29;
+    s32 t30;
+    s32 t31;
+    s32 t32;
+    s32 t33;
+    r6 = (u8 *)arg0;
+    r5 = 1;
+    if ((*(s32 *)(r6 + 0x1C) & 1) != 0) {
+        arg0 = r5;
+    } else {
+        arg0 = 0;
+    }
+    r4 = 2;
+    if (arg0 != 0) {
+        t0 = *(s32 *)(((u8 *)&data_020c46d4));
+        v0 = func_020920c4(t0, 0x16, r5);
+        *(s32 *)(r6 + 0x84) = v0;
+        t1 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t1, v0, r4);
+        t2 = *(s32 *)(((u8 *)&data_020c46d4));
+        v2 = func_020920c4(t2, 0x16, r5);
+        *(s32 *)(r6 + 0x88) = v2;
+        t3 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t3, v2, r4);
+        t4 = *(s32 *)(((u8 *)&data_020c46d4));
+        v4 = func_020920c4(t4, 0x16, r5);
+        *(s32 *)(r6 + 0x8C) = v4;
+        t5 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t5, v4, r4);
+    }
+    r4 = 2;
+    if ((*(s32 *)(r6 + 0x1C) & 0x40) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    if (arg0 != 0) {
+        t6 = *(s32 *)(((u8 *)&data_020c46d4));
+        v6 = func_020920c4(t6, 4, 1);
+        *(s32 *)(r6 + 0x90) = v6;
+        t7 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t7, v6, 2);
+    }
+    if ((*(s32 *)(r6 + 0x1C) & 0x1E) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    if (arg0 != 0) {
+        t8 = *(s32 *)(((u8 *)&data_020c46d4));
+        v8 = func_020920c4(t8, 7, r5);
+        *(s32 *)(r6 + 0x94) = v8;
+        t9 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t9, v8, r4);
+        t10 = *(s32 *)(((u8 *)&data_020c46d4));
+        v10 = func_020920c4(t10, 10, r5);
+        *(s32 *)(r6 + 0xA0) = v10;
+        t11 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t11, v10, r4);
+    }
+    if ((*(s32 *)(r6 + 0x1C) & 0x20) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    if (arg0 != 0) {
+        t12 = *(s32 *)(((u8 *)&data_020c46d4));
+        v12 = func_020920c4(t12, r4, r5);
+        *(s32 *)(r6 + 0x98) = v12;
+        t13 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t13, v12, r4);
+        t14 = *(s32 *)(((u8 *)&data_020c46d4));
+        t15 = *(s32 *)(r6 + 0x98);
+        func_0209342c(t14, t15, r4, 0x10);
+        t16 = *(s32 *)(((u8 *)&data_020c4694));
+        v15 = func_020961f0(t16, r5);
+        *(s32 *)(r6 + 0xC0) = v15;
+    }
+    t17 = *(s32 *)(((u8 *)&data_020c46d4));
+    r8 = 1;
+    v16 = func_020920c4(t17, 0x16, 1);
+    *(s32 *)(r6 + 0x9C) = v16;
+    t18 = *(s32 *)(((u8 *)&data_020c46d4));
+    func_02092d3c(t18, v16, 2);
+    if ((*(s32 *)(r6 + 0x1C) & 0x100) == 0) {
+        r8 = 0;
+    }
+    if (r8 != 0) {
+        t19 = *(s32 *)(((u8 *)&data_020c46d4));
+        v18 = func_020920c4(t19, 1, 1);
+        *(s32 *)(r6 + 0xA4) = v18;
+        t20 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t20, v18, 2);
+    }
+    if ((*(s32 *)(r6 + 0x1C) & 0x200) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    if (arg0 != 0) {
+        t21 = *(s32 *)(((u8 *)&data_020c4694));
+        v20 = func_020961f0(t21, 0x20);
+        *(s32 *)(r6 + 0xC4) = v20;
+    }
+    if ((*(s32 *)(r6 + 0x1C) & 0x800) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    if (arg0 != 0) {
+        t22 = *(s32 *)(((u8 *)&data_020c46d4));
+        v21 = func_020920c4(t22, r5, r5);
+        *(s32 *)(r6 + 0xA8) = v21;
+        t23 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t23, v21, r4);
+        t24 = *(s32 *)(((u8 *)&data_020c46d4));
+        v23 = func_020920c4(t24, r5, r5);
+        *(s32 *)(r6 + 0xAC) = v23;
+        t25 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t25, v23, r4);
+    }
+    if ((*(s32 *)(r6 + 0x1C) & 1) != 0) {
+        arg0 = 1;
+    } else {
+        arg0 = 0;
+    }
+    if (arg0 != 0) {
+        t26 = *(s32 *)(((u8 *)&data_020c46d4));
+        v25 = func_020920c4(t26, 0x16, r5);
+        *(s32 *)(r6 + 0xB0) = v25;
+        t27 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02092d3c(t27, v25, r4);
+        t28 = *(s32 *)(((u8 *)&data_020c46d4));
+        t29 = *(s32 *)(r6 + 0xB0);
+        func_02092758(t28, t29, 0x10);
+        t30 = *(s32 *)(((u8 *)&data_020c46d4));
+        v28 = func_020920c4(t30, r4, r5);
+        *(s32 *)(r6 + 0xB8) = v28;
+        t31 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02093d1c(t31, v28, r4);
+        if ((*(u8 *)(((u8 *)&gGameState) + 0x1B) != 0 || (v30 = func_ov015_02131808(), v30 != 0))) {
+            t32 = *(s32 *)(((u8 *)&data_020c46d4));
+            v31 = func_020920c4(t32, 0x16, 1);
+            *(s32 *)(r6 + 0xB4) = v31;
+            t33 = *(s32 *)(((u8 *)&data_020c46d4));
+            func_02092d3c(t33, v31, 2);
+        }
+    }
+    func_ov015_021395f0(r6);
+    func_ov015_02139644((s32)r6);
+    func_ov015_0213980c((s32)r6);
+    func_ov015_0213998c((s32)r6);
+    func_ov015_02139b58(r6);
+    func_ov015_02139bd4(r6);
+    func_ov015_02139c28(r6);
+    func_ov015_02139c74(r6);
+    func_ov015_02139cc4(r6);
+    func_ov015_02139d34(r6);
+    func_ov015_02139db0(r6);
+    func_ov015_0213ae50((s32)r6);
+    v45 = func_ov015_02139e44((s32)r6);
+    return v45;
 }
 
 extern "C" void func_ov015_02137808(void)
@@ -2693,7 +2664,7 @@ extern "C" s32 func_ov015_021395f0(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov015_02139644(void)
+extern "C" asm s32 func_ov015_02139644(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
@@ -2814,7 +2785,7 @@ extern "C" asm void func_ov015_02139644(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov015_0213980c(void)
+extern "C" asm s32 func_ov015_0213980c(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #4
@@ -2917,7 +2888,7 @@ extern "C" asm void func_ov015_0213980c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov015_0213998c(void)
+extern "C" asm s32 func_ov015_0213998c(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -3156,7 +3127,7 @@ extern "C" s32 func_ov015_02139db0(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov015_02139e44(void)
+extern "C" asm s32 func_ov015_02139e44(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r0

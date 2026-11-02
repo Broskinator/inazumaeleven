@@ -20,7 +20,7 @@ extern "C" void func_ov001_0210d238(u8 *arg0);
 extern "C" s32 func_ov001_0210d258(u8 *arg0);
 extern "C" void func_ov001_0210d2d0(u8 *arg0);
 extern "C" void func_ov001_0210d338(void);
-extern "C" void func_ov001_0210d33c(void);
+extern "C" void func_ov001_0210d33c(s32 arg0, u8 arg1, s32 arg2, u8 *arg3, u8 *arg4);
 extern "C" void func_ov001_0210d370(void);
 extern "C" void func_ov001_0210d3e0(void);
 extern "C" void func_ov001_0210d4cc(void);
@@ -1086,21 +1086,18 @@ extern "C" void func_ov001_0210d338(void)
 {
 }
 
-extern "C" asm void func_ov001_0210d33c(void)
+extern "C" void func_ov001_0210d33c(s32 arg0, u8 arg1, s32 arg2, u8 *arg3, u8 *arg4)
 {
-    cmp r1, #0x32
-    movne r1, #1
-    moveq r1, #0
-    cmp r2, #0xd
-    cmpne r2, #0x25
-    cmpne r2, #0x3c
-    cmpne r2, #0x4a
-    strb r1, [r3, r0]
-    cmpne r2, #0x35
-    ldreq r0, [sp]
-    moveq r1, #1
-    streqb r1, [r0]
-    bx lr
+    if (arg1 != 0x32) {
+        arg1 = 1;
+    } else {
+        arg1 = 0;
+    }
+    *(u8 *)(arg3 + arg0) = arg1;
+    if (((((arg2 == 0xD || arg2 == 0x25) || arg2 == 0x3C) || arg2 == 0x4A) || arg2 == 0x35)) {
+        *(u8 *)(arg4) = 1;
+    }
+    return;
 }
 
 extern "C" asm void func_ov001_0210d370(void)

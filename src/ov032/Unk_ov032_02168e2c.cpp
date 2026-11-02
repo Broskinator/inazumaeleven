@@ -7,7 +7,7 @@ extern "C" void func_ov032_02168fc0(void);
 extern "C" s32 func_ov032_0216914c(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov032_021691d0(u8 *arg0, s32 arg1);
 extern "C" void func_ov032_021691f8(u8 *arg0);
-extern "C" void func_ov032_0216920c(void);
+extern "C" s32 func_ov032_0216920c(u8 *arg0);
 extern "C" s32 func_ov032_02169278(u8 *arg0, s32 arg1);
 extern "C" void func_ov032_021692ac(void);
 extern "C" void func_ov032_02169364(void);
@@ -370,36 +370,27 @@ extern "C" void func_ov032_021691f8(u8 *arg0)
     *(s32 *)(arg0 + 0x60) = 8;
 }
 
-extern "C" asm void func_ov032_0216920c(void)
+extern "C" s32 func_ov032_0216920c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldrb r2, [r4, #0x3e7]
-    mov r1, #0x5c
-    mla r1, r2, r1, r4
-    ldrb r1, [r1, #0x43c]
-    cmp r1, #2
-    ldmneia sp!, {r4, pc}
-    bl func_ov032_0216ac88
-    cmp r0, #0
-    bne @L_02169248
-    mov r0, r4
-    bl func_ov032_0216acfc
-    cmp r0, #0
-    beq @L_02169264
-@L_02169248:
-    ldr r0, =data_020c5e40
-    mov r1, #6
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r0, r4
-    mov r1, #3
-    bl func_ov032_02169278
-    ldmia sp!, {r4, pc}
-@L_02169264:
-    ldr r0, =data_020c5e40
-    mov r1, #9
-    bl _ZN12SoundManager9PlaySoundEi
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    s32 v3;
+    s32 v4;
+    u8 t0;
+    u8 t1;
+    if (*(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43C) != 2)
+        return (s32)arg0;
+    t0 = *(u8 *)(((u8 *)((*(u8 *)(arg0 + 0x3E7) * 0x5C) + arg0)) + 0x43C);
+    t1 = *(u8 *)(arg0 + 0x3E7);
+    v0 = ((s32 (*)(...))func_ov032_0216ac88)((s32)arg0, t0, t1);
+    if ((v0 != 0 || (v1 = func_ov032_0216acfc(arg0), v1 != 0))) {
+        _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&data_020c5e40), 6);
+        v3 = func_ov032_02169278(arg0, 3);
+        return v3;
+    } else {
+        v4 = _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&data_020c5e40), 9);
+        return v4;
+    }
 }
 
 extern "C" s32 func_ov032_02169278(u8 *arg0, s32 arg1)

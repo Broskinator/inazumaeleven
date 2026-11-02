@@ -41,12 +41,12 @@ extern "C" void func_02099a94(void);
 extern "C" int func_02099adc(int x0, int y0, int x1, int y1);
 extern "C" void func_02099af4(s32 *obj);
 extern "C" void func_02099b08(void);
-extern "C" void func_02099b0c(void);
+extern "C" s32 func_02099b0c(u8 *arg0);
 extern "C" void func_02099b64(void);
 extern "C" void func_02099bbc(s8 *obj, s8 flags);
 extern "C" void func_02099bcc(s8 *obj, int flags);
 extern "C" void func_02099be4(void);
-extern "C" void func_02099c48(void);
+extern "C" void func_02099c48(u8 *arg0, u8 *arg1);
 extern "C" int func_02099c94(u8 *obj, int a);
 extern "C" s32 func_02099cc8(u8 *arg0, s32 arg1);
 extern "C" u8 *func_02099cfc(u8 *obj, int a);
@@ -81,7 +81,7 @@ extern "C" void NNS_G3dBindMdlSet(void);
 extern "C" void NNS_GfdFreeLnkPlttVram(void);
 extern "C" void VEC_DotProduct(void);
 extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void func_020011fc(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001f08(void);
@@ -973,31 +973,33 @@ extern "C" void func_02099b08(void)
 {
 }
 
-extern "C" asm void func_02099b0c(void)
+extern "C" s32 func_02099b0c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0xc]
-    cmp r1, #0
-    beq @L_02099b30
-    ldr r0, [r4]
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r4, #0xc]
-@L_02099b30:
-    ldr r0, [r4]
-    cmp r0, #0
-    ldrne r1, [r4, #4]
-    cmpne r1, #0
-    ldmeqia sp!, {r4, pc}
-    bl _ZN8GameHeap4FreeEPv
-    ldr r0, [r4]
-    ldr r1, [r4, #8]
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r4, #4]
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    s32 t4;
+    r1 = *(s32 *)(arg0 + 0xC);
+    if (r1 != 0) {
+        t0 = *(s32 *)(arg0);
+        _ZN8GameHeap4FreeEPv(t0, r1);
+        *(s32 *)(arg0 + 0xC) = 0;
+    }
+    if (*(s32 *)(arg0) == 0)
+        return *(s32 *)(arg0);
+    if (*(s32 *)(arg0 + 0x4) == 0)
+        return *(s32 *)(arg0);
+    t1 = *(s32 *)(arg0);
+    t2 = *(s32 *)(arg0 + 0x4);
+    _ZN8GameHeap4FreeEPv(t1, t2);
+    t3 = *(s32 *)(arg0);
+    t4 = *(s32 *)(arg0 + 0x8);
+    _ZN8GameHeap4FreeEPv(t3, t4);
+    *(s32 *)(arg0 + 0x4) = 0;
+    *(s32 *)(arg0 + 0x8) = 0;
+    return 0;
 }
 
 extern "C" asm void func_02099b64(void)
@@ -1068,29 +1070,26 @@ extern "C" asm void func_02099be4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_02099c48(void)
+extern "C" void func_02099c48(u8 *arg0, u8 *arg1)
 {
-    ldrsb r2, [r1]
-    mov r12, #0
-    cmp r2, #0
-    beq @L_02099c84
-    ldr r3, =data_020a4478
-@L_02099c5c:
-    ldrsb r2, [r1, r12]
-    cmp r2, #0
-    blt @L_02099c70
-    cmp r2, #0x80
-    ldrltb r2, [r3, r2]
-@L_02099c70:
-    strb r2, [r0, r12]
-    add r12, r12, #1
-    ldrsb r2, [r1, r12]
-    cmp r2, #0
-    bne @L_02099c5c
-@L_02099c84:
-    mov r1, #0
-    strb r1, [r0, r12]
-    bx lr
+    s32 r2;
+    s32 r12;
+    r12 = 0;
+    if (*(s8 *)(arg1) != 0) {
+        r12 = r12;
+        do {
+            r12 = r12;
+            r2 = *(s8 *)(arg1 + r12);
+            if ((r2 >= 0 && (r12 = r12, r2 < 0x80))) {
+                r12 = r12;
+                r2 = *(u8 *)(((u8 *)&data_020a4478) + r2);
+            }
+            *(u8 *)(arg0 + r12) = r2;
+            r12 = (r12 + 1);
+        } while (*(s8 *)(arg1 + r12) != 0);
+    }
+    *(u8 *)(arg0 + r12) = 0;
+    return;
 }
 
 extern "C" asm int func_02099c94(u8 *obj, int a)

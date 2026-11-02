@@ -48,8 +48,8 @@ extern "C" s32 func_ov014_02104e44(...);
 extern "C" s32 func_ov014_02104ea4(void);
 extern "C" void func_ov014_02104ee0(void);
 extern "C" s32 func_ov014_02104f68(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_02104fbc(void);
-extern "C" void func_ov014_02105054(void);
+extern "C" s32 func_ov014_02104fbc(s32 arg0, s32 arg1);
+extern "C" s32 func_ov014_02105054(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_021050b8(void);
 extern "C" void func_ov014_02105208(void);
 extern "C" s32 func_ov014_02105240(...);
@@ -108,7 +108,7 @@ extern "C" void func_ov014_021027c4(void);
 extern "C" void func_ov014_02105c64(void);
 extern "C" void func_ov014_021065e4(void);
 extern "C" void func_ov014_0211ead4(void);
-extern "C" void func_ov014_0211eb28(void);
+extern "C" s32 func_ov014_0211eb28(...);
 extern "C" void func_ov014_0211ec00(void);
 extern "C" s32 func_ov014_0211ed94(...);
 extern "C" void func_ov014_0211ee0c(void);
@@ -2842,83 +2842,67 @@ extern "C" s32 func_ov014_02104f68(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
     return *(s32 *)(r8 + 0x4C);
 }
 
-extern "C" asm void func_ov014_02104fbc(void)
+extern "C" s32 func_ov014_02104fbc(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r4, r1
-    ldrb r1, [r4, #8]
-    mov r5, r0
-    cmp r1, #4
-    bne @L_02104fe0
-    mov r0, r4
-    mov r1, #1
-    bl func_ov014_021035f0
-@L_02104fe0:
-    ldr r0, [r4, #0x50]
-    cmp r0, #0
-    ldreqb r0, [r4, #8]
-    cmpeq r0, #4
-    bne @L_02105038
-    bl OS_DisableInterrupts
-    mov r8, r0
-    mov r7, #2
-    mov r6, #0
-    b @L_02105014
-@L_02105008:
-    mov r0, r6
-    str r7, [r4, #4]
-    bl OS_SleepThread
-@L_02105014:
-    ldr r0, [r4, #0x50]
-    cmp r0, #0
-    bne @L_0210502c
-    ldrb r0, [r4, #8]
-    cmp r0, #4
-    beq @L_02105008
-@L_0210502c:
-    mov r0, r8
-    bl OS_RestoreInterrupts
-    b @L_0210503c
-@L_02105038:
-    bl func_020061c0
-@L_0210503c:
-    ldr r0, [r4, #0x50]
-    str r0, [r5]
-    cmp r0, #0
-    ldrne r0, [r4, #0x4c]
-    moveq r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *r4;
+    u8 *r5;
+    s32 r6;
+    s32 r7;
+    s32 r8;
+    s32 v1;
+    s32 t0;
+    r4 = (u8 *)arg1;
+    r5 = (u8 *)arg0;
+    if (*(u8 *)(r4 + 0x8) == 4) {
+        func_ov014_021035f0((s32)r4, 1);
+    }
+    if ((*(s32 *)(r4 + 0x50) == 0 && *(u8 *)(r4 + 0x8) == 4)) {
+        v1 = OS_DisableInterrupts();
+        r8 = v1;
+        r7 = 2;
+        r6 = 0;
+        while ((*(s32 *)(r4 + 0x50) == 0 && *(u8 *)(r4 + 0x8) == 4)) {
+            *(s32 *)(r4 + 0x4) = r7;
+            OS_SleepThread(r6);
+        }
+        OS_RestoreInterrupts(r8);
+    } else {
+        func_020061c0();
+    }
+    t0 = *(s32 *)(r4 + 0x50);
+    *(s32 *)(r5) = t0;
+    if (t0 != 0) {
+        arg0 = *(s32 *)(r4 + 0x4C);
+    } else {
+        arg0 = 0;
+    }
+    return arg0;
 }
 
-extern "C" asm void func_ov014_02105054(void)
+extern "C" s32 func_ov014_02105054(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb120
-    ldr r1, [r1, #4]
-    ldr r1, [r1, #0xa4]
-    cmp r1, #0
-    beq @L_021050a4
-    ldrb r2, [r1, #8]
-    add r2, r2, #0xf6
-    and r2, r2, #0xff
-    cmp r2, #1
-    bhi @L_02105088
-    bl func_ov014_02104f68
-    ldmia sp!, {r3, pc}
-@L_02105088:
-    ldrb r2, [r1, #9]
-    cmp r2, #0
-    beq @L_0210509c
-    bl func_ov014_0211eb28
-    ldmia sp!, {r3, pc}
-@L_0210509c:
-    bl func_ov014_02104fbc
-    ldmia sp!, {r3, pc}
-@L_021050a4:
-    mov r1, #0
-    str r1, [r0]
-    mov r0, r1
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    arg1 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)&data_020bb120) + 0x4) + 0xA4);
+    if ((s32)arg1 != 0) {
+        arg2 = ((*(u8 *)(arg1 + 0x8) + 0xF6) & 0xFF);
+        if ((u32)arg2 <= (u32)1) {
+            v0 = func_ov014_02104f68((s32)arg0, arg1, arg2, arg3);
+            return v0;
+        } else {
+            if (*(u8 *)(arg1 + 0x9) != 0) {
+                v1 = func_ov014_0211eb28();
+                return v1;
+            } else {
+                v2 = func_ov014_02104fbc((s32)arg0, (s32)arg1);
+                return v2;
+            }
+        }
+    } else {
+        *(s32 *)(arg0) = 0;
+        return 0;
+    }
 }
 
 extern "C" asm void func_ov014_021050b8(void)

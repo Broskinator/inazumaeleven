@@ -45,7 +45,7 @@ extern "C" void func_ov016_0214a134(void);
 extern "C" s32 func_ov016_0214a1dc(...);
 extern "C" s32 func_ov016_0214a32c(...);
 extern "C" s32 func_ov016_0214a3b4(s32 arg0);
-extern "C" void func_ov016_0214a3d0(void);
+extern "C" s32 func_ov016_0214a3d0(void);
 extern "C" void func_ov016_0214a494(void);
 extern "C" void func_ov016_0214a4c0(s32 arg0);
 extern "C" void func_ov016_0214a4e4(s32 arg0);
@@ -145,9 +145,9 @@ extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClear16(void);
 extern "C" s32 NNS_SndArcPlayerStartSeqArc(...);
-extern "C" void NNS_SndPlayerSetAllocatableChannel(void);
-extern "C" void NNS_SndPlayerSetPlayableSeqCount(void);
-extern "C" void NNS_SndPlayerSetPlayerVolume(void);
+extern "C" s32 NNS_SndPlayerSetAllocatableChannel(...);
+extern "C" s32 NNS_SndPlayerSetPlayableSeqCount(...);
+extern "C" s32 NNS_SndPlayerSetPlayerVolume(...);
 extern "C" s32 NNS_SndPlayerSetTrackMute(...);
 extern "C" void OS_GetTick(void);
 extern "C" void atoi(void);
@@ -164,13 +164,13 @@ extern "C" void func_020136b4(void);
 extern "C" void func_0201372c(void);
 extern "C" void func_02013768(void);
 extern "C" s32 func_02013994(...);
-extern "C" void func_02030660(void);
+extern "C" s32 func_02030660(...);
 extern "C" void func_020306dc(void);
 extern "C" s32 func_020308ac(...);
-extern "C" void func_020308bc(void);
+extern "C" s32 func_020308bc(...);
 extern "C" s32 func_020308e4(...);
-extern "C" void func_020313f4(void);
-extern "C" void func_020320f8(void);
+extern "C" s32 func_020313f4(...);
+extern "C" s32 func_020320f8(...);
 extern "C" s32 func_ov014_0210f430(...);
 extern "C" void func_ov014_0210f444(void);
 extern "C" void func_ov014_0210f51c(void);
@@ -1521,55 +1521,43 @@ extern "C" s32 func_ov016_0214a3b4(s32 arg0)
     }
 }
 
-extern "C" asm void func_ov016_0214a3d0(void)
+extern "C" s32 func_ov016_0214a3d0(void)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r0, #0xac
-    mov r1, #4
-    bl func_ov016_02150928
-    ldr r4, =data_ov016_02158b28
-    add r1, sp, #0
-    str r0, [r4]
-    ldr r0, =data_ov016_02155dc4
-    mov r2, #0x20
-    bl func_ov016_0214f07c
-    ldr r1, [r4]
-    str r0, [r1, #0xa4]
-    bl func_02030660
-    ldr r0, [r4]
-    ldr r1, [r0, #0xa4]
-    bl func_020313f4
-    mov r7, #0
-    mov r0, r7
-    bl func_020320f8
-    ldr r0, [r4]
-    add r0, r0, #0xa0
-    bl func_020308bc
-    mov r6, #0x7f
-    mov r5, #1
-    mov r4, r7
-@L_0214a434:
-    mov r0, r7
-    mov r1, r6
-    bl NNS_SndPlayerSetPlayerVolume
-    mov r0, r7
-    mov r1, r5
-    bl NNS_SndPlayerSetPlayableSeqCount
-    mov r0, r7
-    mov r1, r4
-    bl NNS_SndPlayerSetAllocatableChannel
-    add r7, r7, #1
-    cmp r7, #0x20
-    blt @L_0214a434
-    ldr r1, =func_ov016_0214a548
-    mov r0, r4
-    mov r2, r4
-    mov r3, #0xc8
-    bl func_ov016_02151b94
-    ldr r1, =data_ov016_02158b28
-    ldr r1, [r1]
-    str r0, [r1, #0xa8]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 local[1];
+    s32 r4;
+    s32 r7;
+    s32 v0;
+    s32 v1;
+    s32 v9;
+    u8 *t0;
+    u8 *t1;
+    s32 t2;
+    s32 t3;
+    u8 *t4;
+    v0 = func_ov016_02150928(0xAC, 4);
+    *(s32 *)(((u8 *)&data_ov016_02158b28)) = v0;
+    v1 = func_ov016_0214f07c((s32)((u8 *)&data_ov016_02155dc4), (s32)((u8 *)local), 0x20);
+    t0 = (u8 *)*(s32 *)(((u8 *)&data_ov016_02158b28));
+    *(s32 *)(t0 + 0xA4) = v1;
+    func_02030660(v1, (s32)t0);
+    t1 = *(u8 * *)(((u8 *)&data_ov016_02158b28));
+    t2 = *(s32 *)(*(u8 * *)(((u8 *)&data_ov016_02158b28)) + 0xA4);
+    func_020313f4(t1, t2);
+    r7 = 0;
+    func_020320f8(0);
+    t3 = (*(s32 *)(((u8 *)&data_ov016_02158b28)) + 0xA0);
+    func_020308bc(t3);
+    do {
+        r4 = 0;
+        NNS_SndPlayerSetPlayerVolume(r7, 0x7F);
+        NNS_SndPlayerSetPlayableSeqCount(r7, 1);
+        NNS_SndPlayerSetAllocatableChannel(r7, 0);
+        r7 = (r7 + 1);
+    } while (r7 < 0x20);
+    v9 = func_ov016_02151b94(r4, (s32)((u8 *)&func_ov016_0214a548), r4, 0xC8);
+    t4 = (u8 *)*(s32 *)(((u8 *)&data_ov016_02158b28));
+    *(s32 *)(t4 + 0xA8) = v9;
+    return v9;
 }
 
 extern "C" void func_ov016_0214a494(void)

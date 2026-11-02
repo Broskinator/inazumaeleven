@@ -35,7 +35,7 @@ extern "C" void func_ov015_0213e918(void);
 extern "C" void func_ov015_0213ec08(void);
 extern "C" void func_ov015_0213ed24(void);
 extern "C" void func_ov015_0213f0b0(void);
-extern "C" void func_ov015_0213f0bc(void);
+extern "C" s32 func_ov015_0213f0bc(s32 arg0, s32 arg1);
 extern "C" void func_ov015_0213f100(void);
 extern "C" void func_ov015_0213f338(void);
 extern "C" s32 func_ov015_0213f8bc(s32 arg0);
@@ -76,7 +76,7 @@ extern "C" s32 _ZN17UnkClass_020621b413func_0206b47cEi(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206b4ccEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfecEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206c064Ei(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0206c064Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206c80cEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206cd08Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206cfc8Ev(void);
@@ -84,7 +84,7 @@ extern "C" s32 _ZN17UnkClass_020621b413func_0206de34Ei(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206de54Eii(void);
 extern "C" void _ZN17UnkClass_020621b413func_020704b0Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_02070604Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207903cEP11MatchPlayer(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0207903cEP11MatchPlayer(...);
 extern "C" void _ZN17UnkClass_020621b413func_0207af84Ev(void);
 extern "C" void _ZN17UnkClass_0208351c13func_0208363cEv(void);
 extern "C" void _ZN17UnkClass_0208351c13func_020838d0Ev(void);
@@ -114,7 +114,7 @@ extern "C" void func_02080b90(void);
 extern "C" void func_02083afc(void);
 extern "C" void func_02083e24(void);
 extern "C" void func_02083e34(void);
-extern "C" void func_02083e54(void);
+extern "C" s32 func_02083e54(...);
 extern "C" s32 func_02083e7c(...);
 extern "C" void func_020841d8(void);
 extern "C" void func_020841e8(void);
@@ -2385,27 +2385,19 @@ extern "C" void func_ov015_0213f0b0(void)
     _ZN17UnkClass_020621b413func_02068614Ev();
 }
 
-extern "C" asm void func_ov015_0213f0bc(void)
+extern "C" s32 func_ov015_0213f0bc(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r0, r1
-    bl func_02083e54
-    mov r1, r0
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206c064Ei
-    movs r1, r0
-    beq @L_0213f0f0
-    mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0207903cEP11MatchPlayer
-    cmp r0, #0
-    bne @L_0213f0f8
-@L_0213f0f0:
-    mov r0, #1
-    ldmia sp!, {r4, pc}
-@L_0213f0f8:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    v0 = func_02083e54(arg1, arg1);
+    v1 = _ZN17UnkClass_020621b413func_0206c064Ei(arg0, v0);
+    arg1 = v1;
+    if ((arg1 == 0 || (v2 = _ZN17UnkClass_020621b413func_0207903cEP11MatchPlayer(arg0, arg1), v2 == 0))) {
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 extern "C" asm void func_ov015_0213f100(void)

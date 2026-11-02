@@ -1,7 +1,7 @@
 #include "ov000/Unk_ov000_020fc7e0.hpp"
 #include "game/vcall.hpp"
 
-extern "C" void func_ov000_020fc7e0(void);
+extern "C" s32 func_ov000_020fc7e0(s32 arg0);
 extern "C" void func_ov000_020fc7f8(void);
 extern "C" void func_ov000_020fc828(void);
 extern "C" void func_ov000_020fc858(void);
@@ -255,15 +255,12 @@ extern "C" void func_ov090_0217470c(void);
 extern "C" char gGameState[];
 extern "C" void rand(void);
 
-extern "C" asm void func_ov000_020fc7e0(void)
+extern "C" s32 func_ov000_020fc7e0(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    movs r4, r0
-    beq @L_020fc7f0
-    blx r4
-@L_020fc7f0:
-    mvn r0, r4
-    ldmia sp!, {r4, pc}
+    if (arg0 != 0) {
+        ((s32 (*)(...))arg0)();
+    }
+    return (~arg0);
 }
 
 extern "C" asm void func_ov000_020fc7f8(void)

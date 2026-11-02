@@ -15,7 +15,7 @@ extern "C" void func_ov014_02121818(void);
 extern "C" s32 func_ov014_02121938(void);
 extern "C" void func_ov014_02121958(void);
 extern "C" s32 func_ov014_021219f4(...);
-extern "C" void func_ov014_02121a38(void);
+extern "C" s32 func_ov014_02121a38(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_ov014_02121a8c(...);
 extern "C" s32 func_ov014_02121b34(void);
 extern "C" void func_ov014_02121b9c(void);
@@ -748,28 +748,21 @@ extern "C" asm s32 func_ov014_021219f4(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02121a38(void)
+extern "C" s32 func_ov014_02121a38(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0x10
-    ldr r12, =data_ov014_0212d574
-    ldr r12, [r12, #4]
-    add r12, r12, #0x1000
-    ldr lr, [r12, #0x2d0]
-    cmp lr, #0
-    addeq sp, sp, #0x10
-    ldmeqia sp!, {r3, pc}
-    ldr lr, [sp, #0x18]
-    strh r0, [sp]
-    str r2, [sp, #4]
-    str r3, [sp, #8]
-    str lr, [sp, #0xc]
-    strh r1, [sp, #2]
-    ldr r1, [r12, #0x2d0]
-    add r0, sp, #0
-    blx r1
-    add sp, sp, #0x10
-    ldmia sp!, {r3, pc}
+    s32 local[4];
+    s32 v0;
+    s32 t0;
+    if (*(s32 *)(*(u8 * *)(((u8 *)&data_ov014_0212d574) + 0x4) + 0x12D0) == 0)
+        return arg0;
+    *(u16 *)(((u8 *)local)) = arg0;
+    *(s32 *)(((u8 *)local) + 0x4) = arg2;
+    *(s32 *)(((u8 *)local) + 0x8) = arg3;
+    *(s32 *)(((u8 *)local) + 0xC) = arg4;
+    *(u16 *)(((u8 *)local) + 0x2) = arg1;
+    t0 = *(s32 *)(*(u8 * *)(((u8 *)&data_ov014_0212d574) + 0x4) + 0x12D0);
+    v0 = ((s32 (*)(...))*(s32 *)(*(u8 * *)(((u8 *)&data_ov014_0212d574) + 0x4) + 0x12D0))((s32)((u8 *)local), t0, arg2, arg3);
+    return v0;
 }
 
 extern "C" asm s32 func_ov014_02121a8c(...)

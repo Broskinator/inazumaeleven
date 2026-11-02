@@ -5,7 +5,7 @@ extern "C" void func_ov018_02165d74(void);
 extern "C" s32 func_ov018_02165d78(s32 arg0);
 extern "C" void func_ov018_02165d8c(void);
 extern "C" void func_ov018_02165e14(void);
-extern "C" void func_ov018_02165f10(void);
+extern "C" s32 func_ov018_02165f10(u8 *arg0);
 extern "C" void func_ov018_02165f94(s32 arg0);
 extern "C" void func_ov018_02165fb0(void);
 extern "C" void func_ov018_02166004(void);
@@ -57,7 +57,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" void G2S_GetBG0CharPtr(void);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void G2S_GetBG2CharPtr(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
@@ -87,7 +87,7 @@ extern "C" s32 func_ov015_02161c98(...);
 extern "C" s32 func_ov015_02161d00(...);
 extern "C" s32 func_ov015_02161d24(...);
 extern "C" void func_ov015_02161dd4(void);
-extern "C" void func_ov015_02161f84(void);
+extern "C" s32 func_ov015_02161f84(...);
 extern "C" void func_ov015_02161fdc(void);
 extern "C" void func_ov015_021621dc(void);
 extern "C" void func_ov015_02162420(void);
@@ -221,39 +221,23 @@ extern "C" asm void func_ov018_02165e14(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov018_02165f10(void)
+extern "C" s32 func_ov018_02165f10(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, #0
-    mov r1, r4
-    add r0, r5, #0xf4
-    mov r2, #0x30
-    bl MI_CpuFill8
-    ldr r0, =data_020c46c4
-    str r4, [r5, #0x124]
-    ldr r0, [r0]
-    bl func_ov015_02161f84
-    mov r0, #3
-    ldr r2, =gGameState
-    str r4, [r5, #0x134]
-    str r4, [r5, #0x12c]
-    strb r0, [r5, #0x138]
-    strb r0, [r5, #0x130]
-    ldrb r0, [r2, #0x9b6]
-    mov r1, r0, lsr #0x1f
-    rsb r0, r1, r0, lsl #31
-    add r1, r1, r0, ror #31
-    strb r1, [r5, #0x54]
-    ldrb r0, [r2, #0x9b7]
-    and r2, r1, #0xff
-    mov r1, r0, lsr #0x1f
-    rsb r0, r1, r0, lsl #31
-    add r0, r1, r0, ror #31
-    strb r0, [r5, #0x55]
-    str r2, [r5, #0x4c]
-    str r4, [r5, #0x30]
-    ldmia sp!, {r3, r4, r5, pc}
+    MI_CpuFill8((s32)(arg0 + 0xF4), 0, 0x30);
+    *(s32 *)(arg0 + 0x124) = 0;
+    s32 t0 = *(s32 *)(((u8 *)&data_020c46c4));
+    func_ov015_02161f84(t0);
+    *(s32 *)(arg0 + 0x134) = 0;
+    *(s32 *)(arg0 + 0x12C) = 0;
+    *(u8 *)(arg0 + 0x138) = 3;
+    *(u8 *)(arg0 + 0x130) = 3;
+    s32 t2 = (*(u8 *)(((u8 *)&gGameState) + 0x9B6) % 2);
+    *(u8 *)(arg0 + 0x54) = t2;
+    s32 t3 = (*(u8 *)(((u8 *)&gGameState) + 0x9B7) % 2);
+    *(u8 *)(arg0 + 0x55) = t3;
+    *(s32 *)(arg0 + 0x4C) = (t2 & 0xFF);
+    *(s32 *)(arg0 + 0x30) = 0;
+    return t3;
 }
 
 extern "C" void func_ov018_02165f94(s32 arg0)

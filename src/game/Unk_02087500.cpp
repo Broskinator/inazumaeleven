@@ -12,7 +12,7 @@ extern "C" s32 func_02096c10(...);     // (for the asm functions)
 extern "C" s32 func_02096c54(...);     // (for the asm functions)
 extern "C" void func_02096d3c(void);     // (for the asm functions)
 extern "C" void func_02096d64(void);     // (for the asm functions)
-extern "C" void func_02096d8c(void);     // (for the asm functions)
+extern "C" s32 func_02096d8c(...);     // (for the asm functions)
 extern "C" void func_02096db8(void);     // (for the asm functions)
 extern "C" void func_02096e0c(void);     // (for the asm functions)
 extern "C" void func_02096e60(void);     // (for the asm functions)
@@ -35,8 +35,8 @@ extern "C" void G3X_ResetMtxStack(void);
 extern "C" void *data_020af644[];     // (a vtable)
 
 extern "C" void func_02087500(void);
-extern "C" void func_020877e0(void);
-extern "C" void func_0208786c(void);
+extern "C" s32 func_020877e0(...);
+extern "C" s32 func_0208786c(u8 *arg0, s32 arg1);
 extern "C" void func_020878ac(void);
 extern "C" void func_020879e4(void);
 extern "C" void func_02087adc(void);
@@ -50,7 +50,7 @@ extern "C" s32 func_02087ce8(...);
 extern "C" s32 func_0208803c(s32 arg0);
 extern "C" void func_02088084(void);
 extern "C" s32 func_020880f4(u8 *arg0, s32 arg1, s32 arg2);
-extern "C" void func_02088140(void);
+extern "C" s32 func_02088140(s32 arg0, s32 arg1);
 extern "C" void func_0208819c(u8 *obj, s32 value);
 extern "C" void func_020881a4(u8 *obj, s32 value);
 extern "C" void func_020881ac(u8 *obj, int a);
@@ -74,7 +74,7 @@ extern "C" void func_0208897c(void);
 extern "C" void func_02088990(void);
 extern "C" void **func_02088a38(void **obj);
 extern "C" s32 func_02088a5c(u8 *arg0, s32 arg1);
-extern "C" void func_02088aa0(void);
+extern "C" s32 func_02088aa0(u8 *arg0);
 extern "C" void func_02088ad0(void);
 extern "C" void func_02088b8c(void);
 extern "C" void func_02088bec(void);
@@ -121,7 +121,7 @@ extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02001d60(void);
@@ -370,7 +370,7 @@ extern "C" asm void func_02087500(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_020877e0(void)
+extern "C" asm s32 func_020877e0(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -413,25 +413,20 @@ extern "C" asm void func_020877e0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_0208786c(void)
+extern "C" s32 func_0208786c(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldr r0, [r6, #0x88]
-    mov r5, r1
-    mov r4, #1
-    cmp r0, #1
-    ldmltia sp!, {r4, r5, r6, pc}
-@L_02087888:
-    mov r0, r6
-    mov r1, r4
-    mov r2, r5
-    bl func_020877e0
-    ldr r0, [r6, #0x88]
-    add r4, r4, #1
-    cmp r4, r0
-    ble @L_02087888
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    u8 *r6;
+    r4 = 1;
+    if (*(s32 *)(arg0 + 0x88) < 1)
+        return *(s32 *)(arg0 + 0x88);
+    r6 = arg0;
+    do {
+        func_020877e0((s32)r6, r4, arg1);
+        arg0 = (u8 *)*(s32 *)(r6 + 0x88);
+        r4 = (r4 + 1);
+    } while (r4 <= (s32)arg0);
+    return (s32)arg0;
 }
 
 extern "C" asm void func_020878ac(void)
@@ -1042,31 +1037,38 @@ extern "C" s32 func_020880f4(u8 *arg0, s32 arg1, s32 arg2)
     }
 }
 
-extern "C" asm void func_02088140(void)
+extern "C" s32 func_02088140(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    bl func_0208708c
-    movs r6, r0
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r4, =data_020c4694
-    ldrh r1, [r6, #4]
-    mov r5, #1
-    ldr r0, [r4]
-    mov r2, r5
-    mov r7, #0
-    bl func_02096d8c
-    cmp r0, #0
-    beq @L_02088190
-    ldrh r1, [r6, #4]
-    ldr r0, [r4]
-    mov r2, #2
-    bl func_02096d8c
-    cmp r0, #0
-    movne r7, r5
-@L_02088190:
-    mov r0, r7
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r5;
+    u8 *r6;
+    s32 r7;
+    u8 *v0;
+    s32 v1;
+    s32 v2;
+    s32 t0;
+    u16 t1;
+    s32 t2;
+    u16 t3;
+    v0 = func_0208708c((void *)arg0, arg1);
+    r6 = (u8 *)v0;
+    if ((s32)r6 != 0) {
+        return 1;
+    } else {
+        t0 = *(s32 *)(((u8 *)&data_020c4694));
+        t1 = *(u16 *)(r6 + 0x4);
+        r5 = 1;
+        r7 = 0;
+        v1 = func_02096d8c(t0, t1, 1);
+        if (v1 != 0) {
+            t2 = *(s32 *)(((u8 *)&data_020c4694));
+            t3 = *(u16 *)(r6 + 0x4);
+            v2 = func_02096d8c(t2, t3, 2);
+            if (v2 != 0) {
+                r7 = r5;
+            }
+        }
+        return r7;
+    }
 }
 
 extern "C" void func_0208819c(u8 *obj, s32 value)
@@ -1650,20 +1652,16 @@ extern "C" s32 func_02088a5c(u8 *arg0, s32 arg1)
     return v1;
 }
 
-extern "C" asm void func_02088aa0(void)
+extern "C" s32 func_02088aa0(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #8]
-    cmp r1, #0
-    beq @L_02088abc
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_02088abc:
-    mov r0, #0
-    str r0, [r4, #8]
-    str r0, [r4, #4]
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    r1 = *(s32 *)(arg0 + 0x8);
+    if (r1 != 0) {
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+    }
+    *(s32 *)(arg0 + 0x8) = 0;
+    *(s32 *)(arg0 + 0x4) = 0;
+    return 0;
 }
 
 extern "C" asm void func_02088ad0(void)

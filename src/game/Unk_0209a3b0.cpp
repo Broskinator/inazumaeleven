@@ -42,7 +42,7 @@ extern "C" void func_0209b1d4(u8 *obj, s32 value);
 extern "C" s32 func_0209b1dc(u8 *obj);
 extern "C" void func_0209b1e4(u8 *obj, u8 value);
 extern "C" s32 func_0209b1ec(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_0209b230(void);
+extern "C" s32 func_0209b230(u8 *arg0, s32 arg1);
 extern "C" void func_0209b288(u8 *obj, s32 a, s32 b);
 extern "C" s32 func_0209b298(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" void func_0209b2bc(void);
@@ -51,7 +51,7 @@ extern "C" u8 *func_0209b3f8(u8 *obj);
 extern "C" void func_0209b404(void);
 extern "C" u32 func_0209b428(u8 *obj, int bit);
 extern "C" void func_0209b438(u8 *obj, u16 a, u16 b);
-extern "C" void func_0209b448(void);
+extern "C" s32 func_0209b448(u8 *arg0, u8 *arg1, u8 *arg2);
 extern "C" void func_0209b4a0(u8 *obj, BOOL on);
 extern "C" s32 func_0209b4bc(u8 *arg0);
 extern "C" void func_0209b4e4(u8 *obj, BOOL on);
@@ -1134,32 +1134,29 @@ extern "C" s32 func_0209b1ec(s32 arg0, s32 arg1, s32 arg2)
     return 0;
 }
 
-extern "C" asm void func_0209b230(void)
+extern "C" s32 func_0209b230(u8 *arg0, s32 arg1)
 {
-    add r2, r0, #0x600
-    ldrsb r2, [r2, #0x23]
-    cmp r2, #0
-    moveq r0, #0
-    bxeq lr
-    mov r12, #0
-@L_0209b248:
-    add r3, r0, r12, lsl #3
-    ldr r2, [r3, #0x628]
-    cmp r2, #0
-    beq @L_0209b274
-    sub r2, r2, r1
-    cmp r2, #0
-    str r2, [r3, #0x628]
-    movle r0, #0
-    strle r0, [r3, #0x628]
-    ldrle r0, [r3, #0x624]
-    bxle lr
-@L_0209b274:
-    add r12, r12, #1
-    cmp r12, #4
-    blt @L_0209b248
-    mov r0, #0
-    bx lr
+    s32 r2;
+    u8 *r3;
+    s32 r12;
+    if (*(s8 *)(arg0 + 0x623) == 0) {
+        return 0;
+    } else {
+        r12 = 0;
+        do {
+            r3 = (u8 *)(arg0 + (r12 << 3));
+            r2 = *(s32 *)(((u8 *)(arg0 + (r12 << 3))) + 0x628);
+            if (r2 != 0) {
+                *(s32 *)(r3 + 0x628) = (r2 - arg1);
+                if ((r2 - arg1) <= 0) {
+                    *(s32 *)(r3 + 0x628) = 0;
+                    return *(s32 *)(r3 + 0x624);
+                }
+            }
+            r12 = (r12 + 1);
+        } while (r12 < 4);
+        return 0;
+    }
 }
 
 extern "C" void func_0209b288(u8 *obj, s32 a, s32 b)
@@ -1305,32 +1302,32 @@ extern "C" void func_0209b438(u8 *obj, u16 a, u16 b)
     *(u16 *)(obj + 0x93A) = b;
 }
 
-extern "C" asm void func_0209b448(void)
+extern "C" s32 func_0209b448(u8 *arg0, u8 *arg1, u8 *arg2)
 {
-    add r3, r0, #0x900
-    ldrsh r12, [r3, #0x38]
-    cmp r12, #0
-    movle r12, #0xe0
-    strleh r12, [r3, #0x38]
-    add r3, r0, #0x900
-    ldrsh r3, [r3, #0x38]
-    cmp r3, #0xe0
-    movgt r3, #0xe0
-    bgt @L_0209b478
-    cmp r3, #1
-    movlt r3, #1
-@L_0209b478:
-    strh r3, [r1]
-    add r0, r0, #0x900
-    ldrsh r0, [r0, #0x3a]
-    cmp r0, #0xa0
-    movgt r0, #0xa0
-    bgt @L_0209b498
-    cmp r0, #1
-    movlt r0, #1
-@L_0209b498:
-    strh r0, [r2]
-    bx lr
+    s32 r0;
+    s32 r3;
+    if (*(s16 *)(arg0 + 0x938) <= 0) {
+        *(u16 *)(arg0 + 0x938) = 0xE0;
+    }
+    r3 = *(s16 *)(arg0 + 0x938);
+    if (r3 > 0xE0) {
+        r3 = 0xE0;
+    } else {
+        if (r3 < 1) {
+            r3 = 1;
+        }
+    }
+    *(u16 *)(arg1) = r3;
+    r0 = *(s16 *)(arg0 + 0x93A);
+    if (r0 > 0xA0) {
+        r0 = 0xA0;
+    } else {
+        if (r0 < 1) {
+            r0 = 1;
+        }
+    }
+    *(u16 *)(arg2) = r0;
+    return r0;
 }
 
 extern "C" void func_0209b4a0(u8 *obj, BOOL on)
