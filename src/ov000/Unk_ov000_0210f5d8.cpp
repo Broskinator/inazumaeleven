@@ -177,6 +177,8 @@ extern "C" s32 func_ov015_02161fe8(...);
 extern "C" void func_ov015_02162140(void);
 extern "C" void func_ov015_021630d8(void);
 
+extern "C" void func_ov000_0211289c(void);
+extern "C" void func_ov000_02112de8(void);
 extern "C" asm void func_ov000_0210f5d8(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
@@ -2808,37 +2810,43 @@ extern "C" asm void func_ov000_02111cb0(void)
     cmp r0, #4
     addls pc, pc, r0, lsl #2
     b @L_02111dc0
-    dcd 0xea00001b
-    dcd 0xea000002
-    dcd 0xea000007
-    dcd 0xea00000c
-    dcd 0xea000011
-    dcd 0xe28d1000
-    dcd 0xe1a00007
-    dcd 0xe1a02005
-    dcd 0xebfffeb8
-    dcd 0xe1a04000
-    dcd 0xea000012
-    dcd 0xebfbda83
-    dcd 0xe28d1000
-    dcd 0xe1a00007
-    dcd 0xe1a02005
-    dcd 0xeb0001c7
-    dcd 0xeafffff7
-    dcd 0xebfbda7d
-    dcd 0xe28d1000
-    dcd 0xe1a00007
-    dcd 0xe1a02005
-    dcd 0xeb0002bd
-    dcd 0xeafffff1
-    dcd 0xebfbda77
-    dcd 0xe28d1000
-    dcd 0xe1a00007
-    dcd 0xe1a02005
-    dcd 0xeb00040a
-    dcd 0xeaffffeb
+    b @L_02111dc0
+    b @L_02111d60
+    b @L_02111d78
+    b @L_02111d90
+    b @L_02111da8
+@L_02111d60:
+    add r1, sp, #0
+    mov r0, r7
+    mov r2, r5
+    bl func_ov000_02111854
+@L_02111d70:
+    mov r4, r0
+    b @L_02111dc4
+@L_02111d78:
+    bl func_0200878c
+    add r1, sp, #0
+    mov r0, r7
+    mov r2, r5
+    bl func_ov000_021124ac
+    b @L_02111d70
+@L_02111d90:
+    bl func_0200878c
+    add r1, sp, #0
+    mov r0, r7
+    mov r2, r5
+    bl func_ov000_0211289c
+    b @L_02111d70
+@L_02111da8:
+    bl func_0200878c
+    add r1, sp, #0
+    mov r0, r7
+    mov r2, r5
+    bl func_ov000_02112de8
+    b @L_02111d70
 @L_02111dc0:
     bl func_0200878c
+@L_02111dc4:
     ldr r1, [r7, #4]
     ldr r3, [sp]
     ldr r0, [r1, #0x1c]

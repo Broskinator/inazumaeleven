@@ -163,6 +163,13 @@ extern "C" void func_ov014_02122040(void);
 extern "C" s32 func_ov014_021222b4(...);
 extern "C" s32 strncmp(...);
 
+extern "C" void func_ov014_0212104c(void);
+extern "C" void func_ov014_021211a8(void);
+extern "C" void func_ov014_021212d0(void);
+extern "C" void func_ov014_02121520(void);
+extern "C" void func_ov014_021215e4(void);
+extern "C" void func_ov014_0210aac4(void);
+extern "C" void func_ov014_0210aa24(void);
 extern "C" asm s32 func_ov014_02105c64(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
@@ -2234,36 +2241,43 @@ extern "C" asm void func_ov014_02107a40(void)
     cmp r0, #0xc
     addls pc, pc, r0, lsl #2
     b @L_02107acc
-    dcd 0xea00000b
-    dcd 0xea00000c
-    dcd 0xea00001a
-    dcd 0xea00000c
-    dcd 0xea000018
-    dcd 0xea000017
-    dcd 0xea00000b
-    dcd 0xea000015
-    dcd 0xea000014
-    dcd 0xea00000a
-    dcd 0xea000012
-    dcd 0xea00000c
-    dcd 0xea000009
-    dcd 0xe3a00001
-    dcd 0xe8bd8010
-    dcd 0xeb00656d
-    dcd 0xea00000c
-    dcd 0xeb0065c2
-    dcd 0xea00000a
-    dcd 0xeb00660a
-    dcd 0xea000008
-    dcd 0xeb00669c
-    dcd 0xea000006
-    dcd 0xeb0066cb
-    dcd 0xea000004
-    dcd 0xe3a04000
-    dcd 0xe1a00004
-    dcd 0xeb000363
-    dcd 0xe2440001
-    dcd 0xe8bd8010
+    b @L_02107a88
+    b @L_02107a90
+    b @L_02107acc
+    b @L_02107a98
+    b @L_02107acc
+    b @L_02107acc
+    b @L_02107aa0
+    b @L_02107acc
+    b @L_02107acc
+    b @L_02107aa8
+    b @L_02107acc
+    b @L_02107ab8
+    b @L_02107ab0
+@L_02107a88:
+    mov r0, #1
+    ldmia sp!, {r4, pc}
+@L_02107a90:
+    bl func_ov014_0212104c
+    b @L_02107acc
+@L_02107a98:
+    bl func_ov014_021211a8
+    b @L_02107acc
+@L_02107aa0:
+    bl func_ov014_021212d0
+    b @L_02107acc
+@L_02107aa8:
+    bl func_ov014_02121520
+    b @L_02107acc
+@L_02107ab0:
+    bl func_ov014_021215e4
+    b @L_02107acc
+@L_02107ab8:
+    mov r4, #0
+    mov r0, r4
+    bl func_ov014_02108854
+    sub r0, r4, #1
+    ldmia sp!, {r4, pc}
 @L_02107acc:
     mov r0, #0
     ldmia sp!, {r4, pc}
@@ -2625,53 +2639,62 @@ extern "C" asm void func_ov014_02107f70(void)
     cmp r1, #9
     addls pc, pc, r1, lsl #2
     b @L_02108040
-    dcd 0xea00000a
-    dcd 0xea000008
-    dcd 0xea000006
-    dcd 0xea000012
-    dcd 0xea000010
-    dcd 0xea00000e
-    dcd 0xea000014
-    dcd 0xea00001d
-    dcd 0xea000025
-    dcd 0xea000024
-    dcd 0xe2800c01
-    dcd 0xe2800c01
-    dcd 0xe5d020e6
-    dcd 0xe2800080
-    dcd 0xe2841002
-    dcd 0xe1a02f02
-    dcd 0xe1a03f22
-    dcd 0xe3a02010
-    dcd 0xe5c43000
-    dcd 0xebfc0523
-    dcd 0xea000019
-    dcd 0xe2800c01
-    dcd 0xe2800c01
-    dcd 0xe3a03001
-    dcd 0xe28000d1
-    dcd 0xe2841002
-    dcd 0xe3a02005
-    dcd 0xeafffff5
-    dcd 0xe3a01002
-    dcd 0xe5c41000
-    dcd 0xe5d01d13
-    dcd 0xe280007c
-    dcd 0xe2802b01
-    dcd 0xe3a000c0
-    dcd 0xe0202091
-    dcd 0xe2841002
-    dcd 0xeb000aaa
-    dcd 0xea000008
-    dcd 0xe3a01002
-    dcd 0xe5c41000
-    dcd 0xe5d01d13
-    dcd 0xe280007c
-    dcd 0xe2802b01
-    dcd 0xe3a000c0
-    dcd 0xe0202091
-    dcd 0xe2841002
-    dcd 0xeb000a78
+    b @L_02107fb4
+    b @L_02107fb0
+    b @L_02107fac
+    b @L_02107fe0
+    b @L_02107fdc
+    b @L_02107fd8
+    b @L_02107ff4
+    b @L_0210801c
+    b @L_02108040
+    b @L_02108040
+@L_02107fac:
+    add r0, r0, #0x100
+@L_02107fb0:
+    add r0, r0, #0x100
+@L_02107fb4:
+    ldrb r2, [r0, #0xe6]
+    add r0, r0, #0x80
+    add r1, r4, #2
+    mov r2, r2, lsl #0x1e
+    mov r3, r2, lsr #0x1e
+    mov r2, #0x10
+@L_02107fcc:
+    strb r3, [r4]
+    bl MI_CpuCopy8
+    b @L_02108040
+@L_02107fd8:
+    add r0, r0, #0x100
+@L_02107fdc:
+    add r0, r0, #0x100
+@L_02107fe0:
+    mov r3, #1
+    add r0, r0, #0xd1
+    add r1, r4, #2
+    mov r2, #5
+    b @L_02107fcc
+@L_02107ff4:
+    mov r1, #2
+    strb r1, [r4]
+    ldrb r1, [r0, #0xd13]
+    add r0, r0, #0x7c
+    add r2, r0, #0x400
+    mov r0, #0xc0
+    mla r0, r1, r0, r2
+    add r1, r4, #2
+    bl func_ov014_0210aac4
+    b @L_02108040
+@L_0210801c:
+    mov r1, #2
+    strb r1, [r4]
+    ldrb r1, [r0, #0xd13]
+    add r0, r0, #0x7c
+    add r2, r0, #0x400
+    mov r0, #0xc0
+    mla r0, r1, r0, r2
+    add r1, r4, #2
+    bl func_ov014_0210aa24
 @L_02108040:
     ldrb r0, [r4]
     cmp r0, #0

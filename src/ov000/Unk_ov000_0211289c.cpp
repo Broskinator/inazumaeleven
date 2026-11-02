@@ -2186,21 +2186,21 @@ extern "C" asm void func_ov000_0211468c(void)
     cmp r0, #0xe
     addls pc, pc, r0, lsl #2
     b @L_02114874
-    dcd 0xea00004d
-    dcd 0xea00004c
-    dcd 0xea00000b
-    dcd 0xea00000a
-    dcd 0xea000009
-    dcd 0xea000008
-    dcd 0xea000007
-    dcd 0xea000006
-    dcd 0xea000005
-    dcd 0xea000004
-    dcd 0xea000003
-    dcd 0xea000002
-    dcd 0xea000001
-    dcd 0xea000000
-    dcd 0xeaffffff
+    b @L_02114874
+    b @L_02114874
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
+    b @L_02114774
 @L_02114774:
     cmp r8, #2
     bne @L_021147dc
@@ -2209,25 +2209,25 @@ extern "C" asm void func_ov000_0211468c(void)
     cmp r0, #0x12
     addls pc, pc, r0, lsl #2
     b @L_02114874
-    dcd 0xea000011
-    dcd 0xea000010
-    dcd 0xea00000f
-    dcd 0xea000034
-    dcd 0xea00000d
-    dcd 0xea00000c
-    dcd 0xea00000b
-    dcd 0xea00000a
-    dcd 0xea000009
-    dcd 0xea000008
-    dcd 0xea000007
-    dcd 0xea000006
-    dcd 0xea000005
-    dcd 0xea000004
-    dcd 0xea000003
-    dcd 0xea000002
-    dcd 0xea000001
-    dcd 0xea000000
-    dcd 0xeaffffff
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_02114874
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
+    b @L_021147dc
 @L_021147dc:
     ldrb r0, [r4, #0x31]
     tst r0, #8
@@ -2248,12 +2248,12 @@ extern "C" asm void func_ov000_0211468c(void)
     mov r0, r9
     bl _ZN17UnkClass_020621b413func_0207a534Ev
     mov r10, r0
-    ldr r0, [pc, #0x74]
+    ldr r0, =data_020cacc8
     mov r1, r10
     bl func_020817bc
     cmp r0, #0
     bne @L_0211484c
-    ldr r0, [pc, #0x64]
+    ldr r0, =data_020cadf4
     mov r1, r10
     bl func_02081894
     cmp r0, #0
@@ -2283,8 +2283,6 @@ extern "C" asm void func_ov000_0211468c(void)
     mov r0, r9
     bl _ZN17UnkClass_020621b413func_0207f07cEv
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    dcd data_020cacc8
-    dcd data_020cadf4
 }
 
 extern "C" asm void func_ov000_021148a8(void)

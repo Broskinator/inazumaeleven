@@ -2252,62 +2252,71 @@ extern "C" s32 func_ov014_02110aac(u8 *arg0)
 extern "C" asm void func_ov014_02110acc(void)
 {
     cmp r0, #0
-    ldrne r2, [pc, #0xcc]
+    ldrne r2, =data_ov014_02128dc0
     ldrne r2, [r2, #4]
     strne r2, [r0]
     cmp r1, #0
     beq @L_02110b98
-    ldr r0, [pc, #0xb8]
+    ldr r0, =data_ov014_02128dc0
     ldr r0, [r0]
     cmp r0, #0x15
     addls pc, pc, r0, lsl #2
     b @L_02110b90
-    dcd 0xea000024
-    dcd 0xea00001b
-    dcd 0xea000012
-    dcd 0xea000011
-    dcd 0xea000010
-    dcd 0xea00000f
-    dcd 0xea00000f
-    dcd 0xea000011
-    dcd 0xea00000c
-    dcd 0xea000013
-    dcd 0xea000010
-    dcd 0xea00000f
-    dcd 0xea00000e
-    dcd 0xea000011
-    dcd 0xea000012
-    dcd 0xea000013
-    dcd 0xea000010
-    dcd 0xea000011
-    dcd 0xea00000e
-    dcd 0xea00000f
-    dcd 0xea000006
-    dcd 0xea000002
-    dcd 0xea00000a
-    dcd 0xe3a00003
-    dcd 0xea00000d
-    dcd 0xea000009
-    dcd 0xe3a00004
-    dcd 0xea00000a
-    dcd 0xe3a00001
-    dcd 0xea000008
-    dcd 0xe3a00007
-    dcd 0xea000006
-    dcd 0xe3a00005
-    dcd 0xea000004
-    dcd 0xe3a00006
-    dcd 0xea000002
-    dcd 0xe3a00002
-    dcd 0xea000000
+    b @L_02110b90
+    b @L_02110b70
+    b @L_02110b50
+    b @L_02110b50
+    b @L_02110b50
+    b @L_02110b50
+    b @L_02110b54
+    b @L_02110b60
+    b @L_02110b50
+    b @L_02110b70
+    b @L_02110b68
+    b @L_02110b68
+    b @L_02110b68
+    b @L_02110b78
+    b @L_02110b80
+    b @L_02110b88
+    b @L_02110b80
+    b @L_02110b88
+    b @L_02110b80
+    b @L_02110b88
+    b @L_02110b68
+    b @L_02110b5c
+@L_02110b50:
+    b @L_02110b80
+@L_02110b54:
+    mov r0, #3
+    b @L_02110b94
+@L_02110b5c:
+    b @L_02110b88
+@L_02110b60:
+    mov r0, #4
+    b @L_02110b94
+@L_02110b68:
+    mov r0, #1
+    b @L_02110b94
+@L_02110b70:
+    mov r0, #7
+    b @L_02110b94
+@L_02110b78:
+    mov r0, #5
+    b @L_02110b94
+@L_02110b80:
+    mov r0, #6
+    b @L_02110b94
+@L_02110b88:
+    mov r0, #2
+    b @L_02110b94
 @L_02110b90:
     mov r0, #0
+@L_02110b94:
     str r0, [r1]
 @L_02110b98:
-    ldr r0, [pc, #4]
+    ldr r0, =data_ov014_02128dc0
     ldr r0, [r0]
     bx lr
-    dcd data_ov014_02128dc0
 }
 
 extern "C" s32 func_ov014_02110ba8(void)

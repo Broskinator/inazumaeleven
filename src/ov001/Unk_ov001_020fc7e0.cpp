@@ -1764,14 +1764,14 @@ extern "C" asm void func_ov001_020fdef4(void)
     cmp r0, #7
     addls pc, pc, r0, lsl #2
     ldmia sp!, {r3, r4, r5, pc}
-    dcd 0xea00002c
-    dcd 0xea00003b
-    dcd 0xea000033
-    dcd 0xe8bd8038
-    dcd 0xe8bd8038
-    dcd 0xe8bd8038
-    dcd 0xe8bd8038
-    dcd 0xea00003c
+    b @L_020fe01c
+    b @L_020fe05c
+    b @L_020fe040
+    ldmia sp!, {r3, r4, r5, pc}
+    ldmia sp!, {r3, r4, r5, pc}
+    ldmia sp!, {r3, r4, r5, pc}
+    ldmia sp!, {r3, r4, r5, pc}
+    b @L_020fe078
 @L_020fdf84:
     cmp r1, #0x5d
     bgt @L_020fdfac
@@ -1797,7 +1797,7 @@ extern "C" asm void func_ov001_020fdef4(void)
     mov r0, #0x28
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0xb8]
+    ldrne r1, =data_ov077_021703e0
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
@@ -1805,7 +1805,7 @@ extern "C" asm void func_ov001_020fdef4(void)
     mov r0, #0x190
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0xa0]
+    ldrne r1, =data_ov074_02171128
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
@@ -1813,48 +1813,44 @@ extern "C" asm void func_ov001_020fdef4(void)
     mov r0, #0xd8
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x88]
+    ldrne r1, =data_ov071_02170e7c
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
-    dcd 0xe3a00008
-    dcd 0xebfc20c5
-    dcd 0xe3a000f0
-    dcd 0xebfc9d44
-    dcd 0xe3500000
-    dcd 0x159f1068
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8038
+@L_020fe01c:
+    mov r0, #8
+    bl OS_Sleep
+    mov r0, #0xf0
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov071_02170e20
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r3, r4, r5, pc}
 @L_020fe040:
     mov r0, #0x29c
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x50]
+    ldrne r1, =data_ov079_02173f4c
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
-    dcd 0xe3a000e8
-    dcd 0xebfc9d36
-    dcd 0xe3500000
-    dcd 0x159f1038
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8038
-    dcd 0xe3a00088
-    dcd 0xebfc9d2f
-    dcd 0xe3500000
-    dcd 0x159f1020
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8038
-    dcd data_ov077_021703e0
-    dcd data_ov074_02171128
-    dcd data_ov071_02170e7c
-    dcd data_ov071_02170e20
-    dcd data_ov079_02173f4c
-    dcd data_ov083_02170dd0
-    dcd data_ov001_0212a82c
+@L_020fe05c:
+    mov r0, #0xe8
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov083_02170dd0
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r3, r4, r5, pc}
+@L_020fe078:
+    mov r0, #0x88
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov001_0212a82c
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r3, r4, r5, pc}
 }
 
 extern "C" asm void func_ov001_020fe0b0(void)

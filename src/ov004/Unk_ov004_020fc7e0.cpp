@@ -89,6 +89,11 @@ extern "C" s32 func_ov015_02135e10(...);
 extern "C" s32 func_ov015_0213b3fc(...);
 extern "C" void func_ov015_0213c33c(void);
 
+extern "C" void _ZN12SoundManager9PlaySoundEi(void);
+extern "C" void func_ov015_0213257c(void);
+extern "C" void func_ov015_02132794(void);
+extern "C" void func_ov015_02132628(void);
+extern "C" void func_ov015_021326b8(void);
 extern "C" asm void func_ov004_020fc7e0(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
@@ -536,92 +541,99 @@ extern "C" asm void func_ov004_020fce1c(void)
     cmp r1, #6
     addls pc, pc, r1, lsl #2
     ldmia sp!, {r4, r5, r6, pc}
-    dcd 0xe8bd8070
-    dcd 0xea000004
-    dcd 0xe8bd8070
-    dcd 0xea000005
-    dcd 0xea000017
-    dcd 0xea00002d
-    dcd 0xea00003d
-    dcd 0xe3a00002
-    dcd 0xe5840008
-    dcd 0xe8bd8070
-    dcd 0xe594100c
-    dcd 0xe3510001
-    dcd 0x1a000005
-    dcd 0xe59f0110
-    dcd 0xe59f1110
-    dcd 0xebfcf931
-    dcd 0xe3a00006
-    dcd 0xeb00d5bf
-    dcd 0xea000002
-    dcd 0xe5901000
-    dcd 0xe591104c
-    dcd 0xe12fff31
-    dcd 0xe3a02004
-    dcd 0xe3a01000
-    dcd 0xe3a00050
-    dcd 0xe5842008
-    dcd 0xe5c41020
-    dcd 0xe5840010
-    dcd 0xe8bd8070
-    dcd 0xeb00d639
-    dcd 0xe3500000
-    dcd 0x059f00d0
-    dcd 0x05941010
-    dcd 0x05900000
-    dcd 0x00410000
-    dcd 0x05840010
-    dcd 0xe5940010
-    dcd 0xe3500000
-    dcd 0xa8bd8070
-    dcd 0xe594000c
-    dcd 0xe3500001
-    dcd 0x1a000004
-    dcd 0xe3a00006
-    dcd 0xeb00d5d0
-    dcd 0xe3a0001e
-    dcd 0xe5840010
-    dcd 0xea000001
-    dcd 0xe3a00008
-    dcd 0xeb00d5ef
-    dcd 0xe3a00005
-    dcd 0xe5840008
-    dcd 0xe8bd8070
-    dcd 0xeb00d622
-    dcd 0xe3500000
-    dcd 0x18bd8070
-    dcd 0xe594000c
-    dcd 0xe3500001
-    dcd 0x1a000005
-    dcd 0xe5940010
-    dcd 0xe2500001
-    dcd 0xe5840010
-    dcd 0x43a00006
-    dcd 0x45840008
-    dcd 0xe8bd8070
-    dcd 0xe3a01001
-    dcd 0xe3a00002
-    dcd 0xe584100c
-    dcd 0xe5840008
-    dcd 0xe8bd8070
-    dcd 0xe5940004
-    dcd 0xe3a05000
-    dcd 0xe5c05088
-    dcd 0xe5946004
-    dcd 0xe3a04001
-    dcd 0xe1a00006
-    dcd 0xe1a01005
-    dcd 0xe1a02004
-    dcd 0xebfd0437
-    dcd 0xe1a00006
-    dcd 0xe1a01004
-    dcd 0xe1a02005
-    dcd 0xebfd0433
-    dcd 0xe8bd8070
-    dcd data_020c5e40
-    dcd 0x000083de
-    dcd data_020c484c
+    ldmia sp!, {r4, r5, r6, pc}
+    b @L_020fce50
+    ldmia sp!, {r4, r5, r6, pc}
+    b @L_020fce5c
+    b @L_020fcea8
+    b @L_020fcf04
+    b @L_020fcf48
+@L_020fce50:
+    mov r0, #2
+    str r0, [r4, #8]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_020fce5c:
+    ldr r1, [r4, #0xc]
+    cmp r1, #1
+    bne @L_020fce80
+    ldr r0, =data_020c5e40
+    ldr r1, =0x83de
+    bl _ZN12SoundManager9PlaySoundEi
+    mov r0, #6
+    bl func_ov015_0213257c
+    b @L_020fce8c
+@L_020fce80:
+    ldr r1, [r0]
+    ldr r1, [r1, #0x4c]
+    blx r1
+@L_020fce8c:
+    mov r2, #4
+    mov r1, #0
+    mov r0, #0x50
+    str r2, [r4, #8]
+    strb r1, [r4, #0x20]
+    str r0, [r4, #0x10]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_020fcea8:
+    bl func_ov015_02132794
+    cmp r0, #0
+    ldreq r0, =data_020c484c
+    ldreq r1, [r4, #0x10]
+    ldreq r0, [r0]
+    subeq r0, r1, r0
+    streq r0, [r4, #0x10]
+    ldr r0, [r4, #0x10]
+    cmp r0, #0
+    ldmgeia sp!, {r4, r5, r6, pc}
+    ldr r0, [r4, #0xc]
+    cmp r0, #1
+    bne @L_020fcef0
+    mov r0, #6
+    bl func_ov015_02132628
+    mov r0, #0x1e
+    str r0, [r4, #0x10]
+    b @L_020fcef8
+@L_020fcef0:
+    mov r0, #8
+    bl func_ov015_021326b8
+@L_020fcef8:
+    mov r0, #5
+    str r0, [r4, #8]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_020fcf04:
+    bl func_ov015_02132794
+    cmp r0, #0
+    ldmneia sp!, {r4, r5, r6, pc}
+    ldr r0, [r4, #0xc]
+    cmp r0, #1
+    bne @L_020fcf34
+    ldr r0, [r4, #0x10]
+    subs r0, r0, #1
+    str r0, [r4, #0x10]
+    movmi r0, #6
+    strmi r0, [r4, #8]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_020fcf34:
+    mov r1, #1
+    mov r0, #2
+    str r1, [r4, #0xc]
+    str r0, [r4, #8]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_020fcf48:
+    ldr r0, [r4, #4]
+    mov r5, #0
+    strb r5, [r0, #0x88]
+    ldr r6, [r4, #4]
+    mov r4, #1
+    mov r0, r6
+    mov r1, r5
+    mov r2, r4
+    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    mov r0, r6
+    mov r1, r4
+    mov r2, r5
+    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    ldmia sp!, {r4, r5, r6, pc}
 }
 
 extern "C" asm void func_ov004_020fcf8c(void)

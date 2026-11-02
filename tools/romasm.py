@@ -293,6 +293,15 @@ def main():
         return (i.mnemonic == "bx" and i.op_str == "lr" or i.mnemonic == "b" or
                 i.mnemonic in ("pop", "ldm") and "pc" in i.op_str or i.mnemonic == "mov" and i.op_str.startswith("pc,"))
     dead, pool = {p for p, i in words.items() if i is None}, set()
+    # (a jump table, 'cmp rX, #N; addls pc, pc, rX, lsl #2' and N + 2 branches or returns:
+    # code, even after a return, and where its branches go is code too)
+    table = set()
+    for p, i in words.items():
+        if i is not None and i.mnemonic.startswith("add") and i.op_str.startswith("pc, pc,"):
+            prev = words.get(p - 4)
+            m = re.match(r"\w+, #(\w+)$", prev.op_str) if prev is not None and prev.mnemonic == "cmp" else None
+            if m:
+                table |= set(range(p + 4, p + 4 + 4 * (int(m.group(1), 0) + 2), 4)) & set(words)
     for _ in range(10):
         live = [i for p, i in words.items() if p not in dead and p not in pool]
         pool = set()
@@ -303,11 +312,14 @@ def main():
                 pool.add(i.address + 8 + int(m.group(1) or "0", 0))
             if i.id == capstone.arm.ARM_INS_B and i.op_str.startswith("#"):
                 real.add(int(i.op_str[1:], 16))
-        new, off = set(dead), False
+        new, off = set(dead) - table, False
         for p in sorted(words):
             if p in real:
                 off = False
             if p in pool:
+                continue
+            if p in table:
+                off = True     # (after the table: only where a branch goes)
                 continue
             if off:
                 new.add(p)

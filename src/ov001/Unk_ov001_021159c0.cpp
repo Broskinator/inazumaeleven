@@ -383,6 +383,17 @@ extern "C" s32 func_ov001_021159f8(u8 *arg0)
     return (s32)((u8 *)&data_020c4b80);
 }
 
+extern "C" void func_ov001_02109880(void);
+extern "C" void func_ov015_02143750(void);
+extern "C" void func_ov001_0210ae70(void);
+extern "C" void func_ov001_0210a984(void);
+extern "C" void func_02095e04(void);
+extern "C" void func_0208c2f0(void);
+extern "C" void func_0208db54(void);
+extern "C" void func_02089674(void);
+extern "C" void func_0208aef0(void);
+extern "C" void func_02091cec(void);
+extern "C" void func_ov015_0213bfcc(void);
 extern "C" asm void func_ov001_02115a68(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -429,99 +440,109 @@ extern "C" asm void func_ov001_02115a68(void)
 extern "C" asm void func_ov001_02115af8(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, [pc, #0x18c]
+    ldr r1, =data_ov001_02130654
     mov r4, r0
     ldr r0, [r1]
-    ldr r5, [pc, #0x184]
+    ldr r5, =data_ov001_02130668
     cmp r0, #3
     ldrneh r0, [r5]
     strneb r0, [r4, #0x17]
     ldrneh r0, [r5, #2]
     strneb r0, [r4, #0x18]
-    ldr r0, [pc, #0x168]
+    ldr r0, =data_ov001_02130654
     ldr r0, [r0]
     cmp r0, #4
     addls pc, pc, r0, lsl #2
     b @L_02115c5c
-    dcd 0xea000048
-    dcd 0xea000026
-    dcd 0xea000001
-    dcd 0xea00000f
-    dcd 0xea000030
-    dcd 0xe1d510b0
-    dcd 0xe3510000
-    dcd 0x0a000003
-    dcd 0xe3a00000
-    dcd 0xebffcf48
-    dcd 0xe2800001
-    dcd 0xe5c40017
-    dcd 0xe1d510b2
-    dcd 0xe3510000
-    dcd 0x0a00003a
-    dcd 0xe3a00001
-    dcd 0xebffcf41
-    dcd 0xe2800001
-    dcd 0xe5c40018
-    dcd 0xea000035
-    dcd 0xe59f010c
-    dcd 0xeb00b6f0
-    dcd 0xe5d00022
-    dcd 0xe1a00e00
-    dcd 0xe1a00e20
-    dcd 0xe3100002
-    dcd 0x13a00001
-    dcd 0x03a00000
-    dcd 0xe3500000
-    dcd 0x1a000008
-    dcd 0xe1d500b4
-    dcd 0xe3500000
-    dcd 0x03a00000
-    dcd 0x05c40017
-    dcd 0x0a000026
-    dcd 0xebffd4aa
-    dcd 0xe2800001
-    dcd 0xe5c40017
-    dcd 0xea000022
-    dcd 0xe3a0006e
-    dcd 0xeafffffb
-    dcd 0xe1d510b0
-    dcd 0xe3510000
-    dcd 0x0a000003
-    dcd 0xe3a00000
-    dcd 0xebffd365
-    dcd 0xe2800001
-    dcd 0xe5c40017
-    dcd 0xe1d510b2
-    dcd 0xe3510000
-    dcd 0x0a000016
-    dcd 0xe3a00001
-    dcd 0xebffd35e
-    dcd 0xeaffffda
-    dcd 0xe1d510b0
-    dcd 0xe59f0084
-    dcd 0xe1510000
-    dcd 0x03a00064
-    dcd 0x05c40017
-    dcd 0x0a000003
-    dcd 0xe2800003
-    dcd 0xe1510000
-    dcd 0x03a00065
-    dcd 0x05c40017
-    dcd 0xe1d510b2
-    dcd 0xe59f005c
-    dcd 0xe1510000
-    dcd 0x03a00064
-    dcd 0x05c40018
-    dcd 0x0a000003
-    dcd 0xe2800003
-    dcd 0xe1510000
-    dcd 0x03a00065
-    dcd 0x05c40018
+    b @L_02115c5c
+    b @L_02115bd8
+    b @L_02115b48
+    b @L_02115b84
+    b @L_02115c0c
+@L_02115b48:
+    ldrh r1, [r5]
+    cmp r1, #0
+    beq @L_02115b64
+    mov r0, #0
+    bl func_ov001_02109880
+    add r0, r0, #1
+    strb r0, [r4, #0x17]
+@L_02115b64:
+    ldrh r1, [r5, #2]
+    cmp r1, #0
+    beq @L_02115c5c
+    mov r0, #1
+    bl func_ov001_02109880
+@L_02115b78:
+    add r0, r0, #1
+    strb r0, [r4, #0x18]
+    b @L_02115c5c
+@L_02115b84:
+    ldr r0, =data_020e88a0
+    bl func_ov015_02143750
+    ldrb r0, [r0, #0x22]
+    mov r0, r0, lsl #0x1c
+    mov r0, r0, lsr #0x1c
+    tst r0, #2
+    movne r0, #1
+    moveq r0, #0
+    cmp r0, #0
+    bne @L_02115bd0
+    ldrh r0, [r5, #4]
+    cmp r0, #0
+    moveq r0, #0
+    streqb r0, [r4, #0x17]
+    beq @L_02115c5c
+    bl func_ov001_0210ae70
+    add r0, r0, #1
+@L_02115bc8:
+    strb r0, [r4, #0x17]
+    b @L_02115c5c
+@L_02115bd0:
+    mov r0, #0x6e
+    b @L_02115bc8
+@L_02115bd8:
+    ldrh r1, [r5]
+    cmp r1, #0
+    beq @L_02115bf4
+    mov r0, #0
+    bl func_ov001_0210a984
+    add r0, r0, #1
+    strb r0, [r4, #0x17]
+@L_02115bf4:
+    ldrh r1, [r5, #2]
+    cmp r1, #0
+    beq @L_02115c5c
+    mov r0, #1
+    bl func_ov001_0210a984
+    b @L_02115b78
+@L_02115c0c:
+    ldrh r1, [r5]
+    ldr r0, =0x1f6
+    cmp r1, r0
+    moveq r0, #0x64
+    streqb r0, [r4, #0x17]
+    beq @L_02115c34
+    add r0, r0, #3
+    cmp r1, r0
+    moveq r0, #0x65
+    streqb r0, [r4, #0x17]
+@L_02115c34:
+    ldrh r1, [r5, #2]
+    ldr r0, =0x1f6
+    cmp r1, r0
+    moveq r0, #0x64
+    streqb r0, [r4, #0x18]
+    beq @L_02115c5c
+    add r0, r0, #3
+    cmp r1, r0
+    moveq r0, #0x65
+    streqb r0, [r4, #0x18]
 @L_02115c5c:
-    ldr r0, [pc, #0x2c]
+    ldr r0, =data_ov001_02130654
     ldrb r2, [r4, #0x1b]
     ldr r1, [r0]
-    ldr r0, [pc, #0x30]
+    ldr r0, =data_ov001_02130670
     bic r2, r2, #0x70
     mov r1, r1, lsl #0x1d
     orr r1, r2, r1, lsr #25
@@ -531,11 +552,6 @@ extern "C" asm void func_ov001_02115af8(void)
     ldr r0, [r0, #4]
     strb r0, [r4, #0x1a]
     ldmia sp!, {r3, r4, r5, pc}
-    dcd data_ov001_02130654
-    dcd data_ov001_02130668
-    dcd data_020e88a0
-    dcd 0x000001f6
-    dcd data_ov001_02130670
 }
 
 extern "C" asm void func_ov001_02115ca4(void)
@@ -2440,87 +2456,85 @@ extern "C" asm void func_ov001_021179b0(void)
     cmp r1, #4
     addls pc, pc, r1, lsl #2
     ldmia sp!, {r3, r4, r5, pc}
-    dcd 0xea000003
-    dcd 0xea000003
-    dcd 0xe8bd8038
-    dcd 0xea00000c
-    dcd 0xea000027
-    dcd 0xe8bd8038
-    dcd 0xe2840040
-    dcd 0xe3a01004
-    dcd 0xeb0071ca
-    dcd 0xe3500000
-    dcd 0x08bd8038
-    dcd 0xe1a00004
-    dcd 0xebfffe35
-    dcd 0xe1a00004
-    dcd 0xe3a01002
-    dcd 0xebfffe1a
-    dcd 0xe8bd8038
-    dcd 0xe59f00dc
-    dcd 0xe5900000
-    dcd 0xebfdf8fa
-    dcd 0xe59f00d4
-    dcd 0xe5900000
-    dcd 0xebfdd232
-    dcd 0xe59f00cc
-    dcd 0xe5900000
-    dcd 0xebfdd848
-    dcd 0xe59f00c4
-    dcd 0xe5900000
-    dcd 0xebfdc70d
-    dcd 0xe59f00bc
-    dcd 0xe5900000
-    dcd 0xebfdcd29
-    dcd 0xe59f00b4
-    dcd 0xe5900000
-    dcd 0xebfde8a5
-    dcd 0xe1a00004
-    dcd 0xebfffe7f
-    dcd 0xe1a00004
-    dcd 0xe5901000
-    dcd 0xe591104c
-    dcd 0xe12fff31
-    dcd 0xe1a00004
-    dcd 0xe3a01004
-    dcd 0xebfffdfe
-    dcd 0xe8bd8038
-    dcd 0xe5d41028
-    dcd 0xe3510000
-    dcd 0x0a000002
-    dcd 0xe3a01000
-    dcd 0xe5c41028
-    dcd 0xebfffe71
-    dcd 0xe3a05000
-    dcd 0xe59f0068
-    dcd 0xe1a01005
-    dcd 0xeb009149
-    dcd 0xe594000c
-    dcd 0xe3500000
-    dcd 0xd8bd8038
-    dcd 0xe2400001
-    dcd 0xe584000c
-    dcd 0xe3500000
-    dcd 0xc8bd8038
-    dcd 0xe3a00006
-    dcd 0xeb006ad7
-    dcd 0xe5944004
-    dcd 0xe1a01005
-    dcd 0xe1a00004
-    dcd 0xe3a0203d
-    dcd 0xebfc995b
-    dcd 0xe1a00004
-    dcd 0xe1a02005
-    dcd 0xe3a01001
-    dcd 0xebfc9957
-    dcd 0xe8bd8038
-    dcd data_020c4694
-    dcd data_020c4660
-    dcd data_020c4678
-    dcd data_020c4650
-    dcd data_020c4674
-    dcd data_020c46d4
-    dcd data_020c9660
+    b @L_021179dc
+    b @L_021179e0
+    ldmia sp!, {r3, r4, r5, pc}
+    b @L_02117a0c
+    b @L_02117a7c
+@L_021179dc:
+    ldmia sp!, {r3, r4, r5, pc}
+@L_021179e0:
+    add r0, r4, #0x40
+    mov r1, #4
+    bl func_ov015_02134118
+    cmp r0, #0
+    ldmeqia sp!, {r3, r4, r5, pc}
+    mov r0, r4
+    bl func_ov001_021172d4
+    mov r0, r4
+    mov r1, #2
+    bl func_ov001_02117274
+    ldmia sp!, {r3, r4, r5, pc}
+@L_02117a0c:
+    ldr r0, =data_020c4694
+    ldr r0, [r0]
+    bl func_02095e04
+    ldr r0, =data_020c4660
+    ldr r0, [r0]
+    bl func_0208c2f0
+    ldr r0, =data_020c4678
+    ldr r0, [r0]
+    bl func_0208db54
+    ldr r0, =data_020c4650
+    ldr r0, [r0]
+    bl func_02089674
+    ldr r0, =data_020c4674
+    ldr r0, [r0]
+    bl func_0208aef0
+    ldr r0, =data_020c46d4
+    ldr r0, [r0]
+    bl func_02091cec
+    mov r0, r4
+    bl func_ov001_0211745c
+    mov r0, r4
+    ldr r1, [r0]
+    ldr r1, [r1, #0x4c]
+    blx r1
+    mov r0, r4
+    mov r1, #4
+    bl func_ov001_02117274
+    ldmia sp!, {r3, r4, r5, pc}
+@L_02117a7c:
+    ldrb r1, [r4, #0x28]
+    cmp r1, #0
+    beq @L_02117a94
+    mov r1, #0
+    strb r1, [r4, #0x28]
+    bl func_ov001_0211745c
+@L_02117a94:
+    mov r5, #0
+    ldr r0, =data_020c9660
+    mov r1, r5
+    bl func_ov015_0213bfcc
+    ldr r0, [r4, #0xc]
+    cmp r0, #0
+    ldmleia sp!, {r3, r4, r5, pc}
+    sub r0, r0, #1
+    str r0, [r4, #0xc]
+    cmp r0, #0
+    ldmgtia sp!, {r3, r4, r5, pc}
+    mov r0, #6
+    bl func_ov015_02132628
+    ldr r4, [r4, #4]
+    mov r1, r5
+    mov r0, r4
+    mov r2, #0x3d
+    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    mov r0, r4
+    mov r2, r5
+    mov r1, #1
+    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    ldmia sp!, {r3, r4, r5, pc}
 }
 
 extern "C" s32 func_ov001_02117b0c(u8 *arg0)

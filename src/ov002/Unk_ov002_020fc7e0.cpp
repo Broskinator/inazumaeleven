@@ -122,6 +122,9 @@ extern "C" s32 func_ov002_020fc874(u8 *arg0)
     return v2;
 }
 
+extern "C" void func_ov015_02134118(void);
+extern "C" void func_ov015_0213257c(void);
+extern "C" void _ZN12SceneManager13func_0203e2fcEl(void);
 extern "C" asm void func_ov002_020fc8c4(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
@@ -660,46 +663,50 @@ extern "C" asm void func_ov002_020fd0a4(void)
     cmp r1, #5
     addls pc, pc, r1, lsl #2
     ldmia sp!, {r4, pc}
-    dcd 0xe8bd8010
-    dcd 0xea000003
-    dcd 0xe8bd8010
-    dcd 0xea00000b
-    dcd 0xea000011
-    dcd 0xea000019
-    dcd 0xe284000c
-    dcd 0xe3a01005
-    dcd 0xeb00dc0d
-    dcd 0xe3500000
-    dcd 0x08bd8010
-    dcd 0xe1a00004
-    dcd 0xebfffeb7
-    dcd 0xe3a00002
-    dcd 0xe5840008
-    dcd 0xe8bd8010
-    dcd 0xe3a01004
-    dcd 0xe5841008
-    dcd 0xebffff54
-    dcd 0xe1a00004
-    dcd 0xebffff43
-    dcd 0xe3a00006
-    dcd 0xeb00d518
-    dcd 0xe1a00004
-    dcd 0xe5901000
-    dcd 0xe5911058
-    dcd 0xe12fff31
-    dcd 0xe3500000
-    dcd 0x18bd8010
-    dcd 0xe1a00004
-    dcd 0xebffff39
-    dcd 0xe8bd8010
-    dcd 0xe5901000
-    dcd 0xe5911058
-    dcd 0xe12fff31
-    dcd 0xe3500000
-    dcd 0x18bd8010
-    dcd 0xe3a00004
-    dcd 0xebfd0468
-    dcd 0xe8bd8010
+    ldmia sp!, {r4, pc}
+    b @L_020fd0d4
+    ldmia sp!, {r4, pc}
+    b @L_020fd0fc
+    b @L_020fd118
+    b @L_020fd13c
+@L_020fd0d4:
+    add r0, r4, #0xc
+    mov r1, #5
+    bl func_ov015_02134118
+    cmp r0, #0
+    ldmeqia sp!, {r4, pc}
+    mov r0, r4
+    bl func_ov002_020fcbd0
+    mov r0, #2
+    str r0, [r4, #8]
+    ldmia sp!, {r4, pc}
+@L_020fd0fc:
+    mov r1, #4
+    str r1, [r4, #8]
+    bl func_ov002_020fce5c
+    mov r0, r4
+    bl func_ov002_020fce20
+    mov r0, #6
+    bl func_ov015_0213257c
+@L_020fd118:
+    mov r0, r4
+    ldr r1, [r0]
+    ldr r1, [r1, #0x58]
+    blx r1
+    cmp r0, #0
+    ldmneia sp!, {r4, pc}
+    mov r0, r4
+    bl func_ov002_020fce20
+    ldmia sp!, {r4, pc}
+@L_020fd13c:
+    ldr r1, [r0]
+    ldr r1, [r1, #0x58]
+    blx r1
+    cmp r0, #0
+    ldmneia sp!, {r4, pc}
+    mov r0, #4
+    bl _ZN12SceneManager13func_0203e2fcEl
+    ldmia sp!, {r4, pc}
 }
 
 extern "C" asm void func_ov002_020fd15c(void)

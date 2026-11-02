@@ -3040,14 +3040,14 @@ extern "C" asm void func_ov000_0210f0a0(void)
     cmp r4, r0
     ldr r8, [r1, #4]
     blt @L_0210f110
-    ldr r0, [pc, #0x4c0]
+    ldr r0, =data_020c46d4
     mov r1, r8
     ldr r0, [r0]
     bl func_02093d1c
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0210f110:
-    ldr r0, [pc, #0x4a8]
+    ldr r0, =data_020c46d4
     mov r1, r8
     ldr r0, [r0]
     mov r3, #1
@@ -3060,24 +3060,28 @@ extern "C" asm void func_ov000_0210f0a0(void)
     cmp r0, #3
     addls pc, pc, r0, lsl #2
     b @L_0210f18c
-    dcd 0xea000002
-    dcd 0xea000005
-    dcd 0xea000008
-    dcd 0xea000007
-    dcd 0xe3a02003
-    dcd 0xe3a01004
-    dcd 0xe3a00005
-    dcd 0xea000006
-    dcd 0xe3a02006
-    dcd 0xe3a01007
-    dcd 0xe3a00008
-    dcd 0xea000002
-    dcd 0xe3a02009
-    dcd 0xe3a0100a
-    dcd 0xe3a0000b
-    dcd 0xe58d2004
-    dcd 0xe58d1008
-    dcd 0xe58d000c
+    b @L_0210f154
+    b @L_0210f164
+    b @L_0210f174
+    b @L_0210f174
+@L_0210f154:
+    mov r2, #3
+    mov r1, #4
+    mov r0, #5
+    b @L_0210f180
+@L_0210f164:
+    mov r2, #6
+    mov r1, #7
+    mov r0, #8
+    b @L_0210f180
+@L_0210f174:
+    mov r2, #9
+    mov r1, #0xa
+    mov r0, #0xb
+@L_0210f180:
+    str r2, [sp, #4]
+    str r1, [sp, #8]
+    str r0, [sp, #0xc]
 @L_0210f18c:
     ldr r0, [r5, #0xc4]
     ldr r1, [r5, #0xc8]
@@ -3089,7 +3093,7 @@ extern "C" asm void func_ov000_0210f0a0(void)
     add r0, r3, r0, lsr #29
     add r10, r2, #0x10
     ldr r2, [r6, #4]
-    ldr r7, [pc, #0x404]
+    ldr r7, =data_020c46d4
     mov r9, r0, asr #3
     ldr r0, [r7]
     mov r1, r8
@@ -3306,7 +3310,7 @@ extern "C" asm void func_ov000_0210f0a0(void)
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldrsh r1, [r5, #0xb8]
     add r2, r5, r4, lsl #3
-    ldr r3, [pc, #0xa8]
+    ldr r3, =data_020c46c4
     strh r1, [r2, #0x54]
     ldrsh r1, [r5, #0xba]
     add r1, r1, r10
@@ -3338,21 +3342,15 @@ extern "C" asm void func_ov000_0210f0a0(void)
     bl func_ov015_02161c98
     strh r8, [r7, #0x34]
     mov r0, #0
-    ldr r1, [pc, #0x2c]
+    ldr r1, =func_ov015_02162e84
     strb r0, [r7, #0x38]
-    ldr r0, [pc, #0x28]
+    ldr r0, =func_ov015_02162ed0
     str r1, [r7, #0x1c]
-    ldr r1, [pc, #0x24]
+    ldr r1, =func_ov015_02162f20
     str r0, [r7, #0x20]
-    ldr r0, [pc, #0x20]
+    ldr r0, =func_ov015_02162f2c
     str r1, [r7, #0x24]
     str r0, [r7, #0x28]
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    dcd data_020c46d4
-    dcd data_020c46c4
-    dcd func_ov015_02162e84
-    dcd func_ov015_02162ed0
-    dcd func_ov015_02162f20
-    dcd func_ov015_02162f2c
 }
