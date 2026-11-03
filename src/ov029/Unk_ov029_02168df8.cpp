@@ -35,7 +35,7 @@ extern "C" s32 func_ov029_0216aff8(s32 arg0);
 extern "C" s32 func_ov029_0216b024(...);
 extern "C" s32 func_ov029_0216b0b8(...);
 extern "C" s32 func_ov029_0216b6e8(u8 *arg0);
-extern "C" void func_ov029_0216b754(void);
+extern "C" void func_ov029_0216b754(s32 arg0, s32 arg1);
 extern "C" void func_ov029_0216b774(s32 arg0);
 extern "C" void func_ov029_0216b7e8(void);
 extern "C" void func_ov029_0216b9d0(void);
@@ -2633,15 +2633,9 @@ extern "C" s32 func_ov029_0216b6e8(u8 *arg0)
     return (s32)(arg0 + 0x8000);
 }
 
-extern "C" asm void func_ov029_0216b754(void)
+extern "C" void func_ov029_0216b754(s32 arg0, s32 arg1)
 {
-    add r0, r0, #0x2dc
-    add r0, r0, #0x8800
-    mov r2, #0x24
-    mla r0, r1, r2, r0
-    ldr r12, =MI_CpuFill8
-    mov r1, #0
-    bx r12
+    MI_CpuFill8(((arg1 * 0x24) + ((arg0 + 0x2DC) + 0x8800)), 0, 0x24);
 }
 
 extern "C" void func_ov029_0216b774(s32 arg0)

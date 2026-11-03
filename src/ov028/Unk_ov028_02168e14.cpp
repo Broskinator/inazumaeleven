@@ -45,7 +45,7 @@ extern "C" void func_ov028_0216b044(void);
 extern "C" void func_ov028_0216b1f0(void);
 extern "C" void func_ov028_0216b28c(void);
 extern "C" void func_ov028_0216b358(void);
-extern "C" void func_ov028_0216b3cc(void);
+extern "C" void func_ov028_0216b3cc(u8 *arg0);
 extern "C" void func_ov028_0216b4c8(void);
 extern "C" void func_ov028_0216b5f8(void);
 extern "C" void func_ov028_0216b6c0(void);
@@ -76,8 +76,8 @@ extern "C" void _ZN17UnkClass_020621b413func_02083054Ev(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
-extern "C" void _ZN9EntryPool4SwapEii(void);
-extern "C" void _ZN9EntryPool6RemoveEi(void);
+extern "C" s32 _ZN9EntryPool4SwapEii(...);
+extern "C" s32 _ZN9EntryPool6RemoveEi(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _s32_div_f(void);
 extern "C" void func_02080460(void);
@@ -121,7 +121,7 @@ extern "C" void func_02097ef8(void);
 extern "C" void func_02097fcc(void);
 extern "C" void func_020982a0(void);
 extern "C" void func_0209a3b0(void);
-extern "C" void func_ov015_02130ae8(void);
+extern "C" s32 func_ov015_02130ae8(...);
 extern "C" void func_ov015_02130b14(void);
 extern "C" void func_ov015_021319bc(void);
 extern "C" s32 func_ov015_02161c78(...);
@@ -139,7 +139,7 @@ extern "C" s32 func_ov028_02166c38(...);
 extern "C" void func_ov028_02167fcc(void);
 extern "C" s32 func_ov028_021681c4(...);
 extern "C" void func_ov028_021687cc(void);
-extern "C" void gEntryPool(void);
+extern "C" char gEntryPool[];
 
 extern "C" asm void func_ov028_02168e14(void)
 {
@@ -2611,78 +2611,60 @@ extern "C" asm void func_ov028_0216b358(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov028_0216b3cc(void)
+extern "C" void func_ov028_0216b3cc(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r10, #0
-    ldr r5, =gEntryPool
-    mov r4, r0
-    mov r8, r10
-    mov r6, r10
-    mov r11, r10
-@L_0216b3e8:
-    mov r0, #0x5c
-    mla r0, r8, r0, r4
-    add r0, r0, #0x600
-    ldrh r7, [r0, #0x10]
-    cmp r7, #0
-    beq @L_0216b490
-    mov r9, r6
-@L_0216b404:
-    mov r0, r9
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    beq @L_0216b438
-    ldrh r0, [r0, #0x42]
-    cmp r7, r0
-    bne @L_0216b438
-    mov r0, r5
-    mov r1, r9
-    mov r2, r10
-    bl _ZN9EntryPool4SwapEii
-    add r10, r10, #1
-    b @L_0216b444
-@L_0216b438:
-    add r9, r9, #1
-    cmp r9, #0x10
-    blt @L_0216b404
-@L_0216b444:
-    cmp r9, #0x10
-    blt @L_0216b490
-    mov r9, r11
-@L_0216b450:
-    add r0, r9, #0x20
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    beq @L_0216b484
-    ldrh r0, [r0, #0x42]
-    cmp r7, r0
-    bne @L_0216b484
-    mov r0, r5
-    mov r2, r10
-    add r1, r9, #0x20
-    bl _ZN9EntryPool4SwapEii
-    add r10, r10, #1
-    b @L_0216b490
-@L_0216b484:
-    add r9, r9, #1
-    cmp r9, #0x64
-    blt @L_0216b450
-@L_0216b490:
-    add r8, r8, #1
-    cmp r8, #0x10
-    blt @L_0216b3e8
-    cmp r10, #0x10
-    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r4, =gEntryPool
-@L_0216b4a8:
-    mov r0, r4
-    mov r1, r10
-    bl _ZN9EntryPool6RemoveEi
-    add r10, r10, #1
-    cmp r10, #0x10
-    blt @L_0216b4a8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s32 r4;
+    s32 r6;
+    s32 r7;
+    s32 r8;
+    s32 r9;
+    s32 r10;
+    s32 r11;
+    s32 v0;
+    s32 v2;
+    r10 = 0;
+    r4 = (s32)arg0;
+    r8 = 0;
+    do {
+        r6 = 0;
+        r11 = 0;
+        r7 = *(u16 *)(((u8 *)(((r8 * 0x5C) + r4) + 0x600)) + 0x10);
+        if (r7 != 0) {
+            r9 = r6;
+            do {
+                v0 = func_ov015_02130ae8(r9);
+                arg0 = (u8 *)v0;
+                if (((s32)arg0 != 0 && r7 == *(u16 *)(arg0 + 0x42))) {
+                    _ZN9EntryPool4SwapEii((u8 *)((u8 *)&gEntryPool), r9, r10);
+                    r10 = (r10 + 1);
+                    break;
+                }
+                r9 = (r9 + 1);
+            } while (r9 < 0x10);
+            if (r9 >= 0x10) {
+                r9 = r11;
+                do {
+                    v2 = func_ov015_02130ae8((r9 + 0x20));
+                    arg0 = (u8 *)v2;
+                    if (((s32)arg0 != 0 && r7 == *(u16 *)(arg0 + 0x42))) {
+                        _ZN9EntryPool4SwapEii((u8 *)((u8 *)&gEntryPool), (r9 + 0x20), r10);
+                        r10 = (r10 + 1);
+                        break;
+                    }
+                    r9 = (r9 + 1);
+                } while (r9 < 0x64);
+            }
+        }
+        r8 = (r8 + 1);
+    } while (r8 < 0x10);
+    if (r10 >= 0x10)
+        return;
+    r4 = (s32)((u8 *)&gEntryPool);
+    do {
+        _ZN9EntryPool6RemoveEi(r4, r10);
+        r10 = (r10 + 1);
+    } while (r10 < 0x10);
+    return;
 }
 
 extern "C" asm void func_ov028_0216b4c8(void)

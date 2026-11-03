@@ -83,10 +83,10 @@ extern "C" char data_ov031_0216c15c[];
 extern "C" char data_ov031_0216c174[];
 extern "C" char data_ov031_0216c18c[];
 extern "C" char data_ov031_0216c1a4[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void STD_ConcatenateString(void);
 extern "C" void STD_CopyString(void);
 extern "C" void _ZN11TreasureBox13func_02052618Ei(void);
@@ -156,36 +156,14 @@ extern "C" void func_ov031_02165d60(s32 arg0)
     _ZN12SoundManager8LoadPairEiPKcS1_((s32)data_020c5e40, 1, (s32)data_ov031_0216c0f8, (s32)data_ov031_0216c104);
 }
 
-extern "C" asm void func_ov031_02165de0(void)
+extern "C" void func_ov031_02165de0(void)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r7, =data_020d0d20
-    mov r8, #0
-    mov r6, #0x800
-    mov r0, r8
-    mov r1, r7
-    mov r2, r6
-    bl MIi_CpuClearFast
-    ldr r5, =data_020d1520
-    mov r0, r8
-    mov r1, r5
-    mov r2, r6
-    bl MIi_CpuClearFast
-    ldr r4, =data_020d1d20
-    mov r0, r8
-    mov r1, r4
-    mov r2, r6
-    bl MIi_CpuClearFast
-    mov r0, r7
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r5
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r4
-    mov r1, r6
-    bl DC_FlushRange
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d0d20), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1520), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d0d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1520), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1d20), 0x800);
 }
 
 extern "C" asm void func_ov031_02165e5c(void)

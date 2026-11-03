@@ -74,7 +74,7 @@ extern "C" char data_020c5e40[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020fc724[];
 extern "C" char data_020fc724_b[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void GX_BeginLoadTex(void);
 extern "C" void GX_BeginLoadTexPltt(void);
 extern "C" void MI_CpuFill8(void);
@@ -531,33 +531,23 @@ extern "C" asm void func_0209a97c(void)
     bx lr
 }
 
-extern "C" asm void func_0209a9f0(void)
+extern "C" void func_0209a9f0(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r0, =data_020fc724
-    ldr r4, =data_020fc724_b
-    ldr r0, [r0]
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r1, [r4, #4]
-    mov r0, #0x1c
-    mul r5, r1, r0
-    mov r0, #0
-    ldr r1, [r4]
-    mov r2, r5
-    str r0, [r4, #0xc]
-    str r0, [r4, #0x10]
-    str r0, [r4, #0x14]
-    str r0, [r4, #0x18]
-    strh r0, [r4, #8]
-    strh r0, [r4, #0xa]
-    bl MIi_CpuClearFast
-    ldr r0, [r4]
-    mov r1, r5
-    bl DC_FlushRange
-    mov r0, r4
-    bl func_0209a450
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *p0 = (u8 *)&data_020fc724_b;
+    if (*(s32 *)(((u8 *)&data_020fc724)) == 0)
+        return;
+    s32 t0 = *(s32 *)(p0);
+    s32 t1 = (*(s32 *)(p0 + 0x4) * 0x1C);
+    *(s32 *)(p0 + 0xC) = 0;
+    *(s32 *)(p0 + 0x10) = 0;
+    *(s32 *)(p0 + 0x14) = 0;
+    *(s32 *)(p0 + 0x18) = 0;
+    *(u16 *)(p0 + 0x8) = 0;
+    *(u16 *)(p0 + 0xA) = 0;
+    MIi_CpuClearFast(0, t0, t1);
+    s32 t2 = *(s32 *)(p0);
+    DC_FlushRange(t2, t1);
+    func_0209a450((u8 *)p0);
 }
 
 extern "C" s32 func_0209aa5c(u8 *arg0)

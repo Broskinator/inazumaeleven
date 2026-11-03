@@ -1719,7 +1719,25 @@ def lift_cfg(name, body, protos, variant=0):
                             if sorted(preds0[j]) != sorted([k, s1]) or any(r_ in use_def(i_)[0] | use_def(i_)[1] for i_ in blocks[s1]["insns"]) or has_load(v) \
                                     or any(not isinstance(x, Param) or isinstance(x, Tmp) for x in refs(v)):
                                 ok = False
-                    if ok:
+                    homes_ = {h for h, _ in late}
+                    fvs_ = flag_values(term[0]) if term[0][0] in ("cmp", "zero") else []
+                    if not ok and fvs_ and all(not isinstance(x, Param) for x in fvs_ if refs(x) & homes_) \
+                            and any(refs(x) & homes_ for x in fvs_):
+                        # (what it compares is loaded through the variable: loaded before, into a
+                        # temporary)
+                        pos_ = min(q for q, st in enumerate(stmts) if st[0] == "assign" and st[1] in homes_)
+                        m2 = {}
+                        for x in fvs_:
+                            if refs(x) & homes_ and id(x) not in m2:
+                                t_ = Tmp(len(tmps), x)
+                                t_.used = True
+                                tmps.append(t_)
+                                m2[id(x)] = t_
+                                stmts.insert(pos_, ("let", t_))
+                                pos_ += 1
+                        term = (subst_flags(term[0], m2), term[1])
+                        late = []
+                    elif ok:
                         for home, v in late:
                             stmts.remove(("assign", home, v))
                         SINK[k] = (s1, j, late)
@@ -1818,6 +1836,20 @@ def lift_cfg(name, body, protos, variant=0):
                 continue
             if any(b.get("target") == i + 1 for b in blocks):
                 continue
+
+            def kc(j):
+                tm_ = code[j][1] if j < len(code) else None
+                if tm_ is None or tm_[0][0] != "cmp" or not isinstance(tm_[0][2], Const) or "target" not in blocks[j]:
+                    return None
+                return value(tm_[0][1])
+            if kc(i) is not None and not code[i + 1][0] and kc(i + 1) == kc(i):
+                lo_, hi_ = i, i + 1
+                while lo_ > 0 and not code[lo_][0] and kc(lo_ - 1) == kc(i):
+                    lo_ -= 1
+                while hi_ + 1 < len(code) and not code[hi_ + 1][0] and kc(hi_ + 1) == kc(i):
+                    hi_ += 1
+                if hi_ - lo_ >= 2:
+                    continue     # (three compares of one value: a switch, for dispatch())
             t, u = b1["target"], b2["target"]
             if u in (i, i + 1):
                 continue     # (back to the body before them is fine: a while's test at its end)
@@ -2037,6 +2069,152 @@ def lift_cfg(name, body, protos, variant=0):
                     raise Fail("a loop with two exits")
                 loops[x] = (k, body_, min(exits) if exits else None)
     emitted = {}
+    MIN_, MAX_ = -(1 << 31), (1 << 31) - 1
+
+    def iv_and(A, B):
+        out = []
+        for lo, hi in A:
+            for lo2, hi2 in B:
+                l_, h_ = max(lo, lo2), min(hi, hi2)
+                if l_ <= h_:
+                    out.append((l_, h_))
+        return sorted(out)
+
+    def iv_not(A):
+        out, lo = [], MIN_
+        for l_, h_ in sorted(A):
+            if l_ > lo:
+                out.append((lo, l_ - 1))
+            lo = max(lo, h_ + 1)
+        if lo <= MAX_:
+            out.append((lo, MAX_))
+        return out
+
+    def iv_or(A, B):
+        out = []
+        for l_, h_ in sorted(A + B):
+            if out and l_ <= out[-1][1] + 1:
+                out[-1] = (out[-1][0], max(out[-1][1], h_))
+            else:
+                out.append((l_, h_))
+        return out
+
+    def iv_u(lo, hi):
+        """the unsigned values lo..hi, as signed ones"""
+        out = []
+        if lo <= MAX_:
+            out.append((lo, min(hi, MAX_)))
+        if hi > MAX_:
+            out.append((max(lo, 1 << 31) - (1 << 32), hi - (1 << 32)))
+        return sorted(out)
+
+    def iv_cond(cc, n):
+        n &= 0xFFFFFFFF
+        k = n - (1 << 32) if n > MAX_ else n
+        U = 0xFFFFFFFF
+        return {"eq": [(k, k)], "ne": iv_not([(k, k)]), "gt": [(k + 1, MAX_)] if k < MAX_ else [],
+                "ge": [(k, MAX_)], "lt": [(MIN_, k - 1)] if k > MIN_ else [], "le": [(MIN_, k)],
+                "hi": iv_u(n + 1, U) if n < U else [], "hs": iv_u(n, U), "cs": iv_u(n, U),
+                "lo": iv_u(0, n - 1) if n else [], "cc": iv_u(0, n - 1) if n else [], "ls": iv_u(0, n)}.get(cc)
+
+    def iv_size(A):
+        return sum(h_ - l_ + 1 for l_, h_ in A)
+
+    def disp_of(d, xs):
+        """('cmp', n) or ('table', A) if block d branches on the value xs alone, else None"""
+        tm = code[d][1]
+        if tm is None:
+            return None
+        if tm[0][0] == "cmp" and isinstance(tm[0][2], Const) and value(tm[0][1]) == xs and tm[1] in \
+                ("eq", "ne", "gt", "ge", "lt", "le", "hi", "hs", "cs", "lo", "cc", "ls") and blocks[d].get("target") is not None:
+            return ("cmp", tm[0][2].n)
+        if tm[0][0] == "switch" and blocks[d].get("switch"):
+            ix = tm[0][1]
+            if value(ix) == xs:
+                return ("table", 0)
+            if isinstance(ix, Bin) and ix.op == "-" and isinstance(ix.b, Const) and value(ix.a) == xs:
+                return ("table", ix.b.n)
+            if isinstance(ix, Bin) and ix.op == "+" and isinstance(ix.b, Const) and value(ix.a) == xs:
+                return ("table", -ix.b.n if ix.b.n <= MAX_ else (1 << 32) - ix.b.n)
+        return None
+
+    def dispatch(b):
+        """a switch MW made of compares of one value and jump tables: (the default and each
+        value's case (as for a table), the values, the value switched on, the blocks of the
+        compares), or None"""
+        tm = code[b][1]
+        if tm is None or tm[0][0] not in ("cmp", "switch"):
+            return None
+        x = tm[0][1]
+        if tm[0][0] == "switch" and isinstance(x, Bin) and x.op in ("-", "+") and isinstance(x.b, Const):
+            x = x.a
+        xs = value(x)
+        if not disp_of(b, xs):
+            return None
+        # (the blocks that only compare it, or go on to one that does)
+        D, st = {b}, [b]
+        while st:
+            d = st.pop()
+            for y in succ[d]:
+                if y == EXIT or y in D or y <= d or code[y][0]:
+                    continue
+                if disp_of(y, xs) or code[y][1] is None and len(succ[y]) == 1 and succ[y][0] != EXIT and succ[y][0] > y:
+                    D.add(y)
+                    st.append(y)
+        changed = True
+        while changed:
+            changed = False
+            for y in sorted(D - {b}):
+                if any(p_ not in D for p_ in preds[y]):
+                    D.discard(y)
+                    changed = True
+            # (and what only they reached)
+            reach_, st = {b}, [b]
+            while st:
+                for y in succ[st.pop()]:
+                    if y in D and y not in reach_:
+                        reach_.add(y)
+                        st.append(y)
+            if reach_ != D:
+                D, changed = reach_, True
+        S, targets = {b: [(MIN_, MAX_)]}, {}
+        for d in sorted(D):
+            sd = S.get(d, [])
+            dk = disp_of(d, xs)
+            if dk is None:
+                edges = [(succ[d][0], sd)]
+            elif dk[0] == "cmp":
+                cs = iv_cond(code[d][1][1], dk[1])
+                if cs is None:
+                    return None
+                edges = [(blocks[d]["target"], iv_and(sd, cs)), (d + 1, iv_and(sd, iv_not(cs)))]
+            else:
+                ts_, A = blocks[d]["switch"], dk[1]
+                n_ = len(ts_) - 1
+                edges = [(ts_[i + 1], iv_and(sd, [(A + i, A + i)])) for i in range(n_)]
+                edges.append((ts_[0], iv_and(sd, iv_not([(A, A + n_ - 1)]))))
+            for y, sy in edges:
+                if not sy:
+                    continue
+                if y in D:
+                    S[y] = iv_or(S.get(y, []), sy)
+                else:
+                    targets[y] = iv_or(targets.get(y, []), sy)
+        big = [y for y, sy in targets.items() if iv_size(sy) > 256]
+        if len(big) != 1 or len(D) + sum(1 for d in D if disp_of(d, xs) and disp_of(d, xs)[0] == "table") < 3:
+            return None
+        deflt = big[0]
+        vals, ts = [], [deflt]
+        for y in sorted(targets):
+            if y == deflt:
+                continue
+            for l_, h_ in targets[y]:
+                for v_ in range(l_, h_ + 1):
+                    vals.append(v_)
+                    ts.append(y)
+        if len(vals) < 2:
+            return None
+        return ts, vals, value(x), D
 
     def ind_(n):
         return "    " * n
@@ -2096,8 +2274,12 @@ def lift_cfg(name, body, protos, variant=0):
             if not bk["succ"]:
                 break     # (a return)
             chain = None
+            disp = dispatch(b) if term is not None else None
+            if disp:
+                for z in disp[3] - {b}:
+                    emitted[z] = emitted.get(z, 0) + 1
             if term is not None and term[1] == "eq" and term[0][0] == "cmp" and isinstance(term[0][2], Const) \
-                    and bk.get("target") is not None and not bk.get("switch"):
+                    and bk.get("target") is not None and not bk.get("switch") and not disp:
                 # (compares of one value, each to a case further on: MW's switch of a few cases)
                 xs = value(term[0][1])
                 cases, y = [(term[0][2].n, bk["target"])], b + 1
@@ -2115,8 +2297,11 @@ def lift_cfg(name, body, protos, variant=0):
                         emitted[y] = emitted.get(y, 0) + 1
                         y = succ[y][0]     # (the default: where a 'b' after the compares goes)
                     chain = (cases, y)
-            if bk.get("switch") or chain:
-                if chain:
+            if bk.get("switch") or chain or disp:
+                swx = value(term[0][1])
+                if disp:
+                    ts, vals, swx = disp[0], disp[1], disp[2]
+                elif chain:
                     ts = [chain[1]] + [t_ for _, t_ in chain[0]]
                     vals = [v_ for v_, _ in chain[0]]
                 else:
@@ -2147,7 +2332,11 @@ def lift_cfg(name, body, protos, variant=0):
                     labels = [f"case {vals[k]}:" for k, x in enumerate(ts[1:]) if x == t] + (["default:"] if ts[0] == t else [])
                     body += "".join(ind_(ind + 1) + lb + "\n" for lb in labels)
                     body += region(t, stop_, ind + 2, (loop[0], loop[1], jn, loop[3], loop[4]) if loop else (None, None, jn, None, set(range(nb))))
-                out.append(ind_(ind) + f"switch ({value(term[0][1])}) {{\n" + body + ind_(ind) + "}\n")
+                brk = [vals[k] for k, x in enumerate(ts[1:]) if x == jn]
+                if brk and ts[0] != jn:
+                    # (cases that go straight on after the switch)
+                    body += "".join(ind_(ind + 1) + f"case {v_}:\n" for v_ in brk) + ind_(ind + 2) + "break;\n"
+                out.append(ind_(ind) + f"switch ({swx}) {{\n" + body + ind_(ind) + "}\n")
                 b = jn
                 continue
             if term is None:

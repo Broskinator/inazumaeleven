@@ -22,7 +22,7 @@ extern "C" void func_ov016_0214f8f0(s32 arg0);
 extern "C" s32 func_ov016_0214f924(...);
 extern "C" s32 func_ov016_0214f964(...);
 extern "C" s32 func_ov016_0214f980(...);
-extern "C" void func_ov016_0214f9d8(void);
+extern "C" s32 func_ov016_0214f9d8(u8 *arg0);
 extern "C" void func_ov016_0214fa30(void);
 extern "C" void func_ov016_0214fa80(void);
 extern "C" s32 func_ov016_0214fa94(u8 *arg0);
@@ -36,8 +36,8 @@ extern "C" void func_ov016_0214fe64(void);
 extern "C" void func_ov016_0214ff40(u8 *arg0);
 extern "C" void func_ov016_0214ff6c(void);
 extern "C" s32 func_ov016_021500d4(s32 arg0, u8 *arg1);
-extern "C" void func_ov016_0215015c(void);
-extern "C" void func_ov016_021501bc(void);
+extern "C" s32 func_ov016_0215015c(u8 *arg0);
+extern "C" void func_ov016_021501bc(s32 arg0);
 extern "C" void func_ov016_021501e0(void);
 extern "C" void func_ov016_02150288(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, s32 arg5);
 extern "C" void func_ov016_021502c4(void);
@@ -138,16 +138,16 @@ extern "C" char data_ov016_02158bc4[];
 extern "C" char data_ov016_02158bc4_b[];
 extern "C" s32 DC_FlushRange(...);
 extern "C" void FX_DivS32(void);
-extern "C" void FX_ModS32(void);
+extern "C" s32 FX_ModS32(...);
 extern "C" void G2S_GetBG0ScrPtr(void);
-extern "C" void G2_GetBG0CharPtr(void);
+extern "C" s32 G2_GetBG0CharPtr(...);
 extern "C" void G2_GetBG0ScrPtr(void);
 extern "C" void G2x_ChangeBlendBrightness_(void);
 extern "C" s32 GX_SetBankForSubBGExtPltt(...);
 extern "C" s32 GX_SetBankForSubOBJ(...);
 extern "C" s32 GX_SetBankForSubOBJExtPltt(...);
 extern "C" s32 MI_CpuFill8(...);
-extern "C" void MIi_CpuClear16(void);
+extern "C" s32 MIi_CpuClear16(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void MIi_CpuCopy16(void);
 extern "C" void MIi_CpuCopy32(void);
@@ -816,31 +816,31 @@ extern "C" asm s32 func_ov016_0214f980(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_0214f9d8(void)
+extern "C" s32 func_ov016_0214f9d8(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r0, #1
-    mov r4, #0
-    bl OS_DisableIrqMask
-    ldrb r2, [r6, #3]
-    ldrb r1, [r6, #2]
-    mov r5, r0
-    cmp r1, r2
-    beq @L_0214fa20
-    ldrh r1, [r6]
-    add r0, r2, r1
-    sub r0, r0, #1
-    bl FX_ModS32
-    and r1, r0, #0xff
-    strb r0, [r6, #3]
-    add r0, r6, r1, lsl #2
-    ldr r4, [r0, #4]
-@L_0214fa20:
-    mov r0, r5
-    bl OS_EnableIrqMask
-    mov r0, r4
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r1;
+    s32 r2;
+    s32 r4;
+    s32 r5;
+    s32 v0;
+    s32 v1;
+    s32 t0;
+    u16 t1;
+    r4 = 0;
+    v0 = OS_DisableIrqMask(1);
+    r2 = *(u8 *)(arg0 + 0x3);
+    r1 = *(u8 *)(arg0 + 0x2);
+    r5 = v0;
+    if (r1 != r2) {
+        t0 = ((r2 + *(u16 *)(arg0)) - 1);
+        t1 = *(u16 *)(arg0);
+        v1 = FX_ModS32(t0, t1, r2);
+        *(u8 *)(arg0 + 0x3) = v1;
+        r1 = (v1 & 0xFF);
+        r4 = *(s32 *)(((u8 *)(arg0 + ((v1 & 0xFF) << 2))) + 0x4);
+    }
+    OS_EnableIrqMask(r5, r1);
+    return r4;
 }
 
 extern "C" void func_ov016_0214fa30(void)
@@ -1289,44 +1289,39 @@ extern "C" s32 func_ov016_021500d4(s32 arg0, u8 *arg1)
     return 0;
 }
 
-extern "C" asm void func_ov016_0215015c(void)
+extern "C" s32 func_ov016_0215015c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0x2c]
-    mov r0, #1
-    bl func_ov016_02151c58
-    ldr r0, =data_ov016_02158b60
-    ldr r0, [r0]
-    add r0, r0, #0x610
-    cmp r4, r0
-    bne @L_02150198
-    bl G2_GetBG0CharPtr
-    mov r1, r0
-    mov r0, #0
-    mov r2, #0x6000
-    b @L_021501a8
-@L_02150198:
-    bl G2_GetBG0CharPtr
-    mov r1, r0
-    mov r0, #0
-    mov r2, #0x3000
-@L_021501a8:
-    bl MIi_CpuClear16
-    add r0, r4, #0x28
-    bl func_ov016_0215094c
-    ldmia sp!, {r4, pc}
+    s32 r0;
+    s32 r1;
+    s32 r2;
+    s32 v1;
+    s32 v2;
+    s32 v4;
+    s32 t0;
+    t0 = *(s32 *)(arg0 + 0x2C);
+    ((s32 (*)(...))func_ov016_02151c58)(1, t0);
+    r0 = (*(s32 *)(((u8 *)&data_ov016_02158b60)) + 0x610);
+    if ((s32)arg0 == r0) {
+        v1 = G2_GetBG0CharPtr(r0);
+        r1 = v1;
+        r0 = 0;
+        r2 = 0x6000;
+    } else {
+        v2 = G2_GetBG0CharPtr(r0);
+        r1 = v2;
+        r0 = 0;
+        r2 = 0x3000;
+    }
+    MIi_CpuClear16(r0, r1, r2);
+    v4 = func_ov016_0215094c((s32)(arg0 + 0x28));
+    return v4;
 }
 
-extern "C" asm void func_ov016_021501bc(void)
+extern "C" void func_ov016_021501bc(s32 arg0)
 {
-    ldr r2, =data_ov016_02158b60
-    mov r1, #0x30
-    ldr r2, [r2]
-    ldr r12, =func_ov016_0215015c
-    add r2, r2, #0x610
-    mla r0, r1, r0, r2
-    bx r12
+    s32 t0 = ((0x30 * arg0) + (*(s32 *)(((u8 *)&data_ov016_02158b60)) + 0x610));
+    s32 t1 = (*(s32 *)(((u8 *)&data_ov016_02158b60)) + 0x610);
+    ((s32 (*)(...))func_ov016_0215015c)(t0, 0x30, t1);
 }
 
 extern "C" asm void func_ov016_021501e0(void)

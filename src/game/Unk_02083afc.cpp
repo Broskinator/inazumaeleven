@@ -32,14 +32,14 @@ extern "C" u16 func_02084094(fx32 *segment);
 extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b);
 extern "C" int func_020840e0(int a, int b);
 extern "C" void func_02084100(void);
-extern "C" void func_0208413c(void);
+extern "C" s32 func_0208413c(s32 arg0, s32 arg1);
 extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2);
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
 extern "C" void func_020841e8(void);
 extern "C" s32 func_02084248(s32 arg0);
 extern "C" BOOL func_02084284(int value, int a, int b);
-extern "C" void func_020842b0(void);
+extern "C" s32 func_020842b0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_020842f8(fx32 value);
 extern "C" BOOL func_02084324(fx32 value);
 extern "C" void func_02084350(void);
@@ -57,14 +57,14 @@ extern "C" BOOL func_020847ec(int value);
 extern "C" s32 func_02084808(s32 arg0, s32 arg1, u8 *arg2);
 extern "C" BOOL func_0208484c(MatchPoint *a, MatchPoint *b);
 extern "C" BOOL func_02084870(MatchPlayer *player);
-extern "C" void func_0208488c(void);
+extern "C" s32 func_0208488c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_02084900(fx32 *x, fx32 *y, fx32 *rect, int a);
 extern "C" BOOL func_02084958(fx32 *pos, fx32 *rect, int a);
 extern "C" void func_02084970(void);
-extern "C" void func_02084aec(void);
+extern "C" s32 func_02084aec(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02084ba0(u8 *arg0, u8 *arg1);
 extern "C" void func_02084be8(void);
-extern "C" void func_02084c4c(void);
+extern "C" s32 func_02084c4c(u8 *arg0);
 extern "C" s32 func_02084c8c(u8 *obj);
 extern "C" s32 func_02084c94(u8 *obj);
 extern "C" s32 func_02084ca0(u8 *obj);
@@ -93,8 +93,8 @@ extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" s32 _ZN17UnkClass_020621b413func_0206de54Eii(...);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001d80(void);
 extern "C" void func_02099adc(void);
@@ -534,28 +534,20 @@ extern "C" asm void func_02084100(void)
     bx lr
 }
 
-extern "C" asm void func_0208413c(void)
+extern "C" s32 func_0208413c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    ldr r2, =0x7fff
-    mov r12, r0
-    mov r4, r1
-    and r3, r12, r2
-    and r1, r4, r2
-    cmp r3, r1
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    mov r1, r12
-    bl func_020840e0
-    subs r0, r4, r0
-    bpl @L_02084178
-@L_02084170:
-    adds r0, r0, #0x10000
-    bmi @L_02084170
-@L_02084178:
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    ldmia sp!, {r4, pc}
+    s32 r0;
+    s32 v0;
+    if ((arg0 & 0x7FFF) == (arg1 & 0x7FFF))
+        return arg0;
+    v0 = ((s32 (*)(...))func_020840e0)(arg1, arg0, 0x7FFF, (arg0 & 0x7FFF));
+    r0 = (arg1 - v0);
+    if (r0 < 0) {
+        do {
+            r0 = (r0 + 0x10000);
+        } while (r0 < 0);
+    }
+    return ((u16)r0);
 }
 
 extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2)
@@ -647,28 +639,26 @@ extern "C" BOOL func_02084284(int value, int a, int b)
     return FALSE;
 }
 
-extern "C" asm void func_020842b0(void)
+extern "C" s32 func_020842b0(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, r1
-    mov r4, r2
-    bl func_020840e0
-    cmp r0, #0
-    mov r0, r6
-    mov r1, r5
-    bge @L_020842e0
-    bl func_020840e0
-    rsb r0, r0, #0
-    b @L_020842e4
-@L_020842e0:
-    bl func_020840e0
-@L_020842e4:
-    mov r0, r0, lsl #0x10
-    cmp r4, r0, lsr #16
-    movhs r0, #1
-    movlo r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r0;
+    int v0;
+    int v1;
+    int v2;
+    v0 = func_020840e0(arg0, arg1);
+    if (v0 < 0) {
+        v1 = func_020840e0(arg0, arg1);
+        r0 = (0 - v1);
+    } else {
+        v2 = func_020840e0(arg0, arg1);
+        r0 = v2;
+    }
+    if ((u32)arg2 >= (u32)((u16)r0)) {
+        r0 = 1;
+    } else {
+        r0 = 0;
+    }
+    return r0;
 }
 
 extern "C" BOOL func_020842f8(fx32 value)
@@ -1030,38 +1020,32 @@ extern "C" BOOL func_02084870(MatchPlayer *player)
     return player->state->unk_84 < player->state->unk_85;
 }
 
-extern "C" asm void func_0208488c(void)
+extern "C" s32 func_0208488c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r4, r1
-    mov r5, r2
-    bl func_0208484c
-    cmp r0, #0
-    bne @L_020848bc
-    mov r0, r6
-    mov r1, r4
-    bl func_0208484c
-    cmp r0, #0
-    beq @L_020848c4
-@L_020848bc:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
-@L_020848c4:
-    mov r0, r6
-    mov r1, r4
-    bl func_020840b4
-    mov r4, r0
-    mov r0, r6
-    mov r1, r5
-    bl func_020840b4
-    subs r1, r4, r0
-    ldr r0, =0x7fff
-    rsbmi r1, r1, #0
-    tst r1, r0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r0;
+    s32 r1;
+    BOOL v0;
+    BOOL v1;
+    u16 v2;
+    u16 v3;
+    v0 = func_0208484c((MatchPoint *)arg0, (MatchPoint *)arg1);
+    if ((v0 != 0 || (v1 = func_0208484c((MatchPoint *)arg0, (MatchPoint *)arg1), v1 != 0))) {
+        return 0;
+    } else {
+        v2 = func_020840b4((MatchPoint *)arg0, (MatchPoint *)arg1);
+        v3 = func_020840b4((MatchPoint *)arg0, (MatchPoint *)arg2);
+        r1 = (v2 - v3);
+        r0 = 0x7FFF;
+        if (r1 < 0) {
+            r1 = (0 - r1);
+        }
+        if ((r1 & r0) != 0) {
+            r0 = 1;
+        } else {
+            r0 = 0;
+        }
+        return r0;
+    }
 }
 
 extern "C" asm BOOL func_02084900(fx32 *x, fx32 *y, fx32 *rect, int a)
@@ -1202,53 +1186,25 @@ extern "C" asm void func_02084970(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02084aec(void)
+extern "C" s32 func_02084aec(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    movs r6, r0
-    mov r5, r1
-    cmpne r5, #0
-    mov r4, r2
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    cmp r4, #0
-    moveq r0, #1
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    subs r0, r6, r5
-    rsbmi r0, r0, #0
-    cmp r0, r4
-    bhs @L_02084b3c
-    mov r0, r6
-    mov r1, r5
-    mov r2, r4
-    bl MI_CpuCopy8
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02084b3c:
-    ldr r10, =data_020c47b4
-    mov r9, #0
-    mov r8, #1
-    mov r0, r10
-    mov r1, r4
-    mov r2, r9
-    mov r3, r8
-    bl _ZN8GameHeap5AllocEiii
-    movs r7, r0
-    moveq r0, r9
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r0, r6
-    mov r1, r7
-    mov r2, r4
-    bl MI_CpuCopy8
-    mov r0, r7
-    mov r1, r5
-    mov r2, r4
-    bl MI_CpuCopy8
-    mov r0, r10
-    mov r1, r7
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, r8
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    s32 v1;
+    if ((arg0 == 0 || arg1 == 0))
+        return 0;
+    if (arg2 == 0)
+        return 1;
+    if ((u32)((arg0 - arg1) < 0 ? (0 - (arg0 - arg1)) : (arg0 - arg1)) < (u32)arg2) {
+        MI_CpuCopy8((const void *)arg0, (void *)arg1, (u32)arg2);
+        return 1;
+    } else {
+        v1 = _ZN8GameHeap5AllocEiii((u8 *)((u8 *)&data_020c47b4), arg2, 0, 1);
+        if (v1 == 0)
+            return 0;
+        MI_CpuCopy8((const void *)arg0, (void *)v1, (u32)arg2);
+        MI_CpuCopy8((const void *)v1, (void *)arg1, (u32)arg2);
+        _ZN8GameHeap4FreeEPv((u8 *)((u8 *)&data_020c47b4), v1);
+        return 1;
+    }
 }
 
 extern "C" s32 func_02084ba0(u8 *arg0, u8 *arg1)
@@ -1296,24 +1252,15 @@ extern "C" asm void func_02084be8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_02084c4c(void)
+extern "C" s32 func_02084c4c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r1, r4
-    mov r0, #0
-    mov r2, #0xd4
-    bl MIi_CpuClearFast
-    mov r2, #1
-    mov r3, #0x1e
-    mov r1, #0x100
-    mov r0, #2
-    strb r3, [r4, #0x68]
-    strb r2, [r4, #0x69]
-    str r1, [r4, #0xa0]
-    strb r2, [r4, #0xa6]
-    strb r0, [r4, #0xa7]
-    ldmia sp!, {r4, pc}
+    MIi_CpuClearFast((u32)0, (void *)arg0, (u32)0xD4);
+    *(u8 *)(arg0 + 0x68) = 0x1E;
+    *(u8 *)(arg0 + 0x69) = 1;
+    *(s32 *)(arg0 + 0xA0) = 0x100;
+    *(u8 *)(arg0 + 0xA6) = 1;
+    *(u8 *)(arg0 + 0xA7) = 2;
+    return 2;
 }
 
 extern "C" s32 func_02084c8c(u8 *obj)

@@ -302,6 +302,17 @@ def main():
             m = re.match(r"\w+, #(\w+)$", prev.op_str) if prev is not None and prev.mnemonic == "cmp" else None
             if m:
                 table |= set(range(p + 4, p + 4 + 4 * (int(m.group(1), 0) + 2), 4)) & set(words)
+            # ('cmp rY, #B; bgt; subs rX, rY, #A; addpl pc, pc, rX, lsl #2': B - A + 1 cases)
+            m = re.match(r"(\w+), (\w+), #(\w+)$", prev.op_str) if prev is not None and prev.mnemonic == "subs" else None
+            if m:
+                for q in range(p - 8, p - 32, -4):
+                    c = words.get(q)
+                    mc = re.match(r"(\w+), #(\w+)$", c.op_str) if c is not None and c.mnemonic == "cmp" else None
+                    if mc and mc.group(1) == m.group(2):
+                        n = int(mc.group(2), 0) - int(m.group(3), 0)
+                        if 0 <= n < 64:
+                            table |= set(range(p + 4, p + 4 + 4 * (n + 2), 4)) & set(words)
+                        break
     for _ in range(10):
         live = [i for p, i in words.items() if p not in dead and p not in pool]
         pool = set()

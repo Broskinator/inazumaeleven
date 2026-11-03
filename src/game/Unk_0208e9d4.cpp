@@ -32,14 +32,14 @@ extern "C" void func_0208fc04(void);
 extern "C" s32 func_0208fc44(s32 arg0, u8 *arg1);
 extern "C" void func_0208fc70(void);
 extern "C" void func_0208fd90(s32 arg0);
-extern "C" void func_0208fdf4(void);
-extern "C" void func_0208fe20(void);
+extern "C" void *func_0208fdf4(s32 arg0);
+extern "C" void func_0208fe20(s32 arg0, u8 *arg1);
 extern "C" void func_0208fe50(u8 *obj, void *object);
 extern "C" void func_0208fe60(u8 *obj, void *object, void *target);
 extern "C" u16 func_0208fe7c(u8 *obj);
 extern "C" void func_0208fe88(void);
 extern "C" void *func_0208fed0(u8 *obj);
-extern "C" void func_0208fef4(void);
+extern "C" void func_0208fef4(s32 arg0, s32 arg1);
 extern "C" void *func_0208ff1c(u8 *obj, void *object);
 extern "C" void *func_0208ff2c(u8 *obj);
 extern "C" void *func_0208ff34(u8 *obj, int index);
@@ -1431,35 +1431,19 @@ extern "C" void func_0208fd90(s32 arg0)
     return;
 }
 
-extern "C" asm void func_0208fdf4(void)
+extern "C" void *func_0208fdf4(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    add r0, r5, #0x26c
-    mov r1, #0
-    bl NNS_FndGetNthListObject
-    mov r4, r0
-    mov r1, r4
-    add r0, r5, #0x26c
-    bl NNS_FndRemoveListObject
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, pc}
+    void *v0 = NNS_FndGetNthListObject((const NNSFndList *)(arg0 + 0x26C), 0);
+    NNS_FndRemoveListObject((NNSFndList *)(arg0 + 0x26C), (void *)v0);
+    return (void *)v0;
 }
 
-extern "C" asm void func_0208fe20(void)
+extern "C" void func_0208fe20(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    add r0, r5, #0x278
-    bl NNS_FndRemoveListObject
-    mov r2, #0
-    mov r1, r4
-    add r0, r5, #0x26c
-    str r2, [r4, #4]
-    str r2, [r4]
-    bl func_0203274c
-    ldmia sp!, {r3, r4, r5, pc}
+    NNS_FndRemoveListObject((NNSFndList *)(arg0 + 0x278), (void *)arg1);
+    *(s32 *)(arg1 + 0x4) = 0;
+    *(s32 *)(arg1) = 0;
+    func_0203274c((arg0 + 0x26C), (s32)arg1, 0);
 }
 
 extern "C" void func_0208fe50(u8 *obj, void *object)
@@ -1510,18 +1494,12 @@ extern "C" void *func_0208fed0(u8 *obj)
     return func_0208ff2c(obj);
 }
 
-extern "C" asm void func_0208fef4(void)
+extern "C" void func_0208fef4(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x278
-    bl NNS_FndGetNextListObject
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    mov r0, r4
-    mov r1, #0
-    bl func_0208ff1c
-    ldmia sp!, {r4, pc}
+    void *v0 = NNS_FndGetNextListObject((const NNSFndList *)(arg0 + 0x278), (const void *)arg1);
+    if ((s32)v0 != 0)
+        return;
+    func_0208ff1c((u8 *)arg0, (void *)0);
 }
 
 extern "C" void *func_0208ff1c(u8 *obj, void *object)

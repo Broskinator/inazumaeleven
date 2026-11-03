@@ -9,12 +9,12 @@ extern "C" void func_ov020_02165f28(void);
 extern "C" void func_ov020_0216602c(void);
 extern "C" void func_ov020_0216607c(void);
 extern "C" void func_ov020_021660e0(void);
-extern "C" void func_ov020_021661f8(void);
-extern "C" void func_ov020_02166284(void);
+extern "C" s32 func_ov020_021661f8(s32 arg0, s32 arg1);
+extern "C" s32 func_ov020_02166284(...);
 extern "C" s32 func_ov020_021662ec(s32 arg0, s32 arg1);
 extern "C" void func_ov020_02166308(void);
-extern "C" void func_ov020_021663d0(void);
-extern "C" void func_ov020_0216664c(void);
+extern "C" s32 func_ov020_021663d0(...);
+extern "C" s32 func_ov020_0216664c(...);
 extern "C" void func_ov020_021669e8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov020_02166a20(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov020_02166aa4(void);
@@ -120,7 +120,7 @@ extern "C" s32 func_02097ca8(...);
 extern "C" void func_02097ef8(void);
 extern "C" void func_02097fcc(void);
 extern "C" s32 func_020982a0(...);
-extern "C" void func_0209b7b0(void);
+extern "C" s32 func_0209b7b0(...);
 extern "C" s32 func_0209d8b8(...);
 extern "C" void func_ov000_02114298(void);
 extern "C" void func_ov000_02116938(void);
@@ -148,7 +148,7 @@ extern "C" s32 func_ov015_02161d24(...);
 extern "C" s32 func_ov015_02161dd4(...);
 extern "C" void func_ov015_02161f84(void);
 extern "C" void func_ov015_02161fdc(void);
-extern "C" void func_ov015_02162140(void);
+extern "C" s32 func_ov015_02162140(...);
 extern "C" void func_ov015_02162420(void);
 extern "C" s32 func_ov015_021624f0(...);
 extern "C" void func_ov015_02162750(void);
@@ -460,47 +460,36 @@ extern "C" asm void func_ov020_021660e0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov020_021661f8(void)
+extern "C" s32 func_ov020_021661f8(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r2, =data_020c46c4
-    mov r5, r0
-    ldr r0, [r2]
-    mov r4, r1
-    mov r1, #3
-    bl func_ov015_02162140
-    cmp r4, #0
-    beq @L_02166230
-    cmp r4, #3
-    beq @L_0216625c
-    cmp r4, #4
-    beq @L_0216626c
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02166230:
-    mov r0, r5
-    add r1, r5, #0x1b8
-    bl func_ov020_02166284
-    mov r0, r5
-    add r1, r5, #0x108
-    bl func_ov020_021663d0
-    ldr r0, =data_020d3d20
-    mov r1, #0x97
-    mov r2, #0
-    bl func_0209b7b0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0216625c:
-    mov r0, r5
-    add r1, r5, #0x1b8
-    bl func_ov020_0216664c
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0216626c:
-    mov r0, r5
-    add r1, r5, #0x1b8
-    bl func_ov020_02166284
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r5;
+    s32 v0;
+    s32 v3;
+    s32 v4;
+    s32 v5;
+    s32 t0;
+    t0 = *(s32 *)(((u8 *)&data_020c46c4));
+    v0 = func_ov015_02162140(t0, 3, (u8 *)((u8 *)&data_020c46c4));
+    r5 = arg0;
+    arg0 = v0;
+    switch (arg1) {
+        default:
+            return arg0;
+        case 0:
+            func_ov020_02166284(r5, (r5 + 0x1B8));
+            func_ov020_021663d0(r5, (r5 + 0x108));
+            v3 = func_0209b7b0((u8 *)((u8 *)&data_020d3d20), 0x97, 0);
+            return v3;
+        case 3:
+            v4 = func_ov020_0216664c(r5, (r5 + 0x1B8));
+            return v4;
+        case 4:
+            v5 = func_ov020_02166284(r5, (r5 + 0x1B8));
+            return v5;
+    }
 }
 
-extern "C" asm void func_ov020_02166284(void)
+extern "C" asm s32 func_ov020_02166284(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r1
@@ -600,7 +589,7 @@ extern "C" asm void func_ov020_02166308(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov020_021663d0(void)
+extern "C" asm s32 func_ov020_021663d0(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -766,7 +755,7 @@ extern "C" asm void func_ov020_021663d0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov020_0216664c(void)
+extern "C" asm s32 func_ov020_0216664c(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8

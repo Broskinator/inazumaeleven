@@ -41,7 +41,7 @@ extern "C" s32 func_ov041_0216792c(...);
 extern "C" s32 func_ov041_021679a8(...);
 extern "C" void func_ov041_02167b40(u8 *arg0);
 extern "C" s32 func_ov041_02167b8c(u8 *arg0);
-extern "C" void func_ov041_02167be8(void);
+extern "C" s32 func_ov041_02167be8(u8 *arg0);
 extern "C" s32 func_ov041_02167e34(u8 *arg0);
 extern "C" s32 func_ov041_02167ef8(...);
 extern "C" void func_ov041_02167f9c(u8 *arg0);
@@ -91,7 +91,7 @@ extern "C" char data_ov041_0216c4c4[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void STD_CopyString(void);
-extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
+extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" s32 _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e0ccEi(...);
@@ -112,12 +112,12 @@ extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
-extern "C" void func_02022484(void);
+extern "C" s32 func_02022484(...);
 extern "C" void func_020224cc(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" s32 func_02022b2c(...);
+extern "C" s32 func_0202300c(...);
+extern "C" s32 func_0202323c(...);
 extern "C" void func_020812fc(void);
 extern "C" s32 func_0208720c(...);
 extern "C" void func_02087284(void);
@@ -132,19 +132,19 @@ extern "C" void func_02088864(void);
 extern "C" s32 func_02089758(...);
 extern "C" s32 func_02089764(...);
 extern "C" void func_0208977c(void);
-extern "C" void func_02089998(void);
+extern "C" s32 func_02089998(...);
 extern "C" s32 func_02089bd4(...);
-extern "C" void func_02089cbc(void);
+extern "C" s32 func_02089cbc(...);
 extern "C" s32 func_02089dc4(...);
 extern "C" s32 func_02089e04(...);
 extern "C" void func_02089f5c(void);
-extern "C" void func_02089fb0(void);
-extern "C" void func_0208a068(void);
+extern "C" s32 func_02089fb0(...);
+extern "C" s32 func_0208a068(...);
 extern "C" s32 func_0208a31c(...);
 extern "C" s32 func_0208a460(...);
 extern "C" s32 func_0208a4e8(...);
 extern "C" s32 func_0208a540(...);
-extern "C" void func_0208a574(void);
+extern "C" s32 func_0208a574(...);
 extern "C" void func_02090dcc(void);
 extern "C" void func_02090dec(void);
 extern "C" s32 func_02091d54(...);
@@ -2175,150 +2175,100 @@ extern "C" s32 func_ov041_02167b8c(u8 *arg0)
     return v3;
 }
 
-extern "C" asm void func_ov041_02167be8(void)
+extern "C" s32 func_ov041_02167be8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x14
-    mov r6, r0
-    add r0, r6, #0x3000
-    ldr r0, [r0, #0x140]
-    add r0, r6, r0, lsl #2
-    add r0, r0, #0x3000
-    ldr r1, [r0, #0x138]
-    cmp r1, #0
-    ble @L_02167c1c
-    ldr r0, =data_020c4650
-    ldr r0, [r0]
-    bl func_02089bd4
-@L_02167c1c:
-    mov r4, #1
-    str r4, [sp]
-    str r4, [sp, #4]
-    ldr r5, =data_020c4650
-    add r2, r6, #0x3000
-    ldrh r1, [r6, #0x18]
-    ldr r0, [r5]
-    ldr r2, [r2, #0x140]
-    mov r3, r4
-    bl func_02089998
-    add r3, r6, #0x3000
-    ldr r1, [r3, #0x140]
-    ldr r2, =0xf423f
-    add r1, r6, r1, lsl #2
-    add r1, r1, #0x3000
-    str r0, [r1, #0x138]
-    ldr r1, [r3, #0x140]
-    ldr r0, [r5]
-    add r1, r6, r1, lsl #2
-    add r1, r1, #0x3000
-    ldr r1, [r1, #0x138]
-    mov r3, #0
-    bl func_02089cbc
-    ldr r5, =data_020c46e4
-    add r2, r6, #0x3000
-    ldr r1, =data_ov041_0216c44c
-    mov r0, r5
-    str r4, [r2, #0x144]
-    bl _ZN10ConfigFile6GetIntEPKc
-    rsb r0, r0, #0
-    cmp r0, #0
-    ble @L_02167cc4
-    ldr r1, =data_ov041_0216c460
-    mov r0, r5
-    bl _ZN10ConfigFile6GetIntEPKc
-    rsb r0, r0, #0
-    mov r0, r0, lsl #0xc
-    bl func_02022484
-    mov r1, r0
-    mov r0, #0x3f000000
-    bl func_0202300c
-    b @L_02167ce4
-@L_02167cc4:
-    ldr r1, =data_ov041_0216c474
-    mov r0, r5
-    bl _ZN10ConfigFile6GetIntEPKc
-    rsb r0, r0, #0
-    mov r0, r0, lsl #0xc
-    bl func_02022484
-    mov r1, #0x3f000000
-    bl func_0202323c
-@L_02167ce4:
-    bl func_02022b2c
-    ldr r4, =data_020c46e4
-    mov r5, r0
-    ldr r1, =data_ov041_0216c488
-    mov r0, r4
-    bl _ZN10ConfigFile6GetIntEPKc
-    cmp r0, #0
-    ble @L_02167d28
-    ldr r1, =data_ov041_0216c49c
-    mov r0, r4
-    bl _ZN10ConfigFile6GetIntEPKc
-    mov r0, r0, lsl #0xc
-    bl func_02022484
-    mov r1, r0
-    mov r0, #0x3f000000
-    bl func_0202300c
-    b @L_02167d44
-@L_02167d28:
-    ldr r1, =data_ov041_0216c4b0
-    mov r0, r4
-    bl _ZN10ConfigFile6GetIntEPKc
-    mov r0, r0, lsl #0xc
-    bl func_02022484
-    mov r1, #0x3f000000
-    bl func_0202323c
-@L_02167d44:
-    bl func_02022b2c
-    mov r2, #0x190000
-    str r0, [sp, #8]
-    rsb r2, r2, #0
-    ldr r0, =data_020c46e4
-    ldr r1, =data_ov041_0216c4c4
-    str r2, [sp, #0x10]
-    str r5, [sp, #0xc]
-    bl _ZN10ConfigFile6GetIntEPKc
-    ldr r2, [sp, #0x10]
-    add r1, r6, #0x3000
-    str r2, [sp]
-    ldr r1, [r1, #0x140]
-    ldr r4, =data_020c4650
-    add r1, r6, r1, lsl #2
-    add r1, r1, #0x3000
-    mov r5, r0
-    ldr r0, [r4]
-    ldr r1, [r1, #0x138]
-    ldr r2, [sp, #8]
-    ldr r3, [sp, #0xc]
-    bl func_02089fb0
-    str r5, [sp]
-    ldr r0, [r4]
-    add r1, r6, #0x3000
-    ldr r1, [r1, #0x140]
-    mov r2, r5
-    add r1, r6, r1, lsl #2
-    add r1, r1, #0x3000
-    ldr r1, [r1, #0x138]
-    mov r3, r5
-    bl func_0208a068
-    ldr r0, [r4]
-    add r1, r6, #0x3000
-    ldr r1, [r1, #0x140]
-    mov r2, #0
-    add r1, r6, r1, lsl #2
-    add r1, r1, #0x3000
-    ldr r1, [r1, #0x138]
-    bl func_02089e04
-    ldr r0, [r4]
-    add r1, r6, #0x3000
-    ldr r1, [r1, #0x140]
-    mov r2, #1
-    add r1, r6, r1, lsl #2
-    add r1, r1, #0x3000
-    ldr r1, [r1, #0x138]
-    bl func_0208a574
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    s32 local[3];
+    s32 r1;
+    s32 r5;
+    s32 v1;
+    s32 v3;
+    s32 v4;
+    s32 v5;
+    s32 v7;
+    s32 v8;
+    s32 v10;
+    s32 v11;
+    s32 v12;
+    s32 v13;
+    s32 v15;
+    s32 v16;
+    s32 v18;
+    s32 v19;
+    s32 v23;
+    s32 t0;
+    s32 t1;
+    u16 t2;
+    s32 t3;
+    u8 *t4;
+    s32 t5;
+    s32 t6;
+    s32 t7;
+    s32 t8;
+    s32 t9;
+    s32 t10;
+    s32 t11;
+    s32 t12;
+    s32 t13;
+    s32 t14;
+    s32 t15;
+    s32 t16;
+    r1 = *(s32 *)(((u8 *)((arg0 + (*(s32 *)(arg0 + 0x3140) << 2)) + 0x3000)) + 0x138);
+    if (r1 > 0) {
+        t0 = *(s32 *)(((u8 *)&data_020c4650));
+        func_02089bd4(t0, r1);
+    }
+    t1 = *(s32 *)(((u8 *)&data_020c4650));
+    t2 = *(u16 *)(arg0 + 0x18);
+    t3 = *(s32 *)(arg0 + 0x3140);
+    v1 = func_02089998(t1, t2, t3, 1, 1, 1);
+    t4 = (u8 *)((arg0 + (*(s32 *)(arg0 + 0x3140) << 2)) + 0x3000);
+    *(s32 *)(t4 + 0x138) = v1;
+    t5 = *(s32 *)(((u8 *)&data_020c4650));
+    t6 = *(s32 *)(((u8 *)((arg0 + (*(s32 *)(arg0 + 0x3140) << 2)) + 0x3000)) + 0x138);
+    func_02089cbc(t5, t6, 0xF423F, 0);
+    *(s32 *)(arg0 + 0x3144) = 1;
+    v3 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c44c), (s32)(arg0 + 0x3000));
+    if ((0 - v3) > 0) {
+        v4 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c460));
+        v5 = func_02022484(((0 - v4) << 0xC));
+        func_0202300c(0x3F000000, v5);
+    } else {
+        v7 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c474));
+        v8 = func_02022484(((0 - v7) << 0xC));
+        func_0202323c(v8, 0x3F000000);
+    }
+    v10 = func_02022b2c();
+    v11 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c488));
+    r5 = v10;
+    if (v11 > 0) {
+        v12 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c49c));
+        v13 = func_02022484((v12 << 0xC));
+        func_0202300c(0x3F000000, v13);
+    } else {
+        v15 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c4b0));
+        v16 = func_02022484((v15 << 0xC));
+        func_0202323c(v16, 0x3F000000);
+    }
+    v18 = func_02022b2c();
+    *(s32 *)(((u8 *)local)) = v18;
+    *(s32 *)(((u8 *)local) + 0x8) = (0 - 0x190000);
+    *(s32 *)(((u8 *)local) + 0x4) = r5;
+    v19 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c4c4), (0 - 0x190000));
+    t7 = *(s32 *)(((u8 *)&data_020c4650));
+    t8 = *(s32 *)(((u8 *)local));
+    t9 = *(s32 *)(((u8 *)((arg0 + (*(s32 *)(arg0 + 0x3140) << 2)) + 0x3000)) + 0x138);
+    t10 = *(s32 *)(((u8 *)local) + 0x4);
+    func_02089fb0(t7, t9, t8, t10, *(s32 *)(((u8 *)local) + 0x8));
+    t11 = *(s32 *)(((u8 *)&data_020c4650));
+    t12 = *(s32 *)(((u8 *)((arg0 + (*(s32 *)(arg0 + 0x3140) << 2)) + 0x3000)) + 0x138);
+    func_0208a068(t11, t12, v19, v19, v19);
+    t13 = *(s32 *)(((u8 *)&data_020c4650));
+    t14 = *(s32 *)(((u8 *)((arg0 + (*(s32 *)(arg0 + 0x3140) << 2)) + 0x3000)) + 0x138);
+    func_02089e04(t13, t14, 0);
+    t15 = *(s32 *)(((u8 *)&data_020c4650));
+    t16 = *(s32 *)(((u8 *)((arg0 + (*(s32 *)(arg0 + 0x3140) << 2)) + 0x3000)) + 0x138);
+    v23 = func_0208a574(t15, t16, 1);
+    return v23;
 }
 
 extern "C" s32 func_ov041_02167e34(u8 *arg0)

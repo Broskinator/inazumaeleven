@@ -31,8 +31,8 @@ extern "C" void func_ov001_02104628(void);
 extern "C" void func_ov001_02104690(void);
 extern "C" void func_ov001_02104750(void);
 extern "C" void func_ov001_02104940(void);
-extern "C" void func_ov001_02104ae0(void);
-extern "C" void func_ov001_02104b58(void);
+extern "C" s32 func_ov001_02104ae0(...);
+extern "C" s32 func_ov001_02104b58(u8 *arg0);
 extern "C" void func_ov001_02104be8(void);
 extern "C" void func_ov001_02104cf4(void);
 extern "C" void func_ov001_0210531c(void);
@@ -92,7 +92,7 @@ extern "C" s32 func_ov001_020fea34(...);
 extern "C" void func_ov001_020ff594(void);
 extern "C" s32 func_ov001_020ffb28(...);
 extern "C" s32 func_ov001_0210006c(...);
-extern "C" void func_ov001_021010bc(void);
+extern "C" s32 func_ov001_021010bc(...);
 extern "C" void func_ov001_02102850(void);
 extern "C" void func_ov001_021028f0(void);
 extern "C" void func_ov001_0210623c(void);
@@ -117,8 +117,8 @@ extern "C" void func_ov015_02131bd0(void);
 extern "C" void func_ov015_02132014(void);
 extern "C" void func_ov015_0213782c(void);
 extern "C" s32 func_ov015_0213a500(...);
-extern "C" void func_ov015_0213a688(void);
-extern "C" void func_ov015_0213a690(void);
+extern "C" s32 func_ov015_0213a688(...);
+extern "C" s32 func_ov015_0213a690(...);
 extern "C" void func_ov015_0213a894(void);
 extern "C" void func_ov015_0213a928(void);
 extern "C" void func_ov015_0213a930(void);
@@ -127,8 +127,8 @@ extern "C" void func_ov015_0213a9d0(void);
 extern "C" void func_ov015_0213a9d8(void);
 extern "C" void func_ov015_0213a9e0(void);
 extern "C" void func_ov015_0213aab4(void);
-extern "C" void func_ov015_0213ad84(void);
-extern "C" void func_ov015_0213ade0(void);
+extern "C" s32 func_ov015_0213ad84(...);
+extern "C" s32 func_ov015_0213ade0(...);
 extern "C" void func_ov015_0213b1f0(void);
 extern "C" void func_ov015_0213b228(void);
 extern "C" void func_ov015_0213b270(void);
@@ -2224,7 +2224,7 @@ extern "C" asm void func_ov001_02104940(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov001_02104ae0(void)
+extern "C" asm s32 func_ov001_02104ae0(...)
 {
     stmdb sp!, {r3, lr}
     ldr r1, =data_020c4920
@@ -2255,43 +2255,37 @@ extern "C" asm void func_ov001_02104ae0(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov001_02104b58(void)
+extern "C" s32 func_ov001_02104b58(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldrb r0, [r4, #0x25]
-    cmp r0, #0
-    beq @L_02104b88
-    ldr r1, [r4, #0x2c]
-    cmp r1, #0
-    blt @L_02104b88
-    ldr r0, =data_020c4648
-    ldr r0, [r0]
-    bl func_ov015_0213a688
-    b @L_02104b94
-@L_02104b88:
-    ldr r0, =data_020c4648
-    ldr r0, [r0]
-    bl func_ov015_0213a690
-@L_02104b94:
-    mov r0, r4
-    bl func_ov001_02104ae0
-    mov r0, r4
-    bl func_ov001_021010bc
-    ldr r2, =data_ov001_02130664
-    ldr r4, =data_020c4648
-    mov r3, r0
-    ldrsh r1, [r2]
-    ldrsh r2, [r2, #2]
-    ldr r0, [r4]
-    bl func_ov015_0213ad84
-    ldr r2, =data_ov001_02130660
-    ldr r0, [r4]
-    ldrsh r1, [r2]
-    ldrsh r2, [r2, #2]
-    mov r3, #0
-    bl func_ov015_0213ade0
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    s32 v3;
+    s32 v5;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s16 t3;
+    s16 t4;
+    s32 t5;
+    s16 t6;
+    s16 t7;
+    if ((*(u8 *)(arg0 + 0x25) != 0 && (r1 = *(s32 *)(arg0 + 0x2C), r1 >= 0))) {
+        t0 = *(s32 *)(((u8 *)&data_020c4648));
+        func_ov015_0213a688(t0, r1);
+    } else {
+        t1 = *(s32 *)(((u8 *)&data_020c4648));
+        func_ov015_0213a690(t1);
+    }
+    func_ov001_02104ae0((s32)arg0);
+    v3 = func_ov001_021010bc((s32)arg0);
+    t2 = *(s32 *)(((u8 *)&data_020c4648));
+    t3 = *(s16 *)(((u8 *)&data_ov001_02130664) + 0x2);
+    t4 = *(s16 *)(((u8 *)&data_ov001_02130664));
+    func_ov015_0213ad84(t2, t4, t3, v3);
+    t5 = *(s32 *)(((u8 *)&data_020c4648));
+    t6 = *(s16 *)(((u8 *)&data_ov001_02130660) + 0x2);
+    t7 = *(s16 *)(((u8 *)&data_ov001_02130660));
+    v5 = func_ov015_0213ade0(t5, t7, t6, 0);
+    return v5;
 }
 
 extern "C" asm void func_ov001_02104be8(void)

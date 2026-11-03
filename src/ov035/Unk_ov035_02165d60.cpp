@@ -1,7 +1,7 @@
 #include "ov035/Unk_ov035_02165d60.hpp"
 
 extern "C" void func_ov035_02165d60(s32 arg0);
-extern "C" void func_ov035_02165d9c(void);
+extern "C" void func_ov035_02165d9c(u8 *arg0);
 extern "C" void func_ov035_02165e80(void);
 extern "C" void func_ov035_02165f5c(void);
 extern "C" s32 func_ov035_02166080(s32 arg0, u8 *arg1);
@@ -10,7 +10,7 @@ extern "C" void func_ov035_021660a0(void);
 extern "C" void func_ov035_02166234(void);
 extern "C" void func_ov035_021662dc(void);
 extern "C" void func_ov035_02166328(void);
-extern "C" void func_ov035_0216646c(void);
+extern "C" s32 func_ov035_0216646c(u8 *arg0);
 extern "C" s32 func_ov035_02166508(u8 *arg0, s32 arg1);
 extern "C" void func_ov035_02166554(void);
 extern "C" void func_ov035_021665a4(void);
@@ -82,13 +82,13 @@ extern "C" char data_ov035_0216a81c[];
 extern "C" char data_ov035_0216a820[];
 extern "C" char data_ov035_0216a824[];
 extern "C" char data_ov035_0216a828[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void G2_GetBG1CharPtr(void);
 extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076858Ev(void);
@@ -149,7 +149,7 @@ extern "C" void func_ov015_02134554(void);
 extern "C" void func_ov015_02134b08(void);
 extern "C" void func_ov015_02135ef4(void);
 extern "C" void func_ov015_02135f24(void);
-extern "C" void func_ov015_02136134(void);
+extern "C" s32 func_ov015_02136134(...);
 extern "C" s32 func_ov015_021362b8(...);
 extern "C" void func_ov015_02136330(void);
 extern "C" void func_ov015_02161d00(void);
@@ -175,56 +175,21 @@ extern "C" void func_ov035_02165d60(s32 arg0)
     func_ov015_02133f94((s32)data_ov035_0216a680, (arg0 + 0x30));
 }
 
-extern "C" asm void func_ov035_02165d9c(void)
+extern "C" void func_ov035_02165d9c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r9, r0
-    ldr r0, =data_ov035_0216a6a0
-    add r1, r9, #0x370
-    bl func_ov015_02133f94
-    ldr r0, =data_ov035_0216a6c4
-    add r1, r9, #0x37c
-    bl func_ov015_02133f94
-    ldr r0, =data_ov035_0216a6e0
-    add r1, r9, #0x388
-    bl func_ov015_02133f94
-    ldr r0, =data_ov035_0216a6fc
-    add r1, r9, #0x394
-    bl func_ov015_02133f94
-    ldr r0, =data_ov035_0216a714
-    add r1, r9, #0x3a0
-    bl func_ov015_02133f94
-    ldr r0, =data_ov035_0216a72c
-    add r1, r9, #0x3ac
-    bl func_ov015_02133f94
-    mov r8, #0
-    mov r0, r8
-    ldr r7, =data_020d0d20
-    mov r6, #0x800
-    mov r1, r7
-    mov r2, r6
-    bl MIi_CpuClearFast
-    mov r0, r8
-    ldr r5, =data_020d1520
-    mov r2, r6
-    mov r1, r5
-    bl MIi_CpuClearFast
-    mov r0, r8
-    ldr r4, =data_020d1d20
-    mov r2, r6
-    mov r1, r4
-    bl MIi_CpuClearFast
-    mov r0, r7
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r5
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r4
-    mov r1, r6
-    bl DC_FlushRange
-    str r8, [r9, #0x358]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov035_0216a6a0), (s32)(arg0 + 0x370));
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov035_0216a6c4), (s32)(arg0 + 0x37C));
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov035_0216a6e0), (s32)(arg0 + 0x388));
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov035_0216a6fc), (s32)(arg0 + 0x394));
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov035_0216a714), (s32)(arg0 + 0x3A0));
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov035_0216a72c), (s32)(arg0 + 0x3AC));
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d0d20), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1520), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d0d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1520), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1d20), 0x800);
+    *(s32 *)(arg0 + 0x358) = 0;
 }
 
 extern "C" asm void func_ov035_02165e80(void)
@@ -655,47 +620,39 @@ extern "C" asm void func_ov035_02166328(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov035_0216646c(void)
+extern "C" s32 func_ov035_0216646c(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x10
-    mov r9, r0
-    ldr r0, [r9, #0xbc]
-    mov r8, #0
-    cmp r0, #0
-    addle sp, sp, #0x10
-    ldmleia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r5, =data_ov035_0216a7b0
-    ldr r10, =0xfff
-    mov r6, #1
-    mov r7, r8
-    mov r4, #0xc
-@L_021664a0:
-    mla r0, r8, r4, r9
-    ldrh r0, [r0, #0xc4]
-    mov r1, r7
-    bl func_ov015_02130b14
-    cmp r0, #0
-    beq @L_021664e8
-    str r7, [sp]
-    str r7, [sp, #4]
-    str r6, [sp, #8]
-    str r6, [sp, #0xc]
-    ldrh r2, [r0, #0x42]
-    ldr r0, [r9, #0x24]
-    mov r1, r5
-    and r2, r2, r10
-    mov r2, r2, lsl #0x10
-    mov r2, r2, lsr #0x10
-    add r3, r9, #0xb4
-    bl func_ov015_02136134
-@L_021664e8:
-    ldr r0, [r9, #0xbc]
-    add r8, r8, #1
-    cmp r8, r0
-    blt @L_021664a0
-    add sp, sp, #0x10
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    s32 r4;
+    s32 r6;
+    s32 r7;
+    s32 r8;
+    u8 *r9;
+    s32 r10;
+    s32 v0;
+    u16 t0;
+    s32 t1;
+    s32 t2;
+    r8 = 0;
+    if (*(s32 *)(arg0 + 0xBC) <= 0)
+        return *(s32 *)(arg0 + 0xBC);
+    r9 = arg0;
+    do {
+        t0 = *(u16 *)(((u8 *)((r8 * 0xC) + r9)) + 0xC4);
+        r4 = 0xC;
+        r6 = 1;
+        r7 = 0;
+        r10 = 0xFFF;
+        v0 = func_ov015_02130b14(t0, 0);
+        arg0 = (u8 *)v0;
+        if ((s32)arg0 != 0) {
+            t1 = *(s32 *)(r9 + 0x24);
+            t2 = ((u16)(*(u16 *)(arg0 + 0x42) & r10));
+            func_ov015_02136134(t1, (u8 *)((u8 *)&data_ov035_0216a7b0), t2, (s32)(r9 + 0xB4), r7, r7, r6, r6);
+        }
+        arg0 = (u8 *)*(s32 *)(r9 + 0xBC);
+        r8 = (r8 + 1);
+    } while (r8 < (s32)arg0);
+    return (s32)arg0;
 }
 
 extern "C" s32 func_ov035_02166508(u8 *arg0, s32 arg1)

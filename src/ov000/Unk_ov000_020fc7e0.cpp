@@ -46,7 +46,7 @@ extern "C" void func_ov000_020fe2f8(u8 *arg0);
 extern "C" void func_ov000_020fe3f4(void);
 extern "C" void func_ov000_020fe3f8(void);
 extern "C" s32 func_ov000_020fe3fc(s32 arg0);
-extern "C" void func_ov000_020fe410(void);
+extern "C" s32 func_ov000_020fe410(u8 *arg0);
 extern "C" void func_ov000_020fe46c(u8 *arg0);
 extern "C" void func_ov000_020fe4a8(u8 *arg0);
 extern "C" void func_ov000_020fe4dc(void);
@@ -163,8 +163,8 @@ extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076858Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_02078990Ev(...);
 extern "C" s32 _ZN17UnkClass_020621b413func_02078aacEv(...);
-extern "C" void _ZN17UnkClass_020621b413func_0207aa58Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207d214Ev(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_0207aa58Ei(...);
+extern "C" s32 _ZN17UnkClass_020621b413func_0207d214Ev(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
@@ -2102,31 +2102,25 @@ extern "C" s32 func_ov000_020fe3fc(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov000_020fe410(void)
+extern "C" s32 func_ov000_020fe410(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r5, =data_020e88a0
-    mov r6, #0
-    mov r7, r0
-    mov r0, r5
-    mov r1, r6
-    bl _ZN17UnkClass_020621b413func_0207aa58Ei
-    str r0, [r7, #0x11c]
-    cmp r0, #0
-    ldmleia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r4, r6
-@L_020fe43c:
-    mov r0, r5
-    mov r1, r4
-    add r2, r6, #1
-    bl _ZN17UnkClass_020621b413func_0207d214Ev
-    add r1, r7, r6, lsl #1
-    strh r0, [r1, #0x2c]
-    ldr r0, [r7, #0x11c]
-    add r6, r6, #1
-    cmp r6, r0
-    blt @L_020fe43c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r6;
+    u8 *r7;
+    s32 v0;
+    s32 v1;
+    r6 = 0;
+    v0 = _ZN17UnkClass_020621b413func_0207aa58Ei((u8 *)((u8 *)&data_020e88a0), 0);
+    *(s32 *)(arg0 + 0x11C) = v0;
+    if (v0 <= 0)
+        return v0;
+    r7 = arg0;
+    do {
+        v1 = _ZN17UnkClass_020621b413func_0207d214Ev((u8 *)((u8 *)&data_020e88a0), 0, (r6 + 1));
+        *(u16 *)(((u8 *)(r7 + (r6 << 1))) + 0x2C) = v1;
+        arg0 = (u8 *)*(s32 *)(r7 + 0x11C);
+        r6 = (r6 + 1);
+    } while (r6 < (s32)arg0);
+    return (s32)arg0;
 }
 
 extern "C" void func_ov000_020fe46c(u8 *arg0)

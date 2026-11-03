@@ -1,9 +1,9 @@
 #include "game/Unk_0208ff98.hpp"
 
 extern "C" void func_02098cdc(void);     // (for the asm functions)
-extern "C" void func_02098d88(void);     // (for the asm functions)
+extern "C" s32 func_02098d88(...);     // (for the asm functions)
 extern "C" void func_0208ff98(void);
-extern "C" void func_020900a4(void);
+extern "C" s32 func_020900a4(void);
 extern "C" void func_020900f4(void);
 extern "C" u8 *func_02090160(int i);
 
@@ -25,8 +25,8 @@ typedef struct {
 } UnkTable_020fc708;
 
 #define TABLE ((UnkTable_020fc708 *)data_020fc708)     // (data_020fc708 again: see config/yeep/arm9/lcf_symbols.txt)
-extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZN8GameHeap4FreeEPv(void);
+extern "C" s32 MIi_CpuClearFast(...);
+extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02098f14(void);
 
@@ -98,25 +98,19 @@ extern "C" asm void func_0208ff98(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_020900a4(void)
+extern "C" s32 func_020900a4(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020c4668
-    ldr r1, =data_020fc708
-    ldr r0, [r0]
-    bl func_02098d88
-    ldr r0, =data_020fc708_b
-    ldr r1, [r0, #0xc]
-    cmp r1, #0
-    beq @L_020900d0
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_020900d0:
-    ldr r1, =data_020fc708
-    mov r0, #0
-    mov r2, #0x1c
-    bl MIi_CpuClearFast
-    ldmia sp!, {r3, pc}
+    s32 r1;
+    s32 v2;
+    s32 t0;
+    t0 = *(s32 *)(((u8 *)&data_020c4668));
+    func_02098d88(t0, (u8 *)((u8 *)&data_020fc708));
+    r1 = *(s32 *)(((u8 *)&data_020fc708_b) + 0xC);
+    if (r1 != 0) {
+        _ZN8GameHeap4FreeEPv((u8 *)((u8 *)&data_020c47b4), r1);
+    }
+    v2 = MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020fc708), 0x1C);
+    return v2;
 }
 
 extern "C" asm void func_020900f4(void)

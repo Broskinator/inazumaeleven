@@ -1,7 +1,7 @@
 #include "ov004/Unk_ov004_020fc7e0.hpp"
 #include "game/vcall.hpp"
 
-extern "C" void func_ov004_020fc7e0(void);
+extern "C" s32 func_ov004_020fc7e0(u8 *arg0);
 extern "C" s32 func_ov004_020fc8e4(u8 *arg0);
 extern "C" void func_ov004_020fc934(void);
 extern "C" s32 func_ov004_020fca84(s32 arg0, s32 arg1);
@@ -23,7 +23,7 @@ extern "C" s32 func_ov004_020fcd6c(...);
 extern "C" void func_ov004_020fcdcc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov004_020fcdfc(u8 *arg0);
 extern "C" void func_ov004_020fce1c(void);
-extern "C" void func_ov004_020fcf8c(void);
+extern "C" s32 func_ov004_020fcf8c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov004_020fcfd0(void);
 extern "C" void func_ov004_020fcfd8(s32 arg0);
 extern "C" s32 func_ov004_020fcffc(s32 arg0);
@@ -51,14 +51,14 @@ extern "C" char data_ov004_020fd454[];
 extern "C" char data_ov004_020fd510[];
 extern "C" void GXS_BeginLoadBGExtPltt(void);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" void OS_Sleep(void);
+extern "C" s32 OS_Sleep(...);
 extern "C" s32 _ZN11MoviePlayer4StopEv(...);
 extern "C" s32 _ZN12SceneManager13func_0203e2fcEl(...);
-extern "C" void _ZN12SoundManager13AreBanksReadyEv(void);
-extern "C" void _ZN12SoundManager6IsIdleEv(void);
-extern "C" void _ZN12SoundManager8SetSceneEiii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e114Eii(void);
+extern "C" s32 _ZN12SoundManager13AreBanksReadyEv(...);
+extern "C" s32 _ZN12SoundManager6IsIdleEv(...);
+extern "C" s32 _ZN12SoundManager8SetSceneEiii(...);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
+extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e114Eii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
@@ -76,7 +76,7 @@ extern "C" void func_02003df0(void);
 extern "C" void func_02003e58(void);
 extern "C" s32 func_02004d1c(...);
 extern "C" void func_ov015_02132240(void);
-extern "C" void func_ov015_021324c4(void);
+extern "C" s32 func_ov015_021324c4(...);
 extern "C" s32 func_ov015_021338dc(...);
 extern "C" s32 func_ov015_0213393c(...);
 extern "C" s32 func_ov015_0213396c(...);
@@ -87,83 +87,47 @@ extern "C" s32 func_ov015_021353a4(...);
 extern "C" s32 func_ov015_02135440(...);
 extern "C" s32 func_ov015_02135e10(...);
 extern "C" s32 func_ov015_0213b3fc(...);
-extern "C" void func_ov015_0213c33c(void);
+extern "C" s32 func_ov015_0213c33c(...);
 
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void func_ov015_0213257c(void);
 extern "C" void func_ov015_02132794(void);
 extern "C" void func_ov015_02132628(void);
 extern "C" void func_ov015_021326b8(void);
-extern "C" asm void func_ov004_020fc7e0(void)
+extern "C" s32 func_ov004_020fc7e0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r2, [r0]
-    mov r1, #2
-    ldr r2, [r2, #0xc]
-    mov r4, r0
-    blx r2
-    mov r7, #0
-    mov r0, r4
-    mov r1, r7
-    mov r2, r7
-    str r7, [r4, #0x80]
-    str r7, [r4, #0x84]
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
-    mov r6, #1
-    mov r0, r4
-    mov r1, r6
-    mov r2, r7
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
-    mov r0, r4
-    mov r1, r7
-    mov r5, #0xa
-    mov r2, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    mov r2, r5
-    mov r0, r4
-    mov r1, r6
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    strb r6, [r4, #0x88]
-    strb r7, [r4, #0x89]
-    bl func_ov015_021324c4
-    ldr r6, =data_020c5e40
-    mov r1, #4
-    mov r0, r6
-    mov r2, r7
-    mov r3, r7
-    bl _ZN12SoundManager8SetSceneEiii
-    mov r0, r6
-    bl _ZN12SoundManager6IsIdleEv
-    cmp r0, #0
-    bne @L_020fc89c
-    mov r5, #0x14
-@L_020fc884:
-    mov r0, r5
-    bl OS_Sleep
-    mov r0, r6
-    bl _ZN12SoundManager6IsIdleEv
-    cmp r0, #0
-    beq @L_020fc884
-@L_020fc89c:
-    ldr r6, =data_020c5e40
-    mov r0, r6
-    bl _ZN12SoundManager13AreBanksReadyEv
-    cmp r0, #0
-    bne @L_020fc8cc
-    mov r5, #0x14
-@L_020fc8b4:
-    mov r0, r5
-    bl OS_Sleep
-    mov r0, r6
-    bl _ZN12SoundManager13AreBanksReadyEv
-    cmp r0, #0
-    beq @L_020fc8b4
-@L_020fc8cc:
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x34]
-    blx r1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v7;
+    s32 v9;
+    s32 v10;
+    s32 v12;
+    s32 v13;
+    ((VCall *)arg0)->f3(2);
+    *(s32 *)(arg0 + 0x80) = 0;
+    *(s32 *)(arg0 + 0x84) = 0;
+    _ZN17UnkClass_0203dc7c13func_0203e114Eii((s32)arg0, 0, 0);
+    _ZN17UnkClass_0203dc7c13func_0203e114Eii((s32)arg0, 1, 0);
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii((s32)arg0, 0, 10);
+    _ZN17UnkClass_0203dc7c13func_0203e04cEii((s32)arg0, 1, 10);
+    *(u8 *)(arg0 + 0x88) = 1;
+    *(u8 *)(arg0 + 0x89) = 0;
+    func_ov015_021324c4();
+    _ZN12SoundManager8SetSceneEiii((u8 *)((u8 *)&data_020c5e40), 4, 0, 0);
+    v7 = _ZN12SoundManager6IsIdleEv((u8 *)((u8 *)&data_020c5e40));
+    if (v7 == 0) {
+        do {
+            OS_Sleep(0x14);
+            v9 = _ZN12SoundManager6IsIdleEv((u8 *)((u8 *)&data_020c5e40));
+        } while (v9 == 0);
+    }
+    v10 = _ZN12SoundManager13AreBanksReadyEv((u8 *)((u8 *)&data_020c5e40));
+    if (v10 == 0) {
+        do {
+            OS_Sleep(0x14);
+            v12 = _ZN12SoundManager13AreBanksReadyEv((u8 *)((u8 *)&data_020c5e40));
+        } while (v12 == 0);
+    }
+    v13 = ((VCall *)arg0)->f13();
+    return v13;
 }
 
 extern "C" s32 func_ov004_020fc8e4(u8 *arg0)
@@ -636,26 +600,21 @@ extern "C" asm void func_ov004_020fce1c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov004_020fcf8c(void)
+extern "C" s32 func_ov004_020fcf8c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #8]
-    cmp r1, #2
-    beq @L_020fcfac
-    cmp r1, #4
-    beq @L_020fcfbc
-    ldmia sp!, {r4, pc}
-@L_020fcfac:
-    bl func_ov004_020fcdcc
-    mov r0, #3
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
-@L_020fcfbc:
-    ldr r0, =data_020c9660
-    mov r1, #0
-    bl func_ov015_0213c33c
-    ldmia sp!, {r4, pc}
+    s32 v1;
+    arg1 = *(s32 *)(arg0 + 0x8);
+    switch (arg1) {
+        default:
+            return (s32)arg0;
+        case 2:
+            func_ov004_020fcdcc(arg0, arg1, arg2, arg3);
+            *(s32 *)(arg0 + 0x8) = 3;
+            return 3;
+        case 4:
+            v1 = func_ov015_0213c33c((u8 *)((u8 *)&data_020c9660), 0);
+            return v1;
+    }
 }
 
 extern "C" s32 func_ov004_020fcfd0(void)

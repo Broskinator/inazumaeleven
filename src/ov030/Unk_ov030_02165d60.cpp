@@ -46,7 +46,7 @@ extern "C" void func_ov030_02167904(void);
 extern "C" s32 func_ov030_021679c4(s32 arg0);
 extern "C" void func_ov030_021679d8(void);
 extern "C" void func_ov030_021679dc(s32 arg0);
-extern "C" void func_ov030_021679f8(void);
+extern "C" void func_ov030_021679f8(s32 arg0);
 extern "C" void func_ov030_02167a88(u8 *arg0);
 extern "C" s32 func_ov030_02167ac4(...);
 extern "C" void func_ov030_02167b6c(void);
@@ -1977,40 +1977,15 @@ extern "C" void func_ov030_021679dc(s32 arg0)
     func_ov015_02133f94((s32)data_ov030_02169e98, (arg0 + 0x14C));
 }
 
-extern "C" asm void func_ov030_021679f8(void)
+extern "C" void func_ov030_021679f8(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    ldr r7, =data_020d0d20
-    mov r6, #0x800
-    mov r8, #0
-    mov r9, r0
-    mov r0, r8
-    mov r1, r7
-    mov r2, r6
-    bl MIi_CpuClearFast
-    ldr r5, =data_020d1520
-    mov r0, r8
-    mov r1, r5
-    mov r2, r6
-    bl MIi_CpuClearFast
-    ldr r4, =data_020d1d20
-    mov r0, r8
-    mov r1, r4
-    mov r2, r6
-    bl MIi_CpuClearFast
-    mov r0, r7
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r5
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r4
-    mov r1, r6
-    bl DC_FlushRange
-    add r1, r9, #0x158
-    ldr r0, =data_ov030_02169eb8
-    bl func_ov015_02133f94
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d0d20), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1520), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d0d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1520), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1d20), 0x800);
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov030_02169eb8), (arg0 + 0x158));
 }
 
 extern "C" void func_ov030_02167a88(u8 *arg0)

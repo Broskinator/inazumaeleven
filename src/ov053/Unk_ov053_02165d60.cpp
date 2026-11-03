@@ -1,7 +1,7 @@
 #include "ov053/Unk_ov053_02165d60.hpp"
 
 extern "C" void func_ov053_02165d60(s32 arg0);
-extern "C" void func_ov053_02165d8c(void);
+extern "C" void func_ov053_02165d8c(s32 arg0);
 extern "C" void func_ov053_02165e3c(void);
 extern "C" void func_ov053_02165f04(void);
 extern "C" void func_ov053_02165fac(void);
@@ -64,9 +64,9 @@ extern "C" char data_ov053_0216b584[];
 extern "C" char data_ov053_0216b59c[];
 extern "C" char data_ov053_0216b5b4[];
 extern "C" char data_ov053_0216b5cc[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MIi_CpuClearFast(void);
+extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_020739ccEi(...);
@@ -139,46 +139,17 @@ extern "C" void func_ov053_02165d60(s32 arg0)
     func_ov015_02133f94((s32)data_ov053_0216b4f8, (arg0 + 0x24));
 }
 
-extern "C" asm void func_ov053_02165d8c(void)
+extern "C" void func_ov053_02165d8c(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, r0
-    ldr r0, =data_ov053_0216b518
-    add r1, r4, #0x30
-    bl func_ov015_02133f94
-    ldr r0, =data_ov053_0216b530
-    add r1, r4, #0x3c
-    bl func_ov015_02133f94
-    ldr r0, =data_ov053_0216b548
-    add r1, r4, #0x48
-    bl func_ov015_02133f94
-    ldr r7, =data_020d0d20
-    mov r4, #0
-    mov r6, #0x800
-    mov r0, r4
-    mov r1, r7
-    mov r2, r6
-    bl MIi_CpuClearFast
-    mov r0, r4
-    ldr r5, =data_020d1520
-    mov r2, r6
-    mov r1, r5
-    bl MIi_CpuClearFast
-    mov r0, r4
-    ldr r4, =data_020d1d20
-    mov r2, r6
-    mov r1, r4
-    bl MIi_CpuClearFast
-    mov r0, r7
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r5
-    mov r1, r6
-    bl DC_FlushRange
-    mov r0, r4
-    mov r1, r6
-    bl DC_FlushRange
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov053_0216b518), (arg0 + 0x30));
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov053_0216b530), (arg0 + 0x3C));
+    func_ov015_02133f94((u8 *)((u8 *)&data_ov053_0216b548), (arg0 + 0x48));
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d0d20), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1520), 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d1d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d0d20), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1520), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&data_020d1d20), 0x800);
 }
 
 extern "C" asm void func_ov053_02165e3c(void)

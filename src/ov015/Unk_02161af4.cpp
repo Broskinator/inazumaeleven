@@ -97,7 +97,7 @@ extern "C" s32 func_ov015_02164144(...);
 extern "C" void func_ov015_02164180(void);
 extern "C" s32 func_ov015_02164244(...);
 extern "C" void func_ov015_02164290(u8 *arg0);
-extern "C" void func_ov015_021642b0(void);
+extern "C" s32 func_ov015_021642b0(u8 *arg0);
 extern "C" s32 func_ov015_021642e4(u8 *arg0);
 extern "C" s32 func_ov015_02164308(u8 *arg0);
 extern "C" void func_ov015_0216438c(void);
@@ -131,7 +131,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" void NNS_G3dGetTex(void);
+extern "C" s32 NNS_G3dGetTex(...);
 extern "C" void NNS_G3dReleaseMdlPltt(void);
 extern "C" void NNS_G3dReleaseMdlTex(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
@@ -2922,21 +2922,26 @@ extern "C" void func_ov015_02164290(u8 *arg0)
     func_ov015_02148058(*(s32 *)(data_020c464c), *(s32 *)(arg0 + 0x4), (s32)arg0);
 }
 
-extern "C" asm void func_ov015_021642b0(void)
+extern "C" s32 func_ov015_021642b0(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, [r0, #4]
-    mov r1, #0
-    cmp r0, #0
-    ldrne r1, [r0, #0x20]
-    cmp r1, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    cmp r0, #0
-    moveq r0, #0
-    ldrne r0, [r0, #0x20]
-    bl NNS_G3dGetTex
-    ldmia sp!, {r3, pc}
+    s32 r1;
+    s32 v0;
+    arg0 = (u8 *)*(s32 *)(arg0 + 0x4);
+    r1 = 0;
+    if ((s32)arg0 != 0) {
+        r1 = *(s32 *)(arg0 + 0x20);
+    }
+    if (r1 == 0) {
+        return 0;
+    } else {
+        if ((s32)arg0 == 0) {
+            arg0 = (u8 *)0;
+        } else {
+            arg0 = (u8 *)*(s32 *)(arg0 + 0x20);
+        }
+        v0 = NNS_G3dGetTex((s32)arg0, r1);
+        return v0;
+    }
 }
 
 extern "C" s32 func_ov015_021642e4(u8 *arg0)

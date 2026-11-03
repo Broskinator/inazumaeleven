@@ -51,9 +51,9 @@ extern "C" s32 func_0208e710(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_0208e754(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_0208e798(s32 arg0, s32 arg1, u8 arg2);
 extern "C" s32 func_0208e7c8(s32 arg0, u8 *arg1, s32 arg2);
-extern "C" void func_0208e81c(void);
-extern "C" void func_0208e844(void);
-extern "C" void func_0208e870(void);
+extern "C" void func_0208e81c(u8 *arg0, s32 arg1);
+extern "C" void func_0208e844(u8 *arg0, s32 arg1);
+extern "C" void func_0208e870(u8 *arg0);
 extern "C" void **func_0208e89c(void **obj);
 extern "C" void **func_0208e8c4(void **obj);
 extern "C" void func_0208e8e4(u8 *obj);
@@ -76,7 +76,7 @@ extern "C" char data_020c467c[];
 extern "C" char data_020c47b4[];
 extern "C" char data_020c4838[];
 extern "C" char data_020c483c[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void __cxa_vec_delete(void);
@@ -1702,48 +1702,27 @@ extern "C" s32 func_0208e7c8(s32 arg0, u8 *arg1, s32 arg2)
     return arg0;
 }
 
-extern "C" asm void func_0208e81c(void)
+extern "C" void func_0208e81c(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, #0x600
-    ldr r0, [r0, #0x1c]
-    mov r5, r1
-    mov r2, r4
-    bl MI_CpuCopy8
-    mov r0, r5
-    mov r1, r4
-    bl DC_FlushRange
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 t0 = *(s32 *)(arg0 + 0x1C);
+    MI_CpuCopy8((const void *)t0, (void *)arg1, (u32)0x600);
+    DC_FlushRange(arg1, 0x600);
 }
 
-extern "C" asm void func_0208e844(void)
+extern "C" void func_0208e844(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r0, r1
-    mov r4, #0x600
-    ldr r1, [r5, #0x1c]
-    mov r2, r4
-    bl MI_CpuCopy8
-    ldr r0, [r5, #0x1c]
-    mov r1, r4
-    bl DC_FlushRange
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 t0 = *(s32 *)(arg0 + 0x1C);
+    MI_CpuCopy8((const void *)arg1, (void *)t0, (u32)0x600);
+    s32 t1 = *(s32 *)(arg0 + 0x1C);
+    DC_FlushRange(t1, 0x600);
 }
 
-extern "C" asm void func_0208e870(void)
+extern "C" void func_0208e870(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, #0x600
-    ldr r0, [r5, #0x1c]
-    mov r2, r4
-    mov r1, #0
-    bl MI_CpuFill8
-    ldr r0, [r5, #0x1c]
-    mov r1, r4
-    bl DC_FlushRange
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 t0 = *(s32 *)(arg0 + 0x1C);
+    MI_CpuFill8((void *)t0, 0, (u32)0x600);
+    s32 t1 = *(s32 *)(arg0 + 0x1C);
+    DC_FlushRange(t1, 0x600);
 }
 
 extern "C" void **func_0208e89c(void **obj)

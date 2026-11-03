@@ -11,10 +11,10 @@ extern "C" s32 func_ov044_02169374(u8 *arg0);
 extern "C" s32 func_ov044_02169390(u8 *arg0);
 extern "C" void func_ov044_021693b0(s32 arg0);
 extern "C" void func_ov044_021693cc(void);
-extern "C" void func_ov044_0216943c(void);
+extern "C" s32 func_ov044_0216943c(...);
 extern "C" void func_ov044_0216952c(void);
 extern "C" void func_ov044_021695a8(void);
-extern "C" void func_ov044_02169628(void);
+extern "C" s32 func_ov044_02169628(...);
 extern "C" void func_ov044_021696a0(void);
 extern "C" void func_ov044_02169804(void);
 extern "C" s32 func_ov044_02169928(u8 *arg0);
@@ -29,7 +29,7 @@ extern "C" void func_ov044_02169f3c(void);
 extern "C" void func_ov044_02169f54(void);
 extern "C" void func_ov044_0216a00c(void);
 extern "C" void func_ov044_0216a184(void);
-extern "C" void func_ov044_0216a32c(void);
+extern "C" void func_ov044_0216a32c(s32 arg0, s32 arg1);
 extern "C" void func_ov044_0216a35c(void);
 extern "C" void func_ov044_0216a444(void);
 extern "C" void func_ov044_0216a538(void);
@@ -472,7 +472,7 @@ extern "C" asm void func_ov044_021693cc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov044_0216943c(void)
+extern "C" asm s32 func_ov044_0216943c(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #8
@@ -605,7 +605,7 @@ extern "C" asm void func_ov044_021695a8(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov044_02169628(void)
+extern "C" asm s32 func_ov044_02169628(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -1479,22 +1479,19 @@ extern "C" asm void func_ov044_0216a184(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov044_0216a32c(void)
+extern "C" void func_ov044_0216a32c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    cmp r1, #7
-    beq @L_0216a354
-    cmp r1, #8
-    beq @L_0216a34c
-    cmp r1, #9
-    beq @L_0216a354
-    ldmia sp!, {r3, pc}
-@L_0216a34c:
-    bl func_ov044_0216943c
-    ldmia sp!, {r3, pc}
-@L_0216a354:
-    bl func_ov044_02169628
-    ldmia sp!, {r3, pc}
+    switch (arg1) {
+        default:
+            return;
+        case 8:
+            func_ov044_0216943c();
+            return;
+        case 7:
+        case 9:
+            func_ov044_02169628();
+            return;
+    }
 }
 
 extern "C" asm void func_ov044_0216a35c(void)

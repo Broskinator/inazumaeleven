@@ -16,7 +16,7 @@ extern "C" void func_ov003_02113b4c(void);
 extern "C" void func_ov003_021146bc(void);
 extern "C" s32 func_ov003_02114b7c(u16 arg0, s32 arg1, u8 *arg2, u8 *arg3);
 extern "C" void func_ov003_02114ba4(void);
-extern "C" void func_ov003_02114c5c(void);
+extern "C" s32 func_ov003_02114c5c(u8 *arg0);
 extern "C" void func_ov003_02114d4c(void);
 extern "C" void func_ov003_02114dbc(void);
 extern "C" s32 func_ov003_02114ec4(u8 *arg0);
@@ -46,8 +46,8 @@ extern "C" char data_ov003_0211ca50[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN11SaveManager10SaveFileToEiP8SaveFilei(void);
-extern "C" void _ZN11SaveManager14ReadSlotHeaderEiP10SaveHeader(void);
-extern "C" void _ZN11SaveManager8LoadIntoEiP8SaveFilei(void);
+extern "C" s32 _ZN11SaveManager14ReadSlotHeaderEiP10SaveHeader(...);
+extern "C" s32 _ZN11SaveManager8LoadIntoEiP8SaveFilei(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206db10EP8SaveBody(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206dcdcEP8SaveBody(void);
@@ -61,11 +61,11 @@ extern "C" void _ZN17UnkClass_020621b413func_0207bee8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207bfd0Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207e334Eiiii(void);
 extern "C" void func_0200878c(void);
-extern "C" void func_02022484(void);
+extern "C" s32 func_02022484(...);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_02022e2c(void);
-extern "C" void func_020234c0(void);
+extern "C" s32 func_02022b2c(...);
+extern "C" s32 func_02022e2c(...);
+extern "C" s32 func_020234c0(...);
 extern "C" void func_020812f4(void);
 extern "C" void func_020812fc(void);
 extern "C" void func_02081304(void);
@@ -97,11 +97,11 @@ extern "C" void func_ov003_02115874(void);
 extern "C" void func_ov003_02115e58(void);
 extern "C" void func_ov003_02115f7c(void);
 extern "C" void func_ov003_02116488(void);
-extern "C" void func_ov003_02116644(void);
+extern "C" s32 func_ov003_02116644(...);
 extern "C" void func_ov003_02116660(void);
-extern "C" void func_ov003_021179c8(void);
+extern "C" s32 func_ov003_021179c8(...);
 extern "C" void func_ov015_02130b14(void);
-extern "C" void gGameState(void);
+extern "C" char gGameState[];
 
 extern "C" void func_02017278(void);
 extern "C" asm void func_ov003_021124c0(void)
@@ -2716,65 +2716,65 @@ extern "C" asm void func_ov003_02114ba4(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov003_02114c5c(void)
+extern "C" s32 func_ov003_02114c5c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, r0
-    ldrb r1, [r4, #0x635]
-    cmp r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r1, [r4, #0x628]
-    sub r1, r1, #1
-    str r1, [r4, #0x628]
-    cmp r1, #1
-    blt @L_02114cbc
-    ldr r0, [r4, #0x984]
-    bl func_02022484
-    ldr r1, [r4, #0x628]
-    mov r5, r0
-    mul r0, r1, r1
-    bl func_02022484
-    ldr r1, =0x45610000
-    bl func_020234c0
-    mov r1, r0
-    mov r0, r5
-    bl func_02022e2c
-    bl func_02022b2c
-    str r0, [r4, #0x988]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02114cbc:
-    mov r5, #0
-    str r5, [r4, #0x988]
-    strb r5, [r4, #0x635]
-    bl func_ov003_02116644
-    ldr r0, =data_020c5320
-    ldr r0, [r0, #0x5c]
-    cmp r0, #1
-    moveq r5, #1
-    cmp r5, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r5, =gGameState
-    ldr r7, =data_020c4c70
-    ldrb r1, [r5, #0x4f4]
-    ldr r2, [r4, #0x9b4]
-    mov r0, r7
-    bl _ZN11SaveManager14ReadSlotHeaderEiP10SaveHeader
-    mov r1, r0
-    mov r0, r4
-    bl func_ov003_021179c8
-    mov r6, #1
-    ldrb r1, [r5, #0x4f4]
-    ldr r2, [r4, #0x9b4]
-    mov r0, r7
-    mov r3, r6
-    bl _ZN11SaveManager8LoadIntoEiP8SaveFilei
-    mov r1, r0
-    mov r0, r4
-    bl func_ov003_021179c8
-    mov r0, #7
-    str r6, [r4, #0x40]
-    str r0, [r4, #0x30]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r1;
+    u8 *r4;
+    s32 r5;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 v4;
+    s32 v6;
+    s32 v8;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t3;
+    u8 t4;
+    s32 t5;
+    u8 t6;
+    s32 t7;
+    if (*(u8 *)(arg0 + 0x635) == 0)
+        return (s32)arg0;
+    t0 = (*(s32 *)(arg0 + 0x628) - 1);
+    *(s32 *)(arg0 + 0x628) = t0;
+    r4 = arg0;
+    r1 = t0;
+    if (r1 >= 1) {
+        t1 = *(s32 *)(r4 + 0x984);
+        v0 = func_02022484(t1, r1);
+        t2 = (*(s32 *)(r4 + 0x628) * *(s32 *)(r4 + 0x628));
+        t3 = *(s32 *)(r4 + 0x628);
+        v1 = func_02022484(t2, t3);
+        v2 = func_020234c0(v1, 0x45610000);
+        func_02022e2c(v0, v2);
+        v4 = func_02022b2c();
+        *(s32 *)(r4 + 0x988) = v4;
+        return v4;
+    } else {
+        *(s32 *)(r4 + 0x988) = 0;
+        *(u8 *)(r4 + 0x635) = 0;
+        r5 = 0;
+        func_ov003_02116644((s32)arg0, r1);
+        arg0 = (u8 *)*(s32 *)(((u8 *)&data_020c5320) + 0x5C);
+        if ((s32)arg0 == 1) {
+            r5 = 1;
+        }
+        if (r5 == 0)
+            return (s32)arg0;
+        t4 = *(u8 *)(((u8 *)&gGameState) + 0x4F4);
+        t5 = *(s32 *)(r4 + 0x9B4);
+        v6 = _ZN11SaveManager14ReadSlotHeaderEiP10SaveHeader((u8 *)((u8 *)&data_020c4c70), t4, t5);
+        func_ov003_021179c8((s32)r4, v6);
+        t6 = *(u8 *)(((u8 *)&gGameState) + 0x4F4);
+        t7 = *(s32 *)(r4 + 0x9B4);
+        v8 = _ZN11SaveManager8LoadIntoEiP8SaveFilei((u8 *)((u8 *)&data_020c4c70), t6, t7, 1);
+        func_ov003_021179c8((s32)r4, v8);
+        *(s32 *)(r4 + 0x40) = 1;
+        *(s32 *)(r4 + 0x30) = 7;
+        return 7;
+    }
 }
 
 extern "C" asm void func_ov003_02114d4c(void)

@@ -65,12 +65,12 @@ extern "C" s32 func_0209c24c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_0209c33c(...);
 extern "C" void func_0209c380(u8 *arg0, u8 *arg1);
 extern "C" s32 func_0209c398(s32 arg0, u8 *arg1);
-extern "C" void func_0209c3bc(void);
+extern "C" s32 func_0209c3bc(...);
 extern "C" s32 func_0209c420(...);
 extern "C" s32 func_0209c480(u8 *arg0);
 extern "C" u8 *func_0209c4bc(u8 *obj, int i);
-extern "C" void func_0209c4d8(void);
-extern "C" void func_0209c50c(void);
+extern "C" s32 func_0209c4d8(u8 *arg0, s32 arg1);
+extern "C" s32 func_0209c50c(...);
 extern "C" char *func_0209c56c(u8 *arg0);
 extern "C" void func_0209c5a4(u8 *arg0);
 extern "C" void func_0209c5d0(u8 *arg0);
@@ -1028,7 +1028,7 @@ extern "C" s32 func_0209c398(s32 arg0, u8 *arg1)
     return arg0;
 }
 
-extern "C" asm void func_0209c3bc(void)
+extern "C" asm s32 func_0209c3bc(...)
 {
     ldrb r3, [r0, #0x65]
     add r1, r1, #3
@@ -1108,25 +1108,25 @@ extern "C" u8 *func_0209c4bc(u8 *obj, int i)
     return *(u8 **)(obj + 0x74) + *(s32 *)(obj + 0x78) * (i - 1);
 }
 
-extern "C" asm void func_0209c4d8(void)
+extern "C" s32 func_0209c4d8(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    cmp r1, #7
-    str r1, [r4, #0x6c]
-    moveq r1, #0xf0
-    moveq r2, #0x50
-    beq @L_0209c500
-    bl func_0209c50c
-    mov r1, r0
-    mov r2, r1
-@L_0209c500:
-    mov r0, r4
-    bl func_0209c3bc
-    ldmia sp!, {r4, pc}
+    s32 r2;
+    s32 v0;
+    s32 v1;
+    *(s32 *)(arg0 + 0x6C) = arg1;
+    if (arg1 == 7) {
+        arg1 = 0xF0;
+        r2 = 0x50;
+    } else {
+        v0 = func_0209c50c();
+        arg1 = v0;
+        r2 = v0;
+    }
+    v1 = func_0209c3bc((s32)arg0, arg1, r2);
+    return v1;
 }
 
-extern "C" asm void func_0209c50c(void)
+extern "C" asm s32 func_0209c50c(...)
 {
     cmp r1, #8
     mov r0, #0x74

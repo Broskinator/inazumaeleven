@@ -10,7 +10,7 @@ extern "C" s32 func_ov037_02169034(s32 arg0, s32 arg1);
 extern "C" s32 func_ov037_02169084(...);
 extern "C" s32 func_ov037_02169110(...);
 extern "C" void func_ov037_02169178(s32 arg0);
-extern "C" void func_ov037_021691ac(void);
+extern "C" s32 func_ov037_021691ac(s32 arg0, s32 arg1);
 extern "C" s32 func_ov037_021691d8(...);
 extern "C" void func_ov037_021692a8(s32 arg0);
 extern "C" s32 func_ov037_021692c8(...);
@@ -500,21 +500,16 @@ extern "C" void func_ov037_02169178(s32 arg0)
     return;
 }
 
-extern "C" asm void func_ov037_021691ac(void)
+extern "C" s32 func_ov037_021691ac(s32 arg0, s32 arg1)
 {
-    cmp r1, #0
-    beq @L_021691c8
-    cmp r1, #1
-    beq @L_021691d0
-    cmp r1, #2
-    moveq r0, #0
-    bx lr
-@L_021691c8:
-    mov r0, #0
-    bx lr
-@L_021691d0:
-    mov r0, #0
-    bx lr
+    switch (arg1) {
+        default:
+            return (arg1 == 2 ? 0 : arg0);
+        case 0:
+            return 0;
+        case 1:
+            return 0;
+    }
 }
 
 extern "C" asm s32 func_ov037_021691d8(...)

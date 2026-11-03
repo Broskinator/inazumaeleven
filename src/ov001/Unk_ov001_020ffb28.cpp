@@ -9,9 +9,9 @@ extern "C" s32 func_ov001_0210044c(...);
 extern "C" void func_ov001_021004e4(void);
 extern "C" void func_ov001_0210068c(void);
 extern "C" void func_ov001_021006e4(void);
-extern "C" void func_ov001_021007dc(void);
+extern "C" s32 func_ov001_021007dc(u8 *arg0);
 extern "C" void func_ov001_021008c8(u8 *arg0);
-extern "C" void func_ov001_02100a20(void);
+extern "C" s32 func_ov001_02100a20(s32 arg0);
 extern "C" void func_ov001_02100b44(void);
 extern "C" void func_ov001_02100c00(void);
 extern "C" void func_ov001_02100d10(void);
@@ -30,7 +30,7 @@ extern "C" void func_ov001_02102378(void);
 extern "C" void func_ov001_02102464(void);
 extern "C" void func_ov001_0210266c(void);
 extern "C" void func_ov001_021027d4(void);
-extern "C" void func_ov001_02102850(void);
+extern "C" s32 func_ov001_02102850(u8 *arg0, s32 arg1);
 extern "C" void func_ov001_021028a4(void);
 extern "C" void func_ov001_021028f0(u8 *arg0);
 extern "C" void func_ov001_021029a4(void);
@@ -89,7 +89,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206c878Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_0206cf6cEv(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206d188Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206dedcEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);
+extern "C" s32 _ZN17UnkClass_020621b413func_020739ccEi(...);
 extern "C" void _ZN17UnkClass_020621b413func_0207597cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_02079d2cEi(void);
 extern "C" void func_01ff9630(void);
@@ -168,7 +168,7 @@ extern "C" void func_ov015_0213b3fc(void);
 extern "C" void func_ov015_0213bf84(void);
 extern "C" void func_ov015_0213bfcc(void);
 extern "C" void func_ov015_0213c33c(void);
-extern "C" void func_ov015_02140da4(void);
+extern "C" s32 func_ov015_02140da4(...);
 extern "C" void func_ov015_02140f58(void);
 extern "C" void func_ov015_02143664(void);
 extern "C" void func_ov087_02174dc4(void);
@@ -1065,65 +1065,34 @@ extern "C" asm void func_ov001_021006e4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov001_021007dc(void)
+extern "C" s32 func_ov001_021007dc(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    ldr r1, =data_020e88a0
-    mov r4, r0
-    ldr r0, [r1, #0xba8]
-    cmp r0, #3
-    bne @L_02100838
-    ldr r12, [r4, #4]
-    mov r2, #0
-    ldr r0, =data_020d9978
-    mov r3, r2
-    mov r1, #7
-    str r12, [sp]
-    bl _ZN11TreasureBox13func_02052720Ev
-    cmp r0, #0
-    beq @L_02100838
-    mov r2, #3
-    mov r0, r4
-    mov r1, #0x64
-    str r2, [r4, #0x4b0]
-    bl func_ov001_0210006c
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
-@L_02100838:
-    ldr r0, =data_020e88a0
-    ldr r0, [r0, #0xba8]
-    cmp r0, #4
-    bne @L_02100888
-    ldr r12, [r4, #4]
-    mov r2, #0
-    ldr r0, =data_020d9978
-    ldr r1, =0x10008
-    mov r3, r2
-    str r12, [sp]
-    bl _ZN11TreasureBox13func_02052720Ev
-    cmp r0, #0
-    beq @L_02100888
-    mov r2, #4
-    mov r0, r4
-    mov r1, #0x64
-    str r2, [r4, #0x4b0]
-    bl func_ov001_0210006c
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
-@L_02100888:
-    mov r0, r4
-    mov r1, #0x64
-    bl func_ov001_020ffb28
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1a]
-    cmp r0, #0
-    addne sp, sp, #4
-    ldmneia sp!, {r3, r4, pc}
-    mov r0, r4
-    bl func_ov001_0210044c
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 v3;
+    s32 v5;
+    if (*(s32 *)(((u8 *)&data_020e88a0) + 0xBA8) == 3) {
+        v0 = _ZN11TreasureBox13func_02052720Ev((u8 *)((u8 *)&data_020d9978), 7, 0, 0, *(s32 *)(arg0 + 0x4));
+        if (v0 != 0) {
+            *(s32 *)(arg0 + 0x4B0) = 3;
+            v1 = ((s32 (*)(...))func_ov001_0210006c)((s32)arg0, 0x64, 3);
+            return v1;
+        }
+    }
+    if (*(s32 *)(((u8 *)&data_020e88a0) + 0xBA8) == 4) {
+        v2 = _ZN11TreasureBox13func_02052720Ev((u8 *)((u8 *)&data_020d9978), 0x10008, 0, 0, *(s32 *)(arg0 + 0x4));
+        if (v2 != 0) {
+            *(s32 *)(arg0 + 0x4B0) = 4;
+            v3 = ((s32 (*)(...))func_ov001_0210006c)((s32)arg0, 0x64, 4);
+            return v3;
+        }
+    }
+    func_ov001_020ffb28((s32)arg0, 0x64);
+    if (*(u8 *)(((u8 *)&gGameState) + 0x1A) != 0)
+        return *(u8 *)(((u8 *)&gGameState) + 0x1A);
+    v5 = func_ov001_0210044c((s32)arg0);
+    return v5;
 }
 
 extern "C" void func_ov001_021008c8(u8 *arg0)
@@ -1189,82 +1158,64 @@ extern "C" void func_ov001_021008c8(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov001_02100a20(void)
+extern "C" s32 func_ov001_02100a20(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r7, =data_020e88a0
-    mov r6, #0
-    mov r4, r0
-    mov r0, r7
-    mov r1, r6
-    bl _ZN17UnkClass_020621b413func_0206bff4Ei
-    ldr r1, =data_020c4920
-    mov r0, r7
-    ldrb r1, [r1, #0x57]
-    bl func_ov015_02140da4
-    cmp r0, #0
-    beq @L_02100ab4
-    ldr r5, [r4, #4]
-    ldr r0, =data_020d9978
-    mov r2, r6
-    mov r3, r6
-    mov r1, #7
-    str r5, [sp]
-    bl _ZN11TreasureBox13func_02052720Ev
-    cmp r0, #0
-    beq @L_02100ab4
-    mov r0, #2
-    str r0, [r4, #0x4b0]
-    bl func_ov001_02122d40
-    cmp r0, #0
-    beq @L_02100aa4
-    mov r0, r7
-    bl _ZN17UnkClass_020621b413func_0206b3fcEv
-    mov r0, r4
-    mov r1, #0x14
-    bl func_ov001_0210006c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02100aa4:
-    mov r0, r4
-    mov r1, #4
-    bl func_ov001_0210006c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02100ab4:
-    bl func_ov001_02122d40
-    cmp r0, #0
-    beq @L_02100b24
-    ldr r5, =data_020e88a0
-    mov r0, r5
-    bl _ZN17UnkClass_020621b413func_0206b3fcEv
-    mov r0, r5
-    bl _ZN17UnkClass_020621b413func_0206cf6cEv
-    cmp r0, #0
-    beq @L_02100b14
-    mov r0, r5
-    mov r1, #0xc
-    bl _ZN17UnkClass_020621b413func_0206bff4Ei
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1a]
-    cmp r0, #0
-    mov r0, r4
-    beq @L_02100b08
-    mov r1, #0x2a
-    bl func_ov001_0210006c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02100b08:
-    mov r1, #0x2b
-    bl func_ov001_0210006c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02100b14:
-    mov r0, r4
-    mov r1, #0x14
-    bl func_ov001_0210006c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02100b24:
-    mov r0, r4
-    mov r1, #4
-    bl func_ov001_020ffb28
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *r4;
+    s32 r6;
+    s32 v1;
+    s32 v2;
+    s32 v3;
+    char *v5;
+    char *v6;
+    s32 v7;
+    s32 v9;
+    char *v11;
+    char *v12;
+    char *v13;
+    s32 v14;
+    u8 t0;
+    r6 = 0;
+    _ZN17UnkClass_020621b413func_0206bff4Ei((u8 *)((u8 *)&data_020e88a0), 0);
+    t0 = *(u8 *)(((u8 *)&data_020c4920) + 0x57);
+    v1 = func_ov015_02140da4((u8 *)((u8 *)&data_020e88a0), t0);
+    r4 = (u8 *)arg0;
+    if (v1 != 0) {
+        v2 = _ZN11TreasureBox13func_02052720Ev((u8 *)((u8 *)&data_020d9978), 7, r6, r6, *(s32 *)(r4 + 0x4));
+        if (v2 != 0) {
+            *(s32 *)(r4 + 0x4B0) = 2;
+            v3 = func_ov001_02122d40(2);
+            if (v3 != 0) {
+                _ZN17UnkClass_020621b413func_0206b3fcEv((u8 *)((u8 *)&data_020e88a0));
+                v5 = func_ov001_0210006c(r4, 0x14);
+                return (s32)v5;
+            } else {
+                v6 = func_ov001_0210006c(r4, 4);
+                return (s32)v6;
+            }
+        }
+    }
+    v7 = func_ov001_02122d40();
+    if (v7 != 0) {
+        _ZN17UnkClass_020621b413func_0206b3fcEv((u8 *)((u8 *)&data_020e88a0));
+        v9 = _ZN17UnkClass_020621b413func_0206cf6cEv((u8 *)((u8 *)&data_020e88a0));
+        if (v9 != 0) {
+            _ZN17UnkClass_020621b413func_0206bff4Ei((u8 *)((u8 *)&data_020e88a0), 0xC);
+            arg0 = (s32)r4;
+            if (*(u8 *)(((u8 *)&gGameState) + 0x1A) != 0) {
+                v11 = func_ov001_0210006c((u8 *)arg0, 0x2A);
+                return (s32)v11;
+            } else {
+                v12 = func_ov001_0210006c((u8 *)arg0, 0x2B);
+                return (s32)v12;
+            }
+        } else {
+            v13 = func_ov001_0210006c(r4, 0x14);
+            return (s32)v13;
+        }
+    } else {
+        v14 = func_ov001_020ffb28((s32)r4, 4);
+        return v14;
+    }
 }
 
 extern "C" asm void func_ov001_02100b44(void)
@@ -3310,28 +3261,24 @@ extern "C" asm void func_ov001_021027d4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_02102850(void)
+extern "C" s32 func_ov001_02102850(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov001_02130668
-    mov r1, r1, lsl #1
-    ldrh r1, [r0, r1]
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020739ccEi
-    cmp r0, #0
-    beq @L_02102894
-    ldrb r0, [r0]
-    add r0, r0, #0xfb
-    and r0, r0, #0xff
-    cmp r0, #3
-    movls r0, #1
-    movhi r0, #0
-    cmp r0, #0
-    movne r0, #1
-    ldmneia sp!, {r3, pc}
-@L_02102894:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    s32 v0;
+    u16 t0;
+    t0 = *(u16 *)(((u8 *)&data_ov001_02130668) + (arg1 << 1));
+    v0 = _ZN17UnkClass_020621b413func_020739ccEi((u8 *)((u8 *)&data_020e88a0), t0);
+    arg0 = (u8 *)v0;
+    if ((s32)arg0 != 0) {
+        if ((u32)((*(u8 *)(arg0) + 0xFB) & 0xFF) <= (u32)3) {
+            arg0 = (u8 *)1;
+        } else {
+            arg0 = (u8 *)0;
+        }
+        if ((s32)arg0 != 0) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 extern "C" void func_ov001_021028a4(void)

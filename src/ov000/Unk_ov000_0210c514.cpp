@@ -3,7 +3,7 @@
 
 extern "C" void func_ov000_0210c514(void);
 extern "C" void func_ov000_0210c5e8(void);
-extern "C" void func_ov000_0210c6a0(void);
+extern "C" void func_ov000_0210c6a0(u8 *arg0);
 extern "C" s32 func_ov000_0210c750(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov000_0210c77c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov000_0210c7c0(void);
@@ -26,7 +26,7 @@ extern "C" void func_ov000_0210de08(void);
 extern "C" void func_ov000_0210deb8(void);
 extern "C" s32 func_ov000_0210df0c(u8 *arg0);
 extern "C" s32 func_ov000_0210df58(u8 *arg0);
-extern "C" void func_ov000_0210df84(void);
+extern "C" s32 func_ov000_0210df84(u8 *arg0, s32 arg1);
 extern "C" void func_ov000_0210dff0(void);
 extern "C" void func_ov000_0210e090(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov000_0210e100(u8 *arg0, s32 arg1, s32 arg2);
@@ -65,9 +65,9 @@ extern "C" void FX_SinCosTable_(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MTX_RotY43_(void);
 extern "C" s32 STD_GetStringLength(...);
-extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
+extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
-extern "C" void _ZN8GameHeap5AllocEiii(void);
+extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -257,46 +257,39 @@ extern "C" asm void func_ov000_0210c5e8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov000_0210c6a0(void)
+extern "C" void func_ov000_0210c6a0(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, =data_020c46e4
-    ldr r1, =data_ov000_021184f4
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #4]
-    cmp r0, #0
-    moveq r0, #0x15
-    streq r0, [r4, #4]
-    ldr r0, =data_020c46e4
-    ldr r1, =data_ov000_02118508
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #8]
-    cmp r0, #0
-    moveq r0, #0x15
-    streq r0, [r4, #8]
-    ldr r0, =data_020c46e4
-    ldr r1, =data_ov000_0211851c
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0xc]
-    cmp r0, #0
-    moveq r0, #0x100
-    streq r0, [r4, #0xc]
-    ldr r0, =data_020c46e4
-    ldr r1, =data_ov000_0211852c
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x10]
-    cmp r0, #0
-    moveq r0, #0x22
-    streq r0, [r4, #0x10]
-    ldr r0, =data_020c46e4
-    ldr r1, =data_ov000_0211853c
-    bl _ZN10ConfigFile6GetIntEPKc
-    str r0, [r4, #0x14]
-    cmp r0, #0
-    moveq r0, #0x11
-    streq r0, [r4, #0x14]
-    ldmia sp!, {r4, pc}
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 v3;
+    s32 v4;
+    v0 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov000_021184f4));
+    *(s32 *)(arg0 + 0x4) = v0;
+    if (v0 == 0) {
+        *(s32 *)(arg0 + 0x4) = 0x15;
+    }
+    v1 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov000_02118508));
+    *(s32 *)(arg0 + 0x8) = v1;
+    if (v1 == 0) {
+        *(s32 *)(arg0 + 0x8) = 0x15;
+    }
+    v2 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov000_0211851c));
+    *(s32 *)(arg0 + 0xC) = v2;
+    if (v2 == 0) {
+        *(s32 *)(arg0 + 0xC) = 0x100;
+    }
+    v3 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov000_0211852c));
+    *(s32 *)(arg0 + 0x10) = v3;
+    if (v3 == 0) {
+        *(s32 *)(arg0 + 0x10) = 0x22;
+    }
+    v4 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov000_0211853c));
+    *(s32 *)(arg0 + 0x14) = v4;
+    if (v4 == 0) {
+        *(s32 *)(arg0 + 0x14) = 0x11;
+    }
+    return;
 }
 
 extern "C" s32 func_ov000_0210c750(u8 *arg0, s32 arg1)
@@ -1917,36 +1910,24 @@ extern "C" s32 func_ov000_0210df58(u8 *arg0)
     return 0;
 }
 
-extern "C" asm void func_ov000_0210df84(void)
+extern "C" s32 func_ov000_0210df84(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, r1
-    ldr r1, [r7, #0x18]
-    cmp r1, #0
-    beq @L_0210dfa8
-    ldr r0, [r7, #0x10]
-    cmp r6, r0
-    ldmleia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0210dfa8:
-    cmp r1, #0
-    beq @L_0210dfb8
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_0210dfb8:
-    mov r5, r6, lsl #2
-    mov r4, #0
-    ldr r0, =data_020c47b4
-    mov r1, r5
-    mov r2, r4
-    mov r3, #1
-    str r6, [r7, #0x10]
-    bl _ZN8GameHeap5AllocEiii
-    mov r1, r4
-    mov r2, r5
-    str r0, [r7, #0x18]
-    bl MI_CpuFill8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r1;
+    s32 v1;
+    s32 v2;
+    r1 = *(s32 *)(arg0 + 0x18);
+    if (r1 != 0) {
+        if (arg1 <= *(s32 *)(arg0 + 0x10))
+            return *(s32 *)(arg0 + 0x10);
+    }
+    if (r1 != 0) {
+        _ZN8GameHeap4FreeEPv((u8 *)((u8 *)&data_020c47b4), r1);
+    }
+    *(s32 *)(arg0 + 0x10) = arg1;
+    v1 = _ZN8GameHeap5AllocEiii((u8 *)((u8 *)&data_020c47b4), (arg1 << 2), 0, 1);
+    *(s32 *)(arg0 + 0x18) = v1;
+    v2 = MI_CpuFill8(v1, 0, (arg1 << 2));
+    return v2;
 }
 
 extern "C" asm void func_ov000_0210dff0(void)
