@@ -38,7 +38,7 @@ extern char data_020beec4[];
 void OS_UnlockMutex(void);
 void func_02023dd8(void);
 extern char data_020ab0c8[];
-void func_02022400(void);
+void _f2d(void);
 void OS_AllocFromHeap(void);
 void OS_FreeToHeap(void);
 extern char data_020aafe0[];
@@ -952,7 +952,7 @@ asm void func_02017ae8(void)
 asm void func_02017c04(void)
 {
     ldr r0, =data_020ab0c8
-    ldr r12, =func_02022400
+    ldr r12, =_f2d
     ldr r0, [r0]
     bx r12
 }

@@ -134,11 +134,11 @@ extern "C" void func_020014ac(void);
 extern "C" void func_02001644(void);
 extern "C" s32 func_02001a00(...);
 extern "C" void func_0200226c(void);
-extern "C" s32 func_02022484(...);
-extern "C" s32 func_020224cc(...);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _fflt(...);
+extern "C" s32 _ffltu(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" s32 func_02087b98(...);
 extern "C" void func_02087bb0(void);
 extern "C" void func_02090d60(void);
@@ -669,19 +669,19 @@ extern "C" asm void func_ov015_0213a75c(void)
     ble @L_0213a7e8
     bl func_ov015_0213a6fc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0213a7fc
 @L_0213a7e8:
     bl func_ov015_0213a6fc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0213a7fc:
-    bl func_02022b2c
+    bl _ffix
     ldr r2, [r5, #0xe8]
     mov r1, #0
     str r0, [r2, #0xc]
@@ -835,17 +835,17 @@ extern "C" asm s32 func_ov015_0213aa38(...)
     cmp r3, #0
     mov r0, r3, lsl #0xc
     beq @L_0213aa6c
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0213aa78
 @L_0213aa6c:
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0213aa78:
-    bl func_02022b2c
+    bl _ffix
     str r5, [sp]
     str r4, [sp, #4]
     str r0, [sp, #8]
@@ -869,13 +869,13 @@ extern "C" s32 func_ov015_0213aab4(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     s32 v4;
     s32 v5;
     if (arg3 != 0) {
-        v0 = func_020224cc((arg3 << 0xC));
-        func_0202300c(0x3F000000, v0);
+        v0 = _ffltu((arg3 << 0xC));
+        _fadd(0x3F000000, v0);
     } else {
-        v2 = func_020224cc((arg3 << 0xC));
-        func_0202323c(v2, 0x3F000000);
+        v2 = _ffltu((arg3 << 0xC));
+        _fsub(v2, 0x3F000000);
     }
-    v4 = func_02022b2c();
+    v4 = _ffix();
     v5 = ((s32 (*)(...))func_ov015_0213abdc)(arg0, 0, 1, 0, (arg1 / 4096), (arg2 / 4096), v4, 0x3100, 3);
     return v5;
 }
@@ -887,13 +887,13 @@ extern "C" s32 func_ov015_0213ab48(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     s32 v4;
     s32 v5;
     if (arg3 != 0) {
-        v0 = func_020224cc((arg3 << 0xC));
-        func_0202300c(0x3F000000, v0);
+        v0 = _ffltu((arg3 << 0xC));
+        _fadd(0x3F000000, v0);
     } else {
-        v2 = func_020224cc((arg3 << 0xC));
-        func_0202323c(v2, 0x3F000000);
+        v2 = _ffltu((arg3 << 0xC));
+        _fsub(v2, 0x3F000000);
     }
-    v4 = func_02022b2c();
+    v4 = _ffix();
     v5 = ((s32 (*)(...))func_ov015_0213abdc)(arg0, 2, 4, 0, (arg1 / 4096), (arg2 / 4096), v4, 0x1100, 0x3E8);
     return v5;
 }
@@ -3140,14 +3140,14 @@ extern "C" s32 func_ov015_0213cc18(s32 arg0)
     r5 = (s32)data_020c46e4;
     if (v0 > 0) {
         v1 = _ZN10ConfigFile6GetIntEPKc(r5, (s32)data_ov015_02165738);
-        v2 = func_02022484((v1 << 0xC));
-        func_0202300c(0x3F000000, v2);
+        v2 = _fflt((v1 << 0xC));
+        _fadd(0x3F000000, v2);
     } else {
         v4 = _ZN10ConfigFile6GetIntEPKc(r5, (s32)data_ov015_02165748);
-        v5 = func_02022484((v4 << 0xC));
-        func_0202323c(v5, 0x3F000000);
+        v5 = _fflt((v4 << 0xC));
+        _fsub(v5, 0x3F000000);
     }
-    v7 = func_02022b2c();
+    v7 = _ffix();
     r5 = 0x12C;
     r6 = ((v7 == 0 ? 0x1001000 : v7) + 0x1000);
     r7 = 0;

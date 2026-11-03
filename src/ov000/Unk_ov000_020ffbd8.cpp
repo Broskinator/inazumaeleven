@@ -86,17 +86,17 @@ extern "C" s32 _ZN11TreasureBox13func_02052720Ev(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void func_02017ce8(void);
 extern "C" void func_02020c78(void);
-extern "C" void func_020213f8(void);
-extern "C" void func_02021728(void);
+extern "C" void _dadd(void);
+extern "C" void _dsub(void);
 extern "C" void func_02021adc(void);
-extern "C" void func_02021f44(void);
-extern "C" void func_02022484(void);
+extern "C" void _dflt(void);
+extern "C" void _fflt(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_02022b60(void);
+extern "C" void _ffix(void);
+extern "C" void _dfix(void);
 extern "C" void func_02022c90(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_02023890(void);
 extern "C" s32 func_02084c8c(...);
 extern "C" void func_02084cf0(void);
@@ -1160,17 +1160,17 @@ extern "C" asm void func_ov000_02100a58(void)
     cmp r5, #0
     mov r0, r5, lsl #0xc
     ble @L_02100b00
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02100b0c
 @L_02100b00:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02100b0c:
-    bl func_02022b2c
+    bl _ffix
     mov r1, #2
     str r1, [sp]
     str r1, [sp, #4]
@@ -1251,17 +1251,17 @@ extern "C" asm void func_ov000_02100bec(void)
     cmp r5, #0
     mov r0, r5, lsl #0xc
     ble @L_02100c40
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02100c4c
 @L_02100c40:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02100c4c:
-    bl func_02022b2c
+    bl _ffix
     mov r1, #2
     str r1, [sp]
     str r1, [sp, #4]
@@ -1790,7 +1790,7 @@ extern "C" asm void func_ov000_02101060(void)
     blt @L_02101584
 @L_0210141c:
     mov r0, r4
-    bl func_02021f44
+    bl _dflt
     mov r11, #0
     mov r4, #0x40000000
     mov r2, r11
@@ -1799,14 +1799,14 @@ extern "C" asm void func_ov000_02101060(void)
     str r0, [sp, #0x28]
     mov r0, r9
     mov r9, r1
-    bl func_02021f44
+    bl _dflt
     mov r2, r11
     mov r3, r4
     bl func_02020c78
     str r0, [sp, #0x2c]
     mov r0, r8
     mov r8, r1
-    bl func_02021f44
+    bl _dflt
     mov r2, r11
     mov r3, r4
     bl func_02020c78
@@ -1816,29 +1816,29 @@ extern "C" asm void func_ov000_02101060(void)
     ldr r0, [sp, #0x28]
     mov r1, r9
     mov r3, r8
-    bl func_020213f8
+    bl _dadd
     ldr r2, [sp, #0x30]
     ldr r3, [sp, #0x1c]
-    bl func_020213f8
+    bl _dadd
     bl func_02022c90
     str r0, [sp, #0x34]
     ldr r0, [sp, #0x60]
     str r1, [sp, #0x14]
-    bl func_02021f44
+    bl _dflt
     mov r2, r11
     mov r3, r4
     bl func_02020c78
     str r0, [sp, #0x38]
     ldr r0, [sp, #0x78]
     mov r9, r1
-    bl func_02021f44
+    bl _dflt
     mov r2, r11
     mov r3, r4
     bl func_02020c78
     str r0, [sp, #0x3c]
     ldr r0, [sp, #0x6c]
     mov r8, r1
-    bl func_02021f44
+    bl _dflt
     mov r2, r11
     mov r3, r4
     bl func_02020c78
@@ -1848,10 +1848,10 @@ extern "C" asm void func_ov000_02101060(void)
     ldr r2, [sp, #0x3c]
     ldr r0, [sp, #0x38]
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     ldr r2, [sp, #0x40]
     mov r3, r8
-    bl func_020213f8
+    bl _dadd
     bl func_02022c90
     ldr r2, [sp, #0x34]
     ldr r3, [sp, #0x14]
@@ -1860,7 +1860,7 @@ extern "C" asm void func_ov000_02101060(void)
     mov r3, r1
     mov r0, r11
     sub r1, r4, #0x100000
-    bl func_02021728
+    bl _dsub
     mov r8, r1
     ldr r1, [r7, #4]
     mov r4, r0
@@ -1870,11 +1870,11 @@ extern "C" asm void func_ov000_02101060(void)
     mov r1, r1, lsr #0x10
     str r1, [sp, #0x6c]
     str r0, [sp, #0x68]
-    bl func_02021f44
+    bl _dflt
     mov r2, r4
     mov r3, r8
     bl func_02021adc
-    bl func_02022b60
+    bl _dfix
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
     str r0, [sp, #0x68]

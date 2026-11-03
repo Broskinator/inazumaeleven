@@ -104,11 +104,11 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void func_01ffed6c(void);
 extern "C" void func_01ffede8(void);
 extern "C" void func_02001d60(void);
-extern "C" void func_02022484(void);
+extern "C" void _fflt(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_020817bc(void);
 extern "C" void func_02081894(void);
 extern "C" void func_02088864(void);
@@ -2508,10 +2508,10 @@ extern "C" asm void func_ov037_0216afc0(void)
     bl _ZN10ConfigFile6GetIntEPKc
     rsb r0, r0, #0
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0216b148
 @L_0216b128:
     ldr r1, =data_ov037_0216c310
@@ -2519,11 +2519,11 @@ extern "C" asm void func_ov037_0216afc0(void)
     bl _ZN10ConfigFile6GetIntEPKc
     rsb r0, r0, #0
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0216b148:
-    bl func_02022b2c
+    bl _ffix
     ldr r5, =data_020c46e4
     mov r7, r0
     ldr r1, =data_ov037_0216c324
@@ -2535,21 +2535,21 @@ extern "C" asm void func_ov037_0216afc0(void)
     mov r0, r5
     bl _ZN10ConfigFile6GetIntEPKc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0216b1a8
 @L_0216b18c:
     ldr r1, =data_ov037_0216c34c
     mov r0, r5
     bl _ZN10ConfigFile6GetIntEPKc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0216b1a8:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0xf6c]
     mov r2, #0x168000
     rsb r2, r2, #0

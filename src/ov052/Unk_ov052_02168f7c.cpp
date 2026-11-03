@@ -127,11 +127,11 @@ extern "C" void _ZN8TextFont8SetUnk1CEhh(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
 extern "C" void func_02003bb8(void);
-extern "C" void func_02022484(void);
+extern "C" void _fflt(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" s32 func_02088864(...);
 extern "C" void func_02089758(void);
 extern "C" s32 func_02089764(...);
@@ -1711,10 +1711,10 @@ extern "C" asm s32 func_ov052_0216a3a8(...)
     bl _ZN10ConfigFile6GetIntEPKc
     rsb r0, r0, #0
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0216a54c
 @L_0216a52c:
     ldr r1, =data_ov052_0216e8a8
@@ -1722,11 +1722,11 @@ extern "C" asm s32 func_ov052_0216a3a8(...)
     bl _ZN10ConfigFile6GetIntEPKc
     rsb r0, r0, #0
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0216a54c:
-    bl func_02022b2c
+    bl _ffix
     ldr r4, =data_020c46e4
     mov r6, r0
     ldr r1, =data_ov052_0216e8bc
@@ -1738,21 +1738,21 @@ extern "C" asm s32 func_ov052_0216a3a8(...)
     mov r0, r4
     bl _ZN10ConfigFile6GetIntEPKc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0216a5ac
 @L_0216a590:
     ldr r1, =data_ov052_0216e8e4
     mov r0, r4
     bl _ZN10ConfigFile6GetIntEPKc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0216a5ac:
-    bl func_02022b2c
+    bl _ffix
     mov r1, #0x1f4000
     rsb r1, r1, #0
     str r1, [sp, #0x10]

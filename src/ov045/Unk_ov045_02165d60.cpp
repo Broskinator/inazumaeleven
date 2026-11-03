@@ -94,10 +94,10 @@ extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" void func_02017278(void);
-extern "C" void func_020224cc(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffltu(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_020802a0(void);
 extern "C" void func_02080368(void);
 extern "C" void func_02080460(void);
@@ -395,17 +395,17 @@ extern "C" asm void func_ov045_02165f8c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     beq @L_02166044
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02166050
 @L_02166044:
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02166050:
-    bl func_02022b2c
+    bl _ffix
     ldr r2, =data_020c4694
     mov r1, r0
     ldr r0, [r2]

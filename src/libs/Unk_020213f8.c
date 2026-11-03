@@ -1,22 +1,22 @@
 // (asm for now)
 
-void func_020213f8(void);
-void func_02021728(void);
+void _dadd(void);
+void _dsub(void);
 void func_02021adc(void);
 void _d2f(void);
-void func_02021f44(void);
-void func_02021f84(void);
-void func_02021fc0(void);
-void func_02022058(void);
-void func_020220f0(void);
-void func_02022194(void);
-void func_02022230(void);
-void func_020222bc(void);
-void func_02022348(void);
-void func_020223a4(void);
-void func_02022400(void);
-void func_02022484(void);
-void func_020224cc(void);
+void _dflt(void);
+void _dfltu(void);
+void _dgeq(void);
+void _dgr(void);
+void _dleq(void);
+void _dls(void);
+void _deq(void);
+void _dneq(void);
+void _fgr(void);
+void _fls(void);
+void _f2d(void);
+void _fflt(void);
+void _ffltu(void);
 void func_02022514(void);
 void func_02022524(void);
 void _ll_udiv(void);
@@ -24,16 +24,16 @@ void func_020226e0(void);
 void func_0202271c(void);
 void _s32_div_f(void);
 void _u32_div_f(void);
-void func_02022b2c(void);
-void func_02022b60(void);
-void func_02022bac(void);
+void _ffix(void);
+void _dfix(void);
+void _dfixu(void);
 void func_02022c04(void);
 void func_02022c90(void);
-void func_02022e2c(void);
-void func_0202300c(void);
+void _fmul(void);
+void _fadd(void);
 void func_02023228(void);
-void func_0202323c(void);
-void func_020234c0(void);
+void _fsub(void);
+void _fdiv(void);
 void func_02023890(void);
 void func_02023dd4(void);
 void func_02023dd8(void);
@@ -93,7 +93,7 @@ extern char data_020ab6ac[];
 extern char data_020bf410[];
 void func_02017a7c(void);
 
-asm void func_020213f8(void)
+asm void _dadd(void)
 {
     stmdb sp!, {r4, lr}
     eors r12, r1, r3
@@ -320,7 +320,7 @@ asm void func_020213f8(void)
     dcd 0xe0200002
 }
 
-asm void func_02021728(void)
+asm void _dsub(void)
 {
     stmdb sp!, {r4, lr}
     eors r12, r1, r3
@@ -901,7 +901,7 @@ asm void _d2f(void)
     bx lr
 }
 
-asm void func_02021f44(void)
+asm void _dflt(void)
 {
     ands r2, r0, #0x80000000
     rsbmi r0, r0, #0
@@ -921,7 +921,7 @@ asm void func_02021f44(void)
     bx lr
 }
 
-asm void func_02021f84(void)
+asm void _dfltu(void)
 {
     cmp r0, #0
     mov r1, #0
@@ -941,7 +941,7 @@ asm void func_02021f84(void)
     bx lr
 }
 
-asm void func_02021fc0(void)
+asm void _dgeq(void)
 {
     mov r12, #0x200000
     cmn r12, r1, lsl #1
@@ -988,7 +988,7 @@ asm void func_02021fc0(void)
     b @L_02021fd4
 }
 
-asm void func_02022058(void)
+asm void _dgr(void)
 {
     mov r12, #0x200000
     cmn r12, r1, lsl #1
@@ -1035,7 +1035,7 @@ asm void func_02022058(void)
     b @L_0202206c
 }
 
-asm void func_020220f0(void)
+asm void _dleq(void)
 {
     mov r12, #0x200000
     cmn r12, r1, lsl #1
@@ -1086,7 +1086,7 @@ asm void func_020220f0(void)
     b @L_02022104
 }
 
-asm void func_02022194(void)
+asm void _dls(void)
 {
     mov r12, #0x200000
     cmn r12, r1, lsl #1
@@ -1135,7 +1135,7 @@ asm void func_02022194(void)
     b @L_020221a8
 }
 
-asm void func_02022230(void)
+asm void _deq(void)
 {
     mov r12, #0x200000
     cmn r12, r1, lsl #1
@@ -1179,7 +1179,7 @@ asm void func_02022230(void)
     b @L_02022244
 }
 
-asm void func_020222bc(void)
+asm void _dneq(void)
 {
     mov r12, #0x200000
     cmn r12, r1, lsl #1
@@ -1223,7 +1223,7 @@ asm void func_020222bc(void)
     b @L_020222d0
 }
 
-asm void func_02022348(void)
+asm void _fgr(void)
 {
     mov r3, #0xff000000
     cmp r3, r0, lsl #1
@@ -1251,7 +1251,7 @@ asm void func_02022348(void)
     bx lr
 }
 
-asm void func_020223a4(void)
+asm void _fls(void)
 {
     mov r3, #0xff000000
     cmp r3, r0, lsl #1
@@ -1279,7 +1279,7 @@ asm void func_020223a4(void)
     bx lr
 }
 
-asm void func_02022400(void)
+asm void _f2d(void)
 {
     and r2, r0, #0x80000000
     mov r12, r0, lsr #0x17
@@ -1320,7 +1320,7 @@ asm void func_02022400(void)
     bx lr
 }
 
-asm void func_02022484(void)
+asm void _fflt(void)
 {
     ands r2, r0, #0x80000000
     rsbmi r0, r0, #0
@@ -1342,7 +1342,7 @@ asm void func_02022484(void)
     bx lr
 }
 
-asm void func_020224cc(void)
+asm void _ffltu(void)
 {
     cmp r0, #0
     bxeq lr
@@ -1802,7 +1802,7 @@ asm void _u32_div_f(void)
     bx lr
 }
 
-asm void func_02022b2c(void)
+asm void _ffix(void)
 {
     bic r1, r0, #0x80000000
     mov r2, #0x9e
@@ -1820,7 +1820,7 @@ asm void func_02022b2c(void)
     bx lr
 }
 
-asm void func_02022b60(void)
+asm void _dfix(void)
 {
     bic r3, r1, #0x80000000
     ldr r2, =0x41e
@@ -1844,7 +1844,7 @@ asm void func_02022b60(void)
     bx lr
 }
 
-asm void func_02022bac(void)
+asm void _dfixu(void)
 {
     tst r1, #0x80000000
     bne @L_02022be4
@@ -2029,7 +2029,7 @@ asm void func_02022c90(void)
     bx lr
 }
 
-asm void func_02022e2c(void)
+asm void _fmul(void)
 {
     eor r2, r0, r1
     and r2, r2, #0x80000000
@@ -2170,7 +2170,7 @@ asm void func_02022e2c(void)
     bx lr
 }
 
-asm void func_0202300c(void)
+asm void _fadd(void)
 {
     eors r2, r0, r1
     eormi r1, r1, #0x80000000
@@ -2334,7 +2334,7 @@ asm void func_02023228(void)
     dcd 0xe0200001
 }
 
-asm void func_0202323c(void)
+asm void _fsub(void)
 {
     eors r2, r0, r1
     eormi r1, r1, #0x80000000
@@ -2518,7 +2518,7 @@ asm void func_0202323c(void)
     dcd 0xe0200001
 }
 
-asm void func_020234c0(void)
+asm void _fdiv(void)
 {
     stmdb sp!, {lr}
     mov r12, #0xff

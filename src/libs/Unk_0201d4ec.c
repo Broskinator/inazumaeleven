@@ -9,26 +9,26 @@ void func_0201f79c(void);
 extern char data_020bf408[];
 void func_02023890(void);
 extern char data_020bf3e4[];
-void func_02021728(void);
+void _dsub(void);
 void func_02021adc(void);
-void func_020213f8(void);
-void func_02022230(void);
-void func_02021f44(void);
+void _dadd(void);
+void _deq(void);
+void _dflt(void);
 void func_02022c90(void);
 void fabs(void);
-void func_02022400(void);
+void _f2d(void);
 extern char data_020ab0c8[];
 extern char data_020a461c[];
 extern char data_020a462c[];
 extern char data_020a460c[];
-void func_02022058(void);
-void func_020220f0(void);
+void _dgr(void);
+void _dleq(void);
 void scalbn(void);
-void func_02022b60(void);
+void _dfix(void);
 extern char data_020a463c[];
 extern char data_020a46bc[];
 void func_02020610(void);
-void func_02021fc0(void);
+void _dgeq(void);
 extern char data_020a47c4[];
 extern char data_020a47d4[];
 
@@ -65,7 +65,7 @@ asm void func_0201d4ec(void)
     mov r2, r0
     mov r3, r1
     str r5, [r4]
-    bl func_02021728
+    bl _dsub
     ldr r3, =data_020bf408
     ldmia r3, {r2, r3}
     bl func_02023890
@@ -90,7 +90,7 @@ asm void func_0201d4ec(void)
     ldr r1, [sp, #0x54]
     mov r2, r0
     mov r3, r1
-    bl func_020213f8
+    bl _dadd
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -111,7 +111,7 @@ asm void func_0201d4ec(void)
     sub r3, r3, #0x40000000
     str r1, [sp, #0x54]
     add r6, r6, r5, asr #20
-    bl func_02021728
+    bl _dsub
     add r2, r8, #2
     and r2, r2, r4, lsr #12
     mov r5, r0
@@ -120,7 +120,7 @@ asm void func_0201d4ec(void)
     bge @L_0201d7d0
     ldr r4, =data_020bf408
     ldmia r4, {r2, r3}
-    bl func_02022230
+    bl _deq
     bne @L_0201d6bc
     cmp r6, #0
     addeq sp, sp, #0x2c
@@ -129,7 +129,7 @@ asm void func_0201d4ec(void)
     addeq sp, sp, #0x10
     bxeq lr
     mov r0, r6
-    bl func_02021f44
+    bl _dflt
     mov r5, r0
     mov r6, r1
     mov r0, #0
@@ -149,7 +149,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     mov r0, r4
     mov r1, r7
-    bl func_020213f8
+    bl _dadd
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -165,7 +165,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     mov r0, #0
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     mov r4, r0
     mov r8, r1
     mov r0, r5
@@ -186,14 +186,14 @@ asm void func_0201d4ec(void)
     mov r1, r9
     mov r2, r4
     mov r3, r8
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
     bx lr
 @L_0201d74c:
     mov r0, r6
-    bl func_02021f44
+    bl _dflt
     mov r6, r0
     mov r10, r1
     ldr r1, =0x3fe62e42
@@ -212,15 +212,15 @@ asm void func_0201d4ec(void)
     mov r3, r1
     mov r0, r4
     mov r1, r8
-    bl func_02021728
+    bl _dsub
     mov r2, r5
     mov r3, r9
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r6
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -230,7 +230,7 @@ asm void func_0201d4ec(void)
     mov r1, #0x40000000
     mov r2, r5
     mov r3, r9
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -239,7 +239,7 @@ asm void func_0201d4ec(void)
     str r0, [sp, #0x18]
     str r1, [sp, #0x14]
     mov r0, r6
-    bl func_02021f44
+    bl _dflt
     str r0, [sp, #0x1c]
     mov r11, r1
     ldr r0, [sp, #0x18]
@@ -265,7 +265,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     ldr r0, =0x1d8e78af
     ldr r1, =0x3fcc71c5
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -275,7 +275,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     ldr r0, =0x9997fa04
     ldr r1, =0x3fd99999
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -292,7 +292,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     ldr r0, =0x96cb03de
     ldr r1, =0x3fc74664
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -302,7 +302,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     ldr r0, =0x94229359
     ldr r1, =0x3fd24924
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -312,7 +312,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     ldr r0, =0x55555593
     ldr r1, =0x3fe55555
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x20]
@@ -323,7 +323,7 @@ asm void func_0201d4ec(void)
     sub r4, r4, r8
     ldr r3, [sp, #4]
     orr r7, r7, r4
-    bl func_020213f8
+    bl _dadd
     cmp r7, #0
     mov r4, r0
     mov r7, r1
@@ -343,7 +343,7 @@ asm void func_0201d4ec(void)
     bne @L_0201d9f4
     mov r2, r4
     mov r3, r7
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x18]
@@ -353,12 +353,12 @@ asm void func_0201d4ec(void)
     mov r3, r1
     mov r0, r6
     mov r1, r8
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -376,7 +376,7 @@ asm void func_0201d4ec(void)
     mov r2, r4
     mov r0, r6
     mov r1, r8
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x18]
@@ -393,20 +393,20 @@ asm void func_0201d4ec(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r6
     mov r1, r8
-    bl func_02021728
+    bl _dsub
     mov r2, r5
     mov r3, r9
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x28]
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -418,7 +418,7 @@ asm void func_0201d4ec(void)
     mov r1, r9
     mov r2, r4
     mov r3, r7
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x18]
@@ -428,7 +428,7 @@ asm void func_0201d4ec(void)
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -446,7 +446,7 @@ asm void func_0201d4ec(void)
     mov r3, r7
     mov r0, r5
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x18]
@@ -463,15 +463,15 @@ asm void func_0201d4ec(void)
     mov r3, r1
     mov r0, r4
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     mov r2, r5
     mov r3, r9
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r6
     mov r1, r8
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -514,7 +514,7 @@ asm void func_0201dc1c(void)
     ldr r1, [sp, #0xa4]
     ldr r2, [sp, #0xa8]
     ldr r3, [sp, #0xac]
-    bl func_020213f8
+    bl _dadd
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -560,7 +560,7 @@ asm void func_0201dc1c(void)
     ldr r1, [sp, #0xac]
     mov r2, r0
     mov r3, r1
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -589,7 +589,7 @@ asm void func_0201dc1c(void)
     ldr r2, [sp, #0xa8]
     ldr r3, [sp, #0xac]
     mov r1, r0
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -677,14 +677,14 @@ asm void func_0201dc1c(void)
     ldr r1, [sp, #0x74]
     mov r2, r0
     mov r3, r1
-    bl func_02021728
+    bl _dsub
     mov r4, r0
     mov r5, r1
     ldr r0, [sp, #0x70]
     ldr r1, [sp, #0x74]
     mov r2, r0
     mov r3, r1
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -698,7 +698,7 @@ asm void func_0201dc1c(void)
     ldr r2, [sp, #0x70]
     ldr r3, [sp, #0x74]
     mov r1, r0
-    bl func_02021728
+    bl _dsub
 @L_0201df4c:
     str r0, [sp, #0x70]
     str r1, [sp, #0x74]
@@ -719,7 +719,7 @@ asm void func_0201dc1c(void)
     ldr r0, [r0]
     mov r2, #0x21
     str r2, [r1]
-    bl func_02022400
+    bl _f2d
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -783,7 +783,7 @@ asm void func_0201dc1c(void)
     ldr r1, [sp, #0xa4]
     mov r2, #0
     add r3, r3, #1
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     str r0, [sp, #0x48]
@@ -801,7 +801,7 @@ asm void func_0201dc1c(void)
     ldr r0, [pc, #0x120]
     mov r3, r1
     sub r1, r0, #0x15800000
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x48]
@@ -811,7 +811,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     add r1, r4, #0x100000
     mov r0, #0
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r6
@@ -843,20 +843,20 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r6
     mov r1, r10
-    bl func_02021728
+    bl _dsub
     mov r6, r0
     mov r9, r1
     mov r0, r8
     mov r1, r4
     mov r2, r6
     mov r3, r9
-    bl func_020213f8
+    bl _dadd
     mov r0, #0
     mov r2, r8
     mov r3, r4
     str r1, [sp, #0x54]
     str r0, [sp, #0x50]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r6
@@ -956,7 +956,7 @@ asm void func_0201dc1c(void)
     ldmia r1, {r2, r3}
     mov r1, r9
     str r9, [sp, #0x6c]
-    bl func_02021728
+    bl _dsub
     add r2, r10, r8, lsl #3
     mov r11, r0
     ldr r3, [r2, #4]
@@ -964,7 +964,7 @@ asm void func_0201dc1c(void)
     ldr r0, [sp, #0x68]
     ldr r2, [r10, r8, lsl #3]
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r3, r1
     mov r2, r0
     ldr r1, [pc, #-0x1a0]
@@ -991,12 +991,12 @@ asm void func_0201dc1c(void)
     str r9, [sp, #0x44]
     str r1, [sp, #0x3c]
     ldmia r3, {r2, r3}
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x68]
     ldr r1, [sp, #0x6c]
-    bl func_02021728
+    bl _dsub
     str r0, [sp, #0x28]
     mov r10, r1
     ldr r0, [sp, #0x40]
@@ -1008,7 +1008,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r11
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     mov r4, r0
     mov r3, r10
     mov r10, r1
@@ -1020,7 +1020,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x20]
@@ -1049,7 +1049,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x290]
     ldr r1, [pc, #-0x290]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -1059,7 +1059,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x2b0]
     ldr r1, [pc, #-0x2b0]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -1069,7 +1069,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x2d0]
     ldr r1, [pc, #-0x2d0]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -1079,7 +1079,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x2f0]
     ldr r1, [pc, #-0x2f0]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -1089,7 +1089,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x310]
     ldr r1, [pc, #-0x310]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x30]
@@ -1101,7 +1101,7 @@ asm void func_0201dc1c(void)
     ldr r2, [sp, #0x24]
     mov r1, r9
     mov r3, r9
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x2c]
@@ -1111,7 +1111,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_020213f8
+    bl _dadd
     mov r4, r0
     ldr r0, [sp, #0x40]
     mov r10, r1
@@ -1126,25 +1126,25 @@ asm void func_0201dc1c(void)
     mov r0, #0
     add r1, r1, #0x180000
     mov r2, r11
-    bl func_020213f8
+    bl _dadd
     mov r2, r4
     mov r3, r10
-    bl func_020213f8
+    bl _dadd
     ldr r0, [pc, #-0x42c]
     str r1, [sp, #0x3c]
     add r3, r0, #0x180000
     mov r0, #0
     mov r2, r0
     str r0, [sp, #0x38]
-    bl func_02021728
+    bl _dsub
     ldr r3, [sp, #0xc]
     mov r2, r11
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021728
+    bl _dsub
     str r0, [sp, #0x34]
     str r1, [sp, #4]
     ldr r0, [sp, #0x40]
@@ -1170,25 +1170,25 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r11
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r9, r0
     mov r11, r1
     mov r0, r4
     mov r1, r10
     mov r2, r9
     mov r3, r11
-    bl func_020213f8
+    bl _dadd
     mov r0, #0
     mov r2, r4
     mov r3, r10
     str r1, [sp, #0x64]
     str r0, [sp, #0x60]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r9
     mov r1, r11
-    bl func_02021728
+    bl _dsub
     mov r9, r1
     mov r11, r0
     ldr r2, [sp, #0x60]
@@ -1214,52 +1214,52 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r11
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     ldr r0, [pc, #-0x4fc]
     mov r3, r1
     add r1, r0, r8, lsl #3
     ldmia r1, {r0, r1}
-    bl func_020213f8
+    bl _dadd
     mov r9, r0
     mov r0, r6
     mov r6, r1
-    bl func_02021f44
+    bl _dflt
     str r0, [sp, #0x48]
     str r1, [sp, #0x4c]
     mov r0, r4
     mov r1, r10
     mov r2, r9
     mov r3, r6
-    bl func_020213f8
+    bl _dadd
     ldr r11, [pc, #-0x538]
     add r2, r11, r8, lsl #3
     ldr r3, [r2, #4]
     ldr r2, [r11, r8, lsl #3]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x48]
     ldr r1, [sp, #0x4c]
-    bl func_020213f8
+    bl _dadd
     mov r0, #0
     ldr r2, [sp, #0x48]
     ldr r3, [sp, #0x4c]
     str r1, [sp, #0x54]
     str r0, [sp, #0x50]
-    bl func_02021728
+    bl _dsub
     add r3, r11, r8, lsl #3
     ldmia r3, {r2, r3}
-    bl func_02021728
+    bl _dsub
     mov r2, r4
     mov r3, r10
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r9
     mov r1, r6
 @L_0201e7dc:
-    bl func_02021728
+    bl _dsub
     mov r4, r0
     mov r6, r1
     sub r0, r5, #1
@@ -1273,7 +1273,7 @@ asm void func_0201dc1c(void)
     subeq r7, r7, #0x80000000
     str r1, [sp, #0x5c]
     str r2, [sp, #0x58]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x50]
@@ -1290,7 +1290,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r5, r0
     mov r9, r1
     ldr r0, [sp, #0x58]
@@ -1304,7 +1304,7 @@ asm void func_0201dc1c(void)
     mov r1, r9
     str r2, [sp, #0x60]
     str r3, [sp, #0x64]
-    bl func_020213f8
+    bl _dadd
     mov r4, r1
     ldr r2, [pc, #-0x658]
     str r0, [sp, #0x70]
@@ -1336,19 +1336,19 @@ asm void func_0201dc1c(void)
     ldr r1, [pc, #-0x6b4]
     mov r2, r5
     mov r3, r9
-    bl func_020213f8
+    bl _dadd
     mov r6, r0
     mov r10, r1
     ldr r0, [sp, #0x70]
     ldr r2, [sp, #0x60]
     ldr r3, [sp, #0x64]
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r6
     mov r1, r10
-    bl func_02022058
+    bl _dgr
     bls @L_0201ea48
     ldr r5, [pc, #-0x700]
     ldr r4, [pc, #-0x700]
@@ -1394,12 +1394,12 @@ asm void func_0201dc1c(void)
 @L_0201e9e4:
     ldr r2, [sp, #0x60]
     ldr r3, [sp, #0x64]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_020220f0
+    bl _dleq
     bhi @L_0201ea48
     ldr r5, [pc, #-0x7b4]
     ldr r4, [pc, #-0x7b4]
@@ -1446,7 +1446,7 @@ asm void func_0201dc1c(void)
     ldr r2, [sp, #0x48]
     ldr r3, [sp, #0x4c]
     rsblt r6, r6, #0
-    bl func_02021728
+    bl _dsub
     str r0, [sp, #0x60]
     str r1, [sp, #0x64]
 @L_0201eac4:
@@ -1454,7 +1454,7 @@ asm void func_0201dc1c(void)
     ldr r3, [sp, #0x64]
     mov r0, r5
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r0, #0
     mov r3, r1
     ldr r11, [pc, #-0x884]
@@ -1469,12 +1469,12 @@ asm void func_0201dc1c(void)
     ldr r1, [sp, #0x4c]
     ldr r2, [sp, #0x60]
     ldr r3, [sp, #0x64]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x8d0]
@@ -1491,24 +1491,24 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r5, r0
     mov r9, r1
     mov r0, r4
     mov r1, r10
     mov r2, r5
     mov r3, r9
-    bl func_020213f8
+    bl _dadd
     mov r2, r4
     mov r3, r10
     str r0, [sp, #0x70]
     str r1, [sp, #0x74]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     mov r5, r0
     mov r9, r1
     ldr r0, [sp, #0x70]
@@ -1527,7 +1527,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x97c]
     ldr r1, [pc, #-0x97c]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x48]
@@ -1537,7 +1537,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x99c]
     ldr r1, [pc, #-0x99c]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x48]
@@ -1547,7 +1547,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x9bc]
     ldr r1, [pc, #-0x9bc]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x48]
@@ -1557,7 +1557,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [pc, #-0x9dc]
     ldr r1, [pc, #-0x9dc]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x48]
@@ -1567,7 +1567,7 @@ asm void func_0201dc1c(void)
     mov r3, r1
     ldr r0, [sp, #0x70]
     ldr r1, [sp, #0x74]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x70]
@@ -1582,7 +1582,7 @@ asm void func_0201dc1c(void)
     ldr r1, [sp, #0x54]
     mov r2, #0
     mov r3, r11
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -1599,20 +1599,20 @@ asm void func_0201dc1c(void)
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp, #0x70]
     ldr r3, [sp, #0x74]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, #0
     sub r1, r11, #0x100000
-    bl func_02021728
+    bl _dsub
     add r3, r1, r6, lsl #20
     mov r2, r3, asr #0x14
     str r0, [sp, #0x70]
@@ -1670,7 +1670,7 @@ asm void func_0201eda4(void)
     ldr r1, [sp, #0x9c]
     ldr r2, =0x54400000
     add r3, r4, #0x100000
-    bl func_02021728
+    bl _dsub
     add r2, r4, #0x100000
     str r0, [sp, #0x50]
     str r1, [sp, #0x54]
@@ -1679,37 +1679,37 @@ asm void func_0201eda4(void)
     ldr r4, =0x1a626331
     mov r3, r8
     mov r2, r4
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
     stmia r10, {r2, r3}
-    bl func_02021728
+    bl _dsub
     mov r2, r4
     mov r3, r8
-    bl func_02021728
+    bl _dsub
     b @L_0201eeb8
 @L_0201ee6c:
     ldr r2, =0x1a600000
     ldr r3, =0x3dd0b461
-    bl func_02021728
+    bl _dsub
     ldr r5, =0x2e037073
     ldr r4, =0x3ba3198a
     mov r2, r5
     mov r3, r4
     str r0, [sp, #0x50]
     str r1, [sp, #0x54]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
     stmia r10, {r2, r3}
-    bl func_02021728
+    bl _dsub
     mov r2, r5
     mov r3, r4
-    bl func_02021728
+    bl _dsub
 @L_0201eeb8:
     add sp, sp, #0x70
     str r0, [r10, #8]
@@ -1723,7 +1723,7 @@ asm void func_0201eda4(void)
     ldr r3, [sp, #0x9c]
     ldr r0, =0x54400000
     add r1, r4, #0x100000
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     add r4, r4, #0x100000
@@ -1734,23 +1734,23 @@ asm void func_0201eda4(void)
     ldr r4, =0x1a626331
     mov r1, r8
     mov r0, r4
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
     stmia r10, {r2, r3}
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r4
     mov r1, r8
-    bl func_020213f8
+    bl _dadd
     b @L_0201efa0
 @L_0201ef44:
     ldr r2, =0x1a600000
     ldr r3, =0x3dd0b461
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     ldr r5, =0x2e037073
     mov r3, r1
@@ -1759,18 +1759,18 @@ asm void func_0201eda4(void)
     mov r1, r4
     str r2, [sp, #0x50]
     str r3, [sp, #0x54]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
     stmia r10, {r2, r3}
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_020213f8
+    bl _dadd
 @L_0201efa0:
     add sp, sp, #0x70
     str r0, [r10, #8]
@@ -1797,10 +1797,10 @@ asm void func_0201eda4(void)
     mov r2, r0
     ldr r1, =0x3fe00000
     mov r0, r5
-    bl func_020213f8
-    bl func_02022b60
+    bl _dadd
+    bl _dfix
     mov r5, r0
-    bl func_02021f44
+    bl _dflt
     mov r11, r0
     mov r8, r1
     ldr r0, =0x54400000
@@ -1812,7 +1812,7 @@ asm void func_0201eda4(void)
     mov r2, r0
     ldr r1, [sp, #0x24]
     mov r0, r9
-    bl func_02021728
+    bl _dsub
     mov r4, r0
     mov r9, r1
     ldr r0, =0x1a626331
@@ -1835,7 +1835,7 @@ asm void func_0201eda4(void)
     ldr r3, [sp, #0xc]
     mov r0, r4
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     str r0, [r10]
     ldr r0, =0x7ff
     str r1, [r10, #4]
@@ -1856,7 +1856,7 @@ asm void func_0201eda4(void)
     ldr r3, [sp, #0x1c]
     mov r0, r4
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     mov r9, r1
     str r0, [sp, #0x44]
     mov r4, r0
@@ -1871,22 +1871,22 @@ asm void func_0201eda4(void)
     ldr r1, [sp, #0x34]
     ldr r2, [sp, #0x44]
     mov r3, r9
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp, #0x40]
     ldr r3, [sp, #0x1c]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x48]
     ldr r1, [sp, #0x14]
-    bl func_02021728
+    bl _dsub
     str r0, [sp, #0x28]
     str r1, [sp, #0xc]
     ldr r0, [sp, #0x44]
     ldr r2, [sp, #0x28]
     ldr r3, [sp, #0xc]
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     str r0, [r10]
     ldr r0, =0x7ff
     str r1, [r10, #4]
@@ -1906,7 +1906,7 @@ asm void func_0201eda4(void)
     ldr r2, [sp, #0x4c]
     mov r1, r9
     mov r3, r6
-    bl func_02021728
+    bl _dsub
     mov r4, r0
     mov r9, r1
     ldr r0, =0x252049c1
@@ -1920,15 +1920,15 @@ asm void func_0201eda4(void)
     ldr r1, [sp, #0x3c]
     mov r2, r4
     mov r3, r9
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp, #0x4c]
     mov r3, r6
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r11
     mov r1, r8
-    bl func_02021728
+    bl _dsub
     str r0, [sp, #0x28]
     str r1, [sp, #0xc]
 @L_0201f214:
@@ -1936,17 +1936,17 @@ asm void func_0201eda4(void)
     ldr r3, [sp, #0xc]
     mov r0, r4
     mov r1, r9
-    bl func_02021728
+    bl _dsub
     stmia r10, {r0, r1}
 @L_0201f22c:
     mov r0, r4
     mov r1, r9
     ldmia r10, {r2, r3}
     mov r4, #0
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp, #0x28]
     ldr r3, [sp, #0xc]
-    bl func_02021728
+    bl _dsub
     cmp r7, #0
     str r0, [r10, #8]
     addge sp, sp, #0x70
@@ -1958,13 +1958,13 @@ asm void func_0201eda4(void)
     ldmia r10, {r2, r3}
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     stmia r10, {r0, r1}
     ldr r2, [r10, #8]
     ldr r3, [r10, #0xc]
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     str r0, [r10, #8]
     add sp, sp, #0x70
     str r1, [r10, #0xc]
@@ -1980,7 +1980,7 @@ asm void func_0201eda4(void)
     ldr r1, [sp, #0x9c]
     mov r2, r0
     mov r3, r1
-    bl func_02021728
+    bl _dsub
     str r0, [r10, #8]
     str r1, [r10, #0xc]
     stmia r10, {r0, r1}
@@ -2002,8 +2002,8 @@ asm void func_0201eda4(void)
 @L_0201f314:
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
-    bl func_02022b60
-    bl func_02021f44
+    bl _dfix
+    bl _dflt
     str r0, [r4, r6, lsl #3]
     add r0, r4, r6, lsl #3
     str r1, [r0, #4]
@@ -2011,7 +2011,7 @@ asm void func_0201eda4(void)
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
     ldr r2, [r4, r6, lsl #3]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -2030,7 +2030,7 @@ asm void func_0201eda4(void)
     str r3, [sp, #0x6c]
     mov r6, #0
     mov r4, #3
-    bl func_02022230
+    bl _deq
     bne @L_0201f3b8
     add r5, sp, #0x58
 @L_0201f398:
@@ -2040,7 +2040,7 @@ asm void func_0201eda4(void)
     ldr r3, [r0, #-4]
     mov r0, r6
     mov r1, r6
-    bl func_02022230
+    bl _deq
     beq @L_0201f398
 @L_0201f3b8:
     mov r0, #2
@@ -2062,13 +2062,13 @@ asm void func_0201eda4(void)
     ldmia r10, {r2, r3}
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     stmia r10, {r0, r1}
     ldr r2, [r10, #8]
     ldr r3, [r10, #0xc]
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     str r0, [r10, #8]
     str r1, [r10, #0xc]
     rsb r0, r5, #0
@@ -2092,7 +2092,7 @@ asm void func_0201f484(void)
     bge @L_0201f4d4
     ldr r0, [sp, #0x30]
     ldr r1, [sp, #0x34]
-    bl func_02022b60
+    bl _dfix
     cmp r0, #0
     addeq sp, sp, #0xc
     moveq r0, r11
@@ -2117,7 +2117,7 @@ asm void func_0201f484(void)
     mov r3, r1
     ldr r0, =0xbdb4b1c4
     ldr r1, =0x3e21ee9e
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2127,7 +2127,7 @@ asm void func_0201f484(void)
     mov r3, r1
     ldr r0, =0x809c52ad
     ldr r1, =0xbe927e4f
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2137,7 +2137,7 @@ asm void func_0201f484(void)
     mov r3, r1
     ldr r0, =0x19cb1590
     ldr r1, =0x3efa01a0
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2147,7 +2147,7 @@ asm void func_0201f484(void)
     mov r3, r1
     ldr r0, =0x16c15177
     ldr r1, =0xbf56c16c
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2157,7 +2157,7 @@ asm void func_0201f484(void)
     mov r3, r1
     ldr r0, =0x5555554c
     ldr r1, =0x3fa55555
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2191,18 +2191,18 @@ asm void func_0201f484(void)
     mov r3, r1
     mov r0, r4
     mov r1, r5
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r11
     mov r1, r8
-    bl func_02021728
+    bl _dsub
     mov r3, r1
     ldr r1, =0x3fe00000
     mov r2, r0
     mov r0, #0
     add r1, r1, #0x100000
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -2222,7 +2222,7 @@ asm void func_0201f484(void)
     bl func_02021adc
     ldr r2, [sp, #4]
     ldr r3, [sp, #8]
-    bl func_02021728
+    bl _dsub
     mov r8, r1
     ldr r1, =0x3fe00000
     str r0, [sp]
@@ -2230,7 +2230,7 @@ asm void func_0201f484(void)
     ldr r3, [sp, #8]
     mov r0, r11
     add r1, r1, #0x100000
-    bl func_02021728
+    bl _dsub
     mov r2, r5
     mov r3, r7
     mov r5, r0
@@ -2249,17 +2249,17 @@ asm void func_0201f484(void)
     mov r3, r1
     mov r0, r4
     mov r1, r6
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp]
     mov r1, r8
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -2312,7 +2312,7 @@ asm void func_0201f79c(void)
     blt @L_0201f84c
     ldr r0, [sp, #0x28c]
     ldr r0, [r0, r7, lsl #2]
-    bl func_02021f44
+    bl _dflt
 @L_0201f84c:
     str r0, [r4, r6, lsl #3]
     add r0, r4, r6, lsl #3
@@ -2346,7 +2346,7 @@ asm void func_0201f79c(void)
     mov r3, r1
     mov r0, r4
     mov r1, r8
-    bl func_020213f8
+    bl _dadd
     add r7, r7, #1
     mov r4, r0
     mov r8, r1
@@ -2388,8 +2388,8 @@ asm void func_0201f79c(void)
     mov r2, r4
     mov r3, r8
     bl func_02021adc
-    bl func_02022b60
-    bl func_02021f44
+    bl _dfix
+    bl _dflt
     mov r10, r0
     mov r11, r1
     ldr r1, [sp, #0x28]
@@ -2401,8 +2401,8 @@ asm void func_0201f79c(void)
     mov r3, r1
     mov r0, r4
     mov r1, r8
-    bl func_02021728
-    bl func_02022b60
+    bl _dsub
+    bl _dfix
     add r2, sp, #0x214
     str r0, [r2, r7, lsl #2]
     add r2, sp, #0x34
@@ -2411,7 +2411,7 @@ asm void func_0201f79c(void)
     ldr r3, [r3, #-4]
     mov r1, r11
     mov r0, r10
-    bl func_020213f8
+    bl _dadd
     sub r6, r6, #1
     mov r4, r0
     mov r8, r1
@@ -2442,17 +2442,17 @@ asm void func_0201f79c(void)
     mov r3, r1
     mov r0, r6
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     mov r6, r0
     mov r7, r1
-    bl func_02022b60
+    bl _dfix
     str r0, [sp, #0x20]
-    bl func_02021f44
+    bl _dflt
     mov r2, r0
     mov r3, r1
     mov r0, r6
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp, #0x18]
     mov r6, r0
     cmp r2, #0
@@ -2484,7 +2484,7 @@ asm void func_0201f79c(void)
 @L_0201fac4:
     add r3, r4, #0x200000
     mov r2, r10
-    bl func_02021fc0
+    bl _dgeq
     movhs r10, #2
 @L_0201fad4:
     cmp r10, #0
@@ -2548,7 +2548,7 @@ asm void func_0201f79c(void)
     mov r1, r11
     mov r2, r6
     mov r3, r7
-    bl func_02021728
+    bl _dsub
     cmp r4, #0
     mov r6, r0
     mov r7, r1
@@ -2561,7 +2561,7 @@ asm void func_0201f79c(void)
     mov r3, r1
     mov r0, r6
     mov r1, r7
-    bl func_02021728
+    bl _dsub
     mov r6, r0
     mov r7, r1
 @L_0201fbe8:
@@ -2570,7 +2570,7 @@ asm void func_0201f79c(void)
     mov r1, r4
     mov r2, r6
     mov r3, r7
-    bl func_02022230
+    bl _deq
     bne @L_0201fd64
     ldr r0, [sp, #4]
     sub r2, r0, #1
@@ -2624,7 +2624,7 @@ asm void func_0201f79c(void)
 @L_0201fcb8:
     ldr r0, [sp, #0x2c]
     ldr r0, [r0, r10, lsl #2]
-    bl func_02021f44
+    bl _dflt
     mov r6, #0
     ldr r2, [sp, #0x30]
     cmp r5, #0
@@ -2648,7 +2648,7 @@ asm void func_0201f79c(void)
     mov r3, r1
     mov r0, r7
     mov r1, r8
-    bl func_020213f8
+    bl _dadd
     add r6, r6, #1
     mov r7, r0
     mov r8, r1
@@ -2674,7 +2674,7 @@ asm void func_0201f79c(void)
     mov r1, r4
     mov r2, r6
     mov r3, r7
-    bl func_02022230
+    bl _deq
     bne @L_0201fdd0
     ldr r0, [sp, #4]
     add r2, sp, #0x214
@@ -2708,15 +2708,15 @@ asm void func_0201f79c(void)
     mov r3, r6
     mov r7, r0
     mov r8, r1
-    bl func_02021fc0
+    bl _dgeq
     blo @L_0201fe88
     mov r0, r4
     mov r2, r7
     mov r3, r8
     sub r1, r6, #0x3000000
     bl func_02021adc
-    bl func_02022b60
-    bl func_02021f44
+    bl _dfix
+    bl _dflt
     mov r5, r0
     mov r0, r4
     mov r4, r1
@@ -2728,8 +2728,8 @@ asm void func_0201f79c(void)
     mov r3, r1
     mov r0, r7
     mov r1, r8
-    bl func_02021728
-    bl func_02022b60
+    bl _dsub
+    bl _dfix
     ldr r2, [sp, #0x18]
     mov r1, r4
     add r2, r2, #0x18
@@ -2740,14 +2740,14 @@ asm void func_0201f79c(void)
     add r2, r2, #1
     mov r0, r5
     str r2, [sp, #4]
-    bl func_02022b60
+    bl _dfix
     ldr r1, [sp, #4]
     str r0, [r4, r1, lsl #2]
     b @L_0201fea0
 @L_0201fe88:
     mov r0, r7
     mov r1, r8
-    bl func_02022b60
+    bl _dfix
     ldr r1, [sp, #4]
     add r2, sp, #0x214
     str r0, [r2, r1, lsl #2]
@@ -2768,7 +2768,7 @@ asm void func_0201f79c(void)
     mov r11, #0
 @L_0201fed8:
     ldr r0, [r9, r6, lsl #2]
-    bl func_02021f44
+    bl _dflt
     mov r2, r0
     mov r3, r1
     mov r0, r7
@@ -2812,7 +2812,7 @@ asm void func_0201f79c(void)
     mov r3, r1
     mov r0, r8
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     mov r8, r0
     mov r9, r1
     add r7, r7, #1
@@ -2851,7 +2851,7 @@ asm void func_0201f79c(void)
     ldr r2, [sp, #4]
     ldr r3, [r5, #4]
     ldr r2, [r4, r2, lsl #3]
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     ldr r0, [sp, #4]
     mov r3, r1
@@ -2862,7 +2862,7 @@ asm void func_0201f79c(void)
     beq @L_02020044
     mov r0, #0
     mov r1, r0
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
 @L_02020044:
@@ -2879,7 +2879,7 @@ asm void func_0201f79c(void)
     ldmia r0, {r2, r3}
     mov r0, r5
     mov r1, r6
-    bl func_020213f8
+    bl _dadd
     mov r5, r0
     mov r6, r1
     subs r7, r7, #1
@@ -2892,7 +2892,7 @@ asm void func_0201f79c(void)
     mov r1, r0
     mov r2, r5
     mov r3, r6
-    bl func_02021728
+    bl _dsub
 @L_020200ac:
     ldr r2, [sp]
     mov r3, r6
@@ -2903,7 +2903,7 @@ asm void func_0201f79c(void)
     ldr r0, [sp, #0xd4]
     ldr r1, [sp, #0xd8]
     add r5, sp, #0xd4
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     ldr r0, [sp, #4]
     mov r3, r1
@@ -2915,7 +2915,7 @@ asm void func_0201f79c(void)
     mov r0, r2
     mov r1, r3
     ldmia r4, {r2, r3}
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     ldr r0, [sp, #4]
     add r6, r6, #1
@@ -2927,7 +2927,7 @@ asm void func_0201f79c(void)
     beq @L_02020134
     mov r0, #0
     mov r1, r0
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
 @L_02020134:
@@ -2944,7 +2944,7 @@ asm void func_0201f79c(void)
     ldr r0, [r3, #-8]
     ldr r1, [r3, #-4]
     ldmia r3, {r2, r3}
-    bl func_020213f8
+    bl _dadd
     mov r6, r0
     add r8, r4, r5, lsl #3
     mov r7, r1
@@ -2952,11 +2952,11 @@ asm void func_0201f79c(void)
     ldr r1, [r8, #-4]
     mov r2, r6
     mov r3, r7
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldmia r8, {r0, r1}
-    bl func_020213f8
+    bl _dadd
     stmia r8, {r0, r1}
     mov r0, r8
     str r6, [r0, #-8]
@@ -2974,7 +2974,7 @@ asm void func_0201f79c(void)
     ldr r0, [r3, #-8]
     ldr r1, [r3, #-4]
     ldmia r3, {r2, r3}
-    bl func_020213f8
+    bl _dadd
     mov r4, r0
     add r8, r5, r6, lsl #3
     mov r7, r1
@@ -2982,11 +2982,11 @@ asm void func_0201f79c(void)
     ldr r1, [r8, #-4]
     mov r2, r4
     mov r3, r7
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldmia r8, {r0, r1}
-    bl func_020213f8
+    bl _dadd
     stmia r8, {r0, r1}
     mov r0, r8
     str r4, [r0, #-8]
@@ -3008,7 +3008,7 @@ asm void func_0201f79c(void)
     ldmia r1, {r2, r3}
     mov r0, r6
     mov r1, r7
-    bl func_020213f8
+    bl _dadd
     ldr r2, [sp, #4]
     mov r6, r0
     sub r2, r2, #1
@@ -3036,7 +3036,7 @@ asm void func_0201f79c(void)
     ldr r3, [sp, #0xd8]
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp]
     ldr r3, [sp, #0xe0]
     str r0, [r2]
@@ -3045,7 +3045,7 @@ asm void func_0201f79c(void)
     ldr r2, [sp, #0xdc]
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp]
     mov r3, r7
     str r0, [r2, #8]
@@ -3054,7 +3054,7 @@ asm void func_0201f79c(void)
     mov r0, r4
     mov r1, r4
     mov r2, r6
-    bl func_02021728
+    bl _dsub
     ldr r2, [sp]
     str r0, [r2, #0x10]
     mov r0, r2

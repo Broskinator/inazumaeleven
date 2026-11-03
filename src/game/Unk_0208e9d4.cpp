@@ -54,10 +54,10 @@ extern "C" void NNS_G3dGlbFlushVP(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_02001d80(void);
 extern "C" void func_0200226c(void);
-extern "C" void func_02022484(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _fflt(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" s32 func_0202b608(...);
 extern "C" s32 func_0203274c(...);
 
@@ -1248,17 +1248,17 @@ extern "C" asm void func_0208fac4(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_0208fb60
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0208fb6c
 @L_0208fb60:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0208fb6c:
-    bl func_02022b2c
+    bl _ffix
     mov r8, #3
     ldr r4, [r4]
     ldr r3, [r5]

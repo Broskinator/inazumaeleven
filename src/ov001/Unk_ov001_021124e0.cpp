@@ -56,10 +56,10 @@ extern "C" void _ZN17UnkClass_020621b413func_0206c8b8El(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206c8c0El(void);
 extern "C" void _ZN17UnkClass_020621b413func_02076168Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02079d2cEi(void);
-extern "C" void func_02022484(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _fflt(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_02080b00(void);
 extern "C" void func_02080b1c(void);
 extern "C" s32 func_0209bf8c(...);
@@ -153,17 +153,17 @@ extern "C" asm void func_ov001_021124e0(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112574
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112580
 @L_02112574:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112580:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4]
     ldr r1, [r8]
     ldr r0, =0x7ff
@@ -172,17 +172,17 @@ extern "C" asm void func_ov001_021124e0(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021125b8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021125c4
 @L_021125b8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021125c4:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #4]
     ldr r1, [r8]
     ldr r0, =0x3ff
@@ -191,17 +191,17 @@ extern "C" asm void func_ov001_021124e0(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021125fc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112608
 @L_021125fc:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112608:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #8]
     ldr r1, [r8, #4]
     ldr r0, =0x7ff
@@ -210,17 +210,17 @@ extern "C" asm void func_ov001_021124e0(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112640
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0211264c
 @L_02112640:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0211264c:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x20]
     ldr r1, [r8, #4]
     ldr r0, =0x7ff
@@ -229,17 +229,17 @@ extern "C" asm void func_ov001_021124e0(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112684
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112690
 @L_02112684:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112690:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x24]
     mov r0, #0x400
     ldrsh r2, [r8, #8]
@@ -254,66 +254,66 @@ extern "C" asm void func_ov001_021124e0(void)
     cmp r2, #0
     mov r0, r2, lsl #0xc
     ble @L_021126e0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021126ec
 @L_021126e0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021126ec:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x18]
     ldrsh r0, [r8, #0xa]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112718
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112724
 @L_02112718:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112724:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x1c]
 @L_0211272c:
     ldrsh r0, [r8, #0xc]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112750
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0211275c
 @L_02112750:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0211275c:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x28]
     ldrsh r0, [r8, #0xe]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112788
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112794
 @L_02112788:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112794:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x2c]
     ldrh r1, [r8, #0x10]
     mov r0, #0
@@ -522,17 +522,17 @@ extern "C" asm void func_ov001_02112a80(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112adc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112ae8
 @L_02112adc:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112ae8:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6]
     ldr r1, [r7]
     ldr r0, =0x7ff
@@ -541,17 +541,17 @@ extern "C" asm void func_ov001_02112a80(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112b20
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112b2c
 @L_02112b20:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112b2c:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #4]
     ldr r1, [r7]
     ldr r0, =0x3ff
@@ -560,17 +560,17 @@ extern "C" asm void func_ov001_02112a80(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112b64
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112b70
 @L_02112b64:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112b70:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #8]
     ldr r1, [r7, #4]
     ldr r0, =0x7ff
@@ -579,17 +579,17 @@ extern "C" asm void func_ov001_02112a80(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112ba8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112bb4
 @L_02112ba8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112bb4:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #0x20]
     ldr r1, [r7, #4]
     ldr r0, =0x7ff
@@ -598,17 +598,17 @@ extern "C" asm void func_ov001_02112a80(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112bec
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112bf8
 @L_02112bec:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112bf8:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #0x24]
     mov r0, #0x400
     ldrsh r2, [r7, #8]
@@ -623,66 +623,66 @@ extern "C" asm void func_ov001_02112a80(void)
     cmp r2, #0
     mov r0, r2, lsl #0xc
     ble @L_02112c48
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112c54
 @L_02112c48:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112c54:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #0x18]
     ldrsh r0, [r7, #0xa]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112c80
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112c8c
 @L_02112c80:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112c8c:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #0x1c]
 @L_02112c94:
     ldrsh r0, [r7, #0xc]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112cb8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112cc4
 @L_02112cb8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112cc4:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #0x28]
     ldrsh r0, [r7, #0xe]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02112cf0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02112cfc
 @L_02112cf0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02112cfc:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #0x2c]
     ldrh r1, [r7, #0x10]
     mov r0, #0
@@ -1005,17 +1005,17 @@ extern "C" asm void func_ov001_02113208(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02113244
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02113250
 @L_02113244:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02113250:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4]
     ldr r1, [r5]
     ldr r0, =0x7ff
@@ -1024,17 +1024,17 @@ extern "C" asm void func_ov001_02113208(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02113288
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02113294
 @L_02113288:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02113294:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #4]
     ldr r1, [r5]
     ldr r0, =0x3ff
@@ -1043,17 +1043,17 @@ extern "C" asm void func_ov001_02113208(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021132cc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021132d8
 @L_021132cc:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021132d8:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #8]
     ldr r1, [r5, #4]
     ldr r0, =0x7ff
@@ -1062,17 +1062,17 @@ extern "C" asm void func_ov001_02113208(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02113310
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0211331c
 @L_02113310:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0211331c:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x20]
     ldr r1, [r5, #4]
     ldr r0, =0x7ff
@@ -1081,17 +1081,17 @@ extern "C" asm void func_ov001_02113208(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02113354
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02113360
 @L_02113354:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02113360:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x24]
     mov r0, #0x400
     ldrsh r2, [r5, #8]
@@ -1106,66 +1106,66 @@ extern "C" asm void func_ov001_02113208(void)
     cmp r2, #0
     mov r0, r2, lsl #0xc
     ble @L_021133b0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021133bc
 @L_021133b0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021133bc:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x18]
     ldrsh r0, [r5, #0xa]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021133e8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021133f4
 @L_021133e8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021133f4:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x1c]
 @L_021133fc:
     ldrsh r0, [r5, #0xc]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02113420
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0211342c
 @L_02113420:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0211342c:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x28]
     ldrsh r0, [r5, #0xe]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02113458
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02113464
 @L_02113458:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02113464:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r4, #0x2c]
     ldrh r1, [r5, #0x10]
     mov r0, #0
@@ -2040,15 +2040,15 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_0211413c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114148
 @L_0211413c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114148:
     mov r7, r0
     ldr r0, [r8, #0x10]
@@ -2057,20 +2057,20 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114178
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114184
 @L_02114178:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114184:
-    bl func_02022b2c
+    bl _ffix
     mov r9, r0
     mov r0, r7
-    bl func_02022b2c
+    bl _ffix
     mov r2, r0
     mov r0, r6
     mov r1, r9
@@ -2101,17 +2101,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_0211421c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114228
 @L_0211421c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114228:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, [r8, #0x10]
     and r1, r10, r1, lsr #11
     sub r1, r1, #0x400
@@ -2119,17 +2119,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r1, #0
     mov r0, r1, lsl #0xc
     ble @L_0211425c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114268
 @L_0211425c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114268:
-    bl func_02022b2c
+    bl _ffix
     ldrb r1, [r8, #0x16]
     mov r2, r0
     cmp r1, #0x13
@@ -2155,17 +2155,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021142e0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021142ec
 @L_021142e0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021142ec:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, [r8, #0x10]
     mov r10, r0
     and r1, r6, r1, lsr #11
@@ -2173,17 +2173,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r1, #0
     mov r0, r1, lsl #0xc
     ble @L_02114320
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0211432c
 @L_02114320:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0211432c:
-    bl func_02022b2c
+    bl _ffix
     mov r2, r0
     mov r0, r5
     mov r1, r10
@@ -2203,17 +2203,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_0211438c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114398
 @L_0211438c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114398:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, [r8, #0x10]
     mov r10, r0
     and r1, r6, r1, lsr #11
@@ -2221,17 +2221,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r1, #0
     mov r0, r1, lsl #0xc
     ble @L_021143cc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021143d8
 @L_021143cc:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021143d8:
-    bl func_02022b2c
+    bl _ffix
     mov r3, r0
     mov r0, r5
     mov r1, r9
@@ -2272,17 +2272,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114488
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114494
 @L_02114488:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114494:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, [r8, #0x10]
     mov r10, r0
     and r1, r6, r1, lsr #11
@@ -2290,17 +2290,17 @@ extern "C" asm void func_ov001_02113f08(void)
     cmp r1, #0
     mov r0, r1, lsl #0xc
     ble @L_021144c8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021144d4
 @L_021144c8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021144d4:
-    bl func_02022b2c
+    bl _ffix
     mov r7, r0
     ldr r0, =data_020e88a0
     mov r1, r4
@@ -2770,17 +2770,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114bd0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114bdc
 @L_02114bd0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114bdc:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0xc]
     ldr r1, [r7]
     ldr r0, =0x7ff
@@ -2789,17 +2789,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114c14
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114c20
 @L_02114c14:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114c20:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #8]
     mov r0, #0
     bl func_ov015_021319fc
@@ -2833,17 +2833,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114cb4
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114cc0
 @L_02114cb4:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114cc0:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0xc]
     ldr r1, [r7]
     ldr r0, =0x7ff
@@ -2852,17 +2852,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114cf8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114d04
 @L_02114cf8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114d04:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #8]
     mov r0, #0
     bl func_ov015_021319fc
@@ -2898,17 +2898,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114d9c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114da8
 @L_02114d9c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114da8:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0xc]
     ldr r1, [r7]
     ldr r0, =0x7ff
@@ -2917,17 +2917,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114de0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114dec
 @L_02114de0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114dec:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #8]
     mov r0, #0
     bl func_ov015_021319fc
@@ -2958,17 +2958,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114e74
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114e80
 @L_02114e74:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114e80:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0xc]
     ldr r1, [r7]
     ldr r0, =0x7ff
@@ -2977,17 +2977,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114eb8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114ec4
 @L_02114eb8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114ec4:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #8]
     mov r0, #0
     bl func_ov015_021319fc
@@ -3031,17 +3031,17 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114f7c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114f88
 @L_02114f7c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114f88:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0xc]
     ldr r1, [r7]
     ldr r0, =0x7ff
@@ -3050,18 +3050,18 @@ extern "C" asm void func_ov001_0211490c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02114fc0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02114fcc
 @L_02114fc0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02114fcc:
     mov r4, #0
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #8]
     mov r0, r4
     bl func_ov015_021319fc
@@ -3304,17 +3304,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02115370
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0211537c
 @L_02115370:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0211537c:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x38]
     ldr r1, [r7]
     ldr r0, [sp, #0x28]
@@ -3323,17 +3323,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021153b4
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021153c0
 @L_021153b4:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021153c0:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x34]
     mov r0, #0
     bl func_ov015_021319fc
@@ -3373,17 +3373,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02115468
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02115474
 @L_02115468:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02115474:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x38]
     ldr r1, [r7]
     ldr r0, [sp, #0x30]
@@ -3392,17 +3392,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021154ac
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021154b8
 @L_021154ac:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021154b8:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x34]
     mov r0, #0
     bl func_ov015_021319fc
@@ -3586,17 +3586,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02115774
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02115780
 @L_02115774:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02115780:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x38]
     ldr r0, [sp, #0xc]
     ldr r1, [r0, #0xc]
@@ -3606,17 +3606,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021157bc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021157c8
 @L_021157bc:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021157c8:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x34]
     mov r0, #0
     bl func_ov015_021319fc
@@ -3671,17 +3671,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021158a8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021158b4
 @L_021158a8:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021158b4:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x38]
     ldr r0, [sp, #0xc]
     ldr r1, [r0, #0xc]
@@ -3691,17 +3691,17 @@ extern "C" asm void func_ov001_0211506c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021158f0
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021158fc
 @L_021158f0:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021158fc:
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp, #0x34]
     mov r0, #0
     bl func_ov015_021319fc

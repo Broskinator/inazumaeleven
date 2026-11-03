@@ -450,10 +450,10 @@ void func_0200a390(void);
 void SND_StopTimer(void);
 extern char data_020fa8d4[];
 void func_02007adc(void);
-void func_020224cc(void);
-void func_020234c0(void);
-void func_02022e2c(void);
-void func_020223a4(void);
+void _ffltu(void);
+void _fdiv(void);
+void _fmul(void);
+void _fls(void);
 extern char data_020fc0b0[];
 extern char data_020ac250[];
 extern char data_020ac23c[];
@@ -479,13 +479,13 @@ extern char data_020fc0b4[];
 extern char data_020fc27c[];
 extern char data_020fc270[];
 void func_02022524(void);
-void func_02021f44(void);
+void _dflt(void);
 void func_02023890(void);
 void func_02021adc(void);
 void func_02020af4(void);
-void func_02021728(void);
-void func_020213f8(void);
-void func_02022b60(void);
+void _dsub(void);
+void _dadd(void);
+void _dfix(void);
 extern char data_020fc0dc[];
 extern char data_020fc1a8[];
 void OS_GetTick(void);
@@ -507,8 +507,8 @@ extern char data_020a6e84[];
 void MI_CpuCopy8(void);
 void func_02020c6c(void);
 void _d2f(void);
-void func_02022348(void);
-void func_02022b2c(void);
+void _fgr(void);
+void _ffix(void);
 extern char data_020a6808[];
 extern char data_020a6588[];
 extern char data_020a6448[];
@@ -4135,16 +4135,16 @@ asm void func_020438c0(void)
     addlo r1, r1, #0x10000
     str r0, [r8, #0xecc]
     mov r0, r1
-    bl func_020224cc
+    bl _ffltu
     mov r9, r0
     mov r0, r10
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, r9
-    bl func_020234c0
+    bl _fdiv
     mov r1, r0
     ldr r0, =0x42c80000
-    bl func_02022e2c
+    bl _fmul
     mov r9, r0
     ldrsh r0, [r7, #0xc8]
     mov r1, r9
@@ -4153,7 +4153,7 @@ asm void func_020438c0(void)
     strlt r0, [r8, #0xec4]
     str r9, [r8, #0xec0]
     ldr r0, [r8, #0xec4]
-    bl func_020223a4
+    bl _fls
     strlo r9, [r8, #0xec4]
     movlo r0, #0x64
     strloh r0, [r7, #0xc8]
@@ -11548,11 +11548,11 @@ asm void func_02049b04(void)
     mov r6, r3
     mov r9, r2, asr #1
     str r1, [sp, #0x128]
-    bl func_02021f44
+    bl _dflt
     mov r5, r0
     mov r7, r1
     mov r0, r4
-    bl func_02021f44
+    bl _dflt
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -11573,7 +11573,7 @@ asm void func_02049b04(void)
     mov r10, r1
     mov r5, r7
     mov r4, r10
-    bl func_02021f44
+    bl _dflt
     mov r3, r1
     mov r2, r0
     ldr r1, =0x3ff00000
@@ -11595,7 +11595,7 @@ asm void func_02049b04(void)
 @L_02049bdc:
     sub r10, r8, r9
     mov r0, r10
-    bl func_02021f44
+    bl _dflt
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -11605,7 +11605,7 @@ asm void func_02049b04(void)
     mov r7, r0
     mov r0, r10
     mov r10, r1
-    bl func_02021f44
+    bl _dflt
     mov r3, r1
     mov r2, r0
     ldr r1, =0x400921fb
@@ -11622,7 +11622,7 @@ asm void func_02049b04(void)
 @L_02049c44:
     sub r10, r8, r9
     mov r0, r10
-    bl func_02021f44
+    bl _dflt
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -11633,11 +11633,11 @@ asm void func_02049b04(void)
     mov r0, #0
     mov r3, r1
     mov r1, r0
-    bl func_02021728
+    bl _dsub
     mov r7, r0
     mov r0, r10
     mov r10, r1
-    bl func_02021f44
+    bl _dflt
     mov r3, r1
     mov r2, r0
     ldr r1, =0x400921fb
@@ -11691,8 +11691,8 @@ asm void func_02049b04(void)
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_020213f8
-    bl func_02022b60
+    bl _dadd
+    bl _dfix
     ldr r1, [sp, #0x128]
     str r0, [r1, r9, lsl #2]
     ldr r0, [sp]
@@ -18125,14 +18125,14 @@ asm void func_0204f6b0(void)
     ldrsh r0, [r6, #0x54]
     mov r1, r7
     bl _s32_div_f
-    bl func_02021f44
+    bl _dflt
     bl func_02020c6c
     mov r4, r0
     mov r8, r1
     ldrsh r0, [r6, #0x56]
     mov r1, r7
     bl _s32_div_f
-    bl func_02021f44
+    bl _dflt
     bl func_02020c6c
     mov r2, r0
     mov r3, r1
@@ -18142,16 +18142,16 @@ asm void func_0204f6b0(void)
     bl _d2f
     mov r4, r0
     mov r1, #0x3f800000
-    bl func_02022348
+    bl _fgr
     movhi r4, #0x3f800000
     mov r0, r4
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     movls r4, #0
     ldr r0, =0x42c80000
     mov r1, r4
-    bl func_02022e2c
-    bl func_02022b2c
+    bl _fmul
+    bl _ffix
     str r0, [r5]
     b @L_0204fa98
 @L_0204f9f4:

@@ -82,10 +82,10 @@ extern "C" void _ZN17UnkClass_020621b413func_0207697cEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_02078474Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_02078aacEv(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207aa58Ei(void);
-extern "C" s32 func_02022484(...);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _fflt(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" s32 func_020808c4(...);
 extern "C" void func_02080cb8(void);
 extern "C" void func_02082c8c(void);
@@ -282,26 +282,26 @@ extern "C" s32 func_ov048_02165e60(u8 *arg0)
     v3 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov048_0216f178), (s32)(arg0 + 0x2000));
     if ((0 - v3) > 0) {
         v4 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov048_0216f18c));
-        v5 = func_02022484(((0 - v4) << 0xC));
-        func_0202300c(0x3F000000, v5);
+        v5 = _fflt(((0 - v4) << 0xC));
+        _fadd(0x3F000000, v5);
     } else {
         v7 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov048_0216f1a0));
-        v8 = func_02022484(((0 - v7) << 0xC));
-        func_0202323c(v8, 0x3F000000);
+        v8 = _fflt(((0 - v7) << 0xC));
+        _fsub(v8, 0x3F000000);
     }
-    v10 = func_02022b2c();
+    v10 = _ffix();
     v11 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov048_0216f1b4));
     r6 = v10;
     if (v11 > 0) {
         v12 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov048_0216f1c8));
-        v13 = func_02022484((v12 << 0xC));
-        func_0202300c(0x3F000000, v13);
+        v13 = _fflt((v12 << 0xC));
+        _fadd(0x3F000000, v13);
     } else {
         v15 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov048_0216f1dc));
-        v16 = func_02022484((v15 << 0xC));
-        func_0202323c(v16, 0x3F000000);
+        v16 = _fflt((v15 << 0xC));
+        _fsub(v16, 0x3F000000);
     }
-    v18 = func_02022b2c();
+    v18 = _ffix();
     *(s32 *)(((u8 *)local)) = v18;
     *(s32 *)(((u8 *)local) + 0x8) = (0 - 0x1A4000);
     *(s32 *)(((u8 *)local) + 0x4) = r6;

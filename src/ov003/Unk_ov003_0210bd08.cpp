@@ -217,6 +217,14 @@ extern "C" void func_ov046_02169170(void);
 extern "C" void func_ov046_02167934(void);
 extern "C" void func_ov046_02166128(void);
 extern "C" void func_ov018_02166490(void);
+extern "C" void func_02016d0c(void);
+extern "C" void STD_GetStringLength(void);
+extern "C" void func_ov003_0210431c(void);
+extern "C" void func_0209b7c8(void);
+extern "C" void func_ov003_02104360(void);
+extern "C" void func_ov003_02104240(void);
+extern "C" void func_ov003_02104394(void);
+extern "C" void func_ov003_0210241c(void);
 extern "C" asm void func_ov003_0210bd08(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -413,18 +421,18 @@ extern "C" asm void func_ov003_0210bfc4(void)
     subs r1, r0, #0x5a
     addpl pc, pc, r1, lsl #2
     b @L_0210c020
-    dcd 0xea000042
-    dcd 0xea000041
-    dcd 0xea000040
-    dcd 0xea00003f
-    dcd 0xea000048
-    dcd 0xea00000c
-    dcd 0xea000046
-    dcd 0xea000045
-    dcd 0xea000044
-    dcd 0xea000043
-    dcd 0xea000017
-    dcd 0xea000025
+    b @L_0210c100
+    b @L_0210c100
+    b @L_0210c100
+    b @L_0210c100
+    b @L_0210c128
+    b @L_0210c03c
+    b @L_0210c128
+    b @L_0210c128
+    b @L_0210c128
+    b @L_0210c128
+    b @L_0210c07c
+    b @L_0210c0b8
 @L_0210c020:
     cmp r0, #0x1a
     beq @L_0210c12c
@@ -434,77 +442,88 @@ extern "C" asm void func_ov003_0210bfc4(void)
     addeq sp, sp, #0x10
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     b @L_0210c128
-    dcd 0xe3b00000
-    dcd 0x0a000002
-    dcd 0xe59f1304
-    dcd 0xe3a02019
-    dcd 0xebfc2b2e
-    dcd 0xe59f02f8
-    dcd 0xebfc2b99
-    dcd 0xe3500000
-    dcd 0xda000003
-    dcd 0xe1a00006
-    dcd 0xebffe0ac
-    dcd 0xe28dd010
-    dcd 0xe8bd80f8
-    dcd 0xe3a00003
-    dcd 0xe5860038
-    dcd 0xea00002b
-    dcd 0xe59f02d0
-    dcd 0xe28d100c
-    dcd 0xe28d2008
-    dcd 0xebfe3dce
-    dcd 0xe59d0008
-    dcd 0xe3500001
-    dcd 0xe1a00006
-    dcd 0x1a000002
-    dcd 0xebffe0af
-    dcd 0xe28dd010
-    dcd 0xe8bd80f8
-    dcd 0xe1a01004
-    dcd 0xebffe063
-    dcd 0xe28dd010
-    dcd 0xe8bd80f8
-    dcd 0xe59f0294
-    dcd 0xe28d1004
-    dcd 0xe28d2000
-    dcd 0xebfe3dbf
-    dcd 0xe59d0000
-    dcd 0xe3500001
-    dcd 0x1a000003
-    dcd 0xe1a00006
-    dcd 0xebffe0ad
-    dcd 0xe28dd010
-    dcd 0xe8bd80f8
-    dcd 0xe3500000
-    dcd 0x1a000003
-    dcd 0xe1a00006
-    dcd 0xebffe089
-    dcd 0xe28dd010
-    dcd 0xe8bd80f8
-    dcd 0xeaffffdb
-    dcd 0xe5960004
-    dcd 0xebffd8c4
-    dcd 0xe3500000
-    dcd 0x0a000003
-    dcd 0xe1a00006
-    dcd 0xebffe09e
-    dcd 0xe28dd010
-    dcd 0xe8bd80f8
-    dcd 0xe3a00002
-    dcd 0xeaffffd2
+@L_0210c03c:
+    movs r0, #0
+    beq @L_0210c050
+    ldr r1, =data_020c4ac8
+    mov r2, #0x19
+    bl func_02016d0c
+@L_0210c050:
+    ldr r0, =data_020c4ac8
+    bl STD_GetStringLength
+    cmp r0, #0
+    ble @L_0210c070
+    mov r0, r6
+    bl func_ov003_0210431c
+    add sp, sp, #0x10
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0210c070:
+    mov r0, #3
+@L_0210c074:
+    str r0, [r6, #0x38]
+    b @L_0210c12c
+@L_0210c07c:
+    ldr r0, =data_020d3d20
+    add r1, sp, #0xc
+    add r2, sp, #8
+    bl func_0209b7c8
+    ldr r0, [sp, #8]
+    cmp r0, #1
+    mov r0, r6
+    bne @L_0210c0a8
+    bl func_ov003_02104360
+    add sp, sp, #0x10
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0210c0a8:
+    mov r1, r4
+    bl func_ov003_02104240
+    add sp, sp, #0x10
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0210c0b8:
+    ldr r0, =data_020d3d20
+    add r1, sp, #4
+    add r2, sp, #0
+    bl func_0209b7c8
+    ldr r0, [sp]
+    cmp r0, #1
+    bne @L_0210c0e4
+    mov r0, r6
+    bl func_ov003_02104394
+    add sp, sp, #0x10
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0210c0e4:
+    cmp r0, #0
+    bne @L_0210c0fc
+    mov r0, r6
+    bl func_ov003_0210431c
+    add sp, sp, #0x10
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0210c0fc:
+    b @L_0210c070
+@L_0210c100:
+    ldr r0, [r6, #4]
+    bl func_ov003_0210241c
+    cmp r0, #0
+    beq @L_0210c120
+    mov r0, r6
+    bl func_ov003_02104394
+    add sp, sp, #0x10
+    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+@L_0210c120:
+    mov r0, #2
+    b @L_0210c074
 @L_0210c128:
     str r4, [r6, #0x38]
 @L_0210c12c:
     ldr r1, [r6, #0x38]
-    ldr r0, [pc, #0x220]
+    ldr r0, =data_020c4ab4
     str r1, [r6, #0x40]
     strb r4, [r0, #0xbe]
     bl func_ov015_021353a4
     mov r5, #1
     mov r0, r5
     bl func_ov015_02134ccc
-    ldr r0, [pc, #0x208]
+    ldr r0, =gGameState
     strb r4, [r0, #0x1a]
     ldr r1, [r6, #4]
     strb r5, [r6, #0x3ee]
@@ -519,11 +538,11 @@ extern "C" asm void func_ov003_0210bfc4(void)
     mov r1, r5
     mov r2, r0
     bl GX_SetGraphicsMode
-    ldr r0, [pc, #0x1d0]
+    ldr r0, =data_020c4668
     ldr r0, [r0]
     bl func_02098ca8
-    ldr r0, [pc, #0x1c8]
-    ldr r1, [pc, #0x1c8]
+    ldr r0, =0x4000008
+    ldr r1, =data_020c46c4
     ldrh r2, [r0]
     bic r2, r2, #3
     strh r2, [r0]
@@ -541,10 +560,10 @@ extern "C" asm void func_ov003_0210bfc4(void)
     strh r2, [r0, #6]
     ldr r0, [r1]
     bl func_ov015_02161f84
-    ldr r0, [pc, #0x184]
+    ldr r0, =data_020c46b8
     ldr r0, [r0]
     bl func_ov015_021616a4
-    ldr r0, [pc, #0x17c]
+    ldr r0, =data_020c46d4
     ldr r0, [r0]
     bl func_02091d54
     mov r0, r6
@@ -599,7 +618,7 @@ extern "C" asm void func_ov003_0210bfc4(void)
     strb r7, [r6, #0x6d4]
     str r7, [r6, #0x6d8]
     bl MI_CpuFill8
-    ldr r0, [pc, #0xb4]
+    ldr r0, =data_020c47a4
     mov r1, r5
     bl func_ov015_0213c4c0
     mov r1, r7
@@ -637,16 +656,6 @@ extern "C" asm void func_ov003_0210bfc4(void)
     bl func_ov003_02107384
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
-    dcd data_020c4ac8
-    dcd data_020d3d20
-    dcd data_020c4ab4
-    dcd gGameState
-    dcd data_020c4668
-    dcd 0x04000008
-    dcd data_020c46c4
-    dcd data_020c46b8
-    dcd data_020c46d4
-    dcd data_020c47a4
 }
 
 extern "C" asm void func_ov003_0210c378(void)
@@ -1225,7 +1234,7 @@ extern "C" asm void func_ov003_0210cc68(void)
     cmp r1, #0
     addge pc, pc, r1, lsl #2
     b @L_0210cd1c
-    dcd 0xea000023
+    b @L_0210cd1c
     dcd 0xea000022
     dcd 0xea000021
     dcd 0xea000020

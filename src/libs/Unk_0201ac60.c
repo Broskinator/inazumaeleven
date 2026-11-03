@@ -13,15 +13,15 @@ extern char data_020a45f8[];
 extern char data_020a44f8[];
 extern char data_020a4478[];
 extern char data_020ab0c4[];
-void func_0202323c(void);
-void func_02022400(void);
+void _fsub(void);
+void _f2d(void);
 void func_02017c04(void);
-void func_02021728(void);
+void _dsub(void);
 extern char data_020ab0cc[];
 void func_0201cecc(void);
-void func_020222bc(void);
-void func_02022194(void);
-void func_02022058(void);
+void _dneq(void);
+void _dls(void);
+void _dgr(void);
 void func_0201a704(void);
 void fabs(void);
 extern char data_020bf3e4[];
@@ -270,13 +270,13 @@ asm void func_0201ac60(void)
     ldr r1, =data_020ab0c4
     mov r0, #0
     ldr r1, [r1]
-    bl func_0202323c
+    bl _fsub
     b @L_0201afd4
 @L_0201afcc:
     ldr r0, =data_020ab0c4
     ldr r0, [r0]
 @L_0201afd4:
-    bl func_02022400
+    bl _f2d
     ldr r2, [sp, #0x2c]
     add r3, r2, r6
     ldr r2, [sp, #0x18]
@@ -385,7 +385,7 @@ asm void func_0201ac60(void)
     mov r3, r1
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     b @L_0201b16c
 @L_0201b168:
     bl func_02017c04
@@ -904,7 +904,7 @@ asm void func_0201ac60(void)
     mov r0, #0
     ldmia r1, {r2, r3}
     mov r1, r0
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0xa8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0201b8ac:
@@ -917,14 +917,14 @@ asm void func_0201ac60(void)
     mov r1, r4
     mov r2, r8
     mov r3, r9
-    bl func_020222bc
+    bl _dneq
     beq @L_0201b8fc
     mov r2, r4
     mov r0, r8
     mov r1, r9
     mov r3, #0x100000
     mov r4, #1
-    bl func_02022194
+    bl _dls
     ldrlo r0, [sp, #0xd0]
     strlo r4, [r0]
     blo @L_0201b924
@@ -934,7 +934,7 @@ asm void func_0201ac60(void)
     mov r1, r9
     mvn r2, #0
     mov r4, #1
-    bl func_02022058
+    bl _dgr
     ldrhi r0, [sp, #0xd0]
     ldrhi r1, =data_020ab0cc
     strhi r4, [r0]
@@ -950,7 +950,7 @@ asm void func_0201ac60(void)
     mov r1, r0
     mov r2, r8
     mov r3, r9
-    bl func_02021728
+    bl _dsub
     mov r8, r0
     mov r9, r1
 @L_0201b958:

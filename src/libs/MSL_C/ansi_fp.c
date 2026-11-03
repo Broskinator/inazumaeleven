@@ -39,22 +39,22 @@ extern char data_020ab434[];
 extern char data_020ab438[];
 extern char data_020ab43c[];
 void func_020181bc(void);
-void func_02022230(void);
+void _deq(void);
 void __fpclassifyd(void);
-void func_02021728(void);
+void _dsub(void);
 void func_020207d4(void);
 void __msl_generic_count_bits64(void);
 void func_02020894(void);
 void func_02022c04(void);
 void copysign(void);
 extern char data_020ab0c4[];
-void func_02022400(void);
+void _f2d(void);
 extern char data_020ab440[];
-void func_02021f84(void);
+void _dfltu(void);
 extern char data_020ab32c[];
 void func_02021adc(void);
-void func_020213f8(void);
-void func_02021f44(void);
+void _dadd(void);
+void _dflt(void);
 void func_02020c78(void);
 void func_02023890(void);
 
@@ -938,7 +938,7 @@ asm void func_0201cca0(void)
     mov r2, r8
     mov r3, r6
     and r5, r5, #0xff
-    bl func_02022230
+    bl _deq
     bne @L_0201cd08
     mov r0, #1
     add sp, sp, #0x58
@@ -973,7 +973,7 @@ asm void func_0201cca0(void)
     mov r1, r4
     mov r2, r8
     mov r3, r6
-    bl func_02021728
+    bl _dsub
     mov r8, r0
     mov r6, r1
 @L_0201cd74:
@@ -1118,7 +1118,7 @@ asm void func_0201cecc(void)
     ldr r0, =data_020ab0c4
     ldrne r4, =0xbff00000
     ldr r0, [r0]
-    bl func_02022400
+    bl _f2d
     mov r2, r5
     mov r3, r4
     bl copysign
@@ -1189,7 +1189,7 @@ asm void func_0201cecc(void)
     ldr r0, =data_020ab0c4
     ldrne r4, =0xbff00000
     ldr r0, [r0]
-    bl func_02022400
+    bl _f2d
     mov r2, r5
     mov r3, r4
     bl copysign
@@ -1199,7 +1199,7 @@ asm void func_0201cecc(void)
     add r1, sp, #0xdb
     ldrb r0, [r1]
     add r8, r1, #1
-    bl func_02021f84
+    bl _dfltu
     str r0, [sp, #8]
     str r1, [sp, #0xc]
     cmp r8, r5
@@ -1232,12 +1232,12 @@ asm void func_0201cecc(void)
     mov r4, r0
     mov r9, r1
     mov r0, r6
-    bl func_02021f84
+    bl _dfltu
     mov r2, r0
     mov r3, r1
     mov r0, r4
     mov r1, r9
-    bl func_020213f8
+    bl _dadd
     cmp r6, #0
     mov r6, r0
     mov r10, r1
@@ -1246,7 +1246,7 @@ asm void func_0201cecc(void)
     mov r1, r9
     mov r2, r6
     mov r3, r10
-    bl func_02022230
+    bl _deq
     beq @L_0201d168
 @L_0201d154:
     str r6, [sp, #8]
@@ -1260,7 +1260,7 @@ asm void func_0201cecc(void)
     add r4, sp, #0xd6
     bge @L_0201d1ac
     rsb r0, r11, #0
-    bl func_02021f44
+    bl _dflt
     mov r3, r1
     mov r2, r0
     ldr r1, =0x40140000
@@ -1274,7 +1274,7 @@ asm void func_0201cecc(void)
     b @L_0201d1dc
 @L_0201d1ac:
     mov r0, r11
-    bl func_02021f44
+    bl _dflt
     mov r3, r1
     mov r2, r0
     ldr r1, =0x40140000
@@ -1468,7 +1468,7 @@ asm void func_0201cecc(void)
     ldr r2, [sp, #8]
     ldr r3, [sp, #0xc]
     mov r1, r0
-    bl func_02021728
+    bl _dsub
     str r0, [sp, #8]
     str r1, [sp, #0xc]
 @L_0201d490:

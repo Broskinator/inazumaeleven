@@ -2187,14 +2187,14 @@ extern "C" asm void func_ov003_021017fc(void)
     subs r0, r1, #0x1c
     addpl pc, pc, r0, lsl #2
     b @L_02101868
-    dcd 0xea000095
-    dcd 0xe8bd8070
-    dcd 0xea00009a
-    dcd 0xea0000a0
-    dcd 0xea0000a6
-    dcd 0xe8bd8070
-    dcd 0xea0000b8
-    dcd 0xea0000be
+    b @L_02101aa4
+    ldmia sp!, {r4, r5, r6, pc}
+    b @L_02101ac0
+    b @L_02101adc
+    b @L_02101af8
+    ldmia sp!, {r4, r5, r6, pc}
+    b @L_02101b48
+    b @L_02101b64
 @L_02101868:
     cmp r1, #0x12
     bgt @L_02101890
@@ -2249,7 +2249,7 @@ extern "C" asm void func_ov003_021017fc(void)
     bl _Znwm
     movs r6, r0
     beq @L_02101938
-    ldr r1, [pc, #0x25c]
+    ldr r1, =data_ov040_021695e4
     add r0, r6, #8
     str r1, [r6]
     bl _ZN8TextFontC1Ev
@@ -2263,7 +2263,7 @@ extern "C" asm void func_ov003_021017fc(void)
     mov r0, #0x298
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x230]
+    ldrne r1, =data_ov032_0216af1c
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
@@ -2271,7 +2271,7 @@ extern "C" asm void func_ov003_021017fc(void)
     mov r0, #0x298
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x218]
+    ldrne r1, =data_ov032_0216ae74
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
@@ -2279,20 +2279,20 @@ extern "C" asm void func_ov003_021017fc(void)
     mov r0, #0x2a0
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x200]
+    ldrne r1, =data_ov032_0216afc4
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
 @L_02101994:
-    ldr r0, [pc, #0x1f4]
+    ldr r0, =0x3484
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x1ec]
+    ldrne r1, =data_ov027_0216be90
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
 @L_021019b0:
-    ldr r0, [pc, #0x1e0]
+    ldr r0, =0xf5c
     bl _Znwm
     cmp r0, #0
     beq @L_021019c8
@@ -2332,23 +2332,23 @@ extern "C" asm void func_ov003_021017fc(void)
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
 @L_02101a30:
-    ldr r0, [pc, #0x164]
+    ldr r0, =0x3358
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x15c]
+    ldrne r1, =data_ov037_0216c350
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
 @L_02101a4c:
-    ldr r0, [pc, #0x150]
+    ldr r0, =0x11d4
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x148]
+    ldrne r1, =data_ov038_0216a9f0
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
 @L_02101a68:
-    ldr r0, [pc, #0x13c]
+    ldr r0, =0x2088
     bl _Znwm
     cmp r0, #0
     beq @L_02101a80
@@ -2361,90 +2361,73 @@ extern "C" asm void func_ov003_021017fc(void)
     mov r0, #0x29c
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x114]
+    ldrne r1, =data_ov003_0211e440
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
-    dcd 0xe59f0108
-    dcd 0xebfc8ea4
-    dcd 0xe3500000
-    dcd 0x159f1100
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8070
-    dcd 0xe59f00f4
-    dcd 0xebfc8e9d
-    dcd 0xe3500000
-    dcd 0x159f10ec
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8070
-    dcd 0xe59f00e0
-    dcd 0xebfc8e96
-    dcd 0xe3500000
-    dcd 0x159f10d8
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8070
-    dcd 0xe3a00fc3
-    dcd 0xebfc8e8f
-    dcd 0xe1b06000
-    dcd 0x0a000006
-    dcd 0xe59f10bc
-    dcd 0xe2860008
-    dcd 0xe5861000
-    dcd 0xebfcc70b
-    dcd 0xe286002c
-    dcd 0xebfe71c9
-    dcd 0xe5865004
-    dcd 0xe5846004
-    dcd 0xe8bd8070
-@L_02101b2c:
-    ldr r0, [pc, #0x9c]
+@L_02101aa4:
+    ldr r0, =0x3414
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x94]
+    ldrne r1, =data_ov026_0216b64c
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r4, r5, r6, pc}
-    dcd 0xe3a00018
-    dcd 0xebfc8e7b
-    dcd 0xe3500000
-    dcd 0x159f107c
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8070
-    dcd 0xe3a00018
-    dcd 0xebfc8e74
-    dcd 0xe3500000
-    dcd 0x159f1064
-    dcd 0x18800022
-    dcd 0xe5840004
-    dcd 0xe8bd8070
-    dcd data_ov040_021695e4
-    dcd data_ov032_0216af1c
-    dcd data_ov032_0216ae74
-    dcd data_ov032_0216afc4
-    dcd 0x00003484
-    dcd data_ov027_0216be90
-    dcd 0x00000f5c
-    dcd 0x00003358
-    dcd data_ov037_0216c350
-    dcd 0x000011d4
-    dcd data_ov038_0216a9f0
-    dcd 0x00002088
-    dcd data_ov003_0211e440
-    dcd 0x00003414
-    dcd data_ov026_0216b64c
-    dcd 0x00000638
-    dcd data_ov020_02168904
-    dcd 0x00000628
-    dcd data_ov058_021678a8
-    dcd data_ov023_0216a230
-    dcd 0x000004b4
-    dcd data_ov065_02168480
-    dcd data_ov021_02166140
-    dcd data_ov021_02166160
+@L_02101ac0:
+    ldr r0, =0x638
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov020_02168904
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_02101adc:
+    ldr r0, =0x628
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov058_021678a8
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_02101af8:
+    mov r0, #0x30c
+    bl _Znwm
+    movs r6, r0
+    beq @L_02101b24
+    ldr r1, =data_ov023_0216a230
+    add r0, r6, #8
+    str r1, [r6]
+    bl _ZN8TextFontC1Ev
+    add r0, r6, #0x2c
+    bl func_0209e248
+    str r5, [r6, #4]
+@L_02101b24:
+    str r6, [r4, #4]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_02101b2c:
+    ldr r0, =0x4b4
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov065_02168480
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_02101b48:
+    mov r0, #0x18
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov021_02166140
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r4, r5, r6, pc}
+@L_02101b64:
+    mov r0, #0x18
+    bl _Znwm
+    cmp r0, #0
+    ldrne r1, =data_ov021_02166160
+    stmneia r0, {r1, r5}
+    str r0, [r4, #4]
+    ldmia sp!, {r4, r5, r6, pc}
 }
 
 extern "C" asm void func_ov003_02101be0(void)
@@ -2482,14 +2465,14 @@ extern "C" asm void func_ov003_02101be0(void)
     subs r0, r1, #0x5b
     addpl pc, pc, r0, lsl #2
     ldmia sp!, {r3, r4, r5, pc}
-    dcd 0xea000008
-    dcd 0xea000007
-    dcd 0xea000006
-    dcd 0xe8bd8038
-    dcd 0xe8bd8038
-    dcd 0xe8bd8038
-    dcd 0xe8bd8038
-    dcd 0xea000001
+    b @L_02101c84
+    b @L_02101c84
+    b @L_02101c84
+    ldmia sp!, {r3, r4, r5, pc}
+    ldmia sp!, {r3, r4, r5, pc}
+    ldmia sp!, {r3, r4, r5, pc}
+    ldmia sp!, {r3, r4, r5, pc}
+    b @L_02101c84
 @L_02101c7c:
     cmp r1, #0x73
     ldmneia sp!, {r3, r4, r5, pc}
@@ -2497,7 +2480,7 @@ extern "C" asm void func_ov003_02101be0(void)
     mov r0, #0x29c
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x40]
+    ldrne r1, =data_ov079_02173f4c
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
@@ -2505,7 +2488,7 @@ extern "C" asm void func_ov003_02101be0(void)
     mov r0, #0x3cc
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x28]
+    ldrne r1, =data_ov078_02171af8
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
@@ -2513,13 +2496,10 @@ extern "C" asm void func_ov003_02101be0(void)
     mov r0, #0xc0
     bl _Znwm
     cmp r0, #0
-    ldrne r1, [pc, #0x10]
+    ldrne r1, =data_ov073_021707a8
     stmneia r0, {r1, r5}
     str r0, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
-    dcd data_ov079_02173f4c
-    dcd data_ov078_02171af8
-    dcd data_ov073_021707a8
 }
 
 extern "C" asm void func_ov003_02101ce4(void)

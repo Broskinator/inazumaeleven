@@ -37,11 +37,11 @@ extern "C" s32 MI_CpuCopy8(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZN9EntryPool3GetEi(...);
 extern "C" s32 _ZN9EntryPool9RemoveAllEv(...);
-extern "C" void func_02022484(void);
+extern "C" void _fflt(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_0202b608(void);
 extern "C" void func_02080b90(void);
 extern "C" void func_0208130c(void);
@@ -576,17 +576,17 @@ extern "C" asm void func_ov015_02130e80(void)
     mov r5, r3
     mov r0, r0, lsl #0xc
     ble @L_02130ebc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02130ec8
 @L_02130ebc:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02130ec8:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, =data_020c4838
     str r0, [r6]
     ldr r0, [r1]
@@ -594,17 +594,17 @@ extern "C" asm void func_ov015_02130e80(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02130efc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02130f08
 @L_02130efc:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02130f08:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r5]
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -621,17 +621,17 @@ extern "C" asm void func_ov015_02130f1c(void)
     mov r4, r3
     mov r0, r0, lsl #0xc
     ble @L_02130f58
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02130f64
 @L_02130f58:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02130f64:
-    bl func_02022b2c
+    bl _ffix
     sub r1, r7, r0
     mov r0, r1, asr #0xb
     add r0, r1, r0, lsr #20
@@ -642,17 +642,17 @@ extern "C" asm void func_ov015_02130f1c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02130fa4
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02130fb0
 @L_02130fa4:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02130fb0:
-    bl func_02022b2c
+    bl _ffix
     sub r1, r6, r0
     mov r0, r1, asr #0xb
     add r0, r1, r0, lsr #20

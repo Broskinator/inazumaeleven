@@ -152,10 +152,10 @@ extern "C" s32 func_02004d1c(...);
 extern "C" s32 func_02004d54(...);
 extern "C" s32 func_02004d68(...);
 extern "C" s32 func_02017278(...);
-extern "C" void func_020224cc(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffltu(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" s32 func_020255e4(...);
 extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
@@ -1684,17 +1684,17 @@ extern "C" asm void func_ov003_020fdd80(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     beq @L_020fdfa4
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_020fdfb0
 @L_020fdfa4:
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_020fdfb0:
-    bl func_02022b2c
+    bl _ffix
     ldr r2, =data_020c4694
     mov r1, r0
     ldr r0, [r2]

@@ -488,10 +488,10 @@ extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void func_01ff8ca4(void);
 extern "C" void func_01ff9490(void);
 extern "C" void func_0200226c(void);
-extern "C" void func_020224cc(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffltu(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_ov015_02131704(void);
 extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_02131910(void);
@@ -8442,20 +8442,20 @@ asm void UnkClass_020621b4::func_02075f7c()
     bl func_ov015_021309a4
     add r0, r0, #0x19
     mov r0, r0, lsl #0xc
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02075fe4
 @L_02075fcc:
     bl func_ov015_021309a4
     add r0, r0, #0x19
     mov r0, r0, lsl #0xc
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02075fe4:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, [r5, #0xe8]
     mov r9, r0
     ldrh r7, [r1, #0x18]

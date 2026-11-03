@@ -205,12 +205,12 @@ extern char data_020aee4c[];
 void _ZN10ConfigFile6GetIntEPKc(void);
 extern char data_020aee5c[];
 extern char data_020aee70[];
-void func_02022484(void);
-void func_02022e2c(void);
-void func_02022348(void);
-void func_0202300c(void);
-void func_0202323c(void);
-void func_02022b2c(void);
+void _fflt(void);
+void _fmul(void);
+void _fgr(void);
+void _fadd(void);
+void _fsub(void);
+void _ffix(void);
 extern char data_020aee80[];
 extern char data_020aee90[];
 extern char data_020aeea4[];
@@ -2571,38 +2571,38 @@ asm void func_01ff9ea4(void)
     mov r6, #0xe
 @L_01ff9f14:
     mov r0, r6
-    bl func_02022484
+    bl _fflt
     mov r8, #0x3d800000
     mov r1, r0
     mov r0, r8
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     mov r0, r6
     bls @L_01ff9f68
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, r8
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     sub r0, r8, #0xf8000000
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_01ff9f8c
 @L_01ff9f68:
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, r8
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     sub r0, r8, #0xf8000000
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_01ff9f8c:
-    bl func_02022b2c
+    bl _ffix
     add r1, r7, #0x11000
     str r0, [r1, #0x91c]
     ldr r0, =data_020c46e4
@@ -2617,38 +2617,38 @@ asm void func_01ff9ea4(void)
     mov r6, #7
 @L_01ff9fbc:
     mov r0, r6
-    bl func_02022484
+    bl _fflt
     ldr r8, =0x3c4ccccd
     mov r1, r0
     mov r0, r8
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     mov r0, r6
     bls @L_01ffa010
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, r8
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     ldr r0, =0x45800000
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_01ffa034
 @L_01ffa010:
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, r8
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     ldr r0, =0x45800000
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_01ffa034:
-    bl func_02022b2c
+    bl _ffix
     add r1, r7, #0x11000
     str r0, [r1, #0x920]
     ldr r0, =data_020c46e4

@@ -113,10 +113,10 @@ extern "C" void __cxa_vec_delete(void);
 extern "C" s32 __cxa_vec_new(...);
 extern "C" void func_020011fc(void);
 extern "C" void func_020170b8(void);
-extern "C" void func_02022484(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _fflt(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" s32 func_020286e4(...);
 extern "C" s32 func_0202b608(...);
 extern "C" s32 func_02088a38(...);
@@ -850,18 +850,18 @@ extern "C" asm void func_0208b988(void)
     cmp r9, #0
     mov r0, r7
     ble @L_0208b9d8
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, r6
-    bl func_0202300c
+    bl _fadd
     b @L_0208b9e4
 @L_0208b9d8:
-    bl func_02022484
+    bl _fflt
     mov r1, r11
-    bl func_0202323c
+    bl _fsub
 @L_0208b9e4:
     add r5, r10, r8, lsl #3
-    bl func_02022b2c
+    bl _ffix
     ldr r1, [r5, #0x64]
     mov r2, r5
     add r0, r1, r0

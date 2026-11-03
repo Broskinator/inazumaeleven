@@ -461,11 +461,11 @@ extern "C" void _ZN9EntryPool9RemoveAllEv(void);
 extern "C" void func_01ffde48(void);
 extern "C" void func_0200878c(void);
 extern "C" void func_02021adc(void);
-extern "C" void func_02021f44(void);
-extern "C" void func_02022400(void);
-extern "C" void func_020224cc(void);
+extern "C" void _dflt(void);
+extern "C" void _f2d(void);
+extern "C" void _ffltu(void);
 extern "C" void _u32_div_f(void);
-extern "C" void func_02022bac(void);
+extern "C" void _dfixu(void);
 extern "C" void func_02023890(void);
 extern "C" void func_0209e174(void);
 extern "C" void func_0209e1c8(void);
@@ -12736,7 +12736,7 @@ asm void UnkClass_020621b4::func_0206d9d0()
     bl func_ov015_021309f8
     mov r7, r0
     mov r0, r4
-    bl func_02021f44
+    bl _dflt
     mov r6, #0
     mov r2, r0
     mov r5, #0x40000000
@@ -12747,8 +12747,8 @@ asm void UnkClass_020621b4::func_0206d9d0()
     mov r4, r0
     add r0, r7, #0x50
     mov r7, r1
-    bl func_020224cc
-    bl func_02022400
+    bl _ffltu
+    bl _f2d
     mov r2, r6
     add r3, r5, #0x590000
     bl func_02023890
@@ -12757,7 +12757,7 @@ asm void UnkClass_020621b4::func_0206d9d0()
     mov r3, r1
     mov r1, r7
     bl func_02021adc
-    bl func_02022bac
+    bl _dfixu
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
@@ -12765,13 +12765,13 @@ asm void UnkClass_020621b4::func_0206da44()
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r0, r1
-    bl func_02021f44
+    bl _dflt
     mov r3, r1
     mov r2, r0
     ldr r1, =0x3fe00000
     mov r0, #0
     bl func_02021adc
-    bl func_02022bac
+    bl _dfixu
     mov r0, r0, lsl #0x10
     mov r4, r0, lsr #0x10
     cmp r4, #0x1e
@@ -12780,13 +12780,13 @@ asm void UnkClass_020621b4::func_0206da44()
     bl func_ov015_021309f8
     mov r5, r0
     mov r0, r4
-    bl func_020224cc
-    bl func_02022400
+    bl _ffltu
+    bl _f2d
     mov r4, r0
     add r0, r5, #0x50
     mov r5, r1
-    bl func_020224cc
-    bl func_02022400
+    bl _ffltu
+    bl _f2d
     ldr r3, =0x40590000
     mov r2, #0
     bl func_02023890
@@ -12795,7 +12795,7 @@ asm void UnkClass_020621b4::func_0206da44()
     mov r0, r4
     mov r1, r5
     bl func_02021adc
-    bl func_02022bac
+    bl _dfixu
     ldmia sp!, {r3, r4, r5, pc}
 }
 

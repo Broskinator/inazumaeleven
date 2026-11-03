@@ -587,10 +587,10 @@ extern "C" asm void func_ov001_0210010c(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0xc
-    ldr r1, [pc, #0x310]
+    ldr r1, =data_ov001_02130638
     mov r7, r0
     ldr r2, [r1]
-    ldr r4, [pc, #0x308]
+    ldr r4, =data_020e88a0
     cmp r2, #0x2b
     mov r5, #1
     mov r6, #0
@@ -602,16 +602,16 @@ extern "C" asm void func_ov001_0210010c(void)
     subs r1, r2, #0xb
     addpl pc, pc, r1, lsl #2
     b @L_02100178
-    dcd 0xea0000ae
-    dcd 0xea0000b1
-    dcd 0xea0000ac
-    dcd 0xea0000af
-    dcd 0xea0000ae
-    dcd 0xea0000ad
-    dcd 0xea0000a1
-    dcd 0xea0000ab
-    dcd 0xea0000a6
-    dcd 0xea0000a5
+    b @L_02100410
+    b @L_02100420
+    b @L_02100410
+    b @L_02100420
+    b @L_02100420
+    b @L_02100420
+    b @L_021003f4
+    b @L_02100420
+    b @L_02100410
+    b @L_02100410
 @L_02100178:
     cmp r2, #4
     beq @L_02100410
@@ -642,11 +642,11 @@ extern "C" asm void func_ov001_0210010c(void)
     bl func_ov015_021317c8
     cmp r0, #0
     beq @L_021001e4
-    ldr r0, [pc, #0x250]
+    ldr r0, =data_020e88a0
     mov r1, r6
     bl _ZN17UnkClass_020621b413func_0206bff4Ei
 @L_021001e4:
-    ldr r0, [pc, #0x248]
+    ldr r0, =data_020c4648
     mov r4, #1
     ldr r0, [r0]
     mov r1, r4
@@ -683,28 +683,28 @@ extern "C" asm void func_ov001_0210010c(void)
     str r6, [r7, #0x4b4]
     b @L_0210041c
 @L_02100270:
-    ldr r0, [pc, #0x1b8]
+    ldr r0, =data_020e88a0
     bl _ZN17UnkClass_020621b413func_0206cf6cEv
     cmp r0, #0
     bne @L_02100330
-    ldr r0, [pc, #0x1b0]
+    ldr r0, =data_020c5e40
     mov r1, r6
     mov r2, #0x3e8
     bl _ZN12SoundManager13func_0203bc60Eii
-    ldr r0, [pc, #0x1a4]
+    ldr r0, =data_020f98a0
     ldrb r0, [r0, #0x7d6]
     tst r0, #1
     moveq r4, r6
     cmp r4, #0
     bne @L_021002fc
-    ldr r0, [pc, #0x18c]
+    ldr r0, =data_020f98a0
     ldrb r0, [r0, #0x7d7]
     tst r0, #1
     movne r0, #1
     moveq r0, #0
     cmp r0, #0
     bne @L_021002fc
-    ldr r9, [pc, #0x16c]
+    ldr r9, =data_020c5e40
     mov r8, #0x7d0
     mov r4, #0x3e8
     mov r0, r9
@@ -720,7 +720,7 @@ extern "C" asm void func_ov001_0210010c(void)
     bl _ZN12SoundManager13func_0203a6f8Eiii
     b @L_02100340
 @L_021002fc:
-    ldr r8, [pc, #0x134]
+    ldr r8, =data_020c5e40
     mov r4, #0x7d0
     mov r9, #0x3e8
     mov r0, r8
@@ -734,8 +734,8 @@ extern "C" asm void func_ov001_0210010c(void)
     mov r3, r9
     b @L_021002f0
 @L_02100330:
-    ldr r0, [pc, #0x100]
-    ldr r2, [pc, #0x104]
+    ldr r0, =data_020c5e40
+    ldr r2, =0xbb8
     mov r1, #0
     bl _ZN12SoundManager13func_0203bc60Eii
 @L_02100340:
@@ -774,13 +774,13 @@ extern "C" asm void func_ov001_0210010c(void)
 @L_021003b0:
     bl _ZN17UnkClass_020621b413func_0207597cEv
     bl func_ov015_02131bec
-    ldr r2, [pc, #0x84]
+    ldr r2, =data_ov001_02130678
     ldr r1, [r2, r0, lsl #3]
     cmp r1, #0x80000000
     ble @L_021003f0
     str r6, [sp]
     str r5, [sp, #4]
-    ldr r1, [pc, #0x70]
+    ldr r1, =data_020c4920
     str r5, [sp, #8]
     add r3, r2, r0, lsl #3
     ldr r2, [r2, r0, lsl #3]
@@ -790,17 +790,18 @@ extern "C" asm void func_ov001_0210010c(void)
     bl func_ov015_02140f58
 @L_021003f0:
     b @L_02100404
-    dcd 0xe3a01038
-    dcd 0xebfff98d
+@L_021003f4:
+    mov r1, #0x38
+    bl func_ov001_020fea34
 @L_021003fc:
-    ldr r0, [pc, #0x2c]
+    ldr r0, =data_020e88a0
     bl _ZN17UnkClass_020621b413func_020705dcEi
 @L_02100404:
     mov r0, r7
     mov r1, #4
     b @L_0210041c
 @L_02100410:
-    ldr r1, [pc, #0x14]
+    ldr r1, =data_ov001_02130638
     mov r0, r7
     ldr r1, [r1]
 @L_0210041c:
@@ -809,14 +810,6 @@ extern "C" asm void func_ov001_0210010c(void)
     str r6, [r7, #0x4ac]
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    dcd data_ov001_02130638
-    dcd data_020e88a0
-    dcd data_020c4648
-    dcd data_020c5e40
-    dcd data_020f98a0
-    dcd 0x00000bb8
-    dcd data_ov001_02130678
-    dcd data_020c4920
 }
 
 extern "C" asm s32 func_ov001_0210044c(...)

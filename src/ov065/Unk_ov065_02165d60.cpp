@@ -100,11 +100,11 @@ extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003678(void);
 extern "C" void func_02003758(void);
 extern "C" void func_02003838(void);
-extern "C" s32 func_020224cc(...);
+extern "C" s32 _ffltu(...);
 extern "C" void _s32_div_f(void);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" void func_02091d54(void);
 extern "C" s32 func_02091d64(...);
 extern "C" s32 func_020920c4(...);
@@ -2525,13 +2525,13 @@ extern "C" void func_ov065_021680d0(u8 *arg0)
     func_ov015_02161710(t1, t2);
     arg0 = (u8 *)(*(s32 *)(((u8 *)&data_020c484c)) << 0xC);
     if (*(s32 *)(((u8 *)&data_020c484c)) != 0) {
-        v25 = func_020224cc((s32)arg0);
-        func_0202300c(0x3F000000, v25);
+        v25 = _ffltu((s32)arg0);
+        _fadd(0x3F000000, v25);
     } else {
-        v27 = func_020224cc((s32)arg0);
-        func_0202323c(v27, 0x3F000000);
+        v27 = _ffltu((s32)arg0);
+        _fsub(v27, 0x3F000000);
     }
-    v29 = func_02022b2c();
+    v29 = _ffix();
     t3 = *(s32 *)(((u8 *)&data_020c4694));
     func_02095ea4(t3, v29, (s32)((u8 *)&data_020c4694));
     if (*(s32 *)(r4 + 0x18) != 0) {

@@ -230,12 +230,12 @@ extern "C" void func_02001f08(void);
 extern "C" void func_02001f38(void);
 extern "C" void func_020021f0(void);
 extern "C" void func_02016d0c(void);
-extern "C" void func_02022348(void);
+extern "C" void _fgr(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_02022e2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffix(void);
+extern "C" void _fmul(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_02099a2c(void);
 extern "C" void func_0209b06c(void);
 extern "C" void func_0209b7f8(void);
@@ -4996,17 +4996,17 @@ asm void UnkClass_02054800::func_02058ba8()
     mov r0, r4
     bl _ZN10ConfigFile8GetFloatEPKc
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     bls @L_02058bf8
     ldr r1, =data_020ae604
     mov r0, r4
     bl _ZN10ConfigFile8GetFloatEPKc
     mov r1, r0
     ldr r0, =0x45800000
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02058c18
 @L_02058bf8:
     ldr r1, =data_020ae618
@@ -5014,11 +5014,11 @@ asm void UnkClass_02054800::func_02058ba8()
     bl _ZN10ConfigFile8GetFloatEPKc
     mov r1, r0
     ldr r0, =0x45800000
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02058c18:
-    bl func_02022b2c
+    bl _ffix
     mov r4, r0
     ldr r0, =data_020c46e4
     ldr r1, =data_020ae62c

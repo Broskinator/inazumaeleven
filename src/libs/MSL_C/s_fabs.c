@@ -18,14 +18,14 @@ void func_02020d94(void);
 void func_02020da8(void);
 void func_02020dac(void);
 
-void func_020213f8(void);
-void func_02022058(void);
+void _dadd(void);
+void _dgr(void);
 void func_02021adc(void);
 void __fpclassifyd(void);
-void func_02022230(void);
+void _deq(void);
 void copysign(void);
 void __kernel_sin(void);
-void func_02021728(void);
+void _dsub(void);
 void func_0201eda4(void);
 void func_0201f484(void);
 void func_0201d4ec(void);
@@ -69,11 +69,11 @@ asm void func_02020610(void)
     ldr r3, [sp, #0x24]
     ldr r0, =0x8800759c
     ldr r1, =0x7e37e43c
-    bl func_020213f8
+    bl _dadd
     mov r4, #0
     mov r2, r4
     mov r3, r4
-    bl func_02022058
+    bl _dgr
     bls @L_020207a4
     cmp r6, #0
     movge r8, r4
@@ -97,10 +97,10 @@ asm void func_02020610(void)
     ldr r3, [sp, #0x24]
     ldr r0, =0x8800759c
     ldr r1, =0x7e37e43c
-    bl func_020213f8
+    bl _dadd
     mov r2, #0
     mov r3, r2
-    bl func_02022058
+    bl _dgr
     bls @L_020207a4
     cmp r6, #0
     movlt r0, #0x100000
@@ -122,7 +122,7 @@ asm void func_02020610(void)
     ldr r1, [sp, #0x24]
     mov r2, r0
     mov r3, r1
-    bl func_020213f8
+    bl _dadd
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     add sp, sp, #0x10
     bx lr
@@ -140,10 +140,10 @@ asm void func_02020610(void)
     ldr r3, [sp, #0x24]
     ldr r0, =0x8800759c
     ldr r1, =0x7e37e43c
-    bl func_020213f8
+    bl _dadd
     mov r2, #0
     mov r3, r2
-    bl func_02022058
+    bl _dgr
     bls @L_020207a4
     cmp r6, #0
     bge @L_0202079c
@@ -234,7 +234,7 @@ asm void func_02020894(void)
     ldr r3, [sp, #0x14]
     mov r0, r6
     mov r1, r6
-    bl func_02022230
+    bl _deq
     bne @L_020208e4
 @L_020208d0:
     ldr r0, [sp, #0x10]
@@ -285,7 +285,7 @@ asm void func_02020894(void)
     ldr r1, [sp, #0x14]
     mov r2, r0
     mov r3, r1
-    bl func_020213f8
+    bl _dadd
     ldmia sp!, {r4, r5, r6, lr}
     add sp, sp, #0x10
     bx lr
@@ -401,7 +401,7 @@ asm void func_02020af4(void)
     ldr r1, [sp, #0x24]
     mov r2, r0
     mov r3, r1
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, lr}
     add sp, sp, #0x10
@@ -452,7 +452,7 @@ asm void func_02020af4(void)
     mov r3, r1
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, lr}
     add sp, sp, #0x10
@@ -467,7 +467,7 @@ asm void func_02020af4(void)
     mov r3, r1
     mov r0, r4
     mov r1, r4
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, lr}
     add sp, sp, #0x10

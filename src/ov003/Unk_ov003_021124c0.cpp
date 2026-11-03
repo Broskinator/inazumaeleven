@@ -61,11 +61,11 @@ extern "C" void _ZN17UnkClass_020621b413func_0207bee8Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207bfd0Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0207e334Eiiii(void);
 extern "C" void func_0200878c(void);
-extern "C" s32 func_02022484(...);
+extern "C" s32 _fflt(...);
 extern "C" void _s32_div_f(void);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_02022e2c(...);
-extern "C" s32 func_020234c0(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fmul(...);
+extern "C" s32 _fdiv(...);
 extern "C" void func_020812f4(void);
 extern "C" void func_020812fc(void);
 extern "C" void func_02081304(void);
@@ -2743,13 +2743,13 @@ extern "C" s32 func_ov003_02114c5c(u8 *arg0)
     r1 = t0;
     if (r1 >= 1) {
         t1 = *(s32 *)(r4 + 0x984);
-        v0 = func_02022484(t1, r1);
+        v0 = _fflt(t1, r1);
         t2 = (*(s32 *)(r4 + 0x628) * *(s32 *)(r4 + 0x628));
         t3 = *(s32 *)(r4 + 0x628);
-        v1 = func_02022484(t2, t3);
-        v2 = func_020234c0(v1, 0x45610000);
-        func_02022e2c(v0, v2);
-        v4 = func_02022b2c();
+        v1 = _fflt(t2, t3);
+        v2 = _fdiv(v1, 0x45610000);
+        _fmul(v0, v2);
+        v4 = _ffix();
         *(s32 *)(r4 + 0x988) = v4;
         return v4;
     } else {

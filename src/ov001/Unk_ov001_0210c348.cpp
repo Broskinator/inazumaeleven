@@ -1453,7 +1453,7 @@ extern "C" asm void func_ov001_0210d894(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x28
-    ldr r1, [pc, #0x3bc]
+    ldr r1, =gGameState
     mov r9, r0
     ldrb r1, [r1, #0x1b]
     mov r7, #0
@@ -1461,7 +1461,7 @@ extern "C" asm void func_ov001_0210d894(void)
     add r2, sp, #0
     cmp r1, #0
     moveq r6, r10
-    ldr r0, [pc, #0x3a0]
+    ldr r0, =data_020c5320
     mov r8, r7
     strb r7, [r2]
     strb r7, [r2, #1]
@@ -1496,13 +1496,13 @@ extern "C" asm void func_ov001_0210d894(void)
 @L_0210d934:
     cmp r5, r6
     blt @L_0210d8e8
-    ldr r1, [pc, #0x31c]
+    ldr r1, =gGameState
     mov r0, #1
     ldrb r1, [r1, #0x1b]
     mov r2, #0
     cmp r1, #0
     beq @L_0210d9ec
-    ldr r1, [pc, #0x30c]
+    ldr r1, =data_ov001_02130648
     mov r5, r2
     ldr r10, [r1]
     add r3, sp, #0x10
@@ -1562,15 +1562,15 @@ extern "C" asm void func_ov001_0210d894(void)
     subs r0, r1, #0xa
     addpl pc, pc, r0, lsl #2
     b @L_0210da48
-    dcd 0xea000033
-    dcd 0xea000082
-    dcd 0xea000031
-    dcd 0xea000080
-    dcd 0xea00002f
-    dcd 0xea00007e
-    dcd 0xea00002d
-    dcd 0xea00007c
-    dcd 0xea00002b
+    b @L_0210daf8
+    b @L_0210dc38
+    b @L_0210daf8
+    b @L_0210dc38
+    b @L_0210daf8
+    b @L_0210dc38
+    b @L_0210daf8
+    b @L_0210dc38
+    b @L_0210daf8
 @L_0210da48:
     cmp r1, #3
     beq @L_0210dad0
@@ -1721,20 +1721,18 @@ extern "C" asm void func_ov001_0210d894(void)
     cmp r7, #0
     beq @L_0210dc40
     b @L_0210dbec
-    dcd 0xe28dd028
-    dcd 0xe8bd8ff8
+@L_0210dc38:
+    add sp, sp, #0x28
+    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0210dc40:
     ldr r0, [r9, #0x424]
     cmp r0, #0x258
     addlo sp, sp, #0x28
     ldmloia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, [pc, #0xc]
+    ldr r0, =data_020c5320
     bl func_0209c628
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    dcd gGameState
-    dcd data_020c5320
-    dcd data_ov001_02130648
 }
 
 extern "C" asm void func_ov001_0210dc6c(void)

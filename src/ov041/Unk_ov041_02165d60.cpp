@@ -112,12 +112,12 @@ extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
-extern "C" s32 func_02022484(...);
-extern "C" void func_020224cc(void);
+extern "C" s32 _fflt(...);
+extern "C" void _ffltu(void);
 extern "C" void _s32_div_f(void);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" void func_020812fc(void);
 extern "C" s32 func_0208720c(...);
 extern "C" void func_02087284(void);
@@ -463,17 +463,17 @@ extern "C" asm void func_ov041_02166050(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     beq @L_02166118
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02166124
 @L_02166118:
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02166124:
-    bl func_02022b2c
+    bl _ffix
     ldr r2, =data_020c4694
     mov r1, r0
     ldr r0, [r2]
@@ -2230,26 +2230,26 @@ extern "C" s32 func_ov041_02167be8(u8 *arg0)
     v3 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c44c), (s32)(arg0 + 0x3000));
     if ((0 - v3) > 0) {
         v4 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c460));
-        v5 = func_02022484(((0 - v4) << 0xC));
-        func_0202300c(0x3F000000, v5);
+        v5 = _fflt(((0 - v4) << 0xC));
+        _fadd(0x3F000000, v5);
     } else {
         v7 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c474));
-        v8 = func_02022484(((0 - v7) << 0xC));
-        func_0202323c(v8, 0x3F000000);
+        v8 = _fflt(((0 - v7) << 0xC));
+        _fsub(v8, 0x3F000000);
     }
-    v10 = func_02022b2c();
+    v10 = _ffix();
     v11 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c488));
     r5 = v10;
     if (v11 > 0) {
         v12 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c49c));
-        v13 = func_02022484((v12 << 0xC));
-        func_0202300c(0x3F000000, v13);
+        v13 = _fflt((v12 << 0xC));
+        _fadd(0x3F000000, v13);
     } else {
         v15 = _ZN10ConfigFile6GetIntEPKc((u8 *)((u8 *)&data_020c46e4), (u8 *)((u8 *)&data_ov041_0216c4b0));
-        v16 = func_02022484((v15 << 0xC));
-        func_0202323c(v16, 0x3F000000);
+        v16 = _fflt((v15 << 0xC));
+        _fsub(v16, 0x3F000000);
     }
-    v18 = func_02022b2c();
+    v18 = _ffix();
     *(s32 *)(((u8 *)local)) = v18;
     *(s32 *)(((u8 *)local) + 0x8) = (0 - 0x190000);
     *(s32 *)(((u8 *)local) + 0x4) = r5;

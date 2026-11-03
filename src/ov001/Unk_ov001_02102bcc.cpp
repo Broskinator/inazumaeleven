@@ -3226,7 +3226,7 @@ extern "C" asm void func_ov001_02105944(void)
     cmp r0, #0
     addge pc, pc, r0, lsl #2
     b @L_021059e0
-    dcd 0xea000019
+    b @L_021059e0
     dcd 0xea000018
     dcd 0xea000017
     dcd 0xea00000c

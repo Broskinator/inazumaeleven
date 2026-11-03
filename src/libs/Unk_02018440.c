@@ -23,8 +23,8 @@ extern char data_020ab310[];
 extern char data_020ab318[];
 extern char data_020ab31c[];
 void fabs(void);
-void func_020222bc(void);
-void func_02022194(void);
+void _dneq(void);
+void _dls(void);
 void strchr(void);
 void strlen(void);
 void func_0201a77c(void);
@@ -1110,7 +1110,7 @@ asm void func_02018f1c(void)
     mov r0, #0
     mov r3, r1
     mov r1, r0
-    bl func_020222bc
+    bl _dneq
     movne r0, #0x31
     moveq r0, #0x30
     strb r0, [r7, #-1]!
@@ -1290,7 +1290,7 @@ asm void func_020194dc(void)
     mov r0, r8
     mov r1, r11
     mov r3, r2
-    bl func_02022194
+    bl _dls
     bhs @L_02019668
     cmp r6, #0x80
     movhs r1, #0

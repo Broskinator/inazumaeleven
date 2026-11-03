@@ -106,11 +106,11 @@ extern "C" void _ZN17UnkClass_020621b413func_02077c4cEv(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_02077ce4Ev(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003bb8(void);
-extern "C" void func_020224cc(void);
+extern "C" void _ffltu(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" s32 func_02091d54(...);
 extern "C" s32 func_02091d64(...);
 extern "C" s32 func_020920c4(...);
@@ -3014,17 +3014,17 @@ extern "C" asm void func_ov066_02168734(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     beq @L_02168900
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0216890c
 @L_02168900:
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0216890c:
-    bl func_02022b2c
+    bl _ffix
     ldr r2, =data_020c4694
     mov r1, r0
     ldr r0, [r2]

@@ -62,11 +62,11 @@ extern "C" void _ZN17UnkClass_020621b413func_0206b628Ev(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_0206d9a0Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0206de54Eii(void);
-extern "C" void func_02022484(void);
-extern "C" void func_020224cc(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _fflt(void);
+extern "C" void _ffltu(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_02080b90(void);
 extern "C" void func_02080b98(void);
 extern "C" void func_02080c6c(void);
@@ -675,17 +675,17 @@ extern "C" asm void func_ov015_0213782c(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     beq @L_021378a8
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021378b4
 @L_021378a8:
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021378b4:
-    bl func_02022b2c
+    bl _ffix
     mov r1, r0
     ldr r0, [r5]
     bl func_02095ea4
@@ -1799,15 +1799,15 @@ extern "C" asm void func_ov015_021387fc(void)
     add r9, r1, #0x2000
     mov r0, r0, lsl #0xc
     ble @L_02138910
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0213891c
 @L_02138910:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0213891c:
     mov r10, r0
     ldr r0, [sp, #8]
@@ -1815,38 +1815,38 @@ extern "C" asm void func_ov015_021387fc(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02138948
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02138954
 @L_02138948:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02138954:
     mov r5, r0
     ldr r0, [sp, #0xc]
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_0213897c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02138988
 @L_0213897c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02138988:
-    bl func_02022b2c
+    bl _ffix
     mov r11, r0
     mov r0, r5
-    bl func_02022b2c
+    bl _ffix
     mov r5, r0
     mov r0, r10
-    bl func_02022b2c
+    bl _ffix
     mov r3, r5
     str r0, [sp]
     ldr r5, =data_020c4678
@@ -2368,15 +2368,15 @@ extern "C" asm void func_ov015_021390a4(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021391a4
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021391b0
 @L_021391a4:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021391b0:
     ldr r1, =data_020c4de0
     mov r4, r0
@@ -2388,20 +2388,20 @@ extern "C" asm void func_ov015_021390a4(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021391ec
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021391f8
 @L_021391ec:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021391f8:
-    bl func_02022b2c
+    bl _ffix
     mov r6, r0
     mov r0, r4
-    bl func_02022b2c
+    bl _ffix
     mov r1, #0xfa0000
     rsb r1, r1, #0
     str r1, [sp]
@@ -3254,17 +3254,17 @@ extern "C" asm void func_ov015_02139f38(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     beq @L_0213a048
-    bl func_020224cc
+    bl _ffltu
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0213a054
 @L_0213a048:
-    bl func_020224cc
+    bl _ffltu
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0213a054:
-    bl func_02022b2c
+    bl _ffix
     mov r1, r10
     add r2, sp, #4
     add r3, sp, #8

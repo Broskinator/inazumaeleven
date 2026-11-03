@@ -139,11 +139,11 @@ extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02017278(void);
-extern "C" void func_02022348(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_02022e2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _fgr(void);
+extern "C" void _ffix(void);
+extern "C" void _fmul(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_0213e11c(void);
@@ -1527,61 +1527,61 @@ asm void TreasureBox::func_02053098()
 @L_02053298:
     ldr r0, [r4, #0x18]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x18]
     ldr r0, =0x45800000
     bls @L_020532c4
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_020532d0
 @L_020532c4:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_020532d0:
     mov r9, r0
     ldr r0, [r4, #0x14]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x14]
     ldr r0, =0x45800000
     bls @L_02053300
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0205330c
 @L_02053300:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0205330c:
     mov r7, r0
     ldr r0, [r4, #0x10]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x10]
     ldr r0, =0x45800000
     bls @L_0205333c
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02053348
 @L_0205333c:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02053348:
-    bl func_02022b2c
+    bl _ffix
     mov r8, r0
     mov r0, r7
-    bl func_02022b2c
+    bl _ffix
     mov r7, r0
     mov r0, r9
-    bl func_02022b2c
+    bl _ffix
     mov r3, r7
     str r0, [sp]
     mov r7, #0
@@ -1593,53 +1593,53 @@ asm void TreasureBox::func_02053098()
     bl _ZN17UnkClass_0205480013func_0205d2acEv
     ldr r0, [r4, #0x24]
     mov r1, r7
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x24]
     ldr r0, =0x45800000
     bls @L_020533b4
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_020533c0
 @L_020533b4:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_020533c0:
     mov r9, r0
     ldr r0, [r4, #0x20]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x20]
     ldr r0, =0x45800000
     bls @L_020533f0
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_020533fc
 @L_020533f0:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_020533fc:
     mov r7, r0
     ldr r0, [r4, #0x1c]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x1c]
     ldr r0, =0x45800000
     bls @L_0205342c
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02053438
 @L_0205342c:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02053438:
     b @L_020537a4
 @L_0205343c:
@@ -1680,41 +1680,41 @@ asm void TreasureBox::func_02053098()
     bl _ZN17UnkClass_0205480013func_0205d2acEv
     ldr r0, [r4, #0x24]
     mov r1, r7
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x24]
     ldr r0, =0x45800000
     bls @L_020534ec
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_020534f8
 @L_020534ec:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_020534f8:
     mov r9, r0
     ldr r0, [r4, #0x1c]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x1c]
     ldr r0, =0x45800000
     bls @L_02053528
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02053534
 @L_02053528:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02053534:
-    bl func_02022b2c
+    bl _ffix
     mov r7, r0
     mov r0, r9
-    bl func_02022b2c
+    bl _ffix
     mov r2, r7
     str r0, [sp]
     mov r0, #0
@@ -1774,61 +1774,61 @@ asm void TreasureBox::func_02053098()
 @L_02053604:
     ldr r0, [r4, #0x18]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x18]
     ldr r0, =0x45800000
     bls @L_02053630
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0205363c
 @L_02053630:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0205363c:
     mov r9, r0
     ldr r0, [r4, #0x14]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x14]
     ldr r0, =0x45800000
     bls @L_0205366c
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02053678
 @L_0205366c:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02053678:
     mov r7, r0
     ldr r0, [r4, #0x10]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x10]
     ldr r0, =0x45800000
     bls @L_020536a8
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_020536b4
 @L_020536a8:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_020536b4:
-    bl func_02022b2c
+    bl _ffix
     mov r8, r0
     mov r0, r7
-    bl func_02022b2c
+    bl _ffix
     mov r7, r0
     mov r0, r9
-    bl func_02022b2c
+    bl _ffix
     mov r3, r7
     str r0, [sp]
     mov r7, #0
@@ -1840,61 +1840,61 @@ asm void TreasureBox::func_02053098()
     bl _ZN17UnkClass_0205480013func_0205d2acEv
     ldr r0, [r4, #0x24]
     mov r1, r7
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x24]
     ldr r0, =0x45800000
     bls @L_02053720
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_0205372c
 @L_02053720:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_0205372c:
     mov r9, r0
     ldr r0, [r4, #0x20]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x20]
     ldr r0, =0x45800000
     bls @L_0205375c
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02053768
 @L_0205375c:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02053768:
     mov r7, r0
     ldr r0, [r4, #0x1c]
     mov r1, #0
-    bl func_02022348
+    bl _fgr
     ldr r1, [r4, #0x1c]
     ldr r0, =0x45800000
     bls @L_02053798
-    bl func_02022e2c
+    bl _fmul
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_020537a4
 @L_02053798:
-    bl func_02022e2c
+    bl _fmul
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_020537a4:
-    bl func_02022b2c
+    bl _ffix
     mov r8, r0
     mov r0, r7
-    bl func_02022b2c
+    bl _ffix
     mov r7, r0
     mov r0, r9
-    bl func_02022b2c
+    bl _ffix
     str r0, [sp]
     mov r0, #0
     str r0, [sp, #4]

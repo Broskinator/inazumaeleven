@@ -99,10 +99,10 @@ extern "C" void _ZN9ChunkFileD1Ev(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
 extern "C" void func_01ffca10(void);
-extern "C" void func_02022484(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _fflt(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" void func_0202b608(void);
 extern "C" void func_02084c8c(void);
 extern "C" s32 func_02085b6c(...);
@@ -2142,17 +2142,17 @@ extern "C" asm void func_ov000_02103f7c(void)
     cmp r4, #0
     mov r0, r4, lsl #0xc
     ble @L_021049e4
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021049f0
 @L_021049e4:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021049f0:
-    bl func_02022b2c
+    bl _ffix
     ldr r2, =data_020c4694
     mov r1, r0
     ldr r0, [r2]

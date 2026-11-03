@@ -96,10 +96,10 @@ extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" s32 _Znam(...);
-extern "C" s32 func_020224cc(...);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _ffltu(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" void func_020255e4(void);
 extern "C" void func_020802a0(void);
 extern "C" void func_020823a0(void);
@@ -1238,13 +1238,13 @@ extern "C" s32 func_ov027_02166c4c(u8 *arg0)
     func_ov015_02161710(t0, t1);
     arg0 = (u8 *)(*(s32 *)(((u8 *)&data_020c484c)) << 0xC);
     if (*(s32 *)(((u8 *)&data_020c484c)) != 0) {
-        v10 = func_020224cc((s32)arg0);
-        func_0202300c(0x3F000000, v10);
+        v10 = _ffltu((s32)arg0);
+        _fadd(0x3F000000, v10);
     } else {
-        v12 = func_020224cc((s32)arg0);
-        func_0202323c(v12, 0x3F000000);
+        v12 = _ffltu((s32)arg0);
+        _fsub(v12, 0x3F000000);
     }
-    v14 = func_02022b2c();
+    v14 = _ffix();
     t2 = *(s32 *)(((u8 *)&data_020c4694));
     func_02095ea4(t2, v14, (s32)((u8 *)&data_020c4694));
     if (*(u8 *)(r4 + 0x2C) == 6) {

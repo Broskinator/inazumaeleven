@@ -96,10 +96,10 @@ extern "C" s32 func_02004120(...);
 extern "C" void func_02004fd8(void);
 extern "C" void func_02008450(void);
 extern "C" void func_02018328(void);
-extern "C" s32 func_020224cc(...);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _ffltu(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" void func_02027ccc(void);
 extern "C" void func_02027ce0(void);
 extern "C" void func_02027cf4(void);
@@ -1547,13 +1547,13 @@ extern "C" s32 func_0209a300(s32 arg0, s32 arg1, u8 *arg2, u8 *arg3)
             r6 = (u8 *)r5;
             r0 = (*(s32 *)(((u8 *)(r10 + (t0 << 3))) + 0xC) << 0xC);
             if (*(s32 *)(((u8 *)(r10 + (t0 << 3))) + 0xC) != 0) {
-                v0 = func_020224cc(r0, r1);
-                func_0202300c(r4, v0);
+                v0 = _ffltu(r0, r1);
+                _fadd(r4, v0);
             } else {
-                v2 = func_020224cc(r0, r1);
-                func_0202323c(v2, r11);
+                v2 = _ffltu(r0, r1);
+                _fsub(v2, r11);
             }
-            v4 = func_02022b2c();
+            v4 = _ffix();
             *(s32 *)(r8) = v4;
             r0 = v4;
             r1 = *(u16 *)(r9);

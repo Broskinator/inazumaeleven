@@ -2,10 +2,10 @@
 
 void __kernel_sin(void);
 
-void func_02022b60(void);
+void _dfix(void);
 void func_02021adc(void);
-void func_020213f8(void);
-void func_02021728(void);
+void _dadd(void);
+void _dsub(void);
 
 asm void __kernel_sin(void)
 {
@@ -20,7 +20,7 @@ asm void __kernel_sin(void)
     bge @L_02020398
     ldr r0, [sp, #0x30]
     ldr r1, [sp, #0x34]
-    bl func_02022b60
+    bl _dfix
     cmp r0, #0
     ldreq r0, [sp, #0x30]
     ldreq r1, [sp, #0x34]
@@ -50,7 +50,7 @@ asm void __kernel_sin(void)
     mov r3, r1
     ldr r0, =0x8a2b9ceb
     ldr r1, =0xbe5ae5e6
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -60,7 +60,7 @@ asm void __kernel_sin(void)
     mov r3, r1
     ldr r0, =0x57b1fe7d
     ldr r1, =0x3ec71de3
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -70,7 +70,7 @@ asm void __kernel_sin(void)
     mov r3, r1
     ldr r0, =0x19c161d5
     ldr r1, =0xbf2a01a0
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -80,7 +80,7 @@ asm void __kernel_sin(void)
     mov r3, r1
     ldr r0, =0x1110f8a6
     ldr r1, =0x3f811111
-    bl func_020213f8
+    bl _dadd
     mov r11, r0
     mov r8, r1
     ldr r0, [sp, #0x40]
@@ -95,7 +95,7 @@ asm void __kernel_sin(void)
     mov r3, r1
     ldr r0, =0x55555549
     ldr r1, =0xbfc55555
-    bl func_020213f8
+    bl _dadd
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -105,7 +105,7 @@ asm void __kernel_sin(void)
     mov r3, r1
     ldr r0, [sp, #0x30]
     ldr r1, [sp, #0x34]
-    bl func_020213f8
+    bl _dadd
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -127,7 +127,7 @@ asm void __kernel_sin(void)
     mov r3, r1
     ldr r0, [sp, #8]
     ldr r1, [sp, #4]
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -135,7 +135,7 @@ asm void __kernel_sin(void)
     bl func_02021adc
     mov r2, r10
     mov r3, r9
-    bl func_02021728
+    bl _dsub
     mov r2, r4
     mov r4, r0
     mov r5, r1
@@ -147,12 +147,12 @@ asm void __kernel_sin(void)
     mov r3, r1
     mov r0, r4
     mov r1, r5
-    bl func_02021728
+    bl _dsub
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x30]
     ldr r1, [sp, #0x34]
-    bl func_02021728
+    bl _dsub
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10

@@ -73,10 +73,10 @@ extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZdlPv(void);
-extern "C" s32 func_02022484(...);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _fflt(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" void func_020956f8(void);
 extern "C" s32 func_02095d14(...);
 extern "C" u8 *func_020960ac(void *self, int a);
@@ -148,17 +148,17 @@ extern "C" asm void func_020965e0(void)
     cmp r8, #0
     mov r0, r9
     ble @L_0209665c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, r4
-    bl func_0202300c
+    bl _fadd
     b @L_02096668
 @L_0209665c:
-    bl func_02022484
+    bl _fflt
     mov r1, r11
-    bl func_0202323c
+    bl _fsub
 @L_02096668:
-    bl func_02022b2c
+    bl _ffix
     str r0, [r6, #0x30]
 @L_02096670:
     sub r7, r7, #1
@@ -428,13 +428,13 @@ extern "C" s32 func_020969cc(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     r4 = (u8 *)v0;
     arg0 = ((0 - r5) << 0xC);
     if ((0 - r5) > 0) {
-        v1 = func_02022484(arg0);
-        func_0202300c(0x3F000000, v1);
+        v1 = _fflt(arg0);
+        _fadd(0x3F000000, v1);
     } else {
-        v3 = func_02022484(arg0);
-        func_0202323c(v3, 0x3F000000);
+        v3 = _fflt(arg0);
+        _fsub(v3, 0x3F000000);
     }
-    v5 = func_02022b2c();
+    v5 = _ffix();
     *(s32 *)(r4 + 0x30) = v5;
     return v5;
 }
@@ -454,22 +454,22 @@ extern "C" s32 func_02096a20(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
         return (s32)v0;
     r4 = (u8 *)v0;
     if (arg3 > 0) {
-        v1 = func_02022484((arg3 << 0xC));
-        func_0202300c(0x3F000000, v1);
+        v1 = _fflt((arg3 << 0xC));
+        _fadd(0x3F000000, v1);
     } else {
-        v3 = func_02022484((arg3 << 0xC));
-        func_0202323c(v3, 0x3F000000);
+        v3 = _fflt((arg3 << 0xC));
+        _fsub(v3, 0x3F000000);
     }
-    v5 = func_02022b2c();
+    v5 = _ffix();
     *(s32 *)(r4 + 0x28) = v5;
     if (arg4 > 0) {
-        v6 = func_02022484((arg4 << 0xC), arg4);
-        func_0202300c(0x3F000000, v6);
+        v6 = _fflt((arg4 << 0xC), arg4);
+        _fadd(0x3F000000, v6);
     } else {
-        v8 = func_02022484((arg4 << 0xC), arg4);
-        func_0202323c(v8, 0x3F000000);
+        v8 = _fflt((arg4 << 0xC), arg4);
+        _fsub(v8, 0x3F000000);
     }
-    v10 = func_02022b2c();
+    v10 = _ffix();
     *(s32 *)(r4 + 0x2C) = v10;
     return v10;
 }
@@ -515,13 +515,13 @@ extern "C" s32 func_02096b24(s32 arg0, s32 arg1, s32 arg2)
         return (s32)v0;
     r4 = (u8 *)v0;
     if ((0 - arg2) > 0) {
-        v1 = func_02022484(((0 - arg2) << 0xC));
-        func_0202300c(0x3F000000, v1);
+        v1 = _fflt(((0 - arg2) << 0xC));
+        _fadd(0x3F000000, v1);
     } else {
-        v3 = func_02022484(((0 - arg2) << 0xC));
-        func_0202323c(v3, 0x3F000000);
+        v3 = _fflt(((0 - arg2) << 0xC));
+        _fsub(v3, 0x3F000000);
     }
-    v5 = func_02022b2c();
+    v5 = _ffix();
     *(s32 *)(r4 + 0x14) = v5;
     return v5;
 }
@@ -550,22 +550,22 @@ extern "C" s32 func_02096b8c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
         return (s32)v0;
     r4 = (u8 *)v0;
     if (arg2 > 0) {
-        v1 = func_02022484((arg2 << 0xC));
-        func_0202300c(0x3F000000, v1);
+        v1 = _fflt((arg2 << 0xC));
+        _fadd(0x3F000000, v1);
     } else {
-        v3 = func_02022484((arg2 << 0xC));
-        func_0202323c(v3, 0x3F000000);
+        v3 = _fflt((arg2 << 0xC));
+        _fsub(v3, 0x3F000000);
     }
-    v5 = func_02022b2c();
+    v5 = _ffix();
     *(s32 *)(r4 + 0xC) = v5;
     if (arg3 > 0) {
-        v6 = func_02022484((arg3 << 0xC));
-        func_0202300c(0x3F000000, v6);
+        v6 = _fflt((arg3 << 0xC));
+        _fadd(0x3F000000, v6);
     } else {
-        v8 = func_02022484((arg3 << 0xC));
-        func_0202323c(v8, 0x3F000000);
+        v8 = _fflt((arg3 << 0xC));
+        _fsub(v8, 0x3F000000);
     }
-    v10 = func_02022b2c();
+    v10 = _ffix();
     *(s32 *)(r4 + 0x10) = v10;
     return v10;
 }

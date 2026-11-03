@@ -265,11 +265,11 @@ extern "C" void func_0200c974(void);
 extern "C" void func_02016d0c(void);
 extern "C" void func_02017cdc(void);
 extern "C" void func_0201aa04(void);
-extern "C" void func_02022484(void);
+extern "C" void _fflt(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02022b2c(void);
-extern "C" void func_0202300c(void);
-extern "C" void func_0202323c(void);
+extern "C" void _ffix(void);
+extern "C" void _fadd(void);
+extern "C" void _fsub(void);
 extern "C" s32 func_02080b90(...);
 extern "C" s32 func_02080be4(...);
 extern "C" s32 func_02087bec(...);
@@ -308,17 +308,17 @@ extern "C" asm void func_ov015_02131004(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02131048
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02131054
 @L_02131048:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02131054:
-    bl func_02022b2c
+    bl _ffix
     mov r1, #0x64000
     bl func_02001d60
     add r5, sp, #4
@@ -331,17 +331,17 @@ extern "C" asm void func_ov015_02131004(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02131098
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021310a4
 @L_02131098:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021310a4:
-    bl func_02022b2c
+    bl _ffix
     mov r1, #0x64000
     bl func_02001d60
     add r4, sp, #0
@@ -353,17 +353,17 @@ extern "C" asm void func_ov015_02131004(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_021310e4
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_021310f0
 @L_021310e4:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_021310f0:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, =data_020ac094
     ldr r2, [r7]
     ldr r1, [r1, #0x28]
@@ -379,17 +379,17 @@ extern "C" asm void func_ov015_02131004(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02131144
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02131150
 @L_02131144:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02131150:
-    bl func_02022b2c
+    bl _ffix
     ldr r2, =data_020ac094
     ldr r3, [r7, #4]
     ldr r1, =data_020c4de0

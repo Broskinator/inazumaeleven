@@ -129,10 +129,10 @@ extern "C" void func_02002bf4(void);
 extern "C" s32 func_02002c0c(...);
 extern "C" void func_02002c20(void);
 extern "C" void func_02008cb4(void);
-extern "C" s32 func_02022484(...);
-extern "C" s32 func_02022b2c(...);
-extern "C" s32 func_0202300c(...);
-extern "C" s32 func_0202323c(...);
+extern "C" s32 _fflt(...);
+extern "C" s32 _ffix(...);
+extern "C" s32 _fadd(...);
+extern "C" s32 _fsub(...);
 extern "C" void func_0202b4c4(void);
 extern "C" void func_0202b540(void);
 extern "C" void func_0202b608(void);
@@ -1894,14 +1894,14 @@ extern "C" s32 func_02088df4(void)
     r4 = (s32)data_020c46e4;
     if (v0 > 0) {
         v1 = _ZN10ConfigFile6GetIntEPKc(r4, (s32)data_020af680);
-        v2 = func_02022484((v1 << 0xC));
-        func_0202300c(0x3F000000, v2);
+        v2 = _fflt((v1 << 0xC));
+        _fadd(0x3F000000, v2);
     } else {
         v4 = _ZN10ConfigFile6GetIntEPKc(r4, (s32)data_020af690);
-        v5 = func_02022484((v4 << 0xC));
-        func_0202323c(v5, 0x3F000000);
+        v5 = _fflt((v4 << 0xC));
+        _fsub(v5, 0x3F000000);
     }
-    v7 = func_02022b2c();
+    v7 = _ffix();
     r0 = v7;
     if (r0 == 0) {
         r0 = 0x1001000;
@@ -1926,21 +1926,21 @@ extern "C" asm void func_02088eb0(void)
     mov r0, r5
     bl _ZN10ConfigFile6GetIntEPKc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02088f14
 @L_02088ef8:
     ldr r1, =data_020af6c8
     mov r0, r5
     bl _ZN10ConfigFile6GetIntEPKc
     mov r0, r0, lsl #0xc
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02088f14:
-    bl func_02022b2c
+    bl _ffix
     movs r5, r0
     ldr r0, =data_020c46e4
     ldr r1, =data_020af6dc
@@ -1953,17 +1953,17 @@ extern "C" asm void func_02088eb0(void)
     cmp r0, #0
     mov r0, r0, lsl #0xc
     ble @L_02088f5c
-    bl func_02022484
+    bl _fflt
     mov r1, r0
     mov r0, #0x3f000000
-    bl func_0202300c
+    bl _fadd
     b @L_02088f68
 @L_02088f5c:
-    bl func_02022484
+    bl _fflt
     mov r1, #0x3f000000
-    bl func_0202323c
+    bl _fsub
 @L_02088f68:
-    bl func_02022b2c
+    bl _ffix
     ldr r1, =0xb60b60b
     mov r2, #0xb6
     umull r12, r3, r0, r1
