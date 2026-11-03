@@ -28,7 +28,7 @@ extern "C" void *data_020af808[];
 extern "C" void func_02089004(void *a, void *b);
 extern "C" void func_02089024(u8 *obj);
 extern "C" s32 func_02089058(u8 *arg0, u8 *arg1);
-extern "C" void func_020890ac(void);
+extern "C" s32 func_020890ac(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3);
 extern "C" s32 func_02089118(...);
 extern "C" s32 func_0208918c(s32 arg0, u8 *arg1);
 extern "C" int func_02089204(void *self, u8 *obj);
@@ -206,38 +206,30 @@ extern "C" s32 func_02089058(u8 *arg0, u8 *arg1)
     return 0;
 }
 
-extern "C" asm void func_020890ac(void)
+extern "C" s32 func_020890ac(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3)
 {
-    stmdb sp!, {r4, lr}
-    ldr lr, [r0, #0xc]
-    cmp r3, #0
-    movne r12, #0
-    strne r12, [r3]
-    ldr r4, [r0, #4]
-    mov r12, #0
-    cmp r4, #0
-    ble @L_02089110
-@L_020890d0:
-    ldr r0, [lr, #8]
-    tst r0, #1
-    beq @L_02089100
-    ldr r0, [lr]
-    cmp r0, r1
-    ldreq r0, [lr, #4]
-    cmpeq r0, r2
-    bne @L_02089100
-    cmp r3, #0
-    strne lr, [r3]
-    add r0, r12, #1
-    ldmia sp!, {r4, pc}
-@L_02089100:
-    add r12, r12, #1
-    cmp r12, r4
-    add lr, lr, #0x1c
-    blt @L_020890d0
-@L_02089110:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
+    s32 r12;
+    u8 *lr;
+    s32 r4;
+    lr = (u8 *)*(s32 *)(arg0 + 0xC);
+    if ((s32)arg3 != 0) {
+        *(s32 *)(arg3) = 0;
+    }
+    r4 = *(s32 *)(arg0 + 0x4);
+    r12 = 0;
+    if (r4 > 0) {
+        do {
+            if ((((*(s32 *)(lr + 0x8) & 1) != 0 && *(s32 *)(lr) == arg1) && *(s32 *)(lr + 0x4) == arg2)) {
+                if ((s32)arg3 != 0) {
+                    *(s32 *)(arg3) = (s32)lr;
+                }
+                return (r12 + 1);
+            }
+            r12 = (r12 + 1);
+            lr = (u8 *)(lr + 0x1C);
+        } while (r12 < r4);
+    }
+    return 0;
 }
 
 extern "C" asm s32 func_02089118(...)

@@ -141,4 +141,7 @@ struct W2 { s32 w[2]; };
 struct W3 { s32 w[3]; };
 struct W4 { s32 w[4]; };
 
+// N words copied together (a struct assigned: ldmia/stmia pairs)
+template <int N> struct WN { s32 w[N]; };
+
 #endif // GAME_VCALL_HPP

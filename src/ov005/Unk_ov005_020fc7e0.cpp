@@ -16,7 +16,7 @@ extern "C" s32 func_ov005_020fcc9c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov005_020fccc4(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov005_020fcdb0(void);
 extern "C" s32 func_ov005_020fcdc8(...);
-extern "C" void func_ov005_020fce34(void);
+extern "C" s32 func_ov005_020fce34(u8 *arg0);
 extern "C" void func_ov005_020fce84(u8 *arg0);
 extern "C" void func_ov005_020fcee4(void);
 extern "C" void func_ov005_020fd3a4(void);
@@ -533,31 +533,24 @@ extern "C" asm s32 func_ov005_020fcdc8(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov005_020fce34(void)
+extern "C" s32 func_ov005_020fce34(u8 *arg0)
 {
-    ldr r1, [r0, #0x19c]
-    cmp r1, #0x1f
-    blt @L_020fce7c
-    mov r2, r1, lsr #0x1f
-    rsb r1, r2, r1, lsl #31
-    adds r1, r2, r1, ror #31
-    beq @L_020fce68
-    ldr r1, [r0, #0x194]
-    cmp r1, #0xc0
-    movge r2, #2
-    movge r1, #1
-    strgeb r2, [r0, #0x1a4]
-    b @L_020fce78
-@L_020fce68:
-    ldr r1, [r0, #0x198]
-    cmp r1, #0xc0
-    movge r1, #1
-    strgeb r1, [r0, #0x1a4]
-@L_020fce78:
-    strge r1, [r0, #0x1a8]
-@L_020fce7c:
-    ldr r0, [r0, #0x1a8]
-    bx lr
+    s32 r1;
+    r1 = *(s32 *)(arg0 + 0x19C);
+    if (r1 >= 0x1F) {
+        if ((r1 % 2) != 0) {
+            if (*(s32 *)(arg0 + 0x194) >= 0xC0) {
+                *(u8 *)(arg0 + 0x1A4) = 2;
+                *(s32 *)(arg0 + 0x1A8) = 1;
+            }
+        } else {
+            if (*(s32 *)(arg0 + 0x198) >= 0xC0) {
+                *(u8 *)(arg0 + 0x1A4) = 1;
+                *(s32 *)(arg0 + 0x1A8) = 1;
+            }
+        }
+    }
+    return *(s32 *)(arg0 + 0x1A8);
 }
 
 extern "C" void func_ov005_020fce84(u8 *arg0)

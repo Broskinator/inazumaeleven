@@ -147,7 +147,23 @@ class Call:
             if this is fp.base.base or this.render() == fp.base.base.render():
                 rest = ", ".join(value(v, t) for v, t in args[1:])
                 return f"((VCall *){this.render()})->f{fp.off // 4}({rest})"
+        if (self.cast or getattr(self, "untyped", False)) and self.name and any(narrow(v) for v, _ in args):
+            # (an argument made narrower: by the type of the parameter, at each call (MW
+            # doesn't share it between calls, as it does a cast))
+            ts = [narrow(v)[0] if narrow(v) else t for v, t in args]
+            vs = [value(narrow(v)[1]) if narrow(v) else value(v, t) for v, t in args]
+            return f"((s32 (*)({', '.join(ts)})){self.name})({', '.join(vs)})"
         return f"{self.callee()}({', '.join(struct_args(args))})"
+
+
+def narrow(v):
+    """('s16', x) for an argument '(x << 16) >> 16' (and u16, s8, u8, 'x & 0xFF'), or None"""
+    if isinstance(v, Bin) and v.op in (">>", "u>>") and isinstance(v.b, Const) and v.b.n in (16, 24) \
+            and isinstance(v.a, Bin) and v.a.op == "<<" and isinstance(v.a.b, Const) and v.a.b.n == v.b.n:
+        return ({(16, ">>"): "s16", (16, "u>>"): "u16", (24, ">>"): "s8", (24, "u>>"): "u8"}[(v.b.n, v.op)], v.a.a)
+    if isinstance(v, Bin) and v.op == "&" and isinstance(v.b, Const) and v.b.n in (0xFF, 0xFFFF):
+        return ("u8" if v.b.n == 0xFF else "u16", v.a)
+    return None
 
 
 VSLOTS = 128     # (the methods of VCall, in include/game/vcall.hpp)
@@ -343,11 +359,144 @@ SWAPPED = {"eq": "eq", "ne": "ne", "gt": "lt", "lt": "gt", "ge": "le", "le": "ge
            "hi": "lo", "lo": "hi", "cc": "hi", "hs": "ls", "cs": "ls", "ls": "hs"}
 
 
+class Poison:
+    """what a register holds after a struct copy went through it"""
+    t = "s32"
+
+    def render(self):
+        raise Fail("a register after a struct copy")
+
+
+def copies(lines):
+    """the runs of 'ldmia rS!, {r0, r1, r2, r3}; stmia rD!, {r0, r1, r2, r3}' (the last pair
+    without the '!') as one 'copy rD, rS, #N, {r0, r1, r2, r3}': a struct assigned"""
+    out, k = [], 0
+    while k < len(lines):
+        j, n, src, dst, temps = k, 0, None, None, set()
+        # (a big one: in a loop, 'mov rC, #K; L: ldmia; stmia; subs rC, rC, #1; bne L')
+        ml = re.match(r"(@\w+):$", lines[k])
+        if ml and k + 4 < len(lines) and sum(l.count(ml[1]) for l in lines) == 2:
+            m1 = re.match(r"ldmia (r\d+|lr)!, \{([^}-]*)\}$", lines[k + 1])
+            m2 = re.match(r"stmia (r\d+|lr)!, \{([^}-]*)\}$", lines[k + 2])
+            m3 = re.match(r"subs (r\d+|lr), \1, #1$", lines[k + 3])
+            if m1 and m2 and m3 and m1[2] == m2[2] and lines[k + 4] == f"bne {ml[1]}":
+                rs = [x.strip() for x in m1[2].split(",")]
+                kk = [i_ for i_ in range(len(out) - 1, max(-1, len(out) - 8), -1)
+                      if re.match(rf"mov {m3[1]}, #(\w+)$", out[i_])]
+                if kk and m1[1] not in rs and m2[1] not in rs and m3[1] not in rs + [m1[1], m2[1]] \
+                        and not any(m3[1] in re.findall(r"\b(?:r\d+|lr)\b", l) for l in out[kk[0] + 1:]):
+                    cnt = imm(re.match(r"mov \w+, #(\w+)$", out[kk[0]])[1])
+                    del out[kk[0]]
+                    src, dst, temps = m1[1], m2[1], set(rs) | {m3[1], m1[1], m2[1]}
+                    n, j = cnt * 4 * len(rs), k + 5
+                    m1 = re.match(r"ldmia (r\d+|lr), \{([^}-]*)\}$", lines[j]) if j + 1 < len(lines) else None
+                    m2 = re.match(r"stmia (r\d+|lr), \{([^}-]*)\}$", lines[j + 1]) if m1 else None
+                    if m1 and m2 and m1[1] == src and m2[1] == dst and m1[2] == m2[2]:
+                        rs = [x.strip() for x in m1[2].split(",")]
+                        n += 4 * len(rs)
+                        temps |= set(rs)
+                        j += 2
+                    out.append(f"copy {dst}, {src}, #{n:#x}, {{{', '.join(sorted(temps, key=lambda r: int(r[1:]) if r[1:].isdigit() else 99))}}}")
+                    k = j
+                    continue
+        while j + 1 < len(lines):
+            m1 = re.match(r"ldmia (r\d+|lr)(!?), \{([^}-]*)\}$", lines[j])
+            m2 = re.match(r"stmia (r\d+|lr)(!?), \{([^}-]*)\}$", lines[j + 1])
+            if not (m1 and m2 and m1[3] == m2[3] and m1[2] == m2[2] and m1[1] != m2[1]):
+                break
+            rs = [x.strip() for x in m1[3].split(",")]
+            if m1[1] in rs or m2[1] in rs or src not in (None, m1[1]) or dst not in (None, m2[1]):
+                break
+            src, dst = m1[1], m2[1]
+            n += 4 * len(rs)
+            temps |= set(rs)
+            j += 2
+            if not m1[2]:
+                break
+            temps |= {src, dst}     # (the bases moved on)
+        m1 = re.match(r"ldmia (r\d+|lr), \{([^}-]*)\}$", lines[k]) if j == k else None
+        if m1:
+            # (one pair with other instructions between: 'ldmia r1, {r2, r3}; mov r0, r5; stmia r12, {r2, r3}')
+            rs, done_ = [x.strip() for x in m1[2].split(",")], False
+            for e in range(k + 2, min(k + 6, len(lines))):
+                m2 = re.match(r"stmia (r\d+|lr), \{([^}-]*)\}$", lines[e])
+                if not m2:
+                    continue
+                mid = lines[k + 1:e]
+                rx = [set(re.findall(r"\b(?:r\d+|lr|sp)\b", l)) for l in mid]
+                wx = [set(re.findall(r"^\w+ (r\d+|lr)\b", l)) for l in mid]
+                if m2[2] != m1[2] or m1[1] in rs or m2[1] in rs or m1[1] == m2[1] \
+                        or any(re.match(r"(@|b|ldr|str|ldm|stm|cmp|cmn|tst)", l) or re.match(r"\w+s ", l) for l in mid) \
+                        or any(x & set(rs) for x in rx):
+                    break
+                wsrc = any(m1[1] in w for w in wx)
+                if wsrc and any(m2[1] in w for w in wx):
+                    break
+                cp = f"copy {m2[1]}, {m1[1]}, #{4 * len(rs):#x}, {{{', '.join(rs)}}}"
+                out.extend([cp] + mid if wsrc else mid + [cp])
+                k, done_ = e + 1, True
+                break
+            if done_:
+                continue
+        if j > k:
+            out.append(f"copy {dst}, {src}, #{n:#x}, {{{', '.join(sorted(temps, key=lambda r: int(r[1:]) if r[1:].isdigit() else 99))}}}")
+            k = j
+            continue
+        out.append(lines[k])
+        k += 1
+    return out
+
+
+def untail(lines):
+    """conditional instructions at the start of a label that only unconditional branches
+    and the code before it get to (MW merged the same code at the end of two ways, each with
+    its own compare): back at the end of each way"""
+    for _ in range(4):
+        changed = False
+        for i, l in enumerate(lines):
+            m = re.match(r"(@\w+):$", l)
+            if not m or i == 0:
+                continue
+            lb = m[1]
+            run, c = [], None
+            for x in lines[i + 1:]:
+                sm = split_mnemonic(x.split()[0]) if not x.endswith(":") else None
+                if sm is None or not sm[1] or sm[0] in ("b", "bl", "blx", "bx", "cmp", "cmn", "tst") or sm[2] \
+                        or re.match(r"(ldm|stm)", x) or c not in (None, sm[1]):
+                    break
+                c = sm[1]
+                run.append(x)
+            if not run:
+                continue
+            uses = [j for j, x in enumerate(lines) if re.search(rf"{re.escape(lb)}(?!\w)", x) and j != i]
+            if not uses or any(not re.match(rf"b {re.escape(lb)}$", lines[j]) for j in uses):
+                continue
+            prev = lines[i - 1]
+            falls = not (re.match(r"(b|bx) ", prev) or re.match(r"ldmia sp!, \{[^}]*pc\}$", prev) or prev.endswith(":"))
+            if prev.endswith(":"):
+                continue
+            new = []
+            for j, x in enumerate(lines):
+                if j == i and falls:
+                    new += run
+                if j in uses:
+                    new += run
+                if i < j <= i + len(run):
+                    continue
+                new.append(x)
+            lines = new
+            changed = True
+            break
+        if not changed:
+            break
+    return lines
+
+
 def stm_sp(lines):
     """lines with 'stmia sp, {r0, r1}' (arguments on the stack, MW makes one of the stores)
     as the stores: 'str r0, [sp]', 'str r1, [sp, #4]' ('stmib': from sp + 4)"""
     out = []
-    for l in lines:
+    for l in copies(lines):
         m = re.match(r"stm(ia|ib|ea|fa)? sp, \{([^}]*)\}$", l)
         if m:
             regs_ = [x.strip() for x in m[2].split(",")]
@@ -539,6 +688,17 @@ def lift(name, body, protos, variant=0):
             v.ldm = "0X" in op
             write(m[1], v)
             continue
+        mc = re.match(r"(r\d+|lr), (r\d+|lr), #(\w+), \{([^}]*)\}$", op)
+        if mn == "copy" and mc:
+            m_ = settle(regs, stmts, tmps)
+            if flags and m_:
+                flags = subst_flags(flags, m_)
+            t_ = "s64" if imm(mc[3]) == 8 else f"WN<{imm(mc[3]) // 4}>"
+            stmts.append(("store", t_, read(mc[1]), 0, Load(t_, read(mc[2]), 0)))
+            for r in [x.strip() for x in mc[4].split(",")]:
+                write(r, Poison())
+                seg.discard(r)
+            continue
         if mn in STORE and m:
             m_ = settle(regs, stmts, tmps)
             if flags and m_:
@@ -592,12 +752,15 @@ def lift(name, body, protos, variant=0):
     # still in their registers before the first call; then the words stored on the stack)
     for c in calls:
         p = protos[c.name]
-        if isinstance(p, tuple) and (c.stack or max([int(r[1:]) + 1 for r in c.seg if r in ("r0", "r1", "r2", "r3")] + [0]) > len(p[1])):
+        if isinstance(p, tuple) and (c.stack or max([int(r[1:]) + 1 for r in c.seg if r in ("r0", "r1", "r2", "r3")] + [0]) > len(p[1])
+                                     and c.name not in CDEF):
             p, c.cast = VAR, True
         if p in ("void(void)", VAR):
             n = max([int(r[1:]) + 1 for r in c.seg if r in ("r0", "r1", "r2", "r3")] + [0])
             if p == "void(void)" and (mangled_args(c.name) or 0) <= 4:
                 n = max(n, mangled_args(c.name) or 0)
+            if p == "void(void)" and ASMP.get(c.name, GLOBALP.get(c.name)) is not None and not c.stack:
+                n = min(n, ASMP.get(c.name, GLOBALP.get(c.name)))
             if c.first:
                 n = max([n] + [i + 1 for i in params if i < 4 and isinstance(c.regs.get(f"r{i}"), Param) and c.regs[f"r{i}"].i == i])
             if c.stack:
@@ -619,6 +782,7 @@ def lift(name, body, protos, variant=0):
                 t = "u8 *"     # (an address as a pointer: MW keeps a number in a register for all its uses)
             c.args.append((v, t))
         c.ret = "s32" if p in ("void(void)", VAR) else p[0]
+        c.untyped = p in ("void(void)", VAR)
         if c.used and c.ret == "void":
             c.cast, c.ret = True, "s32"     # (it returns something after all: through a cast)
     n = max(params) + 1 if params else 0
@@ -700,7 +864,7 @@ class Var(Param):
 REGS = [f"r{i}" for i in range(13)] + ["lr"]
 CONDS = ("eq", "ne", "gt", "ge", "lt", "le", "hi", "hs", "cs", "lo", "cc", "ls", "mi", "pl")
 BASES = sorted(list(LOAD) + list(STORE) + ["add", "sub", "rsb", "and", "orr", "eor", "bic", "mul", "mla",
-                                         "mov", "mvn", "cmp", "cmn", "tst", "b", "bl", "blx", "bx"], key=len, reverse=True)
+                                         "mov", "mvn", "cmp", "cmn", "tst", "b", "bl", "blx", "bx", "copy"], key=len, reverse=True)
 OPPOSITE.update({"mi": "pl", "pl": "mi", "t": "f", "f": "t"})
 COND.update({"mi": "<", "pl": ">="})
 
@@ -871,6 +1035,34 @@ def unpredicate(insns):
     out, k, n = [], 0, 0
     last_cmp, crossed, written = None, False, set()
 
+    def wr(x):
+        return defs(x) | (set(re.findall(r"\[(r\d+)", x[4])) if re.search(r"\]!|\], #", x[4]) else set())
+
+    def mem(x):
+        mm_ = re.search(r"\[(r\d+|lr)(?:, #(-?\w+))?\]$", x[4])
+        return (mm_[1], imm(mm_[2] or "0"), 1 if x[1] in ("ldrb", "strb", "ldrsb") else 2 if x[1] in ("ldrh", "strh", "ldrsh") else 4) if mm_ else None
+
+    def rg(x):
+        return set(re.findall(r"\b(?:r\d+|lr|sp)\b", x[4]))
+
+    def commute(xs, ys):
+        """whether the instructions xs (none of them conditional or setting flags) can go
+        on the other side of ys: registers, and memory (a store and another access of one
+        base, other bytes of it)"""
+        for x in xs:
+            for y in ys:
+                if y[0] is not None or y[1] in ("b", "end"):
+                    continue
+                if wr(x) & rg(y) or rg(x) & wr(y):
+                    return False
+                if (x[1] in STORE or y[1] in STORE) and (x[1] in STORE or x[1] in LOAD) and (y[1] in STORE or y[1] in LOAD):
+                    mx, my = mem(x), mem(y)
+                    if mx is None or my is None or my[0] != mx[0] or my[1] < mx[1] + mx[2] and mx[1] < my[1] + my[2]:
+                        return False
+                if y[1] in ("bl", "blx") or x[1] in ("bl", "blx"):
+                    return False
+        return True
+
     def sets_flags(ins):
         return ins[1] in ("cmp", "cmn", "tst", "bl", "blx") or ins[3]
 
@@ -879,6 +1071,8 @@ def unpredicate(insns):
             return set()
         if ins[1] in ("bl", "blx"):
             return {"r0", "r1", "r2", "r3", "r12"}
+        if ins[1] == "copy":
+            return set(re.findall(r"\b(r\d+|lr)\b", ins[4].split("{")[1]))
         m = re.match(r"(r\d+|lr)\b", ins[4])
         return {m[1]} if m else set()
 
@@ -920,14 +1114,18 @@ def unpredicate(insns):
             j = k
             while j < len(insns) and j - k < 3 and insns[j][0] is None and not insns[j][2] \
                     and insns[j][1] not in ("b", "ret", "switch", "bl", "blx") and not sets_flags(insns[j]) \
-                    and insns[j][1] not in LOAD and insns[j][1] not in STORE:
+                    and not re.search(r"\]!|\], #", insns[j][4]):
                 j += 1
             if j > k and j < len(insns) and insns[j][0] is None and insns[j][2] == c \
                     and insns[j][1] not in ("b", "ret", "switch"):
                 mid = insns[k:j]
-                rest = [insns[j]]
-                used_ = set().union(*[regs_of(x) for x in run + rest])
-                if not any(regs_of(x) & used_ for x in mid):
+                # (the rest of the run, as far as it goes on)
+                e = j
+                while e < len(insns) and insns[e][0] is None and insns[e][2] == c and insns[e][1] not in ("b", "ret", "switch"):
+                    e += 1
+                    if sets_flags(insns[e - 1]):
+                        break
+                if commute(mid, insns[j:e]):
                     later += mid
                     k = j
         # (instructions of their own after the run, before something on its condition (a
@@ -937,12 +1135,29 @@ def unpredicate(insns):
                 and insns[j][1] not in ("b", "ret", "switch", "bl", "blx") and not sets_flags(insns[j]) \
                 and insns[j][1] not in LOAD and insns[j][1] not in STORE:
             j += 1
-        if later and k < len(insns) and insns[k][0] is None and insns[k][2] in (c, OPPOSITE[c]):
-            # (the ones from the middle too, when something on the condition follows the run)
-            for x in later:
-                out.append(x)
-                note(x)
-            later = []
+        if later:
+            # (the ones from the middle too: MW moved them in from before it; right after the
+            # compare, if what's between lets them)
+            q = len(out)
+            while q > 0 and not (out[q - 1][0] is None and sets_flags(out[q - 1])):
+                if out[q - 1][0] is not None and not re.match(r"[PQ]_", out[q - 1][0]):
+                    q = -1
+                    break
+                q -= 1
+            loads_ = any(x[1] in LOAD for x in later)
+            if q > 0 and (loads_ or not commute(later, out[q:] + run)):
+                q = -1
+            if q > 0:
+                out[q:q] = later
+                for x in later:
+                    note(x)
+                later = []
+            elif k < len(insns) and insns[k][0] is None and insns[k][2] in (c, OPPOSITE[c]) and not loads_ \
+                    and commute(later, run):
+                for x in later:
+                    out.append(x)
+                    note(x)
+                later = []
         if j > k and j < len(insns) and insns[j][0] is None and insns[j][2] in (c, OPPOSITE[c]):
             mid = insns[k:j]
             used_ = set().union(*[regs_of(x) for x in run])
@@ -1165,7 +1380,14 @@ def lift_cfg(name, body, protos, variant=0):
     and at its end the registers that are still needed are written to their variables.
     The blocks are put back together as if/else and do/while (what MW makes of them).
     """
-    lines = stm_sp([l.strip() for l in body.strip().split("\n")])
+    lines = untail(stm_sp([l.strip() for l in body.strip().split("\n")]))
+    # (a tail call through r12 at the end: a call, and its value returned)
+    t12 = [j for j, l in enumerate(lines) if re.search(r"\b(r12|ip)\b", l)]
+    if lines[-1] == "bx r12" and len(t12) == 2 and not lines[0].startswith("stmdb"):
+        m = re.match(r"ldr (?:r12|ip), =(\w+)$", lines[t12[0]])
+        if m and m[1] in FUNCS:
+            protos.setdefault(m[1], "void(void)")
+            lines = lines[:t12[0]] + lines[t12[0] + 1:-1] + [f"bl {m[1]}", "bx lr"]
     frame, push = None, 0
     m = re.match(r"stmdb sp!, \{((?:r\d+, )*)lr\}$", lines[0])
     if m:
@@ -1296,6 +1518,8 @@ def lift_cfg(name, body, protos, variant=0):
             return {op.split()[0]}, set()
         if mn in ("bl", "blx"):
             return CALL_USES.get(id(ins), set()) | set(regs_), {"r0", "r1", "r2", "r3", "r12"}
+        if mn == "copy":
+            return set(regs_[:2]), set(re.findall(r"\b(r\d+|lr)\b", op.split("{")[1]))
         if mn in ("cmp", "cmn", "tst") or mn in STORE:
             d = {regs_[1]} if mn in STORE and ("!" in op or re.search(r"\], #", op)) else set()
             return set(regs_), d
@@ -1328,6 +1552,8 @@ def lift_cfg(name, body, protos, variant=0):
             for ins in b["insns"]:
                 if ins[1] in ("bl", "blx"):
                     w = set()
+                elif ins[1] == "copy":
+                    w -= use_def(ins)[1]
                 else:
                     w |= use_def(ins)[1] & A4
             OUTW[k_] = w
@@ -1357,6 +1583,8 @@ def lift_cfg(name, body, protos, variant=0):
                     CALL_USES[id(ins)] |= {"r0", "r1", "r2", "r3"} - ({ins[4]} if ins[1] == "blx" else set())
                 seg_ = set()
                 before = True
+            elif ins[1] == "copy":
+                seg_ -= use_def(ins)[1]
             else:
                 seg_ |= use_def(ins)[1]
                 if ins[1] in STORE and re.search(r"\[sp(, #\w+)?\]$", ins[4]):
@@ -1436,6 +1664,12 @@ def lift_cfg(name, body, protos, variant=0):
         if k and ps_ and ENDF[ps_[0]] is not None and all(ENDF[j] is ENDF[ps_[0]] for j in ps_):
             state["flags"] = ENDF[ps_[0]]
         out_args = {}
+        # (the words stored for a call's arguments on the stack before the blocks of a
+        # conditional run: the same from every block before)
+        if k and ps_ and all(j < k and OUTA.get(j) for j in ps_):
+            a_ = OUTA[ps_[0]]
+            if all(OUTA[j].keys() == a_.keys() and all(OUTA[j][o] is a_[o] for o in a_) for j in ps_):
+                out_args = dict(a_)
         wpos = {}
         retpos = []     # (the returns on a condition: where in stmts, and the writes before them)
 
@@ -1584,6 +1818,19 @@ def lift_cfg(name, body, protos, variant=0):
                     else:
                         raise Fail("a store to the stack")
                 continue
+            mm = re.match(r"(r\d+|lr), (r\d+|lr), #(\w+), \{([^}]*)\}$", op)
+            if mn == "copy" and mm:
+                if c:
+                    raise Fail("a conditional struct copy")
+                m_ = settle(regs, stmts, tmps)
+                if state["flags"] and m_:
+                    state["flags"] = subst_flags(state["flags"], m_)
+                t_ = "s64" if imm(mm[3]) == 8 else f"WN<{imm(mm[3]) // 4}>"
+                stmts.append(("store", t_, read(mm[1]), 0, Load(t_, read(mm[2]), 0)))
+                for r in [x.strip() for x in mm[4].split(",")]:
+                    write(r, Poison())
+                    seg.discard(r)
+                continue
             mm = re.match(r"(r\d+|lr), sp(?:, #(\w+))?$", op)
             if mn == "add" and mm:
                 if c or low is None:
@@ -1689,7 +1936,14 @@ def lift_cfg(name, body, protos, variant=0):
                         del todo[r]
                         break
                 else:
-                    raise Fail("registers swapped")
+                    # (a cycle (two variables swapped): one of them kept in a temporary first)
+                    r, (home, v) = next(iter(todo.items()))
+                    t_ = Tmp(len(tmps), home)
+                    t_.used = True
+                    tmps.append(t_)
+                    stmts.append(("let", t_))
+                    todo = {o2: (h2, subst(v2, {id(home): t_})) for o2, (h2, v2) in todo.items()}
+                    assign.update(todo)
             for home, v in order:
                 # (a number written before a return on a condition (a loop's counter): before
                 # it, the way it was written)
@@ -1753,10 +2007,12 @@ def lift_cfg(name, body, protos, variant=0):
                 m_ = {id(v): home for home, v in order if not any(v is x for _, x in late)}
                 new = subst_flags(term[0], m_)
                 term = (new, term[1])
+        OUTA[k] = out_args
         return stmts, term
     preds0 = [[j for j in range(len(blocks)) if x in blocks[j]["succ"]] for x in range(len(blocks))]
-    SINK, FAILS, HOME, FAILS_R = {}, [], {}, set()
+    SINK, FAILS, HOME, FAILS_R, OUTA = {}, [], {}, set(), {}
     for _ in range(2 * len(blocks) + 8):     # (a value goes on a block each time)
+        OUTA.clear()
         SINK.clear()
         FAILS.clear()
         FAILS_R.clear()
@@ -1879,7 +2135,8 @@ def lift_cfg(name, body, protos, variant=0):
     # (the arguments of the calls, as in lift())
     for cl in calls:
         p = protos[cl.name] if cl.name else VAR
-        if isinstance(p, tuple) and (cl.stack or max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0]) > len(p[1])):
+        if isinstance(p, tuple) and (cl.stack or max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0]) > len(p[1])
+                                     and cl.name not in CDEF):
             p, cl.cast = VAR, True
         if isinstance(p, tuple) and getattr(cl, "nmax", None) is not None and cl.nmax < len(p[1]):
             # (fewer arguments than its declaration: the ones written for it)
@@ -1889,6 +2146,8 @@ def lift_cfg(name, body, protos, variant=0):
             n = max([int(r[1:]) + 1 for r in cl.seg if r in ("r0", "r1", "r2", "r3")] + [0])
             if p == "void(void)" and cl.name and (mangled_args(cl.name) or 0) <= 4:
                 n = max(n, mangled_args(cl.name) or 0)
+            if p == "void(void)" and cl.name and ASMP.get(cl.name, GLOBALP.get(cl.name)) is not None and not cl.stack:
+                n = min(n, ASMP.get(cl.name, GLOBALP.get(cl.name)))
             if cl.first:
                 n = max([n] + [i + 1 for i in range(min(nparams, 4)) if cl.regs.get(f"r{i}") is P[i]])
             if cl.stack:
@@ -1908,6 +2167,7 @@ def lift_cfg(name, body, protos, variant=0):
                 t = "u8 *"     # (an address as a pointer: MW keeps a number in a register for all its uses)
             cl.args.append((v, t))
         cl.ret = "s32" if p in ("void(void)", VAR) else p[0]
+        cl.untyped = p in ("void(void)", VAR)
         if cl.used and cl.ret == "void":
             cl.cast, cl.ret = True, "s32"     # (it returns something after all: through a cast)
     ret = "s32" if returns else "void"
@@ -2177,7 +2437,7 @@ def lift_cfg(name, body, protos, variant=0):
                         st.append(y)
             if reach_ != D:
                 D, changed = reach_, True
-        S, targets = {b: [(MIN_, MAX_)]}, {}
+        S, targets, single = {b: [(MIN_, MAX_)]}, {}, {}
         for d in sorted(D):
             sd = S.get(d, [])
             dk = disp_of(d, xs)
@@ -2196,6 +2456,8 @@ def lift_cfg(name, body, protos, variant=0):
             for y, sy in edges:
                 if not sy:
                     continue
+                if len(sy) == 1 and sy[0][0] == sy[0][1] and y not in D:
+                    single.setdefault(y, set()).add(sy[0][0])     # (a case of its own, wherever it goes)
                 if y in D:
                     S[y] = iv_or(S.get(y, []), sy)
                 else:
@@ -2205,6 +2467,9 @@ def lift_cfg(name, body, protos, variant=0):
             return None
         deflt = big[0]
         vals, ts = [], [deflt]
+        for v_ in sorted(single.get(deflt, ())):
+            vals.append(v_)
+            ts.append(deflt)
         for y in sorted(targets):
             if y == deflt:
                 continue
@@ -2263,8 +2528,9 @@ def lift_cfg(name, body, protos, variant=0):
                 continue
             emitted[b] = emitted.get(b, 0) + 1
             if emitted[b] > 1 and (len(blocks[b]["insns"]) > 2 or blocks[b]["succ"]) and \
-                    not (len(blocks[b]["insns"]) <= 3 and len(blocks[b]["succ"]) == 1 and code[b][1] is None
-                         and not any(i_[1] in ("bl", "blx", "switch") for i_ in blocks[b]["insns"])):
+                    not (len(blocks[b]["insns"]) <= 4 and len(blocks[b]["succ"]) == 1 and code[b][1] is None
+                         and not any(i_[1] in ("blx", "switch") for i_ in blocks[b]["insns"])
+                         and sum(i_[1] == "bl" for i_ in blocks[b]["insns"]) <= 1):
                 # (a short block that goes on to one other: MW merged the same code at the end
                 # of two ways (the C has it twice))
                 raise Fail("goto")     # (a block in two places: only a short return can be)
@@ -2333,7 +2599,7 @@ def lift_cfg(name, body, protos, variant=0):
                     body += "".join(ind_(ind + 1) + lb + "\n" for lb in labels)
                     body += region(t, stop_, ind + 2, (loop[0], loop[1], jn, loop[3], loop[4]) if loop else (None, None, jn, None, set(range(nb))))
                 brk = [vals[k] for k, x in enumerate(ts[1:]) if x == jn]
-                if brk and ts[0] != jn:
+                if brk:
                     # (cases that go straight on after the switch)
                     body += "".join(ind_(ind + 1) + f"case {v_}:\n" for v_ in brk) + ind_(ind + 2) + "break;\n"
                 out.append(ind_(ind) + f"switch ({swx}) {{\n" + body + ind_(ind) + "}\n")
@@ -2481,7 +2747,153 @@ def prototypes(t):
     # (a function in C keeps its declaration, 'void F(void)' too)
     for ret, nm in re.findall(r'^extern "C" (?!asm )(\w+ ?\**) ?(\w+)\(void\)\n\{', t, re.M):
         protos[nm] = (ret.strip(), [])
+    # (and its parameters are all there are: registers written besides them are left over)
+    CDEF.clear()
+    CDEF.update(re.findall(r'^extern "C" (?!asm )\w+ ?\**? ?(\w+)\([^)]*\)\n\{', t, re.M))
+    ASMP.clear()
+    for b in re.finditer(r'^extern "C" asm void (\w+)\(void\)\n\{\n(.*?)\n\}\n', t, re.M | re.S):
+        try:
+            ASMP[b[1]] = asm_params(b[2], protos)
+        except Exception:
+            ASMP[b[1]] = None
     return protos
+
+
+CDEF = set()
+ASMP = {}
+GLOBALP = {}     # (the same for the functions of every file, and the parameters of the ones in C)
+
+
+def global_params():
+    """GLOBALP from build/params.json, made again when a source file is newer"""
+    import glob as glob_, json, os
+    files = glob_.glob(f"{ROOT}/src/**/*.c", recursive=True) + glob_.glob(f"{ROOT}/src/**/*.cpp", recursive=True)
+    files = [f for f in files if not re.search(r"_(try|diff\w*|perm)\.cpp$", f)]
+    cache = f"{ROOT}/build/params.json"
+    try:
+        GLOBALP.update(json.load(open(cache)))     # (delete it to make it again)
+        return
+    except (OSError, ValueError):
+        pass
+    for f in files:
+        t = open(f, errors="replace").read()
+        for b in re.finditer(r'^(?:extern "C" )?asm void (\w+)\(void\)\n\{\n(.*?)\n\}', t, re.M | re.S):
+            try:
+                n = asm_params(b[2], {})
+            except Exception:
+                n = None
+            if n is not None:
+                GLOBALP[b[1]] = n
+        for nm, args in re.findall(r'^(?:extern "C" )?(?!asm )\w+ ?\**? ?(\w+)\(([^)]*)\)\n\{', t, re.M):
+            if "..." not in args:
+                GLOBALP[nm] = 0 if args.strip() in ("", "void") else args.count(",") + 1
+    try:
+        os.makedirs(f"{ROOT}/build", exist_ok=True)
+        json.dump(GLOBALP, open(cache, "w"))
+    except OSError:
+        pass
+
+
+def asm_params(body, protos):
+    """how many of r0-r3 an asm function reads before it writes them (its parameters), by
+    liveness over its instructions; None if it can't tell"""
+    lines = [l.strip() for l in body.strip().split("\n") if l.strip()]
+    labels = {l[:-1]: i for i, l in enumerate(lines) if l.endswith(":")}
+    A = ["r0", "r1", "r2", "r3"]
+    info = []
+    since = set()     # (the argument registers written since the last call or label)
+    for i, l in enumerate(lines):
+        if l.endswith(":"):
+            info.append((set(), set(), [i + 1]))
+            since = set()
+            continue
+        m = re.match(r"(\w+)\s*(.*)$", l)
+        mn, op = m[1], m[2]
+        sm = split_mnemonic(mn)
+        rs = re.findall(r"\b(r\d+|lr|ip|sb|sl|fp)\b", op)
+        nxt = [i + 1]
+        if re.match(r"(ldm|stm)", mn):
+            mm = re.match(r"(ldm|stm)(\w*) (\w+)(!?), \{([^}]*)\}$", l)
+            if not mm:
+                return None
+            lst = [x.strip() for x in mm[5].split(",")]
+            cond = mm[2][2:] if mm[2][:2] in ("ia", "ib", "da", "db", "fd", "ed", "fa", "ea") else mm[2]
+            if mm[3] == "sp":
+                u, d = set(), (set(lst) - {"pc"} if mm[1] == "ldm" else set())
+                if "pc" in lst:
+                    nxt = [i + 1] if cond else []
+            elif mm[1] == "ldm":
+                u, d = {mm[3]}, set(lst)
+            else:
+                u, d = {mm[3]} | set(lst), set()
+            if cond:
+                u = u | d
+            info.append((u, d, nxt))
+            since |= d & set(A)
+            continue
+        if sm is None:
+            if mn in ("smull", "umull", "smlal", "umlal") or re.match(r"(smull|umull|smlal|umlal)", mn):
+                info.append((set(rs[2:]) | (set(rs[:2]) if "la" in mn else set()), set(rs[:2]), nxt))
+                since |= set(rs[:2]) & set(A)
+                continue
+            if re.match(r"(clz|mrs|msr|swi|svc|mcr|mrc|nop)", mn):
+                info.append((set(rs[1:]), set(rs[:1]), nxt))
+                continue
+            return None
+        base, cond, _ = sm
+        if base == "b":
+            t = op.strip()
+            if t.startswith("@") and t in labels:
+                nxt = [labels[t] + 1] + ([i + 1] if cond else [])
+                info.append((set(), set(), nxt))
+            else:
+                # (a tail call: the registers written for it, or all of them if none were)
+                k = max([int(r[1:]) + 1 for r in since] + [0]) or 4
+                info.append(({f"r{j}" for j in range(k)}, set(), [i + 1] if cond else []))
+            continue
+        if base == "bx":
+            k = max([int(r[1:]) + 1 for r in since] + [0]) or 4
+            info.append(((set() if op.strip() == "lr" else {f"r{j}" for j in range(k)} | set(rs)), set(), [i + 1] if cond else []))
+            continue
+        if base in ("bl", "blx"):
+            pr = protos.get(op.strip()) if base == "bl" else None
+            if isinstance(pr, tuple):
+                k = min(4, len(pr[1]))
+            else:
+                k = max([int(r[1:]) + 1 for r in since] + [0])
+            info.append(({f"r{j}" for j in range(k)} | (set(rs) if base == "blx" else set()),
+                         {"r0", "r1", "r2", "r3", "r12"}, nxt))
+            since = set()
+            continue
+        if "pc" in op.split(",")[0]:
+            return None     # (a jump table)
+        if base in ("cmp", "cmn", "tst") or base in STORE:
+            u, d = set(rs), set()
+            if base in STORE and re.search(r"\]!|\], #", op):
+                d = {re.search(r"\[(\w+)", op)[1]}
+        else:
+            u, d = set(rs[1:]), set(rs[:1])
+            if base in LOAD and re.search(r"\]!|\], #", op):
+                d.add(re.search(r"\[(\w+)", op)[1])
+        if cond:
+            u = u | d
+        info.append((u, d, nxt))
+        if not cond:
+            since |= d & set(A)
+    n = len(info)
+    live = [set() for _ in range(n + 1)]
+    for _ in range(n + 2):
+        ch = False
+        for i in range(n - 1, -1, -1):
+            u, d, nxt = info[i]
+            out_ = set().union(*[live[j] for j in nxt if j < n]) if nxt else set()
+            new = u | (out_ - d)
+            if new != live[i]:
+                live[i], ch = new, True
+        if not ch:
+            break
+    ps = [int(r[1:]) for r in live[0] if r in A]
+    return max(ps) + 1 if ps else 0
 
 
 # (the runtime's float functions: their arguments, in words)
@@ -2623,7 +3035,7 @@ def apply(t, name, block, decl, body, protos, callees):
     for d in set(re.findall(r"\(u8 \*\)&(\w+)\)", body)):
         if FUNCS and d not in FUNCS:
             t = re.sub(r'^extern "C" void %s\(void\);' % d, f'extern "C" char {d}[];', t, count=1, flags=re.M)
-    if re.search(r"\((VCall|W\d) \*\)", body) and '#include "game/vcall.hpp"' not in t:
+    if re.search(r"\((VCall|W\d|WN<\d+>) \*\)", body) and '#include "game/vcall.hpp"' not in t:
         t = re.sub(r'^(#include [^\n]*\n)', r'\1#include "game/vcall.hpp"\n', t, count=1, flags=re.M)
     t = re.sub(r'^extern "C" void %s\(void\);' % name, f'extern "C" {decl};', t, count=1, flags=re.M)
     for f in callees:
@@ -2750,6 +3162,7 @@ def lift_file(src, sizes, failed):
 
 
 def main():
+    global_params()
     for src in sys.argv[1:]:
         sizes = {}
         cfgs = ["config/yeep/arm9/symbols.txt"]

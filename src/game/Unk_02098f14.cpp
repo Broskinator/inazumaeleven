@@ -9,7 +9,7 @@ extern "C" void OS_LockMutex(OSMutex *mutex);
 extern "C" void OS_UnlockMutex(OSMutex *mutex);
 
 extern "C" void func_02098f14(void);
-extern "C" void func_02098fac(void);
+extern "C" s32 func_02098fac(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_02099058(s32 arg0, s32 arg1);
 extern "C" s32 func_02099088(s32 arg0, s32 arg1);
 extern "C" s32 func_020990b4(s32 arg0, s32 arg1);
@@ -89,9 +89,9 @@ extern "C" void func_02001f38(void);
 extern "C" void func_02001fa4(void);
 extern "C" void func_02002084(void);
 extern "C" void func_020021f0(void);
-extern "C" void func_02003eec(void);
+extern "C" s32 func_02003eec(...);
 extern "C" s32 func_02004038(...);
-extern "C" void func_020040b0(void);
+extern "C" s32 func_020040b0(...);
 extern "C" s32 func_02004120(...);
 extern "C" void func_02004fd8(void);
 extern "C" void func_02008450(void);
@@ -166,55 +166,36 @@ extern "C" asm void func_02098f14(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_02098fac(void)
+extern "C" s32 func_02098fac(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r4, [sp, #0x18]
-    mov r6, r0
-    add r4, r4, #3
-    ldrb r0, [r1, #8]
-    ldr r12, [r1]
-    bic r4, r4, #3
-    cmp r12, r4
-    movlt r4, r12
-    mov r5, r3
-    cmp r0, #1
-    beq @L_02098fe8
-    cmp r0, #2
-    beq @L_02099018
-    b @L_02099048
-@L_02098fe8:
-    ldr r1, [r1, #4]
-    mov r0, r6
-    mov r1, r1, lsl #0x10
-    add r7, r2, r1, lsr #13
-    bl func_020991ac
-    mov r0, r5
-    mov r1, r7
-    mov r2, r4
-    bl func_02003eec
-    mov r0, r6
-    bl func_020991d8
-    b @L_02099050
-@L_02099018:
-    ldr r1, [r1, #4]
-    mov r0, r6
-    mov r1, r1, lsl #0x10
-    add r7, r2, r1, lsr #13
-    bl func_0209920c
-    mov r0, r5
-    mov r1, r7
-    mov r2, r4
-    bl func_020040b0
-    mov r0, r6
-    bl func_02099238
-    b @L_02099050
-@L_02099048:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02099050:
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r0;
+    s32 r4;
+    s32 r12;
+    s32 t1;
+    s32 t3;
+    r0 = *(u8 *)(arg1 + 0x8);
+    r12 = *(s32 *)(arg1);
+    r4 = ((arg4 + 3) & -4);
+    if (r12 < r4) {
+        r4 = r12;
+    }
+    switch (r0) {
+        case 1:
+            t1 = (arg2 + ((u32)(*(s32 *)(arg1 + 0x4) << 0x10) >> 0xD));
+            func_020991ac((u8 *)arg0);
+            func_02003eec(arg3, t1, r4);
+            func_020991d8((u8 *)arg0);
+            break;
+        case 2:
+            t3 = (arg2 + ((u32)(*(s32 *)(arg1 + 0x4) << 0x10) >> 0xD));
+            func_0209920c((u8 *)arg0);
+            func_020040b0(arg3, t3, r4);
+            func_02099238((u8 *)arg0);
+            break;
+        default:
+            return 0;
+    }
+    return 1;
 }
 
 extern "C" s32 func_02099058(s32 arg0, s32 arg1)
