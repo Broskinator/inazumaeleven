@@ -31,7 +31,7 @@ extern "C" void func_02083fe8(void);
 extern "C" u16 func_02084094(fx32 *segment);
 extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b);
 extern "C" int func_020840e0(int a, int b);
-extern "C" void func_02084100(void);
+extern "C" s32 func_02084100(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_0208413c(s32 arg0, s32 arg1);
 extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2);
 extern "C" u8 func_020841c8(int i);
@@ -515,23 +515,25 @@ extern "C" int func_020840e0(int a, int b)
     return d;
 }
 
-extern "C" asm void func_02084100(void)
+extern "C" s32 func_02084100(s32 arg0, s32 arg1, s32 arg2)
 {
-    cmp r0, r1
-    movhi r3, r1
-    movhi r1, r0
-    movhi r0, r3
-    sub r1, r1, r0
-    add r0, r0, r1, asr #1
-    cmp r1, #0x8000
-    addgt r0, r0, #0x8000
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    cmp r2, #0
-    addeq r0, r0, #0x8000
-    moveq r0, r0, lsl #0x10
-    moveq r0, r0, lsr #0x10
-    bx lr
+    s32 t0;
+    s32 t1;
+    if ((u32)arg0 > (u32)arg1) {
+        t0 = arg1;
+        arg1 = arg0;
+        arg0 = t0;
+    }
+    t1 = (arg1 - arg0);
+    arg0 = (arg0 + ((arg1 - arg0) >> 1));
+    if (t1 > 0x8000) {
+        arg0 = (arg0 + 0x8000);
+    }
+    arg0 = ((u16)arg0);
+    if (arg2 == 0) {
+        arg0 = ((u16)(arg0 + 0x8000));
+    }
+    return arg0;
 }
 
 extern "C" s32 func_0208413c(s32 arg0, s32 arg1)

@@ -51,10 +51,10 @@ extern "C" s32 func_020898ac(u8 *arg0, s32 arg1);
 extern "C" void func_02089998(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5);
 extern "C" s32 func_020899e4(...);
 extern "C" s32 func_02089b4c(u8 *arg0, s32 arg1);
-extern "C" void func_02089bd4(void);
+extern "C" void func_02089bd4(u8 *arg0, s32 arg1);
 extern "C" void func_02089c14(void *obj);
 extern "C" void func_02089cbc(void);
-extern "C" void func_02089dc4(void);
+extern "C" void func_02089dc4(u8 *arg0, s32 arg1);
 extern "C" s32 func_02089e04(u8 *arg0, u8 *arg1, s32 arg2);
 extern "C" s32 func_02089e64(u8 *arg0, s32 arg1);
 extern "C" s32 func_02089eb4(u8 *arg0, s32 arg1, s32 arg2);
@@ -883,26 +883,16 @@ extern "C" s32 func_02089b4c(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_02089bd4(void)
+extern "C" void func_02089bd4(u8 *arg0, s32 arg1)
 {
-    cmp r1, #0
-    ble @L_02089bf4
-    ldr r2, [r0, #4]
-    cmp r1, r2
-    bgt @L_02089bf4
-    ldr r3, [r0, #0xc]
-    cmp r3, #0
-    bne @L_02089bfc
-@L_02089bf4:
-    mov r1, #0
-    b @L_02089c08
-@L_02089bfc:
-    mov r2, #0x1c
-    mla r2, r1, r2, r3
-    sub r1, r2, #0x1c
-@L_02089c08:
-    ldr r12, =func_02089118
-    bx r12
+    s32 r3;
+    if (((arg1 <= 0 || arg1 > *(s32 *)(arg0 + 0x4)) || (r3 = *(s32 *)(arg0 + 0xC), r3 == 0))) {
+        arg1 = 0;
+    } else {
+        arg1 = ((s32)((u8 (*)[0x1c])r3 + arg1 - 1));
+    }
+    func_02089118((s32)arg0, arg1);
+    return;
 }
 
 extern "C" asm void func_02089c14(void *obj)
@@ -1026,26 +1016,16 @@ extern "C" asm void func_02089cbc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_02089dc4(void)
+extern "C" void func_02089dc4(u8 *arg0, s32 arg1)
 {
-    cmp r1, #0
-    ble @L_02089de4
-    ldr r2, [r0, #4]
-    cmp r1, r2
-    bgt @L_02089de4
-    ldr r3, [r0, #0xc]
-    cmp r3, #0
-    bne @L_02089dec
-@L_02089de4:
-    mov r1, #0
-    b @L_02089df8
-@L_02089dec:
-    mov r2, #0x1c
-    mla r2, r1, r2, r3
-    sub r1, r2, #0x1c
-@L_02089df8:
-    ldr r12, =func_0208918c
-    bx r12
+    s32 r3;
+    if (((arg1 <= 0 || arg1 > *(s32 *)(arg0 + 0x4)) || (r3 = *(s32 *)(arg0 + 0xC), r3 == 0))) {
+        arg1 = 0;
+    } else {
+        arg1 = ((s32)((u8 (*)[0x1c])r3 + arg1 - 1));
+    }
+    func_0208918c((s32)arg0, (u8 *)arg1);
+    return;
 }
 
 extern "C" s32 func_02089e04(u8 *arg0, u8 *arg1, s32 arg2)

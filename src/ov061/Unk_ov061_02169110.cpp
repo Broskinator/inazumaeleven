@@ -1,7 +1,7 @@
 #include "ov061/Unk_ov061_02169110.hpp"
 #include "game/vcall.hpp"
 
-extern "C" void func_ov061_02169110(void);
+extern "C" void func_ov061_02169110(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov061_0216912c(void);
 extern "C" void func_ov061_021692d4(u8 *arg0);
 extern "C" void func_ov061_0216933c(void);
@@ -58,7 +58,7 @@ extern "C" void func_ov015_02131cd4(void);
 extern "C" void func_ov015_02131d4c(void);
 extern "C" s32 func_ov015_02131da0(...);
 extern "C" void func_ov015_02132224(void);
-extern "C" void func_ov015_021322b0(void);
+extern "C" s32 func_ov015_021322b0(...);
 extern "C" void func_ov015_021322d8(void);
 extern "C" void func_ov015_02133e50(void);
 extern "C" s32 func_ov015_02133e8c(...);
@@ -92,14 +92,10 @@ extern "C" void func_ov087_0217fde0(void);
 extern "C" s32 func_ov087_02181e68(...);
 extern "C" void gGameState(void);
 
-extern "C" asm void func_ov061_02169110(void)
+extern "C" void func_ov061_02169110(s32 arg0, s32 arg1, s32 arg2)
 {
-    mov r3, #0xc
-    mla r0, r1, r3, r0
-    ldr r0, [r0, #0x464]
-    ldr r12, =func_ov015_021322b0
-    mov r1, #0
-    bx r12
+    s32 t0 = *(s32 *)(((u8 *)((arg1 * 0xC) + arg0)) + 0x464);
+    func_ov015_021322b0(t0, 0, arg2);
 }
 
 extern "C" asm void func_ov061_0216912c(void)

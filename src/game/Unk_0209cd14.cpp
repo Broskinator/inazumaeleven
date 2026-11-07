@@ -54,7 +54,7 @@ extern "C" s32 func_0209de28(s32 arg0, s32 arg1);
 extern "C" void func_0209deb0(void);
 extern "C" void func_0209df60(void);
 extern "C" void func_0209dfd4(s32 *obj, int i, s32 value);
-extern "C" void func_0209e020(void);
+extern "C" void func_0209e020(u8 *arg0, s32 arg1);
 extern "C" void func_0209e09c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_0209e0c0(s32 *obj, int i, s32 value);
 extern "C" void func_0209e0dc(void);
@@ -81,7 +81,7 @@ extern "C" char data_020fc7d8[];
 extern "C" s32 FS_FindArchive(...);
 extern "C" s32 FS_OpenFileFast(...);
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void STD_CompareString(void);
 extern "C" void _ZN8Wireless13func_0203ca80EPKvtPv(void);
 extern "C" void func_02016e34(void);
@@ -1472,39 +1472,21 @@ extern "C" asm void func_0209dfd4(s32 *obj, int i, s32 value)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0209e020(void)
+extern "C" void func_0209e020(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    cmp r1, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    mov r5, #0
-    mov r4, #2
-    mov r1, r5
-    mov r2, r4
-    add r0, r6, #0x18
-    strb r5, [r6, #0x14]
-    strb r5, [r6, #0x15]
-    str r5, [r6]
-    bl MI_CpuFill8
-    mov r1, r5
-    add r0, r6, #0xc
-    mov r2, #4
-    bl MI_CpuFill8
-    mov r3, #1
-    mov r1, r5
-    add r0, r6, #4
-    mov r2, #8
-    strb r3, [r6, #0x13]
-    strb r3, [r6, #0x12]
-    strb r3, [r6, #0x11]
-    strb r3, [r6, #0x10]
-    bl MI_CpuFill8
-    mov r1, r5
-    mov r2, r4
-    add r0, r6, #0x16
-    bl MI_CpuFill8
-    ldmia sp!, {r4, r5, r6, pc}
+    if (arg1 != 0)
+        return;
+    *(u8 *)(arg0 + 0x14) = 0;
+    *(u8 *)(arg0 + 0x15) = 0;
+    *(s32 *)(arg0) = 0;
+    MI_CpuFill8((s32)(arg0 + 0x18), 0, 2);
+    MI_CpuFill8((s32)(arg0 + 0xC), 0, 4);
+    *(u8 *)(arg0 + 0x13) = 1;
+    *(u8 *)(arg0 + 0x12) = 1;
+    *(u8 *)(arg0 + 0x11) = 1;
+    *(u8 *)(arg0 + 0x10) = 1;
+    MI_CpuFill8((s32)(arg0 + 4), 0, 8);
+    MI_CpuFill8((s32)(arg0 + 0x16), 0, 2);
 }
 
 extern "C" void func_0209e09c(s32 arg0, s32 arg1, s32 arg2)

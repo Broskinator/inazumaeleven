@@ -65,7 +65,7 @@ extern "C" void func_0208868c(void);
 extern "C" void func_020887f0(u8 *arg0, u16 arg1, u8 arg2, u8 arg3);
 extern "C" s32 func_02088824(u8 *arg0, u8 arg1);
 extern "C" s32 func_02088864(u8 *arg0, u8 arg1);
-extern "C" void func_020888a4(void);
+extern "C" s32 func_020888a4(s32 arg0, u16 arg1);
 extern "C" void func_020888cc(u8 *obj, int value);
 extern "C" void func_020888f0(void);
 extern "C" void func_02088934(u8 *obj, u16 color, u8 alpha);
@@ -125,7 +125,7 @@ extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02001d60(void);
-extern "C" void func_02002bf4(void);
+extern "C" s32 func_02002bf4(...);
 extern "C" s32 func_02002c0c(...);
 extern "C" void func_02002c20(void);
 extern "C" void func_02008cb4(void);
@@ -1520,18 +1520,19 @@ extern "C" s32 func_02088864(u8 *arg0, u8 arg1)
     }
 }
 
-extern "C" asm void func_020888a4(void)
+extern "C" s32 func_020888a4(s32 arg0, u16 arg1)
 {
-    mov r3, #0
-@L_020888a8:
-    add r2, r0, r3, lsl #1
-    add r3, r3, #1
-    strh r1, [r2, #0xc]
-    cmp r3, #8
-    blt @L_020888a8
-    ldr r12, =func_02002bf4
-    add r0, r0, #0xc
-    bx r12
+    s32 r2;
+    s32 r3;
+    s32 v0;
+    r3 = 0;
+    do {
+        *(u16 *)(((u8 *)(arg0 + (r3 << 1))) + 0xC) = arg1;
+        r2 = (arg0 + (r3 << 1));
+        r3 = (r3 + 1);
+    } while (r3 < 8);
+    v0 = func_02002bf4((arg0 + 0xC));
+    return v0;
 }
 
 extern "C" void func_020888cc(u8 *obj, int value)

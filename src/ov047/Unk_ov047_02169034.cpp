@@ -16,9 +16,9 @@ extern "C" void func_ov047_0216a468(void);
 extern "C" s32 func_ov047_0216a51c(s32 arg0);
 extern "C" void func_ov047_0216a530(void);
 extern "C" void func_ov047_0216a534(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov047_0216a574(void);
-extern "C" void func_ov047_0216a5a4(void);
-extern "C" void func_ov047_0216a5d4(void);
+extern "C" void func_ov047_0216a574(u8 *arg0, s32 arg1);
+extern "C" void func_ov047_0216a5a4(u8 *arg0, s32 arg1);
+extern "C" s32 func_ov047_0216a5d4(...);
 extern "C" void func_ov047_0216a620(void);
 extern "C" void func_ov047_0216a6a8(void);
 
@@ -1521,37 +1521,34 @@ extern "C" void func_ov047_0216a534(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     return;
 }
 
-extern "C" asm void func_ov047_0216a574(void)
+extern "C" void func_ov047_0216a574(u8 *arg0, s32 arg1)
 {
-    ldr r2, [r0]
-    mov r3, r1
-    mov r1, r2, lsl #0x1f
-    movs r1, r1, lsr #0x1f
-    ldreqb r1, [r0]
-    ldr r12, =func_ov047_0216a5d4
-    mov r2, #0
-    moveq r1, r1, lsl #0x18
-    moveq r1, r1, lsr #0x19
-    ldrne r1, [r0, #4]
-    bx r12
+    s32 r2;
+    s32 r3;
+    r3 = arg1;
+    r2 = 0;
+    if (((u32)(*(s32 *)(arg0) << 0x1F) >> 0x1F) == 0) {
+        arg1 = ((u32)(*(u8 *)(arg0) << 0x18) >> 0x19);
+    } else {
+        arg1 = *(s32 *)(arg0 + 0x4);
+    }
+    func_ov047_0216a5d4((s32)arg0, arg1, r2, r3);
+    return;
 }
 
-extern "C" asm void func_ov047_0216a5a4(void)
+extern "C" void func_ov047_0216a5a4(u8 *arg0, s32 arg1)
 {
-    ldr r2, [r0]
-    mov r3, r1
-    mov r1, r2, lsl #0x1f
-    movs r1, r1, lsr #0x1f
-    ldreqb r1, [r0]
-    ldr r12, =func_ov047_0216a5d4
-    moveq r1, r1, lsl #0x18
-    moveq r2, r1, lsr #0x19
-    ldrne r2, [r0, #4]
-    mov r1, #0
-    bx r12
+    s32 r2;
+    if (((u32)(*(s32 *)(arg0) << 0x1F) >> 0x1F) == 0) {
+        r2 = ((u32)(*(u8 *)(arg0) << 0x18) >> 0x19);
+    } else {
+        r2 = *(s32 *)(arg0 + 0x4);
+    }
+    func_ov047_0216a5d4((s32)arg0, 0, r2, arg1);
+    return;
 }
 
-extern "C" asm void func_ov047_0216a5d4(void)
+extern "C" asm s32 func_ov047_0216a5d4(...)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0xc

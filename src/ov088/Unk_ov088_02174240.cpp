@@ -24,9 +24,9 @@ extern "C" s32 func_ov088_0217528c(...);
 extern "C" s32 func_ov088_02175368(...);
 extern "C" s32 func_ov088_021754d8(...);
 extern "C" void func_ov088_02175518(void);
-extern "C" void func_ov088_02175590(void);
+extern "C" s32 func_ov088_02175590(void);
 extern "C" void func_ov088_021755fc(void);
-extern "C" void func_ov088_02175668(void);
+extern "C" s32 func_ov088_02175668(void);
 extern "C" void func_ov088_021756d4(void);
 extern "C" void func_ov088_021756e0(void);
 extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1);
@@ -53,7 +53,7 @@ extern "C" s32 FS_SeekFile(...);
 extern "C" s32 FS_WaitAsync(...);
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void MIi_CpuCopyFast(void);
+extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" void _ZN11MoviePlayer12FreeCallbackEPv(void);
 extern "C" void _ZN11MoviePlayer13AllocCallbackEm(void);
 extern "C" s32 func_02000b64(...);
@@ -1414,35 +1414,25 @@ extern "C" asm void func_ov088_02175518(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov088_02175590(void)
+extern "C" s32 func_ov088_02175590(void)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_ov088_02180a60
-    ldr r0, [r4, #4]
-    cmp r0, #0
-    bne @L_021755e8
-    ldr r0, [r4, #0xc]
-    cmp r0, #0x2100
-    blo @L_021755e0
-    ldr r1, [r4, #0x10]
-    ldr r0, =data_ov088_02175dd4
-    str r1, [r4, #4]
-    mov r2, #0x2100
-    bl MIi_CpuCopyFast
-    ldr r0, [r4, #0x10]
-    add r0, r0, #0x2100
-    str r0, [r4, #0x10]
-    ldr r0, [r4, #0xc]
-    sub r0, r0, #0x2100
-    str r0, [r4, #0xc]
-    b @L_021755e8
-@L_021755e0:
-    ldr r0, =data_ov088_02175dd4
-    ldmia sp!, {r4, pc}
-@L_021755e8:
-    ldr r0, =data_ov088_02180a60
-    ldr r0, [r0, #4]
-    ldmia sp!, {r4, pc}
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    if (*(s32 *)(((u8 *)&data_ov088_02180a60) + 0x4) == 0) {
+        if ((u32)*(s32 *)(((u8 *)&data_ov088_02180a60) + 0xC) >= (u32)0x2100) {
+            t0 = *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x10);
+            *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x4) = t0;
+            MIi_CpuCopyFast((u8 *)((u8 *)&data_ov088_02175dd4), t0, 0x2100);
+            t1 = (*(s32 *)(((u8 *)&data_ov088_02180a60) + 0x10) + 0x2100);
+            *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x10) = t1;
+            t2 = (*(s32 *)(((u8 *)&data_ov088_02180a60) + 0xC) - 0x2100);
+            *(s32 *)(((u8 *)&data_ov088_02180a60) + 0xC) = t2;
+        } else {
+            return (s32)((u8 *)&data_ov088_02175dd4);
+        }
+    }
+    return *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x4);
 }
 
 extern "C" asm void func_ov088_021755fc(void)
@@ -1476,35 +1466,25 @@ extern "C" asm void func_ov088_021755fc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov088_02175668(void)
+extern "C" s32 func_ov088_02175668(void)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_ov088_02180a60
-    ldr r0, [r4, #0x1c]
-    cmp r0, #0
-    bne @L_021756c0
-    ldr r0, [r4, #0xc]
-    cmp r0, #0x180
-    blo @L_021756b8
-    ldr r1, [r4, #0x10]
-    ldr r0, =data_ov088_02180570
-    str r1, [r4, #0x1c]
-    mov r2, #0x180
-    bl MIi_CpuCopyFast
-    ldr r0, [r4, #0x10]
-    add r0, r0, #0x180
-    str r0, [r4, #0x10]
-    ldr r0, [r4, #0xc]
-    sub r0, r0, #0x180
-    str r0, [r4, #0xc]
-    b @L_021756c0
-@L_021756b8:
-    ldr r0, =data_ov088_02180570
-    ldmia sp!, {r4, pc}
-@L_021756c0:
-    ldr r0, =data_ov088_02180a60
-    ldr r0, [r0, #0x1c]
-    ldmia sp!, {r4, pc}
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    if (*(s32 *)(((u8 *)&data_ov088_02180a60) + 0x1C) == 0) {
+        if ((u32)*(s32 *)(((u8 *)&data_ov088_02180a60) + 0xC) >= (u32)0x180) {
+            t0 = *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x10);
+            *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x1C) = t0;
+            MIi_CpuCopyFast((u8 *)((u8 *)&data_ov088_02180570), t0, 0x180);
+            t1 = (*(s32 *)(((u8 *)&data_ov088_02180a60) + 0x10) + 0x180);
+            *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x10) = t1;
+            t2 = (*(s32 *)(((u8 *)&data_ov088_02180a60) + 0xC) - 0x180);
+            *(s32 *)(((u8 *)&data_ov088_02180a60) + 0xC) = t2;
+        } else {
+            return (s32)((u8 *)&data_ov088_02180570);
+        }
+    }
+    return *(s32 *)(((u8 *)&data_ov088_02180a60) + 0x1C);
 }
 
 extern "C" void func_ov088_021756d4(void)

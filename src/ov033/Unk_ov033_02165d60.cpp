@@ -16,9 +16,9 @@ extern "C" s32 func_ov033_02166490(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u16 a
 extern "C" void func_ov033_021665cc(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov033_02166670(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov033_021666f8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov033_0216678c(void);
+extern "C" s32 func_ov033_0216678c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_ov033_0216682c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_ov033_02166914(void);
+extern "C" s32 func_ov033_02166914(...);
 extern "C" s32 func_ov033_021669f8(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov033_02166a7c(u8 *arg0);
 extern "C" s32 func_ov033_02166a98(...);
@@ -688,47 +688,23 @@ extern "C" s32 func_ov033_021666f8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     return v2;
 }
 
-extern "C" asm void func_ov033_0216678c(void)
+extern "C" s32 func_ov033_0216678c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #8
-    cmp r3, #0
-    mov r8, r0
-    mov r7, r1
-    mov r6, r2
-    addlt sp, sp, #8
-    ldmltia sp!, {r4, r5, r6, r7, r8, pc}
-    cmp r3, #5
-    addge sp, sp, #8
-    ldmgeia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r0, =data_ov033_02166f68
-    ldr r12, [sp, #0x20]
-    ldr r4, [r0, r3, lsl #2]
-    mov r0, #0x18
-    mul r0, r3, r0
-    add r5, r0, #0x30
-    mov r0, r5, lsl #0x10
-    mov r0, r0, asr #0x10
-    cmp r4, r12
-    str r0, [sp]
-    movlt r12, r4
-    mov r0, r8
-    mov r1, r7
-    mov r2, r6
-    mov r3, #0xa0
-    str r12, [sp, #4]
-    bl func_ov033_02166914
-    mov r0, r5, lsl #0x10
-    mov r0, r0, asr #0x10
-    str r0, [sp]
-    mov r0, r8
-    mov r1, r7
-    add r2, r6, #2
-    mov r3, #0xb8
-    str r4, [sp, #4]
-    bl func_ov033_02166914
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 r4;
+    s32 r12;
+    s32 v1;
+    if (arg3 < 0)
+        return arg0;
+    if (arg3 >= 5)
+        return arg0;
+    r12 = arg4;
+    r4 = *(s32 *)(((u8 *)&data_ov033_02166f68) + (arg3 << 2));
+    if (r4 < r12) {
+        r12 = r4;
+    }
+    ((s32 (*)(s32, s32, s32, s32, s16, s32))func_ov033_02166914)(arg0, arg1, arg2, 0xA0, ((arg3 * 0x18) + 0x30), r12);
+    v1 = ((s32 (*)(s32, s32, s32, s32, s16, s32))func_ov033_02166914)(arg0, arg1, (arg2 + 2), 0xB8, ((arg3 * 0x18) + 0x30), r4);
+    return v1;
 }
 
 extern "C" s32 func_ov033_0216682c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
@@ -768,7 +744,7 @@ extern "C" s32 func_ov033_0216682c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
     return v4;
 }
 
-extern "C" asm void func_ov033_02166914(void)
+extern "C" asm s32 func_ov033_02166914(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8

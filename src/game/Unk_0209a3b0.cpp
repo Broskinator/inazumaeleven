@@ -12,7 +12,7 @@ extern "C" void func_0209a798(void);
 extern "C" void func_0209a97c(void);
 extern "C" void func_0209a9f0(void);
 extern "C" s32 func_0209aa5c(u8 *arg0);
-extern "C" void func_0209aac0(void);
+extern "C" s32 func_0209aac0(u8 *arg0);
 extern "C" void func_0209ab34(void);
 extern "C" void func_0209ab38(void);
 extern "C" void func_0209ac24(u8 *obj, s32 value);
@@ -77,7 +77,7 @@ extern "C" char data_020fc724_b[];
 extern "C" s32 DC_FlushRange(...);
 extern "C" void GX_BeginLoadTex(void);
 extern "C" void GX_BeginLoadTexPltt(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 STD_CopyString(...);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
@@ -576,37 +576,21 @@ extern "C" s32 func_0209aa5c(u8 *arg0)
     }
 }
 
-extern "C" asm void func_0209aac0(void)
+extern "C" s32 func_0209aac0(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r0
-    mov r4, #0
-    add r3, r5, #0x5000
-    add r0, r5, #0x64
-    mov r6, #0x124
-    sub r12, r4, #1
-    mov r1, r4
-    mov r2, r6
-    add r0, r0, #0x400
-    str r4, [r3, #0xb50]
-    str r4, [r3, #0xb54]
-    strb r4, [r5, #0x588]
-    strb r4, [r5, #0x5a8]
-    str r4, [r3, #0xb74]
-    str r12, [r3, #0xb78]
-    str r4, [r3, #0xb34]
-    str r4, [r3, #0xb38]
-    bl MI_CpuFill8
-    mov r0, r5
-    mov r1, r4
-    add r2, r6, #0x340
-    bl MI_CpuFill8
-    add r1, r5, #0x5000
-    mov r2, #1
-    mov r0, r5
-    strb r2, [r5, #0x52b]
-    str r4, [r1, #0xc1c]
-    ldmia sp!, {r4, r5, r6, pc}
+    *(s32 *)(arg0 + 0x5B50) = 0;
+    *(s32 *)(arg0 + 0x5B54) = 0;
+    *(u8 *)(arg0 + 0x588) = 0;
+    *(u8 *)(arg0 + 0x5A8) = 0;
+    *(s32 *)(arg0 + 0x5B74) = 0;
+    *(s32 *)(arg0 + 0x5B78) = (0 - 1);
+    *(s32 *)(arg0 + 0x5B34) = 0;
+    *(s32 *)(arg0 + 0x5B38) = 0;
+    MI_CpuFill8((s32)((arg0 + 0x64) + 0x400), 0, 0x124);
+    MI_CpuFill8((s32)arg0, 0, (0x124 + 0x340));
+    *(u8 *)(arg0 + 0x52B) = 1;
+    *(s32 *)(arg0 + 0x5C1C) = 0;
+    return (s32)arg0;
 }
 
 extern "C" void func_0209ab34(void)
