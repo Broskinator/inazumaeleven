@@ -19,7 +19,7 @@ extern "C" void func_ov031_0216a8c0(void);
 extern "C" void func_ov031_0216a9a8(void);
 extern "C" void func_ov031_0216ab4c(void);
 extern "C" void func_ov031_0216addc(u8 *arg0);
-extern "C" void func_ov031_0216ae94(void);
+extern "C" void func_ov031_0216ae94(u8 *arg0, s32 arg1, s32 arg2, u16 arg3);
 extern "C" void func_ov031_0216aed4(void);
 extern "C" void func_ov031_0216aff8(void);
 extern "C" void func_ov031_0216b15c(void);
@@ -2147,24 +2147,15 @@ extern "C" void func_ov031_0216addc(u8 *arg0)
     func_ov031_02167cec((s32)arg0);
 }
 
-extern "C" asm void func_ov031_0216ae94(void)
+extern "C" void func_ov031_0216ae94(u8 *arg0, s32 arg1, s32 arg2, u16 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r4, [r5, #0x380]
-    ldr lr, [r5, #0x384]
-    add r0, r5, #0x300
-    mov r12, #1
-    str r4, [r5, #0x388]
-    str lr, [r5, #0x38c]
-    str r1, [r5, #0x390]
-    str r2, [r5, #0x394]
-    strh r3, [r0, #0x98]
-    strb r12, [r5, #0x39e]
-    bl OS_GetTick
-    str r0, [r5, #0x534]
-    str r1, [r5, #0x538]
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0 + 0x388) = *(s32 *)(arg0 + 0x380);
+    *(s32 *)(arg0 + 0x38C) = *(s32 *)(arg0 + 0x384);
+    *(s32 *)(arg0 + 0x390) = arg1;
+    *(s32 *)(arg0 + 0x394) = arg2;
+    *(u16 *)(arg0 + 0x398) = arg3;
+    arg0[0x39E] = 1;
+    *(u64 *)(arg0 + 0x534) = ((u64 (*)(void))OS_GetTick)();
 }
 
 extern "C" asm void func_ov031_0216aed4(void)

@@ -41,7 +41,7 @@ extern "C" s32 func_ov015_02131a5c(s32 arg0);
 extern "C" s32 func_ov015_02131ac0(...);
 extern "C" s32 func_ov015_02131ae4(void);
 extern "C" s32 func_ov015_02131b28(s32 arg0);
-extern "C" void func_ov015_02131b60(void);
+extern "C" s32 func_ov015_02131b60(s32 arg0);
 extern "C" s32 func_ov015_02131bb4(...);
 extern "C" s32 func_ov015_02131bd0(s32 arg0);
 extern "C" s32 func_ov015_02131bec(void);
@@ -1093,32 +1093,22 @@ extern "C" s32 func_ov015_02131b28(s32 arg0)
     }
 }
 
-extern "C" asm void func_ov015_02131b60(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_ov015_02131b60(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    ldr r0, =data_020c5320
-    bl func_0209bf9c
-    mov r6, #0
-    mov r5, r0
-    mov r7, r6
-    mov r4, #1
-    b @L_02131ba0
-@L_02131b84:
-    tst r5, r4, lsl r7
-    beq @L_02131b9c
-    mov r0, r7
-    bl func_ov015_021319fc
-    cmp r8, r0
-    addeq r6, r6, #1
-@L_02131b9c:
-    add r7, r7, #1
-@L_02131ba0:
-    cmp r7, #4
-    blt @L_02131b84
-    mov r0, r6
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u32 mask = ((u32 (*)(void *))func_0209bf9c)(data_020c5320);
+    s32 n = 0;
+    s32 i;
+    for (i = 0; i < 4; i++) {
+        if (mask & (1 << i)) {
+            if (arg0 == func_ov015_021319fc(i))
+                n++;
+        }
+    }
+    return n;
 }
+#pragma pop
 
 extern "C" asm s32 func_ov015_02131bb4(...)
 {

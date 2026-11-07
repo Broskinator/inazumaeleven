@@ -1,6 +1,7 @@
 #include "ov015/Unk_021467c8.hpp"
 #include "game/vcall.hpp"
 #include "nitro/fx.h"
+struct P02148794 { s32 a; s32 b; };
 struct V12 { s32 x, y, z; };
 
 extern "C" s32 func_ov015_021467c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
@@ -54,7 +55,7 @@ extern "C" s32 func_ov015_02147f00(...);
 extern "C" s32 func_ov015_02147ffc(...);
 extern "C" s32 func_ov015_02148058(...);
 extern "C" s32 func_ov015_02148114(s32 arg0, u8 *arg1);
-extern "C" void func_ov015_02148160(void);
+extern "C" void func_ov015_02148160(u8 *arg0);
 extern "C" s32 func_ov015_021481a4(...);
 extern "C" void func_ov015_02148258(u8 *arg0);
 extern "C" void func_ov015_0214827c(void);
@@ -69,7 +70,7 @@ extern "C" s32 func_ov015_0214869c(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" u8 *func_ov015_02148718(u8 *arg0);
 extern "C" u8 *func_ov015_02148740(u8 *arg0);
 extern "C" s32 func_ov015_02148760(u8 *arg0);
-extern "C" void func_ov015_02148794(void);
+extern "C" void func_ov015_02148794(u8 *arg0);
 extern "C" void func_ov015_021487e8(s32 arg0);
 extern "C" void func_ov015_021487fc(s32 arg0);
 extern "C" void func_ov015_02148824(u8 *arg0, s32 arg1);
@@ -2038,26 +2039,17 @@ extern "C" s32 func_ov015_02148114(s32 arg0, u8 *arg1)
     return v2;
 }
 
-extern "C" asm void func_ov015_02148160(void)
+extern "C" void func_ov015_02148160(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldr r0, [r6, #8]
-    ldr r4, [r6, #4]
-    cmp r0, #0
-    mov r5, #0
-    cmpgt r0, #0
-    ldmleia sp!, {r4, r5, r6, pc}
-@L_02148180:
-    mov r0, r6
-    mov r1, r4
-    bl func_ov015_021481a4
-    ldr r0, [r6, #8]
-    add r5, r5, #1
-    cmp r5, r0
-    add r4, r4, #0x3c
-    blt @L_02148180
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *e = *(u8 **)(arg0 + 4);
+    s32 i = 0;
+    if (*(s32 *)(arg0 + 8) > 0 && i < *(s32 *)(arg0 + 8)) {
+        do {
+            ((void (*)(u8 *, u8 *))func_ov015_021481a4)(arg0, e);
+            e += 0x3C;
+            i++;
+        } while (i < *(s32 *)(arg0 + 8));
+    }
 }
 
 extern "C" asm s32 func_ov015_021481a4(...)
@@ -2450,28 +2442,22 @@ extern "C" s32 func_ov015_02148760(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov015_02148794(void)
+extern "C" void func_ov015_02148794(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0x38]
-    cmp r6, #0
-    ldrne r1, =data_ov015_021648b0
-    ldrne r7, =data_ov015_021648b0_b
-    ldrne r1, [r1]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0x38
-    mov r4, #0xc
-@L_021487bc:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_021487bc
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0x38);
+    s32 a;
+    P02148794 *e;
+    if (v == 0)
+        return;
+    a = *(s32 *)data_ov015_021648b0;
+    e = (P02148794 *)data_ov015_021648b0_b;
+    if (a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(a, arg0 + 0x38 + e->b * 0xC, v);
+        e++;
+        a = e->a;
+    } while (a != 0);
 }
 
 extern "C" void func_ov015_021487e8(s32 arg0)

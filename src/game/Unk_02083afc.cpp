@@ -1,6 +1,7 @@
 #include "game/Unk_02083afc.hpp"
 #include "game/Match.hpp"
 #include "nitro/mi.h"
+struct V12 { s32 x, y, z; };
 
 extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" fx32 data_020c4ebc[4];     // (the field's rectangle)
@@ -68,7 +69,7 @@ extern "C" s32 func_02084c4c(u8 *arg0);
 extern "C" s32 func_02084c8c(u8 *obj);
 extern "C" s32 func_02084c94(u8 *obj);
 extern "C" s32 func_02084ca0(u8 *obj);
-extern "C" void func_02084cac(void);
+extern "C" void func_02084cac(u8 *arg0, V12 arg1);
 extern "C" u8 *func_02084cf0(u8 *obj);
 extern "C" u8 *func_02084cf8(u8 *obj);
 extern "C" void func_02084d00(u8 *obj, VecFx32 v);
@@ -1280,25 +1281,14 @@ extern "C" s32 func_02084ca0(u8 *obj)
     return *(s32 *)(obj + 0x5C) & 0xFF;
 }
 
-extern "C" asm void func_02084cac(void)
+extern "C" void func_02084cac(u8 *arg0, V12 arg1)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    stmdb sp!, {r4, lr}
-    ldr r4, [r0, #0x84]
-    ldr lr, [r0, #0x88]
-    ldr r12, [r0, #0x8c]
-    ldr r3, [sp, #0xc]
-    ldr r2, [sp, #0x10]
-    ldr r1, [sp, #0x14]
-    str r4, [r0, #0x78]
-    str lr, [r0, #0x7c]
-    str r12, [r0, #0x80]
-    str r3, [r0, #0x84]
-    str r2, [r0, #0x88]
-    str r1, [r0, #0x8c]
-    ldmia sp!, {r4, lr}
-    add sp, sp, #0x10
-    bx lr
+    *(s32 *)(arg0 + 0x78) = *(s32 *)(arg0 + 0x84);
+    *(s32 *)(arg0 + 0x7C) = *(s32 *)(arg0 + 0x88);
+    *(s32 *)(arg0 + 0x80) = *(s32 *)(arg0 + 0x8C);
+    *(s32 *)(arg0 + 0x84) = arg1.x;
+    *(s32 *)(arg0 + 0x88) = arg1.y;
+    *(s32 *)(arg0 + 0x8C) = arg1.z;
 }
 
 extern "C" u8 *func_02084cf0(u8 *obj)

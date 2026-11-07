@@ -9,7 +9,7 @@ extern "C" s32 func_ov046_02169844(...);
 extern "C" void func_ov046_02169928(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov046_0216994c(s32 arg0);
 extern "C" void func_ov046_02169960(void);
-extern "C" void func_ov046_02169964(void);
+extern "C" void func_ov046_02169964(u8 *arg0);
 extern "C" void func_ov046_021699ac(u8 *arg0);
 extern "C" void func_ov046_021699b8(s32 arg0, u8 arg1);
 extern "C" void func_ov046_02169a08(s32 arg0);
@@ -41,7 +41,7 @@ extern "C" void func_ov046_0216a200(s32 arg0);
 extern "C" s32 func_ov046_0216a210(u8 *arg0);
 extern "C" s32 func_ov046_0216a240(s32 arg0);
 extern "C" void func_ov046_0216a254(void);
-extern "C" void func_ov046_0216a258(void);
+extern "C" void func_ov046_0216a258(u8 *arg0);
 extern "C" void func_ov046_0216a2a0(u8 *arg0);
 extern "C" void func_ov046_0216a2ac(s32 arg0, u8 arg1);
 extern "C" void func_ov046_0216a2fc(s32 arg0);
@@ -692,25 +692,13 @@ extern "C" void func_ov046_02169960(void)
 {
 }
 
-extern "C" asm void func_ov046_02169964(void)
+extern "C" void func_ov046_02169964(u8 *arg0)
 {
-    ldr r1, [r0, #0x29c]
-    cmp r1, #0
-    beq @L_0216998c
-    ldrb r2, [r1, #1]
-    ldr r1, [r0, #0x298]
-    strb r2, [r1, #0x995]
-    ldr r2, [r0, #0x29c]
-    ldr r1, [r0, #0x298]
-    ldrb r2, [r2]
-    strb r2, [r1, #0x994]
-@L_0216998c:
-    ldr r1, [r0, #0x298]
-    ldr r0, =data_020d3d20
-    add r1, r1, #0x27c
-    ldr r12, =func_0209ac8c
-    add r1, r1, #0x4800
-    bx r12
+    if (*(u8 **)(arg0 + 0x29C) != 0) {
+        (*(u8 **)(arg0 + 0x298))[0x995] = (*(u8 **)(arg0 + 0x29C))[1];
+        (*(u8 **)(arg0 + 0x298))[0x994] = (*(u8 **)(arg0 + 0x29C))[0];
+    }
+    ((void (*)(u8 *, u8 *))func_0209ac8c)((u8 *)data_020d3d20, *(u8 **)(arg0 + 0x298) + 0x4A7C);
 }
 
 extern "C" void func_ov046_021699ac(u8 *arg0)
@@ -1271,25 +1259,13 @@ extern "C" void func_ov046_0216a254(void)
 {
 }
 
-extern "C" asm void func_ov046_0216a258(void)
+extern "C" void func_ov046_0216a258(u8 *arg0)
 {
-    ldr r1, [r0, #0x29c]
-    cmp r1, #0
-    beq @L_0216a280
-    ldrb r2, [r1, #2]
-    ldr r1, [r0, #0x298]
-    strb r2, [r1, #0x996]
-    ldr r2, [r0, #0x29c]
-    ldr r1, [r0, #0x298]
-    ldrb r2, [r2, #3]
-    strb r2, [r1, #0x997]
-@L_0216a280:
-    ldr r1, [r0, #0x298]
-    ldr r0, =data_020d3d20
-    add r1, r1, #0x27c
-    ldr r12, =func_0209ac8c
-    add r1, r1, #0x4800
-    bx r12
+    if (*(u8 **)(arg0 + 0x29C) != 0) {
+        (*(u8 **)(arg0 + 0x298))[0x996] = (*(u8 **)(arg0 + 0x29C))[2];
+        (*(u8 **)(arg0 + 0x298))[0x997] = (*(u8 **)(arg0 + 0x29C))[3];
+    }
+    ((void (*)(u8 *, u8 *))func_0209ac8c)((u8 *)data_020d3d20, *(u8 **)(arg0 + 0x298) + 0x4A7C);
 }
 
 extern "C" void func_ov046_0216a2a0(u8 *arg0)

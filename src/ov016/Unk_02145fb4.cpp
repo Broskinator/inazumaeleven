@@ -1,4 +1,5 @@
 #include "ov016/Unk_02145fb4.hpp"
+struct T0214761c { u8 v[4]; };
 
 extern "C" void func_ov016_02145fb4(void);
 extern "C" void func_ov016_02145fd8(void);
@@ -116,7 +117,7 @@ extern "C" s32 func_ov016_02148b18(void);
 extern "C" void func_ov016_02148b7c(s32 arg0);
 extern "C" void func_ov016_02148bd8(void);
 extern "C" s32 func_ov016_02148c04(void);
-extern "C" void func_ov016_02148c1c(void);
+extern "C" void func_ov016_02148c1c(u16 *src, s32 x, s32 w, s32 h);
 extern "C" s32 func_ov016_02148c74(void);
 extern "C" s32 func_ov016_02148cc4(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov016_02148d00(s32 arg0);
@@ -1679,28 +1680,11 @@ extern "C" asm void func_ov016_0214752c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_0214761c(void)
+extern "C" void func_ov016_0214761c(void)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    ldr r1, =data_ov016_02154cd0
-    ldr r0, =data_ov016_02158af4
-    ldrb lr, [r1]
-    ldrb r12, [r1, #1]
-    ldrb r3, [r1, #2]
-    ldrb r2, [r1, #3]
-    ldrsb r1, [r0, #1]
-    add r4, sp, #0
-    strb lr, [sp]
-    strb r12, [sp, #1]
-    strb r3, [sp, #2]
-    strb r2, [sp, #3]
-    ldrb r1, [r4, r1]
-    ldr r0, [r0, #4]
-    mov r2, r1
-    bl func_ov016_02148cc4
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    T0214761c t = *(T0214761c *)data_ov016_02154cd0;
+    u8 c = t.v[((s8 *)data_ov016_02158af4)[1]];
+    ((void (*)(s32, u8, u8))func_ov016_02148cc4)(*(s32 *)((u8 *)data_ov016_02158af4 + 4), c, c);
 }
 
 extern "C" s32 func_ov016_02147674(void)
@@ -2847,30 +2831,15 @@ extern "C" s32 func_ov016_02148c04(void)
     return (s32)t0;
 }
 
-extern "C" asm void func_ov016_02148c1c(void)
+extern "C" void func_ov016_02148c1c(u16 *src, s32 x, s32 w, s32 h)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r12, =data_ov016_02158b10
-    mov r7, r3
-    ldr r3, [r12]
-    mov r8, r0
-    add r0, r3, #4
-    add r4, r0, r1, lsl #1
-    mov r5, #0
-    cmp r7, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r6, r2, lsl #1
-@L_02148c48:
-    mov r0, r8
-    mov r1, r4
-    mov r2, r6
-    bl MIi_CpuCopy16
-    add r5, r5, #1
-    cmp r5, r7
-    add r8, r8, #0x40
-    add r4, r4, #0x40
-    blt @L_02148c48
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u16 *dst = (u16 *)(*(u8 **)data_ov016_02158b10 + 4) + x;
+    s32 i;
+    for (i = 0; i < h; i++) {
+        MIi_CpuCopy16(src, dst, w * 2);
+        src += 0x20;
+        dst += 0x20;
+    }
 }
 
 extern "C" s32 func_ov016_02148c74(void)

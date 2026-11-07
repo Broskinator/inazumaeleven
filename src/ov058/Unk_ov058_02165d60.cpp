@@ -1,5 +1,6 @@
 #include "ov058/Unk_ov058_02165d60.hpp"
 #include "game/vcall.hpp"
+struct P021663b4 { s32 a; s32 b; };
 
 extern "C" void func_ov058_02165d60(void);
 extern "C" void func_ov058_02165d98(u8 *arg0, s32 arg1);
@@ -11,7 +12,7 @@ extern "C" s32 func_ov058_02166180(...);
 extern "C" void func_ov058_021661c8(u8 *arg0);
 extern "C" s32 func_ov058_02166290(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov058_02166380(u8 *arg0);
-extern "C" void func_ov058_021663b4(void);
+extern "C" void func_ov058_021663b4(u8 *arg0);
 extern "C" s32 func_ov058_02166408(s32 arg0);
 extern "C" s32 func_ov058_02166458(...);
 extern "C" void func_ov058_021664d0(void);
@@ -526,28 +527,22 @@ extern "C" s32 func_ov058_02166380(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov058_021663b4(void)
+extern "C" void func_ov058_021663b4(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0xb8]
-    cmp r6, #0
-    ldrne r1, =data_ov058_021677d0
-    ldrne r7, =data_ov058_021677d0_b
-    ldrne r1, [r1]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0xb8
-    mov r4, #0xc
-@L_021663dc:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_021663dc
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0xB8);
+    s32 a;
+    P021663b4 *e;
+    if (v == 0)
+        return;
+    a = *(s32 *)data_ov058_021677d0;
+    e = (P021663b4 *)data_ov058_021677d0_b;
+    if (a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(a, arg0 + 0xB8 + e->b * 0xC, v);
+        e++;
+        a = e->a;
+    } while (a != 0);
 }
 
 #pragma push

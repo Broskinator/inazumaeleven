@@ -14,7 +14,7 @@ extern "C" void func_ov082_021706e0(void);
 extern "C" s32 func_ov082_0217077c(...);
 extern "C" s32 func_ov082_0217095c(...);
 extern "C" s32 func_ov082_02170a88(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_ov082_02170b24(void);
+extern "C" void func_ov082_02170b24(u8 *arg0);
 extern "C" s32 func_ov082_02170b78(...);
 extern "C" s32 func_ov082_02170ef4(...);
 extern "C" void func_ov082_02170f6c(void);
@@ -837,30 +837,14 @@ extern "C" s32 func_ov082_02170a88(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
     }
 }
 
-extern "C" asm void func_ov082_02170b24(void)
+extern "C" void func_ov082_02170b24(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r6, r0
-    mov r9, #3
-    mov r5, #0
-    mov r4, #6
-    mov r8, #0x18
-    mov r7, #0x13
-@L_02170b40:
-    mla r0, r5, r7, r6
-    str r4, [sp]
-    ldrb r1, [r0, #0x169]
-    mov r0, r6
-    mov r2, r8
-    mov r3, r9
-    bl func_ov082_02170a88
-    add r0, r9, #4
-    mov r0, r0, lsl #0x18
-    add r5, r5, #1
-    cmp r5, #5
-    mov r9, r0, asr #0x18
-    blt @L_02170b40
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s8 y = 3;
+    s32 i;
+    for (i = 0; i < 5; i++) {
+        func_ov082_02170a88((s32)arg0, *(u8 *)(arg0 + i * 0x13 + 0x169), 0x18, y, 6);
+        y += 4;
+    }
 }
 
 extern "C" asm s32 func_ov082_02170b78(...)

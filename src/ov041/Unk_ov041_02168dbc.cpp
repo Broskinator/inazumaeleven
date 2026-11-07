@@ -1,4 +1,5 @@
 #include "ov041/Unk_ov041_02168dbc.hpp"
+struct S0216b970 { s32 v[2]; };
 
 extern "C" s32 func_ov041_02168dbc(u8 *arg0);
 extern "C" void func_ov041_02168e78(void);
@@ -35,7 +36,7 @@ extern "C" s32 func_ov041_0216b584(...);
 extern "C" void func_ov041_0216b704(void);
 extern "C" void func_ov041_0216b89c(void);
 extern "C" void func_ov041_0216b8b4(void);
-extern "C" void func_ov041_0216b970(void);
+extern "C" void func_ov041_0216b970(u8 *arg0, s32 arg1);
 extern "C" void func_ov041_0216b9d0(void);
 extern "C" void func_ov041_0216bb10(void);
 extern "C" void func_ov041_0216bc04(void);
@@ -3011,30 +3012,11 @@ extern "C" asm void func_ov041_0216b8b4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov041_0216b970(void)
+extern "C" void func_ov041_0216b970(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x14
-    ldr r3, =data_ov041_0216bfa8
-    ldr r2, =data_ov041_0216bf60
-    ldr r5, [r3]
-    ldr r4, [r3, #4]
-    ldr r12, [r2]
-    ldr r2, [r2, #4]
-    mov r6, r1
-    mov r1, #3
-    add lr, sp, #0xc
-    add r3, sp, #4
-    str r5, [sp, #0xc]
-    str r4, [sp, #0x10]
-    str r2, [sp, #8]
-    str r12, [sp, #4]
-    ldr r2, [lr, r6, lsl #2]
-    ldr r3, [r3, r6, lsl #2]
-    str r1, [sp]
-    bl func_ov041_0216b8b4
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    S0216b970 a = *(S0216b970 *)data_ov041_0216bfa8;
+    S0216b970 b = *(S0216b970 *)data_ov041_0216bf60;
+    ((void (*)(u8 *, s32, s32, s32, s32))func_ov041_0216b8b4)(arg0, 3, a.v[arg1], b.v[arg1], 3);
 }
 
 extern "C" asm void func_ov041_0216b9d0(void)

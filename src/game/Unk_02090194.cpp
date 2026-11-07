@@ -1027,25 +1027,14 @@ extern "C" s32 func_02090f68(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3)
     return 0;
 }
 
-extern "C" asm void func_02090fb8(void)
+extern "C" void func_02090fb8(void)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    ldr r3, =0x2108dad6
-    mov r4, #1
-    add r1, sp, #4
-    mov r2, r4
-    mov r0, #0x30
-    str r3, [sp, #4]
-    bl func_0202b608
-    ldr r3, =0x2108ffff
-    add r1, sp, #0
-    mov r2, r4
-    mov r0, #0x31
-    str r3, [sp]
-    bl func_0202b608
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    s32 a;
+    s32 b;
+    a = 0x2108DAD6;
+    ((void (*)(s32, s32 *, s32))func_0202b608)(0x30, &a, 1);
+    b = 0x2108FFFF;
+    ((void (*)(s32, s32 *, s32))func_0202b608)(0x31, &b, 1);
 }
 
 extern "C" asm void func_02091004(void)

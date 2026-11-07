@@ -1,4 +1,5 @@
 #include "ov014/Unk_ov014_0210ecac.hpp"
+struct L02110784 { u64 x; u64 y; s32 z; };
 
 extern "C" void func_ov014_0210ecac(void);
 extern "C" s32 func_ov014_0210eeec(...);
@@ -13,7 +14,7 @@ extern "C" void func_ov014_0210f430(s32 arg0);
 extern "C" s32 func_ov014_0210f444(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov014_0210f4a0(void);
 extern "C" void func_ov014_0210f504(s32 arg0);
-extern "C" void func_ov014_0210f51c(void);
+extern "C" u8 func_ov014_0210f51c(u8 *arg0);
 extern "C" s32 func_ov014_0210f560(...);
 extern "C" s32 func_ov014_0210f58c(u8 *arg0);
 extern "C" s32 func_ov014_0210f5b4(...);
@@ -36,7 +37,7 @@ extern "C" s32 func_ov014_02110504(s32 arg0);
 extern "C" s32 func_ov014_0211054c(u8 *arg0, s32 arg1);
 extern "C" void func_ov014_0211059c(void);
 extern "C" void func_ov014_02110730(void);
-extern "C" void func_ov014_02110784(void);
+extern "C" s32 func_ov014_02110784(void);
 extern "C" void func_ov014_021107d4(void);
 extern "C" void func_ov014_02110950(void);
 extern "C" s32 func_ov014_02110aac(u8 *arg0);
@@ -76,7 +77,7 @@ extern "C" s32 func_ov014_02111a84(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_02111ae8(...);
 extern "C" s32 func_ov014_02111b2c(...);
 extern "C" s32 func_ov014_02111c00(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_02111c74(void);
+extern "C" s32 func_ov014_02111c74(char *arg0, char *arg1, s32 arg2);
 
 extern "C" char data_020bb120[];
 extern "C" char data_020bf3e4[];
@@ -733,27 +734,19 @@ extern "C" void func_ov014_0210f504(s32 arg0)
     MI_CpuCopy8(arg0, (s32)data_ov014_02128d8c, 0xE);
 }
 
-extern "C" asm void func_ov014_0210f51c(void)
+extern "C" u8 func_ov014_0210f51c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r12, #0
-    mov r3, r12
-    mov r2, r12
-@L_0210f52c:
-    ldrb r4, [r0, r12]
-    mov lr, r2
-@L_0210f534:
-    mov r1, r4, asr lr
-    tst r1, #1
-    add lr, lr, #1
-    addne r3, r3, #1
-    cmp lr, #8
-    blt @L_0210f534
-    add r12, r12, #1
-    cmp r12, #4
-    blt @L_0210f52c
-    and r0, r3, #0xff
-    ldmia sp!, {r4, pc}
+    s32 n;
+    s32 i;
+    s32 j;
+    for (i = 0, n = 0; i < 4; i++) {
+        u8 b = arg0[i];
+        for (j = 0; j < 8; j++) {
+            if ((b >> j) & 1)
+                n++;
+        }
+    }
+    return n;
 }
 
 extern "C" asm s32 func_ov014_0210f560(...)
@@ -1990,29 +1983,13 @@ extern "C" asm void func_ov014_02110730(void)
     ldmia sp!, {r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02110784(void)
+extern "C" s32 func_ov014_02110784(void)
 {
-    stmdb sp!, {lr}
-    sub sp, sp, #0x14
-    add r0, sp, #0
-    bl func_ov014_0210f20c
-    ldr r0, [sp, #0xc]
-    ldr r2, [sp, #8]
-    cmp r0, #0
-    cmpeq r2, #0
-    mov r0, #0
-    bne @L_021107c8
-    ldr r1, [sp, #4]
-    ldr r2, [sp]
-    cmp r1, r0
-    cmpeq r2, r0
-    addeq sp, sp, #0x14
-    moveq r0, #1
-    ldmeqia sp!, {pc}
-@L_021107c8:
-    mov r0, #0
-    add sp, sp, #0x14
-    ldmia sp!, {pc}
+    L02110784 t;
+    ((void (*)(L02110784 *))func_ov014_0210f20c)(&t);
+    if (t.y == 0 && t.x == 0)
+        return 1;
+    return 0;
 }
 
 extern "C" asm void func_ov014_021107d4(void)
@@ -3384,25 +3361,18 @@ extern "C" s32 func_ov014_02111c00(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return 0;
 }
 
-extern "C" asm void func_ov014_02111c74(void)
+extern "C" s32 func_ov014_02111c74(char *arg0, char *arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    mov lr, r4
-    cmp r2, #0
-    ble @L_02111cb0
-    mov r3, r4
-@L_02111c8c:
-    ldrsb r12, [r1]
-    add lr, lr, #1
-    cmp r12, #0
-    strneb r12, [r0], #1
-    addne r4, r4, #1
-    addne r1, r1, #1
-    streqb r3, [r0], #1
-    cmp lr, r2
-    blt @L_02111c8c
-@L_02111cb0:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    s32 i;
+    s32 n = 0;
+    for (i = 0; i < arg2; i++) {
+        if (*arg1 != 0) {
+            *arg0++ = *arg1;
+            n++;
+            arg1++;
+        } else {
+            *arg0++ = 0;
+        }
+    }
+    return n;
 }

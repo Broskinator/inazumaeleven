@@ -3053,6 +3053,40 @@ def apply(t, name, block, decl, body, protos, callees):
     return t
 
 
+def near_save(name, k, c, protos, orig):
+    """keeps the closest try at name that didn't match, as build/near/NAME.c (a file for
+    scratch handapply.py: '//@near K' with K the words that differ, then the other changes
+    to the source it needs, then the C)"""
+    block, decl, body, callees = c
+    path = f"{ROOT}/build/near/{name}.c"
+    try:
+        if int(open(path).readline().split()[1]) <= k:
+            return
+    except (OSError, ValueError, IndexError):
+        pass
+    out = [f"//@near {k}"]
+    if re.search(r"\((VCall|W\d|WN<\d+>) \*\)", body) and '#include "game/vcall.hpp"' not in orig:
+        out.append('#include "game/vcall.hpp"')
+    for d in sorted(set(re.findall(r"\(u8 \*\)&(\w+)\)", body))):
+        if FUNCS and d not in FUNCS and orig.count(f'extern "C" void {d}(void);\n') == 1:
+            out.append(f'//@replace extern "C" void {d}(void);\\n => extern "C" char {d}[];\\n')
+    for f in sorted(set(callees)):
+        if f in UNDECL and not re.search(r'^extern "C" [^\n]*\b%s\(' % f, orig, re.M):
+            out.append(f'extern "C" s32 {f}(...);')
+        elif protos.get(f) == "void(void)":
+            for a in (f'extern "C" void {f}(void);\n', f'extern "C" asm void {f}(void)\n'):
+                if orig.count(a) == 1:
+                    b_ = a.replace("void " + f + "(void)", f"s32 {f}(...)")
+                    out.append(f"//@replace {a[:-1]}\\n => {b_[:-1]}\\n")
+    if OPT.get(name):
+        out += ["#pragma push", f"#pragma optimization_level {OPT[name][0]}"]
+    out.append(f'extern "C" {decl}\n{{\n{body}}}')
+    if OPT.get(name):
+        out.append("#pragma pop")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    save(path, "\n".join(out) + "\n")
+
+
 def save(path, text):
     for k in range(20):
         try:
@@ -3152,6 +3186,9 @@ def lift_file(src, sizes, failed):
     for mm in re.finditer(r"^(\w+): OK \((\d+) bytes\)", r.stdout, re.M):
         if sizes.get(mm[1]) == int(mm[2]):
             good.add(mm[1])
+    for mm in re.finditer(r"^(\w+): (\d+) words differ", r.stdout, re.M):
+        if mm[1] in cand:
+            near_save(mm[1], int(mm[2]), cand[mm[1]], protos, orig)
     def next_variant(names):
         """True if some of names are tried again (written another way)"""
         again = False

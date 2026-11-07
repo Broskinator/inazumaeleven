@@ -1,4 +1,5 @@
 #include "ov000/Unk_ov000_0211289c.hpp"
+struct V3_02114250 { s32 x, y, z; };
 
 extern "C" void func_ov000_0211289c(void);
 extern "C" void func_ov000_02112de8(void);
@@ -11,7 +12,7 @@ extern "C" void func_ov000_02113cd8(void);
 extern "C" void func_ov000_02113e3c(void);
 extern "C" void func_ov000_02113f5c(void);
 extern "C" void func_ov000_021140e8(void);
-extern "C" void func_ov000_02114250(void);
+extern "C" void func_ov000_02114250(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov000_02114298(void);
 extern "C" void func_ov000_02114338(void);
 extern "C" void func_ov000_021143d8(void);
@@ -1832,26 +1833,12 @@ extern "C" asm void func_ov000_021140e8(void)
     bx lr
 }
 
-extern "C" asm void func_ov000_02114250(void)
+extern "C" void func_ov000_02114250(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0xc
-    add r4, sp, #0
-    mov r6, r2
-    mov r2, r4
-    mov r7, r1
-    mov r5, r3
-    bl func_02001f38
-    mov r0, r4
-    mov r1, r4
-    bl func_02002084
-    add r0, r6, #1
-    mov r1, r4
-    mov r2, r7
-    mov r3, r5
-    bl func_02002198
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    V3_02114250 v;
+    ((void (*)(s32, s32, V3_02114250 *))func_02001f38)(arg0, arg1, &v);
+    ((void (*)(V3_02114250 *, V3_02114250 *))func_02002084)(&v, &v);
+    ((void (*)(s32, V3_02114250 *, s32, s32))func_02002198)(arg2 + 1, &v, arg1, arg3);
 }
 
 extern "C" asm void func_ov000_02114298(void)

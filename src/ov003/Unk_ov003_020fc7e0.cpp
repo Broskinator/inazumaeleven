@@ -2,7 +2,7 @@
 #include "game/vcall.hpp"
 
 extern "C" void func_ov003_020fc7e0(s32 arg0);
-extern "C" void func_ov003_020fc80c(void);
+extern "C" void func_ov003_020fc80c(u8 *arg0);
 extern "C" void func_ov003_020fc86c(u8 *arg0);
 extern "C" void func_ov003_020fc8a8(void);
 extern "C" s32 func_ov003_020fc960(...);
@@ -246,29 +246,14 @@ extern "C" void func_ov015_0213396c(void);
 extern "C" void func_ov015_0213393c(void);
 extern "C" void func_ov015_02132600(void);
 extern "C" void func_ov015_02132614(void);
-extern "C" asm void func_ov003_020fc80c(void)
+extern "C" void func_ov003_020fc80c(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0x18
-    ldr r3, =data_020c47b4
-    add r1, r0, #0xdc
-    ldr r0, [r3]
-    str r1, [sp, #0x14]
-    cmp r0, #0
-    addeq sp, sp, #0x18
-    ldr r1, =data_ov003_0211d710
-    ldmeqia sp!, {r3, pc}
-    mov r12, #0
-    ldr r2, =0x9cc
-    str r12, [sp]
-    stmib sp, {r2, r12}
-    mov r12, #1
-    str r12, [sp, #0xc]
-    add r2, sp, #0x14
-    str r12, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-    add sp, sp, #0x18
-    ldmia sp!, {r3, pc}
+    void *p = arg0 + 0xDC;
+    void *name = data_ov003_0211d710;
+    if (*(void **)data_020c47b4 == 0)
+        return;
+    ((s32 (*)(void *, void *, void **, void *, s32, s32, s32, s32, u8))_ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih)(
+        *(void **)data_020c47b4, name, &p, data_020c47b4, 0, 0x9CC, 0, 1, 1);
 }
 
 extern "C" void func_ov003_020fc86c(u8 *arg0)

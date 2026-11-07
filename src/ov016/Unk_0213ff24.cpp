@@ -1423,30 +1423,21 @@ extern "C" asm void func_ov016_02141144(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov016_02141238(void)
+extern "C" void func_ov016_02141238(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov016_02158ac0
-    ldr r1, [r0]
-    ldrb r0, [r1, #0x29]
-    ldr r12, [r1, #4]
-    ldr r1, =data_ov016_02154aa8
-    cmp r0, #0x20
-    and r2, r0, #0xf
-    mov lr, r0, asr #4
-    movhs lr, #1
-    ldr r0, =data_ov016_02154aae
-    movhs r2, #0xf
-    ldrb r3, [r0, r2]
-    ldr r2, [r12]
-    ldr r0, =0xfe00ff00
-    ldrb r1, [r1, lr]
-    and r0, r2, r0
-    mov r2, r3, lsl #0x17
-    orr r0, r0, r1
-    orr r0, r0, r2, lsr #7
-    str r0, [r12]
-    ldmia sp!, {r3, pc}
+    u8 *p = *(u8 **)data_ov016_02158ac0;
+    s32 v = *(u8 *)(p + 0x29);
+    u32 *q = *(u32 **)(p + 4);
+    s32 lo = v & 0xF;
+    s32 hi = v >> 4;
+    u32 a, b;
+    if ((u32)v >= 0x20) {
+        hi = 1;
+        lo = 0xF;
+    }
+    b = ((u8 *)data_ov016_02154aae)[lo];
+    a = ((u8 *)data_ov016_02154aa8)[hi];
+    *q = (*q & 0xFE00FF00) | a | ((b & 0x1FF) << 16);
 }
 
 extern "C" s32 func_ov016_021412a0(void)

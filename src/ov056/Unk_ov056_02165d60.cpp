@@ -1,4 +1,5 @@
 #include "ov056/Unk_ov056_02165d60.hpp"
+struct P02166b38 { s32 a; s32 b; };
 
 extern "C" s32 func_ov056_02165d60(...);
 extern "C" s32 func_ov056_02165db0(s32 arg0);
@@ -18,7 +19,7 @@ extern "C" s32 func_ov056_02166770(...);
 extern "C" s32 func_ov056_021667ec(...);
 extern "C" s32 func_ov056_02166a04(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov056_02166af4(u8 *arg0);
-extern "C" void func_ov056_02166b38(void);
+extern "C" void func_ov056_02166b38(u8 *arg0);
 extern "C" s32 func_ov056_02166b84(s32 arg0);
 extern "C" void func_ov056_02166bd4(void);
 extern "C" void func_ov056_02166c58(void);
@@ -1019,27 +1020,19 @@ extern "C" s32 func_ov056_02166af4(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov056_02166b38(void)
+extern "C" void func_ov056_02166b38(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0x14c]
-    cmp r6, #0
-    ldrne r7, =data_ov056_0216b390
-    ldrne r1, [r7]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0x14c
-    mov r4, #0xc
-@L_02166b5c:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_02166b5c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0x14C);
+    P02166b38 *e;
+    if (v == 0)
+        return;
+    e = (P02166b38 *)data_ov056_0216b390;
+    if (e->a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(e->a, arg0 + 0x14C + e->b * 0xC, v);
+        e++;
+    } while (e->a != 0);
 }
 
 #pragma push

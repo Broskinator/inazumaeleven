@@ -7,7 +7,7 @@ extern "C" s32 func_ov001_021000a0(u8 *arg0);
 extern "C" void func_ov001_0210010c(void);
 extern "C" s32 func_ov001_0210044c(...);
 extern "C" void func_ov001_021004e4(void);
-extern "C" void func_ov001_0210068c(void);
+extern "C" void func_ov001_0210068c(u8 *arg0);
 extern "C" void func_ov001_021006e4(void);
 extern "C" s32 func_ov001_021007dc(u8 *arg0);
 extern "C" void func_ov001_021008c8(u8 *arg0);
@@ -970,29 +970,16 @@ extern "C" asm void func_ov001_021004e4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov001_0210068c(void)
+extern "C" void func_ov001_0210068c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #4]
-    bl _ZN17UnkClass_0203dc7c13func_0203e1bcEv
-    cmp r0, #0x3e
-    ldmeqia sp!, {r4, pc}
-    ldr r1, =data_ov001_02130678
-    mov r2, #0x80000000
-    str r2, [r1]
-    str r2, [r1, #4]
-    str r2, [r1, #8]
-    mov r0, r4
-    str r2, [r1, #0xc]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x50]
-    blx r1
-    ldr r0, [r4, #4]
-    mov r1, #0
-    mov r2, #0x3e
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    ldmia sp!, {r4, pc}
+    if (((s32 (*)(s32))_ZN17UnkClass_0203dc7c13func_0203e1bcEv)(*(s32 *)(arg0 + 4)) == 0x3E)
+        return;
+    ((s32 *)data_ov001_02130678)[0] = 0x80000000;
+    ((s32 *)data_ov001_02130678)[1] = 0x80000000;
+    ((s32 *)data_ov001_02130678)[2] = 0x80000000;
+    ((s32 *)data_ov001_02130678)[3] = 0x80000000;
+    ((VCall *)arg0)->f20();
+    ((void (*)(s32, s32, s32))_ZN17UnkClass_0203dc7c13func_0203e04cEii)(*(s32 *)(arg0 + 4), 0, 0x3E);
 }
 
 extern "C" asm void func_ov001_021006e4(void)

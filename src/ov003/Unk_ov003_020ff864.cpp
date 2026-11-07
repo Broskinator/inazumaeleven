@@ -1,8 +1,10 @@
 #include "ov003/Unk_ov003_020ff864.hpp"
 #include "game/vcall.hpp"
+struct P02100ffc { s32 a; s32 b; };
+struct P020ff898 { s32 a; s32 b; };
 
 extern "C" s32 func_ov003_020ff864(u8 *arg0);
-extern "C" void func_ov003_020ff898(void);
+extern "C" void func_ov003_020ff898(u8 *arg0);
 extern "C" s32 func_ov003_020ff8e4(...);
 extern "C" void func_ov003_020ff90c(void);
 extern "C" void func_ov003_020ff984(void);
@@ -28,14 +30,14 @@ extern "C" void func_ov003_02100f14(u8 *arg0);
 extern "C" s32 func_ov003_02100f44(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov003_02100f78(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov003_02100fc8(u8 *arg0);
-extern "C" void func_ov003_02100ffc(void);
+extern "C" void func_ov003_02100ffc(u8 *arg0);
 extern "C" s32 func_ov003_02101050(...);
 extern "C" void func_ov003_02101078(void);
 extern "C" s32 func_ov003_021010dc(...);
 extern "C" void func_ov003_021011f0(void);
 extern "C" void func_ov003_02101248(u8 *arg0);
 extern "C" void func_ov003_0210126c(void);
-extern "C" void func_ov003_02101310(void);
+extern "C" void func_ov003_02101310(u8 *arg0);
 extern "C" void func_ov003_02101354(s32 arg0);
 extern "C" s32 func_ov003_02101374(s32 arg0);
 extern "C" void func_ov003_02101388(u8 *arg0, s32 arg1, s32 arg2);
@@ -235,27 +237,19 @@ extern "C" s32 func_0209c5d0(...);
 extern "C" s32 func_ov003_020ff21c(...);
 extern "C" s32 func_ov003_020ff1b8(...);
 extern "C" s32 func_ov015_0213bdd8(...);
-extern "C" asm void func_ov003_020ff898(void)
+extern "C" void func_ov003_020ff898(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0x35c]
-    cmp r6, #0
-    ldrne r7, =data_ov003_0211c360
-    ldrne r1, [r7]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0x35c
-    mov r4, #0xc
-@L_020ff8bc:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_020ff8bc
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0x35C);
+    P020ff898 *e;
+    if (v == 0)
+        return;
+    e = (P020ff898 *)data_ov003_0211c360;
+    if (e->a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(e->a, arg0 + 0x35C + e->b * 0xC, v);
+        e++;
+    } while (e->a != 0);
 }
 
 extern "C" asm s32 func_ov003_020ff8e4(...)
@@ -1619,28 +1613,22 @@ extern "C" s32 func_ov003_02100fc8(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov003_02100ffc(void)
+extern "C" void func_ov003_02100ffc(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0x18]
-    cmp r6, #0
-    ldrne r1, =data_ov003_0211c3b0
-    ldrne r7, =data_ov003_0211c3b0_b
-    ldrne r1, [r1]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0x18
-    mov r4, #0xc
-@L_02101024:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_02101024
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0x18);
+    s32 a;
+    P02100ffc *e;
+    if (v == 0)
+        return;
+    a = *(s32 *)data_ov003_0211c3b0;
+    e = (P02100ffc *)data_ov003_0211c3b0_b;
+    if (a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(a, arg0 + 0x18 + e->b * 0xC, v);
+        e++;
+        a = e->a;
+    } while (a != 0);
 }
 
 extern "C" asm s32 func_ov003_02101050(...)
@@ -1853,26 +1841,22 @@ extern "C" asm void func_ov003_0210126c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov003_02101310(void)
+extern "C" void func_ov003_02101310(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0xc]
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    b @L_02101344
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-@L_02101344:
-    bl func_ov003_021010dc
-    mov r0, r4
-    bl func_ov003_021011f0
-    ldmia sp!, {r4, pc}
+    switch (*(s32 *)(arg0 + 0xC)) {
+    case 0:
+    case 1:
+        break;
+    case 2:
+        ((void (*)(u8 *))func_ov003_021010dc)(arg0);
+        ((void (*)(u8 *))func_ov003_021011f0)(arg0);
+        break;
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+        break;
+    }
 }
 
 extern "C" void func_ov003_02101354(s32 arg0)

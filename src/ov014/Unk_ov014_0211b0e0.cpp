@@ -52,8 +52,8 @@ extern "C" void func_ov014_0211c1f8(s32 arg0);
 extern "C" s32 func_ov014_0211c208(void);
 extern "C" void func_ov014_0211c250(s32 arg0);
 extern "C" void func_ov014_0211c274(s32 arg0, s32 arg1);
-extern "C" void func_ov014_0211c29c(void);
-extern "C" void func_ov014_0211c2e8(void);
+extern "C" char **func_ov014_0211c29c(u8 *arg0, char *arg1);
+extern "C" u32 func_ov014_0211c2e8(u8 **arg0);
 extern "C" void func_ov014_0211c338(void);
 extern "C" void func_ov014_0211c3a4(void);
 extern "C" void func_ov014_0211c424(void);
@@ -1280,55 +1280,39 @@ extern "C" void func_ov014_0211c274(s32 arg0, s32 arg1)
     return;
 }
 
-extern "C" asm void func_ov014_0211c29c(void)
+extern "C" char **func_ov014_0211c29c(u8 *arg0, char *arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r6, [r0, #0x818]
-    mov r8, r1
-    cmp r6, #0
-    mov r4, #0
-    ble @L_0211c2e0
-    ldr r5, [r0, #0x814]
-@L_0211c2b8:
-    ldr r7, [r5, r4, lsl #2]
-    mov r1, r8
-    ldr r0, [r7]
-    bl strcmp
-    cmp r0, #0
-    moveq r0, r7
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r4, r4, #1
-    cmp r4, r6
-    blt @L_0211c2b8
-@L_0211c2e0:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 i;
+    char ***arr;
+    s32 n = *(s32 *)(arg0 + 0x818);
+    i = 0;
+    if (n > 0) {
+        arr = *(char ****)(arg0 + 0x814);
+        do {
+            char **e = arr[i];
+            if (((s32 (*)(char *, char *))strcmp)(*e, arg1) == 0)
+                return e;
+            i++;
+        } while (i < n);
+    }
+    return 0;
 }
 
-extern "C" asm void func_ov014_0211c2e8(void)
+extern "C" u32 func_ov014_0211c2e8(u8 **arg0)
 {
-    ldr r1, [r0]
-    ldrb r2, [r1]
-    add r3, r1, #1
-    tst r2, #0x80
-    beq @L_0211c32c
-    ands r1, r2, #0x7f
-    sub r12, r1, #1
-    mov r2, #0
-    beq @L_0211c32c
-@L_0211c30c:
-    tst r2, #0xff000000
-    mvnne r0, #0
-    bxne lr
-    ldrb r1, [r3], #1
-    cmp r12, #0
-    sub r12, r12, #1
-    add r2, r1, r2, lsl #8
-    bne @L_0211c30c
-@L_0211c32c:
-    str r3, [r0]
-    mov r0, r2
-    bx lr
+    u8 *p = *arg0;
+    u32 v = *p++;
+    if (v & 0x80) {
+        s32 n = v & 0x7F;
+        v = 0;
+        while (n-- != 0) {
+            if (v & 0xFF000000)
+                return -1;
+            v = (v << 8) + *p++;
+        }
+    }
+    *arg0 = p;
+    return v;
 }
 
 extern "C" asm void func_ov014_0211c338(void)

@@ -1,8 +1,9 @@
 #include "ov074/Unk_ov074_0216ffa0.hpp"
+struct P02170074 { s32 a; s32 b; };
 
 extern "C" void func_ov074_0216ffa0(u8 *arg0, s32 arg1);
 extern "C" void func_ov074_0216ffbc(void);
-extern "C" void func_ov074_02170074(void);
+extern "C" void func_ov074_02170074(u8 *arg0);
 extern "C" void func_ov074_021700c8(void);
 extern "C" s32 func_ov074_02170158(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov074_02170190(...);
@@ -129,28 +130,22 @@ extern "C" asm void func_ov074_0216ffbc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov074_02170074(void)
+extern "C" void func_ov074_02170074(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0x84]
-    cmp r6, #0
-    ldrne r1, =data_ov074_0217103c
-    ldrne r7, =data_ov074_0217105c
-    ldrne r1, [r1, #0x20]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0x84
-    mov r4, #0xc
-@L_0217009c:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_0217009c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0x84);
+    s32 a;
+    P02170074 *e;
+    if (v == 0)
+        return;
+    a = ((s32 *)data_ov074_0217103c)[8];
+    e = (P02170074 *)data_ov074_0217105c;
+    if (a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(a, arg0 + 0x84 + e->b * 0xC, v);
+        e++;
+        a = e->a;
+    } while (a != 0);
 }
 
 extern "C" asm void func_ov074_021700c8(void)

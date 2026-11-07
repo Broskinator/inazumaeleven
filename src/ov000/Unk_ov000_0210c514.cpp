@@ -23,7 +23,7 @@ extern "C" void func_ov000_0210d5a4(void);
 extern "C" s32 func_ov000_0210dd64(...);
 extern "C" s32 func_ov000_0210ddf4(u8 *arg0);
 extern "C" void func_ov000_0210de08(void);
-extern "C" void func_ov000_0210deb8(void);
+extern "C" s32 func_ov000_0210deb8(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov000_0210df0c(u8 *arg0);
 extern "C" s32 func_ov000_0210df58(u8 *arg0);
 extern "C" s32 func_ov000_0210df84(u8 *arg0, s32 arg1);
@@ -1849,31 +1849,18 @@ extern "C" asm void func_ov000_0210de08(void)
     bx lr
 }
 
-extern "C" asm void func_ov000_0210deb8(void)
+extern "C" s32 func_ov000_0210deb8(u8 *arg0, s32 arg1)
 {
-    cmp r1, #0
-    blt @L_0210ded4
-    ldr r3, [r0, #0xac]
-    ldr r2, [r0, #0xa8]
-    add r3, r1, r3
-    cmp r3, r2
-    ble @L_0210dedc
-@L_0210ded4:
-    mov r0, #0
-    bx lr
-@L_0210dedc:
-    ldr r12, [r0, #0xb0]
-    ldr r3, [r0, #0xb4]
-    sub r2, r12, r1
-    sub r3, r12, r3
-    str r3, [r0, #0xe4]
-    str r1, [r0, #0xb4]
-    str r2, [r0, #0xe0]
-    mov r0, #1
-    cmp r2, r3
-    moveq r0, #0
-    add r0, r0, #2
-    bx lr
+    s32 b0, n, o;
+    if (arg1 < 0 || arg1 + *(s32 *)(arg0 + 0xAC) > *(s32 *)(arg0 + 0xA8))
+        return 0;
+    b0 = *(s32 *)(arg0 + 0xB0);
+    o = b0 - *(s32 *)(arg0 + 0xB4);
+    n = b0 - arg1;
+    *(s32 *)(arg0 + 0xE4) = o;
+    *(s32 *)(arg0 + 0xB4) = arg1;
+    *(s32 *)(arg0 + 0xE0) = n;
+    return (n != o) + 2;
 }
 
 extern "C" s32 func_ov000_0210df0c(u8 *arg0)

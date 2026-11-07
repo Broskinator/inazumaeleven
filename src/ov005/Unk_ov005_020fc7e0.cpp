@@ -9,7 +9,7 @@ extern "C" s32 func_ov005_020fcb08(s32 arg0, s32 arg1);
 extern "C" s32 func_ov005_020fcb5c(s32 arg0);
 extern "C" void func_ov005_020fcb70(void);
 extern "C" void func_ov005_020fcb74(u8 *arg0, s32 arg1);
-extern "C" void func_ov005_020fcbb0(void);
+extern "C" void func_ov005_020fcbb0(u8 *arg0, u8 *arg1);
 extern "C" void func_ov005_020fcbf4(void);
 extern "C" s32 func_ov005_020fcc58(...);
 extern "C" s32 func_ov005_020fcc9c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -364,26 +364,15 @@ extern "C" void func_ov005_020fcb74(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_ov005_020fcbb0(void)
+extern "C" void func_ov005_020fcbb0(u8 *arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldrb r2, [r0, #0x1ac]
-    cmp r2, #0
-    ldr r2, [r0, #0x190]
-    beq @L_020fcbdc
-    cmp r2, #7
-    ldreqh r1, [r1, #4]
-    cmpeq r1, #1
-    ldmneia sp!, {r3, pc}
-    bl func_ov005_020fcdc8
-    ldmia sp!, {r3, pc}
-@L_020fcbdc:
-    cmp r2, #7
-    ldreqh r1, [r1, #4]
-    cmpeq r1, #1
-    ldmneia sp!, {r3, pc}
-    bl func_ov005_020fcdb0
-    ldmia sp!, {r3, pc}
+    if (arg0[0x1AC] != 0) {
+        if (*(s32 *)(arg0 + 0x190) == 7 && *(u16 *)(arg1 + 4) == 1)
+            ((void (*)(u8 *))func_ov005_020fcdc8)(arg0);
+    } else {
+        if (*(s32 *)(arg0 + 0x190) == 7 && *(u16 *)(arg1 + 4) == 1)
+            ((void (*)(u8 *))func_ov005_020fcdb0)(arg0);
+    }
 }
 
 extern "C" asm void func_ov005_020fcbf4(void)

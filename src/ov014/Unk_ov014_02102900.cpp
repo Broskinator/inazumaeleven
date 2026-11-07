@@ -2630,26 +2630,19 @@ extern "C" void func_ov014_02104c54(u16 arg0, u16 arg1, s32 arg2)
     }
 }
 
-extern "C" asm void func_ov014_02104cb4(void)
+extern "C" void func_ov014_02104cb4(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r0, =data_020bb120
-    ldr r0, [r0, #4]
-    ldr r5, [r0, #0xa4]
-    cmp r5, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r4, #0
-    str r0, [r5]
-    strb r4, [r5, #8]
-    mov r1, r4
-    str r4, [r5, #0x50]
-    add r0, r5, #0x70
-    mov r2, #0x30
-    bl MI_CpuFill8
-    str r4, [r5, #0x6c]
-    str r4, [r5, #0x44]
-    strb r4, [r5, #0x33]
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *g = *(u8 **)((u8 *)data_020bb120 + 4);
+    u8 *p = *(u8 **)(g + 0xA4);
+    if (p == 0)
+        return;
+    *(u8 **)p = g;
+    p[8] = 0;
+    *(s32 *)(p + 0x50) = 0;
+    ((void (*)(u8 *, s32, s32))MI_CpuFill8)(p + 0x70, 0, 0x30);
+    *(s32 *)(p + 0x6C) = 0;
+    *(s32 *)(p + 0x44) = 0;
+    p[0x33] = 0;
 }
 
 extern "C" void func_ov014_02104d00(void)

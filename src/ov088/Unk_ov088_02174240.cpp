@@ -30,7 +30,7 @@ extern "C" s32 func_ov088_02175668(void);
 extern "C" void func_ov088_021756d4(void);
 extern "C" void func_ov088_021756e0(void);
 extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1);
-extern "C" void func_ov088_02175720(void);
+extern "C" s32 func_ov088_02175720(u8 *arg0, s32 arg1);
 extern "C" void func_ov088_02175770(void);
 extern "C" s32 func_ov088_021757d8(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov088_02175858(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -1508,29 +1508,16 @@ extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1)
     return 1;
 }
 
-extern "C" asm void func_ov088_02175720(void)
+extern "C" s32 func_ov088_02175720(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldrb r0, [r6, #0x10]
-    mov r5, r1
-    cmp r0, #1
-    bne @L_02175748
-    ldr r0, [r6, #0xc]
-    bl FS_WaitAsync
-    mov r0, #0
-    strb r0, [r6, #0x10]
-@L_02175748:
-    mov r4, #0
-    ldr r0, [r6, #0xc]
-    mov r1, r5
-    mov r2, r4
-    bl FS_SeekFile
-    cmp r0, #0
-    moveq r0, r4
-    strne r5, [r6, #8]
-    movne r0, #1
-    ldmia sp!, {r4, r5, r6, pc}
+    if (arg0[0x10] == 1) {
+        ((void (*)(void *))FS_WaitAsync)(*(void **)(arg0 + 0xC));
+        arg0[0x10] = 0;
+    }
+    if (((s32 (*)(void *, s32, s32))FS_SeekFile)(*(void **)(arg0 + 0xC), arg1, 0) == 0)
+        return 0;
+    *(s32 *)(arg0 + 8) = arg1;
+    return 1;
 }
 
 extern "C" asm void func_ov088_02175770(void)

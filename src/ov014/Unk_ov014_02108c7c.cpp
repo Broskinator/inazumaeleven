@@ -1,5 +1,6 @@
 #include "ov014/Unk_ov014_02108c7c.hpp"
 #include "game/vcall.hpp"
+struct E02109958 { u8 a, b, c; u8 lo : 7; u8 hi : 1; };
 
 extern "C" s32 func_ov014_02108c7c(s32 arg0);
 extern "C" void func_ov014_02108dbc(void);
@@ -22,7 +23,7 @@ extern "C" void func_ov014_02109680(void);
 extern "C" void func_ov014_021096e0(void);
 extern "C" void func_ov014_021097cc(void);
 extern "C" void func_ov014_021098d0(void);
-extern "C" void func_ov014_02109958(void);
+extern "C" u8 func_ov014_02109958(u8 *arg0);
 extern "C" s32 func_ov014_0210999c(s32 arg0, u16 arg1);
 extern "C" s32 func_ov014_02109a0c(...);
 extern "C" void func_ov014_02109cf8(void);
@@ -37,7 +38,7 @@ extern "C" void func_ov014_02109e00(void);
 extern "C" void func_ov014_02109ed4(void);
 extern "C" void func_ov014_02109ff8(void);
 extern "C" void func_ov014_0210a034(void);
-extern "C" void func_ov014_0210a184(void);
+extern "C" s32 func_ov014_0210a184(u8 *arg0);
 extern "C" s32 func_ov014_0210a1e4(...);
 extern "C" void func_ov014_0210a230(void);
 extern "C" void func_ov014_0210a2f0(void);
@@ -50,7 +51,7 @@ extern "C" void func_ov014_0210a8a0(void);
 extern "C" s32 func_ov014_0210a938(...);
 extern "C" s32 func_ov014_0210a9e8(s32 arg0);
 extern "C" void func_ov014_0210aa24(s32 arg0, s32 arg1);
-extern "C" void func_ov014_0210aa50(void);
+extern "C" void func_ov014_0210aa50(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov014_0210aaa0(s32 arg0);
 extern "C" void func_ov014_0210aac4(s32 arg0);
 extern "C" s32 func_ov014_0210aad4(...);
@@ -1072,27 +1073,17 @@ extern "C" asm void func_ov014_021098d0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02109958(void)
+extern "C" u8 func_ov014_02109958(u8 *arg0)
 {
-    ldrb r12, [r0, #0xd12]
-    mov r3, #0
-    mov r2, r3
-    cmp r12, #0
-    bls @L_02109994
-@L_0210996c:
-    add r1, r0, r2, lsl #2
-    ldrb r1, [r1, #0x447]
-    mov r1, r1, lsl #0x18
-    movs r1, r1, lsr #0x1f
-    moveq r3, r2
-    beq @L_02109994
-    add r1, r2, #1
-    and r2, r1, #0xff
-    cmp r2, r12
-    blo @L_0210996c
-@L_02109994:
-    mov r0, r3
-    bx lr
+    u8 i;
+    u8 r = 0;
+    for (i = 0; i < arg0[0xD12]; i++) {
+        if (!((E02109958 *)(arg0 + 0x444))[i].hi) {
+            r = i;
+            break;
+        }
+    }
+    return r;
 }
 
 extern "C" s32 func_ov014_0210999c(s32 arg0, u16 arg1)
@@ -1631,29 +1622,14 @@ extern "C" asm void func_ov014_0210a034(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0210a184(void)
+extern "C" s32 func_ov014_0210a184(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl OS_GetTick
-    str r0, [r4, #0xcb0]
-    mov r0, #0
-    str r1, [r4, #0xcb4]
-    bl func_ov014_0210a7fc
-    strb r0, [r4, #0xd11]
-    bl OS_GetTick
-    add r2, r4, #0xd00
-    str r0, [r4, #0xcb0]
-    str r1, [r4, #0xcb4]
-    ldrsb r2, [r2, #0x11]
-    ldr r1, =data_ov014_02123dac
-    ldr r0, =data_ov014_021240a8
-    ldr r2, [r1, r2, lsl #2]
-    ldr r1, =data_ov014_021240b0
-    orr r2, r2, #0x200000
-    bl func_ov014_02121240
-    mov r0, #3
-    ldmia sp!, {r4, pc}
+    *(u64 *)(arg0 + 0xCB0) = ((u64 (*)(void))OS_GetTick)();
+    arg0[0xD11] = ((u8 (*)(s32))func_ov014_0210a7fc)(0);
+    *(u64 *)(arg0 + 0xCB0) = ((u64 (*)(void))OS_GetTick)();
+    ((void (*)(void *, void *, u32))func_ov014_02121240)(data_ov014_021240a8, data_ov014_021240b0,
+        ((u32 *)data_ov014_02123dac)[*(s8 *)(arg0 + 0xD11)] | 0x200000);
+    return 3;
 }
 
 extern "C" asm s32 func_ov014_0210a1e4(...)
@@ -2244,27 +2220,13 @@ extern "C" void func_ov014_0210aa24(s32 arg0, s32 arg1)
     func_ov014_0210abd0((s32)((u8 *)local), arg1);
 }
 
-extern "C" asm void func_ov014_0210aa50(void)
+extern "C" void func_ov014_0210aa50(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #0x18
-    add r4, sp, #0
-    mov r5, r1
-    mov r1, r4
-    bl func_ov014_0210aad4
-    ldr r1, =data_ov014_02124838
-    mov r0, r4
-    mov r2, #8
-    bl memcmp
-    cmp r0, #0
-    addne sp, sp, #0x18
-    ldmneia sp!, {r3, r4, r5, pc}
-    add r0, sp, #8
-    mov r1, r5
-    mov r2, #0xa
-    bl MI_CpuCopy8
-    add sp, sp, #0x18
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 buf[0x18];
+    ((void (*)(s32, u8 *))func_ov014_0210aad4)(arg0, buf);
+    if (((s32 (*)(u8 *, u8 *, s32))memcmp)(buf, (u8 *)data_ov014_02124838, 8) != 0)
+        return;
+    ((void (*)(u8 *, u8 *, s32))MI_CpuCopy8)(buf + 8, arg1, 10);
 }
 
 extern "C" s32 func_ov014_0210aaa0(s32 arg0)

@@ -1,4 +1,7 @@
 #include "ov015/Unk_02134024.hpp"
+struct E021346a8 { u8 a; u8 pad[8]; u8 b; u8 pad2[2]; };
+extern "C" char data_020c46a4[];
+static inline E021346a8 *get021346a8(s32 i) { return *(E021346a8 **)data_020c46a4 + i; }
 
 extern "C" void func_ov015_02134024(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_ov015_02134040(...);
@@ -18,7 +21,7 @@ extern "C" void func_ov015_02134554(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 
 extern "C" s32 func_ov015_02134584(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov015_021345d8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213462c(void);
-extern "C" void func_ov015_021346a8(void);
+extern "C" void func_ov015_021346a8(s32 arg0, s32 arg1, char *arg2, char *arg3);
 extern "C" void func_ov015_021346f8(void);
 extern "C" void func_ov015_0213476c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213477c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -634,25 +637,11 @@ extern "C" asm void func_ov015_0213462c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov015_021346a8(void)
+extern "C" void func_ov015_021346a8(s32 arg0, s32 arg1, char *arg2, char *arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr lr, =data_020c46a4
-    mov r12, #0xc
-    ldr lr, [lr]
-    mul r4, r1, r12
-    mla r5, r0, r12, lr
-    ldr r1, =data_ov015_02165320
-    mov r0, r2
-    add r6, r5, r4
-    mov r7, r3
-    bl sprintf
-    ldrb r2, [r5, r4]
-    ldrb r3, [r6, #9]
-    ldr r1, =data_ov015_0216533c
-    mov r0, r7
-    bl sprintf
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    E021346a8 *e = &get021346a8(arg0)[arg1];
+    ((void (*)(char *, u8 *))sprintf)(arg2, (u8 *)data_ov015_02165320);
+    ((void (*)(char *, u8 *, u8, u8))sprintf)(arg3, (u8 *)data_ov015_0216533c, e->a, e->b);
 }
 
 extern "C" asm void func_ov015_021346f8(void)

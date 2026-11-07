@@ -17,7 +17,7 @@ extern "C" s32 func_ov001_021200f4(s32 arg0);
 extern "C" void func_ov001_02120108(void);
 extern "C" void func_ov001_0212017c(void);
 extern "C" void func_ov001_02120268(void);
-extern "C" void func_ov001_02120440(void);
+extern "C" void func_ov001_02120440(u8 *arg0);
 extern "C" void func_ov001_0212049c(s32 arg0);
 extern "C" void func_ov001_021204c4(void);
 extern "C" void func_ov001_02120e68(void);
@@ -1692,28 +1692,13 @@ extern "C" asm void func_ov001_02120268(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov001_02120440(void)
+extern "C" void func_ov001_02120440(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #0xc4]
-    ldr r2, =data_ov001_021288d0
-    add r1, r4, #0xc4
-    bl func_ov001_02126240
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1a]
-    cmp r0, #0
-    ldr r0, [r4, #0xc4]
-    bne @L_0212047c
-    ldr r2, =data_ov001_02128850
-    add r1, r4, #0xc4
-    bl func_ov001_02126240
-    ldmia sp!, {r4, pc}
-@L_0212047c:
-    ldr r2, =data_ov001_02128878
-    add r1, r4, #0xc4
-    bl func_ov001_02126240
-    ldmia sp!, {r4, pc}
+    ((void (*)(s32, u8 *, void *))func_ov001_02126240)(*(s32 *)(arg0 + 0xC4), arg0 + 0xC4, data_ov001_021288d0);
+    if (*(u8 *)((u8 *)gGameState + 0x1A) == 0)
+        ((void (*)(s32, u8 *, void *))func_ov001_02126240)(*(s32 *)(arg0 + 0xC4), arg0 + 0xC4, data_ov001_02128850);
+    else
+        ((void (*)(s32, u8 *, void *))func_ov001_02126240)(*(s32 *)(arg0 + 0xC4), arg0 + 0xC4, data_ov001_02128878);
 }
 
 extern "C" void func_ov001_0212049c(s32 arg0)

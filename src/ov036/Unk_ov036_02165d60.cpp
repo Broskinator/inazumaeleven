@@ -15,7 +15,7 @@ extern "C" void func_ov036_021668e0(void);
 extern "C" void func_ov036_02166d28(void);
 extern "C" void func_ov036_02166e40(void);
 extern "C" s32 func_ov036_02166f50(s32 arg0, s32 arg1);
-extern "C" void func_ov036_02166fb8(void);
+extern "C" s32 func_ov036_02166fb8(s32 arg0, s32 arg1);
 extern "C" void func_ov036_02167000(void);
 extern "C" void func_ov036_021670c8(void);
 extern "C" void func_ov036_021671d8(void);
@@ -1338,30 +1338,23 @@ extern "C" s32 func_ov036_02166f50(s32 arg0, s32 arg1)
 }
 #pragma pop
 
-extern "C" asm void func_ov036_02166fb8(void)
+extern "C" s32 func_ov036_02166fb8(s32 arg0, s32 arg1)
 {
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    bx lr
-    b @L_02166fe0
-    b @L_02166fe8
-    b @L_02166ff0
-    b @L_02166ff8
-    b @L_02166ff8
-    b @L_02166ff8
-    b @L_02166ff8
-@L_02166fe0:
-    mov r0, #0
-    bx lr
-@L_02166fe8:
-    mov r0, #1
-    bx lr
-@L_02166ff0:
-    mov r0, #2
-    bx lr
-@L_02166ff8:
-    mov r0, #3
-    bx lr
+    s32 r;
+    switch (arg1) {
+    case 0:
+        return 0;
+    case 1:
+        return 1;
+    case 2:
+        return 2;
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+        return 3;
+    }
+    return arg0;
 }
 
 extern "C" asm void func_ov036_02167000(void)

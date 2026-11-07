@@ -14,7 +14,7 @@ extern "C" void func_ov049_021661b4(void);
 extern "C" void func_ov049_02166684(void);
 extern "C" s32 func_ov049_021667f8(s32 arg0);
 extern "C" void func_ov049_021668f0(void);
-extern "C" void func_ov049_021669a4(void);
+extern "C" void func_ov049_021669a4(u8 *arg0);
 extern "C" void func_ov049_021669fc(void);
 extern "C" void func_ov049_02166d34(u8 *arg0, s32 arg1);
 extern "C" void func_ov049_02166d48(u8 *arg0, s32 arg1);
@@ -886,28 +886,13 @@ extern "C" asm void func_ov049_021668f0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov049_021669a4(void)
+extern "C" void func_ov049_021669a4(u8 *arg0)
 {
-    stmdb sp!, {lr}
-    sub sp, sp, #0x14
-    ldr r3, =data_020c47b4
-    mov lr, r0
-    ldr r0, [r3]
-    ldr r1, =data_ov049_021676c8
-    cmp r0, #0
-    addeq sp, sp, #0x14
-    ldmeqia sp!, {pc}
-    mov r2, #0
-    str r2, [sp]
-    str r2, [sp, #4]
-    str r2, [sp, #8]
-    mov r12, #1
-    str r12, [sp, #0xc]
-    add r2, lr, #0x10
-    str r12, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-    add sp, sp, #0x14
-    ldmia sp!, {pc}
+    void *name = data_ov049_021676c8;
+    if (*(void **)data_020c47b4 == 0)
+        return;
+    ((s32 (*)(void *, void *, void *, void *, s32, s32, s32, s32, u8))_ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih)(
+        *(void **)data_020c47b4, name, arg0 + 0x10, data_020c47b4, 0, 0, 0, 1, 1);
 }
 
 extern "C" asm void func_ov049_021669fc(void)

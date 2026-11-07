@@ -26,7 +26,7 @@ extern "C" s32 func_02094450(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_02094484(void);
 extern "C" BOOL func_020944b4(void *self, u8 *obj);
 extern "C" s32 func_020944d4(s32 arg0);
-extern "C" void func_02094528(void);
+extern "C" void func_02094528(s32 arg0, u8 *arg1);
 extern "C" void func_02094580(void *self, u8 *obj);
 extern "C" void func_020945ac(void);
 extern "C" void func_020945ec(void);
@@ -971,29 +971,17 @@ extern "C" s32 func_020944d4(s32 arg0)
     return 0;
 }
 
-extern "C" asm void func_02094528(void)
+extern "C" void func_02094528(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r0, #0
-    mov r2, #0x48
-    mov r4, r1
-    bl MIi_CpuClearFast
-    mov r2, #0x3f
-    sub r0, r2, #0x40
-    ldr lr, =0x7fff
-    mov r5, #0x1f
-    mov r12, #0x32
-    mov r3, #0x64
-    mov r1, #0x1000
-    strb r5, [r4, #0xc]
-    strh lr, [r4, #0xe]
-    strb r12, [r4, #0x26]
-    strb r3, [r4, #0x27]
-    strb r2, [r4, #0xd]
-    str r1, [r4, #0x44]
-    strh r0, [r4, #0x10]
-    strh r0, [r4, #0x12]
-    ldmia sp!, {r3, r4, r5, pc}
+    ((void (*)(s32, u8 *, s32))MIi_CpuClearFast)(0, arg1, 0x48);
+    arg1[0xC] = 0x1F;
+    *(u16 *)(arg1 + 0xE) = 0x7FFF;
+    arg1[0x26] = 0x32;
+    arg1[0x27] = 0x64;
+    arg1[0xD] = 0x3F;
+    *(s32 *)(arg1 + 0x44) = 0x1000;
+    *(s16 *)(arg1 + 0x10) = -1;
+    *(s16 *)(arg1 + 0x12) = -1;
 }
 
 extern "C" void func_02094580(void *self, u8 *obj)

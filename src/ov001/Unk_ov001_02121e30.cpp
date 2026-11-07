@@ -38,7 +38,7 @@ extern "C" void func_ov001_02122de8(void);
 extern "C" void func_ov001_02122ef8(void);
 extern "C" void func_ov001_02123008(void);
 extern "C" s32 func_ov001_021232c8(...);
-extern "C" void func_ov001_02123628(void);
+extern "C" void func_ov001_02123628(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov001_02123680(u8 *arg0, u8 arg1);
 extern "C" void func_ov001_021236f4(void);
 extern "C" s32 func_ov001_0212393c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -1697,29 +1697,19 @@ extern "C" asm s32 func_ov001_021232c8(...)
     dcd gGameState
 }
 
-extern "C" asm void func_ov001_02123628(void)
+extern "C" void func_ov001_02123628(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r2
-    add r2, r5, r4, lsl #2
-    ldr r0, =data_020c5320
-    str r1, [r2, #4]
-    bl func_0209bf8c
-    cmp r4, r0
-    mov r2, r4
-    add r3, r5, r4, lsl #2
-    mvn r1, #0
-    str r1, [r3, #0x18]
-    str r1, [r3, #0x28]
-    mov r1, #0
-    subge r2, r4, #1
-    add r0, r5, #0x4c
-    add r0, r0, r2, lsl #5
-    mov r2, #0x20
-    str r1, [r3, #0x38]
-    bl MI_CpuFill8
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 n;
+    s32 k;
+    ((s32 *)(arg0 + 4))[arg2] = arg1;
+    n = ((s32 (*)(void *))func_0209bf8c)(data_020c5320);
+    k = arg2;
+    if (arg2 >= n)
+        k = arg2 - 1;
+    ((s32 *)(arg0 + 0x18))[arg2] = -1;
+    ((s32 *)(arg0 + 0x28))[arg2] = -1;
+    ((s32 *)(arg0 + 0x38))[arg2] = 0;
+    ((void (*)(u8 *, s32, s32))MI_CpuFill8)(arg0 + 0x4C + k * 0x20, 0, 0x20);
 }
 
 #pragma push

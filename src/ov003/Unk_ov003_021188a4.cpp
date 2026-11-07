@@ -1,5 +1,6 @@
 #include "ov003/Unk_ov003_021188a4.hpp"
 #include "game/vcall.hpp"
+struct P02119a70 { s32 a; s32 b; };
 
 extern "C" s32 func_ov003_021188a4(...);
 extern "C" s32 func_ov003_021188cc(u8 *arg0);
@@ -29,7 +30,7 @@ extern "C" s32 func_ov003_02119830(...);
 extern "C" s32 func_ov003_02119878(...);
 extern "C" s32 func_ov003_0211994c(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov003_02119a3c(u8 *arg0);
-extern "C" void func_ov003_02119a70(void);
+extern "C" void func_ov003_02119a70(u8 *arg0);
 extern "C" void func_ov003_02119abc(s32 arg0);
 extern "C" void func_ov003_02119ae4(void);
 extern "C" void func_ov003_02119b5c(void);
@@ -1344,27 +1345,19 @@ extern "C" s32 func_ov003_02119a3c(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov003_02119a70(void)
+extern "C" void func_ov003_02119a70(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0x7c]
-    cmp r6, #0
-    ldrne r7, =data_ov003_0211cfa8
-    ldrne r1, [r7]
-    cmpne r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0x7c
-    mov r4, #0xc
-@L_02119a94:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_02119a94
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0x7C);
+    P02119a70 *e;
+    if (v == 0)
+        return;
+    e = (P02119a70 *)data_ov003_0211cfa8;
+    if (e->a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(e->a, arg0 + 0x7C + e->b * 0xC, v);
+        e++;
+    } while (e->a != 0);
 }
 
 extern "C" void func_ov003_02119abc(s32 arg0)

@@ -34,7 +34,7 @@ extern "C" u32 func_0209d668(void);
 extern "C" void func_0209d678(s32 *obj);
 extern "C" void func_0209d684(void *obj);
 extern "C" void func_0209d688(void);
-extern "C" void func_0209d874(void);
+extern "C" u8 *func_0209d874(u8 **arg0, s16 arg1);
 extern "C" s32 func_0209d8b8(int i);
 extern "C" void func_0209d8cc(s32 *table);
 extern "C" void func_0209d8dc(void);
@@ -57,7 +57,7 @@ extern "C" void func_0209dfd4(s32 *obj, int i, s32 value);
 extern "C" void func_0209e020(u8 *arg0, s32 arg1);
 extern "C" void func_0209e09c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_0209e0c0(s32 *obj, int i, s32 value);
-extern "C" void func_0209e0dc(void);
+extern "C" s32 func_0209e0dc(u8 *arg0, s32 arg1);
 
 extern "C" char data_020a43f8[];
 extern "C" char data_020a72c4[];
@@ -915,27 +915,19 @@ extern "C" asm void func_0209d688(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_0209d874(void)
+extern "C" u8 *func_0209d874(u8 **arg0, s16 arg1)
 {
-    ldr r2, [r0]
-    ldr r0, [r0, #4]
-    ldrsh r12, [r2, #0xc]
-    mov r3, #0
-    cmp r12, #0
-    ble @L_0209d8ac
-@L_0209d88c:
-    ldrsh r2, [r0, #4]
-    cmp r2, r1
-    beq @L_0209d8ac
-    ldrsh r2, [r0, #2]
-    add r3, r3, #1
-    cmp r3, r12
-    add r0, r0, r2
-    blt @L_0209d88c
-@L_0209d8ac:
-    cmp r3, r12
-    moveq r0, #0
-    bx lr
+    u8 *h = arg0[0];
+    u8 *e = arg0[1];
+    s32 i;
+    for (i = 0; i < *(s16 *)(h + 0xC); i++) {
+        if (*(s16 *)(e + 4) == arg1)
+            break;
+        e += *(s16 *)(e + 2);
+    }
+    if (i == *(s16 *)(h + 0xC))
+        return 0;
+    return e;
 }
 
 extern "C" s32 func_0209d8b8(int i)
@@ -1509,27 +1501,23 @@ extern "C" void func_0209e0c0(s32 *obj, int i, s32 value)
     func_0209dfd4(obj, i, value);
 }
 
-extern "C" asm void func_0209e0dc(void)
+static inline s32 pos0209e0dc(s32 v)
 {
-    add r0, r0, r1, lsl #2
-    ldr r0, [r0, #4]
-    mov r1, #1
-    cmp r0, #0
-    movle r1, #0
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    add r0, r0, #0xf
-    add r12, r0, #0xe00
-    ldr r3, =0x91a2b3c5
-    mov r1, r12, lsr #0x1f
-    smull r2, r0, r3, r12
-    add r0, r12, r0
-    add r0, r1, r0, asr #11
-    cmp r0, #7
-    movgt r0, #7
-    bxgt lr
-    cmp r0, #0
-    movlt r0, #0
-    bx lr
+    s32 t = 1;
+    if (v <= 0)
+        t = 0;
+    return t;
+}
+extern "C" s32 func_0209e0dc(u8 *arg0, s32 arg1)
+{
+    s32 v = ((s32 *)(arg0 + 4))[arg1];
+    s32 r;
+    if (pos0209e0dc(v) == 0)
+        return 0;
+    r = (v + 0xE0F) / 0xE10;
+    if (r > 7)
+        return 7;
+    if (r < 0)
+        return 0;
+    return r;
 }

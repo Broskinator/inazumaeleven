@@ -1,5 +1,6 @@
 #include "ov000/Unk_ov000_020fc7e0.hpp"
 #include "game/vcall.hpp"
+struct T020fd394 { void (*f[3])(void); };
 
 extern "C" s32 func_ov000_020fc7e0(s32 arg0);
 extern "C" u8 *func_ov000_020fc7f8(void);
@@ -975,93 +976,34 @@ extern "C" asm void func_ov000_020fcba0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov000_020fd394(void)
+extern "C" void func_ov000_020fd394(void)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0xc
-    ldr r0, =data_ov000_02117c58
-    add r4, sp, #0
-    ldmia r0, {r0, r1, r2}
-    stmia r4, {r0, r1, r2}
-    bl rand
-    ldr r2, =0x55555556
-    mov r3, #3
-    smull r1, r12, r2, r0
-    add r12, r12, r0, lsr #31
-    smull r1, r2, r3, r12
-    sub r12, r0, r1
-    ldr r0, [r4, r12, lsl #2]
-    blx r0
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, pc}
+    T020fd394 t = *(T020fd394 *)data_ov000_02117c58;
+    t.f[((s32 (*)(void))rand)() % 3]();
 }
 
-extern "C" asm void func_ov000_020fd3e0(void)
+extern "C" void func_ov000_020fd3e0(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov000_021186c0
-    mov lr, #0
-    ldr r1, [r0]
-    ldr r2, =data_ov000_021186d0
-    strb lr, [r1]
-@L_020fd3f8:
-    ldrb r1, [r2, lr]
-    ldr r12, [r0]
-    mov r1, r1, lsl lr
-    ldrb r3, [r12]
-    and r1, r1, #0xff
-    add lr, lr, #1
-    orr r1, r3, r1
-    strb r1, [r12]
-    cmp lr, #8
-    blt @L_020fd3f8
-    ldmia sp!, {r3, pc}
+    s32 i;
+    **(u8 **)data_ov000_021186c0 = 0;
+    for (i = 0; i < 8; i++)
+        **(u8 **)data_ov000_021186c0 |= (u8)(((u8 *)data_ov000_021186d0)[i] << i);
 }
 
-extern "C" asm void func_ov000_020fd42c(void)
+extern "C" void func_ov000_020fd42c(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov000_021186c0
-    mov lr, #0
-    ldr r1, [r0, #4]
-    ldr r2, =data_ov000_021186d0
-    strb lr, [r1]
-@L_020fd444:
-    add r1, r2, lr
-    ldrb r1, [r1, #8]
-    ldr r12, [r0, #4]
-    mov r1, r1, lsl lr
-    ldrb r3, [r12]
-    and r1, r1, #0xff
-    add lr, lr, #1
-    orr r1, r3, r1
-    strb r1, [r12]
-    cmp lr, #8
-    blt @L_020fd444
-    ldmia sp!, {r3, pc}
+    s32 i;
+    *((u8 **)data_ov000_021186c0)[1] = 0;
+    for (i = 0; i < 8; i++)
+        *((u8 **)data_ov000_021186c0)[1] |= (u8)(((u8 (*)[8])data_ov000_021186d0)[1][i] << i);
 }
 
-extern "C" asm void func_ov000_020fd47c(void)
+extern "C" void func_ov000_020fd47c(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov000_021186c0
-    mov lr, #0
-    ldr r1, [r0, #8]
-    ldr r2, =data_ov000_021186d0
-    strb lr, [r1]
-@L_020fd494:
-    add r1, r2, lr
-    ldrb r1, [r1, #0x10]
-    ldr r12, [r0, #8]
-    mov r1, r1, lsl lr
-    ldrb r3, [r12]
-    and r1, r1, #0xff
-    add lr, lr, #1
-    orr r1, r3, r1
-    strb r1, [r12]
-    cmp lr, #8
-    blt @L_020fd494
-    ldmia sp!, {r3, pc}
+    s32 i;
+    *((u8 **)data_ov000_021186c0)[2] = 0;
+    for (i = 0; i < 8; i++)
+        *((u8 **)data_ov000_021186c0)[2] |= (u8)(((u8 (*)[8])data_ov000_021186d0)[2][i] << i);
 }
 
 extern "C" void func_ov000_020fd4cc(void)

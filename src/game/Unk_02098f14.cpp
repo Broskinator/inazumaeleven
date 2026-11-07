@@ -3,6 +3,8 @@
 #include "nitro/os.h"
 #include "nitro/fx.h"
 #include "nitro/fx.h"
+struct S02099b64 { s32 a, b, c, d, e; };
+struct V3_02099a94 { s32 x, y, z; };
 
 extern "C" void func_0209a9f0(void);
 extern "C" u16 func_0200226c(fx32 y, fx32 x);
@@ -39,12 +41,12 @@ extern "C" void func_02099924(void);
 extern "C" void func_020999d8(fx32 *a, fx32 *b, u16 *direction);
 extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2);
 extern "C" void func_02099a2c(void);
-extern "C" void func_02099a94(void);
+extern "C" void func_02099a94(V3_02099a94 *arg0, V3_02099a94 *arg1);
 extern "C" int func_02099adc(int x0, int y0, int x1, int y1);
 extern "C" void func_02099af4(s32 *obj);
 extern "C" void func_02099b08(void);
 extern "C" s32 func_02099b0c(u8 *arg0);
-extern "C" void func_02099b64(void);
+extern "C" void func_02099b64(u8 *arg0, u8 arg1, S02099b64 arg2);
 extern "C" void func_02099bbc(s8 *obj, s8 flags);
 extern "C" void func_02099bcc(s8 *obj, int flags);
 extern "C" void func_02099be4(void);
@@ -858,26 +860,19 @@ extern "C" asm void func_02099a2c(void)
     ldmia sp!, {r4, r5, pc}
 }
 
-extern "C" asm void func_02099a94(void)
+extern "C" void func_02099a94(V3_02099a94 *arg0, V3_02099a94 *arg1)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0x18
-    ldr r2, [r0, #8]
-    ldr r0, [r0]
-    mov r12, #0
-    str r0, [sp]
-    str r12, [sp, #4]
-    str r2, [sp, #8]
-    ldr r3, [r1, #8]
-    ldr r2, [r1]
-    add r0, sp, #0
-    add r1, sp, #0xc
-    str r2, [sp, #0xc]
-    str r12, [sp, #0x10]
-    str r3, [sp, #0x14]
-    bl func_020021f0
-    add sp, sp, #0x18
-    ldmia sp!, {r3, pc}
+    V3_02099a94 b;
+    V3_02099a94 a;
+    s32 z = arg0->z;
+    a.x = arg0->x;
+    a.y = 0;
+    a.z = z;
+    z = arg1->z;
+    b.x = arg1->x;
+    b.y = 0;
+    b.z = z;
+    ((void (*)(V3_02099a94 *, V3_02099a94 *))func_020021f0)(&a, &b);
 }
 
 extern "C" int func_02099adc(int x0, int y0, int x1, int y1)
@@ -935,30 +930,19 @@ extern "C" s32 func_02099b0c(u8 *arg0)
     return 0;
 }
 
-extern "C" asm void func_02099b64(void)
+extern "C" void func_02099b64(u8 *arg0, u8 arg1, S02099b64 arg2)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r5, [sp, #0x18]
-    mov r6, #0
-    ldr r4, [sp, #0x1c]
-    ldr lr, [sp, #0x20]
-    strb r1, [r0, #0xc]
-    strb r6, [r0, #0xd]
-    str r5, [r0]
-    ldr r12, [sp, #0x24]
-    stmib r0, {r4, lr}
-    sub r2, r6, #1
-    ldr r3, [sp, #0x28]
-    str r12, [r0, #0x10]
-    str r3, [r0, #0x14]
-    str r2, [r0, #0x18]
-    str r2, [r0, #0x1c]
-    str r2, [r0, #0x20]
-    str r2, [r0, #0x24]
-    ldmia sp!, {r4, r5, r6, lr}
-    add sp, sp, #0x10
-    bx lr
+    arg0[0xC] = arg1;
+    arg0[0xD] = 0;
+    ((s32 *)arg0)[0] = arg2.a;
+    ((s32 *)arg0)[1] = arg2.b;
+    ((s32 *)arg0)[2] = arg2.c;
+    ((s32 *)arg0)[4] = arg2.d;
+    ((s32 *)arg0)[5] = arg2.e;
+    ((s32 *)arg0)[6] = -1;
+    ((s32 *)arg0)[7] = -1;
+    ((s32 *)arg0)[8] = -1;
+    ((s32 *)arg0)[9] = -1;
 }
 
 extern "C" void func_02099bbc(s8 *obj, s8 flags)

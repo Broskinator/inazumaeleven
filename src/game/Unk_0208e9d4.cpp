@@ -37,7 +37,7 @@ extern "C" void func_0208fe20(s32 arg0, u8 *arg1);
 extern "C" void func_0208fe50(u8 *obj, void *object);
 extern "C" void func_0208fe60(u8 *obj, void *object, void *target);
 extern "C" u16 func_0208fe7c(u8 *obj);
-extern "C" void func_0208fe88(void);
+extern "C" void func_0208fe88(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void *func_0208fed0(u8 *obj);
 extern "C" void func_0208fef4(s32 arg0, s32 arg1);
 extern "C" void *func_0208ff1c(u8 *obj, void *object);
@@ -1443,27 +1443,17 @@ extern "C" u16 func_0208fe7c(u8 *obj)
     return ((UnkListOwner_0208e9d4 *)obj)->list278.numObjects;
 }
 
-extern "C" asm void func_0208fe88(void)
+extern "C" void func_0208fe88(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, r2
-    bl func_0208fef4
-    mov r5, r0
-@L_0208fe9c:
-    cmp r5, #0
-    cmpne r5, r6
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, r7
-    mov r1, r5
-    bl func_0208fef4
-    mov r4, r0
-    mov r0, r7
-    mov r1, r5
-    bl func_0208fe20
-    mov r5, r4
-    b @L_0208fe9c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}     // (unreachable)
+    s32 n = ((s32 (*)(s32, s32))func_0208fef4)(arg0, arg1);
+    for (;;) {
+        s32 next;
+        if (n == 0 || n == arg2)
+            return;
+        next = ((s32 (*)(s32, s32))func_0208fef4)(arg0, n);
+        ((void (*)(s32, s32))func_0208fe20)(arg0, n);
+        n = next;
+    }
 }
 
 extern "C" void *func_0208fed0(u8 *obj)

@@ -41,8 +41,8 @@ extern "C" s32 func_02098ae4(...);
 extern "C" s32 func_02098b48(s32 arg0);
 extern "C" s32 func_02098bac(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02098ca8(s32 arg0);
-extern "C" void func_02098cdc(void);
-extern "C" void func_02098d30(void);
+extern "C" s32 func_02098cdc(s32 arg0, u8 *arg1, s32 arg2);
+extern "C" s32 func_02098d30(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" s32 func_02098d88(...);
 extern "C" s32 func_02098dd8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, u8 *arg7);
 
@@ -1256,55 +1256,36 @@ extern "C" s32 func_02098ca8(s32 arg0)
     return v2;
 }
 
-extern "C" asm void func_02098cdc(void)
+extern "C" s32 func_02098cdc(s32 arg0, u8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r2
-    mov r6, r1
-    bl func_02098d88
-    cmp r5, #0
-    movlt r0, #0
-    ldmltia sp!, {r4, r5, r6, pc}
-    add r0, r5, #0x1f
-    mov r4, #0
-    bic r5, r0, #0x1f
-    mov r0, r5
-    mov r1, r4
-    mov r2, r4
-    bl func_02030188
-    cmp r0, #0
-    moveq r0, r4
-    strne r0, [r6, #4]
-    movne r0, #1
-    strne r5, [r6]
-    strneb r0, [r6, #8]
-    ldmia sp!, {r4, r5, r6, pc}
+    void *p;
+    ((void (*)(s32))func_02098d88)(arg0);
+    if (arg2 < 0)
+        return 0;
+    arg2 = (arg2 + 0x1F) & ~0x1F;
+    p = ((void *(*)(s32, s32, s32))func_02030188)(arg2, 0, 0);
+    if (p == 0)
+        return 0;
+    *(void **)(arg1 + 4) = p;
+    *(s32 *)arg1 = arg2;
+    arg1[8] = 1;
+    return 1;
 }
 
-extern "C" asm void func_02098d30(void)
+extern "C" s32 func_02098d30(s32 arg0, u8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r2
-    mov r6, r1
-    bl func_02098d88
-    cmp r5, #0
-    movlt r0, #0
-    ldmltia sp!, {r4, r5, r6, pc}
-    add r0, r5, #0x1f
-    mov r4, #0
-    bic r5, r0, #0x1f
-    mov r0, r5
-    mov r1, r4
-    mov r2, r4
-    bl func_020304ec
-    cmp r0, #0
-    moveq r0, r4
-    movne r1, #2
-    strne r0, [r6, #4]
-    strne r5, [r6]
-    strneb r1, [r6, #8]
-    movne r0, #1
-    ldmia sp!, {r4, r5, r6, pc}
+    void *p;
+    ((void (*)(s32))func_02098d88)(arg0);
+    if (arg2 < 0)
+        return 0;
+    arg2 = (arg2 + 0x1F) & ~0x1F;
+    p = ((void *(*)(s32, s32, s32))func_020304ec)(arg2, 0, 0);
+    if (p == 0)
+        return 0;
+    *(void **)(arg1 + 4) = p;
+    *(s32 *)arg1 = arg2;
+    arg1[8] = 2;
+    return 1;
 }
 
 extern "C" asm s32 func_02098d88(...)

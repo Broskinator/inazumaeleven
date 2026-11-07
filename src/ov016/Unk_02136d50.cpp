@@ -13,7 +13,7 @@ extern "C" s32 func_ov016_021370b4(void);
 extern "C" s32 func_ov016_021370cc(void);
 extern "C" void func_ov016_021370e4(void);
 extern "C" void func_ov016_02137174(void);
-extern "C" void func_ov016_021371e0(void);
+extern "C" void func_ov016_021371e0(s32 arg0);
 extern "C" void func_ov016_02137230(void);
 extern "C" void func_ov016_021373ac(void);
 extern "C" s32 func_ov016_02137410(s32 arg0);
@@ -482,26 +482,14 @@ extern "C" asm void func_ov016_02137174(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov016_021371e0(void)
+extern "C" void func_ov016_021371e0(s32 arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, =data_ov016_021589e8
-    mvn r3, #0
-    ldr r2, [r1]
-    strb r3, [r2, #0x16]
-    ldr r3, [r1]
-    ldrh r2, [r3, #0x14]
-    add r2, r2, #1
-    strh r2, [r3, #0x14]
-    ldr r3, [r1]
-    ldrh r1, [r3, #0x14]
-    cmp r1, #4
-    ldmloia sp!, {r3, pc}
-    ldr r1, =func_ov016_02137230
-    mov r2, #0
-    strh r2, [r3, #0x14]
-    bl func_ov016_02151c30
-    ldmia sp!, {r3, pc}
+    *(s8 *)(*(u8 **)data_ov016_021589e8 + 0x16) = -1;
+    (*(u16 *)(*(u8 **)data_ov016_021589e8 + 0x14))++;
+    if (*(u16 *)(*(u8 **)data_ov016_021589e8 + 0x14) < 4)
+        return;
+    *(u16 *)(*(u8 **)data_ov016_021589e8 + 0x14) = 0;
+    ((void (*)(s32, void *))func_ov016_02151c30)(arg0, (void *)func_ov016_02137230);
 }
 
 extern "C" asm void func_ov016_02137230(void)

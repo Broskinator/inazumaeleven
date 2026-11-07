@@ -1,5 +1,6 @@
 #include "ov000/Unk_ov000_02106464.hpp"
 #include "game/vcall.hpp"
+struct S02106fbc { s16 a; s16 b; u16 c; u8 d; };
 
 extern "C" void func_ov000_02106464(void);
 extern "C" void func_ov000_02106ba8(void);
@@ -12,7 +13,7 @@ extern "C" u8 *func_ov000_02106f7c(u8 *arg0);
 extern "C" s32 func_ov000_02106f9c(s32 arg0);
 extern "C" s32 func_ov000_02106fb0(void);
 extern "C" void func_ov000_02106fb8(void);
-extern "C" void func_ov000_02106fbc(void);
+extern "C" s32 func_ov000_02106fbc(S02106fbc *arg0, s16 arg1, s16 arg2, u16 arg3, u8 arg4);
 extern "C" s32 func_ov000_02107008(u8 *arg0);
 extern "C" u8 func_ov000_02107028(u8 *arg0);
 extern "C" s32 func_ov000_02107030(u8 *arg0);
@@ -927,27 +928,18 @@ extern "C" void func_ov000_02106fb8(void)
 {
 }
 
-extern "C" asm void func_ov000_02106fbc(void)
+extern "C" s32 func_ov000_02106fbc(S02106fbc *arg0, s16 arg1, s16 arg2, u16 arg3, u8 arg4)
 {
-    stmdb sp!, {r3, lr}
-    ldrsh r12, [r0]
-    cmp r12, r1
-    ldreqsh r12, [r0, #2]
-    strh r1, [r0]
-    cmpeq r12, r2
-    ldreqh r12, [r0, #4]
-    strh r2, [r0, #2]
-    cmpeq r12, r3
-    ldreqb lr, [r0, #6]
-    ldreqb r12, [sp, #8]
-    strh r3, [r0, #4]
-    cmpeq lr, r12
-    ldrb r12, [sp, #8]
-    movne lr, #1
-    moveq lr, #0
-    strb r12, [r0, #6]
-    mov r0, lr
-    ldmia sp!, {r3, pc}
+    s32 r;
+    if (arg0->a != arg1 || arg0->b != arg2 || arg0->c != arg3 || arg0->d != arg4)
+        r = 1;
+    else
+        r = 0;
+    arg0->a = arg1;
+    arg0->b = arg2;
+    arg0->c = arg3;
+    arg0->d = arg4;
+    return r;
 }
 
 extern "C" s32 func_ov000_02107008(u8 *arg0)

@@ -14,7 +14,7 @@ extern "C" s32 func_ov014_0210ca2c(u8 *arg0);
 extern "C" s32 func_ov014_0210cac8(s32 arg0, s32 arg1);
 extern "C" void func_ov014_0210cb84(s32 arg0);
 extern "C" void func_ov014_0210cbc4(void);
-extern "C" void func_ov014_0210cc3c(void);
+extern "C" void func_ov014_0210cc3c(u8 *arg0);
 extern "C" void func_ov014_0210cc94(s32 arg0);
 extern "C" void func_ov014_0210cca8(void);
 extern "C" void func_ov014_0210cd98(void);
@@ -1100,28 +1100,14 @@ extern "C" asm void func_ov014_0210cbc4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_0210cc3c(void)
+extern "C" void func_ov014_0210cc3c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    add r0, r4, #0x138
-    add r0, r0, #0x1000
-    mov r1, #0
-    mov r2, #0xa0
-    bl MI_CpuFill8
-    add r1, r4, #0x1000
-    add r0, r4, #0x138
-    ldr r12, [r1, #0xa08]
-    ldr r2, [r1, #0xa0c]
-    ldr lr, =0xb68
-    ldr r3, =0x5ea
-    add r0, r0, #0x1000
-    str lr, [r1, #0x180]
-    str r12, [r1, #0x184]
-    str r3, [r1, #0x18c]
-    str r2, [r1, #0x190]
-    bl func_ov014_02104c00
-    ldmia sp!, {r4, pc}
+    ((void (*)(u8 *, s32, s32))MI_CpuFill8)(arg0 + 0x1138, 0, 0xA0);
+    *(s32 *)(arg0 + 0x1180) = 0xB68;
+    *(s32 *)(arg0 + 0x1184) = *(s32 *)(arg0 + 0x1A08);
+    *(s32 *)(arg0 + 0x118C) = 0x5EA;
+    *(s32 *)(arg0 + 0x1190) = *(s32 *)(arg0 + 0x1A0C);
+    ((void (*)(u8 *))func_ov014_02104c00)(arg0 + 0x1138);
 }
 
 extern "C" void func_ov014_0210cc94(s32 arg0)

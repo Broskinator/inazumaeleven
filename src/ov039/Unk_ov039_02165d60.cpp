@@ -20,14 +20,14 @@ extern "C" s32 func_ov039_02166b08(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
 extern "C" void func_ov039_02166b78(u8 *arg0, s32 arg1);
 extern "C" void func_ov039_02166b88(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov039_02166b9c(u8 *arg0);
-extern "C" void func_ov039_02166bb0(void);
+extern "C" void func_ov039_02166bb0(s32 arg0, u16 arg1);
 extern "C" s32 func_ov039_02166c00(u8 *arg0);
 extern "C" s32 func_ov039_02166c1c(...);
 extern "C" void func_ov039_02166c4c(void);
 extern "C" s32 func_ov039_02166ce0(...);
 extern "C" s32 func_ov039_02166d68(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov039_02166da8(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3);
-extern "C" void func_ov039_02166de4(void);
+extern "C" void func_ov039_02166de4(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3);
 extern "C" s32 func_ov039_02166e28(s32 arg0, s32 arg1);
 extern "C" void func_ov039_02166e70(void);
 extern "C" void func_ov039_02166f10(u8 *arg0, s32 arg1);
@@ -973,27 +973,13 @@ extern "C" void func_ov039_02166b9c(u8 *arg0)
     *(u16 *)(arg0 + 0xC0) = 3;
 }
 
-extern "C" asm void func_ov039_02166bb0(void)
+extern "C" void func_ov039_02166bb0(s32 arg0, u16 arg1)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    mov r4, r1
-    bl func_ov039_02166c00
-    and r0, r4, r0
-    mov r1, r0, lsl #0x10
-    ldr r4, =data_020c46c4
-    add r2, sp, #0
-    ldr r0, [r4]
-    mov r1, r1, lsr #0x10
-    bl func_ov015_021621dc
-    cmp r0, #0
-    addeq sp, sp, #4
-    ldmeqia sp!, {r3, r4, pc}
-    ldr r0, [r4]
-    ldr r1, [sp]
-    bl func_ov015_021624cc
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    s32 out;
+    u16 m = arg1 & ((u16 (*)(s32))func_ov039_02166c00)(arg0);
+    if (((s32 (*)(s32, u16, s32 *))func_ov015_021621dc)(*(s32 *)data_020c46c4, m, &out) == 0)
+        return;
+    ((void (*)(s32, s32))func_ov015_021624cc)(*(s32 *)data_020c46c4, out);
 }
 
 extern "C" s32 func_ov039_02166c00(u8 *arg0)
@@ -1118,24 +1104,10 @@ extern "C" void func_ov039_02166da8(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3)
     *arg3 = (arg1 >= 12) ? 3 : 0;
 }
 
-extern "C" asm void func_ov039_02166de4(void)
+extern "C" void func_ov039_02166de4(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =0x55555556
-    mov lr, #3
-    smull r0, r12, r4, r1
-    add r12, r12, r1, lsr #31
-    smull r0, r12, lr, r12
-    smull r12, lr, r4, r1
-    sub r12, r1, r0
-    mov r0, #0x48
-    mul r4, r12, r0
-    add lr, lr, r1, lsr #31
-    add r1, r4, #0x10
-    mul r0, lr, r0
-    str r1, [r2]
-    str r0, [r3]
-    ldmia sp!, {r4, pc}
+    *arg2 = arg1 % 3 * 0x48 + 0x10;
+    *arg3 = arg1 / 3 * 0x48;
 }
 
 extern "C" s32 func_ov039_02166e28(s32 arg0, s32 arg1)
