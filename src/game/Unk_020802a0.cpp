@@ -62,9 +62,9 @@ extern "C" s32 _ZN17UnkClass_020621b413func_0206f9e0Ev(...);
 extern "C" s32 _ZN17UnkClass_020621b413func_020744d4Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_02078844Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_0207c1b0Ev(...);
-extern "C" void func_0209bf9c(void);
+extern "C" s32 func_0209bf9c(...);
 extern "C" s32 func_ov015_02130b14(...);
-extern "C" void func_ov015_021319fc(void);
+extern "C" s32 func_ov015_021319fc(...);
 extern "C" char gGameState[];
 
 extern "C" int func_020802a0(MatchPlayer *player)
@@ -703,7 +703,7 @@ extern "C" u8 func_02080b90(MatchPlayer *player)
     return player->unk_b6;
 }
 
-extern "C" asm void func_02080b98(void)
+extern "C" asm s32 func_02080b98(...)
 {
     ldr r1, =gGameState
     ldrh r2, [r0, #0x42]
@@ -725,44 +725,44 @@ extern "C" asm void func_02080b98(void)
     bx lr
 }
 
-extern "C" asm void func_02080be4(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_02080be4(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r4, r0
-    ldr r0, =data_020c5320
-    bl func_0209bf9c
-    mov r5, r0
-    mov r0, r4
-    bl func_02080b98
-    mov r7, r0
-    cmp r7, #4
-    ldmhsia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r1, #1
-    tst r5, r1, lsl r7
-    bne @L_02080c58
-    bl func_ov015_021319fc
-    mov r8, r0
-    mov r6, #0
-    mov r4, #1
-    b @L_02080c50
-@L_02080c2c:
-    mov r0, r6
-    bl func_ov015_021319fc
-    cmp r8, r0
-    bne @L_02080c4c
-    tst r5, r4, lsl r6
-    movne r0, r6, lsl #0x10
-    movne r7, r0, lsr #0x10
-    bne @L_02080c58
-@L_02080c4c:
-    add r6, r6, #1
-@L_02080c50:
-    cmp r6, #4
-    blt @L_02080c2c
-@L_02080c58:
-    mov r0, r7
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 r1;
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    s32 r8;
+    s32 v0;
+    s32 v1;
+    s32 v2;
+    s32 v3;
+    v0 = func_0209bf9c((u8 *)((u8 *)&data_020c5320));
+    v1 = func_02080b98(arg0);
+    if ((u32)v1 >= (u32)4)
+        return v1;
+    r5 = v0;
+    arg0 = v1;
+    r7 = v1;
+    r1 = 1;
+    if ((r5 & (r1 << r7)) == 0) {
+        v2 = func_ov015_021319fc(arg0);
+        r8 = v2;
+        r6 = 0;
+        while ((r4 = 1, r6 < 4)) {
+            v3 = func_ov015_021319fc(r6);
+            if ((r8 == v3 && (r5 & (r4 << r6)) != 0)) {
+                r7 = ((u16)r6);
+                break;
+            }
+            r6 = (r6 + 1);
+        }
+    }
+    return r7;
 }
+#pragma pop
 
 extern "C" void func_02080c64(MatchPlayer *player, u8 team)
 {

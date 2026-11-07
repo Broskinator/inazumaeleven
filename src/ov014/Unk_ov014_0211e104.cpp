@@ -45,7 +45,7 @@ extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_0212039c(void);
-extern "C" void func_ov014_0212044c(void);
+extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3);
 extern "C" void func_ov014_021204c4(void);
 extern "C" void func_ov014_021205f0(void);
 extern "C" void func_ov014_021205fc(void);
@@ -2411,40 +2411,32 @@ extern "C" asm void func_ov014_0212039c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_0212044c(void)
+extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, r1
-    mov r4, r3
-    mov r7, r0
-    mov r0, r6
-    mov r1, r4
-    mov r5, r2
-    bl func_ov014_02120090
-    mov r3, #0
-    mov r12, r3
-    cmp r0, #0
-    ble @L_0212049c
-@L_0212047c:
-    mov r2, r12, lsl #1
-    ldrh r1, [r6, r2]
-    add r12, r12, #1
-    cmp r12, r0
-    mla r1, r5, r1, r3
-    strh r1, [r7, r2]
-    mov r3, r1, lsr #0x10
-    blt @L_0212047c
-@L_0212049c:
-    cmp r12, r4
-    movlt r0, r12, lsl #1
-    addlt r12, r12, #1
-    sub r1, r4, r12
-    strlth r3, [r7, r0]
-    mov r2, r1, lsl #1
-    add r0, r7, r12, lsl #1
-    mov r1, #0
-    bl MI_CpuFill8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r0;
+    s32 r3;
+    s32 r12;
+    s32 v0;
+    s32 v1;
+    s32 t0;
+    v0 = func_ov014_02120090((s32)arg1, arg3);
+    r0 = v0;
+    r3 = 0;
+    r12 = 0;
+    if (r0 > 0) {
+        do {
+            t0 = ((arg2 * *(u16 *)(arg1 + (r12 << 1))) + r3);
+            *(u16 *)(arg0 + (r12 << 1)) = t0;
+            r12 = (r12 + 1);
+            r3 = ((u32)t0 >> 0x10);
+        } while (r12 < r0);
+    }
+    if (r12 < arg3) {
+        *(u16 *)(arg0 + (r12 << 1)) = r3;
+        r12 = (r12 + 1);
+    }
+    v1 = MI_CpuFill8((s32)(arg0 + (r12 << 1)), 0, ((arg3 - r12) << 1), r3);
+    return v1;
 }
 
 extern "C" asm void func_ov014_021204c4(void)

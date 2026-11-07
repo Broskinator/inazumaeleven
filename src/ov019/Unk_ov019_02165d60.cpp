@@ -8,17 +8,17 @@ extern "C" s32 func_ov019_0216607c(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov019_0216608c(s32 arg0, u8 *arg1);
 extern "C" void func_ov019_0216609c(void);
 extern "C" void func_ov019_021662b4(void);
-extern "C" void func_ov019_0216635c(void);
+extern "C" s32 func_ov019_0216635c(s32 arg0);
 extern "C" void func_ov019_021663a8(void);
 extern "C" s32 func_ov019_021664ec(u8 *arg0);
 extern "C" s32 func_ov019_02166588(u8 *arg0, s32 arg1);
-extern "C" void func_ov019_021665d4(void);
+extern "C" s32 func_ov019_021665d4(s32 arg0);
 extern "C" void func_ov019_02166624(void);
 extern "C" void func_ov019_02166780(void);
 extern "C" void func_ov019_021667e4(void);
 extern "C" void func_ov019_021668fc(void);
 extern "C" s32 func_ov019_02166a28(u8 *arg0);
-extern "C" void func_ov019_02166a3c(void);
+extern "C" s32 func_ov019_02166a3c(s32 arg0, s32 arg1);
 extern "C" void func_ov019_02166aa4(void);
 extern "C" void func_ov019_02166ad8(void);
 extern "C" void func_ov019_02166ba0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4, u8 arg5);
@@ -87,7 +87,7 @@ extern "C" void G2_GetBG1CharPtr(void);
 extern "C" void G2_GetBG2CharPtr(void);
 extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuCopy8(void);
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
@@ -107,7 +107,7 @@ extern "C" void func_02016d0c(void);
 extern "C" void func_02017278(void);
 extern "C" void func_02090dec(void);
 extern "C" s32 func_020920c4(...);
-extern "C" void func_02092270(void);
+extern "C" s32 func_02092270(...);
 extern "C" void func_02092544(void);
 extern "C" s32 func_0209263c(...);
 extern "C" void func_02092808(void);
@@ -124,8 +124,8 @@ extern "C" void func_02093bf4(void);
 extern "C" void func_02093ca8(void);
 extern "C" void func_02093edc(void);
 extern "C" void func_02097898(void);
-extern "C" void func_02097aa0(void);
-extern "C" void func_02097b3c(void);
+extern "C" s32 func_02097aa0(...);
+extern "C" s32 func_02097b3c(...);
 extern "C" void func_02097c74(void);
 extern "C" void func_02097ca8(void);
 extern "C" void func_02097ef8(void);
@@ -534,30 +534,31 @@ extern "C" asm void func_ov019_021662b4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov019_0216635c(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_ov019_0216635c(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, #0
-    mov r7, r0
-    mov r5, r6
-    ldr r4, =data_020c46d4
-    b @L_02166398
-@L_02166374:
-    add r0, r7, r6, lsl #2
-    ldr r1, [r0, #0x9c]
-    cmp r1, #0
-    beq @L_02166394
-    ldr r0, [r4]
-    bl func_02097b3c
-    add r0, r7, r6, lsl #2
-    str r5, [r0, #0x9c]
-@L_02166394:
-    add r6, r6, #1
-@L_02166398:
-    cmp r6, #3
-    blt @L_02166374
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r1;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    s32 t0;
+    r6 = 0;
+    r7 = arg0;
+    while ((r5 = 0, r6 < 3)) {
+        arg0 = (r7 + (r6 << 2));
+        r1 = *(s32 *)(((u8 *)(r7 + (r6 << 2))) + 0x9C);
+        if (r1 != 0) {
+            t0 = *(s32 *)(((u8 *)&data_020c46d4));
+            func_02097b3c(t0, r1);
+            *(s32 *)(((u8 *)(r7 + (r6 << 2))) + 0x9C) = r5;
+            arg0 = (r7 + (r6 << 2));
+        }
+        r6 = (r6 + 1);
+    }
+    return arg0;
 }
+#pragma pop
 
 extern "C" asm void func_ov019_021663a8(void)
 {
@@ -711,31 +712,29 @@ extern "C" s32 func_ov019_02166588(u8 *arg0, s32 arg1)
     return r4;
 }
 
-extern "C" asm void func_ov019_021665d4(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_ov019_021665d4(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, #0
-    ldr r4, =data_020c46d4
-    b @L_02166610
-@L_021665e8:
-    add r0, r6, r5, lsl #2
-    ldr r1, [r0, #0x3c]
-    cmp r1, #0
-    beq @L_0216660c
-    ldr r0, [r4]
-    bl func_02097aa0
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-@L_0216660c:
-    add r5, r5, #1
-@L_02166610:
-    cmp r5, #0x16
-    blt @L_021665e8
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r1;
+    s32 r5;
+    s32 v0;
+    s32 t0;
+    r5 = 0;
+    while (r5 < 0x16) {
+        r1 = *(s32 *)(((u8 *)(arg0 + (r5 << 2))) + 0x3C);
+        if (r1 != 0) {
+            t0 = *(s32 *)(((u8 *)&data_020c46d4));
+            v0 = func_02097aa0(t0, r1);
+            if (v0 != 0) {
+                return 0;
+            }
+        }
+        r5 = (r5 + 1);
+    }
+    return 1;
 }
+#pragma pop
 
 extern "C" asm void func_ov019_02166624(void)
 {
@@ -1021,38 +1020,34 @@ extern "C" s32 func_ov019_02166a28(u8 *arg0)
     return (*(s32 *)(arg0 + 0x358) >= 0 ? 1 : 0);
 }
 
-extern "C" asm void func_ov019_02166a3c(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_ov019_02166a3c(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r1
-    mov r5, #0
-    ldr r4, =data_020c46d4
-    b @L_02166a6c
-@L_02166a50:
-    add r0, r6, r5, lsl #2
-    ldr r1, [r0, #0x20]
-    cmp r1, #0
-    ble @L_02166a68
-    ldr r0, [r4]
-    bl func_02092270
-@L_02166a68:
-    add r5, r5, #1
-@L_02166a6c:
-    cmp r5, #0x10
-    blt @L_02166a50
-    ldr r1, [r6, #0x60]
-    cmp r1, #0
-    ble @L_02166a8c
-    ldr r0, =data_020c46d4
-    ldr r0, [r0]
-    bl func_02097b3c
-@L_02166a8c:
-    mov r0, r6
-    mov r1, #0
-    mov r2, #0xc0
-    bl MI_CpuFill8
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r5;
+    u8 *r6;
+    s32 v2;
+    s32 t0;
+    s32 t1;
+    r6 = (u8 *)arg1;
+    r5 = 0;
+    while (r5 < 0x10) {
+        arg1 = *(s32 *)(((u8 *)(r6 + (r5 << 2))) + 0x20);
+        if (arg1 > 0) {
+            t0 = *(s32 *)(((u8 *)&data_020c46d4));
+            func_02092270(t0, arg1);
+        }
+        r5 = (r5 + 1);
+    }
+    arg1 = *(s32 *)(r6 + 0x60);
+    if (arg1 > 0) {
+        t1 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02097b3c(t1, arg1);
+    }
+    v2 = MI_CpuFill8((s32)r6, 0, 0xC0);
+    return v2;
 }
+#pragma pop
 
 extern "C" asm void func_ov019_02166aa4(void)
 {
