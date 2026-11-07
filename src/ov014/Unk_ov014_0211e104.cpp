@@ -43,7 +43,7 @@ extern "C" void func_ov014_021201e4(u8 *arg0, s32 arg1);
 extern "C" void func_ov014_02120224(void);
 extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2);
-extern "C" void func_ov014_02120368(void);
+extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_0212039c(void);
 extern "C" void func_ov014_0212044c(void);
 extern "C" void func_ov014_021204c4(void);
@@ -2349,23 +2349,14 @@ extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2)
     return 0;
 }
 
-extern "C" asm void func_ov014_02120368(void)
+extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    b @L_02120388
-@L_02120370:
-    mov lr, r2, lsl #1
-    ldrh r12, [r0, lr]
-    add r2, r2, #1
-    add r1, r1, r12
-    strh r1, [r0, lr]
-    mov r1, r1, lsr #0x10
-@L_02120388:
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    cmp r2, r3
-    blt @L_02120370
-    ldmia sp!, {r3, pc}
+    while (arg1 != 0 && arg2 < arg3) {
+        arg1 += arg0[arg2];
+        arg0[arg2] = arg1;
+        arg1 >>= 16;
+        arg2++;
+    }
 }
 
 extern "C" asm void func_ov014_0212039c(void)

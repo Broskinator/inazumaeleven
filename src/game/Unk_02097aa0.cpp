@@ -6,7 +6,7 @@ extern "C" void func_02097aa0(u8 *obj, int id);
 extern "C" void func_02097ac0(void *obj, u8 *entry);
 extern "C" s32 func_02097b3c(...);
 extern "C" s32 func_02097c24(s32 arg0);
-extern "C" void func_02097c74(void);
+extern "C" BOOL func_02097c74(u8 *arg0);
 extern "C" s32 func_02097ca8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02097d70(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02097de4(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -226,21 +226,20 @@ extern "C" s32 func_02097c24(s32 arg0)
     return (r5 <= 0 ? 0 : 1);
 }
 
-extern "C" asm void func_02097c74(void)
+extern "C" BOOL func_02097c74(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    add r0, r0, #4
-    bl func_020970b0
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldrh r1, [r0, #0x30]
-    mov r0, #1
-    tst r1, #0x10
-    ldmneia sp!, {r3, pc}
-    tst r1, #0x20
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
+    u8 *p = ((u8 *(*)(u8 *))func_020970b0)(arg0 + 4);
+    u16 f;
+    BOOL r;
+    if (p == 0)
+        return FALSE;
+    f = *(u16 *)(p + 0x30);
+    r = TRUE;
+    if (f & 0x10)
+        return r;
+    if (!(f & 0x20))
+        r = FALSE;
+    return r;
 }
 
 extern "C" s32 func_02097ca8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

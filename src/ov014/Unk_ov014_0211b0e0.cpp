@@ -37,7 +37,7 @@ extern "C" void func_ov014_0211baf4(u8 *arg0);
 extern "C" void func_ov014_0211bb20(void);
 extern "C" void func_ov014_0211bcb4(void);
 extern "C" s32 func_ov014_0211bcc0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0211bd18(void);
+extern "C" void func_ov014_0211bd18(u32 arg0, u8 *arg1);
 extern "C" void func_ov014_0211bd38(void);
 extern "C" s32 func_ov014_0211bdec(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_0211be6c(s32 arg0, s32 arg1);
@@ -46,7 +46,7 @@ extern "C" s32 func_ov014_0211bf10(u8 *arg0);
 extern "C" void func_ov014_0211bfa8(void);
 extern "C" s32 func_ov014_0211c04c(...);
 extern "C" s32 func_ov014_0211c13c(s32 arg0);
-extern "C" void func_ov014_0211c1a8(void);
+extern "C" s32 func_ov014_0211c1a8(void);
 extern "C" s32 func_ov014_0211c1e8(void);
 extern "C" void func_ov014_0211c1f8(s32 arg0);
 extern "C" s32 func_ov014_0211c208(void);
@@ -914,16 +914,12 @@ extern "C" s32 func_ov014_0211bcc0(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return 1;
 }
 
-extern "C" asm void func_ov014_0211bd18(void)
+extern "C" void func_ov014_0211bd18(u32 arg0, u8 *arg1)
 {
-    mov r12, r0, lsr #0x18
-    mov r3, r0, lsr #0x10
-    mov r2, r0, lsr #8
-    strb r12, [r1]
-    strb r3, [r1, #1]
-    strb r2, [r1, #2]
-    strb r0, [r1, #3]
-    bx lr
+    arg1[0] = arg0 >> 24;
+    arg1[1] = arg0 >> 16;
+    arg1[2] = arg0 >> 8;
+    arg1[3] = arg0;
 }
 
 extern "C" asm void func_ov014_0211bd38(void)
@@ -1230,23 +1226,13 @@ extern "C" s32 func_ov014_0211c13c(s32 arg0)
     return v2;
 }
 
-extern "C" asm void func_ov014_0211c1a8(void)
+extern "C" s32 func_ov014_0211c1a8(void)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x1c
-    add r5, sp, #0xc
-    mov r0, r5
-    bl func_02010338
-    add r4, sp, #0
-    mov r0, r4
-    bl func_020103e0
-    mov r0, r5
-    mov r1, r4
-    bl func_02010ab4
-    ldr r1, =0x386d4380
-    add r0, r0, r1
-    add sp, sp, #0x1c
-    ldmia sp!, {r4, r5, pc}
+    u8 a[0x10];
+    u8 b[0xC];
+    ((void (*)(u8 *))func_02010338)(a);
+    ((void (*)(u8 *))func_020103e0)(b);
+    return ((s32 (*)(u8 *, u8 *))func_02010ab4)(a, b) + 0x386D4380;
 }
 
 extern "C" s32 func_ov014_0211c1e8(void)

@@ -15,7 +15,7 @@ extern "C" void *func_02032878(NNSFndList *list);
 extern "C" u8 data_020fc708[];
 
 extern "C" void func_0208e9d4(void);
-extern "C" void func_0208f294(void);
+extern "C" void func_0208f294(u8 *arg0, s32 arg1, u16 arg2, u8 arg3, s32 arg4);
 extern "C" void func_0208f2d0(u8 *obj);
 extern "C" void func_0208f2e0(u8 *obj, int i);
 extern "C" void func_0208f300(u8 *obj, u8 value);
@@ -645,23 +645,15 @@ extern "C" asm void func_0208e9d4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_0208f294(void)
+extern "C" void func_0208f294(u8 *arg0, s32 arg1, u16 arg2, u8 arg3, s32 arg4)
 {
-    cmp r1, #0
-    bxlt lr
-    cmp r1, #1
-    bxge lr
-    mov r12, #0x114
-    mla r12, r1, r12, r0
-    add r0, r12, #0x100
-    strh r2, [r0, #0xa]
-    ldr r1, [sp]
-    mov r0, #1
-    cmp r1, #0
-    strb r3, [r12, #0x10c]
-    moveq r0, #0
-    strb r0, [r12, #0x10f]
-    bx lr
+    u8 *e;
+    if (arg1 < 0 || arg1 >= 1)
+        return;
+    e = arg0 + arg1 * 0x114;
+    *(u16 *)(e + 0x10A) = arg2;
+    e[0x10C] = arg3;
+    e[0x10F] = arg4 != 0;
 }
 
 extern "C" void func_0208f2d0(u8 *obj)

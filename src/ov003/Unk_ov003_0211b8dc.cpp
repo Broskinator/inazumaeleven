@@ -4,7 +4,7 @@ extern "C" void func_ov003_0211b8dc(void);
 extern "C" s32 func_ov003_0211baa4(s32 arg0);
 extern "C" void func_ov003_0211bae0(void);
 extern "C" s32 func_ov003_0211bd8c(...);
-extern "C" void func_ov003_0211bfa0(void);
+extern "C" BOOL func_ov003_0211bfa0(u8 *arg0);
 extern "C" void func_ov003_0211bfc4(u8 *arg0);
 extern "C" void func_ov003_0211c01c(void);
 extern "C" void func_ov003_0211c0c4(void);
@@ -490,17 +490,13 @@ extern "C" asm s32 func_ov003_0211bd8c(...)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov003_0211bfa0(void)
+extern "C" BOOL func_ov003_0211bfa0(u8 *arg0)
 {
-    add r0, r0, #0x2000
-    ldr r2, [r0, #0xa10]
-    ldr r1, [r0, #0xa14]
-    add r2, r2, #1
-    str r2, [r0, #0xa10]
-    mov r0, #1
-    cmp r2, r1
-    movlt r0, #0
-    bx lr
+    s32 n = ++*(s32 *)(arg0 + 0x2A10);
+    BOOL r = TRUE;
+    if (n < *(s32 *)(arg0 + 0x2A14))
+        r = FALSE;
+    return r;
 }
 
 extern "C" void func_ov003_0211bfc4(u8 *arg0)

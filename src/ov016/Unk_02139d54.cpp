@@ -2267,20 +2267,12 @@ extern "C" asm void func_ov016_0213ba2c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov016_0213bae4(void)
+extern "C" void func_ov016_0213bae4(void)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0xe8
-    add r0, sp, #0
-    bl func_ov016_02136d20
-    cmp r0, #1
-    beq @L_0213bb00
-    bl func_0200878c
-@L_0213bb00:
-    add r0, sp, #0
-    bl func_ov016_02149ed0
-    add sp, sp, #0xe8
-    ldmia sp!, {r3, pc}
+    u8 buf[0xE8];
+    if (((s32 (*)(u8 *))func_ov016_02136d20)(buf) != 1)
+        ((void (*)(void))func_0200878c)();
+    ((void (*)(u8 *))func_ov016_02149ed0)(buf);
 }
 
 extern "C" asm void func_ov016_0213bb10(void)

@@ -36,7 +36,7 @@ extern "C" s32 func_0209b0d4(u8 *obj);
 extern "C" void func_0209b0e0(u8 *obj, s32 value);
 extern "C" void func_0209b0ec(void);
 extern "C" s32 func_0209b16c(s32 arg0);
-extern "C" void func_0209b194(void);
+extern "C" void func_0209b194(u8 *arg0, s32 arg1);
 extern "C" s32 func_0209b1cc(u8 *obj);
 extern "C" void func_0209b1d4(u8 *obj, s32 value);
 extern "C" s32 func_0209b1dc(u8 *obj);
@@ -1053,21 +1053,9 @@ extern "C" s32 func_0209b16c(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_0209b194(void)
+extern "C" void func_0209b194(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, =0xb60b60b
-    mov r3, #0xb6
-    umull lr, r12, r1, r2
-    mla r12, r1, r3, r12
-    mov r1, r1, asr #0x1f
-    mla r12, r1, r2, r12
-    adds r1, lr, #0
-    adc r1, r12, #0x800
-    mov r1, r1, lsl #4
-    mov r1, r1, lsr #0x10
-    str r1, [r0, #0x5cc]
-    ldmia sp!, {r3, pc}
+    *(u32 *)(arg0 + 0x5CC) = (u16)((arg1 * 0xB60B60B60BLL + 0x80000000000LL) >> 44);
 }
 
 extern "C" s32 func_0209b1cc(u8 *obj)

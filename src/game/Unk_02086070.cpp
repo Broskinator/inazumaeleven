@@ -40,7 +40,7 @@ extern "C" void func_02086460(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02086484(s32 arg0, s32 arg1, s32 arg2);
 extern "C" int func_020864a8(int a, int b);
 extern "C" int func_020864b4(int value);
-extern "C" void func_020864cc(void);
+extern "C" s32 func_020864cc(s32 arg0);
 extern "C" u8 *func_020864f4(u8 *self);
 extern "C" void func_020864fc(void);
 extern "C" void func_02086584(void);
@@ -328,17 +328,9 @@ extern "C" int func_020864b4(int value)
     return value / 1000;
 }
 
-extern "C" asm void func_020864cc(void)
+extern "C" s32 func_020864cc(s32 arg0)
 {
-    ldr r3, =0x10624dd3
-    mov r1, r0, lsr #0x1f
-    smull r2, r12, r3, r0
-    add r12, r1, r12, asr #6
-    mov r3, #0x3e8
-    smull r1, r2, r3, r12
-    sub r12, r0, r1
-    mov r0, r12
-    bx lr
+    return arg0 % 1000;
 }
 
 extern "C" u8 *func_020864f4(u8 *self)

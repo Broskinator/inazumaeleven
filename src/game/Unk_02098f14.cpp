@@ -1,6 +1,8 @@
 #include "game/Unk_02098f14.hpp"
 #include "nitro/fx.h"
 #include "nitro/os.h"
+#include "nitro/fx.h"
+#include "nitro/fx.h"
 
 extern "C" void func_0209a9f0(void);
 extern "C" u16 func_0200226c(fx32 y, fx32 x);
@@ -28,14 +30,14 @@ extern "C" s32 func_02099618(s32 arg0, u8 *arg1);
 extern "C" void func_02099664(void);
 extern "C" void func_020996ec(void);
 extern "C" int func_02099764(void *a);
-extern "C" void func_020997a4(void);
+extern "C" fx32 func_020997a4(fx32 *arg0, fx32 *arg1);
 extern "C" BOOL func_020997e4(void *a);
 extern "C" void func_020997fc(void);
 extern "C" void func_020998f4(fx32 *in, fx32 *out);
 extern "C" fx32 func_02099910(fx32 value);
 extern "C" void func_02099924(void);
 extern "C" void func_020999d8(fx32 *a, fx32 *b, u16 *direction);
-extern "C" void func_020999f8(void);
+extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2);
 extern "C" void func_02099a2c(void);
 extern "C" void func_02099a94(void);
 extern "C" int func_02099adc(int x0, int y0, int x1, int y1);
@@ -673,24 +675,9 @@ extern "C" asm int func_02099764(void *a)
     bx lr
 }
 
-extern "C" asm void func_020997a4(void)
+extern "C" fx32 func_020997a4(fx32 *arg0, fx32 *arg1)
 {
-    ldr r12, [r0]
-    ldr r3, [r1]
-    ldr r2, [r0, #4]
-    ldr r0, [r1, #4]
-    smull r1, r3, r12, r3
-    adds r12, r1, #0x800
-    smull r1, r0, r2, r0
-    adc r2, r3, #0
-    adds r1, r1, #0x800
-    mov r3, r12, lsr #0xc
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r3, r3, r2, lsl #20
-    orr r1, r1, r0, lsl #20
-    add r0, r3, r1
-    bx lr
+    return FX_Mul(arg0[0], arg1[0]) + FX_Mul(arg0[1], arg1[1]);
 }
 
 extern "C" BOOL func_020997e4(void *a)
@@ -834,20 +821,11 @@ extern "C" void func_020999d8(fx32 *a, fx32 *b, u16 *direction)
     *direction = func_0200226c(*b, *a);
 }
 
-extern "C" asm void func_020999f8(void)
+extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2)
 {
-    stmdb sp!, {r3, lr}
-    mov r0, r0, asr #4
-    mov lr, r0, lsl #1
-    add r0, lr, #1
-    ldr r12, =FX_SinCosTable_
-    mov r3, r0, lsl #1
-    mov r0, lr, lsl #1
-    ldrsh r3, [r12, r3]
-    ldrsh r0, [r12, r0]
-    str r3, [r1]
-    str r0, [r2]
-    ldmia sp!, {r3, pc}
+    s32 i = arg0 >> 4;
+    *arg1 = FX_CosIdx(i);
+    *arg2 = FX_SinIdx(i);
 }
 
 extern "C" asm void func_02099a2c(void)

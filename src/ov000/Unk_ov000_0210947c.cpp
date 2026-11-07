@@ -1,5 +1,6 @@
 #include "ov000/Unk_ov000_0210947c.hpp"
 #include "game/vcall.hpp"
+struct S0210b0ac { s32 a, b, c; };
 
 extern "C" s32 func_ov000_0210947c(u8 *arg0);
 extern "C" s32 func_ov000_021094d0(u8 *arg0);
@@ -25,7 +26,7 @@ extern "C" void func_ov000_0210aee4(void);
 extern "C" s32 func_ov000_0210afec(u8 *arg0);
 extern "C" s32 func_ov000_0210b034(u8 *arg0);
 extern "C" s32 func_ov000_0210b098(s32 arg0);
-extern "C" void func_ov000_0210b0ac(void);
+extern "C" u8 func_ov000_0210b0ac(u8 *arg0, S0210b0ac arg1);
 extern "C" s32 func_ov000_0210b0e0(...);
 extern "C" s32 func_ov000_0210b170(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov000_0210b1a4(void);
@@ -2053,21 +2054,12 @@ extern "C" s32 func_ov000_0210b098(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov000_0210b0ac(void)
+extern "C" u8 func_ov000_0210b0ac(u8 *arg0, S0210b0ac arg1)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    ldr r3, [sp, #8]
-    ldr r1, [r0, #4]
-    ldr r2, [sp, #0xc]
-    cmp r3, r1
-    movne r1, #1
-    strneb r1, [r0, #0xc]
-    ldr r1, [sp, #4]
-    stmia r0, {r1, r3}
-    str r2, [r0, #8]
-    ldrb r0, [r0, #0xc]
-    add sp, sp, #0x10
-    bx lr
+    if (arg1.b != *(s32 *)(arg0 + 4))
+        arg0[0xC] = 1;
+    *(S0210b0ac *)arg0 = arg1;
+    return arg0[0xC];
 }
 
 extern "C" asm s32 func_ov000_0210b0e0(...)

@@ -6,7 +6,7 @@ extern "C" void func_ov087_0217450c(void);
 extern "C" void func_ov087_021748a4(void);
 extern "C" void func_ov087_02174aec(void);
 extern "C" s32 func_ov087_02174d74(s32 arg0);
-extern "C" void func_ov087_02174d98(void);
+extern "C" BOOL func_ov087_02174d98(s32 arg0, u8 *arg1);
 extern "C" void func_ov087_02174dc4(void);
 extern "C" void func_ov087_021750e0(void);
 extern "C" s32 func_ov087_0217521c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
@@ -954,19 +954,17 @@ extern "C" s32 func_ov087_02174d74(s32 arg0)
     return 1;
 }
 
-extern "C" asm void func_ov087_02174d98(void)
+extern "C" BOOL func_ov087_02174d98(s32 arg0, u8 *arg1)
 {
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    ldr r3, [r1, #0xe8]
-    ldr r2, [r1, #0xec]
-    ldr r1, [r3]
-    mov r0, #1
-    str r1, [r2]
-    ldr r1, [r3, #4]
-    str r1, [r2, #4]
-    bx lr
+    s32 *s;
+    s32 *d;
+    if (arg1 == 0)
+        return FALSE;
+    s = *(s32 **)(arg1 + 0xE8);
+    d = *(s32 **)(arg1 + 0xEC);
+    d[0] = s[0];
+    d[1] = s[1];
+    return TRUE;
 }
 
 extern "C" asm void func_ov087_02174dc4(void)

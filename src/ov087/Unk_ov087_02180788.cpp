@@ -16,8 +16,8 @@ extern "C" void func_ov087_02181368(void);
 extern "C" s32 func_ov087_021815e4(s32 arg0);
 extern "C" s32 func_ov087_02181658(...);
 extern "C" s32 func_ov087_02181680(s32 arg0, s32 arg1);
-extern "C" void func_ov087_021816c0(void);
-extern "C" void func_ov087_021816dc(void);
+extern "C" u8 *func_ov087_021816c0(void);
+extern "C" u8 *func_ov087_021816dc(void);
 extern "C" s32 func_ov087_021816f8(...);
 extern "C" s32 func_ov087_0218177c(...);
 extern "C" s32 func_ov087_02181a34(...);
@@ -27,7 +27,7 @@ extern "C" s32 func_ov087_02181cbc(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov087_02181cf8(s32 arg0, s32 arg1);
 extern "C" s32 func_ov087_02181d0c(s32 arg0, s32 arg1);
 extern "C" void func_ov087_02181d4c(void);
-extern "C" void func_ov087_02181e68(void);
+extern "C" void func_ov087_02181e68(u8 *arg0);
 extern "C" void func_ov087_02181e78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, u8 arg4, u8 arg5);
 extern "C" s32 func_ov087_02181ef4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov087_02181f20(void);
@@ -1166,24 +1166,14 @@ extern "C" s32 func_ov087_02181680(s32 arg0, s32 arg1)
     return v2;
 }
 
-extern "C" asm void func_ov087_021816c0(void)
+extern "C" u8 *func_ov087_021816c0(void)
 {
-    stmdb sp!, {r3, lr}
-    bl func_ov087_02181658
-    ldr r2, =data_020c6cac
-    mov r1, #0x88
-    mla r0, r1, r0, r2
-    ldmia sp!, {r3, pc}
+    return (u8 *)data_020c6cac + ((s32 (*)(void))func_ov087_02181658)() * 0x88;
 }
 
-extern "C" asm void func_ov087_021816dc(void)
+extern "C" u8 *func_ov087_021816dc(void)
 {
-    stmdb sp!, {r3, lr}
-    bl func_ov087_02181680
-    ldr r2, =data_020c6cac
-    mov r1, #0x88
-    mla r0, r1, r0, r2
-    ldmia sp!, {r3, pc}
+    return (u8 *)data_020c6cac + ((s32 (*)(void))func_ov087_02181680)() * 0x88;
 }
 
 extern "C" asm s32 func_ov087_021816f8(...)
@@ -1714,12 +1704,9 @@ extern "C" asm void func_ov087_02181d4c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov087_02181e68(void)
+extern "C" void func_ov087_02181e68(u8 *arg0)
 {
-    add r0, r0, #0x11000
-    mvn r1, #0
-    strb r1, [r0, #0x8a9]
-    bx lr
+    *(s8 *)(arg0 + 0x118A9) = -1;
 }
 
 extern "C" void func_ov087_02181e78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, u8 arg4, u8 arg5)

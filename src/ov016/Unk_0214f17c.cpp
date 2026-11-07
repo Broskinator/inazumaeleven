@@ -1,4 +1,5 @@
 #include "ov016/Unk_0214f17c.hpp"
+struct N021512a0 { N021512a0 *a; N021512a0 *b; };
 
 extern "C" s32 func_ov016_0214f17c(...);
 extern "C" s32 func_ov016_0214f1b0(s32 arg0, s32 arg1, s32 arg2);
@@ -78,7 +79,7 @@ extern "C" void func_ov016_021511f8(void);
 extern "C" void func_ov016_02151230(void);
 extern "C" void func_ov016_02151258(void);
 extern "C" s32 func_ov016_02151284(...);
-extern "C" void func_ov016_021512a0(void);
+extern "C" void func_ov016_021512a0(N021512a0 *arg0);
 extern "C" s32 func_ov016_021512d8(...);
 extern "C" void func_ov016_02151308(s32 arg0);
 extern "C" void func_ov016_02151318(u8 *arg0);
@@ -2419,22 +2420,14 @@ extern "C" asm s32 func_ov016_02151284(...)
     bx lr
 }
 
-extern "C" asm void func_ov016_021512a0(void)
+extern "C" void func_ov016_021512a0(N021512a0 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r0, #1
-    bl OS_DisableIrqMask
-    ldmia r4, {r2, r3}
-    str r3, [r2, #4]
-    ldr r3, [r4]
-    ldr r2, [r4, #4]
-    mov r1, #0
-    str r3, [r2]
-    str r1, [r4, #4]
-    str r1, [r4]
-    bl OS_EnableIrqMask
-    ldmia sp!, {r4, pc}
+    u32 m = ((u32 (*)(u32))OS_DisableIrqMask)(1);
+    arg0->a->b = arg0->b;
+    arg0->b->a = arg0->a;
+    arg0->b = 0;
+    arg0->a = 0;
+    ((void (*)(u32))OS_EnableIrqMask)(m);
 }
 
 extern "C" asm s32 func_ov016_021512d8(...)

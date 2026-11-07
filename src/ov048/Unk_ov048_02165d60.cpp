@@ -1,4 +1,5 @@
 #include "ov048/Unk_ov048_02165d60.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov048_02165d60(s32 arg0);
 extern "C" void func_ov048_02165d8c(void);
@@ -8,7 +9,7 @@ extern "C" void func_ov048_021660e0(void);
 extern "C" void func_ov048_02166174(void);
 extern "C" void func_ov048_02166220(void);
 extern "C" void func_ov048_02166334(void);
-extern "C" void func_ov048_02166384(void);
+extern "C" void func_ov048_02166384(u8 *arg0);
 extern "C" void func_ov048_021663bc(u8 *arg0);
 extern "C" s32 func_ov048_021665d4(...);
 extern "C" s32 func_ov048_021666a8(...);
@@ -549,22 +550,12 @@ extern "C" asm void func_ov048_02166334(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov048_02166384(void)
+extern "C" void func_ov048_02166384(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    mov r2, r0
-    ldrh r0, [r2, #0x1c]
-    mov r1, #5
-    str r1, [r2, #0x18]
-    cmp r0, #0
-    moveq r0, #0
-    streq r0, [r2, #0x18]
-    ldr r0, [r2, #4]
-    add r1, r2, #0x18
-    ldr r2, [r0]
-    ldr r2, [r2, #0x3c]
-    blx r2
-    ldmia sp!, {r3, pc}
+    *(s32 *)(arg0 + 0x18) = 5;
+    if (*(u16 *)(arg0 + 0x1C) == 0)
+        *(s32 *)(arg0 + 0x18) = 0;
+    (*(VCall **)(arg0 + 4))->f15(arg0 + 0x18);
 }
 
 extern "C" void func_ov048_021663bc(u8 *arg0)

@@ -34,8 +34,8 @@ extern "C" s32 func_ov001_0210dd90(...);
 extern "C" s32 func_ov001_0210de94(...);
 extern "C" s32 func_ov001_0210dee0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov001_0210def4(s32 arg0, s32 arg1);
-extern "C" void func_ov001_0210defc(void);
-extern "C" void func_ov001_0210df2c(void);
+extern "C" s32 func_ov001_0210defc(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 func_ov001_0210df2c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov001_0210df4c(void);
 extern "C" void func_ov001_0210e284(void);
 extern "C" void func_ov001_0210e35c(void);
@@ -1915,30 +1915,14 @@ extern "C" s32 func_ov001_0210def4(s32 arg0, s32 arg1)
     return (arg1 & 0x3F);
 }
 
-extern "C" asm void func_ov001_0210defc(void)
+extern "C" s32 func_ov001_0210defc(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, =0x66666667
-    mov r0, r1, lsr #0x1f
-    smull r3, lr, r12, r1
-    add lr, r0, lr, asr #2
-    mov r12, #0xa
-    smull r0, r3, r12, lr
-    sub lr, r1, r0
-    add r0, r2, lr, lsl #6
-    mov r0, r0, lsl #0xc
-    ldmia sp!, {r3, pc}
+    return (arg2 + arg1 % 10 * 64) << 12;
 }
 
-extern "C" asm void func_ov001_0210df2c(void)
+extern "C" s32 func_ov001_0210df2c(s32 arg0, s32 arg1, s32 arg2)
 {
-    ldr r3, =0x66666667
-    mov r0, r1, lsr #0x1f
-    smull r1, r12, r3, r1
-    add r12, r0, r12, asr #2
-    add r0, r2, r12, lsl #6
-    mov r0, r0, lsl #0xc
-    bx lr
+    return (arg2 + arg1 / 10 * 64) << 12;
 }
 
 extern "C" asm void func_ov001_0210df4c(void)

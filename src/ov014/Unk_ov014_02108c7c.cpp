@@ -27,7 +27,7 @@ extern "C" s32 func_ov014_0210999c(s32 arg0, u16 arg1);
 extern "C" s32 func_ov014_02109a0c(...);
 extern "C" void func_ov014_02109cf8(void);
 extern "C" s32 func_ov014_02109d14(s32 arg0);
-extern "C" void func_ov014_02109d68(void);
+extern "C" BOOL func_ov014_02109d68(u8 *arg0);
 extern "C" char *func_ov014_02109d9c(void);
 extern "C" char *func_ov014_02109db0(void);
 extern "C" char *func_ov014_02109dc4(void);
@@ -1330,24 +1330,14 @@ extern "C" s32 func_ov014_02109d14(s32 arg0)
     return v1;
 }
 
-extern "C" asm void func_ov014_02109d68(void)
+extern "C" BOOL func_ov014_02109d68(u8 *arg0)
 {
-    mov r2, #0
-@L_02109d6c:
-    ldrb r1, [r0, r2]
-    cmp r1, #0x20
-    blo @L_02109d80
-    cmp r1, #0x7e
-    bls @L_02109d88
-@L_02109d80:
-    mov r0, #0
-    bx lr
-@L_02109d88:
-    add r2, r2, #1
-    cmp r2, #0xa
-    blt @L_02109d6c
-    mov r0, #1
-    bx lr
+    s32 i;
+    for (i = 0; i < 10; i++) {
+        if (arg0[i] < 0x20 || arg0[i] > 0x7E)
+            return FALSE;
+    }
+    return TRUE;
 }
 
 extern "C" char *func_ov014_02109d9c(void)

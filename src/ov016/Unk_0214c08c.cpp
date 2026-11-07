@@ -782,19 +782,11 @@ extern "C" void func_ov016_0214c920(void)
     func_ov089_02178610();
 }
 
-extern "C" asm void func_ov016_0214c934(void)
+extern "C" void func_ov016_0214c934(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov016_02158b3c
-    ldr r2, [r0]
-    ldrh r0, [r2]
-    cmp r0, #4
-    ldreqh r1, [r2, #2]
-    ldreqh r0, [r2, #0xc]
-    cmpeq r1, r0
-    ldmneia sp!, {r3, pc}
-    bl func_ov089_02178610
-    ldmia sp!, {r3, pc}
+    u16 *p = *(u16 **)data_ov016_02158b3c;
+    if (p[0] == 4 && p[1] == p[6])
+        ((void (*)(void))func_ov089_02178610)();
 }
 
 extern "C" asm void func_ov016_0214c964(void)

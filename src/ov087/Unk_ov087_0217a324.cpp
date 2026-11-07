@@ -31,7 +31,7 @@ extern "C" s32 func_ov087_0217c540(s32 arg0);
 extern "C" void func_ov087_0217c634(void);
 extern "C" s32 func_ov087_0217c860(...);
 extern "C" void func_ov087_0217c93c(void);
-extern "C" void func_ov087_0217cd20(void);
+extern "C" void func_ov087_0217cd20(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov087_0217cd3c(void);
 extern "C" void func_ov087_0217cf1c(void);
 extern "C" void func_ov087_0217d034(void);
@@ -2996,15 +2996,9 @@ extern "C" asm void func_ov087_0217c93c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov087_0217cd20(void)
+extern "C" void func_ov087_0217cd20(u8 *arg0, s32 arg1, s32 arg2)
 {
-    mov r3, #6
-    mla r0, r1, r3, r0
-    add r0, r0, r2
-    add r0, r0, #0x11000
-    mov r1, #0
-    strb r1, [r0, #0x8be]
-    bx lr
+    (arg0 + arg1 * 6)[arg2 + 0x118BE] = 0;
 }
 
 extern "C" asm void func_ov087_0217cd3c(void)

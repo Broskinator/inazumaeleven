@@ -1,4 +1,5 @@
 #include "ov015/Unk_0213d138.hpp"
+struct V12 { s32 x, y, z; };
 
 extern "C" s32 func_ov015_0213d138(...);
 extern "C" void func_ov015_0213d1ac(u8 *arg0);
@@ -7,7 +8,7 @@ extern "C" void func_ov015_0213d1f0(void);
 extern "C" void func_ov015_0213d290(void);
 extern "C" void func_ov015_0213d330(void);
 extern "C" void func_ov015_0213d3f4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_ov015_0213d454(void);
+extern "C" void func_ov015_0213d454(s32 arg0, V12 arg1);
 extern "C" void func_ov015_0213d484(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_0213d498(...);
 extern "C" s32 func_ov015_0213d4a8(void);
@@ -371,20 +372,12 @@ extern "C" void func_ov015_0213d3f4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 
     return;
 }
 
-extern "C" asm void func_ov015_0213d454(void)
+extern "C" void func_ov015_0213d454(s32 arg0, V12 arg1)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    stmdb sp!, {r3, lr}
-    bl func_ov015_0213d498
-    ldr r1, [sp, #0xc]
-    ldr r2, [sp, #0x10]
-    str r1, [r0, #0x2c]
-    ldr r1, [sp, #0x14]
-    str r2, [r0, #0x30]
-    str r1, [r0, #0x34]
-    ldmia sp!, {r3, lr}
-    add sp, sp, #0x10
-    bx lr
+    u8 *p = ((u8 *(*)(s32))func_ov015_0213d498)(arg0);
+    *(s32 *)(p + 0x2C) = arg1.x;
+    *(s32 *)(p + 0x30) = arg1.y;
+    *(s32 *)(p + 0x34) = arg1.z;
 }
 
 extern "C" void func_ov015_0213d484(u8 *arg0, s32 arg1)

@@ -21,7 +21,7 @@ extern "C" void func_ov059_02165ffc(void);
 extern "C" void func_ov059_02166274(void);
 extern "C" void func_ov059_0216634c(s32 arg0);
 extern "C" s32 func_ov059_02166374(s32 arg0);
-extern "C" void func_ov059_021663d8(void);
+extern "C" u32 func_ov059_021663d8(s32 arg0, u32 arg1);
 extern "C" void func_ov059_02166414(void);
 extern "C" s32 func_ov059_021669d0(...);
 extern "C" void func_ov059_02166aa4(void);
@@ -670,23 +670,13 @@ extern "C" s32 func_ov059_02166374(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov059_021663d8(void)
+extern "C" u32 func_ov059_021663d8(s32 arg0, u32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    movs r4, r1
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    movs r0, r4, lsl #1
-    beq @L_02166408
-    bl func_ov015_021309a4
-    add r2, r4, r4, lsl #3
-    ldr r1, =0xcccccccd
-    add r2, r2, r0
-    umull r0, r4, r2, r1
-    mov r4, r4, lsr #3
-@L_02166408:
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    if (arg1 == 0)
+        return 0;
+    if (arg1 * 2 != 0)
+        arg1 = (arg1 * 9 + ((u32 (*)(u32))func_ov015_021309a4)(arg1 * 2)) / 10;
+    return arg1;
 }
 
 extern "C" asm void func_ov059_02166414(void)

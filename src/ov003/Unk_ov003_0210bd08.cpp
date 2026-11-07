@@ -1,5 +1,6 @@
 #include "ov003/Unk_ov003_0210bd08.hpp"
 #include "game/vcall.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov003_0210bd08(void);
 extern "C" s32 func_ov003_0210bebc(...);
@@ -16,7 +17,7 @@ extern "C" s32 func_ov003_0210c6f4(u8 *arg0);
 extern "C" s32 func_ov003_0210c7a8(void);
 extern "C" s32 func_ov003_0210c7d0(u8 *arg0);
 extern "C" s32 func_ov003_0210c80c(u8 *arg0);
-extern "C" void func_ov003_0210c8c4(void);
+extern "C" void func_ov003_0210c8c4(VCall *arg0);
 extern "C" s32 func_ov003_0210c900(u8 *arg0);
 extern "C" s32 func_ov003_0210c930(u8 *arg0);
 extern "C" void func_ov003_0210c968(u8 *arg0);
@@ -970,23 +971,13 @@ extern "C" s32 func_ov003_0210c80c(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov003_0210c8c4(void)
+extern "C" void func_ov003_0210c8c4(VCall *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    mov r3, #6
-    mov r2, #4
-    mov r1, #0
-    str r3, [r4, #8]
-    str r2, [r4, #0x10]
-    str r1, [r4, #0x40]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x50]
-    blx r1
-    ldr r0, [r4, #4]
-    mov r1, #3
-    str r1, [r0, #0x8c]
-    ldmia sp!, {r4, pc}
+    *(s32 *)((u8 *)arg0 + 8) = 6;
+    *(s32 *)((u8 *)arg0 + 0x10) = 4;
+    *(s32 *)((u8 *)arg0 + 0x40) = 0;
+    arg0->f20();
+    *(s32 *)(*(u8 **)((u8 *)arg0 + 4) + 0x8C) = 3;
 }
 
 extern "C" s32 func_ov003_0210c900(u8 *arg0)

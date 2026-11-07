@@ -25,8 +25,8 @@ extern "C" s32 func_ov039_02166c00(u8 *arg0);
 extern "C" s32 func_ov039_02166c1c(...);
 extern "C" void func_ov039_02166c4c(void);
 extern "C" s32 func_ov039_02166ce0(...);
-extern "C" void func_ov039_02166d68(void);
-extern "C" void func_ov039_02166da8(void);
+extern "C" s32 func_ov039_02166d68(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void func_ov039_02166da8(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3);
 extern "C" void func_ov039_02166de4(void);
 extern "C" s32 func_ov039_02166e28(s32 arg0, s32 arg1);
 extern "C" void func_ov039_02166e70(void);
@@ -1102,41 +1102,20 @@ extern "C" asm s32 func_ov039_02166ce0(...)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov039_02166d68(void)
+extern "C" s32 func_ov039_02166d68(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, lr}
-    cmp r2, #3
-    subge r2, r2, #3
-    add r3, r1, r2
-    ldr r2, =0x2aaaaaab
-    mov lr, #0
-    smull r1, r12, r2, r3
-    mov r0, r3, lsr #0x1f
-    add r12, r0, r12, asr #1
-    mov r2, #0xc
-    smull r0, r1, r2, r12
-    movge lr, #0xc
-    sub r12, r3, r0
-    add r0, lr, r12
-    ldmia sp!, {r3, pc}
+    s32 add = 0;
+    if (arg2 >= 3) {
+        arg2 -= 3;
+        add = 12;
+    }
+    return add + (arg1 + arg2) % 12;
 }
 
-extern "C" asm void func_ov039_02166da8(void)
+extern "C" void func_ov039_02166da8(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3)
 {
-    stmdb sp!, {r4, lr}
-    ldr lr, =0x2aaaaaab
-    mov r0, r1, lsr #0x1f
-    smull r12, r4, lr, r1
-    add r4, r0, r4, asr #2
-    mov lr, #0x18
-    smull r0, r12, lr, r4
-    sub r4, r1, r0
-    mov r0, #3
-    cmp r1, #0xc
-    str r4, [r2]
-    movlt r0, #0
-    str r0, [r3]
-    ldmia sp!, {r4, pc}
+    *arg2 = arg1 % 24;
+    *arg3 = (arg1 >= 12) ? 3 : 0;
 }
 
 extern "C" asm void func_ov039_02166de4(void)

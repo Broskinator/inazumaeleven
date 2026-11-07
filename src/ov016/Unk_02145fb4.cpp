@@ -119,7 +119,7 @@ extern "C" s32 func_ov016_02148c04(void);
 extern "C" void func_ov016_02148c1c(void);
 extern "C" s32 func_ov016_02148c74(void);
 extern "C" s32 func_ov016_02148cc4(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov016_02148d00(void);
+extern "C" void func_ov016_02148d00(s32 arg0);
 extern "C" void func_ov016_02148d2c(s32 arg0);
 extern "C" void func_ov016_02148d58(s32 arg0);
 extern "C" void func_ov016_02148d88(void);
@@ -2896,18 +2896,10 @@ extern "C" s32 func_ov016_02148cc4(s32 arg0, s32 arg1, s32 arg2)
     return v0;
 }
 
-extern "C" asm void func_ov016_02148d00(void)
+extern "C" void func_ov016_02148d00(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_ov016_02158b10
-    mov r4, r0
-    mov r2, #0x20
-    ldmib r1, {r0, r1}
-    bl MIi_CpuCopy16
-    mov r1, r4
-    mov r0, #1
-    bl func_ov016_02151c38
-    ldmia sp!, {r4, pc}
+    ((void (*)(void *, void *, u32))MIi_CpuCopy16)(*(void **)((u8 *)data_ov016_02158b10 + 4), *(void **)((u8 *)data_ov016_02158b10 + 8), 0x20);
+    ((void (*)(s32, s32))func_ov016_02151c38)(1, arg0);
 }
 
 extern "C" void func_ov016_02148d2c(s32 arg0)

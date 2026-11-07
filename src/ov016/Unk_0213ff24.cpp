@@ -788,23 +788,10 @@ extern "C" s32 func_ov016_02140748(void)
     return (s32)t1;
 }
 
-extern "C" asm void func_ov016_021407a0(void)
+extern "C" void func_ov016_021407a0(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov016_02158ab8
-    ldr r1, =data_ov016_02154a48
-    ldrb r2, [r0]
-    ldr r3, =data_ov016_02154a4a
-    mov r0, #2
-    mov r12, r2, lsl #3
-    cmp r2, #4
-    ldr r2, =data_ov016_02154a4c
-    ldrh r1, [r1, r12]
-    ldrh r2, [r2, r12]
-    ldrh r3, [r3, r12]
-    movhs r0, #3
-    bl func_ov016_0213794c
-    ldmia sp!, {r3, pc}
+    u8 i = *(u8 *)data_ov016_02158ab8;
+    ((void (*)(s32, u16, u16, u16))func_ov016_0213794c)(i < 4 ? 2 : 3, *(u16 *)((u8 *)data_ov016_02154a48 + i * 8), *(u16 *)((u8 *)data_ov016_02154a4c + i * 8), *(u16 *)((u8 *)data_ov016_02154a4a + i * 8));
 }
 
 extern "C" asm void func_ov016_021407ec(void)

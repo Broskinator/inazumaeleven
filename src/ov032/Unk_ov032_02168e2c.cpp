@@ -26,7 +26,7 @@ extern "C" void func_ov032_0216a5e8(void);
 extern "C" void func_ov032_0216a774(void);
 extern "C" void func_ov032_0216aa84(void);
 extern "C" void func_ov032_0216aa88(void);
-extern "C" void func_ov032_0216ab18(void);
+extern "C" BOOL func_ov032_0216ab18(s32 arg0, u8 *arg1);
 extern "C" void func_ov032_0216ab50(void);
 extern "C" s32 func_ov032_0216ac88(u8 *arg0);
 extern "C" s32 func_ov032_0216acfc(u8 *arg0);
@@ -2059,22 +2059,12 @@ extern "C" asm void func_ov032_0216aa88(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov032_0216ab18(void)
+extern "C" BOOL func_ov032_0216ab18(s32 arg0, u8 *arg1)
 {
-    ldrb r0, [r1]
-    mov r2, #0
-    mov r3, #1
-    cmp r0, #3
-    ldrb r0, [r1, #1]
-    movhs r3, r2
-    orr r2, r2, r3
-    cmp r0, #9
-    movlo r0, #1
-    movhs r0, #0
-    orrs r0, r2, r0
-    movne r0, #1
-    moveq r0, #0
-    bx lr
+    BOOL r = FALSE;
+    r |= arg1[0] < 3;
+    r |= arg1[1] < 9;
+    return r ? TRUE : FALSE;
 }
 
 extern "C" asm void func_ov032_0216ab50(void)

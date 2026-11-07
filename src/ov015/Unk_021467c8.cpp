@@ -1,5 +1,7 @@
 #include "ov015/Unk_021467c8.hpp"
 #include "game/vcall.hpp"
+#include "nitro/fx.h"
+struct V12 { s32 x, y, z; };
 
 extern "C" s32 func_ov015_021467c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 extern "C" void func_ov015_0214682c(void);
@@ -11,11 +13,11 @@ extern "C" void func_ov015_02146df4(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02146e0c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02146e1c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02146e44(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov015_02146e54(void);
+extern "C" V12 func_ov015_02146e54(u8 *arg1);
 extern "C" void func_ov015_02146e68(void);
 extern "C" void func_ov015_02146e80(void);
 extern "C" void func_ov015_02146e98(void);
-extern "C" void func_ov015_02146ebc(void);
+extern "C" void func_ov015_02146ebc(u8 *arg0, fx32 arg1);
 extern "C" void func_ov015_02146ee0(void);
 extern "C" void func_ov015_02146eec(s32 arg0, u16 arg1);
 extern "C" void func_ov015_02146f10(void);
@@ -698,13 +700,9 @@ extern "C" void func_ov015_02146e44(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     *(s32 *)(arg0 + 0x98C) = arg3;
 }
 
-extern "C" asm void func_ov015_02146e54(void)
+extern "C" V12 func_ov015_02146e54(u8 *arg1)
 {
-    mov r3, r0
-    add r0, r1, #0x990
-    ldmia r0, {r0, r1, r2}
-    stmia r3, {r0, r1, r2}
-    bx lr
+    return *(V12 *)(arg1 + 0x990);
 }
 
 extern "C" asm void func_ov015_02146e68(void)
@@ -740,16 +738,9 @@ extern "C" asm void func_ov015_02146e98(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov015_02146ebc(void)
+extern "C" void func_ov015_02146ebc(u8 *arg0, fx32 arg1)
 {
-    ldr r2, [r0, #0x984]
-    ldr r12, =func_ov015_02145a40
-    smull r3, r2, r1, r2
-    adds r1, r3, #0x800
-    adc r2, r2, #0
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r2, lsl #20
-    bx r12
+    ((void (*)(u8 *, fx32))func_ov015_02145a40)(arg0, FX_Mul(arg1, *(fx32 *)(arg0 + 0x984)));
 }
 
 extern "C" void func_ov015_02146ee0(void)

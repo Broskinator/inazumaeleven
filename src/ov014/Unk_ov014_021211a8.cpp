@@ -7,7 +7,7 @@ extern "C" s32 func_ov014_021212d0(...);
 extern "C" void func_ov014_02121370(void);
 extern "C" void func_ov014_02121520(void);
 extern "C" void func_ov014_021215e4(void);
-extern "C" void func_ov014_02121700(void);
+extern "C" u8 func_ov014_02121700(void);
 extern "C" void func_ov014_02121730(void);
 extern "C" s32 func_ov014_021217cc(void);
 extern "C" s32 func_ov014_02121808(void);
@@ -39,7 +39,7 @@ extern "C" void func_ov014_02122270(void);
 extern "C" void func_ov014_021222b4(void);
 extern "C" void func_ov014_02122310(s32 arg0);
 extern "C" void func_ov014_02122330(void);
-extern "C" void func_ov014_02122448(void);
+extern "C" void func_ov014_02122448(u8 *arg0);
 extern "C" void func_ov014_02122480(s32 arg0);
 extern "C" void func_ov014_02122498(void);
 extern "C" s32 func_ov014_021224d8(...);
@@ -530,19 +530,14 @@ extern "C" asm void func_ov014_021215e4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_02121700(void)
+extern "C" u8 func_ov014_02121700(void)
 {
-    stmdb sp!, {r4, lr}
-    bl OS_DisableInterrupts
-    ldr r1, =data_ov014_0212d574
-    mov r4, #0
-    ldr r1, [r1, #4]
-    cmp r1, #0
-    addne r1, r1, #0x1000
-    ldrneb r4, [r1, #0x2de]
-    bl OS_RestoreInterrupts
-    mov r0, r4
-    ldmia sp!, {r4, pc}
+    s32 m = ((s32 (*)(void))OS_DisableInterrupts)();
+    u8 r = 0;
+    if (*(u8 **)((u8 *)data_ov014_0212d574 + 4) != 0)
+        r = *(*(u8 **)((u8 *)data_ov014_0212d574 + 4) + 0x12DE);
+    ((void (*)(s32))OS_RestoreInterrupts)(m);
+    return r;
 }
 
 extern "C" asm void func_ov014_02121730(void)
@@ -1472,21 +1467,14 @@ extern "C" asm void func_ov014_02122330(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_02122448(void)
+extern "C" void func_ov014_02122448(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, [r0, #8]
-    ldr r1, =0x1ff8000
-    cmp r2, r1
-    ldmneia sp!, {r3, pc}
-    ldr r1, [r0, #0xc]
-    subs r1, r1, #1
-    str r1, [r0, #0xc]
-    ldmneia sp!, {r3, pc}
-    mov r1, #0
-    str r1, [r0, #8]
-    bl OS_WakeupThread
-    ldmia sp!, {r3, pc}
+    if (*(s32 *)(arg0 + 8) != 0x1FF8000)
+        return;
+    if (--*(s32 *)(arg0 + 0xC) != 0)
+        return;
+    *(s32 *)(arg0 + 8) = 0;
+    ((void (*)(u8 *))OS_WakeupThread)(arg0);
 }
 
 extern "C" void func_ov014_02122480(s32 arg0)

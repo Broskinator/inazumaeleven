@@ -2,7 +2,7 @@
 #include "game/vcall.hpp"
 
 extern "C" void func_ov042_0216bdfc(s32 arg0);
-extern "C" void func_ov042_0216be18(void);
+extern "C" s32 func_ov042_0216be18(s32 arg0, s32 arg1);
 extern "C" void func_ov042_0216be58(u8 *arg0, s32 arg1);
 extern "C" void func_ov042_0216be74(void);
 extern "C" s32 func_ov042_0216c738(u8 *arg0, s32 arg1, s32 arg2);
@@ -253,22 +253,9 @@ extern "C" void func_ov042_0216bdfc(s32 arg0)
     func_ov042_0216bdd8(arg0, v0);
 }
 
-extern "C" asm void func_ov042_0216be18(void)
+extern "C" s32 func_ov042_0216be18(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020c4ab4
-    mov r2, r1
-    ldrb r0, [r0, #0x70]
-    mov r1, #0
-    mov r3, #1
-    cmp r0, #0
-    ldr r0, =data_020c4ab4
-    str r1, [sp]
-    ldrb r1, [r0, #0x68]
-    ldr r0, =data_020e88a0
-    movne r3, #0
-    bl _ZN17UnkClass_020621b413func_0206e100Ev
-    ldmia sp!, {r3, pc}
+    return ((s32 (*)(u8 *, u8, s32, s32, s32))_ZN17UnkClass_020621b413func_0206e100Ev)((u8 *)data_020e88a0, ((u8 *)data_020c4ab4)[0x68], arg1, ((u8 *)data_020c4ab4)[0x70] == 0, 0);
 }
 
 extern "C" void func_ov042_0216be58(u8 *arg0, s32 arg1)
