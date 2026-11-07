@@ -10,7 +10,7 @@ extern "C" void func_ov087_02174d98(void);
 extern "C" void func_ov087_02174dc4(void);
 extern "C" void func_ov087_021750e0(void);
 extern "C" s32 func_ov087_0217521c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_ov087_021752b0(void);
+extern "C" void func_ov087_021752b0(u8 *arg0, s32 arg1, u8 *arg2, s32 arg3);
 extern "C" void func_ov087_021752ec(void);
 extern "C" void func_ov087_021754d8(void);
 extern "C" void func_ov087_02175678(void);
@@ -1289,21 +1289,25 @@ extern "C" s32 func_ov087_0217521c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
     }
 }
 
-extern "C" asm void func_ov087_021752b0(void)
+extern "C" void func_ov087_021752b0(u8 *arg0, s32 arg1, u8 *arg2, s32 arg3)
 {
-    cmp r1, #1
-    ldreq r0, =data_020c4ecc
-    ldreq r12, [r0, #0xc]
-    ldrne r0, =data_020c4edc
-    ldr r1, [r0, #8]
-    ldrne r12, [r0, #4]
-    ldr r0, [r0]
-    add r1, r1, r3
-    sub r0, r0, r3
-    stmia r2, {r0, r12}
-    str r1, [r2, #8]
-    str r12, [r2, #0xc]
-    bx lr
+    s32 r12;
+    s32 t0;
+    s32 t1;
+    if (arg1 == 1) {
+        arg0 = (u8 *)((u8 *)&data_020c4ecc);
+        r12 = *(s32 *)(((u8 *)&data_020c4ecc) + 0xC);
+    } else {
+        arg0 = (u8 *)((u8 *)&data_020c4edc);
+        r12 = *(s32 *)(((u8 *)&data_020c4edc) + 0x4);
+    }
+    t0 = (*(s32 *)(arg0) - arg3);
+    t1 = (*(s32 *)(arg0 + 0x8) + arg3);
+    *(s32 *)(arg2) = t0;
+    *(s32 *)(arg2 + 0x4) = r12;
+    *(s32 *)(arg2 + 0x8) = t1;
+    *(s32 *)(arg2 + 0xC) = r12;
+    return;
 }
 
 extern "C" asm void func_ov087_021752ec(void)

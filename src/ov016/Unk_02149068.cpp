@@ -82,7 +82,7 @@ extern "C" void func_ov016_0214b71c(void);
 extern "C" void func_ov016_0214ba38(void);
 extern "C" s8 func_ov016_0214ba7c(void);
 extern "C" s32 func_ov016_0214ba90(void);
-extern "C" void func_ov016_0214baac(void);
+extern "C" void func_ov016_0214baac(s32 arg0);
 extern "C" void func_ov016_0214bb04(void);
 extern "C" void func_ov016_0214bbc4(void);
 extern "C" void func_ov016_0214bd10(void);
@@ -138,7 +138,7 @@ extern "C" char data_ov016_02158b38[];
 extern "C" s32 DC_FlushRange(...);
 extern "C" void DC_InvalidateRange(void);
 extern "C" void FX_DivS32(void);
-extern "C" void G2x_ChangeBlendBrightness_(void);
+extern "C" s32 G2x_ChangeBlendBrightness_(...);
 extern "C" void MATH_CalcCRC16(void);
 extern "C" s32 MATHi_CRC16InitTableRev(...);
 extern "C" s32 MI_CpuCopy8(...);
@@ -2985,27 +2985,16 @@ extern "C" s32 func_ov016_0214ba90(void)
     return (*(s32 *)(data_ov016_02158b38) != 0 ? 1 : 0);
 }
 
-extern "C" asm void func_ov016_0214baac(void)
+extern "C" void func_ov016_0214baac(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r5, =data_ov016_02158b38
-    mov r4, r0
-    ldr r2, [r5]
-    ldr r0, =0x4000050
-    ldrsb r1, [r2, #0x1a]
-    sub r1, r1, #1
-    strb r1, [r2, #0x1a]
-    ldr r1, [r5]
-    ldrsb r1, [r1, #0x1a]
-    bl G2x_ChangeBlendBrightness_
-    ldr r0, [r5]
-    ldrsb r0, [r0, #0x1a]
-    cmn r0, #0xc
-    ldmgtia sp!, {r3, r4, r5, pc}
-    ldr r1, =func_ov016_0214bb04
-    mov r0, r4
-    bl func_ov016_02151c30
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 t0 = (*(s8 *)(*(u8 * *)(((u8 *)&data_ov016_02158b38)) + 0x1A) - 1);
+    u8 *t1 = *(u8 * *)(((u8 *)&data_ov016_02158b38));
+    *(u8 *)(t1 + 0x1A) = t0;
+    s8 t2 = *(s8 *)(*(u8 * *)(((u8 *)&data_ov016_02158b38)) + 0x1A);
+    G2x_ChangeBlendBrightness_(0x4000050, t2);
+    if (*(s8 *)(*(u8 * *)(((u8 *)&data_ov016_02158b38)) + 0x1A) > -0xC)
+        return;
+    func_ov016_02151c30(arg0, (s32)((u8 *)&func_ov016_0214bb04));
 }
 
 extern "C" asm void func_ov016_0214bb04(void)

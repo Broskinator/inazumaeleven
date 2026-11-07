@@ -28,7 +28,7 @@ extern "C" void func_ov001_02104388(void);
 extern "C" void func_ov001_0210449c(void);
 extern "C" void func_ov001_02104600(u8 *arg0);
 extern "C" void func_ov001_02104628(void);
-extern "C" void func_ov001_02104690(void);
+extern "C" void func_ov001_02104690(s32 arg0, s32 arg1);
 extern "C" void func_ov001_02104750(void);
 extern "C" void func_ov001_02104940(void);
 extern "C" s32 func_ov001_02104ae0(...);
@@ -99,7 +99,7 @@ extern "C" void func_ov001_0210623c(void);
 extern "C" void func_ov001_02107420(void);
 extern "C" void func_ov001_02126588(void);
 extern "C" void func_ov001_02126690(void);
-extern "C" void func_ov001_02126820(void);
+extern "C" s32 func_ov001_02126820(...);
 extern "C" void func_ov001_0212694c(void);
 extern "C" void func_ov001_02127a54(void);
 extern "C" void func_ov001_02127b60(void);
@@ -1932,58 +1932,46 @@ extern "C" asm void func_ov001_02104628(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov001_02104690(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov001_02104690(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x14
-    add r0, r0, #0x68
-    mov r9, #0
-    mov r10, r1
-    add r8, r0, #0x400
-    mov r5, r9
-    mov r7, #0x1f
-    ldr r6, =0x201f
-    mov r11, #6
-    ldr r4, =data_020c482c
-    b @L_02104738
-@L_021046c0:
-    ldrb r0, [r8]
-    cmp r0, #0
-    beq @L_02104730
-    ldrh r0, [r8, #0xc]
-    cmp r0, #0
-    subne r0, r0, #1
-    strneh r0, [r8, #0xc]
-    bne @L_02104730
-    ldrh r3, [r8, #0xe]
-    mov r1, r10
-    mov r2, r6
-    add r0, r3, #1
-    strh r0, [r8, #0xe]
-    ldr r0, [r8, #4]
-    mov r3, r3, lsl #4
-    str r0, [sp]
-    ldr r0, [r8, #8]
-    add r3, r3, #1
-    stmib sp, {r0, r3}
-    str r3, [sp, #0xc]
-    str r7, [sp, #0x10]
-    ldr r0, [r4]
-    mov r3, r11
-    bl func_ov001_02126820
-    ldrh r0, [r8, #0xe]
-    add r10, r10, #1
-    cmp r0, #0x10
-    strhib r5, [r8]
-@L_02104730:
-    add r9, r9, #1
-    add r8, r8, #0x10
-@L_02104738:
-    cmp r9, #4
-    blt @L_021046c0
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    u8 *r8;
+    s32 r9;
+    s32 r10;
+    s32 r11;
+    s32 t0;
+    u16 t1;
+    s32 t2;
+    r9 = 0;
+    r10 = arg1;
+    r8 = (u8 *)((arg0 + 0x68) + 0x400);
+    while ((r5 = 0, r6 = 0x201F, r7 = 0x1F, r11 = 6, r9 < 4)) {
+        if (*(u8 *)(r8) != 0) {
+            arg0 = *(u16 *)(r8 + 0xC);
+            if (arg0 != 0) {
+                *(u16 *)(r8 + 0xC) = (arg0 - 1);
+            } else {
+                t0 = (*(u16 *)(r8 + 0xE) + 1);
+                t1 = *(u16 *)(r8 + 0xE);
+                *(u16 *)(r8 + 0xE) = t0;
+                t2 = *(s32 *)(((u8 *)&data_020c482c));
+                func_ov001_02126820(t2, r10, r6, r11, *(s32 *)(r8 + 0x4), *(s32 *)(r8 + 0x8), ((t1 << 4) + 1), ((t1 << 4) + 1), r7);
+                r10 = (r10 + 1);
+                if ((u32)*(u16 *)(r8 + 0xE) > (u32)0x10) {
+                    *(u8 *)(r8) = r5;
+                }
+            }
+        }
+        r9 = (r9 + 1);
+        r8 = (u8 *)(r8 + 0x10);
+    }
+    return;
 }
+#pragma pop
 
 extern "C" asm void func_ov001_02104750(void)
 {

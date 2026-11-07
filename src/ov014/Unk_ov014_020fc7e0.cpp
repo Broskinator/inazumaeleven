@@ -26,7 +26,7 @@ extern "C" char *func_ov014_020fd8f0(void);
 extern "C" s32 func_ov014_020fd90c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_020fd938(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" u8 func_ov014_020fd964(void);
-extern "C" void func_ov014_020fd974(void);
+extern "C" void func_ov014_020fd974(s32 arg0, u8 arg1);
 extern "C" char *func_ov014_020fd9bc(void);
 extern "C" s32 func_ov014_020fd9d0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov014_020fda40(s32 arg0, s32 arg1);
@@ -1459,27 +1459,23 @@ extern "C" u8 func_ov014_020fd964(void)
     return *(u8 *)(data_ov014_021260c0 + 0x2);
 }
 
-extern "C" asm void func_ov014_020fd974(void)
+extern "C" void func_ov014_020fd974(s32 arg0, u8 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    cmp r0, #4
-    addls pc, pc, r0, lsl #2
-    b @L_020fd9a0
-    b @L_020fd9a0
-    b @L_020fd9a0
-    b @L_020fd9a0
-    b @L_020fd9a0
-    b @L_020fd99c
-@L_020fd99c:
-    bl func_ov014_020fd9bc
-@L_020fd9a0:
-    ldr r0, =data_ov014_021260c0
-    mov r1, #1
-    strb r1, [r0]
-    cmp r4, #0
-    strneb r1, [r0, #2]
-    ldmia sp!, {r4, pc}
+    switch (arg0) {
+        case 4:
+            func_ov014_020fd9bc();
+            break;
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            break;
+    }
+    *(u8 *)(((u8 *)&data_ov014_021260c0)) = 1;
+    if (arg1 != 0) {
+        *(u8 *)(((u8 *)&data_ov014_021260c0) + 0x2) = 1;
+    }
+    return;
 }
 
 extern "C" char *func_ov014_020fd9bc(void)

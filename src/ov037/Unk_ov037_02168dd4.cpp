@@ -40,7 +40,7 @@ extern "C" void func_ov037_0216a88c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 
 extern "C" s32 func_ov037_0216a958(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4);
 extern "C" void func_ov037_0216aac4(void);
 extern "C" void func_ov037_0216ad58(u8 *arg0);
-extern "C" void func_ov037_0216ad6c(void);
+extern "C" s32 func_ov037_0216ad6c(u8 *arg0);
 extern "C" void func_ov037_0216adb0(void);
 extern "C" void func_ov037_0216afc0(void);
 extern "C" s32 func_ov037_0216b5d8(u8 *arg0);
@@ -2257,25 +2257,26 @@ extern "C" void func_ov037_0216ad58(u8 *arg0)
     *(s32 *)(arg0 + 0xF68) = 6;
 }
 
-extern "C" asm void func_ov037_0216ad6c(void)
+extern "C" s32 func_ov037_0216ad6c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r4, [r5, #0xf64]
-    cmn r4, #1
-    moveq r0, #1
-    streq r0, [r5, #0xf64]
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r1, [r5, #0xf68]
-    add r0, r4, #1
-    bl _s32_div_f
-    cmp r4, #0
-    movgt r0, #0
-    movle r0, #3
-    strle r0, [r5, #0xf68]
-    str r1, [r5, #0xf64]
-    movle r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 r0;
+    s32 r4;
+    s32 t1;
+    r4 = *(s32 *)(arg0 + 0xF64);
+    if (r4 == -1) {
+        *(s32 *)(arg0 + 0xF64) = 1;
+        return 1;
+    } else {
+        t1 = ((r4 + 1) % *(s32 *)(arg0 + 0xF68));
+        *(s32 *)(arg0 + 0xF64) = t1;
+        if (r4 > 0) {
+            r0 = 0;
+        } else {
+            *(s32 *)(arg0 + 0xF68) = 3;
+            r0 = 1;
+        }
+        return r0;
+    }
 }
 
 extern "C" asm void func_ov037_0216adb0(void)

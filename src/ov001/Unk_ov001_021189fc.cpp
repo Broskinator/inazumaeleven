@@ -52,7 +52,7 @@ extern "C" s32 func_ov001_0211ae10(...);
 extern "C" void func_ov001_0211ae28(s32 arg0);
 extern "C" void func_ov001_0211ae58(void);
 extern "C" s32 func_ov001_0211afb4(...);
-extern "C" void func_ov001_0211b084(void);
+extern "C" s32 func_ov001_0211b084(s32 arg0, s32 arg1);
 extern "C" s32 func_ov001_0211b0fc(...);
 extern "C" s32 func_ov001_0211b170(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov001_0211b1f8(void);
@@ -95,7 +95,7 @@ extern "C" char data_ov001_0212a1e0[];
 extern "C" char data_ov001_0212a204[];
 extern "C" char data_ov001_0212a21c[];
 extern "C" char data_ov001_0212a9e4[];
-extern "C" void DC_FlushRange(void);
+extern "C" s32 DC_FlushRange(...);
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN11SaveManager10SaveFileToEiP8SaveFilei(void);
@@ -140,7 +140,7 @@ extern "C" s32 func_020887f0(...);
 extern "C" void func_02090dec(void);
 extern "C" void func_02091d54(void);
 extern "C" s32 func_020920c4(...);
-extern "C" void func_02092270(void);
+extern "C" s32 func_02092270(...);
 extern "C" s32 func_02093188(...);
 extern "C" s32 func_02093368(...);
 extern "C" s32 func_02093524(...);
@@ -155,7 +155,7 @@ extern "C" void func_02093ca8(void);
 extern "C" void func_02093d1c(void);
 extern "C" void func_02095ea4(void);
 extern "C" void func_02097aa0(void);
-extern "C" void func_02097b3c(void);
+extern "C" s32 func_02097b3c(...);
 extern "C" void func_02097c74(void);
 extern "C" s32 func_02097ca8(...);
 extern "C" void func_02097ef8(void);
@@ -2673,42 +2673,35 @@ extern "C" asm s32 func_ov001_0211afb4(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov001_0211b084(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_ov001_0211b084(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r1
-    mov r5, #0
-    ldr r4, =data_020c46d4
-    b @L_0211b0b4
-@L_0211b098:
-    add r0, r6, r5, lsl #2
-    ldr r1, [r0, #0x20]
-    cmp r1, #0
-    ble @L_0211b0b0
-    ldr r0, [r4]
-    bl func_02092270
-@L_0211b0b0:
-    add r5, r5, #1
-@L_0211b0b4:
-    cmp r5, #0x64
-    blt @L_0211b098
-    ldr r1, [r6, #0x1b0]
-    cmp r1, #0
-    ble @L_0211b0d4
-    ldr r0, =data_020c46d4
-    ldr r0, [r0]
-    bl func_02097b3c
-@L_0211b0d4:
-    mov r4, #0x214
-    mov r0, r6
-    mov r2, r4
-    mov r1, #0
-    bl MI_CpuFill8
-    mov r0, r6
-    mov r1, r4
-    bl DC_FlushRange
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r5;
+    u8 *r6;
+    s32 v3;
+    s32 t0;
+    s32 t1;
+    r6 = (u8 *)arg1;
+    r5 = 0;
+    while (r5 < 0x64) {
+        arg1 = *(s32 *)(((u8 *)(r6 + (r5 << 2))) + 0x20);
+        if (arg1 > 0) {
+            t0 = *(s32 *)(((u8 *)&data_020c46d4));
+            func_02092270(t0, arg1);
+        }
+        r5 = (r5 + 1);
+    }
+    arg1 = *(s32 *)(r6 + 0x1B0);
+    if (arg1 > 0) {
+        t1 = *(s32 *)(((u8 *)&data_020c46d4));
+        func_02097b3c(t1, arg1);
+    }
+    MI_CpuFill8((s32)r6, 0, 0x214);
+    v3 = DC_FlushRange((s32)r6, 0x214);
+    return v3;
 }
+#pragma pop
 
 extern "C" asm s32 func_ov001_0211b0fc(...)
 {

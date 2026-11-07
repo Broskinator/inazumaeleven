@@ -28,6 +28,7 @@ def itcm_func(a):
         return None
     return next((n for n, x in FUNCS.items() if x == a), None)
 VARIANTS, VARIANT = 36, {}     # (how many ways a function can be written, and the one to try next)
+OPT = {}     # (a function's optimization levels still to try, the first the one tried now: [] for -O4)
 
 
 class Fail(Exception):
@@ -3030,7 +3031,11 @@ def is_func(nm, protos):
 
 
 def apply(t, name, block, decl, body, protos, callees):
-    t = t.replace(block, f'extern "C" {decl}\n{{\n{body}}}\n', 1)
+    if OPT.get(name):
+        # (compiled at a lower optimization level)
+        t = t.replace(block, f'#pragma push\n#pragma optimization_level {OPT[name][0]}\nextern "C" {decl}\n{{\n{body}}}\n#pragma pop\n', 1)
+    else:
+        t = t.replace(block, f'extern "C" {decl}\n{{\n{body}}}\n', 1)
     # (data declared as a function for asm, used from C: an array)
     for d in set(re.findall(r"\(u8 \*\)&(\w+)\)", body)):
         if FUNCS and d not in FUNCS:
@@ -3077,6 +3082,31 @@ def sym_ptrs(body):
     return "\n".join(lines[:n] + [head.rstrip("\n")] + lines[n:])
 
 
+def low_opt(body):
+    """True for code MW didn't compile at -O4: a counting loop entered by 'b test' though its
+    counter starts at a constant (-O4 drops that first test)"""
+    L = [l.strip() for l in body.split("\n")]
+    for i, l in enumerate(L):
+        b = re.fullmatch(r"b (@L_\w+)", l)
+        if not b or b[1] + ":" not in L:
+            continue
+        j = L.index(b[1] + ":")
+        c = re.fullmatch(r"cmp (r\d+), #\w+", L[j + 1]) if j + 1 < len(L) else None
+        if c and any(re.fullmatch(rf"mov {c[1]}, #\w+", x) for x in L[max(0, i - 8):i]):
+            return True
+    return False
+
+
+def exhausted(name, failed):
+    """name has no more variants: tried again from the start at the next optimization level, or failed"""
+    if len(OPT.get(name, [])) > 1:
+        OPT[name].pop(0)
+        VARIANT[name] = 0
+        return True
+    failed.add(name)
+    return False
+
+
 def lift_file(src, sizes, failed):
     """Lifts what it can of a file; the number of functions lifted."""
     t = open(src).read()
@@ -3086,6 +3116,8 @@ def lift_file(src, sizes, failed):
     for b in blocks:
         if b[2].count("\n") > 400 or b[1] in failed:
             continue
+        if b[1] not in OPT:
+            OPT[b[1]] = [2, 1] if low_opt(b[2]) else []
         v = VARIANT.get(b[1], 0)
         try:
             # (variants: lift() 0-3 (without branches), then lift_cfg() 0-7)
@@ -3106,7 +3138,7 @@ def lift_file(src, sizes, failed):
             if v + 1 < VARIANTS:
                 VARIANT[b[1]] = v + 1
             else:
-                failed.add(b[1])
+                exhausted(b[1], failed)
     # (a function that calls another one lifted now waits: the callee's declaration changes)
     cand = {n: c for n, c in cand.items() if not any(f in cand for f in c[3])}
     if not cand:
@@ -3128,8 +3160,8 @@ def lift_file(src, sizes, failed):
             if v + 1 < VARIANTS:
                 VARIANT[n_] = v + 1
                 again = True
-            else:
-                failed.add(n_)
+            elif exhausted(n_, failed):
+                again = True
         return again
     if r.returncode and not re.search(r"^\w+: .*bytes\)$", r.stdout, re.M):
         # (the functions with the errors stay asm, and the others are tried again)

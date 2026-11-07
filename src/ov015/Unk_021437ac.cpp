@@ -79,16 +79,16 @@ extern "C" void func_ov015_02145a40(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02145a48(u8 *arg0, u8 arg1);
 extern "C" void func_ov015_02145a50(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_02145a74(u8 *arg0);
-extern "C" void func_ov015_02145a88(void);
+extern "C" s32 func_ov015_02145a88(u8 *arg0);
 extern "C" void func_ov015_02145ad0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02145b00(...);
 extern "C" s32 func_ov015_02145b38(u8 *arg0, s32 arg1);
-extern "C" void func_ov015_02145b58(void);
+extern "C" s32 func_ov015_02145b58(u8 *arg0);
 extern "C" void func_ov015_02145ba0(u8 *arg0, u8 arg1);
 extern "C" void func_ov015_02145ba8(s32 arg0);
 extern "C" s32 func_ov015_02145bb8(void);
 extern "C" s32 func_ov015_02145bd0(...);
-extern "C" void func_ov015_02145ce8(void);
+extern "C" s32 func_ov015_02145ce8(u8 *arg0);
 extern "C" void func_ov015_02145d68(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_02145d7c(u8 *arg0);
 extern "C" void func_ov015_02145da8(u8 *arg0);
@@ -146,8 +146,8 @@ extern "C" void FX_SinCosTable_(void);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 NNS_G3dGetTex(...);
 extern "C" s32 NNS_G3dGlbFlushVP(...);
-extern "C" void NNS_G3dReleaseMdlPltt(void);
-extern "C" void NNS_G3dReleaseMdlTex(void);
+extern "C" s32 NNS_G3dReleaseMdlPltt(...);
+extern "C" s32 NNS_G3dReleaseMdlTex(...);
 extern "C" void NNS_G3dRenderObjInit(void);
 extern "C" void OS_GetTick(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
@@ -228,21 +228,21 @@ extern "C" s32 func_ov015_02148058(...);
 extern "C" s32 func_ov015_02148114(...);
 extern "C" void func_ov015_0214827c(void);
 extern "C" void func_ov015_02148410(void);
-extern "C" void func_ov015_02148628(void);
-extern "C" void func_ov015_0214869c(void);
+extern "C" s32 func_ov015_02148628(...);
+extern "C" s32 func_ov015_0214869c(...);
 extern "C" void func_ov015_02163f50(void);
 extern "C" s32 func_ov015_02163f8c(...);
 extern "C" void func_ov015_02164058(void);
 extern "C" s32 func_ov015_021640a8(...);
 extern "C" s32 func_ov015_02164144(...);
 extern "C" void func_ov015_02164180(void);
-extern "C" void func_ov015_02164244(void);
+extern "C" s32 func_ov015_02164244(...);
 extern "C" void func_ov015_02164290(void);
 extern "C" s32 func_ov015_021642b0(...);
 extern "C" void func_ov015_021642e4(void);
 extern "C" s32 func_ov015_02164308(...);
-extern "C" void func_ov015_02164444(void);
-extern "C" void func_ov015_0216446c(void);
+extern "C" s32 func_ov015_02164444(...);
+extern "C" s32 func_ov015_0216446c(...);
 extern "C" void func_ov015_021644fc(void);
 extern "C" s32 func_ov015_021645ec(...);
 extern "C" void func_ov087_0217e9e8(void);
@@ -2654,28 +2654,25 @@ extern "C" s32 func_ov015_02145a74(u8 *arg0)
     return ((*(u16 *)(arg0 + 0x40) & 8) != 0 ? 1 : 0);
 }
 
-extern "C" asm void func_ov015_02145a88(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_ov015_02145a88(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r1, =data_020c464c
-    mov r4, r0
-    ldr r0, [r1]
-    ldr r1, [r4, #4]
-    bl func_ov015_02148628
-    add r5, r4, #0xb0
-    mov r6, #0
-    mov r4, #0x30
-    b @L_02145abc
-@L_02145ab0:
-    mla r0, r6, r4, r5
-    bl func_ov015_02164444
-    add r6, r6, #1
-@L_02145abc:
-    cmp r6, #5
-    blt @L_02145ab0
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r6;
+    s32 t0;
+    s32 t1;
+    t0 = *(s32 *)(((u8 *)&data_020c464c));
+    t1 = *(s32 *)(arg0 + 0x4);
+    func_ov015_02148628(t0, t1);
+    r6 = 0;
+    while ((r4 = 0x30, r6 < 5)) {
+        func_ov015_02164444((s32)((r6 * r4) + (arg0 + 0xB0)));
+        r6 = (r6 + 1);
+    }
+    return 1;
 }
+#pragma pop
 
 extern "C" void func_ov015_02145ad0(s32 arg0, s32 arg1, s32 arg2)
 {
@@ -2709,28 +2706,25 @@ extern "C" s32 func_ov015_02145b38(u8 *arg0, s32 arg1)
     return ((*(s32 *)(arg0 + 0x3C) & (1 << arg1)) == 0 ? 0 : 1);
 }
 
-extern "C" asm void func_ov015_02145b58(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_ov015_02145b58(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r1, =data_020c464c
-    mov r4, r0
-    ldr r0, [r1]
-    ldr r1, [r4, #4]
-    bl func_ov015_0214869c
-    add r5, r4, #0xb0
-    mov r6, #0
-    mov r4, #0x30
-    b @L_02145b8c
-@L_02145b80:
-    mla r0, r6, r4, r5
-    bl func_ov015_0216446c
-    add r6, r6, #1
-@L_02145b8c:
-    cmp r6, #5
-    blt @L_02145b80
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r4;
+    s32 r6;
+    s32 t0;
+    s32 t1;
+    t0 = *(s32 *)(((u8 *)&data_020c464c));
+    t1 = *(s32 *)(arg0 + 0x4);
+    func_ov015_0214869c(t0, t1);
+    r6 = 0;
+    while ((r4 = 0x30, r6 < 5)) {
+        func_ov015_0216446c((s32)((r6 * r4) + (arg0 + 0xB0)));
+        r6 = (r6 + 1);
+    }
+    return 1;
 }
+#pragma pop
 
 extern "C" void func_ov015_02145ba0(u8 *arg0, u8 arg1)
 {
@@ -2835,44 +2829,40 @@ extern "C" asm s32 func_ov015_02145bd0(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02145ce8(void)
+extern "C" s32 func_ov015_02145ce8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    bl func_ov015_021445b8
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, r7
-    bl func_ov015_021455fc
-    movs r4, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrb r1, [r7, #0x42]
-    cmp r1, #0
-    beq @L_02145d5c
-    cmp r1, #1
-    beq @L_02145d2c
-    cmp r1, #2
-    beq @L_02145d3c
-    b @L_02145d5c
-@L_02145d2c:
-    bl NNS_G3dReleaseMdlTex
-    mov r0, r4
-    bl NNS_G3dReleaseMdlPltt
-    b @L_02145d5c
-@L_02145d3c:
-    mov r6, #0
-    add r5, r7, #0xb0
-    mov r4, #0x30
-@L_02145d48:
-    mla r0, r6, r4, r5
-    bl func_ov015_02164244
-    add r6, r6, #1
-    cmp r6, #5
-    blt @L_02145d48
-@L_02145d5c:
-    mov r0, #0
-    strb r0, [r7, #0x42]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r0;
+    s32 r1;
+    s32 r4;
+    s32 r6;
+    s32 v0;
+    s32 v1;
+    v0 = func_ov015_021445b8((s32)arg0);
+    if (v0 == 0)
+        return v0;
+    v1 = func_ov015_021455fc((s32)arg0);
+    if (v1 == 0)
+        return v1;
+    r0 = v1;
+    r4 = v1;
+    r1 = *(u8 *)(arg0 + 0x42);
+    switch (r1) {
+        case 1:
+            NNS_G3dReleaseMdlTex(r0, r1);
+            NNS_G3dReleaseMdlPltt(r4);
+            break;
+        case 2:
+            r6 = 0;
+            r4 = 0x30;
+            do {
+                func_ov015_02164244((s32)((r6 * r4) + (arg0 + 0xB0)));
+                r6 = (r6 + 1);
+            } while (r6 < 5);
+        case 0:
+            break;
+    }
+    *(u8 *)(arg0 + 0x42) = 0;
+    return 0;
 }
 
 extern "C" void func_ov015_02145d68(u8 *arg0, s32 arg1)

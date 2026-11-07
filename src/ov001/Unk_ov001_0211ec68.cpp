@@ -23,7 +23,7 @@ extern "C" void func_ov001_021204c4(void);
 extern "C" void func_ov001_02120e68(void);
 extern "C" void func_ov001_02121158(void);
 extern "C" void func_ov001_021211f0(u8 *arg0);
-extern "C" void func_ov001_02121250(void);
+extern "C" void func_ov001_02121250(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov001_02121368(void);
 extern "C" void func_ov001_02121448(void);
 extern "C" void func_ov001_02121508(void);
@@ -105,7 +105,7 @@ extern "C" void func_ov015_021322b0(void);
 extern "C" void func_ov015_021322d8(void);
 extern "C" void func_ov015_02132984(void);
 extern "C" void func_ov015_02132a04(void);
-extern "C" void func_ov015_02132a38(void);
+extern "C" s32 func_ov015_02132a38(...);
 extern "C" void func_ov015_02132a98(void);
 extern "C" void func_ov015_02132b7c(void);
 extern "C" void func_ov015_021330b4(void);
@@ -2640,82 +2640,54 @@ extern "C" void func_ov001_021211f0(u8 *arg0)
     func_ov015_02132014(1, (*(u8 *)(arg0 + 0x19) + 4), 1);
 }
 
-extern "C" asm void func_ov001_02121250(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov001_02121250(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    mov r11, r0
-    ldr r4, [r11, #0x1d8]
-    mov r10, r1
-    cmp r4, #0
-    mov r9, r2
-    mov r8, r3
-    addeq sp, sp, #8
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, [r4, #0xc]
-    mov r7, #0
-    add r6, r4, r0
-    ldr r5, =data_020d2520
-    mov r4, #1
-    b @L_021212d4
-@L_02121290:
-    ldrsb r0, [r8]
-    cmp r0, #0x30
-    blt @L_021212dc
-    cmp r0, #0x39
-    bgt @L_021212dc
-    sub r0, r0, #0x30
-    add r0, r6, r0, lsl #1
-    str r0, [sp]
-    mov r0, r10
-    mov r1, r9
-    mov r2, r4
-    mov r3, r4
-    str r5, [sp, #4]
-    bl func_ov015_02132a38
-    add r7, r7, #1
-    add r8, r8, #1
-    add r10, r10, #1
-@L_021212d4:
-    cmp r7, #2
-    blt @L_02121290
-@L_021212dc:
-    ldr r1, [r11, #0x1e4]
-    cmp r1, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, [r1, #0xc]
-    mov r4, #0
-    add r6, r1, r0
-    ldr r7, =data_020d2d20
-    mov r5, #1
-    b @L_02121350
-@L_02121304:
-    ldrsb r0, [r8]
-    cmp r0, #0x30
-    addlt sp, sp, #8
-    ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    cmp r0, #0x39
-    addgt sp, sp, #8
-    ldmgtia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    sub r0, r0, #0x30
-    add r0, r6, r0, lsl #1
-    str r0, [sp]
-    mov r0, r10
-    mov r1, r9
-    mov r2, r5
-    mov r3, r5
-    str r7, [sp, #4]
-    bl func_ov015_02132a38
-    add r4, r4, #1
-    add r8, r8, #1
-    add r10, r10, #1
-@L_02121350:
-    cmp r4, #2
-    blt @L_02121304
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s32 r4;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    u8 *r8;
+    s32 r10;
+    u8 *r11;
+    if ((s32)*(u8 * *)(arg0 + 0x1D8) == 0)
+        return;
+    r11 = arg0;
+    r10 = arg1;
+    r8 = (u8 *)arg3;
+    r7 = 0;
+    r6 = (s32)(*(u8 * *)(arg0 + 0x1D8) + *(s32 *)(*(u8 * *)(arg0 + 0x1D8) + 0xC));
+    r5 = (s32)((u8 *)&data_020d2520);
+    r4 = 1;
+    while (r7 < 2) {
+        arg0 = (u8 *)*(s8 *)(r8);
+        if (((s32)arg0 < 0x30 || (s32)arg0 > 0x39))
+            break;
+        func_ov015_02132a38(r10, arg2, r4, r4, (s32)(r6 + ((s32)(arg0 - 0x30) << 1)), r5);
+        r7 = (r7 + 1);
+        r8 = (u8 *)(r8 + 1);
+        r10 = (r10 + 1);
+    }
+    if ((s32)*(u8 * *)(r11 + 0x1E4) == 0)
+        return;
+    r4 = 0;
+    r6 = (s32)(*(u8 * *)(r11 + 0x1E4) + *(s32 *)(*(u8 * *)(r11 + 0x1E4) + 0xC));
+    r7 = (s32)((u8 *)&data_020d2d20);
+    r5 = 1;
+    while (r4 < 2) {
+        if (*(s8 *)(r8) < 0x30)
+            return;
+        if (*(s8 *)(r8) > 0x39)
+            return;
+        func_ov015_02132a38(r10, arg2, r5, r5, (r6 + ((*(s8 *)(r8) - 0x30) << 1)), r7);
+        r4 = (r4 + 1);
+        r8 = (u8 *)(r8 + 1);
+        r10 = (r10 + 1);
+    }
+    return;
 }
+#pragma pop
 
 extern "C" asm void func_ov001_02121368(void)
 {

@@ -60,8 +60,8 @@ extern "C" void func_ov015_02160ce0(s32 arg0);
 extern "C" void func_ov015_02160cf8(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov015_02160d50(s32 arg0);
 extern "C" s32 func_ov015_02160d80(...);
-extern "C" void func_ov015_02160e70(void);
-extern "C" void func_ov015_0216145c(void);
+extern "C" s32 func_ov015_02160e70(...);
+extern "C" s32 func_ov015_0216145c(s32 arg0, s32 arg1, u8 *arg2);
 extern "C" s32 func_ov015_021614f0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 extern "C" s32 func_ov015_02161618(u8 *arg0);
 extern "C" u8 *func_ov015_0216165c(u8 *arg0);
@@ -2551,7 +2551,7 @@ extern "C" asm s32 func_ov015_02160d80(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02160e70(void)
+extern "C" asm s32 func_ov015_02160e70(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x14
@@ -2976,49 +2976,42 @@ extern "C" asm void func_ov015_02160e70(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov015_0216145c(void)
+extern "C" s32 func_ov015_0216145c(s32 arg0, s32 arg1, u8 *arg2)
 {
-    stmdb sp!, {r4, lr}
-    mov r12, #0
-    cmp r1, #0
-    mov r4, r2
-    movlt r1, r12
-    blt @L_0216147c
-    cmp r1, #4
-    movge r1, #3
-@L_0216147c:
-    ldrb r3, [r4, #4]
-    add r2, r0, #4
-    add r2, r2, #0x400
-    cmp r3, #1
-    add r2, r2, r1, lsl #3
-    bne @L_021614a8
-    ldrsh r1, [r4, #0x18]
-    cmp r1, #0
-    ldrlesh r1, [r4, #6]
-    cmple r1, #0
-    b @L_021614b0
-@L_021614a8:
-    ldrsh r1, [r4, #6]
-    cmp r1, #0
-@L_021614b0:
-    movle r12, #1
-    cmp r12, #0
-    beq @L_021614e0
-    ldr r1, [r2]
-    cmp r1, #0
-    bne @L_021614e0
-    mov r1, r4
-    mov r2, #0
-    bl func_ov015_02160e70
-    mov r0, r4
-    bl func_ov015_02160ce0
-    ldmia sp!, {r4, pc}
-@L_021614e0:
-    mov r0, r2
-    mov r1, r4
-    bl func_ov015_02160cf8
-    ldmia sp!, {r4, pc}
+    s32 r1;
+    u8 *r2;
+    s32 r3;
+    s32 r12;
+    s32 v1;
+    s32 v2;
+    r12 = 0;
+    if (arg1 < 0) {
+        r1 = r12;
+    } else {
+        r1 = arg1;
+        if (r1 >= 4) {
+            r1 = 3;
+        }
+    }
+    r3 = *(u8 *)(arg2 + 0x4);
+    r2 = (u8 *)(((arg0 + 4) + 0x400) + (r1 << 3));
+    if (r3 == 1) {
+        if ((*(s16 *)(arg2 + 0x18) <= 0 && *(s16 *)(arg2 + 0x6) <= 0)) {
+            r12 = 1;
+        }
+    } else {
+        if (*(s16 *)(arg2 + 0x6) <= 0) {
+            r12 = 1;
+        }
+    }
+    if ((r12 != 0 && *(s32 *)(r2) == 0)) {
+        func_ov015_02160e70(arg0, (s32)arg2, 0, r3);
+        v1 = ((s32 (*)(...))func_ov015_02160ce0)((s32)arg2);
+        return v1;
+    } else {
+        v2 = ((s32 (*)(...))func_ov015_02160cf8)(r2, arg2);
+        return v2;
+    }
 }
 
 extern "C" s32 func_ov015_021614f0(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
