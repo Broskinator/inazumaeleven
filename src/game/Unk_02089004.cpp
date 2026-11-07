@@ -73,7 +73,7 @@ extern "C" s32 func_0208a40c(u8 *arg0, s32 arg1);
 extern "C" void func_0208a460(void);
 extern "C" s32 func_0208a4e8(u8 *arg0);
 extern "C" void func_0208a540(void *obj);
-extern "C" void func_0208a574(void);
+extern "C" void func_0208a574(u8 *arg0, s32 arg1, u8 arg2);
 extern "C" s32 func_0208a5e0(s32 arg0);
 extern "C" void **func_0208a698(void **obj);
 extern "C" void **func_0208a6c8(void **obj);
@@ -1510,38 +1510,16 @@ extern "C" void func_0208a540(void *obj)
     }
 }
 
-extern "C" asm void func_0208a574(void)
+extern "C" void func_0208a574(u8 *arg0, s32 arg1, u8 arg2)
 {
-    stmdb sp!, {r3}
-    sub sp, sp, #0xc
-    add r12, sp, #0
-    mov r3, #0
-    str r3, [r12]
-    str r3, [r12, #4]
-    str r3, [r12, #8]
-    cmp r1, #0
-    ble @L_0208a5b0
-    ldr r3, [r0, #4]
-    cmp r1, r3
-    bgt @L_0208a5b0
-    ldr r3, [r0, #0xc]
-    cmp r3, #0
-    bne @L_0208a5b8
-@L_0208a5b0:
-    mov r1, #0
-    b @L_0208a5c4
-@L_0208a5b8:
-    mov r0, #0x1c
-    mla r0, r1, r0, r3
-    sub r1, r0, #0x1c
-@L_0208a5c4:
-    cmp r1, #0
-    ldrne r0, [r1, #0x10]
-    cmpne r0, #0
-    strneb r2, [r1, #0xe]
-    add sp, sp, #0xc
-    ldmia sp!, {r3}
-    bx lr
+    struct { s32 a, b, c; } v = {0, 0, 0};
+    u8 *e;
+    if (arg1 <= 0 || arg1 > *(s32 *)(arg0 + 0x4) || *(s32 *)(arg0 + 0xC) == 0)
+        e = 0;
+    else
+        e = (u8 *)((u8 (*)[0x1C])*(s32 *)(arg0 + 0xC) + arg1 - 1);
+    if (e != 0 && *(s32 *)(e + 0x10) != 0)
+        *(u8 *)(e + 0xE) = arg2;
 }
 
 extern "C" s32 func_0208a5e0(s32 arg0)

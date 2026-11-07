@@ -1298,24 +1298,14 @@ extern "C" asm void func_0208fac4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_0208fc04(void)
+extern "C" void func_0208fc04(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #8
-    mov r4, #1
-    mov r5, #0
-    add r1, sp, #4
-    mov r2, r4
-    mov r0, #0x30
-    str r5, [sp, #4]
-    bl func_0202b608
-    add r1, sp, #0
-    mov r2, r4
-    mov r0, #0x31
-    str r5, [sp]
-    bl func_0202b608
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 a;
+    s32 b;
+    a = 0;
+    ((void (*)(s32, s32 *, s32))func_0202b608)(0x30, &a, 1);
+    b = 0;
+    ((void (*)(s32, s32 *, s32))func_0202b608)(0x31, &b, 1);
 }
 
 extern "C" s32 func_0208fc44(s32 arg0, u8 *arg1)

@@ -7,7 +7,7 @@ extern "C" void func_ov000_020ffd34(void);
 extern "C" void func_ov000_020ffe64(void);
 extern "C" s32 func_ov000_020fffd8(void);
 extern "C" s32 func_ov000_020ffff4(s32 arg0);
-extern "C" void func_ov000_02100104(void);
+extern "C" void func_ov000_02100104(u8 *arg0, s32 n, ...);
 extern "C" void func_ov000_021001a4(s32 arg0);
 extern "C" void func_ov000_021001b8(void);
 extern "C" s32 func_ov000_0210028c(u8 *arg0);
@@ -556,49 +556,24 @@ extern "C" s32 func_ov000_020ffff4(s32 arg0)
     return v3;
 }
 
-extern "C" asm void func_ov000_02100104(void)
+extern "C" void func_ov000_02100104(u8 *arg0, s32 n, ...)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    ldr r0, [r8, #0xa8]
-    ldr r1, [sp, #0x1c]
-    cmp r0, r1
-    movge r1, r0
-    strge r0, [sp, #0x1c]
-    cmp r1, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, lr}
-    addle sp, sp, #0x10
-    bxle lr
-    add r0, sp, #0x1c
-    bic r0, r0, #3
-    add r6, r0, #4
-    mov r7, #0
-    cmp r1, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, lr}
-    addle sp, sp, #0x10
-    bxle lr
-    ldr r5, =data_020d3d20
-    mov r4, #3
-@L_0210015c:
-    add r6, r6, #4
-    ldr r1, [r6, #-4]
-    cmp r1, #0
-    beq @L_02100184
-    mov r0, r5
-    bl func_0209b428
-    cmp r0, #0
-    ldreq r0, [r8, #0xa4]
-    addeq r0, r0, r7, lsl #3
-    streqb r4, [r0, #2]
-@L_02100184:
-    ldr r0, [sp, #0x1c]
-    add r7, r7, #1
-    cmp r7, r0
-    blt @L_0210015c
-    ldmia sp!, {r4, r5, r6, r7, r8, lr}
-    add sp, sp, #0x10
-    bx lr
+    u8 *ap;
+    s32 i;
+    s32 x;
+    if (*(s32 *)(arg0 + 0xA8) >= n)
+        n = *(s32 *)(arg0 + 0xA8);
+    if (n <= 0)
+        return;
+    ap = (u8 *)(((u32)&n & ~3) + 4);
+    for (i = 0; i < n; i++) {
+        ap += 4;
+        x = *(s32 *)(ap - 4);
+        if (x != 0) {
+            if (((s32 (*)(u8 *, s32))func_0209b428)((u8 *)data_020d3d20, x) == 0)
+                *(u8 *)(*(s32 *)(arg0 + 0xA4) + (i << 3) + 2) = 3;
+        }
+    }
 }
 
 extern "C" void func_ov000_021001a4(s32 arg0)

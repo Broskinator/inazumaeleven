@@ -2,9 +2,9 @@
 #include "game/vcall.hpp"
 
 extern "C" s32 func_ov000_020fc7e0(s32 arg0);
-extern "C" void func_ov000_020fc7f8(void);
-extern "C" void func_ov000_020fc828(void);
-extern "C" void func_ov000_020fc858(void);
+extern "C" u8 *func_ov000_020fc7f8(void);
+extern "C" u8 *func_ov000_020fc828(void);
+extern "C" u8 *func_ov000_020fc858(void);
 extern "C" s32 func_ov000_020fc888(u8 *arg0);
 extern "C" s32 func_ov000_020fc9f0(u8 *arg0);
 extern "C" s32 func_ov000_020fcaec(s32 arg0, s32 arg1);
@@ -287,49 +287,19 @@ extern "C" void func_ov054_02168404(void);
 extern "C" void _ZN8TextFontC1Ev(void);
 extern "C" void func_0209e248(void);
 extern "C" void func_ov068_0216ffa0(void);
-extern "C" asm void func_ov000_020fc7f8(void)
+extern "C" u8 *func_ov000_020fc7f8(void)
 {
-    stmdb sp!, {r3, lr}
-    bl rand
-    ldr r2, =0x66666667
-    mov r1, r0, lsr #0x1f
-    smull r0, r3, r2, r0
-    add r3, r1, r3, asr #2
-    add r0, r3, #0xff
-    add r0, r0, #0xf00
-    rsb r0, r0, r0, lsl #1
-    bl _Znam
-    ldmia sp!, {r3, pc}
+    return new u8[((s32 (*)(void))rand)() / 10 + 0xFFF];
 }
 
-extern "C" asm void func_ov000_020fc828(void)
+extern "C" u8 *func_ov000_020fc828(void)
 {
-    stmdb sp!, {r3, lr}
-    bl rand
-    ldr r2, =0x66666667
-    mov r1, r0, lsr #0x1f
-    smull r0, r3, r2, r0
-    add r3, r1, r3, asr #2
-    add r0, r3, #0xff
-    add r0, r0, #0xf00
-    rsb r0, r0, r0, lsl #1
-    bl _Znam
-    ldmia sp!, {r3, pc}
+    return new u8[((s32 (*)(void))rand)() / 10 + 0xFFF];
 }
 
-extern "C" asm void func_ov000_020fc858(void)
+extern "C" u8 *func_ov000_020fc858(void)
 {
-    stmdb sp!, {r3, lr}
-    bl rand
-    ldr r2, =0x66666667
-    mov r1, r0, lsr #0x1f
-    smull r0, r3, r2, r0
-    add r3, r1, r3, asr #2
-    add r0, r3, #0xff
-    add r0, r0, #0xf00
-    rsb r0, r0, r0, lsl #1
-    bl _Znam
-    ldmia sp!, {r3, pc}
+    return new u8[((s32 (*)(void))rand)() / 10 + 0xFFF];
 }
 
 extern "C" s32 func_ov000_020fc888(u8 *arg0)
