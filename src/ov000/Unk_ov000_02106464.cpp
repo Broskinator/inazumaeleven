@@ -55,7 +55,7 @@ extern "C" void func_ov000_02108a3c(void);
 extern "C" void func_ov000_02108b10(void);
 extern "C" void func_ov000_02108ce4(void);
 extern "C" void func_ov000_02108ce8(void);
-extern "C" void func_ov000_02108d80(void);
+extern "C" void func_ov000_02108d80(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4);
 extern "C" s32 func_ov000_02108e04(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, u8 *arg4);
 extern "C" s32 func_ov000_02108eac(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5, u8 *arg6);
 extern "C" s32 func_ov000_02108ed0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -2907,42 +2907,15 @@ extern "C" asm void func_ov000_02108ce8(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov000_02108d80(void)
+static inline s32 fxm02108d80(s32 a, s32 b) { return (s32)(((s64)a * b + 0x800) >> 12); }
+extern "C" void func_ov000_02108d80(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, [r0, #0x1bc]
-    ldr r12, [sp, #8]
-    str r4, [r3]
-    ldr r4, [r0, #0x1c0]
-    str r4, [r12]
-    ldr r4, [r0, #0x1c4]
-    cmp r4, #0
-    beq @L_02108dcc
-    smull r4, lr, r1, r4
-    adds r4, r4, #0x800
-    adc r1, lr, #0
-    mov r4, r4, lsr #0xc
-    orr r4, r4, r1, lsl #20
-    mov r1, r4, asr #0xb
-    ldr lr, [r3]
-    add r1, r4, r1, lsr #20
-    add r1, lr, r1, asr #12
-    str r1, [r3]
-@L_02108dcc:
-    ldr r0, [r0, #0x1c8]
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    smull r1, r0, r2, r0
-    adds r1, r1, #0x800
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    mov r0, r1, asr #0xb
-    ldr r2, [r12]
-    add r0, r1, r0, lsr #20
-    add r0, r2, r0, asr #12
-    str r0, [r12]
-    ldmia sp!, {r4, pc}
+    *arg3 = *(s32 *)(arg0 + 0x1BC);
+    *arg4 = *(s32 *)(arg0 + 0x1C0);
+    if (*(s32 *)(arg0 + 0x1C4) != 0)
+        *arg3 += fxm02108d80(arg1, *(s32 *)(arg0 + 0x1C4)) / 4096;
+    if (*(s32 *)(arg0 + 0x1C8) != 0)
+        *arg4 += fxm02108d80(arg2, *(s32 *)(arg0 + 0x1C8)) / 4096;
 }
 
 extern "C" s32 func_ov000_02108e04(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, u8 *arg4)

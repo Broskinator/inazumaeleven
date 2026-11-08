@@ -11,7 +11,7 @@ extern "C" void func_ov040_021662f4(void);
 extern "C" s32 func_ov040_02166384(s32 arg0, u8 *arg1);
 extern "C" u16 func_ov040_021663d0(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov040_021663fc(void);
-extern "C" void func_ov040_02166498(void);
+extern "C" s32 func_ov040_02166498(void *arg0, u8 *arg1);
 extern "C" s32 func_ov040_02166514(...);
 extern "C" s32 func_ov040_02166584(...);
 extern "C" void func_ov040_021665fc(s32 arg0, s32 arg1, u8 *arg2);
@@ -573,42 +573,20 @@ extern "C" asm void func_ov040_021663fc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov040_02166498(void)
+extern "C" s32 func_ov040_02166498(void *arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r4, r1
-    mov r5, r0
-    mov r0, r4
-    mov r6, #0
-    bl STD_GetStringLength
-    mov r7, r0
-    mov r8, r6
-    cmp r7, #0
-    ble @L_0216650c
-@L_021664c0:
-    mov r0, r5
-    add r1, r4, r8
-    bl func_ov040_02166384
-    mov r9, r0
-    mov r0, r5
-    mov r2, r9
-    add r1, r4, r8
-    bl func_ov040_021663d0
-    cmp r0, #0x30
-    blo @L_021664f4
-    cmp r0, #0x39
-    addls r0, r6, #1
-    andls r6, r0, #0xff
-@L_021664f4:
-    cmp r9, #1
-    subgt r0, r9, #1
-    addgt r8, r8, r0
-    add r8, r8, #1
-    cmp r8, r7
-    blt @L_021664c0
-@L_0216650c:
-    mov r0, r6
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 n = 0;
+    s32 len = ((s32 (*)(...))STD_GetStringLength)(arg1);
+    s32 i = n;
+    for (; i < len; i++) {
+        s32 w = ((s32 (*)(...))func_ov040_02166384)(arg0, arg1 + i);
+        u32 c = ((s32 (*)(...))func_ov040_021663d0)(arg0, arg1 + i, w);
+        if (c >= 0x30 && c <= 0x39)
+            n++;
+        if (w > 1)
+            i += w - 1;
+    }
+    return n;
 }
 
 extern "C" asm s32 func_ov040_02166514(...)

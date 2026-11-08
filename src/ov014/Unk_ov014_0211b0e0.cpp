@@ -55,7 +55,7 @@ extern "C" void func_ov014_0211c274(s32 arg0, s32 arg1);
 extern "C" char **func_ov014_0211c29c(u8 *arg0, char *arg1);
 extern "C" u32 func_ov014_0211c2e8(u8 **arg0);
 extern "C" void func_ov014_0211c338(s8 *arg0, s8 *arg1, s32 arg2);
-extern "C" void func_ov014_0211c3a4(void);
+extern "C" s32 func_ov014_0211c3a4(u8 *arg0, s32 arg1);
 extern "C" void func_ov014_0211c424(void);
 extern "C" void func_ov014_0211c8d0(void);
 extern "C" void func_ov014_0211ca78(void);
@@ -1321,42 +1321,21 @@ extern "C" void func_ov014_0211c338(s8 *arg0, s8 *arg1, s32 arg2)
     *arg0 = 0;
 }
 
-extern "C" asm void func_ov014_0211c3a4(void)
+extern "C" s32 func_ov014_0211c3a4(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    ldrb r12, [r0, #1]
-    ldrb r3, [r0], #2
-    mov r2, #0xa
-    cmp r1, #0x17
-    mla r1, r3, r2, r12
-    sub lr, r1, #0x210
-    bne @L_0211c3d8
-    cmp lr, #0x32
-    addlo r4, lr, #0x7d0
-    addhs r1, lr, #0x36c
-    addhs r4, r1, #0x400
-    b @L_0211c3f0
-@L_0211c3d8:
-    ldrb r12, [r0, #1]
-    ldrb r3, [r0], #2
-    mov r1, #0x64
-    mla r2, r3, r2, r12
-    sub r2, r2, #0x210
-    mla r4, lr, r1, r2
-@L_0211c3f0:
-    ldrb r12, [r0, #1]
-    ldrb r3, [r0]
-    mov r1, #0xa
-    ldrb r2, [r0, #3]
-    ldrb r0, [r0, #2]
-    mla r12, r3, r1, r12
-    mla r1, r0, r1, r2
-    sub r0, r12, #0x210
-    mov r0, r0, lsl #8
-    add r2, r0, r4, lsl #16
-    sub r0, r1, #0x210
-    add r0, r2, r0
-    ldmia sp!, {r4, pc}
+    u32 y = arg0[0] * 10 + arg0[1] - 0x210;
+    s32 v;
+    arg0 += 2;
+    if (arg1 == 0x17) {
+        if (y < 0x32)
+            v = y + 0x7D0;
+        else
+            v = y + 0x76C;
+    } else {
+        v = y * 0x64 + (arg0[0] * 10 + arg0[1] - 0x210);
+        arg0 += 2;
+    }
+    return (v << 16) + ((arg0[0] * 10 + arg0[1] - 0x210) << 8) + (arg0[2] * 10 + arg0[3] - 0x210);
 }
 
 extern "C" asm void func_ov014_0211c424(void)

@@ -1,5 +1,6 @@
 #include "ov000/Unk_ov000_02102df0.hpp"
 #include "game/vcall.hpp"
+struct V02103130 { s32 x, y, z; };
 
 extern "C" void func_ov000_02102df0(u8 *arg0);
 extern "C" void func_ov000_02102e68(u8 *arg0);
@@ -8,7 +9,7 @@ extern "C" void func_ov000_02102f58(void);
 extern "C" s32 func_ov000_02102fc4(u8 *arg0);
 extern "C" void func_ov000_02103014(s32 arg0, s32 arg1);
 extern "C" void func_ov000_02103028(void);
-extern "C" void func_ov000_02103130(void);
+extern "C" s32 func_ov000_02103130(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov000_021031c0(s32 arg0, s32 arg1);
 extern "C" void func_ov000_021031e4(void);
 extern "C" void func_ov000_021037bc(u8 *arg0);
@@ -472,42 +473,14 @@ extern "C" asm void func_ov000_02103028(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov000_02103130(void)
+extern "C" s32 func_ov000_02103130(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x1c
-    mov r6, r0
-    ldr r0, =data_020d9978
-    mov r7, r3
-    mov r5, r1
-    mov r4, r2
-    bl _ZN11TreasureBox13func_02052468Ev
-    mov r1, r7
-    bl _ZN17UnkClass_0205480013func_0205d7e0Ev
-    mov r2, r0
-    cmp r2, #0
-    addle sp, sp, #0x1c
-    movle r0, #0
-    ldmleia sp!, {r4, r5, r6, r7, pc}
-    ldr r1, =data_020c4678
-    add r0, sp, #4
-    ldr r1, [r1]
-    bl func_0208e508
-    ldr r7, [sp, #4]
-    ldr lr, [sp, #8]
-    ldr r12, [sp, #0xc]
-    mov r2, r4
-    add r3, sp, #0x10
-    mov r0, r6
-    mov r1, r5
-    str r7, [sp, #0x10]
-    str lr, [sp, #0x14]
-    str r12, [sp, #0x18]
-    mov r4, #0
-    str r4, [sp]
-    bl func_ov000_02103028
-    add sp, sp, #0x1c
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    s32 r = ((s32 (*)(s32, s32))_ZN17UnkClass_0205480013func_0205d7e0Ev)(((s32 (*)(void *))_ZN11TreasureBox13func_02052468Ev)(data_020d9978), arg3);
+    V02103130 v;
+    if (r <= 0)
+        return 0;
+    v = ((V02103130 (*)(s32, s32))func_0208e508)(*(s32 *)data_020c4678, r);
+    return ((s32 (*)(...))func_ov000_02103028)(arg0, arg1, arg2, &v, 0);
 }
 
 extern "C" s32 func_ov000_021031c0(s32 arg0, s32 arg1)
