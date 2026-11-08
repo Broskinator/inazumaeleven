@@ -204,34 +204,15 @@ extern "C" asm void func_ov015_02130878(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02130920(void)
+struct R02130920 { u64 x, mul, add; };
+static inline void init02130920(R02130920 *c, u64 seed) { c->x = seed; c->mul = 0x5D588B656C078965ULL; c->add = 0x269EC3ULL; }
+extern "C" void func_ov015_02130920(void)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r7, =0x4000006
-    ldr r6, =0x2fffc3c
-    ldrh r2, [r7]
-    ldr r1, [r6]
-    ldr r0, =data_020c4874
-    add r2, r1, r2
-    mov r5, #0
-    ldr lr, =0x6c078965
-    str r2, [r0]
-    ldr r4, =0x5d588b65
-    stmib r0, {r5, lr}
-    ldr r12, =0x269ec3
-    str r4, [r0, #0xc]
-    str r12, [r0, #0x10]
-    mov r3, r5
-    str r3, [r0, #0x14]
-    ldrh r2, [r7]
-    ldr r1, [r6]
-    ldr r0, =data_020c485c
-    add r2, r1, r2
-    stmia r0, {r2, r5, lr}
-    str r4, [r0, #0xc]
-    str r12, [r0, #0x10]
-    str r3, [r0, #0x14]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 c;
+    c = *(volatile u16 *)0x4000006;
+    init02130920((R02130920 *)data_020c4874, *(volatile u32 *)0x2FFFC3C + c);
+    c = *(volatile u16 *)0x4000006;
+    init02130920((R02130920 *)data_020c485c, *(volatile u32 *)0x2FFFC3C + c);
 }
 
 extern "C" asm s32 func_ov015_021309a4(...)

@@ -19,7 +19,7 @@ extern "C" void func_ov001_02100e7c(void);
 extern "C" void func_ov001_02100f7c(u8 *arg0);
 extern "C" void func_ov001_02100f8c(void);
 extern "C" s32 func_ov001_02101054(u8 *arg0);
-extern "C" void func_ov001_021010bc(void);
+extern "C" s32 func_ov001_021010bc(void);
 extern "C" void func_ov001_02101130(void);
 extern "C" void func_ov001_021012ec(void);
 extern "C" void func_ov001_021014b8(void);
@@ -1588,35 +1588,27 @@ extern "C" s32 func_ov001_02101054(u8 *arg0)
     return v2;
 }
 
-extern "C" asm void func_ov001_021010bc(void)
+extern "C" s32 func_ov001_021010bc(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_ov001_02130624
-    ldr lr, [r0]
-    cmp lr, #0
-    blt @L_0210111c
-    ldr r0, =data_020e93a0
-    ldr r3, =gGameState
-    ldrh r12, [r0, #0x90]
-    mov r0, #0x1e
-    mov r2, #0xa
-    mul r1, r12, r0
-    mla r0, r1, r2, lr
-    ldr r2, [r3, #4]
-    cmp r2, r0
-    bge @L_0210111c
-    sub r0, r0, r2
-    add r0, r1, r0
-    sub r0, r0, #1
-    bl _s32_div_f
-    cmp r0, #0
-    movlt r0, #0
-    cmp r0, #0xa
-    movgt r0, #0xa
-    ldmia sp!, {r3, pc}
-@L_0210111c:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    s32 b = *(s32 *)data_ov001_02130624;
+    if (b >= 0) {
+        s32 g;
+        s32 t;
+        s32 m = *(u16 *)((u8 *)data_020e93a0 + 0x90) * 0x1E;
+        g = *(s32 *)((u8 *)gGameState + 4);
+        t = m * 10 + b;
+        if (g < t) {
+            s32 r;
+            t -= g;
+            r = (m + t - 1) / m;
+            if (r < 0)
+                r = 0;
+            if (r > 10)
+                r = 10;
+            return r;
+        }
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov001_02101130(void)

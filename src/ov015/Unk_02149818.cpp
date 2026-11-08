@@ -1,7 +1,9 @@
 #include "ov015/Unk_02149818.hpp"
+struct E021498bc { u8 *p; u8 pad[0x48]; };
+struct C021498bc { u8 pad[0x234]; E021498bc *arr; s32 n; };
 
 extern "C" void func_ov015_02149818(void);
-extern "C" void func_ov015_021498bc(void);
+extern "C" E021498bc *func_ov015_021498bc(C021498bc *arg0, E021498bc *arg1, s32 arg2);
 extern "C" void func_ov015_02149920(void);
 extern "C" void func_ov015_02149aa8(u8 *arg0, u8 *arg1);
 extern "C" void func_ov015_02149acc(void);
@@ -486,34 +488,17 @@ extern "C" asm void func_ov015_02149818(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov015_021498bc(void)
+extern "C" E021498bc *func_ov015_021498bc(C021498bc *arg0, E021498bc *arg1, s32 arg2)
 {
-    cmp r1, #0
-    ldreq r1, [r0, #0x238]
-    ldreq r12, [r0, #0x234]
-    subeq r3, r1, #1
-    moveq r1, #0x4c
-    mlaeq r1, r3, r1, r12
-    ldr r3, [r0, #0x234]
-    ldr r0, =0xaf286bcb
-    sub r3, r1, r3
-    umull r0, r12, r3, r0
-    sub r0, r3, r12
-    add r12, r12, r0, lsr #1
-    movs r12, r12, lsr #6
-    bmi @L_02149914
-@L_021498f4:
-    ldr r0, [r1]
-    ldrh r0, [r0, #4]
-    cmp r0, r2
-    moveq r0, r1
-    bxeq lr
-    sub r1, r1, #0x4c
-    subs r12, r12, #1
-    bpl @L_021498f4
-@L_02149914:
-    mov r0, #0
-    bx lr
+    s32 i;
+    if (arg1 == 0)
+        arg1 = &arg0->arr[arg0->n - 1];
+    for (i = (u32)((u8 *)arg1 - (u8 *)arg0->arr) / 0x4C; i >= 0; i--) {
+        if (*(u16 *)(arg1->p + 4) == arg2)
+            return arg1;
+        arg1--;
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov015_02149920(void)

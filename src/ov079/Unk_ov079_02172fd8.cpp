@@ -1,7 +1,7 @@
 #include "ov079/Unk_ov079_02172fd8.hpp"
 
 extern "C" s32 func_ov079_02172fd8(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov079_02173028(void);
+extern "C" void func_ov079_02173028(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4);
 extern "C" void func_ov079_0217308c(void);
 extern "C" s32 func_ov079_021731f8(...);
 extern "C" void func_ov079_021738b4(void);
@@ -74,34 +74,20 @@ extern "C" s32 func_ov079_02172fd8(s32 arg0, s32 arg1, s32 arg2)
     return r4;
 }
 
-extern "C" asm void func_ov079_02173028(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov079_02173028(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r12, #0xc
-    mul r5, r1, r12
-    add r4, r0, #0xb8
-    ldr r6, [r4, r5]
-    ldr r7, [sp, #0x20]
-    mov r9, r2
-    mov r8, r3
-    cmp r6, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r1, [r8]
-    mov r0, r6
-    add r1, r1, #1
-    bl func_ov015_02132a04
-    str r0, [r8]
-    ldr r1, [r4, r5]
-    ldr r2, [r7]
-    mov r0, #2
-    bl func_ov015_02132b7c
-    str r0, [r7]
-    mov r0, r6
-    mov r2, r9
-    mov r1, #1
-    bl func_ov015_021322b0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 o = arg1 * 0xC;
+    u8 *p = arg0 + 0xb8;
+    s32 h = *(s32 *)(p + o);
+    if (h == 0)
+        return;
+    *arg3 = ((s32 (*)(...))func_ov015_02132a04)(h, *arg3 + 1);
+    *arg4 = ((s32 (*)(...))func_ov015_02132b7c)(2, *(s32 *)(p + o), *arg4);
+    ((s32 (*)(...))func_ov015_021322b0)(h, 1, arg2);
 }
+#pragma pop
 
 extern "C" asm void func_ov079_0217308c(void)
 {

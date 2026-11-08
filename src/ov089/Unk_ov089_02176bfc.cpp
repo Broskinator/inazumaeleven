@@ -5,9 +5,9 @@ extern "C" s32 func_ov089_02176c64(void);
 extern "C" void func_ov089_02176cc4(void);
 extern "C" s32 func_ov089_02176d20(s32 arg0);
 extern "C" void func_ov089_02176d64(void);
-extern "C" void func_ov089_02177538(void);
+extern "C" void func_ov089_02177538(u16 *arg0);
 extern "C" void func_ov089_02177598(void);
-extern "C" void func_ov089_02177f38(void);
+extern "C" u32 func_ov089_02177f38(void);
 extern "C" void func_ov089_02177fa0(void);
 
 extern "C" char data_ov089_021791ec[];
@@ -669,33 +669,20 @@ extern "C" asm void func_ov089_02176d64(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov089_02177538(void)
+extern "C" void func_ov089_02177538(u16 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    mov r1, r0
-    ldrh r0, [r1, #2]
-    cmp r0, #0
-    ldmneia sp!, {r3, pc}
-    ldrh r0, [r1, #4]
-    cmp r0, #0x15
-    bgt @L_0217756c
-    bge @L_0217757c
-    cmp r0, #9
-    ldmgtia sp!, {r3, pc}
-    cmp r0, #7
-    ldmia sp!, {r3, pc}
-@L_0217756c:
-    cmp r0, #0x1a
-    ldmgtia sp!, {r3, pc}
-    cmp r0, #0x19
-    ldmia sp!, {r3, pc}
-@L_0217757c:
-    ldr r2, =data_ov089_021792d0
-    mov r0, #9
-    ldr r2, [r2, #0xc]
-    ldr r2, [r2, #0x51c]
-    blx r2
-    ldmia sp!, {r3, pc}
+    if (arg0[1] != 0)
+        return;
+    switch (arg0[2]) {
+    case 7:
+    case 9:
+    case 0x19:
+    case 0x1A:
+        break;
+    case 0x15:
+        (*(void (**)(s32, u16 *))(*(u8 **)((u8 *)data_ov089_021792d0 + 0xC) + 0x51C))(9, arg0);
+        break;
+    }
 }
 
 extern "C" asm void func_ov089_02177598(void)
@@ -1370,33 +1357,19 @@ extern "C" asm void func_ov089_02177598(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov089_02177f38(void)
+extern "C" u32 func_ov089_02177f38(void)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    add r4, sp, #0
-    mov r0, r4
-    bl func_02008564
-    mov r1, #0
-    mov r3, r1
-@L_02177f54:
-    ldrb r0, [r4, r1]
-    add r1, r1, #1
-    cmp r1, #6
-    add r3, r3, r0
-    blt @L_02177f54
-    ldr r1, =0x2fffc3c
-    ldr r0, =0xcccccccd
-    ldr r1, [r1]
-    mov r2, #0x14
-    add r1, r3, r1
-    rsb r3, r1, r1, lsl #3
-    umull r1, r0, r3, r0
-    mov r0, r0, lsr #4
-    umull r0, r1, r2, r0
-    sub r0, r3, r0
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    u8 mac[8];
+    s32 i;
+    u32 s;
+    ((s32 (*)(...))func_02008564)(mac);
+    i = 0;
+    s = i;
+    do {
+        s += mac[i];
+        i++;
+    } while (i < 6);
+    return ((s + *(volatile u32 *)0x2FFFC3C) * 7) % 20;
 }
 
 extern "C" asm void func_ov089_02177fa0(void)

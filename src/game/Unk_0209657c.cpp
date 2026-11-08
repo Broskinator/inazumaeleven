@@ -10,7 +10,7 @@ extern "C" void func_02098cdc(void);     // (for the asm functions)
 extern "C" void func_02098d30(void);     // (for the asm functions)
 extern "C" void func_02098d88(void);     // (for the asm functions)
 extern "C" s32 func_02098dd8(...);     // (for the asm functions)
-extern "C" void func_0209657c(void);
+extern "C" void func_0209657c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_020965e0(void);
 extern "C" void func_02096680(s32 arg0, s32 arg1, u16 arg2);
 extern "C" void func_020966d4(void);
@@ -89,34 +89,17 @@ extern "C" s32 strcmp(...);
 extern "C" void strncpy(void);
 extern "C" void strrchr(void);
 
-extern "C" asm void func_0209657c(void)
+extern "C" void func_0209657c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, r0
-    mov r5, r2
-    bl func_020960ac
-    movs r6, r0
-    ldrne r0, [r6]
-    cmpne r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrb r7, [r6, #6]
-    cmp r7, #1
-    ldmltia sp!, {r3, r4, r5, r6, r7, pc}
-    mvn r0, r5
-    mov r5, r0, lsl #0x10
-@L_020965b0:
-    mov r0, r4
-    mov r1, r6
-    mov r2, r7
-    bl func_02096110
-    cmp r0, #0
-    ldrneh r1, [r0, #0xa]
-    sub r7, r7, #1
-    andne r1, r1, r5, lsr #16
-    strneh r1, [r0, #0xa]
-    cmp r7, #1
-    bge @L_020965b0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *r = (u8 *)((s32 (*)(...))func_020960ac)(arg0, arg1);
+    s32 i;
+    if (r == 0 || *(s32 *)r == 0)
+        return;
+    for (i = r[6]; i >= 1; i--) {
+        u8 *e = (u8 *)((s32 (*)(...))func_02096110)(arg0, r, i);
+        if (e != 0)
+            *(u16 *)(e + 0xA) &= (u16)~arg2;
+    }
 }
 
 extern "C" asm void func_020965e0(void)

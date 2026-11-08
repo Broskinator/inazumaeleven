@@ -3,6 +3,7 @@
 #include "nitro/os.h"
 #include "nitro/fx.h"
 #include "nitro/fx.h"
+struct V02099a2c { s32 x, y, z; };
 struct S02099b64 { s32 a, b, c, d, e; };
 struct V3_02099a94 { s32 x, y, z; };
 
@@ -40,7 +41,7 @@ extern "C" fx32 func_02099910(fx32 value);
 extern "C" void func_02099924(void);
 extern "C" void func_020999d8(fx32 *a, fx32 *b, u16 *direction);
 extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2);
-extern "C" void func_02099a2c(void);
+extern "C" s32 func_02099a2c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02099a94(V3_02099a94 *arg0, V3_02099a94 *arg1);
 extern "C" int func_02099adc(int x0, int y0, int x1, int y1);
 extern "C" void func_02099af4(s32 *obj);
@@ -821,34 +822,14 @@ extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2)
     *arg2 = FX_SinIdx(i);
 }
 
-extern "C" asm void func_02099a2c(void)
+extern "C" s32 func_02099a2c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0xc
-    mov r5, r2
-    mov r3, r0
-    mov r0, r1
-    add r2, sp, #0
-    mov r4, #0
-    mov r1, r3
-    str r4, [r2]
-    str r4, [r2, #4]
-    str r4, [r2, #8]
-    bl func_02001f38
-    ldr r0, [sp]
-    cmp r0, #0
-    ldreq r0, [sp, #8]
-    cmpeq r0, #0
-    addeq sp, sp, #0xc
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, pc}
-    add r0, sp, #0
-    add r1, sp, #8
-    mov r2, r5
-    bl func_020999d8
-    mov r0, #1
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, pc}
+    V02099a2c v = {0, 0, 0};
+    ((s32 (*)(...))func_02001f38)(arg1, arg0, &v);
+    if (v.x == 0 && v.z == 0)
+        return 0;
+    ((s32 (*)(...))func_020999d8)(&v.x, &v.z, arg2);
+    return 1;
 }
 
 extern "C" void func_02099a94(V3_02099a94 *arg0, V3_02099a94 *arg1)

@@ -11,7 +11,7 @@ extern "C" s32 func_ov064_02166298(u8 *arg0);
 extern "C" s32 func_ov064_02166300(u8 *arg0, s32 arg1);
 extern "C" void func_ov064_02166314(void);
 extern "C" s32 func_ov064_02166438(s32 arg0);
-extern "C" void func_ov064_0216649c(void);
+extern "C" void func_ov064_0216649c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov064_021664fc(void);
 extern "C" void func_ov064_0216666c(void);
 extern "C" void func_ov064_02166798(void);
@@ -675,32 +675,14 @@ extern "C" s32 func_ov064_02166438(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_ov064_0216649c(void)
+extern "C" void func_ov064_0216649c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, lr}
-    mov r12, #0xc
-    mla lr, r1, r12, r0
-    mla r0, r2, r12, r0
-    ldr r12, [lr, #0x434]
-    ldr lr, [r0, #0x434]
-    cmp r12, #0
-    cmpne lr, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, [r12, #8]
-    cmp r0, #0x20
-    ldreq r0, [lr, #8]
-    cmpeq r0, #0x20
-    ldmneia sp!, {r3, pc}
-    ldr r1, [r12, #4]
-    ldr r0, [lr, #4]
-    ldr r2, [sp, #8]
-    add r12, r12, r1
-    add r1, lr, r0
-    add r0, r12, r3, lsl #1
-    add r1, r1, r3, lsl #1
-    mov r2, r2, lsl #1
-    bl MIi_CpuCopy16
-    ldmia sp!, {r3, pc}
+    u8 *a = *(u8 **)(arg0 + arg1 * 0xC + 0x434);
+    u8 *b = *(u8 **)(arg0 + arg2 * 0xC + 0x434);
+    if (a == 0 || b == 0)
+        return;
+    if (*(s32 *)(a + 8) == 0x20 && *(s32 *)(b + 8) == 0x20)
+        ((s32 (*)(...))MIi_CpuCopy16)(a + *(s32 *)(a + 4) + (arg3 << 1), b + *(s32 *)(b + 4) + (arg3 << 1), arg4 << 1);
 }
 
 extern "C" asm void func_ov064_021664fc(void)
