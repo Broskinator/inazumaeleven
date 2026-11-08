@@ -1618,36 +1618,20 @@ extern "C" asm void func_ov016_02144350(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov016_021443ec(void)
+extern "C" void func_ov016_021443ec(void)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r4, =data_ov016_02158acc
-    ldr r0, [r4, #8]
-    ldrb r0, [r0, #0x44]
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrh r0, [r4, #4]
-    mov r6, #0x1d
-    mov r1, r6
-    bl FX_DivS32
-    mov r5, r0
-    ldrh r0, [r4, #4]
-    mov r1, r6
-    bl FX_ModS32
-    ldr r2, =data_ov016_02154b43
-    ldr r1, =0x1ff0000
-    sub r12, r0, #0x33
-    ldrb r0, [r2, r5]
-    ldr r2, =0x4000010
-    and r3, r1, r12, lsl #16
-    add r0, r12, r0
-    str r3, [r2]
-    and r0, r1, r0, lsl #16
-    str r0, [r2, #8]
-    ldr r0, [r4, #8]
-    mov r1, #0
-    strb r1, [r0, #0x44]
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *d = (u8 *)data_ov016_02158acc;
+    s32 q;
+    s32 m;
+    s32 t;
+    if ((*(u8 **)(d + 8))[0x44] == 0)
+        return;
+    q = ((s32 (*)(...))FX_DivS32)(*(u16 *)(d + 4), 0x1D);
+    m = ((s32 (*)(...))FX_ModS32)(*(u16 *)(d + 4), 0x1D) - 0x33;
+    t = ((u8 *)data_ov016_02154b43)[q];
+    *(volatile u32 *)0x4000010 = (m << 16) & 0x1FF0000;
+    *(volatile u32 *)0x4000018 = ((m + t) << 16) & 0x1FF0000;
+    (*(u8 **)(d + 8))[0x44] = 0;
 }
 
 extern "C" asm s32 func_ov016_0214446c(...)

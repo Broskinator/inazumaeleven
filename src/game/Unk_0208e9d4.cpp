@@ -24,7 +24,7 @@ extern "C" void func_0208f310(void);
 extern "C" void func_0208f3c0(void);
 extern "C" void func_0208f628(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_0208f6ac(void);
-extern "C" void func_0208f750(void);
+extern "C" s32 func_0208f750(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 extern "C" void func_0208f7c8(void);
 extern "C" void func_0208f960(void);
 extern "C" void func_0208fac4(void);
@@ -966,38 +966,17 @@ extern "C" asm void func_0208f6ac(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_0208f750(void)
+static inline s32 fxm0208f750(s32 a, s32 b) { return (s32)(((s64)a * b + 0x800) >> 12); }
+extern "C" s32 func_0208f750(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, [r1]
-    ldr r12, [r2]
-    ldr r0, [r3]
-    sub lr, r4, r12
-    sub r12, r4, r0
-    ldr r4, [r1, #4]
-    ldr r1, [r3, #4]
-    ldr r0, [r2, #4]
-    sub r2, r4, r1
-    sub r1, r4, r0
-    mov r0, r2, asr #6
-    mov r3, lr, asr #6
-    smull r0, lr, r3, r0
-    mov r2, r1, asr #6
-    mov r1, r12, asr #6
-    adds r4, r0, #0x800
-    mov r0, #0
-    smull r3, r1, r2, r1
-    adc r12, lr, r0
-    adds r2, r3, #0x800
-    mov r3, r4, lsr #0xc
-    adc r1, r1, r0
-    mov r2, r2, lsr #0xc
-    orr r3, r3, r12, lsl #20
-    orr r2, r2, r1, lsl #20
-    sub r1, r3, r2
-    cmp r1, #0
-    movgt r0, #1
-    ldmia sp!, {r4, pc}
+    s32 a = arg1[0] - arg2[0];
+    s32 b = arg1[0] - arg3[0];
+    s32 c = arg1[1] - arg3[1];
+    s32 d = arg1[1] - arg2[1];
+    s32 z = 0;
+    if (fxm0208f750(a >> 6, c >> 6) - fxm0208f750(d >> 6, b >> 6) > 0)
+        z = 1;
+    return z;
 }
 
 extern "C" asm void func_0208f7c8(void)

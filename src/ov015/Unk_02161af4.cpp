@@ -80,7 +80,7 @@ extern "C" void func_ov015_02163ca4(u8 *arg0, u16 arg1, u16 arg2);
 extern "C" void func_ov015_02163cb0(u8 *arg0, u16 arg1, u16 arg2);
 extern "C" void func_ov015_02163cbc(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02163cc8(u8 *arg0, u8 arg1, u8 arg2);
-extern "C" void func_ov015_02163d08(void);
+extern "C" s32 func_ov015_02163d08(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" s32 func_ov015_02163d70(u8 *arg0);
 extern "C" u8 func_ov015_02163dcc(u8 *arg0);
 extern "C" void func_ov015_02163dd4(void);
@@ -2484,36 +2484,17 @@ extern "C" s32 func_ov015_02163cc8(u8 *arg0, u8 arg1, u8 arg2)
     return v0;
 }
 
-extern "C" asm void func_ov015_02163d08(void)
+extern "C" s32 func_ov015_02163d08(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, r2
-    mov r4, r3
-    cmp r1, #0
-    ble @L_02163d28
-    cmp r1, #5
-    blt @L_02163d30
-@L_02163d28:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02163d30:
-    ldrh r2, [r6, #4]
-    cmp r2, #0
-    ldrneh r2, [r6, #6]
-    cmpne r2, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    strb r1, [r6, #0x2d]
-    bl func_ov015_02163214
-    ldrb r3, [sp, #0x10]
-    mov r0, r6
-    mov r1, r5
-    mov r2, r4
-    bl func_ov015_02163408
-    mov r0, #1
-    strb r0, [r6, #0x2e]
-    ldmia sp!, {r4, r5, r6, pc}
+    if (arg1 <= 0 || arg1 >= 5)
+        return 0;
+    if (*(u16 *)(arg0 + 4) == 0 || *(u16 *)(arg0 + 6) == 0)
+        return 0;
+    arg0[0x2D] = arg1;
+    ((s32 (*)(...))func_ov015_02163214)(arg0, arg1);
+    ((s32 (*)(...))func_ov015_02163408)(arg0, arg2, arg3, arg4);
+    arg0[0x2E] = 1;
+    return 1;
 }
 
 #pragma push

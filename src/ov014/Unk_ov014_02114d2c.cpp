@@ -1,6 +1,6 @@
 #include "ov014/Unk_ov014_02114d2c.hpp"
 
-extern "C" void func_ov014_02114d2c(void);
+extern "C" s32 func_ov014_02114d2c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov014_02114d9c(void);
 extern "C" s32 func_ov014_02114e80(...);
 extern "C" s32 func_ov014_02114f6c(u8 *arg0, s32 arg1);
@@ -133,38 +133,18 @@ extern "C" s32 func_ov014_021189c0(...);
 extern "C" s32 func_ov014_021189cc(...);
 extern "C" void func_ov014_02118ba4(void);
 
-extern "C" asm void func_ov014_02114d2c(void)
+extern "C" s32 func_ov014_02114d2c(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #8
-    mov r7, r1
-    mov r6, r2
-    mov r8, r0
-    cmp r7, r6
-    bge @L_02114d90
-    add r5, sp, #4
-    add r4, sp, #0
-    mov r2, r5
-    mov r3, r4
-    bl func_ov014_02114b44
-    cmp r7, r6
-    bge @L_02114d90
-@L_02114d64:
-    mov r0, r8
-    mov r1, r5
-    mov r2, r4
-    bl func_ov014_02114b9c
-    cmp r0, #0x20
-    addne sp, sp, #8
-    movne r0, r7
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    add r7, r7, #1
-    cmp r7, r6
-    blt @L_02114d64
-@L_02114d90:
-    mvn r0, #0
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 a;
+    s32 b;
+    if (arg1 < arg2) {
+        ((s32 (*)(...))func_ov014_02114b44)(arg0, arg1, &a, &b);
+        for (; arg1 < arg2; arg1++) {
+            if (((s32 (*)(...))func_ov014_02114b9c)(arg0, &a, &b) != 0x20)
+                return arg1;
+        }
+    }
+    return -1;
 }
 
 extern "C" asm void func_ov014_02114d9c(void)

@@ -6,7 +6,7 @@ extern "C" void func_ov003_021028a8(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov003_02102900(u8 *arg0);
 extern "C" void func_ov003_021029a8(u8 *arg0);
 extern "C" s32 func_ov003_021029b8(...);
-extern "C" void func_ov003_02102ad0(void);
+extern "C" void func_ov003_02102ad0(u8 *arg0);
 extern "C" void func_ov003_02102b40(u8 *arg0);
 extern "C" s32 func_ov003_02102b70(u8 *arg0);
 extern "C" void func_ov003_02102ba4(void);
@@ -314,38 +314,23 @@ extern "C" asm s32 func_ov003_021029b8(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov003_02102ad0(void)
+extern "C" void func_ov003_02102ad0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r0, [r5, #4]
-    mov r4, #0
-    str r4, [r5, #8]
-    strb r4, [r5, #0xc]
-    bl _ZN17UnkClass_0203dc7c13func_0203e1ecEv
-    cmp r0, #0x5f
-    bne @L_02102b30
-    cmp r4, #0
-    beq @L_02102b0c
-    ldr r1, =data_020c4ac8
-    mov r0, r4
-    mov r2, #0x19
-    bl func_02016d0c
-@L_02102b0c:
-    ldr r0, =data_020c4ac8
-    bl STD_GetStringLength
-    cmp r0, #0
-    mov r0, r5
-    bne @L_02102b28
-    bl func_ov003_02102720
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02102b28:
-    bl func_ov003_02102760
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02102b30:
-    mov r0, r5
-    bl func_ov003_02102900
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 *zp;
+    s32 z = 0;
+    zp = &z;
+    *(s32 *)(arg0 + 8) = *zp;
+    arg0[0xC] = *zp;
+    if (((s32 (*)(s32))_ZN17UnkClass_0203dc7c13func_0203e1ecEv)(*(s32 *)(arg0 + 4)) == 0x5F) {
+        if (*zp != 0)
+            ((s32 (*)(...))func_02016d0c)(*zp, data_020c4ac8, 0x19);
+        if (((s32 (*)(...))STD_GetStringLength)(data_020c4ac8) == 0)
+            ((s32 (*)(...))func_ov003_02102720)(arg0);
+        else
+            ((s32 (*)(...))func_ov003_02102760)(arg0);
+    } else {
+        ((s32 (*)(...))func_ov003_02102900)(arg0);
+    }
 }
 
 extern "C" void func_ov003_02102b40(u8 *arg0)

@@ -1,4 +1,5 @@
 #include "ov072/Unk_ov072_0216ffa0.hpp"
+struct E02171170 { s32 h; s32 a; u16 w; u16 v; };
 struct P02170210 { s32 a; s32 b; };
 
 extern "C" void func_ov072_0216ffa0(u8 *arg0, s32 arg1);
@@ -21,7 +22,7 @@ extern "C" void func_ov072_02170924(void);
 extern "C" s32 func_ov072_02170a14(...);
 extern "C" s32 func_ov072_02170b1c(...);
 extern "C" s32 func_ov072_02170f88(...);
-extern "C" void func_ov072_02171170(void);
+extern "C" void func_ov072_02171170(u8 *arg0);
 extern "C" s32 func_ov072_021711e8(u8 *arg0);
 extern "C" void func_ov072_02171238(void);
 extern "C" void func_ov072_021713f4(void);
@@ -1251,37 +1252,17 @@ extern "C" asm s32 func_ov072_02170f88(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov072_02171170(void)
+extern "C" void func_ov072_02171170(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #0x20
-    ldrb r1, [r0, #0x20]
-    cmp r1, #0
-    ldrne lr, [r0, #0x130]
-    addne r4, r0, #0x130
-    cmpne lr, #0
-    addeq sp, sp, #0x20
-    ldmeqia sp!, {r4, pc}
-    mov r0, #4
-    str r0, [sp]
-    mov r2, #0
-    mov r1, #1
-    stmib sp, {r1, r2}
-    mov r0, #0x14
-    str r0, [sp, #0xc]
-    ldrh r12, [r4, #8]
-    ldr r0, =data_020c9660
-    mov r3, r2
-    and r12, r12, #0xff
-    str r12, [sp, #0x10]
-    ldrh r12, [r4, #0xa]
-    and r12, r12, #0xff
-    str r12, [sp, #0x14]
-    str r2, [sp, #0x18]
-    str lr, [sp, #0x1c]
-    bl func_ov015_0213b6ac
-    add sp, sp, #0x20
-    ldmia sp!, {r4, pc}
+    E02171170 *p;
+    s32 h;
+    if (arg0[0x20] == 0)
+        return;
+    p = (E02171170 *)(arg0 + 0x130);
+    h = p->h;
+    if (h == 0)
+        return;
+    ((s32 (*)(...))func_ov015_0213b6ac)(data_020c9660, 1, 0, 0, 4, 1, 0, 0x14, (u8)p->w, (u8)p->v, 0, h);
 }
 
 extern "C" s32 func_ov072_021711e8(u8 *arg0)

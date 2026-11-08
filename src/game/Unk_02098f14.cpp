@@ -3,6 +3,7 @@
 #include "nitro/os.h"
 #include "nitro/fx.h"
 #include "nitro/fx.h"
+struct V020996ec { s32 x, y, z; };
 struct V02099a2c { s32 x, y, z; };
 struct S02099b64 { s32 a, b, c, d, e; };
 struct V3_02099a94 { s32 x, y, z; };
@@ -31,7 +32,7 @@ extern "C" s32 func_02099390(...);
 extern "C" s32 func_020995c4(s32 arg0, u8 *arg1);
 extern "C" s32 func_02099618(s32 arg0, u8 *arg1);
 extern "C" void func_02099664(void);
-extern "C" void func_020996ec(void);
+extern "C" void func_020996ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" int func_02099764(void *a);
 extern "C" fx32 func_020997a4(fx32 *arg0, fx32 *arg1);
 extern "C" BOOL func_020997e4(void *a);
@@ -615,38 +616,16 @@ extern "C" asm void func_02099664(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_020996ec(void)
+extern "C" void func_020996ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x18
-    mov r7, r2
-    movs r8, r0
-    cmpne r1, #0
-    mov r6, r3
-    cmpne r7, #0
-    cmpne r6, #0
-    addeq sp, sp, #0x18
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r5, sp, #0xc
-    mov r0, r1
-    mov r1, r8
-    mov r2, r5
-    bl func_02001f38
-    add r4, sp, #0
-    mov r0, r7
-    mov r1, r8
-    mov r2, r4
-    bl func_02001f38
-    mov r0, r5
-    mov r1, r4
-    mov r2, r4
-    bl func_02001fa4
-    mov r0, r5
-    mov r1, r4
-    mov r2, r6
-    bl func_02001fa4
-    add sp, sp, #0x18
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    V020996ec a;
+    V020996ec b;
+    if (arg0 == 0 || arg1 == 0 || arg2 == 0 || arg3 == 0)
+        return;
+    ((s32 (*)(...))func_02001f38)(arg1, arg0, &a);
+    ((s32 (*)(...))func_02001f38)(arg2, arg0, &b);
+    ((s32 (*)(...))func_02001fa4)(&a, &b, &b);
+    ((s32 (*)(...))func_02001fa4)(&a, &b, arg3);
 }
 
 extern "C" asm int func_02099764(void *a)

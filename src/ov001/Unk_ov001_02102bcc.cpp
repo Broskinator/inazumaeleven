@@ -1,4 +1,6 @@
 #include "ov001/Unk_ov001_02102bcc.hpp"
+struct E02104628 { u8 a; u8 pad[3]; s32 b; s32 c; u16 d; u16 e; };
+struct S02104628 { u8 pad[0x468]; E02104628 e[4]; u8 idx; };
 
 extern "C" void func_ov001_02102bcc(void);
 extern "C" void func_ov001_02102cb8(void);
@@ -27,7 +29,7 @@ extern "C" void func_ov001_02104278(void);
 extern "C" void func_ov001_02104388(void);
 extern "C" void func_ov001_0210449c(void);
 extern "C" void func_ov001_02104600(u8 *arg0);
-extern "C" void func_ov001_02104628(void);
+extern "C" void func_ov001_02104628(S02104628 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov001_02104690(s32 arg0, s32 arg1);
 extern "C" void func_ov001_02104750(void);
 extern "C" void func_ov001_02104940(void);
@@ -1902,34 +1904,26 @@ extern "C" void func_ov001_02104600(u8 *arg0)
     *(u8 *)(arg0 + 0x4A8) = 0;
 }
 
-extern "C" asm void func_ov001_02104628(void)
+extern "C" void func_ov001_02104628(S02104628 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldrb r4, [r0, #0x4a8]
-    add r3, r0, #0x68
-    add r3, r3, #0x400
-    mov r6, #1
-    strb r6, [r3, r4, lsl #4]
-    add r4, r3, r4, lsl #4
-    stmib r4, {r1, r2}
-    mov r5, #0
-    strh r5, [r4, #0xc]
-    strh r5, [r4, #0xe]
-    ldrb r12, [r0, #0x4a8]
-    mov r4, #4
-    add r12, r12, #1
-    and r12, r12, #0xff
-    mov lr, r12, lsr #0x1f
-    rsb r12, lr, r12, lsl #30
-    add lr, lr, r12, ror #30
-    and r12, lr, #0xff
-    strb lr, [r0, #0x4a8]
-    strb r6, [r3, r12, lsl #4]
-    add r0, r3, r12, lsl #4
-    stmib r0, {r1, r2}
-    strh r4, [r0, #0xc]
-    strh r5, [r0, #0xe]
-    ldmia sp!, {r4, r5, r6, pc}
+    E02104628 *a = arg0->e;
+    E02104628 *e;
+    s32 z;
+    s32 i;
+    e = &a[arg0->idx];
+    a[arg0->idx].a = 1;
+    e->b = arg1;
+    e->c = arg2;
+    z = 0;
+    e->d = z;
+    e->e = z;
+    arg0->idx = (u8)(arg0->idx + 1) % 4;
+    e = &a[arg0->idx];
+    a[arg0->idx].a = 1;
+    e->b = arg1;
+    e->c = arg2;
+    e->d = 4;
+    e->e = z;
 }
 
 #pragma push
