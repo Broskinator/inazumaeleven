@@ -16,7 +16,7 @@ extern "C" s32 func_02093bb0(u8 *arg0, s32 arg1, u16 arg2);
 extern "C" s32 func_02093bf4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_02093ca8(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3);
 extern "C" s32 func_02093d1c(...);
-extern "C" void func_02093d80(void);
+extern "C" u8 *func_02093d80(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02093df0(u8 *arg0, s32 arg1);
 extern "C" void func_02093e2c(void);
 extern "C" void func_02093edc(void);
@@ -441,41 +441,23 @@ extern "C" asm s32 func_02093d1c(...)
     bx lr
 }
 
-extern "C" asm void func_02093d80(void)
+static inline u8 *get02093d80(u8 *p, s32 i)
 {
-    ldr r3, [r0, #0x1c]
-    cmp r3, #0
-    ldrne r0, [r0, #0x20]
-    cmpne r0, #0
-    movle r0, #0
-    ble @L_02093db8
-    cmp r1, #0
-    ble @L_02093da8
-    cmp r1, r0
-    ble @L_02093db0
-@L_02093da8:
-    mov r0, #0
-    b @L_02093db8
-@L_02093db0:
-    sub r0, r1, #1
-    add r0, r3, r0, lsl #5
-@L_02093db8:
-    cmp r0, #0
-    ldrne r3, [r0]
-    cmpne r3, #0
-    cmpne r2, #0
-    ble @L_02093dd8
-    ldrb r0, [r0, #6]
-    cmp r2, r0
-    ble @L_02093de0
-@L_02093dd8:
-    mov r0, #0
-    bx lr
-@L_02093de0:
-    sub r1, r2, #1
-    mov r0, #0x60
-    mla r0, r1, r0, r3
-    bx lr
+    u8 *b = *(u8 **)(p + 0x1C);
+    s32 n;
+    if (b == 0 || (n = *(s32 *)(p + 0x20)) <= 0)
+        return 0;
+    if (i <= 0 || i > n)
+        return 0;
+    return b + ((i - 1) << 5);
+}
+extern "C" u8 *func_02093d80(u8 *arg0, s32 arg1, s32 arg2)
+{
+    u8 *e = get02093d80(arg0, arg1);
+    u8 *b;
+    if (e == 0 || (b = *(u8 **)e) == 0 || arg2 <= 0 || arg2 > e[6])
+        return 0;
+    return b + (arg2 - 1) * 0x60;
 }
 
 extern "C" s32 func_02093df0(u8 *arg0, s32 arg1)

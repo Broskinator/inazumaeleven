@@ -1,6 +1,7 @@
 #include "game/Unk_02089004.hpp"
 #include "game/vcall.hpp"
 #include "nitro/mi.h"
+struct T0208a460 { s32 a[10]; };
 struct V12 { s32 x, y, z; };
 struct E0208a0c4 { u8 pad[0x10]; s32 x10; u8 pad2[0x8]; };
 static inline E0208a0c4 *g0208a0c4_get(u8 *t, s32 i)
@@ -78,7 +79,7 @@ extern "C" s32 func_0208a28c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_0208a31c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_0208a3ac(u8 *arg0, s32 arg1);
 extern "C" s32 func_0208a40c(u8 *arg0, s32 arg1);
-extern "C" void func_0208a460(void);
+extern "C" void func_0208a460(u8 *arg0);
 extern "C" s32 func_0208a4e8(u8 *arg0);
 extern "C" void func_0208a540(void *obj);
 extern "C" void func_0208a574(u8 *arg0, s32 arg1, u8 arg2);
@@ -1332,41 +1333,19 @@ extern "C" s32 func_0208a40c(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_0208a460(void)
+extern "C" void func_0208a460(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x128
-    ldr r6, =data_020af770
-    add r5, sp, #0
-    mov r4, r0
-    mov r8, r5
-    ldmia r6!, {r0, r1, r2, r3}
-    stmia r5!, {r0, r1, r2, r3}
-    ldmia r6!, {r0, r1, r2, r3}
-    stmia r5!, {r0, r1, r2, r3}
-    ldmia r6, {r0, r1}
-    stmia r5, {r0, r1}
-    ldr r5, =data_020af798
-    add r9, r4, #0x84
-    mov r10, #9
-    mov r7, #0
-    add r6, sp, #0x28
-@L_0208a4a4:
-    str r7, [r9]
-    ldr r2, [r8, r10, lsl #2]
-    mov r0, r6
-    mov r1, r5
-    bl sprintf
-    mov r0, r6
-    mov r1, r9
-    bl func_ov015_02133f94
-    sub r9, r9, #0xc
-    subs r10, r10, #1
-    bpl @L_0208a4a4
-    mov r0, #1
-    str r0, [r4, #0x90]
-    add sp, sp, #0x128
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    char b[0x100];
+    T0208a460 t = *(T0208a460 *)data_020af770;
+    s32 *p = (s32 *)(arg0 + 0x84);
+    s32 i;
+    for (i = 9; i >= 0; i--) {
+        *p = 0;
+        ((s32 (*)(...))sprintf)(b, data_020af798, t.a[i]);
+        ((s32 (*)(...))func_ov015_02133f94)(b, p);
+        p -= 3;
+    }
+    *(s32 *)(arg0 + 0x90) = 1;
 }
 
 extern "C" s32 func_0208a4e8(u8 *arg0)

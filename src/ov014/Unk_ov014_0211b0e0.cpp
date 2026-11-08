@@ -54,7 +54,7 @@ extern "C" void func_ov014_0211c250(s32 arg0);
 extern "C" void func_ov014_0211c274(s32 arg0, s32 arg1);
 extern "C" char **func_ov014_0211c29c(u8 *arg0, char *arg1);
 extern "C" u32 func_ov014_0211c2e8(u8 **arg0);
-extern "C" void func_ov014_0211c338(void);
+extern "C" void func_ov014_0211c338(s8 *arg0, s8 *arg1, s32 arg2);
 extern "C" void func_ov014_0211c3a4(void);
 extern "C" void func_ov014_0211c424(void);
 extern "C" void func_ov014_0211c8d0(void);
@@ -1304,39 +1304,21 @@ extern "C" u32 func_ov014_0211c2e8(u8 **arg0)
     return v;
 }
 
-extern "C" asm void func_ov014_0211c338(void)
+extern "C" void func_ov014_0211c338(s8 *arg0, s8 *arg1, s32 arg2)
 {
-    ldrsb r3, [r0]
-    mov r12, r0
-    cmp r3, #0
-    beq @L_0211c380
-@L_0211c348:
-    ldrsb r3, [r0, #1]!
-    cmp r3, #0
-    bne @L_0211c348
-    sub r3, r0, r12
-    cmp r3, #0xff
-    bxge lr
-    mov r3, #0x2c
-    strb r3, [r0]
-    mov r3, #0x20
-    strb r3, [r0, #1]
-    add r0, r0, #2
-    b @L_0211c380
-@L_0211c378:
-    ldrsb r3, [r1], #1
-    strb r3, [r0], #1
-@L_0211c380:
-    cmp r2, #0
-    sub r2, r2, #1
-    beq @L_0211c398
-    sub r3, r0, r12
-    cmp r3, #0xff
-    blt @L_0211c378
-@L_0211c398:
-    mov r1, #0
-    strb r1, [r0]
-    bx lr
+    s8 *s = arg0;
+    if (*arg0 != 0) {
+        while (*++arg0 != 0)
+            ;
+        if (arg0 - s >= 0xFF)
+            return;
+        arg0[0] = 0x2C;
+        arg0[1] = 0x20;
+        arg0 += 2;
+    }
+    while (arg2-- != 0 && arg0 - s < 0xFF)
+        *arg0++ = *arg1++;
+    *arg0 = 0;
 }
 
 extern "C" asm void func_ov014_0211c3a4(void)

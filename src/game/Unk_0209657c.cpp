@@ -13,7 +13,7 @@ extern "C" s32 func_02098dd8(...);     // (for the asm functions)
 extern "C" void func_0209657c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_020965e0(void);
 extern "C" void func_02096680(s32 arg0, s32 arg1, u16 arg2);
-extern "C" void func_020966d4(void);
+extern "C" void func_020966d4(s32 arg0, s32 arg1, s16 arg2, s16 arg3);
 extern "C" void func_02096750(void);
 extern "C" void func_020967d4(s32 arg0, s32 arg1, u16 arg2);
 extern "C" void func_02096828(void *self, int a, int b, s32 value, s32 value2);
@@ -163,41 +163,24 @@ extern "C" void func_02096680(s32 arg0, s32 arg1, u16 arg2)
     }
 }
 
-extern "C" asm void func_020966d4(void)
+extern "C" void func_020966d4(s32 arg0, s32 arg1, s16 arg2, s16 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r9, r0
-    mov r8, r2
-    mov r7, r3
-    bl func_020960ac
-    movs r5, r0
-    ldrne r0, [r5]
-    cmpne r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldrb r6, [r5, #6]
-    cmp r6, #1
-    ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r4, #0
-@L_02096708:
-    mov r0, r9
-    mov r1, r5
-    mov r2, r6
-    bl func_02096110
-    movs r1, r0
-    beq @L_02096740
-    ldrsh r2, [r1, #0x10]
-    ldrsh r3, [r1, #0x12]
-    mov r0, r9
-    strh r8, [r1, #0x10]
-    strh r7, [r1, #0x12]
-    strb r4, [r1, #0x1a]
-    strb r4, [r1, #0x1b]
-    bl func_020956f8
-@L_02096740:
-    sub r6, r6, #1
-    cmp r6, #1
-    bge @L_02096708
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 *r = (u8 *)((s32 (*)(...))func_020960ac)(arg0, arg1);
+    s32 i;
+    if (r == 0 || *(s32 *)r == 0)
+        return;
+    for (i = r[6]; i >= 1; i--) {
+        u8 *e = (u8 *)((s32 (*)(...))func_02096110)(arg0, r, i);
+        if (e != 0) {
+            s16 ox = *(s16 *)(e + 0x10);
+            s16 oy = *(s16 *)(e + 0x12);
+            *(s16 *)(e + 0x10) = arg2;
+            *(s16 *)(e + 0x12) = arg3;
+            e[0x1A] = 0;
+            e[0x1B] = 0;
+            ((s32 (*)(...))func_020956f8)(arg0, e, ox, oy);
+        }
+    }
 }
 
 extern "C" asm void func_02096750(void)
