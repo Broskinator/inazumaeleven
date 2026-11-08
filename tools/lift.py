@@ -3186,9 +3186,11 @@ def lift_file(src, sizes, failed):
     for mm in re.finditer(r"^(\w+): OK \((\d+) bytes\)", r.stdout, re.M):
         if sizes.get(mm[1]) == int(mm[2]):
             good.add(mm[1])
-    for mm in re.finditer(r"^(\w+): (\d+) words differ", r.stdout, re.M):
-        if mm[1] in cand:
-            near_save(mm[1], int(mm[2]), cand[mm[1]], protos, orig)
+    for mm in re.finditer(r"^(\w+): (?:OK|(\d+) words differ) \((\d+) bytes\)", r.stdout, re.M):
+        if mm[1] in cand and mm[1] not in good:
+            # (the words that differ, and those missing or extra)
+            k_ = int(mm[2] or 0) + abs(sizes.get(mm[1], 0) - int(mm[3])) // 4
+            near_save(mm[1], k_, cand[mm[1]], protos, orig)
     def next_variant(names):
         """True if some of names are tried again (written another way)"""
         again = False
