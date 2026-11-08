@@ -1,6 +1,8 @@
 #include "game/Unk_02083afc.hpp"
 #include "game/Match.hpp"
 #include "nitro/mi.h"
+struct V02084f84 { s32 x, y, z; };
+struct S02084f84 { V02084f84 a; V02084f84 b[0x60]; s32 c; s32 pad[2]; V02084f84 d[4]; };
 struct V12 { s32 x, y, z; };
 
 extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
@@ -37,7 +39,7 @@ extern "C" s32 func_0208413c(s32 arg0, s32 arg1);
 extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2);
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
-extern "C" void func_020841e8(void);
+extern "C" void func_020841e8(fx32 arg0, fx32 arg1, s32 arg2, fx32 *arg3);
 extern "C" s32 func_02084248(s32 arg0);
 extern "C" BOOL func_02084284(int value, int a, int b);
 extern "C" s32 func_020842b0(s32 arg0, s32 arg1, s32 arg2);
@@ -46,7 +48,7 @@ extern "C" BOOL func_02084324(fx32 value);
 extern "C" void func_02084350(void);
 extern "C" void func_020843b0(void);
 extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2);
-extern "C" void func_02084470(void);
+extern "C" BOOL func_02084470(s32 *arg0, s32 *arg1);
 extern "C" void func_020844dc(void);
 extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_020845e0(...);
@@ -86,7 +88,7 @@ extern "C" BOOL func_02084de8(u8 *obj);
 extern "C" s32 func_02084e08(s32 arg0, s32 arg1);
 extern "C" void func_02084e40(u8 *obj, s32 a, s32 b);
 extern "C" void func_02084e70(void);
-extern "C" void func_02084f84(void);
+extern "C" void func_02084f84(S02084f84 *arg0, s32 x, s32 y, s32 z);
 extern "C" void func_02084fdc(void *data);
 
 extern "C" char data_020c47b4[];
@@ -580,32 +582,11 @@ extern "C" void func_020841d8(MatchPoint *point)
     point->y = 0x80000000;
 }
 
-extern "C" asm void func_020841e8(void)
+extern "C" void func_020841e8(fx32 arg0, fx32 arg1, s32 arg2, fx32 *arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #4
-    mov r7, r3
-    mov r5, r0
-    mov r4, r1
-    ldmia r7, {r3, r6}
-    sub r0, r6, r4
-    sub r1, r3, r5
-    mov r8, r2
-    bl func_0200226c
-    ldr r1, [r7, #8]
-    ldr r2, [r7, #0xc]
-    mov r6, r0
-    sub r0, r2, r4
-    sub r1, r1, r5
-    bl func_0200226c
-    mov r2, r0
-    mov r3, #1
-    mov r1, r6
-    mov r0, r8
-    str r3, [sp]
-    bl func_020845e0
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    u16 a = func_0200226c(arg3[1] - arg1, arg3[0] - arg0);
+    u16 b = func_0200226c(arg3[3] - arg1, arg3[2] - arg0);
+    func_020845e0(arg2, a, b, 1, 1);
 }
 
 extern "C" s32 func_02084248(s32 arg0)
@@ -766,38 +747,18 @@ extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2)
     return (s32)arg0;
 }
 
-extern "C" asm void func_02084470(void)
+extern "C" BOOL func_02084470(s32 *arg0, s32 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    ldr r3, [r1]
-    mov r12, #0
-    ldr r2, [r0]
-    mov lr, r12
-    mov r4, r12
-    cmp r3, r2
-    blt @L_0208449c
-    ldr r2, [r0, #8]
-    cmp r3, r2
-    movle r4, #1
-@L_0208449c:
-    cmp r4, #0
-    beq @L_020844b4
-    ldr r3, [r1, #4]
-    ldr r2, [r0, #4]
-    cmp r3, r2
-    movge lr, #1
-@L_020844b4:
-    cmp lr, #0
-    beq @L_020844cc
-    ldr r1, [r1, #4]
-    ldr r0, [r0, #0xc]
-    cmp r1, r0
-    movle r12, #1
-@L_020844cc:
-    mov r0, #1
-    cmp r12, #0
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
+    BOOL c = FALSE;
+    BOOL b = FALSE;
+    BOOL a = FALSE;
+    if (arg1[0] >= arg0[0] && arg1[0] <= arg0[2])
+        a = TRUE;
+    if (a && arg1[1] >= arg0[1])
+        b = TRUE;
+    if (b && arg1[1] <= arg0[3])
+        c = TRUE;
+    return c ? TRUE : FALSE;
 }
 
 extern "C" asm void func_020844dc(void)
@@ -1477,32 +1438,23 @@ extern "C" asm void func_02084e70(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_02084f84(void)
+extern "C" void func_02084f84(S02084f84 *arg0, s32 x, s32 y, s32 z)
 {
-    stmdb sp!, {r4, lr}
-    stmia r0, {r1, r2, r3}
-    mov r4, #0
-    mov r12, #0xc
-@L_02084f94:
-    mla lr, r4, r12, r0
-    str r1, [lr, #0xc]
-    str r2, [lr, #0x10]
-    add r4, r4, #1
-    str r3, [lr, #0x14]
-    cmp r4, #0x60
-    blt @L_02084f94
-    mov r4, #0
-    str r4, [r0, #0x48c]
-    mov r12, #0xc
-@L_02084fbc:
-    mla lr, r4, r12, r0
-    str r1, [lr, #0x498]
-    str r2, [lr, #0x49c]
-    add r4, r4, #1
-    str r3, [lr, #0x4a0]
-    cmp r4, #4
-    blt @L_02084fbc
-    ldmia sp!, {r4, pc}
+    s32 i;
+    arg0->a.x = x;
+    arg0->a.y = y;
+    arg0->a.z = z;
+    for (i = 0; i < 0x60; i++) {
+        arg0->b[i].x = x;
+        arg0->b[i].y = y;
+        arg0->b[i].z = z;
+    }
+    arg0->c = 0;
+    for (i = 0; i < 4; i++) {
+        arg0->d[i].x = x;
+        arg0->d[i].y = y;
+        arg0->d[i].z = z;
+    }
 }
 
 extern "C" void func_02084fdc(void *data)

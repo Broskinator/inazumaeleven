@@ -1,4 +1,6 @@
 #include "ov068/Unk_ov068_0216ffa0.hpp"
+#include "game/vcall.hpp"
+struct Pfunc_ov068_02170e44 { s32 a; s32 b; };
 
 extern "C" s32 func_ov068_0216ffa0(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov068_02170108(...);
@@ -21,13 +23,13 @@ extern "C" void func_ov068_02170ab8(void);
 extern "C" s32 func_ov068_02170b1c(...);
 extern "C" s32 func_ov068_02170db8(u8 *arg0);
 extern "C" s32 func_ov068_02170e0c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov068_02170e44(void);
+extern "C" void func_ov068_02170e44(u8 *arg0);
 extern "C" void func_ov068_02170ea4(void);
 extern "C" void func_ov068_021712ac(s32 arg0);
 extern "C" s32 func_ov068_021712c0(...);
 extern "C" s32 func_ov068_02171338(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov068_0217136c(...);
-extern "C" void func_ov068_02171454(void);
+extern "C" s32 func_ov068_02171454(u8 *arg0);
 extern "C" void func_ov068_021714e8(void);
 extern "C" s32 func_ov068_02171628(u8 *arg0);
 extern "C" s32 func_ov068_0217166c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -885,31 +887,22 @@ extern "C" s32 func_ov068_02170e0c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return arg0;
 }
 
-extern "C" asm void func_ov068_02170e44(void)
+extern "C" void func_ov068_02170e44(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, [r0, #0x54]
-    cmp r6, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r1, [r0, #0x14]
-    ldr r7, =data_ov068_02171740
-    cmp r1, #0
-    ldrne r7, =data_ov068_02171728
-    ldr r1, [r7]
-    cmp r1, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, r0, #0x48
-    mov r4, #0xc
-@L_02170e78:
-    ldr r2, [r7, #4]
-    mov r0, r1
-    mla r1, r2, r4, r5
-    mov r2, r6
-    bl func_ov015_021340c0
-    ldr r1, [r7, #8]!
-    cmp r1, #0
-    bne @L_02170e78
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 v = *(s32 *)(arg0 + 0x54);
+    s32 a;
+    Pfunc_ov068_02170e44 *e;
+    if (v == 0)
+        return;
+    e = (Pfunc_ov068_02170e44 *)(*(s32 *)(arg0 + 0x14) == 0 ? data_ov068_02171740 : data_ov068_02171728);
+    a = e->a;
+    if (a == 0)
+        return;
+    do {
+        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(a, arg0 + 0x48 + e->b * 0xC, v);
+        e++;
+        a = e->a;
+    } while (a != 0);
 }
 
 extern "C" asm void func_ov068_02170ea4(void)
@@ -1297,44 +1290,29 @@ extern "C" asm s32 func_ov068_0217136c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov068_02171454(void)
+static inline void clr02171454(void *dest, u32 size)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldr r0, [r6, #4]
-    mov r5, #1
-    ldr r2, [r0]
-    mov r1, r5
-    ldr r2, [r2, #0x28]
-    blx r2
-    mov r0, #6
-    bl func_ov015_02135440
-    mov r4, #0
-    mov r1, r4
-    add r0, r6, #0x24
-    mov r2, #0x24
-    str r4, [r6, #8]
-    str r4, [r6, #0x108]
-    str r4, [r6, #0x10c]
-    bl MI_CpuFill8
-    add r0, r6, #0x48
-    mov r1, r4
-    mov r2, #0x90
-    bl MI_CpuFill8
-    strb r4, [r6, #0x10]
-    str r4, [r6, #0x14]
-    str r4, [r6, #0x18]
-    strh r4, [r6, #0x1c]
-    strh r4, [r6, #0x1e]
-    strb r4, [r6, #0x21]
-    strb r4, [r6, #0x22]
-    strb r4, [r6, #0x20]
-    mov r0, r6
-    bl func_ov068_02170db8
-    mov r1, r5
-    ldr r0, =data_020c9660
-    bl func_ov015_0213b364
-    ldmia sp!, {r4, r5, r6, pc}
+    MI_CpuFill8(dest, 0, size);
+}
+extern "C" s32 func_ov068_02171454(u8 *arg0)
+{
+    (*(VCall **)(arg0 + 4))->f10(1);
+    ((void (*)(s32))func_ov015_02135440)(6);
+    *(s32 *)(arg0 + 0x8) = 0;
+    *(s32 *)(arg0 + 0x108) = 0;
+    *(s32 *)(arg0 + 0x10C) = 0;
+    clr02171454(arg0 + 0x24, 0x24);
+    clr02171454(arg0 + 0x48, 0x90);
+    *(u8 *)(arg0 + 0x10) = 0;
+    *(s32 *)(arg0 + 0x14) = 0;
+    *(s32 *)(arg0 + 0x18) = 0;
+    *(u16 *)(arg0 + 0x1C) = 0;
+    *(u16 *)(arg0 + 0x1E) = 0;
+    *(u8 *)(arg0 + 0x21) = 0;
+    *(u8 *)(arg0 + 0x22) = 0;
+    *(u8 *)(arg0 + 0x20) = 0;
+    ((void (*)(u8 *))func_ov068_02170db8)(arg0);
+    return ((s32 (*)(void *, s32))func_ov015_0213b364)(data_020c9660, 1);
 }
 
 extern "C" asm void func_ov068_021714e8(void)

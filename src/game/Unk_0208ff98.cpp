@@ -113,32 +113,13 @@ extern "C" s32 func_020900a4(void)
     return v2;
 }
 
-extern "C" asm void func_020900f4(void)
+extern "C" void func_020900f4(void)
 {
-    stmdb sp!, {lr}
-    sub sp, sp, #0xc
-    ldr r1, =data_020fc708
-    ldr r0, [r1, #0xc]
-    cmp r0, #0
-    ldrne r0, [r1]
-    cmpne r0, #0
-    addle sp, sp, #0xc
-    ldmleia sp!, {pc}
-    ldrb r0, [r1, #9]
-    cmp r0, #0
-    addne sp, sp, #0xc
-    ldmneia sp!, {pc}
-    ldr r0, [r1, #0x10]
-    mov r2, #0
-    stmia sp, {r0, r2}
-    str r2, [sp, #8]
-    ldr r0, =data_020c4668
-    ldr r3, [r1, #0xc]
-    ldr r0, [r0]
-    ldr r1, =data_020fc708_b
-    bl func_02098f14
-    add sp, sp, #0xc
-    ldmia sp!, {pc}
+    if (*(u32 *)(data_020fc708 + 0xC) == 0 || *(s32 *)data_020fc708 <= 0)
+        return;
+    if (*(u8 *)(data_020fc708 + 9) != 0)
+        return;
+    ((void (*)(s32, void *, s32, s32, s32, s32, s32))func_02098f14)(*(s32 *)data_020c4668, data_020fc708_b, 0, *(s32 *)(data_020fc708 + 0xC), *(s32 *)(data_020fc708 + 0x10), 0, 0);
 }
 
 extern "C" u8 *func_02090160(int i)

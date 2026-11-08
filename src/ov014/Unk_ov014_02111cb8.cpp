@@ -3,7 +3,7 @@ struct N02114864 { N02114864 *next; N02114864 *prev; };
 
 extern "C" s32 func_ov014_02111cb8(s32 arg0);
 extern "C" s32 func_ov014_02111d10(s32 arg0);
-extern "C" void func_ov014_02111d1c(void);
+extern "C" s32 func_ov014_02111d1c(s32 arg0);
 extern "C" s32 func_ov014_02111d38(...);
 extern "C" void func_ov014_02111e30(void);
 extern "C" s32 func_ov014_02111f6c(s32 arg0);
@@ -261,14 +261,9 @@ extern "C" s32 func_ov014_02111d10(s32 arg0)
     return ((arg0 >> 2) + ((arg0 >> 2) << 1));
 }
 
-extern "C" asm void func_ov014_02111d1c(void)
+extern "C" s32 func_ov014_02111d1c(s32 arg0)
 {
-    ldr r1, =0x55555556
-    add r2, r0, #2
-    smull r0, r3, r1, r2
-    add r3, r3, r2, lsr #31
-    mov r0, r3, lsl #2
-    bx lr
+    return ((arg0 + 2) / 3) * 4;
 }
 
 extern "C" asm s32 func_ov014_02111d38(...)

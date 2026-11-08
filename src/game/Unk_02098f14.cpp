@@ -18,7 +18,7 @@ extern "C" s32 func_02099058(s32 arg0, s32 arg1);
 extern "C" s32 func_02099088(s32 arg0, s32 arg1);
 extern "C" s32 func_020990b4(s32 arg0, s32 arg1);
 extern "C" s32 func_020990e8(s32 arg0, u8 *arg1, u8 *arg2);
-extern "C" void func_02099140(void);
+extern "C" s32 func_02099140(u8 *arg0);
 extern "C" void func_020991ac(u8 *arg0);
 extern "C" void func_020991d8(u8 *arg0);
 extern "C" void func_0209920c(u8 *arg0);
@@ -97,8 +97,8 @@ extern "C" s32 func_02003eec(...);
 extern "C" s32 func_02004038(...);
 extern "C" s32 func_020040b0(...);
 extern "C" s32 func_02004120(...);
-extern "C" void func_02004fd8(void);
-extern "C" void func_02008450(void);
+extern "C" s32 func_02004fd8(...);
+extern "C" s32 func_02008450(...);
 extern "C" void func_02018328(void);
 extern "C" s32 _ffltu(...);
 extern "C" s32 _ffix(...);
@@ -119,8 +119,8 @@ extern "C" s32 func_02098a8c(...);
 extern "C" s32 func_02098ab8(...);
 extern "C" s32 func_02098cdc(...);
 extern "C" s32 func_02098d30(...);
-extern "C" void func_0209a798(void);
-extern "C" void func_0209a97c(void);
+extern "C" s32 func_0209a798(...);
+extern "C" s32 func_0209a97c(...);
 extern "C" void strlen(void);
 extern "C" void strncpy(void);
 extern "C" void strrchr(void);
@@ -247,34 +247,25 @@ extern "C" s32 func_020990e8(s32 arg0, u8 *arg1, u8 *arg2)
     }
 }
 
-extern "C" asm void func_02099140(void)
+static inline s32 vcount02099140(void)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl func_02004fd8
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldr r0, =0x4000006
-    ldrh r0, [r0]
-    cmp r0, #0xc1
-    bgt @L_0209916c
-    mov r0, #0x188
-    bl func_02008450
-@L_0209916c:
-    ldr r0, =0x4000600
-    ldr r0, [r0]
-    tst r0, #0x8000000
-    ldmneia sp!, {r4, pc}
-    ldr r0, [r4, #0x38]
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, #0
-    str r0, [r4, #0x38]
-    bl func_0209a97c
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    bl func_0209a798
-    ldmia sp!, {r4, pc}
+    return *(volatile u16 *)0x4000006;
+}
+extern "C" s32 func_02099140(u8 *arg0)
+{
+    s32 r = func_02004fd8(arg0);
+    if (r == 0)
+        return r;
+    if (vcount02099140() <= 0xC1)
+        func_02008450(0x188);
+    if ((r = *(volatile s32 *)0x4000600) & 0x8000000)
+        return r;
+    if ((r = *(s32 *)(arg0 + 0x38)) == 0)
+        return r;
+    *(s32 *)(arg0 + 0x38) = 0;
+    if ((r = func_0209a97c()) == 0)
+        return r;
+    return func_0209a798();
 }
 
 extern "C" void func_020991ac(u8 *arg0)

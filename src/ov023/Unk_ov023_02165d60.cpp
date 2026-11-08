@@ -10,7 +10,7 @@ extern "C" void func_ov023_02165f10(void);
 extern "C" s32 func_ov023_021663a8(u8 *arg0);
 extern "C" s32 func_ov023_02166400(u8 *arg0);
 extern "C" void func_ov023_02166480(void);
-extern "C" void func_ov023_02166528(void);
+extern "C" s32 func_ov023_02166528(s32 arg0, u8 *arg1);
 extern "C" u16 func_ov023_02166574(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" s32 func_ov023_021665a0(s32 arg0, s32 arg1);
 extern "C" s32 func_ov023_021665d4(...);
@@ -629,31 +629,17 @@ extern "C" asm void func_ov023_02166480(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov023_02166528(void)
+static inline BOOL lead02166528(u8 c)
 {
-    cmp r1, #0
-    moveq r0, #0
-    bxeq lr
-    ldrb r0, [r1]
-    cmp r0, #0x81
-    blo @L_02166548
-    cmp r0, #0x9f
-    bls @L_02166558
-@L_02166548:
-    cmp r0, #0xe0
-    blo @L_02166560
-    cmp r0, #0xfc
-    bhi @L_02166560
-@L_02166558:
-    mov r0, #1
-    b @L_02166564
-@L_02166560:
-    mov r0, #0
-@L_02166564:
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #2
-    bx lr
+    if ((c >= 0x81 && c <= 0x9F) || (c >= 0xE0 && c <= 0xFC))
+        return TRUE;
+    return FALSE;
+}
+extern "C" s32 func_ov023_02166528(s32 arg0, u8 *arg1)
+{
+    if (arg1 == 0)
+        return 0;
+    return lead02166528(*arg1) == 0 ? 1 : 2;
 }
 
 extern "C" u16 func_ov023_02166574(s32 arg0, u8 *arg1, s32 arg2)

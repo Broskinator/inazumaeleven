@@ -7,7 +7,7 @@ extern "C" BOOL func_02081f50(u8 *data, int i);
 extern "C" void func_02081f7c(void);
 extern "C" void func_02082150(void);
 extern "C" void func_020823a0(void);
-extern "C" void func_02082604(void);
+extern "C" u16 func_02082604(void *arg0, u16 arg1);
 extern "C" void func_02082664(void);
 extern "C" int func_0208274c(void *data);
 extern "C" void func_0208277c(void);
@@ -735,32 +735,15 @@ extern "C" asm void func_020823a0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02082604(void)
+extern "C" u16 func_02082604(void *arg0, u16 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r2, #0x1000
-    mov r6, r1
-    rsb r2, r2, #0
-    and r3, r6, r2
-    mov r5, #1
-    mov r2, r5
-    mov r4, r3, lsl #0x10
-    bl func_02082cb4
-    cmp r0, #0
-    rsbeq r0, r5, #0x10000
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrh r2, [r0]
-    rsb r1, r5, #0x1000
-    and r1, r6, r1
-    cmp r2, r1
-    ldreqh r0, [r0, #2]
-    orreq r0, r0, r4, lsr #16
-    moveq r0, r0, lsl #0x10
-    moveq r0, r0, lsr #0x10
-    orrne r0, r2, r4, lsr #16
-    movne r0, r0, lsl #0x10
-    movne r0, r0, lsr #0x10
-    ldmia sp!, {r4, r5, r6, pc}
+    u16 hi = arg1 & ~0xFFF;
+    u16 *p = (u16 *)func_02082cb4(arg0, arg1, 1);
+    if (p == 0)
+        return 0xFFFF;
+    if (p[0] == (arg1 & 0xFFF))
+        return p[1] | hi;
+    return p[0] | hi;
 }
 
 extern "C" asm void func_02082664(void)

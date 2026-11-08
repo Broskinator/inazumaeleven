@@ -31,7 +31,7 @@ extern "C" void func_ov034_0216705c(void);
 extern "C" void func_ov034_02167374(void);
 extern "C" void func_ov034_02167400(u8 *arg0);
 extern "C" s32 func_ov034_02167460(...);
-extern "C" void func_ov034_021674e0(void);
+extern "C" s32 func_ov034_021674e0(u8 *arg0);
 extern "C" s32 func_ov034_0216759c(u8 *arg0);
 extern "C" void func_ov034_021677b0(void);
 extern "C" void func_ov034_021677b4(void);
@@ -59,7 +59,7 @@ extern "C" char data_ov034_02167ae4[];
 extern "C" char data_ov034_02167b50[];
 extern "C" char data_ov034_02167b74[];
 extern "C" char data_ov034_02167b98[];
-extern "C" void MI_CpuFill8(void);
+extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
@@ -72,7 +72,7 @@ extern "C" void _ZN17UnkClass_020621b413func_0206e858Ev(void);
 extern "C" s32 _ZN17UnkClass_020621b413func_020795b4Ev(...);
 extern "C" void _ZN17UnkClass_020621b413func_0207d244Ev(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_02091d54(void);
+extern "C" s32 func_02091d54(...);
 extern "C" void func_02091d64(void);
 extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
@@ -102,7 +102,7 @@ extern "C" s32 func_ov015_02134118(...);
 extern "C" void func_ov015_02134198(void);
 extern "C" void func_ov015_02134208(void);
 extern "C" void func_ov015_02134b08(void);
-extern "C" void func_ov015_021616a4(void);
+extern "C" s32 func_ov015_021616a4(...);
 extern "C" void func_ov015_021616dc(void);
 extern "C" s32 func_ov015_02161710(...);
 extern "C" s32 func_ov015_02161760(...);
@@ -110,7 +110,7 @@ extern "C" void func_ov015_02161c78(void);
 extern "C" void func_ov015_02161d00(void);
 extern "C" void func_ov015_02161d24(void);
 extern "C" void func_ov015_02161dd4(void);
-extern "C" void func_ov015_02161f84(void);
+extern "C" s32 func_ov015_02161f84(...);
 extern "C" void func_ov015_02161fdc(void);
 extern "C" s32 func_ov015_02162140(...);
 extern "C" s32 func_ov015_02162420(...);
@@ -1591,51 +1591,32 @@ extern "C" asm s32 func_ov034_02167460(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov034_021674e0(void)
+extern "C" s32 func_ov034_021674e0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r1, #0x4000000
-    ldr r1, [r1]
-    mov r4, r0
-    and r0, r1, #0x1f00
-    mov r1, r0, lsr #8
-    ldr r0, =data_020c46c4
-    str r1, [r4, #0x1b8]
-    ldr r0, [r0]
-    bl func_ov015_02161f84
-    ldr r0, =data_020c46b8
-    ldr r0, [r0]
-    bl func_ov015_021616a4
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x44]
-    blx r1
-    mov r5, #0
-    sub r0, r5, #1
-    str r0, [r4, #0x1d4]
-    mov r1, r5
-    str r5, [r4, #8]
-    str r5, [r4, #0x60]
-    strb r5, [r4, #0x1d8]
-    add r0, r4, #0x10
-    mov r2, #0xc
-    bl MI_CpuFill8
-    add r0, r4, #0x1c
-    mov r1, r5
-    mov r2, #0x20
-    bl MI_CpuFill8
-    add r0, r4, #0x68
-    mov r1, r5
-    mov r2, #0x150
-    bl MI_CpuFill8
-    ldr r0, =data_020c46d4
-    ldr r0, [r0]
-    bl func_02091d54
-    str r5, [r4, #0x1c8]
-    str r5, [r4, #0x1cc]
-    ldr r0, =data_020c463c
-    strb r5, [r0]
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    s32 t4;
+    t0 = ((u32)(*(s32 *)(((u8 *)0x4000000)) & 0x1F00) >> 8);
+    *(s32 *)(arg0 + 0x1B8) = t0;
+    t1 = *(s32 *)(((u8 *)&data_020c46c4));
+    func_ov015_02161f84(t1);
+    t2 = *(s32 *)(((u8 *)&data_020c46b8));
+    func_ov015_021616a4(t2);
+    ((VCall *)arg0)->f17();
+    *(s32 *)(arg0 + 0x8) = 0;
+    *(s32 *)(arg0 + 0x1D4) = (0 - 1);
+    *(s32 *)(arg0 + 0x60) = 0;
+    *(u8 *)(arg0 + 0x1D8) = 0;
+    MI_CpuFill8((s32)(arg0 + 0x10), 0, 0xC);
+    MI_CpuFill8((s32)(arg0 + 0x1C), 0, 0x20);
+    MI_CpuFill8((s32)(arg0 + 0x68), 0, 0x150);
+    t4 = *(s32 *)(((u8 *)&data_020c46d4));
+    func_02091d54(t4);
+    *(s32 *)(arg0 + 0x1C8) = 0;
+    *(s32 *)(arg0 + 0x1CC) = 0;
+    *(u8 *)(((u8 *)&data_020c463c)) = 0;
+    return (s32)((u8 *)&data_020c463c);
 }
 
 extern "C" s32 func_ov034_0216759c(u8 *arg0)

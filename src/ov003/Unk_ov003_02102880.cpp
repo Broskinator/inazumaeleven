@@ -4,7 +4,7 @@
 extern "C" void func_ov003_02102880(u8 *arg0, s32 arg1);
 extern "C" void func_ov003_021028a8(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov003_02102900(u8 *arg0);
-extern "C" void func_ov003_021029a8(void);
+extern "C" void func_ov003_021029a8(u8 *arg0);
 extern "C" s32 func_ov003_021029b8(...);
 extern "C" void func_ov003_02102ad0(void);
 extern "C" void func_ov003_02102b40(u8 *arg0);
@@ -237,11 +237,9 @@ extern "C" s32 func_ov003_02102900(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov003_021029a8(void)
+extern "C" void func_ov003_021029a8(u8 *arg0)
 {
-    ldr r12, =func_ov015_02134208
-    add r0, r0, #0x10
-    bx r12
+    ((void (*)(u8 *))func_ov015_02134208)(arg0 + 0x10);
 }
 
 extern "C" asm s32 func_ov003_021029b8(...)
@@ -375,7 +373,7 @@ extern "C" s32 func_ov003_02102b70(u8 *arg0)
 
 extern "C" void func_ov003_02102ba4(void)
 {
-    func_ov003_021029a8();
+    ((void (*)(...))func_ov003_021029a8)();
 }
 
 extern "C" s32 func_ov003_02102bb0(s32 arg0)

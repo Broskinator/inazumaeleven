@@ -1,4 +1,6 @@
 #include "ov015/Unk_0214079c.hpp"
+#include "game/vcall.hpp"
+#include "game/vcall.hpp"
 
 extern "C" void func_ov015_0214079c(void);
 extern "C" void func_ov015_02140958(void);
@@ -27,10 +29,10 @@ extern "C" s32 func_ov015_0214189c(...);
 extern "C" s32 func_ov015_02141f64(...);
 extern "C" s32 func_ov015_021420e8(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02142100(void);
-extern "C" void func_ov015_021422a0(void);
+extern "C" s32 func_ov015_021422a0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov015_021422b8(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_021422d0(void);
-extern "C" void func_ov015_0214237c(void);
+extern "C" s32 func_ov015_0214237c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov015_0214239c(void);
 extern "C" void func_ov015_02142508(void);
 extern "C" void func_ov015_02142664(void);
@@ -2023,14 +2025,9 @@ extern "C" asm void func_ov015_02142100(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov015_021422a0(void)
+extern "C" s32 func_ov015_021422a0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, [r0, #0xb7c]
-    ldr r12, [r0]
-    ldr r12, [r12, #0x1c]
-    blx r12
-    ldmia sp!, {r3, pc}
+    return (*(VCall **)(arg0 + 0xB7C))->f7(arg1, arg2, arg3);
 }
 
 extern "C" s32 func_ov015_021422b8(u8 *arg0, s32 arg1)
@@ -2089,16 +2086,9 @@ extern "C" asm void func_ov015_021422d0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov015_0214237c(void)
+extern "C" s32 func_ov015_0214237c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [sp, #8]
-    str r12, [sp]
-    ldr r0, [r0, #0xb7c]
-    ldr r12, [r0]
-    ldr r12, [r12, #0x28]
-    blx r12
-    ldmia sp!, {r3, pc}
+    return (*(VCall **)(arg0 + 0xB7C))->f10(arg1, arg2, arg3, arg4);
 }
 
 extern "C" asm void func_ov015_0214239c(void)

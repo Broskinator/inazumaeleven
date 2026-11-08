@@ -1,4 +1,6 @@
 #include "ov015/Unk_0213a104.hpp"
+struct E0213b478 { s32 a; s32 b; s32 c; };
+struct P0213b478 { s32 pad; E0213b478 arr[1]; };
 struct E0213c530 { u8 a, b, c, d, e; };
 struct L0213c530 { s32 x0; s32 cap; s32 n; E0213c530 *buf; };
 struct E0213b310 { u16 a; u16 b; u8 cnt[0x96]; u8 items[0x96][4]; };
@@ -48,7 +50,7 @@ extern "C" void func_ov015_0213b270(void);
 extern "C" u8 *func_ov015_0213b310(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_0213b364(void);
 extern "C" s32 func_ov015_0213b3fc(s32 arg0, s32 arg1);
-extern "C" void func_ov015_0213b478(void);
+extern "C" void func_ov015_0213b478(P0213b478 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov015_0213b490(void);
 extern "C" void func_ov015_0213b540(void);
 extern "C" void func_ov015_0213b6ac(void);
@@ -1373,14 +1375,11 @@ extern "C" s32 func_ov015_0213b3fc(s32 arg0, s32 arg1)
     return v2;
 }
 
-extern "C" asm void func_ov015_0213b478(void)
+extern "C" void func_ov015_0213b478(P0213b478 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    mov r12, #0xc
-    mla r12, r1, r12, r0
-    ldr r0, [sp]
-    stmib r12, {r2, r3}
-    str r0, [r12, #0xc]
-    bx lr
+    arg0->arr[arg1].a = arg2;
+    arg0->arr[arg1].b = arg3;
+    arg0->arr[arg1].c = arg4;
 }
 
 extern "C" asm void func_ov015_0213b490(void)

@@ -1,4 +1,6 @@
 #include "ov014/Unk_ov014_02102900.hpp"
+struct E02103ad8 { s32 a; s32 b; u32 c; };
+struct P02103ad8 { u8 pad[0x70]; E02103ad8 arr[3]; };
 
 extern "C" void func_ov014_02102900(void);
 extern "C" void func_ov014_02102da4(void);
@@ -20,7 +22,7 @@ extern "C" s32 func_ov014_021037ac(...);
 extern "C" s32 func_ov014_02103894(s32 arg0, s32 arg1, u8 *arg2);
 extern "C" void func_ov014_0210390c(void);
 extern "C" void func_ov014_021039e4(void);
-extern "C" void func_ov014_02103ad8(void);
+extern "C" void func_ov014_02103ad8(P02103ad8 *arg0, s32 arg1);
 extern "C" void func_ov014_02103b28(void);
 extern "C" void func_ov014_02103bd8(void);
 extern "C" void func_ov014_02103c1c(void);
@@ -1361,31 +1363,18 @@ extern "C" asm void func_ov014_021039e4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02103ad8(void)
+extern "C" void func_ov014_02103ad8(P02103ad8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov lr, #0
-    mov r12, lr
-    mov r2, #0xc
-    b @L_02103afc
-@L_02103aec:
-    ldr r3, [r4, #0x78]
-    add r12, r12, #1
-    cmp lr, r3
-    movlo lr, r3
-@L_02103afc:
-    cmp r12, #3
-    bge @L_02103b14
-    mla r4, r12, r2, r0
-    ldr r3, [r4, #0x70]
-    cmp r3, #0
-    bne @L_02103aec
-@L_02103b14:
-    mov r2, #0xc
-    mla r0, r1, r2, r0
-    add r1, lr, #1
-    str r1, [r0, #0x78]
-    ldmia sp!, {r4, pc}
+    s32 i;
+    u32 max;
+    max = 0;
+    i = 0;
+    while (i < 3 && arg0->arr[i].a != 0) {
+        if (max < arg0->arr[i].c)
+            max = arg0->arr[i].c;
+        i++;
+    }
+    arg0->arr[arg1].c = max + 1;
 }
 
 extern "C" asm void func_ov014_02103b28(void)

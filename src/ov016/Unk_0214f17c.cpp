@@ -50,7 +50,7 @@ extern "C" void func_ov016_021504fc(u16 arg0, u16 arg1, u8 *arg2);
 extern "C" void func_ov016_02150508(u16 arg0, u16 arg1, u16 arg2, u16 arg3, u8 *arg4);
 extern "C" void func_ov016_02150520(void);
 extern "C" void func_ov016_02150550(s32 arg0, u32 arg1);
-extern "C" void func_ov016_021505a4(void);
+extern "C" void func_ov016_021505a4(s32 arg0, u32 arg1);
 extern "C" void func_ov016_02150600(void);
 extern "C" void func_ov016_02150708(void);
 extern "C" void func_ov016_02150874(s32 arg0);
@@ -1561,31 +1561,17 @@ extern "C" void func_ov016_02150550(s32 arg0, u32 arg1)
         set02150550((volatile u32 *)0x4000000, arg1);
 }
 
-extern "C" asm void func_ov016_021505a4(void)
+static inline void clr021505a4(volatile u32 *reg, u32 v)
 {
-    cmp r0, #1
-    bne @L_021505d4
-    ldr r3, =0x4001000
-    mvn r0, r1
-    ldr r2, [r3]
-    ldr r1, [r3]
-    and r2, r2, #0x1f00
-    bic r1, r1, #0x1f00
-    and r0, r0, r2, lsr #8
-    orr r0, r1, r0, lsl #8
-    str r0, [r3]
-    bx lr
-@L_021505d4:
-    mov r3, #0x4000000
-    ldr r0, [r3]
-    ldr r2, [r3]
-    and r12, r0, #0x1f00
-    mvn r0, r1
-    bic r1, r2, #0x1f00
-    and r0, r0, r12, lsr #8
-    orr r0, r1, r0, lsl #8
-    str r0, [r3]
-    bx lr
+    u32 cur = (*reg & 0x1F00) >> 8;
+    *reg = (*reg & ~0x1F00) | ((~v & cur) << 8);
+}
+extern "C" void func_ov016_021505a4(s32 arg0, u32 arg1)
+{
+    if (arg0 == 1)
+        clr021505a4((volatile u32 *)0x4001000, arg1);
+    else
+        clr021505a4((volatile u32 *)0x4000000, arg1);
 }
 
 extern "C" asm void func_ov016_02150600(void)
