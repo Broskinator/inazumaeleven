@@ -2,7 +2,7 @@
 struct S0214bd10 { u8 pad[0x14]; s32 x14; u16 x18; u8 x1a; s8 x1b; };
 
 extern "C" void func_ov016_02149068(void);
-extern "C" void func_ov016_02149138(void);
+extern "C" void func_ov016_02149138(s32 arg0);
 extern "C" void func_ov016_021491b0(s32 arg0);
 extern "C" s32 func_ov016_021491dc(void);
 extern "C" void func_ov016_02149244(void);
@@ -271,38 +271,27 @@ extern "C" asm void func_ov016_02149068(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov016_02149138(void)
+extern "C" void func_ov016_02149138(s32 arg0)
 {
-    stmdb sp!, {r4, lr}
-    ldr r1, =data_ov016_02158b1c
-    ldr r1, [r1]
-    ldrb r1, [r1, #0x1a]
-    subs r4, r1, r0
-    rsbmi r4, r4, #0
-    cmp r4, #2
-    movlt r0, #0
-    blt @L_02149170
-    cmp r4, #6
-    mov r0, #0x7f
-    bge @L_02149170
-    rsb r1, r4, #6
-    bl FX_DivS32
-@L_02149170:
-    bl func_ov016_0214a4e4
-    cmp r4, #2
-    mvnlt r1, #0xff
-    blt @L_0214919c
-    cmp r4, #6
-    movge r1, #0x100
-    bge @L_0214919c
-    rsb r1, r4, #6
-    mov r0, #0x200
-    bl FX_DivS32
-    sub r1, r0, #0x100
-@L_0214919c:
-    ldr r0, =0xffff
-    bl func_ov016_0214a504
-    ldmia sp!, {r4, pc}
+    s32 d = (*(u8 **)data_ov016_02158b1c)[0x1A] - arg0;
+    s32 x;
+    s32 y;
+    if (d < 0)
+        d = -d;
+    if (d < 2)
+        x = 0;
+    else if (d >= 6)
+        x = 0x7F;
+    else
+        x = ((s32 (*)(...))FX_DivS32)(0x7F, 6 - d);
+    ((s32 (*)(...))func_ov016_0214a4e4)(x);
+    if (d < 2)
+        y = -0x100;
+    else if (d >= 6)
+        y = 0x100;
+    else
+        y = ((s32 (*)(...))FX_DivS32)(0x200, 6 - d) - 0x100;
+    ((s32 (*)(...))func_ov016_0214a504)(0xFFFF, y);
 }
 
 extern "C" void func_ov016_021491b0(s32 arg0)

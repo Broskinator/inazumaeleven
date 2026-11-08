@@ -1,7 +1,7 @@
 #include "ov015/Unk_02161af4.hpp"
 
 extern "C" s32 func_ov015_02161af4(...);
-extern "C" void func_ov015_02161b74(void);
+extern "C" s32 func_ov015_02161b74(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, u8 arg6, s32 arg7, u8 arg8);
 extern "C" s32 func_ov015_02161bf4(...);
 extern "C" s32 func_ov015_02161c3c(...);
 extern "C" void func_ov015_02161c50(void);
@@ -231,40 +231,25 @@ extern "C" asm s32 func_ov015_02161af4(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov015_02161b74(void)
+extern "C" s32 func_ov015_02161b74(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, u8 arg6, s32 arg7, u8 arg8)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    movs r5, r3
-    mov r8, r0
-    mov r7, r1
-    mov r6, r2
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    bl func_ov015_02160d50
-    movs r4, r0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    bl func_ov015_02160ce0
-    mov r1, #7
-    ldr r0, [sp, #0x24]
-    strb r1, [r4, #4]
-    strh r0, [r4, #6]
-    ldr r0, [sp, #0x1c]
-    strb r6, [r4, #5]
-    ldrb r1, [sp, #0x28]
-    strh r0, [r4, #8]
-    ldr r0, [sp, #0x18]
-    strb r1, [r4, #0xb]
-    strh r5, [r4]
-    ldrb r3, [sp, #0x20]
-    strh r0, [r4, #2]
-    mov r0, r8
-    mov r1, r7
-    mov r2, r4
-    strb r3, [r4, #0x10]
-    bl func_ov015_0216145c
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *e;
+    if (arg3 == 0)
+        return 0;
+    e = (u8 *)((s32 (*)(...))func_ov015_02160d50)();
+    if (e == 0)
+        return 0;
+    ((s32 (*)(...))func_ov015_02160ce0)(e);
+    e[4] = 7;
+    *(u16 *)(e + 6) = arg7;
+    e[5] = arg2;
+    *(u16 *)(e + 8) = arg5;
+    e[0xB] = arg8;
+    *(u16 *)e = arg3;
+    *(u16 *)(e + 2) = arg4;
+    e[0x10] = arg6;
+    ((s32 (*)(...))func_ov015_0216145c)(arg0, arg1, e);
+    return 1;
 }
 
 extern "C" asm s32 func_ov015_02161bf4(...)

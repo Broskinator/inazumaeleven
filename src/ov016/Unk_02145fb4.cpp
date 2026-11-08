@@ -1,4 +1,5 @@
 #include "ov016/Unk_02145fb4.hpp"
+struct T02147e58 { s32 a[3]; };
 struct T0214761c { u8 v[4]; };
 
 extern "C" void func_ov016_02145fb4(void);
@@ -2096,40 +2097,20 @@ extern "C" void func_ov016_02147df0(void)
     func_ov016_0213b354((s32)func_ov016_02147e58);
 }
 
-extern "C" asm void func_ov016_02147e58(void)
+extern "C" void func_ov016_02147e58(void)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x14
-    ldr r0, =data_ov016_02154da8
-    add r6, sp, #8
-    ldmia r0, {r0, r1, r2}
-    mov r5, #1
-    stmia r6, {r0, r1, r2}
-    mov r0, r5
-    bl func_ov016_0214fa94
-    cmp r0, #0
-    addne sp, sp, #0x14
-    ldmneia sp!, {r3, r4, r5, r6, pc}
-    mov r4, #0
-    mov r0, r4
-    bl func_ov016_0214fa94
-    cmp r0, #0
-    addne sp, sp, #0x14
-    ldmneia sp!, {r3, r4, r5, r6, pc}
-    add r1, sp, #4
-    mov r0, r4
-    bl func_ov016_0213b3b4
-    str r4, [sp]
-    ldr r0, [sp, #4]
-    mov r1, r5
-    ldr r0, [r6, r0, lsl #2]
-    mov r2, r5
-    sub r3, r4, #1
-    bl func_ov016_0214b71c
-    ldr r0, =func_ov016_02147ee0
-    bl func_ov016_0213b354
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    T02147e58 t = *(T02147e58 *)data_ov016_02154da8;
+    s32 k = 1;
+    s32 z;
+    s32 x;
+    if (((s32 (*)(...))func_ov016_0214fa94)(k) != 0)
+        return;
+    z = 0;
+    if (((s32 (*)(...))func_ov016_0214fa94)(z) != 0)
+        return;
+    ((s32 (*)(...))func_ov016_0213b3b4)(z, &x);
+    ((s32 (*)(...))func_ov016_0214b71c)(t.a[x], k, k, z - 1, z);
+    ((s32 (*)(...))func_ov016_0213b354)(func_ov016_02147ee0);
 }
 
 extern "C" void func_ov016_02147ee0(void)

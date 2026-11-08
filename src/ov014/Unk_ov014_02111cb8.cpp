@@ -81,7 +81,7 @@ extern "C" void func_ov014_0211409c(void);
 extern "C" void func_ov014_02114188(void);
 extern "C" void func_ov014_02114224(void);
 extern "C" void func_ov014_021142d0(void);
-extern "C" void func_ov014_02114360(void);
+extern "C" s32 func_ov014_02114360(s8 *arg0, s32 arg1);
 extern "C" void func_ov014_021143d0(void);
 extern "C" void func_ov014_02114454(u8 *arg0);
 extern "C" s32 func_ov014_02114498(s32 arg0, s32 arg1);
@@ -2886,39 +2886,23 @@ extern "C" asm void func_ov014_021142d0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_02114360(void)
+extern "C" s32 func_ov014_02114360(s8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, lr}
-    mov r12, #0
-    cmp r1, #0
-    mov lr, r12
-    sub r1, r1, #1
-    beq @L_021143c0
-    mov r2, #0xa
-@L_0211437c:
-    ldrsb r3, [r0]
-    cmp r3, #0x20
-    beq @L_021143b0
-    cmp r3, #0x30
-    blt @L_021143b0
-    cmp r3, #0x39
-    bgt @L_021143b0
-    mla r3, lr, r2, r3
-    add r12, r12, #1
-    cmp r12, #9
-    sub lr, r3, #0x30
-    mvngt r0, #0
-    ldmgtia sp!, {r3, pc}
-@L_021143b0:
-    cmp r1, #0
-    add r0, r0, #1
-    sub r1, r1, #1
-    bne @L_0211437c
-@L_021143c0:
-    cmp r12, #0
-    mvneq lr, #0
-    mov r0, lr
-    ldmia sp!, {r3, pc}
+    s32 c = 0;
+    s32 v = c;
+    while (arg1-- != 0) {
+        s8 ch = *arg0;
+        if (ch != 0x20 && ch >= 0x30 && ch <= 0x39) {
+            v = v * 10 + ch - 0x30;
+            c++;
+            if (c > 9)
+                return -1;
+        }
+        arg0++;
+    }
+    if (c == 0)
+        v = -1;
+    return v;
 }
 
 extern "C" asm void func_ov014_021143d0(void)

@@ -21,7 +21,7 @@ extern "C" s32 func_ov087_0217e818(u8 *arg0, s32 arg1, u8 *arg2);
 extern "C" s32 func_ov087_0217e844(s32 arg0);
 extern "C" s32 func_ov087_0217e878(u8 *arg0, u8 *arg1);
 extern "C" void func_ov087_0217e8c4(void);
-extern "C" void func_ov087_0217e9e8(void);
+extern "C" s32 func_ov087_0217e9e8(void *arg0, u8 *arg1, s32 arg2);
 extern "C" s32 func_ov087_0217ea64(void *arg0);
 extern "C" void func_ov087_0217eaa8(void);
 extern "C" void func_ov087_0217eec8(void);
@@ -1722,39 +1722,16 @@ extern "C" asm void func_ov087_0217e8c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov087_0217e9e8(void)
+extern "C" s32 func_ov087_0217e9e8(void *arg0, u8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, r1
-    mov r1, #0xa
-    mov r5, r0
-    mov r6, r2
-    bl _ZN17UnkClass_020621b413func_0206c0c0Em
-    ldrh r0, [r4, #0xf0]
-    tst r0, #0x40
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    cmp r6, #0
-    movle r0, #0
-    ldmleia sp!, {r4, r5, r6, pc}
-    ble @L_0217ea44
-    ldr r1, [r4, #0xec]
-    ldr r0, =0x1ff
-    ldrh r1, [r1, #0x32]
-    cmp r1, r0
-    moveq r0, #0x64
-    ldmeqia sp!, {r4, r5, r6, pc}
-@L_0217ea44:
-    mov r0, r5
-    mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206f278Ev
-    cmp r0, #0
-    movne r0, #0x64
-    moveq r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    ((void (*)(void *, s32))_ZN17UnkClass_020621b413func_0206c0c0Em)(arg0, 0xA);
+    if ((*(u16 *)(arg1 + 0xF0) & 0x40 ? 1 : 0) == 0)
+        return 0;
+    if (arg2 <= 0)
+        return 0;
+    if (arg2 > 0 && *(u16 *)(*(u8 **)(arg1 + 0xEC) + 0x32) == 0x1FF)
+        return 0x64;
+    return ((s32 (*)(void *, void *))_ZN17UnkClass_020621b413func_0206f278Ev)(arg0, arg1) != 0 ? 0x64 : 0;
 }
 
 extern "C" s32 func_ov087_0217ea64(void *arg0)

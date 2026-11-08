@@ -9,7 +9,7 @@ extern "C" s32 func_ov063_02165fec(u8 *arg0);
 extern "C" s32 func_ov063_02166088(u8 *arg0);
 extern "C" s32 func_ov063_021660a0(u8 *arg0);
 extern "C" void func_ov063_021660f4(s32 arg0);
-extern "C" void func_ov063_02166110(void);
+extern "C" void func_ov063_02166110(u8 *arg0);
 extern "C" void func_ov063_02166194(void);
 extern "C" void func_ov063_02166264(void);
 extern "C" s32 func_ov063_021662e4(...);
@@ -406,39 +406,13 @@ extern "C" void func_ov063_021660f4(s32 arg0)
     func_ov015_02133f94((s32)data_ov063_02167cc8, (arg0 + 0x10));
 }
 
-extern "C" asm void func_ov063_02166110(void)
+extern "C" void func_ov063_02166110(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    ldr r1, =gGameState
-    mov r4, r0
-    ldrb r0, [r1, #0x1a]
-    cmp r0, #0
-    beq @L_02166138
-    bl func_ov015_02131ae4
-    cmp r0, #0
-    beq @L_02166150
-@L_02166138:
-    mov r0, #0
-    str r0, [sp]
-    ldr r1, [r4, #0x10]
-    ldr r0, =data_ov063_02167ce8
-    ldr r2, =data_ov063_02167a78
-    b @L_02166164
-@L_02166150:
-    mov r0, #0
-    str r0, [sp]
-    ldr r1, [r4, #0x10]
-    ldr r0, =data_ov063_02167d08
-    ldr r2, =data_ov063_02167ab0
-@L_02166164:
-    add r3, r4, #0x1c
-    bl func_ov015_02136080
-    mov r0, r4
-    mov r1, #0
-    bl func_ov063_02166264
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    if (((u8 *)gGameState)[0x1A] == 0 || ((s32 (*)(...))func_ov015_02131ae4)() != 0)
+        ((s32 (*)(...))func_ov015_02136080)(data_ov063_02167ce8, *(s32 *)(arg0 + 0x10), data_ov063_02167a78, arg0 + 0x1C, 0);
+    else
+        ((s32 (*)(...))func_ov015_02136080)(data_ov063_02167d08, *(s32 *)(arg0 + 0x10), data_ov063_02167ab0, arg0 + 0x1C, 0);
+    ((s32 (*)(...))func_ov063_02166264)(arg0, 0);
 }
 
 extern "C" asm void func_ov063_02166194(void)

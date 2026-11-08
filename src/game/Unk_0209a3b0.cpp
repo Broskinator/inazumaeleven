@@ -2,7 +2,7 @@
 
 extern "C" char data_020c47b4[];
 
-extern "C" void func_0209a3b0(void);
+extern "C" void func_0209a3b0(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3);
 extern "C" void func_0209a420(u8 *arg0);
 extern "C" void func_0209a450(u8 *obj);
 extern "C" void func_0209a45c(void);
@@ -91,40 +91,26 @@ extern "C" void func_020040b0(void);
 extern "C" void func_02004120(void);
 extern "C" void func_ov015_021309f8(void);
 
-extern "C" asm void func_0209a3b0(void)
+extern "C" void func_0209a3b0(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3)
 {
-    stmdb sp!, {r3, lr}
-    mov r12, r0, asr #3
-    cmp r12, #1
-    mov lr, #0
-    ble @L_0209a3d4
-@L_0209a3c4:
-    mov r12, r12, asr #1
-    cmp r12, #1
-    add lr, lr, #1
-    bgt @L_0209a3c4
-@L_0209a3d4:
-    mov r12, #8
-    mvn r12, r12, lsl lr
-    tst r0, r12
-    addne lr, lr, #1
-    mov r0, r1, asr #3
-    str lr, [r2]
-    cmp r0, #1
-    mov r2, #0
-    ble @L_0209a408
-@L_0209a3f8:
-    mov r0, r0, asr #1
-    cmp r0, #1
-    add r2, r2, #1
-    bgt @L_0209a3f8
-@L_0209a408:
-    mov r0, #8
-    mvn r0, r0, lsl r2
-    tst r1, r0
-    addne r2, r2, #1
-    str r2, [r3]
-    ldmia sp!, {r3, pc}
+    s32 x = arg0 >> 3;
+    s32 n = 0;
+    while (x > 1) {
+        x >>= 1;
+        n++;
+    }
+    if (arg0 & ~(8 << n))
+        n++;
+    *arg2 = n;
+    x = arg1 >> 3;
+    n = 0;
+    while (x > 1) {
+        x >>= 1;
+        n++;
+    }
+    if (arg1 & ~(8 << n))
+        n++;
+    *arg3 = n;
 }
 
 extern "C" void func_0209a420(u8 *arg0)

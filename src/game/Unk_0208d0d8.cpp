@@ -1,5 +1,7 @@
 #include "game/Unk_0208d0d8.hpp"
 #include "nitro/mi.h"
+struct V0208e584 { s32 x, y, z; };
+struct V0208e508 { s32 x, y, z; };
 
 extern "C" void func_0208f308(void);     // (for the asm functions)
 extern "C" void func_0208fac4(void);     // (for the asm functions)
@@ -42,8 +44,8 @@ extern "C" s32 func_0208e3e4(u8 *arg0, s32 arg1);
 extern "C" s32 func_0208e414(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_0208e480(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_0208e4c4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_0208e508(void);
-extern "C" void func_0208e584(void);
+extern "C" V0208e508 func_0208e508(s32 arg0, s32 arg1);
+extern "C" V0208e584 func_0208e584(s32 arg0, s32 arg1);
 extern "C" s32 func_0208e600(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_0208e680(u8 *arg0, s32 arg1);
 extern "C" s32 func_0208e6cc(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
@@ -1500,76 +1502,24 @@ extern "C" s32 func_0208e4c4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
     return v1;
 }
 
-extern "C" asm void func_0208e508(void)
+extern "C" V0208e508 func_0208e508(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0x1c
-    mov r3, #0
-    add r12, sp, #0x10
-    mov r4, r0
-    mov r0, r1
-    mov r1, r2
-    add r2, sp, #0
-    str r3, [sp]
-    str r3, [r12]
-    str r3, [r12, #4]
-    str r3, [r12, #8]
-    bl func_0208d46c
-    ldr r0, [sp]
-    cmp r0, #0
-    ldrne r1, [r0, #0x14]
-    cmpne r1, #0
-    beq @L_0208e570
-    add r0, sp, #4
-    bl func_ov015_02145518
-    ldr r2, [sp, #4]
-    ldr r1, [sp, #8]
-    ldr r0, [sp, #0xc]
-    str r2, [sp, #0x10]
-    str r1, [sp, #0x14]
-    str r0, [sp, #0x18]
-@L_0208e570:
-    add r0, sp, #0x10
-    ldmia r0, {r0, r1, r2}
-    stmia r4, {r0, r1, r2}
-    add sp, sp, #0x1c
-    ldmia sp!, {r3, r4, pc}
+    V0208e508 v = {0, 0, 0};
+    u8 *p = 0;
+    ((s32 (*)(...))func_0208d46c)(arg0, arg1, &p);
+    if (p != 0 && *(s32 *)(p + 0x14) != 0)
+        v = ((V0208e508 (*)(s32))func_ov015_02145518)(*(s32 *)(p + 0x14));
+    return v;
 }
 
-extern "C" asm void func_0208e584(void)
+extern "C" V0208e584 func_0208e584(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0x1c
-    mov r3, #0
-    add r12, sp, #0x10
-    mov r4, r0
-    mov r0, r1
-    mov r1, r2
-    add r2, sp, #0
-    str r3, [sp]
-    str r3, [r12]
-    str r3, [r12, #4]
-    str r3, [r12, #8]
-    bl func_0208d46c
-    ldr r0, [sp]
-    cmp r0, #0
-    ldrne r1, [r0, #0x14]
-    cmpne r1, #0
-    beq @L_0208e5ec
-    add r0, sp, #4
-    bl func_ov015_0214552c
-    ldr r2, [sp, #4]
-    ldr r1, [sp, #8]
-    ldr r0, [sp, #0xc]
-    str r2, [sp, #0x10]
-    str r1, [sp, #0x14]
-    str r0, [sp, #0x18]
-@L_0208e5ec:
-    add r0, sp, #0x10
-    ldmia r0, {r0, r1, r2}
-    stmia r4, {r0, r1, r2}
-    add sp, sp, #0x1c
-    ldmia sp!, {r3, r4, pc}
+    V0208e584 v = {0, 0, 0};
+    u8 *p = 0;
+    ((s32 (*)(...))func_0208d46c)(arg0, arg1, &p);
+    if (p != 0 && *(s32 *)(p + 0x14) != 0)
+        v = ((V0208e584 (*)(s32))func_ov015_0214552c)(*(s32 *)(p + 0x14));
+    return v;
 }
 
 extern "C" s32 func_0208e600(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)

@@ -2147,39 +2147,16 @@ extern "C" s32 func_ov001_020fe510(s32 arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_ov001_020fe560(void)
+extern "C" void func_ov001_020fe560(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020c4920
-    ldr r3, =data_020c483c
-    ldr lr, [r0]
-    ldr r12, [r0, #4]
-    mov r0, lr, asr #0xb
-    mov r1, r12, asr #0xb
-    add r0, lr, r0, lsr #20
-    ldr r3, [r3]
-    add r1, r12, r1, lsr #20
-    ldr r2, =data_020c4838
-    mov r12, r1, asr #0xc
-    cmp r3, r0, asr #12
-    mov lr, r0, asr #0xc
-    addle r0, r3, #0x100
-    ldr r1, [r2]
-    cmple lr, r0
-    ldmgeia sp!, {r3, pc}
-    cmp r12, r1
-    ldmltia sp!, {r3, pc}
-    add r0, r1, #0xc0
-    cmp r12, r0
-    ldmgeia sp!, {r3, pc}
-    sub r2, lr, r3
-    sub r1, r12, r1
-    ldr r0, =data_ov001_02130614
-    rsb r2, r2, #0x80
-    str r2, [r0, #0xc]
-    rsb r1, r1, #0x60
-    str r1, [r0, #4]
-    ldmia sp!, {r3, pc}
+    s32 x = ((s32 *)data_020c4920)[0] / 0x1000;
+    s32 y = ((s32 *)data_020c4920)[1] / 0x1000;
+    s32 l = *(s32 *)data_020c483c;
+    s32 t = *(s32 *)data_020c4838;
+    if (l <= x && x < l + 0x100 && y >= t && y < t + 0xC0) {
+        ((s32 *)data_ov001_02130614)[3] = 0x80 - (x - l);
+        ((s32 *)data_ov001_02130614)[1] = 0x60 - (y - t);
+    }
 }
 
 extern "C" char *func_ov001_020fe5ec(s32 arg0, s32 arg1)

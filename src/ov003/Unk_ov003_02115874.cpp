@@ -1,5 +1,6 @@
 #include "ov003/Unk_ov003_02115874.hpp"
 #include "game/vcall.hpp"
+struct S021169b4 { u8 x0; u8 x1; u8 x2; u8 x3; s32 x4; u8 rest[0xE8]; };
 struct P02118850 { s32 a; s32 b; };
 struct S02117490 { s32 a, b; };
 
@@ -15,7 +16,7 @@ extern "C" s32 func_ov003_021165fc(...);
 extern "C" s32 func_ov003_02116644(u8 *arg0);
 extern "C" s32 func_ov003_02116660(u8 *arg0);
 extern "C" void func_ov003_0211667c(void);
-extern "C" void func_ov003_021169b4(void);
+extern "C" void func_ov003_021169b4(u8 *arg0);
 extern "C" s32 func_ov003_02116a30(u8 *arg0);
 extern "C" void func_ov003_02116b38(void);
 extern "C" void func_ov003_02116b3c(void);
@@ -1323,39 +1324,20 @@ extern "C" asm void func_ov003_0211667c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov003_021169b4(void)
+extern "C" void func_ov003_021169b4(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #0xf0
-    mov r5, r0
-    ldr r0, =data_020c5e40
-    mov r1, #4
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r0, #0
-    add r12, sp, #0
-    mov r1, r0
-    mov r2, r0
-    mov r3, r0
-    mov r4, #7
-@L_021169e4:
-    stmia r12!, {r0, r1, r2, r3}
-    stmia r12!, {r0, r1, r2, r3}
-    subs r4, r4, #1
-    bne @L_021169e4
-    stmia r12!, {r0, r1, r2, r3}
-    mov r0, #0x10
-    strb r0, [sp, #2]
-    ldr r1, [r5, #0x34]
-    mov r4, #0x2000
-    add r0, sp, #0
-    strb r1, [sp, #3]
-    str r4, [sp, #4]
-    bl func_ov003_0210ea50
-    mov r0, r5
-    str r4, [r5, #0x34]
-    bl func_ov003_02113b4c
-    add sp, sp, #0xf0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 k;
+    ((void (*)(void *, s32))_ZN12SoundManager9PlaySoundEi)(data_020c5e40, 4);
+    {
+        S021169b4 s = {0};
+        s.x2 = 0x10;
+        s.x3 = *(s32 *)(arg0 + 0x34);
+        k = 0x2000;
+        s.x4 = k;
+        ((s32 (*)(...))func_ov003_0210ea50)(&s);
+    }
+    *(s32 *)(arg0 + 0x34) = k;
+    ((s32 (*)(...))func_ov003_02113b4c)(arg0);
 }
 
 extern "C" s32 func_ov003_02116a30(u8 *arg0)

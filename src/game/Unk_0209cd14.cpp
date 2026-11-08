@@ -52,7 +52,7 @@ extern "C" s32 func_0209ddd0(s32 arg0, s32 arg1);
 extern "C" void func_0209de0c(void);
 extern "C" s32 func_0209de28(s32 arg0, s32 arg1);
 extern "C" void func_0209deb0(void);
-extern "C" void func_0209df60(void);
+extern "C" void func_0209df60(u8 *arg0, s32 arg1);
 extern "C" void func_0209dfd4(s32 *obj, int i, s32 value);
 extern "C" void func_0209e020(u8 *arg0, s32 arg1);
 extern "C" void func_0209e09c(s32 arg0, s32 arg1, s32 arg2);
@@ -1405,40 +1405,28 @@ extern "C" asm void func_0209deb0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_0209df60(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_0209df60(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    mov r7, r1
-    bl func_ov015_021317c8
-    cmp r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r6, #0
-    mov r4, r6
-    mov r5, #1
-@L_0209df84:
-    add r0, r8, r6, lsl #2
-    ldr r0, [r0, #4]
-    cmp r0, #0
-    movgt r0, r5
-    movle r0, r4
-    cmp r0, #0
-    beq @L_0209dfc4
-    add r1, r8, r6, lsl #2
-    ldr r0, [r1, #4]
-    sub r0, r0, r7
-    str r0, [r1, #4]
-    cmp r0, #0
-    bgt @L_0209dfc4
-    mov r0, r8
-    mov r1, r6
-    bl func_0209dfd4
-@L_0209dfc4:
-    add r6, r6, #1
-    cmp r6, #2
-    blt @L_0209df84
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 i;
+    s32 f;
+    s32 t;
+    if (((s32 (*)(...))func_ov015_021317c8)() != 0)
+        return;
+    i = 0;
+    f = i;
+    t = 1;
+    do {
+        if ((*(s32 *)(arg0 + (i << 2) + 4) > 0 ? t : f) != 0) {
+            *(s32 *)(arg0 + (i << 2) + 4) -= arg1;
+            if (*(s32 *)(arg0 + (i << 2) + 4) <= 0)
+                ((s32 (*)(...))func_0209dfd4)(arg0, i);
+        }
+        i++;
+    } while (i < 2);
 }
+#pragma pop
 
 extern "C" asm void func_0209dfd4(s32 *obj, int i, s32 value)
 {

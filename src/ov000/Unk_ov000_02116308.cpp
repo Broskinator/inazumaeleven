@@ -3,7 +3,7 @@
 extern "C" s32 func_ov000_02116308(s32 arg0, s32 arg1);
 extern "C" void func_ov000_02116348(void);
 extern "C" void func_ov000_02116530(void);
-extern "C" void func_ov000_021168bc(void);
+extern "C" void func_ov000_021168bc(s32 arg0, char *arg1, u8 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7);
 extern "C" void func_ov000_02116938(s32 arg0, u8 arg1);
 extern "C" s32 func_ov000_02116958(...);
 extern "C" void func_ov000_021169e0(u8 *arg0);
@@ -453,39 +453,22 @@ extern "C" asm void func_ov000_02116530(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov000_021168bc(void)
+extern "C" void func_ov000_021168bc(s32 arg0, char *arg1, u8 arg2, u8 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r4, =data_020cac9c
-    mov r7, r0
-    mov r8, r1
-    mov r6, r2
-    mov r0, r4
-    mov r1, #0
-    mov r2, #0x20
-    mov r5, r3
-    bl MI_CpuFill8
-    cmp r8, #0
-    beq @L_021168f8
-    mov r0, r4
-    mov r1, r8
-    bl STD_CopyString
-@L_021168f8:
-    ldr lr, [sp, #0x18]
-    ldr r12, [sp, #0x1c]
-    ldr r3, [sp, #0x20]
-    ldr r2, [sp, #0x24]
-    mov r1, #0
-    mov r0, r7
-    strb r6, [r4, #0x20]
-    strb r5, [r4, #0x22]
-    strb lr, [r4, #0x21]
-    strb r12, [r4, #0x25]
-    strb r3, [r4, #0x23]
-    strb r2, [r4, #0x26]
-    strb r1, [r4, #0x24]
-    bl func_ov000_02116958
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *p = (u8 *)data_020cac9c;
+    s32 z;
+    ((s32 (*)(...))MI_CpuFill8)(p, 0, 0x20);
+    if (arg1 != 0)
+        ((s32 (*)(...))STD_CopyString)(p, arg1);
+    z = 0;
+    p[0x20] = arg2;
+    p[0x22] = arg3;
+    p[0x21] = arg4;
+    p[0x25] = arg5;
+    p[0x23] = arg6;
+    p[0x26] = arg7;
+    p[0x24] = z;
+    ((s32 (*)(...))func_ov000_02116958)(arg0, z);
 }
 
 extern "C" void func_ov000_02116938(s32 arg0, u8 arg1)
