@@ -5,7 +5,7 @@ extern "C" void func_ov038_02168e40(void);
 extern "C" void func_ov038_02168ed4(u8 *arg0, s32 arg1);
 extern "C" void func_ov038_02168f28(void);
 extern "C" void func_ov038_02168f94(s32 arg0);
-extern "C" void func_ov038_02168fb0(void);
+extern "C" void func_ov038_02168fb0(u8 *arg0);
 extern "C" void func_ov038_02169034(void);
 extern "C" void func_ov038_0216947c(s32 arg0, s32 arg1);
 extern "C" s32 func_ov038_02169498(u8 *arg0);
@@ -201,44 +201,24 @@ extern "C" void func_ov038_02168f94(s32 arg0)
     MI_CpuFill8(((arg0 + 0x94) + 0x800), 0, 0x80);
 }
 
-extern "C" asm void func_ov038_02168fb0(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov038_02168fb0(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r5, #0
-    mov r6, r0
-    mov r4, r5
-    mov r8, r5
-    ldr r7, =data_020c46d4
-    b @L_02169010
-@L_02168fcc:
-    add r0, r6, r5, lsl #2
-    ldr r1, [r0, #0x894]
-    cmp r1, #0
-    beq @L_02168fec
-    ldr r0, [r7]
-    bl func_02092270
-    add r0, r6, r5, lsl #2
-    str r4, [r0, #0x894]
-@L_02168fec:
-    add r0, r6, r5, lsl #2
-    ldr r1, [r0, #0x8d4]
-    cmp r1, #0
-    beq @L_0216900c
-    ldr r0, [r7]
-    bl func_02097b3c
-    add r0, r6, r5, lsl #2
-    str r8, [r0, #0x8d4]
-@L_0216900c:
-    add r5, r5, #1
-@L_02169010:
-    cmp r5, #0x10
-    blt @L_02168fcc
-    ldr r0, =data_020c46c4
-    mov r1, #0xa
-    ldr r0, [r0]
-    bl func_ov015_02162140
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 i;
+    for (i = 0; i < 0x10; i++) {
+        if (((s32 *)(arg0 + 0x894))[i] != 0) {
+            ((void (*)(s32, s32))func_02092270)(*(s32 *)data_020c46d4, ((s32 *)(arg0 + 0x894))[i]);
+            ((s32 *)(arg0 + 0x894))[i] = 0;
+        }
+        if (((s32 *)(arg0 + 0x8D4))[i] != 0) {
+            ((void (*)(s32, s32))func_02097b3c)(*(s32 *)data_020c46d4, ((s32 *)(arg0 + 0x8D4))[i]);
+            ((s32 *)(arg0 + 0x8D4))[i] = 0;
+        }
+    }
+    ((void (*)(s32, s32))func_ov015_02162140)(*(s32 *)data_020c46c4, 0xA);
 }
+#pragma pop
 
 extern "C" asm void func_ov038_02169034(void)
 {

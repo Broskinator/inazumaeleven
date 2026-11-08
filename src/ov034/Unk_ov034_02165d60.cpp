@@ -28,7 +28,7 @@ extern "C" void func_ov034_02166e2c(void);
 extern "C" void func_ov034_02166ed8(void);
 extern "C" void func_ov034_0216702c(u8 *arg0, s32 arg1);
 extern "C" void func_ov034_0216705c(void);
-extern "C" void func_ov034_02167374(void);
+extern "C" void func_ov034_02167374(u8 *arg0, s32 arg1);
 extern "C" void func_ov034_02167400(u8 *arg0);
 extern "C" s32 func_ov034_02167460(...);
 extern "C" s32 func_ov034_021674e0(u8 *arg0);
@@ -1506,43 +1506,21 @@ extern "C" asm void func_ov034_0216705c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov034_02167374(void)
+extern "C" void func_ov034_02167374(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r2, =data_020c46b8
-    mov r7, r0
-    ldr r0, [r2]
-    mov r6, r1
-    mov r5, #0
-    bl func_ov015_02161760
-    cmp r0, #0
-    ldreq r0, [r7, #8]
-    cmpeq r0, #5
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r4, =data_020c46c4
-    mov r1, r6
-    ldr r0, [r4]
-    mov r2, r5
-    bl func_ov015_02162750
-    cmp r0, #1
-    beq @L_021673c8
-    cmp r0, #2
-    beq @L_021673e0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_021673c8:
-    ldr r0, [r4]
-    bl func_ov015_021629c8
-    mov r1, r0
-    mov r0, r7
-    bl func_ov034_02166e2c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_021673e0:
-    ldr r0, [r4]
-    bl func_ov015_021629c8
-    mov r1, r0
-    mov r0, r7
-    bl func_ov034_02166ed8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 *zp;
+    s32 z = 0;
+    zp = &z;
+    if (((s32 (*)(s32))func_ov015_02161760)(*(s32 *)data_020c46b8) != 0 || *(s32 *)(arg0 + 8) != 0x5)
+        return;
+    switch (((s32 (*)(s32, s32, s32))func_ov015_02162750)(*(s32 *)data_020c46c4, arg1, *zp)) {
+    case 1:
+        ((void (*)(u8 *, s32))func_ov034_02166e2c)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4));
+        break;
+    case 2:
+        ((void (*)(u8 *, s32))func_ov034_02166ed8)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4));
+        break;
+    }
 }
 
 extern "C" void func_ov034_02167400(u8 *arg0)

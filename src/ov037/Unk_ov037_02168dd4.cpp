@@ -2,7 +2,7 @@
 #include "game/vcall.hpp"
 
 extern "C" void func_ov037_02168dd4(void);
-extern "C" void func_ov037_02168ea8(void);
+extern "C" void func_ov037_02168ea8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov037_02168f50(void);
 extern "C" s32 func_ov037_02168fb8(...);
 extern "C" void func_ov037_02168fcc(s32 arg0, u16 arg1);
@@ -274,50 +274,16 @@ extern "C" asm void func_ov037_02168dd4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov037_02168ea8(void)
+extern "C" void func_ov037_02168ea8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0x1c
-    mov r4, r1
-    ldrb r0, [r4, #0x6f]
-    cmp r0, #0
-    addeq sp, sp, #0x1c
-    ldmeqia sp!, {r3, r4, pc}
-    ldr r1, [r4, #0x18]
-    cmp r1, #0
-    blt @L_02168edc
-    ldr r0, [r4, #8]
-    cmp r1, r0
-    ble @L_02168ee4
-@L_02168edc:
-    mov r0, #0
-    str r0, [sp, #0x28]
-@L_02168ee4:
-    mov r1, #0
-    str r1, [sp]
-    stmib sp, {r1, r2}
-    ldr r0, [sp, #0x28]
-    str r3, [sp, #0xc]
-    str r0, [sp, #0x10]
-    str r1, [sp, #0x14]
-    str r1, [sp, #0x18]
-    ldrb r3, [r4, #0x6e]
-    ldr r0, =data_020c46b8
-    mov r2, r1
-    add r3, r4, r3, lsl #2
-    ldr r0, [r0]
-    ldr r3, [r3, #0x24]
-    bl func_ov015_021618a0
-    ldrb r1, [r4, #0x6e]
-    ldr r0, =data_020c46d4
-    mov r2, #2
-    add r1, r4, r1, lsl #2
-    ldr r0, [r0]
-    ldr r1, [r1, #0x24]
-    mov r3, #1
-    bl func_02093ca8
-    add sp, sp, #0x1c
-    ldmia sp!, {r3, r4, pc}
+    s32 n;
+    if (arg1[0x6f] == 0)
+        return;
+    n = *(s32 *)(arg1 + 0x18);
+    if (n < 0 || n > *(s32 *)(arg1 + 0x8))
+        arg4 = 0;
+    ((void (*)(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32, s32))func_ov015_021618a0)(*(s32 *)data_020c46b8, 0, 0, ((s32 *)(arg1 + 0x24))[arg1[0x6e]], 0, 0, arg2, arg3, arg4, 0, 0);
+    ((void (*)(s32, s32, s32, s32))func_02093ca8)(*(s32 *)data_020c46d4, ((s32 *)(arg1 + 0x24))[arg1[0x6e]], 2, 1);
 }
 
 extern "C" asm void func_ov037_02168f50(void)

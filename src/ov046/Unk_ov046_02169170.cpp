@@ -1,5 +1,7 @@
 #include "ov046/Unk_ov046_02169170.hpp"
 #include "game/vcall.hpp"
+#include "game/vcall.hpp"
+#include "game/vcall.hpp"
 
 extern "C" s32 func_ov046_02169170(...);
 extern "C" s32 func_ov046_021692c8(...);
@@ -14,9 +16,9 @@ extern "C" void func_ov046_021699ac(u8 *arg0);
 extern "C" void func_ov046_021699b8(s32 arg0, u8 arg1);
 extern "C" void func_ov046_02169a08(s32 arg0);
 extern "C" s32 func_ov046_02169a18(u8 *arg0);
-extern "C" void func_ov046_02169a48(void);
+extern "C" void func_ov046_02169a48(u8 *arg0);
 extern "C" void func_ov046_02169af0(void);
-extern "C" void func_ov046_02169ba4(void);
+extern "C" void func_ov046_02169ba4(u8 *arg0);
 extern "C" void func_ov046_02169c44(u8 *arg0);
 extern "C" void func_ov046_02169c80(void);
 extern "C" void func_ov046_02169ea8(void);
@@ -46,9 +48,9 @@ extern "C" void func_ov046_0216a2a0(u8 *arg0);
 extern "C" void func_ov046_0216a2ac(s32 arg0, u8 arg1);
 extern "C" void func_ov046_0216a2fc(s32 arg0);
 extern "C" s32 func_ov046_0216a30c(u8 *arg0);
-extern "C" void func_ov046_0216a36c(void);
+extern "C" void func_ov046_0216a36c(u8 *arg0);
 extern "C" void func_ov046_0216a414(void);
-extern "C" void func_ov046_0216a4c8(void);
+extern "C" void func_ov046_0216a4c8(u8 *arg0);
 extern "C" void func_ov046_0216a568(u8 *arg0);
 extern "C" void func_ov046_0216a5a4(void);
 extern "C" void func_ov046_0216a7cc(void);
@@ -736,52 +738,30 @@ extern "C" s32 func_ov046_02169a18(u8 *arg0)
     return v1;
 }
 
-extern "C" asm void func_ov046_02169a48(void)
+extern "C" void func_ov046_02169a48(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r2, [r4, #0x298]
-    cmp r2, #0
-    bne @L_02169a70
-    mov r2, #8
-    mov r1, #5
-    str r2, [r4, #8]
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
-@L_02169a70:
-    ldr r1, =gGameState
-    ldr r0, =data_020c4c70
-    ldrb r1, [r1, #0x4f4]
-    mov r3, #1
-    bl _ZN11SaveManager8LoadIntoEiP8SaveFilei
-    cmp r0, #0
-    bgt @L_02169abc
-    bge @L_02169adc
-    add r1, r0, #0x7f
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    b @L_02169ac4
-    b @L_02169ac4
-    b @L_02169ac4
-    b @L_02169ac4
-    b @L_02169ac4
-    b @L_02169ac4
-    b @L_02169ac4
-    b @L_02169ac4
-@L_02169abc:
-    cmp r0, #1
-    beq @L_02169adc
-@L_02169ac4:
-    mov r2, #8
-    mov r0, r4
-    mov r1, #5
-    str r2, [r4, #8]
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
-@L_02169adc:
-    mov r0, #6
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    if (*(s32 *)(arg0 + 0x298) == 0) {
+        *(s32 *)(arg0 + 8) = 8;
+        ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 0x5);
+        return;
+    }
+    switch (((s32 (*)(void *, s32, s32, s32))_ZN11SaveManager8LoadIntoEiP8SaveFilei)(data_020c4c70, *(u8 *)(gGameState + 0x4F4), *(s32 *)(arg0 + 0x298), 1)) {
+    case -0x7F:
+    case -0x7E:
+    case -0x7D:
+    case -0x7C:
+    case -0x7B:
+    case -0x7A:
+    case -0x79:
+    default:
+        *(s32 *)(arg0 + 8) = 8;
+        ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 0x5);
+        break;
+    case 1:
+    case 0:
+        *(s32 *)(arg0 + 8) = 0x6;
+        break;
+    }
 }
 
 extern "C" asm void func_ov046_02169af0(void)
@@ -835,50 +815,28 @@ extern "C" asm void func_ov046_02169af0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov046_02169ba4(void)
+extern "C" void func_ov046_02169ba4(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0x24]
-    ldr r0, =data_020c4c70
-    sub r1, r1, #2
-    bl _ZN11SaveManager9IsLoadingEv
-    cmp r0, #0
-    bgt @L_02169bf4
-    bge @L_02169c14
-    add r1, r0, #0x7f
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    b @L_02169bfc
-    b @L_02169bfc
-    b @L_02169bfc
-    b @L_02169bfc
-    b @L_02169bfc
-    b @L_02169bfc
-    b @L_02169bfc
-    b @L_02169bfc
-@L_02169bf4:
-    cmp r0, #1
-    ldmeqia sp!, {r4, pc}
-@L_02169bfc:
-    mov r2, #8
-    mov r0, r4
-    mov r1, #5
-    str r2, [r4, #8]
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
-@L_02169c14:
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x8c]
-    blx r1
-    ldr r0, [r4, #8]
-    cmp r0, #5
-    ldmneia sp!, {r4, pc}
-    mov r0, r4
-    mov r1, #3
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
+    switch (((s32 (*)(void *, s32))_ZN11SaveManager9IsLoadingEv)(data_020c4c70, *(s32 *)(arg0 + 0x24) - 2)) {
+    case 1:
+        break;
+    case -0x7F:
+    case -0x7E:
+    case -0x7D:
+    case -0x7C:
+    case -0x7B:
+    case -0x7A:
+    case -0x79:
+    default:
+        *(s32 *)(arg0 + 8) = 8;
+        ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 0x5);
+        break;
+    case 0:
+        ((VCall *)arg0)->f35();
+        if (*(s32 *)(arg0 + 8) == 5)
+            ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 3);
+        break;
+    }
 }
 
 extern "C" void func_ov046_02169c44(u8 *arg0)
@@ -1318,52 +1276,30 @@ extern "C" s32 func_ov046_0216a30c(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov046_0216a36c(void)
+extern "C" void func_ov046_0216a36c(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r2, [r4, #0x298]
-    cmp r2, #0
-    bne @L_0216a394
-    mov r2, #8
-    mov r1, #5
-    str r2, [r4, #8]
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
-@L_0216a394:
-    ldr r1, =gGameState
-    ldr r0, =data_020c4c70
-    ldrb r1, [r1, #0x4f4]
-    mov r3, #1
-    bl _ZN11SaveManager8LoadIntoEiP8SaveFilei
-    cmp r0, #0
-    bgt @L_0216a3e0
-    bge @L_0216a400
-    add r1, r0, #0x7f
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    b @L_0216a3e8
-    b @L_0216a3e8
-    b @L_0216a3e8
-    b @L_0216a3e8
-    b @L_0216a3e8
-    b @L_0216a3e8
-    b @L_0216a3e8
-    b @L_0216a3e8
-@L_0216a3e0:
-    cmp r0, #1
-    beq @L_0216a400
-@L_0216a3e8:
-    mov r2, #8
-    mov r0, r4
-    mov r1, #5
-    str r2, [r4, #8]
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
-@L_0216a400:
-    mov r0, #6
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    if (*(s32 *)(arg0 + 0x298) == 0) {
+        *(s32 *)(arg0 + 8) = 8;
+        ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 0x5);
+        return;
+    }
+    switch (((s32 (*)(void *, s32, s32, s32))_ZN11SaveManager8LoadIntoEiP8SaveFilei)(data_020c4c70, *(u8 *)(gGameState + 0x4F4), *(s32 *)(arg0 + 0x298), 1)) {
+    case -0x7F:
+    case -0x7E:
+    case -0x7D:
+    case -0x7C:
+    case -0x7B:
+    case -0x7A:
+    case -0x79:
+    default:
+        *(s32 *)(arg0 + 8) = 8;
+        ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 0x5);
+        break;
+    case 1:
+    case 0:
+        *(s32 *)(arg0 + 8) = 0x6;
+        break;
+    }
 }
 
 extern "C" asm void func_ov046_0216a414(void)
@@ -1417,50 +1353,28 @@ extern "C" asm void func_ov046_0216a414(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov046_0216a4c8(void)
+extern "C" void func_ov046_0216a4c8(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0x24]
-    ldr r0, =data_020c4c70
-    sub r1, r1, #2
-    bl _ZN11SaveManager9IsLoadingEv
-    cmp r0, #0
-    bgt @L_0216a518
-    bge @L_0216a538
-    add r1, r0, #0x7f
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    b @L_0216a520
-    b @L_0216a520
-    b @L_0216a520
-    b @L_0216a520
-    b @L_0216a520
-    b @L_0216a520
-    b @L_0216a520
-    b @L_0216a520
-@L_0216a518:
-    cmp r0, #1
-    ldmeqia sp!, {r4, pc}
-@L_0216a520:
-    mov r2, #8
-    mov r0, r4
-    mov r1, #5
-    str r2, [r4, #8]
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
-@L_0216a538:
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x8c]
-    blx r1
-    ldr r0, [r4, #8]
-    cmp r0, #5
-    ldmneia sp!, {r4, pc}
-    mov r0, r4
-    mov r1, #3
-    bl func_ov046_02166110
-    ldmia sp!, {r4, pc}
+    switch (((s32 (*)(void *, s32))_ZN11SaveManager9IsLoadingEv)(data_020c4c70, *(s32 *)(arg0 + 0x24) - 2)) {
+    case 1:
+        break;
+    case -0x7F:
+    case -0x7E:
+    case -0x7D:
+    case -0x7C:
+    case -0x7B:
+    case -0x7A:
+    case -0x79:
+    default:
+        *(s32 *)(arg0 + 8) = 8;
+        ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 0x5);
+        break;
+    case 0:
+        ((VCall *)arg0)->f35();
+        if (*(s32 *)(arg0 + 8) == 5)
+            ((void (*)(u8 *, s32))func_ov046_02166110)(arg0, 3);
+        break;
+    }
 }
 
 extern "C" void func_ov046_0216a568(u8 *arg0)

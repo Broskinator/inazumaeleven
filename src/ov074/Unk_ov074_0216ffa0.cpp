@@ -1,5 +1,7 @@
 #include "ov074/Unk_ov074_0216ffa0.hpp"
 #include "game/vcall.hpp"
+struct E021709c0 { s32 a; s32 b; s32 c; };
+struct P021709c0 { u8 pad[0x84]; E021709c0 arr[1]; };
 struct E02170960 { s32 a; s32 b; s32 c; };
 struct P02170960 { u8 pad[0x84]; E02170960 arr[1]; };
 struct P02170074 { s32 a; s32 b; };
@@ -20,7 +22,7 @@ extern "C" s32 func_ov074_0217088c(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" s32 func_ov074_021708d4(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov074_02170910(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov074_02170960(P02170960 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4);
-extern "C" void func_ov074_021709c0(void);
+extern "C" void func_ov074_021709c0(P021709c0 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4);
 extern "C" s32 func_ov074_02170a24(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov074_02170a74(void);
 extern "C" s32 func_ov074_02170c58(u8 *arg0);
@@ -735,33 +737,16 @@ extern "C" void func_ov074_02170960(P02170960 *arg0, s32 arg1, s32 arg2, s32 *ar
     ((void (*)(s32, s32, s32))func_ov015_021322b0)(v, 1, arg2);
 }
 
-extern "C" asm void func_ov074_021709c0(void)
+extern "C" void func_ov074_021709c0(P021709c0 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r12, #0xc
-    mul r5, r1, r12
-    add r6, r0, #0x84
-    ldr r7, [r6, r5]
-    ldr r8, [sp, #0x20]
-    mov r9, r2
-    mov r4, r3
-    cmp r7, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r2, [r4]
-    mov r3, r9
-    bl func_ov074_021708d4
-    str r0, [r4]
-    mov r4, #1
-    ldr r1, [r6, r5]
-    ldr r2, [r8]
-    mov r0, r4
-    bl func_ov015_02132b7c
-    str r0, [r8]
-    mov r0, r7
-    mov r1, r4
-    mov r2, r9
-    bl func_ov015_021322b0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 v = arg0->arr[arg1].a;
+    s32 k;
+    if (v == 0)
+        return;
+    *arg3 = ((s32 (*)(P021709c0 *, s32, s32, s32))func_ov074_021708d4)(arg0, arg1, *arg3, arg2);
+    k = 1;
+    *arg4 = ((s32 (*)(s32, s32, s32))func_ov015_02132b7c)(k, arg0->arr[arg1].a, *arg4);
+    ((void (*)(s32, s32, s32))func_ov015_021322b0)(v, k, arg2);
 }
 
 extern "C" s32 func_ov074_02170a24(s32 arg0, s32 arg1, s32 arg2)

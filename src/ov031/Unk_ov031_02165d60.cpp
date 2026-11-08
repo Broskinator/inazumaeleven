@@ -24,7 +24,7 @@ extern "C" void func_ov031_02166e98(void);
 extern "C" void func_ov031_02166ef0(void);
 extern "C" s32 func_ov031_02166fa8(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov031_02167024(s32 arg0);
-extern "C" void func_ov031_02167074(void);
+extern "C" s32 func_ov031_02167074(s32 arg0);
 extern "C" void func_ov031_021670d8(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov031_02167274(...);
 extern "C" s32 func_ov031_021672c4(s32 arg0, s32 arg1);
@@ -121,8 +121,8 @@ extern "C" s32 func_02093bf4(...);
 extern "C" void func_02097898(void);
 extern "C" s32 func_02097aa0(...);
 extern "C" void func_02097b3c(void);
-extern "C" void func_02097c74(void);
-extern "C" void func_02097ca8(void);
+extern "C" s32 func_02097c74(...);
+extern "C" s32 func_02097ca8(...);
 extern "C" void func_0209d8b8(void);
 extern "C" void func_ov015_02130b14(void);
 extern "C" void func_ov015_021319bc(void);
@@ -1452,36 +1452,40 @@ extern "C" s32 func_ov031_02167024(s32 arg0)
 }
 #pragma pop
 
-extern "C" asm void func_ov031_02167074(void)
+#pragma push
+#pragma optimization_level 1
+extern "C" s32 func_ov031_02167074(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, #0
-    mov r7, r0
-    mov r5, r6
-    ldr r4, =data_020c46d4
-    b @L_021670c8
-@L_0216708c:
-    add r0, r7, r6, lsl #2
-    ldr r1, [r0, #0xe8]
-    cmp r1, #0
-    beq @L_021670c4
-    ldr r0, [r4]
-    bl func_02097c74
-    cmp r0, #0
-    bne @L_021670c4
-    add r0, r7, r6, lsl #2
-    ldr r1, [r0, #0xe8]
-    ldr r0, [r4]
-    mov r2, r5
-    mov r3, r5
-    bl func_02097ca8
-@L_021670c4:
-    add r6, r6, #1
-@L_021670c8:
-    cmp r6, #0x1b
-    blt @L_0216708c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r1;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    s32 v0;
+    s32 v1;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    r6 = 0;
+    r7 = arg0;
+    while ((r5 = 0, r6 < 0x1b)) {
+        arg0 = (r7 + (r6 << 2));
+        r1 = *(s32 *)(((u8 *)(r7 + (r6 << 2))) + 0xe8);
+        if (r1 != 0) {
+            t0 = *(s32 *)(((u8 *)&data_020c46d4));
+            v0 = func_02097c74(t0);
+            arg0 = v0;
+            if (arg0 == 0) {
+                t2 = *(s32 *)(((u8 *)(r7 + (r6 << 2))) + 0xe8);
+                t1 = *(s32 *)(((u8 *)&data_020c46d4));
+                v1 = func_02097ca8(t1, t2, r5, r5);
+                arg0 = v1;
+            }
+        }
+        r6 = (r6 + 1);
+    }
+    return arg0;
 }
+#pragma pop
 
 extern "C" void func_ov031_021670d8(u8 *arg0, s32 arg1)
 {

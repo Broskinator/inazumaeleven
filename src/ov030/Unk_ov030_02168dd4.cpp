@@ -6,7 +6,7 @@ extern "C" void func_ov030_02168ed0(void);
 extern "C" s32 func_ov030_02168ed4(...);
 extern "C" void func_ov030_02169404(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov030_02169418(u8 *arg0, s32 arg1);
-extern "C" void func_ov030_02169504(void);
+extern "C" void func_ov030_02169504(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov030_021695d4(u8 *arg0);
 extern "C" s32 func_ov030_02169788(u8 *arg0);
 extern "C" void func_ov030_0216994c(void);
@@ -559,62 +559,29 @@ extern "C" s32 func_ov030_02169418(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_ov030_02169504(void)
+extern "C" void func_ov030_02169504(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r2, =data_020c46b8
-    mov r7, r0
-    ldr r0, [r2]
-    mov r6, r1
-    mov r5, #0
-    bl func_ov015_02161760
-    cmp r0, #0
-    ldreq r0, [r7, #0x10]
-    cmpeq r0, #5
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r4, =data_020c46c4
-    mov r1, r6
-    ldr r0, [r4]
-    mov r2, r5
-    bl func_ov015_02162750
-    cmp r0, #4
-    addls pc, pc, r0, lsl #2
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-    b @L_02169564
-    b @L_0216957c
-    b @L_02169594
-    b @L_021695b0
-@L_02169564:
-    ldr r0, [r4]
-    bl func_ov015_021629c8
-    mov r1, r0
-    mov r0, r7
-    bl func_ov030_02168cb8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0216957c:
-    ldr r0, [r4]
-    bl func_ov015_021629c8
-    mov r1, r0
-    mov r0, r7
-    bl func_ov030_02168dd4
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_02169594:
-    ldr r0, [r4]
-    bl func_ov015_021629c8
-    mov r1, r0
-    mov r0, r7
-    mov r2, r5
-    bl func_ov030_02168ed0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_021695b0:
-    ldr r0, [r4]
-    bl func_ov015_021629c8
-    mov r1, r0
-    mov r0, r7
-    mov r2, #1
-    bl func_ov030_02168ed0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 *zp;
+    s32 z = 0;
+    zp = &z;
+    if (((s32 (*)(s32))func_ov015_02161760)(*(s32 *)data_020c46b8) != 0 || *(s32 *)(arg0 + 0x10) != 5)
+        return;
+    switch (((s32 (*)(s32, s32, s32))func_ov015_02162750)(*(s32 *)data_020c46c4, arg1, *zp)) {
+    case 0:
+        break;
+    case 1:
+        ((void (*)(u8 *, s32))func_ov030_02168cb8)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4));
+        break;
+    case 2:
+        ((void (*)(u8 *, s32))func_ov030_02168dd4)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4));
+        break;
+    case 3:
+        ((void (*)(u8 *, s32, s32))func_ov030_02168ed0)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4), *zp);
+        break;
+    case 4:
+        ((void (*)(u8 *, s32, s32))func_ov030_02168ed0)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4), 1);
+        break;
+    }
 }
 
 extern "C" s32 func_ov030_021695d4(u8 *arg0)

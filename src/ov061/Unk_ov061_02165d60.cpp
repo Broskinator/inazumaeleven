@@ -1,6 +1,6 @@
 #include "ov061/Unk_ov061_02165d60.hpp"
 
-extern "C" void func_ov061_02165d60(void);
+extern "C" void func_ov061_02165d60(u8 *arg0);
 extern "C" void func_ov061_02165e4c(s32 arg0);
 extern "C" void func_ov061_02165e78(s32 arg0);
 extern "C" void func_ov061_02165ea4(s32 arg0);
@@ -159,72 +159,40 @@ extern "C" void func_ov087_021815e4(void);
 extern "C" void func_ov087_02181c08(void);
 extern "C" char gGameState[];
 
-extern "C" asm void func_ov061_02165d60(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov061_02165d60(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r6, r0
-    mov r5, #0
-    mov r1, #0x37
-    mov r0, #0xe
-    str r1, [r6, #0x58]
-    str r5, [r6, #0x5c]
-    str r5, [r6, #0x60]
-    str r5, [r6, #0x64]
-    str r5, [r6, #0x68]
-    str r0, [r6, #0x6c]
-    mov r4, r5
-    ldr r8, =data_020c5320
-    mvn r7, #0
-    b @L_02165db8
-@L_02165d9c:
-    mov r0, r8
-    bl func_0209bf8c
-    cmp r5, r0
-    add r0, r6, r5, lsl #2
-    streq r4, [r0, #0x70]
-    strne r7, [r0, #0x70]
-    add r5, r5, #1
-@L_02165db8:
-    cmp r5, #4
-    blt @L_02165d9c
-    mov r8, #0
-    ldr r7, =data_020c5320
-    mvn r5, #0
-    b @L_02165dec
-@L_02165dd0:
-    mov r0, r7
-    bl func_0209bf8c
-    cmp r8, r0
-    add r0, r6, r8, lsl #2
-    streq r4, [r0, #0x80]
-    strne r5, [r0, #0x80]
-    add r8, r8, #1
-@L_02165dec:
-    cmp r8, #4
-    blt @L_02165dd0
-    mov r1, #0
-    b @L_02165e08
-@L_02165dfc:
-    add r0, r6, r1, lsl #2
-    str r4, [r0, #0x90]
-    add r1, r1, #1
-@L_02165e08:
-    cmp r1, #4
-    blt @L_02165dfc
-    mov r1, r4
-    add r0, r6, #0xa4
-    mov r2, #0x60
-    bl MI_CpuFill8
-    ldr r2, =data_020c4b80
-    strb r4, [r6, #0x404]
-    mov r0, #0x37
-    strb r0, [r2, #2]
-    ldr r0, =data_020c5320
-    mov r1, #6
-    strb r4, [r2, #3]
-    bl func_0209c4d8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 i;
+    s32 j;
+    s32 k;
+    *(s32 *)(arg0 + 0x58) = 0x37;
+    *(s32 *)(arg0 + 0x5c) = 0;
+    *(s32 *)(arg0 + 0x60) = 0;
+    *(s32 *)(arg0 + 0x64) = 0;
+    *(s32 *)(arg0 + 0x68) = 0;
+    *(s32 *)(arg0 + 0x6c) = 0xE;
+    for (i = 0; i < 4; i++) {
+        if (i == ((s32 (*)(void *))func_0209bf8c)(data_020c5320))
+            ((s32 *)(arg0 + 0x70))[i] = 0;
+        else
+            ((s32 *)(arg0 + 0x70))[i] = -1;
+    }
+    for (j = 0; j < 4; j++) {
+        if (j == ((s32 (*)(void *))func_0209bf8c)(data_020c5320))
+            ((s32 *)(arg0 + 0x80))[j] = 0;
+        else
+            ((s32 *)(arg0 + 0x80))[j] = -1;
+    }
+    for (k = 0; k < 4; k++)
+        ((s32 *)(arg0 + 0x90))[k] = 0;
+    ((void (*)(void *, s32, s32))MI_CpuFill8)(arg0 + 0xa4, 0, 0x60);
+    arg0[0x404] = 0;
+    ((u8 *)data_020c4b80)[2] = 0x37;
+    ((u8 *)data_020c4b80)[3] = 0;
+    ((void (*)(void *, s32))func_0209c4d8)(data_020c5320, 6);
 }
+#pragma pop
 
 extern "C" void func_ov061_02165e4c(s32 arg0)
 {

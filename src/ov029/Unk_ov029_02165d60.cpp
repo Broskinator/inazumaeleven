@@ -40,7 +40,7 @@ extern "C" s32 func_ov029_02167e00(...);
 extern "C" s32 func_ov029_02167e40(...);
 extern "C" s32 func_ov029_02167f80(s32 arg0, s32 arg1);
 extern "C" void func_ov029_02167fcc(s32 arg0);
-extern "C" void func_ov029_02168014(void);
+extern "C" void func_ov029_02168014(u8 *arg0);
 extern "C" s32 func_ov029_021680b8(...);
 extern "C" s32 func_ov029_02168154(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, u8 arg8);
 extern "C" void func_ov029_02168224(void);
@@ -2529,55 +2529,26 @@ extern "C" void func_ov029_02167fcc(s32 arg0)
     func_02091d54(*(s32 *)(data_020c46d4));
 }
 
-extern "C" asm void func_ov029_02168014(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov029_02168014(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, #0
-    mov r5, r0
-    mov r7, r4
-    ldr r6, =data_020c46d4
-    b @L_02168058
-@L_0216802c:
-    add r0, r5, r4, lsl #2
-    add r0, r0, #0x8000
-    ldr r1, [r0, #0x990]
-    cmp r1, #0
-    beq @L_02168054
-    ldr r0, [r6]
-    bl func_02092270
-    add r0, r5, r4, lsl #2
-    add r0, r0, #0x8000
-    str r7, [r0, #0x990]
-@L_02168054:
-    add r4, r4, #1
-@L_02168058:
-    cmp r4, #0x19
-    blt @L_0216802c
-    mov r4, #0
-    mov r7, r4
-    ldr r6, =data_020c46d4
-    b @L_0216809c
-@L_02168070:
-    add r0, r5, r4, lsl #2
-    add r0, r0, #0x8000
-    ldr r1, [r0, #0x908]
-    cmp r1, #0
-    beq @L_02168098
-    ldr r0, [r6]
-    bl func_02097b3c
-    add r0, r5, r4, lsl #2
-    add r0, r0, #0x8000
-    str r7, [r0, #0x908]
-@L_02168098:
-    add r4, r4, #1
-@L_0216809c:
-    cmp r4, #0x22
-    blt @L_02168070
-    ldr r0, =data_020c46d4
-    ldr r0, [r0]
-    bl func_02091d64
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 i;
+    for (i = 0; i < 0x19; i++) {
+        if (((s32 *)(arg0 + 0x8990))[i] != 0) {
+            ((void (*)(s32, s32))func_02092270)(*(s32 *)data_020c46d4, ((s32 *)(arg0 + 0x8990))[i]);
+            ((s32 *)(arg0 + 0x8990))[i] = 0;
+        }
+    }
+    for (i = 0; i < 0x22; i++) {
+        if (((s32 *)(arg0 + 0x8908))[i] != 0) {
+            ((void (*)(s32, s32))func_02097b3c)(*(s32 *)data_020c46d4, ((s32 *)(arg0 + 0x8908))[i]);
+            ((s32 *)(arg0 + 0x8908))[i] = 0;
+        }
+    }
+    ((void (*)(s32))func_02091d64)(*(s32 *)data_020c46d4);
 }
+#pragma pop
 
 extern "C" asm s32 func_ov029_021680b8(...)
 {

@@ -86,7 +86,7 @@ extern "C" void func_ov001_02117ba0(u8 *arg0);
 extern "C" s32 func_ov001_02117c8c(s32 arg0);
 extern "C" s32 func_ov001_02117ce4(s32 arg0);
 extern "C" s32 func_ov001_02117cf8(u8 *arg0);
-extern "C" void func_ov001_02117d00(void);
+extern "C" void func_ov001_02117d00(u8 *arg0);
 extern "C" void func_ov001_02117dec(s32 arg0);
 extern "C" void func_ov001_02117e1c(void);
 extern "C" s32 func_ov001_02117ef8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -2572,72 +2572,40 @@ extern "C" s32 func_ov001_02117cf8(u8 *arg0)
     return *(s32 *)(arg0 + 0x8);
 }
 
-extern "C" asm void func_ov001_02117d00(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov001_02117d00(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r6, r0
-    mov r5, #0
-    mov r1, #0x49
-    mov r0, #0xe
-    str r1, [r6, #0x14]
-    str r5, [r6, #0x18]
-    str r5, [r6, #0x1c]
-    str r5, [r6, #0x20]
-    str r5, [r6, #0x24]
-    str r0, [r6, #0x28]
-    mov r4, r5
-    ldr r8, =data_020c5320
-    mvn r7, #0
-    b @L_02117d58
-@L_02117d3c:
-    mov r0, r8
-    bl func_0209bf8c
-    cmp r5, r0
-    add r0, r6, r5, lsl #2
-    streq r4, [r0, #0x2c]
-    strne r7, [r0, #0x2c]
-    add r5, r5, #1
-@L_02117d58:
-    cmp r5, #4
-    blt @L_02117d3c
-    mov r8, #0
-    ldr r7, =data_020c5320
-    mvn r5, #0
-    b @L_02117d8c
-@L_02117d70:
-    mov r0, r7
-    bl func_0209bf8c
-    cmp r8, r0
-    add r0, r6, r8, lsl #2
-    streq r4, [r0, #0x3c]
-    strne r5, [r0, #0x3c]
-    add r8, r8, #1
-@L_02117d8c:
-    cmp r8, #4
-    blt @L_02117d70
-    mov r1, #0
-    b @L_02117da8
-@L_02117d9c:
-    add r0, r6, r1, lsl #2
-    str r4, [r0, #0x4c]
-    add r1, r1, #1
-@L_02117da8:
-    cmp r1, #4
-    blt @L_02117d9c
-    mov r1, r4
-    add r0, r6, #0x60
-    mov r2, #0x60
-    bl MI_CpuFill8
-    ldr r2, =data_020c4b80
-    strb r4, [r6, #0x3c0]
-    mov r0, #0x49
-    strb r0, [r2, #2]
-    ldr r0, =data_020c5320
-    mov r1, #6
-    strb r4, [r2, #3]
-    bl func_0209c4d8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 i;
+    s32 j;
+    s32 k;
+    *(s32 *)(arg0 + 0x14) = 0x49;
+    *(s32 *)(arg0 + 0x18) = 0;
+    *(s32 *)(arg0 + 0x1C) = 0;
+    *(s32 *)(arg0 + 0x20) = 0;
+    *(s32 *)(arg0 + 0x24) = 0;
+    *(s32 *)(arg0 + 0x28) = 0xE;
+    for (i = 0; i < 4; i++) {
+        if (i == ((s32 (*)(void *))func_0209bf8c)(data_020c5320))
+            ((s32 *)(arg0 + 0x2C))[i] = 0;
+        else
+            ((s32 *)(arg0 + 0x2C))[i] = -1;
+    }
+    for (j = 0; j < 4; j++) {
+        if (j == ((s32 (*)(void *))func_0209bf8c)(data_020c5320))
+            ((s32 *)(arg0 + 0x3C))[j] = 0;
+        else
+            ((s32 *)(arg0 + 0x3C))[j] = -1;
+    }
+    for (k = 0; k < 4; k++)
+        ((s32 *)(arg0 + 0x4C))[k] = 0;
+    ((void (*)(void *, s32, s32))MI_CpuFill8)(arg0 + 0x60, 0, 0x60);
+    arg0[0x3C0] = 0;
+    ((u8 *)data_020c4b80)[2] = 0x49;
+    ((u8 *)data_020c4b80)[3] = 0;
+    ((void (*)(void *, s32))func_0209c4d8)(data_020c5320, 6);
 }
+#pragma pop
 
 extern "C" void func_ov001_02117dec(s32 arg0)
 {

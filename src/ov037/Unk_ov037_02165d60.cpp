@@ -6,7 +6,7 @@ extern "C" void func_ov037_02165e0c(u8 *arg0);
 extern "C" s32 func_ov037_02165e48(...);
 extern "C" void func_ov037_02165ef0(void);
 extern "C" void func_ov037_02165f8c(void);
-extern "C" void func_ov037_02166004(void);
+extern "C" s32 func_ov037_02166004(s32 arg0);
 extern "C" void func_ov037_02166068(void);
 extern "C" s32 func_ov037_02166118(u8 *arg0);
 extern "C" s32 func_ov037_02166178(u8 *arg0, s32 arg1);
@@ -117,8 +117,8 @@ extern "C" s32 func_02093ca8(...);
 extern "C" s32 func_02093d1c(...);
 extern "C" void func_02097aa0(void);
 extern "C" void func_02097b3c(void);
-extern "C" void func_02097c74(void);
-extern "C" void func_02097ca8(void);
+extern "C" s32 func_02097c74(...);
+extern "C" s32 func_02097ca8(...);
 extern "C" void func_02097ef8(void);
 extern "C" void func_02097fcc(void);
 extern "C" void func_0209d8b8(void);
@@ -317,36 +317,40 @@ extern "C" asm void func_ov037_02165f8c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov037_02166004(void)
+#pragma push
+#pragma optimization_level 1
+extern "C" s32 func_ov037_02166004(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, #0
-    mov r7, r0
-    mov r5, r6
-    ldr r4, =data_020c46d4
-    b @L_02166058
-@L_0216601c:
-    add r0, r7, r6, lsl #2
-    ldr r1, [r0, #0x48]
-    cmp r1, #0
-    beq @L_02166054
-    ldr r0, [r4]
-    bl func_02097c74
-    cmp r0, #0
-    bne @L_02166054
-    add r0, r7, r6, lsl #2
-    ldr r1, [r0, #0x48]
-    ldr r0, [r4]
-    mov r2, r5
-    mov r3, r5
-    bl func_02097ca8
-@L_02166054:
-    add r6, r6, #1
-@L_02166058:
-    cmp r6, #0x17
-    blt @L_0216601c
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 r1;
+    s32 r5;
+    s32 r6;
+    s32 r7;
+    s32 v0;
+    s32 v1;
+    s32 t0;
+    s32 t1;
+    s32 t2;
+    r6 = 0;
+    r7 = arg0;
+    while ((r5 = 0, r6 < 0x17)) {
+        arg0 = (r7 + (r6 << 2));
+        r1 = *(s32 *)(((u8 *)(r7 + (r6 << 2))) + 0x48);
+        if (r1 != 0) {
+            t0 = *(s32 *)(((u8 *)&data_020c46d4));
+            v0 = func_02097c74(t0);
+            arg0 = v0;
+            if (arg0 == 0) {
+                t2 = *(s32 *)(((u8 *)(r7 + (r6 << 2))) + 0x48);
+                t1 = *(s32 *)(((u8 *)&data_020c46d4));
+                v1 = func_02097ca8(t1, t2, r5, r5);
+                arg0 = v1;
+            }
+        }
+        r6 = (r6 + 1);
+    }
+    return arg0;
 }
+#pragma pop
 
 extern "C" void func_ov037_02166068(void)
 {

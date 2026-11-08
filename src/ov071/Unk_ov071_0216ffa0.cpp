@@ -1,5 +1,7 @@
 #include "ov071/Unk_ov071_0216ffa0.hpp"
 #include "game/vcall.hpp"
+struct E02170534 { u8 *a; s32 b; s32 c; };
+struct P02170534 { u8 pad[0x30]; E02170534 arr[1]; };
 struct P021708e4 { s32 a; s32 b; };
 
 extern "C" void func_ov071_0216ffa0(void);
@@ -9,7 +11,7 @@ extern "C" void func_ov071_021701b8(u8 *arg0);
 extern "C" void func_ov071_021703a0(void);
 extern "C" void func_ov071_021704ac(void);
 extern "C" s32 func_ov071_021704e0(u8 *arg0);
-extern "C" void func_ov071_02170534(void);
+extern "C" s32 func_ov071_02170534(P02170534 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" s32 func_ov071_02170594(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" s32 func_ov071_021705dc(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov071_0217062c(void);
@@ -339,33 +341,15 @@ extern "C" s32 func_ov071_021704e0(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov071_02170534(void)
+extern "C" s32 func_ov071_02170534(P02170534 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r12, #0xc
-    mla r0, r1, r12, r0
-    ldr r4, [r0, #0x30]
-    mov r6, r2
-    cmp r4, #0
-    mov r5, r3
-    moveq r0, r6
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldr r0, [r4, #0xc]
-    ldr r1, [r4, #0x10]
-    add r0, r4, r0
-    add r2, r6, #1
-    bl func_ov015_02132984
-    ldrb r1, [sp, #0x10]
-    mov r6, r0
-    cmp r1, #0
-    beq @L_0217058c
-    mov r0, r4
-    mov r2, r5
-    mov r1, #1
-    bl func_ov015_021322b0
-@L_0217058c:
-    mov r0, r6
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *v = arg0->arr[arg1].a;
+    if (v == 0)
+        return arg2;
+    arg2 = ((s32 (*)(u8 *, s32, s32))func_ov015_02132984)(v + *(s32 *)(v + 0xC), *(s32 *)(v + 0x10), arg2 + 1);
+    if (arg4 != 0)
+        ((void (*)(u8 *, s32, s32))func_ov015_021322b0)(v, 1, arg3);
+    return arg2;
 }
 
 extern "C" s32 func_ov071_02170594(s32 arg0, u8 *arg1, s32 arg2)
