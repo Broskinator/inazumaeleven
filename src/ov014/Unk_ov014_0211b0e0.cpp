@@ -41,7 +41,7 @@ extern "C" void func_ov014_0211bd18(u32 arg0, u8 *arg1);
 extern "C" void func_ov014_0211bd38(void);
 extern "C" s32 func_ov014_0211bdec(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_0211be6c(s32 arg0, s32 arg1);
-extern "C" void func_ov014_0211beac(void);
+extern "C" s32 func_ov014_0211beac(u8 *arg0);
 extern "C" s32 func_ov014_0211bf10(u8 *arg0);
 extern "C" void func_ov014_0211bfa8(void);
 extern "C" s32 func_ov014_0211c04c(...);
@@ -1027,35 +1027,24 @@ extern "C" s32 func_ov014_0211be6c(s32 arg0, s32 arg1)
     return v1;
 }
 
-extern "C" asm void func_ov014_0211beac(void)
+extern "C" s32 func_ov014_0211beac(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, r0
-    ldr r5, [r4, #4]
-    ldr r6, [r5, #0xa0]
-    add r0, r6, #0xe0
-    ldr r7, [r6, #0xc4]
-    bl OS_LockMutex
-    ldr r1, [r4, #0x10]
-    cmp r1, #0
-    beq @L_0211beec
-    mov r0, #1
-    str r1, [r7, #0xc]
-    bl func_ov014_0211f000
-    mov r0, #4
-    strb r0, [r5, #0xaf]
-    b @L_0211bf00
-@L_0211beec:
-    mov r4, #0
-    mov r0, r4
-    strb r4, [r5, #0xaf]
-    bl func_ov014_0211f000
-    str r4, [r7, #0xc]
-@L_0211bf00:
-    add r0, r6, #0xe0
-    bl OS_UnlockMutex
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *p = *(u8 **)(arg0 + 4);
+    u8 *m = *(u8 **)(p + 0xA0);
+    u8 *n = *(u8 **)(m + 0xC4);
+    ((s32 (*)(...))OS_LockMutex)(m + 0xE0);
+    if (*(s32 *)(arg0 + 0x10) != 0) {
+        *(s32 *)(n + 0xC) = *(s32 *)(arg0 + 0x10);
+        ((s32 (*)(...))func_ov014_0211f000)(1);
+        p[0xAF] = 4;
+    } else {
+        s32 z = 0;
+        p[0xAF] = z;
+        ((s32 (*)(...))func_ov014_0211f000)(z);
+        *(s32 *)(n + 0xC) = z;
+    }
+    ((s32 (*)(...))OS_UnlockMutex)(m + 0xE0);
+    return 0;
 }
 
 extern "C" s32 func_ov014_0211bf10(u8 *arg0)

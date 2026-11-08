@@ -1,9 +1,11 @@
 #include "ov003/Unk_ov003_021124c0.hpp"
+struct S02113634 { u8 x0; u8 x1; u8 x2; u8 x3; s32 x4; u8 rest[0xE8]; };
+struct S021135d4 { u8 x0; u8 x1; u8 x2; u8 x3; s32 x4; u8 rest[0xE8]; };
 
 extern "C" void func_ov003_021124c0(void);
 extern "C" void func_ov003_02112ec4(void);
-extern "C" void func_ov003_021135d4(void);
-extern "C" void func_ov003_02113634(void);
+extern "C" void func_ov003_021135d4(u8 *arg0);
+extern "C" void func_ov003_02113634(u8 *arg0);
 extern "C" void func_ov003_02113694(void);
 extern "C" s32 func_ov003_02113714(...);
 extern "C" s32 func_ov003_021138bc(...);
@@ -1229,62 +1231,22 @@ extern "C" asm void func_ov003_02112ec4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov003_021135d4(void)
+extern "C" void func_ov003_021135d4(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #0xf0
-    mov r4, r0
-    mov r0, #0
-    add lr, sp, #0
-    mov r1, r0
-    mov r2, r0
-    mov r3, r0
-    mov r12, #7
-@L_021135f8:
-    stmia lr!, {r0, r1, r2, r3}
-    stmia lr!, {r0, r1, r2, r3}
-    subs r12, r12, #1
-    bne @L_021135f8
-    stmia lr!, {r0, r1, r2, r3}
-    mov r2, #0x10
-    mov r1, #0x100
-    add r0, sp, #0
-    strb r2, [sp, #2]
-    str r1, [sp, #4]
-    bl func_ov003_0210ea50
-    mov r0, #8
-    str r0, [r4, #0x30]
-    add sp, sp, #0xf0
-    ldmia sp!, {r4, pc}
+    S021135d4 s = {0};
+    s.x2 = 0x10;
+    s.x4 = 0x100;
+    ((s32 (*)(...))func_ov003_0210ea50)(&s);
+    *(s32 *)(arg0 + 0x30) = 8;
 }
 
-extern "C" asm void func_ov003_02113634(void)
+extern "C" void func_ov003_02113634(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #0xf0
-    mov r4, r0
-    mov r0, #0
-    add lr, sp, #0
-    mov r1, r0
-    mov r2, r0
-    mov r3, r0
-    mov r12, #7
-@L_02113658:
-    stmia lr!, {r0, r1, r2, r3}
-    stmia lr!, {r0, r1, r2, r3}
-    subs r12, r12, #1
-    bne @L_02113658
-    stmia lr!, {r0, r1, r2, r3}
-    mov r2, #0x10
-    mov r1, #0x200
-    add r0, sp, #0
-    strb r2, [sp, #2]
-    str r1, [sp, #4]
-    bl func_ov003_0210ea50
-    mov r0, #8
-    str r0, [r4, #0x30]
-    add sp, sp, #0xf0
-    ldmia sp!, {r4, pc}
+    S02113634 s = {0};
+    s.x2 = 0x10;
+    s.x4 = 0x200;
+    ((s32 (*)(...))func_ov003_0210ea50)(&s);
+    *(s32 *)(arg0 + 0x30) = 8;
 }
 
 extern "C" asm void func_ov003_02113694(void)

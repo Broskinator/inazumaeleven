@@ -6,7 +6,7 @@ extern "C" void func_ov001_02112a80(void);
 extern "C" void func_ov001_02113184(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov001_021131d0(u8 *arg0, u8 *arg1);
 extern "C" void func_ov001_02113208(void);
-extern "C" void func_ov001_021135bc(void);
+extern "C" void func_ov001_021135bc(s32 arg0, u8 *arg1);
 extern "C" void func_ov001_02113630(void);
 extern "C" void func_ov001_02113830(void);
 extern "C" void func_ov001_02113c94(void);
@@ -1244,37 +1244,25 @@ extern "C" asm void func_ov001_02113208(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov001_021135bc(void)
+extern "C" void func_ov001_021135bc(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    bl func_ov015_021319bc
-    cmp r0, #0
-    ldrh r0, [r4, #0x1c]
-    bne @L_02113600
-    mov r0, r0, asr #0xa
-    tst r0, #1
-    ldrne r0, =data_ov001_02130678
-    movne r1, #0
-    strne r1, [r0, #8]
-    strne r1, [r0, #0xc]
-    ldreq r0, =data_ov001_02130678
-    moveq r1, #0x80000000
-    streq r1, [r0, #8]
-    streq r1, [r0, #0xc]
-    ldmia sp!, {r4, pc}
-@L_02113600:
-    mov r0, r0, asr #9
-    tst r0, #1
-    ldrne r0, =data_ov001_02130678
-    movne r1, #0
-    strne r1, [r0]
-    strne r1, [r0, #4]
-    ldreq r0, =data_ov001_02130678
-    moveq r1, #0x80000000
-    streq r1, [r0]
-    streq r1, [r0, #4]
-    ldmia sp!, {r4, pc}
+    if (((s32 (*)(...))func_ov015_021319bc)(arg0) == 0) {
+        if ((*(u16 *)(arg1 + 0x1C) >> 0xA) & 1) {
+            ((s32 *)data_ov001_02130678)[2] = 0;
+            ((s32 *)data_ov001_02130678)[3] = 0;
+        } else {
+            ((s32 *)data_ov001_02130678)[2] = 0x80000000;
+            ((s32 *)data_ov001_02130678)[3] = 0x80000000;
+        }
+    } else {
+        if ((*(u16 *)(arg1 + 0x1C) >> 9) & 1) {
+            ((s32 *)data_ov001_02130678)[0] = 0;
+            ((s32 *)data_ov001_02130678)[1] = 0;
+        } else {
+            ((s32 *)data_ov001_02130678)[0] = 0x80000000;
+            ((s32 *)data_ov001_02130678)[1] = 0x80000000;
+        }
+    }
 }
 
 extern "C" asm void func_ov001_02113630(void)

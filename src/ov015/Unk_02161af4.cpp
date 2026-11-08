@@ -6,7 +6,7 @@ extern "C" s32 func_ov015_02161bf4(...);
 extern "C" s32 func_ov015_02161c3c(...);
 extern "C" void func_ov015_02161c50(void);
 extern "C" s32 func_ov015_02161c5c(...);
-extern "C" void func_ov015_02161c78(void);
+extern "C" void func_ov015_02161c78(u16 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov015_02161c90(u8 *arg0, u16 arg1);
 extern "C" void func_ov015_02161c98(u8 *arg0, u16 arg1);
 extern "C" void func_ov015_02161ca0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -313,14 +313,12 @@ extern "C" asm s32 func_ov015_02161c5c(...)
     bx lr
 }
 
-extern "C" asm void func_ov015_02161c78(void)
+extern "C" void func_ov015_02161c78(u16 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    ldr r12, [sp]
-    strh r1, [r0]
-    strh r2, [r0, #2]
-    strh r3, [r0, #4]
-    strh r12, [r0, #6]
-    bx lr
+    arg0[0] = arg1;
+    arg0[1] = arg2;
+    arg0[2] = arg3;
+    arg0[3] = arg4;
 }
 
 extern "C" void func_ov015_02161c90(u8 *arg0, u16 arg1)

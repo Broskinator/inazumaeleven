@@ -46,7 +46,7 @@ extern "C" void func_ov015_02147878(u8 *arg0);
 extern "C" void func_ov015_02147898(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_021478a8(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_021478c0(u8 *arg0, s32 arg1, u8 *arg2);
-extern "C" void func_ov015_02147928(void);
+extern "C" void func_ov015_02147928(void *arg0, u8 *arg1);
 extern "C" void func_ov015_0214799c(void);
 extern "C" s32 func_ov015_02147a1c(...);
 extern "C" s32 func_ov015_02147a58(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
@@ -1467,37 +1467,22 @@ extern "C" s32 func_ov015_021478c0(u8 *arg0, s32 arg1, u8 *arg2)
     }
 }
 
-extern "C" asm void func_ov015_02147928(void)
+extern "C" void func_ov015_02147928(void *arg0, u8 *arg1)
 {
-    ldrb r0, [r1, #0x28]
-    cmp r0, #6
-    bxne lr
-    ldr r2, [r1, #0x20]
-    ldrsb r3, [r2]
-    cmp r3, #0x42
-    ldreqsb r0, [r2, #1]
-    cmpeq r0, #0x43
-    ldreqsb r0, [r2, #2]
-    cmpeq r0, #0x41
-    moveq r0, #7
-    streqb r0, [r1, #0x28]
-    bxeq lr
-    cmp r3, #0x42
-    ldreqsb r0, [r2, #1]
-    cmpeq r0, #0x4d
-    ldreqsb r0, [r2, #2]
-    cmpeq r0, #0x41
-    moveq r0, #8
-    streqb r0, [r1, #0x28]
-    bxeq lr
-    cmp r3, #0x42
-    ldreqsb r0, [r2, #1]
-    cmpeq r0, #0x54
-    ldreqsb r0, [r2, #2]
-    cmpeq r0, #0x41
-    moveq r0, #9
-    streqb r0, [r1, #0x28]
-    bx lr
+    s8 *s;
+    if (arg1[0x28] != 6)
+        return;
+    s = *(s8 **)(arg1 + 0x20);
+    if (s[0] == 0x42 && s[1] == 0x43 && s[2] == 0x41) {
+        arg1[0x28] = 7;
+        return;
+    }
+    if (s[0] == 0x42 && s[1] == 0x4D && s[2] == 0x41) {
+        arg1[0x28] = 8;
+        return;
+    }
+    if (s[0] == 0x42 && s[1] == 0x54 && s[2] == 0x41)
+        arg1[0x28] = 9;
 }
 
 extern "C" asm void func_ov015_0214799c(void)

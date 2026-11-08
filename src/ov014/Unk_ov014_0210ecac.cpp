@@ -25,11 +25,11 @@ extern "C" s32 func_ov014_0210faf8(...);
 extern "C" s32 func_ov014_0210fb74(...);
 extern "C" s32 func_ov014_0210fbbc(void);
 extern "C" s32 func_ov014_0210fc28(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_0210fc58(void);
+extern "C" s32 func_ov014_0210fc58(...);
 extern "C" char *func_ov014_0210fd18(void);
 extern "C" void func_ov014_0210fd24(void);
 extern "C" s32 func_ov014_02110028(u8 *arg0);
-extern "C" void func_ov014_02110108(void);
+extern "C" s32 func_ov014_02110108(s32 arg0);
 extern "C" void func_ov014_0211018c(void);
 extern "C" void func_ov014_021101b8(void);
 extern "C" s32 func_ov014_0211033c(...);
@@ -126,7 +126,7 @@ extern "C" void MATH_CalcCRC16(void);
 extern "C" void MATHi_CRC16InitTableRev(void);
 extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
-extern "C" void MIi_CpuClear16(void);
+extern "C" s32 MIi_CpuClear16(...);
 extern "C" void OS_CreateThread(void);
 extern "C" void OS_GetTick(void);
 extern "C" void OS_InitMutex(void);
@@ -1232,7 +1232,7 @@ extern "C" s32 func_ov014_0210fc28(s32 arg0, s32 arg1, s32 arg2)
     return *(u16 *)(data_ov014_02128d80);
 }
 
-extern "C" asm void func_ov014_0210fc58(void)
+extern "C" asm s32 func_ov014_0210fc58(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #8
@@ -1543,43 +1543,31 @@ extern "C" s32 func_ov014_02110028(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov014_02110108(void)
+extern "C" s32 func_ov014_02110108(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x14
-    mov r4, r0
-    mov r5, #0
-    mov r0, r5
-    mov r1, r4
-    mov r2, #0x400
-    bl MIi_CpuClear16
-    mov r1, #0xff
-@L_0211012c:
-    add r0, r4, r5, lsl #8
-    add r5, r5, #1
-    strb r1, [r0, #0xe7]
-    cmp r5, #3
-    blt @L_0211012c
-    add r5, sp, #0
-    mov r0, r5
-    bl func_ov014_0211033c
-    mov r0, r5
-    bl func_ov014_0210fc58
-    mov r6, r0
-    mov r7, #0
-    mov r5, #0xe
-@L_02110160:
-    add r1, r4, r7, lsl #8
-    mov r0, r6
-    mov r2, r5
-    add r1, r1, #0xf0
-    bl MI_CpuCopy8
-    add r7, r7, #1
-    cmp r7, #2
-    blt @L_02110160
-    mov r0, #0
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    s32 local[5];
+    s32 r1;
+    s32 r5;
+    s32 r6;
+    s32 v2;
+    s32 r7;
+    r5 = 0;
+    MIi_CpuClear16(0, arg0, 0x400);
+    do {
+        *(u8 *)(((u8 *)(arg0 + (r5 << 8))) + 0xE7) = 0xFF;
+        r1 = 0xFF;
+        r5 = (r5 + 1);
+    } while (r5 < 3);
+    func_ov014_0211033c((s32)((u8 *)local), r1);
+    v2 = func_ov014_0210fc58((s32)((u8 *)local));
+    r6 = v2;
+    r7 = 0;
+    r5 = 0xE;
+    do {
+        MI_CpuCopy8(r6, ((arg0 + (r7 << 8)) + 0xF0), r5);
+        r7 = (r7 + 1);
+    } while (r7 < 2);
+    return 0;
 }
 
 extern "C" asm void func_ov014_0211018c(void)

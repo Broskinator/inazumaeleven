@@ -16,7 +16,7 @@ extern "C" void func_0209b7f8(u8 *obj, s32 value);
 extern "C" s32 func_0209b804(u8 *obj);
 extern "C" void func_0209b810(void);
 extern "C" void func_0209b904(void);
-extern "C" void func_0209b9c8(void);
+extern "C" void func_0209b9c8(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_0209ba38(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_0209ba60(u8 *obj, u8 value);
 extern "C" u8 func_0209ba68(u8 *obj);
@@ -292,37 +292,24 @@ extern "C" asm void func_0209b904(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_0209b9c8(void)
+#pragma push
+#pragma optimization_level 3
+extern "C" void func_0209b9c8(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr lr, =0x2aaaaaab
-    mov r12, r1, lsr #0x1f
-    smull r3, r4, lr, r1
-    add r4, r12, r4, asr #1
-    cmp r4, #0xa
-    ldmgeia sp!, {r4, r5, r6, pc}
-    smull r3, r5, lr, r1
-    mov r3, #0x60
-    mul r6, r4, r3
-    add r5, r12, r5, asr #1
-    mov lr, #0xc
-    smull r3, r12, lr, r5
-    sub r5, r1, r3
-    add r4, r0, r6
-    mov r3, #0
-@L_0209ba08:
-    add r1, r4, r3, lsl #3
-    ldrb r1, [r1, #0xa5]
-    cmp r5, r1
-    addeq r0, r0, r6
-    addeq r0, r0, r3, lsl #3
-    streq r2, [r0, #0xa8]
-    ldmeqia sp!, {r4, r5, r6, pc}
-    add r3, r3, #1
-    cmp r3, #0xc
-    blt @L_0209ba08
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 q = arg1 / 12;
+    s32 r;
+    s32 j;
+    if (q >= 10)
+        return;
+    r = arg1 % 12;
+    for (j = 0; j < 12; j++) {
+        if (r == arg0[q * 0x60 + j * 8 + 0xA5]) {
+            *(s32 *)(arg0 + q * 0x60 + j * 8 + 0xA8) = arg2;
+            return;
+        }
+    }
 }
+#pragma pop
 
 extern "C" s32 func_0209ba38(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
@@ -1203,33 +1190,19 @@ extern "C" void func_0209c628(u8 *obj)
     data_020cb980.func_0203c540();
 }
 
-extern "C" asm void func_0209c648(void)
+extern "C" void func_0209c648(void)
 {
-    stmdb sp!, {r3, lr}
-    bl func_0209bee4
-    cmp r0, #0xb
-    addls pc, pc, r0, lsl #2
-    ldmia sp!, {r3, pc}
-    ldmia sp!, {r3, pc}
-    ldmia sp!, {r3, pc}
-    ldmia sp!, {r3, pc}
-    ldmia sp!, {r3, pc}
-    ldmia sp!, {r3, pc}
-    ldmia sp!, {r3, pc}
-    b @L_0209c68c
-    b @L_0209c68c
-    b @L_0209c68c
-    b @L_0209c698
-    ldmia sp!, {r3, pc}
-    b @L_0209c698
-@L_0209c68c:
-    ldr r0, =data_020cb980
-    bl _ZN8Wireless13func_0203d8d0Ev
-    ldmia sp!, {r3, pc}
-@L_0209c698:
-    ldr r0, =data_020cb980
-    bl _ZN8Wireless13func_0203c540Ev
-    ldmia sp!, {r3, pc}
+    switch (((s32 (*)(...))func_0209bee4)()) {
+    case 6:
+    case 7:
+    case 8:
+        ((void (*)(void *))_ZN8Wireless13func_0203d8d0Ev)((void *)&data_020cb980);
+        return;
+    case 9:
+    case 11:
+        ((void (*)(void *))_ZN8Wireless13func_0203c540Ev)((void *)&data_020cb980);
+        return;
+    }
 }
 
 extern "C" void func_0209c6a8(u8 *arg0, u8 arg1)

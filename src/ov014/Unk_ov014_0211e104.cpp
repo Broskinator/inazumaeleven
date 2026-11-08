@@ -47,7 +47,7 @@ extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_0212039c(void);
 extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3);
 extern "C" void func_ov014_021204c4(void);
-extern "C" void func_ov014_021205f0(void);
+extern "C" u64 func_ov014_021205f0(u16 *arg0);
 extern "C" void func_ov014_021205fc(void);
 extern "C" void func_ov014_0212060c(void);
 extern "C" void func_ov014_02120620(void);
@@ -56,7 +56,7 @@ extern "C" void func_ov014_02120808(void);
 extern "C" void func_ov014_0212099c(void);
 extern "C" void func_ov014_02120ae8(void);
 extern "C" void func_ov014_02120c14(void);
-extern "C" void func_ov014_02120e30(void);
+extern "C" void func_ov014_02120e30(u16 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_02120e8c(u8 *arg0, u16 *arg1, s32 arg2);
 extern "C" void func_ov014_02120ed0(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_02120ee0(...);
@@ -2484,11 +2484,9 @@ extern "C" asm void func_ov014_021204c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_021205f0(void)
+extern "C" u64 func_ov014_021205f0(u16 *arg0)
 {
-    ldrh r1, [r0]
-    mov r0, #0
-    bx lr
+    return (u64)arg0[0] << 32;
 }
 
 extern "C" asm void func_ov014_021205fc(void)
@@ -3067,33 +3065,17 @@ extern "C" asm void func_ov014_02120c14(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02120e30(void)
+extern "C" void func_ov014_02120e30(u16 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r1
-    mov r5, r2
-    mov r2, r3, lsl #1
-    mov r1, #0
-    mov r4, r0
-    bl MI_CpuFill8
-    sub r0, r5, #1
-    cmp r5, #1
-    add r6, r6, r0
-    ble @L_02120e7c
-@L_02120e5c:
-    ldrb r1, [r6]
-    ldrb r0, [r6, #-1]
-    sub r5, r5, #2
-    cmp r5, #1
-    add r0, r1, r0, lsl #8
-    strh r0, [r4], #2
-    sub r6, r6, #2
-    bgt @L_02120e5c
-@L_02120e7c:
-    cmp r5, #0
-    ldrgtb r0, [r6]
-    strgth r0, [r4]
-    ldmia sp!, {r4, r5, r6, pc}
+    ((s32 (*)(...))MI_CpuFill8)(arg0, 0, arg3 << 1);
+    arg1 += arg2 - 1;
+    while (arg2 > 1) {
+        *arg0++ = arg1[0] + (arg1[-1] << 8);
+        arg2 -= 2;
+        arg1 -= 2;
+    }
+    if (arg2 > 0)
+        *arg0 = *arg1;
 }
 
 extern "C" void func_ov014_02120e8c(u8 *arg0, u16 *arg1, s32 arg2)

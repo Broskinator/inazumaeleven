@@ -1,4 +1,6 @@
 #include "ov067/Unk_ov067_02165d60.hpp"
+struct E02166690 { u8 a[0xC]; };
+struct I02166690 { u8 pad[0xC]; E02166690 arr[1]; };
 
 extern "C" s32 func_ov067_02165d60(...);
 extern "C" void func_ov067_02165d98(u8 *arg0, s32 arg1);
@@ -14,7 +16,7 @@ extern "C" void func_ov067_021660b0(void);
 extern "C" s32 func_ov067_021664b8(u8 *arg0);
 extern "C" s32 func_ov067_0216652c(...);
 extern "C" void func_ov067_0216666c(s32 arg0);
-extern "C" void func_ov067_02166690(void);
+extern "C" void func_ov067_02166690(u8 *arg0);
 extern "C" void func_ov067_021666fc(void);
 extern "C" s32 func_ov067_021667bc(...);
 extern "C" void func_ov067_02166944(void);
@@ -836,33 +838,15 @@ extern "C" void func_ov067_0216666c(s32 arg0)
     func_ov001_02126240(*(s32 *)(((u8 *)(arg0 + 0x2000)) + 0x314), ((arg0 + 0x314) + 0x2000), (s32)data_ov067_02168cd4, (arg0 + 0x314));
 }
 
-extern "C" asm void func_ov067_02166690(void)
+extern "C" void func_ov067_02166690(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    mov r4, r0
-    ldrb r0, [r4, #0x17]
-    cmp r0, #0
-    mov r0, #0
-    str r0, [sp]
-    add r0, r4, #0x2000
-    ldr r1, [r0, #0x320]
-    beq @L_021666c4
-    ldr r0, =data_ov067_02168fa4
-    ldr r2, =data_ov067_02168d24
-    b @L_021666cc
-@L_021666c4:
-    ldr r0, =data_ov067_02168fc0
-    ldr r2, =data_ov067_02168cf4
-@L_021666cc:
-    add r3, r4, #0x2380
-    bl func_ov015_02136080
-    add r0, r4, #0x314
-    add r0, r0, #0x2000
-    add r0, r0, #0xc
-    bl func_ov015_02134208
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    s32 i;
+    if (arg0[0x17] != 0)
+        ((s32 (*)(...))func_ov015_02136080)(data_ov067_02168fa4, *(s32 *)(arg0 + 0x2320), data_ov067_02168d24, arg0 + 0x2380, 0);
+    else
+        ((s32 (*)(...))func_ov015_02136080)(data_ov067_02168fc0, *(s32 *)(arg0 + 0x2320), data_ov067_02168cf4, arg0 + 0x2380, 0);
+    for (i = 0; i < 1; i++)
+        ((s32 (*)(...))func_ov015_02134208)(&((I02166690 *)(arg0 + 0x2314))->arr[i]);
 }
 
 extern "C" asm void func_ov067_021666fc(void)

@@ -197,33 +197,18 @@ extern "C" s32 func_02080430(u8 *arg0, s32 arg1)
     return 0;
 }
 
-extern "C" asm void func_02080460(void)
+extern "C" s32 func_02080460(u16 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, #0
-    mov r6, r0
-    mov r4, r5
-@L_02080470:
-    mov r0, r5, lsl #1
-    ldrh r0, [r6, r0]
-    cmp r0, #0
-    beq @L_02080494
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    moveq r0, r5, lsl #1
-    streqh r4, [r6, r0]
-@L_02080494:
-    mov r0, r5, lsl #1
-    ldrh r0, [r6, r0]
-    cmp r0, #0
-    addeq r0, r5, #1
-    ldmeqia sp!, {r4, r5, r6, pc}
-    add r5, r5, #1
-    cmp r5, #0x10
-    blt @L_02080470
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 i = 0;
+    s32 z = i;
+    do {
+        if (arg0[i] != 0 && ((s32 (*)(...))func_ov015_02130b14)(arg0[i], z) == 0)
+            arg0[i] = z;
+        if (arg0[i] == 0)
+            return i + 1;
+        i++;
+    } while (i < 0x10);
+    return 0;
 }
 
 extern "C" s32 func_020804bc(u8 *arg0, s32 arg1, u8 *arg2)

@@ -51,7 +51,7 @@ extern "C" void func_ov000_02110ef0(u8 *arg0);
 extern "C" s32 func_ov000_02110f10(...);
 extern "C" void func_ov000_02110f34(void);
 extern "C" s32 func_ov000_02110f64(...);
-extern "C" void func_ov000_02110f78(void);
+extern "C" void func_ov000_02110f78(u8 *arg0, void *arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov000_02110fdc(u8 *arg0);
 extern "C" s32 func_ov000_02111010(...);
 extern "C" s32 func_ov000_02111060(s32 arg0, s32 arg1);
@@ -1885,33 +1885,22 @@ extern "C" asm s32 func_ov000_02110f64(...)
     bx lr
 }
 
-extern "C" asm void func_ov000_02110f78(void)
+extern "C" void func_ov000_02110f78(u8 *arg0, void *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldr r12, [r6, #8]
-    mov r5, r3
-    cmp r12, #0
-    cmpne r1, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    cmp r2, #0
-    ldmltia sp!, {r4, r5, r6, pc}
-    cmp r2, #0x10
-    ldmgeia sp!, {r4, r5, r6, pc}
-    cmp r5, #0
-    ldmltia sp!, {r4, r5, r6, pc}
-    cmp r5, #0x200
-    ldmgtia sp!, {r4, r5, r6, pc}
-    mov r4, r2, lsl #4
-    mov r0, r1
-    mov r2, r5
-    add r1, r12, r4, lsl #1
-    bl MI_CpuCopy8
-    ldr r0, [r6, #8]
-    mov r1, r5
-    add r0, r0, r4, lsl #1
-    bl DC_FlushRange
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 o;
+    if (*(u16 **)(arg0 + 8) == 0 || arg1 == 0)
+        return;
+    if (arg2 < 0)
+        return;
+    if (arg2 >= 0x10)
+        return;
+    if (arg3 < 0)
+        return;
+    if (arg3 > 0x200)
+        return;
+    o = arg2 << 4;
+    ((s32 (*)(...))MI_CpuCopy8)(arg1, *(u16 **)(arg0 + 8) + o, arg3);
+    ((s32 (*)(...))DC_FlushRange)(*(u16 **)(arg0 + 8) + o, arg3);
 }
 
 extern "C" void func_ov000_02110fdc(u8 *arg0)

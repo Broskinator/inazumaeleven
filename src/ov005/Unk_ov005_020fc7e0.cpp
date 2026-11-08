@@ -1,5 +1,6 @@
 #include "ov005/Unk_ov005_020fc7e0.hpp"
 #include "game/vcall.hpp"
+struct E020fcbf4 { u8 a[0xC]; };
 
 extern "C" void func_ov005_020fc7e0(void);
 extern "C" s32 func_ov005_020fc93c(u8 *arg0);
@@ -10,7 +11,7 @@ extern "C" s32 func_ov005_020fcb5c(s32 arg0);
 extern "C" void func_ov005_020fcb70(void);
 extern "C" void func_ov005_020fcb74(u8 *arg0, s32 arg1);
 extern "C" void func_ov005_020fcbb0(u8 *arg0, u8 *arg1);
-extern "C" void func_ov005_020fcbf4(void);
+extern "C" void func_ov005_020fcbf4(u8 *arg0);
 extern "C" s32 func_ov005_020fcc58(...);
 extern "C" s32 func_ov005_020fcc9c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov005_020fccc4(s32 arg0, s32 arg1, s32 arg2);
@@ -375,33 +376,16 @@ extern "C" void func_ov005_020fcbb0(u8 *arg0, u8 *arg1)
     }
 }
 
-extern "C" asm void func_ov005_020fcbf4(void)
+extern "C" void func_ov005_020fcbf4(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x100
-    mov r8, #0
-    add r7, sp, #0
-    mov r4, r0
-    mov r0, r7
-    mov r1, r8
-    mov r2, #0x100
-    bl MI_CpuFill8
-    ldr r6, =data_ov005_020fdb1c
-    add r5, r4, #4
-    mov r4, #0xc
-@L_020fcc24:
-    mov r0, r7
-    mov r1, r6
-    add r2, r8, #1
-    bl sprintf
-    mla r1, r8, r4, r5
-    mov r0, r7
-    bl func_ov015_02133efc
-    add r8, r8, #1
-    cmp r8, #0x20
-    blt @L_020fcc24
-    add sp, sp, #0x100
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    char buf[0x100];
+    s32 i = 0;
+    ((s32 (*)(...))MI_CpuFill8)(buf, i, 0x100);
+    do {
+        ((s32 (*)(...))sprintf)(buf, data_ov005_020fdb1c, i + 1);
+        ((s32 (*)(...))func_ov015_02133efc)(buf, &((E020fcbf4 *)(arg0 + 4))[i]);
+        i++;
+    } while (i < 0x20);
 }
 
 extern "C" asm s32 func_ov005_020fcc58(...)
