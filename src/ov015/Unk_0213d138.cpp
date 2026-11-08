@@ -26,7 +26,7 @@ extern "C" void func_ov015_0213db54(u8 *arg0);
 extern "C" void func_ov015_0213db60(void);
 extern "C" void func_ov015_0213e0e8(u8 *arg0);
 extern "C" s32 func_ov015_0213e11c(u8 *arg0);
-extern "C" void func_ov015_0213e124(void);
+extern "C" void func_ov015_0213e124(u8 **arg0, s32 arg1);
 extern "C" void func_ov015_0213e198(void);
 extern "C" void func_ov015_0213e2d0(void);
 extern "C" u16 func_ov015_0213e40c(s32 arg0);
@@ -1230,41 +1230,23 @@ extern "C" s32 func_ov015_0213e11c(u8 *arg0)
     return *(s32 *)(arg0);
 }
 
-extern "C" asm void func_ov015_0213e124(void)
+extern "C" void func_ov015_0213e124(u8 **arg0, s32 arg1)
 {
-    sub r1, r1, #1
-    cmp r1, #4
-    addls pc, pc, r1, lsl #2
-    bx lr
-    b @L_0213e148
-    b @L_0213e15c
-    b @L_0213e170
-    b @L_0213e184
-    b @L_0213e148
-@L_0213e148:
-    ldr r1, [r0]
-    ldr r0, [r1, #0x438]
-    sub r0, r0, #1
-    str r0, [r1, #0x438]
-    bx lr
-@L_0213e15c:
-    ldr r1, [r0]
-    ldr r0, [r1, #0x434]
-    add r0, r0, #1
-    str r0, [r1, #0x434]
-    bx lr
-@L_0213e170:
-    ldr r1, [r0]
-    ldr r0, [r1, #0x438]
-    add r0, r0, #1
-    str r0, [r1, #0x438]
-    bx lr
-@L_0213e184:
-    ldr r1, [r0]
-    ldr r0, [r1, #0x434]
-    sub r0, r0, #1
-    str r0, [r1, #0x434]
-    bx lr
+    switch (arg1 - 1) {
+    case 0:
+    case 4:
+        *(s32 *)(*arg0 + 0x438) -= 1;
+        break;
+    case 1:
+        *(s32 *)(*arg0 + 0x434) += 1;
+        break;
+    case 2:
+        *(s32 *)(*arg0 + 0x438) += 1;
+        break;
+    case 3:
+        *(s32 *)(*arg0 + 0x434) -= 1;
+        break;
+    }
 }
 
 extern "C" asm void func_ov015_0213e198(void)

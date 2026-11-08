@@ -1818,41 +1818,20 @@ extern "C" void func_ov016_02150990(s32 arg0)
     OS_EnableIrqMask(v0);
 }
 
-extern "C" asm void func_ov016_021509cc(void)
+extern "C" void func_ov016_021509cc(void)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    mov r0, #0x3a
-    mov r1, #4
-    bl func_ov016_02150928
-    ldr r1, =data_ov016_02158b68
-    str r0, [r1, #4]
-    add r0, sp, #0
-    bl func_0200eb24
-    cmp r0, #0
-    bne @L_021509fc
-    bl func_0200878c
-@L_021509fc:
-    add r0, sp, #0
-    bl func_0200ebb8
-    ldr r1, =data_ov016_02158b68
-    mov r0, #0
-    ldr r2, [r1, #4]
-    mov r1, #4
-    mov r3, #5
-    bl func_0200edac
-    mov r4, #2
-    mov r0, r4
-    bl TP_WaitBusy
-    mov r0, r4
-    bl func_0200f284
-    cmp r0, #0
-    beq @L_02150a3c
-    bl func_0200878c
-@L_02150a3c:
-    bl func_ov016_02150a80
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    u8 buf[8];
+    s32 k;
+    *(s32 *)((u8 *)data_ov016_02158b68 + 4) = ((s32 (*)(...))func_ov016_02150928)(0x3A, 4);
+    if (((s32 (*)(...))func_0200eb24)(buf) == 0)
+        ((s32 (*)(...))func_0200878c)();
+    ((s32 (*)(...))func_0200ebb8)(buf);
+    ((s32 (*)(...))func_0200edac)(0, 4, *(s32 *)((u8 *)data_ov016_02158b68 + 4), 5);
+    k = 2;
+    ((s32 (*)(...))TP_WaitBusy)(k);
+    if (((s32 (*)(...))func_0200f284)(k) != 0)
+        ((s32 (*)(...))func_0200878c)();
+    ((s32 (*)(...))func_ov016_02150a80)();
 }
 
 extern "C" s32 func_ov016_02150a4c(void)

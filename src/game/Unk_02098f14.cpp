@@ -3,6 +3,7 @@
 #include "nitro/os.h"
 #include "nitro/fx.h"
 #include "nitro/fx.h"
+struct V02099664 { s32 x, y, z; };
 struct V020996ec { s32 x, y, z; };
 struct V02099a2c { s32 x, y, z; };
 struct S02099b64 { s32 a, b, c, d, e; };
@@ -31,7 +32,7 @@ extern "C" void func_02099370(u8 *obj);
 extern "C" s32 func_02099390(...);
 extern "C" s32 func_020995c4(s32 arg0, u8 *arg1);
 extern "C" s32 func_02099618(s32 arg0, u8 *arg1);
-extern "C" void func_02099664(void);
+extern "C" s32 func_02099664(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_020996ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" int func_02099764(void *a);
 extern "C" fx32 func_020997a4(fx32 *arg0, fx32 *arg1);
@@ -578,42 +579,18 @@ extern "C" s32 func_02099618(s32 arg0, u8 *arg1)
     return t3;
 }
 
-extern "C" asm void func_02099664(void)
+extern "C" s32 func_02099664(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #0x18
-    mov r6, r2
-    movs r7, r0
-    cmpne r1, #0
-    cmpne r6, #0
-    addeq sp, sp, #0x18
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r3, sp, #0xc
-    bl func_020996ec
-    ldr r0, [sp, #0xc]
-    cmp r0, #0
-    ldreq r0, [sp, #0x10]
-    cmpeq r0, #0
-    ldreq r0, [sp, #0x14]
-    cmpeq r0, #0
-    addeq sp, sp, #0x18
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    add r5, sp, #0xc
-    mov r0, r5
-    mov r1, r5
-    bl func_02002084
-    add r4, sp, #0
-    mov r0, r7
-    mov r1, r6
-    mov r2, r4
-    bl func_02001f38
-    mov r0, r5
-    mov r1, r4
-    bl VEC_DotProduct
-    add sp, sp, #0x18
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    V02099664 a;
+    V02099664 b;
+    if (arg0 == 0 || arg1 == 0 || arg2 == 0)
+        return 0;
+    ((s32 (*)(...))func_020996ec)(arg0, arg1, arg2, &a);
+    if (a.x == 0 && a.y == 0 && a.z == 0)
+        return 0;
+    ((s32 (*)(...))func_02002084)(&a, &a);
+    ((s32 (*)(...))func_02001f38)(arg0, arg2, &b);
+    return ((s32 (*)(...))VEC_DotProduct)(&a, &b);
 }
 
 extern "C" void func_020996ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

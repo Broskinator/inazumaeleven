@@ -1,5 +1,6 @@
 #include "ov014/Unk_ov014_0210bc94.hpp"
 #include "game/vcall.hpp"
+struct E0210dbb8 { s32 a; s32 b; };
 
 extern "C" void func_ov014_0210bc94(void);
 extern "C" s32 func_ov014_0210be30(void);
@@ -33,7 +34,7 @@ extern "C" void func_ov014_0210d834(void);
 extern "C" s32 func_ov014_0210dad8(...);
 extern "C" s32 func_ov014_0210db2c(s32 arg0, s32 arg1, u8 *arg2, s32 arg3);
 extern "C" s32 func_ov014_0210db78(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0210dbb8(void);
+extern "C" void func_ov014_0210dbb8(u8 *arg0, E0210dbb8 *arg1, s32 arg2);
 extern "C" void func_ov014_0210dc30(void);
 extern "C" s32 func_ov014_0210dd00(void);
 extern "C" s32 func_ov014_0210ddd0(void);
@@ -2124,41 +2125,20 @@ extern "C" s32 func_ov014_0210db78(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return 1;
 }
 
-extern "C" asm void func_ov014_0210dbb8(void)
+extern "C" void func_ov014_0210dbb8(u8 *arg0, E0210dbb8 *arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    add r0, r0, #0x1000
-    ldr r5, [r0, #0x14]
-    mov r7, r2
-    mov r8, r1
-    mov r6, #0
-    cmp r7, #0
-    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r4, r6
-    mov r9, r6
-@L_0210dbe0:
-    ldr r1, [r8, r6, lsl #3]
-    cmp r1, #0
-    beq @L_0210dbfc
-    mov r0, r4
-    mov r2, r4
-    blx r5
-    str r4, [r8, r6, lsl #3]
-@L_0210dbfc:
-    add r0, r8, r6, lsl #3
-    ldr r1, [r0, #4]
-    cmp r1, #0
-    beq @L_0210dc20
-    mov r0, r9
-    mov r2, r9
-    blx r5
-    add r0, r8, r6, lsl #3
-    str r9, [r0, #4]
-@L_0210dc20:
-    add r6, r6, #1
-    cmp r6, r7
-    blt @L_0210dbe0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    void (*f)(s32, s32, s32) = *(void (**)(s32, s32, s32))(arg0 + 0x1014);
+    s32 i;
+    for (i = 0; i < arg2; i++) {
+        if (arg1[i].a != 0) {
+            f(0, arg1[i].a, 0);
+            arg1[i].a = 0;
+        }
+        if (arg1[i].b != 0) {
+            f(0, arg1[i].b, 0);
+            arg1[i].b = 0;
+        }
+    }
 }
 
 extern "C" asm void func_ov014_0210dc30(void)

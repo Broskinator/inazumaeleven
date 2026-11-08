@@ -32,7 +32,7 @@ extern "C" void func_ov057_021673f8(void);
 extern "C" void func_ov057_021675c8(void);
 extern "C" s32 func_ov057_021676e0(u8 *arg0);
 extern "C" void func_ov057_02167710(u8 *arg0);
-extern "C" void func_ov057_021677b8(void);
+extern "C" void func_ov057_021677b8(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov057_02167834(u8 *arg0);
 extern "C" s32 func_ov057_0216792c(u8 *arg0);
 extern "C" void func_ov057_0216797c(void);
@@ -1845,41 +1845,30 @@ extern "C" void func_ov057_02167710(u8 *arg0)
 }
 #pragma pop
 
-extern "C" asm void func_ov057_021677b8(void)
+extern "C" void func_ov057_021677b8(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r0, #1
-    mov r2, #0
-    str r2, [r5, #0x5c]
-    str r0, [r5, #0x60]
-    str r0, [r5, #0x624]
-    str r1, [r5, #0xc]
-    cmp r1, #0
-    beq @L_021677f0
-    cmp r1, #1
-    cmpne r1, #2
-    beq @L_02167800
-    b @L_021677fc
-@L_021677f0:
-    ldr r0, [r5, #0x64]
-    str r0, [r5, #0x5c]
-    b @L_02167800
-@L_021677fc:
-    str r0, [r5, #0x60]
-@L_02167800:
-    mov r0, r5
-    bl func_ov057_02167374
-    mov r4, #0
-    mov r0, r5
-    mov r1, r4
-    bl func_ov057_02165da4
-    ldr r0, =data_020c9660
-    mov r1, r4
-    mov r2, #2
-    bl func_ov015_0213ba04
-    str r4, [r5, #0x28]
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 k = 1;
+    s32 z;
+    *(s32 *)(arg0 + 0x5C) = 0;
+    *(s32 *)(arg0 + 0x60) = k;
+    *(s32 *)(arg0 + 0x624) = k;
+    *(s32 *)(arg0 + 0xC) = arg1;
+    switch (arg1) {
+    case 0:
+        *(s32 *)(arg0 + 0x5C) = *(s32 *)(arg0 + 0x64);
+        break;
+    case 1:
+    case 2:
+        break;
+    default:
+        *(s32 *)(arg0 + 0x60) = k;
+        break;
+    }
+    ((s32 (*)(...))func_ov057_02167374)(arg0);
+    z = 0;
+    ((s32 (*)(...))func_ov057_02165da4)(arg0, z);
+    ((s32 (*)(...))func_ov015_0213ba04)(data_020c9660, z, 2);
+    *(s32 *)(arg0 + 0x28) = z;
 }
 
 extern "C" s32 func_ov057_02167834(u8 *arg0)

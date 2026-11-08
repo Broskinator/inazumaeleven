@@ -8,7 +8,7 @@ extern "C" s32 func_ov042_02165e14(s32 arg0);
 extern "C" s32 func_ov042_02165eac(u8 *arg0);
 extern "C" s32 func_ov042_02165f90(...);
 extern "C" s32 func_ov042_02166064(u8 *arg0);
-extern "C" void func_ov042_021660e8(void);
+extern "C" s32 func_ov042_021660e8(u8 *arg0);
 extern "C" void func_ov042_0216617c(u8 *arg0);
 extern "C" s32 func_ov042_021661d0(...);
 extern "C" s32 func_ov042_021662a0(...);
@@ -421,41 +421,20 @@ extern "C" s32 func_ov042_02166064(u8 *arg0)
     return v3;
 }
 
-extern "C" asm void func_ov042_021660e8(void)
+extern "C" s32 func_ov042_021660e8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #4
-    mov r6, r0
-    bl func_ov042_02165f90
-    mov r4, #0
-    str r4, [sp]
-    mov r5, r0
-    ldr r1, [r6, #0x3f4]
-    ldr r0, =data_ov042_0216fef8
-    ldr r2, =data_ov042_0216f940
-    add r3, r6, #0x430
-    bl func_ov015_02136080
-    add r5, r5, r0
-    bl func_ov015_0213178c
-    str r4, [sp]
-    cmp r0, #0
-    ldr r1, [r6, #0x3f4]
-    bne @L_0216613c
-    ldr r0, =data_ov042_0216ff18
-    ldr r2, =data_ov042_0216f8a8
-    b @L_02166144
-@L_0216613c:
-    ldr r0, =data_ov042_0216ff38
-    ldr r2, =data_ov042_0216f8d0
-@L_02166144:
-    add r3, r6, #0x430
-    bl func_ov015_02136080
-    add r5, r5, r0
-    mov r0, #1
-    cmp r5, #0x24
-    movlt r0, #0
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    s32 n = ((s32 (*)(...))func_ov042_02165f90)(arg0);
+    s32 z = 0;
+    s32 r;
+    n += ((s32 (*)(...))func_ov015_02136080)(data_ov042_0216fef8, *(s32 *)(arg0 + 0x3F4), data_ov042_0216f940, arg0 + 0x430, z);
+    if (((s32 (*)(...))func_ov015_0213178c)() == 0)
+        n += ((s32 (*)(...))func_ov015_02136080)(data_ov042_0216ff18, *(s32 *)(arg0 + 0x3F4), data_ov042_0216f8a8, arg0 + 0x430, z);
+    else
+        n += ((s32 (*)(...))func_ov015_02136080)(data_ov042_0216ff38, *(s32 *)(arg0 + 0x3F4), data_ov042_0216f8d0, arg0 + 0x430, z);
+    r = 1;
+    if (n < 0x24)
+        r = 0;
+    return r;
 }
 
 extern "C" void func_ov042_0216617c(u8 *arg0)

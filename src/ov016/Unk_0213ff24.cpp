@@ -2285,41 +2285,20 @@ extern "C" asm void func_ov016_02141f20(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov016_02141fd0(void)
+extern "C" void func_ov016_02141fd0(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, #0
-    ldr r0, =data_ov016_02158ac4
-    mov r1, #0x20
-    mov r2, #0x30
-    mov r12, r4
-@L_02141fe8:
-    ldr lr, [r0]
-    add r3, r4, r4, lsl #1
-    add lr, lr, #8
-    mov r5, r12
-    add lr, lr, r3
-@L_02141ffc:
-    ldrb r3, [lr, r5]
-    cmp r3, #0x30
-    cmpne r3, #0x20
-    beq @L_02142014
-    cmp r3, #0
-    bne @L_02142030
-@L_02142014:
-    mov r3, r2
-    cmp r5, #2
-    movne r3, r1
-    strb r3, [lr, r5]
-    add r5, r5, #1
-    cmp r5, #3
-    blt @L_02141ffc
-@L_02142030:
-    add r4, r4, #1
-    cmp r4, #4
-    blt @L_02141fe8
-    bl func_ov016_02141db4
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 i;
+    s32 j;
+    for (i = 0; i < 4; i++) {
+        u8 *p = *(u8 **)data_ov016_02158ac4 + 8 + (i + (i << 1));
+        for (j = 0; j < 3; j++) {
+            u8 c = p[j];
+            if (c != 0x30 && c != 0x20 && c != 0)
+                break;
+            p[j] = j == 2 ? 0x30 : 0x20;
+        }
+    }
+    ((s32 (*)(...))func_ov016_02141db4)();
 }
 
 extern "C" asm void func_ov016_02142048(void)

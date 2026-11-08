@@ -14,7 +14,7 @@ extern "C" void func_0209657c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_020965e0(void);
 extern "C" void func_02096680(s32 arg0, s32 arg1, u16 arg2);
 extern "C" void func_020966d4(s32 arg0, s32 arg1, s16 arg2, s16 arg3);
-extern "C" void func_02096750(void);
+extern "C" void func_02096750(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 extern "C" void func_020967d4(s32 arg0, s32 arg1, u16 arg2);
 extern "C" void func_02096828(void *self, int a, int b, s32 value, s32 value2);
 extern "C" void func_02096848(void);
@@ -183,42 +183,14 @@ extern "C" void func_020966d4(s32 arg0, s32 arg1, s16 arg2, s16 arg3)
     }
 }
 
-extern "C" asm void func_02096750(void)
+extern "C" void func_02096750(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #8
-    mov r8, r0
-    mov r7, r2
-    mov r6, r3
-    ldr r5, [sp, #0x28]
-    ldr r4, [sp, #0x2c]
-    bl func_020960ac
-    movs r9, r0
-    ldrne r0, [r9]
-    cmpne r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldrb r10, [r9, #6]
-    cmp r10, #1
-    addlt sp, sp, #8
-    ldmltia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02096794:
-    mov r0, r8
-    mov r1, r9
-    mov r2, r10
-    bl func_02096110
-    mov r1, r0
-    str r5, [sp]
-    mov r0, r8
-    mov r2, r7
-    str r4, [sp, #4]
-    mov r3, r6
-    bl func_02095d14
-    sub r10, r10, #1
-    cmp r10, #1
-    bge @L_02096794
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    u8 *r = (u8 *)((s32 (*)(...))func_020960ac)(arg0, arg1);
+    s32 i;
+    if (r == 0 || *(s32 *)r == 0)
+        return;
+    for (i = r[6]; i >= 1; i--)
+        ((s32 (*)(...))func_02095d14)(arg0, ((s32 (*)(...))func_02096110)(arg0, r, i), arg2, arg3, arg4, arg5);
 }
 
 extern "C" void func_020967d4(s32 arg0, s32 arg1, u16 arg2)
