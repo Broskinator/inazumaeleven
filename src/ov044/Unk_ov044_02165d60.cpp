@@ -3,7 +3,7 @@
 struct S02167480 { s32 v[2]; };
 
 extern "C" s32 func_ov044_02165d60(u8 *arg0);
-extern "C" void func_ov044_02165e88(void);
+extern "C" void func_ov044_02165e88(u8 *arg0);
 extern "C" s32 func_ov044_02165f28(u8 *arg0);
 extern "C" void func_ov044_0216609c(void);
 extern "C" s32 func_ov044_021660a0(...);
@@ -225,46 +225,22 @@ extern "C" s32 func_ov044_02165d60(u8 *arg0)
     return 0;
 }
 
-extern "C" asm void func_ov044_02165e88(void)
+extern "C" void func_ov044_02165e88(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r1, #0x4000000
-    mov r4, r0
-    ldr r0, [r1]
-    ldr r2, [r4, #8]
-    bic r0, r0, #0x1f00
-    orr r2, r0, r2, lsl #8
-    ldr r0, =data_020c46c4
-    str r2, [r1]
-    ldr r0, [r0]
-    bl func_ov015_02161fdc
-    ldr r0, =data_020c46b8
-    ldr r0, [r0]
-    bl func_ov015_021616dc
-    mov r0, r4
-    bl func_ov044_02168a74
-    mov r0, r4
-    bl func_ov044_021687c4
-    mov r0, r4
-    bl func_ov044_02168578
-    mov r0, r4
-    bl func_ov044_02168190
-    mov r0, r4
-    bl func_ov044_02167c68
-    mov r0, r4
-    bl func_ov044_02166ce0
-    mov r0, r4
-    bl func_ov044_02167a14
-    mov r0, r4
-    bl func_ov044_021663ac
-    mov r0, r4
-    bl func_ov044_02166d48
-    mov r0, r4
-    bl func_ov044_02166c70
-    mov r0, r4
-    mov r1, #3
-    bl func_ov044_02166b6c
-    ldmia sp!, {r4, pc}
+    *(volatile u32 *)0x4000000 = (*(s32 *)(arg0 + 8) << 8) | (*(volatile u32 *)0x4000000 & ~0x1F00);
+    ((s32 (*)(...))func_ov015_02161fdc)(*(s32 *)data_020c46c4);
+    ((s32 (*)(...))func_ov015_021616dc)(*(s32 *)data_020c46b8);
+    ((s32 (*)(...))func_ov044_02168a74)(arg0);
+    ((s32 (*)(...))func_ov044_021687c4)(arg0);
+    ((s32 (*)(...))func_ov044_02168578)(arg0);
+    ((s32 (*)(...))func_ov044_02168190)(arg0);
+    ((s32 (*)(...))func_ov044_02167c68)(arg0);
+    ((s32 (*)(...))func_ov044_02166ce0)(arg0);
+    ((s32 (*)(...))func_ov044_02167a14)(arg0);
+    ((s32 (*)(...))func_ov044_021663ac)(arg0);
+    ((s32 (*)(...))func_ov044_02166d48)(arg0);
+    ((s32 (*)(...))func_ov044_02166c70)(arg0);
+    ((s32 (*)(...))func_ov044_02166b6c)(arg0, 3);
 }
 
 #pragma push

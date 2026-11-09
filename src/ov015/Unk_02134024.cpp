@@ -29,7 +29,7 @@ extern "C" void func_ov015_0213476c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213477c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_021347b8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_021347d0(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov015_021347e8(void);
+extern "C" void func_ov015_021347e8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
 extern "C" void func_ov015_02134884(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov015_021348c4(void);
 extern "C" void func_ov015_0213490c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
@@ -678,47 +678,17 @@ extern "C" void func_ov015_021347d0(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
     return;
 }
 
-extern "C" asm void func_ov015_021347e8(void)
+extern "C" void func_ov015_021347e8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r4, =data_020c46a4
-    mov r5, r1
-    ldr r4, [r4]
-    mov r1, #0xc
-    mla r6, r2, r1, r4
-    ldrb r4, [r5, #0x52]
-    mla r7, r3, r1, r6
-    mov r6, r0
-    cmp r4, #2
-    ldrb r4, [r5, #0x4e]
-    bne @L_0213484c
-    cmp r3, #0
-    beq @L_02134828
-    cmp r3, #2
-    bne @L_0213484c
-@L_02134828:
-    mov r0, r2
-    bl func_ov015_02131cf0
-    cmp r0, #0
-    beq @L_0213484c
-    ldrb r0, [r5, #0x54]
-    cmp r0, #1
-    moveq r4, #6
-    cmp r0, #2
-    moveq r4, #7
-@L_0213484c:
-    ldrb r1, [r5, #0x54]
-    mov r0, #0x64
-    ldrb r3, [r7, #8]
-    smulbb r1, r1, r0
-    ldr r0, =0x2710
-    ldr r2, [sp, #0x18]
-    mla r1, r3, r0, r1
-    ldr r3, [sp, #0x1c]
-    mov r0, r6
-    add r1, r4, r1
-    bl func_ov015_02134300
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *e = *(u8 **)data_020c46a4 + arg2 * 0xC + arg3 * 0xC;
+    s32 v = arg1[0x4E];
+    if (arg1[0x52] == 2 && (arg3 == 0 || arg3 == 2) && ((s32 (*)(...))func_ov015_02131cf0)(arg2) != 0) {
+        if (arg1[0x54] == 1)
+            v = 6;
+        if (arg1[0x54] == 2)
+            v = 7;
+    }
+    ((s32 (*)(...))func_ov015_02134300)(arg0, v + (e[8] * 10000 + (s16)arg1[0x54] * (s16)100), arg4, arg5);
 }
 
 extern "C" void func_ov015_02134884(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)

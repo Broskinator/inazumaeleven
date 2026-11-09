@@ -8,7 +8,7 @@ extern "C" void func_ov014_02121370(void);
 extern "C" void func_ov014_02121520(void);
 extern "C" void func_ov014_021215e4(void);
 extern "C" u8 func_ov014_02121700(void);
-extern "C" void func_ov014_02121730(void);
+extern "C" u32 func_ov014_02121730(u32 arg0);
 extern "C" s32 func_ov014_021217cc(void);
 extern "C" s32 func_ov014_02121808(void);
 extern "C" void func_ov014_02121818(void);
@@ -540,47 +540,32 @@ extern "C" u8 func_ov014_02121700(void)
     return r;
 }
 
-extern "C" asm void func_ov014_02121730(void)
+extern "C" u32 func_ov014_02121730(u32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r0
-    bl OS_DisableInterrupts
-    ldr r1, =data_ov014_0212d574
-    mov r6, #0
-    ldr r3, [r1, #4]
-    add r1, r3, #0x1000
-    cmp r3, #0
-    ldr r4, [r1, #0x2d4]
-    bne @L_02121764
-    bl OS_RestoreInterrupts
-    mov r0, r6
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02121764:
-    tst r5, #0x8000
-    beq @L_02121784
-    ldr r1, =0x3ffe
-    orr r6, r6, #0xfe
-    tst r5, r1
-    orreq r5, r5, #0x82
-    orr r6, r6, #0x3f00
-    orreq r5, r5, #0xa000
-@L_02121784:
-    tst r5, #0x20000
-    orrne r6, r6, #0x10000
-    tst r5, #0x80000
-    orrne r6, r6, #0x40000
-    tst r5, #0x200000
-    orrne r6, r6, #0x100000
-    tst r5, #0x800000
-    orrne r6, r6, #0x400000
-    mvn r1, r6
-    and r1, r4, r1
-    orr r2, r5, r1
-    add r1, r3, #0x1000
-    str r2, [r1, #0x2d4]
-    bl OS_RestoreInterrupts
-    mov r0, r4
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 e = ((s32 (*)(...))OS_DisableInterrupts)();
+    u8 *p = *(u8 **)((u8 *)data_ov014_0212d574 + 4);
+    u32 m = 0;
+    u32 o = *(u32 *)(p + 0x12D4);
+    if (p == 0) {
+        ((s32 (*)(...))OS_RestoreInterrupts)(e);
+        return m;
+    }
+    if (arg0 & 0x8000) {
+        m |= 0x3FFE;
+        if ((arg0 & 0x3FFE) == 0)
+            arg0 |= 0xA082;
+    }
+    if (arg0 & 0x20000)
+        m |= 0x10000;
+    if (arg0 & 0x80000)
+        m |= 0x40000;
+    if (arg0 & 0x200000)
+        m |= 0x100000;
+    if (arg0 & 0x800000)
+        m |= 0x400000;
+    *(u32 *)(p + 0x12D4) = arg0 | (o & ~m);
+    ((s32 (*)(...))OS_RestoreInterrupts)(e);
+    return o;
 }
 
 extern "C" s32 func_ov014_021217cc(void)

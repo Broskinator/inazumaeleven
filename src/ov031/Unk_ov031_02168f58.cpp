@@ -8,7 +8,7 @@ extern "C" s32 func_ov031_02169c98(u8 *arg0, u8 *arg1);
 extern "C" void func_ov031_02169da0(void);
 extern "C" void func_ov031_02169e48(void);
 extern "C" s32 func_ov031_02169fb8(...);
-extern "C" void func_ov031_0216a328(void);
+extern "C" s32 func_ov031_0216a328(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov031_0216a3c8(s32 arg0);
 extern "C" s32 func_ov031_0216a424(s32 arg0, s32 arg1, u8 *arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov031_0216a4a8(u8 *arg0, s32 arg1);
@@ -1400,46 +1400,22 @@ extern "C" asm s32 func_ov031_02169fb8(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov031_0216a328(void)
+extern "C" s32 func_ov031_0216a328(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0xc
-    mov r7, r0
-    mov r6, r1
-    mov r5, r2
-    bl func_ov031_0216a3c8
-    cmp r0, #0
-    addeq sp, sp, #0xc
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    ldr r0, =0xfff
-    mov r8, #0
-    and r9, r6, r0
-    ldr r4, =data_020e88a0
-    mov r2, r9, lsl #0x10
-    mov r0, r4
-    mov r1, r8
-    mov r2, r2, lsr #0x10
-    bl _ZN17UnkClass_020621b413func_0207af84Ev
-    cmp r0, #0
-    addne sp, sp, #0xc
-    movne r0, #1
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    mov r1, r9, lsl #0x10
-    str r8, [sp]
-    mov r2, r1, lsr #0x10
-    mov r0, r4
-    mov r3, r8
-    mov r1, #1
-    stmib sp, {r5, r8}
-    bl _ZN17UnkClass_020621b413func_0207b00cEv
-    cmp r0, #0
-    movne r0, r8
-    addeq r0, r7, #0x300
-    streqh r6, [r0, #0xa2]
-    moveq r0, #2
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
+    s32 id;
+    s32 z;
+    s32 d;
+    if (((s32 (*)(...))func_ov031_0216a3c8)(arg0) == 0)
+        return 0;
+    id = arg1 & 0xFFF;
+    z = 0;
+    d = (s32)data_020e88a0;
+    if (((s32 (*)(s32, s32, u16))_ZN17UnkClass_020621b413func_0207af84Ev)(d, z, id) != 0)
+        return 1;
+    if (((s32 (*)(s32, s32, u16, s32, s32, s32, s32))_ZN17UnkClass_020621b413func_0207b00cEv)(d, 1, id, z, z, arg2, z) != 0)
+        return z;
+    *(u16 *)(arg0 + 0x3A2) = arg1;
+    return 2;
 }
 
 extern "C" s32 func_ov031_0216a3c8(s32 arg0)

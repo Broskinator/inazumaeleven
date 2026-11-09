@@ -1585,47 +1585,28 @@ extern "C" void func_0208897c(void)
     G3X_ResetMtxStack();
 }
 
-extern "C" asm void func_02088990(void)
+extern "C" void func_02088990(void)
 {
-    stmdb sp!, {r3, lr}
-    ldr r0, =data_020aad64
-    ldr r0, [r0]
-    cmp r0, #3
-    mvnhi r0, #0
-    bl func_02008cb4
-    ldr r1, =0x4000060
-    mov r3, #0
-    ldrh r0, [r1]
-    mov r2, r3
-    tst r0, #0x1000
-    ldrneh r0, [r1]
-    orrne r0, r0, #0x1000
-    strneh r0, [r1]
-    ldr r1, =0x4000060
-    ldrh r0, [r1]
-    tst r0, #0x2000
-    ldrneh r0, [r1]
-    orrne r0, r0, #0x2000
-    strneh r0, [r1]
-    ldr r1, =0x4000600
-    ldr r0, [r1]
-    tst r0, #0x4000
-    ldreq r0, [r1]
-    subne r3, r3, #1
-    andeq r2, r0, #0x8000
-    cmp r3, #0
-    bne @L_02088a14
-    cmp r2, #0
-    ldrne r1, =0x4000600
-    ldrne r0, [r1]
-    orrne r0, r0, #0x8000
-    strne r0, [r1]
-@L_02088a14:
-    bl func_0202b4c4
-    ldr r0, =0x4000540
-    mov r1, #1
-    str r1, [r0]
-    ldmia sp!, {r3, pc}
+    u32 v = *(u32 *)data_020aad64;
+    u32 b;
+    s32 e;
+    if (v > 3)
+        v = -1;
+    ((s32 (*)(...))func_02008cb4)(v);
+    e = 0;
+    b = e;
+    if (*(volatile u16 *)0x4000060 & 0x1000)
+        *(volatile u16 *)0x4000060 |= 0x1000;
+    if (*(volatile u16 *)0x4000060 & 0x2000)
+        *(volatile u16 *)0x4000060 |= 0x2000;
+    if (*(volatile u32 *)0x4000600 & 0x4000)
+        e--;
+    else
+        b = *(volatile u32 *)0x4000600 & 0x8000;
+    if (e == 0 && b != 0)
+        *(volatile u32 *)0x4000600 |= 0x8000;
+    ((s32 (*)(...))func_0202b4c4)();
+    *(volatile u32 *)0x4000540 = 1;
 }
 
 extern "C" void **func_02088a38(void **obj)

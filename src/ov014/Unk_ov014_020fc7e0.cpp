@@ -47,7 +47,7 @@ extern "C" void func_ov014_020fe3b4(void);
 extern "C" void func_ov014_020fe3e8(void);
 extern "C" void func_ov014_020fe3ec(void);
 extern "C" s32 func_ov014_020fe518(...);
-extern "C" void func_ov014_020fe5b4(void);
+extern "C" void func_ov014_020fe5b4(s32 arg0, s32 arg1);
 extern "C" void func_ov014_020fe64c(s32 arg0, s32 arg1);
 extern "C" void func_ov014_020fe668(s32 arg0, s32 arg1);
 extern "C" void func_ov014_020fe684(void);
@@ -2249,47 +2249,21 @@ extern "C" asm s32 func_ov014_020fe518(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_020fe5b4(void)
+static inline u16 ime020fe5b4(u16 v) { u16 o = *(volatile u16 *)0x4000208; *(volatile u16 *)0x4000208 = v; return o; }
+extern "C" void func_ov014_020fe5b4(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r5, =0x400006c
-    mov r4, r1
-    mov r6, #0
-@L_020fe5c4:
-    mov r0, r5
-    bl func_020026e8
-    mov r1, r0
-    mov r0, r5
-    add r1, r1, #1
-    bl GXx_SetMasterBrightness_
-    add r0, r5, #0x1000
-    bl func_020026e8
-    mov r1, r0
-    add r0, r5, #0x1000
-    add r1, r1, #1
-    bl GXx_SetMasterBrightness_
-    bl func_0200846c
-    mov r0, r5
-    bl func_020026e8
-    cmp r0, #0x10
-    blt @L_020fe618
-    add r0, r5, #0x1000
-    bl func_020026e8
-    cmp r0, #0x10
-    bge @L_020fe624
-@L_020fe618:
-    add r6, r6, #1
-    cmp r6, #0x10
-    ble @L_020fe5c4
-@L_020fe624:
-    ldr r2, =0x4000208
-    mov r0, #1
-    ldrh r1, [r2]
-    strh r0, [r2]
-    bl func_020083c0
-    mov r0, r4
-    bl func_020084fc
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 i;
+    s32 r = 0x400006C;
+    for (i = 0; i <= 0x10; i++) {
+        ((s32 (*)(...))GXx_SetMasterBrightness_)(r, ((s32 (*)(...))func_020026e8)(r) + 1);
+        ((s32 (*)(...))GXx_SetMasterBrightness_)(r + 0x1000, ((s32 (*)(...))func_020026e8)(r + 0x1000) + 1);
+        ((s32 (*)(...))func_0200846c)();
+        if (((s32 (*)(...))func_020026e8)(r) >= 0x10 && ((s32 (*)(...))func_020026e8)(r + 0x1000) >= 0x10)
+            break;
+    }
+    ime020fe5b4(1);
+    ((s32 (*)(...))func_020083c0)();
+    ((s32 (*)(...))func_020084fc)(arg1);
 }
 
 extern "C" void func_ov014_020fe64c(s32 arg0, s32 arg1)
