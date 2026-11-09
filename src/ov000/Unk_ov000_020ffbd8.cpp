@@ -1,5 +1,6 @@
 #include "ov000/Unk_ov000_020ffbd8.hpp"
 #include "game/vcall.hpp"
+struct V02100bec { s32 x, y, z; };
 
 extern "C" void func_ov000_020ffbd8(void);
 extern "C" void func_ov000_020ffc84(void);
@@ -27,7 +28,7 @@ extern "C" s32 func_ov000_021009b4(s32 arg0, s32 arg1);
 extern "C" s32 func_ov000_02100a38(u8 *arg0, s32 arg1);
 extern "C" void func_ov000_02100a58(void);
 extern "C" s32 func_ov000_02100b3c(...);
-extern "C" void func_ov000_02100bec(void);
+extern "C" void func_ov000_02100bec(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov000_02100c7c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov000_02100cc8(...);
 extern "C" void func_ov000_02100e58(void);
@@ -1208,45 +1209,14 @@ extern "C" asm s32 func_ov000_02100b3c(...)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov000_02100bec(void)
+extern "C" void func_ov000_02100bec(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    sub sp, sp, #0x18
-    ldr r0, =data_020c46d0
-    mov r6, r1
-    ldr r4, [r0]
-    mov r5, r2
-    mov r0, r4
-    bl func_ov015_0213d4d8
-    add r3, sp, #0xc
-    ldmia r0, {r0, r1, r2}
-    stmia r3, {r0, r1, r2}
-    and r0, r6, #0xf000
-    str r0, [sp, #0x10]
-    cmp r5, #0
-    mov r0, r5, lsl #0xc
-    ble @L_02100c40
-    bl _fflt
-    mov r1, r0
-    mov r0, #0x3f000000
-    bl _fadd
-    b @L_02100c4c
-@L_02100c40:
-    bl _fflt
-    mov r1, #0x3f000000
-    bl _fsub
-@L_02100c4c:
-    bl _ffix
-    mov r1, #2
-    str r1, [sp]
-    str r1, [sp, #4]
-    str r0, [sp, #8]
-    add r1, sp, #0xc
-    mov r0, r4
-    ldmia r1, {r1, r2, r3}
-    bl func_ov015_0213d330
-    add sp, sp, #0x18
-    ldmia sp!, {r4, r5, r6, pc}
+    void *d = *(void **)data_020c46d0;
+    V02100bec v = *((V02100bec *(*)(void *))func_ov015_0213d4d8)(d);
+    s32 r;
+    v.y = arg1 & 0xF000;
+    r = (s32)(arg2 > 0 ? 0.5f + (float)(arg2 << 12) : (float)(arg2 << 12) - 0.5f);
+    ((void (*)(void *, V02100bec, s32, s32, s32))func_ov015_0213d330)(d, v, 2, 2, r);
 }
 
 extern "C" s32 func_ov000_02100c7c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

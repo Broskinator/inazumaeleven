@@ -1,6 +1,12 @@
 #include "game/Unk_02089004.hpp"
 #include "game/vcall.hpp"
 #include "nitro/mi.h"
+class C020895d0 {
+public:
+    virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c();
+    virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c();
+    virtual void v20();
+};
 struct T0208a460 { s32 a[10]; };
 struct V12 { s32 x, y, z; };
 struct E0208a0c4 { u8 pad[0x10]; s32 x10; u8 pad2[0x8]; };
@@ -51,7 +57,7 @@ extern "C" void **func_020894d4(void **obj);
 extern "C" void **func_020894f4(void **obj);
 extern "C" s32 func_02089514(u8 *arg0);
 extern "C" s32 func_02089584(s32 arg0);
-extern "C" void func_020895d0(void);
+extern "C" u8 *func_020895d0(u8 *arg0);
 extern "C" void func_02089674(void);
 extern "C" BOOL func_02089758(u8 *obj, u8 value);
 extern "C" void func_02089764(void *obj);
@@ -509,45 +515,21 @@ extern "C" s32 func_02089584(s32 arg0)
     return arg0;
 }
 
-extern "C" asm void func_020895d0(void)
+extern "C" u8 *func_020895d0(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    ldr r4, =data_ov015_02165848
-    add r5, r6, #0x860
-    mov r0, r5
-    str r4, [r6, #0x860]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-    add r0, r5, #0xc
-    bl func_0209d684
-    add r0, r6, #0x348
-    add r5, r0, #0x400
-    mov r0, r5
-    str r4, [r6, #0x748]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x20]
-    blx r1
-    add r0, r5, #0xc
-    bl func_0209d684
-    add r0, r6, #0x720
-    mov r1, #2
-    mov r2, #0x14
-    ldr r3, =func_020894f4
-    bl __cxa_vec_cleanup
-    add r0, r6, #0x6f0
-    mov r1, #1
-    mov r2, #0x30
-    ldr r3, =func_020894ac
-    bl __cxa_vec_cleanup
-    mov r0, r6
-    mov r1, #4
-    mov r2, #0x1bc
-    ldr r3, =func_02089584
-    bl __cxa_vec_cleanup
-    mov r0, r6
-    ldmia sp!, {r4, r5, r6, pc}
+    void *vt = data_ov015_02165848;
+    C020895d0 *a = (C020895d0 *)(arg0 + 0x860);
+    *(void **)(arg0 + 0x860) = vt;
+    a->v20();
+    ((s32 (*)(...))func_0209d684)((u8 *)a + 0xC);
+    a = (C020895d0 *)(arg0 + 0x748);
+    *(void **)(arg0 + 0x748) = vt;
+    a->v20();
+    ((s32 (*)(...))func_0209d684)((u8 *)a + 0xC);
+    ((s32 (*)(...))__cxa_vec_cleanup)(arg0 + 0x720, 2, 0x14, func_020894f4);
+    ((s32 (*)(...))__cxa_vec_cleanup)(arg0 + 0x6F0, 1, 0x30, func_020894ac);
+    ((s32 (*)(...))__cxa_vec_cleanup)(arg0, 4, 0x1BC, func_02089584);
+    return arg0;
 }
 
 extern "C" asm void func_02089674(void)

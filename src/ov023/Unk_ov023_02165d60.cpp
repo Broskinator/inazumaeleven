@@ -1,7 +1,8 @@
 #include "ov023/Unk_ov023_02165d60.hpp"
+struct E02165e18 { s32 f; s32 i; };
 
 extern "C" void func_ov023_02165d60(u8 *arg0);
-extern "C" void func_ov023_02165e18(void);
+extern "C" void func_ov023_02165e18(u8 *arg0);
 extern "C" void func_ov023_02165ea8(s32 arg0);
 extern "C" void func_ov023_02165ebc(s32 arg0);
 extern "C" s32 func_ov023_02165ed0(...);
@@ -155,45 +156,22 @@ extern "C" void func_ov023_02165d60(u8 *arg0)
     return;
 }
 
-extern "C" asm void func_ov023_02165e18(void)
+extern "C" void func_ov023_02165e18(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r8, =data_ov023_02169f68
-    mov r4, r0
-    ldr r0, [r8]
-    ldr r7, [r4, #0x180]
-    cmp r0, #0
-    beq @L_02165e58
-    add r6, r4, #0x180
-    mov r5, #0xc
-@L_02165e3c:
-    ldr r3, [r8, #4]
-    mov r2, r7
-    mla r1, r3, r5, r6
-    bl func_ov015_021340c0
-    ldr r0, [r8, #8]!
-    cmp r0, #0
-    bne @L_02165e3c
-@L_02165e58:
-    mov r5, #0
-    ldr r1, [r4, #0x18c]
-    mov r2, r5
-    mov r3, r5
-    add r0, r4, #8
-    bl _ZN8TextFont7SetFontEPvmh
-    mov r1, r5
-    add r0, r4, #8
-    bl _ZN8TextFont16SetUseGlyphWidthEh
-    ldr r0, [r4, #0x2e8]
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r0, r4, #0x2c
-    bl func_0209e25c
-    ldr r1, [r4, #0x2e8]
-    ldr r2, [r4, #0x2ec]
-    add r0, r4, #0x2c
-    bl func_0209e298
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 h;
+    E02165e18 *t;
+    s32 z;
+    t = (E02165e18 *)data_ov023_02169f68;
+    h = *(s32 *)(arg0 + 0x180);
+    for (; t->f != 0; t++)
+        ((s32 (*)(...))func_ov015_021340c0)(t->f, arg0 + 0x180 + t->i * 0xC, h);
+    z = 0;
+    ((s32 (*)(...))_ZN8TextFont7SetFontEPvmh)(arg0 + 8, *(s32 *)(arg0 + 0x18C), z, z);
+    ((s32 (*)(...))_ZN8TextFont16SetUseGlyphWidthEh)(arg0 + 8, z);
+    if (*(s32 *)(arg0 + 0x2E8) != 0) {
+        ((s32 (*)(...))func_0209e25c)(arg0 + 0x2C);
+        ((s32 (*)(...))func_0209e298)(arg0 + 0x2C, *(s32 *)(arg0 + 0x2E8), *(s32 *)(arg0 + 0x2EC));
+    }
 }
 
 extern "C" void func_ov023_02165ea8(s32 arg0)

@@ -54,7 +54,7 @@ extern "C" void func_ov014_02110d20(s32 arg0, s32 arg1);
 extern "C" void func_ov014_02110d34(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_02110d44(...);
 extern "C" s32 func_ov014_02110d78(...);
-extern "C" void func_ov014_02110db4(void);
+extern "C" s32 func_ov014_02110db4(char *arg0, s32 arg1);
 extern "C" s32 func_ov014_02110e4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_02110e70(void);
 extern "C" void func_ov014_02110f30(void);
@@ -2407,45 +2407,23 @@ extern "C" asm s32 func_ov014_02110d78(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_02110db4(void)
+extern "C" s32 func_ov014_02110db4(char *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x14
-    mov r5, r0
-    add r0, sp, #0
-    mov r4, r1
-    bl func_ov014_02110730
-    ldr r0, [sp, #0x10]
-    cmp r0, #0
-    addeq sp, sp, #0x14
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, pc}
-    ldr r0, =func_ov014_02110d34
-    ldr r1, =func_ov014_02110d78
-    bl func_ov014_0210ebd8
-    cmp r0, #0
-    addeq sp, sp, #0x14
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, pc}
-    mov r0, r5
-    bl strlen
-    cmp r0, #0
-    bne @L_02110e14
-    ldr r0, =data_ov014_02125a84
-    b @L_02110e18
-@L_02110e14:
-    mov r0, r5
-@L_02110e18:
-    mov r1, r4
-    bl func_ov014_0210ecac
-    cmp r0, #0
-    addne sp, sp, #0x14
-    movne r0, #1
-    ldmneia sp!, {r4, r5, pc}
-    bl func_ov014_0210ec6c
-    mov r0, #0
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, pc}
+    s32 st[5];
+    s32 r;
+    ((s32 (*)(...))func_ov014_02110730)(st);
+    if (st[4] == 0)
+        return 0;
+    if (((s32 (*)(...))func_ov014_0210ebd8)(func_ov014_02110d34, func_ov014_02110d78) == 0)
+        return 0;
+    if (((s32 (*)(...))strlen)(arg0) == 0)
+        r = ((s32 (*)(...))func_ov014_0210ecac)(data_ov014_02125a84, arg1);
+    else
+        r = ((s32 (*)(...))func_ov014_0210ecac)(arg0, arg1);
+    if (r != 0)
+        return 1;
+    ((s32 (*)(...))func_ov014_0210ec6c)();
+    return 0;
 }
 
 extern "C" s32 func_ov014_02110e4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

@@ -50,7 +50,7 @@ extern "C" void func_ov031_021685d8(void);
 extern "C" void func_ov031_02168648(void);
 extern "C" s32 func_ov031_021689e4(u8 *arg0);
 extern "C" void func_ov031_02168a98(void);
-extern "C" void func_ov031_02168ca4(void);
+extern "C" s32 func_ov031_02168ca4(u8 *arg0, u32 arg1, u32 arg2);
 extern "C" void func_ov031_02168d18(void);
 
 extern "C" char data_020c46c4[];
@@ -3371,41 +3371,24 @@ extern "C" asm void func_ov031_02168a98(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov031_02168ca4(void)
+extern "C" s32 func_ov031_02168ca4(u8 *arg0, u32 arg1, u32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    cmp r1, r2
-    mvneq r0, #0
-    ldmeqia sp!, {r4, pc}
-    add r3, r0, #0x300
-    ldrh lr, [r3, #0xa6]
-    mov r12, #0
-    cmp lr, #0
-    ble @L_02168d10
-    ldr r3, [r0, #0x4c0]
-@L_02168ccc:
-    mov r0, r12, lsl #3
-    ldrh r4, [r3, r0]
-    cmp r1, r4
-    beq @L_02168cec
-    add r0, r3, r0
-    ldrh r0, [r0, #2]
-    cmp r1, r0
-    bne @L_02168d04
-@L_02168cec:
-    cmp r2, r4
-    addne r0, r3, r12, lsl #3
-    ldrneh r0, [r0, #2]
-    cmpne r2, r0
-    moveq r0, r12
-    ldmeqia sp!, {r4, pc}
-@L_02168d04:
-    add r12, r12, #1
-    cmp r12, lr
-    blt @L_02168ccc
-@L_02168d10:
-    mvn r0, #0
-    ldmia sp!, {r4, pc}
+    u16 *e;
+    s32 i;
+    s32 n;
+    if (arg1 == arg2)
+        return -1;
+    n = *(u16 *)(arg0 + 0x3A6);
+    i = 0;
+    if (n > 0) {
+        e = *(u16 **)(arg0 + 0x4C0);
+        do {
+            if ((arg1 == e[i * 4] || arg1 == e[i * 4 + 1]) && (arg2 == e[i * 4] || arg2 == e[i * 4 + 1]))
+                return i;
+            i++;
+        } while (i < n);
+    }
+    return -1;
 }
 
 extern "C" asm void func_ov031_02168d18(void)

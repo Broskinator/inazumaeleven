@@ -1,13 +1,14 @@
 #include "ov040/Unk_ov040_02165d60.hpp"
+struct E02165e64 { s32 f; s32 i; };
 
 extern "C" s32 func_ov040_02165d60(u8 *arg0);
-extern "C" void func_ov040_02165e64(void);
+extern "C" void func_ov040_02165e64(u8 *arg0);
 extern "C" void func_ov040_02165ef4(s32 arg0);
 extern "C" void func_ov040_02165f08(s32 arg0);
 extern "C" s32 func_ov040_02165f1c(...);
 extern "C" s32 func_ov040_02165f34(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov040_02165f5c(void);
-extern "C" void func_ov040_021662f4(void);
+extern "C" void func_ov040_021662f4(u8 *arg0);
 extern "C" s32 func_ov040_02166384(s32 arg0, u8 *arg1);
 extern "C" u16 func_ov040_021663d0(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov040_021663fc(void);
@@ -149,45 +150,22 @@ extern "C" s32 func_ov040_02165d60(u8 *arg0)
     return 1;
 }
 
-extern "C" asm void func_ov040_02165e64(void)
+extern "C" void func_ov040_02165e64(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r8, =data_ov040_02169344
-    mov r4, r0
-    ldr r0, [r8]
-    ldr r7, [r4, #0xbc]
-    cmp r0, #0
-    beq @L_02165ea4
-    add r6, r4, #0xbc
-    mov r5, #0xc
-@L_02165e88:
-    ldr r3, [r8, #4]
-    mov r2, r7
-    mla r1, r3, r5, r6
-    bl func_ov015_021340c0
-    ldr r0, [r8, #8]!
-    cmp r0, #0
-    bne @L_02165e88
-@L_02165ea4:
-    mov r5, #0
-    ldr r1, [r4, #0xc8]
-    mov r2, r5
-    mov r3, r5
-    add r0, r4, #8
-    bl _ZN8TextFont7SetFontEPvmh
-    mov r1, r5
-    add r0, r4, #8
-    bl _ZN8TextFont16SetUseGlyphWidthEh
-    ldr r0, [r4, #0x200]
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r0, r4, #0x2c
-    bl func_0209e25c
-    ldr r1, [r4, #0x200]
-    ldr r2, [r4, #0x204]
-    add r0, r4, #0x2c
-    bl func_0209e298
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 h;
+    E02165e64 *t;
+    s32 z;
+    t = (E02165e64 *)data_ov040_02169344;
+    h = *(s32 *)(arg0 + 0xBC);
+    for (; t->f != 0; t++)
+        ((s32 (*)(...))func_ov015_021340c0)(t->f, arg0 + 0xBC + t->i * 0xC, h);
+    z = 0;
+    ((s32 (*)(...))_ZN8TextFont7SetFontEPvmh)(arg0 + 8, *(s32 *)(arg0 + 0xC8), z, z);
+    ((s32 (*)(...))_ZN8TextFont16SetUseGlyphWidthEh)(arg0 + 8, z);
+    if (*(s32 *)(arg0 + 0x200) != 0) {
+        ((s32 (*)(...))func_0209e25c)(arg0 + 0x2C);
+        ((s32 (*)(...))func_0209e298)(arg0 + 0x2C, *(s32 *)(arg0 + 0x200), *(s32 *)(arg0 + 0x204));
+    }
 }
 
 extern "C" void func_ov040_02165ef4(s32 arg0)
@@ -465,45 +443,22 @@ extern "C" asm void func_ov040_02165f5c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov040_021662f4(void)
+extern "C" void func_ov040_021662f4(u8 *arg0)
 {
-    stmdb sp!, {r3, lr}
-    mov r3, r0
-    ldr r0, [r3, #0x38]
-    cmp r0, #0
-    bne @L_02166334
-    ldrb r0, [r3, #0x78]
-    cmp r0, #0
-    ldrne r0, [r3, #0x80]
-    cmpne r0, #0
-    ldmeqia sp!, {r3, pc}
-    mov r12, #0
-    ldr r1, [r3, #0x7c]
-    mov r2, #0x6c0
-    strb r12, [r3, #0x78]
-    bl func_02003bb8
-    ldmia sp!, {r3, pc}
-@L_02166334:
-    ldr r0, [r3, #0xa8]
-    cmp r0, #0
-    ldrne r0, [r3, #0xac]
-    cmpne r0, #0
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    ldrneb r0, [r3, #0xb8]
-    cmpne r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldrh r2, [r3, #0xb4]
-    ldrh r1, [r3, #0xb6]
-    mov lr, #0
-    ldr r0, [r3, #0xac]
-    mul r12, r2, r1
-    ldr r1, [r3, #0xb0]
-    mov r2, r12, lsl #5
-    strb lr, [r3, #0xb8]
-    bl func_02003bb8
-    ldmia sp!, {r3, pc}
+    if (*(s32 *)(arg0 + 0x38) == 0) {
+        if (arg0[0x78] != 0 && *(s32 *)(arg0 + 0x80) != 0) {
+            s32 z = 0;
+            arg0[0x78] = z;
+            ((s32 (*)(...))func_02003bb8)(*(s32 *)(arg0 + 0x80), *(s32 *)(arg0 + 0x7C), 0x6C0);
+        }
+    } else {
+        s32 ok = *(s32 *)(arg0 + 0xA8) != 0 && *(s32 *)(arg0 + 0xAC) != 0 ? 1 : 0;
+        if (ok != 0 && arg0[0xB8] != 0) {
+            s32 z = 0;
+            arg0[0xB8] = z;
+            ((s32 (*)(...))func_02003bb8)(*(s32 *)(arg0 + 0xAC), *(s32 *)(arg0 + 0xB0), (*(u16 *)(arg0 + 0xB4) * *(u16 *)(arg0 + 0xB6)) << 5);
+        }
+    }
 }
 
 static inline BOOL lead02166384(u8 c)

@@ -1,5 +1,6 @@
 #include "ov014/Unk_ov014_0210bc94.hpp"
 #include "game/vcall.hpp"
+struct B0210d3f4 { s32 a; s32 pos; s32 end; };
 struct E0210dbb8 { s32 a; s32 b; };
 
 extern "C" void func_ov014_0210bc94(void);
@@ -23,7 +24,7 @@ extern "C" s32 func_ov014_0210d0a4(...);
 extern "C" s32 func_ov014_0210d150(...);
 extern "C" s32 func_ov014_0210d210(...);
 extern "C" void func_ov014_0210d2ec(void);
-extern "C" void func_ov014_0210d3f4(void);
+extern "C" s32 func_ov014_0210d3f4(u8 *arg0, char *arg1);
 extern "C" s32 func_ov014_0210d478(s32 arg0);
 extern "C" s32 func_ov014_0210d484(...);
 extern "C" s32 func_ov014_0210d4d0(s32 arg0, u8 *arg1);
@@ -1586,41 +1587,25 @@ extern "C" asm void func_ov014_0210d2ec(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_0210d3f4(void)
+extern "C" s32 func_ov014_0210d3f4(u8 *arg0, char *arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, r1
-    add r1, r7, #0x234
-    mov r0, r6
-    add r5, r1, #0x1800
-    bl strlen
-    mov r4, r0
-    ldmib r5, {r0, r1}
-    sub r1, r1, r0
-    cmp r4, r1
-    ble @L_0210d44c
-    sub r2, r4, r1
-    mov r0, r7
-    mov r1, r5
-    add r2, r2, #1
-    bl func_ov014_0210d50c
-    cmp r0, #0
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldmib r5, {r0, r1}
-    sub r1, r1, r0
-@L_0210d44c:
-    ldr r2, =data_ov014_02124b9c
-    mov r3, r6
-    bl func_02005978
-    cmp r0, r4
-    ldreq r1, [r5, #4]
-    movne r0, #1
-    addeq r0, r1, r0
-    streq r0, [r5, #4]
-    moveq r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 n;
+    B0210d3f4 *b;
+    s32 left;
+    s32 r;
+    b = (B0210d3f4 *)(arg0 + 0x1A34);
+    n = ((s32 (*)(...))strlen)(arg1);
+    left = b->end - b->pos;
+    if (n > left) {
+        if (((s32 (*)(...))func_ov014_0210d50c)(arg0, b, n - left + 1) == 0)
+            return 1;
+        left = b->end - b->pos;
+    }
+    r = ((s32 (*)(...))func_02005978)(b->pos, left, data_ov014_02124b9c, arg1);
+    if (r != n)
+        return 1;
+    b->pos += r;
+    return 0;
 }
 
 extern "C" s32 func_ov014_0210d478(s32 arg0)

@@ -24,7 +24,7 @@ extern "C" s32 func_ov014_0211b738(s32 arg0, s32 arg1);
 extern "C" void func_ov014_0211b764(s32 arg0, u8 *arg1);
 extern "C" void func_ov014_0211b790(s32 arg0, u8 *arg1);
 extern "C" void func_ov014_0211b7ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0211b810(void);
+extern "C" s32 func_ov014_0211b810(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4);
 extern "C" void func_ov014_0211b8a0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_0211b8c4(void);
 extern "C" void func_ov014_0211b948(void);
@@ -638,44 +638,18 @@ extern "C" void func_ov014_0211b7ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     func_ov014_02119b50(arg0, arg1, arg2, 0, 0, arg3);
 }
 
-extern "C" asm void func_ov014_0211b810(void)
+extern "C" s32 func_ov014_0211b810(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u8 *arg4)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0x10
-    add r12, sp, #0xc
-    str r12, [sp]
-    str r3, [sp, #4]
-    add r3, sp, #8
-    bl func_ov014_02119b50
-    cmp r0, #0
-    addlt sp, sp, #0x10
-    ldmltia sp!, {r3, pc}
-    ldr r1, [sp, #0x18]
-    cmp r1, #0
-    addeq sp, sp, #0x10
-    ldmeqia sp!, {r3, pc}
-    ldrh r2, [sp, #8]
-    mov r3, r2, asr #8
-    mov r2, r2, lsl #8
-    and r3, r3, #0xff
-    and r2, r2, #0xff00
-    orr r2, r3, r2
-    strh r2, [r1, #2]
-    ldr lr, [sp, #0xc]
-    mov r3, lr, lsr #0x18
-    mov r2, lr, lsr #8
-    mov r12, lr, lsl #8
-    mov lr, lr, lsl #0x18
-    and r3, r3, #0xff
-    and r2, r2, #0xff00
-    and r12, r12, #0xff0000
-    orr r2, r3, r2
-    and r3, lr, #0xff000000
-    orr r2, r12, r2
-    orr r2, r3, r2
-    str r2, [r1, #4]
-    add sp, sp, #0x10
-    ldmia sp!, {r3, pc}
+    u32 ip;
+    u16 port;
+    s32 r = ((s32 (*)(...))func_ov014_02119b50)(arg0, arg1, arg2, &port, &ip, arg3);
+    if (r < 0)
+        return r;
+    if (arg4 == 0)
+        return r;
+    *(u16 *)(arg4 + 2) = (u16)((((s32)port >> 8) & 0xFF) | ((port << 8) & 0xFF00));
+    *(u32 *)(arg4 + 4) = ((ip << 24) & 0xFF000000) | (((ip << 8) & 0xFF0000) | (((ip >> 24) & 0xFF) | ((ip >> 8) & 0xFF00)));
+    return r;
 }
 
 extern "C" void func_ov014_0211b8a0(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

@@ -1774,44 +1774,25 @@ extern "C" void func_ov016_021417c0(void)
     func_ov016_0213b354((s32)func_ov016_02141828);
 }
 
-extern "C" asm void func_ov016_02141828(void)
+extern "C" void func_ov016_02141828(void)
 {
-    stmdb sp!, {r4, lr}
-    mov r0, #1
-    bl func_ov016_0214fa94
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    mov r4, #0
-    mov r0, r4
-    bl func_ov016_0214fa94
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    bl func_ov016_021398c0
-    mov r0, #0x14
-    bl func_ov016_0214a4c0
-    ldr r0, =data_ov016_02158ac4
-    ldr r0, [r0]
-    ldrb r0, [r0, #0x14]
-    cmp r0, #0
-    bne @L_02141880
-    mov r0, r4
-    bl func_ov016_02139c24
-    mov r0, r4
-    b @L_0214189c
-@L_02141880:
-    mov r0, #0x1a
-    bl func_ov016_02141ba4
-    cmp r0, #0
-    beq @L_02141898
-    mov r0, r4
-    bl func_ov016_02139c38
-@L_02141898:
-    mov r0, #0
-@L_0214189c:
-    bl func_ov016_02139c4c
-    ldr r0, =func_ov016_021418b4
-    bl func_ov016_0213b354
-    ldmia sp!, {r4, pc}
+    s32 z;
+    if (((s32 (*)(...))func_ov016_0214fa94)(1) != 0)
+        return;
+    z = 0;
+    if (((s32 (*)(...))func_ov016_0214fa94)(z) != 0)
+        return;
+    ((s32 (*)(...))func_ov016_021398c0)();
+    ((s32 (*)(...))func_ov016_0214a4c0)(0x14);
+    if ((*(u8 **)data_ov016_02158ac4)[0x14] == 0) {
+        ((s32 (*)(...))func_ov016_02139c24)(z);
+        ((s32 (*)(...))func_ov016_02139c4c)(z);
+    } else {
+        if (((s32 (*)(...))func_ov016_02141ba4)(0x1A) != 0)
+            ((s32 (*)(...))func_ov016_02139c38)(z);
+        ((s32 (*)(...))func_ov016_02139c4c)(0);
+    }
+    ((s32 (*)(...))func_ov016_0213b354)(func_ov016_021418b4);
 }
 
 extern "C" void func_ov016_021418b4(void)

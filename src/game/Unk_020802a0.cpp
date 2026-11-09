@@ -912,45 +912,28 @@ extern "C" void func_02080eb4(void)
     return;
 }
 
-extern "C" asm void func_02080f00(void)
+extern "C" void func_02080f00(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, #0
-    mov r0, r1
-    mov r1, r5
-    bl func_ov015_02130b14
-    movs r4, r0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrh r0, [r4, #0xf0]
-    tst r0, #1
-    movne r5, #1
-    cmp r5, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    tst r0, #2
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    bl func_02080d30
-    cmp r0, #1
-    bne @L_02080f60
-    mov r0, r4
-    mov r1, #0x400
-    bl func_02080c84
-@L_02080f60:
-    mov r0, r4
-    bl func_02080d10
-    cmp r0, #1
-    bne @L_02080f7c
-    mov r0, r4
-    mov r1, #0x100
-    bl func_02080c84
-@L_02080f7c:
-    mov r0, r4
-    mov r1, #0x80
-    bl func_02080c74
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *p;
+    s32 z = 0;
+    u32 f;
+    s32 b;
+    p = (u8 *)((s32 (*)(...))func_ov015_02130b14)(arg1, z);
+    if (p == 0)
+        return;
+    f = *(u16 *)(p + 0xF0);
+    if (f & 1)
+        z = 1;
+    if (z != 1)
+        return;
+    b = (f & 2) ? 1 : 0;
+    if (b == 0)
+        return;
+    if (((s32 (*)(...))func_02080d30)(p) == 1)
+        ((s32 (*)(...))func_02080c84)(p, 0x400);
+    if (((s32 (*)(...))func_02080d10)(p) == 1)
+        ((s32 (*)(...))func_02080c84)(p, 0x100);
+    ((s32 (*)(...))func_02080c74)(p, 0x80);
 }
 
 extern "C" void func_02080f8c(s32 arg0, s32 arg1)

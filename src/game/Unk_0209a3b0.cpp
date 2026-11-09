@@ -5,7 +5,7 @@ extern "C" char data_020c47b4[];
 extern "C" void func_0209a3b0(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3);
 extern "C" void func_0209a420(u8 *arg0);
 extern "C" void func_0209a450(u8 *obj);
-extern "C" void func_0209a45c(void);
+extern "C" void func_0209a45c(s32 arg0);
 extern "C" void func_0209a4d8(void);
 extern "C" void func_0209a638(void);
 extern "C" void func_0209a798(void);
@@ -125,37 +125,22 @@ extern "C" void func_0209a450(u8 *obj)
     *(s32 *)(obj + 0x20) = 0;
 }
 
-extern "C" asm void func_0209a45c(void)
+extern "C" void func_0209a45c(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, =data_020fc724
-    mov r4, #0
-    mov r7, r0
-    mov r0, r4
-    mov r1, r6
-    mov r2, #0x24
-    bl MIi_CpuClearFast
-    ldr r0, =data_020fc724_b
-    cmp r7, #0
-    str r7, [r0, #4]
-    ldmleia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, #0x1c
-    mul r5, r7, r0
-    ldr r0, =data_020c47b4
-    mov r1, r5
-    mov r2, r4
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    movs r1, r0
-    str r1, [r6]
-    beq @L_0209a4c0
-    mov r0, r4
-    mov r2, r5
-    bl MIi_CpuClearFast
-@L_0209a4c0:
-    mov r0, r6
-    bl func_0209a420
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 z = 0;
+    s32 s;
+    s32 *p = (s32 *)data_020fc724;
+    s32 r;
+    ((s32 (*)(...))MIi_CpuClearFast)(z, p, 0x24);
+    *(s32 *)((u8 *)data_020fc724_b + 4) = arg0;
+    if (arg0 <= 0)
+        return;
+    s = arg0 * 0x1C;
+    r = ((s32 (*)(...))_ZN8GameHeap5AllocEiii)(data_020c47b4, s, z, 1);
+    *p = r;
+    if (r != 0)
+        ((s32 (*)(...))MIi_CpuClearFast)(z, r, s);
+    ((s32 (*)(...))func_0209a420)(p);
 }
 
 extern "C" asm void func_0209a4d8(void)
