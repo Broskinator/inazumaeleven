@@ -1,4 +1,5 @@
 #include "ov015/Unk_02134024.hpp"
+struct I02134bd8 { s32 a, b; };
 struct E021362b8 { s32 k; s32 b; u16 v; u8 pad[2]; };
 struct L021362b8 { E021362b8 *p; s32 n; };
 struct E021346a8 { u8 a; u8 pad[8]; u8 b; u8 pad2[2]; };
@@ -44,7 +45,7 @@ extern "C" s32 func_ov015_021349c4(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" u16 func_ov015_02134a08(s32 arg0, s32 arg1);
 extern "C" void func_ov015_02134a28(void);
 extern "C" void func_ov015_02134b08(void);
-extern "C" void func_ov015_02134bd8(void);
+extern "C" s32 func_ov015_02134bd8(s32 arg0);
 extern "C" void func_ov015_02134c78(void);
 extern "C" char *func_ov015_02134cc0(void);
 extern "C" void func_ov015_02134ccc(void);
@@ -895,48 +896,24 @@ extern "C" asm void func_ov015_02134b08(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov015_02134bd8(void)
+extern "C" s32 func_ov015_02134bd8(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x7c
-    mov r6, #0
-    add r7, sp, #8
-    mov r2, r0
-    mov r0, r7
-    mov r1, r6
-    bl func_0200ca8c
-    cmp r0, #0
-    addeq sp, sp, #0x7c
-    moveq r0, r6
-    ldmeqia sp!, {r4, r5, r6, r7, pc}
-    add r5, sp, #0x34
-    mov r0, r5
-    bl FS_InitFile
-    add r4, sp, #0
-    mov r1, r7
-    mov r0, r4
-    bl func_0200ca60
-    mov r0, r5
-    ldmia r4, {r1, r2}
-    bl FS_OpenFileFast
-    cmp r0, #0
-    addeq sp, sp, #0x7c
-    moveq r0, r6
-    ldmeqia sp!, {r4, r5, r6, r7, pc}
-    mov r0, r7
-    bl FS_ClearOverlayImage
-    mov r0, r7
-    mov r1, r5
-    bl func_0200cbec
-    mov r0, r5
-    bl FS_WaitAsync
-    mov r0, r5
-    bl FS_CloseFile
-    mov r0, r7
-    bl func_0200cdb0
-    mov r0, #1
-    add sp, sp, #0x7c
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    u8 f[0x48];
+    u8 o[0x2C];
+    I02134bd8 id;
+    s32 z = 0;
+    if (((s32 (*)(...))func_0200ca8c)(o, z, arg0) == 0)
+        return z;
+    ((s32 (*)(...))FS_InitFile)(f);
+    ((s32 (*)(...))func_0200ca60)(&id, o);
+    if (((s32 (*)(u8 *, I02134bd8))FS_OpenFileFast)(f, id) == 0)
+        return z;
+    ((s32 (*)(...))FS_ClearOverlayImage)(o);
+    ((s32 (*)(...))func_0200cbec)(o, f);
+    ((s32 (*)(...))FS_WaitAsync)(f);
+    ((s32 (*)(...))FS_CloseFile)(f);
+    ((s32 (*)(...))func_0200cdb0)(o);
+    return 1;
 }
 
 extern "C" void func_ov015_02134c78(void)

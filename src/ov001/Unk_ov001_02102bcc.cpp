@@ -1299,48 +1299,21 @@ extern "C" s32 func_ov001_02103cf4(s32 arg0)
     return v5;
 }
 
-extern "C" asm void func_ov001_02103d50(void)
+extern "C" void func_ov001_02103d50(void)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1a]
-    cmp r0, #0
-    beq @L_02103da0
-    mov r0, #0
-    bl func_ov015_02131bd0
-    cmp r0, #0
-    bne @L_02103d8c
-    mov r0, #1
-    bl func_ov015_02131bd0
-    cmp r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r4, pc}
-@L_02103d8c:
-    ldr r0, =data_020c5320
-    ldrb r0, [r0, #0x64]
-    cmp r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r4, pc}
-@L_02103da0:
-    ldr r0, =data_ov001_02130644
-    ldr r0, [r0]
-    bl func_ov001_021032f0
-    mov r4, r0
-    ldr r0, =data_020e88a0
-    add r2, sp, #4
-    add r3, sp, #0
-    mov r1, r4
-    bl func_ov001_02127a54
-    ldr r12, [sp, #4]
-    ldr r1, [sp]
-    ldr r0, =data_ov001_02130670
-    ldr r2, =data_ov001_02130668
-    mov r3, r4, lsl #1
-    strh r12, [r2, r3]
-    str r1, [r0, r4, lsl #2]
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    s32 a;
+    s32 b;
+    s32 i;
+    if (((u8 *)gGameState)[0x1A] != 0) {
+        if (((s32 (*)(...))func_ov015_02131bd0)(0) == 0 && ((s32 (*)(...))func_ov015_02131bd0)(1) == 0)
+            return;
+        if (((u8 *)data_020c5320)[0x64] == 0)
+            return;
+    }
+    i = ((s32 (*)(...))func_ov001_021032f0)(*(s32 *)data_ov001_02130644);
+    ((s32 (*)(...))func_ov001_02127a54)(data_020e88a0, i, &a, &b);
+    ((u16 *)data_ov001_02130668)[i] = a;
+    ((s32 *)data_ov001_02130670)[i] = b;
 }
 
 extern "C" s32 func_ov001_02103e00(s32 arg0)

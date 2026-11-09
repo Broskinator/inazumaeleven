@@ -60,7 +60,7 @@ extern "C" void func_ov015_02142ef0(u8 *arg0, u8 *arg1);
 extern "C" s32 func_ov015_02142f8c(u8 *arg0);
 extern "C" void func_ov015_02142fa0(void);
 extern "C" void func_ov015_021432a0(void);
-extern "C" void func_ov015_02143548(void);
+extern "C" u8 *func_ov015_02143548(s32 arg0, u8 *arg1, u8 arg2, u8 arg3);
 extern "C" void func_ov015_021435e4(void);
 extern "C" s32 func_ov015_02143664(s32 arg0);
 extern "C" void func_ov015_021436c0(void);
@@ -3290,48 +3290,25 @@ extern "C" asm void func_ov015_021432a0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_02143548(void)
+static inline s32 fl02143548(u8 *p) { return (p[0x10] & 8) ? 1 : 0; }
+extern "C" u8 *func_ov015_02143548(s32 arg0, u8 *arg1, u8 arg2, u8 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x18
-    ldrb r6, [r1, #0x10]
-    mov r9, r0
-    mov r5, r2
-    tst r6, #8
-    movne r0, #1
-    moveq r0, #0
-    mov r4, r3
-    cmp r0, #0
-    bne @L_02143598
-    ldrb r2, [r1, #0x10]
-    orr r0, r4, #8
-    and r0, r0, #0xff
-    orr r2, r2, r0
-    strb r2, [r1, #0x10]
-    add sp, sp, #0x18
-    mov r0, r1
-    strb r5, [r1, #0x11]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02143598:
-    mov r7, #0x18
-    add r8, sp, #0
-    mov r0, r1
-    mov r1, r8
-    mov r2, r7
-    bl MI_CpuCopy8
-    mov r0, r9
-    bl func_ov015_021435e4
-    mov r6, r0
-    mov r0, r8
-    mov r1, r6
-    mov r2, r7
-    bl MI_CpuCopy8
-    strb r5, [r6, #0x11]
-    orr r1, r4, #8
-    mov r0, r6
-    strb r1, [r6, #0x10]
-    add sp, sp, #0x18
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 b[0x18];
+    if (fl02143548(arg1) == 0) {
+        arg1[0x10] |= (u8)(arg3 | 8);
+        arg1[0x11] = arg2;
+        return arg1;
+    }
+    {
+        s32 n = 0x18;
+        u8 *q;
+        ((void (*)(void *, void *, s32))MI_CpuCopy8)(arg1, b, n);
+        q = (u8 *)((s32 (*)(...))func_ov015_021435e4)(arg0);
+        ((void (*)(void *, void *, s32))MI_CpuCopy8)(b, q, n);
+        q[0x11] = arg2;
+        q[0x10] = arg3 | 8;
+        return q;
+    }
 }
 
 extern "C" asm void func_ov015_021435e4(void)

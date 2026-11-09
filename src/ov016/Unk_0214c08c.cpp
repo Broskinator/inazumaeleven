@@ -7,7 +7,7 @@ extern "C" s32 func_ov016_0214c218(s32 arg0);
 extern "C" s32 func_ov016_0214c254(...);
 extern "C" void func_ov016_0214c368(s32 arg0, s32 arg1);
 extern "C" s32 func_ov016_0214c3b0(...);
-extern "C" void func_ov016_0214c480(void);
+extern "C" void func_ov016_0214c480(s32 arg0);
 extern "C" void func_ov016_0214c520(void);
 extern "C" void func_ov016_0214c5fc(void);
 extern "C" s32 func_ov016_0214c6e0(...);
@@ -439,47 +439,23 @@ extern "C" asm s32 func_ov016_0214c3b0(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_0214c480(void)
+extern "C" void func_ov016_0214c480(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, #1
-    mov r1, r5
-    mov r4, r0
-    bl func_ov089_02174334
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mvn r0, r5, lsl r4
-    mov r5, r0, lsl #0x10
-    bl OS_DisableInterrupts
-    ldr r1, =data_ov016_02158b3c
-    ldr r3, [r1]
-    ldrh r2, [r3, #2]
-    and r2, r2, r5, lsr #16
-    strh r2, [r3, #2]
-    ldr r3, [r1]
-    ldrh r2, [r3, #4]
-    and r2, r2, r5, lsr #16
-    strh r2, [r3, #4]
-    ldr r3, [r1]
-    ldrh r2, [r3, #6]
-    and r2, r2, r5, lsr #16
-    strh r2, [r3, #6]
-    ldr r3, [r1]
-    ldrh r2, [r3, #8]
-    and r2, r2, r5, lsr #16
-    strh r2, [r3, #8]
-    ldr r3, [r1]
-    ldrh r2, [r3, #0xa]
-    and r2, r2, r5, lsr #16
-    strh r2, [r3, #0xa]
-    ldr r2, [r1]
-    ldrh r1, [r2, #0xc]
-    and r1, r1, r5, lsr #16
-    strh r1, [r2, #0xc]
-    bl OS_RestoreInterrupts
-    mov r0, r4
-    bl func_ov089_0217864c
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 k = 1;
+    u16 m;
+    s32 e;
+    if (((s32 (*)(...))func_ov089_02174334)(arg0, k) != 0)
+        return;
+    m = ~(k << arg0);
+    e = ((s32 (*)(...))OS_DisableInterrupts)();
+    (*(u16 **)data_ov016_02158b3c)[1] &= m;
+    (*(u16 **)data_ov016_02158b3c)[2] &= m;
+    (*(u16 **)data_ov016_02158b3c)[3] &= m;
+    (*(u16 **)data_ov016_02158b3c)[4] &= m;
+    (*(u16 **)data_ov016_02158b3c)[5] &= m;
+    (*(u16 **)data_ov016_02158b3c)[6] &= m;
+    ((s32 (*)(...))OS_RestoreInterrupts)(e);
+    ((s32 (*)(...))func_ov089_0217864c)(arg0);
 }
 
 extern "C" asm void func_ov016_0214c520(void)

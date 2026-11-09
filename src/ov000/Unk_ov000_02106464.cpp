@@ -54,7 +54,7 @@ extern "C" void func_ov000_02108738(void);
 extern "C" void func_ov000_02108a3c(void);
 extern "C" void func_ov000_02108b10(void);
 extern "C" void func_ov000_02108ce4(void);
-extern "C" void func_ov000_02108ce8(void);
+extern "C" void func_ov000_02108ce8(u8 *arg0);
 extern "C" void func_ov000_02108d80(u8 *arg0, s32 arg1, s32 arg2, s32 *arg3, s32 *arg4);
 extern "C" s32 func_ov000_02108e04(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, u8 *arg4);
 extern "C" s32 func_ov000_02108eac(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5, u8 *arg6);
@@ -2863,48 +2863,24 @@ extern "C" void func_ov000_02108ce4(void)
 {
 }
 
-extern "C" asm void func_ov000_02108ce8(void)
+extern "C" void func_ov000_02108ce8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0xc
-    mov r4, r0
-    bl func_ov000_0210796c
-    cmp r0, #0
-    beq @L_02108d28
-    ldrsh r0, [r4, #0x84]
-    cmp r0, #0
-    ldreqsh r0, [r4, #0x86]
-    cmpeq r0, #0
-    movne r0, #1
-    strneb r0, [r4, #0x27f]
-    mov r0, #0
-    str r0, [sp, #4]
-    str r0, [sp, #8]
-    b @L_02108d68
-@L_02108d28:
-    add r0, sp, #4
-    str r0, [sp]
-    ldrsh r1, [r4, #0x88]
-    ldrsh r2, [r4, #0x8a]
-    add r3, sp, #8
-    mov r0, r4
-    bl func_ov000_02108e04
-    ldrsh r0, [r4, #0x84]
-    ldr r1, [sp, #8]
-    cmp r1, r0
-    ldreqsh r0, [r4, #0x86]
-    ldreq r1, [sp, #4]
-    cmpeq r1, r0
-    movne r0, #1
-    strneb r0, [r4, #0x27e]
-    strneb r0, [r4, #0x27f]
-@L_02108d68:
-    ldr r0, [sp, #8]
-    strh r0, [r4, #0x84]
-    ldr r0, [sp, #4]
-    strh r0, [r4, #0x86]
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, pc}
+    s32 x;
+    s32 y;
+    if (((s32 (*)(...))func_ov000_0210796c)(arg0) != 0) {
+        if (*(s16 *)(arg0 + 0x84) != 0 || *(s16 *)(arg0 + 0x86) != 0)
+            arg0[0x27F] = 1;
+        y = 0;
+        x = 0;
+    } else {
+        ((s32 (*)(...))func_ov000_02108e04)(arg0, *(s16 *)(arg0 + 0x88), *(s16 *)(arg0 + 0x8A), &x, &y);
+        if (x != *(s16 *)(arg0 + 0x84) || y != *(s16 *)(arg0 + 0x86)) {
+            arg0[0x27E] = 1;
+            arg0[0x27F] = 1;
+        }
+    }
+    *(s16 *)(arg0 + 0x84) = x;
+    *(s16 *)(arg0 + 0x86) = y;
 }
 
 static inline s32 fxm02108d80(s32 a, s32 b) { return (s32)(((s64)a * b + 0x800) >> 12); }

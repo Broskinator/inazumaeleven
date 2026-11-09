@@ -24,7 +24,7 @@ extern "C" void func_ov003_020fd5c8(void);
 extern "C" s32 func_ov003_020fd658(...);
 extern "C" s32 func_ov003_020fd698(s32 arg0, s32 arg1, u8 *arg2, u8 *arg3);
 extern "C" void func_ov003_020fd6d8(void *arg0, s32 arg1);
-extern "C" void func_ov003_020fd754(void);
+extern "C" void func_ov003_020fd754(s32 arg0, s32 arg1);
 extern "C" s32 func_ov003_020fd7f4(u8 *arg0);
 extern "C" s32 func_ov003_020fd890(u8 *arg0);
 extern "C" s32 func_ov003_020fd8b8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -1089,48 +1089,27 @@ extern "C" void func_ov003_020fd6d8(void *arg0, s32 arg1)
     ((s32 (*)(...))func_ov003_020fd5c8)(arg0);
 }
 
-extern "C" asm void func_ov003_020fd754(void)
+extern "C" void func_ov003_020fd754(s32 arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r4, =data_020c46c4
-    mov r5, r1
-    mov r6, r0
-    mov r1, r5, lsl #0x10
-    ldr r0, [r4]
-    mov r1, r1, lsr #0x10
-    bl func_ov015_02161dd4
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    cmp r5, #1
-    blt @L_020fd7a4
-    cmp r5, #2
-    bgt @L_020fd7a4
-    ldrh r1, [r0, #0xc]
-    cmp r1, #0
-    ldrne r0, [r4]
-    addne r0, r0, #0xf00
-    strneh r1, [r0, #0x38]
-    ldmia sp!, {r4, r5, r6, pc}
-@L_020fd7a4:
-    cmp r5, #3
-    bne @L_020fd7c8
-    ldr r0, =data_020c5e40
-    mov r1, #8
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r0, r6
-    mov r1, #1
-    bl func_ov003_020fd34c
-    ldmia sp!, {r4, r5, r6, pc}
-@L_020fd7c8:
-    cmp r5, #4
-    ldmneia sp!, {r4, r5, r6, pc}
-    ldr r0, =data_020c5e40
-    mov r1, #8
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r0, r6
-    mov r1, #0
-    bl func_ov003_020fd34c
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 *d = (s32 *)data_020c46c4;
+    u8 *e = (u8 *)((s32 (*)(...))func_ov015_02161dd4)(*d, (u16)arg1);
+    if (e == 0)
+        return;
+    if (arg1 >= 1 && arg1 <= 2) {
+        u16 v = *(u16 *)(e + 0xC);
+        if (v != 0)
+            *(u16 *)(*d + 0xF38) = v;
+        return;
+    }
+    if (arg1 == 3) {
+        ((s32 (*)(...))_ZN12SoundManager9PlaySoundEi)(data_020c5e40, 8);
+        ((s32 (*)(...))func_ov003_020fd34c)(arg0, 1);
+        return;
+    }
+    if (arg1 == 4) {
+        ((s32 (*)(...))_ZN12SoundManager9PlaySoundEi)(data_020c5e40, 8);
+        ((s32 (*)(...))func_ov003_020fd34c)(arg0, 0);
+    }
 }
 
 extern "C" s32 func_ov003_020fd7f4(u8 *arg0)

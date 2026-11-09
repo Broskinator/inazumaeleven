@@ -73,7 +73,7 @@ extern "C" void func_ov001_021172d4(u8 *arg0);
 extern "C" s32 func_ov001_021172f4(...);
 extern "C" void func_ov001_02117434(s32 arg0);
 extern "C" void func_ov001_0211745c(void);
-extern "C" void func_ov001_0211767c(void);
+extern "C" void func_ov001_0211767c(s32 arg0, s32 arg1, s32 arg2, void *arg3, u8 *arg4);
 extern "C" s32 func_ov001_0211771c(u8 *arg0, s32 arg1);
 extern "C" void func_ov001_021177b8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov001_021177d8(void);
@@ -2174,48 +2174,16 @@ extern "C" asm void func_ov001_0211745c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov001_0211767c(void)
+extern "C" void func_ov001_0211767c(s32 arg0, s32 arg1, s32 arg2, void *arg3, u8 *arg4)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x70
-    ldr r5, [sp, #0x88]
-    mov r7, r1
-    mov r0, r5
-    mov r6, r2
-    mov r8, r3
-    bl func_ov015_02133dc8
-    add r4, sp, #0x20
-    mov r0, r8
-    mov r1, r4
-    mov r2, #0x50
-    bl MI_CpuCopy8
-    mov r1, #3
-    str r1, [sp]
-    mov r0, r4
-    str r1, [sp, #4]
-    mov r4, #1
-    str r4, [sp, #8]
-    mov r1, #0
-    str r1, [sp, #0xc]
-    str r7, [sp, #0x10]
-    str r6, [sp, #0x14]
-    str r4, [sp, #0x18]
-    str r4, [sp, #0x1c]
-    ldrh r2, [r5, #0xc]
-    ldrh r3, [r5, #0xe]
-    ldr r1, [r5, #4]
-    mov r2, r2, lsl #3
-    mov r3, r3, lsl #3
-    bl func_ov015_021330b4
-    ldrh r2, [r5, #0xc]
-    ldrh r1, [r5, #0xe]
-    ldr r0, [r5, #4]
-    mul r1, r2, r1
-    mov r1, r1, lsl #5
-    bl DC_FlushRange
-    strb r4, [r5, #0x10]
-    add sp, sp, #0x70
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 b[0x50];
+    s32 k;
+    ((s32 (*)(...))func_ov015_02133dc8)(arg4);
+    ((void (*)(void *, void *, s32))MI_CpuCopy8)(arg3, b, 0x50);
+    k = 1;
+    ((s32 (*)(...))func_ov015_021330b4)(b, *(s32 *)(arg4 + 4), *(u16 *)(arg4 + 0xC) << 3, *(u16 *)(arg4 + 0xE) << 3, 3, 3, k, 0, arg1, arg2, k, k);
+    ((s32 (*)(...))DC_FlushRange)(*(s32 *)(arg4 + 4), (*(u16 *)(arg4 + 0xC) * *(u16 *)(arg4 + 0xE)) << 5);
+    arg4[0x10] = k;
 }
 
 extern "C" s32 func_ov001_0211771c(u8 *arg0, s32 arg1)

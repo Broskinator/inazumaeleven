@@ -9,7 +9,7 @@ extern "C" s32 func_ov015_0215bc74(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215bcfc(s32 arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215bd78(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215bdf8(u8 *arg0, u8 *arg1, s32 *arg2);
-extern "C" void func_ov015_0215be78(void);
+extern "C" s32 func_ov015_0215be78(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_0215bf18(void);
 extern "C" s32 func_ov015_0215c01c(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215c0a4(u8 *arg0, u8 *arg1, s32 *arg2);
@@ -347,48 +347,29 @@ extern "C" s32 func_ov015_0215bdf8(u8 *arg0, u8 *arg1, s32 *arg2)
     return 1;
 }
 
-extern "C" asm void func_ov015_0215be78(void)
+extern "C" s32 func_ov015_0215be78(u8 *arg0, u8 *arg1, s32 *arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x100
-    add r5, sp, #0x80
-    mov r8, r0
-    mov r4, r2
-    mov r6, #0
-    mov r7, r1
-    mov r0, r5
-    mov r1, r6
-    mov r2, #0x80
-    bl MI_CpuFill8
-    add r3, sp, #0
-    mov r0, r8
-    mov r1, r7
-    mov r2, r5
-    bl func_ov015_02149920
-    ldrsb r1, [r7, #0xb]
-    str r0, [r7, #4]
-    mov r5, #1
-    add r1, r1, #1
-    ldr r0, =data_020e88a0
-    strb r1, [r7, #0xb]
-    strb r5, [r7, #0xa]
-    bl _ZN17UnkClass_020621b413func_0207620cEv
-    ldrb r0, [r0, #0x12]
-    tst r0, #1
-    moveq r5, r6
-    cmp r5, #0
-    beq @L_0215bf00
-    tst r0, #2
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    movne r6, #1
-@L_0215bf00:
-    cmp r4, #0
-    strne r6, [r4]
-    mov r0, #1
-    add sp, sp, #0x100
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 a[0x80];
+    u8 b[0x80];
+    s32 z = 0;
+    s32 k;
+    ((void (*)(void *, s32, s32))MI_CpuFill8)(a, z, 0x80);
+    *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, u8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
+    k = 1;
+    arg1[0xA] = k;
+    ((s8 *)arg1)[0xB]++;
+    {
+        u8 f = *(u8 *)(((s32 (*)(...))_ZN17UnkClass_020621b413func_0207620cEv)(data_020e88a0) + 0x12);
+        if ((f & 1) == 0)
+            k = z;
+        if (k != 0) {
+            if (((f & 2) ? 1 : 0) != 0)
+                z = 1;
+        }
+        if (arg2 != 0)
+            *arg2 = z;
+    }
+    return 1;
 }
 
 extern "C" asm void func_ov015_0215bf18(void)
