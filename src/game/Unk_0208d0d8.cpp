@@ -60,7 +60,7 @@ extern "C" void **func_0208e89c(void **obj);
 extern "C" void **func_0208e8c4(void **obj);
 extern "C" void func_0208e8e4(u8 *obj);
 extern "C" BOOL func_0208e908(void);
-extern "C" void func_0208e910(void);
+extern "C" void func_0208e910(u8 *arg0);
 extern "C" void func_0208e9b8(u8 *obj, int i, BOOL value);
 
 extern "C" char data_020a72b4[];
@@ -1701,49 +1701,24 @@ extern "C" BOOL func_0208e908(void)
     return TRUE;
 }
 
-extern "C" asm void func_0208e910(void)
+extern "C" void func_0208e910(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #8
-    mov r4, r0
-    bl func_0208f308
-    cmp r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r4, pc}
-    ldr r1, =data_020c483c
-    ldr r0, =data_020c4838
-    ldr r1, [r1]
-    ldr r0, [r0]
-    mov r1, r1, lsl #0xc
-    rsb r1, r1, #0
-    mov r0, r0, lsl #0xc
-    str r1, [sp, #4]
-    str r0, [sp]
-    ldrb r0, [r4, #0x110]
-    cmp r0, #0
-    addne sp, sp, #8
-    ldmneia sp!, {r4, pc}
-    ldrb r1, [r4, #0x10e]
-    ldrb r0, [r4, #0x10f]
-    add r1, r1, #1
-    and r1, r1, #0x3f
-    strb r1, [r4, #0x10e]
-    cmp r0, #0
-    beq @L_0208e994
-    and r0, r1, #0xff
-    mov r0, r0, lsr #1
-    cmp r0, #0xf
-    rsbgt r0, r0, #0x1f
-    add r0, r0, #8
-    strb r0, [r4, #0x10c]
-@L_0208e994:
-    add r2, sp, #4
-    add r3, sp, #0
-    mov r0, r4
-    mov r1, r4
-    bl func_0208fac4
-    add sp, sp, #8
-    ldmia sp!, {r4, pc}
+    s32 a;
+    s32 b;
+    if (((s32 (*)(...))func_0208f308)(arg0) == 0)
+        return;
+    a = -(*(s32 *)data_020c483c << 12);
+    b = *(s32 *)data_020c4838 << 12;
+    if (arg0[0x110] != 0)
+        return;
+    arg0[0x10E] = (arg0[0x10E] + 1) & 0x3F;
+    if (arg0[0x10F] != 0) {
+        s32 v = (u32)arg0[0x10E] >> 1;
+        if (v > 0xF)
+            v = 0x1F - v;
+        arg0[0x10C] = v + 8;
+    }
+    ((s32 (*)(...))func_0208fac4)(arg0, arg0, &a, &b);
 }
 
 extern "C" void func_0208e9b8(u8 *obj, int i, BOOL value)

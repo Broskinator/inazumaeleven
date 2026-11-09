@@ -21,7 +21,7 @@ extern "C" void func_ov001_02120440(u8 *arg0);
 extern "C" void func_ov001_0212049c(s32 arg0);
 extern "C" void func_ov001_021204c4(void);
 extern "C" void func_ov001_02120e68(void);
-extern "C" void func_ov001_02121158(void);
+extern "C" void func_ov001_02121158(u8 *arg0);
 extern "C" void func_ov001_021211f0(u8 *arg0);
 extern "C" void func_ov001_02121250(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov001_02121368(void);
@@ -2550,49 +2550,18 @@ extern "C" asm void func_ov001_02120e68(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov001_02121158(void)
+extern "C" void func_ov001_02121158(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r6, #0
-    ldr r5, =data_020c46bc
-    mov r10, r0
-    str r6, [sp]
-    mov r11, #0xc
-    mov r4, #0x1c
-@L_02121174:
-    ldr r0, [sp]
-    mov r7, #0
-    add r9, r10, r0
-    ldrb r0, [r9, #0x19]
-    cmp r0, #0
-    ble @L_021211d4
-    ldr r1, [sp]
-    mov r0, #0x54
-    mla r8, r1, r0, r10
-@L_02121198:
-    mla r0, r7, r4, r8
-    ldrsh r0, [r0, #0x1c]
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    mlane r1, r6, r11, r10
-    ldrne r1, [r1, #0x2d4]
-    cmpne r1, #0
-    beq @L_021211c0
-    ldr r2, [r5]
-    bl func_ov015_02131da0
-@L_021211c0:
-    ldrb r0, [r9, #0x19]
-    add r7, r7, #1
-    add r6, r6, #1
-    cmp r7, r0
-    blt @L_02121198
-@L_021211d4:
-    ldr r0, [sp]
-    add r0, r0, #1
-    str r0, [sp]
-    cmp r0, #2
-    blt @L_02121174
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s32 k = 0;
+    s32 i;
+    for (i = 0; i < 2; i++) {
+        s32 j;
+        for (j = 0; j < arg0[i + 0x19]; j++, k++) {
+            s32 r = ((s32 (*)(...))func_ov015_02130ae8)(*(s16 *)(arg0 + i * 0x54 + j * 0x1C + 0x1C));
+            if (r != 0 && *(s32 *)(arg0 + k * 0xC + 0x2D4) != 0)
+                ((s32 (*)(...))func_ov015_02131da0)(r, *(s32 *)(arg0 + k * 0xC + 0x2D4), *(s32 *)data_020c46bc);
+        }
+    }
 }
 
 extern "C" void func_ov001_021211f0(u8 *arg0)

@@ -1,11 +1,12 @@
 #include "ov001/Unk_ov001_021189fc.hpp"
 #include "game/vcall.hpp"
 #include "game/vcall.hpp"
+class C02118b70 { public: virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c(); virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3c(); virtual void v40(); virtual void v44(); virtual void v48(); virtual void v4c(); u8 *p; s32 st; };
 
 extern "C" s32 func_ov001_021189fc(u8 *arg0);
 extern "C" void func_ov001_02118a48(u8 *arg0);
 extern "C" s32 func_ov001_02118a84(u8 *arg0);
-extern "C" void func_ov001_02118b70(void);
+extern "C" void func_ov001_02118b70(C02118b70 *arg0);
 extern "C" void func_ov001_02118c0c(u8 *arg0);
 extern "C" s32 func_ov001_02118c68(s32 arg0);
 extern "C" s32 func_ov001_02118cb4(s32 arg0);
@@ -302,49 +303,26 @@ extern "C" void func_ov001_0211c458(void);
 extern "C" void func_ov001_0211c518(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
 extern "C" void func_ov015_021629c8(void);
-extern "C" asm void func_ov001_02118b70(void)
+extern "C" void func_ov001_02118b70(C02118b70 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #8]
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    b @L_02118ba4
-    ldmia sp!, {r4, pc}
-    b @L_02118bd0
-    b @L_02118bf0
-    b @L_02118bf0
-    b @L_02118bf0
-@L_02118ba4:
-    add r0, r4, #0x3d8
-    mov r1, #5
-    bl func_ov015_02134118
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    bl func_ov001_021186a0
-    mov r0, r4
-    mov r1, #2
-    bl func_ov001_021180a4
-    ldmia sp!, {r4, pc}
-@L_02118bd0:
-    bl func_ov001_021189fc
-    mov r0, r4
-    ldr r1, [r0]
-    ldr r1, [r1, #0x4c]
-    blx r1
-    mov r0, r4
-    mov r1, #4
-    bl func_ov001_021180a4
-@L_02118bf0:
-    mov r0, r4
-    bl func_ov001_02118a48
-    ldr r0, =data_020c9660
-    mov r1, #0
-    bl func_ov015_0213bfcc
-    ldmia sp!, {r4, pc}
+    switch (arg0->st) {
+    case 1:
+        if (((s32 (*)(...))func_ov015_02134118)((u8 *)arg0 + 0x3D8, 5) != 0) {
+            ((s32 (*)(...))func_ov001_021186a0)(arg0);
+            ((s32 (*)(...))func_ov001_021180a4)(arg0, 2);
+        }
+        break;
+    case 3:
+        ((s32 (*)(...))func_ov001_021189fc)(arg0);
+        arg0->v4c();
+        ((s32 (*)(...))func_ov001_021180a4)(arg0, 4);
+    case 4:
+    case 5:
+    case 6:
+        ((s32 (*)(...))func_ov001_02118a48)(arg0);
+        ((s32 (*)(...))func_ov015_0213bfcc)(data_020c9660, 0);
+        break;
+    }
 }
 
 extern "C" void func_ov001_02118c0c(u8 *arg0)

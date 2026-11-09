@@ -1,6 +1,7 @@
 #include "ov015/Unk_021467c8.hpp"
 #include "game/vcall.hpp"
 #include "nitro/fx.h"
+struct E02149784 { u16 *p; u8 pad[0x48]; };
 struct S02146e80 { s32 a, b, c; };
 struct S02146e68 { s32 a, b, c; };
 struct P02148794 { s32 a; s32 b; };
@@ -115,7 +116,7 @@ extern "C" void func_ov015_021496d4(u8 *arg0);
 extern "C" void func_ov015_021496e4(u8 *arg0);
 extern "C" void func_ov015_021496f4(u8 *arg0);
 extern "C" void func_ov015_02149704(void);
-extern "C" void func_ov015_02149784(void);
+extern "C" E02149784 *func_ov015_02149784(u8 *arg0, E02149784 *arg1, u32 arg2);
 
 extern "C" char data_020c464c[];
 extern "C" char data_020c4664[];
@@ -3541,46 +3542,25 @@ extern "C" asm void func_ov015_02149704(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov015_02149784(void)
+extern "C" E02149784 *func_ov015_02149784(u8 *arg0, E02149784 *arg1, u32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    cmp r1, #0
-    ldreq r1, [r0, #0x234]
-    ldr r12, [r0, #0x234]
-    ldr r3, =0xaf286bcb
-    sub r12, r1, r12
-    umull r3, r4, r12, r3
-    sub r3, r12, r4
-    add r4, r4, r3, lsr #1
-    ldr lr, [r0, #0x238]
-    mov r4, r4, lsr #6
-    mov r0, r1
-    mov r12, r4
-    cmp lr, r4
-    ble @L_021497e0
-@L_021497c0:
-    ldr r3, [r0]
-    ldrh r3, [r3]
-    cmp r3, r2
-    ldmeqia sp!, {r4, pc}
-    add r12, r12, #1
-    cmp r12, lr
-    add r0, r0, #0x4c
-    blt @L_021497c0
-@L_021497e0:
-    cmp r4, #0
-    sub r0, r1, #0x4c
-    ble @L_0214980c
-@L_021497ec:
-    ldr r1, [r0]
-    ldrh r1, [r1]
-    cmp r1, r2
-    ldmeqia sp!, {r4, pc}
-    sub r4, r4, #1
-    cmp r4, #0
-    sub r0, r0, #0x4c
-    bgt @L_021497ec
-@L_0214980c:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
+    E02149784 *p;
+    s32 i;
+    s32 n;
+    s32 x;
+    if (arg1 == 0)
+        arg1 = *(E02149784 **)(arg0 + 0x234);
+    x = (u32)((u8 *)arg1 - *(u8 **)(arg0 + 0x234)) / 0x4C;
+    n = *(s32 *)(arg0 + 0x238);
+    p = arg1;
+    for (i = x; i < n; i++, p++) {
+        if (*p->p == arg2)
+            return p;
+    }
+    p = arg1 - 1;
+    for (; x > 0; x--, p--) {
+        if (*p->p == arg2)
+            return p;
+    }
+    return 0;
 }

@@ -37,7 +37,7 @@ extern "C" s32 func_ov001_0211da3c(...);
 extern "C" s32 func_ov001_0211e248(u8 *arg0);
 extern "C" void func_ov001_0211e2d4(void);
 extern "C" void func_ov001_0211e374(void);
-extern "C" void func_ov001_0211e45c(void);
+extern "C" void func_ov001_0211e45c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov001_0211e500(void);
 extern "C" s32 func_ov001_0211e64c(...);
 extern "C" s32 func_ov001_0211e84c(u8 *arg0);
@@ -2756,49 +2756,21 @@ extern "C" asm void func_ov001_0211e374(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov001_0211e45c(void)
+extern "C" void func_ov001_0211e45c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #8
-    mov r7, r0
-    ldr lr, [r7, #0x20]
-    mov r6, r1
-    mov r5, r2
-    mov r4, r3
-    cmp lr, #0
-    beq @L_0211e4ac
-    ldr r0, [sp, #0x20]
-    ldr r12, =data_020d2520
-    rsb r0, r0, r0, lsl #4
-    add r0, lr, r0, lsl #2
-    str r0, [sp]
-    mov r0, r6
-    mov r1, r5
-    mov r2, #0xf
-    mov r3, #2
-    str r12, [sp, #4]
-    bl func_ov015_02132a38
-@L_0211e4ac:
-    cmp r4, #7
-    addge sp, sp, #8
-    ldmgeia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, [sp, #0x20]
-    mov r2, #8
-    cmp r0, #0
-    rsbeq r1, r4, #6
-    rsbne r1, r4, #0xd
-    ldr r0, [r7, #0x24]
-    addeq r6, r6, #7
-    add r0, r0, r1, lsl #4
-    str r0, [sp]
-    ldr r4, =data_020d2520
-    mov r0, r6
-    mov r1, r5
-    mov r3, #1
-    str r4, [sp, #4]
-    bl func_ov015_02132a38
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 x;
+    s32 h = *(s32 *)(arg0 + 0x20);
+    if (h != 0)
+        ((s32 (*)(...))func_ov015_02132a38)(arg1, arg2, 0xF, 2, h + ((arg4 * 0xF) << 2), data_020d2520);
+    if (arg3 >= 7)
+        return;
+    if (arg4 == 0) {
+        x = 6 - arg3;
+        arg1 += 7;
+    } else {
+        x = 0xD - arg3;
+    }
+    ((s32 (*)(...))func_ov015_02132a38)(arg1, arg2, 8, 1, *(s32 *)(arg0 + 0x24) + (x << 4), data_020d2520);
 }
 
 extern "C" asm void func_ov001_0211e500(void)

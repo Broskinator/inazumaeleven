@@ -27,7 +27,7 @@ extern "C" s32 func_ov000_0210deb8(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov000_0210df0c(u8 *arg0);
 extern "C" s32 func_ov000_0210df58(u8 *arg0);
 extern "C" s32 func_ov000_0210df84(u8 *arg0, s32 arg1);
-extern "C" void func_ov000_0210dff0(void);
+extern "C" void func_ov000_0210dff0(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov000_0210e090(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov000_0210e100(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov000_0210e17c(s32 arg0, u8 *arg1, u8 *arg2);
@@ -1897,49 +1897,19 @@ extern "C" s32 func_ov000_0210df84(u8 *arg0, s32 arg1)
     return v2;
 }
 
-extern "C" asm void func_ov000_0210dff0(void)
+extern "C" void func_ov000_0210dff0(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r4, r1
-    ldr r1, [r6, #0x1c]
-    mov r5, r2
-    cmp r1, #0
-    beq @L_0210e014
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-@L_0210e014:
-    mov r0, r6
-    mov r1, r4
-    bl func_ov000_0210df84
-    add r0, r5, #4
-    bic r5, r0, #3
-    ldr r0, [r6, #0x10]
-    mov r4, #0
-    mul r1, r5, r0
-    ldr r0, =data_020c47b4
-    mov r2, r4
-    mov r3, #1
-    str r5, [r6, #0x14]
-    bl _ZN8GameHeap5AllocEiii
-    ldr r2, [r6, #0x10]
-    mov r1, r4
-    mul r2, r5, r2
-    str r0, [r6, #0x1c]
-    bl MI_CpuFill8
-    ldr r0, [r6, #0x10]
-    cmp r0, #0
-    ldmleia sp!, {r4, r5, r6, pc}
-@L_0210e068:
-    ldr r1, [r6, #0x1c]
-    ldr r0, [r6, #0x18]
-    mla r1, r4, r5, r1
-    str r1, [r0, r4, lsl #2]
-    ldr r0, [r6, #0x10]
-    add r4, r4, #1
-    cmp r4, r0
-    blt @L_0210e068
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 i;
+    if (*(s32 *)(arg0 + 0x1C) != 0)
+        ((s32 (*)(...))_ZN8GameHeap4FreeEPv)(data_020c47b4, *(s32 *)(arg0 + 0x1C));
+    ((s32 (*)(...))func_ov000_0210df84)(arg0, arg1);
+    arg2 = (arg2 + 4) & ~3;
+    i = 0;
+    *(s32 *)(arg0 + 0x14) = arg2;
+    *(s32 *)(arg0 + 0x1C) = ((s32 (*)(...))_ZN8GameHeap5AllocEiii)(data_020c47b4, arg2 * *(s32 *)(arg0 + 0x10), i, 1);
+    ((void (*)(s32, s32, s32))MI_CpuFill8)(*(s32 *)(arg0 + 0x1C), i, arg2 * *(s32 *)(arg0 + 0x10));
+    for (; i < *(s32 *)(arg0 + 0x10); i++)
+        (*(s32 **)(arg0 + 0x18))[i] = *(s32 *)(arg0 + 0x1C) + i * arg2;
 }
 
 extern "C" void func_ov000_0210e090(u8 *arg0, s32 arg1, s32 arg2)

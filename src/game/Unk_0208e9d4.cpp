@@ -23,7 +23,7 @@ extern "C" u8 func_0208f308(u8 *obj);
 extern "C" void func_0208f310(void);
 extern "C" void func_0208f3c0(void);
 extern "C" void func_0208f628(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_0208f6ac(void);
+extern "C" s32 func_0208f6ac(s32 arg0, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6, s32 *a7, s32 *a8);
 extern "C" s32 func_0208f750(s32 arg0, s32 *arg1, s32 *arg2, s32 *arg3);
 extern "C" void func_0208f7c8(void);
 extern "C" void func_0208f960(void);
@@ -921,49 +921,27 @@ extern "C" void func_0208f628(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
     return;
 }
 
-extern "C" asm void func_0208f6ac(void)
+extern "C" s32 func_0208f6ac(s32 arg0, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6, s32 *a7, s32 *a8)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x24
-    ldr r5, [sp, #0x38]
-    mov r6, r1, asr #4
-    mov r12, r3, asr #4
-    mov r3, r5, asr #4
-    ldr r1, [sp, #0x40]
-    mov lr, r2, asr #4
-    ldr r4, [sp, #0x3c]
-    mov r1, r1, asr #4
-    mov r2, r4, asr #4
-    str r12, [sp, #0x14]
-    str r3, [sp, #0x18]
-    str r2, [sp, #0xc]
-    ldr r5, [sp, #0x44]
-    str r6, [sp, #0x1c]
-    str lr, [sp, #0x20]
-    str r1, [sp, #0x10]
-    ldr r1, [r5]
-    ldr r4, [sp, #0x48]
-    mov r1, r1, asr #4
-    str r1, [sp, #4]
-    ldr r1, [r4]
-    add r12, sp, #4
-    mov r1, r1, asr #4
-    str r1, [sp, #8]
-    add r1, sp, #0x1c
-    add r2, sp, #0x14
-    add r3, sp, #0xc
-    str r12, [sp]
-    bl func_0208f960
-    ldr r1, [sp, #4]
-    cmn r0, #1
-    mov r1, r1, lsl #4
-    str r1, [r5]
-    ldr r1, [sp, #8]
-    movne r0, r0, lsl #4
-    mov r1, r1, lsl #4
-    str r1, [r4]
-    add sp, sp, #0x24
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    s32 b0[2];
+    s32 b1[2];
+    s32 b2[2];
+    s32 b3[2];
+    s32 r;
+    b0[0] = a1 >> 4;
+    b0[1] = a2 >> 4;
+    b1[0] = a3 >> 4;
+    b1[1] = a4 >> 4;
+    b2[0] = a5 >> 4;
+    b2[1] = a6 >> 4;
+    b3[0] = *a7 >> 4;
+    b3[1] = *a8 >> 4;
+    r = ((s32 (*)(...))func_0208f960)(arg0, b0, b1, b2, b3);
+    *a7 = b3[0] << 4;
+    *a8 = b3[1] << 4;
+    if (r != -1)
+        r <<= 4;
+    return r;
 }
 
 static inline s32 fxm0208f750(s32 a, s32 b) { return (s32)(((s64)a * b + 0x800) >> 12); }

@@ -91,7 +91,7 @@ extern "C" s32 func_ov015_0213c6d0(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_0213c730(void);
 extern "C" s32 func_ov015_0213c7dc(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_0213c830(void);
-extern "C" void func_ov015_0213c8cc(void);
+extern "C" void func_ov015_0213c8cc(s32 *arg0, s32 *arg1);
 extern "C" s32 func_ov015_0213c974(...);
 extern "C" void func_ov015_0213c9a0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213c9e4(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3);
@@ -2778,49 +2778,26 @@ extern "C" asm void func_ov015_0213c830(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov015_0213c8cc(void)
+static inline s32 sin0213c8cc(u16 i) { return ((s16 *)FX_SinCosTable_)[(i >> 4) * 2]; }
+//@local
+static inline s32 cos0213c8cc(u16 i) { return ((s16 *)FX_SinCosTable_)[(i >> 4) * 2 + 1]; }
+extern "C" void func_ov015_0213c8cc(s32 *arg0, s32 *arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x80
-    ldmia r1, {r6, r7, r8}
-    mov r9, r0
-    rsb r0, r6, #0
-    rsb r1, r8, #0
-    bl func_0200226c
-    mov r5, r0
-    rsb r0, r5, #0
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    mov r0, r0, asr #4
-    mov r1, r0, lsl #1
-    add r0, r1, #1
-    ldr r2, =FX_SinCosTable_
-    mov r1, r1, lsl #1
-    mov r0, r0, lsl #1
-    ldrsh r1, [r2, r1]
-    ldrsh r2, [r2, r0]
-    add r4, sp, #0x40
-    mov r0, r4
-    bl MTX_RotY44_
-    add r10, sp, #0
-    mov r0, r10
-    bl MTX_Identity44_
-    str r8, [sp, #0x38]
-    mov r1, r4
-    mov r0, r10
-    mov r2, r10
-    str r6, [sp, #0x30]
-    str r7, [sp, #0x34]
-    bl func_02001644
-    ldr r1, [sp, #0x38]
-    ldr r0, [sp, #0x34]
-    rsb r1, r1, #0
-    bl func_0200226c
-    stmia r9, {r0, r5}
-    mov r0, #0
-    str r0, [r9, #8]
-    add sp, sp, #0x80
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    s32 m2[16];
+    s32 m1[16];
+    s32 x = arg1[0];
+    s32 y = arg1[1];
+    s32 z = arg1[2];
+    s32 yaw = ((s32 (*)(...))func_0200226c)(-x, -z);
+    ((s32 (*)(...))MTX_RotY44_)(m2, sin0213c8cc(-yaw), cos0213c8cc(-yaw));
+    ((s32 (*)(...))MTX_Identity44_)(m1);
+    m1[14] = z;
+    m1[12] = x;
+    m1[13] = y;
+    ((s32 (*)(...))func_02001644)(m1, m2, m1);
+    arg0[0] = ((s32 (*)(...))func_0200226c)(m1[13], -m1[14]);
+    arg0[1] = yaw;
+    arg0[2] = 0;
 }
 
 extern "C" asm s32 func_ov015_0213c974(...)

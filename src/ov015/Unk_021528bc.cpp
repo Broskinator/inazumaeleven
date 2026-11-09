@@ -45,7 +45,7 @@ extern "C" void func_ov015_0215548c(void);
 extern "C" void func_ov015_02155550(void);
 extern "C" s32 func_ov015_02155630(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_021556fc(u8 *arg0, u8 *arg1, s32 *arg2);
-extern "C" void func_ov015_021557c8(void);
+extern "C" s32 func_ov015_021557c8(u8 *arg0, s8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_02155864(u8 *arg0, u8 *arg1, s32 *arg2);
 
 extern "C" char data_020ac094[];
@@ -3118,49 +3118,25 @@ extern "C" s32 func_ov015_021556fc(u8 *arg0, u8 *arg1, s32 *arg2)
     return ((s8 *)arg1)[0xA] != 0 ? 1 : 0;
 }
 
-extern "C" asm void func_ov015_021557c8(void)
+extern "C" s32 func_ov015_021557c8(u8 *arg0, s8 *arg1, s32 *arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #0x100
-    add r6, sp, #0x80
-    mov r7, r0
-    mov r5, r1
-    mov r4, r2
-    mov r0, r6
-    mov r1, #0
-    mov r2, #0x80
-    bl MI_CpuFill8
-    ldrsb r0, [r5, #0xb]
-    cmp r0, #0
-    beq @L_02155814
-    cmp r0, #1
-    addeq r0, r0, #1
-    moveq r1, #1
-    streqb r1, [r5, #0xa]
-    streqb r0, [r5, #0xb]
-    b @L_02155840
-@L_02155814:
-    add r3, sp, #0
-    mov r0, r7
-    mov r1, r5
-    mov r2, r6
-    bl func_ov015_02149920
-    str r0, [r5, #4]
-    ldr r0, [r7]
-    bl _ZN12Unk_0205dee013func_0205e3c4Ev
-    ldrsb r0, [r5, #0xb]
-    add r0, r0, #1
-    strb r0, [r5, #0xb]
-@L_02155840:
-    cmp r4, #0
-    ldrnesb r0, [r5, #0xa]
-    strne r0, [r4]
-    ldrsb r0, [r5, #0xa]
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    add sp, sp, #0x100
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 a[0x80];
+    u8 b[0x80];
+    ((void (*)(void *, s32, s32))MI_CpuFill8)(a, 0, 0x80);
+    switch (arg1[0xB]) {
+    case 0:
+        *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, s8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
+        ((s32 (*)(...))_ZN12Unk_0205dee013func_0205e3c4Ev)(*(s32 *)arg0);
+        arg1[0xB]++;
+        break;
+    case 1:
+        arg1[0xA] = 1;
+        arg1[0xB]++;
+        break;
+    }
+    if (arg2 != 0)
+        *arg2 = arg1[0xA];
+    return arg1[0xA] != 0 ? 1 : 0;
 }
 
 extern "C" s32 func_ov015_02155864(u8 *arg0, u8 *arg1, s32 *arg2)

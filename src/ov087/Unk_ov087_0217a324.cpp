@@ -13,7 +13,7 @@ extern "C" void func_ov087_0217b014(void);
 extern "C" void func_ov087_0217b1a8(void);
 extern "C" void func_ov087_0217b3c8(void);
 extern "C" void func_ov087_0217b5bc(void);
-extern "C" void func_ov087_0217b90c(void);
+extern "C" void func_ov087_0217b90c(u8 *arg0);
 extern "C" void func_ov087_0217b99c(void);
 extern "C" void func_ov087_0217bb0c(void);
 extern "C" void func_ov087_0217bb68(void);
@@ -1708,48 +1708,34 @@ extern "C" asm void func_ov087_0217b5bc(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov087_0217b90c(void)
+extern "C" void func_ov087_0217b90c(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r4, #0
-@L_0217b918:
-    mov r0, r6
-    mov r1, r4
-    bl _ZN17UnkClass_020621b413func_02079d2cEi
-    movs r1, r0
-    beq @L_0217b934
-    mov r0, r6
-    bl _ZN17UnkClass_020621b413func_02065a04EP11MatchPlayer
-@L_0217b934:
-    add r4, r4, #1
-    cmp r4, #0x16
-    blt @L_0217b918
-    mov r5, #0
-    add r4, r6, #0x9c
-@L_0217b948:
-    add r0, r4, r5, lsl #3
-    bl func_020841d8
-    add r5, r5, #1
-    cmp r5, #2
-    blt @L_0217b948
-    mov r4, #0
-@L_0217b960:
-    mov r0, r6
-    mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206c018Ei
-    bl func_020841d8
-    add r4, r4, #1
-    cmp r4, #5
-    blt @L_0217b960
-    mov r0, r6
-    bl func_ov015_02140fa4
-    mov r0, r6
-    mov r1, #1
-    bl _ZN17UnkClass_020621b413func_0206df44Ev
-    mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020630fcEv
-    ldmia sp!, {r4, r5, r6, pc}
+    {
+        s32 i = 0;
+        do {
+            s32 r = ((s32 (*)(...))_ZN17UnkClass_020621b413func_02079d2cEi)(arg0, i);
+            if (r != 0)
+                ((s32 (*)(...))_ZN17UnkClass_020621b413func_02065a04EP11MatchPlayer)(arg0, r);
+            i++;
+        } while (i < 0x16);
+    }
+    {
+        s32 j = 0;
+        do {
+            ((s32 (*)(...))func_020841d8)(arg0 + 0x9C + (j << 3));
+            j++;
+        } while (j < 2);
+    }
+    {
+        s32 i = 0;
+        do {
+            ((s32 (*)(...))func_020841d8)(((s32 (*)(...))_ZN17UnkClass_020621b413func_0206c018Ei)(arg0, i));
+            i++;
+        } while (i < 5);
+    }
+    ((s32 (*)(...))func_ov015_02140fa4)(arg0);
+    ((s32 (*)(...))_ZN17UnkClass_020621b413func_0206df44Ev)(arg0, 1);
+    ((s32 (*)(...))_ZN17UnkClass_020621b413func_020630fcEv)(arg0);
 }
 
 extern "C" asm void func_ov087_0217b99c(void)

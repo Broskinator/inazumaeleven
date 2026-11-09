@@ -13,7 +13,7 @@ extern "C" void func_ov015_02130ad4(void);
 extern "C" s32 func_ov015_02130ae8(s32 arg0);
 extern "C" s32 func_ov015_02130b14(...);
 extern "C" s32 func_ov015_02130b94(s32 arg0);
-extern "C" void func_ov015_02130c18(void);
+extern "C" u8 *func_ov015_02130c18(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov015_02130cb8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_02130ce0(...);
 extern "C" s32 func_ov015_02130d8c(s32 arg0, s32 arg1, s32 arg2);
@@ -362,49 +362,19 @@ extern "C" s32 func_ov015_02130b94(s32 arg0)
     return 0;
 }
 
-extern "C" asm void func_ov015_02130c18(void)
+static inline s32 a02130c18(u8 *e) { return (*(u16 *)(e + 0xF0) & 1) ? 1 : 0; }
+//@local
+static inline s32 b02130c18(u8 *e) { return (*(u16 *)(e + 0xF0) & 8) ? 1 : 0; }
+extern "C" u8 *func_ov015_02130c18(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r7, #0
-    ldr r5, =gEntryPool
-    mov r10, r0
-    mov r9, r1
-    mov r8, r2
-    mov r11, r7
-    mov r4, #1
-@L_02130c38:
-    mov r0, r5
-    mov r1, r7
-    bl _ZN9EntryPool3GetEi
-    movs r6, r0
-    beq @L_02130ca0
-    ldrh r0, [r6, #0xf0]
-    tst r0, #1
-    movne r1, r4
-    moveq r1, r11
-    cmp r1, #0
-    beq @L_02130ca0
-    tst r0, #8
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02130ca0
-    mov r0, r6
-    bl func_02080b90
-    cmp r10, r0
-    bne @L_02130ca0
-    mov r0, r6
-    mov r1, r8
-    bl func_0208130c
-    cmp r9, r0
-    moveq r0, r6
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02130ca0:
-    add r7, r7, #1
-    cmp r7, #0x84
-    blt @L_02130c38
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *e;
+    s32 i;
+    for (i = 0; i < 0x84; i++) {
+        e = (u8 *)((s32 (*)(...))_ZN9EntryPool3GetEi)(gEntryPool, i);
+        if (e != 0 && a02130c18(e) != 0 && b02130c18(e) != 0 && arg0 == ((s32 (*)(...))func_02080b90)(e) && arg1 == ((s32 (*)(...))func_0208130c)(e, arg2))
+            return e;
+    }
+    return 0;
 }
 
 extern "C" void func_ov015_02130cb8(s32 arg0, s32 arg1, s32 arg2)
