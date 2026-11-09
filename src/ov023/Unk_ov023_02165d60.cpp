@@ -10,7 +10,7 @@ extern "C" s32 func_ov023_02165ee8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov023_02165f10(void);
 extern "C" s32 func_ov023_021663a8(u8 *arg0);
 extern "C" s32 func_ov023_02166400(u8 *arg0);
-extern "C" void func_ov023_02166480(void);
+extern "C" void func_ov023_02166480(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov023_02166528(s32 arg0, u8 *arg1);
 extern "C" u16 func_ov023_02166574(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" s32 func_ov023_021665a0(s32 arg0, s32 arg1);
@@ -562,49 +562,15 @@ extern "C" s32 func_ov023_02166400(u8 *arg0)
     return v0;
 }
 
-extern "C" asm void func_ov023_02166480(void)
+extern "C" void func_ov023_02166480(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x20
-    add r4, r0, #0x2f8
-    mov r0, r4
-    mov r9, r1
-    mov r8, r2
-    mov r7, r3
-    bl func_ov015_02133dc8
-    ldr r5, =data_020c46a8
-    mov r6, #1
-    ldr r0, [r5]
-    mov r1, r6
-    mov r2, #4
-    bl _ZN8TextFont10SetSpacingEii
-    mov r1, #3
-    str r1, [sp]
-    stmib sp, {r1, r6}
-    mov r1, #0
-    str r1, [sp, #0xc]
-    str r8, [sp, #0x10]
-    str r7, [sp, #0x14]
-    str r6, [sp, #0x18]
-    str r6, [sp, #0x1c]
-    ldrh r2, [r4, #0xc]
-    ldrh r3, [r4, #0xe]
-    ldr r1, [r4, #4]
-    mov r0, r9
-    mov r2, r2, lsl #3
-    mov r3, r3, lsl #3
-    bl func_ov015_021330b4
-    ldr r0, [r5]
-    bl _ZN8TextFont12ResetSpacingEv
-    ldrh r2, [r4, #0xc]
-    ldrh r1, [r4, #0xe]
-    ldr r0, [r4, #4]
-    strb r6, [r4, #0x10]
-    mul r1, r2, r1
-    mov r1, r1, lsl #5
-    bl DC_FlushRange
-    add sp, sp, #0x20
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 *p = arg0 + 0x2F8;
+    ((s32 (*)(...))func_ov015_02133dc8)(p);
+    ((s32 (*)(...))_ZN8TextFont10SetSpacingEii)(*((s32 *)data_020c46a8), 1, 4);
+    ((s32 (*)(...))func_ov015_021330b4)(arg1, *(s32 *)(p + 4), *(u16 *)(p + 0xC) << 3, *(u16 *)(p + 0xE) << 3, 3, 3, 1, 0, arg2, arg3, 1, 1);
+    ((s32 (*)(...))_ZN8TextFont12ResetSpacingEv)(*((s32 *)data_020c46a8));
+    p[0x10] = 1;
+    ((s32 (*)(...))DC_FlushRange)(*(s32 *)(p + 4), (*(u16 *)(p + 0xC) * *(u16 *)(p + 0xE)) << 5);
 }
 
 static inline BOOL lead02166528(u8 c)

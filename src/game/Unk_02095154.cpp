@@ -21,7 +21,7 @@ extern "C" s32 func_02095984(u8 *arg0, u8 *arg1, u16 arg2, u8 arg3, s32 arg4, s3
 extern "C" s32 func_02095a40(...);
 extern "C" s32 func_02095b9c(...);
 extern "C" s32 func_02095c24(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3);
-extern "C" void func_02095c74(void);
+extern "C" s32 func_02095c74(s32 arg0, s32 *arg1, s32 *arg2);
 extern "C" void func_02095d14(u8 *arg0, u8 *arg1, u16 arg2, u8 arg3, s32 arg4, s32 arg5);
 extern "C" s32 func_02095d70(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02095e04(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -844,50 +844,22 @@ extern "C" s32 func_02095c24(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3)
     return 0;
 }
 
-extern "C" asm void func_02095c74(void)
+extern "C" s32 func_02095c74(s32 arg0, s32 *arg1, s32 *arg2)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0x14
-    ldr r4, [r1, #0x14]
-    ldr lr, [r2, #0x30]
-    ldr r12, [r1, #0x10]
-    ldr r3, [r2, #0x2c]
-    ldr r0, [r2, #0x28]
-    ldr r1, [r1, #0xc]
-    add r12, r12, r3
-    add r3, r1, r0
-    add r4, r4, lr
-    add r0, sp, #8
-    add r1, sp, #4
-    add r2, sp, #0
-    str r3, [sp, #8]
-    str r12, [sp, #0xc]
-    str r4, [sp, #0x10]
-    bl NNS_G3dWorldPosToScrPos
-    cmp r0, #0
-    addeq sp, sp, #0x14
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, pc}
-    ldr r1, [sp, #4]
-    mvn r0, #0xf
-    cmp r1, r0
-    blt @L_02095cfc
-    cmp r1, #0x110
-    bge @L_02095cfc
-    ldr r1, [sp]
-    sub r0, r0, #0x10
-    cmp r1, r0
-    blt @L_02095cfc
-    cmp r1, #0xe0
-    blt @L_02095d08
-@L_02095cfc:
-    add sp, sp, #0x14
-    mov r0, #0
-    ldmia sp!, {r3, r4, pc}
-@L_02095d08:
-    mov r0, #1
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, pc}
+    s32 v[3];
+    s32 x;
+    s32 y;
+    s32 c = arg1[5] + arg2[12];
+    s32 b = arg1[4] + arg2[11];
+    s32 a = arg1[3] + arg2[10];
+    v[0] = a;
+    v[1] = b;
+    v[2] = c;
+    if (((s32 (*)(...))NNS_G3dWorldPosToScrPos)(v, &x, &y) == 0)
+        return 1;
+    if (x < -0x10 || x >= 0x110 || y < -0x20 || y >= 0xE0)
+        return 0;
+    return 1;
 }
 
 extern "C" void func_02095d14(u8 *arg0, u8 *arg1, u16 arg2, u8 arg3, s32 arg4, s32 arg5)

@@ -7,7 +7,7 @@ extern "C" s32 func_ov015_02131398(u8 *arg0, u8 *arg1);
 extern "C" void func_ov015_021313d4(u8 *arg0);
 extern "C" s32 func_ov015_0213140c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov015_0213142c(...);
-extern "C" void func_ov015_021314a8(void);
+extern "C" s32 func_ov015_021314a8(s32 arg0, u64 arg1, u64 arg2);
 extern "C" void func_ov015_02131538(void);
 extern "C" char *func_ov015_02131688(void);
 extern "C" s32 func_ov015_021316a8(u8 *arg0, u8 *arg1);
@@ -608,50 +608,31 @@ extern "C" asm s32 func_ov015_0213142c(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_ov015_021314a8(void)
+extern "C" s32 func_ov015_021314a8(s32 arg0, u64 arg1, u64 arg2)
 {
-    ldr r12, [sp]
-    cmp r0, #5
-    addls pc, pc, r0, lsl #2
-    b @L_02131530
-    b @L_02131530
-    b @L_021314d0
-    b @L_021314e4
-    b @L_021314f8
-    b @L_0213150c
-    b @L_02131520
-@L_021314d0:
-    cmp r2, r12
-    cmpeq r1, r3
-    beq @L_02131530
-    mov r0, #0
-    bx lr
-@L_021314e4:
-    cmp r2, r12
-    cmpeq r1, r3
-    blo @L_02131530
-    mov r0, #0
-    bx lr
-@L_021314f8:
-    cmp r2, r12
-    cmpeq r1, r3
-    bls @L_02131530
-    mov r0, #0
-    bx lr
-@L_0213150c:
-    cmp r2, r12
-    cmpeq r1, r3
-    bhs @L_02131530
-    mov r0, #0
-    bx lr
-@L_02131520:
-    cmp r2, r12
-    cmpeq r1, r3
-    movls r0, #0
-    bxls lr
-@L_02131530:
-    mov r0, #1
-    bx lr
+    switch (arg0) {
+    case 1:
+        if (arg1 != arg2)
+            return 0;
+        break;
+    case 2:
+        if (arg1 >= arg2)
+            return 0;
+        break;
+    case 3:
+        if (arg1 > arg2)
+            return 0;
+        break;
+    case 4:
+        if (arg1 < arg2)
+            return 0;
+        break;
+    case 5:
+        if (arg1 <= arg2)
+            return 0;
+        break;
+    }
+    return 1;
 }
 
 extern "C" asm void func_ov015_02131538(void)

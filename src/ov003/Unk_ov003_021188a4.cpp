@@ -39,7 +39,7 @@ extern "C" s32 func_ov003_02119ae4(P02119ae4 *arg0, s32 arg1, s32 arg2, s32 arg3
 extern "C" void func_ov003_02119b5c(void);
 extern "C" s32 func_ov003_02119da4(...);
 extern "C" s32 func_ov003_02119dfc(u8 *arg0);
-extern "C" void func_ov003_02119e80(void);
+extern "C" void func_ov003_02119e80(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov003_02119f24(u8 *arg0);
 extern "C" void func_ov003_0211a15c(void);
 extern "C" s32 func_ov003_0211a2fc(...);
@@ -1588,48 +1588,14 @@ extern "C" s32 func_ov003_02119dfc(u8 *arg0)
     return v0;
 }
 
-extern "C" asm void func_ov003_02119e80(void)
+extern "C" void func_ov003_02119e80(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x20
-    mov r4, r0
-    add r0, r4, #0x68
-    mov r9, r1
-    mov r8, r2
-    bl func_ov015_02133dc8
-    ldr r5, =data_020c46a8
-    mov r7, #1
-    mov r6, #4
-    ldr r0, [r5]
-    mov r1, r7
-    mov r2, r6
-    bl _ZN8TextFont10SetSpacingEii
-    mov r0, #3
-    str r0, [sp]
-    stmib sp, {r0, r7}
-    str r6, [sp, #0xc]
-    str r9, [sp, #0x10]
-    str r8, [sp, #0x14]
-    str r7, [sp, #0x18]
-    str r7, [sp, #0x1c]
-    ldrh r2, [r4, #0x74]
-    ldrh r3, [r4, #0x76]
-    ldr r0, [r4, #0x58]
-    ldr r1, [r4, #0x6c]
-    mov r2, r2, lsl #3
-    mov r3, r3, lsl #3
-    bl func_ov015_021330b4
-    ldr r0, [r5]
-    bl _ZN8TextFont12ResetSpacingEv
-    ldrh r2, [r4, #0x74]
-    ldrh r1, [r4, #0x76]
-    ldr r0, [r4, #0x6c]
-    strb r7, [r4, #0x78]
-    mul r1, r2, r1
-    mov r1, r1, lsl #5
-    bl DC_FlushRange
-    add sp, sp, #0x20
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    ((s32 (*)(...))func_ov015_02133dc8)(arg0 + 0x68);
+    ((s32 (*)(...))_ZN8TextFont10SetSpacingEii)(*((s32 *)data_020c46a8), 1, 4);
+    ((s32 (*)(...))func_ov015_021330b4)(*(s32 *)(arg0 + 0x58), *(s32 *)(arg0 + 0x6C), *(u16 *)(arg0 + 0x74) << 3, *(u16 *)(arg0 + 0x76) << 3, 3, 3, 1, 4, arg1, arg2, 1, 1);
+    ((s32 (*)(...))_ZN8TextFont12ResetSpacingEv)(*((s32 *)data_020c46a8));
+    arg0[0x78] = 1;
+    ((s32 (*)(...))DC_FlushRange)(*(s32 *)(arg0 + 0x6C), (*(u16 *)(arg0 + 0x74) * *(u16 *)(arg0 + 0x76)) << 5);
 }
 
 extern "C" s32 func_ov003_02119f24(u8 *arg0)

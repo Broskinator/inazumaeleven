@@ -11,7 +11,7 @@ extern "C" void func_ov040_02165f5c(void);
 extern "C" void func_ov040_021662f4(u8 *arg0);
 extern "C" s32 func_ov040_02166384(s32 arg0, u8 *arg1);
 extern "C" u16 func_ov040_021663d0(s32 arg0, u8 *arg1, s32 arg2);
-extern "C" void func_ov040_021663fc(void);
+extern "C" s32 func_ov040_021663fc(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov040_02166498(void *arg0, u8 *arg1);
 extern "C" s32 func_ov040_02166514(...);
 extern "C" s32 func_ov040_02166584(...);
@@ -483,49 +483,27 @@ extern "C" u16 func_ov040_021663d0(s32 arg0, u8 *arg1, s32 arg2)
     return (arg1[1] << 8) | arg1[0];
 }
 
-extern "C" asm void func_ov040_021663fc(void)
+extern "C" s32 func_ov040_021663fc(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    movs r8, r1
-    mov r9, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    bl func_ov040_02166498
-    cmp r0, #3
-    movhi r0, #1
-    ldmhiia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r8
-    mov r4, #0
-    bl STD_GetStringLength
-    mov r5, r0
-    mov r6, r4
-    cmp r5, #0
-    ble @L_0216647c
-@L_0216643c:
-    mov r0, r9
-    add r1, r8, r6
-    bl func_ov040_02166384
-    mov r7, r0
-    mov r0, r9
-    mov r2, r7
-    add r1, r8, r6
-    bl func_ov040_021663d0
-    cmp r0, #0x20
-    addeq r4, r4, #1
-    cmp r7, #1
-    subgt r0, r7, #1
-    addgt r6, r6, r0
-    add r6, r6, #1
-    cmp r6, r5
-    blt @L_0216643c
-@L_0216647c:
-    cmp r4, r5
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r1, r8
-    add r0, r9, #0x2c
-    bl func_0209e360
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 c;
+    s32 n;
+    s32 i;
+    if (arg1 == 0)
+        return 0;
+    if ((u32)((s32 (*)(...))func_ov040_02166498)(arg0) > 3)
+        return 1;
+    c = 0;
+    n = ((s32 (*)(...))STD_GetStringLength)(arg1);
+    for (i = c; i < n; i++) {
+        s32 w = ((s32 (*)(...))func_ov040_02166384)(arg0, arg1 + i);
+        if (((s32 (*)(...))func_ov040_021663d0)(arg0, arg1 + i, w) == 0x20)
+            c++;
+        if (w > 1)
+            i += w - 1;
+    }
+    if (c == n)
+        return 1;
+    return ((s32 (*)(...))func_0209e360)(arg0 + 0x2C, arg1);
 }
 
 extern "C" s32 func_ov040_02166498(void *arg0, u8 *arg1)

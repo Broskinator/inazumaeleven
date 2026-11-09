@@ -63,7 +63,7 @@ extern "C" s32 func_ov016_0214aa6c(s32 arg0);
 extern "C" void func_ov016_0214aa94(void);
 extern "C" void func_ov016_0214aad0(void);
 extern "C" s32 func_ov016_0214ab98(void);
-extern "C" void func_ov016_0214abb8(void);
+extern "C" void func_ov016_0214abb8(s32 arg0);
 extern "C" void func_ov016_0214ac48(void);
 extern "C" void func_ov016_0214ad1c(void);
 extern "C" void func_ov016_0214adf0(void);
@@ -1897,43 +1897,19 @@ extern "C" s32 func_ov016_0214ab98(void)
     return (*(s32 *)(*(u8 * *)(data_ov016_02158b2c + 0x4) + 0x14) != 0 ? 1 : 0);
 }
 
-extern "C" asm void func_ov016_0214abb8(void)
+extern "C" void func_ov016_0214abb8(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    sub sp, sp, #8
-    ldr r4, =data_ov016_02158b2c
-    mov r5, #0
-    ldr r1, [r4, #4]
-    mov r6, r0
-    ldr r0, [r1, #0x10]
-    add r2, sp, #4
-    add r3, sp, #0
-    mov r1, r5
-    bl func_ov016_0214f764
-    ldr r0, [sp, #4]
-    mov r3, #0x21
-    sub r2, r0, #8
-    str r2, [sp, #4]
-    cmp r2, #0x98
-    ble @L_0214ac14
-    ldr r0, [r4, #4]
-    sub r1, r5, #1
-    ldr r0, [r0, #0x10]
-    bl func_ov016_0214f62c
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0214ac14:
-    mov r2, #0x98
-    ldr r0, [r4, #4]
-    str r2, [sp, #4]
-    ldr r0, [r0, #0x10]
-    sub r1, r2, #0x99
-    bl func_ov016_0214f62c
-    ldr r1, =func_ov016_0214ac48
-    mov r0, r6
-    bl func_ov016_02151c30
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 x;
+    s32 y;
+    ((s32 (*)(...))func_ov016_0214f764)(*(s32 *)(*(u8 **)(((u8 *)data_ov016_02158b2c) + 4) + 0x10), 0, &x, &y);
+    x -= 8;
+    if (x > 0x98) {
+        ((s32 (*)(...))func_ov016_0214f62c)(*(s32 *)(*(u8 **)(((u8 *)data_ov016_02158b2c) + 4) + 0x10), 0 - 1, x, 0x21);
+    } else {
+        x = 0x98;
+        ((s32 (*)(...))func_ov016_0214f62c)(*(s32 *)(*(u8 **)(((u8 *)data_ov016_02158b2c) + 4) + 0x10), x - 0x99, x, 0x21);
+        ((s32 (*)(...))func_ov016_02151c30)(arg0, func_ov016_0214ac48);
+    }
 }
 
 extern "C" asm void func_ov016_0214ac48(void)

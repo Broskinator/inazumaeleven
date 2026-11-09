@@ -41,7 +41,7 @@ extern "C" s32 func_ov016_0215015c(u8 *arg0);
 extern "C" void func_ov016_021501bc(s32 arg0);
 extern "C" void func_ov016_021501e0(void);
 extern "C" void func_ov016_02150288(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4, s32 arg5);
-extern "C" void func_ov016_021502c4(void);
+extern "C" void func_ov016_021502c4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 *arg5, s32 arg6);
 extern "C" void func_ov016_02150370(void);
 extern "C" void func_ov016_02150428(u8 *arg0, s32 arg1);
 extern "C" void func_ov016_0215043c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
@@ -1370,50 +1370,19 @@ extern "C" void func_ov016_02150288(s32 arg0, s32 arg1, s32 arg2, s32 arg3, u16 
     return;
 }
 
-extern "C" asm void func_ov016_021502c4(void)
+extern "C" void func_ov016_021502c4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u16 *arg5, s32 arg6)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    ldr r6, [sp, #0x34]
-    mov r9, r1
-    ldrh r1, [r6]
-    ldr r7, [sp, #0x30]
-    ldr r5, [sp, #0x38]
-    cmp r1, #0
-    mov r10, r0
-    mov r8, r2
-    mov r11, r3
-    addeq sp, sp, #8
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_021502f8:
-    ldr r0, =data_ov016_02158b60
-    ldr r0, [r0]
-    add r4, r0, r5, lsl #3
-    mov r0, r4
-    bl NNS_G2dFontFindGlyphIndex
-    mov r1, r0
-    ldr r0, =0xffff
-    cmp r1, r0
-    ldreq r0, [r4]
-    ldreqh r1, [r0, #2]
-    mov r0, r4
-    bl NNS_G2dFontGetCharWidthsFromIndex
-    ldrh r1, [r6]
-    mov r2, r0
-    mov r0, r10
-    stmia sp, {r1, r5}
-    ldrsb r1, [r2, #2]
-    mov r2, r8
-    mov r3, r11
-    sub r1, r7, r1
-    add r1, r9, r1, asr #1
-    bl func_ov016_02150288
-    ldrh r1, [r6, #2]!
-    add r9, r9, r7
-    cmp r1, #0
-    bne @L_021502f8
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    while (*arg5 != 0) {
+        u8 *f = *(u8 **)data_ov016_02158b60 + (arg6 << 3);
+        s32 g = ((s32 (*)(...))NNS_G2dFontFindGlyphIndex)(f, *arg5);
+        s8 *e;
+        if (g == 0xFFFF)
+            g = *(u16 *)(*(u8 **)f + 2);
+        e = (s8 *)((s32 (*)(...))NNS_G2dFontGetCharWidthsFromIndex)(f, g);
+        ((s32 (*)(...))func_ov016_02150288)(arg0, arg1 + ((arg4 - e[2]) >> 1), arg2, arg3, *arg5, arg6);
+        arg5++;
+        arg1 += arg4;
+    }
 }
 
 extern "C" asm void func_ov016_02150370(void)
@@ -2253,50 +2222,28 @@ extern "C" asm void func_ov016_02151078(void)
     bx lr
 }
 
-extern "C" asm void func_ov016_021510dc(void)
+extern "C" void func_ov016_021510dc(void)
 {
-    stmdb sp!, {r4, lr}
-    ldr r4, =data_ov016_02158b68
-    ldrb r0, [r4]
-    cmp r0, #0
-    ldr r0, =0x2ffffa8
-    beq @L_0215113c
-    ldrh r0, [r0]
-    and r0, r0, #0x8000
-    movs r0, r0, asr #0xf
-    ldmneia sp!, {r4, pc}
-    mov r0, #1
-    bl func_0200ff28
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    bl func_0200846c
-    bl func_020025f8
-    ldr r1, =0x4001000
-    ldr r0, [r1]
-    orr r0, r0, #0x10000
-    str r0, [r1]
-    bl func_0200846c
-    mov r0, #0
-    strb r0, [r4]
-    ldmia sp!, {r4, pc}
-@L_0215113c:
-    ldrh r0, [r0]
-    and r0, r0, #0x8000
-    movs r0, r0, asr #0xf
-    ldmeqia sp!, {r4, pc}
-    bl func_0200846c
-    bl func_020025b8
-    ldr r1, =0x4001000
-    ldr r0, [r1]
-    bic r0, r0, #0x10000
-    str r0, [r1]
-    bl func_0200846c
-    mov r0, #0
-    bl func_0200ff28
-    cmp r0, #0
-    movne r0, #1
-    strneb r0, [r4]
-    ldmia sp!, {r4, pc}
+    if (*(u8 *)data_ov016_02158b68 != 0) {
+        if ((*(volatile u16 *)0x2FFFFA8 & 0x8000) >> 15)
+            return;
+        if (((s32 (*)(...))func_0200ff28)(1) == 0)
+            return;
+        ((s32 (*)(...))func_0200846c)();
+        ((s32 (*)(...))func_020025f8)();
+        *(volatile u32 *)0x4001000 |= 0x10000;
+        ((s32 (*)(...))func_0200846c)();
+        *(u8 *)data_ov016_02158b68 = 0;
+    } else {
+        if (!((*(volatile u16 *)0x2FFFFA8 & 0x8000) >> 15))
+            return;
+        ((s32 (*)(...))func_0200846c)();
+        ((s32 (*)(...))func_020025b8)();
+        *(volatile u32 *)0x4001000 &= ~0x10000;
+        ((s32 (*)(...))func_0200846c)();
+        if (((s32 (*)(...))func_0200ff28)(0) != 0)
+            *(u8 *)data_ov016_02158b68 = 1;
+    }
 }
 
 extern "C" void func_ov016_0215118c(void)

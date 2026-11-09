@@ -48,7 +48,7 @@ extern "C" BOOL func_02087bec(void *self);
 extern "C" void func_02087c04(void);
 extern "C" s32 func_02087ce8(...);
 extern "C" s32 func_0208803c(s32 arg0);
-extern "C" void func_02088084(void);
+extern "C" void func_02088084(u8 *arg0, s32 arg1);
 extern "C" s32 func_020880f4(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02088140(s32 arg0, s32 arg1);
 extern "C" void func_0208819c(u8 *obj, s32 value);
@@ -978,40 +978,22 @@ extern "C" s32 func_0208803c(s32 arg0)
     return r5;
 }
 
-extern "C" asm void func_02088084(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_02088084(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r7, #1
-    mov r4, #2
-    mov r9, r0
-    mov r8, r1
-    mov r6, r4
-    mov r5, r7
-    ldr r10, =data_020c4694
-    b @L_020880e0
-@L_020880a8:
-    mov r0, r9
-    mov r1, r7
-    bl func_0208708c
-    ldrh r1, [r0, #4]
-    cmp r8, #0
-    ldr r0, [r10]
-    beq @L_020880d4
-    mov r2, r6
-    mov r3, r5
-    bl func_02096c10
-    b @L_020880dc
-@L_020880d4:
-    mov r2, r4
-    bl func_02096c54
-@L_020880dc:
-    add r7, r7, #1
-@L_020880e0:
-    ldr r0, [r9, #0x88]
-    cmp r7, r0
-    ble @L_020880a8
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    s32 i = 1;
+    s32 j = 2;
+    s32 m = i;
+    for (; i <= *(s32 *)(arg0 + 0x88); i++) {
+        u8 *p = (u8 *)((s32 (*)(...))func_0208708c)(arg0, i);
+        if (arg1 != 0)
+            ((s32 (*)(...))func_02096c10)(*((s32 *)data_020c4694), *(u16 *)(p + 4), j, m);
+        else
+            ((s32 (*)(...))func_02096c54)(*((s32 *)data_020c4694), *(u16 *)(p + 4), 2);
+    }
 }
+#pragma pop
 
 extern "C" s32 func_020880f4(u8 *arg0, s32 arg1, s32 arg2)
 {

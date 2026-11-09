@@ -7,7 +7,7 @@ extern "C" void func_ov015_02158d0c(void);
 extern "C" s32 func_ov015_02158de8(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_02158e70(void);
 extern "C" void func_ov015_02158f24(void);
-extern "C" void func_ov015_02158fe4(void);
+extern "C" s32 func_ov015_02158fe4(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215908c(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_02159120(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_021591c4(void);
@@ -564,50 +564,24 @@ extern "C" asm void func_ov015_02158f24(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov015_02158fe4(void)
+extern "C" s32 func_ov015_02158fe4(u8 *arg0, u8 *arg1, s32 *arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x104
-    add r6, sp, #0x84
-    mov r8, r0
-    mov r4, r2
-    mov r5, #0
-    mov r7, r1
-    mov r0, r6
-    mov r1, r5
-    mov r2, #0x80
-    bl MI_CpuFill8
-    add r3, sp, #4
-    mov r0, r8
-    mov r1, r7
-    mov r2, r6
-    bl func_ov015_02149920
-    mov r6, #1
-    ldrsb r1, [r7, #0xb]
-    str r0, [r7, #4]
-    strb r6, [r7, #0xa]
-    add r0, r1, #1
-    strb r0, [r7, #0xb]
-    ldr r0, [sp, #0x84]
-    mov r1, r5
-    bl func_ov015_02130b14
-    cmp r0, #0
-    moveq r6, r5
-    beq @L_02159074
-    str r6, [sp]
-    ldr r0, [sp, #0x84]
-    ldr r2, [sp, #0x88]
-    mov r1, r0, lsl #0x10
-    ldr r0, =data_020e88a0
-    mov r1, r1, lsr #0x10
-    sub r3, r6, #2
-    bl _ZN17UnkClass_020621b413func_02077830Ev
-@L_02159074:
-    cmp r4, #0
-    strne r6, [r4]
-    mov r0, #1
-    add sp, sp, #0x104
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    u8 a[0x80];
+    u8 b[0x80];
+    s32 z = 0;
+    s32 k;
+    ((void (*)(void *, s32, s32))MI_CpuFill8)(a, z, 0x80);
+    *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, u8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
+    k = 1;
+    arg1[0xA] = k;
+    ((s8 *)arg1)[0xB]++;
+    if (((s32 (*)(...))func_ov015_02130b14)(((s32 *)a)[0], z) == 0)
+        k = z;
+    else
+        ((s32 (*)(...))_ZN17UnkClass_020621b413func_02077830Ev)(data_020e88a0, (u16)((s32 *)a)[0], ((s32 *)a)[1], -1, k);
+    if (arg2 != 0)
+        *arg2 = k;
+    return 1;
 }
 
 extern "C" s32 func_ov015_0215908c(u8 *arg0, u8 *arg1, s32 *arg2)

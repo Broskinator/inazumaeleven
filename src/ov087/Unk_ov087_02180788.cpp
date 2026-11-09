@@ -4,7 +4,7 @@ extern "C" s32 func_ov087_02180788(...);
 extern "C" s32 func_ov087_02180808(...);
 extern "C" s32 func_ov087_02180928(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov087_0218099c(void);
-extern "C" void func_ov087_02180ae0(void);
+extern "C" void func_ov087_02180ae0(s32 arg0);
 extern "C" s32 func_ov087_02180b78(s32 arg0, s32 arg1);
 extern "C" s32 func_ov087_02180be0(...);
 extern "C" void func_ov087_02180cbc(void);
@@ -354,49 +354,21 @@ extern "C" asm void func_ov087_0218099c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov087_02180ae0(void)
+static inline s32 b02180ae0(u8 *e) { return (*(u16 *)(e + 0xF0) & 8) ? 1 : 0; }
+extern "C" void func_ov087_02180ae0(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r5, #0
-    mov r6, r0
-    mov r9, r5
-    mov r10, #1
-    mov r7, r5
-@L_02180af8:
-    mov r0, r5
-    bl func_ov015_02130ae8
-    movs r4, r0
-    beq @L_02180b68
-    ldrh r0, [r4, #0xf0]
-    tst r0, #8
-    movne r0, r10
-    moveq r0, r9
-    cmp r0, #0
-    beq @L_02180b68
-    mov r0, r4
-    bl func_02080b90
-    mov r8, r0
-    mov r0, r4
-    mov r1, r7
-    bl func_0208130c
-    mov r2, r0
-    mov r1, r8
-    mov r0, r6
-    mov r3, r7
-    bl _ZN17UnkClass_020621b413func_020685a8Eiii
-    cmp r0, #0
-    mov r0, r6
-    mov r1, r4
-    beq @L_02180b64
-    bl func_01ffbc80
-    b @L_02180b68
-@L_02180b64:
-    bl func_01ffbcc8
-@L_02180b68:
-    add r5, r5, #1
-    cmp r5, #0x20
-    blt @L_02180af8
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    u8 *e;
+    s32 i;
+    for (i = 0; i < 0x20; i++) {
+        e = (u8 *)((s32 (*)(...))func_ov015_02130ae8)(i);
+        if (e != 0 && b02180ae0(e) != 0) {
+            s32 a = ((s32 (*)(...))func_02080b90)(e);
+            if (((s32 (*)(...))_ZN17UnkClass_020621b413func_020685a8Eiii)(arg0, a, ((s32 (*)(...))func_0208130c)(e, 0), 0) != 0)
+                ((s32 (*)(...))func_01ffbc80)(arg0, e);
+            else
+                ((s32 (*)(...))func_01ffbcc8)(arg0, e);
+        }
+    }
 }
 
 extern "C" s32 func_ov087_02180b78(s32 arg0, s32 arg1)

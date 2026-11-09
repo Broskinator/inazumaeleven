@@ -23,7 +23,7 @@ extern "C" s32 func_ov088_02175154(...);
 extern "C" s32 func_ov088_0217528c(...);
 extern "C" s32 func_ov088_02175368(...);
 extern "C" s32 func_ov088_021754d8(...);
-extern "C" void func_ov088_02175518(void);
+extern "C" void *func_ov088_02175518(void);
 extern "C" s32 func_ov088_02175590(void);
 extern "C" void func_ov088_021755fc(void);
 extern "C" s32 func_ov088_02175668(void);
@@ -1381,37 +1381,19 @@ extern "C" asm s32 func_ov088_021754d8(...)
     bx lr
 }
 
-extern "C" asm void func_ov088_02175518(void)
+extern "C" void *func_ov088_02175518(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_ov088_02180a60
-    ldr r0, [r4, #8]
-    cmp r0, #0
-    bne @L_02175578
-    ldr r0, [r4, #0x14]
-    ldr r5, =0x659c
-    cmp r0, r5
-    blo @L_02175570
-    ldr r1, [r4, #0x18]
-    ldr r0, =data_ov088_02179fd4
-    mov r2, r5
-    str r1, [r4, #8]
-    bl MIi_CpuCopyFast
-    ldr r0, [r4, #0x18]
-    add r0, r0, #0x19c
-    add r0, r0, #0x6400
-    str r0, [r4, #0x18]
-    ldr r0, [r4, #0x14]
-    sub r0, r0, r5
-    str r0, [r4, #0x14]
-    b @L_02175578
-@L_02175570:
-    ldr r0, =data_ov088_02179fd4
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02175578:
-    ldr r0, =data_ov088_02180a60
-    ldr r0, [r0, #8]
-    ldmia sp!, {r3, r4, r5, pc}
+    if (*(s32 *)(((u8 *)data_ov088_02180a60) + 8) == 0) {
+        if (*(u32 *)(((u8 *)data_ov088_02180a60) + 0x14) >= 0x659C) {
+            *(s32 *)(((u8 *)data_ov088_02180a60) + 8) = *(s32 *)(((u8 *)data_ov088_02180a60) + 0x18);
+            ((s32 (*)(...))MIi_CpuCopyFast)(data_ov088_02179fd4, *(s32 *)(((u8 *)data_ov088_02180a60) + 0x18), 0x659C);
+            *(s32 *)(((u8 *)data_ov088_02180a60) + 0x18) += 0x659C;
+            *(s32 *)(((u8 *)data_ov088_02180a60) + 0x14) -= 0x659C;
+        } else {
+            return data_ov088_02179fd4;
+        }
+    }
+    return *(void **)((u8 *)data_ov088_02180a60 + 8);
 }
 
 extern "C" s32 func_ov088_02175590(void)

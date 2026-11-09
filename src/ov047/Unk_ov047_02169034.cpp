@@ -1,4 +1,5 @@
 #include "ov047/Unk_ov047_02169034.hpp"
+class C0216a468 { public: virtual void v00(); virtual void v04(); };
 union U0216a620 { struct { u32 lng : 1; } w; struct { u8 lng : 1; u8 sz : 7; } b; };
 struct S0216a620 { U0216a620 u; u32 len; char *ptr; };
 
@@ -14,7 +15,7 @@ extern "C" void func_ov047_0216a028(void);
 extern "C" void func_ov047_0216a0f8(void);
 extern "C" void func_ov047_0216a2a0(void);
 extern "C" void func_ov047_0216a464(void);
-extern "C" void func_ov047_0216a468(void);
+extern "C" void func_ov047_0216a468(u8 *arg0);
 extern "C" s32 func_ov047_0216a51c(s32 arg0);
 extern "C" void func_ov047_0216a530(void);
 extern "C" void func_ov047_0216a534(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -1454,50 +1455,23 @@ extern "C" void func_ov047_0216a464(void)
 {
 }
 
-extern "C" asm void func_ov047_0216a468(void)
+extern "C" void func_ov047_0216a468(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r1, #0x4000000
-    mov r4, r0
-    ldr r0, [r1]
-    ldr r2, [r4, #0xd0]
-    bic r0, r0, #0x1f00
-    orr r0, r0, r2, lsl #8
-    str r0, [r1]
-    ldr r0, [r4, #0x2f0]
-    cmp r0, #0
-    beq @L_0216a4a0
-    ldr r1, [r0]
-    ldr r1, [r1, #4]
-    blx r1
-@L_0216a4a0:
-    mov r5, #0
-    ldr r0, =data_020c46c4
-    str r5, [r4, #0x2f0]
-    ldr r0, [r0]
-    bl func_ov015_02161fdc
-    ldr r0, =data_020c46b8
-    ldr r0, [r0]
-    bl func_ov015_021616dc
-    mov r0, r4
-    bl func_ov047_02168414
-    mov r0, r4
-    bl func_ov047_02165fe0
-    add r0, r4, #0x2e4
-    bl func_ov015_02135ef4
-    ldr r1, [r4, #0x2d8]
-    cmp r1, #0
-    beq @L_0216a4f0
-    ldr r0, =data_020c47b4
-    bl _ZN8GameHeap4FreeEPv
-    str r5, [r4, #0x2d8]
-@L_0216a4f0:
-    ldr r0, =data_020c46d4
-    ldr r0, [r0]
-    bl func_02091d64
-    ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_02077ce4Ev
-    ldmia sp!, {r3, r4, r5, pc}
+    *(volatile u32 *)0x4000000 = (*(s32 *)(arg0 + 0xD0) << 8) | (*(volatile u32 *)0x4000000 & ~0x1F00);
+    if (*(C0216a468 **)(arg0 + 0x2F0) != 0)
+        (*(C0216a468 **)(arg0 + 0x2F0))->v04();
+    *(s32 *)(arg0 + 0x2F0) = 0;
+    ((s32 (*)(...))func_ov015_02161fdc)(*(s32 *)data_020c46c4);
+    ((s32 (*)(...))func_ov015_021616dc)(*(s32 *)data_020c46b8);
+    ((s32 (*)(...))func_ov047_02168414)(arg0);
+    ((s32 (*)(...))func_ov047_02165fe0)(arg0);
+    ((s32 (*)(...))func_ov015_02135ef4)(arg0 + 0x2E4);
+    if (*(s32 *)(arg0 + 0x2D8) != 0) {
+        ((s32 (*)(...))_ZN8GameHeap4FreeEPv)(data_020c47b4, *(s32 *)(arg0 + 0x2D8));
+        *(s32 *)(arg0 + 0x2D8) = 0;
+    }
+    ((s32 (*)(...))func_02091d64)(*(s32 *)data_020c46d4);
+    ((s32 (*)(...))_ZN17UnkClass_020621b413func_02077ce4Ev)(data_020e88a0);
 }
 
 extern "C" s32 func_ov047_0216a51c(s32 arg0)

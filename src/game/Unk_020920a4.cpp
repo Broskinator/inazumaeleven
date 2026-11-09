@@ -35,7 +35,7 @@ extern "C" void func_02093524(void);
 extern "C" void func_0209360c(void);
 extern "C" void func_020936b4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
 extern "C" void func_02093734(void);
-extern "C" void func_020937dc(void);
+extern "C" void func_020937dc(u8 *arg0, s32 arg1, s32 arg2, u16 arg3);
 
 extern "C" char data_020c47b4[];
 extern "C" s32 MIi_CpuClearFast(...);
@@ -1780,48 +1780,29 @@ extern "C" asm void func_02093734(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_020937dc(void)
+static inline u8 *a020937dc(u8 *o, s32 i)
 {
-    stmdb sp!, {r3, lr}
-    ldr lr, [r0, #0x1c]
-    cmp lr, #0
-    ldrne r12, [r0, #0x20]
-    cmpne r12, #0
-    movle r1, #0
-    ble @L_02093818
-    cmp r1, #0
-    ble @L_02093808
-    cmp r1, r12
-    ble @L_02093810
-@L_02093808:
-    mov r1, #0
-    b @L_02093818
-@L_02093810:
-    sub r1, r1, #1
-    add r1, lr, r1, lsl #5
-@L_02093818:
-    cmp r1, #0
-    ldrne r12, [r1]
-    cmpne r12, #0
-    cmpne r2, #0
-    ble @L_02093838
-    ldrb r1, [r1, #6]
-    cmp r2, r1
-    ble @L_02093840
-@L_02093838:
-    mov r1, #0
-    b @L_0209384c
-@L_02093840:
-    sub r2, r2, #1
-    mov r1, #0x60
-    mla r1, r2, r1, r12
-@L_0209384c:
-    cmp r1, #0
-    ldrneh r2, [r1, #0x14]
-    cmpne r2, r3
-    ldmeqia sp!, {r3, pc}
-    mov r2, #2
-    strh r3, [r1, #0x14]
-    bl func_020917c0
-    ldmia sp!, {r3, pc}
+    s32 h = *(s32 *)(o + 0x1C);
+    s32 n;
+    if (h == 0 || (n = *(s32 *)(o + 0x20)) <= 0)
+        return 0;
+    if (i <= 0 || i > n)
+        return 0;
+    return (u8 *)(h + ((i - 1) << 5));
+}
+//@local
+static inline u8 *b020937dc(u8 *m, s32 j)
+{
+    s32 q;
+    if (m == 0 || (q = *(s32 *)m) == 0 || j <= 0 || j > m[6])
+        return 0;
+    return (u8 *)(q + (j - 1) * 0x60);
+}
+extern "C" void func_020937dc(u8 *arg0, s32 arg1, s32 arg2, u16 arg3)
+{
+    u8 *e = b020937dc(a020937dc(arg0, arg1), arg2);
+    if (e != 0 && *(u16 *)(e + 0x14) != arg3) {
+        *(u16 *)(e + 0x14) = arg3;
+        ((s32 (*)(...))func_020917c0)(arg0, e, 2);
+    }
 }

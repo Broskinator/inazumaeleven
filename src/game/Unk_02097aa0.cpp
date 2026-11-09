@@ -24,8 +24,8 @@ extern "C" s32 func_020982a0(s32 arg0, u8 arg1, u8 arg2);
 extern "C" s32 func_0209835c(u8 *arg0, u8 arg1, s32 arg2);
 extern "C" void func_02098410(void);
 extern "C" s32 func_020984a8(u8 *arg0, s32 arg1);
-extern "C" void func_020984f0(void);
-extern "C" void func_0209855c(void);
+extern "C" s32 func_020984f0(u8 *arg0);
+extern "C" s32 func_0209855c(u8 *arg0);
 extern "C" u8 *func_020985fc(u8 *self, int id);
 extern "C" s32 func_0209860c(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" void func_020986e8(s32 arg0, s32 arg1, s32 arg2);
@@ -740,84 +740,42 @@ extern "C" s32 func_020984a8(u8 *arg0, s32 arg1)
     return 1;
 }
 
-extern "C" asm void func_020984f0(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_020984f0(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, #0
-    ldr r4, =data_020c4668
-    b @L_02098534
-@L_02098504:
-    add r0, r7, #4
-    add r1, r6, #1
-    bl func_020970b0
-    movs r5, r0
-    beq @L_02098530
-    ldr r0, [r4]
-    add r1, r5, #0x44
-    bl func_0209926c
-    ldr r0, [r4]
-    add r1, r5, #0x50
-    bl func_0209926c
-@L_02098530:
-    add r6, r6, #1
-@L_02098534:
-    ldrsh r0, [r7, #8]
-    cmp r6, r0
-    blt @L_02098504
-    ldr r0, =data_020c4668
-    add r1, r7, #0xc
-    ldr r0, [r0]
-    bl func_0209926c
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 i;
+    i = 0;
+    for (; i < *(s16 *)(arg0 + 8); i++) {
+        u8 *p = (u8 *)((s32 (*)(...))func_020970b0)(arg0 + 4, i + 1);
+        if (p != 0) {
+            ((s32 (*)(...))func_0209926c)(*((s32 *)data_020c4668), p + 0x44);
+            ((s32 (*)(...))func_0209926c)(*((s32 *)data_020c4668), p + 0x50);
+        }
+    }
+    ((s32 (*)(...))func_0209926c)(*(s32 *)data_020c4668, arg0 + 0xC);
+    return 1;
 }
+#pragma pop
 
-extern "C" asm void func_0209855c(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" s32 func_0209855c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r6, #0
-    ldr r4, =data_020c4668
-    b @L_020985ac
-@L_02098570:
-    add r0, r7, #4
-    add r1, r6, #1
-    bl func_020970b0
-    movs r5, r0
-    beq @L_020985a8
-    ldr r0, [r4]
-    add r1, r5, #0x44
-    bl func_020992ec
-    ldr r0, [r4]
-    add r1, r5, #0x50
-    bl func_020992ec
-    mov r0, r7
-    mov r1, r5
-    bl func_020970e0
-@L_020985a8:
-    add r6, r6, #1
-@L_020985ac:
-    ldrsh r0, [r7, #8]
-    cmp r6, r0
-    blt @L_02098570
-    ldr r4, =data_020c4668
-    add r1, r7, #0xc
-    ldr r0, [r4]
-    bl func_020992ec
-    cmp r0, #0
-    beq @L_020985ec
-    mov r0, #0x20
-    str r0, [sp]
-    ldr r0, [r4]
-    ldr r3, =data_020afd54
-    add r1, r7, #0xc
-    mov r2, #0
-    bl func_02098fac
-@L_020985ec:
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 i;
+    for (i = 0; i < *(s16 *)(arg0 + 8); i++) {
+        u8 *e = (u8 *)((s32 (*)(...))func_020970b0)(arg0 + 4, i + 1);
+        if (e != 0) {
+            ((s32 (*)(...))func_020992ec)(*(s32 *)data_020c4668, e + 0x44);
+            ((s32 (*)(...))func_020992ec)(*(s32 *)data_020c4668, e + 0x50);
+            ((s32 (*)(...))func_020970e0)(arg0, e);
+        }
+    }
+    if (((s32 (*)(...))func_020992ec)(*(s32 *)data_020c4668, arg0 + 0xC) != 0)
+        ((s32 (*)(...))func_02098fac)(*(s32 *)data_020c4668, arg0 + 0xC, 0, data_020afd54, 0x20);
+    return 1;
 }
+#pragma pop
 
 extern "C" u8 *func_020985fc(u8 *self, int id)
 {

@@ -19,7 +19,7 @@ extern "C" void func_ov018_021660c4(void);
 extern "C" void func_ov018_021661cc(void);
 extern "C" s32 func_ov018_021663b8(s32 arg0);
 extern "C" char *func_ov018_02166408(u8 *arg0);
-extern "C" void func_ov018_0216641c(void);
+extern "C" void func_ov018_0216641c(u8 *arg0);
 extern "C" void func_ov018_02166490(void);
 extern "C" s32 func_ov018_02166608(u8 *arg0);
 extern "C" s32 func_ov018_0216666c(u8 *arg0, s32 arg1);
@@ -519,37 +519,19 @@ extern "C" char *func_ov018_02166408(u8 *arg0)
     return (char *)((u8 *)&gGameState);
 }
 
-extern "C" asm void func_ov018_0216641c(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov018_0216641c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, r0
-    mov r7, #1
-    mov r6, #0x12c
-    ldr r5, =data_020c46c4
-    b @L_02166454
-@L_02166434:
-    ldr r0, [r5]
-    mov r1, r7
-    bl func_ov015_02161dd4
-    mov r1, r6
-    bl func_ov015_02161c98
-    add r0, r7, #1
-    mov r0, r0, lsl #0x10
-    mov r7, r0, lsr #0x10
-@L_02166454:
-    cmp r7, #4
-    bls @L_02166434
-    ldrb r1, [r4, #0x54]
-    mov r0, r4
-    add r1, r1, #1
-    bl func_ov018_02166904
-    mov r2, #0xf0
-    ldr r1, =data_ov018_021671f0
-    ldr r0, =data_ov069_02170720
-    strh r2, [r4, #0x56]
-    str r1, [r0]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u16 i;
+    i = 1;
+    for (; i <= 4; i++)
+        ((s32 (*)(...))func_ov015_02161c98)(((s32 (*)(...))func_ov015_02161dd4)(*((s32 *)data_020c46c4), i), 0x12C);
+    ((s32 (*)(...))func_ov018_02166904)(arg0, arg0[0x54] + 1);
+    *(u16 *)(arg0 + 0x56) = 0xF0;
+    *(void **)data_ov069_02170720 = data_ov018_021671f0;
 }
+#pragma pop
 
 extern "C" asm void func_ov018_02166490(void)
 {
