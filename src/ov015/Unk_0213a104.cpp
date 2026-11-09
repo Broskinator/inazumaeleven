@@ -60,7 +60,7 @@ extern "C" s32 func_ov015_0213b900(...);
 extern "C" s32 func_ov015_0213b980(s32 arg0, s32 arg1);
 extern "C" s32 func_ov015_0213b990(...);
 extern "C" s32 func_ov015_0213ba04(...);
-extern "C" void func_ov015_0213ba78(void);
+extern "C" void func_ov015_0213ba78(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov015_0213bafc(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov015_0213bb80(void);
 extern "C" s32 func_ov015_0213bc88(s32 arg0, s32 arg1, s32 arg2, u16 arg3);
@@ -1801,45 +1801,28 @@ extern "C" asm s32 func_ov015_0213ba04(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov015_0213ba78(void)
+extern "C" void func_ov015_0213ba78(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, #0
-    add lr, r0, #0x24
-    mov r3, r4
-@L_0213ba88:
-    ldrb r12, [lr, #1]
-    cmp r12, #0
-    beq @L_0213baa8
-    ldrb r12, [lr]
-    cmp r12, r1
-    ldreqb r12, [lr, #2]
-    cmpeq r12, r2
-    streqb r3, [lr, #5]
-@L_0213baa8:
-    add r4, r4, #1
-    cmp r4, #0x30
-    add lr, lr, #0x3c
-    blt @L_0213ba88
-    add r0, r0, #0x364
-    mov r4, #0
-    add r12, r0, #0x800
-    mov r0, r4
-@L_0213bac8:
-    ldrb r3, [r12, #1]
-    cmp r3, #0
-    beq @L_0213bae8
-    ldrb r3, [r12]
-    cmp r3, r1
-    ldreqb r3, [r12, #2]
-    cmpeq r3, r2
-    streqb r0, [r12, #0xa]
-@L_0213bae8:
-    add r4, r4, #1
-    cmp r4, #0x50
-    add r12, r12, #0x10
-    blt @L_0213bac8
-    ldmia sp!, {r4, pc}
+    u8 *p = arg0 + 0x24;
+    s32 i = 0;
+    s32 z = i;
+    do {
+        if (p[1] != 0 && p[0] == arg1 && p[2] == arg2)
+            p[5] = z;
+        i++;
+        p += 0x3C;
+    } while (i < 0x30);
+    {
+        s32 j = 0;
+        u8 *q = arg0 + 0xB64;
+        s32 y = j;
+        do {
+            if (q[1] != 0 && q[0] == arg1 && q[2] == arg2)
+                q[0xA] = y;
+            j++;
+            q += 0x10;
+        } while (j < 0x50);
+    }
 }
 
 extern "C" void func_ov015_0213bafc(u8 *arg0, s32 arg1, s32 arg2)

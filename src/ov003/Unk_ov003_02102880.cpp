@@ -1,5 +1,6 @@
 #include "ov003/Unk_ov003_02102880.hpp"
 #include "game/vcall.hpp"
+class C021041a0 { public: virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c(); virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3c(); virtual void v40(); virtual void v44(); virtual void v48(); virtual void v4c(); virtual void v50(); u8 *p; s32 st; };
 
 extern "C" void func_ov003_02102880(u8 *arg0, s32 arg1);
 extern "C" void func_ov003_021028a8(u8 *arg0, u8 *arg1);
@@ -54,7 +55,7 @@ extern "C" s32 func_ov003_021040b8(void);
 extern "C" s32 func_ov003_021040e4(u8 *arg0);
 extern "C" void func_ov003_02104150(s32 arg0);
 extern "C" void func_ov003_02104174(u8 *arg0);
-extern "C" void func_ov003_021041a0(void);
+extern "C" void func_ov003_021041a0(C021041a0 *arg0);
 extern "C" void func_ov003_02104240(void);
 extern "C" void func_ov003_0210431c(u8 *arg0);
 extern "C" void func_ov003_02104360(u8 *arg0);
@@ -1750,46 +1751,36 @@ extern "C" void func_ov003_02104174(u8 *arg0)
     _ZN17UnkClass_0203dc7c13func_0203e04cEii(*(s32 *)(arg0 + 0x4), 0, 0x10);
 }
 
-extern "C" asm void func_ov003_021041a0(void)
+extern "C" void func_ov003_021041a0(C021041a0 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r2, #5
-    mov r6, #1
-    ldr r1, =gGameState
-    str r2, [r7, #8]
-    strb r6, [r7, #0x22a]
-    mov r5, #0
-    strb r5, [r1, #0x1b]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x50]
-    blx r1
-    ldr r4, =data_020c4ab4
-    strb r6, [r4, #0x6e]
-    strb r6, [r4, #0x6f]
-    strb r5, [r4, #0x70]
-    strb r5, [r4, #0x72]
-    strb r5, [r4, #0x73]
-    strb r5, [r4, #0x68]
-    strb r5, [r4, #0x69]
-    strb r5, [r4, #0x6a]
-    strb r5, [r4, #0x6b]
-    strb r6, [r4, #0x71]
-    strb r6, [r4, #0x74]
-    ldr r0, [r7, #4]
-    bl func_ov003_02102254
-    strb r5, [r4, #0xc8]
-    ldr r7, [r7, #4]
-    mov r4, #0x73
-    mov r0, r7
-    mov r1, r5
-    mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
-    mov r0, r7
-    mov r1, r6
-    mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 k = 1;
+    s32 z;
+    u8 *d;
+    arg0->st = 5;
+    ((u8 *)arg0)[0x22A] = k;
+    z = 0;
+    ((u8 *)gGameState)[0x1B] = z;
+    arg0->v50();
+    d = (u8 *)data_020c4ab4;
+    d[0x6E] = k;
+    d[0x6F] = k;
+    d[0x70] = z;
+    d[0x72] = z;
+    d[0x73] = z;
+    d[0x68] = z;
+    d[0x69] = z;
+    d[0x6A] = z;
+    d[0x6B] = z;
+    d[0x71] = k;
+    d[0x74] = k;
+    ((s32 (*)(...))func_ov003_02102254)(arg0->p);
+    d[0xC8] = z;
+    {
+        u8 *p = arg0->p;
+        s32 n = 0x73;
+        ((s32 (*)(...))_ZN17UnkClass_0203dc7c13func_0203e090Eii)(p, z, n);
+        ((s32 (*)(...))_ZN17UnkClass_0203dc7c13func_0203e090Eii)(p, k, n);
+    }
 }
 
 extern "C" asm void func_ov003_02104240(void)

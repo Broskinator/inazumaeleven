@@ -1,5 +1,6 @@
 #include "ov003/Unk_ov003_02115874.hpp"
 #include "game/vcall.hpp"
+struct S02116ef8 { u8 a, b, c, d; s32 e; u8 r[0xE8]; };
 struct S021169b4 { u8 x0; u8 x1; u8 x2; u8 x3; s32 x4; u8 rest[0xE8]; };
 struct P02118850 { s32 a; s32 b; };
 struct S02117490 { s32 a, b; };
@@ -21,7 +22,7 @@ extern "C" s32 func_ov003_02116a30(u8 *arg0);
 extern "C" void func_ov003_02116b38(void);
 extern "C" void func_ov003_02116b3c(void);
 extern "C" void func_ov003_02116e9c(u8 *arg0);
-extern "C" void func_ov003_02116ef8(void);
+extern "C" void func_ov003_02116ef8(u8 *arg0);
 extern "C" s32 func_ov003_02116f90(u8 *arg0);
 extern "C" s32 func_ov003_02116fb4(u8 *arg0);
 extern "C" s32 func_ov003_02116fd8(u8 *arg0);
@@ -1636,46 +1637,22 @@ extern "C" void func_ov003_02116e9c(u8 *arg0)
     func_ov003_02113b4c((s32)arg0, 2);
 }
 
-extern "C" asm void func_ov003_02116ef8(void)
+extern "C" void func_ov003_02116ef8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #0xf0
-    mov r5, r0
-    ldr r0, =data_020c5e40
-    mov r1, #4
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r4, #0
-    mov r0, r5
-    mov r1, r4
-    bl func_ov003_021163fc
-    mov r0, r5
-    mov r1, #1
-    bl func_ov003_021163fc
-    add lr, sp, #0
-    mov r0, r4
-    mov r1, r4
-    mov r2, r4
-    mov r3, r4
-    mov r12, #7
-@L_02116f44:
-    stmia lr!, {r0, r1, r2, r3}
-    stmia lr!, {r0, r1, r2, r3}
-    subs r12, r12, #1
-    bne @L_02116f44
-    stmia lr!, {r0, r1, r2, r3}
-    mov r2, #0x10
-    strb r2, [sp, #2]
-    ldr r1, [r5, #0x34]
-    add r0, sp, #0
-    strb r1, [sp, #3]
-    str r2, [sp, #4]
-    bl func_ov003_0210ea50
-    mov r1, #2
-    mov r0, r5
-    str r1, [r5, #0x34]
-    bl func_ov003_02113b4c
-    add sp, sp, #0xf0
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 z;
+    ((s32 (*)(...))_ZN12SoundManager9PlaySoundEi)(data_020c5e40, 4);
+    z = 0;
+    ((s32 (*)(...))func_ov003_021163fc)(arg0, z);
+    ((s32 (*)(...))func_ov003_021163fc)(arg0, 1);
+    {
+        S02116ef8 s = {0};
+        s.c = 0x10;
+        s.d = *(s32 *)(arg0 + 0x34);
+        s.e = 0x10;
+        ((s32 (*)(...))func_ov003_0210ea50)(&s);
+    }
+    *(s32 *)(arg0 + 0x34) = 2;
+    ((s32 (*)(...))func_ov003_02113b4c)(arg0);
 }
 
 extern "C" s32 func_ov003_02116f90(u8 *arg0)

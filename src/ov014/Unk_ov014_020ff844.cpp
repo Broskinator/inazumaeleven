@@ -72,7 +72,7 @@ extern "C" void func_ov014_02101e68(void);
 extern "C" void func_ov014_02101f34(void);
 extern "C" void func_ov014_02101f78(void);
 extern "C" void func_ov014_02102040(void);
-extern "C" void func_ov014_0210214c(void);
+extern "C" s32 func_ov014_0210214c(s32 arg0);
 extern "C" void func_ov014_021021e4(void);
 extern "C" void func_ov014_02102320(void);
 extern "C" void func_ov014_021023f0(void);
@@ -2805,46 +2805,24 @@ extern "C" asm void func_ov014_02102040(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov014_0210214c(void)
+extern "C" s32 func_ov014_0210214c(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r8, #0
-    ldr r7, =data_ov014_02124794
-    ldr r4, =0x51eb851f
-    ldr r5, =data_ov014_02126ac8
-    mov r10, r0
-    mov r6, #0x64
-    mov r11, r8
-@L_0210216c:
-    mov r0, r10
-    bl func_ov014_02102040
-    ldr r1, [r7, r8, lsl #2]
-    mov r9, r11
-    umull r0, r2, r1, r4
-    movs r2, r2, lsr #5
-    beq @L_021021c4
-@L_02102188:
-    ldr r0, [r5, #0x50]
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r6
-    bl OS_Sleep
-    mov r0, r10
-    bl func_ov014_02101f78
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r1, [r7, r8, lsl #2]
-    add r9, r9, #1
-    umull r0, r2, r1, r4
-    cmp r9, r2, lsr #5
-    blo @L_02102188
-@L_021021c4:
-    add r8, r8, #1
-    cmp r8, #6
-    blo @L_0210216c
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u32 *t = (u32 *)data_ov014_02124794;
+    u32 i;
+    for (i = 0; i < 6; i++) {
+        u32 j;
+        ((s32 (*)(...))func_ov014_02102040)(arg0);
+        for (j = 0; j < t[i] / 100; j++) {
+            s32 r;
+            if (*(s32 *)((u8 *)data_ov014_02126ac8 + 0x50) == 0)
+                return 0;
+            ((void (*)(s32))OS_Sleep)(100);
+            r = ((s32 (*)(...))func_ov014_02101f78)(arg0);
+            if (r != 0)
+                return r;
+        }
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov014_021021e4(void)

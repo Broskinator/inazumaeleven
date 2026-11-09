@@ -55,7 +55,7 @@ extern "C" void func_ov015_02131da0(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov015_02131db8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov015_02131dd0(void);
 extern "C" void func_ov015_02131ed0(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov015_02131ef4(void);
+extern "C" void func_ov015_02131ef4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5, u8 *arg6, u8 *arg7);
 extern "C" s32 func_ov015_02131f84(...);
 extern "C" void func_ov015_02132008(void);
 extern "C" void func_ov015_02132014(void);
@@ -1350,46 +1350,21 @@ extern "C" void func_ov015_02131ed0(s32 arg0, s32 arg1, s32 arg2)
     MIi_CpuCopy16((arg2 + (arg1 << 3)), (arg0 + 0x1A), 6, arg0);
 }
 
-extern "C" asm void func_ov015_02131ef4(void)
+extern "C" void func_ov015_02131ef4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, u8 *arg5, u8 *arg6, u8 *arg7)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    cmp r1, #0
-    mov r6, r0
-    ldrne r1, [sp, #0x20]
-    mov r4, r3
-    movne r0, #0x14
-    mlane r7, r4, r0, r1
-    ldr r0, [sp, #0x18]
-    moveq r7, #0
-    ldr r1, [sp, #0x24]
-    cmp r0, #0
-    mov r5, r2
-    add r0, r1, r0, lsl #3
-    ble @L_02131f44
-    cmp r0, #0
-    beq @L_02131f44
-    add r0, r0, #4
-    add r1, r6, #4
-    mov r2, #4
-    bl MIi_CpuCopy16
-@L_02131f44:
-    cmp r4, #0
-    ble @L_02131f64
-    cmp r7, #0
-    beq @L_02131f64
-    mov r0, r7
-    add r1, r6, #8
-    mov r2, #2
-    bl MIi_CpuCopy16
-@L_02131f64:
-    cmp r5, #0
-    ldmleia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, [sp, #0x1c]
-    add r1, r6, #0x1a
-    add r0, r0, r5, lsl #3
-    mov r2, #6
-    bl MIi_CpuCopy16
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *x;
+    u8 *y;
+    if (arg1 != 0)
+        x = arg6 + arg3 * 0x14;
+    else
+        x = 0;
+    y = arg7 + (arg4 << 3);
+    if (arg4 > 0 && y != 0)
+        ((s32 (*)(...))MIi_CpuCopy16)(y + 4, arg0 + 4, 4);
+    if (arg3 > 0 && x != 0)
+        ((s32 (*)(...))MIi_CpuCopy16)(x, arg0 + 8, 2);
+    if (arg2 > 0)
+        ((s32 (*)(...))MIi_CpuCopy16)(arg5 + (arg2 << 3), arg0 + 0x1A, 6);
 }
 
 extern "C" asm s32 func_ov015_02131f84(...)
