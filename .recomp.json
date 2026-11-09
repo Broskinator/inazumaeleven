@@ -1,0 +1,22 @@
+{
+  "$schema": "https://recomp.fyi/schema/v1.json",
+  "game": "Inazuma Eleven",
+  "system": "NDS",
+  "type": "decomp",
+  "original": {
+    "region": "Europe",
+    "serial": "YEEP",
+    "sha1": "d55169c0b93d26b4037379d3b81a61b5404945e5"
+  },
+  "project": "Inazuma Eleven (Europe) Decompilation",
+  "status": "in-progress",
+  "toolchain": "ds-decomp",
+  "approach": "Matching C/C++ decompilation using Metrowerks CodeWarrior, ds-decomp and objdiff, with assembly fallbacks for unfinished functions.",
+  "maintainers": [
+    {
+      "name": "Broskinator",
+      "link": "https://github.com/Broskinator"
+    }
+  ],
+  "notes": "Byte-identical build pipeline covering ARM9, ITCM/DTCM and all 91 overlays. Source reconstruction is ongoing: original assembly is incrementally replaced with matching C/C++."
+}
