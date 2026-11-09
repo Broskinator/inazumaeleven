@@ -2,6 +2,19 @@
 #include "game/vcall.hpp"
 #include "game/vcall.hpp"
 #include "game/vcall.hpp"
+class C0210c9cc {
+public:
+    virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c();
+    virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c();
+    virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c();
+    virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3c();
+    virtual void v40(); virtual void v44(); virtual void v48(); virtual void v4c();
+    virtual void v50();
+    u8 *p;
+    s32 st;
+    s32 sw;
+    s32 f;
+};
 struct E0210d2f0 { s32 a; s32 b; s32 c; };
 struct P0210d2f0 { u8 pad[0x68]; E0210d2f0 arr[1]; };
 struct P0210d27c { s32 a; s32 b; };
@@ -26,7 +39,7 @@ extern "C" s32 func_ov003_0210c900(u8 *arg0);
 extern "C" s32 func_ov003_0210c930(u8 *arg0);
 extern "C" void func_ov003_0210c968(u8 *arg0);
 extern "C" void func_ov003_0210c988(u8 *arg0);
-extern "C" void func_ov003_0210c9cc(void);
+extern "C" void func_ov003_0210c9cc(C0210c9cc *arg0);
 extern "C" void func_ov003_0210ca54(void);
 extern "C" void func_ov003_0210cb68(void);
 extern "C" void func_ov003_0210cc68(void);
@@ -990,44 +1003,28 @@ extern "C" void func_ov003_0210c988(u8 *arg0)
     _ZN17UnkClass_0203dc7c13func_0203e04cEii(t0, 1, 0x11);
 }
 
-extern "C" asm void func_ov003_0210c9cc(void)
+extern "C" void func_ov003_0210c9cc(C0210c9cc *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, r0
-    ldr r1, [r4, #0xc]
-    cmp r1, #1
-    beq @L_0210c9ec
-    cmp r1, #4
-    beq @L_0210ca34
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0210c9ec:
-    ldr r0, [r4, #4]
-    mov r5, #0
-    str r5, [r0, #0x8c]
-    mov r1, #5
-    mov r0, #6
-    str r1, [r4, #8]
-    bl func_ov015_02132628
-    ldr r6, [r4, #4]
-    mov r4, #0xa
-    mov r0, r6
-    mov r1, r5
-    mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    mov r0, r6
-    mov r2, r4
-    mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0210ca34:
-    mov r2, #6
-    mov r1, #1
-    str r2, [r4, #8]
-    str r1, [r4, #0x10]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x50]
-    blx r1
-    ldmia sp!, {r4, r5, r6, pc}
+    switch (arg0->sw) {
+    case 1: {
+        s32 z = 0;
+        u8 *p;
+        s32 n;
+        *(s32 *)(arg0->p + 0x8C) = z;
+        arg0->st = 5;
+        ((s32 (*)(...))func_ov015_02132628)(6);
+        p = arg0->p;
+        n = 0xA;
+        ((s32 (*)(...))_ZN17UnkClass_0203dc7c13func_0203e04cEii)(p, z, n);
+        ((s32 (*)(...))_ZN17UnkClass_0203dc7c13func_0203e04cEii)(p, 1, n);
+        break;
+    }
+    case 4:
+        arg0->st = 6;
+        arg0->f = 1;
+        arg0->v50();
+        break;
+    }
 }
 
 extern "C" asm void func_ov003_0210ca54(void)

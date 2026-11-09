@@ -44,7 +44,7 @@ extern "C" void func_ov016_02141828(void);
 extern "C" void func_ov016_021418b4(void);
 extern "C" void func_ov016_021418d4(void);
 extern "C" s32 func_ov016_021418e4(...);
-extern "C" void func_ov016_02141ba4(void);
+extern "C" s32 func_ov016_02141ba4(s32 arg0);
 extern "C" void func_ov016_02141c2c(void);
 extern "C" void func_ov016_02141c30(void);
 extern "C" void func_ov016_02141c4c(void);
@@ -2023,43 +2023,28 @@ extern "C" asm s32 func_ov016_021418e4(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_02141ba4(void)
+extern "C" s32 func_ov016_02141ba4(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_ov016_02158ac4
-    mov r4, r0
-    ldr r1, [r1]
-    ldrb r0, [r1, #0x14]
-    add r2, r1, #8
-    add r1, r0, r0, lsl #1
-    ldrb r0, [r2, r1]
-    cmp r0, #0
-    cmpne r0, #0x20
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, pc}
-    add r5, sp, #0
-    add r0, r2, r1
-    mov r1, r5
-    mov r2, #3
-    bl MI_CpuCopy8
-    mov r2, #0
-    strb r2, [sp, #3]
-    mov r0, #0x20
-@L_02141bf4:
-    ldrb r1, [r5, r2]
-    cmp r1, #0
-    bne @L_02141c10
-    strb r0, [r5, r2]
-    add r2, r2, #1
-    cmp r2, #3
-    blt @L_02141bf4
-@L_02141c10:
-    add r0, sp, #0
-    bl atoi
-    cmp r0, r4
-    movge r0, #1
-    movlt r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *d = *(u8 **)data_ov016_02158ac4;
+    u8 *p = d + 8;
+    s32 o = d[0x14] * 3;
+    s32 c = p[o];
+    u8 buf[4];
+    u8 *q;
+    s32 i;
+    if (c != 0 && c != 0x20)
+        return 1;
+    q = buf;
+    ((s32 (*)(...))MI_CpuCopy8)(p + o, q, 3);
+    i = 0;
+    buf[3] = i;
+    do {
+        if (q[i] != 0)
+            break;
+        q[i] = 0x20;
+        i++;
+    } while (i < 3);
+    return ((s32 (*)(...))atoi)(buf) >= arg0 ? 1 : 0;
 }
 
 extern "C" void func_ov016_02141c2c(void)

@@ -1,7 +1,7 @@
 #include "ov001/Unk_ov001_0210c348.hpp"
 
 extern "C" void func_ov001_0210c348(void);
-extern "C" void func_ov001_0210c534(void);
+extern "C" void func_ov001_0210c534(u8 *arg0);
 extern "C" void func_ov001_0210c5d0(u8 *arg0);
 extern "C" void func_ov001_0210c5f0(void);
 extern "C" s32 func_ov001_0210c6b4(s32 arg0, s32 arg1);
@@ -267,44 +267,17 @@ extern "C" asm void func_ov001_0210c348(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov001_0210c534(void)
+extern "C" void func_ov001_0210c534(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0xc
-    mov r5, r0
-    ldr r0, [r5, #0x504]
-    mov r4, #0
-    str r4, [r5, #0x510]
-    cmp r0, #0
-    beq @L_0210c588
-    add r1, r5, #0x400
-    ldrh r1, [r1, #0x2c]
-    add r2, sp, #8
-    add r3, sp, #4
-    bl func_ov015_02134300
-    cmp r0, #0
-    beq @L_0210c588
-    str r4, [sp]
-    ldr r2, [sp, #8]
-    ldr r3, [sp, #4]
-    ldr r0, =data_ov001_02129808
-    add r1, r5, #0x510
-    bl func_ov001_0212609c
-@L_0210c588:
-    add r1, r5, #0xec
-    ldr r0, =data_ov001_02129814
-    add r1, r1, #0x400
-    bl func_ov001_0212602c
-    add r1, r5, #0x1dc
-    ldr r0, =data_ov001_02129824
-    add r1, r1, #0x400
-    bl func_ov001_02126064
-    add r1, r5, #0x1c4
-    ldr r0, =data_ov001_02129834
-    add r1, r1, #0x400
-    bl func_ov001_0212602c
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, pc}
+    s32 a;
+    s32 b;
+    s32 z = 0;
+    *(s32 *)(arg0 + 0x510) = z;
+    if (*(s32 *)(arg0 + 0x504) != 0 && ((s32 (*)(...))func_ov015_02134300)(*(s32 *)(arg0 + 0x504), *(u16 *)(arg0 + 0x42C), &a, &b) != 0)
+        ((s32 (*)(...))func_ov001_0212609c)(data_ov001_02129808, arg0 + 0x510, a, b, z);
+    ((s32 (*)(...))func_ov001_0212602c)(data_ov001_02129814, arg0 + 0x4EC);
+    ((s32 (*)(...))func_ov001_02126064)(data_ov001_02129824, arg0 + 0x5DC);
+    ((s32 (*)(...))func_ov001_0212602c)(data_ov001_02129834, arg0 + 0x5C4);
 }
 
 extern "C" void func_ov001_0210c5d0(u8 *arg0)

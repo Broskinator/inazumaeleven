@@ -19,7 +19,7 @@ extern "C" void func_ov067_0216666c(s32 arg0);
 extern "C" void func_ov067_02166690(u8 *arg0);
 extern "C" void func_ov067_021666fc(void);
 extern "C" s32 func_ov067_021667bc(...);
-extern "C" void func_ov067_02166944(void);
+extern "C" void func_ov067_02166944(u8 *arg0);
 extern "C" s32 func_ov067_021669d8(u8 *arg0);
 extern "C" void func_ov067_02166a70(void);
 extern "C" void func_ov067_02166b60(void);
@@ -984,43 +984,25 @@ extern "C" asm s32 func_ov067_021667bc(...)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov067_02166944(void)
+extern "C" void func_ov067_02166944(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, r0
-    bl func_ov015_021319bc
-    cmp r0, #0
-    ldr r0, =gGameState
-    mov r6, #1
-    ldrb r0, [r0, #0x1b]
-    movne r6, #0
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    bl func_ov015_02131bd0
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldr r5, =data_020e88a0
-    ldrh r2, [r4, #0x12]
-    ldrh r3, [r4, #0x14]
-    mov r0, r5
-    mov r1, r6
-    bl func_01ffcb50
-    mov r2, #1
-    mov r0, r5
-    mov r1, r6
-    mov r3, r2
-    bl _ZN17UnkClass_020621b413func_0207c6b4Ev
-    mov r4, #4
-    mov r0, r5
-    mov r1, r6
-    mov r2, r4
-    bl _ZN17UnkClass_020621b413func_020798c0Ev
-    mov r0, r5
-    mov r1, r6
-    mov r2, r4
-    bl _ZN17UnkClass_020621b413func_02079940Ev
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r = ((s32 (*)(...))func_ov015_021319bc)();
+    u8 *g = (u8 *)gGameState;
+    s32 k = 1;
+    void *d;
+    s32 f;
+    if (r != 0)
+        k = 0;
+    if (g[0x1B] == 0)
+        return;
+    if (((s32 (*)(...))func_ov015_02131bd0)(k) == 0)
+        return;
+    d = data_020e88a0;
+    ((s32 (*)(...))func_01ffcb50)(d, k, *(u16 *)(arg0 + 0x12), *(u16 *)(arg0 + 0x14));
+    ((s32 (*)(...))_ZN17UnkClass_020621b413func_0207c6b4Ev)(d, k, 1, 1);
+    f = 4;
+    ((s32 (*)(...))_ZN17UnkClass_020621b413func_020798c0Ev)(d, k, f);
+    ((s32 (*)(...))_ZN17UnkClass_020621b413func_02079940Ev)(d, k, f);
 }
 
 #pragma push

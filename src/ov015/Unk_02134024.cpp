@@ -1,4 +1,6 @@
 #include "ov015/Unk_02134024.hpp"
+struct E021362b8 { s32 k; s32 b; u16 v; u8 pad[2]; };
+struct L021362b8 { E021362b8 *p; s32 n; };
 struct E021346a8 { u8 a; u8 pad[8]; u8 b; u8 pad2[2]; };
 extern "C" char data_020c46a4[];
 static inline E021346a8 *get021346a8(s32 i) { return *(E021346a8 **)data_020c46a4 + i; }
@@ -57,7 +59,7 @@ extern "C" s32 func_ov015_02136018(...);
 extern "C" void func_ov015_0213606c(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02136080(void);
 extern "C" void func_ov015_02136134(void);
-extern "C" void func_ov015_021362b8(void);
+extern "C" s32 func_ov015_021362b8(s32 arg0, L021362b8 *arg1);
 extern "C" void func_ov015_02136330(void);
 extern "C" void func_ov015_021363e8(void);
 extern "C" void func_ov015_0213649c(void);
@@ -2411,43 +2413,21 @@ extern "C" asm void func_ov015_02136134(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov015_021362b8(void)
+extern "C" s32 func_ov015_021362b8(s32 arg0, L021362b8 *arg1)
 {
-    stmdb sp!, {r4, lr}
-    cmp r0, #0
-    ble @L_021362d4
-    cmp r1, #0
-    ldrne lr, [r1]
-    cmpne lr, #0
-    bne @L_021362dc
-@L_021362d4:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
-@L_021362dc:
-    ldr r4, [r1, #4]
-    mov r12, #0
-    cmp r4, #0
-    ble @L_02136328
-    mov r1, #0xc
-@L_021362f0:
-    mul r3, r12, r1
-    ldr r2, [lr, r3]
-    add r3, lr, r3
-    cmp r0, r2
-    bne @L_0213631c
-    ldrh r2, [r3, #8]
-    cmp r2, #0
-    movne r0, #0
-    strne r0, [r3, #4]
-    ldrneh r0, [r3, #8]
-    ldmneia sp!, {r4, pc}
-@L_0213631c:
-    add r12, r12, #1
-    cmp r12, r4
-    blt @L_021362f0
-@L_02136328:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
+    s32 i;
+    E021362b8 *e;
+    s32 n;
+    if (arg0 <= 0 || arg1 == 0 || (e = arg1->p) == 0)
+        return 0;
+    n = arg1->n;
+    for (i = 0; i < n; i++) {
+        if (arg0 == e[i].k && e[i].v != 0) {
+            e[i].b = 0;
+            return e[i].v;
+        }
+    }
+    return 0;
 }
 
 extern "C" asm void func_ov015_02136330(void)

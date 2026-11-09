@@ -74,7 +74,7 @@ extern "C" void func_ov014_02113e64(void);
 extern "C" void func_ov014_02113e70(void);
 extern "C" void func_ov014_02113e7c(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_02113e90(u8 *arg0, u8 *arg1, s32 arg2);
-extern "C" void func_ov014_02113f34(void);
+extern "C" s32 func_ov014_02113f34(s8 *arg0);
 extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1);
 extern "C" void func_ov014_02114010(void);
 extern "C" void func_ov014_0211409c(void);
@@ -2549,42 +2549,18 @@ extern "C" s32 func_ov014_02113e90(u8 *arg0, u8 *arg1, s32 arg2)
     return arg2;
 }
 
-extern "C" asm void func_ov014_02113f34(void)
+extern "C" s32 func_ov014_02113f34(s8 *arg0)
 {
-    ldrsb r2, [r0], #1
-    mov r1, #0
-    cmp r2, #0
-    beq @L_02113f94
-@L_02113f44:
-    cmp r2, #0x30
-    blt @L_02113f54
-    cmp r2, #0x39
-    ble @L_02113f7c
-@L_02113f54:
-    cmp r2, #0x41
-    blt @L_02113f64
-    cmp r2, #0x5a
-    ble @L_02113f7c
-@L_02113f64:
-    cmp r2, #0x61
-    blt @L_02113f74
-    cmp r2, #0x7a
-    ble @L_02113f7c
-@L_02113f74:
-    cmp r2, #0x20
-    bne @L_02113f84
-@L_02113f7c:
-    add r1, r1, #1
-    b @L_02113f88
-@L_02113f84:
-    add r1, r1, #3
-@L_02113f88:
-    ldrsb r2, [r0], #1
-    cmp r2, #0
-    bne @L_02113f44
-@L_02113f94:
-    mov r0, r1
-    bx lr
+    s32 n = 0;
+    s32 c = *arg0++;
+    while (c != 0) {
+        if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == ' ')
+            n++;
+        else
+            n += 3;
+        c = *arg0++;
+    }
+    return n;
 }
 
 extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1)

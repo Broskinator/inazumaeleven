@@ -1,4 +1,6 @@
 #include "ov047/Unk_ov047_02169034.hpp"
+union U0216a620 { struct { u32 lng : 1; } w; struct { u8 lng : 1; u8 sz : 7; } b; };
+struct S0216a620 { U0216a620 u; u32 len; char *ptr; };
 
 extern "C" void func_ov047_02169034(void);
 extern "C" void func_ov047_021691ac(u8 *arg0, u8 *arg1);
@@ -19,7 +21,7 @@ extern "C" void func_ov047_0216a534(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov047_0216a574(u8 *arg0, s32 arg1);
 extern "C" void func_ov047_0216a5a4(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov047_0216a5d4(...);
-extern "C" void func_ov047_0216a620(void);
+extern "C" u32 func_ov047_0216a620(S0216a620 *arg0, char *arg1, u32 arg2, u32 arg3);
 extern "C" void func_ov047_0216a6a8(void);
 
 extern "C" char data_020c46b8[];
@@ -1571,42 +1573,27 @@ extern "C" asm s32 func_ov047_0216a5d4(...)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov047_0216a620(void)
+extern "C" u32 func_ov047_0216a620(S0216a620 *arg0, char *arg1, u32 arg2, u32 arg3)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r2, [r0]
-    mov r5, r1
-    mov r1, r2, lsl #0x1f
-    movs r1, r1, lsr #0x1f
-    ldreqb r1, [r0]
-    addeq r6, r0, #1
-    mov r4, r3
-    moveq r0, r1, lsl #0x18
-    moveq r7, r0, lsr #0x19
-    ldrne r7, [r0, #4]
-    ldrne r6, [r0, #8]
-    cmp r4, r7
-    bls @L_0216a668
-    ldr r0, =data_ov047_0216aa00
-    bl func_0201a508
-    bl func_02017a7c
-@L_0216a668:
-    ldr r0, [sp, #0x20]
-    sub r1, r7, r4
-    cmp r1, r0
-    addlo r0, sp, #0
-    str r1, [sp]
-    addhs r0, sp, #0x20
-    ldr r7, [r0]
-    mov r0, r5
-    mov r2, r7
-    add r1, r6, r4
-    bl func_02018328
-    mov r0, r7
-    ldmia sp!, {r3, r4, r5, r6, r7, lr}
-    add sp, sp, #0x10
-    bx lr
+    char *data;
+    u32 len;
+    u32 rem;
+    u32 n;
+    if (arg0->u.w.lng == 0) {
+        len = arg0->u.b.sz;
+        data = (char *)arg0 + 1;
+    } else {
+        len = arg0->len;
+        data = arg0->ptr;
+    }
+    if (arg3 > len) {
+        ((s32 (*)(...))func_0201a508)(data_ov047_0216aa00);
+        ((s32 (*)(...))func_02017a7c)();
+    }
+    rem = len - arg3;
+    n = *(rem < arg2 ? &rem : &arg2);
+    ((s32 (*)(...))func_02018328)(arg1, data + arg3, n);
+    return n;
 }
 
 extern "C" asm void func_ov047_0216a6a8(void)

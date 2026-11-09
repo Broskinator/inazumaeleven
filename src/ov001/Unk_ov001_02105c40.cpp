@@ -1,10 +1,11 @@
 #include "ov001/Unk_ov001_02105c40.hpp"
+struct S02105f48 { u16 a, b, c, d, e, f, g, h; u8 i; u8 p[3]; u8 *t; };
 struct P02106968 { s32 x, y; };
 
 extern "C" void func_ov001_02105c40(void);
 extern "C" void func_ov001_02105d68(void);
 extern "C" void func_ov001_02105e4c(void);
-extern "C" void func_ov001_02105f48(void);
+extern "C" void func_ov001_02105f48(u8 *arg0);
 extern "C" void func_ov001_02105fdc(void);
 extern "C" void func_ov001_021060d0(void);
 extern "C" void func_ov001_0210623c(void);
@@ -392,44 +393,24 @@ extern "C" asm void func_ov001_02105e4c(void)
     ldmia sp!, {r4, r5, pc}
 }
 
-extern "C" asm void func_ov001_02105f48(void)
+extern "C" void func_ov001_02105f48(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0x2c
-    ldr r2, [r0, #0x6b4]
-    cmp r2, #0
-    addeq sp, sp, #0x2c
-    ldmeqia sp!, {r3, r4, pc}
-    ldr r0, [r2, #0xc]
-    mov r1, #0
-    add r0, r2, r0
-    add r4, r0, #0x18c
-    mov lr, #5
-    mov r12, #0xa
-    mov r3, #0x16
-    mov r2, #3
-    mov r0, #7
-    strh r3, [sp, #0x18]
-    strh r2, [sp, #0x1a]
-    strb r0, [sp, #0x24]
-    strh lr, [sp, #0x14]
-    strh r12, [sp, #0x16]
-    strh r1, [sp, #0x1c]
-    strh r1, [sp, #0x1e]
-    strh r1, [sp, #0x20]
-    strh r1, [sp, #0x22]
-    str r4, [sp, #0x28]
-    add r0, sp, #0x14
-    str lr, [sp]
-    stmib sp, {r0, r1}
-    str r1, [sp, #0xc]
-    ldr r0, =data_020c9660
-    mov r2, #2
-    mov r3, #8
-    str r1, [sp, #0x10]
-    bl func_ov015_0213b540
-    add sp, sp, #0x2c
-    ldmia sp!, {r3, r4, pc}
+    S02105f48 s;
+    u8 *p = *(u8 **)(arg0 + 0x6B4);
+    if (p != 0) {
+        u8 *t = p + *(s32 *)(p + 0xC) + 0x18C;
+        s.a = 5;
+        s.b = 0xA;
+        s.c = 0x16;
+        s.d = 3;
+        s.i = 7;
+        s.e = 0;
+        s.f = 0;
+        s.g = 0;
+        s.h = 0;
+        s.t = t;
+        ((s32 (*)(...))func_ov015_0213b540)(data_020c9660, 0, 2, 8, 5, &s, 0, 0, 0);
+    }
 }
 
 extern "C" asm void func_ov001_02105fdc(void)

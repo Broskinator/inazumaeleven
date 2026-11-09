@@ -2768,44 +2768,20 @@ extern "C" s32 func_ov014_02104ea4(void)
     return v1;
 }
 
-extern "C" asm void func_ov014_02104ee0(void)
+extern "C" void func_ov014_02104ee0(void)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r0, =data_020bb120
-    ldr r0, [r0, #4]
-    ldr r4, [r0, #0xa4]
-    cmp r4, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrb r0, [r4, #9]
-    cmp r0, #0
-    beq @L_02104f0c
-    mov r0, r4
-    bl func_ov014_0211efc8
-@L_02104f0c:
-    bl OS_GetTick
-    mov r6, r0, lsr #0x10
-    orr r6, r6, r1, lsl #16
-    ldr r5, =data_ov014_02126ac8
-    b @L_02104f24
-@L_02104f20:
-    bl func_ov014_0210157c
-@L_02104f24:
-    ldr r0, [r5, #0x18]
-    blx r0
-    cmp r0, #0
-    ldrneb r0, [r4, #8]
-    cmpne r0, #0
-    beq @L_02104f54
-    bl OS_GetTick
-    mov r0, r0, lsr #0x10
-    orr r0, r0, r1, lsl #16
-    sub r0, r0, r6
-    cmp r0, #0x27
-    blt @L_02104f20
-@L_02104f54:
-    mov r0, #0
-    strb r0, [r4, #8]
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *p = *(u8 **)(*(u8 **)((u8 *)data_020bb120 + 4) + 0xA4);
+    u8 *d;
+    s32 t;
+    if (p == 0)
+        return;
+    if (p[9] != 0)
+        ((s32 (*)(...))func_ov014_0211efc8)(p);
+    t = (s32)(((u64 (*)(void))OS_GetTick)() >> 16);
+    d = (u8 *)data_ov014_02126ac8;
+    while ((*(s32 (**)(void))(d + 0x18))() != 0 && p[8] != 0 && (s32)(((u64 (*)(void))OS_GetTick)() >> 16) - t < 0x27)
+        ((s32 (*)(...))func_ov014_0210157c)();
+    p[8] = 0;
 }
 
 extern "C" s32 func_ov014_02104f68(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
