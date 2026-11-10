@@ -41,7 +41,7 @@ extern "C" s32 func_ov015_021600d4(s32 arg0);
 extern "C" s32 func_ov015_021600f0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov015_02160128(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02160160(void);
-extern "C" void func_ov015_02160280(void);
+extern "C" s32 func_ov015_02160280(s32 arg0, u8 **arg1, s32 *arg2);
 extern "C" s32 func_ov015_02160314(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0216038c(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_02160408(u8 *arg0, u8 *arg1, s32 *arg2);
@@ -1230,51 +1230,30 @@ extern "C" asm void func_ov015_02160160(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov015_02160280(void)
+extern "C" s32 func_ov015_02160280(s32 arg0, u8 **arg1, s32 *arg2)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    ldr r3, [r1]
-    mov r4, r2
-    ldrh r2, [r3, #4]
-    sub r2, r2, #0xa9
-    sub r2, r2, #0x4000
-    cmp r2, #7
-    addls pc, pc, r2, lsl #2
-    b @L_021602f8
-    b @L_021602c8
-    b @L_021602d4
-    b @L_021602e0
-    b @L_021602f8
-    b @L_021602f8
-    b @L_021602f8
-    b @L_021602f8
-    b @L_021602ec
-@L_021602c8:
-    add r2, sp, #0
-    bl func_ov015_0216084c
-    b @L_02160300
-@L_021602d4:
-    add r2, sp, #0
-    bl func_ov015_021608d0
-    b @L_02160300
-@L_021602e0:
-    add r2, sp, #0
-    bl func_ov015_02160a98
-    b @L_02160300
-@L_021602ec:
-    add r2, sp, #0
-    bl func_ov015_02160bac
-    b @L_02160300
-@L_021602f8:
-    add r2, sp, #0
-    bl func_ov015_0214b920
-@L_02160300:
-    cmp r4, #0
-    ldrne r1, [sp]
-    strne r1, [r4]
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    s32 v;
+    s32 r;
+    switch (*(u16 *)(*arg1 + 4)) {
+    case 0x40A9:
+        r = ((s32 (*)(...))func_ov015_0216084c)(arg0, arg1, &v);
+        break;
+    case 0x40AA:
+        r = ((s32 (*)(...))func_ov015_021608d0)(arg0, arg1, &v);
+        break;
+    case 0x40AB:
+        r = ((s32 (*)(...))func_ov015_02160a98)(arg0, arg1, &v);
+        break;
+    case 0x40B0:
+        r = ((s32 (*)(...))func_ov015_02160bac)(arg0, arg1, &v);
+        break;
+    default:
+        r = ((s32 (*)(...))func_ov015_0214b920)(arg0, arg1, &v);
+        break;
+    }
+    if (arg2 != 0)
+        *arg2 = v;
+    return r;
 }
 
 extern "C" s32 func_ov015_02160314(u8 *arg0, u8 *arg1, s32 *arg2)

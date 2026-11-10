@@ -1,6 +1,7 @@
 #include "ov015/Unk_0214079c.hpp"
 #include "game/vcall.hpp"
 #include "game/vcall.hpp"
+class C021422d0 { public: virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10(); virtual void v14(); virtual void v18(u8 *, s32, s32, s32, s32); };
 
 extern "C" void func_ov015_0214079c(void);
 extern "C" void func_ov015_02140958(void);
@@ -31,7 +32,7 @@ extern "C" s32 func_ov015_021420e8(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02142100(void);
 extern "C" s32 func_ov015_021422a0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov015_021422b8(u8 *arg0, s32 arg1);
-extern "C" void func_ov015_021422d0(void);
+extern "C" void func_ov015_021422d0(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5);
 extern "C" s32 func_ov015_0214237c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" void func_ov015_0214239c(void);
 extern "C" void func_ov015_02142508(void);
@@ -2039,51 +2040,18 @@ extern "C" s32 func_ov015_021422b8(u8 *arg0, s32 arg1)
     return v0;
 }
 
-extern "C" asm void func_ov015_021422d0(void)
+static inline s32 t021422d0(u8 *e) { return (e[0x59] & 1) ? 1 : 0; }
+extern "C" void func_ov015_021422d0(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3, u8 arg4, u8 arg5)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #8
-    mov r7, r1
-    ldrb r1, [r7, #0x59]
-    mov r8, r0
-    mov r4, #1
-    tst r1, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    mov r0, r8
-    mov r6, r2
-    mov r5, r3
-    moveq r4, #0
-    bl _ZN17UnkClass_020621b413func_0206bfecEv
-    ldrb r1, [sp, #0x20]
-    mov r2, r6
-    mov r3, r5
-    cmp r1, #0
-    movne r1, #1
-    moveq r1, #0
-    stmia sp, {r0, r1}
-    ldr r0, [r8, #0xb7c]
-    mov r1, r7
-    ldr r12, [r0]
-    ldr r12, [r12, #0x18]
-    blx r12
-    ldrb r0, [sp, #0x24]
-    cmp r0, #0
-    cmpeq r4, #0
-    addne sp, sp, #8
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    ldrb r0, [r7, #0x59]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    addeq sp, sp, #8
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r0, r8
-    bl func_ov087_0217adf8
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 q = t021422d0(arg1);
+    s32 f = 1;
+    s32 v;
+    if (q == 0)
+        f = 0;
+    v = ((s32 (*)(...))_ZN17UnkClass_020621b413func_0206bfecEv)(arg0);
+    (*(C021422d0 **)(arg0 + 0xB7C))->v18(arg1, arg2, arg3, v, arg4 ? 1 : 0);
+    if (arg5 == 0 && f == 0 && t021422d0(arg1) != 0)
+        ((s32 (*)(...))func_ov087_0217adf8)(arg0);
 }
 
 extern "C" s32 func_ov015_0214237c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)

@@ -40,7 +40,7 @@ extern "C" void func_0209bb4c(void);
 extern "C" void *func_0209bc60(void *obj);
 extern "C" void **func_0209bc74(void **obj);
 extern "C" s32 func_0209bc94(u8 *arg0);
-extern "C" void func_0209bcbc(void);
+extern "C" void func_0209bcbc(u8 *arg0);
 extern "C" void func_0209bd88(void);
 extern "C" void func_0209be60(void *obj);
 extern "C" void func_0209bebc(void *obj);
@@ -82,7 +82,7 @@ extern "C" void func_0209c6d4(void);
 extern "C" BOOL func_0209c798(void);
 extern "C" s32 func_0209c7a0(s32 arg0);
 extern "C" void func_0209c7f4(void);
-extern "C" void func_0209c934(void);
+extern "C" void func_0209c934(s32 arg0, u8 *arg1);
 extern "C" void func_0209c9e0(void);
 extern "C" void func_0209cba8(void);
 
@@ -525,52 +525,26 @@ extern "C" s32 func_0209bc94(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" asm void func_0209bcbc(void)
+extern "C" void func_0209bcbc(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    mov r5, #0
-    ldr r1, =data_020fc748
-    str r5, [r4, #0x58]
-    str r5, [r4, #0x60]
-    str r5, [r4, #0x5c]
-    strb r5, [r4, #0x67]
-    strb r5, [r4, #0x66]
-    add r0, r4, #4
-    strb r5, [r1]
-    bl func_02008580
-    add r0, r4, #0x2b8
-    bl func_02008564
-    ldr r0, =data_020aff1c
-    add r1, r4, #0x2e0
-    ldr r0, [r0, #0x10]
-    mov r2, #0x10
-    bl MI_CpuCopy8
-    add r0, r4, #0xbe
-    ldr r1, =data_020aff58
-    add r0, r0, #0x200
-    bl sprintf
-    mov r0, r5
-    ldr r1, =data_020c5120
-    mov r2, #0x1e4
-    bl MIi_CpuClearFast
-    mov r0, r5
-    ldr r1, =data_020c8760
-    mov r2, #0xf00
-    bl MIi_CpuClearFast
-    ldr r1, =data_020c4844
-    ldr r0, =data_020c4830
-    str r5, [r1]
-    str r5, [r0]
-    strb r5, [r4, #0x84]
-    mov r0, #0x78
-    str r0, [r4, #0x74]
-    str r0, [r4, #0x78]
-    add r0, r0, r0, lsl #1
-    add r0, r0, #0x78
-    add r0, r0, #4
-    str r0, [r4, #0x8c]
-    ldmia sp!, {r3, r4, r5, pc}
+    *(s32 *)(arg0 + 0x58) = 0;
+    *(s32 *)(arg0 + 0x60) = 0;
+    *(s32 *)(arg0 + 0x5C) = 0;
+    arg0[0x67] = 0;
+    arg0[0x66] = 0;
+    *(u8 *)data_020fc748 = 0;
+    ((s32 (*)(...))func_02008580)(arg0 + 4);
+    ((s32 (*)(...))func_02008564)(arg0 + 0x2B8);
+    ((s32 (*)(...))MI_CpuCopy8)(*(s32 *)((u8 *)data_020aff1c + 0x10), arg0 + 0x2E0, 0x10);
+    ((s32 (*)(...))sprintf)(arg0 + 0x2BE, data_020aff58);
+    ((s32 (*)(...))MIi_CpuClearFast)(0, data_020c5120, 0x1E4);
+    ((s32 (*)(...))MIi_CpuClearFast)(0, data_020c8760, 0xF00);
+    *(s32 *)data_020c4844 = 0;
+    *(s32 *)data_020c4830 = 0;
+    arg0[0x84] = 0;
+    *(s32 *)(arg0 + 0x74) = 0x78;
+    *(s32 *)(arg0 + 0x78) = 0x78;
+    *(s32 *)(arg0 + 0x8C) = *(s32 *)(arg0 + 0x74) * 3 + *(s32 *)(arg0 + 0x78) + 4;
 }
 
 extern "C" asm void func_0209bd88(void)
@@ -1381,52 +1355,26 @@ extern "C" asm void func_0209c7f4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_0209c934(void)
+extern "C" void func_0209c934(s32 arg0, u8 *arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    movs r5, r1
-    mov r6, r0
-    beq @L_0209c9c4
-    cmp r6, #0
-    ldr r4, =data_020c53b4
-    bne @L_0209c990
-    ldrb r0, [r5]
-    ldr r7, =data_020c5320
-    strh r0, [r7, #0x68]
-    ldrb r1, [r5, #1]
-    cmp r1, #0
-    ldrneb r2, [r5, #2]
-    cmpne r2, #0
-    beq @L_0209c9b4
-    mov r0, r7
-    mov r1, r1, lsl #2
-    mov r2, r2, lsl #2
-    bl func_0209c420
-    ldr r2, [r7, #0x8c]
-    mov r1, r4
-    add r0, r5, #4
-    b @L_0209c9b0
-@L_0209c990:
-    ldr r0, =data_020c5320
-    mov r1, r6
-    ldr r7, [r0, #0x78]
-    bl func_0209c4bc
-    mov r1, r0
-    mov r0, r5
-    mov r2, r7
-    add r1, r4, r1
-@L_0209c9b0:
-    bl MI_CpuCopy8
-@L_0209c9b4:
-    ldr r0, =data_020c53b0
-    mov r1, #1
-    strb r1, [r0, r6]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0209c9c4:
-    ldr r0, =data_020c53b0
-    mov r1, #0
-    strb r1, [r0, r6]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    if (arg1 != 0) {
+        u8 *b = (u8 *)data_020c53b4;
+        if (arg0 == 0) {
+            u8 *p = (u8 *)data_020c5320;
+            *(u16 *)(p + 0x68) = arg1[0];
+            if (arg1[1] != 0 && arg1[2] != 0) {
+                ((s32 (*)(...))func_0209c420)(p, arg1[1] << 2, arg1[2] << 2);
+                ((s32 (*)(...))MI_CpuCopy8)(arg1 + 4, b, *(s32 *)(p + 0x8C));
+            }
+        } else {
+            s32 n = *(s32 *)((u8 *)data_020c5320 + 0x78);
+            s32 o = ((s32 (*)(...))func_0209c4bc)(data_020c5320, arg0);
+            ((s32 (*)(...))MI_CpuCopy8)(arg1, b + o, n);
+        }
+        ((u8 *)data_020c53b0)[arg0] = 1;
+    } else {
+        ((u8 *)data_020c53b0)[arg0] = 0;
+    }
 }
 
 extern "C" asm void func_0209c9e0(void)

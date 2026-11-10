@@ -13,7 +13,7 @@ extern "C" s32 func_ov049_02166178(u8 *arg0);
 extern "C" void func_ov049_021661b4(void);
 extern "C" void func_ov049_02166684(void);
 extern "C" s32 func_ov049_021667f8(s32 arg0);
-extern "C" void func_ov049_021668f0(void);
+extern "C" void func_ov049_021668f0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4);
 extern "C" void func_ov049_021669a4(u8 *arg0);
 extern "C" void func_ov049_021669fc(void);
 extern "C" void func_ov049_02166d34(u8 *arg0, s32 arg1);
@@ -824,51 +824,20 @@ extern "C" s32 func_ov049_021667f8(s32 arg0)
     }
 }
 
-extern "C" asm void func_ov049_021668f0(void)
+extern "C" void func_ov049_021668f0(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u16 arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    mov r4, #0xc
-    mla r0, r1, r4, r0
-    ldr r4, [r0, #0xbc]
-    ldr r8, [sp, #0x30]
-    cmp r4, #0
-    mov r10, r2
-    mov r9, r3
-    addeq sp, sp, #8
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r1, [r4, #0xc]
-    ldr r0, =0x3e7
-    add r7, r4, r1
-    cmp r8, r0
-    ldr r6, =data_020d0d20
-    ldr r5, =0x66666667
-    movhi r8, r0
-    mov r11, #1
-    mov r4, #0xa
-@L_02166940:
-    smull r1, r2, r5, r8
-    mov r0, r8, lsr #0x1f
-    add r2, r0, r2, asr #2
-    smull r0, r1, r4, r2
-    sub r2, r8, r0
-    add r0, r7, r2, lsl #2
-    str r0, [sp]
-    mov r0, r10
-    mov r1, r9
-    mov r2, r11
-    mov r3, #2
-    str r6, [sp, #4]
-    bl func_ov015_02132a38
-    smull r0, r1, r5, r8
-    mov r0, r8, lsr #0x1f
-    add r1, r0, r1, asr #2
-    mov r0, r1, lsl #0x10
-    sub r10, r10, #1
-    movs r8, r0, lsr #0x10
-    bne @L_02166940
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *p = *(u8 **)(arg0 + arg1 * 0xC + 0xBC);
+    u8 *t;
+    if (p == 0)
+        return;
+    t = p + *(s32 *)(p + 0xC);
+    if (arg4 > 0x3E7)
+        arg4 = 0x3E7;
+    do {
+        ((s32 (*)(...))func_ov015_02132a38)(arg2, arg3, 1, 2, t + ((arg4 % 10) << 2), data_020d0d20);
+        arg2 -= 1;
+        arg4 = arg4 / 10;
+    } while (arg4 != 0);
 }
 
 extern "C" void func_ov049_021669a4(u8 *arg0)

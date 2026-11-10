@@ -1,6 +1,7 @@
 #include "game/Unk_02089004.hpp"
 #include "game/vcall.hpp"
 #include "nitro/mi.h"
+class C020893b4 { public: virtual void v00(); virtual void v04(); virtual void v08(); };
 class C020895d0 {
 public:
     virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c();
@@ -50,7 +51,7 @@ extern "C" int func_02089204(void *self, u8 *obj);
 extern "C" void func_02089214(void);
 extern "C" s32 func_02089350(u8 *arg0);
 extern "C" s32 func_02089384(u8 *arg0);
-extern "C" void func_020893b4(void);
+extern "C" u8 *func_020893b4(u8 *arg0);
 extern "C" void **func_02089480(void **obj);
 extern "C" void **func_020894ac(void **obj);
 extern "C" void **func_020894d4(void **obj);
@@ -420,52 +421,21 @@ extern "C" s32 func_02089384(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" asm void func_020893b4(void)
+extern "C" u8 *func_020893b4(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #4
-    ldr r5, =func_02089584
-    ldr r3, =func_02089514
-    mov r1, #4
-    mov r2, #0x1bc
-    mov r4, r0
-    str r5, [sp]
-    bl __cxa_vec_ctor
-    ldr r5, =func_020894ac
-    ldr r3, =func_02089480
-    add r0, r4, #0x6f0
-    mov r1, #1
-    mov r2, #0x30
-    str r5, [sp]
-    bl __cxa_vec_ctor
-    ldr r5, =func_020894f4
-    ldr r3, =func_020894d4
-    add r0, r4, #0x720
-    mov r1, #2
-    mov r2, #0x14
-    str r5, [sp]
-    bl __cxa_vec_ctor
-    add r0, r4, #0x348
-    add r6, r0, #0x400
-    ldr r5, =data_ov015_02165848
-    add r0, r6, #0xc
-    str r5, [r4, #0x748]
-    bl func_0209d678
-    mov r0, r6
-    ldr r1, [r0]
-    ldr r1, [r1, #8]
-    blx r1
-    str r5, [r4, #0x860]
-    add r5, r4, #0x860
-    add r0, r5, #0xc
-    bl func_0209d678
-    mov r0, r5
-    ldr r1, [r0]
-    ldr r1, [r1, #8]
-    blx r1
-    mov r0, r4
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    u8 *o;
+    ((s32 (*)(...))__cxa_vec_ctor)(arg0, 4, 0x1BC, func_02089514, func_02089584);
+    ((s32 (*)(...))__cxa_vec_ctor)(arg0 + 0x6F0, 1, 0x30, func_02089480, func_020894ac);
+    ((s32 (*)(...))__cxa_vec_ctor)(arg0 + 0x720, 2, 0x14, func_020894d4, func_020894f4);
+    o = arg0 + 0x748;
+    *(void **)(arg0 + 0x748) = data_ov015_02165848;
+    ((s32 (*)(...))func_0209d678)(o + 0xC);
+    ((C020893b4 *)o)->v08();
+    *(void **)(arg0 + 0x860) = data_ov015_02165848;
+    o = arg0 + 0x860;
+    ((s32 (*)(...))func_0209d678)(o + 0xC);
+    ((C020893b4 *)o)->v08();
+    return arg0;
 }
 
 extern "C" void **func_02089480(void **obj)

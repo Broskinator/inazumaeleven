@@ -17,7 +17,7 @@ extern "C" void func_ov000_02116d18(void);
 extern "C" s32 func_ov000_02116e58(s32 arg0);
 extern "C" void func_ov000_02116e8c(void);
 extern "C" void func_ov000_02116f2c(void);
-extern "C" void func_ov000_02116fcc(void);
+extern "C" s32 func_ov000_02116fcc(u8 *arg0, s32 arg1);
 
 extern "C" char data_020c47b4[];
 extern "C" char data_020cac9c[];
@@ -933,47 +933,27 @@ extern "C" asm void func_ov000_02116f2c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov000_02116fcc(void)
+extern "C" s32 func_ov000_02116fcc(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    ldr r2, [r5, #0xbd4]
-    mov r4, r1
-    cmp r2, #0
-    mov r2, #0
-    bne @L_02116ff0
-    bl _ZN17UnkClass_020621b413func_0207efd8Ev
-    mov r2, #1
-@L_02116ff0:
-    add r0, r5, #0x11800
-    ldrh r12, [r0, #0x42]
-    ldr r1, [r5, #0xbd4]
-    mov r3, #0
-    cmp r12, #0
-    bls @L_02117040
-@L_02117008:
-    ldrh r0, [r1, #0x2a]
-    cmp r0, r4
-    bne @L_02117030
-    cmp r2, #0
-    ldr r4, [r1, #0x34]
-    beq @L_02117028
-    mov r0, r5
-    bl _ZN17UnkClass_020621b413func_0207f07cEv
-@L_02117028:
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02117030:
-    add r3, r3, #1
-    cmp r3, r12
-    add r1, r1, #0x38
-    blo @L_02117008
-@L_02117040:
-    cmp r2, #0
-    beq @L_02117050
-    mov r0, r5
-    bl _ZN17UnkClass_020621b413func_0207f07cEv
-@L_02117050:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *p;
+    s32 f = 0;
+    u32 i;
+    u32 n;
+    if (*(s32 *)(arg0 + 0xBD4) == 0) {
+        ((s32 (*)(...))_ZN17UnkClass_020621b413func_0207efd8Ev)(arg0);
+        f = 1;
+    }
+    n = *(u16 *)(arg0 + 0x11842);
+    p = *(u8 **)(arg0 + 0xBD4);
+    for (i = 0; i < n; i++, p += 0x38) {
+        if (*(u16 *)(p + 0x2A) == arg1) {
+            arg1 = *(s32 *)(p + 0x34);
+            if (f != 0)
+                ((s32 (*)(...))_ZN17UnkClass_020621b413func_0207f07cEv)(arg0);
+            return arg1;
+        }
+    }
+    if (f != 0)
+        ((s32 (*)(...))_ZN17UnkClass_020621b413func_0207f07cEv)(arg0);
+    return 0;
 }

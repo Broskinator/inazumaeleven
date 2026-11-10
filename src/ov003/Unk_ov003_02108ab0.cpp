@@ -1,6 +1,6 @@
 #include "ov003/Unk_ov003_02108ab0.hpp"
 
-extern "C" void func_ov003_02108ab0(void);
+extern "C" void func_ov003_02108ab0(u8 *arg0, s32 arg1);
 extern "C" void func_ov003_02108b60(void);
 extern "C" void func_ov003_02108c94(void);
 extern "C" void func_ov003_02108e2c(void);
@@ -75,51 +75,15 @@ extern "C" void func_ov003_02108558(void);
 extern "C" void func_ov015_0213bdd8(void);
 extern "C" void func_020027c8(void);
 extern "C" void func_ov003_02104944(void);
-extern "C" asm void func_ov003_02108ab0(void)
+extern "C" void func_ov003_02108ab0(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x20
-    ldr r5, =data_020c9660
-    mov r4, #0
-    mov r7, #0x34
-    mov r9, r0
-    mov r8, r1
-    mov r6, #1
-    mov r0, r5
-    mov r1, r4
-    mov r2, r7
-    mov r3, r4
-    strb r6, [r9, #0x228]
-    bl func_ov015_0213b7f8
-    ldr r1, [r9, #0x584]
-    cmp r1, #0
-    addeq sp, sp, #0x20
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r8, asr #2
-    str r7, [sp]
-    add r0, r8, r0, lsr #29
-    mov r0, r0, lsl #0x15
-    str r4, [sp, #4]
-    mov r2, #0xa
-    str r2, [sp, #8]
-    mov r0, r0, asr #0x18
-    str r0, [sp, #0xc]
-    mov r0, #0xc
-    str r0, [sp, #0x10]
-    mov r0, #3
-    str r0, [sp, #0x14]
-    mov r0, #5
-    str r0, [sp, #0x18]
-    ldr r2, [r1, #0xc]
-    mov r0, r5
-    add r5, r1, r2
-    mov r1, r4
-    mov r2, r6
-    mov r3, r4
-    str r5, [sp, #0x1c]
-    bl func_ov015_0213b6ac
-    add sp, sp, #0x20
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 *p;
+    arg0[0x228] = 1;
+    ((s32 (*)(...))func_ov015_0213b7f8)(data_020c9660, 0, 0x34, 0);
+    p = *(u8 **)(arg0 + 0x584);
+    if (p == 0)
+        return;
+    ((s32 (*)(...))func_ov015_0213b6ac)(data_020c9660, 0, 1, 0, 0x34, 0, 0xA, (s8)(arg1 / 8), 0xC, 3, 5, p + *(s32 *)(p + 0xC));
 }
 
 extern "C" asm void func_ov003_02108b60(void)

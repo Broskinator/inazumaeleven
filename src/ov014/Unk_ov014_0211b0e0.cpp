@@ -43,7 +43,7 @@ extern "C" s32 func_ov014_0211bdec(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_0211be6c(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_0211beac(u8 *arg0);
 extern "C" s32 func_ov014_0211bf10(u8 *arg0);
-extern "C" void func_ov014_0211bfa8(void);
+extern "C" void func_ov014_0211bfa8(u8 *arg0, s32 arg1, u16 arg2);
 extern "C" s32 func_ov014_0211c04c(...);
 extern "C" s32 func_ov014_0211c13c(s32 arg0);
 extern "C" s32 func_ov014_0211c1a8(void);
@@ -1049,51 +1049,23 @@ extern "C" s32 func_ov014_0211bf10(u8 *arg0)
     return v3;
 }
 
-extern "C" asm void func_ov014_0211bfa8(void)
+extern "C" void func_ov014_0211bfa8(u8 *arg0, s32 arg1, u16 arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    mov r7, r1
-    mov r6, r2
-    bl OS_DisableInterrupts
-    mov r3, #0
-    mov r5, r0
-    ldr r2, =data_ov014_0212d404
-    strb r3, [r8, #0x30]
-    mov r0, #0x5c
-@L_0211bfd0:
-    mla r4, r3, r0, r2
-    ldrb r1, [r4, #0x5a]
-    cmp r1, #0
-    beq @L_0211c030
-    ldr r1, [r4, #0x54]
-    cmp r1, r7
-    ldreqh r1, [r4, #0x58]
-    cmpeq r1, r6
-    bne @L_0211c030
-    mov r0, r4
-    add r1, r8, #0x74
-    mov r2, #0x20
-    bl MI_CpuCopy8
-    mov r1, r8
-    add r0, r4, #0x20
-    mov r2, #0x30
-    bl MI_CpuCopy8
-    bl OS_GetTick
-    mov r0, r0, lsr #0x10
-    orr r0, r0, r1, lsl #16
-    str r0, [r4, #0x50]
-    mov r0, #1
-    strb r0, [r8, #0x30]
-    b @L_0211c03c
-@L_0211c030:
-    add r3, r3, #1
-    cmp r3, #4
-    blt @L_0211bfd0
-@L_0211c03c:
-    mov r0, r5
-    bl OS_RestoreInterrupts
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *e;
+    s32 s = ((s32 (*)(...))OS_DisableInterrupts)();
+    s32 i;
+    arg0[0x30] = 0;
+    for (i = 0; i < 4; i++) {
+        e = (u8 *)data_ov014_0212d404 + i * 0x5C;
+        if (e[0x5A] != 0 && *(s32 *)(e + 0x54) == arg1 && *(u16 *)(e + 0x58) == arg2) {
+            ((s32 (*)(...))MI_CpuCopy8)(e, arg0 + 0x74, 0x20);
+            ((s32 (*)(...))MI_CpuCopy8)(e + 0x20, arg0, 0x30);
+            *(s32 *)(e + 0x50) = (s32)(((u64 (*)(void))OS_GetTick)() >> 16);
+            arg0[0x30] = 1;
+            break;
+        }
+    }
+    ((s32 (*)(...))OS_RestoreInterrupts)(s);
 }
 
 extern "C" asm s32 func_ov014_0211c04c(...)

@@ -11,7 +11,7 @@ extern "C" void func_02098d30(void);     // (for the asm functions)
 extern "C" void func_02098d88(void);     // (for the asm functions)
 extern "C" s32 func_02098dd8(...);     // (for the asm functions)
 extern "C" void func_0209657c(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_020965e0(void);
+extern "C" void func_020965e0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02096680(s32 arg0, s32 arg1, u16 arg2);
 extern "C" void func_020966d4(s32 arg0, s32 arg1, s16 arg2, s16 arg3);
 extern "C" void func_02096750(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
@@ -102,52 +102,35 @@ extern "C" void func_0209657c(s32 arg0, s32 arg1, s32 arg2)
     }
 }
 
-extern "C" asm void func_020965e0(void)
+extern "C" void func_020965e0(s32 arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r10, r0
-    movs r4, r2
-    mov r0, r10
-    movmi r4, #0
-    bl func_020960ac
-    movs r5, r0
-    ldrne r0, [r5]
-    cmpne r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrb r7, [r5, #6]
-    cmp r7, #1
-    ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    rsb r8, r4, #0
-    mov r11, #0x3f000000
-    mov r9, r8, lsl #0xc
-    mov r4, r11
-@L_02096624:
-    mov r0, r10
-    mov r1, r5
-    mov r2, r7
-    bl func_02096110
-    movs r6, r0
-    beq @L_02096670
-    cmp r8, #0
-    mov r0, r9
-    ble @L_0209665c
-    bl _fflt
-    mov r1, r0
-    mov r0, r4
-    bl _fadd
-    b @L_02096668
-@L_0209665c:
-    bl _fflt
-    mov r1, r11
-    bl _fsub
-@L_02096668:
-    bl _ffix
-    str r0, [r6, #0x30]
-@L_02096670:
-    sub r7, r7, #1
-    cmp r7, #1
-    bge @L_02096624
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *p;
+    u8 *e;
+    s32 j;
+    s32 t;
+    s32 fx;
+    if (arg2 < 0)
+        arg2 = 0;
+    p = (u8 *)((s32 (*)(...))func_020960ac)(arg0, arg1);
+    if (p == 0 || *(s32 *)p == 0)
+        return;
+    j = p[6];
+    if (j < 1)
+        return;
+    t = -arg2;
+    fx = t << 12;
+    do {
+        e = (u8 *)((s32 (*)(...))func_02096110)(arg0, p, j);
+        if (e != 0) {
+            float v;
+            if (t > 0)
+                v = 0.5f + (float)fx;
+            else
+                v = (float)fx - 0.5f;
+            *(s32 *)(e + 0x30) = (s32)v;
+        }
+        j--;
+    } while (j >= 1);
 }
 
 extern "C" void func_02096680(s32 arg0, s32 arg1, u16 arg2)
