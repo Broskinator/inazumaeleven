@@ -1,4 +1,5 @@
 #include "ov014/Unk_ov014_02111cb8.hpp"
+struct A02113acc { u8 len; u8 fam; u16 port; u32 addr; };
 struct N02114864 { N02114864 *next; N02114864 *prev; };
 
 extern "C" s32 func_ov014_02111cb8(s32 arg0);
@@ -60,7 +61,7 @@ extern "C" void func_ov014_021139c0(void);
 extern "C" s32 func_ov014_021139e4(s32 arg0);
 extern "C" void func_ov014_02113a24(void);
 extern "C" s32 func_ov014_02113a3c(...);
-extern "C" void func_ov014_02113acc(void);
+extern "C" s32 func_ov014_02113acc(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, u32 arg4, s32 arg5);
 extern "C" void func_ov014_02113b7c(void);
 extern "C" void func_ov014_02113c0c(void);
 extern "C" s32 func_ov014_02113cd4(s32 arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
@@ -2187,53 +2188,22 @@ extern "C" asm s32 func_ov014_02113a3c(...)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_02113acc(void)
+extern "C" s32 func_ov014_02113acc(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, u32 arg4, s32 arg5)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    sub sp, sp, #8
-    ldr r4, [sp, #0x1c]
-    ldr r12, [sp, #0x18]
-    mov r4, r4, lsl #0x10
-    mov r4, r4, lsr #0x10
-    mov lr, r4, asr #8
-    mov r4, r4, lsl #8
-    mov r6, #8
-    mov r5, #2
-    and lr, lr, #0xff
-    and r4, r4, #0xff00
-    orr lr, lr, r4
-    mov r4, r2
-    strb r6, [sp]
-    strb r5, [sp, #1]
-    strh lr, [sp, #2]
-    str r12, [sp, #4]
-    ldr r12, [r4, #8]
-    mov r5, r3
-    cmp r12, #0
-    beq @L_02113b40
-    ldr r12, [r4, #0xc]
-    cmp r12, #0
-    bne @L_02113b40
-    bl func_ov014_02113b7c
-    cmp r0, #0
-    addlt sp, sp, #8
-    ldmltia sp!, {r4, r5, r6, pc}
-@L_02113b40:
-    add r1, sp, #0
-    mov r0, r5
-    bl func_ov014_0211b790
-    cmp r0, #0
-    bge @L_02113b6c
-    ldr r0, [r4]
-    add sp, sp, #8
-    cmp r0, #0
-    ldrne r0, =0xfffffc16
-    mvneq r0, #0x3e8
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02113b6c:
-    mov r0, #0
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, pc}
+    A02113acc a;
+    s32 x = (u16)arg5;
+    a.len = 8;
+    a.fam = 2;
+    a.port = ((x >> 8) & 0xFF) | ((x << 8) & 0xFF00);
+    a.addr = arg4;
+    if (arg2[2] != 0 && arg2[3] == 0) {
+        s32 r = ((s32 (*)(...))func_ov014_02113b7c)(arg0, arg1, arg2, arg3);
+        if (r < 0)
+            return r;
+    }
+    if (((s32 (*)(...))func_ov014_0211b790)(arg3, &a) < 0)
+        return *arg2 != 0 ? -0x3EA : -0x3E9;
+    return 0;
 }
 
 extern "C" asm void func_ov014_02113b7c(void)

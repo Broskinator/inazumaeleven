@@ -1,7 +1,7 @@
 #include "ov003/Unk_ov003_0210ed4c.hpp"
 
 extern "C" void func_ov003_0210ed4c(void);
-extern "C" void func_ov003_0210edbc(void);
+extern "C" void func_ov003_0210edbc(u8 *arg0);
 extern "C" void func_ov003_0210ee6c(void);
 extern "C" s32 func_ov003_0210ef0c(u8 *arg0);
 extern "C" s32 func_ov003_0210efc4(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -207,53 +207,21 @@ extern "C" asm void func_ov003_0210ed4c(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm void func_ov003_0210edbc(void)
+extern "C" void func_ov003_0210edbc(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x28
-    mov r1, #1
-    str r1, [sp]
-    mov r1, #0x80
-    mov r8, r0
-    str r1, [sp, #4]
-    add r5, sp, #8
-    ldr r1, [r8, #0x638]
-    ldr r0, =data_020e88a0
-    mov r2, r5
-    mov r3, #0x10
-    bl _ZN17UnkClass_020621b413func_02078aacEv
-    mov r7, #0
-    add r2, r8, #0x3c
-    mov r6, r0
-    add r0, r2, #0x800
-    mov r1, r7
-    mov r2, #0x40
-    bl MI_CpuFill8
-    cmp r6, #0
-    addle sp, sp, #0x28
-    str r7, [r8, #0x87c]
-    str r7, [r8, #0x880]
-    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r4, r7
-@L_0210ee24:
-    mov r0, r7, lsl #1
-    ldrh r0, [r5, r0]
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    beq @L_0210ee54
-    ldr r1, [r8, #0x87c]
-    add r1, r8, r1, lsl #2
-    str r0, [r1, #0x83c]
-    ldr r0, [r8, #0x87c]
-    add r0, r0, #1
-    str r0, [r8, #0x87c]
-@L_0210ee54:
-    add r7, r7, #1
-    cmp r7, r6
-    blt @L_0210ee24
-    add sp, sp, #0x28
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u16 ids[16];
+    s32 n = ((s32 (*)(...))_ZN17UnkClass_020621b413func_02078aacEv)(data_020e88a0, *(s32 *)(arg0 + 0x638), ids, 0x10, 1, 0x80);
+    s32 i;
+    ((s32 (*)(...))MI_CpuFill8)(arg0 + 0x83C, 0, 0x40);
+    *(s32 *)(arg0 + 0x87C) = 0;
+    *(s32 *)(arg0 + 0x880) = 0;
+    for (i = 0; i < n; i++) {
+        s32 p = ((s32 (*)(...))func_ov015_02130b14)(ids[i], 0);
+        if (p != 0) {
+            *(s32 *)(arg0 + (*(s32 *)(arg0 + 0x87C) << 2) + 0x83C) = p;
+            (*(s32 *)(arg0 + 0x87C))++;
+        }
+    }
 }
 
 extern "C" asm void func_ov003_0210ee6c(void)

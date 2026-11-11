@@ -1,4 +1,5 @@
 #include "ov031/Unk_ov031_02165d60.hpp"
+struct E021669e8 { s32 a; s32 b; u8 c; u8 d; u8 e; u8 pad; };
 
 extern "C" void func_ov031_02165d60(s32 arg0);
 extern "C" void func_ov031_02165de0(void);
@@ -17,7 +18,7 @@ extern "C" void func_ov031_02166780(void);
 extern "C" s32 func_ov031_0216684c(u8 *arg0, s32 arg1);
 extern "C" void func_ov031_02166898(void);
 extern "C" void func_ov031_0216690c(void);
-extern "C" void func_ov031_021669e8(void);
+extern "C" void func_ov031_021669e8(u8 *arg0, s32 arg1);
 extern "C" void func_ov031_02166a90(void);
 extern "C" void func_ov031_02166ba0(void);
 extern "C" void func_ov031_02166e98(void);
@@ -991,53 +992,26 @@ extern "C" asm void func_ov031_0216690c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov031_021669e8(void)
+static inline void r021669e8(u8 *arg0, s32 i)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    movs r4, r1
-    bmi @L_021669fc
-    cmp r4, #4
-    blt @L_02166a50
-@L_021669fc:
-    mov r4, #0
-    add r9, r0, #0xb8
-    mov r7, #1
-    mov r6, r4
-    mov r5, #0xc
-@L_02166a10:
-    mul r8, r4, r5
-    add r10, r9, r8
-    mov r0, r10
-    mov r1, r7
-    bl func_ov015_02134198
-    mov r0, r10
-    bl func_ov015_02134208
-    str r6, [r9, r8]
-    str r6, [r10, #4]
-    strb r6, [r10, #8]
-    strb r6, [r10, #9]
-    add r4, r4, #1
-    strb r6, [r10, #0xa]
-    cmp r4, #4
-    blt @L_02166a10
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02166a50:
-    mov r1, #0xc
-    mul r5, r4, r1
-    add r4, r0, #0xb8
-    add r6, r4, r5
-    mov r0, r6
-    mov r1, #1
-    bl func_ov015_02134198
-    mov r0, r6
-    bl func_ov015_02134208
-    mov r0, #0
-    str r0, [r4, r5]
-    str r0, [r6, #4]
-    strb r0, [r6, #8]
-    strb r0, [r6, #9]
-    strb r0, [r6, #0xa]
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    E021669e8 *arr = (E021669e8 *)(arg0 + 0xB8);
+    E021669e8 *e = &arr[i];
+    ((s32 (*)(...))func_ov015_02134198)(e, 1);
+    ((s32 (*)(...))func_ov015_02134208)(e);
+    arr[i].a = 0;
+    e->b = 0;
+    e->c = 0;
+    e->d = 0;
+    e->e = 0;
+}
+extern "C" void func_ov031_021669e8(u8 *arg0, s32 arg1)
+{
+    if (arg1 < 0 || arg1 >= 4) {
+        for (arg1 = 0; arg1 < 4; arg1++)
+            r021669e8(arg0, arg1);
+    } else {
+        r021669e8(arg0, arg1);
+    }
 }
 
 extern "C" asm void func_ov031_02166a90(void)

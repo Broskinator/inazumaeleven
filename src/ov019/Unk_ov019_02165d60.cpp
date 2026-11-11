@@ -1,4 +1,5 @@
 #include "ov019/Unk_ov019_02165d60.hpp"
+struct E021662b4 { s32 a; s32 b; u8 c; u8 d; u8 e; u8 pad; };
 struct E02166ad8 { u8 pad[0x20]; s32 v[0x10]; u8 pad2[0xC0 - 0x20 - 0x40]; };
 struct P02166ad8 { u8 pad[0x110]; E02166ad8 arr[1]; };
 
@@ -9,7 +10,7 @@ extern "C" void func_ov019_02165f5c(void);
 extern "C" s32 func_ov019_0216607c(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov019_0216608c(s32 arg0, u8 *arg1);
 extern "C" void func_ov019_0216609c(void);
-extern "C" void func_ov019_021662b4(void);
+extern "C" void func_ov019_021662b4(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov019_0216635c(s32 arg0);
 extern "C" void func_ov019_021663a8(void);
 extern "C" s32 func_ov019_021664ec(u8 *arg0);
@@ -487,53 +488,26 @@ extern "C" asm void func_ov019_0216609c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov019_021662b4(void)
+static inline void r021662b4(u8 *arg0, s32 i)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    movs r4, r1
-    bmi @L_021662c8
-    cmp r4, #3
-    blt @L_0216631c
-@L_021662c8:
-    mov r4, #0
-    add r9, r0, #0x18
-    mov r7, #1
-    mov r6, r4
-    mov r5, #0xc
-@L_021662dc:
-    mul r8, r4, r5
-    add r10, r9, r8
-    mov r0, r10
-    mov r1, r7
-    bl func_ov015_02134198
-    mov r0, r10
-    bl func_ov015_02134208
-    str r6, [r9, r8]
-    str r6, [r10, #4]
-    strb r6, [r10, #8]
-    strb r6, [r10, #9]
-    add r4, r4, #1
-    strb r6, [r10, #0xa]
-    cmp r4, #3
-    blt @L_021662dc
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0216631c:
-    mov r1, #0xc
-    mul r5, r4, r1
-    add r4, r0, #0x18
-    add r6, r4, r5
-    mov r0, r6
-    mov r1, #1
-    bl func_ov015_02134198
-    mov r0, r6
-    bl func_ov015_02134208
-    mov r0, #0
-    str r0, [r4, r5]
-    str r0, [r6, #4]
-    strb r0, [r6, #8]
-    strb r0, [r6, #9]
-    strb r0, [r6, #0xa]
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    E021662b4 *arr = (E021662b4 *)(arg0 + 0x18);
+    E021662b4 *e = &arr[i];
+    ((s32 (*)(...))func_ov015_02134198)(e, 1);
+    ((s32 (*)(...))func_ov015_02134208)(e);
+    arr[i].a = 0;
+    e->b = 0;
+    e->c = 0;
+    e->d = 0;
+    e->e = 0;
+}
+extern "C" void func_ov019_021662b4(u8 *arg0, s32 arg1)
+{
+    if (arg1 < 0 || arg1 >= 3) {
+        for (arg1 = 0; arg1 < 3; arg1++)
+            r021662b4(arg0, arg1);
+    } else {
+        r021662b4(arg0, arg1);
+    }
 }
 
 #pragma push

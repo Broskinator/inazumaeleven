@@ -1,4 +1,5 @@
 #include "ov015/Unk_0213a104.hpp"
+struct E0213c3dc { u8 id; u8 val; u8 b2; u8 prio; u8 pad[8]; s32 cx; s32 cy; u8 pad2[8]; s32 x0; s32 y0; s32 x1; s32 y1; s32 dis; u8 pad3[0xC]; };
 struct E0213b478 { s32 a; s32 b; s32 c; };
 struct P0213b478 { s32 pad; E0213b478 arr[1]; };
 struct E0213c530 { u8 a, b, c, d, e; };
@@ -76,7 +77,7 @@ extern "C" void func_ov015_0213bed0(s32 arg0);
 extern "C" s32 func_ov015_0213bf84(s32 arg0, s32 arg1);
 extern "C" void func_ov015_0213bfcc(void);
 extern "C" void func_ov015_0213c33c(void);
-extern "C" void func_ov015_0213c3dc(void);
+extern "C" s32 func_ov015_0213c3dc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213c488(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_0213c4c0(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_0213c4f0(u8 *arg0);
@@ -2400,53 +2401,22 @@ extern "C" asm void func_ov015_0213c33c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov015_0213c3dc(void)
+extern "C" s32 func_ov015_0213c3dc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov lr, #0
-    mov r6, lr
-    add r5, r0, #0x24
-    mov r4, #3
-@L_0213c3f0:
-    ldrb r12, [r5, #1]
-    cmp r12, #0
-    beq @L_0213c470
-    ldrb r0, [r5]
-    cmp r0, r1
-    bne @L_0213c470
-    ldr r0, [r5, #0x2c]
-    cmp r0, #0
-    bgt @L_0213c470
-    ldr r9, [r5, #0x24]
-    cmp r9, #0
-    ldrgtb r0, [r5, #3]
-    cmpgt r4, r0
-    ble @L_0213c470
-    ldr r8, [r5, #0xc]
-    ldr r7, [r5, #0x1c]
-    add r7, r7, r8, lsl #3
-    cmp r2, r7
-    blt @L_0213c470
-    add r7, r9, r8, lsl #3
-    cmp r2, r7
-    bgt @L_0213c470
-    ldr r8, [r5, #0x10]
-    ldr r7, [r5, #0x20]
-    add r7, r7, r8, lsl #3
-    cmp r3, r7
-    blt @L_0213c470
-    ldr r7, [r5, #0x28]
-    add r7, r7, r8, lsl #3
-    cmp r3, r7
-    movle r4, r0
-    movle lr, r12
-@L_0213c470:
-    add r6, r6, #1
-    cmp r6, #0x30
-    add r5, r5, #0x3c
-    blt @L_0213c3f0
-    mov r0, lr
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 r = 0;
+    s32 best;
+    E0213c3dc *e;
+    s32 i;
+    best = 3;
+    for (i = 0, e = (E0213c3dc *)(arg0 + 0x24); i < 0x30; i++, e++) {
+        if (e->val != 0 && e->id == arg1 && e->dis <= 0 && e->x1 > 0 && best > e->prio
+            && arg2 >= e->x0 + e->cx * 8 && arg2 <= e->x1 + e->cx * 8
+            && arg3 >= e->y0 + e->cy * 8 && arg3 <= e->y1 + e->cy * 8) {
+            best = e->prio;
+            r = e->val;
+        }
+    }
+    return r;
 }
 
 extern "C" void func_ov015_0213c488(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

@@ -11,7 +11,7 @@ extern "C" BOOL func_ov015_02155f98(u8 *arg0, u8 *arg1, s32 *arg2, s32 arg3);
 extern "C" s32 func_ov015_02155ff4(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_02156068(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_021560d4(u8 *arg0, u8 *arg1, s32 *arg2);
-extern "C" void func_ov015_0215614c(void);
+extern "C" s32 func_ov015_0215614c(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_02156200(void);
 extern "C" s32 func_ov015_021562f4(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_02156368(u8 *arg0, u8 *arg1, s32 *arg2);
@@ -63,7 +63,7 @@ extern "C" s32 func_ov015_021580f0(s32 arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_02158164(void);
 extern "C" s32 func_ov015_02158200(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215827c(u8 *arg0, u8 *arg1, s32 *arg2);
-extern "C" void func_ov015_02158304(void);
+extern "C" s32 func_ov015_02158304(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_021583ac(s32 arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_02158414(void);
 extern "C" s32 func_ov015_021584b0(u8 *arg0, u8 *arg1, s32 *arg2);
@@ -557,53 +557,25 @@ extern "C" s32 func_ov015_021560d4(u8 *arg0, u8 *arg1, s32 *arg2)
     return 1;
 }
 
-extern "C" asm void func_ov015_0215614c(void)
+extern "C" s32 func_ov015_0215614c(u8 *arg0, u8 *arg1, s32 *arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x104
-    add r8, sp, #0x84
-    mov r7, r0
-    mov r5, r2
-    mov r4, #0
-    mov r6, r1
-    mov r0, r8
-    mov r1, r4
-    mov r2, #0x80
-    bl MI_CpuFill8
-    add r3, sp, #4
-    mov r0, r7
-    mov r2, r8
-    mov r1, r6
-    bl func_ov015_02149920
-    mov r8, #1
-    ldrsb r1, [r6, #0xb]
-    str r0, [r6, #4]
-    strb r8, [r6, #0xa]
-    add r0, r1, #1
-    strb r0, [r6, #0xb]
-    ldr r1, [sp, #0x84]
-    ldr r0, =data_020d9978
-    bl _ZN11TreasureBox13func_02052378El
-    ldr r0, [sp, #0x88]
-    cmp r0, #0
-    beq @L_021561e4
-    mov r6, #2
-    ldr r0, [r7, #4]
-    mov r1, r6
-    bl _ZN17UnkClass_0206029413func_02060b70Ev
-    str r4, [sp]
-    ldr r0, [r7, #4]
-    ldr r3, [sp, #0x88]
-    mov r1, r6
-    mov r2, r8
-    bl _ZN17UnkClass_0206029413func_02060938Eiiii
-@L_021561e4:
-    cmp r5, #0
-    movne r0, #1
-    strne r0, [r5]
-    mov r0, #1
-    add sp, sp, #0x104
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    u8 a[0x80];
+    u8 b[0x80];
+    s32 z = 0;
+    s32 k;
+    ((void (*)(void *, s32, s32))MI_CpuFill8)(a, z, 0x80);
+    *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, u8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
+    k = 1;
+    ((s8 *)arg1)[0xB]++;
+    arg1[0xA] = k;
+    ((s32 (*)(...))_ZN11TreasureBox13func_02052378El)(data_020d9978, ((s32 *)a)[0]);
+    if (((s32 *)a)[1] != 0) {
+        ((s32 (*)(...))_ZN17UnkClass_0206029413func_02060b70Ev)(*(s32 *)(arg0 + 4), 2);
+        ((s32 (*)(...))_ZN17UnkClass_0206029413func_02060938Eiiii)(*(s32 *)(arg0 + 4), 2, k, ((s32 *)a)[1], z);
+    }
+    if (arg2 != 0)
+        *arg2 = 1;
+    return 1;
 }
 
 extern "C" asm void func_ov015_02156200(void)
@@ -2381,52 +2353,26 @@ extern "C" s32 func_ov015_0215827c(u8 *arg0, u8 *arg1, s32 *arg2)
     return 1;
 }
 
-extern "C" asm void func_ov015_02158304(void)
+extern "C" s32 func_ov015_02158304(u8 *arg0, u8 *arg1, s32 *arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #0x100
-    add r5, sp, #0x80
-    mov r7, r0
-    mov r6, r1
-    mov r4, r2
-    mov r0, r5
-    mov r1, #0
-    mov r2, #0x80
-    bl MI_CpuFill8
-    add r3, sp, #0
-    mov r0, r7
-    mov r1, r6
-    mov r2, r5
-    bl func_ov015_02149920
-    mov r1, #1
-    ldrsb r2, [r6, #0xb]
-    str r0, [r6, #4]
-    strb r1, [r6, #0xa]
-    add r0, r2, #1
-    strb r0, [r6, #0xb]
-    ldr r1, [sp, #0x80]
-    cmp r1, #4
-    beq @L_02158374
-    ldr r0, =data_020c46cc
-    ldr r0, [r0]
-    bl func_02085bb4
-    b @L_02158380
-@L_02158374:
-    ldr r0, =data_020c46cc
-    ldr r0, [r0]
-    bl func_02085be8
-@L_02158380:
-    cmp r0, #0
-    mov r1, #0
-    beq @L_02158394
-    bl func_02084c94
-    mov r1, r0
-@L_02158394:
-    cmp r4, #0
-    strne r1, [r4]
-    mov r0, #1
-    add sp, sp, #0x100
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 a[0x80];
+    u8 b[0x80];
+    ((void (*)(void *, s32, s32))MI_CpuFill8)(a, 0, 0x80);
+    *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, u8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
+    ((s8 *)arg1)[0xB]++;
+    arg1[0xA] = 1;
+    s32 p;
+    s32 r;
+    if (((s32 *)a)[0] != 4)
+        p = ((s32 (*)(...))func_02085bb4)(*(s32 *)data_020c46cc, ((s32 *)a)[0]);
+    else
+        p = ((s32 (*)(...))func_02085be8)(*(s32 *)data_020c46cc);
+    r = 0;
+    if (p != 0)
+        r = ((s32 (*)(...))func_02084c94)(p);
+    if (arg2 != 0)
+        *arg2 = r;
+    return 1;
 }
 
 extern "C" s32 func_ov015_021583ac(s32 arg0, u8 *arg1, s32 *arg2)

@@ -1,10 +1,11 @@
 #include "ov053/Unk_ov053_02165d60.hpp"
 #include "game/vcall.hpp"
+struct E02165f04 { s32 a; s32 b; u8 c; u8 d; u8 e; u8 pad; };
 
 extern "C" void func_ov053_02165d60(s32 arg0);
 extern "C" void func_ov053_02165d8c(s32 arg0);
 extern "C" void func_ov053_02165e3c(void);
-extern "C" void func_ov053_02165f04(void);
+extern "C" void func_ov053_02165f04(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov053_02165fac(s32 arg0);
 extern "C" s32 func_ov053_02165ffc(s32 arg0);
 extern "C" void func_ov053_02166060(void);
@@ -206,53 +207,26 @@ extern "C" asm void func_ov053_02165e3c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov053_02165f04(void)
+static inline void r02165f04(u8 *arg0, s32 i)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    movs r4, r1
-    bmi @L_02165f18
-    cmp r4, #2
-    blt @L_02165f6c
-@L_02165f18:
-    mov r4, #0
-    add r9, r0, #0x18
-    mov r7, #1
-    mov r6, r4
-    mov r5, #0xc
-@L_02165f2c:
-    mul r8, r4, r5
-    add r10, r9, r8
-    mov r0, r10
-    mov r1, r7
-    bl func_ov015_02134198
-    mov r0, r10
-    bl func_ov015_02134208
-    str r6, [r9, r8]
-    str r6, [r10, #4]
-    strb r6, [r10, #8]
-    strb r6, [r10, #9]
-    add r4, r4, #1
-    strb r6, [r10, #0xa]
-    cmp r4, #2
-    blt @L_02165f2c
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02165f6c:
-    mov r1, #0xc
-    mul r5, r4, r1
-    add r4, r0, #0x18
-    add r6, r4, r5
-    mov r0, r6
-    mov r1, #1
-    bl func_ov015_02134198
-    mov r0, r6
-    bl func_ov015_02134208
-    mov r0, #0
-    str r0, [r4, r5]
-    str r0, [r6, #4]
-    strb r0, [r6, #8]
-    strb r0, [r6, #9]
-    strb r0, [r6, #0xa]
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    E02165f04 *arr = (E02165f04 *)(arg0 + 0x18);
+    E02165f04 *e = &arr[i];
+    ((s32 (*)(...))func_ov015_02134198)(e, 1);
+    ((s32 (*)(...))func_ov015_02134208)(e);
+    arr[i].a = 0;
+    e->b = 0;
+    e->c = 0;
+    e->d = 0;
+    e->e = 0;
+}
+extern "C" void func_ov053_02165f04(u8 *arg0, s32 arg1)
+{
+    if (arg1 < 0 || arg1 >= 2) {
+        for (arg1 = 0; arg1 < 2; arg1++)
+            r02165f04(arg0, arg1);
+    } else {
+        r02165f04(arg0, arg1);
+    }
 }
 
 #pragma push

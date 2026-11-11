@@ -51,7 +51,7 @@ extern "C" s32 func_ov014_0212261c(...);
 extern "C" void func_ov014_0212267c(void);
 extern "C" s32 func_ov014_021227b4(void);
 extern "C" s32 func_ov014_02122820(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02122928(void);
+extern "C" s32 func_ov014_02122928(void);
 extern "C" s32 func_ov014_021229d4(void);
 extern "C" void func_ov014_02122a40(void);
 extern "C" void func_ov014_02122b28(void);
@@ -1659,53 +1659,24 @@ extern "C" s32 func_ov014_02122820(s32 arg0, s32 arg1, s32 arg2)
     }
 }
 
-extern "C" asm void func_ov014_02122928(void)
+extern "C" s32 func_ov014_02122928(void)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    bl func_ov014_02121808
-    mov r4, r0
-    add r0, r4, #0x1000
-    ldrb r0, [r0, #0x2de]
-    mov r2, #0x50
-    cmp r0, #3
-    addeq r0, r4, #0x1300
-    ldreqh r1, [r0, #0xe]
-    orreq r1, r1, #3
-    streqh r1, [r0, #0x10]
-    ldr r1, =0xffff
-    ldr r0, =func_ov014_02122d20
-    mov r3, r1
-    str r1, [sp]
-    bl func_020151b4
-    cmp r0, #2
-    beq @L_02122988
-    cmp r0, #3
-    beq @L_021229ac
-    cmp r0, #8
-    beq @L_021229a0
-    b @L_021229ac
-@L_02122988:
-    mov r0, #8
-    bl func_ov014_02121a8c
-    add r0, r4, #0x1200
-    mov r1, #5
-    strh r1, [r0, #0xda]
-    b @L_021229c0
-@L_021229a0:
-    add sp, sp, #4
-    mov r0, #4
-    ldmia sp!, {r3, r4, pc}
-@L_021229ac:
-    mov r0, #0xb
-    bl func_ov014_02121a8c
-    add sp, sp, #4
-    mov r0, #7
-    ldmia sp!, {r3, r4, pc}
-@L_021229c0:
-    mov r0, #3
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    u8 *p = (u8 *)((s32 (*)(...))func_ov014_02121808)();
+    if (p[0x12DE] == 3)
+        *(u16 *)(p + 0x1310) = *(u16 *)(p + 0x130E) | 3;
+    switch (((s32 (*)(...))func_020151b4)(func_ov014_02122d20, 0xFFFF, 0x50, 0xFFFF, 0xFFFF)) {
+    case 2:
+        ((s32 (*)(...))func_ov014_02121a8c)(8);
+        *(u16 *)(p + 0x12DA) = 5;
+        break;
+    case 8:
+        return 4;
+    case 3:
+    default:
+        ((s32 (*)(...))func_ov014_02121a8c)(0xB);
+        return 7;
+    }
+    return 3;
 }
 
 extern "C" s32 func_ov014_021229d4(void)

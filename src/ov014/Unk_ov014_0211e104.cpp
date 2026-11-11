@@ -40,7 +40,7 @@ extern "C" s32 func_ov014_021200b8(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov014_021200e8(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3);
 extern "C" void func_ov014_02120184(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_021201e4(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_02120224(void);
+extern "C" void func_ov014_02120224(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3);
 extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3);
@@ -2197,53 +2197,27 @@ extern "C" void func_ov014_021201e4(u8 *arg0, s32 arg1)
     return;
 }
 
-extern "C" asm void func_ov014_02120224(void)
+extern "C" void func_ov014_02120224(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r7, r1
-    mov r5, r3
-    mov r8, r0
-    mov r6, r2
-    mov r0, r7
-    mov r1, r5
-    bl func_ov014_02120090
-    mov r4, r0
-    mov r0, r6
-    mov r1, r5
-    bl func_ov014_02120090
-    cmp r4, r0
-    movlt r4, r0
-    mov r12, #0
-    cmp r4, r5
-    addne r4, r4, #1
-    mov r3, r12
-    b @L_02120290
-@L_02120270:
-    mov r2, r3, lsl #1
-    ldrh r1, [r7, r2]
-    ldrh r0, [r6, r2]
-    add r3, r3, #1
-    sub r0, r1, r0
-    add r0, r12, r0
-    strh r0, [r8, r2]
-    mov r12, r0, asr #0x10
-@L_02120290:
-    cmp r3, r4
-    blt @L_02120270
-    cmp r3, r5
-    bge @L_021202a8
-    cmp r12, #0
-    bne @L_02120270
-@L_021202a8:
-    cmp r8, r7
-    cmpne r8, r6
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    sub r1, r5, r3
-    add r0, r8, r3, lsl #1
-    mov r2, r1, lsl #1
-    mov r1, #0
-    bl MI_CpuFill8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    s32 m = ((s32 (*)(...))func_ov014_02120090)(arg1, arg3);
+    s32 k = ((s32 (*)(...))func_ov014_02120090)(arg2, arg3);
+    s32 i;
+    s32 c;
+    if (m < k)
+        m = k;
+    if (m != arg3)
+        m++;
+    c = 0;
+    i = 0;
+    while (i < m || (i < arg3 && c != 0)) {
+        s32 t = c + (arg1[i] - arg2[i]);
+        arg0[i] = t;
+        c = t >> 16;
+        i++;
+    }
+    if (arg0 == arg1 || arg0 == arg2)
+        return;
+    ((s32 (*)(...))MI_CpuFill8)(arg0 + i, 0, (arg3 - i) * 2);
 }
 
 extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
