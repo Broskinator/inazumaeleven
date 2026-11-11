@@ -31,7 +31,7 @@ extern "C" u8 *func_02083e7c(int side);
 extern "C" u8 *func_02083e94(int side);
 extern "C" u8 *func_02083eac(int side);
 extern "C" void func_02083ec4(void);
-extern "C" void func_02083fe8(void);
+extern "C" s32 func_02083fe8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" u16 func_02084094(fx32 *segment);
 extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b);
 extern "C" int func_020840e0(int a, int b);
@@ -446,54 +446,23 @@ extern "C" asm void func_02083ec4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_02083fe8(void)
+extern "C" s32 func_02083fe8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    movs r6, r0
-    mov r5, r1
-    mov r4, r3
-    bne @L_02084014
-    cmp r5, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    rsb r0, r2, #0
-    bl func_02001d60
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02084014:
-    cmp r2, #0
-    bne @L_02084038
-    cmp r6, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r1, r6
-    rsb r0, r5, #0
-    bl func_02001d60
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02084038:
-    smull r0, r3, r5, r5
-    adds r12, r0, #0x800
-    smull r1, r0, r6, r2
-    adc r2, r3, #0
-    adds r1, r1, #0x800
-    mov r3, r12, lsr #0xc
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r3, r3, r2, lsl #20
-    orr r1, r1, r0, lsl #20
-    sub r0, r3, r1, lsl #2
-    bl func_02001d80
-    cmp r4, #0
-    beq @L_02084084
-    add r0, r0, r5
-    rsb r0, r0, #0
-    mov r1, r6, lsl #1
-    bl func_02001d60
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02084084:
-    sub r0, r0, r5
-    mov r1, r6, lsl #1
-    bl func_02001d60
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 s;
+    if (arg0 == 0) {
+        if (arg1 == 0)
+            return 0;
+        return ((s32 (*)(...))func_02001d60)(-arg2, arg1);
+    }
+    if (arg2 == 0) {
+        if (arg0 == 0)
+            return 0;
+        return ((s32 (*)(...))func_02001d60)(-arg1, arg0);
+    }
+    s = ((s32 (*)(...))func_02001d80)((s32)(((s64)arg1 * arg1 + 0x800) >> 12) - ((s32)(((s64)arg0 * arg2 + 0x800) >> 12) << 2));
+    if (arg3 != 0)
+        return ((s32 (*)(...))func_02001d60)(-(s + arg1), arg0 << 1);
+    return ((s32 (*)(...))func_02001d60)(s - arg1, arg0 << 1);
 }
 
 extern "C" u16 func_02084094(fx32 *segment)

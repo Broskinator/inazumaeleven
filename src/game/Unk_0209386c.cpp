@@ -8,7 +8,7 @@ extern "C" void func_02098930(void);     // (for the asm functions)
 extern "C" void func_02098b48(void);     // (for the asm functions)
 extern "C" s32 func_020960ac(...);     // (for the asm functions)
 extern "C" void func_0209386c(void);
-extern "C" void func_02093928(void);
+extern "C" void func_02093928(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_020939c8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" void func_02093a48(void);
 extern "C" void func_02093afc(void);
@@ -118,54 +118,28 @@ extern "C" asm void func_0209386c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" asm void func_02093928(void)
+extern "C" void func_02093928(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, lr}
-    ldr lr, [r0, #0x1c]
-    cmp lr, #0
-    ldrne r12, [r0, #0x20]
-    cmpne r12, #0
-    movle r1, #0
-    ble @L_02093964
-    cmp r1, #0
-    ble @L_02093954
-    cmp r1, r12
-    ble @L_0209395c
-@L_02093954:
-    mov r1, #0
-    b @L_02093964
-@L_0209395c:
-    sub r1, r1, #1
-    add r1, lr, r1, lsl #5
-@L_02093964:
-    cmp r1, #0
-    ldrne r12, [r1]
-    cmpne r12, #0
-    cmpne r2, #0
-    ble @L_02093984
-    ldrb r1, [r1, #6]
-    cmp r2, r1
-    ble @L_0209398c
-@L_02093984:
-    mov r1, #0
-    b @L_02093998
-@L_0209398c:
-    sub r2, r2, #1
-    mov r1, #0x60
-    mla r1, r2, r1, r12
-@L_02093998:
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    ldrh r12, [r1, #2]
-    mvn r2, r3
-    mov r2, r2, lsl #0x10
-    and r2, r12, r2, lsr #16
-    strh r2, [r1, #2]
-    tst r3, #0x3c
-    ldmeqia sp!, {r3, pc}
-    mov r2, #2
-    bl func_020917c0
-    ldmia sp!, {r3, pc}
+    u8 *t = *(u8 **)(arg0 + 0x1C);
+    s32 c;
+    u8 *e;
+    u8 *r;
+    if (t == 0 || (c = *(s32 *)(arg0 + 0x20)) <= 0)
+        e = 0;
+    else if (arg1 <= 0 || arg1 > c)
+        e = 0;
+    else
+        e = t + ((arg1 - 1) << 5);
+    if (e == 0 || (t = *(u8 **)e) == 0 || arg2 <= 0 || arg2 > e[6])
+        r = 0;
+    else
+        r = t + (arg2 - 1) * 0x60;
+    if (r == 0)
+        return;
+    *(u16 *)(r + 2) &= ~arg3;
+    if ((arg3 & 0x3C) == 0)
+        return;
+    ((s32 (*)(...))func_020917c0)(arg0, r, 2);
 }
 
 extern "C" void func_020939c8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)

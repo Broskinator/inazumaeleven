@@ -1,5 +1,6 @@
 #include "ov015/Unk_021437ac.hpp"
 #include "game/vcall.hpp"
+class C021463f8 { public: virtual void v00(); virtual void v04(); virtual void v08(); };
 struct V021464b4 { virtual void f0(); virtual void f1(); virtual void f2(); virtual void f3(); virtual void f4(); virtual void f5(); virtual void f6(); virtual void f7(); virtual void f8(); virtual s32 f9(s32); };
 struct V12 { s32 x, y, z; };
 
@@ -120,7 +121,7 @@ extern "C" s32 func_ov015_02146304(s32 arg0, s32 arg1);
 extern "C" void func_ov015_02146330(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov015_02146364(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov015_021463cc(s32 arg0, s32 arg1);
-extern "C" void func_ov015_021463f8(void);
+extern "C" void func_ov015_021463f8(u8 *arg0);
 extern "C" void func_ov015_021464a8(void);
 extern "C" s32 func_ov015_021464b4(u8 *arg0, s32 arg1);
 extern "C" void func_ov015_02146514(void);
@@ -3246,54 +3247,30 @@ extern "C" s32 func_ov015_021463cc(s32 arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_ov015_021463f8(void)
+extern "C" void func_ov015_021463f8(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, r0
-    mov r6, #0
-    mov r5, #0x1bc
-@L_02146408:
-    mla r0, r6, r5, r4
-    bl func_ov015_02144cf8
-    add r6, r6, #1
-    cmp r6, #4
-    blt @L_02146408
-    add r0, r4, #0x6f0
-    bl func_ov015_02163f50
-    mov r7, #0
-    add r6, r4, #0x720
-    mov r5, #0x14
-@L_02146430:
-    mla r0, r7, r5, r6
-    bl func_ov015_021474d0
-    add r7, r7, #1
-    cmp r7, #2
-    blt @L_02146430
-    add r0, r4, #0x348
-    add r0, r0, #0x400
-    ldr r1, [r0]
-    ldr r1, [r1, #8]
-    blx r1
-    mov r5, #0
-    str r5, [r4, #0x85c]
-    add r0, r4, #0x860
-    ldr r1, [r0]
-    ldr r1, [r1, #8]
-    blx r1
-    mov r0, #0x1000
-    str r5, [r4, #0x974]
-    str r5, [r4, #0x990]
-    str r5, [r4, #0x994]
-    str r5, [r4, #0x998]
-    str r5, [r4, #0x978]
-    str r5, [r4, #0x97c]
-    str r5, [r4, #0x980]
-    str r0, [r4, #0x984]
-    str r0, [r4, #0x988]
-    str r0, [r4, #0x98c]
-    str r5, [r4, #0x99c]
-    str r5, [r4, #0x9a0]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s32 i;
+    s32 j;
+    for (i = 0; i < 4; i++)
+        ((s32 (*)(...))func_ov015_02144cf8)(arg0 + i * 0x1BC);
+    ((s32 (*)(...))func_ov015_02163f50)(arg0 + 0x6F0);
+    for (j = 0; j < 2; j++)
+        ((s32 (*)(...))func_ov015_021474d0)(arg0 + 0x720 + j * 0x14);
+    ((C021463f8 *)(arg0 + 0x748))->v08();
+    *(s32 *)(arg0 + 0x85C) = 0;
+    ((C021463f8 *)(arg0 + 0x860))->v08();
+    *(s32 *)(arg0 + 0x974) = 0;
+    *(s32 *)(arg0 + 0x990) = 0;
+    *(s32 *)(arg0 + 0x994) = 0;
+    *(s32 *)(arg0 + 0x998) = 0;
+    *(s32 *)(arg0 + 0x978) = 0;
+    *(s32 *)(arg0 + 0x97C) = 0;
+    *(s32 *)(arg0 + 0x980) = 0;
+    *(s32 *)(arg0 + 0x984) = 0x1000;
+    *(s32 *)(arg0 + 0x988) = 0x1000;
+    *(s32 *)(arg0 + 0x98C) = 0x1000;
+    *(s32 *)(arg0 + 0x99C) = 0;
+    *(s32 *)(arg0 + 0x9A0) = 0;
 }
 
 extern "C" void func_ov015_021464a8(void)

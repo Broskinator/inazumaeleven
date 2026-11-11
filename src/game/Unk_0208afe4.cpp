@@ -1,4 +1,6 @@
 #include "game/Unk_0208afe4.hpp"
+struct T0208b988 { s32 cur; s32 max; };
+struct S0208b988 { u8 pad[0x5C]; s32 h; s32 x; T0208b988 t[5]; };
 struct V0208cdec { s32 x, y, z; };
 struct V0208b7ac { s32 x, y, z; };
 struct V0208b730 { s32 x, y, z; };
@@ -34,7 +36,7 @@ extern "C" s32 func_0208b90c(u8 *arg0);
 extern "C" void **func_0208b934(void **obj);
 extern "C" int func_0208b954(void);
 extern "C" void func_0208b95c(u8 *arg0, s32 arg1);
-extern "C" void func_0208b988(void);
+extern "C" void func_0208b988(S0208b988 *arg0, s32 arg1);
 extern "C" s32 func_0208ba30(s32 arg0, s32 arg1);
 extern "C" s32 func_0208baa4(s32 arg0, s32 arg1);
 extern "C" void func_0208bb18(void);
@@ -770,54 +772,23 @@ extern "C" void func_0208b95c(u8 *arg0, s32 arg1)
     MTX_Identity43_((arg0 + 0x2C));
 }
 
-extern "C" asm void func_0208b988(void)
+static inline void w0208b988(T0208b988 *t) { if (t->cur > t->max) t->cur = 0; }
+extern "C" void func_0208b988(S0208b988 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r9, r1
-    mov r8, #0
-    mov r11, #0x3f000000
-    mov r10, r0
-    mov r7, r9, lsl #0xc
-    mov r6, r11
-    mov r4, r8
-@L_0208b9a8:
-    add r0, r10, r8, lsl #3
-    ldr r0, [r0, #0x68]
-    cmp r0, #0
-    beq @L_0208ba20
-    cmp r9, #0
-    mov r0, r7
-    ble @L_0208b9d8
-    bl _fflt
-    mov r1, r0
-    mov r0, r6
-    bl _fadd
-    b @L_0208b9e4
-@L_0208b9d8:
-    bl _fflt
-    mov r1, r11
-    bl _fsub
-@L_0208b9e4:
-    add r5, r10, r8, lsl #3
-    bl _ffix
-    ldr r1, [r5, #0x64]
-    mov r2, r5
-    add r0, r1, r0
-    str r0, [r5, #0x64]
-    ldr r1, [r2, #0x64]
-    ldr r0, [r2, #0x68]
-    cmp r1, r0
-    strgt r4, [r2, #0x64]
-    add r1, r10, r8, lsl #3
-    ldr r0, [r10, #0x5c]
-    ldr r1, [r1, #0x64]
-    mov r2, r8
-    bl func_ov015_02145330
-@L_0208ba20:
-    add r8, r8, #1
-    cmp r8, #5
-    blt @L_0208b9a8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s32 fx = arg1 << 12;
+    s32 i;
+    for (i = 0; i < 5; i++) {
+        if (arg0->t[i].max != 0) {
+            float v;
+            if (arg1 > 0)
+                v = 0.5f + (float)fx;
+            else
+                v = (float)fx - 0.5f;
+            arg0->t[i].cur += (s32)v;
+            w0208b988(&arg0->t[i]);
+            ((s32 (*)(...))func_ov015_02145330)(arg0->h, arg0->t[i].cur, i);
+        }
+    }
 }
 
 extern "C" s32 func_0208ba30(s32 arg0, s32 arg1)

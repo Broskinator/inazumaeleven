@@ -1,12 +1,14 @@
 #include "ov048/Unk_ov048_02165d60.hpp"
 #include "game/vcall.hpp"
+struct E02166174 { s32 a; s32 b; u8 c; u8 d; u8 e; u8 pad; };
+struct S02166174 { u8 pad[0x38]; E02166174 arr[4]; };
 
 extern "C" void func_ov048_02165d60(s32 arg0);
 extern "C" void func_ov048_02165d8c(void);
 extern "C" s32 func_ov048_02165e60(u8 *arg0);
 extern "C" s32 func_ov048_02166074(s32 arg0);
 extern "C" void func_ov048_021660e0(void);
-extern "C" void func_ov048_02166174(void);
+extern "C" void func_ov048_02166174(S02166174 *arg0, s32 arg1);
 extern "C" void func_ov048_02166220(void);
 extern "C" s32 func_ov048_02166334(s32 arg0);
 extern "C" void func_ov048_02166384(u8 *arg0);
@@ -391,54 +393,24 @@ extern "C" asm void func_ov048_021660e0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov048_02166174(void)
+static inline void r02166174(S02166174 *s, s32 i)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    movs r4, r1
-    mov r5, r0
-    bmi @L_0216618c
-    cmp r4, #4
-    blt @L_021661e0
-@L_0216618c:
-    mov r4, #0
-    add r9, r5, #0x38
-    mov r8, #1
-    mov r7, r4
-    mov r6, #0xc
-@L_021661a0:
-    mul r10, r4, r6
-    mov r1, r8
-    add r0, r9, r10
-    bl func_ov015_02134198
-    add r0, r9, r10
-    bl func_ov015_02134208
-    add r0, r5, r10
-    str r7, [r0, #0x38]
-    str r7, [r0, #0x3c]
-    strb r7, [r0, #0x40]
-    strb r7, [r0, #0x41]
-    add r4, r4, #1
-    strb r7, [r0, #0x42]
-    cmp r4, #4
-    blt @L_021661a0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_021661e0:
-    mov r0, #0xc
-    mul r6, r4, r0
-    add r4, r5, #0x38
-    add r0, r4, r6
-    mov r1, #1
-    bl func_ov015_02134198
-    add r0, r4, r6
-    bl func_ov015_02134208
-    mov r1, #0
-    str r1, [r4, r6]
-    add r0, r5, r6
-    str r1, [r0, #0x3c]
-    strb r1, [r0, #0x40]
-    strb r1, [r0, #0x41]
-    strb r1, [r0, #0x42]
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    ((s32 (*)(...))func_ov015_02134198)(&s->arr[i], 1);
+    ((s32 (*)(...))func_ov015_02134208)(&s->arr[i]);
+    s->arr[i].a = 0;
+    s->arr[i].b = 0;
+    s->arr[i].c = 0;
+    s->arr[i].d = 0;
+    s->arr[i].e = 0;
+}
+extern "C" void func_ov048_02166174(S02166174 *arg0, s32 arg1)
+{
+    if (arg1 < 0 || arg1 >= 4) {
+        for (arg1 = 0; arg1 < 4; arg1++)
+            r02166174(arg0, arg1);
+    } else {
+        r02166174(arg0, arg1);
+    }
 }
 
 extern "C" asm void func_ov048_02166220(void)

@@ -119,7 +119,7 @@ extern "C" void func_ov014_0211ae24(u8 *arg0);
 extern "C" s32 func_ov014_0211aec4(void);
 extern "C" s32 func_ov014_0211af00(void);
 extern "C" void func_ov014_0211afa0(void);
-extern "C" void func_ov014_0211afc8(void);
+extern "C" s32 func_ov014_0211afc8(void);
 extern "C" s32 func_ov014_0211b070(...);
 
 extern "C" char data_020bb120[];
@@ -3463,54 +3463,26 @@ extern "C" void func_ov014_0211afa0(void)
     func_ov014_02122310(0);
 }
 
-extern "C" asm void func_ov014_0211afc8(void)
+extern "C" s32 func_ov014_0211afc8(void)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r4, =data_ov014_0212d1ec
-    ldr r5, =data_ov014_0212d254
-@L_0211afd4:
-    bl OS_DisableInterrupts
-    ldr r6, [r5]
-    cmp r6, #0
-    beq @L_0211b008
-    ldr r2, [r4]
-@L_0211afe8:
-    cmp r6, r2
-    beq @L_0211affc
-    ldrsh r1, [r6, #0xac]
-    tst r1, #0x10
-    beq @L_0211b008
-@L_0211affc:
-    ldr r6, [r6, #0xb8]
-    cmp r6, #0
-    bne @L_0211afe8
-@L_0211b008:
-    bl OS_RestoreInterrupts
-    cmp r6, #0
-    beq @L_0211b020
-    mov r0, r6
-    bl func_ov014_0211ab5c
-    b @L_0211afd4
-@L_0211b020:
-    ldr r0, =data_ov014_0212d254
-    ldr r1, [r0]
-    cmp r1, #0
-    beq @L_0211b048
-    ldr r0, =data_ov014_0212d1ec
-    ldr r0, [r0]
-    cmp r1, r0
-    ldreq r0, [r1, #0xb8]
-    cmpeq r0, #0
-    bne @L_0211b05c
-@L_0211b048:
-    ldr r0, =data_ov014_0212d258
-    ldr r0, [r0]
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-@L_0211b05c:
-    mvn r0, #0x19
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *p;
+    for (;;) {
+        s32 s = ((s32 (*)(...))OS_DisableInterrupts)();
+        for (p = *(u8 **)data_ov014_0212d254; p != 0; p = *(u8 **)(p + 0xB8)) {
+            if (p != *(u8 **)data_ov014_0212d1ec && !(*(s16 *)(p + 0xAC) & 0x10))
+                break;
+        }
+        ((s32 (*)(...))OS_RestoreInterrupts)(s);
+        if (p == 0)
+            break;
+        ((s32 (*)(...))func_ov014_0211ab5c)(p);
+    }
+    p = *(u8 **)data_ov014_0212d254;
+    if (p == 0 || (p == *(u8 **)data_ov014_0212d1ec && *(s32 *)(p + 0xB8) == 0)) {
+        if (*(s32 *)data_ov014_0212d258 == 0)
+            return 0;
+    }
+    return -0x1A;
 }
 
 extern "C" asm s32 func_ov014_0211b070(...)

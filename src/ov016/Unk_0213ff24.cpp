@@ -636,54 +636,21 @@ extern "C" s32 func_ov016_021404bc(s32 arg0, s32 arg1)
     return t3;
 }
 
-extern "C" asm void func_ov016_02140548(void)
+extern "C" void func_ov016_02140548(void)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r4, =data_ov016_02158ab8
-    mov r1, #0x1c
-    ldrh r0, [r4, #2]
-    bl FX_ModS32
-    ldr r1, [r4, #4]
-    rsb r0, r0, #0x36
-    ldrb r1, [r1, #0x51]
-    mov r2, #0
-    cmp r1, #5
-    movgt r1, #5
-    cmp r1, #0
-    ble @L_021405e4
-    ldr r12, =data_ov016_02158ab8
-    ldr r3, =0xfe00ff00
-@L_02140584:
-    ldr r4, [r12, #4]
-    sub r5, r0, #2
-    add r4, r4, r2, lsl #2
-    ldr r6, [r4, #0x10]
-    add r4, r0, #1
-    ldr lr, [r6]
-    and r5, r5, #0xff
-    and lr, lr, r3
-    orr r5, lr, r5
-    orr r5, r5, #0xb30000
-    str r5, [r6]
-    ldr r5, [r12, #4]
-    and r4, r4, #0xff
-    add r5, r5, r2, lsl #2
-    ldr r5, [r5, #0x24]
-    add r2, r2, #1
-    ldr lr, [r5]
-    cmp r2, r1
-    and lr, lr, r3
-    orr r4, lr, r4
-    orr r4, r4, #0xd20000
-    str r4, [r5]
-    add r0, r0, #0x1c
-    blt @L_02140584
-@L_021405e4:
-    ldr r0, =data_ov016_02158ab8
-    mov r1, #1
-    ldr r0, [r0, #4]
-    strb r1, [r0, #0x56]
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 y = 0x36 - ((s32 (*)(...))FX_ModS32)(*(u16 *)((u8 *)data_ov016_02158ab8 + 2), 0x1C);
+    s32 n = (*(u8 **)((u8 *)data_ov016_02158ab8 + 4))[0x51];
+    s32 i;
+    if (n > 5)
+        n = 5;
+    for (i = 0; i < n; i++) {
+        u32 *o = *(u32 **)(*(u8 **)((u8 *)data_ov016_02158ab8 + 4) + (i << 2) + 0x10);
+        *o = (*o & 0xFE00FF00) | ((y - 2) & 0xFF) | (0xB3 << 16);
+        o = *(u32 **)(*(u8 **)((u8 *)data_ov016_02158ab8 + 4) + (i << 2) + 0x24);
+        *o = (*o & 0xFE00FF00) | ((y + 1) & 0xFF) | (0xD2 << 16);
+        y += 0x1C;
+    }
+    (*(u8 **)((u8 *)data_ov016_02158ab8 + 4))[0x56] = 1;
 }
 
 extern "C" asm void func_ov016_02140600(void)

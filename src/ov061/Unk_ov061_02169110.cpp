@@ -4,7 +4,7 @@
 extern "C" void func_ov061_02169110(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov061_0216912c(void);
 extern "C" void func_ov061_021692d4(u8 *arg0);
-extern "C" void func_ov061_0216933c(void);
+extern "C" void func_ov061_0216933c(u8 *arg0);
 extern "C" void func_ov061_021693e8(void);
 extern "C" s32 func_ov061_0216961c(u8 *arg0);
 extern "C" void func_ov061_02169668(s32 arg0);
@@ -246,54 +246,24 @@ extern "C" void func_ov061_021692d4(u8 *arg0)
     return;
 }
 
-extern "C" asm void func_ov061_0216933c(void)
+extern "C" void func_ov061_0216933c(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x28
-    add r6, sp, #8
-    mov r10, r0
-    mov r8, #0
-    ldr r0, =data_020e88a0
-    mov r2, r6
-    str r8, [sp]
-    mov r4, #0x80
-    mov r1, #1
-    mov r3, #0x10
-    str r4, [sp, #4]
-    bl _ZN17UnkClass_020621b413func_02078c70Ev
-    mov r7, r0
-    mov r9, r8
-    mov r4, #1
-    mov r5, r8
-    b @L_021693c8
-@L_02169384:
-    mov r0, r9, lsl #1
-    ldrh r0, [r6, r0]
-    mov r1, r5
-    bl func_ov015_02130b14
-    cmp r0, #0
-    beq @L_021693c4
-    ldrh r0, [r0, #0xf0]
-    tst r0, #8
-    movne r0, r4
-    moveq r0, r5
-    cmp r0, #0
-    movne r0, r9, lsl #1
-    ldrneh r1, [r6, r0]
-    addne r0, r10, r8, lsl #1
-    addne r8, r8, #1
-    strneh r1, [r0, #0x38]
-@L_021693c4:
-    add r9, r9, #1
-@L_021693c8:
-    cmp r9, r7
-    bge @L_021693d8
-    cmp r8, #4
-    blt @L_02169384
-@L_021693d8:
-    str r8, [r10, #0x28]
-    add sp, sp, #0x28
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    u16 ids[16];
+    s32 cnt;
+    s32 n = 0;
+    s32 i;
+    cnt = ((s32 (*)(...))_ZN17UnkClass_020621b413func_02078c70Ev)(data_020e88a0, 1, ids, 0x10, 0, 0x80);
+    for (i = 0; i < cnt && n < 4; i++) {
+        u8 *p = (u8 *)((s32 (*)(...))func_ov015_02130b14)(ids[i], 0);
+        if (p != 0) {
+            s32 f = (*(u16 *)(p + 0xF0) & 8) ? 1 : 0;
+            if (f != 0) {
+                *(u16 *)(arg0 + (n << 1) + 0x38) = ids[i];
+                n++;
+            }
+        }
+    }
+    *(s32 *)(arg0 + 0x28) = n;
 }
 
 extern "C" asm void func_ov061_021693e8(void)

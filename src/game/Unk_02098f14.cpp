@@ -3,6 +3,7 @@
 #include "nitro/os.h"
 #include "nitro/fx.h"
 #include "nitro/fx.h"
+struct V02099924 { s32 x; s32 y; s32 z; };
 struct V02099664 { s32 x, y, z; };
 struct V020996ec { s32 x, y, z; };
 struct V02099a2c { s32 x, y, z; };
@@ -40,7 +41,7 @@ extern "C" BOOL func_020997e4(void *a);
 extern "C" void func_020997fc(void);
 extern "C" void func_020998f4(fx32 *in, fx32 *out);
 extern "C" fx32 func_02099910(fx32 value);
-extern "C" void func_02099924(void);
+extern "C" s32 func_02099924(V02099924 *arg0, V02099924 *arg1, V02099924 *arg2);
 extern "C" void func_020999d8(fx32 *a, fx32 *b, u16 *direction);
 extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2);
 extern "C" s32 func_02099a2c(s32 arg0, s32 arg1, s32 arg2);
@@ -716,54 +717,19 @@ extern "C" fx32 func_02099910(fx32 value)
     return (value & -0x1000) + 0x1000;
 }
 
-extern "C" asm void func_02099924(void)
+extern "C" s32 func_02099924(V02099924 *arg0, V02099924 *arg1, V02099924 *arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x30
-    add r7, sp, #0x24
-    mov r4, r2
-    mov r5, r0
-    mov r8, r1
-    mov r0, r8
-    mov r1, r5
-    mov r2, r7
-    bl func_02001f38
-    add r6, sp, #0x18
-    mov r0, r4
-    mov r1, r5
-    mov r2, r6
-    bl func_02001f38
-    mov r0, r5
-    add r5, sp, #0xc
-    mov r1, r8
-    mov r2, r5
-    bl func_02001f38
-    mov r0, r4
-    add r4, sp, #0
-    mov r1, r8
-    mov r2, r4
-    bl func_02001f38
-    mov r0, r7
-    mov r1, r6
-    bl func_02099764
-    cmp r0, #0
-    bne @L_020999cc
-    mov r0, r7
-    mov r1, r6
-    bl func_020997a4
-    cmp r0, #0
-    ble @L_020999cc
-    mov r0, r5
-    mov r1, r4
-    bl func_020997a4
-    cmp r0, #0
-    addgt sp, sp, #0x30
-    movgt r0, #1
-    ldmgtia sp!, {r4, r5, r6, r7, r8, pc}
-@L_020999cc:
-    mov r0, #0
-    add sp, sp, #0x30
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    V02099924 a;
+    V02099924 b;
+    V02099924 c;
+    V02099924 d;
+    ((s32 (*)(...))func_02001f38)(arg1, arg0, &a);
+    ((s32 (*)(...))func_02001f38)(arg2, arg0, &b);
+    ((s32 (*)(...))func_02001f38)(arg0, arg1, &c);
+    ((s32 (*)(...))func_02001f38)(arg2, arg1, &d);
+    if (((s32 (*)(...))func_02099764)(&a, &b) == 0 && ((s32 (*)(...))func_020997a4)(&a, &b) > 0 && ((s32 (*)(...))func_020997a4)(&c, &d) > 0)
+        return 1;
+    return 0;
 }
 
 extern "C" void func_020999d8(fx32 *a, fx32 *b, u16 *direction)

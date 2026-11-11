@@ -1,4 +1,5 @@
 #include "ov014/Unk_ov014_02111cb8.hpp"
+struct T02114224 { u32 v[9]; };
 struct A02113acc { u8 len; u8 fam; u16 port; u32 addr; };
 struct N02114864 { N02114864 *next; N02114864 *prev; };
 
@@ -80,7 +81,7 @@ extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1);
 extern "C" void func_ov014_02114010(void);
 extern "C" void func_ov014_0211409c(void);
 extern "C" void func_ov014_02114188(void);
-extern "C" void func_ov014_02114224(void);
+extern "C" s32 func_ov014_02114224(u8 *arg0, u32 arg1);
 extern "C" s32 func_ov014_021142d0(s8 *a, s8 *b);
 extern "C" s32 func_ov014_02114360(s8 *arg0, s32 arg1);
 extern "C" void func_ov014_021143d0(void);
@@ -1939,7 +1940,7 @@ extern "C" void func_ov014_02113748(void)
 
 extern "C" void func_ov014_02113754(void)
 {
-    func_ov014_02114224();
+    ((void (*)(void))func_ov014_02114224)();
 }
 
 extern "C" asm void func_ov014_02113760(void)
@@ -2682,53 +2683,27 @@ extern "C" asm void func_ov014_02114188(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02114224(void)
+extern "C" s32 func_ov014_02114224(u8 *arg0, u32 arg1)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x24
-    ldr r6, =data_ov014_02123f90
-    add r4, sp, #0
-    mov r10, r0
-    mov r9, r1
-    ldmia r6!, {r0, r1, r2, r3}
-    mov r5, r4
-    stmia r4!, {r0, r1, r2, r3}
-    ldmia r6!, {r0, r1, r2, r3}
-    stmia r4!, {r0, r1, r2, r3}
-    ldr r0, [r6]
-    mov r7, #0
-    str r0, [r4]
-    mov r2, r7
-    mov r6, r7
-    mov r4, #0x30
-    mov r11, #1
-@L_0211426c:
-    ldr r8, [r5, r6, lsl #2]
-    cmp r9, r8
-    blo @L_021142a0
-    mov r0, r9
-    mov r1, r8
-    bl _u32_div_f
-    mul r1, r0, r8
-    add r0, r0, #0x30
-    strb r0, [r10, r7]
-    mov r2, r11
-    sub r9, r9, r1
-    add r7, r7, #1
-    b @L_021142ac
-@L_021142a0:
-    cmp r2, #0
-    strneb r4, [r10, r7]
-    addne r7, r7, #1
-@L_021142ac:
-    add r6, r6, #1
-    cmp r6, #9
-    blt @L_0211426c
-    add r0, r9, #0x30
-    strb r0, [r10, r7]
-    add r0, r7, #1
-    add sp, sp, #0x24
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    T02114224 t = *(T02114224 *)data_ov014_02123f90;
+    s32 i;
+    s32 n = 0;
+    s32 started = 0;
+    for (i = 0; i < 9; i++) {
+        u32 d = t.v[i];
+        if (arg1 >= d) {
+            u32 q = arg1 / d;
+            arg0[n] = q + '0';
+            started = 1;
+            arg1 -= q * d;
+            n++;
+        } else if (started != 0) {
+            arg0[n] = '0';
+            n++;
+        }
+    }
+    arg0[n] = arg1 + '0';
+    return n + 1;
 }
 
 static inline s32 low021142d0(s32 c) { return ((c >= 0x41) & (c <= 0x5A)) ? c + 0x20 : c; }
