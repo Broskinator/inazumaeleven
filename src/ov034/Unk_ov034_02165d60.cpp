@@ -24,7 +24,7 @@ extern "C" void func_ov034_02166d14(u8 *arg0);
 extern "C" char *func_ov034_02166d34(u8 *arg0);
 extern "C" s32 func_ov034_02166d64(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov034_02166df8(u8 *arg0, s32 arg1);
-extern "C" void func_ov034_02166e2c(void);
+extern "C" void func_ov034_02166e2c(u8 *arg0, s32 arg1);
 extern "C" void func_ov034_02166ed8(void);
 extern "C" void func_ov034_0216702c(u8 *arg0, s32 arg1);
 extern "C" void func_ov034_0216705c(void);
@@ -1103,55 +1103,30 @@ extern "C" s32 func_ov034_02166df8(u8 *arg0, s32 arg1)
     return 4;
 }
 
-extern "C" asm void func_ov034_02166e2c(void)
+extern "C" void func_ov034_02166e2c(u8 *arg0, s32 arg1)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r1
-    mov r4, r0
-    cmp r5, #0
-    ldmleia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c46c4
-    mov r1, r5, lsl #0x10
-    ldr r0, [r0]
-    mov r1, r1, lsr #0x10
-    bl func_ov015_02161dd4
-    cmp r5, #7
-    addls pc, pc, r5, lsl #2
-    ldmia sp!, {r3, r4, r5, pc}
-    ldmia sp!, {r3, r4, r5, pc}
-    ldmia sp!, {r3, r4, r5, pc}
-    ldmia sp!, {r3, r4, r5, pc}
-    b @L_02166ea4
-    b @L_02166ebc
-    b @L_02166e80
-    b @L_02166e8c
-    b @L_02166e98
-@L_02166e80:
-    mov r0, #0
-    str r0, [r4, #0x1cc]
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02166e8c:
-    mov r0, #1
-    str r0, [r4, #0x1cc]
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02166e98:
-    mov r0, #2
-    str r0, [r4, #0x1cc]
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02166ea4:
-    mov r2, #0
-    mov r0, r4
-    mov r1, #1
-    str r2, [r4, #0x110]
-    bl func_ov034_02166c1c
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02166ebc:
-    mov r2, #1
-    mov r0, r4
-    mov r1, #0
-    str r2, [r4, #0x110]
-    bl func_ov034_02166c1c
-    ldmia sp!, {r3, r4, r5, pc}
+    if (arg1 <= 0)
+        return;
+    ((s32 (*)(...))func_ov015_02161dd4)(*(s32 *)data_020c46c4, (u16)arg1);
+    switch (arg1) {
+    case 5:
+        *(s32 *)(arg0 + 0x1CC) = 0;
+        break;
+    case 6:
+        *(s32 *)(arg0 + 0x1CC) = 1;
+        break;
+    case 7:
+        *(s32 *)(arg0 + 0x1CC) = 2;
+        break;
+    case 3:
+        *(s32 *)(arg0 + 0x110) = 0;
+        ((s32 (*)(...))func_ov034_02166c1c)(arg0, 1);
+        break;
+    case 4:
+        *(s32 *)(arg0 + 0x110) = 1;
+        ((s32 (*)(...))func_ov034_02166c1c)(arg0, 0);
+        break;
+    }
 }
 
 extern "C" asm void func_ov034_02166ed8(void)

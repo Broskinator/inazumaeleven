@@ -6,7 +6,7 @@ extern "C" void func_ov000_02106464(void);
 extern "C" void func_ov000_02106ba8(void);
 extern "C" void func_ov000_02106e6c(u8 *arg0, s32 arg1);
 extern "C" s32 func_ov000_02106e74(u8 *arg0);
-extern "C" void func_ov000_02106e7c(void);
+extern "C" s32 func_ov000_02106e7c(u8 *arg0);
 extern "C" u8 *func_ov000_02106f3c(u8 *arg0);
 extern "C" u8 *func_ov000_02106f5c(u8 *arg0);
 extern "C" u8 *func_ov000_02106f7c(u8 *arg0);
@@ -841,55 +841,23 @@ extern "C" s32 func_ov000_02106e74(u8 *arg0)
     return *(s32 *)(arg0 + 0x8);
 }
 
-extern "C" asm void func_ov000_02106e7c(void)
+extern "C" s32 func_ov000_02106e7c(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    sub sp, sp, #8
-    ldr r5, =data_020d3d20
-    mov r6, r0
-    add r1, sp, #4
-    add r2, sp, #0
-    mov r0, r5
-    bl func_0209b7c8
-    ldr r1, [sp, #4]
-    ldr r0, =0x192
-    cmp r1, r0
-    addne sp, sp, #8
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    ldr r0, [sp]
-    cmp r0, #0
-    beq @L_02106f24
-    ldr r4, =data_020d9978
-    mov r1, #1
-    mov r0, r4
-    bl _ZN11TreasureBox13func_020524f0El
-    mov r0, r4
-    bl _ZN11TreasureBox13func_020525d4Ev
-    cmp r0, #0
-    ldreqb r0, [r6, #0x1f]
-    cmpeq r0, #0
-    bne @L_02106f0c
-    mov r0, r5
-    bl func_0209ac80
-    tst r0, #4
-    beq @L_02106f0c
-    mov r2, #0
-    mov r0, r6
-    mov r3, r2
-    mov r1, #0xb
-    bl func_ov000_02101d24
-@L_02106f0c:
-    ldr r0, =data_020d3d20
-    mov r1, #7
-    bl func_0209ac74
-    add sp, sp, #8
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02106f24:
-    mov r0, #0
-    add sp, sp, #8
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 a;
+    s32 b;
+    ((s32 (*)(...))func_0209b7c8)(data_020d3d20, &a, &b);
+    if (a != 0x192)
+        return 0;
+    if (b != 0) {
+        ((s32 (*)(...))_ZN11TreasureBox13func_020524f0El)(data_020d9978, 1);
+        if (((s32 (*)(...))_ZN11TreasureBox13func_020525d4Ev)(data_020d9978) == 0 && arg0[0x1F] == 0) {
+            if (((s32 (*)(...))func_0209ac80)(data_020d3d20) & 4)
+                ((s32 (*)(...))func_ov000_02101d24)(arg0, 0xB, 0, 0);
+        }
+        ((s32 (*)(...))func_0209ac74)(data_020d3d20, 7);
+        return 1;
+    }
+    return 0;
 }
 
 extern "C" u8 *func_ov000_02106f3c(u8 *arg0)

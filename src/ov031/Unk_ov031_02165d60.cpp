@@ -1,4 +1,5 @@
 #include "ov031/Unk_ov031_02165d60.hpp"
+class C0216611c { public: virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c(); virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3c(); virtual void v40(); virtual void v44(s32); };
 struct E021669e8 { s32 a; s32 b; u8 c; u8 d; u8 e; u8 pad; };
 
 extern "C" void func_ov031_02165d60(s32 arg0);
@@ -7,7 +8,7 @@ extern "C" void func_ov031_02165e5c(void);
 extern "C" void func_ov031_02165f28(void);
 extern "C" void func_ov031_02165fe4(void);
 extern "C" void func_ov031_02166028(void);
-extern "C" void func_ov031_0216611c(void);
+extern "C" void func_ov031_0216611c(u8 *arg0);
 extern "C" void func_ov031_021661c8(void);
 extern "C" s32 func_ov031_02166218(s32 arg0, u8 *arg1);
 extern "C" s32 func_ov031_02166228(s32 arg0, u8 *arg1);
@@ -356,55 +357,21 @@ extern "C" asm void func_ov031_02166028(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov031_0216611c(void)
+extern "C" void func_ov031_0216611c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r7, r0
-    add r9, r7, #0x300
-    ldrh r0, [r9, #0xa4]
-    mov r4, #0
-    mov r5, #1
-    cmp r0, #1
-    ble @L_021661b0
-    mov r8, #0x18
-@L_02166140:
-    mul r6, r5, r8
-    ldr r0, [r7, #0x4bc]
-    add r0, r0, r6
-    ldrh r1, [r0, #0xa]
-    cmp r1, #0
-    beq @L_021661a0
-    mov r0, r7
-    bl func_ov031_021685a4
-    cmp r0, #0
-    bne @L_0216618c
-    ldr r1, [r7, #0x4bc]
-    mov r0, r7
-    add r2, r1, r6
-    ldrb r1, [r2, #1]
-    ldrh r2, [r2, #0x10]
-    mov r3, r5
-    bl func_ov031_0216763c
-    cmp r0, #0
-    beq @L_021661a0
-@L_0216618c:
-    mov r0, r7
-    mov r1, r5
-    bl func_ov031_021685d8
-    cmp r0, #0
-    addne r4, r4, #1
-@L_021661a0:
-    ldrh r0, [r9, #0xa4]
-    add r5, r5, #1
-    cmp r5, r0
-    blt @L_02166140
-@L_021661b0:
-    ldr r0, [r7, #0x74]
-    mov r1, r4
-    ldr r2, [r0]
-    ldr r2, [r2, #0x44]
-    blx r2
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 n = 0;
+    s32 i;
+    for (i = 1; i < *(u16 *)(arg0 + 0x3A4); i++) {
+        u8 *e = *(u8 **)(arg0 + 0x4BC) + i * 0x18;
+        if (*(u16 *)(e + 0xA) != 0) {
+            if (((s32 (*)(...))func_ov031_021685a4)(arg0, *(u16 *)(e + 0xA)) != 0
+                || ((s32 (*)(...))func_ov031_0216763c)(arg0, (*(u8 **)(arg0 + 0x4BC) + i * 0x18)[1], *(u16 *)(*(u8 **)(arg0 + 0x4BC) + i * 0x18 + 0x10), i) != 0) {
+                if (((s32 (*)(...))func_ov031_021685d8)(arg0, i) != 0)
+                    n++;
+            }
+        }
+    }
+    (*(C0216611c **)(arg0 + 0x74))->v44(n);
 }
 
 extern "C" asm void func_ov031_021661c8(void)

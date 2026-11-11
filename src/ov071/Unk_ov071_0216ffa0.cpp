@@ -5,7 +5,7 @@ struct P02170534 { u8 pad[0x30]; E02170534 arr[1]; };
 struct P021708e4 { s32 a; s32 b; };
 
 extern "C" void func_ov071_0216ffa0(void);
-extern "C" void func_ov071_0217009c(void);
+extern "C" void func_ov071_0217009c(s32 arg0, s32 *arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov071_02170148(u8 *arg0);
 extern "C" void func_ov071_021701b8(u8 *arg0);
 extern "C" void func_ov071_021703a0(void);
@@ -144,54 +144,23 @@ extern "C" asm void func_ov071_0216ffa0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov071_0217009c(void)
+extern "C" void func_ov071_0217009c(s32 arg0, s32 *arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r1
-    ldr r0, [r4]
-    mul r5, r2, r3
-    strh r2, [r4, #8]
-    strh r3, [r4, #0xa]
-    cmp r0, #0
-    bne @L_021700d4
-    ldr r0, =data_020c47b4
-    mov r1, r5, lsl #1
-    mov r2, #0
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r4]
-@L_021700d4:
-    ldr r0, [r4, #4]
-    cmp r0, #0
-    bne @L_021700f8
-    ldr r0, =data_020c47b4
-    mov r1, r5, lsl #5
-    mov r2, #0
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [r4, #4]
-@L_021700f8:
-    ldr r2, [r4]
-    cmp r2, #0
-    ldrne r0, [r4, #4]
-    cmpne r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    cmp r5, #0
-    mov r1, #0
-    ble @L_02170130
-@L_02170118:
-    add r0, r1, #1
-    mov r0, r0, lsl #0x10
-    strh r1, [r2], #2
-    cmp r5, r0, lsr #16
-    mov r1, r0, lsr #0x10
-    bgt @L_02170118
-@L_02170130:
-    ldr r1, [r4, #4]
-    mov r2, r5, lsl #5
-    mov r0, #0
-    bl func_0200919c
-    ldmia sp!, {r3, r4, r5, pc}
+    s32 n = arg2 * arg3;
+    u16 i;
+    u16 *d;
+    *(u16 *)((u8 *)arg1 + 8) = arg2;
+    *(u16 *)((u8 *)arg1 + 0xA) = arg3;
+    if (arg1[0] == 0)
+        arg1[0] = ((s32 (*)(...))_ZN8GameHeap5AllocEiii)(data_020c47b4, n << 1, 0, 1);
+    if (arg1[1] == 0)
+        arg1[1] = ((s32 (*)(...))_ZN8GameHeap5AllocEiii)(data_020c47b4, n << 5, 0, 1);
+    d = (u16 *)arg1[0];
+    if (d == 0 || arg1[1] == 0)
+        return;
+    for (i = 0; i < n; i++)
+        *d++ = i;
+    ((s32 (*)(...))func_0200919c)(0, arg1[1], n << 5);
 }
 
 extern "C" s32 func_ov071_02170148(u8 *arg0)

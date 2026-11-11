@@ -1,4 +1,5 @@
 #include "ov016/Unk_0214f17c.hpp"
+struct T0214fab8 { s8 v[4]; };
 struct N021512a0 { N021512a0 *a; N021512a0 *b; };
 
 extern "C" s32 func_ov016_0214f17c(...);
@@ -27,7 +28,7 @@ extern "C" s32 func_ov016_0214f9d8(u8 *arg0);
 extern "C" void func_ov016_0214fa30(void);
 extern "C" void func_ov016_0214fa80(void);
 extern "C" s32 func_ov016_0214fa94(u8 *arg0);
-extern "C" void func_ov016_0214fab8(void);
+extern "C" s32 func_ov016_0214fab8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov016_0214fb80(void);
 extern "C" s32 func_ov016_0214fca4(u16 arg0);
 extern "C" void func_ov016_0214fd00(s32 arg0, u8 *arg1);
@@ -851,55 +852,26 @@ extern "C" s32 func_ov016_0214fa94(u8 *arg0)
     return *(u8 *)(arg0 + 0x9);
 }
 
-extern "C" asm void func_ov016_0214fab8(void)
+extern "C" s32 func_ov016_0214fab8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r4, =data_ov016_02154f68
-    mov r6, r0
-    ldrb r0, [r4, #3]
-    ldrb lr, [r4]
-    ldrb r12, [r4, #1]
-    strb r0, [sp, #3]
-    cmp r1, #1
-    ldrb r7, [r4, #2]
-    ldreq r0, =data_ov016_02158b5c
-    mov r5, r3
-    ldreq r4, [r0]
-    ldrne r0, =data_ov016_02158b5c
-    strb lr, [sp]
-    ldrne r0, [r0]
-    strb r12, [sp, #1]
-    addne r4, r0, #0xc
-    ldrb r0, [r4, #9]
-    strb r7, [sp, #2]
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    add r0, sp, #0
-    cmp r1, #1
-    mov r1, r2
-    ldrsb r2, [r0, r6]
-    bne @L_0214fb2c
-    ldr r0, =0x4001050
-    b @L_0214fb30
-@L_0214fb2c:
-    ldr r0, =0x4000050
-@L_0214fb30:
-    bl func_020027c8
-    mov r7, #1
-    ldr r1, =func_ov016_0214fb80
-    mov r0, r7
-    mov r2, r4
-    mov r3, #0xc8
-    bl func_ov016_02151b94
-    str r0, [r4]
-    mov r0, #0
-    strh r0, [r4, #4]
-    strb r6, [r4, #8]
-    strh r5, [r4, #6]
-    mov r0, r7
-    strb r7, [r4, #9]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    T0214fab8 t = *(T0214fab8 *)data_ov016_02154f68;
+    u8 *p;
+    if (arg1 == 1)
+        p = *(u8 **)data_ov016_02158b5c;
+    else
+        p = *(u8 **)data_ov016_02158b5c + 0xC;
+    if (p[9] != 0)
+        return 0;
+    if (arg1 == 1)
+        ((s32 (*)(...))func_020027c8)(0x4001050, arg2, t.v[arg0]);
+    else
+        ((s32 (*)(...))func_020027c8)(0x4000050, arg2, t.v[arg0]);
+    *(s32 *)p = ((s32 (*)(...))func_ov016_02151b94)(1, func_ov016_0214fb80, p, 0xC8);
+    *(u16 *)(p + 4) = 0;
+    p[8] = arg0;
+    *(u16 *)(p + 6) = arg3;
+    p[9] = 1;
+    return 1;
 }
 
 extern "C" asm void func_ov016_0214fb80(void)

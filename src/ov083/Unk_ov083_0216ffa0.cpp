@@ -1,4 +1,5 @@
 #include "ov083/Unk_ov083_0216ffa0.hpp"
+class C02170aa4 { public: virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c(); virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3c(); virtual void v40(s32); };
 
 extern "C" void func_ov083_0216ffa0(u8 *arg0);
 extern "C" s32 func_ov083_0216ffc0(...);
@@ -11,7 +12,7 @@ extern "C" s32 func_ov083_02170634(...);
 extern "C" s32 func_ov083_0217079c(...);
 extern "C" s32 func_ov083_02170850(...);
 extern "C" s32 func_ov083_0217094c(u8 *arg0);
-extern "C" void func_ov083_02170aa4(void);
+extern "C" void func_ov083_02170aa4(u8 *arg0);
 extern "C" s32 func_ov083_02170b4c(u8 *arg0);
 extern "C" void func_ov083_02170bd4(u8 *arg0);
 extern "C" void func_ov083_02170c50(s32 arg0);
@@ -783,54 +784,30 @@ extern "C" s32 func_ov083_0217094c(u8 *arg0)
     return v10;
 }
 
-extern "C" asm void func_ov083_02170aa4(void)
+extern "C" void func_ov083_02170aa4(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #8]
-    cmp r1, #5
-    addls pc, pc, r1, lsl #2
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    b @L_02170ad4
-    b @L_02170af4
-    ldmia sp!, {r4, pc}
-    b @L_02170b10
-    b @L_02170b44
-@L_02170ad4:
-    add r0, r4, #0x3c
-    mov r1, #0xf
-    bl func_ov015_02134118
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    bl func_ov083_021700ec
-    ldmia sp!, {r4, pc}
-@L_02170af4:
-    bl func_ov083_0217023c
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    mov r1, #3
-    bl func_ov083_021701e4
-    ldmia sp!, {r4, pc}
-@L_02170b10:
-    bl func_ov083_0217094c
-    ldr r0, [r4, #4]
-    mov r1, #1
-    ldr r2, [r0]
-    ldr r2, [r2, #0x40]
-    blx r2
-    ldr r0, [r4, #0x38]
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    mov r1, #5
-    bl func_ov083_021701e4
-    ldmia sp!, {r4, pc}
-@L_02170b44:
-    bl func_ov083_0217094c
-    ldmia sp!, {r4, pc}
+    switch (*(s32 *)(arg0 + 8)) {
+    case 1:
+        if (((s32 (*)(...))func_ov015_02134118)(arg0 + 0x3C, 0xF) == 0)
+            return;
+        ((s32 (*)(...))func_ov083_021700ec)(arg0);
+        return;
+    case 2:
+        if (((s32 (*)(...))func_ov083_0217023c)(arg0) == 0)
+            return;
+        ((s32 (*)(...))func_ov083_021701e4)(arg0, 3);
+        return;
+    case 4:
+        ((s32 (*)(...))func_ov083_0217094c)(arg0);
+        (*(C02170aa4 **)(arg0 + 4))->v40(1);
+        if (*(s32 *)(arg0 + 0x38) == 0)
+            return;
+        ((s32 (*)(...))func_ov083_021701e4)(arg0, 5);
+        return;
+    case 5:
+        ((s32 (*)(...))func_ov083_0217094c)(arg0);
+        return;
+    }
 }
 
 extern "C" s32 func_ov083_02170b4c(u8 *arg0)
