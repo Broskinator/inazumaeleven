@@ -1,4 +1,5 @@
 #include "ov079/Unk_ov079_0216ffa0.hpp"
+struct T02172104 { s32 v[4]; };
 struct P021702dc { s32 a; s32 b; };
 
 extern "C" void func_ov079_0216ffa0(void);
@@ -25,7 +26,7 @@ extern "C" void func_ov079_02171604(void);
 extern "C" s32 func_ov079_021716dc(...);
 extern "C" s32 func_ov079_021717c8(...);
 extern "C" s32 func_ov079_02171c8c(...);
-extern "C" void func_ov079_02172104(void);
+extern "C" void func_ov079_02172104(u8 *arg0);
 extern "C" void func_ov079_021721b8(void);
 extern "C" void func_ov079_021725ec(void);
 extern "C" void func_ov079_02172674(u8 *arg0);
@@ -2276,52 +2277,21 @@ extern "C" asm s32 func_ov079_02171c8c(...)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov079_02172104(void)
+extern "C" void func_ov079_02172104(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x2c
-    mov r10, r0
-    bl func_ov015_021319bc
-    add r7, sp, #4
-    mov r1, r0
-    mov r9, #0
-    ldr r0, =data_020e88a0
-    mov r2, r7
-    mov r3, #4
-    str r9, [sp]
-    bl _ZN17UnkClass_020621b413func_02078844Ev
-    mov r8, r0
-    ldr r0, =data_ov079_02173cac
-    ldr r4, =data_ov079_02173cbc
-    cmp r8, #0
-    add r6, sp, #0x1c
-    add r5, sp, #0xc
-    ldmia r0, {r0, r1, r2, r3}
-    stmia r6, {r0, r1, r2, r3}
-    ldmia r4, {r0, r1, r2, r3}
-    addle sp, sp, #0x2c
-    stmia r5, {r0, r1, r2, r3}
-    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r4, r9
-@L_02172168:
-    mov r0, r9, lsl #1
-    ldrh r0, [r7, r0]
-    mov r1, r4
-    bl func_ov015_02130b14
-    movs r2, r0
-    beq @L_02172198
-    ldr r1, [r5, r9, lsl #2]
-    mov r0, r10
-    str r1, [sp]
-    ldr r3, [r6, r9, lsl #2]
-    mov r1, r9
-    bl func_ov079_021721b8
-@L_02172198:
-    add r9, r9, #1
-    cmp r9, r8
-    blt @L_02172168
-    add sp, sp, #0x2c
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    u16 ids[4];
+    s32 n;
+    s32 i;
+    n = ((s32 (*)(...))_ZN17UnkClass_020621b413func_02078844Ev)(data_020e88a0, ((s32 (*)(...))func_ov015_021319bc)(), ids, 4, 0);
+    {
+        T02172104 a = *(T02172104 *)data_ov079_02173cac;
+        T02172104 b = *(T02172104 *)data_ov079_02173cbc;
+        for (i = 0; i < n; i++) {
+            u8 *p = (u8 *)((s32 (*)(...))func_ov015_02130b14)(ids[i], 0);
+            if (p != 0)
+                ((s32 (*)(...))func_ov079_021721b8)(arg0, i, p, a.v[i], b.v[i]);
+        }
+    }
 }
 
 extern "C" asm void func_ov079_021721b8(void)

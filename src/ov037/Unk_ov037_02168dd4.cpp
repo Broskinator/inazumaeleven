@@ -57,7 +57,7 @@ extern "C" s32 func_ov037_0216bb34(u8 *arg0);
 extern "C" void func_ov037_0216bb48(void);
 extern "C" void func_ov037_0216bb7c(void);
 extern "C" void func_ov037_0216bbb0(void);
-extern "C" void func_ov037_0216bcdc(void);
+extern "C" s32 func_ov037_0216bcdc(u8 *arg0, s32 arg1, s32 *arg2, s32 *arg3, s32 *arg4);
 extern "C" void func_ov037_0216bd84(void);
 
 extern "C" char data_020c4650[];
@@ -3158,52 +3158,34 @@ extern "C" asm void func_ov037_0216bbb0(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov037_0216bcdc(void)
+extern "C" s32 func_ov037_0216bcdc(u8 *arg0, s32 arg1, s32 *arg2, s32 *arg3, s32 *arg4)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, #0
-    mov r7, r0
-    mov r0, r1
-    mov r1, r4
-    mov r6, r2
-    mov r5, r3
-    bl func_ov015_02130b14
-    cmp r0, #0
-    moveq r0, r4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrb r0, [r0, #0x54]
-    ldr r1, [r7, #0xf9c]
-    mov r2, #6
-    cmp r0, #1
-    mov r12, r1, lsl #1
-    mov r3, #0x96
-    bne @L_0216bd54
-    mov r0, #0x1c00
-    umull r3, r2, r1, r0
-    mla r2, r1, r4, r2
-    mov r1, r1, asr #0x1f
-    adds r3, r3, #0x800
-    mla r2, r1, r0, r2
-    adc r0, r2, r4
-    mov r12, r3, lsr #0xc
-    orr r12, r12, r0, lsl #20
-    mov r2, #0xa
-    mov r3, #0x78
-    b @L_0216bd60
-@L_0216bd54:
-    cmp r0, #2
-    moveq r2, #3
-    moveq r3, #0x64
-@L_0216bd60:
-    cmp r6, #0
-    strne r2, [r6]
-    cmp r5, #0
-    ldr r0, [sp, #0x18]
-    strne r3, [r5]
-    cmp r0, #0
-    strne r12, [r0]
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *p = (u8 *)((s32 (*)(...))func_ov015_02130b14)(arg1, 0);
+    s32 a;
+    s32 b;
+    s32 c;
+    s32 v;
+    if (p == 0)
+        return 0;
+    v = *(s32 *)(arg0 + 0xF9C);
+    a = 6;
+    c = v * 2;
+    b = 0x96;
+    if (p[0x54] == 1) {
+        c = (s32)(((s64)v * 0x1C00 + 0x800) >> 12);
+        a = 0xA;
+        b = 0x78;
+    } else if (p[0x54] == 2) {
+        a = 3;
+        b = 0x64;
+    }
+    if (arg2 != 0)
+        *arg2 = a;
+    if (arg3 != 0)
+        *arg3 = b;
+    if (arg4 != 0)
+        *arg4 = c;
+    return 1;
 }
 
 extern "C" asm void func_ov037_0216bd84(void)

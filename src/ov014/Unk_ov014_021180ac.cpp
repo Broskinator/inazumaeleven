@@ -1,4 +1,5 @@
 #include "ov014/Unk_ov014_021180ac.hpp"
+struct M0211ae24 { s32 a; s32 b; s32 c; };
 
 extern "C" void func_ov014_021180ac(void);
 extern "C" s32 func_ov014_02118220(s32 arg0, s32 arg1, s32 arg2);
@@ -114,7 +115,7 @@ extern "C" s32 func_ov014_0211ab28(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_0211ab5c(void);
 extern "C" s32 func_ov014_0211ac90(u8 *arg0);
 extern "C" s32 func_ov014_0211ad2c(...);
-extern "C" void func_ov014_0211ae24(void);
+extern "C" void func_ov014_0211ae24(u8 *arg0);
 extern "C" s32 func_ov014_0211aec4(void);
 extern "C" s32 func_ov014_0211af00(void);
 extern "C" void func_ov014_0211afa0(void);
@@ -3374,52 +3375,25 @@ extern "C" asm s32 func_ov014_0211ad2c(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0211ae24(void)
+extern "C" void func_ov014_0211ae24(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    movs r9, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    add r0, r9, #0x20
-    bl func_02006048
-    bl OS_DisableInterrupts
-    mov r8, r0
-    bl func_02006434
-    add r7, sp, #0
-    mov r0, r9
-    mov r1, r7
-    mov r2, #0
-    bl func_020068c0
-    cmp r0, #0
-    beq @L_0211aeb0
-    mov r5, #0
-    mvn r6, #0xa
-    mov r4, r5
-@L_0211ae6c:
-    ldr r0, [sp]
-    cmp r0, #0
-    beq @L_0211ae98
-    ldr r0, [r0, #8]
-    cmp r0, #0
-    beq @L_0211ae90
-    mov r1, r6
-    mov r2, r5
-    bl OS_SendMessage
-@L_0211ae90:
-    ldr r0, [sp]
-    bl func_ov014_02119304
-@L_0211ae98:
-    mov r0, r9
-    mov r1, r7
-    mov r2, r4
-    bl func_020068c0
-    cmp r0, #0
-    bne @L_0211ae6c
-@L_0211aeb0:
-    bl OS_EnableScheduler
-    bl func_020061a4
-    mov r0, r8
-    bl OS_RestoreInterrupts
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    s32 s;
+    M0211ae24 *m;
+    if (arg0 == 0)
+        return;
+    ((s32 (*)(...))func_02006048)(arg0 + 0x20);
+    s = ((s32 (*)(...))OS_DisableInterrupts)();
+    ((s32 (*)(...))func_02006434)();
+    while (((s32 (*)(...))func_020068c0)(arg0, &m, 0) != 0) {
+        if (m != 0) {
+            if (m->c != 0)
+                ((s32 (*)(...))OS_SendMessage)(m->c, -0xB, 0);
+            ((s32 (*)(...))func_ov014_02119304)(m);
+        }
+    }
+    ((s32 (*)(...))OS_EnableScheduler)();
+    ((s32 (*)(...))func_020061a4)();
+    ((s32 (*)(...))OS_RestoreInterrupts)(s);
 }
 
 extern "C" s32 func_ov014_0211aec4(void)

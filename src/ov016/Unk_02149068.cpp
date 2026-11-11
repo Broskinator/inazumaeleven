@@ -1238,52 +1238,20 @@ extern "C" void func_ov016_0214a0f8(s32 arg0)
     func_ov016_0214a1dc(arg0, 0xFF);
 }
 
-extern "C" asm void func_ov016_0214a134(void)
+extern "C" void func_ov016_0214a134(void)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x14
-    ldr r4, =data_ov016_02158b24
-    mov r5, #0
-    ldr r1, [r4]
-    mov r0, r5
-    mov r2, #0x400
-    bl MIi_CpuClear16
-    mov r1, #0xff
-@L_0214a158:
-    ldr r0, [r4]
-    add r0, r0, r5, lsl #8
-    add r5, r5, #1
-    strb r1, [r0, #0xe7]
-    cmp r5, #3
-    blt @L_0214a158
-    add r4, sp, #0
-    mov r0, r4
-    bl func_ov014_0211033c
-    mov r0, r4
-    bl func_ov014_0210fc58
-    ldr r4, =data_ov016_02158b24
-    mov r6, r0
-    mov r7, #0
-    mov r5, #0xe
-@L_0214a194:
-    ldr r1, [r4]
-    mov r0, r6
-    add r1, r1, r7, lsl #8
-    mov r2, r5
-    add r1, r1, #0xf0
-    bl MI_CpuCopy8
-    add r7, r7, #1
-    cmp r7, #2
-    blt @L_0214a194
-    mov r4, #0
-@L_0214a1bc:
-    mov r0, r4
-    bl func_ov016_0214a1dc
-    add r4, r4, #1
-    cmp r4, #4
-    blt @L_0214a1bc
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    u8 buf[0x14];
+    s32 i;
+    s32 s;
+    ((s32 (*)(...))MIi_CpuClear16)(0, *(s32 *)data_ov016_02158b24, 0x400);
+    for (i = 0; i < 3; i++)
+        (*(u8 **)data_ov016_02158b24)[(i << 8) + 0xE7] = 0xFF;
+    ((s32 (*)(...))func_ov014_0211033c)(buf);
+    s = ((s32 (*)(...))func_ov014_0210fc58)(buf);
+    for (i = 0; i < 2; i++)
+        ((s32 (*)(...))MI_CpuCopy8)(s, *(u8 **)data_ov016_02158b24 + (i << 8) + 0xF0, 0xE);
+    for (i = 0; i < 4; i++)
+        ((s32 (*)(...))func_ov016_0214a1dc)(i);
 }
 
 extern "C" asm s32 func_ov016_0214a1dc(...)

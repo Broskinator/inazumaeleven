@@ -46,7 +46,7 @@ extern "C" void func_ov014_0210a478(void);
 extern "C" s32 func_ov014_0210a5a8(...);
 extern "C" void func_ov014_0210a65c(void);
 extern "C" s32 func_ov014_0210a77c(u8 *arg0);
-extern "C" void func_ov014_0210a7fc(void);
+extern "C" s8 func_ov014_0210a7fc(s32 arg0);
 extern "C" void func_ov014_0210a8a0(void);
 extern "C" s32 func_ov014_0210a938(...);
 extern "C" s32 func_ov014_0210a9e8(s32 arg0);
@@ -2061,52 +2061,27 @@ extern "C" s32 func_ov014_0210a77c(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov014_0210a7fc(void)
+extern "C" s8 func_ov014_0210a7fc(s32 arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r10, r0
-    mov r0, #0x10
-    bl func_ov014_0210878c
-    cmp r10, #0
-    mov r7, r0
-    add r4, r7, #0xd00
-    moveq r8, #0
-    moveq r9, #1
-    ldrh r0, [r4, #0x1e]
-    movne r8, #1
-    movne r9, #2
-    cmp r8, r0
-    bgt @L_0210a86c
-    mov r5, #0
-    mov r6, #1
-@L_0210a83c:
-    bl func_ov014_021217cc
-    tst r0, r9
-    movne r0, r6
-    moveq r0, r5
-    cmp r0, #1
-    beq @L_0210a86c
-    ldrh r1, [r4, #0x1e]
-    mov r0, r9, lsl #0x12
-    add r8, r8, #2
-    cmp r8, r1
-    mov r9, r0, lsr #0x10
-    ble @L_0210a83c
-@L_0210a86c:
-    add r0, r7, #0xd00
-    ldrh r0, [r0, #0x1e]
-    cmp r8, r0
-    ble @L_0210a894
-    mov r0, #1
-    cmp r10, #0
-    moveq r0, #0
-    mov r0, r0, lsl #0x18
-    mov r0, r0, asr #0x18
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0210a894:
-    mov r0, r8, lsl #0x18
-    mov r0, r0, asr #0x18
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    u8 *p = (u8 *)((s32 (*)(...))func_ov014_0210878c)(0x10);
+    s32 i;
+    u16 m;
+    if (arg0 == 0) {
+        i = 0;
+        m = 1;
+    } else {
+        i = 1;
+        m = 2;
+    }
+    for (; i <= *(u16 *)(p + 0xD1E); i += 2) {
+        s32 r = ((s32 (*)(...))func_ov014_021217cc)();
+        if (((r & m) ? 1 : 0) == 1)
+            break;
+        m <<= 2;
+    }
+    if (i > *(u16 *)(p + 0xD1E))
+        return arg0 != 0 ? 1 : 0;
+    return i;
 }
 
 extern "C" asm void func_ov014_0210a8a0(void)

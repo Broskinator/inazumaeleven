@@ -15,7 +15,7 @@ extern "C" s32 func_ov016_0213a444(...);
 extern "C" void func_ov016_0213a5d8(void);
 extern "C" s32 func_ov016_0213a858(...);
 extern "C" void func_ov016_0213a920(void);
-extern "C" void func_ov016_0213a9b0(void);
+extern "C" void func_ov016_0213a9b0(s32 arg0);
 extern "C" void func_ov016_0213aa58(void);
 extern "C" void func_ov016_0213aab8(void);
 extern "C" void func_ov016_0213ab10(void);
@@ -1144,52 +1144,34 @@ extern "C" asm void func_ov016_0213a920(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov016_0213a9b0(void)
+extern "C" void func_ov016_0213a9b0(s32 arg0)
 {
-    stmdb sp!, {r3, lr}
-    ldr r1, =data_ov016_02158a40
-    ldr r2, =data_ov016_0215490c
-    ldr r3, [r1]
-    ldrsb r12, [r3, #0x63]
-    add r2, r2, r12, lsl #2
-    ldrsb r2, [r0, r2]
-    strb r2, [r3, #0x63]
-    ldr r2, [r1]
-    ldrsb r1, [r2, #0x63]
-    cmp r1, #0xd
-    bne @L_0213a9f0
-    cmp r0, #1
-    cmpne r0, #3
-    streqb r12, [r2, #0x64]
-    beq @L_0213aa40
-@L_0213a9f0:
-    mvn r0, #0
-    cmp r1, r0
-    bne @L_0213aa18
-    ldrsb r0, [r2, #0x64]
-    cmp r0, #1
-    cmpne r0, #0xa
-    moveq r0, #0xa
-    streqb r0, [r2, #0x63]
-    movne r0, #0xb
-    b @L_0213aa3c
-@L_0213aa18:
-    sub r0, r0, #1
-    cmp r1, r0
-    bne @L_0213aa40
-    ldrsb r0, [r2, #0x64]
-    cmp r0, #1
-    cmpne r0, #0xa
-    moveq r0, #1
-    streqb r0, [r2, #0x63]
-    movne r0, #2
-@L_0213aa3c:
-    strneb r0, [r2, #0x63]
-@L_0213aa40:
-    bl func_ov016_0213a920
-    mov r0, #8
-    bl func_ov016_0214a4c0
-    ldmia sp!, {r3, pc}
+    u8 *q = *(u8 **)data_ov016_02158a40;
+    s32 old = *(s8 *)(q + 0x63);
+    s32 c;
+    u8 *p;
+    s32 m;
+    *(s8 *)(q + 0x63) = *(s8 *)(arg0 + ((u8 *)data_ov016_0215490c + (old << 2)));
+    p = *(u8 **)data_ov016_02158a40;
+    c = *(s8 *)(p + 0x63);
+    m = -1;
+    if (c == 0xD && (arg0 == 1 || arg0 == 3)) {
+        *(s8 *)(p + 0x64) = old;
+    } else if (c == m) {
+        s32 d = *(s8 *)(p + 0x64);
+        if (d == 1 || d == 0xA)
+            *(s8 *)(p + 0x63) = 0xA;
+        else
+            *(s8 *)(p + 0x63) = 0xB;
+    } else if (c == m - 1) {
+        s32 d = *(s8 *)(p + 0x64);
+        if (d == 1 || d == 0xA)
+            *(s8 *)(p + 0x63) = 1;
+        else
+            *(s8 *)(p + 0x63) = 2;
+    }
+    ((s32 (*)(...))func_ov016_0213a920)();
+    ((s32 (*)(...))func_ov016_0214a4c0)(8);
 }
 
 extern "C" asm void func_ov016_0213aa58(void)

@@ -1,5 +1,6 @@
 #include "ov014/Unk_ov014_020ff844.hpp"
 #include "game/vcall.hpp"
+class C02100994 { public: virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c(); virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3c(); virtual void v40(); virtual void v44(); virtual void v48(); virtual void v4c(); virtual void v50(); virtual void v54(); virtual s32 v58(); };
 struct S021007f0 { s32 x0; s32 x4; s32 x8; s32 xc; s32 x10; s32 x14; s32 x18; };
 struct S020ff934 { u16 a, b, c, d, e, f, g, h; u8 i; s32 p; };
 struct P02100ffc { s32 a; s32 b; };
@@ -26,7 +27,7 @@ extern "C" void func_ov014_021007f0(u8 *arg0);
 extern "C" s32 func_ov014_02100864(...);
 extern "C" void func_ov014_02100918(void);
 extern "C" void func_ov014_02100970(u8 *arg0);
-extern "C" void func_ov014_02100994(void);
+extern "C" void func_ov014_02100994(u8 *arg0);
 extern "C" void func_ov014_02100a38(u8 *arg0);
 extern "C" void func_ov014_02100a7c(s32 arg0);
 extern "C" s32 func_ov014_02100a9c(s32 arg0);
@@ -1305,52 +1306,32 @@ extern "C" void func_ov014_02100970(u8 *arg0)
     func_ov014_02100740(arg0);
 }
 
-extern "C" asm void func_ov014_02100994(void)
+extern "C" void func_ov014_02100994(u8 *arg0)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0xc]
-    cmp r1, #6
-    addls pc, pc, r1, lsl #2
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    b @L_021009c8
-    ldmia sp!, {r4, pc}
-    b @L_021009f0
-    ldmia sp!, {r4, pc}
-    ldmia sp!, {r4, pc}
-    b @L_02100a0c
-@L_021009c8:
-    add r0, r4, #0x18
-    mov r1, #3
-    bl func_ov015_02134118
-    cmp r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    bl func_ov014_02100774
-    mov r0, #2
-    str r0, [r4, #0xc]
-    ldmia sp!, {r4, pc}
-@L_021009f0:
-    ldr r1, [r0]
-    ldr r1, [r1, #0x58]
-    blx r1
-    cmp r0, #0
-    moveq r0, #4
-    streq r0, [r4, #0xc]
-    ldmia sp!, {r4, pc}
-@L_02100a0c:
-    ldr r1, [r0]
-    ldr r1, [r1, #0x58]
-    blx r1
-    cmp r0, #0
-    ldmneia sp!, {r4, pc}
-    ldr r0, [r4, #0x10]
-    cmp r0, #3
-    ldmeqia sp!, {r4, pc}
-    mov r0, r4
-    bl func_ov014_02100918
-    ldmia sp!, {r4, pc}
+    switch (*(s32 *)(arg0 + 0xC)) {
+    case 0:
+        break;
+    case 1:
+        if (((s32 (*)(...))func_ov015_02134118)(arg0 + 0x18, 3) != 0) {
+            ((s32 (*)(...))func_ov014_02100774)(arg0);
+            *(s32 *)(arg0 + 0xC) = 2;
+        }
+        break;
+    case 2:
+        break;
+    case 3:
+        if (((C02100994 *)arg0)->v58() == 0)
+            *(s32 *)(arg0 + 0xC) = 4;
+        break;
+    case 4:
+        break;
+    case 5:
+        break;
+    case 6:
+        if (((C02100994 *)arg0)->v58() == 0 && *(s32 *)(arg0 + 0x10) != 3)
+            ((s32 (*)(...))func_ov014_02100918)(arg0);
+        break;
+    }
 }
 
 extern "C" void func_ov014_02100a38(u8 *arg0)

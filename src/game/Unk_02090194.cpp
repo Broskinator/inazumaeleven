@@ -51,7 +51,7 @@ extern "C" s32 func_02090e38(u8 *arg0);
 extern "C" void func_02090ee0(void);
 extern "C" s32 func_02090f68(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3);
 extern "C" void func_02090fb8(void);
-extern "C" void func_02091004(void);
+extern "C" void func_02091004(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" void func_020910ac(void);
 extern "C" void func_020912ac(void);
 extern "C" void func_02091634(void);
@@ -1029,53 +1029,25 @@ extern "C" void func_02090fb8(void)
     ((void (*)(s32, s32 *, s32))func_0202b608)(0x31, &b, 1);
 }
 
-extern "C" asm void func_02091004(void)
+static inline u32 n02091004(u32 a, u32 b) { return a < b ? a : b; }
+extern "C" void func_02091004(s32 arg0, u8 *arg1, u8 *arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0xc
-    mov r4, r2
-    ldrh r0, [r4, #2]
-    mov r5, r1
-    tst r0, #0x4000
-    bne @L_0209102c
-    ldrh r0, [r5, #4]
-    tst r0, #0x4000
-    beq @L_02091048
-@L_0209102c:
-    mov r3, #0x10
-    add r1, sp, #8
-    mov r0, #0x20
-    mov r2, #1
-    str r3, [sp, #8]
-    mov r6, #2
-    b @L_02091068
-@L_02091048:
-    ldrh r3, [r5, #0x14]
-    ldrh r2, [r4, #6]
-    add r1, sp, #4
-    mov r0, #0x20
-    and r3, r3, r2
-    mov r2, #1
-    str r3, [sp, #4]
-    mov r6, #0
-@L_02091068:
-    bl func_0202b608
-    ldrb r0, [r4, #4]
-    ldrb r2, [r5, #7]
-    ldrb r1, [r4, #5]
-    cmp r2, r0
-    movhs r2, r0
-    mov r0, r6, lsl #4
-    orr r0, r0, #0x80
-    orr r0, r0, r1, lsl #24
-    orr r3, r0, r2, lsl #16
-    add r1, sp, #0
-    mov r0, #0x29
-    mov r2, #1
-    str r3, [sp]
-    bl func_0202b608
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    s32 m;
+    if ((*(u16 *)(arg2 + 2) & 0x4000) || (*(u16 *)(arg1 + 4) & 0x4000)) {
+        s32 v = 0x10;
+        m = 2;
+        ((s32 (*)(...))func_0202b608)(0x20, &v, 1);
+    } else {
+        s32 v = *(u16 *)(arg1 + 0x14) & *(u16 *)(arg2 + 6);
+        m = 0;
+        ((s32 (*)(...))func_0202b608)(0x20, &v, 1);
+    }
+    {
+        u8 l = arg2[5];
+        u32 n = n02091004(arg1[7], arg2[4]);
+        s32 w = (m << 4) | 0x80 | (l << 24) | (n << 16);
+        ((s32 (*)(...))func_0202b608)(0x29, &w, 1);
+    }
 }
 
 extern "C" asm void func_020910ac(void)

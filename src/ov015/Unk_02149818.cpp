@@ -1,8 +1,9 @@
 #include "ov015/Unk_02149818.hpp"
+struct E02149818 { u16 *id; u8 pad[0x48]; };
 struct E021498bc { u8 *p; u8 pad[0x48]; };
 struct C021498bc { u8 pad[0x234]; E021498bc *arr; s32 n; };
 
-extern "C" void func_ov015_02149818(void);
+extern "C" E02149818 *func_ov015_02149818(u8 *arg0, E02149818 *arg1, u16 arg2);
 extern "C" E021498bc *func_ov015_021498bc(C021498bc *arg0, E021498bc *arg1, s32 arg2);
 extern "C" void func_ov015_02149920(void);
 extern "C" void func_ov015_02149aa8(u8 *arg0, u8 *arg1);
@@ -440,52 +441,27 @@ extern "C" void func_ov015_02160064(void);
 extern "C" void func_ov015_02160160(void);
 extern "C" void func_ov015_02160280(void);
 
-extern "C" asm void func_ov015_02149818(void)
+extern "C" E02149818 *func_ov015_02149818(u8 *arg0, E02149818 *arg1, u16 arg2)
 {
-    stmdb sp!, {r4, lr}
-    cmp r1, #0
-    ldreq r1, [r0, #0x238]
-    ldreq r12, [r0, #0x234]
-    subeq r3, r1, #1
-    moveq r1, #0x4c
-    mlaeq r1, r3, r1, r12
-    ldr r12, [r0, #0x234]
-    ldr r3, =0xaf286bcb
-    sub r12, r1, r12
-    umull r3, lr, r12, r3
-    sub r3, r12, lr
-    add lr, lr, r3, lsr #1
-    movs lr, lr, lsr #6
-    mov r12, r1
-    mov r4, lr
-    bmi @L_0214987c
-@L_0214985c:
-    ldr r3, [r12]
-    ldrh r3, [r3]
-    cmp r3, r2
-    moveq r0, r12
-    ldmeqia sp!, {r4, pc}
-    sub r12, r12, #0x4c
-    subs r4, r4, #1
-    bpl @L_0214985c
-@L_0214987c:
-    ldr r3, [r0, #0x238]
-    add r4, lr, #1
-    cmp r4, r3
-    add r0, r1, #0x4c
-    bge @L_021498b0
-@L_02149890:
-    ldr r1, [r0]
-    ldrh r1, [r1]
-    cmp r1, r2
-    ldmeqia sp!, {r4, pc}
-    add r4, r4, #1
-    cmp r4, r3
-    add r0, r0, #0x4c
-    blt @L_02149890
-@L_021498b0:
-    mov r0, #0
-    ldmia sp!, {r4, pc}
+    E02149818 *p;
+    s32 i;
+    s32 j;
+    if (arg1 == 0)
+        arg1 = *(E02149818 **)(arg0 + 0x234) + (*(s32 *)(arg0 + 0x238) - 1);
+    i = ((u32)arg1 - *(u32 *)(arg0 + 0x234)) / sizeof(E02149818);
+    p = arg1;
+    for (j = i; j >= 0; j--) {
+        if (*p->id == arg2)
+            return p;
+        p--;
+    }
+    p = arg1 + 1;
+    for (j = i + 1; j < *(s32 *)(arg0 + 0x238); j++) {
+        if (*p->id == arg2)
+            return p;
+        p++;
+    }
+    return 0;
 }
 
 extern "C" E021498bc *func_ov015_021498bc(C021498bc *arg0, E021498bc *arg1, s32 arg2)
