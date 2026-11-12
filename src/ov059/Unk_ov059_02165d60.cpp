@@ -56,7 +56,7 @@ extern "C" s32 func_ov059_021689a4(s32 arg0);
 extern "C" s32 func_ov059_021689b8(u8 *arg0);
 extern "C" void func_ov059_021689c0(void);
 extern "C" void func_ov059_021689c4(s32 arg0);
-extern "C" void func_ov059_02168ab8(void);
+extern "C" void func_ov059_02168ab8(u8 *arg0);
 extern "C" s32 func_ov059_02168b74(u8 *arg0, s32 arg1);
 extern "C" void func_ov059_02168bbc(u8 *arg0, s32 arg1);
 extern "C" void func_ov059_02168c6c(void);
@@ -3182,55 +3182,27 @@ extern "C" void func_ov059_021689c4(s32 arg0)
     func_ov059_02168e08(arg0, 1);
 }
 
-extern "C" asm void func_ov059_02168ab8(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov059_02168ab8(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x21c
-    add r11, sp, #0x1c
-    mov r10, r0
-    ldr r1, =data_ov059_0216bc74
-    mov r0, r11
-    bl sprintf
-    mov r9, #0
-    mov r6, r9
-    mov r5, #1
-    add r8, sp, #0x11c
-    ldr r7, =data_ov059_0216bb0c
-    ldr r4, =data_020c46d4
-    b @L_02168b54
-@L_02168af0:
-    ldr r2, [r7, r9, lsl #2]
-    ldr r1, =data_ov059_0216bc90
-    mov r0, r8
-    bl sprintf
-    ldr r1, [r10, #0x768]
-    mov r0, r8
-    add r2, sp, #0x18
-    add r3, sp, #0x14
-    bl func_ov015_02134b08
-    cmp r0, #0
-    beq @L_02168b50
-    ldr r3, [sp, #0x14]
-    ldr r2, [sp, #0x18]
-    ldr r0, [r4]
-    mov r1, #5
-    str r6, [sp]
-    stmib sp, {r5, r6}
-    str r2, [sp, #0xc]
-    str r3, [sp, #0x10]
-    mov r2, r11
-    mov r3, r5
-    bl func_02097898
-    add r1, r10, r9, lsl #2
-    str r0, [r1, #0x8fc]
-@L_02168b50:
-    add r9, r9, #1
-@L_02168b54:
-    cmp r9, #8
-    blt @L_02168af0
-    add sp, sp, #0x21c
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    char path[0x100];
+    char name[0x100];
+    s32 a;
+    s32 b;
+    s32 i;
+    ((s32 (*)(...))sprintf)(name, data_ov059_0216bc74);
+    for (i = 0; i < 8; i++) {
+        ((s32 (*)(...))sprintf)(path, data_ov059_0216bc90, ((s32 *)data_ov059_0216bb0c)[i]);
+        if (((s32 (*)(...))func_ov015_02134b08)(path, *(s32 *)(arg0 + 0x768), &a, &b) != 0) {
+            s32 y = *(volatile s32 *)&b;
+            s32 x = *(volatile s32 *)&a;
+            s32 m = *(volatile s32 *)data_020c46d4;
+            *(s32 *)(arg0 + (i << 2) + 0x8FC) = ((s32 (*)(...))func_02097898)(m, 5, name, 1, 0, 1, 0, x, y);
+        }
+    }
 }
+#pragma pop
 
 extern "C" s32 func_ov059_02168b74(u8 *arg0, s32 arg1)
 {

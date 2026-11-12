@@ -4,7 +4,7 @@ struct V02103130 { s32 x, y, z; };
 
 extern "C" void func_ov000_02102df0(u8 *arg0);
 extern "C" void func_ov000_02102e68(u8 *arg0);
-extern "C" void func_ov000_02102e90(void);
+extern "C" void func_ov000_02102e90(u8 *arg0);
 extern "C" void func_ov000_02102f58(void);
 extern "C" s32 func_ov000_02102fc4(u8 *arg0);
 extern "C" void func_ov000_02103014(s32 arg0, s32 arg1);
@@ -289,56 +289,20 @@ extern "C" void func_ov015_02161710(void);
 extern "C" void func_ov000_02106fb8(void);
 extern "C" void func_ov000_02101060(void);
 extern "C" void func_ov015_02132794(void);
-extern "C" asm void func_ov000_02102e90(void)
+extern "C" void func_ov000_02102e90(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0x14
-    mov r7, r0
-    ldr r0, [r7, #0x16c]
-    cmp r0, #0
-    ldrgt r0, [r7, #0x170]
-    cmpgt r0, #0
-    addgt sp, sp, #0x14
-    ldmgtia sp!, {r4, r5, r6, r7, pc}
-    ldr r4, =data_020c46d4
-    mov r5, #1
-    ldr r0, [r4]
-    mov r6, #0
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r6, [sp, #0xc]
-    ldr r2, =data_ov000_02117fe4
-    mov r3, r5
-    str r6, [sp, #0x10]
-    mov r1, #5
-    bl func_02097898
-    str r0, [r7, #0x16c]
-    ldr r0, [r4]
-    mov r1, r5
-    mov r2, r5
-    bl func_020920c4
-    mov r1, r0
-    str r1, [r7, #0x170]
-    ldr r2, [r7, #0x16c]
-    ldr r0, [r4]
-    and r2, r2, #0xff
-    bl func_020922fc
-    mov r2, r6
-    mov r3, r5
-    ldr r0, [r4]
-    ldr r1, [r7, #0x170]
-    bl func_02092e18
-    ldr r0, [r4]
-    ldr r1, [r7, #0x170]
-    mov r2, #2
-    bl func_02092d3c
-    ldr r0, [r4]
-    ldr r1, [r7, #0x170]
-    mov r2, #0x190
-    bl func_02092544
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    if (*(s32 *)(arg0 + 0x16C) > 0 && *(s32 *)(arg0 + 0x170) > 0)
+        return;
+    {
+        // the manager pointer is read before the arguments are stored, as for a member call
+        s32 m = *(volatile s32 *)data_020c46d4;
+        *(s32 *)(arg0 + 0x16C) = ((s32 (*)(...))func_02097898)(m, 5, data_ov000_02117fe4, 1, 0, 0, 0, 0, 0);
+    }
+    *(s32 *)(arg0 + 0x170) = ((s32 (*)(...))func_020920c4)(*(s32 *)data_020c46d4, 1, 1);
+    ((s32 (*)(...))func_020922fc)(*(s32 *)data_020c46d4, *(s32 *)(arg0 + 0x170), (u8)*(s32 *)(arg0 + 0x16C));
+    ((s32 (*)(...))func_02092e18)(*(s32 *)data_020c46d4, *(s32 *)(arg0 + 0x170), 0, 1);
+    ((s32 (*)(...))func_02092d3c)(*(s32 *)data_020c46d4, *(s32 *)(arg0 + 0x170), 2);
+    ((s32 (*)(...))func_02092544)(*(s32 *)data_020c46d4, *(s32 *)(arg0 + 0x170), 0x190);
 }
 
 extern "C" asm void func_ov000_02102f58(void)

@@ -10,7 +10,7 @@ extern "C" void func_ov014_02103070(void);
 extern "C" s32 func_ov014_02103170(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov014_021031d0(void);
 extern "C" void func_ov014_021032a8(void);
-extern "C" void func_ov014_0210337c(void);
+extern "C" s32 func_ov014_0210337c(u8 *arg0, u16 *arg1, u8 *arg2);
 extern "C" s32 func_ov014_02103430(...);
 extern "C" void func_ov014_02103494(void);
 extern "C" s32 func_ov014_02103578(void);
@@ -799,56 +799,28 @@ extern "C" asm void func_ov014_021032a8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0210337c(void)
+static inline u16 s0210337c(u16 x) { return (u16)((x >> 8) | (x << 8)); }
+extern "C" s32 func_ov014_0210337c(u8 *arg0, u16 *arg1, u8 *arg2)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    ldrb r4, [r2, #8]
-    mov r3, #0
-    mov r5, r3
-    cmp r4, #0xa
-    cmpne r4, #0xb
-    movne r5, #1
-    mov r12, r3
-    mov r6, r3
-    cmp r5, #0
-    beq @L_021033c4
-    ldrh lr, [r1, #2]
-    ldrh r5, [r2, #0xa]
-    mov r4, lr, lsl #8
-    orr r4, r4, lr, asr #8
-    mov lr, r4, lsl #0x10
-    cmp r5, lr, lsr #16
-    moveq r6, #1
-@L_021033c4:
-    cmp r6, #0
-    beq @L_021033e8
-    ldrh lr, [r1]
-    ldrh r4, [r2, #0x18]
-    mov r1, lr, lsl #8
-    orr r1, r1, lr, asr #8
-    mov r1, r1, lsl #0x10
-    cmp r4, r1, lsr #16
-    moveq r12, #1
-@L_021033e8:
-    cmp r12, #0
-    beq @L_02103428
-    ldrh lr, [r0, #0xc]
-    ldrh r4, [r0, #0xe]
-    ldr r12, [r2, #0x1c]
-    mov r1, lr, lsl #8
-    mov r0, r4, lsl #8
-    orr r2, r1, lr, asr #8
-    orr r1, r0, r4, asr #8
-    mov r0, r2, lsl #0x10
-    mov r1, r1, lsl #0x10
-    mov r2, r0, lsr #0x10
-    mov r0, r1, lsr #0x10
-    orr r0, r0, r2, lsl #16
-    cmp r12, r0
-    moveq r3, #1
-@L_02103428:
-    mov r0, r3
-    ldmia sp!, {r4, r5, r6, pc}
+    s32 r = 0;
+    s32 a = 0;
+    s32 c = 0;
+    s32 b = 0;
+    if (arg2[8] != 0xA && arg2[8] != 0xB)
+        a = 1;
+    if (a != 0) {
+        if (*(u16 *)(arg2 + 0xA) == s0210337c(arg1[1]))
+            b = 1;
+    }
+    if (b != 0) {
+        if (*(u16 *)(arg2 + 0x18) == s0210337c(arg1[0]))
+            c = 1;
+    }
+    if (c != 0) {
+        if (*(u32 *)(arg2 + 0x1C) == (u32)((s0210337c(*(u16 *)(arg0 + 0xC)) << 16) | s0210337c(*(u16 *)(arg0 + 0xE))))
+            r = 1;
+    }
+    return r;
 }
 
 extern "C" asm s32 func_ov014_02103430(...)

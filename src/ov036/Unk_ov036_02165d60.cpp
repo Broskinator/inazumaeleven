@@ -5,7 +5,7 @@ struct P02167000 { u8 pad[0x13c]; E02167000 arr[1]; };
 extern "C" void func_ov036_02165d60(u8 *arg0, u16 arg1, u8 arg2, u8 arg3);
 extern "C" void func_ov036_02165d70(s32 arg0);
 extern "C" void func_ov036_02165d8c(s32 arg0);
-extern "C" void func_ov036_02165e2c(void);
+extern "C" void func_ov036_02165e2c(u8 *arg0);
 extern "C" s32 func_ov036_02165ef0(u8 *arg0);
 extern "C" void func_ov036_02165f28(void);
 extern "C" s32 func_ov036_02166038(s32 arg0);
@@ -170,57 +170,28 @@ extern "C" void func_ov036_02165d8c(s32 arg0)
     DC_FlushRange((s32)data_020d1d20, 0x800);
 }
 
-extern "C" asm void func_ov036_02165e2c(void)
+#pragma push
+#pragma optimization_level 2
+extern "C" void func_ov036_02165e2c(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x21c
-    add r11, sp, #0x1c
-    mov r10, r0
-    ldr r1, =data_ov036_0216a328
-    mov r0, r11
-    bl sprintf
-    mov r9, #0
-    mov r6, r9
-    mov r5, #1
-    add r8, sp, #0x11c
-    ldr r7, =data_ov036_0216a200
-    ldr r4, =data_020c46d4
-    b @L_02165ec8
-@L_02165e64:
-    ldr r2, [r7, r9, lsl #2]
-    ldr r1, =data_ov036_0216a344
-    mov r0, r8
-    bl sprintf
-    ldr r1, [r10, #0x1c]
-    mov r0, r8
-    add r2, sp, #0x18
-    add r3, sp, #0x14
-    bl func_ov015_02134b08
-    cmp r0, #0
-    beq @L_02165ec4
-    ldr r3, [sp, #0x14]
-    ldr r2, [sp, #0x18]
-    ldr r0, [r4]
-    mov r1, #5
-    str r6, [sp]
-    stmib sp, {r5, r6}
-    str r2, [sp, #0xc]
-    str r3, [sp, #0x10]
-    mov r2, r11
-    mov r3, r5
-    bl func_02097898
-    add r1, r10, r9, lsl #2
-    str r0, [r1, #0x28]
-@L_02165ec4:
-    add r9, r9, #1
-@L_02165ec8:
-    cmp r9, #0x16
-    blt @L_02165e64
-    mov r0, r10
-    bl func_ov036_02165ef0
-    add sp, sp, #0x21c
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    char path[0x100];
+    char name[0x100];
+    s32 a;
+    s32 b;
+    s32 i;
+    ((s32 (*)(...))sprintf)(name, data_ov036_0216a328);
+    for (i = 0; i < 22; i++) {
+        ((s32 (*)(...))sprintf)(path, data_ov036_0216a344, ((s32 *)data_ov036_0216a200)[i]);
+        if (((s32 (*)(...))func_ov015_02134b08)(path, *(s32 *)(arg0 + 0x1C), &a, &b) != 0) {
+            s32 y = *(volatile s32 *)&b;
+            s32 x = *(volatile s32 *)&a;
+            s32 m = *(volatile s32 *)data_020c46d4;
+            *(s32 *)(arg0 + (i << 2) + 0x28) = ((s32 (*)(...))func_02097898)(m, 5, name, 1, 0, 1, 0, x, y);
+        }
+    }
+    ((s32 (*)(...))func_ov036_02165ef0)(arg0);
 }
+#pragma pop
 
 extern "C" s32 func_ov036_02165ef0(u8 *arg0)
 {
