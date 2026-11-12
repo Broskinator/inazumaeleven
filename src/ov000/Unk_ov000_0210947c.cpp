@@ -1,5 +1,6 @@
 #include "ov000/Unk_ov000_0210947c.hpp"
 #include "game/vcall.hpp"
+class C02109aa0 { public: virtual void v00(); virtual void v04(); virtual void v08(s32, s32, s32, s32, s32, s32, s32, s32, s32, s32); };
 struct P02109e18 { s32 a; s32 b; };
 struct S0210b0ac { s32 a, b, c; };
 
@@ -10,7 +11,7 @@ extern "C" void func_ov000_02109514(void);
 extern "C" s32 func_ov000_02109518(...);
 extern "C" s32 func_ov000_021095b0(s32 arg0);
 extern "C" s32 func_ov000_02109610(...);
-extern "C" void func_ov000_02109aa0(void);
+extern "C" void func_ov000_02109aa0(u8 *arg0);
 extern "C" s32 func_ov000_02109b60(...);
 extern "C" void func_ov000_02109e18(u8 *arg0);
 extern "C" s32 func_ov000_02109e64(...);
@@ -576,56 +577,16 @@ extern "C" asm s32 func_ov000_02109610(...)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov000_02109aa0(void)
+extern "C" void func_ov000_02109aa0(u8 *arg0)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x1c
-    mov r5, r0
-    ldr r0, [r5, #0xa4]
-    ldr r4, [r5, #0x130]
-    cmp r0, #0
-    ldrne r0, [r5, #0xa8]
-    cmpne r0, #0
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    addeq sp, sp, #0x1c
-    ldmeqia sp!, {r4, r5, pc}
-    add r0, r5, #0xa4
-    bl func_ov015_02133dc8
-    cmp r4, #0
-    beq @L_02109b3c
-    mov r0, #3
-    str r0, [sp]
-    mov r0, #1
-    str r0, [sp, #4]
-    ldr r0, [r5, #0xa8]
-    mov r1, #0
-    str r0, [sp, #8]
-    ldrh r2, [r5, #0xb0]
-    ldr r0, =data_020c46a8
-    mov r3, r4
-    mov r2, r2, lsl #3
-    str r2, [sp, #0xc]
-    ldrh r4, [r5, #0xb2]
-    mov r2, #2
-    mov r4, r4, lsl #3
-    str r4, [sp, #0x10]
-    str r1, [sp, #0x14]
-    str r1, [sp, #0x18]
-    ldr r0, [r0]
-    ldr r4, [r0]
-    ldr r4, [r4, #8]
-    blx r4
-@L_02109b3c:
-    ldrh r2, [r5, #0xb0]
-    ldrh r1, [r5, #0xb2]
-    ldr r0, [r5, #0xa8]
-    mul r1, r2, r1
-    mov r1, r1, lsl #5
-    bl DC_FlushRange
-    add sp, sp, #0x1c
-    ldmia sp!, {r4, r5, pc}
+    s32 h = *(s32 *)(arg0 + 0x130);
+    s32 ok = (*(s32 *)(arg0 + 0xA4) != 0 && *(s32 *)(arg0 + 0xA8) != 0) ? 1 : 0;
+    if (ok == 0)
+        return;
+    ((s32 (*)(...))func_ov015_02133dc8)(arg0 + 0xA4);
+    if (h != 0)
+        (*(C02109aa0 **)data_020c46a8)->v08(0, 2, h, 3, 1, *(s32 *)(arg0 + 0xA8), *(u16 *)(arg0 + 0xB0) << 3, *(u16 *)(arg0 + 0xB2) << 3, 0, 0);
+    ((s32 (*)(...))DC_FlushRange)(*(s32 *)(arg0 + 0xA8), (*(u16 *)(arg0 + 0xB0) * *(u16 *)(arg0 + 0xB2)) << 5);
 }
 
 extern "C" asm s32 func_ov000_02109b60(...)

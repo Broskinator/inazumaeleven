@@ -32,9 +32,9 @@ extern "C" void func_02093368(void);
 extern "C" void func_0209342c(u8 *arg0, s32 arg1, s32 arg2, u32 arg3);
 extern "C" void func_020934ac(u8 *arg0, s32 arg1, s32 arg2, u16 arg3);
 extern "C" void func_02093524(void);
-extern "C" void func_0209360c(void);
+extern "C" void func_0209360c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
 extern "C" void func_020936b4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
-extern "C" void func_02093734(void);
+extern "C" void func_02093734(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
 extern "C" void func_020937dc(u8 *arg0, s32 arg1, s32 arg2, u16 arg3);
 
 extern "C" char data_020c47b4[];
@@ -1657,56 +1657,29 @@ extern "C" asm void func_02093524(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_0209360c(void)
+extern "C" void func_0209360c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
 {
-    stmdb sp!, {r3, lr}
-    ldr lr, [r0, #0x1c]
-    cmp lr, #0
-    ldrne r12, [r0, #0x20]
-    cmpne r12, #0
-    movle r1, #0
-    ble @L_02093648
-    cmp r1, #0
-    ble @L_02093638
-    cmp r1, r12
-    ble @L_02093640
-@L_02093638:
-    mov r1, #0
-    b @L_02093648
-@L_02093640:
-    sub r1, r1, #1
-    add r1, lr, r1, lsl #5
-@L_02093648:
-    cmp r1, #0
-    ldrne r12, [r1]
-    cmpne r12, #0
-    cmpne r2, #0
-    ble @L_02093668
-    ldrb r1, [r1, #6]
-    cmp r2, r1
-    ble @L_02093670
-@L_02093668:
-    mov r1, #0
-    b @L_0209367c
-@L_02093670:
-    sub r2, r2, #1
-    mov r1, #0x60
-    mla r1, r2, r1, r12
-@L_0209367c:
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    ldrsh r2, [r1, #0x10]
-    cmp r2, r3
-    ldreqsh r12, [r1, #0x12]
-    ldreqsh r2, [sp, #8]
-    cmpeq r12, r2
-    ldmeqia sp!, {r3, pc}
-    ldrsh r12, [sp, #8]
-    strh r3, [r1, #0x10]
-    mov r2, #0xd
-    strh r12, [r1, #0x12]
-    bl func_020917c0
-    ldmia sp!, {r3, pc}
+    u8 *t = *(u8 **)(arg0 + 0x1C);
+    s32 c;
+    u8 *e;
+    u8 *r;
+    if (t == 0 || (c = *(s32 *)(arg0 + 0x20)) <= 0)
+        e = 0;
+    else if (arg1 <= 0 || arg1 > c)
+        e = 0;
+    else
+        e = t + ((arg1 - 1) << 5);
+    if (e == 0 || (t = *(u8 **)e) == 0 || arg2 <= 0 || arg2 > e[6])
+        r = 0;
+    else
+        r = t + (arg2 - 1) * 0x60;
+    if (r == 0)
+        return;
+    if (*(s16 *)(r + 0x10) == arg3 && *(s16 *)(r + 0x12) == arg4)
+        return;
+    *(s16 *)(r + 0x10) = arg3;
+    *(s16 *)(r + 0x12) = arg4;
+    ((s32 (*)(...))func_020917c0)(arg0, r, 0xD);
 }
 
 extern "C" void func_020936b4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
@@ -1728,56 +1701,29 @@ extern "C" void func_020936b4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
     ((s32 (*)(...))func_02091f8c)(arg0, r, arg3, arg4);
 }
 
-extern "C" asm void func_02093734(void)
+extern "C" void func_02093734(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
 {
-    stmdb sp!, {r3, lr}
-    ldr lr, [r0, #0x1c]
-    cmp lr, #0
-    ldrne r12, [r0, #0x20]
-    cmpne r12, #0
-    movle r1, #0
-    ble @L_02093770
-    cmp r1, #0
-    ble @L_02093760
-    cmp r1, r12
-    ble @L_02093768
-@L_02093760:
-    mov r1, #0
-    b @L_02093770
-@L_02093768:
-    sub r1, r1, #1
-    add r1, lr, r1, lsl #5
-@L_02093770:
-    cmp r1, #0
-    ldrne r12, [r1]
-    cmpne r12, #0
-    cmpne r2, #0
-    ble @L_02093790
-    ldrb r1, [r1, #6]
-    cmp r2, r1
-    ble @L_02093798
-@L_02093790:
-    mov r1, #0
-    b @L_020937a4
-@L_02093798:
-    sub r2, r2, #1
-    mov r1, #0x60
-    mla r1, r2, r1, r12
-@L_020937a4:
-    cmp r1, #0
-    ldmeqia sp!, {r3, pc}
-    ldrsh r2, [r1, #0xc]
-    cmp r2, r3
-    ldreqsh r12, [r1, #0xe]
-    ldreqsh r2, [sp, #8]
-    cmpeq r12, r2
-    ldmeqia sp!, {r3, pc}
-    ldrsh r12, [sp, #8]
-    strh r3, [r1, #0xc]
-    mov r2, #2
-    strh r12, [r1, #0xe]
-    bl func_020917c0
-    ldmia sp!, {r3, pc}
+    u8 *t = *(u8 **)(arg0 + 0x1C);
+    s32 c;
+    u8 *e;
+    u8 *r;
+    if (t == 0 || (c = *(s32 *)(arg0 + 0x20)) <= 0)
+        e = 0;
+    else if (arg1 <= 0 || arg1 > c)
+        e = 0;
+    else
+        e = t + ((arg1 - 1) << 5);
+    if (e == 0 || (t = *(u8 **)e) == 0 || arg2 <= 0 || arg2 > e[6])
+        r = 0;
+    else
+        r = t + (arg2 - 1) * 0x60;
+    if (r == 0)
+        return;
+    if (*(s16 *)(r + 0xC) == arg3 && *(s16 *)(r + 0xE) == arg4)
+        return;
+    *(s16 *)(r + 0xC) = arg3;
+    *(s16 *)(r + 0xE) = arg4;
+    ((s32 (*)(...))func_020917c0)(arg0, r, 2);
 }
 
 static inline u8 *a020937dc(u8 *o, s32 i)

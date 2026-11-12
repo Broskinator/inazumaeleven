@@ -44,7 +44,7 @@ extern "C" void func_ov014_02120224(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3);
 extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2);
 extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0212039c(void);
+extern "C" void func_ov014_0212039c(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3);
 extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3);
 extern "C" void func_ov014_021204c4(void);
 extern "C" u64 func_ov014_021205f0(u16 *arg0);
@@ -2279,56 +2279,19 @@ extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3)
     }
 }
 
-extern "C" asm void func_ov014_0212039c(void)
+extern "C" void func_ov014_0212039c(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    mov r8, r3
-    mov r9, r2
-    mov r5, #0
-    mov r10, r1
-    mov r1, r5
-    mov r2, r8, lsl #1
-    str r0, [sp]
-    bl MI_CpuFill8
-    mov r0, r10
-    mov r1, r8
-    bl func_ov014_02120090
-    mov r11, r0
-    mov r0, r9
-    mov r1, r8
-    bl func_ov014_02120090
-    str r0, [sp, #4]
-    cmp r0, #0
-    addle sp, sp, #8
-    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_021203f0:
-    mov r6, #0
-    sub r7, r8, r5
-    mov r4, r5, lsl #1
-    b @L_02120424
-@L_02120400:
-    mov r0, r6, lsl #1
-    ldrh r3, [r10, r0]
-    ldrh r1, [r9, r4]
-    ldr r0, [sp]
-    add r2, r5, r6
-    mul r1, r3, r1
-    mov r3, r8
-    bl func_ov014_02120368
-    add r6, r6, #1
-@L_02120424:
-    cmp r6, r11
-    bge @L_02120434
-    cmp r6, r7
-    blt @L_02120400
-@L_02120434:
-    ldr r0, [sp, #4]
-    add r5, r5, #1
-    cmp r5, r0
-    blt @L_021203f0
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s32 la;
+    s32 lb;
+    s32 i;
+    s32 j;
+    ((s32 (*)(...))MI_CpuFill8)(arg0, 0, arg3 << 1);
+    la = ((s32 (*)(...))func_ov014_02120090)(arg1, arg3);
+    lb = ((s32 (*)(...))func_ov014_02120090)(arg2, arg3);
+    for (i = 0; i < lb; i++) {
+        for (j = 0; j < la && j < arg3 - i; j++)
+            ((s32 (*)(...))func_ov014_02120368)(arg0, arg1[j] * arg2[i], i + j, arg3);
+    }
 }
 
 extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3)

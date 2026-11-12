@@ -1,4 +1,6 @@
 #include "ov014/Unk_ov014_02105c64.hpp"
+struct F021084b4 { u8 lo : 4; u8 hi : 4; };
+struct K021084b4 { u8 mode : 2; u8 rest : 6; };
 
 extern "C" s32 func_ov014_02105c64(...);
 extern "C" s32 func_ov014_02105d54(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -54,7 +56,7 @@ extern "C" s32 func_ov014_021083a4(s32 arg0);
 extern "C" u8 func_ov014_021083fc(void);
 extern "C" s32 func_ov014_02108410(void);
 extern "C" s32 func_ov014_0210844c(...);
-extern "C" void func_ov014_021084b4(void);
+extern "C" void func_ov014_021084b4(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov014_02108568(s32 arg0, s32 arg1);
 extern "C" s32 func_ov014_02108594(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_021085b0(s32 arg0, s32 arg1);
@@ -2899,56 +2901,30 @@ extern "C" asm s32 func_ov014_0210844c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_021084b4(void)
+extern "C" void func_ov014_021084b4(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    mov r0, #0x10
-    mov r7, r1
-    mov r6, r2
-    bl func_ov014_0210878c
-    mov r4, r0
-    ldrb r2, [r4, #0xd0c]
-    mov r5, #0
-    mov r1, r5
-    bic r2, r2, #0xf
-    orr r3, r2, #1
-    mov r2, #0xf0
-    strb r3, [r4, #0xd0c]
-    bl MI_CpuFill8
-@L_021084f0:
-    ldrb r1, [r8, r5]
-    cmp r1, #0
-    beq @L_02108510
-    add r0, r4, r5
-    add r5, r5, #1
-    strb r1, [r0, #0x40]
-    cmp r5, #0x20
-    blt @L_021084f0
-@L_02108510:
-    cmp r7, #0
-    cmpne r6, #0
-    ldreqb r0, [r4, #0xe6]
-    biceq r0, r0, #3
-    streqb r0, [r4, #0xe6]
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    cmp r6, #1
-    moveq r2, #5
-    beq @L_02108540
-    mov r2, #0xd
-    cmp r6, #2
-    movne r2, #0x10
-@L_02108540:
-    mov r0, r7
-    add r1, r4, #0x80
-    bl MI_CpuCopy8
-    ldrb r1, [r4, #0xe6]
-    and r0, r6, #0xff
-    and r0, r0, #3
-    bic r1, r1, #3
-    orr r0, r1, r0
-    strb r0, [r4, #0xe6]
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *p = (u8 *)((s32 (*)(...))func_ov014_0210878c)(0x10);
+    s32 i;
+    s32 n;
+    ((F021084b4 *)(p + 0xD0C))->lo = 1;
+    ((s32 (*)(...))MI_CpuFill8)(p, 0, 0xF0);
+    for (i = 0; i < 0x20; i++) {
+        if (arg0[i] == 0)
+            break;
+        p[0x40 + i] = arg0[i];
+    }
+    if (arg1 == 0 || arg2 == 0) {
+        ((K021084b4 *)(p + 0xE6))->mode = 0;
+        return;
+    }
+    if (arg2 == 1)
+        n = 5;
+    else if (arg2 == 2)
+        n = 0xD;
+    else
+        n = 0x10;
+    ((s32 (*)(...))MI_CpuCopy8)(arg1, p + 0x80, n);
+    ((K021084b4 *)(p + 0xE6))->mode = arg2;
 }
 
 extern "C" void func_ov014_02108568(s32 arg0, s32 arg1)

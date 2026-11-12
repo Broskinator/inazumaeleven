@@ -1,5 +1,6 @@
 #include "ov001/Unk_ov001_020ffb28.hpp"
 #include "game/vcall.hpp"
+class C02100f8c { public: virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0c(); virtual void v10(); virtual void v14(); virtual void v18(); virtual void v1c(); virtual void v20(); virtual void v24(); virtual void v28(); virtual void v2c(); virtual void v30(); virtual void v34(); virtual void v38(); virtual void v3c(); virtual void v40(); virtual void v44(); virtual void v48(); virtual void v4c(); virtual void v50(); virtual void v54(); virtual s32 v58(); };
 
 extern "C" s32 func_ov001_020ffb28(...);
 extern "C" char *func_ov001_0210006c(u8 *arg0, s32 arg1);
@@ -17,7 +18,7 @@ extern "C" void func_ov001_02100c00(void);
 extern "C" void func_ov001_02100d10(void);
 extern "C" void func_ov001_02100e7c(void);
 extern "C" void func_ov001_02100f7c(u8 *arg0);
-extern "C" void func_ov001_02100f8c(void);
+extern "C" void func_ov001_02100f8c(u8 *arg0);
 extern "C" s32 func_ov001_02101054(u8 *arg0);
 extern "C" s32 func_ov001_021010bc(void);
 extern "C" void func_ov001_02101130(void);
@@ -1510,56 +1511,27 @@ extern "C" void func_ov001_02100f7c(u8 *arg0)
     func_ov001_020ffb28(arg0, *(s32 *)(arg0 + 0x430));
 }
 
-extern "C" asm void func_ov001_02100f8c(void)
+extern "C" void func_ov001_02100f8c(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, [r0]
-    mov r4, r0
-    ldr r1, [r1, #0x58]
-    blx r1
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldr r0, [r4, #8]
-    cmp r0, #4
-    bne @L_02100ff4
-    ldr r0, [r4, #0x48]
-    cmp r0, #0
-    ble @L_02100ff4
-    sub r0, r0, #1
-    str r0, [r4, #0x48]
-    cmp r0, #0
-    bgt @L_02100ff4
-    bl func_ov015_021319bc
-    ldr r1, =data_ov001_02130678
-    ldr r0, [r1, r0, lsl #3]
-    cmp r0, #0x80000000
-    ble @L_02100ff4
-    bl func_ov015_021319bc
-    mov r1, r0
-    mov r0, r4
-    bl func_ov001_02106968
-@L_02100ff4:
-    ldr r0, [r4, #0x44]
-    ldr r5, =data_ov001_02130614
-    cmp r0, #0
-    subgt r0, r0, #1
-    strgt r0, [r4, #0x44]
-    ldrb r0, [r5]
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldrb r0, [r4, #0x21]
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r0, r4
-    bl func_ov001_021010bc
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c5e40
-    mov r2, #1
-    mov r1, #7
-    strb r2, [r5]
-    bl _ZN12SoundManager9PlaySoundEi
-    ldmia sp!, {r3, r4, r5, pc}
+    if (((C02100f8c *)arg0)->v58() != 0)
+        return;
+    if (*(s32 *)(arg0 + 8) == 4 && *(s32 *)(arg0 + 0x48) > 0) {
+        (*(s32 *)(arg0 + 0x48))--;
+        if (*(s32 *)(arg0 + 0x48) <= 0) {
+            if (*(s32 *)((u8 *)data_ov001_02130678 + (((s32 (*)(...))func_ov015_021319bc)() << 3)) > (s32)0x80000000)
+                ((s32 (*)(...))func_ov001_02106968)(arg0, ((s32 (*)(...))func_ov015_021319bc)());
+        }
+    }
+    if (*(s32 *)(arg0 + 0x44) > 0)
+        (*(s32 *)(arg0 + 0x44))--;
+    if (*(u8 *)data_ov001_02130614 != 0)
+        return;
+    if (arg0[0x21] == 0)
+        return;
+    if (((s32 (*)(...))func_ov001_021010bc)(arg0) != 0)
+        return;
+    *(u8 *)data_ov001_02130614 = 1;
+    ((s32 (*)(...))_ZN12SoundManager9PlaySoundEi)(data_020c5e40, 7);
 }
 
 extern "C" s32 func_ov001_02101054(u8 *arg0)
