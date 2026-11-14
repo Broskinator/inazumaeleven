@@ -1,5 +1,7 @@
 #include "ov074/Unk_ov074_0216ffa0.hpp"
 #include "game/vcall.hpp"
+struct N0216ffbc { s8 c[0x20]; };
+struct I0216ffbc { u8 a; u8 b; s16 c; N0216ffbc d; N0216ffbc e; s16 f; };
 struct E021709c0 { s32 a; s32 b; s32 c; };
 struct P021709c0 { u8 pad[0x84]; E021709c0 arr[1]; };
 struct E02170960 { s32 a; s32 b; s32 c; };
@@ -7,7 +9,7 @@ struct P02170960 { u8 pad[0x84]; E02170960 arr[1]; };
 struct P02170074 { s32 a; s32 b; };
 
 extern "C" void func_ov074_0216ffa0(u8 *arg0, s32 arg1);
-extern "C" void func_ov074_0216ffbc(void);
+extern "C" s32 func_ov074_0216ffbc(u8 *arg0, I0216ffbc *arg1);
 extern "C" void func_ov074_02170074(u8 *arg0);
 extern "C" void func_ov074_021700c8(void);
 extern "C" s32 func_ov074_02170158(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -83,56 +85,16 @@ extern "C" void func_ov074_0216ffa0(u8 *arg0, s32 arg1)
     *(s32 *)(arg0 + 0xE0) = 0;
 }
 
-extern "C" asm void func_ov074_0216ffbc(void)
+extern "C" s32 func_ov074_0216ffbc(u8 *arg0, I0216ffbc *arg1)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r0, [r4, #8]
-    cmp r0, #3
-    movne r0, #1
-    ldmneia sp!, {r4, pc}
-    ldrb r0, [r1]
-    cmp r0, #0
-    ldreqsh r2, [r4, #0xe]
-    ldreqsh r0, [r1, #2]
-    cmpeq r2, r0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    ldrb r0, [r1]
-    add lr, r1, #4
-    add r12, r4, #0x10
-    strb r0, [r4, #0xc]
-    ldrb r0, [r1, #1]
-    mov r3, #0x10
-    strb r0, [r4, #0xd]
-    ldrsh r0, [r1, #2]
-    strh r0, [r4, #0xe]
-@L_02170014:
-    ldrb r2, [lr]
-    ldrb r0, [lr, #1]
-    add lr, lr, #2
-    subs r3, r3, #1
-    strb r0, [r12, #1]
-    strb r2, [r12], #2
-    bne @L_02170014
-    add lr, r1, #0x24
-    add r12, r4, #0x30
-    mov r3, #0x10
-@L_0217003c:
-    ldrb r2, [lr]
-    ldrb r0, [lr, #1]
-    add lr, lr, #2
-    subs r3, r3, #1
-    strb r0, [r12, #1]
-    strb r2, [r12], #2
-    bne @L_0217003c
-    ldrsh r1, [r1, #0x44]
-    mov r0, r4
-    strh r1, [r4, #0x50]
-    bl func_ov074_02170190
-    mov r0, #1
-    str r0, [r4, #8]
-    ldmia sp!, {r4, pc}
+    if (*(s32 *)(arg0 + 8) != 3)
+        return 1;
+    if (arg1->a == 0 && *(s16 *)(arg0 + 0xE) == arg1->c)
+        return 0;
+    *(I0216ffbc *)(arg0 + 0xC) = *arg1;
+    ((s32 (*)(...))func_ov074_02170190)(arg0);
+    *(s32 *)(arg0 + 8) = 1;
+    return 1;
 }
 
 extern "C" void func_ov074_02170074(u8 *arg0)

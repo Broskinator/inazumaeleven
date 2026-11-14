@@ -1,4 +1,6 @@
 #include "game/Unk_0209cd14.hpp"
+struct T0209d998 { s32 v[14]; };
+struct T0209d8dc { s32 v[121]; };
 
 extern "C" void func_0209c480(void *a);
 extern "C" void func_02008580(void *buffer);
@@ -37,8 +39,8 @@ extern "C" void func_0209d688(void);
 extern "C" u8 *func_0209d874(u8 **arg0, s16 arg1);
 extern "C" s32 func_0209d8b8(int i);
 extern "C" void func_0209d8cc(s32 *table);
-extern "C" void func_0209d8dc(void);
-extern "C" void func_0209d998(void);
+extern "C" s32 func_0209d8dc(s32 arg0);
+extern "C" s32 func_0209d998(s32 arg0);
 extern "C" void func_0209da5c(void);
 extern "C" void func_0209da70(u32 value);
 extern "C" void func_0209da74(u32 value);
@@ -940,110 +942,34 @@ extern "C" void func_0209d8cc(s32 *table)
     data_020affd0[0] = table;
 }
 
-extern "C" asm void func_0209d8dc(void)
+extern "C" s32 func_0209d8dc(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x3c8
-    ldr r5, =data_020a733c
-    add r8, sp, #0x1e4
-    mov r6, r0
-    mov r4, #0x1e
-@L_0209d8f4:
-    ldmia r5!, {r0, r1, r2, r3}
-    stmia r8!, {r0, r1, r2, r3}
-    subs r4, r4, #1
-    bne @L_0209d8f4
-    ldr r0, [r5]
-    ldr r5, =data_020b3f04
-    add r7, sp, #0
-    str r0, [r8]
-    mov r4, #0x1e
-@L_0209d918:
-    ldmia r5!, {r0, r1, r2, r3}
-    stmia r7!, {r0, r1, r2, r3}
-    subs r4, r4, #1
-    bne @L_0209d918
-    mov r4, #0
-    ldr r2, [r5]
-    ldr r1, [sp, #0x1e4]
-    sub r0, r4, #1
-    mov r5, r4
-    str r2, [r7]
-    cmp r1, r0
-    beq @L_0209d980
-    add r8, sp, #0x1e4
-    add r9, sp, #0
-    mvn r7, #0
-@L_0209d954:
-    ldr r0, [r9, r5, lsl #2]
-    mov r1, r6
-    bl STD_CompareString
-    cmp r0, #0
-    addeq r0, sp, #0x1e4
-    ldreq r4, [r0, r5, lsl #2]
-    beq @L_0209d980
-    add r5, r5, #1
-    ldr r0, [r8, r5, lsl #2]
-    cmp r0, r7
-    bne @L_0209d954
-@L_0209d980:
-    mov r0, r4
-    bl func_0209d8b8
-    add sp, sp, #0x3c8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    T0209d8dc ids = *(T0209d8dc *)data_020a733c;
+    T0209d8dc names = *(T0209d8dc *)data_020b3f04;
+    s32 r = 0;
+    s32 i;
+    for (i = 0; ids.v[i] != -1; i++) {
+        if (((s32 (*)(...))STD_CompareString)(names.v[i], arg0) == 0) {
+            r = ids.v[i];
+            break;
+        }
+    }
+    return ((s32 (*)(...))func_0209d8b8)(r);
 }
 
-extern "C" asm void func_0209d998(void)
+extern "C" s32 func_0209d998(s32 arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x70
-    ldr r6, =data_020a7304
-    add r4, sp, #0x38
-    mov r8, r0
-    mov r5, r4
-    ldmia r6!, {r0, r1, r2, r3}
-    stmia r4!, {r0, r1, r2, r3}
-    ldmia r6!, {r0, r1, r2, r3}
-    stmia r4!, {r0, r1, r2, r3}
-    ldmia r6!, {r0, r1, r2, r3}
-    stmia r4!, {r0, r1, r2, r3}
-    ldmia r6, {r0, r1}
-    stmia r4, {r0, r1}
-    mov r6, #0
-    add r9, sp, #0
-    ldr r12, =data_020b2fb0
-    ldr r1, [sp, #0x38]
-    sub r0, r6, #1
-    cmp r1, r0
-    mov r4, r9
-    ldmia r12!, {r0, r1, r2, r3}
-    stmia r9!, {r0, r1, r2, r3}
-    ldmia r12!, {r0, r1, r2, r3}
-    stmia r9!, {r0, r1, r2, r3}
-    ldmia r12!, {r0, r1, r2, r3}
-    stmia r9!, {r0, r1, r2, r3}
-    ldmia r12, {r0, r1}
-    mov r7, r6
-    stmia r9, {r0, r1}
-    beq @L_0209da44
-    mvn r9, #0
-@L_0209da18:
-    ldr r0, [r4, r7, lsl #2]
-    mov r1, r8
-    bl STD_CompareString
-    cmp r0, #0
-    addeq r0, sp, #0x38
-    ldreq r6, [r0, r7, lsl #2]
-    beq @L_0209da44
-    add r7, r7, #1
-    ldr r0, [r5, r7, lsl #2]
-    cmp r0, r9
-    bne @L_0209da18
-@L_0209da44:
-    mov r0, r6
-    bl func_0209d8b8
-    add sp, sp, #0x70
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    T0209d998 ids = *(T0209d998 *)data_020a7304;
+    T0209d998 names = *(T0209d998 *)data_020b2fb0;
+    s32 r = 0;
+    s32 i;
+    for (i = 0; ids.v[i] != -1; i++) {
+        if (((s32 (*)(...))STD_CompareString)(names.v[i], arg0) == 0) {
+            r = ids.v[i];
+            break;
+        }
+    }
+    return ((s32 (*)(...))func_0209d8b8)(r);
 }
 
 extern "C" void func_0209da5c(void)

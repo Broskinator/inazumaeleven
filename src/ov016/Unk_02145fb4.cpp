@@ -1,4 +1,5 @@
 #include "ov016/Unk_02145fb4.hpp"
+struct T02146fd4 { s8 c[0x16]; };
 struct T02147e58 { s32 a[3]; };
 struct T0214761c { u8 v[4]; };
 
@@ -1301,56 +1302,17 @@ extern "C" asm void func_ov016_02146eac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_02146fd4(void)
+extern "C" void func_ov016_02146fd4(void)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0x18
-    ldr r12, =data_ov016_02154cfc
-    add r3, sp, #0
-    mov r2, #0xb
-@L_02146fe8:
-    ldrb r0, [r12, #1]
-    ldrb r1, [r12], #2
-    subs r2, r2, #1
-    strb r0, [r3, #1]
-    strb r1, [r3], #2
-    bne @L_02146fe8
-    ldr r0, =data_ov016_02155c68
-    ldr r1, =func_02003ad8
-    bl func_ov016_02137704
-    ldr r0, =data_ov016_02155c80
-    ldr r1, =func_02003298
-    bl func_ov016_02137704
-    ldr r0, =data_ov016_02155c98
-    ldr r1, =func_02003758
-    bl func_ov016_02137704
-    add r0, sp, #0
-    bl func_ov016_021376a0
-    mov r1, #0
-    mov r2, #4
-    bl func_ov016_0214f07c
-    ldr r1, =data_ov016_02158af4
-    ldr r2, =0x4001008
-    str r0, [r1, #4]
-    ldrh r0, [r2]
-    ldr r1, =0x400000a
-    bic r0, r0, #3
-    orr r0, r0, #3
-    strh r0, [r2]
-    ldrh r0, [r2, #2]
-    bic r0, r0, #3
-    orr r0, r0, #3
-    strh r0, [r2, #2]
-    ldrh r0, [r1]
-    bic r0, r0, #3
-    orr r0, r0, #3
-    strh r0, [r1]
-    ldrh r0, [r1, #2]
-    bic r0, r0, #3
-    orr r0, r0, #3
-    strh r0, [r1, #2]
-    add sp, sp, #0x18
-    ldmia sp!, {r3, pc}
+    T02146fd4 t = *(T02146fd4 *)data_ov016_02154cfc;
+    ((s32 (*)(...))func_ov016_02137704)(data_ov016_02155c68, func_02003ad8);
+    ((s32 (*)(...))func_ov016_02137704)(data_ov016_02155c80, func_02003298);
+    ((s32 (*)(...))func_ov016_02137704)(data_ov016_02155c98, func_02003758);
+    *(s32 *)((u8 *)data_ov016_02158af4 + 4) = ((s32 (*)(...))func_ov016_0214f07c)(((s32 (*)(...))func_ov016_021376a0)(t.c), 0, 4);
+    *(volatile u16 *)0x4001008 = (*(volatile u16 *)0x4001008 & ~3) | 3;
+    *(volatile u16 *)0x400100A = (*(volatile u16 *)0x400100A & ~3) | 3;
+    *(volatile u16 *)0x400000A = (*(volatile u16 *)0x400000A & ~3) | 3;
+    *(volatile u16 *)0x400000C = (*(volatile u16 *)0x400000C & ~3) | 3;
 }
 
 extern "C" void func_ov016_021470b8(void)

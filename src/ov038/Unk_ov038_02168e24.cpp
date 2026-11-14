@@ -1,4 +1,5 @@
 #include "ov038/Unk_ov038_02168e24.hpp"
+struct T02169b50 { s32 v[4]; };
 
 extern "C" void func_ov038_02168e24(u8 *arg0);
 extern "C" void func_ov038_02168e40(void);
@@ -21,7 +22,7 @@ extern "C" void func_ov038_02169954(void);
 extern "C" s32 func_ov038_021699e4(s32 arg0);
 extern "C" void func_ov038_02169a44(void);
 extern "C" void func_ov038_02169aec(u8 *arg0);
-extern "C" void func_ov038_02169b50(void);
+extern "C" void func_ov038_02169b50(u8 *arg0);
 extern "C" s32 func_ov038_02169c10(s32 arg0);
 extern "C" void func_ov038_02169c80(void);
 extern "C" void func_ov038_02169db8(void);
@@ -927,56 +928,22 @@ extern "C" void func_ov038_02169aec(u8 *arg0)
     func_02093928(*(s32 *)(data_020c46d4), *(s32 *)(arg0 + 0x868), 3, 2);
 }
 
-extern "C" asm void func_ov038_02169b50(void)
+extern "C" void func_ov038_02169b50(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    sub sp, sp, #0x10
-    mov r5, r0
-    bl func_ov038_02169c10
-    cmp r0, #1
-    bne @L_02169be8
-    ldr r0, =data_ov038_0216a678
-    add r12, sp, #0
-    ldmia r0, {r0, r1, r2, r3}
-    stmia r12, {r0, r1, r2, r3}
-    ldr r0, [r5, #0x920]
-    mov r2, #0x78
-    mov r1, r0, asr #2
-    add r1, r0, r1, lsr #29
-    mov r1, r1, asr #3
-    mul r3, r1, r2
-    mov r2, r0, lsr #0x1f
-    rsb r1, r2, r0, lsl #29
-    add r1, r2, r1, ror #29
-    mov r2, r1, lsl #4
-    mov r1, r0, asr #1
-    add r3, r3, #8
-    mov r4, #1
-    add r2, r2, #0x20
-    add r1, r0, r1, lsr #30
-    str r0, [r5, #0x9a0]
-    mov r0, r1, asr #2
-    str r4, [r5, #0x9ac]
-    str r3, [r5, #0x9a4]
-    str r2, [r5, #0x9a8]
-    ldr r2, [r12, r0, lsl #2]
-    mov r0, r5
-    mov r1, #2
-    str r2, [r5, #0x9b4]
-    bl func_ov038_02166bd8
-    ldr r0, =data_020c5e40
-    mov r1, r4
-    b @L_02169bf0
-@L_02169be8:
-    ldr r0, =data_020c5e40
-    mov r1, #9
-@L_02169bf0:
-    bl _ZN12SoundManager9PlaySoundEi
-    mov r0, r5
-    mov r1, #0xc
-    bl func_ov038_02166518
-    add sp, sp, #0x10
-    ldmia sp!, {r3, r4, r5, pc}
+    if (((s32 (*)(...))func_ov038_02169c10)(arg0) == 1) {
+        T02169b50 t = *(T02169b50 *)data_ov038_0216a678;
+        s32 v = *(s32 *)(arg0 + 0x920);
+        *(s32 *)(arg0 + 0x9A0) = v;
+        *(s32 *)(arg0 + 0x9AC) = 1;
+        *(s32 *)(arg0 + 0x9A4) = (v / 8) * 0x78 + 8;
+        *(s32 *)(arg0 + 0x9A8) = (v % 8) * 0x10 + 0x20;
+        *(s32 *)(arg0 + 0x9B4) = t.v[v / 4];
+        ((s32 (*)(...))func_ov038_02166bd8)(arg0, 2);
+        ((s32 (*)(...))_ZN12SoundManager9PlaySoundEi)(data_020c5e40, 1);
+    } else {
+        ((s32 (*)(...))_ZN12SoundManager9PlaySoundEi)(data_020c5e40, 9);
+    }
+    ((s32 (*)(...))func_ov038_02166518)(arg0, 0xC);
 }
 
 extern "C" s32 func_ov038_02169c10(s32 arg0)
