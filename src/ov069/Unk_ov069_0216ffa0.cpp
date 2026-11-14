@@ -1,7 +1,7 @@
 #include "ov069/Unk_ov069_0216ffa0.hpp"
 
 extern "C" s32 func_ov069_0216ffa0(void);
-extern "C" void func_ov069_0216ffa8(void);
+extern "C" void func_ov069_0216ffa8(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov069_02170030(s32 arg0, s32 arg1);
 extern "C" s32 func_ov069_02170054(...);
 extern "C" void func_ov069_02170094(void);
@@ -51,40 +51,16 @@ extern "C" s32 func_ov069_0216ffa0(void)
     return 1;
 }
 
-extern "C" asm void func_ov069_0216ffa8(void)
+extern "C" void func_ov069_0216ffa8(u8 *arg0, s32 arg1, s32 arg2)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x114
-    add r7, sp, #0x14
-    mov r5, r0
-    mov r8, r2
-    mov r6, #0
-    mov r4, r1
-    mov r0, r7
-    mov r1, r6
-    mov r2, #0x100
-    bl MI_CpuFill8
-    ldr r1, =data_ov069_021706ec
-    mov r0, r7
-    mov r2, r8
-    bl sprintf
-    ldr r0, =data_020c46d4
-    mov r2, r7
-    ldr r0, [r0]
-    mov r1, #5
-    str r6, [sp]
-    str r6, [sp, #4]
-    str r6, [sp, #8]
-    str r6, [sp, #0xc]
-    mov r3, #1
-    str r6, [sp, #0x10]
-    bl func_02097898
-    mov r1, #0x2c
-    mla r1, r4, r1, r5
-    str r0, [r1, #0x14]
-    strb r6, [r5, #0xc0]
-    add sp, sp, #0x114
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    char b[0x100];
+    ((s32 (*)(...))MI_CpuFill8)(b, 0, 0x100);
+    ((s32 (*)(...))sprintf)(b, data_ov069_021706ec, arg2);
+    {
+        s32 m = *(volatile s32 *)data_020c46d4;
+        *(s32 *)(arg0 + arg1 * 0x2C + 0x14) = ((s32 (*)(...))func_02097898)(m, 5, b, 1, 0, 0, 0, 0, 0);
+    }
+    arg0[0xC0] = 0;
 }
 
 extern "C" void func_ov069_02170030(s32 arg0, s32 arg1)

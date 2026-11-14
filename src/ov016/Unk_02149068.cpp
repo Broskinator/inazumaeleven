@@ -1,4 +1,5 @@
 #include "ov016/Unk_02149068.hpp"
+struct T02149498 { s32 v[17]; };
 struct P0214aad0 { u16 x; u16 y; };
 struct S0214bd10 { u8 pad[0x14]; s32 x14; u16 x18; u8 x1a; s8 x1b; };
 
@@ -12,7 +13,7 @@ extern "C" void func_ov016_02149324(void);
 extern "C" s32 func_ov016_021493fc(u8 arg0);
 extern "C" void func_ov016_02149434(void);
 extern "C" s32 func_ov016_02149464(void);
-extern "C" void func_ov016_02149498(void);
+extern "C" s32 func_ov016_02149498(void);
 extern "C" s32 func_ov016_02149560(void);
 extern "C" s32 func_ov016_02149594(void);
 extern "C" s32 func_ov016_02149628(u8 *arg0);
@@ -453,57 +454,20 @@ extern "C" s32 func_ov016_02149464(void)
     return v1;
 }
 
-extern "C" asm void func_ov016_02149498(void)
+extern "C" s32 func_ov016_02149498(void)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_ov016_02158b20
-    mov r5, #0
-    ldr r1, [r4]
-    mov r0, r5
-    add r1, r1, #0x1300
-    mov r2, #0x348
-    bl MIi_CpuClear16
-    ldr r0, [r4]
-    ldr r1, =func_ov016_02149688
-    mov r2, #3
-    bl func_020136b4
-    cmp r0, #2
-    movne r0, r5
-    ldmneia sp!, {r3, r4, r5, pc}
-@L_021494d4:
-    ldr r0, [r4]
-    add r0, r0, #0x28c
-    add r0, r0, #0x1400
-    bl func_02012f44
-    ldr r12, [r4]
-    add r0, r12, #0x1600
-    ldrh r0, [r0, #0x8c]
-    cmp r0, #2
-    bne @L_021494d4
-    add r0, r12, #0x248
-    ldr r5, =data_ov016_02154dc8
-    add lr, r0, #0x1400
-    mov r4, #4
-@L_02149508:
-    ldmia r5!, {r0, r1, r2, r3}
-    stmia lr!, {r0, r1, r2, r3}
-    subs r4, r4, #1
-    bne @L_02149508
-    ldr r0, [r5]
-    add r1, r12, #0xf00
-    str r0, [lr]
-    add r0, r12, #0x1000
-    str r1, [r0, #0x648]
-    bl func_02013308
-    ldr r1, =data_ov016_02158b20
-    ldr r1, [r1]
-    add r1, r1, #0x1600
-    strh r0, [r1, #0x50]
-    bl func_ov016_02149560
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 *g;
+    ((s32 (*)(...))MIi_CpuClear16)(0, *(u8 **)data_ov016_02158b20 + 0x1300, 0x348);
+    if (((s32 (*)(...))func_020136b4)(*(u8 **)data_ov016_02158b20, func_ov016_02149688, 3) != 2)
+        return 0;
+    do {
+        ((s32 (*)(...))func_02012f44)(*(u8 **)data_ov016_02158b20 + 0x168C);
+        g = *(u8 **)data_ov016_02158b20;
+    } while (*(u16 *)(g + 0x168C) != 2);
+    *(T02149498 *)(g + 0x1648) = *(T02149498 *)data_ov016_02154dc8;
+    *(u8 **)(g + 0x1648) = g + 0xF00;
+    *(u16 *)(*(u8 **)data_ov016_02158b20 + 0x1650) = ((s32 (*)(...))func_02013308)();
+    return ((s32 (*)(...))func_ov016_02149560)() != 0 ? 1 : 0;
 }
 
 extern "C" s32 func_ov016_02149560(void)

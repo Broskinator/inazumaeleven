@@ -54,7 +54,7 @@ extern "C" s32 func_ov014_02122820(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov014_02122928(void);
 extern "C" s32 func_ov014_021229d4(void);
 extern "C" void func_ov014_02122a40(void);
-extern "C" void func_ov014_02122b28(void);
+extern "C" s32 func_ov014_02122b28(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov014_02122be0(...);
 extern "C" void func_ov014_02122c58(void);
 extern "C" void func_ov014_02122cac(u16 *arg0);
@@ -1766,57 +1766,36 @@ extern "C" asm void func_ov014_02122a40(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02122b28(void)
+extern "C" s32 func_ov014_02122b28(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r5, r3
-    mov r8, r0
-    mov r7, r1
-    mov r6, r2
-    bl func_ov014_02122264
-    mov r4, r0
-    cmp r5, #0
-    bne @L_02122b60
-    ldr r0, =func_ov014_02123bdc
-    mov r1, r8
-    mov r2, r7
-    mov r3, r6
-    b @L_02122b74
-@L_02122b60:
-    ldr r0, =func_ov014_02123c1c
-    mov r1, r8
-    mov r2, r7
-    mov r3, r6
-    str r5, [r4, #0x2c]
-@L_02122b74:
-    bl func_020142d4
-    cmp r0, #8
-    addls pc, pc, r0, lsl #2
-    b @L_02122ba8
-    b @L_02122ba8
-    b @L_02122ba8
-    b @L_02122bb0
-    b @L_02122ba8
-    b @L_02122ba8
-    b @L_02122ba8
-    b @L_02122ba8
-    b @L_02122ba8
-    b @L_02122ba8
-@L_02122ba8:
-    mvn r0, #4
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
-@L_02122bb0:
-    cmp r5, #0
-    bne @L_02122bd0
-    add r0, r4, #4
-    bl OS_SleepThread
-    ldrh r0, [r4, #0x24]
-    cmp r0, #0
-    mvnne r0, #4
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-@L_02122bd0:
-    mov r0, r6
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *p = (u8 *)((s32 (*)(...))func_ov014_02122264)();
+    s32 r;
+    if (arg3 == 0) {
+        r = ((s32 (*)(...))func_020142d4)(func_ov014_02123bdc, arg0, arg1, arg2);
+    } else {
+        *(s32 *)(p + 0x2C) = arg3;
+        r = ((s32 (*)(...))func_020142d4)(func_ov014_02123c1c, arg0, arg1, arg2);
+    }
+    switch (r) {
+    case 0:
+    case 1:
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    default:
+        return -5;
+    case 2:
+        break;
+    }
+    if (arg3 == 0) {
+        ((s32 (*)(...))OS_SleepThread)(p + 4);
+        if (*(u16 *)(p + 0x24) != 0)
+            return -5;
+    }
+    return arg2;
 }
 
 extern "C" asm s32 func_ov014_02122be0(...)

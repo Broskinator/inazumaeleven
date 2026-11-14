@@ -1,4 +1,5 @@
 #include "ov000/Unk_ov000_0211289c.hpp"
+struct V02113c14 { s32 x; s32 y; s32 z; };
 struct V3_02114250 { s32 x, y, z; };
 
 extern "C" void func_ov000_0211289c(void);
@@ -7,7 +8,7 @@ extern "C" void func_ov000_02113580(void);
 extern "C" void func_ov000_0211367c(void);
 extern "C" void func_ov000_02113744(void);
 extern "C" void func_ov000_02113af0(void);
-extern "C" void func_ov000_02113c14(void);
+extern "C" s32 func_ov000_02113c14(V02113c14 *arg0, V02113c14 a, V02113c14 b, V02113c14 c);
 extern "C" void func_ov000_02113cd8(void);
 extern "C" void func_ov000_02113e3c(void);
 extern "C" void func_ov000_02113f5c(void);
@@ -1385,57 +1386,15 @@ extern "C" asm void func_ov000_02113af0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov000_02113c14(void)
+extern "C" s32 func_ov000_02113c14(V02113c14 *arg0, V02113c14 a, V02113c14 b, V02113c14 c)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #0x18
-    add r7, sp, #0x34
-    add r6, sp, #0xc
-    mov r4, r0
-    add r0, sp, #0x40
-    mov r1, r7
-    mov r2, r6
-    bl func_02001f38
-    add r5, sp, #0
-    add r0, sp, #0x4c
-    mov r1, r7
-    mov r2, r5
-    bl func_02001f38
-    mov r0, r6
-    mov r1, r5
-    mov r2, r4
-    bl func_02001fa4
-    mov r0, r4
-    mov r1, r4
-    bl func_02002084
-    ldr r1, [r4, #8]
-    ldr r0, [sp, #0x3c]
-    ldr r12, [r4]
-    smull r2, r0, r1, r0
-    adds r2, r2, #0x800
-    adc r1, r0, #0
-    mov r0, r2, lsr #0xc
-    orr r0, r0, r1, lsl #20
-    ldr r3, [sp, #0x34]
-    ldr r2, [r4, #4]
-    smull lr, r4, r12, r3
-    ldr r1, [sp, #0x38]
-    adds r12, lr, #0x800
-    smull r3, r1, r2, r1
-    adc r2, r4, #0
-    mov r4, r12, lsr #0xc
-    orr r4, r4, r2, lsl #20
-    adds r2, r3, #0x800
-    adc r1, r1, #0
-    mov r2, r2, lsr #0xc
-    orr r2, r2, r1, lsl #20
-    add r1, r4, r2
-    add r0, r0, r1
-    add sp, sp, #0x18
-    ldmia sp!, {r3, r4, r5, r6, r7, lr}
-    add sp, sp, #0x10
-    bx lr
+    V02113c14 d1;
+    V02113c14 d2;
+    ((s32 (*)(...))func_02001f38)(&b, &a, &d1);
+    ((s32 (*)(...))func_02001f38)(&c, &a, &d2);
+    ((s32 (*)(...))func_02001fa4)(&d1, &d2, arg0);
+    ((s32 (*)(...))func_02002084)(arg0, arg0);
+    return (s32)(((s64)arg0->z * a.z + 0x800) >> 12) + ((s32)(((s64)arg0->x * a.x + 0x800) >> 12) + (s32)(((s64)arg0->y * a.y + 0x800) >> 12));
 }
 
 extern "C" asm void func_ov000_02113cd8(void)

@@ -25,7 +25,7 @@ extern "C" void func_ov001_021263a0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov001_021263b4(...);
 extern "C" s32 func_ov001_02126458(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" s32 func_ov001_02126498(s32 arg0);
-extern "C" void func_ov001_021264cc(void);
+extern "C" s32 func_ov001_021264cc(u8 *arg0);
 extern "C" s32 func_ov001_02126554(u8 *arg0);
 extern "C" void func_ov001_02126588(u8 *arg0);
 extern "C" s32 func_ov001_0212662c(void);
@@ -1169,40 +1169,24 @@ extern "C" s32 func_ov001_02126498(s32 arg0)
     return (arg0 + 0xE000);
 }
 
-extern "C" asm void func_ov001_021264cc(void)
+extern "C" s32 func_ov001_021264cc(u8 *arg0)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0x14
-    mov r6, r0
-    mov r5, #0
-    add r3, r6, #0xe000
-    mov r4, #1
-    mov r0, r5
-    mov r1, r6
-    mov r2, #0xe500
-    strb r5, [r3, #0x504]
-    strb r5, [r3, #0x505]
-    strb r4, [r3, #0x506]
-    bl MIi_CpuClearFast
-    ldr r0, =data_020c46d4
-    ldr r2, =data_ov001_0212a998
-    ldr r0, [r0]
-    mov r3, r5
-    str r5, [sp]
-    str r5, [sp, #4]
-    str r5, [sp, #8]
-    str r5, [sp, #0xc]
-    mov r1, #5
-    str r5, [sp, #0x10]
-    bl func_02097898
-    add r1, r6, #0xe000
-    cmp r0, #0
-    str r0, [r1, #0x500]
-    movle r0, r5
-    strleb r4, [r1, #0x505]
-    movgt r0, r4
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    s32 z = 0;
+    s32 k = 1;
+    s32 r;
+    s32 m;
+    arg0[0xE504] = z;
+    arg0[0xE505] = z;
+    arg0[0xE506] = k;
+    ((s32 (*)(...))MIi_CpuClearFast)(z, arg0, 0xE500);
+    m = *(volatile s32 *)data_020c46d4;
+    r = ((s32 (*)(...))func_02097898)(m, 5, data_ov001_0212a998, z, z, z, z, z, z);
+    *(s32 *)(arg0 + 0xE500) = r;
+    if (r <= 0) {
+        arg0[0xE505] = k;
+        return z;
+    }
+    return k;
 }
 
 extern "C" s32 func_ov001_02126554(u8 *arg0)
