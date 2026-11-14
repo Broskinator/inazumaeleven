@@ -1,7 +1,16 @@
 #include "ov087/Unk_ov087_0217d338.hpp"
+struct MatchPlayer;
+struct MatchPoint;
+struct MI0217d69c { s16 unk_0; };
+class UnkClass_020621b4 {
+public:
+    void func_02065414(MatchPlayer *player);
+    void func_020654cc(MatchPlayer *player, int action, int a, MatchPoint *b, MatchPoint *c, int d);
+    MI0217d69c *func_020787e8(MatchPlayer *player);
+};
 
 extern "C" void func_ov087_0217d338(void);
-extern "C" void func_ov087_0217d69c(void);
+extern "C" s32 func_ov087_0217d69c(UnkClass_020621b4 *arg0, MatchPlayer *arg1);
 extern "C" void func_ov087_0217d750(void);
 extern "C" void func_ov087_0217da24(void);
 extern "C" void func_ov087_0217db68(void);
@@ -414,57 +423,20 @@ extern "C" asm void func_ov087_0217d338(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov087_0217d69c(void)
+extern "C" s32 func_ov087_0217d69c(UnkClass_020621b4 *arg0, MatchPlayer *arg1)
 {
-    stmdb sp!, {r3, r4, r5, r6, lr}
-    sub sp, sp, #0xc
-    mov r5, r1
-    mov r6, r0
-    mov r0, r5
-    bl func_02084870
-    cmp r0, #0
-    addeq sp, sp, #0xc
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, pc}
-    mov r0, r6
-    mov r1, r5
-    bl _ZN17UnkClass_020621b413func_020787e8EP11MatchPlayer
-    mov r4, r0
-    mov r0, r5
-    bl func_020847b0
-    cmp r0, #0
-    beq @L_0217d704
-    mov r12, #0
-    str r12, [sp]
-    mov r2, #0x19
-    str r12, [sp, #4]
-    mov r0, r6
-    mov r1, r5
-    sub r3, r2, #0x1a
-    b @L_0217d73c
-@L_0217d704:
-    ldrsh r0, [r4]
-    cmp r0, #0xa
-    bne @L_0217d720
-    mov r0, r6
-    mov r1, r5
-    bl _ZN17UnkClass_020621b413func_02065414EP11MatchPlayer
-    b @L_0217d744
-@L_0217d720:
-    mov r12, #0
-    str r12, [sp]
-    mov r2, #0xa
-    str r12, [sp, #4]
-    mov r0, r6
-    mov r1, r5
-    sub r3, r2, #0xb
-@L_0217d73c:
-    str r12, [sp, #8]
-    bl _ZN17UnkClass_020621b413func_020654ccEP11MatchPlayeriiP10MatchPointS3_i
-@L_0217d744:
-    mov r0, #1
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, r5, r6, pc}
+    MI0217d69c *info;
+    if (!((s32 (*)(...))func_02084870)(arg1))
+        return 0;
+    info = arg0->func_020787e8(arg1);
+    if (((s32 (*)(...))func_020847b0)(arg1)) {
+        arg0->func_020654cc(arg1, 25, -1, NULL, NULL, 0);
+    } else if (info->unk_0 == 10) {
+        arg0->func_02065414(arg1);
+    } else {
+        arg0->func_020654cc(arg1, 10, -1, NULL, NULL, 0);
+    }
+    return 1;
 }
 
 extern "C" asm void func_ov087_0217d750(void)

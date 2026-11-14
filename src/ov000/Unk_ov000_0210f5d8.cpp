@@ -1,5 +1,10 @@
 #include "ov000/Unk_ov000_0210f5d8.hpp"
 #include "game/vcall.hpp"
+struct T021122b4 { s16 v[8]; };
+struct P021122b4 { s16 x, y, z; };
+struct M021122b4 { u8 pad[0x30]; P021122b4 *verts; T021122b4 *tris; };
+struct O021122b4 { u8 pad[8]; M021122b4 **m; };
+struct V021122b4 { s32 x, y, z; };
 
 extern "C" void func_ov000_0210f5d8(void);
 extern "C" s32 func_ov000_0210f680(u8 *arg0);
@@ -72,7 +77,7 @@ extern "C" void func_ov000_02111854(void);
 extern "C" void func_ov000_02111cb0(void);
 extern "C" void func_ov000_02111e40(void);
 extern "C" s32 func_ov000_021122a0(u8 *arg0);
-extern "C" void func_ov000_021122b4(void);
+extern "C" void func_ov000_021122b4(O021122b4 *arg0, s32 arg1, s32 arg2, V021122b4 *arg3);
 extern "C" s32 func_ov000_0211233c(...);
 extern "C" void func_ov000_02112420(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3);
 extern "C" void func_ov000_021124a0(void);
@@ -3166,43 +3171,16 @@ extern "C" s32 func_ov000_021122a0(u8 *arg0)
     return (*(s32 *)(arg0 + 0x4) != 0 ? 1 : 0);
 }
 
-extern "C" asm void func_ov000_021122b4(void)
+extern "C" void func_ov000_021122b4(O021122b4 *arg0, s32 arg1, s32 arg2, V021122b4 *arg3)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r5, [r0, #8]
-    mov r4, #0
-    ldr r5, [r5, r1, lsl #2]
-    mov r6, #0xc
-    ldr r5, [r5, #0x34]
-    add lr, r5, r2, lsl #4
-    mov r5, #6
-@L_021122d4:
-    mov r7, r4, lsl #1
-    ldr r2, [r0, #8]
-    ldrsh r7, [lr, r7]
-    mul r8, r4, r6
-    ldr r2, [r2, r1, lsl #2]
-    smulbb r12, r7, r5
-    ldr r2, [r2, #0x30]
-    add r4, r4, #1
-    ldrsh r7, [r2, r12]
-    add r2, r3, r8
-    cmp r4, #3
-    str r7, [r3, r8]
-    ldr r7, [r0, #8]
-    ldr r7, [r7, r1, lsl #2]
-    ldr r7, [r7, #0x30]
-    add r7, r7, r12
-    ldrsh r7, [r7, #2]
-    str r7, [r2, #4]
-    ldr r7, [r0, #8]
-    ldr r7, [r7, r1, lsl #2]
-    ldr r7, [r7, #0x30]
-    add r12, r7, r12
-    ldrsh r12, [r12, #4]
-    str r12, [r2, #8]
-    blt @L_021122d4
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    T021122b4 *t = &arg0->m[arg1]->tris[arg2];
+    s32 i;
+    for (i = 0; i < 3; i++) {
+        s32 tt = t->v[i];
+        arg3[i].x = arg0->m[arg1]->verts[tt].x;
+        arg3[i].y = arg0->m[arg1]->verts[tt].y;
+        arg3[i].z = arg0->m[arg1]->verts[tt].z;
+    }
 }
 
 extern "C" asm s32 func_ov000_0211233c(...)

@@ -1,6 +1,6 @@
 #include "ov003/Unk_ov003_0210ed4c.hpp"
 
-extern "C" void func_ov003_0210ed4c(void);
+extern "C" s32 func_ov003_0210ed4c(void *arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov003_0210edbc(u8 *arg0);
 extern "C" void func_ov003_0210ee6c(void);
 extern "C" s32 func_ov003_0210ef0c(u8 *arg0);
@@ -176,35 +176,18 @@ extern "C" void _fsub(void);
 extern "C" void _ffix(void);
 extern "C" void func_02095ea4(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" asm void func_ov003_0210ed4c(void)
+extern "C" s32 func_ov003_0210ed4c(void *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #0x1c
-    mov r4, r2
-    mov r0, r1
-    mov r1, r3
-    add r2, sp, #0x18
-    add r3, sp, #0x14
-    bl func_ov015_02134b08
-    cmp r0, #0
-    addeq sp, sp, #0x1c
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, pc}
-    ldr r0, =data_020c46d4
-    ldr r12, [sp, #0x14]
-    ldr r2, [sp, #0x18]
-    ldr r0, [r0]
-    mov r3, #0
-    str r3, [sp]
-    mov r1, #1
-    stmib sp, {r1, r3}
-    str r2, [sp, #0xc]
-    mov r2, r4
-    mov r1, #5
-    str r12, [sp, #0x10]
-    bl func_02097898
-    add sp, sp, #0x1c
-    ldmia sp!, {r3, r4, pc}
+    s32 a;
+    s32 b;
+    if (((s32 (*)(...))func_ov015_02134b08)(arg1, arg3, &a, &b) == 0)
+        return 0;
+    {
+        s32 y = *(volatile s32 *)&b;
+        s32 x = *(volatile s32 *)&a;
+        s32 m = *(volatile s32 *)data_020c46d4;
+        return ((s32 (*)(...))func_02097898)(m, 5, arg2, 0, 0, 1, 0, x, y);
+    }
 }
 
 extern "C" void func_ov003_0210edbc(u8 *arg0)
