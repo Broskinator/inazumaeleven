@@ -33,7 +33,8 @@ your own copy of the ROM:
       tables (`UnkClass_02061498.cpp`), and the first files of the match's data
       object at data_020e88a0 (`UnkClass_020621b4.cpp`); the ball, the players and their
       bodies are in `include/game/Match.hpp`
-- [ ] Decompiled to C
+- [ ] Decompiled to C: see [docs/progress.md](docs/progress.md) for the share of the code that is
+      C/C++ rather than assembly, by bytes and per module (`make report` rewrites it)
 
 ## Building
 

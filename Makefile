@@ -2,6 +2,7 @@
 #
 #   make            build the ROM and check that it matches the original
 #   make progress   show how much has been decompiled
+#   make report     write docs/progress.md: the share of the code that is C/C++, by bytes
 #   make setup      download the tools only
 #   make clean      remove build output (keeps the extracted ROM)
 #   make distclean  also remove the extracted ROM and the tools
@@ -45,7 +46,7 @@ C_OBJS   := $(patsubst %.cpp,$(BUILD)/%.o,$(C_SRCS:%.c=$(BUILD)/%.o))
 
 LDFLAGS  := -proc arm946e -nostdlib -interworking -m Entry -map closure,unused
 
-.PHONY: all setup check progress clean distclean
+.PHONY: all setup check progress report clean distclean
 all: check
 
 setup: $(DSD) $(WIBO) $(MW)/mwldarm.exe $(OBJDIFF)
@@ -91,6 +92,10 @@ progress: $(ELF)
 	$(DSD) objdiff -c $(CONFIG) -o . -m make -M $(ELF) --skip-absent-objects
 	$(OBJDIFF) report generate -p . -o $(BUILD)/report.json
 	@$(PYTHON) tools/progress.py $(BUILD)/report.json
+
+# share of the code that is C/C++ rather than assembly, by bytes (reads the sources only)
+report:
+	@$(PYTHON) tools/cprogress.py
 
 $(BASEROM):
 	@echo "Put your ROM here as $(BASEROM) (see README.md)"; exit 1
