@@ -146,7 +146,7 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e224Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
 extern "C" void _ZN11MatchEngine13func_0207f140Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_02083054Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_02083054Ei(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -2821,7 +2821,7 @@ extern "C" s32 func_ov003_02102254(u8 *arg0)
         t1 = *(u16 *)(arg0 + 0x3E);
         *(u16 *)(r4 + 0x1B68) = t1;
     }
-    v3 = _ZN11MatchEngine13func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
+    v3 = _ZN11MatchEngine13func_02083054Ei((u8 *)((u8 *)&data_020e88a0), 2);
     v4 = MI_CpuCopy8(v3, (s32)((r4 + 0x6A) + 0x1B00), 0x20);
     return v4;
 }
@@ -2948,7 +2948,7 @@ extern "C" s32 func_ov003_0210241c(u8 *arg0)
     if (((s32)arg0 != 0 && *(u16 *)(r4 + 0x1B68) != *(u16 *)(arg0 + 0x3E))) {
         return 1;
     } else {
-        v3 = _ZN11MatchEngine13func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
+        v3 = _ZN11MatchEngine13func_02083054Ei((u8 *)((u8 *)&data_020e88a0), 2);
         v4 = memcmp(v3, (s32)((r4 + 0x6A) + 0x1B00), 0x20);
         if (v4 != 0) {
             arg0 = (u8 *)1;
@@ -3061,7 +3061,7 @@ extern "C" s32 func_ov003_021025b4(u8 *arg0)
         t1 = *(u16 *)(r4 + 0x1B68);
         *(u16 *)(arg0 + 0x3E) = t1;
     }
-    v3 = _ZN11MatchEngine13func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
+    v3 = _ZN11MatchEngine13func_02083054Ei((u8 *)((u8 *)&data_020e88a0), 2);
     v4 = MI_CpuCopy8((s32)((r4 + 0x6A) + 0x1B00), v3, 0x20);
     return v4;
 }

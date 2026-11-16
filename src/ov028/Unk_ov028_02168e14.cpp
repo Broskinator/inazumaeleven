@@ -66,13 +66,13 @@ extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine13func_0206dfa4Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207b28cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207bdf8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207bee8Ev(void);
 extern "C" void _ZN11MatchEngine13func_02082f3cEv(void);
-extern "C" void _ZN11MatchEngine13func_02083054Ev(void);
+extern "C" void _ZN11MatchEngine13func_02083054Ei(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -2650,7 +2650,7 @@ extern "C" asm void func_ov028_0216b4c8(void)
     bne @L_0216b524
     mov r0, r5
     mov r1, r7
-    bl _ZN11MatchEngine13func_02083054Ev
+    bl _ZN11MatchEngine13func_02083054Ei
     bl func_02080460
     mov r3, r0
 @L_0216b524:
@@ -2674,7 +2674,7 @@ extern "C" asm void func_ov028_0216b4c8(void)
     ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r0, =data_020e88a0
     mov r1, r7
-    bl _ZN11MatchEngine13func_02083054Ev
+    bl _ZN11MatchEngine13func_02083054Ei
     bl func_02080460
     mov r5, #1
     mov r6, r0
@@ -2784,7 +2784,7 @@ extern "C" asm void func_ov028_0216b6c0(void)
     ldr r0, =data_020e88a0
     add r2, sp, #0x38
     mov r1, r10
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     addeq sp, sp, #0x98
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}

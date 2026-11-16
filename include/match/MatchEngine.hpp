@@ -286,7 +286,7 @@ public:
     void func_0206d9d0();
     void func_0206da44();
     BOOL func_0206dad4(int id);
-    void func_0206daec();
+    BOOL func_0206daec(int id);
     void func_0206db10(SaveBody *dst);
     void func_0206dc34();
     void func_0206dcdc(SaveBody *src);
@@ -300,7 +300,7 @@ public:
     void func_0206de64();
     BOOL func_0206dedc();
     BOOL func_0206deec();
-    void func_0206df08();
+    BOOL func_0206df08();
     BOOL func_0206df34();
     int func_0206df44();
     void func_0206df58(int i, u8 value);
@@ -521,8 +521,8 @@ public:
     void func_02078394();
     int func_02078428();
     int func_02078434();
-    void func_02078450();
-    void func_02078474();
+    int func_02078450();
+    int func_02078474();
     void func_02078498();
     void func_020784b8(int a);
     void func_020784ec();
@@ -588,8 +588,8 @@ public:
     BOOL func_0207a46c(MatchPlayer *player);
     void func_0207a4a0();
     BOOL func_0207a510(MatchPlayer *a, MatchPlayer *b);
-    void func_0207a534();
-    void func_0207a5c0();
+    int func_0207a534(int id);
+    int func_0207a5c0(int id, void *out);
     void func_0207a78c();
     BOOL func_0207a820();
     void func_0207a854();
@@ -699,12 +699,12 @@ public:
     u8 func_0207ff44(int a, int b, int c);
     void func_0207fff0();
     MatchAction *func_02080288(MatchPlayer *player);
-    void func_02082d5c();
-    void func_02082d80();
+    int func_02082d5c(int id);
+    BOOL func_02082d80(int id, int value);
     void func_02082d9c();
     void func_02082f3c();
-    void func_02083048();
-    void func_02083054();
+    u8 *func_02083048(int team);
+    u8 *func_02083054(int team);
 
     void *vtable;
     u8 unk_4[0x74 - 0x4];

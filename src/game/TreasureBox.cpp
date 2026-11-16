@@ -4,7 +4,7 @@
 #include "nitro/mi.h"
 
 extern "C" void func_0208e508(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020767a4Em(void);     // (for the asm functions)
@@ -2675,7 +2675,7 @@ asm void TreasureBox::func_02054398()
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     ldr r0, =data_020e88a0
     add r2, sp, #0x10
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     addeq sp, sp, #0x70
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}

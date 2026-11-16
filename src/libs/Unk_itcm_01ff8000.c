@@ -274,7 +274,7 @@ extern char data_020c4808[];
 void func_ov087_0217e3ec(void);
 void _ZN11MatchEngine13func_0207efd8Ev(void);
 void _ZN11MatchEngine13func_0206dad4Ei(void);
-void _ZN11MatchEngine13func_0206daecEv(void);
+void _ZN11MatchEngine13func_0206daecEi(void);
 void _ZN11MatchEngine13func_0207f07cEv(void);
 void _ZN8GameHeap4FreeEPv(void);
 void _ZN11MatchEngine13func_0207070cEv(void);
@@ -371,19 +371,19 @@ extern char data_020af0e8[];
 extern char data_020af104[];
 extern char data_020af120[];
 void _ZN9EntryPool6CreateEi(void);
-void _ZN11MatchEngine13func_0207a5c0Ev(void);
+void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern char data_020cadf4[];
 void _ZN11MatchEngine13func_0207aa94Ei(void);
 void func_02081390(void);
 void func_020813a0(void);
-void _ZN11MatchEngine13func_02082d80Ev(void);
+void _ZN11MatchEngine13func_02082d80Eii(void);
 void _ZN11MatchEngine13func_0207793cEv(void);
 void _ZN11MatchEngine13func_0207e5a4EPhii(void);
 void func_020802cc(void);
 void func_ov015_021319bc(void);
 void func_020817f0(void);
 void _ZN11MatchEngine13func_0207ef0cEP11MatchPlayer(void);
-void _ZN11MatchEngine13func_0207a534Ev(void);
+void _ZN11MatchEngine13func_0207a534Ei(void);
 void _ZN11MatchEngine13func_0206f4acEv(void);
 void _ZN11MatchEngine13func_02079d2cEi(void);
 void _ZN11MatchEngine13func_02079f98EP11MatchPlayerii(void);
@@ -3801,7 +3801,7 @@ asm void func_01ffb040(void)
     and r1, r1, r9
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_0206daecEv
+    bl _ZN11MatchEngine13func_0206daecEi
 @L_01ffb16c:
     add r6, r6, #1
 @L_01ffb170:
@@ -6962,7 +6962,7 @@ asm void func_01ffde48(void)
     ldrh r1, [r6, #4]
     mov r0, r7
     mov r2, r4
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     mov r0, r5, lsl #0x18
     mov r0, r0, asr #0x18
     mov r3, #0
@@ -7032,7 +7032,7 @@ asm void func_01ffdee0(void)
     mov r0, r7
     mov r1, r6
     mov r2, r8
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -7101,7 +7101,7 @@ asm void func_01ffdee0(void)
     mov r0, r7
     mov r1, r6
     mov r2, #1
-    bl _ZN11MatchEngine13func_02082d80Ev
+    bl _ZN11MatchEngine13func_02082d80Eii
     cmp r0, #0
     ldrneh r2, [r9, #0x32]
     ldreqh r2, [r9, #0x30]
@@ -7150,7 +7150,7 @@ asm void func_01ffdee0(void)
     bl _ZN11MatchEngine13func_0207ef0cEP11MatchPlayer
     mov r0, r7
     mov r1, r6
-    bl _ZN11MatchEngine13func_0207a534Ev
+    bl _ZN11MatchEngine13func_0207a534Ei
     cmp r0, #0
     blt @L_01ffe188
     ldr r2, [r7, #0xbdc]

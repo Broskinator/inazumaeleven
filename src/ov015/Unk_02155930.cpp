@@ -138,7 +138,7 @@ extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN11MatchEngine13func_02076ba0Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078990Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207aa58Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207aa94Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207ab64Ei(void);
@@ -1480,7 +1480,7 @@ extern "C" asm void func_ov015_02157308(void)
     mov r1, r1, lsl #0x10
     add r2, sp, #0
     mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     bne @L_0215738c
     cmp r5, #0
@@ -2397,7 +2397,7 @@ extern "C" s32 func_ov015_02158414(u8 *arg0, u8 *arg1, s32 *arg2)
     *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, u8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
     ((s8 *)arg1)[0xB]++;
     arg1[0xA] = 1;
-    if (((s32 (*)(...))_ZN11MatchEngine13func_0207a5c0Ev)(data_020e88a0, (u16)((s32 *)a)[0], arg0 + 0x28c) == 0)
+    if (((s32 (*)(...))_ZN11MatchEngine13func_0207a5c0EiPv)(data_020e88a0, (u16)((s32 *)a)[0], arg0 + 0x28c) == 0)
         return z;
     {
         s32 v = (s32)(arg0 + 0x28c);
@@ -2416,7 +2416,7 @@ extern "C" s32 func_ov015_021584b0(u8 *arg0, u8 *arg1, s32 *arg2)
     *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, u8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
     ((s8 *)arg1)[0xB]++;
     arg1[0xA] = 1;
-    if (((s32 (*)(...))_ZN11MatchEngine13func_0207a5c0Ev)(data_020e88a0, (u16)((s32 *)a)[0], arg0 + 0x2EC) == 0)
+    if (((s32 (*)(...))_ZN11MatchEngine13func_0207a5c0EiPv)(data_020e88a0, (u16)((s32 *)a)[0], arg0 + 0x2EC) == 0)
         return z;
     {
         s32 v = (s32)(arg0 + 0x30C);
@@ -2483,7 +2483,7 @@ extern "C" s32 func_ov015_02158664(u8 *arg0, u8 *arg1, s32 *arg2)
     arg1[0xA] = 1;
     ((s8 *)arg1)[0xB]++;
     p = (u8 *)((s32 (*)(...))func_ov015_02130b14)(((s32 *)a)[0], z);
-    if (((s32 (*)(...))_ZN11MatchEngine13func_0207a5c0Ev)(data_020e88a0, (u16)((s32 *)a)[0], buf) == 0)
+    if (((s32 (*)(...))_ZN11MatchEngine13func_0207a5c0EiPv)(data_020e88a0, (u16)((s32 *)a)[0], buf) == 0)
         return z;
     if (arg2 != 0)
         *arg2 = p != 0 ? p[0xAB] : buf[0x41];

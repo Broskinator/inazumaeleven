@@ -72,11 +72,11 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
 extern "C" void _ZN11MatchEngine13func_02076c98Ev(void);
 extern "C" void _ZN11MatchEngine13func_020777e4Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207a534Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0207bfd0Ev(...);
-extern "C" void _ZN11MatchEngine13func_02082d80Ev(void);
+extern "C" void _ZN11MatchEngine13func_02082d80Eii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -416,7 +416,7 @@ extern "C" asm void func_ov037_021661c0(void)
     mov r7, r1
     mov r5, r3
     mov r9, #0
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     mov r0, r4
     bl func_020802a0
     cmp r0, #1
@@ -831,7 +831,7 @@ extern "C" asm void func_ov037_0216661c(void)
     ldrh r1, [r10, #4]
     mov r0, r11
     mov r2, #1
-    bl _ZN11MatchEngine13func_02082d80Ev
+    bl _ZN11MatchEngine13func_02082d80Eii
     movs r10, r0
     ldrneh r2, [r7, #0x32]
     ldr r0, =data_020e88a0
@@ -2267,7 +2267,7 @@ extern "C" asm void func_ov037_02167e48(void)
 @L_0216801c:
     ldrh r1, [r6, #4]
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_0207a534Ev
+    bl _ZN11MatchEngine13func_0207a534Ei
     add r2, r7, #0xb9
     mov r1, r0
     add r0, r2, #0xd00

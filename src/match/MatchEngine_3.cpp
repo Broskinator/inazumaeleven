@@ -6,32 +6,20 @@ extern "C" void func_02080b90(void);
 extern "C" void func_02080c64(void);
 extern "C" void gEntryPool(void);
 
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207add4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207ae40Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02082d5cEv(void);     // (for the asm functions)
-asm void MatchEngine::func_02082d5c()
+extern "C" void _ZN11MatchEngine13func_02082d5cEi(void);     // (for the asm functions)
+int MatchEngine::func_02082d5c(int id)
 {
-    stmdb sp!, {r4, lr}
-    sub sp, sp, #0x60
-    add r4, sp, #0
-    mov r2, r4
-    bl _ZN11MatchEngine13func_0207a5c0Ev
-    mov r0, r4
-    bl func_020802a0
-    add sp, sp, #0x60
-    ldmia sp!, {r4, pc}
+    u8 buf[0x60];
+    func_0207a5c0(id, buf);
+    return ((s32 (*)(...))func_020802a0)(buf);
 }
 
-asm void MatchEngine::func_02082d80()
+BOOL MatchEngine::func_02082d80(int id, int value)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r2
-    bl _ZN11MatchEngine13func_02082d5cEv
-    cmp r4, r0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r4, pc}
+    return value == func_02082d5c(id);
 }
 
 asm void MatchEngine::func_02082d9c()
@@ -221,16 +209,12 @@ asm void MatchEngine::func_02082f3c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02083048()
+u8 *MatchEngine::func_02083048(int team)
 {
-    add r0, r0, #0x3ac
-    add r0, r0, r1, lsl #4
-    bx lr
+    return unk_3ac[team];
 }
 
-asm void MatchEngine::func_02083054()
+u8 *MatchEngine::func_02083054(int team)
 {
-    add r0, r0, #0x34c
-    add r0, r0, r1, lsl #5
-    bx lr
+    return unk_34c[team];
 }

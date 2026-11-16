@@ -29,8 +29,8 @@ typedef struct {
 extern "C" UnkEntry_020cb288 data_020cb288[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN11MatchEngine13func_0207a534Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207a78cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207a820Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207a854Ev(void);
@@ -347,7 +347,7 @@ extern "C" asm void func_02081f7c(void)
     mov r0, r10
     mov r1, r8
     mov r2, r11
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     addeq sp, sp, #0xfc
     moveq r0, r4
@@ -381,7 +381,7 @@ extern "C" asm void func_02081f7c(void)
     bl _ZN11MatchEngine13func_0207e5a4EPhii
     mov r1, r8
     mov r0, r10
-    bl _ZN11MatchEngine13func_0207a534Ev
+    bl _ZN11MatchEngine13func_0207a534Ei
     cmp r0, #0
     blt @L_02082128
     ldr r2, [r10, #0xbdc]
@@ -470,7 +470,7 @@ extern "C" asm void func_02082150(void)
     mov r0, r10
     mov r1, r6
     mov r2, r4
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     addeq sp, sp, #0x160
     moveq r0, #0
@@ -625,7 +625,7 @@ extern "C" asm void func_020823a0(void)
     mov r0, r10
     mov r1, r8
     mov r2, r6
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     addeq sp, sp, #0x74
     moveq r0, r4

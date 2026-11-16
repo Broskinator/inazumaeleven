@@ -112,8 +112,8 @@ extern "C" s32 _ZN11MatchEngine13func_0207697cEv(...);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02078aacEv(...);
 extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
-extern "C" void _ZN11MatchEngine13func_02083048Ev(void);
-extern "C" void _ZN11MatchEngine13func_02083054Ev(void);
+extern "C" void _ZN11MatchEngine13func_02083048Ei(void);
+extern "C" void _ZN11MatchEngine13func_02083054Ei(void);
 extern "C" void _ZN9PoolEntry8GetData1Ev(void);
 extern "C" void func_02003bb8(void);
 extern "C" void func_02080328(void);
@@ -909,7 +909,7 @@ extern "C" asm s32 func_ov042_02166858(...)
     mov r10, r0
     mov r0, r7
     mov r5, #0
-    bl _ZN11MatchEngine13func_02083048Ev
+    bl _ZN11MatchEngine13func_02083048Ei
     ldrb r1, [r6, #0x71]
     mov r4, r0
     cmp r1, #0
@@ -921,7 +921,7 @@ extern "C" asm s32 func_ov042_02166858(...)
     ldrb r1, [r6, #0x68]
     mov r0, r7
 @L_021668a0:
-    bl _ZN11MatchEngine13func_02083054Ev
+    bl _ZN11MatchEngine13func_02083054Ei
     mov r9, r0
     ldr r0, =data_020f98a0
     ldrb r0, [r0, #0x89e]

@@ -100,7 +100,7 @@ extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078d84Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078ea8Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207a534Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_02002024(void);
@@ -2812,7 +2812,7 @@ extern "C" asm s32 func_ov031_021685a4(...)
     stmdb sp!, {r4, lr}
     ldr r4, =data_020cadf4
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_0207a534Ev
+    bl _ZN11MatchEngine13func_0207a534Ei
     mov r1, r0
     mov r0, r4
     bl func_02081894

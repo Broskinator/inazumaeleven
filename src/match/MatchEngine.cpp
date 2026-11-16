@@ -70,7 +70,7 @@ extern "C" void _ZN11MatchEngine13func_0207a144Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207a350Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a394Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a510EP11MatchPlayerS1_(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207a534Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020787e8EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020764ccEPh(void);     // (for the asm functions)
@@ -12805,16 +12805,12 @@ BOOL MatchEngine::func_0206dad4(int id)
     return TRUE;
 }
 
-asm void MatchEngine::func_0206daec()
+BOOL MatchEngine::func_0206daec(int id)
 {
-    stmdb sp!, {r3, lr}
-    bl _ZN11MatchEngine13func_0207a534Ev
-    movs r1, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020cadf4
-    bl func_02081894
-    ldmia sp!, {r3, pc}
+    int index = func_0207a534(id);
+    if (index == 0)
+        return FALSE;
+    return ((s32 (*)(...))func_02081894)(data_020cadf4, index);
 }
 
 asm void MatchEngine::func_0206db10(SaveBody *dst)
@@ -13094,17 +13090,12 @@ BOOL MatchEngine::func_0206deec()
     return data_020c4ab4[0x70] ? TRUE : FALSE;
 }
 
-asm void MatchEngine::func_0206df08()
+BOOL MatchEngine::func_0206df08()
 {
-    ldr r1, =data_020c4ab4
-    mov r0, #1
-    ldrb r1, [r1, #0x71]
-    cmp r1, #0
-    ldreq r1, =gGameState
-    ldreqb r1, [r1, #0x1b]
-    cmpeq r1, #0
-    moveq r0, #0
-    bx lr
+    BOOL result = TRUE;
+    if (data_020c4ab4[0x71] == 0 && gGameState.unk_000[0x1B] == 0)
+        result = FALSE;
+    return result;
 }
 
 BOOL MatchEngine::func_0206df34()

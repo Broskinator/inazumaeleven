@@ -96,7 +96,7 @@ extern "C" void _ZN17UnkClass_0205480013func_02056c50Ei(void);
 extern "C" void _ZN17UnkClass_0205480013func_02056c64Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206f058Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207a950EP11MatchPlayer(void);
 extern "C" void _ZN8TextFont12GetCharWidthEPKc(void);
 extern "C" void _ZN8TextFont12GetTextWidthEPKc(void);
@@ -2157,7 +2157,7 @@ extern "C" asm void func_ov015_0214e71c(void)
     ldr r0, =data_020e88a0
     add r2, sp, #0
     mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     b @L_0214e7fc
 @L_0214e760:
     add r3, sp, #0
@@ -2397,7 +2397,7 @@ extern "C" asm void func_ov015_0214e968(void)
     mov r1, r1, lsl #0x10
     add r2, sp, #0x188
     mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     streqb r7, [r5, #0xa]
     beq @L_0214edbc

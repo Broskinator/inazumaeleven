@@ -137,7 +137,7 @@ extern "C" void func_02085ec0(void);     // (for the asm functions)
 extern "C" void func_02084d24(void);     // (for the asm functions)
 extern "C" void func_02084d34(void);     // (for the asm functions)
 extern "C" void func_02084e08(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a9d0Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_0206145cEv(void);     // (for the asm functions)
@@ -7275,7 +7275,7 @@ asm void UnkClass_02054800::func_0205ac0c()
     ldr r0, =data_020e88a0
     add r2, sp, #4
     mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0EiPv
     cmp r0, #0
     addeq sp, sp, #0x64
     moveq r0, r9

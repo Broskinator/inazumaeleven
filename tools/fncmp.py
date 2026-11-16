@@ -74,13 +74,24 @@ def main():
                 rel.setdefault(s["sh_info"], set()).update(range(x["r_offset"], x["r_offset"] + 4))
     ok = True
     for s in f.get_section_by_name(".symtab").iter_symbols():
-        if s["st_info"]["type"] != "STT_FUNC" or s.name.startswith("$") or (only and s.name not in only):
+        if s["st_info"]["type"] != "STT_FUNC" or s.name.startswith("$"):
+            continue
+        # (a function can be asked for by the func_XXXXXXXX part of its mangled name: a member)
+        if only and not any(o == s.name or (o.startswith("func_") and o in s.name) for o in only):
             continue
         if s.name not in syms:
-            # (a signature changed: find the function by its position among this file's functions)
-            print(f"{s.name}: not in symbols.txt")
-            ok = False
-            continue
+            # (a signature changed, so the mangled name did: the address in the name says where it is)
+            m = re.search(r"func_(?:ov(\d{3})_)?([0-9a-f]{8})", s.name)
+            mod = None
+            if m:
+                ad = int(m.group(2), 16)
+                mod = f"ov{m.group(1)}" if m.group(1) else next(
+                    (k for k, (b, blob) in mods.items() if not k.startswith("ov") and b <= ad < b + len(blob)), None)
+            if mod not in mods:
+                print(f"{s.name}: not in symbols.txt")
+                ok = False
+                continue
+            syms[s.name] = (mod, ad)
         mod, addr = syms[s.name]
         base, blob = mods[mod]
         start = s["st_value"] & ~1
