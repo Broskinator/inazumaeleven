@@ -160,10 +160,10 @@ extern "C" s32 _ZN12Unk_0205dee013func_02060204Ev(...);
 extern "C" s32 _ZN17UnkClass_0206029413func_02060448Ev(...);
 extern "C" s32 _ZN17UnkClass_0206029413func_02060480EPv(...);
 extern "C" s32 _ZN17UnkClass_0206029413func_02060858Ei(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_020768e4EPhi(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_020768e4EPhi(void);
+extern "C" void _ZN11MatchEngine13func_02076914EPh(void);
+extern "C" void _ZN11MatchEngine13func_02076f14EP11MatchPlayer(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZdlPv(...);
@@ -773,7 +773,7 @@ extern "C" asm void func_ov015_02146f10(void)
     bl func_ov015_021319b0
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     movs r10, r0
     addeq sp, sp, #0x210
     moveq r0, #0
@@ -796,7 +796,7 @@ extern "C" asm void func_ov015_02146f10(void)
     bne @L_02146fb8
     ldr r0, =data_020e88a0
     mov r1, r7
-    bl _ZN17UnkClass_020621b413func_02076914EPh
+    bl _ZN11MatchEngine13func_02076914EPh
     cmp r0, #0
     ldrneh r5, [r0, #0x2a]
     moveq r5, #0
@@ -972,7 +972,7 @@ extern "C" asm void func_ov015_02147214(void)
     bl func_ov015_021319b0
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     cmp r0, #0
     addeq sp, sp, #0x20
     moveq r0, #0
@@ -1051,7 +1051,7 @@ extern "C" asm void func_ov015_02147214(void)
     mov r0, r4
     mov r1, r10
     mov r2, r8
-    bl _ZN17UnkClass_020621b413func_020768e4EPhi
+    bl _ZN11MatchEngine13func_020768e4EPhi
     cmp r0, #0
     beq @L_0214738c
     ldrb r1, [r0, #0x21]
@@ -1066,7 +1066,7 @@ extern "C" asm void func_ov015_02147214(void)
 @L_02147398:
     ldr r0, =data_020e88a0
     mov r1, r10
-    bl _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer
+    bl _ZN11MatchEngine13func_02076f14EP11MatchPlayer
     cmp r0, #0
     ldrneh r3, [r0, #0x2a]
     ldr r0, =data_020c4664

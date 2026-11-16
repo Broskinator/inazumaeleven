@@ -21,7 +21,7 @@ extern "C" char data_020d3d20[];
 extern "C" char data_020e88a0[];
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206ea30Eit(void);
+extern "C" void _ZN11MatchEngine13func_0206ea30Eit(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" s32 func_020808c4(...);
 extern "C" void func_02092270(void);
@@ -225,13 +225,13 @@ extern "C" asm void func_ov054_02168f2c(void)
     ldrh r2, [r2]
     mov r0, r4
     mov r1, #0
-    bl _ZN17UnkClass_020621b413func_0206ea30Eit
+    bl _ZN11MatchEngine13func_0206ea30Eit
     add r0, r6, #0x1000
     ldr r1, [r0, #0xa04]
     mov r0, r4
     ldrh r2, [r1]
     mov r1, #1
-    bl _ZN17UnkClass_020621b413func_0206ea30Eit
+    bl _ZN11MatchEngine13func_0206ea30Eit
     mov r1, #0x6d
     mov r0, r6
     mov r2, r1

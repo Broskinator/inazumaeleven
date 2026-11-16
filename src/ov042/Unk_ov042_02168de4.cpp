@@ -60,8 +60,8 @@ extern "C" void DC_FlushRange(void);
 extern "C" void MATH_QSort(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
-extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);
+extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
+extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -2090,7 +2090,7 @@ extern "C" asm void func_ov042_0216ad00(void)
     movs r1, r0
     bmi @L_0216ad48
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     mov r5, r0
 @L_0216ad48:
     ldr r8, =data_020c46d4
@@ -2186,7 +2186,7 @@ extern "C" asm s32 func_ov042_0216ae24(...)
     add r0, r0, #0x600
     ldrh r1, [r0, #0x50]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     movs r5, r0
     beq @L_0216af28
     cmp r8, #0
@@ -3171,7 +3171,7 @@ extern "C" s32 func_ov042_0216bd80(u8 *arg0)
     if (*(s32 *)(arg0 + 0x634) > 0)
         return *(s32 *)(arg0 + 0x634);
     t0 = *(u8 *)(data_020c4ab4 + 0x68);
-    v0 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)data_020e88a0, t0);
+    v0 = _ZN11MatchEngine13func_0206a964Ei((s32)data_020e88a0, t0);
     arg0 = (u8 *)v0;
     r4 = (u8 *)data_020c4ab4;
     if ((s32)arg0 == 0) {

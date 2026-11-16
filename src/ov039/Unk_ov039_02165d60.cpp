@@ -99,7 +99,7 @@ extern "C" void _ZN12SceneManager13func_0203e30cEv(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
+extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -1242,7 +1242,7 @@ extern "C" s32 func_ov039_02167124(u8 *arg0)
     MI_CpuFill8((s32)(arg0 + 0x60), 0, 0x60);
     *(u16 *)(arg0 + 0xC0) = 0;
     *(u16 *)(arg0 + 0xC2) = 0;
-    v7 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)((u8 *)&data_020e88a0), 0);
+    v7 = _ZN11MatchEngine13func_0206a964Ei((s32)((u8 *)&data_020e88a0), 0);
     if (v7 == 0)
         return v7;
     t3 = *(u8 *)(((u8 *)v7) + 0x2D);
@@ -2172,7 +2172,7 @@ extern "C" asm void func_ov039_02167ed0(void)
     bl func_ov015_021319bc
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     mov r4, r0
     adds r0, sp, #0x1f
     beq @L_02168010
@@ -2200,7 +2200,7 @@ extern "C" asm void func_ov039_02167ed0(void)
     bl func_ov015_021319bc
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     mov r4, r0
     adds r0, sp, #0
     beq @L_02168078

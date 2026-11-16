@@ -1,5 +1,5 @@
-#include "game/Unk_02083afc.hpp"
-#include "game/Match.hpp"
+#include "match/MatchGeometry.hpp"
+#include "match/Match.hpp"
 #include "nitro/mi.h"
 struct S02084be8 { u8 pad[0x14]; s32 x14; s32 x18; s32 x1c; s32 x20; s32 x24; s32 x28; s32 x2c; };
 struct V02084f84 { s32 x, y, z; };
@@ -96,7 +96,7 @@ extern "C" char data_020c47b4[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" s32 MIi_CpuCopyFast(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206de54Eii(...);
+extern "C" s32 _ZN11MatchEngine13func_0206de54Eii(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_02001d60(void);
@@ -780,7 +780,7 @@ extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2)
     r6 = arg1;
     r7 = (s32)arg0;
     do {
-        v0 = _ZN17UnkClass_020621b413func_0206de54Eii(r4, r5);
+        v0 = _ZN11MatchEngine13func_0206de54Eii(r4, r5);
         if (v0 != 0) {
             v1 = func_02083e7c(r5);
             arg0 = (u8 *)v1;

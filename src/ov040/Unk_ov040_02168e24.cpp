@@ -18,7 +18,7 @@ extern "C" s32 G2_GetBG2ScrPtr(...);
 extern "C" s32 G2_GetBG3ScrPtr(...);
 extern "C" s32 STD_CopyString(...);
 extern "C" s32 STD_GetStringLength(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
+extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZN8TextFontD1Ev(...);
@@ -152,7 +152,7 @@ extern "C" s32 func_ov040_02168f20(u8 *arg0)
     r7 = (s32)data_020c4ac8;
     if (*(s32 *)(r5 + 0x4) == 3) {
         v4 = func_ov015_021319bc();
-        v5 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)data_020e88a0, v4);
+        v5 = _ZN11MatchEngine13func_0206a964Ei((s32)data_020e88a0, v4);
         STD_CopyString(r7, v5);
         v7 = STD_GetStringLength(r7);
         *(s32 *)(r5 + 0x8) = v7;

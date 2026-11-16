@@ -1,5 +1,5 @@
-#include "game/Unk_020802a0.hpp"
-#include "game/Match.hpp"
+#include "match/MatchUtil.hpp"
+#include "match/Match.hpp"
 #include "nitro/mi.h"
 
 extern "C" u16 data_020ca760[];     // (per team)
@@ -56,12 +56,12 @@ extern "C" void func_020816dc(u8 *bits, int i);
 extern "C" char data_020c5320[];
 extern "C" char data_020cb6e0[];
 extern "C" char data_020e88a0[];
-extern "C" s32 _ZN17UnkClass_020621b413func_0206deecEv(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206df08Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206f9e0Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_020744d4Ev(...);
-extern "C" void _ZN17UnkClass_020621b413func_02078844Ev(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0207c1b0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206deecEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0206df08Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206f9e0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_020744d4Ev(...);
+extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" s32 _ZN11MatchEngine13func_0207c1b0Ev(...);
 extern "C" s32 func_0209bf9c(...);
 extern "C" s32 func_ov015_02130b14(...);
 extern "C" s32 func_ov015_021319fc(...);
@@ -595,7 +595,7 @@ extern "C" int func_02080a80(void)
 
 extern "C" void func_02080a88(s32 arg0)
 {
-    _ZN17UnkClass_020621b413func_020744d4Ev((s32)data_020e88a0, arg0);
+    _ZN11MatchEngine13func_020744d4Ev((s32)data_020e88a0, arg0);
 }
 
 extern "C" BOOL func_02080aa0(MatchPlayer *player)
@@ -894,7 +894,7 @@ extern "C" void func_02080e50(s32 arg0, s32 arg1)
     if (v1 == 1)
         return;
     func_02080c74((MatchPlayer *)r4, 0x40);
-    _ZN17UnkClass_020621b413func_0207c1b0Ev((s32)data_020e88a0, arg1);
+    _ZN11MatchEngine13func_0207c1b0Ev((s32)data_020e88a0, arg1);
     return;
 }
 
@@ -902,7 +902,7 @@ extern "C" void func_02080eb4(void)
 {
     s32 v0;
     s32 v1;
-    v0 = _ZN17UnkClass_020621b413func_0206f9e0Ev((s32)data_020e88a0);
+    v0 = _ZN11MatchEngine13func_0206f9e0Ev((s32)data_020e88a0);
     v1 = func_ov015_02130b14(((u16)v0), 0);
     if (v1 == 0)
         return;
@@ -1038,7 +1038,7 @@ extern "C" asm void func_020810ec(void)
     mov r2, r4
     mov r3, #4
     str r7, [sp]
-    bl _ZN17UnkClass_020621b413func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844Ev
     mov r6, r0
     cmp r6, #0
     addle sp, sp, #0xc
@@ -1169,12 +1169,12 @@ extern "C" s32 func_0208130c(s32 arg0, s32 arg1)
             return v2;
         case 0:
         default:
-            v3 = _ZN17UnkClass_020621b413func_0206deecEv((s32)data_020e88a0);
+            v3 = _ZN11MatchEngine13func_0206deecEv((s32)data_020e88a0);
             if (v3 != 0) {
                 v4 = func_020812fc((MatchPlayer *)arg0);
                 return v4;
             } else {
-                v5 = _ZN17UnkClass_020621b413func_0206df08Ev((s32)data_020e88a0);
+                v5 = _ZN11MatchEngine13func_0206df08Ev((s32)data_020e88a0);
                 if (v5 != 0) {
                     v6 = func_02081304((MatchPlayer *)arg0);
                     return v6;
@@ -1227,12 +1227,12 @@ extern "C" s32 func_020813a8(s32 arg0, s32 arg1, s32 arg2)
             return v2;
         case 0:
         default:
-            v3 = _ZN17UnkClass_020621b413func_0206deecEv((s32)((u8 *)&data_020e88a0));
+            v3 = _ZN11MatchEngine13func_0206deecEv((s32)((u8 *)&data_020e88a0));
             if (v3 != 0) {
                 v4 = ((s32 (*)(...))func_02081398)((MatchPlayer *)r6, r5);
                 return v4;
             } else {
-                v5 = _ZN17UnkClass_020621b413func_0206df08Ev((s32)((u8 *)&data_020e88a0));
+                v5 = _ZN11MatchEngine13func_0206df08Ev((s32)((u8 *)&data_020e88a0));
                 arg0 = r6;
                 arg1 = r5;
                 if (v5 != 0) {

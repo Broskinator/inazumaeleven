@@ -116,10 +116,10 @@ extern "C" void STD_GetStringLength(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e090Eii(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206e5e4Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207aba0Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_02082d9cEv(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206e5e4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207aba0Ev(void);
+extern "C" void _ZN11MatchEngine13func_02082d9cEv(void);
 extern "C" s32 _ZN9EntryPool6RemoveEi(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_020027c8(void);
@@ -2007,7 +2007,7 @@ extern "C" asm void func_ov057_02167a14(void)
     ldr r0, =data_020e88a0
     add r2, r1, r2
     mov r1, #1
-    bl _ZN17UnkClass_020621b413func_02082d9cEv
+    bl _ZN11MatchEngine13func_02082d9cEv
     mov r0, r7
     bl func_ov057_0216797c
 @L_02167aa8:
@@ -2071,7 +2071,7 @@ extern "C" asm void func_ov057_02167a14(void)
     mov r5, #0
     mov r0, r9
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     ldr r1, [r7, #0x28]
     mov r6, r0
     cmp r1, #0xe
@@ -2080,7 +2080,7 @@ extern "C" asm void func_ov057_02167a14(void)
     bgt @L_02167bd0
     mov r0, r9
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0207aba0Ev
+    bl _ZN11MatchEngine13func_0207aba0Ev
     cmp r0, #0xb
     bge @L_02167bc8
     mov r1, #2
@@ -2099,7 +2099,7 @@ extern "C" asm void func_ov057_02167a14(void)
     mov r5, #2
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0207aba0Ev
+    bl _ZN11MatchEngine13func_0207aba0Ev
     cmp r0, #0xb
     bge @L_02167c0c
     mov r0, r7
@@ -2307,7 +2307,7 @@ extern "C" asm void func_ov057_02167e24(void)
     mov r3, #0x18
     strh r1, [r5, #0x52]
     ldrsb r1, [r4, #3]
-    bl _ZN17UnkClass_020621b413func_0206e5e4Ev
+    bl _ZN11MatchEngine13func_0206e5e4Ev
     ldmia sp!, {r3, r4, r5, pc}
 }
 

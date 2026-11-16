@@ -1,12 +1,12 @@
-#ifndef GAME_UNKCLASS_020621B4_HPP
-#define GAME_UNKCLASS_020621B4_HPP
+#ifndef MATCH_MATCHENGINE_HPP
+#define MATCH_MATCHENGINE_HPP
 
 #include "nitro/types.h"
 #include "nitro/fx.h"
 
-#include "game/Match.hpp"
-#include "game/UnkClass_0206ee34.hpp"
-#include "game/UnkClass_02083060.hpp"
+#include "match/Match.hpp"
+#include "match/MatchRules.hpp"
+#include "match/MatchPlayerList.hpp"
 
 struct SaveBody;
 
@@ -20,7 +20,7 @@ struct UnkPair_020621b4 {
 };
 
 // A state of the match (the current one is at 0xB84, the past ones in a ring at 0xC7C)
-struct UnkState_020621b4 {
+struct MatchState {
     u8 unk_0;
     u8 unk_1;
     u8 unk_2;
@@ -40,11 +40,11 @@ struct UnkSlot_020621b4 {
 
 
 // The object at data_020e88a0 (0x11920+ bytes, made by the static constructors): the match's data
-class UnkClass_020621b4 {
+class MatchEngine {
 public:
-    UnkClass_020621b4 *func_020621b4();
-    UnkClass_020621b4 *func_02062268();
-    UnkClass_020621b4 *func_02062288();
+    MatchEngine *func_020621b4();
+    MatchEngine *func_02062268();
+    MatchEngine *func_02062288();
     void func_020622b0();
     void func_020622b4();
     BOOL func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index);
@@ -149,7 +149,7 @@ public:
     void func_0206a648();
     BOOL func_0206a700(int value);
     BOOL func_0206a720(int value);
-    UnkState_020621b4 *func_0206a748(int n);
+    MatchState *func_0206a748(int n);
     BOOL func_0206a774();
     void func_0206a77c();
     int func_0206a7f0(int n, BOOL convert);
@@ -157,13 +157,13 @@ public:
     u8 *func_0206a8d8(int player, int n, BOOL convert);
     s32 func_0206a93c();
     u8 *func_0206a964(int i);
-    UnkState_020621b4 *func_0206a970();
+    MatchState *func_0206a970();
     u8 *func_0206a9a4(int a, int b);
     u8 *func_0206a9d0(int team, BOOL convert);
     u8 *func_0206aa30(int a);
     void func_0206aa54();
     void func_0206aa6c();
-    int func_0206abfc(UnkState_020621b4 *state);
+    int func_0206abfc(MatchState *state);
     void func_0206ac44();
     BOOL func_0206ace8();
     BOOL func_0206acfc(int value);
@@ -172,7 +172,7 @@ public:
     void func_0206ad94();
     void func_0206b018(void *body, MatchPlayer *player);
     void func_0206b050();
-    void func_0206b1a0(UnkState_020621b4 *state, u8 value);
+    void func_0206b1a0(MatchState *state, u8 value);
     s32 func_0206b1c4(int i);
     s32 func_0206b1d0(int i);
     void func_0206b1dc();
@@ -295,7 +295,7 @@ public:
     BOOL func_0206de18(int i, u16 flags);
     BOOL func_0206de34(int i);
     u8 *func_0206de44();
-    UnkClass_0206ee34 *func_0206de4c();
+    MatchRules *func_0206de4c();
     BOOL func_0206de54(int a, int b);
     void func_0206de64();
     BOOL func_0206dedc();
@@ -719,8 +719,8 @@ public:
     u8 unk_3ac[2][0x10];     // (per team)
     u8 unk_3cc[0xB7C - 0x3CC];
     s32 unk_b7c;
-    UnkClass_02083060 *unk_b80;     // (an object with a vtable)
-    UnkState_020621b4 unk_b84;   // (unk_0: the phase)
+    MatchPlayerList *unk_b80;     // (an object with a vtable)
+    MatchState unk_b84;   // (unk_0: the phase)
     u8 unk_b8c[2];
     s8 unk_b8e;
     u8 unk_b8f;
@@ -760,7 +760,7 @@ public:
     s32 unk_c70;        // (how many entries of unk_c7c there are)
     s32 unk_c74;        // (the newest one)
     s32 unk_c78;
-    UnkState_020621b4 unk_c7c[90];     // (rings of 90: the past states)
+    MatchState unk_c7c[90];     // (rings of 90: the past states)
     u8 unk_f4c[90][0x2C];
     u8 unk_1ec4[90 * 22][0x20];    // (per player)
     u8 unk_11644[0x117A4 - 0x11644];
@@ -812,6 +812,6 @@ public:
     s32 unk_11918;
 };
 
-extern UnkClass_020621b4 data_020e88a0;
+extern MatchEngine data_020e88a0;
 
-#endif // GAME_UNKCLASS_020621B4_HPP
+#endif // MATCH_MATCHENGINE_HPP

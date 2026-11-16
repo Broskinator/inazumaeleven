@@ -30,8 +30,8 @@ your own copy of the ROM:
       base class, the scene manager with the game's main loop and the treasure boxes
       (`src/game/`), the start-up and the entry point (`src/system/`)
 - [ ] Match code (`src/game/`, from 0x02061498): the ball's physics and the distance
-      tables (`UnkClass_02061498.cpp`), and the first files of the match's data
-      object at data_020e88a0 (`UnkClass_020621b4.cpp`); the ball, the players and their
+      tables (`MatchBallPhysics.cpp`), and the first files of the match's data
+      object at data_020e88a0 (`MatchEngine.cpp`); the ball, the players and their
       bodies are in `include/game/Match.hpp`
 - [ ] Decompiled to C: see [docs/progress.md](docs/progress.md) for the share of the code that is
       C/C++ rather than assembly, by bytes and per module (`make report` rewrites it)

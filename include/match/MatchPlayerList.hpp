@@ -1,18 +1,18 @@
-#ifndef GAME_UNKCLASS_02083060_HPP
-#define GAME_UNKCLASS_02083060_HPP
+#ifndef MATCH_MATCHPLAYERLIST_HPP
+#define MATCH_MATCHPLAYERLIST_HPP
 
 #include "nitro/types.h"
 
 struct MatchPlayer;
-class UnkClass_020621b4;
+class MatchEngine;
 
 // The object at the match data's 0xB80 (vtable data_020af3f0): the players by index and team
-class UnkClass_02083060 {
+class MatchPlayerList {
 public:
-    UnkClass_02083060 *func_02083060();
-    UnkClass_02083060 *func_02083078();
+    MatchPlayerList *func_02083060();
+    MatchPlayerList *func_02083078();
     void func_02083090();
-    UnkClass_02083060 *func_02083094();
+    MatchPlayerList *func_02083094();
     void func_020830a8();
     void func_020830ac();
     int func_020831f8(int a);
@@ -28,12 +28,12 @@ public:
     void func_02083448();
     int func_020834e0(BOOL side, int b);
     BOOL func_02083504();
-    void func_0208350c(UnkClass_020621b4 *match);
+    void func_0208350c(MatchEngine *match);
     BOOL func_02083514();
 
     void **vtable;
-    UnkClass_020621b4 *match;   // (the owner)
+    MatchEngine *match;   // (the owner)
     MatchPlayer *players[22];   // (11 per team)
 };
 
-#endif // GAME_UNKCLASS_02083060_HPP
+#endif // MATCH_MATCHPLAYERLIST_HPP

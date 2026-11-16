@@ -42,20 +42,20 @@ extern "C" void _ZN12SoundManager8SetSceneEiii(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076620Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020766e8Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020767a4Em(void);
-extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);
-extern "C" void _ZN17UnkClass_020621b413func_020769f0Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076a7cEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076f50Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020770a8Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_02077104Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020771d4Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_02077bd4Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_02077ce4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_02076620Ev(void);
+extern "C" void _ZN11MatchEngine13func_020766e8Ev(void);
+extern "C" void _ZN11MatchEngine13func_020767a4Em(void);
+extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
+extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
+extern "C" void _ZN11MatchEngine13func_020769f0Ev(void);
+extern "C" void _ZN11MatchEngine13func_02076a7cEv(void);
+extern "C" void _ZN11MatchEngine13func_02076f50Ev(void);
+extern "C" void _ZN11MatchEngine13func_020770a8Ev(void);
+extern "C" void _ZN11MatchEngine13func_02077104Ev(void);
+extern "C" void _ZN11MatchEngine13func_020771d4Ev(void);
+extern "C" void _ZN11MatchEngine13func_02077bd4Ev(void);
+extern "C" void _ZN11MatchEngine13func_02077ce4Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
@@ -522,7 +522,7 @@ extern "C" asm void func_ov047_02169684(void)
     mov r1, r4
     mov r3, r6
     mov r2, #0x20
-    bl _ZN17UnkClass_020621b413func_02076a7cEv
+    bl _ZN11MatchEngine13func_02076a7cEv
     mov r11, r0
     mov r9, r6
     cmp r11, #0
@@ -531,7 +531,7 @@ extern "C" asm void func_ov047_02169684(void)
     mov r0, r9, lsl #1
     ldrh r1, [r4, r0]
     mov r0, r5
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     movs r8, r0
     beq @L_0216977c
     mov r0, #0xc
@@ -545,7 +545,7 @@ extern "C" asm void func_ov047_02169684(void)
     ldrh r1, [r8, #0x26]
     strh r1, [r7, #2]
     ldrh r1, [r4, r2]
-    bl _ZN17UnkClass_020621b413func_020767a4Em
+    bl _ZN11MatchEngine13func_020767a4Em
     strh r0, [r7, #4]
     ldrh r1, [r8, #0x24]
     mov r0, r9, lsl #1
@@ -562,13 +562,13 @@ extern "C" asm void func_ov047_02169684(void)
     strb r2, [r7, #9]
     ldrh r1, [r4, r1]
     mov r2, #1
-    bl _ZN17UnkClass_020621b413func_02077104Ev
+    bl _ZN11MatchEngine13func_02077104Ev
     strb r0, [r7, #0xa]
     mov r1, r9, lsl #1
     ldrh r1, [r4, r1]
     mov r0, r5
     mov r2, #0
-    bl _ZN17UnkClass_020621b413func_020771d4Ev
+    bl _ZN11MatchEngine13func_020771d4Ev
     strb r0, [r7, #0xb]
     add r6, r6, #1
 @L_0216977c:
@@ -588,7 +588,7 @@ extern "C" asm void func_ov047_02169684(void)
     bl func_ov015_021319bc
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     cmp r0, #0
     ldrneh r11, [r0, #0x30]
     ldr r6, =data_020e88a0
@@ -597,7 +597,7 @@ extern "C" asm void func_ov047_02169684(void)
     mov r1, r5
     mov r2, #0x400
     moveq r11, #0
-    bl _ZN17UnkClass_020621b413func_020769f0Ev
+    bl _ZN11MatchEngine13func_020769f0Ev
     mov r7, #0
     str r0, [sp]
     mov r8, r7
@@ -607,7 +607,7 @@ extern "C" asm void func_ov047_02169684(void)
     mov r0, r8, lsl #1
     ldrh r1, [r5, r0]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     movs r4, r0
     movne r1, r8, lsl #1
     ldrneh r9, [r5, r1]
@@ -622,7 +622,7 @@ extern "C" asm void func_ov047_02169684(void)
     ldrh r2, [r4, #0x26]
     strh r2, [r9, #2]
     ldrh r1, [r5, r1]
-    bl _ZN17UnkClass_020621b413func_020767a4Em
+    bl _ZN11MatchEngine13func_020767a4Em
     strh r0, [r9, #4]
     ldrh r1, [r4, #0x24]
     mov r3, r8, lsl #1
@@ -635,13 +635,13 @@ extern "C" asm void func_ov047_02169684(void)
     mov r2, #1
     strb r1, [r9, #9]
     ldrh r1, [r5, r3]
-    bl _ZN17UnkClass_020621b413func_02077104Ev
+    bl _ZN11MatchEngine13func_02077104Ev
     strb r0, [r9, #0xa]
     mov r1, r8, lsl #1
     ldrh r1, [r5, r1]
     mov r0, r6
     mov r2, #0
-    bl _ZN17UnkClass_020621b413func_020771d4Ev
+    bl _ZN11MatchEngine13func_020771d4Ev
     strb r0, [r9, #0xb]
     add r7, r7, #1
 @L_02169890:
@@ -742,11 +742,11 @@ extern "C" asm void func_ov047_021698fc(void)
 @L_021699fc:
     ldr r6, =data_020e88a0
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020767bcEv
+    bl _ZN11MatchEngine13func_020767bcEv
     mov r7, r0
     ldrh r1, [r5]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020766e8Ev
+    bl _ZN11MatchEngine13func_020766e8Ev
     rsb r6, r0, #0x63
     ldrh r1, [r5, #6]
     mov r0, r7
@@ -1080,26 +1080,26 @@ extern "C" asm void func_ov047_02169af4(void)
     ldrh r1, [r7]
     ldrsb r2, [r7, #8]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_02077104Ev
+    bl _ZN11MatchEngine13func_02077104Ev
     cmp r0, #0
     beq @L_02169f34
     ldrh r1, [r7]
     ldrsb r2, [r7, #8]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_02076f50Ev
+    bl _ZN11MatchEngine13func_02076f50Ev
     b @L_02169f34
 @L_02169f08:
     ldr r6, =data_020e88a0
     ldrh r1, [r7]
     ldrsb r2, [r7, #8]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020770a8Ev
+    bl _ZN11MatchEngine13func_020770a8Ev
     cmp r0, #0
     beq @L_02169f34
     ldrh r1, [r7]
     ldrsb r2, [r7, #8]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_02076620Ev
+    bl _ZN11MatchEngine13func_02076620Ev
 @L_02169f34:
     str r4, [r9, #0x2f4]
     str r5, [r9, #0x2f8]
@@ -1325,7 +1325,7 @@ extern "C" asm void func_ov047_0216a0f8(void)
     ldr r0, [r1]
     bl func_02091d54
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_02077bd4Ev
+    bl _ZN11MatchEngine13func_02077bd4Ev
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
@@ -1471,7 +1471,7 @@ extern "C" void func_ov047_0216a468(u8 *arg0)
         *(s32 *)(arg0 + 0x2D8) = 0;
     }
     ((s32 (*)(...))func_02091d64)(*(s32 *)data_020c46d4);
-    ((s32 (*)(...))_ZN17UnkClass_020621b413func_02077ce4Ev)(data_020e88a0);
+    ((s32 (*)(...))_ZN11MatchEngine13func_02077ce4Ev)(data_020e88a0);
 }
 
 extern "C" s32 func_ov047_0216a51c(s32 arg0)

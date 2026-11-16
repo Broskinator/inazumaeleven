@@ -1,5 +1,5 @@
 #include "game/UnkClass_0203dc7c.hpp"
-#include "game/UnkClass_020621b4.hpp"
+#include "match/MatchEngine.hpp"
 #include "nitro/mi.h"
 
 extern "C" char data_020abe94[];        // the vtable

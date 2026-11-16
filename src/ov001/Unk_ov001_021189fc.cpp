@@ -109,13 +109,13 @@ extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e090Eii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e1ecEv(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206cd78Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206ce5cEv(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206e840Et(...);
-extern "C" void _ZN17UnkClass_020621b413func_02078844Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_02078aacEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_02078f14Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" s32 _ZN11MatchEngine13func_0206cd78Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206ce5cEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0206e840Et(...);
+extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
+extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -263,14 +263,14 @@ extern "C" s32 func_ov001_02118a84(u8 *arg0)
     func_ov015_0213b364((s32)((u8 *)&data_020c9660), 0);
     v1 = func_ov015_021317f8();
     if (v1 == 0) {
-        _ZN17UnkClass_020621b413func_0206cd78Ev((s32)((u8 *)&data_020e88a0), 0x1F5);
+        _ZN11MatchEngine13func_0206cd78Ev((s32)((u8 *)&data_020e88a0), 0x1F5);
         _ZN11TreasureBox13func_020526ccEi((s32)((u8 *)&data_020d9978), 0x55D4A82);
     } else {
         t0 = *(s16 *)(((u8 *)&data_020cb8e0) + 0x3A);
-        _ZN17UnkClass_020621b413func_0206cd78Ev((s32)((u8 *)&data_020e88a0), t0);
+        _ZN11MatchEngine13func_0206cd78Ev((s32)((u8 *)&data_020e88a0), t0);
         t1 = *(u16 *)(((u8 *)&data_020cb8e0) + 0x3A);
-        _ZN17UnkClass_020621b413func_0206e840Et((s32)((u8 *)&data_020e88a0), t1);
-        v6 = _ZN17UnkClass_020621b413func_0206ce5cEv((s32)((u8 *)&data_020e88a0));
+        _ZN11MatchEngine13func_0206e840Et((s32)((u8 *)&data_020e88a0), t1);
+        v6 = _ZN11MatchEngine13func_0206ce5cEv((s32)((u8 *)&data_020e88a0));
         *(u16 *)(((u8 *)&gGameState) + 0x82) = v6;
         _ZN11TreasureBox13func_02052628Eiiii((s32)((u8 *)&data_020d9978), 1, 1, 0x55D4A82, 0);
     }
@@ -948,7 +948,7 @@ extern "C" asm void func_ov001_02119598(void)
     add r0, r10, #0x1000
     ldr r1, [r0, #0xa18]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     add r1, r10, #0x1000
     mov r4, r0
     ldr r0, [r1, #0xa18]
@@ -987,7 +987,7 @@ extern "C" asm void func_ov001_02119598(void)
     mov r1, r5
     and r3, r3, r4
     strh r3, [r2, #0x2a]
-    bl _ZN17UnkClass_020621b413func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14Ei
     add r1, r8, #0x700
     strh r0, [r1, #0x2c]
     mov r0, r5
@@ -1039,7 +1039,7 @@ extern "C" asm void func_ov001_02119744(void)
     add r2, sp, #0x10
     mov r0, r4
     mov r3, #0x10
-    bl _ZN17UnkClass_020621b413func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEv
     mov r0, r4
     add r4, sp, #8
     add r1, r8, #0x1000
@@ -1047,7 +1047,7 @@ extern "C" asm void func_ov001_02119744(void)
     ldr r1, [r1, #0xa18]
     mov r3, #4
     mov r2, r4
-    bl _ZN17UnkClass_020621b413func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844Ev
     mov r2, r0
     mov r1, r2
     mov lr, #1

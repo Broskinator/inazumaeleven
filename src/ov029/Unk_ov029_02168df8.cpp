@@ -74,10 +74,10 @@ extern "C" char data_ov029_0216d16c[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076808Eh(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207bfd0Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207c064Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207c110Ev(void);
+extern "C" void _ZN11MatchEngine13func_02076808Eh(void);
+extern "C" void _ZN11MatchEngine13func_0207bfd0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207c064Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207c110Ev(void);
 extern "C" void _Znam(void);
 extern "C" void func_02017278(void);
 extern "C" void _s32_div_f(void);
@@ -966,7 +966,7 @@ extern "C" asm void func_ov029_021695c0(void)
     ldr r0, =data_020e88a0
     mov r1, r4
     mov r2, r5
-    bl _ZN17UnkClass_020621b413func_0207c064Ev
+    bl _ZN11MatchEngine13func_0207c064Ev
     ldr r0, [r6]
     mov r1, r7
     mov r2, #1
@@ -991,12 +991,12 @@ extern "C" asm void func_ov029_021695c0(void)
     mov r1, r4
     mov r0, r6
     mov r2, r5
-    bl _ZN17UnkClass_020621b413func_0207c110Ev
+    bl _ZN11MatchEngine13func_0207c110Ev
     mov r0, r6
     mov r1, r4
     mov r2, r5
     mov r3, #1
-    bl _ZN17UnkClass_020621b413func_0207bfd0Ev
+    bl _ZN11MatchEngine13func_0207bfd0Ev
     add r0, r9, #0x8000
     ldr r0, [r0, #0xa84]
     mov r3, #0
@@ -3324,7 +3324,7 @@ extern "C" asm void func_ov029_0216bbcc(void)
     bl func_ov029_021674a4
     ldr r0, =data_020e88a0
     ldr r1, [sp]
-    bl _ZN17UnkClass_020621b413func_02076808Eh
+    bl _ZN11MatchEngine13func_02076808Eh
     add sp, sp, #0x80
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }

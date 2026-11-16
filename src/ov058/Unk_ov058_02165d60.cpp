@@ -89,10 +89,10 @@ extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e090Eii(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206e5e4Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206e76cEv(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206e5e4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206e76cEv(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003758(void);
 extern "C" void func_02003bb8(void);
@@ -990,7 +990,7 @@ extern "C" asm s32 func_ov058_0216670c(...)
     mov r1, r11
     str r5, [r4, #0x5c]
     strb r2, [r4, #0x75]
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     mov r6, r0
     ldr r5, =data_020cb6e0
     ldr r0, =data_020ca78c
@@ -1004,7 +1004,7 @@ extern "C" asm s32 func_ov058_0216670c(...)
     bl STD_CopyString
     ldr r0, =data_020e88a0
     mov r1, r11
-    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    bl _ZN11MatchEngine13func_0206b4b8Ei
     strb r0, [r4, #0x5f8]
     ldr r3, [r5, #0x284]
     ldr r0, =0x36b06e71
@@ -1036,13 +1036,13 @@ extern "C" asm s32 func_ov058_0216670c(...)
     ldr r0, =data_020e88a0
     mov r3, r7
     add r2, r4, #0x5e0
-    bl _ZN17UnkClass_020621b413func_0206e5e4Ev
+    bl _ZN11MatchEngine13func_0206e5e4Ev
     ldrh r3, [r10, #4]
     add r2, r4, #0x600
     ldr r0, =data_020e88a0
     mov r1, r8
     strh r3, [r2, #2]
-    bl _ZN17UnkClass_020621b413func_0206e76cEv
+    bl _ZN11MatchEngine13func_0206e76cEv
     add r1, r9, #0x90
     str r1, [r4, #0x620]
     add r1, r4, #0x600
@@ -1526,7 +1526,7 @@ extern "C" asm s32 func_ov058_02167360(...)
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     ldrb r0, [r0, #0x2d]
     cmp r0, #0
     beq @L_02167420

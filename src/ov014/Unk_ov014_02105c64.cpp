@@ -71,7 +71,7 @@ extern "C" s32 func_ov014_0210888c(s32 arg0);
 extern "C" s32 func_ov014_0210892c(s32 arg0);
 extern "C" s32 func_ov014_0210896c(s32 arg0);
 extern "C" void func_ov014_0210897c(void);
-extern "C" void func_ov014_021089b0(void);
+extern "C" s32 func_ov014_021089b0(void);
 extern "C" s32 func_ov014_02108a50(void);
 extern "C" s32 func_ov014_02108a58(void);
 extern "C" s32 func_ov014_02108a60(...);
@@ -3168,50 +3168,30 @@ extern "C" void func_ov014_0210897c(void)
     func_ov014_021085f8(0x10, *(s32 *)(data_ov014_02128c84 + 0x10), (8 + 0xD20));
 }
 
-extern "C" asm void func_ov014_021089b0(void)
+extern "C" s32 func_ov014_021089b0(void)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    ldr r0, =data_ov014_02128c84
-    mov r1, #0xc0
-    ldr r8, [r0, #0x10]
-    ldrb r7, [r8, #0xd13]
-    ldrb r2, [r8, #0xd0d]
-    add r0, r8, #0x74
-    smulbb r4, r7, r1
-    add r5, r0, #0x400
-    cmp r2, #6
-    movhs r0, #1
-    ldmhsia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldrb r9, [r8, #0xd12]
-    mov r6, #0
-    cmp r9, #0
-    bls @L_02108a44
-    mov r10, r1
-@L_021089f4:
-    cmp r6, r7
-    beq @L_02108a34
-    add r0, r8, r6, lsl #2
-    ldrb r0, [r0, #0x445]
-    cmp r0, #6
-    bhs @L_02108a34
-    mul r1, r6, r10
-    add r0, r8, r1
-    add r0, r0, #0x400
-    ldrh r2, [r0, #0x7a]
-    add r0, r5, r4
-    add r1, r5, r1
-    bl strncmp
-    cmp r0, #0
-    moveq r0, #2
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02108a34:
-    add r0, r6, #1
-    and r6, r0, #0xff
-    cmp r6, r9
-    blo @L_021089f4
-@L_02108a44:
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    s32 z = 0;
+    s32 o;
+    u8 *q;
+    u8 i;
+    u8 me;
+    u8 *p;
+    u8 n;
+    p = *(u8 **)((u8 *)data_ov014_02128c84 + 0x10);
+    me = p[0xD13];
+    q = p + 0x474;
+    o = me * 0xC0;
+    if (p[0xD0D] >= 6)
+        return 1;
+    n = p[0xD12];
+    for (i = z; i < n; i++) {
+        if (i != me && p[(i << 2) + 0x445] < 6) {
+            s32 x = i * 0xC0;
+            if (((s32 (*)(...))strncmp)(q + o, q + x, *(u16 *)(p + x + 0x47A)) == 0)
+                return 2;
+        }
+    }
+    return 1;
 }
 
 extern "C" s32 func_ov014_02108a50(void)

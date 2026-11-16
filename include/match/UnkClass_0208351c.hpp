@@ -1,11 +1,11 @@
-#ifndef GAME_UNKCLASS_0208351C_HPP
-#define GAME_UNKCLASS_0208351C_HPP
+#ifndef MATCH_UNKCLASS_0208351C_HPP
+#define MATCH_UNKCLASS_0208351C_HPP
 
 #include "nitro/types.h"
-#include "game/UnkClass_02083060.hpp"
+#include "match/MatchPlayerList.hpp"
 
-// Derived from UnkClass_02083060 (vtable data_020af44c, the object data_020c49e0)
-class UnkClass_0208351c : public UnkClass_02083060 {
+// Derived from MatchPlayerList (vtable data_020af44c, the object data_020c49e0)
+class UnkClass_0208351c : public MatchPlayerList {
 public:
     UnkClass_0208351c *func_0208351c();
     UnkClass_0208351c *func_0208353c();
@@ -21,4 +21,4 @@ public:
     void func_020838d0();
 };
 
-#endif // GAME_UNKCLASS_0208351C_HPP
+#endif // MATCH_UNKCLASS_0208351C_HPP

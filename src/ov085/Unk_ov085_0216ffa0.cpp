@@ -31,7 +31,7 @@ extern "C" s32 DC_FlushRange(...);
 extern "C" s32 G2S_GetBG1CharPtr(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" s32 func_02003608(...);
 extern "C" s32 func_ov001_02125f64(...);
@@ -92,7 +92,7 @@ extern "C" asm s32 func_ov085_0216ffc0(...)
 @L_02170024:
     ldr r0, =data_020e88a0
     mov r1, r9
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     mov r0, r9
     bl func_ov001_02126458
     mov r8, r0

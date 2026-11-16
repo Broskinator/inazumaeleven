@@ -59,7 +59,7 @@ extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" void G2S_GetBG2CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_020739ccEi(...);
+extern "C" s32 _ZN11MatchEngine13func_020739ccEi(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
@@ -724,7 +724,7 @@ extern "C" s32 func_ov081_02170a3c(s32 arg0, s32 arg1)
     s32 t0;
     if (arg1 == 0)
         return arg0;
-    v0 = _ZN17UnkClass_020621b413func_020739ccEi((s32)data_020e88a0, arg1);
+    v0 = _ZN11MatchEngine13func_020739ccEi((s32)data_020e88a0, arg1);
     if (v0 == 0)
         return v0;
     t0 = (*(u16 *)(((u8 *)v0) + 0x16) << 5);

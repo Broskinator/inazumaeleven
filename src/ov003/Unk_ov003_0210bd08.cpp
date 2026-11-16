@@ -135,8 +135,8 @@ extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e0ccEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206db10EP8SaveBody(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0207ab64Ei(...);
+extern "C" void _ZN11MatchEngine13func_0206db10EP8SaveBody(void);
+extern "C" s32 _ZN11MatchEngine13func_0207ab64Ei(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN9GameState9SaveExtraEPv(void);
@@ -911,7 +911,7 @@ extern "C" s32 func_ov003_0210c6f4(u8 *arg0)
 
 extern "C" s32 func_ov003_0210c7a8(void)
 {
-    s32 v0 = _ZN17UnkClass_020621b413func_0207ab64Ei((s32)data_020e88a0, 0);
+    s32 v0 = _ZN11MatchEngine13func_0207ab64Ei((s32)data_020e88a0, 0);
     return (v0 >= 0xC ? 1 : 0);
 }
 
@@ -2839,7 +2839,7 @@ extern "C" asm void func_ov003_0210e360(void)
     ldr r1, [r5, #0x298]
     ldr r0, =data_020e88a0
     add r1, r1, #0x80
-    bl _ZN17UnkClass_020621b413func_0206db10EP8SaveBody
+    bl _ZN11MatchEngine13func_0206db10EP8SaveBody
     ldr r0, [r5, #0x298]
     ldr r3, =data_020ca78c
     add r6, r0, #0x80

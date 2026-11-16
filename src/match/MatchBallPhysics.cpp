@@ -1,4 +1,4 @@
-#include "game/UnkClass_02061498.hpp"
+#include "match/MatchBallPhysics.hpp"
 #include "system/GameHeap.hpp"
 
 extern "C" void func_02083afc(void);     // (for the asm functions)
@@ -27,30 +27,30 @@ extern "C" void func_ov015_02142ec8(void);
 extern "C" void func_ov087_02182234(void);
 extern "C" void func_ov087_02182248(void);
 
-UnkClass_02061498 *UnkClass_02061498::func_02061498()
+MatchBallPhysics *MatchBallPhysics::func_02061498()
 {
     vtable = data_020aeadc;
     area = NULL;
     return this;
 }
 
-void UnkClass_02061498::func_020614b0()
+void MatchBallPhysics::func_020614b0()
 {
 }
 
-UnkClass_02061498 *UnkClass_02061498::func_020614b4()
+MatchBallPhysics *MatchBallPhysics::func_020614b4()
 {
     operator delete(this);
     return this;
 }
 
-void UnkClass_02061498::func_020614c8(UnkArea_02061498 *area, fx32 value)
+void MatchBallPhysics::func_020614c8(MatchArea *area, fx32 value)
 {
     this->area = area;
     unk_8 = value;
 }
 
-asm void UnkClass_02061498::func_020614d0()
+asm void MatchBallPhysics::func_020614d0()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -171,7 +171,7 @@ asm void UnkClass_02061498::func_020614d0()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_02061498::func_0206168c()
+asm void MatchBallPhysics::func_0206168c()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x2c
@@ -332,7 +332,7 @@ asm void UnkClass_02061498::func_0206168c()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_02061498::func_020618d4()
+asm void MatchBallPhysics::func_020618d4()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r10, r1
@@ -431,9 +431,9 @@ asm void UnkClass_02061498::func_020618d4()
 }
 
 // keeps a position at most 32 units out of the area horizontally, 58 vertically
-void UnkClass_02061498::func_02061a2c(VecFx32 *pos)
+void MatchBallPhysics::func_02061a2c(VecFx32 *pos)
 {
-    UnkArea_02061498 *area = this->area;
+    MatchArea *area = this->area;
     fx32 limit;
 
     if (pos->x < (limit = area->minX - 32 * FX32_ONE)) {
@@ -448,12 +448,12 @@ void UnkClass_02061498::func_02061a2c(VecFx32 *pos)
     }
 }
 
-fx32 UnkClass_02061498::func_02061a84(MatchBall *ball)
+fx32 MatchBallPhysics::func_02061a84(MatchBall *ball)
 {
     return FX_Mul(unk_8, ball->unk_38);
 }
 
-void UnkClass_02061498::func_02061aa4(MatchBall *ball)
+void MatchBallPhysics::func_02061aa4(MatchBall *ball)
 {
     ball->unk_44 += unk_8;
 }
@@ -462,7 +462,7 @@ void UnkClass_02061498::func_02061aa4(MatchBall *ball)
 // height can't cross the line (data_020f98a0 + 0x7EC)
 void // (nonmatching: register allocation differs)
 #ifdef NONMATCHING
-UnkClass_02061498::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
+MatchBallPhysics::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
 {
     fx32 speed = ball->unk_44;
     fx32 line = *(fx32 *)(data_020f98a0 + 0x7EC);
@@ -481,7 +481,7 @@ UnkClass_02061498::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
     }
 }
 #else
-asm UnkClass_02061498::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
+asm MatchBallPhysics::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r1
@@ -547,12 +547,12 @@ asm UnkClass_02061498::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
 }
 #endif
 
-void UnkClass_02061498::func_02061bac(MatchBall *ball)
+void MatchBallPhysics::func_02061bac(MatchBall *ball)
 {
     ball->unk_54 = ball->unk_54 + (ball->unk_38 >> 5);
 }
 
-asm void UnkClass_02061498::func_02061bc0()
+asm void MatchBallPhysics::func_02061bc0()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r1
@@ -691,7 +691,7 @@ asm void UnkClass_02061498::func_02061bc0()
 }
 
 // moves the ball, keeping its previous position
-void UnkClass_02061498::func_02061dc4(MatchBall *ball, fx32 x, fx32 y, fx32 z)
+void MatchBallPhysics::func_02061dc4(MatchBall *ball, fx32 x, fx32 y, fx32 z)
 {
     ball->prevPos = ball->pos;
     ball->unk_5b = ball->unk_52 >> 8;

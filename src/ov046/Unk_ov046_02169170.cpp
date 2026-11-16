@@ -84,7 +84,7 @@ extern "C" s32 _ZN12SoundManager9StopSoundEi(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df24Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e1ecEv(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206f028El(void);
+extern "C" void _ZN11MatchEngine13func_0206f028El(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZdlPv(...);
@@ -1030,7 +1030,7 @@ extern "C" asm void func_ov046_02169f24(void)
     movhi r1, r0
 @L_02169f50:
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206f028El
+    bl _ZN11MatchEngine13func_0206f028El
     mov r0, r4
     ldmia sp!, {r4, pc}
 }

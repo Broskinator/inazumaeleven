@@ -624,23 +624,23 @@ src/game/Unk_0205dee0.cpp:
     complete
     .text start:0x0205dee0 end:0x02060294
 
-src/game/UnkClass_02061498.cpp:
+src/match/MatchBallPhysics.cpp:
     complete
     .text start:0x02061498 end:0x020621b4
 
-src/game/UnkClass_020621b4.cpp:
+src/match/MatchEngine.cpp:
     complete
     .text start:0x020621b4 end:0x0206ee34
 
-src/game/UnkClass_0206ee34.cpp:
+src/match/MatchRules.cpp:
     complete
     .text start:0x0206ee34 end:0x0206f028
 
-src/game/UnkClass_020621b4_2.cpp:
+src/match/MatchEngine_2.cpp:
     complete
     .text start:0x0206f028 end:0x020802a0
 
-src/game/Unk_020802a0.cpp:
+src/match/MatchUtil.cpp:
     complete
     .text start:0x020802a0 end:0x02081740
 
@@ -652,19 +652,19 @@ src/game/Unk_02081c3c.cpp:
     complete
     .text start:0x02081c3c end:0x02082d5c
 
-src/game/UnkClass_020621b4_3.cpp:
+src/match/MatchEngine_3.cpp:
     complete
     .text start:0x02082d5c end:0x02083060
 
-src/game/UnkClass_02083060.cpp:
+src/match/MatchPlayerList.cpp:
     complete
     .text start:0x02083060 end:0x0208351c
 
-src/game/UnkClass_0208351c.cpp:
+src/match/UnkClass_0208351c.cpp:
     complete
     .text start:0x0208351c end:0x02083afc
 
-src/game/Unk_02083afc.cpp:
+src/match/MatchGeometry.cpp:
     complete
     .text start:0x02083afc end:0x02084ff4
 

@@ -32,8 +32,8 @@ extern "C" void G2S_GetBG2CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClear16(void);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206b3dcEi(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206b3dcEi(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
 extern "C" void func_020036e8(void);
@@ -117,7 +117,7 @@ extern "C" asm s32 func_ov084_0216ffa0(...)
     mov r6, #0
     ldr r0, =data_020e88a0
     mov r1, r6
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     mov r0, r6
     bl func_ov001_02126458
     mov r6, r0
@@ -155,7 +155,7 @@ extern "C" asm s32 func_ov084_0216ffa0(...)
 @L_021700dc:
     ldr r0, =data_020e88a0
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     mov r0, r4
     bl func_ov001_02126458
     mov r6, r0
@@ -621,7 +621,7 @@ extern "C" asm s32 func_ov084_02170244(...)
     ldr r9, =data_020e88a0
     mov r1, #0
     mov r0, r9
-    bl _ZN17UnkClass_020621b413func_0206b3dcEi
+    bl _ZN11MatchEngine13func_0206b3dcEi
     mov r3, r0
     mov r0, r4
     mov r2, r6
@@ -629,7 +629,7 @@ extern "C" asm s32 func_ov084_02170244(...)
     bl func_ov084_021709a4
     mov r0, r9
     mov r1, #1
-    bl _ZN17UnkClass_020621b413func_0206b3dcEi
+    bl _ZN11MatchEngine13func_0206b3dcEi
     mov r3, r0
     mov r2, r6
     mov r0, r4

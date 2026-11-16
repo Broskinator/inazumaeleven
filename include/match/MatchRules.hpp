@@ -1,10 +1,10 @@
-#ifndef GAME_UNKCLASS_0206EE34_HPP
-#define GAME_UNKCLASS_0206EE34_HPP
+#ifndef MATCH_MATCHRULES_HPP
+#define MATCH_MATCHRULES_HPP
 
 #include "nitro/types.h"
 
 // The match's rules (flags at 6): data_020e88a0 has one at 0x22C
-class UnkClass_0206ee34 {
+class MatchRules {
 public:
     void func_0206ee34(int a);
     void func_0206ee98();
@@ -47,4 +47,4 @@ public:
     u8 unk_88;
 };
 
-#endif // GAME_UNKCLASS_0206EE34_HPP
+#endif // MATCH_MATCHRULES_HPP

@@ -70,12 +70,12 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206ce9cEv(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206de4cEv(void);
-extern "C" void _ZN17UnkClass_0206ee3413func_0206efc4Ev(void);
-extern "C" void _ZN17UnkClass_0206ee3413func_0206efd4Ev(void);
-extern "C" void _ZN17UnkClass_0206ee3413func_0206efecEv(void);
-extern "C" void _ZN17UnkClass_0206ee3413func_0206effcEv(void);
+extern "C" s32 _ZN11MatchEngine13func_0206ce9cEv(...);
+extern "C" void _ZN11MatchEngine13func_0206de4cEv(void);
+extern "C" void _ZN10MatchRules13func_0206efc4Ev(void);
+extern "C" void _ZN10MatchRules13func_0206efd4Ev(void);
+extern "C" void _ZN10MatchRules13func_0206efecEv(void);
+extern "C" void _ZN10MatchRules13func_0206effcEv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" s32 _ZdlPv(...);
@@ -554,7 +554,7 @@ extern "C" void func_ov025_021662ac(u8 *arg0)
 
 extern "C" void func_ov025_02166360(s32 arg0)
 {
-    s32 v0 = _ZN17UnkClass_020621b413func_0206ce9cEv((s32)((u8 *)&data_020e88a0));
+    s32 v0 = _ZN11MatchEngine13func_0206ce9cEv((s32)((u8 *)&data_020e88a0));
     *(u8 *)(((u8 *)&gGameState) + 0x7F) = v0;
     func_01ffba24((s32)((u8 *)&data_020e88a0), v0, (arg0 + 0x70), (s32)((u8 *)&gGameState));
 }
@@ -1768,7 +1768,7 @@ extern "C" asm void func_ov025_02167978(void)
     ldr r0, [r0]
     bl func_ov015_021616dc
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206de4cEv
+    bl _ZN11MatchEngine13func_0206de4cEv
     ldr r2, [r4, #0x18]
     mov r1, #0x3c
     add r2, r2, #1
@@ -1779,19 +1779,19 @@ extern "C" asm void func_ov025_02167978(void)
     ldr r1, [r4, #0x1c]
     cmp r1, #0
     bne @L_021679d0
-    bl _ZN17UnkClass_0206ee3413func_0206efc4Ev
+    bl _ZN10MatchRules13func_0206efc4Ev
     b @L_021679d4
 @L_021679d0:
-    bl _ZN17UnkClass_0206ee3413func_0206efd4Ev
+    bl _ZN10MatchRules13func_0206efd4Ev
 @L_021679d4:
     ldr r0, [r4, #0x20]
     cmp r0, #0
     mov r0, r5
     bne @L_021679ec
-    bl _ZN17UnkClass_0206ee3413func_0206efecEv
+    bl _ZN10MatchRules13func_0206efecEv
     b @L_021679f0
 @L_021679ec:
-    bl _ZN17UnkClass_0206ee3413func_0206effcEv
+    bl _ZN10MatchRules13func_0206effcEv
 @L_021679f0:
     ldr r0, [r4, #0x1c]
     cmp r0, #0

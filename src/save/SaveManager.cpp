@@ -1,5 +1,5 @@
 #include "save/SaveManager.hpp"
-#include "game/UnkClass_020621b4.hpp"
+#include "match/MatchEngine.hpp"
 #include "system/GameHeap.hpp"
 #include "sound/SoundManager.hpp"
 #include "game/TreasureBox.hpp"
@@ -7,14 +7,14 @@
 #include "nitro/std.h"
 #include "nitro/card.h"
 
-extern "C" void _ZN17UnkClass_020621b413func_0207aa94Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207ab64Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206f034Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206f04cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206db10EP8SaveBody(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206dcdcEP8SaveBody(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207aa94Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207ab64Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020767bcEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206f034Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206f04cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206db10EP8SaveBody(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206dcdcEP8SaveBody(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);     // (for the asm functions)
 // (other systems, not decompiled yet)
 extern GameHeap data_020c47b4;
 extern "C" u8 data_020d3d20[];
@@ -689,7 +689,7 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     bl _ZN12SoundManager9SaveStateEP10SoundState
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206db10EP8SaveBody
+    bl _ZN11MatchEngine13func_0206db10EP8SaveBody
     ldr r0, =data_020c46cc
     add r1, r5, #0x1dc
     ldr r0, [r0]
@@ -749,18 +749,18 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     ldr r0, =data_020e88a0
     strb r1, [r4, #0x14]
     mov r1, #0
-    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    bl _ZN11MatchEngine13func_0206b4b8Ei
     strb r0, [r4, #0x15]
     ldr r0, =data_020e88a0
     mov r1, #0
-    bl _ZN17UnkClass_020621b413func_0207ab64Ei
+    bl _ZN11MatchEngine13func_0207ab64Ei
     strb r0, [r4, #0x16]
     ldr r0, =data_020e88a0
     mov r1, #0
-    bl _ZN17UnkClass_020621b413func_0207aa94Ei
+    bl _ZN11MatchEngine13func_0207aa94Ei
     strb r0, [r4, #0x17]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020767bcEv
+    bl _ZN11MatchEngine13func_020767bcEv
     str r0, [r4, #0x18]
     ldr r1, [r10, #0x4d0]
     add r0, r10, #0x400
@@ -768,10 +768,10 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     ldrsb r1, [r0, #0xd8]
     ldr r0, =data_020e88a0
     strb r1, [r4, #0x45]
-    bl _ZN17UnkClass_020621b413func_0206f04cEv
+    bl _ZN11MatchEngine13func_0206f04cEv
     str r0, [r4, #0x54]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206f034Ev
+    bl _ZN11MatchEngine13func_0206f034Ev
     ldr r1, =data_020cab8c
     add r0, r4, #0x1c
     bl STD_CopyString
@@ -1544,7 +1544,7 @@ asm s32 SaveManager::ApplyLoad(int slot)
     bl _ZN12SoundManager12RestoreStateEP10SoundState
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206dcdcEP8SaveBody
+    bl _ZN11MatchEngine13func_0206dcdcEP8SaveBody
     ldr r0, =data_020c46cc
     add r1, r5, #0x1dc
     ldr r0, [r0]

@@ -70,9 +70,9 @@ extern "C" s32 DC_FlushRange(...);
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_020739ccEi(...);
-extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" s32 _ZN11MatchEngine13func_020739ccEi(...);
+extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void func_02091d64(void);
 extern "C" s32 func_020920c4(...);
 extern "C" void func_02092270(void);
@@ -305,7 +305,7 @@ extern "C" asm void func_ov053_02166060(void)
 @L_02166108:
     ldr r0, =data_020e88a0
     mov r1, #1
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     ldrh r1, [r0, #0x28]
     cmp r1, #0
     ldreqh r1, [r0, #0x26]
@@ -608,7 +608,7 @@ extern "C" asm s32 func_ov053_02166664(...)
     ldr r0, =data_020e88a0
     mov r9, r1
     mov r8, r2
-    bl _ZN17UnkClass_020621b413func_020767bcEv
+    bl _ZN11MatchEngine13func_020767bcEv
     mov r7, #0x78
     mov r6, r0
     bl func_0209d668
@@ -1194,7 +1194,7 @@ extern "C" asm void func_ov053_02166e1c(void)
 extern "C" s32 func_ov053_02166f4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 v0;
-    v0 = _ZN17UnkClass_020621b413func_020739ccEi((s32)data_020e88a0, arg1, arg2, arg3);
+    v0 = _ZN11MatchEngine13func_020739ccEi((s32)data_020e88a0, arg1, arg2, arg3);
     switch (*(u8 *)(((u8 *)v0))) {
         case 5:
             return 0;

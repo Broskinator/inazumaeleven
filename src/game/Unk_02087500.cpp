@@ -118,9 +118,9 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
-extern "C" void _ZN17UnkClass_020621b413func_02076914EPh(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_02076914EPh(void);
+extern "C" void _ZN11MatchEngine13func_02076f14EP11MatchPlayer(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZdlPv(...);
@@ -190,7 +190,7 @@ extern "C" asm void func_02087500(void)
     add r2, sp, #8
     mov r6, r3
     mov r8, #0
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     cmp r0, #0
     addeq sp, sp, #0x68
     moveq r0, r8
@@ -229,14 +229,14 @@ extern "C" asm void func_02087500(void)
     beq @L_020875f0
     ldr r0, =data_020e88a0
     mov r1, r7
-    bl _ZN17UnkClass_020621b413func_02076914EPh
+    bl _ZN11MatchEngine13func_02076914EPh
     cmp r0, #0
     ldrneh r0, [r0, #0x2a]
     mov r1, r7
     strneh r0, [r9, #0x10]
     ldr r0, =data_020e88a0
     streqh r8, [r9, #0x10]
-    bl _ZN17UnkClass_020621b413func_02076f14EP11MatchPlayer
+    bl _ZN11MatchEngine13func_02076f14EP11MatchPlayer
     cmp r0, #0
     ldrneh r0, [r0, #0x2a]
     strneh r0, [r9, #0xe]
@@ -441,7 +441,7 @@ extern "C" asm void func_020878ac(void)
     mov r2, r6
     mov r1, r1, lsr #0x10
     mov r7, r3
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     cmp r0, #0
     addeq sp, sp, #0x160
     moveq r0, #0

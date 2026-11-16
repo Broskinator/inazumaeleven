@@ -1,4 +1,4 @@
-#include "game/UnkClass_020621b4.hpp"
+#include "match/MatchEngine.hpp"
 extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" void func_01ffde48(void);
 extern "C" void func_020802a0(void);
@@ -6,35 +6,35 @@ extern "C" void func_02080b90(void);
 extern "C" void func_02080c64(void);
 extern "C" void gEntryPool(void);
 
-extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207add4Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207ae40Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_02082d5cEv(void);     // (for the asm functions)
-asm void UnkClass_020621b4::func_02082d5c()
+extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207add4Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207ae40Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02082d5cEv(void);     // (for the asm functions)
+asm void MatchEngine::func_02082d5c()
 {
     stmdb sp!, {r4, lr}
     sub sp, sp, #0x60
     add r4, sp, #0
     mov r2, r4
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     mov r0, r4
     bl func_020802a0
     add sp, sp, #0x60
     ldmia sp!, {r4, pc}
 }
 
-asm void UnkClass_020621b4::func_02082d80()
+asm void MatchEngine::func_02082d80()
 {
     stmdb sp!, {r4, lr}
     mov r4, r2
-    bl _ZN17UnkClass_020621b413func_02082d5cEv
+    bl _ZN11MatchEngine13func_02082d5cEv
     cmp r4, r0
     moveq r0, #1
     movne r0, #0
     ldmia sp!, {r4, pc}
 }
 
-asm void UnkClass_020621b4::func_02082d9c()
+asm void MatchEngine::func_02082d9c()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -144,7 +144,7 @@ asm void UnkClass_020621b4::func_02082d9c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_020621b4::func_02082f3c()
+asm void MatchEngine::func_02082f3c()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r2
@@ -186,7 +186,7 @@ asm void UnkClass_020621b4::func_02082f3c()
     ldrh r2, [r5, #0x42]
     mov r0, r4
     mov r1, r10
-    bl _ZN17UnkClass_020621b413func_0207ae40Ei
+    bl _ZN11MatchEngine13func_0207ae40Ei
     cmp r0, #0
     beq @L_02083020
 @L_02082fe0:
@@ -195,7 +195,7 @@ asm void UnkClass_020621b4::func_02082f3c()
     ldrh r2, [r5, #0x42]
     mov r0, r4
     mov r1, r10
-    bl _ZN17UnkClass_020621b413func_0207add4Ei
+    bl _ZN11MatchEngine13func_0207add4Ei
     cmp r0, #0
     beq @L_02083020
 @L_02083000:
@@ -204,7 +204,7 @@ asm void UnkClass_020621b4::func_02082f3c()
     ldrh r2, [r5, #0x42]
     mov r0, r4
     mov r1, #2
-    bl _ZN17UnkClass_020621b413func_0207ae40Ei
+    bl _ZN11MatchEngine13func_0207ae40Ei
     cmp r0, #0
     bne @L_02083030
 @L_02083020:
@@ -221,14 +221,14 @@ asm void UnkClass_020621b4::func_02082f3c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_020621b4::func_02083048()
+asm void MatchEngine::func_02083048()
 {
     add r0, r0, #0x3ac
     add r0, r0, r1, lsl #4
     bx lr
 }
 
-asm void UnkClass_020621b4::func_02083054()
+asm void MatchEngine::func_02083054()
 {
     add r0, r0, #0x34c
     add r0, r0, r1, lsl #5

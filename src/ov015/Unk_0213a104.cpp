@@ -132,9 +132,9 @@ extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" void _ZN11TreasureBox13func_020525d4Ev(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206aa30Ei(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206dedcEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0206aa30Ei(...);
+extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);
+extern "C" s32 _ZN11MatchEngine13func_0206dedcEv(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -658,7 +658,7 @@ extern "C" s32 func_ov015_0213a818(s32 arg0)
     s32 t1;
     s32 t2;
     s32 t3;
-    v0 = _ZN17UnkClass_020621b413func_0206aa30Ei((s32)((u8 *)&data_020e88a0), 1);
+    v0 = _ZN11MatchEngine13func_0206aa30Ei((s32)((u8 *)&data_020e88a0), 1);
     if (v0 == 0)
         return v0;
     t0 = (*(s32 *)(((u8 *)v0)) / 4096);
@@ -715,8 +715,8 @@ extern "C" s32 func_ov015_0213a938(void)
 {
     void *d = data_020e88a0;
     s32 k = 1;
-    u8 *p = (u8 *)((s32 (*)(...))_ZN17UnkClass_020621b413func_0206aa30Ei)(d, k);
-    if (((s32 (*)(...))_ZN17UnkClass_020621b413func_0206ace8Ev)(d) != 0)
+    u8 *p = (u8 *)((s32 (*)(...))_ZN11MatchEngine13func_0206aa30Ei)(d, k);
+    if (((s32 (*)(...))_ZN11MatchEngine13func_0206ace8Ev)(d) != 0)
         return 0;
     if (*(s32 *)(p + 0xC) <= (s32)0x80000000)
         return 0;
@@ -748,7 +748,7 @@ extern "C" s32 func_ov015_0213a9e0(void)
     s32 v0;
     s32 v1;
     r4 = 1;
-    v0 = _ZN17UnkClass_020621b413func_0206aa30Ei((u8 *)((u8 *)&data_020e88a0), 1);
+    v0 = _ZN11MatchEngine13func_0206aa30Ei((u8 *)((u8 *)&data_020e88a0), 1);
     if (*(u8 *)(((u8 *)v0) + 0x24) == 0) {
         r4 = 0;
     }
@@ -998,7 +998,7 @@ extern "C" s32 func_ov015_0213ae50(u8 *arg0)
     func_020939c8(t4, v0, 1, 0, 0);
     t5 = *(s32 *)(((u8 *)&data_020c46d4));
     func_02093524(t5, v0, 1, 0, 0);
-    v5 = _ZN17UnkClass_020621b413func_0206dedcEv((u8 *)((u8 *)&data_020e88a0));
+    v5 = _ZN11MatchEngine13func_0206dedcEv((u8 *)((u8 *)&data_020e88a0));
     r5 = v0;
     if (v5 != 0) {
         t6 = *(s32 *)(((u8 *)&data_020c46d4));

@@ -80,7 +80,7 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN11TreasureBox13func_020526ecEii(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" void func_02003678(void);
 extern "C" void func_02003758(void);
@@ -490,7 +490,7 @@ extern "C" asm void func_ov036_02166138(void)
     bl func_ov015_021319bc
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    bl _ZN11MatchEngine13func_0206b4b8Ei
     mov r6, r0
     cmp r6, #0x63
     movgt r6, #0x63
@@ -684,7 +684,7 @@ extern "C" asm void func_ov036_02166494(void)
     bl func_ov015_021319bc
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    bl _ZN11MatchEngine13func_0206b4b8Ei
     mov r6, r0
     cmp r6, #0x63
     movgt r6, #0x63
@@ -964,7 +964,7 @@ extern "C" asm void func_ov036_021668e0(void)
     bl func_ov015_021319bc
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    bl _ZN11MatchEngine13func_0206b4b8Ei
     mov r6, r0
     cmp r6, #0x63
     movgt r6, #0x63

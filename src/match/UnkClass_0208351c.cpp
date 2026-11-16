@@ -1,4 +1,4 @@
-#include "game/UnkClass_0208351c.hpp"
+#include "match/UnkClass_0208351c.hpp"
 
 extern "C" void func_02084094(void);     // (for the asm functions)
 extern "C" void func_020841d8(void);     // (for the asm functions)
@@ -7,10 +7,10 @@ extern "C" void *data_020af44c[];     // (the vtable)
 
 extern "C" void FX_SinCosTable_(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN17UnkClass_0208306013func_02083060Ev(void);
-extern "C" void _ZN17UnkClass_0208306013func_020830a8Ev(void);
-extern "C" void _ZN17UnkClass_0208306013func_020832c8Ev(void);
-extern "C" void _ZN17UnkClass_0208306013func_0208331cEv(void);
+extern "C" void _ZN15MatchPlayerList13func_02083060Ev(void);
+extern "C" void _ZN15MatchPlayerList13func_020830a8Ev(void);
+extern "C" void _ZN15MatchPlayerList13func_020832c8Ev(void);
+extern "C" void _ZN15MatchPlayerList13func_0208331cEv(void);
 extern "C" void _ZdlPv(void);
 extern "C" void func_02001d60(void);
 extern "C" void func_0200226c(void);
@@ -71,7 +71,7 @@ asm void UnkClass_0208351c::func_02083578()
 @L_020835d0:
     mov r0, r5
     mov r1, r4
-    bl _ZN17UnkClass_0208306013func_0208331cEv
+    bl _ZN15MatchPlayerList13func_0208331cEv
     ldmia sp!, {r3, r4, r5, pc}
 }
 

@@ -144,9 +144,9 @@ extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e224Ev(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
-extern "C" void _ZN17UnkClass_020621b413func_0207f140Ev(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_02083054Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
+extern "C" void _ZN11MatchEngine13func_0207f140Ev(void);
+extern "C" s32 _ZN11MatchEngine13func_02083054Ev(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -1429,7 +1429,7 @@ extern "C" asm void func_ov003_02100c8c(void)
     ldr r0, =data_020e88a0
     mov r1, r8
     mov r2, #8
-    bl _ZN17UnkClass_020621b413func_0207f140Ev
+    bl _ZN11MatchEngine13func_0207f140Ev
     mov r10, #0
     ldr r7, =data_020d3d20
     mov r6, #9
@@ -2815,13 +2815,13 @@ extern "C" s32 func_ov003_02102254(u8 *arg0)
         r7 = (r7 + 1);
     } while (r8 < 0x84);
     t0 = *(u8 *)(((u8 *)&data_020c4ab4) + 0x68);
-    v2 = _ZN17UnkClass_020621b413func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), t0);
+    v2 = _ZN11MatchEngine13func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), t0);
     arg0 = (u8 *)v2;
     if ((s32)arg0 != 0) {
         t1 = *(u16 *)(arg0 + 0x3E);
         *(u16 *)(r4 + 0x1B68) = t1;
     }
-    v3 = _ZN17UnkClass_020621b413func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
+    v3 = _ZN11MatchEngine13func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
     v4 = MI_CpuCopy8(v3, (s32)((r4 + 0x6A) + 0x1B00), 0x20);
     return v4;
 }
@@ -2943,12 +2943,12 @@ extern "C" s32 func_ov003_0210241c(u8 *arg0)
         r7 = (r7 + 1);
     } while (r8 < 0x84);
     t0 = *(u8 *)(((u8 *)&data_020c4ab4) + 0x68);
-    v2 = _ZN17UnkClass_020621b413func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), t0);
+    v2 = _ZN11MatchEngine13func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), t0);
     arg0 = (u8 *)v2;
     if (((s32)arg0 != 0 && *(u16 *)(r4 + 0x1B68) != *(u16 *)(arg0 + 0x3E))) {
         return 1;
     } else {
-        v3 = _ZN17UnkClass_020621b413func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
+        v3 = _ZN11MatchEngine13func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
         v4 = memcmp(v3, (s32)((r4 + 0x6A) + 0x1B00), 0x20);
         if (v4 != 0) {
             arg0 = (u8 *)1;
@@ -3055,13 +3055,13 @@ extern "C" s32 func_ov003_021025b4(u8 *arg0)
         r7 = (r7 + 1);
     } while (r8 < 0x84);
     t0 = *(u8 *)(((u8 *)&data_020c4ab4) + 0x68);
-    v2 = _ZN17UnkClass_020621b413func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), t0);
+    v2 = _ZN11MatchEngine13func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), t0);
     arg0 = (u8 *)v2;
     if ((s32)arg0 != 0) {
         t1 = *(u16 *)(r4 + 0x1B68);
         *(u16 *)(arg0 + 0x3E) = t1;
     }
-    v3 = _ZN17UnkClass_020621b413func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
+    v3 = _ZN11MatchEngine13func_02083054Ev((u8 *)((u8 *)&data_020e88a0), 2);
     v4 = MI_CpuCopy8((s32)((r4 + 0x6A) + 0x1B00), v3, 0x20);
     return v4;
 }
@@ -3150,7 +3150,7 @@ extern "C" s32 func_ov003_02102760(void)
     func_0208e870(t1);
     func_ov015_02130ad4();
     func_01ffcb50((s32)((u8 *)&data_020e88a0), 0, 1, 1);
-    v7 = _ZN17UnkClass_020621b413func_0206a964Ei((s32)((u8 *)&data_020e88a0), 0);
+    v7 = _ZN11MatchEngine13func_0206a964Ei((s32)((u8 *)&data_020e88a0), 0);
     v8 = func_0209d8b8(0x186);
     func_02017278(v7, 0x1F, v8);
     v10 = _ZN10ConfigFile6GetIntEPKc((s32)((u8 *)&data_020c46e4), (s32)((u8 *)&data_ov003_0211ddbc));

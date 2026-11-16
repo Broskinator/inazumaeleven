@@ -1,8 +1,8 @@
-#include "game/UnkClass_0206ee34.hpp"
+#include "match/MatchRules.hpp"
 
 extern "C" void func_020841d8(void *p);
 
-void UnkClass_0206ee34::func_0206ee34(int a)
+void MatchRules::func_0206ee34(int a)
 {
     unk_10 = 0;
     unk_1c[0] = 0;
@@ -24,42 +24,42 @@ void UnkClass_0206ee34::func_0206ee34(int a)
     unk_2f = a;
 }
 
-void UnkClass_0206ee34::func_0206ee98()
+void MatchRules::func_0206ee98()
 {
     flags |= 0x20;
 }
 
-BOOL UnkClass_0206ee34::func_0206eea8()
+BOOL MatchRules::func_0206eea8()
 {
     return (flags & 0x2) ? TRUE : FALSE;
 }
 
-BOOL UnkClass_0206ee34::func_0206eebc()
+BOOL MatchRules::func_0206eebc()
 {
     return (flags & 0x4) ? TRUE : FALSE;
 }
 
-BOOL UnkClass_0206ee34::func_0206eed0()
+BOOL MatchRules::func_0206eed0()
 {
     return (flags & 0x8) ? TRUE : FALSE;
 }
 
-BOOL UnkClass_0206ee34::func_0206eee4()
+BOOL MatchRules::func_0206eee4()
 {
     return (flags & 0x10) ? TRUE : FALSE;
 }
 
-BOOL UnkClass_0206ee34::func_0206eef8()
+BOOL MatchRules::func_0206eef8()
 {
     return (flags & 0x80) ? FALSE : TRUE;
 }
 
-BOOL UnkClass_0206ee34::func_0206ef0c()
+BOOL MatchRules::func_0206ef0c()
 {
     return (flags & 0x100) ? FALSE : TRUE;
 }
 
-BOOL UnkClass_0206ee34::func_0206ef20(int side)
+BOOL MatchRules::func_0206ef20(int side)
 {
     u16 f = flags;
 
@@ -69,62 +69,62 @@ BOOL UnkClass_0206ee34::func_0206ef20(int side)
     return (f & 0x800) ? FALSE : TRUE;
 }
 
-BOOL UnkClass_0206ee34::func_0206ef4c()
+BOOL MatchRules::func_0206ef4c()
 {
     return (flags & 0x200) ? FALSE : TRUE;
 }
 
-BOOL UnkClass_0206ee34::func_0206ef60()
+BOOL MatchRules::func_0206ef60()
 {
     return (flags & 0x20) ? TRUE : FALSE;
 }
 
-BOOL UnkClass_0206ee34::func_0206ef74()
+BOOL MatchRules::func_0206ef74()
 {
     return (flags & 0x2000) ? FALSE : TRUE;
 }
 
-BOOL UnkClass_0206ee34::func_0206ef88()
+BOOL MatchRules::func_0206ef88()
 {
     return (flags & 0x4000) ? TRUE : FALSE;
 }
 
-BOOL UnkClass_0206ee34::func_0206ef9c()
+BOOL MatchRules::func_0206ef9c()
 {
     return (flags & 0x1000) ? TRUE : FALSE;
 }
 
-u8 UnkClass_0206ee34::func_0206efb0(int i)
+u8 MatchRules::func_0206efb0(int i)
 {
     return unk_0[i].unk_0;
 }
 
-s8 UnkClass_0206ee34::func_0206efb8(int i)
+s8 MatchRules::func_0206efb8(int i)
 {
     return unk_0[i].unk_1;
 }
 
-void UnkClass_0206ee34::func_0206efc4()
+void MatchRules::func_0206efc4()
 {
     flags |= 0xC;
 }
 
-void UnkClass_0206ee34::func_0206efd4()
+void MatchRules::func_0206efd4()
 {
     flags &= ~0xC;
 }
 
-void UnkClass_0206ee34::func_0206efec()
+void MatchRules::func_0206efec()
 {
     flags |= 0x10;
 }
 
-void UnkClass_0206ee34::func_0206effc()
+void MatchRules::func_0206effc()
 {
     flags &= ~0x10;
 }
 
-BOOL UnkClass_0206ee34::func_0206f014()
+BOOL MatchRules::func_0206f014()
 {
     return (flags & 0x40) ? TRUE : FALSE;
 }

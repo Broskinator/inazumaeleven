@@ -75,8 +75,8 @@ extern "C" char data_ov047_0216a9e4[];
 extern "C" char data_ov047_0216aa40[];
 extern "C" void DC_FlushRange(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN17UnkClass_020621b413func_020767bcEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);
+extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
+extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -1979,7 +1979,7 @@ extern "C" asm s32 func_ov047_02167b94(...)
     str r4, [sp, #0xc]
     bl func_ov047_02167a38
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020767bcEv
+    bl _ZN11MatchEngine13func_020767bcEv
     mov r1, r7, lsl #0x10
     str r0, [sp]
     mov r0, r1, asr #0x10
@@ -2072,7 +2072,7 @@ extern "C" asm void func_ov047_02167c48(void)
     cmp r7, #0
     beq @L_02167da0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020767bcEv
+    bl _ZN11MatchEngine13func_020767bcEv
     cmp r6, r0
     bls @L_02167da0
     ldr r6, =0x4210
@@ -2142,7 +2142,7 @@ extern "C" asm s32 func_ov047_02167dec(...)
     ldr r2, [r6, #0x2d8]
     mov r0, r4
     ldrh r1, [r2, r1]
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     cmp r0, #0
     strne r0, [r5, r7, lsl #2]
 @L_02167e6c:
@@ -3093,7 +3093,7 @@ extern "C" asm void func_ov047_02168c70(void)
     ble @L_02168dbc
     ldrh r1, [r5]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     movs r4, r0
     beq @L_02168dbc
     ldrb r0, [r6, #0x1c]

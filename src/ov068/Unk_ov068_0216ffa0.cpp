@@ -63,7 +63,7 @@ extern "C" void G2S_GetBG2CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN11FileManager6CancelEPvi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
@@ -874,7 +874,7 @@ extern "C" asm void func_ov068_02170ea4(void)
     add r6, sp, #0x10c
     ldr r0, =data_020e88a0
     mov r2, r6
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     add r3, sp, #0x10
     mov r2, #0x10
 @L_02170ed8:
@@ -1001,7 +1001,7 @@ extern "C" asm void func_ov068_02170ea4(void)
     add r6, sp, #0x10c
     ldr r0, =data_020e88a0
     mov r2, r6
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     add r3, sp, #0x10
     mov r2, #0x10
 @L_021710c0:

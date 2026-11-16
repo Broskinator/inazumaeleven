@@ -226,8 +226,8 @@ extern "C" void _ZN12SoundManager13func_0203a7b4Ei(void);
 extern "C" void _ZN12SoundManager13func_0203bc60Eii(void);
 extern "C" void _ZN12SoundManager6UpdateEv(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206bf98Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206de64Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206bf98Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206de64Ev(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -1121,7 +1121,7 @@ extern "C" s32 func_ov015_02131bec(void)
             v1 = func_ov015_02131994();
             return v1;
         } else {
-            v2 = _ZN17UnkClass_020621b413func_0206bf98Ev((s32)data_020e88a0);
+            v2 = _ZN11MatchEngine13func_0206bf98Ev((s32)data_020e88a0);
             return v2;
         }
     }
@@ -1144,7 +1144,7 @@ extern "C" asm void func_ov015_02131c30(void)
     ldmia sp!, {r3, pc}
 @L_02131c60:
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206bf98Ev
+    bl _ZN11MatchEngine13func_0206bf98Ev
     ldr r1, =gGameState
     ldrb r1, [r1, #0x88]
     cmp r1, r0
@@ -2805,7 +2805,7 @@ extern "C" asm void func_ov015_021334b8(void)
 
 extern "C" void func_ov015_021335c0(void)
 {
-    _ZN17UnkClass_020621b413func_0206de64Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206de64Ev((s32)data_020e88a0);
 }
 
 extern "C" asm void func_ov015_021335d4(void)

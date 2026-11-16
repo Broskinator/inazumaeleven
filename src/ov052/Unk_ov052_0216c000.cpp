@@ -69,9 +69,9 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e090Eii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_02077bd4Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_02077ce4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
+extern "C" s32 _ZN11MatchEngine13func_02077bd4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_02077ce4Ev(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZdlPv(...);
@@ -1888,7 +1888,7 @@ extern "C" s32 func_ov052_0216da9c(u8 *arg0)
     *(s32 *)(r6 + 0x11C) = 0;
     func_ov052_0216a66c((s32)r6);
     func_ov052_0216bab0((s32)r6);
-    _ZN17UnkClass_020621b413func_02077bd4Ev((u8 *)((u8 *)&data_020e88a0));
+    _ZN11MatchEngine13func_02077bd4Ev((u8 *)((u8 *)&data_020e88a0));
     v22 = func_ov015_021319bc();
     if (v22 == 0) {
         r8 = 0x80;
@@ -1903,7 +1903,7 @@ extern "C" s32 func_ov052_0216da9c(u8 *arg0)
     func_0208a460(t8);
     t9 = *(s32 *)(((u8 *)&data_020c4650));
     func_02089758(t9, r5);
-    v26 = _ZN17UnkClass_020621b413func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), r5);
+    v26 = _ZN11MatchEngine13func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), r5);
     arg0 = (u8 *)v26;
     if (*(u16 *)(arg0 + 0x3A) == 0) {
         r1 = *(u16 *)(arg0 + 0x28);
@@ -1916,7 +1916,7 @@ extern "C" s32 func_ov052_0216da9c(u8 *arg0)
     *(u16 *)(arg0 + 0x28) = t10;
     *(u8 *)(arg0 + 0x2C) = 1;
     t11 = *(u16 *)(arg0 + 0x3A);
-    v27 = _ZN17UnkClass_020621b413func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), 1, t10);
+    v27 = _ZN11MatchEngine13func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), 1, t10);
     r7 = t11;
     arg0 = (u8 *)v27;
     if (*(u16 *)(arg0 + 0x3A) == 0) {
@@ -2237,7 +2237,7 @@ extern "C" s32 func_ov052_0216e15c(u8 *arg0)
         _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
     }
     *(s32 *)(arg0 + 0x120) = 0;
-    _ZN17UnkClass_020621b413func_02077ce4Ev((s32)((u8 *)&data_020e88a0));
+    _ZN11MatchEngine13func_02077ce4Ev((s32)((u8 *)&data_020e88a0));
     func_ov015_02133e8c((s32)(arg0 + 0x1EC), 1);
     func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 0);
     func_ov052_0216abc4((s32)arg0);

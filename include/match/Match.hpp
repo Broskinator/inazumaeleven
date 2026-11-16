@@ -1,5 +1,5 @@
-#ifndef GAME_MATCH_HPP
-#define GAME_MATCH_HPP
+#ifndef MATCH_MATCH_HPP
+#define MATCH_MATCH_HPP
 
 #include "nitro/types.h"
 #include "nitro/fx.h"
@@ -154,4 +154,4 @@ extern "C" MatchPlayer *func_ov015_02130ae8(int index);     // (the player with 
 
 extern MatchBall data_020c4920;
 
-#endif // GAME_MATCH_HPP
+#endif // MATCH_MATCH_HPP

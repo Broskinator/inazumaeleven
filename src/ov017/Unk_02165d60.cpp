@@ -43,8 +43,8 @@ extern "C" void _ZN11FileManager7ReleaseEPv(void);
 extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8TextFont12GetCharWidthEPKc(void);
 extern "C" void _ZN8TextFont12GetTextWidthEPKc(void);
@@ -1208,7 +1208,7 @@ extern "C" asm s32 func_ov017_02166e28(...)
 @L_02166e58:
     mov r0, r7
     mov r1, r8
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     mov r9, r0
     ldrb r0, [r9, #0x29]
     cmp r0, #0
@@ -1217,7 +1217,7 @@ extern "C" asm s32 func_ov017_02166e28(...)
     bne @L_02166e90
     mov r0, r7
     mov r1, r8
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     mov r9, r0
     b @L_02166e9c
 @L_02166e90:
@@ -1240,7 +1240,7 @@ extern "C" asm s32 func_ov017_02166e28(...)
     ldr r0, =data_020e88a0
     mov r2, r7
     mov r1, r1, lsr #0x10
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     cmp r0, #0
     beq @L_02166ef8
     add r0, sp, #0x20

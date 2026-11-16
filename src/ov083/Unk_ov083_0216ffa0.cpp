@@ -32,9 +32,9 @@ extern "C" s32 DC_FlushRange(...);
 extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_02077bd4Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_02077ce4Ev(...);
+extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
+extern "C" s32 _ZN11MatchEngine13func_02077bd4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_02077ce4Ev(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
 extern "C" s32 func_020036e8(...);
@@ -120,7 +120,7 @@ extern "C" asm s32 func_ov083_0216ffc0(...)
     cmp r1, #0
     beq @L_021700c0
     mov r0, r8
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     cmp r0, #0
     beq @L_021700b4
     ldrh r1, [r0, #0x26]
@@ -419,7 +419,7 @@ extern "C" asm void func_ov083_0217023c(void)
     cmp r1, #0
     beq @L_02170510
     mov r0, r8
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     movs r3, r0
     beq @L_02170504
     str r7, [sp]
@@ -838,7 +838,7 @@ extern "C" void func_ov083_02170bd4(u8 *arg0)
     *(s32 *)(arg0 + 0x38) = 0;
     MI_CpuFill8((arg0 + 0x3C), 0, 0xB4);
     func_ov015_02133e24((arg0 + 0x10), 2);
-    _ZN17UnkClass_020621b413func_02077bd4Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_02077bd4Ev((s32)data_020e88a0);
     s32 v3 = func_ov001_02122cbc();
     if (v3 == 0)
         return;
@@ -851,7 +851,7 @@ extern "C" void func_ov083_02170c50(s32 arg0)
 {
     func_ov015_02134198((arg0 + 0x3C), 0xF);
     func_ov083_021701ac(arg0);
-    _ZN17UnkClass_020621b413func_02077ce4Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_02077ce4Ev((s32)data_020e88a0);
 }
 
 extern "C" s32 func_ov083_02170c7c(s32 arg0)

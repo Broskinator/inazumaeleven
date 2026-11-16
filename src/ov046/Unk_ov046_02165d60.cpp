@@ -88,8 +88,8 @@ extern "C" void _ZN11SaveManager9IsLoadingEv(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206e5e4Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206f70cEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0206e5e4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206f70cEv(...);
 extern "C" void func_020039f8(void);
 extern "C" void func_02017278(void);
 extern "C" void func_020920c4(void);
@@ -1533,7 +1533,7 @@ extern "C" void func_ov046_021671a4(u8 *arg0)
 
 extern "C" void func_ov046_021671f0(u8 *arg0)
 {
-    _ZN17UnkClass_020621b413func_0206e5e4Ev((s32)data_020e88a0, *(s8 *)(*(u8 * *)(arg0 + 0x54) + 0x45), ((arg0 + 0x7A) + 0x200), 0x19);
+    _ZN11MatchEngine13func_0206e5e4Ev((s32)data_020e88a0, *(s8 *)(*(u8 * *)(arg0 + 0x54) + 0x45), ((arg0 + 0x7A) + 0x200), 0x19);
 }
 
 extern "C" asm s32 func_ov046_02167218(...)
@@ -2069,7 +2069,7 @@ extern "C" s32 func_ov046_02167a44(s32 arg0, s32 arg1)
     s32 v0;
     s32 v1;
     s32 t0;
-    v0 = _ZN17UnkClass_020621b413func_0206f70cEv((s32)((u8 *)&data_020e88a0), ((u16)arg1));
+    v0 = _ZN11MatchEngine13func_0206f70cEv((s32)((u8 *)&data_020e88a0), ((u16)arg1));
     r4 = arg1;
     r5 = (u8 *)arg0;
     arg0 = v0;
@@ -2087,7 +2087,7 @@ extern "C" s32 func_ov046_02167aac(s32 arg0, s32 arg1)
     s32 r5;
     s32 v0;
     s32 v1;
-    v0 = _ZN17UnkClass_020621b413func_0206f70cEv((s32)((u8 *)&data_020e88a0), arg1);
+    v0 = _ZN11MatchEngine13func_0206f70cEv((s32)((u8 *)&data_020e88a0), arg1);
     r5 = arg0;
     arg0 = v0;
     r4 = arg1;

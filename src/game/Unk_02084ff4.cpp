@@ -65,7 +65,7 @@ extern "C" char data_020c4678[];
 extern "C" char data_020e88a0[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);
 extern "C" void _ZdlPv(void);
 extern "C" void func_02084ba0(void);
 extern "C" void func_02084c4c(void);
@@ -762,7 +762,7 @@ extern "C" asm void func_020859c0(void)
     mov r1, r4, lsl #0x10
     add r2, sp, #0xc
     mov r1, r1, lsr #0x10
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     cmp r0, #0
     addeq sp, sp, #0x6c
     subeq r0, r5, #0x1000

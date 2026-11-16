@@ -1,5 +1,5 @@
 #include "data/EntryPool.hpp"
-#include "game/UnkClass_0206ee34.hpp"
+#include "match/MatchRules.hpp"
 #include "nitro/mi.h"
 
 
@@ -95,7 +95,7 @@ void EntryPool::AllocExt1(PoolEntry *entry)
     }
 
     entry->ext1 = ext1Buffer + ((u32)entry - (u32)this) / sizeof(PoolEntry) * 0x90;
-    ((UnkClass_0206ee34 *)entry->ext1)->func_0206ee34(1);
+    ((MatchRules *)entry->ext1)->func_0206ee34(1);
 }
 
 void EntryPool::FreeExt1(PoolEntry *entry)

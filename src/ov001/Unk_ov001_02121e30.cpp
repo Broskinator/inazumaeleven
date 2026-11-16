@@ -85,21 +85,21 @@ extern "C" s32 G2S_GetBG2CharPtr(...);
 extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" void _ZN17UnkClass_020621b413func_020690a8Eii(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206b3a4Eim(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206bfa0Eh(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206bfb4Ei(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206d828Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206d840Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206d8e0Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206d8f8Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206d910Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206d940Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206d958Ev(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206dedcEv(...);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206df34Ev(...);
-extern "C" void _ZN17UnkClass_020621b413func_0207f7ccEv(void);
+extern "C" void _ZN11MatchEngine13func_020690a8Eii(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206b3a4Eim(void);
+extern "C" void _ZN11MatchEngine13func_0206bfa0Eh(void);
+extern "C" void _ZN11MatchEngine13func_0206bfb4Ei(void);
+extern "C" s32 _ZN11MatchEngine13func_0206d828Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206d840Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206d8e0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206d8f8Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206d910Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206d940Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206d958Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206dedcEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0206df34Ev(...);
+extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -177,10 +177,10 @@ extern "C" void func_ov015_02143664(void);
 extern "C" void gEntryPool(void);
 extern "C" char gGameState[];
 
-extern "C" void _ZN17UnkClass_020621b413func_0206bfecEv(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206d358Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206bfa8Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206bff4Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206bfecEv(void);
+extern "C" void _ZN11MatchEngine13func_0206d358Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);
 extern "C" asm void func_ov001_02121e30(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -453,7 +453,7 @@ extern "C" asm void func_ov001_02122264(void)
     ldr r0, =data_020e88a0
     mov r2, #0xf
     mov r3, #0
-    bl _ZN17UnkClass_020621b413func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEv
     mov r5, r0
 @L_02122314:
     ldrsh r0, [r4, #0x70]
@@ -463,20 +463,20 @@ extern "C" asm void func_ov001_02122264(void)
     ldr r0, =data_020e88a0
     mov r2, #0xf
     mov r3, #0
-    bl _ZN17UnkClass_020621b413func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEv
     mov r6, r0
 @L_02122338:
     ldr r0, =data_020e88a0
     mov r1, r5
     mov r2, r6
-    bl _ZN17UnkClass_020621b413func_020690a8Eii
+    bl _ZN11MatchEngine13func_020690a8Eii
     cmp r0, #0
     movne r0, #1
     strneb r0, [r4, #0x8b]
     ldr r0, =data_020e88a0
     mov r1, r6
     mov r2, r5
-    bl _ZN17UnkClass_020621b413func_020690a8Eii
+    bl _ZN11MatchEngine13func_020690a8Eii
     cmp r0, #0
     movne r0, #1
     strneb r0, [r4, #0x37]
@@ -1036,7 +1036,7 @@ extern "C" s32 func_ov001_02122c5c(s32 arg0)
 
 extern "C" void func_ov001_02122c70(void)
 {
-    _ZN17UnkClass_020621b413func_0206d828Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206d828Ev((s32)data_020e88a0);
 }
 
 extern "C" s32 func_ov001_02122c84(void)
@@ -1045,43 +1045,43 @@ extern "C" s32 func_ov001_02122c84(void)
     s32 v1;
     u8 t0;
     if (*(u8 *)(((u8 *)&gGameState) + 0x7D) != 0) {
-        v0 = _ZN17UnkClass_020621b413func_0206d8e0Ev((s32)((u8 *)&data_020e88a0));
+        v0 = _ZN11MatchEngine13func_0206d8e0Ev((s32)((u8 *)&data_020e88a0));
         return v0;
     } else {
         t0 = *(u8 *)(((u8 *)&gGameState) + 0x7E);
-        v1 = _ZN17UnkClass_020621b413func_0206d840Ev((s32)((u8 *)&data_020e88a0), t0);
+        v1 = _ZN11MatchEngine13func_0206d840Ev((s32)((u8 *)&data_020e88a0), t0);
         return v1;
     }
 }
 
 extern "C" void func_ov001_02122cbc(void)
 {
-    _ZN17UnkClass_020621b413func_0206d8f8Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206d8f8Ev((s32)data_020e88a0);
 }
 
 extern "C" void func_ov001_02122cd0(void)
 {
-    _ZN17UnkClass_020621b413func_0206d910Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206d910Ev((s32)data_020e88a0);
 }
 
 extern "C" void func_ov001_02122ce4(void)
 {
-    _ZN17UnkClass_020621b413func_0206df34Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206df34Ev((s32)data_020e88a0);
 }
 
 extern "C" void func_ov001_02122cf8(void)
 {
-    _ZN17UnkClass_020621b413func_0206dedcEv((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206dedcEv((s32)data_020e88a0);
 }
 
 extern "C" void func_ov001_02122d0c(void)
 {
-    _ZN17UnkClass_020621b413func_0206d958Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206d958Ev((s32)data_020e88a0);
 }
 
 extern "C" s32 func_ov001_02122d20(void)
 {
-    s32 v0 = _ZN17UnkClass_020621b413func_0206dedcEv((s32)data_020e88a0);
+    s32 v0 = _ZN11MatchEngine13func_0206dedcEv((s32)data_020e88a0);
     return (v0 == 0 ? 1 : 0);
 }
 
@@ -1132,7 +1132,7 @@ extern "C" asm void func_ov001_02122d40(void)
 
 extern "C" void func_ov001_02122dd4(void)
 {
-    _ZN17UnkClass_020621b413func_0206d940Ev((s32)data_020e88a0);
+    _ZN11MatchEngine13func_0206d940Ev((s32)data_020e88a0);
 }
 
 extern "C" asm void func_ov001_02122de8(void)
@@ -1185,7 +1185,7 @@ extern "C" asm void func_ov001_02122de8(void)
     ldmneia sp!, {r4, r5, r6, pc}
     ldr r6, =data_020e88a0
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_0206bfecEv
+    bl _ZN11MatchEngine13func_0206bfecEv
     cmp r0, #0xc
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r5, #0
@@ -1193,20 +1193,20 @@ extern "C" asm void func_ov001_02122de8(void)
     str r5, [r4, #4]
     ldrb r1, [r4, #0x7e]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_0206d358Ev
+    bl _ZN11MatchEngine13func_0206d358Ev
     strb r0, [r4, #0x7e]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_0206bfa8Ev
+    bl _ZN11MatchEngine13func_0206bfa8Ev
     cmp r0, #1
     ldreqb r0, [r4, #0x7e]
     cmpeq r0, #0xc
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, r6
     mov r1, #8
-    bl _ZN17UnkClass_020621b413func_0206bfb4Ei
+    bl _ZN11MatchEngine13func_0206bfb4Ei
     mov r0, r6
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206bff4Ei
+    bl _ZN11MatchEngine13func_0206bff4Ei
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -1238,7 +1238,7 @@ extern "C" asm void func_ov001_02122ef8(void)
     bl MI_CpuFill8
     ldr r0, =data_020e88a0
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     movs r4, r0
     beq @L_02122fdc
     ldr r7, =data_020c466c
@@ -1322,7 +1322,7 @@ extern "C" asm void func_ov001_02123008(void)
     blt @L_02123290
     ldr r0, =data_020e88a0
     mov r1, r10
-    bl _ZN17UnkClass_020621b413func_0206b3a4Eim
+    bl _ZN11MatchEngine13func_0206b3a4Eim
     movs r7, r0
     beq @L_02123290
     ldrsh r0, [r7, #4]
@@ -3311,10 +3311,10 @@ extern "C" asm void func_ov001_02124774(void)
     ldrb r2, [r6, #0x39]
     strb r2, [r1, #0x87]
     ldrb r1, [r6, #0x3a]
-    bl _ZN17UnkClass_020621b413func_0206bfa0Eh
+    bl _ZN11MatchEngine13func_0206bfa0Eh
     ldrb r1, [r6, #0x3b]
     mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206bfb4Ei
+    bl _ZN11MatchEngine13func_0206bfb4Ei
     b @L_02125318
     dcd 0xe0860009
     dcd 0xe0852109

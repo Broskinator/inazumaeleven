@@ -55,9 +55,9 @@ extern "C" s32 STD_GetStringLength(...);
 extern "C" void _ZN11TreasureBox13func_020526ecEii(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0206a964Ei(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206e5e4Ev(void);
-extern "C" s32 _ZN17UnkClass_020621b413func_0207aba0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
+extern "C" void _ZN11MatchEngine13func_0206e5e4Ev(void);
+extern "C" s32 _ZN11MatchEngine13func_0207aba0Ev(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_020027c8(void);
 extern "C" void func_02091d54(void);
@@ -2233,7 +2233,7 @@ extern "C" asm void func_ov056_0216ac08(void)
     mov r3, #0x18
     strh r1, [r5, #0x52]
     ldrsb r1, [r4, #3]
-    bl _ZN17UnkClass_020621b413func_0206e5e4Ev
+    bl _ZN11MatchEngine13func_0206e5e4Ev
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -2489,8 +2489,8 @@ extern "C" s32 func_ov056_0216b04c(void)
     s32 v1;
     s32 v2;
     r4 = 0;
-    v0 = _ZN17UnkClass_020621b413func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), 0);
-    v1 = _ZN17UnkClass_020621b413func_0207aba0Ev((u8 *)((u8 *)&data_020e88a0), 2);
+    v0 = _ZN11MatchEngine13func_0206a964Ei((u8 *)((u8 *)&data_020e88a0), 0);
+    v1 = _ZN11MatchEngine13func_0207aba0Ev((u8 *)((u8 *)&data_020e88a0), 2);
     r6 = (u8 *)v0;
     r0 = v0;
     if (v1 < 0xB) {

@@ -21,7 +21,7 @@ extern "C" char data_ov003_0211edf0[];
 extern "C" char data_ov003_0211edfc[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
-extern "C" void _ZN17UnkClass_020621b413func_0207a534Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a534Ev(void);
 extern "C" void func_02080368(void);
 extern "C" void func_0209bd88(void);
 extern "C" void func_0209bec8(void);
@@ -597,7 +597,7 @@ extern "C" asm void func_ov003_0211c0c4(void)
 @L_0211c138:
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN17UnkClass_020621b413func_0207a534Ev
+    bl _ZN11MatchEngine13func_0207a534Ev
     cmp r0, #0
     movgt r1, r9, lsl #1
     addgt r0, r10, #1

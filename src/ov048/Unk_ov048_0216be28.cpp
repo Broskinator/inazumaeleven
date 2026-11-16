@@ -60,9 +60,9 @@ extern "C" void MI_CpuFill8(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206faa0Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020731c4Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);
+extern "C" void _ZN11MatchEngine13func_0206faa0Ev(void);
+extern "C" void _ZN11MatchEngine13func_020731c4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _Znwm(void);
@@ -1476,7 +1476,7 @@ extern "C" asm void func_ov048_0216d02c(void)
     mov r1, r0, lsl #0x10
     ldr r0, =data_020e88a0
     mov r1, r1, lsr #0x10
-    bl _ZN17UnkClass_020621b413func_020739ccEi
+    bl _ZN11MatchEngine13func_020739ccEi
     cmp r0, #0
     ldrneb r1, [r0, #0xa]
     cmpne r1, #0
@@ -1536,7 +1536,7 @@ extern "C" asm void func_ov048_0216d02c(void)
     beq @L_0216d388
     mov r0, r5
     mov r1, r6
-    bl _ZN17UnkClass_020621b413func_0206faa0Ev
+    bl _ZN11MatchEngine13func_0206faa0Ev
     cmp r0, #0
     bne @L_0216d37c
     ldr r0, =gGameState
@@ -1715,7 +1715,7 @@ extern "C" asm void func_ov048_0216d02c(void)
     mov r0, r10
     mov r1, r8
     str r8, [r2, #0x30]
-    bl _ZN17UnkClass_020621b413func_020739ccEi
+    bl _ZN11MatchEngine13func_020739ccEi
     mov r6, r0
     ldrh r1, [r9, #0x1c]
     mov r0, r9
@@ -1739,7 +1739,7 @@ extern "C" asm void func_ov048_0216d02c(void)
     mov r1, r7
     mov r2, r6
     mov r3, r11
-    bl _ZN17UnkClass_020621b413func_020731c4Ev
+    bl _ZN11MatchEngine13func_020731c4Ev
     cmp r0, #0
     bne @L_0216d634
     ldr r0, =data_020c5e40

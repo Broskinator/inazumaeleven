@@ -92,11 +92,11 @@ extern "C" void G2_GetBG3CharPtr(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0206b4b8Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_02076858Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207e5a4EPhii(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207ef30Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
+extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207e5a4EPhii(void);
+extern "C" void _ZN11MatchEngine13func_0207ef30Ei(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -323,7 +323,7 @@ extern "C" asm void func_ov035_02165f5c(void)
     add r2, r2, r3, lsl #2
     ldrb r2, [r2, #-4]
     mov r3, r5
-    bl _ZN17UnkClass_020621b413func_0207e5a4EPhii
+    bl _ZN11MatchEngine13func_0207e5a4EPhii
 @L_02166064:
     ldr r0, [r7, #0xbc]
     add r6, r6, #1
@@ -397,7 +397,7 @@ extern "C" asm void func_ov035_021660a0(void)
     mov r4, #1
     ldr r0, =data_020e88a0
     mov r1, r4
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     add r1, sp, #0x18
     str r1, [sp]
     add r0, sp, #0x14
@@ -1285,7 +1285,7 @@ extern "C" asm void func_ov035_02166b64(void)
     bl func_ov015_021319bc
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_0206b4b8Ei
+    bl _ZN11MatchEngine13func_0206b4b8Ei
     mov r7, r0
     cmp r7, #0x63
     movgt r7, #0x63
@@ -1625,14 +1625,14 @@ extern "C" asm void func_ov035_021673f4(void)
     mov r0, r4
     mov r1, r5
     mov r3, r6
-    bl _ZN17UnkClass_020621b413func_0207e5a4EPhii
+    bl _ZN11MatchEngine13func_0207e5a4EPhii
     cmp r5, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     ldr r2, [r7, #0x108]
     mov r0, r4
     mla r1, r2, r8, r7
     ldrh r1, [r1, #0xc4]
-    bl _ZN17UnkClass_020621b413func_0207ef30Ei
+    bl _ZN11MatchEngine13func_0207ef30Ei
     add r2, r7, #0x300
     mov r1, #2
     mov r0, #1
@@ -1682,7 +1682,7 @@ extern "C" asm void func_ov035_0216750c(void)
     ldr r0, =data_020e88a0
     mov r6, r1
     mov r4, r2
-    bl _ZN17UnkClass_020621b413func_02076858Ev
+    bl _ZN11MatchEngine13func_02076858Ev
     ldr r1, =0x4f8b588f
     ldr r2, =0x186a0
     umull r1, r3, r0, r1

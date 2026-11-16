@@ -1,12 +1,12 @@
-#ifndef GAME_UNKCLASS_02061498_HPP
-#define GAME_UNKCLASS_02061498_HPP
+#ifndef MATCH_MATCHBALLPHYSICS_HPP
+#define MATCH_MATCHBALLPHYSICS_HPP
 
 #include "nitro/types.h"
 #include "nitro/fx.h"
-#include "game/Match.hpp"
+#include "match/Match.hpp"
 
 // The area an object moves in (only the bounds are known)
-struct UnkArea_02061498 {
+struct MatchArea {
     u8 unk_0[0xDC];
     fx32 minX;          // 0xDC
     fx32 minY;          // 0xE0
@@ -17,12 +17,12 @@ struct UnkArea_02061498 {
 };
 
 // The ball's physics (data_020c475c; vtable data_020aeadc)
-class UnkClass_02061498 {
+class MatchBallPhysics {
 public:
-    UnkClass_02061498 *func_02061498();
+    MatchBallPhysics *func_02061498();
     void func_020614b0();
-    UnkClass_02061498 *func_020614b4();
-    void func_020614c8(UnkArea_02061498 *area, fx32 value);
+    MatchBallPhysics *func_020614b4();
+    void func_020614c8(MatchArea *area, fx32 value);
     void func_020614d0();
     void func_0206168c();
     void func_020618d4();
@@ -35,7 +35,7 @@ public:
     void func_02061dc4(MatchBall *ball, fx32 x, fx32 y, fx32 z);
 
     void *vtable;
-    UnkArea_02061498 *area;
+    MatchArea *area;
     fx32 unk_8;
 };
 
@@ -77,4 +77,4 @@ public:
     fx32 func_020621a0(MatchPlayer *a, MatchPlayer *b);
 };
 
-#endif // GAME_UNKCLASS_02061498_HPP
+#endif // MATCH_MATCHBALLPHYSICS_HPP

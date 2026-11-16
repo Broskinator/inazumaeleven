@@ -45,8 +45,8 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e254Ev(...);
 extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e2b0Ei(...);
-extern "C" void _ZN17UnkClass_020621b413func_0206a964Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207f7ccEv(void);
+extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02003608(void);
@@ -264,7 +264,7 @@ extern "C" asm s32 func_ov086_02170188(...)
     movne r5, #1
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     ldr r1, =gGameState
     mov r3, #0x60
     ldrb r1, [r1, #0x1a]
@@ -306,7 +306,7 @@ extern "C" asm s32 func_ov086_02170188(...)
     cmp r0, #1
     ldr r0, =data_020e88a0
     movne r1, #1
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     ldr r0, [r4, #0xc]
     cmp r0, #1
     bne @L_021702ac
@@ -345,7 +345,7 @@ extern "C" asm s32 func_ov086_02170188(...)
     cmp r0, #1
     ldr r0, =data_020e88a0
     movne r1, #1
-    bl _ZN17UnkClass_020621b413func_0206a964Ei
+    bl _ZN11MatchEngine13func_0206a964Ei
     mov r9, r0
     mov r10, #0
     add r5, r4, #0x40
@@ -920,7 +920,7 @@ extern "C" asm void func_ov086_021709ac(void)
     ldr r1, [sp, #0x14]
     mov r3, r4
     mov r2, #0xf
-    bl _ZN17UnkClass_020621b413func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEv
     cmp r0, #4
     addls pc, pc, r0, lsl #2
     b @L_02170be8

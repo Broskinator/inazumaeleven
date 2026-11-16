@@ -95,6 +95,17 @@ def area(module, src):
     return "Game, overlays" if module.startswith("ov") else "Game, main program"
 
 
+MATCH_OVERLAYS = {"ov087": "ov087 (match logic)", "ov001": "ov001 (match scene)"}
+
+
+def match_key(module, src):
+    """the row of the match engine table a function belongs to, or None"""
+    src = src.replace("\\", "/")
+    if src.startswith("src/match/"):
+        return src
+    return MATCH_OVERLAYS.get(module)
+
+
 class Count:
     def __init__(self):
         self.bytes = self.cbytes = self.funcs = self.cfuncs = 0
@@ -116,6 +127,7 @@ class Count:
 def main():
     areas, mods, total = {}, {}, Count()
     game = Count()
+    match_files, match_all = {}, Count()
     for mod, folder in modules():
         ranges = files(folder)
         starts = [r[0] for r in ranges]
@@ -129,6 +141,10 @@ def main():
             if a.startswith("Game"):
                 game.add(size, in_c)
                 mods.setdefault(mod, Count()).add(size, in_c)
+                key = match_key(mod, src)
+                if key:
+                    match_files.setdefault(key, Count()).add(size, in_c)
+                    match_all.add(size, in_c)
     head = ("| Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |\n"
             "|---|---:|---:|---:|---:|---:|---:|---:|")
     lines = ["# Progress", "",
@@ -146,7 +162,15 @@ def main():
     lines.append(total.row("**Everything**"))
     lines += ["", "The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem",
               "and the Metrowerks runtime: much of them is assembly in the original as well.", "",
-              "## Game code by module", "", head.replace("Area", "Module")]
+              "## Match engine", "",
+              "The football match itself: the engine in `src/match/` (the match object, the ball's physics, the",
+              "rules, the players' lists, field geometry), the match logic overlay (ov087) and the match scene",
+              "overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.", "",
+              head.replace("Area", "Part")]
+    lines.append(match_all.row("**Match engine, all**"))
+    for key in sorted(match_files, key=lambda k: (not k.startswith("src/match/"), k)):
+        lines.append(match_files[key].row(f"`{key}`" if "/" in key else key))
+    lines += ["", "## Game code by module", "", head.replace("Area", "Module")]
     for mod in sorted(mods, key=lambda m: (m != "main", m)):
         lines.append(mods[mod].row("main program" if mod == "main" else mod))
     text = "\n".join(lines) + "\n"
@@ -156,6 +180,10 @@ def main():
     pct = 100 * game.cbytes / game.bytes if game.bytes else 0
     print(f"Game code in C/C++: {game.cbytes:,} / {game.bytes:,} bytes ({pct:.2f}%), "
           f"{game.cfuncs:,} / {game.funcs:,} functions; {game.funcs - game.cfuncs:,} still asm")
+    pct = 100 * total.cbytes / total.bytes if total.bytes else 0
+    pct = 100 * match_all.cbytes / match_all.bytes if match_all.bytes else 0
+    print(f"Match engine:       {match_all.cbytes:,} / {match_all.bytes:,} bytes ({pct:.2f}%), "
+          f"{match_all.cfuncs:,} / {match_all.funcs:,} functions; {match_all.funcs - match_all.cfuncs:,} still asm")
     pct = 100 * total.cbytes / total.bytes if total.bytes else 0
     print(f"Everything:         {total.cbytes:,} / {total.bytes:,} bytes ({pct:.2f}%), "
           f"{total.cfuncs:,} / {total.funcs:,} functions")

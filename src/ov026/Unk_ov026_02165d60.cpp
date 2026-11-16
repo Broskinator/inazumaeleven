@@ -105,9 +105,9 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" void _ZN17UnkClass_020621b413func_02078f14Ei(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207d244Ev(void);
-extern "C" void _ZN17UnkClass_020621b413func_0207f7ccEv(void);
+extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207d244Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -1912,7 +1912,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mov r0, r7
     ldr r2, [r2, r9, lsl #2]
     mov r1, #2
-    bl _ZN17UnkClass_020621b413func_0207d244Ev
+    bl _ZN11MatchEngine13func_0207d244Ev
     mov r1, #0
     bl func_ov015_02130b14
     movs r8, r0
@@ -1932,7 +1932,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mov r1, r8
     mov r2, #0x25
     mov r3, r6
-    bl _ZN17UnkClass_020621b413func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEv
     ldrb r3, [r10, #0xa14]
     mov r1, r8
     mla r2, r3, r4, r10
@@ -1950,7 +1950,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mla r12, r2, r4, r10
     add r2, r12, #0x300
     strh r3, [r2, #0xaa]
-    bl _ZN17UnkClass_020621b413func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14Ei
     ldrb r2, [r10, #0xa14]
     mla r1, r2, r4, r10
     add r1, r1, #0x300
@@ -1994,7 +1994,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mov r1, r8
     mov r2, #0x25
     mov r3, r6
-    bl _ZN17UnkClass_020621b413func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEv
     ldrb r3, [r10, #0xa14]
     mov r1, r8
     mla r2, r3, r4, r10
@@ -2010,7 +2010,7 @@ extern "C" asm void func_ov026_0216765c(void)
     and r12, r12, r2
     mla r2, r3, r4, r10
     strh r12, [r2, #0x6a]
-    bl _ZN17UnkClass_020621b413func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14Ei
     ldrb r2, [r10, #0xa14]
     mla r1, r2, r4, r10
     strh r0, [r1, #0x6c]

@@ -11,15 +11,36 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 2,251,302 | 591,480 | 26.27% | 11,724 | 6,990 | 59.62% | 4,734 |
+| **Game code** | 2,251,302 | 591,788 | 26.29% | 11,724 | 6,992 | 59.64% | 4,732 |
 | Game, main program | 369,260 | 106,864 | 28.94% | 2,601 | 1,652 | 63.51% | 949 |
-| Game, overlays | 1,882,042 | 484,616 | 25.75% | 9,123 | 5,338 | 58.51% | 3,785 |
+| Game, overlays | 1,882,042 | 484,924 | 25.77% | 9,123 | 5,340 | 58.53% | 3,783 |
 | Libraries (SDK, runtime) | 321,786 | 0 | 0.00% | 2,039 | 0 | 0.00% | 2,039 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 591,480 | 22.80% | 14,002 | 6,990 | 49.92% | 7,012 |
+| **Everything** | 2,594,024 | 591,788 | 22.81% | 14,002 | 6,992 | 49.94% | 7,010 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well.
+
+## Match engine
+
+The football match itself: the engine in `src/match/` (the match object, the ball's physics, the
+rules, the players' lists, field geometry), the match logic overlay (ov087) and the match scene
+overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
+
+| Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| **Match engine, all** | 376,800 | 56,928 | 15.11% | 1,742 | 903 | 51.84% | 839 |
+| `src/match/MatchBallPhysics.cpp` | 3,356 | 1,224 | 36.47% | 33 | 28 | 84.85% | 5 |
+| `src/match/MatchEngine.cpp` | 52,352 | 7,620 | 14.56% | 294 | 169 | 57.48% | 125 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 3,208 | 4.57% | 391 | 105 | 26.85% | 286 |
+| `src/match/MatchEngine_3.cpp` | 772 | 0 | 0.00% | 6 | 0 | 0.00% | 6 |
+| `src/match/MatchGeometry.cpp` | 5,368 | 2,944 | 54.84% | 70 | 61 | 87.14% | 9 |
+| `src/match/MatchPlayerList.cpp` | 1,212 | 280 | 23.10% | 21 | 16 | 76.19% | 5 |
+| `src/match/MatchRules.cpp` | 500 | 500 | 100.00% | 21 | 21 | 100.00% | 0 |
+| `src/match/MatchUtil.cpp` | 5,280 | 4,708 | 89.17% | 99 | 94 | 94.95% | 5 |
+| `src/match/UnkClass_0208351c.cpp` | 1,504 | 92 | 6.12% | 12 | 4 | 33.33% | 8 |
+| ov001 (match scene) | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
+| ov087 (match logic) | 57,468 | 6,064 | 10.55% | 167 | 62 | 37.13% | 105 |
 
 ## Game code by module
 
@@ -29,10 +50,10 @@ and the Metrowerks runtime: much of them is assembly in the original as well.
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
-| ov003 | 129,636 | 27,100 | 20.90% | 490 | 282 | 57.55% | 208 |
+| ov003 | 129,636 | 27,248 | 21.02% | 490 | 283 | 57.76% | 207 |
 | ov004 | 2,380 | 1,336 | 56.13% | 38 | 31 | 81.58% | 7 |
 | ov005 | 4,376 | 1,512 | 34.55% | 38 | 28 | 73.68% | 10 |
-| ov014 | 160,932 | 47,768 | 29.68% | 973 | 595 | 61.15% | 378 |
+| ov014 | 160,932 | 47,928 | 29.78% | 973 | 596 | 61.25% | 377 |
 | ov015 | 213,136 | 71,432 | 33.51% | 1,282 | 813 | 63.42% | 469 |
 | ov016 | 136,606 | 48,020 | 35.15% | 1,108 | 680 | 61.37% | 428 |
 | ov017 | 6,040 | 480 | 7.95% | 18 | 10 | 55.56% | 8 |

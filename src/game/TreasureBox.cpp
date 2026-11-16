@@ -4,18 +4,18 @@
 #include "nitro/mi.h"
 
 extern "C" void func_0208e508(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207a5c0Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0207620cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020765d4Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020767a4Em(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020767ccEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020768a8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020768fcEm(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_020739ccEi(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206dedcEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206aa30Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206ace8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_020621b413func_0206bffcEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a5c0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207620cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020767a4Em(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020767ccEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020768a8Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020768fcEm(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206bffcEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_02060a48Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_02060a98Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0206029413func_02060b58Ei(void);     // (for the asm functions)
@@ -876,7 +876,7 @@ asm void TreasureBox::func_02052720()
 @L_020528c4:
     ldr r4, =data_020e88a0
     mov r0, r4
-    bl _ZN17UnkClass_020621b413func_0206ace8Ev
+    bl _ZN11MatchEngine13func_0206ace8Ev
     cmp r0, #0
     addne sp, sp, #0x80
     movne r0, r6
@@ -1957,7 +1957,7 @@ asm void TreasureBox::func_020538b0()
     cmp r1, #0
     beq @L_02053984
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020767a4Em
+    bl _ZN11MatchEngine13func_020767a4Em
     cmp r0, #0
     bne @L_02053984
     mov r0, #0x21
@@ -2245,7 +2245,7 @@ asm void TreasureBox::func_02053bbc()
     beq @L_02053de8
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     movs r5, r0
     moveq r8, #0
     beq @L_02053e94
@@ -2255,7 +2255,7 @@ asm void TreasureBox::func_02053bbc()
     streqh r11, [sp, #0x1a]
     ldrh r2, [sp, #0x1a]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020765d4Ev
+    bl _ZN11MatchEngine13func_020765d4Ev
     cmp r0, #0
     bne @L_02053ddc
     ldrb r0, [r5, #0x21]
@@ -2306,7 +2306,7 @@ asm void TreasureBox::func_02053bbc()
     bl func_02017278
     ldrh r1, [sp, #0x1a]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020767ccEv
+    bl _ZN11MatchEngine13func_020767ccEv
     b @L_02053e94
 @L_02053e30:
     ldrh r0, [sp, #0x1a]
@@ -2327,7 +2327,7 @@ asm void TreasureBox::func_02053bbc()
     bl func_02017278
     ldrh r1, [sp, #0x1a]
     ldr r0, =data_020e88a0
-    bl _ZN17UnkClass_020621b413func_020768a8Ev
+    bl _ZN11MatchEngine13func_020768a8Ev
     b @L_02053e94
 @L_02053e78:
     b @L_02053e7c
@@ -2606,11 +2606,11 @@ asm void TreasureBox::func_020541d0()
     ldr r4, =data_020e88a0
     mov r0, r4
     rsb r1, r1, #0
-    bl _ZN17UnkClass_020621b413func_020767ccEv
+    bl _ZN11MatchEngine13func_020767ccEv
     ldrh r1, [r7, #0x8a]
     mov r0, r4
     rsb r1, r1, #0
-    bl _ZN17UnkClass_020621b413func_020768a8Ev
+    bl _ZN11MatchEngine13func_020768a8Ev
     mov r1, #0
     strb r1, [r7, #0x89]
     strh r1, [r7, #0x8c]
@@ -2675,7 +2675,7 @@ asm void TreasureBox::func_02054398()
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     ldr r0, =data_020e88a0
     add r2, sp, #0x10
-    bl _ZN17UnkClass_020621b413func_0207a5c0Ev
+    bl _ZN11MatchEngine13func_0207a5c0Ev
     cmp r0, #0
     addeq sp, sp, #0x70
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -2746,7 +2746,7 @@ asm void TreasureBox::func_020544c0()
     ldr r0, =data_020e88a0
     mov r1, #0x89
     mov r6, #0
-    bl _ZN17UnkClass_020621b413func_020768fcEm
+    bl _ZN11MatchEngine13func_020768fcEm
     mov r5, #0x80
     mov r8, r0
     add r3, sp, #0x10
@@ -2837,7 +2837,7 @@ asm void TreasureBox::func_02054620()
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     ldr r6, =data_020e88a0
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_0206dedcEv
+    bl _ZN11MatchEngine13func_0206dedcEv
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -2848,16 +2848,16 @@ asm void TreasureBox::func_02054620()
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_0207620cEv
+    bl _ZN11MatchEngine13func_0207620cEv
     movs r7, r0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     mov r8, #0
     mov r0, r6
     mov r1, r8
-    bl _ZN17UnkClass_020621b413func_0206aa30Ei
+    bl _ZN11MatchEngine13func_0206aa30Ei
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_0206bffcEv
+    bl _ZN11MatchEngine13func_0206bffcEv
     add r1, r9, #0x6000
     ldr r1, [r1, #0xa44]
     mov r5, r0
@@ -2865,11 +2865,11 @@ asm void TreasureBox::func_02054620()
     bne @L_0205470c
     ldrsh r1, [r7]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020739ccEi
+    bl _ZN11MatchEngine13func_020739ccEi
     mov r5, r0
     ldrsh r1, [r7, #2]
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020739ccEi
+    bl _ZN11MatchEngine13func_020739ccEi
     cmp r5, #0
     beq @L_020546dc
     ldrb r1, [r5]
@@ -2899,7 +2899,7 @@ asm void TreasureBox::func_02054620()
     cmpne r1, #0
     beq @L_0205474c
     mov r0, r6
-    bl _ZN17UnkClass_020621b413func_020739ccEi
+    bl _ZN11MatchEngine13func_020739ccEi
     cmp r0, #0
     beq @L_0205474c
     ldrb r0, [r0]
