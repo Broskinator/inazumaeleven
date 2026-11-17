@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Renames classes/structs/functions and moves their files, everywhere at once.
 
-usage: tools/rename.py [--dry] [--also DIR] OLD=NEW ... [old/path=new/path ...]
+usage: tools/rename.py [--dry] [--also DIR] [--map FILE] OLD=NEW ... [old/path=new/path ...]
 
     OLD=NEW                 an identifier: a class, struct, function or variable. Its mangled
                             uses change with it (17UnkClass_020621b4 -> 11MatchEngine inside
@@ -9,6 +9,10 @@ usage: tools/rename.py [--dry] [--also DIR] OLD=NEW ... [old/path=new/path ...]
     game/Old=match/New      a source file and its header, by their path without the extension,
                             relative to src/ and include/: both are moved (git mv), and the
                             #include lines, the include guard and delinks.txt follow.
+
+    --map FILE              a file of "OLD NEW" lines: thousands of plain symbols at once (functions
+                            and data that are no class members: whole identifiers only, one pass
+                            per file), as tools/refdoc.py writes them
 
 Names don't change the code, so the ROM must build the same afterwards: run make.
 --also DIR: other folders of text files to rename in as well (scratch files of work in progress).
@@ -26,6 +30,13 @@ def main():
     args = sys.argv[1:]
     dry = "--dry" in args
     also = [args[i + 1] for i, a in enumerate(args) if a == "--also"]
+    table = {}
+    for i, a in enumerate(args):
+        if a == "--map":
+            for line in open(args[i + 1]):
+                if len(line.split()) == 2:
+                    table[line.split()[0]] = line.split()[1]
+    token = re.compile(r"[A-Za-z_]\w*")
     pairs = [a.split("=", 1) for i, a in enumerate(args) if "=" in a and (i == 0 or args[i - 1] != "--also")]
     names = [(a, b) for a, b in pairs if "/" not in a]
     paths = [(a, b) for a, b in pairs if "/" in a]
@@ -55,6 +66,8 @@ def main():
         n = t
         for pat, rep in subs:
             n = pat.sub(rep, n)
+        if table:
+            n = token.sub(lambda m: table.get(m.group(0), m.group(0)), n)
         if n != t:
             changed += 1
             if not dry:

@@ -11,12 +11,12 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 2,251,302 | 592,028 | 26.30% | 11,724 | 7,000 | 59.71% | 4,724 |
-| Game, main program | 369,260 | 107,104 | 29.01% | 2,601 | 1,660 | 63.82% | 941 |
+| **Game code** | 2,251,302 | 592,108 | 26.30% | 11,724 | 7,001 | 59.72% | 4,723 |
+| Game, main program | 369,260 | 107,184 | 29.03% | 2,601 | 1,661 | 63.86% | 940 |
 | Game, overlays | 1,882,042 | 484,924 | 25.77% | 9,123 | 5,340 | 58.53% | 3,783 |
 | Libraries (SDK, runtime) | 321,786 | 0 | 0.00% | 2,039 | 0 | 0.00% | 2,039 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 592,028 | 22.82% | 14,002 | 7,000 | 49.99% | 7,002 |
+| **Everything** | 2,594,024 | 592,108 | 22.83% | 14,002 | 7,001 | 50.00% | 7,001 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well.
@@ -46,7 +46,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 107,104 | 29.01% | 2,601 | 1,660 | 63.82% | 941 |
+| main program | 369,260 | 107,184 | 29.03% | 2,601 | 1,661 | 63.86% | 940 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |

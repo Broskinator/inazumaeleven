@@ -655,58 +655,37 @@ void TextFont::ResetSpacing()
 }
 
 // Uses the font file (NFTR) for the text, Shift-JIS or 16-bit characters
-#ifdef NONMATCHING
 BOOL TextFont::SetFont(void *nftrFile, u32 unk_10, u8 isWide)
 {
+    void *file = nftrFile;
+
     if (nftrFile == NULL) {
         return FALSE;
     }
 
     unk_1F = 0;
 
+    // (the original checks the file a second time: the copy keeps the 0 above out of unk_10)
+    if (nftrFile != NULL) {
+        file = nftrFile;
+    }
+
     if (unk_10 >= 16) {
         unk_10 = 0;
     }
 
-    this->nftrFile = nftrFile;
+    this->nftrFile = file;
     this->unk_10 = unk_10;
 
     if (isWide) {
-        NNS_G2dFontInitUTF16(&font, nftrFile);
+        NNS_G2dFontInitUTF16(&font, file);
     } else {
-        NNS_G2dFontInitShiftJIS(&font, nftrFile);
+        NNS_G2dFontInitShiftJIS(&font, file);
     }
 
     this->isWide = isWide;
     return TRUE;
 }
-#else
-asm BOOL TextFont::SetFont(void *nftrFile, u32 unk_10, u8 isWide)
-{
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r3
-    cmp r1, #0x0
-    mov r0, #0x0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    cmp r2, #0x10
-    movhs r2, #0x0
-    strb r0, [r5, #0x1f]
-    str r1, [r5, #0xc]
-    str r2, [r5, #0x10]
-    cmp r4, #0x0
-    add r0, r5, #0x4
-    beq @L_02034a14
-    bl NNS_G2dFontInitUTF16
-    b @L_02034a18
-@L_02034a14:
-    bl NNS_G2dFontInitShiftJIS
-@L_02034a18:
-    strb r4, [r5, #0x20]
-    mov r0, #0x1
-    ldmia sp!, {r3, r4, r5, pc}
-}
-#endif
 
 // Clears a rectangle of a 4 bits per pixel bitmap (pitch pixels per row, height rows)
 void TextFont::ClearRect4(u8 *canvas, int pitch, int height, int x, int y, int width, int rectHeight)
