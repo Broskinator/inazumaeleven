@@ -58,7 +58,7 @@ extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" void _ZN13ScreenManager14GetCurSceneSubEv(void);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
-extern "C" void _ZN11MatchEngine13func_0206e100Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206e100Eiii(void);
 extern "C" s32 _ZN11MatchEngine13func_0206f058Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
 extern "C" void _ZN11MatchEngine13func_02077bd4Ev(void);
@@ -255,7 +255,7 @@ extern "C" void func_ov042_0216bdfc(s32 arg0)
 
 extern "C" s32 func_ov042_0216be18(s32 arg0, s32 arg1)
 {
-    return ((s32 (*)(u8 *, u8, s32, s32, s32))_ZN11MatchEngine13func_0206e100Ev)((u8 *)data_020e88a0, ((u8 *)data_020c4ab4)[0x68], arg1, ((u8 *)data_020c4ab4)[0x70] == 0, 0);
+    return ((s32 (*)(u8 *, u8, s32, s32, s32))_ZN11MatchEngine13func_0206e100Eiii)((u8 *)data_020e88a0, ((u8 *)data_020c4ab4)[0x68], arg1, ((u8 *)data_020c4ab4)[0x70] == 0, 0);
 }
 
 extern "C" void func_ov042_0216be58(u8 *arg0, s32 arg1)

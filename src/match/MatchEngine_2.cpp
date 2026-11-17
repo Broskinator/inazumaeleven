@@ -17,6 +17,7 @@ extern GameHeap gAllocator;
 extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
 extern "C" u8 func_ov015_02130e28(u16 angle);
 #include "game/GameState.hpp"
+#include "match/MatchBallPhysics.hpp"
 // (four values from 1 to 999: their low bytes at 0x13-0x16, the top two bits of each in 0x17)
 // (a table of pairs of bytes after one byte: the pair of index i, from 2 to 20, at 1 + (i - 2) * 2)
 // (adds to the profile's counter at 0x14, kept between 0 and 999999)
@@ -181,7 +182,7 @@ extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206deecEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206df08Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206e018Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206e100Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206e100Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206f9e0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);     // (for the asm functions)
@@ -380,8 +381,8 @@ extern "C" UnkSlot_020621b4 *func_ov015_02143750(MatchEngine *self, int id);
 extern "C" char data_020af210[];
 extern "C" void func_ov015_02143664(void);
 extern "C" char data_020c4824[];
-extern "C" char data_020c4de0[];
-extern "C" char data_020c4ee0[];
+extern "C" MatchArea data_020c4de0;     // (the field)
+extern "C" UnkData_020c4ee0 data_020c4ee0;
 extern "C" char data_020c4eec[];
 extern "C" char data_020c4ef4[];
 extern "C" char data_020c6cac[];
@@ -1502,64 +1503,20 @@ s16 MatchEngine::func_0206fdac()
     return unk_11900;
 }
 
-asm void MatchEngine::func_0206fdbc()
+BOOL MatchEngine::func_0206fdbc(int team, fx32 y)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r2
-    bl _ZN11MatchEngine13func_0206b4a8Ei
-    cmp r0, #0
-    bne @L_0206fdf4
-    ldr r1, =data_020c4ee0
-    ldr r0, =data_020c4de0
-    ldrsh r1, [r1, #0x72]
-    ldr r0, [r0, #0xd8]
-    add r0, r0, r1, lsl #12
-    cmp r0, r4
-    movgt r0, #1
-    movle r0, #0
-    ldmia sp!, {r4, pc}
-@L_0206fdf4:
-    ldr r1, =data_020c4ee0
-    ldr r0, =data_020c4de0
-    ldrsh r1, [r1, #0x72]
-    ldr r0, [r0, #0xd8]
-    mov r1, r1, lsl #0xc
-    rsb r1, r1, #0
-    add r0, r1, r0
-    cmp r0, r4
-    movlt r0, #1
-    movge r0, #0
-    ldmia sp!, {r4, pc}
+    if (func_0206b4a8(team) == 0) {
+        return (data_020c4ee0.unk_72 << 12) + data_020c4de0.unk_d8 > y;
+    }
+    return -(data_020c4ee0.unk_72 << 12) + data_020c4de0.unk_d8 < y;
 }
 
-asm void MatchEngine::func_0206fe28()
+BOOL MatchEngine::func_0206fe28(int team, fx32 y)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r2
-    bl _ZN11MatchEngine13func_0206b4a8Ei
-    cmp r0, #0
-    bne @L_0206fe60
-    ldr r1, =data_020c4ee0
-    ldr r0, =data_020c4de0
-    ldrsh r1, [r1, #0x74]
-    ldr r0, [r0, #0xd8]
-    add r0, r0, r1, lsl #12
-    cmp r0, r4
-    movgt r0, #1
-    movle r0, #0
-    ldmia sp!, {r4, pc}
-@L_0206fe60:
-    ldr r1, =data_020c4ee0
-    ldr r0, =data_020c4de0
-    ldrsh r1, [r1, #0x74]
-    ldr r0, [r0, #0xd8]
-    mov r1, r1, lsl #0xc
-    rsb r1, r1, #0
-    add r0, r1, r0
-    cmp r0, r4
-    movlt r0, #1
-    movge r0, #0
-    ldmia sp!, {r4, pc}
+    if (func_0206b4a8(team) == 0) {
+        return (data_020c4ee0.unk_74 << 12) + data_020c4de0.unk_d8 > y;
+    }
+    return -(data_020c4ee0.unk_74 << 12) + data_020c4de0.unk_d8 < y;
 }
 
 void MatchEngine::func_0206fe94(int delta)
@@ -15485,7 +15442,7 @@ asm void MatchEngine::func_0207c478()
     mov r2, r4
     mov r3, r5
     str r11, [sp]
-    bl _ZN11MatchEngine13func_0206e100Ev
+    bl _ZN11MatchEngine13func_0206e100Eiii
     cmp r0, #0
     beq @L_0207c564
     str r5, [sp, #8]

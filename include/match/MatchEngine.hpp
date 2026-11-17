@@ -308,7 +308,7 @@ public:
     void func_0206df9c(s32 value);
     void func_0206dfa4();
     void func_0206e018();
-    void func_0206e100();
+    BOOL func_0206e100(int team, int pos, BOOL bench);
     BOOL func_0206e174(int team, u8 *out, int n);
     u8 func_0206e1c4(int i);
     void func_0206e1d4(int i, u8 value);
@@ -365,8 +365,8 @@ public:
     void func_0206fbb4(int i);
     void func_0206fbd0();
     s16 func_0206fdac();
-    void func_0206fdbc();
-    void func_0206fe28();
+    BOOL func_0206fdbc(int team, fx32 y);
+    BOOL func_0206fe28(int team, fx32 y);
     void func_0206fe94(int delta);
     void func_0206fec0(s16 value);
     void func_0206fed0();

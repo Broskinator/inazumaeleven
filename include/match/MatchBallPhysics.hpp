@@ -7,13 +7,21 @@
 
 // The area an object moves in (only the bounds are known)
 struct MatchArea {
-    u8 unk_0[0xDC];
+    u8 unk_0[0xD8];
+    fx32 unk_d8;        // (the halfway line)
     fx32 minX;          // 0xDC
     fx32 minY;          // 0xE0
     fx32 maxX;          // 0xE4
     fx32 maxY;          // 0xE8
     fx32 unk_ec[4];     // 0xEC
     fx32 unk_fc[4];     // 0xFC
+};
+
+// The data at 0x020c4ee0 (sizes of the field, in units of 0x1000)
+struct UnkData_020c4ee0 {
+    u8 unk_0[0x72];
+    s16 unk_72;
+    s16 unk_74;
 };
 
 // The ball's physics (data_020c475c; vtable data_020aeadc)
