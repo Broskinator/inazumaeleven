@@ -1,0 +1,26 @@
+--- before
++++ after
+@@ -1838,19 +1838,21 @@
+ int MatchEngine__func_02074584(MatchEngine *this, int a, BOOL b, u32 flags)
+ {
+   int result;
++  int new_var;
+   if (flags & 0x1)
+   {
+     result = 12;
+     if (b)
+     {
+-      result = 11;
++      new_var = 11;
++      result = new_var;
+     }
+     return result;
+   }
+   result = 10;
+   if (b)
+   {
+-    result = 11;
++    result = new_var;
+   }
+   return result;
+ }

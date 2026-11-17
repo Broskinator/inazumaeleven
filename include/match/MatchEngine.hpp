@@ -177,7 +177,7 @@ public:
     s32 func_0206b1d0(int i);
     void func_0206b1dc();
     BOOL func_0206b274(int team, int value);
-    void func_0206b2c8();
+    u8 *func_0206b2c8(int team);
     void func_0206b308();
     u8 *func_0206b390(int side);
     u8 *func_0206b3a4(int side, u32 index);
@@ -442,8 +442,8 @@ public:
     void func_020760e4();
     void func_02076168();
     int func_0207620c();
-    void func_02076268();
-    void func_020762c0();
+    s8 func_02076268();
+    s8 func_020762c0();
     void func_02076318();
     BOOL func_0207635c();
     void func_02076370();
@@ -469,7 +469,7 @@ public:
     u8 *func_020768e4(u8 *team, int i);
     u8 *func_020768fc(u32 i);
     u8 *func_02076914(u8 *team);
-    void func_02076924();
+    int func_02076924(u16 *out, int max);
     void func_0207697c();
     void func_020769f0();
     BOOL func_02076a64(u8 a, u8 b);
@@ -577,7 +577,7 @@ public:
     void func_0207a2a8();
     void func_0207a304(MatchPlayer *player);
     BOOL func_0207a350(MatchPlayer *player);
-    void func_0207a394();
+    BOOL func_0207a394(MatchPlayer *player);
     void func_0207a3e8();
     BOOL func_0207a46c(MatchPlayer *player);
     void func_0207a4a0();
@@ -635,7 +635,7 @@ public:
     void func_0207d394();
     void func_0207d3f8();
     u8 *func_0207d468(u8 *data, int kind);
-    void func_0207d494();
+    u8 *func_0207d494(u8 *data, int kind);
     s16 func_0207d500(MatchPlayer *player, int kind);
     void func_0207d538(MatchPlayer *player, int kind, s16 value);
     void func_0207d568();
@@ -764,7 +764,9 @@ public:
     MatchState unk_c7c[90];     // (rings of 90: the past states)
     u8 unk_f4c[90][0x2C];
     u8 unk_1ec4[90 * 22][0x20];    // (per player)
-    u8 unk_11644[0x117A4 - 0x11644];
+    u8 unk_11644[0x116A8 - 0x11644];
+    u8 unk_116a8[10][0x18];     // ([0], [3]: s8; [0xE] bit 7: empty?)
+    u8 unk_11798[0x117A4 - 0x11798];
     u8 unk_117a4[2][11];     // (per team and position)
     u8 unk_117ba[0x117D4 - 0x117BA];
     u8 unk_117d4;

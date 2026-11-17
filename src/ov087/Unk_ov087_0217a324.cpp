@@ -80,7 +80,7 @@ extern "C" void _ZN11MatchEngine13func_02068590Eii(void);
 extern "C" void _ZN11MatchEngine13func_02069394Eiiiihi(void);
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);
-extern "C" void _ZN11MatchEngine13func_0206b2c8Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206b2c8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206b4a8Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_0206b4ccEi(...);
 extern "C" void _ZN11MatchEngine13func_0206bf2cEP11MatchPlayer(void);
@@ -846,7 +846,7 @@ extern "C" asm void func_ov087_0217aba0(void)
     mov r1, r8
     strne r0, [r6, #4]
     mov r0, r9
-    bl _ZN11MatchEngine13func_0206b2c8Ev
+    bl _ZN11MatchEngine13func_0206b2c8Ei
     ldr r10, =gGameState
     mov r1, r8
     str r0, [r10, #0xa8]

@@ -69,7 +69,7 @@ extern "C" void _ZN11MatchEngine13func_02079e90Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_02079f98EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a144Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a350EP11MatchPlayer(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207a394Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a394EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a510EP11MatchPlayerS1_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020787e8EP11MatchPlayer(void);     // (for the asm functions)
@@ -8701,7 +8701,7 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
 @L_0206a00c:
     mov r0, r9
     mov r1, r8
-    bl _ZN11MatchEngine13func_0207a394Ev
+    bl _ZN11MatchEngine13func_0207a394EP11MatchPlayer
     cmp r0, #0
     beq @L_0206a058
     mov r0, r8
@@ -8839,7 +8839,7 @@ asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
     orr r6, r6, r2, lsl #20
     mov r8, #0
     mov r4, #0x800
-    bl _ZN11MatchEngine13func_0207a394Ev
+    bl _ZN11MatchEngine13func_0207a394EP11MatchPlayer
     cmp r0, #0
     beq @L_0206a24c
     umull r2, r1, r6, r4
@@ -9941,24 +9941,10 @@ BOOL MatchEngine::func_0206b274(int team, int value)
     return TRUE;
 }
 
-asm void MatchEngine::func_0206b2c8()
+u8 *MatchEngine::func_0206b2c8(int team)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    add r2, r5, r4, lsl #2
-    ldr r2, [r2, #0xc10]
-    add r2, r2, #1
-    mov r3, r2, lsr #0x1f
-    rsb r2, r3, r2, lsl #27
-    add r2, r3, r2, ror #27
-    bl _ZN11MatchEngine13func_0206b274Eii
-    add r0, r5, r4, lsl #2
-    ldr r2, [r0, #0xc10]
-    mov r0, r5
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0206b3a4Eim
-    ldmia sp!, {r3, r4, r5, pc}
+    func_0206b274(team, (unk_c10[team] + 1) % 32);
+    return func_0206b3a4(team, unk_c10[team]);
 }
 
 asm void MatchEngine::func_0206b308()

@@ -409,7 +409,7 @@ void _ZN15DistanceTable3214ApproxDistanceEll(void);
 void FX_Sqrt(void);
 void _ZN11MatchEngine13func_02080288EP11MatchPlayer(void);
 void func_02080b00(void);
-void _ZN11MatchEngine13func_0207a394Ev(void);
+void _ZN11MatchEngine13func_0207a394EP11MatchPlayer(void);
 void _ZN11MatchEngine13func_0207a350EP11MatchPlayer(void);
 void _ZN11MatchEngine13func_020787e8EP11MatchPlayer(void);
 void func_02084870(void);
@@ -8436,7 +8436,7 @@ asm void func_01fff1f4(void)
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, r6
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207a394Ev
+    bl _ZN11MatchEngine13func_0207a394EP11MatchPlayer
     cmp r0, #0
     beq @L_01fff2d0
     ldr r1, [r5, #0xe8]
