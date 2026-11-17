@@ -722,36 +722,14 @@ void TreasureBox::func_020526cc(int c)
     func_02052628(2, 1, c, 0);
 }
 
-// (nonmatching: the two calls are laid out in the other order)
-#ifdef NONMATCHING
 void TreasureBox::func_020526ec(int arg, int keep)
 {
     if (unk_6a64 == 0 || keep != 0) {
-        unk_8c.UnloadScript();
+        unk_8c.UnloadScript(arg);
     } else {
         unk_8c.RequestUnloadSlot();
     }
 }
-#else
-asm void TreasureBox::func_020526ec(int arg, int keep)
-{
-    stmdb sp!, {r3, lr}
-    add r3, r0, #0x6000
-    ldr r3, [r3, #0xa64]
-    cmp r3, #0
-    beq @L_02052708
-    cmp r2, #0
-    beq @L_02052714
-@L_02052708:
-    add r0, r0, #0x8c
-    bl _ZN13ScriptManager12UnloadScriptEi
-    ldmia sp!, {r3, pc}
-@L_02052714:
-    add r0, r0, #0x8c
-    bl _ZN13ScriptManager17RequestUnloadSlotEv
-    ldmia sp!, {r3, pc}
-}
-#endif
 
 asm void TreasureBox::func_02052720()
 {
