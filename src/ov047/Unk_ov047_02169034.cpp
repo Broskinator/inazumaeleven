@@ -44,7 +44,7 @@ extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_02076620Ev(void);
-extern "C" void _ZN11MatchEngine13func_020766e8Ev(void);
+extern "C" void _ZN11MatchEngine13func_020766e8Em(void);
 extern "C" void _ZN11MatchEngine13func_020767a4Em(void);
 extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
@@ -52,7 +52,7 @@ extern "C" void _ZN11MatchEngine13func_020769f0Ev(void);
 extern "C" void _ZN11MatchEngine13func_02076a7cEv(void);
 extern "C" void _ZN11MatchEngine13func_02076f50Ev(void);
 extern "C" void _ZN11MatchEngine13func_020770a8Ev(void);
-extern "C" void _ZN11MatchEngine13func_02077104Ev(void);
+extern "C" void _ZN11MatchEngine13func_02077104Emi(void);
 extern "C" void _ZN11MatchEngine13func_020771d4Ev(void);
 extern "C" void _ZN11MatchEngine13func_02077bd4Ev(void);
 extern "C" void _ZN11MatchEngine13func_02077ce4Ev(void);
@@ -562,7 +562,7 @@ extern "C" asm void func_ov047_02169684(void)
     strb r2, [r7, #9]
     ldrh r1, [r4, r1]
     mov r2, #1
-    bl _ZN11MatchEngine13func_02077104Ev
+    bl _ZN11MatchEngine13func_02077104Emi
     strb r0, [r7, #0xa]
     mov r1, r9, lsl #1
     ldrh r1, [r4, r1]
@@ -635,7 +635,7 @@ extern "C" asm void func_ov047_02169684(void)
     mov r2, #1
     strb r1, [r9, #9]
     ldrh r1, [r5, r3]
-    bl _ZN11MatchEngine13func_02077104Ev
+    bl _ZN11MatchEngine13func_02077104Emi
     strb r0, [r9, #0xa]
     mov r1, r8, lsl #1
     ldrh r1, [r5, r1]
@@ -746,7 +746,7 @@ extern "C" asm void func_ov047_021698fc(void)
     mov r7, r0
     ldrh r1, [r5]
     mov r0, r6
-    bl _ZN11MatchEngine13func_020766e8Ev
+    bl _ZN11MatchEngine13func_020766e8Em
     rsb r6, r0, #0x63
     ldrh r1, [r5, #6]
     mov r0, r7
@@ -1080,7 +1080,7 @@ extern "C" asm void func_ov047_02169af4(void)
     ldrh r1, [r7]
     ldrsb r2, [r7, #8]
     mov r0, r6
-    bl _ZN11MatchEngine13func_02077104Ev
+    bl _ZN11MatchEngine13func_02077104Emi
     cmp r0, #0
     beq @L_02169f34
     ldrh r1, [r7]

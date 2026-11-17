@@ -175,7 +175,7 @@ extern "C" void func_020764f8(void);
 extern "C" void func_02076530(void);
 extern "C" void func_02076568(void);
 extern "C" void func_020765a0(void);
-extern "C" void _ZN11MatchEngine13func_0207a2a8Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a2a8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -975,7 +975,7 @@ extern "C" asm void func_ov015_021441f8(void)
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
     mov r0, r9
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207a2a8Ev
+    bl _ZN11MatchEngine13func_0207a2a8Ei
     mov r5, r0
     mov r2, r6
     mov r3, #1

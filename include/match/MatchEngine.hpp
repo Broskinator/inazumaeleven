@@ -455,7 +455,7 @@ public:
     static int func_020764e4(u8 *data);     // (on another struct)
     int func_020765d4(int i, int n);     // (adds n to item i's count, at most 99: 0, or 13/27 on error)
     void func_02076620();
-    void func_020766e8();
+    int func_020766e8(u32 i);
     u8 func_020767a4(u32 i);
     u32 func_020767bc();
     s32 func_020767cc(s32 amount);
@@ -483,9 +483,9 @@ public:
     u8 *func_02076f14(MatchPlayer *player);
     u8 *func_02076f34(int i);
     void func_02076f50();
-    void func_02077064();
+    BOOL func_02077064(u32 item, int n);
     void func_020770a8();
-    void func_02077104();
+    BOOL func_02077104(u32 item, int n);
     void func_02077148();
     void func_020771d4();
     void func_02077224();
@@ -525,7 +525,7 @@ public:
     void func_020785a0();
     void func_02078664();
     MatchPlayerInfo *func_020787e8(MatchPlayer *player);
-    void func_02078800();
+    int func_02078800(int a, BOOL b, int c);
     void func_02078844();
     void func_02078990();
     void func_02078aac();
@@ -545,7 +545,7 @@ public:
     u8 func_020790cc(MatchPlayerBody *body, fx32 x, fx32 y);
     u16 func_020790e8(MatchPlayerBody *body, u16 dir);
     u16 func_02079114(MatchPlayerBody *body, fx32 x, fx32 y);     // (the direction to (x, y), from the body's)
-    void func_02079148();
+    u8 func_02079148(MatchPlayerBody *body, u8 *data);
     u16 func_0207918c(MatchPlayer *player, fx32 x, fx32 y);
     int func_020791cc(int a, int b);
     int func_0207922c(MatchPlayer *player, fx32 x, fx32 y);
@@ -574,7 +574,7 @@ public:
     int func_02079f40(int a, int flags, int b);
     BOOL func_02079f98(MatchPlayer *player, int a, int b);
     void func_0207a144();
-    void func_0207a2a8();
+    MatchPlayer *func_0207a2a8(int team);
     void func_0207a304(MatchPlayer *player);
     BOOL func_0207a350(MatchPlayer *player);
     BOOL func_0207a394(MatchPlayer *player);
