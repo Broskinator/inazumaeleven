@@ -29,10 +29,11 @@ your own copy of the ROM:
       and wireless play over the WM library (`src/wireless/`: 53 of 55 in C++), the scenes'
       base class, the scene manager with the game's main loop and the treasure boxes
       (`src/game/`), the start-up and the entry point (`src/system/`)
-- [ ] Match code (`src/game/`, from 0x02061498): the ball's physics and the distance
-      tables (`MatchBallPhysics.cpp`), and the first files of the match's data
-      object at data_020e88a0 (`MatchEngine.cpp`); the ball, the players and their
-      bodies are in `include/game/Match.hpp`
+- [ ] Match code (`src/match/`, from 0x02061498): the ball's physics and the distance
+      tables (`MatchBallPhysics.cpp`), the match object at data_020e88a0
+      (`MatchEngine*.cpp`), its rules, players' lists and geometry; the ball, the players
+      and their bodies are in `include/match/Match.hpp`. The match logic is overlay 87,
+      the match scene overlay 1: see [docs/match_engine.md](docs/match_engine.md)
 - [ ] Decompiled to C: see [docs/progress.md](docs/progress.md) for the share of the code that is
       C/C++ rather than assembly, by bytes and per module (`make report` rewrites it)
 
