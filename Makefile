@@ -3,6 +3,8 @@
 #   make            build the ROM and check that it matches the original
 #   make progress   show how much has been decompiled
 #   make report     write docs/progress.md: the share of the code that is C/C++, by bytes
+#   make todo       list the functions that are still assembly, the easiest first
+#                   (make todo ARGS="--file src/match -n 100", see tools/todo.py)
 #   make setup      download the tools only
 #   make clean      remove build output (keeps the extracted ROM)
 #   make distclean  also remove the extracted ROM and the tools
@@ -46,7 +48,7 @@ C_OBJS   := $(patsubst %.cpp,$(BUILD)/%.o,$(C_SRCS:%.c=$(BUILD)/%.o))
 
 LDFLAGS  := -proc arm946e -nostdlib -interworking -m Entry -map closure,unused
 
-.PHONY: all setup check progress report clean distclean
+.PHONY: all setup check progress report todo clean distclean
 all: check
 
 setup: $(DSD) $(WIBO) $(MW)/mwldarm.exe $(OBJDIFF)
@@ -96,6 +98,10 @@ progress: $(ELF)
 # share of the code that is C/C++ rather than assembly, by bytes (reads the sources only)
 report:
 	@$(PYTHON) tools/cprogress.py
+
+# what to decompile next: the functions that are not C/C++ yet, small ones that call nothing first
+todo:
+	@$(PYTHON) tools/todo.py $(ARGS)
 
 $(BASEROM):
 	@echo "Put your ROM here as $(BASEROM) (see README.md)"; exit 1
