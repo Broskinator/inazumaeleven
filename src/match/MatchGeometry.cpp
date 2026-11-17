@@ -46,7 +46,7 @@ extern "C" BOOL func_02084284(int value, int a, int b);
 extern "C" s32 func_020842b0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_020842f8(fx32 value);
 extern "C" BOOL func_02084324(fx32 value);
-extern "C" void func_02084350(void);
+extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" void func_020843b0(void);
 extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_02084470(s32 *arg0, s32 *arg1);
@@ -62,8 +62,8 @@ extern "C" s32 func_02084808(s32 arg0, s32 arg1, u8 *arg2);
 extern "C" BOOL func_0208484c(MatchPoint *a, MatchPoint *b);
 extern "C" BOOL func_02084870(MatchPlayer *player);
 extern "C" s32 func_0208488c(s32 arg0, s32 arg1, s32 arg2);
-extern "C" BOOL func_02084900(fx32 *x, fx32 *y, fx32 *rect, int a);
-extern "C" BOOL func_02084958(fx32 *pos, fx32 *rect, int a);
+extern "C" void func_02084900(fx32 *x, fx32 *y, fx32 *rect, fx32 margin);
+extern "C" void func_02084958(fx32 *pos, fx32 *rect, fx32 margin);
 extern "C" void func_02084970(void);
 extern "C" s32 func_02084aec(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02084ba0(u8 *arg0, u8 *arg1);
@@ -637,7 +637,29 @@ extern "C" BOOL func_02084324(fx32 value)
     return result;
 }
 
-extern "C" asm void func_02084350(void)
+// (nonmatching: the ROM keeps the three results in registers and the rectangle's address in
+// r3; the attempts either reload the address or merge the tests into branches. 10 forms tried)
+#ifdef NONMATCHING
+// (is (x, y) on the field?)
+extern "C" BOOL func_02084350(fx32 x, fx32 y)
+{
+    BOOL in = FALSE;
+    BOOL inY1 = FALSE;
+    BOOL inX = FALSE;
+
+    if (x >= data_020c4ebc[0] && x <= data_020c4ebc[2]) {
+        inX = TRUE;
+    }
+    if (inX && y >= data_020c4ebc[1]) {
+        inY1 = TRUE;
+    }
+    if (inY1 && y <= data_020c4ebc[3]) {
+        in = TRUE;
+    }
+    return in;
+}
+#else
+extern "C" asm BOOL func_02084350(fx32 x, fx32 y)
 {
     stmdb sp!, {r4, lr}
     ldr r3, =data_020c4ebc
@@ -666,6 +688,7 @@ extern "C" asm void func_02084350(void)
     mov r0, r12
     ldmia sp!, {r4, pc}
 }
+#endif
 
 extern "C" asm void func_020843b0(void)
 {
@@ -982,36 +1005,24 @@ extern "C" s32 func_0208488c(s32 arg0, s32 arg1, s32 arg2)
     }
 }
 
-extern "C" asm BOOL func_02084900(fx32 *x, fx32 *y, fx32 *rect, int a)
+extern "C" void func_02084900(fx32 *x, fx32 *y, fx32 *rect, fx32 margin)
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [r2]
-    ldr lr, [r0]
-    add r12, r12, r3
-    cmp lr, r12
-    strlt r12, [r0]
-    blt @L_0208492c
-    ldr r12, [r2, #8]
-    sub r12, r12, r3
-    cmp lr, r12
-    strgt r12, [r0]
-@L_0208492c:
-    ldr r0, [r2, #4]
-    ldr r12, [r1]
-    add r0, r0, r3
-    cmp r12, r0
-    strlt r0, [r1]
-    ldmltia sp!, {r3, pc}
-    ldr r0, [r2, #0xc]
-    sub r0, r0, r3
-    cmp r12, r0
-    strgt r0, [r1]
-    ldmia sp!, {r3, pc}
+    if (*x < rect[0] + margin) {
+        *x = rect[0] + margin;
+    } else if (*x > rect[2] - margin) {
+        *x = rect[2] - margin;
+    }
+    if (*y < rect[1] + margin) {
+        *y = rect[1] + margin;
+    } else if (*y > rect[3] - margin) {
+        *y = rect[3] - margin;
+    }
 }
 
-extern "C" BOOL func_02084958(fx32 *pos, fx32 *rect, int a)
+// (clamps the position into the rectangle, margin inside its edges)
+extern "C" void func_02084958(fx32 *pos, fx32 *rect, fx32 margin)
 {
-    return func_02084900(pos, &pos[1], rect, a);
+    func_02084900(pos, &pos[1], rect, margin);
 }
 
 extern "C" asm void func_02084970(void)

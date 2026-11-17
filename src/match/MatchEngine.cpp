@@ -68,7 +68,7 @@ extern "C" void _ZN11MatchEngine13func_02079d2cEi(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_02079e90Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02079f98EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a144Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207a350Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a350EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a394Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a510EP11MatchPlayerS1_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);     // (for the asm functions)
@@ -282,7 +282,7 @@ extern "C" fx32 FX_Div(fx32 a, fx32 b);     // (a / b)
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" int func_02084470(void *obj, int a);
 extern "C" void func_ov015_021319b0(MatchPlayer *player);
-extern "C" BOOL func_02084958(fx32 *pos, fx32 *rect);     // (is the position in the rectangle?)
+extern "C" void func_02084958(fx32 *pos, fx32 *rect, fx32 margin);     // (clamps the position into the rectangle)
 extern "C" fx32 func_01ffe4b4(MatchEngine *self, int a, int b);
 extern "C" MatchArea data_020c4de0;     // (the field)
 extern "C" fx32 data_020c4ebc[];
@@ -1291,7 +1291,7 @@ asm void MatchEngine::func_02062d74()
     beq @L_02062f60
     mov r0, r9
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207a350Ev
+    bl _ZN11MatchEngine13func_0207a350EP11MatchPlayer
     cmp r0, #0
     bne @L_02062f60
     add r0, sp, #0x18
@@ -3194,7 +3194,7 @@ asm void MatchEngine::func_020646d4()
     beq @L_02064b80
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0207a350Ev
+    bl _ZN11MatchEngine13func_0207a350EP11MatchPlayer
     cmp r0, #0
     bne @L_02064b80
     ldr r0, [r9, #0xec]
@@ -5622,9 +5622,9 @@ fx32 MatchEngine::func_0206707c(int a, int b)
     return data_020c4de0.unk_ec[3] - func_01ffe4b4(this, a, b);
 }
 
-BOOL MatchEngine::func_020670ec(fx32 *pos)
+void MatchEngine::func_020670ec(fx32 *pos, fx32 margin)
 {
-    return func_02084958(pos, data_020c4ebc);
+    func_02084958(pos, data_020c4ebc, margin);
 }
 
 // the point at most radius from (x, y) towards the target: FALSE if that's the target
@@ -8855,7 +8855,7 @@ asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
     mov r0, r10
     mov r1, r9
     mov r11, r8
-    bl _ZN11MatchEngine13func_0207a350Ev
+    bl _ZN11MatchEngine13func_0207a350EP11MatchPlayer
     cmp r0, #0
     beq @L_0206a28c
     ldr r0, =0xb33
@@ -10656,7 +10656,7 @@ asm void MatchEngine::func_0206bc70()
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     mov r1, r7
-    bl _ZN11MatchEngine13func_0207a350Ev
+    bl _ZN11MatchEngine13func_0207a350EP11MatchPlayer
     cmp r0, #0
     addne sp, sp, #0x38
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}

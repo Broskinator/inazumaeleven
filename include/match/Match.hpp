@@ -63,6 +63,7 @@ struct MatchPlayerBody {
     u8 unk_1b;
     u8 unk_1c;
     u8 unk_1d;
+    s8 unk_1e;
 };
 
 struct MatchPlayerState {
@@ -74,7 +75,9 @@ struct MatchPlayerState {
     u16 unk_1e;
     u16 unk_20;
     s16 unk_22;
-    u8 unk_24[0x2F - 0x24];
+    u8 unk_24[2];
+    s16 unk_26;
+    u8 unk_28[0x2F - 0x28];
     u8 unk_2f;
     u8 unk_30[2];
     u16 unk_32;

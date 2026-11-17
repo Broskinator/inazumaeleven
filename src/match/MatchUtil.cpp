@@ -609,27 +609,20 @@ extern "C" BOOL func_02080aa0(MatchPlayer *player)
     return result;
 }
 
-extern "C" asm void func_02080abc(void)
+extern "C" BOOL func_02080abc(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, #0
-    bl func_02080b38
-    cmp r0, #0
-    bne @L_02080af8
-    ldr r0, [r5, #0xec]
-    mov r1, r4
-    cmp r0, #0
-    beq @L_02080af0
-    ldrsh r0, [r0, #0x26]
-    cmp r0, #0
-    movle r1, #1
-@L_02080af0:
-    cmp r1, #0
-    movne r4, #1
-@L_02080af8:
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, pc}
+    BOOL r = FALSE;
+
+    if (!func_02080b38(player)) {
+        BOOL down = FALSE;
+        if (player->state != NULL && player->state->unk_26 <= 0) {
+            down = TRUE;
+        }
+        if (down) {
+            r = TRUE;
+        }
+    }
+    return r;
 }
 
 extern "C" void func_02080b00(MatchPlayer *player, int value)

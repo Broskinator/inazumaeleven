@@ -96,7 +96,7 @@ public:
     int func_02067014(MatchPlayer *player, int a, int b);
     fx32 func_02067044(int a, int b);
     fx32 func_0206707c(int a, int b);
-    BOOL func_020670ec(fx32 *pos);
+    void func_020670ec(fx32 *pos, fx32 margin);     // (clamps pos into the field, margin inside its edges)
     BOOL func_02067104(fx32 x, fx32 y, fx32 targetX, fx32 targetY, fx32 radius, MatchPoint *pos);
     void func_020671e4();
     void func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *pos);
@@ -492,7 +492,7 @@ public:
     void func_02077448();
     void func_0207765c();
     void func_020776f8();
-    void func_020777e4();
+    int func_020777e4(u8 *team, s16 value, u32 i, u8 update);
     void func_02077830();
     void func_0207793c();
     void func_02077a80();
@@ -503,7 +503,7 @@ public:
     BOOL func_02077ce4();
     void func_02077d18();
     void func_02077da8();
-    void func_02077e14();
+    BOOL func_02077e14(u8 *team, int value);
     u16 func_02077e58(u8 *team, u32 i);
     void func_02077e78();
     void func_02077eb8();
@@ -576,7 +576,7 @@ public:
     void func_0207a144();
     void func_0207a2a8();
     void func_0207a304(MatchPlayer *player);
-    void func_0207a350();
+    BOOL func_0207a350(MatchPlayer *player);
     void func_0207a394();
     void func_0207a3e8();
     BOOL func_0207a46c(MatchPlayer *player);
@@ -663,7 +663,7 @@ public:
     void func_0207e810();
     void func_0207e884();
     void func_0207e8f8();
-    void func_0207ec28();
+    BOOL func_0207ec28(int index, int value);
     void func_0207ec70();
     int func_0207ee18(u32 id);
     void func_0207ee3c();
@@ -769,7 +769,8 @@ public:
     u8 unk_117ba[0x117D4 - 0x117BA];
     u8 unk_117d4;
     u8 unk_117d5;
-    u8 unk_117d6[0x117DA - 0x117D6];
+    u8 unk_117d6[2];     // (per team: flags)
+    u8 unk_117d8[2];
     u8 unk_117da[2];     // (per team)
     u8 unk_117dc[0x117E4 - 0x117DC];
     s32 unk_117e4[2];

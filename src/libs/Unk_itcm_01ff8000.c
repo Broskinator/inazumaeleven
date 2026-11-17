@@ -143,7 +143,7 @@ void _ZN11MatchEngine13func_0206b47cEi(void);
 void func_ov087_0217aba0(void);
 void func_ov087_02174aec(void);
 void func_02084788(void);
-void _ZN11MatchEngine13func_020670ecEPl(void);
+void _ZN11MatchEngine13func_020670ecEPll(void);
 void _ZN11MatchEngine13func_0206c644Ev(void);
 void func_ov001_021280bc(void);
 extern char data_020c4de0[];
@@ -410,7 +410,7 @@ void FX_Sqrt(void);
 void _ZN11MatchEngine13func_02080288EP11MatchPlayer(void);
 void func_02080b00(void);
 void _ZN11MatchEngine13func_0207a394Ev(void);
-void _ZN11MatchEngine13func_0207a350Ev(void);
+void _ZN11MatchEngine13func_0207a350EP11MatchPlayer(void);
 void _ZN11MatchEngine13func_020787e8EP11MatchPlayer(void);
 void func_02084870(void);
 void _ZN11MatchEngine13func_02063038EP11MatchPlayer(void);
@@ -1116,7 +1116,7 @@ asm void func_01ff8990(void)
     mov r2, #0x1000
     strne r0, [r10, #0x70]
     mov r0, r10
-    bl _ZN11MatchEngine13func_020670ecEPl
+    bl _ZN11MatchEngine13func_020670ecEPll
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_01ff89fc:
     mov r0, r10
@@ -8452,7 +8452,7 @@ asm void func_01fff1f4(void)
 @L_01fff2d0:
     mov r0, r6
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207a350Ev
+    bl _ZN11MatchEngine13func_0207a350EP11MatchPlayer
     cmp r0, #0
     ldrne r1, [r5, #0xe8]
     cmpne r1, #0
