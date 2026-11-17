@@ -80,7 +80,7 @@ extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
 extern "C" s32 _ZN11MatchEngine13func_02076ba0Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_02076c98Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_02076ddcEv(...);
-extern "C" void _ZN11MatchEngine13func_02076ec8Ev(void);
+extern "C" void _ZN11MatchEngine13func_02076ec8EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207793cEv(void);
 extern "C" void _ZN11MatchEngine13func_02077ba0Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0207e334Eiiii(...);
@@ -1155,7 +1155,7 @@ extern "C" asm void func_ov041_02169cb0(void)
 @L_02169e38:
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN11MatchEngine13func_02076ec8Ev
+    bl _ZN11MatchEngine13func_02076ec8EP11MatchPlayer
     mov r0, r0, lsl #0x10
     mov r7, r0, lsr #0x10
 @L_02169e4c:
@@ -1837,7 +1837,7 @@ extern "C" asm void func_ov041_0216a690(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0216a8c0:
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_02076ec8Ev
+    bl _ZN11MatchEngine13func_02076ec8EP11MatchPlayer
     add r1, r5, #0x3000
     strh r0, [r1, #0x7c]
     mov r4, #5

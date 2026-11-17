@@ -478,7 +478,7 @@ public:
     void func_02076c08();
     void func_02076c98();
     void func_02076ddc();
-    void func_02076ec8();
+    u16 func_02076ec8(MatchPlayer *player);
     u16 func_02076f04(int i);
     u8 *func_02076f14(MatchPlayer *player);
     u8 *func_02076f34(int i);
@@ -508,7 +508,7 @@ public:
     void func_02077e78();
     void func_02077eb8();
     void func_02077eec();
-    void func_02077f20();
+    BOOL func_02077f20(u8 *data);
     void func_02077fa0();
     void func_02078148();
     void func_020782f0();
@@ -598,10 +598,10 @@ public:
     void func_0207ac90();
     void func_0207acf0();
     void func_0207ad74();
-    int func_0207add4(int a);
-    int func_0207ae40(int a);
-    BOOL func_0207aeac(int a);
-    BOOL func_0207aec4(int a);
+    int func_0207add4(int team, u32 id);     // (1 + where id is in the team's unk_3ac, or 0)
+    int func_0207ae40(int team, u32 id);     // (the same in unk_34c)
+    BOOL func_0207aeac(int team, u32 id);
+    BOOL func_0207aec4(int team, u32 id);
     void func_0207aedc();
     void func_0207af84();
     void func_0207b00c();
@@ -632,7 +632,7 @@ public:
     int func_0207d308(u8 *data);
     void func_0207d330();
     int func_0207d378(u8 *data, int level);
-    void func_0207d394();
+    u8 func_0207d394(u8 *range, int level);
     void func_0207d3f8();
     u8 *func_0207d468(u8 *data, int kind);
     u8 *func_0207d494(u8 *data, int kind);
@@ -700,7 +700,8 @@ public:
     u8 *func_02083054(int team);
 
     void *vtable;
-    u8 unk_4[0x74 - 0x4];
+    MatchSegment unk_4[6];     // (areas of the field, see func_0206c180)
+    u8 unk_64[0x74 - 0x64];
     u8 unk_74[5][8];
     u8 unk_9c[2][8];
     MatchPoint unk_ac[22];     // (per player)
@@ -738,7 +739,7 @@ public:
     s32 unk_bc4;
     s16 *unk_bc8;
     u8 (*unk_bcc)[0x10];
-    s32 unk_bd0;
+    u8 (*unk_bd0)[0x68];
     void *unk_bd4;      // (on the heap)
     s32 unk_bd8;
     void *unk_bdc;      // (on the heap)

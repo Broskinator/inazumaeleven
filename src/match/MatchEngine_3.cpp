@@ -7,8 +7,8 @@ extern "C" void func_02080c64(void);
 extern "C" void gEntryPool(void);
 
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207add4Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207ae40Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207ae40Eim(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02082d5cEi(void);     // (for the asm functions)
 int MatchEngine::func_02082d5c(int id)
 {
@@ -174,7 +174,7 @@ asm void MatchEngine::func_02082f3c()
     ldrh r2, [r5, #0x42]
     mov r0, r4
     mov r1, r10
-    bl _ZN11MatchEngine13func_0207ae40Ei
+    bl _ZN11MatchEngine13func_0207ae40Eim
     cmp r0, #0
     beq @L_02083020
 @L_02082fe0:
@@ -183,7 +183,7 @@ asm void MatchEngine::func_02082f3c()
     ldrh r2, [r5, #0x42]
     mov r0, r4
     mov r1, r10
-    bl _ZN11MatchEngine13func_0207add4Ei
+    bl _ZN11MatchEngine13func_0207add4Eim
     cmp r0, #0
     beq @L_02083020
 @L_02083000:
@@ -192,7 +192,7 @@ asm void MatchEngine::func_02082f3c()
     ldrh r2, [r5, #0x42]
     mov r0, r4
     mov r1, #2
-    bl _ZN11MatchEngine13func_0207ae40Ei
+    bl _ZN11MatchEngine13func_0207ae40Eim
     cmp r0, #0
     bne @L_02083030
 @L_02083020:

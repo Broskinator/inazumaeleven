@@ -10939,46 +10939,26 @@ BOOL MatchEngine::func_0206c148()
     return (unk_11898 & 2) == 0;
 }
 
-asm void *MatchEngine::func_0206c180(int kind, int i)
+void *MatchEngine::func_0206c180(int kind, int i)
 {
-    cmp r1, #0xa
-    addls pc, pc, r1, lsl #2
-    b @L_0206c1f0
-    b @L_0206c1f0
-    b @L_0206c1f0
-    b @L_0206c1f0
-    b @L_0206c1b8
-    b @L_0206c1c0
-    b @L_0206c1d0
-    b @L_0206c1c8
-    b @L_0206c1d0
-    b @L_0206c1d8
-    b @L_0206c1e0
-    b @L_0206c1e8
-@L_0206c1b8:
-    add r0, r0, #4
-    bx lr
-@L_0206c1c0:
-    add r0, r0, #0x14
-    bx lr
-@L_0206c1c8:
-    add r0, r0, #0x54
-    bx lr
-@L_0206c1d0:
-    add r0, r0, #0x44
-    bx lr
-@L_0206c1d8:
-    add r0, r0, #0x24
-    bx lr
-@L_0206c1e0:
-    add r0, r0, #0x34
-    bx lr
-@L_0206c1e8:
-    ldr r0, =data_020c4ebc
-    bx lr
-@L_0206c1f0:
-    mov r0, #0
-    bx lr
+    switch (kind) {
+    case 3:
+        return &unk_4[0];
+    case 4:
+        return &unk_4[1];
+    case 6:
+        return &unk_4[5];
+    case 5:
+    case 7:
+        return &unk_4[4];
+    case 8:
+        return &unk_4[2];
+    case 9:
+        return &unk_4[3];
+    case 10:
+        return data_020c4ebc;
+    }
+    return NULL;
 }
 
 void *MatchEngine::func_0206c1fc(int kind, int i)

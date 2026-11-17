@@ -21,3 +21,4 @@ MatchEngine::func_020765d4  src/match/MatchEngine_2.cpp  7 words: the ROM loads 
 MatchEngine::func_0206ccb8  src/match/MatchEngine.cpp  3 words: the ROM loads unk_46 before comparing the mode with 1 (both cases give it), the attempt only when it is 1
 MatchEngine::func_0206f500  src/match/MatchEngine_2.cpp  5 words: the pool and the id in r4/r5 swapped
 MatchEngine::func_0207070c  src/match/MatchEngine_2.cpp  15 words: the attempt jumps to the loop test first, the ROM enters the body directly (s16 counter)
+MatchEngine::func_0207add4  src/match/MatchEngine_2.cpp  15 words: the ROM enters the loop through its test (b), the attempt's loop is rotated (func_0207ae40 is the same)
