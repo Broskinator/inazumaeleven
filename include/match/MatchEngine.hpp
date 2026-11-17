@@ -251,7 +251,7 @@ public:
     void func_0206cad4();
     void func_0206cbbc();
     void func_0206cca4(u8 a, u8 b);
-    void func_0206ccb8();
+    int func_0206ccb8();
     void func_0206cd08();
     void func_0206cd78();
     void func_0206ce4c(u16 value);
@@ -347,8 +347,8 @@ public:
     void func_0206f278();
     void func_0206f354();
     void func_0206f430();
-    void func_0206f4ac();
-    void func_0206f500();
+    void func_0206f4ac(int index, s8 *data);
+    int func_0206f500(int id);
     void func_0206f550();
     void func_0206f600();
     void func_0206f6b0();
@@ -447,8 +447,8 @@ public:
     void func_02076318();
     BOOL func_0207635c();
     void func_02076370();
-    void func_02076424();
-    void func_02076460();
+    static s8 func_02076424(u8 *data);
+    static s8 func_02076460(u8 *data);
     static int func_0207649c(u8 *data);     // (on another struct)
     static int func_020764b4(u8 *data);     // (on another struct)
     static int func_020764cc(u8 *data);     // (on another struct)
@@ -542,13 +542,13 @@ public:
     BOOL func_02079024(int a);
     BOOL func_0207903c(MatchPlayer *player);
     void func_02079064();
-    u8 func_020790cc(int a);
-    u16 func_020790e8(MatchPlayerBody *body, int angle);
-    u16 func_02079114(int a);
+    u8 func_020790cc(MatchPlayerBody *body, fx32 x, fx32 y);
+    u16 func_020790e8(MatchPlayerBody *body, u16 dir);
+    u16 func_02079114(MatchPlayerBody *body, fx32 x, fx32 y);     // (the direction to (x, y), from the body's)
     void func_02079148();
-    int func_0207918c(int a);
+    u16 func_0207918c(MatchPlayer *player, fx32 x, fx32 y);
     int func_020791cc(int a, int b);
-    int func_0207922c(int a);
+    int func_0207922c(MatchPlayer *player, fx32 x, fx32 y);
     void func_0207924c();
     void func_020792cc();
     void func_0207934c();

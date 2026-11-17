@@ -111,7 +111,9 @@ struct MatchPlayer {
     u16 unk_ba;         // flags
     u8 unk_bc;
     u8 unk_bd;
-    u8 unk_be[0xC5 - 0xBE];
+    u8 unk_be[0xC0 - 0xBE];
+    u8 unk_c0;          // (unk_c1 is set)
+    s8 unk_c1[4];
     u8 unk_c5;
     u8 unk_c6[0xD0 - 0xC6];
     s16 unk_d0;

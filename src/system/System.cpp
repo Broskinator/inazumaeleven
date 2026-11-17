@@ -482,7 +482,7 @@ void System::func_020401bc()
     int i;
 
     MI_CpuFill8(&gGameState, 0, 0x128C);
-    gGameState.profile.unk_2D[0x1A] = 1;
+    gGameState.profile.unk_47[0] = 1;
     gGameState.profile.unk_2C = -1;
     data_020c4638.unk_0a = 0;
     data_020c4638.unk_00 = 0;

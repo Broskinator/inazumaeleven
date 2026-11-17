@@ -18,3 +18,6 @@ MatchEngine::func_020681d8  src/match/MatchEngine.cpp  9 words: a literal load m
 SoundManager::RestoreState  src/sound/SoundManager.cpp  9 words: r7 and r8 swapped (loop counter and index)
 Wireless::func_0203c9ec  src/wireless/Wireless.cpp  9 words: a branch inverted and a compare with 5 missing (control flow)
 MatchEngine::func_020765d4  src/match/MatchEngine_2.cpp  7 words: the ROM loads data_020ca78c's address again for the store (ldr r2, =data_020ca78c), the attempt keeps it in r3
+MatchEngine::func_0206ccb8  src/match/MatchEngine.cpp  3 words: the ROM loads unk_46 before comparing the mode with 1 (both cases give it), the attempt only when it is 1
+MatchEngine::func_0206f500  src/match/MatchEngine_2.cpp  5 words: the pool and the id in r4/r5 swapped
+MatchEngine::func_0207070c  src/match/MatchEngine_2.cpp  15 words: the attempt jumps to the loop test first, the ROM enters the body directly (s16 counter)

@@ -11759,7 +11759,30 @@ void MatchEngine::func_0206cca4(u8 a, u8 b)
     ((u8 *)&gGameState)[0x4F2] = b;
 }
 
-asm void MatchEngine::func_0206ccb8()
+// (nonmatching: the ROM loads unk_46 before comparing the mode with 1, the attempt only when it is 1; 3 words)
+#ifdef NONMATCHING
+int MatchEngine::func_0206ccb8()
+{
+    int level;
+
+    switch (gGameState.profile.unk_45) {
+    case 0:
+        level = func_0206b4b8(0) + gGameState.profile.unk_46;
+        break;
+    case 1:
+        level = gGameState.profile.unk_46;
+        break;
+    }
+    if (level <= 0) {
+        level = 1;
+    }
+    if (level > 99) {
+        level = 99;
+    }
+    return level;
+}
+#else
+asm int MatchEngine::func_0206ccb8()
 {
     stmdb sp!, {r4, lr}
     ldr r4, =gGameState
@@ -11783,6 +11806,7 @@ asm void MatchEngine::func_0206ccb8()
     movgt r0, #0x63
     ldmia sp!, {r4, pc}
 }
+#endif
 
 asm void MatchEngine::func_0206cd08()
 {

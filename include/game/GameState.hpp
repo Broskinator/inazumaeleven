@@ -32,7 +32,10 @@ union SaveProfile {
         u32 unk_24;
         u32 unk_28;
         s8 unk_2C;
-        u8 unk_2D[0x1D];
+        u8 unk_2D[0x45 - 0x2D];
+        u8 unk_45;              // (0: the level follows the team's)
+        s8 unk_46;              // (a level, see MatchEngine::func_0206ccb8)
+        u8 unk_47[0x4A - 0x47];
         u8 unk_4A;
         u8 unk_4B[0xC5];
     };
