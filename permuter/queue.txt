@@ -1,0 +1,20 @@
+# Functions whose C/C++ attempt is one small difference away from matching, for
+# tools/permuter_batch.sh. One per line:  FUNCTION  SOURCE  what differs
+# FUNCTION is Class::Name or a free function's name; the attempt is the #ifdef NONMATCHING
+# block of SOURCE. The batch removes a line when its function matches.
+# Words: how many words of the attempt differ from the ROM (tools/fncmp.py).
+MatchEngine::func_020747e4  src/match/MatchEngine_2.cpp  1 word: movhs r0, r4 where the ROM has movhs r0, #0 (the literal 0 kept in a register)
+MatchEngine::func_020658ec  src/match/MatchEngine.cpp  2 words: cmp r1, r0 where the ROM has cmp r0, r1 (comparison operands swapped, twice)
+MatchEngine::func_0207455c  src/match/MatchEngine_2.cpp  2 words: mov r0, #3 and cmp r2, #0 in the other order
+MatchEngine::func_02074584  src/match/MatchEngine_2.cpp  2 words: mov r0, #0xa and cmp r2, #0 in the other order
+SoundManager::func_0203bd04  src/sound/SoundManager.cpp  2 words: r8 where the ROM has sb (one register of two swapped)
+SoundManager::func_0203b664  src/sound/SoundManager.cpp  2 words: mov r0, r8 and ldr r1, [r4, #0x2d0] in the other order
+Wireless::func_0203d37c  src/wireless/Wireless.cpp  2 words: movne r5, r4 / mov r0, r5 where the ROM has movne r0, r4 / moveq r0, r5
+Main::func_0204069c  src/system/GameMain.cpp  3 words: the literal-pool load scheduled after the two moves instead of first
+SoundManager::SetFade  src/sound/SoundManager.cpp  4 words: r1 and r2 swapped between the two values stored
+MatchEngine::func_020632b4  src/match/MatchEngine.cpp  6 words: r3/ip and r1/r2 swapped between the two players' loads
+FileManager::LoadAsync  src/file/FileManager.cpp  7 words: heap (r9) and buffer (r11) registers swapped
+Wireless::func_0203d04c  src/wireless/Wireless.cpp  7 words: r8, lr and ip rotated among three halfword loads
+MatchEngine::func_020681d8  src/match/MatchEngine.cpp  9 words: a literal load moved, ldm r1, {r0, r1} where the ROM loads one word, r0/r4 swapped
+SoundManager::RestoreState  src/sound/SoundManager.cpp  9 words: r7 and r8 swapped (loop counter and index)
+Wireless::func_0203c9ec  src/wireless/Wireless.cpp  9 words: a branch inverted and a compare with 5 missing (control flow)

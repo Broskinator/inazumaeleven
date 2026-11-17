@@ -10,3 +10,5 @@ tools/bin/
 tools/mwccarm/
 objdiff.json
 __pycache__/
+permuter/work/
+permuter/batch.log
