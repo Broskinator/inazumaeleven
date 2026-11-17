@@ -1,0 +1,96 @@
+# Builds the ROM on every push and pull request and checks that it is the original (SHA-1).
+#
+# The ROM is not in the repository and is never uploaded by this workflow. The build needs it,
+# so it comes from the repository's encrypted secrets (Settings > Secrets and variables >
+# Actions), in one of two ways:
+#
+#   BASEROM_KEY   the passphrase of an encrypted copy of the ROM, baserom_yeep.nds.gpg, made with
+#                     gpg --symmetric --cipher-algo AES256 baserom_yeep.nds
+#                 and attached to a release of this (private) repository tagged "baserom".
+#                 With a BASEROM_URL secret as well, the encrypted copy is downloaded from that
+#                 address instead of the release.
+#   BASEROM_B64   the ROM itself in base64. GitHub limits a secret to 48 KB and this ROM is
+#                 256 MB, so this one cannot hold it: it is read first if it is ever set.
+#
+# With no secret (a fork, or a pull request from one) the build is skipped with a notice and the
+# checks that need no ROM still run. See CLAUDE.md, "Continuous integration".
+name: build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install the Python packages the tools use
+        run: pip install pyyaml pyelftools capstone
+
+      - name: Check the tools and the includes (no ROM needed)
+        run: |
+          python -m compileall -q tools
+          python tools/deps.py --check
+          if git ls-files | grep -Ei '\.(nds|sav)$|^baserom'; then
+            echo "::error::a ROM or a save file is committed"; exit 1
+          fi
+
+      - name: Get the ROM from the secrets
+        id: rom
+        env:
+          BASEROM_B64: ${{ secrets.BASEROM_B64 }}
+          BASEROM_KEY: ${{ secrets.BASEROM_KEY }}
+          BASEROM_URL: ${{ secrets.BASEROM_URL }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$BASEROM_B64" ]; then
+            printf '%s' "$BASEROM_B64" | base64 -d > baserom_yeep.nds
+          elif [ -n "$BASEROM_KEY" ]; then
+            if [ -n "$BASEROM_URL" ]; then
+              curl -fsSL "$BASEROM_URL" -o baserom_yeep.nds.gpg
+            else
+              gh release download baserom -R "$GITHUB_REPOSITORY" -p baserom_yeep.nds.gpg
+            fi
+            printf '%s' "$BASEROM_KEY" | gpg --batch --quiet --pinentry-mode loopback \
+              --passphrase-fd 0 --output baserom_yeep.nds --decrypt baserom_yeep.nds.gpg
+            rm -f baserom_yeep.nds.gpg
+          else
+            echo "::notice title=ROM check skipped::No BASEROM_KEY (or BASEROM_B64) secret is set, so the ROM was not built and not compared. Add the secret to turn the check on: see CLAUDE.md, Continuous integration."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "d55169c0b93d26b4037379d3b81a61b5404945e5  baserom_yeep.nds" | sha1sum -c --quiet \
+            || { echo "::error::the file from the secrets is not the expected ROM"; exit 1; }
+          echo "found=true" >> "$GITHUB_OUTPUT"
+
+      - name: Download the build tools
+        if: steps.rom.outputs.found == 'true'
+        run: sh tools/setup.sh
+
+      - name: Build the ROM and compare it with the original
+        if: steps.rom.outputs.found == 'true'
+        run: make -j"$(nproc)"
+
+      - name: Progress
+        if: steps.rom.outputs.found == 'true'
+        run: |
+          make progress | tee progress.txt
+          { echo '```'; tail -n 12 progress.txt; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Remove the ROM
+        if: always()
+        run: rm -f baserom_yeep.nds baserom_yeep.nds.gpg build/*.nds
