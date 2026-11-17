@@ -17,3 +17,4 @@ Wireless::func_0203d04c  src/wireless/Wireless.cpp  7 words: r8, lr and ip rotat
 MatchEngine::func_020681d8  src/match/MatchEngine.cpp  9 words: a literal load moved, ldm r1, {r0, r1} where the ROM loads one word, r0/r4 swapped
 SoundManager::RestoreState  src/sound/SoundManager.cpp  9 words: r7 and r8 swapped (loop counter and index)
 Wireless::func_0203c9ec  src/wireless/Wireless.cpp  9 words: a branch inverted and a compare with 5 missing (control flow)
+MatchEngine::func_020765d4  src/match/MatchEngine_2.cpp  7 words: the ROM loads data_020ca78c's address again for the store (ldr r2, =data_020ca78c), the attempt keeps it in r3

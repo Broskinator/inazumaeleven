@@ -92,8 +92,8 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
-extern "C" void _ZN11MatchEngine13func_0206f70cEv(void);
-extern "C" s32 _ZN11MatchEngine13func_0206f750Ev(...);
+extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);
+extern "C" s32 _ZN11MatchEngine13func_0206f750Et(...);
 extern "C" void _ZN11MatchEngine13func_02076808Eh(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
@@ -1872,7 +1872,7 @@ extern "C" asm void func_ov029_021674b4(void)
     mov r0, r11
     mov r2, r2, lsl #1
     strh r1, [r9, r2]
-    bl _ZN11MatchEngine13func_0206f70cEv
+    bl _ZN11MatchEngine13func_0206f70cEt
     ldr r2, [r4, #0x8d0]
     ldr r1, [r4, #0x8d4]
     str r0, [r2, r1, lsl #2]
@@ -1932,7 +1932,7 @@ extern "C" asm void func_ov029_021674b4(void)
     mov r0, r11
     mov r2, r2, lsl #1
     strh r1, [r8, r2]
-    bl _ZN11MatchEngine13func_0206f70cEv
+    bl _ZN11MatchEngine13func_0206f70cEt
     ldr r2, [r4, #0x8d0]
     ldr r1, [r4, #0x8d4]
     str r0, [r2, r1, lsl #2]
@@ -3303,7 +3303,7 @@ extern "C" s32 func_ov029_02168bb8(s32 arg0, u16 arg1, s32 arg2)
             r12 = (u8 *)*(s32 *)(r4 + 0x88D0);
             do {
                 if (r1 == *(s32 *)(r12 + (r3 << 2))) {
-                    v1 = _ZN11MatchEngine13func_0206f750Ev((s32)((u8 *)&data_020e88a0), r1, r2, r3);
+                    v1 = _ZN11MatchEngine13func_0206f750Et((s32)((u8 *)&data_020e88a0), r1, r2, r3);
                     r1 = v1;
                     break;
                 }

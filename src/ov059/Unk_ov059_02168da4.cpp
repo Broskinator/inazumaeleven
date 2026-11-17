@@ -69,9 +69,9 @@ extern "C" void _ZN12SoundManager13func_0203bc60Eii(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN11MatchEngine13func_0206de44Ev(void);
-extern "C" void _ZN11MatchEngine13func_0206e174Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206e174EiPhi(void);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
-extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020765d4Eii(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN11MatchEngine13func_02077064Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
@@ -219,7 +219,7 @@ extern "C" asm s32 func_ov059_02168e08(...)
     beq @L_02168ea4
     mov r0, r8
     mov r2, r7
-    bl _ZN11MatchEngine13func_020765d4Ev
+    bl _ZN11MatchEngine13func_020765d4Eii
     add r5, r5, #1
 @L_02168e9c:
     cmp r5, #3
@@ -1617,7 +1617,7 @@ extern "C" asm void func_ov059_0216a38c(void)
     mov r3, r8
     mov r1, r6
     mov r2, r7
-    bl _ZN11MatchEngine13func_0206e174Ev
+    bl _ZN11MatchEngine13func_0206e174EiPhi
     mov r1, r6
     b @L_0216a438
 @L_0216a42c:

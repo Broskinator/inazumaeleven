@@ -351,7 +351,7 @@ void _s32_div_f(void);
 void func_0209bb34(void);
 extern char data_020ca760[];
 void func_ov015_02131bb4(void);
-void _ZN11MatchEngine13func_020765d4Ev(void);
+void _ZN11MatchEngine13func_020765d4Eii(void);
 void func_0209d8b8(void);
 void _ZN11MatchEngine13func_0207f5d0Ev(void);
 void func_ov015_02130b94(void);
@@ -6323,7 +6323,7 @@ asm void func_01ffcb50(void)
     beq @L_01ffd56c
     mov r0, r10
     mov r2, #0x20
-    bl _ZN11MatchEngine13func_020765d4Ev
+    bl _ZN11MatchEngine13func_020765d4Eii
 @L_01ffd56c:
     ldr r0, [sp, #0x2c]
     mov r4, #1

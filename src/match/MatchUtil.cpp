@@ -1,6 +1,7 @@
 #include "match/MatchUtil.hpp"
 #include "match/Match.hpp"
 #include "nitro/mi.h"
+#include "game/GameState.hpp"
 
 extern "C" u16 data_020ca760[];     // (per team)
 
@@ -65,7 +66,6 @@ extern "C" s32 _ZN11MatchEngine13func_0207c1b0Ev(...);
 extern "C" s32 func_0209bf9c(...);
 extern "C" s32 func_ov015_02130b14(...);
 extern "C" s32 func_ov015_021319fc(...);
-extern "C" char gGameState[];
 
 extern "C" int func_020802a0(MatchPlayer *player)
 {
@@ -464,7 +464,7 @@ extern "C" s32 func_0208084c(s32 arg0, s32 arg1, s32 arg2)
             return 0;
         } else {
             r4 = *(u16 *)(((u8 *)(arg0 + ((arg2 + (arg1 << 1)) << 1))) + 0x7C);
-            if ((*(u8 *)(((u8 *)&gGameState) + 0x1B) == 0 && (r4 = (r4 & 0xFFF), r4 != 0))) {
+            if ((gGameState.unk_000[0x1B] == 0 && (r4 = (r4 & 0xFFF), r4 != 0))) {
                 v0 = func_02080b90((MatchPlayer *)arg0);
                 if (v0 == 1) {
                     r4 = (r4 | 0x8000);
@@ -688,26 +688,23 @@ extern "C" u8 func_02080b90(MatchPlayer *player)
     return player->unk_b6;
 }
 
-extern "C" asm s32 func_02080b98(...)
+extern "C" s32 func_02080b98(MatchPlayer *player)
 {
-    ldr r1, =gGameState
-    ldrh r2, [r0, #0x42]
-    ldrb r1, [r1, #0x1b]
-    mov r0, #0
-    cmp r1, #0
-    bxeq lr
-    tst r2, #0x1000
-    movne r0, #1
-    bxne lr
-    tst r2, #0x2000
-    movne r0, #2
-    bxne lr
-    tst r2, #0x4000
-    movne r0, #3
-    bxne lr
-    tst r2, #0x8000
-    movne r0, #4
-    bx lr
+    u16 flags = player->unk_42;
+    s32 r = 0;
+
+    if (gGameState.unk_000[0x1B] != 0) {
+        if (flags & 0x1000) {
+            r = 1;
+        } else if (flags & 0x2000) {
+            r = 2;
+        } else if (flags & 0x4000) {
+            r = 3;
+        } else if (flags & 0x8000) {
+            r = 4;
+        }
+    }
+    return r;
 }
 
 #pragma push
@@ -725,7 +722,7 @@ extern "C" s32 func_02080be4(s32 arg0)
     s32 v2;
     s32 v3;
     v0 = func_0209bf9c((u8 *)((u8 *)&gWirelessUtil));
-    v1 = func_02080b98(arg0);
+    v1 = func_02080b98((MatchPlayer *)arg0);
     if ((u32)v1 >= (u32)4)
         return v1;
     r5 = v0;
@@ -1434,21 +1431,16 @@ extern "C" void func_020816dc(u8 *bits, int i)
     }
 }
 
-extern "C" asm void func_0208170c(void)
+extern "C" BOOL func_0208170c(u8 *bits, int i)
 {
-    cmp r1, #0
-    and r2, r1, #7
-    mov r3, #1
-    blt @L_02081724
-    cmp r1, #0x960
-    bls @L_0208172c
-@L_02081724:
-    mov r0, #0
-    bx lr
-@L_0208172c:
-    ldrb r0, [r0, r1, asr #3]
-    tst r0, r3, lsl r2
-    moveq r3, #0
-    mov r0, r3
-    bx lr
+    int bit = i & 7;
+    BOOL r = TRUE;
+
+    if (i < 0 || (u32)i > 2400) {
+        return FALSE;
+    }
+    if (!(bits[i >> 3] & (1 << bit))) {
+        r = FALSE;
+    }
+    return r;
 }

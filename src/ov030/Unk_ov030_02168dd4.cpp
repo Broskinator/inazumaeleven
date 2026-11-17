@@ -27,7 +27,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" s32 _ZN13ScreenManager17GetLoadedSceneSubEv(...);
-extern "C" void _ZN11MatchEngine13func_0206f750Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206f750Et(void);
 extern "C" s32 _ZN11MatchEngine13func_02078aacEv(...);
 extern "C" void _ZN11MatchEngine13func_0207d830Ev(void);
 extern "C" s32 _ZdlPv(...);
@@ -182,7 +182,7 @@ extern "C" asm s32 func_ov030_02168ed4(...)
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
     add r11, r7, #0x10
-    bl _ZN11MatchEngine13func_0206f750Ev
+    bl _ZN11MatchEngine13func_0206f750Et
     mov r8, r0
     ldr r0, [r9, #0x1c]
     cmp r0, #5

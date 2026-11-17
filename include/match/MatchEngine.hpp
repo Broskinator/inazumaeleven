@@ -176,7 +176,7 @@ public:
     s32 func_0206b1c4(int i);
     s32 func_0206b1d0(int i);
     void func_0206b1dc();
-    void func_0206b274();
+    BOOL func_0206b274(int team, int value);
     void func_0206b2c8();
     void func_0206b308();
     u8 *func_0206b390(int side);
@@ -304,12 +304,12 @@ public:
     BOOL func_0206df34();
     int func_0206df44();
     void func_0206df58(int i, u8 value);
-    void func_0206df68();
+    u8 func_0206df68(int team);
     void func_0206df9c(s32 value);
     void func_0206dfa4();
     void func_0206e018();
     void func_0206e100();
-    void func_0206e174();
+    BOOL func_0206e174(int team, u8 *out, int n);
     u8 func_0206e1c4(int i);
     void func_0206e1d4(int i, u8 value);
     void func_0206e1e4(u8 value);
@@ -352,12 +352,12 @@ public:
     void func_0206f550();
     void func_0206f600();
     void func_0206f6b0();
-    void func_0206f70c();
-    void func_0206f750();
+    u16 func_0206f70c(u16 id);
+    u16 func_0206f750(u16 id);
     void func_0206f7a4();
     void func_0206f824();
     void func_0206f8c8();
-    void func_0206f98c();
+    u16 func_0206f98c(u16 id);
     void func_0206f9e0();
     BOOL func_0206faa0(int index);
     void func_0206facc();
@@ -427,7 +427,7 @@ public:
     BOOL func_020747e4(int index, u32 value);
     void func_02074820();
     void func_020748fc();
-    void func_020749c8();
+    static u16 func_020749c8(s16 *values, BOOL reduce, int percent);
     void func_02074a18();
     int func_02074aac();
     int func_02074abc();
@@ -453,7 +453,7 @@ public:
     static int func_020764b4(u8 *data);     // (on another struct)
     static int func_020764cc(u8 *data);     // (on another struct)
     static int func_020764e4(u8 *data);     // (on another struct)
-    void func_020765d4();
+    int func_020765d4(int i, int n);     // (adds n to item i's count, at most 99: 0, or 13/27 on error)
     void func_02076620();
     void func_020766e8();
     u8 func_020767a4(u32 i);
@@ -518,10 +518,10 @@ public:
     int func_02078450();
     int func_02078474();
     void func_02078498();
-    void func_020784b8(int a);
-    void func_020784ec();
-    void func_02078520();
-    void func_02078560();
+    void func_020784b8(int team);
+    BOOL func_020784ec(MatchPlayer *player, fx32 x, fx32 y);
+    MatchPoint *func_02078520(int team, u8 *data);
+    MatchPoint *func_02078560(int team, u8 *data);
     void func_020785a0();
     void func_02078664();
     MatchPlayerInfo *func_020787e8(MatchPlayer *player);
@@ -565,7 +565,7 @@ public:
     int func_02079d1c(int a);
     MatchPlayer *func_02079d2c(int index);
     void func_02079d3c();
-    void func_02079d9c();
+    int func_02079d9c(MatchPlayer *player);
     void func_02079dd8();
     MatchPlayer *func_02079e90(int team, int i);
     void func_02079ea0();
@@ -703,7 +703,7 @@ public:
     u8 unk_4[0x74 - 0x4];
     u8 unk_74[5][8];
     u8 unk_9c[2][8];
-    u8 unk_ac[0x15C - 0xAC];
+    MatchPoint unk_ac[22];     // (per player)
     u8 unk_15c[2][0x10];
     u8 unk_17c[2][0x40];
     u8 unk_1fc[0x20C - 0x1FC];
@@ -742,7 +742,7 @@ public:
     void *unk_bd4;      // (on the heap)
     s32 unk_bd8;
     void *unk_bdc;      // (on the heap)
-    s32 unk_be0;
+    u16 (*unk_be0)[2];     // (unk_c24 pairs: [1] looked up, [0] returned)
     u8 (*unk_be4)[0xC];
     s8 *unk_be8;
     s32 unk_bec[2];
@@ -750,10 +750,11 @@ public:
     s32 unk_bf8[2];
     void *unk_c00;      // (on the heap)
     void *unk_c04;      // (on the heap)
-    u8 unk_c08[8];
+    s32 unk_c08[2];
     s32 unk_c10[2];
     s32 unk_c18[2];
-    u8 unk_c20[8];
+    u8 unk_c20[4];
+    s32 unk_c24;        // (how many pairs unk_be0 has)
     s32 unk_c28;
     s32 unk_c2c;
     u8 unk_c30[0xC70 - 0xC30];
@@ -768,7 +769,9 @@ public:
     u8 unk_117ba[0x117D4 - 0x117BA];
     u8 unk_117d4;
     u8 unk_117d5;
-    u8 unk_117d6[0x117E4 - 0x117D6];
+    u8 unk_117d6[0x117DA - 0x117D6];
+    u8 unk_117da[2];     // (per team)
+    u8 unk_117dc[0x117E4 - 0x117DC];
     s32 unk_117e4[2];
     u8 unk_117ec[0x117FC - 0x117EC];
     u16 unk_117fc;
@@ -790,7 +793,9 @@ public:
     s32 unk_118ac;
     s32 unk_118b0;
     s32 unk_118b4;
-    u8 unk_118b8[0x118DD - 0x118B8];
+    u8 unk_118b8[0x118CA - 0x118B8];
+    u8 unk_118ca[2][6];     // (per team)
+    u8 unk_118d6[0x118DD - 0x118D6];
     u8 unk_118dd;
     u8 unk_118de;
     u8 unk_118df[0x118F4 - 0x118DF];

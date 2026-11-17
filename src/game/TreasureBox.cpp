@@ -6,7 +6,7 @@
 extern "C" void func_0208e508(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020765d4Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020767a4Em(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020767ccEl(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020768a8El(void);     // (for the asm functions)
@@ -2233,7 +2233,7 @@ asm void TreasureBox::func_02053bbc()
     streqh r11, [sp, #0x1a]
     ldrh r2, [sp, #0x1a]
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_020765d4Ev
+    bl _ZN11MatchEngine13func_020765d4Eii
     cmp r0, #0
     bne @L_02053ddc
     ldrb r0, [r5, #0x21]

@@ -82,7 +82,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" void _ZN11MatchEngine13func_0206f70cEv(void);
+extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);
 extern "C" void _ZN11MatchEngine13func_02076818Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
@@ -1132,7 +1132,7 @@ extern "C" asm s32 func_ov028_02166c48(...)
     mov r0, r11
     mov r2, r2, lsl #1
     strh r1, [r9, r2]
-    bl _ZN11MatchEngine13func_0206f70cEv
+    bl _ZN11MatchEngine13func_0206f70cEt
     ldr r2, [r4, #0x128]
     ldr r1, [r4, #0x12c]
     str r0, [r2, r1, lsl #2]
@@ -1189,7 +1189,7 @@ extern "C" asm s32 func_ov028_02166c48(...)
     ldr r0, =data_020e88a0
     mov r2, r2, lsl #1
     strh r1, [r9, r2]
-    bl _ZN11MatchEngine13func_0206f70cEv
+    bl _ZN11MatchEngine13func_0206f70cEt
     ldr r2, [r4, #0x128]
     ldr r1, [r4, #0x12c]
     str r0, [r2, r1, lsl #2]

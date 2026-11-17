@@ -129,9 +129,9 @@ extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206e1e4Eh(void);
 extern "C" void _ZN11MatchEngine13func_0206f9e0Ev(void);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
-extern "C" void _ZN11MatchEngine13func_020749c8Ev(void);
+extern "C" void _ZN11MatchEngine13func_020749c8EPsii(void);
 extern "C" void _ZN11MatchEngine13func_02074a18Ev(void);
-extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020765d4Eii(void);
 extern "C" void _ZN11MatchEngine13func_020766e8Ev(void);
 extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
@@ -1310,7 +1310,7 @@ extern "C" asm void func_ov015_02156fcc(void)
     beq @L_021570f4
     mov r1, #0
     mov r2, #0x64
-    bl _ZN11MatchEngine13func_020749c8Ev
+    bl _ZN11MatchEngine13func_020749c8EPsii
 @L_021570e8:
     mov r0, r0, lsl #0x10
     mov r8, r0, asr #0x10
@@ -2163,7 +2163,7 @@ extern "C" s32 func_ov015_02157e54(u8 *arg0, u8 *arg1, s32 *arg2)
     if (((s32 *)a)[1] == 0)
         ((s32 *)a)[1] = k;
     {
-        s32 r = ((s32 (*)(void *, s32, s32))_ZN11MatchEngine13func_020765d4Ev)(data_020e88a0, ((s32 *)a)[0], ((s32 *)a)[1]);
+        s32 r = ((s32 (*)(void *, s32, s32))_ZN11MatchEngine13func_020765d4Eii)(data_020e88a0, ((s32 *)a)[0], ((s32 *)a)[1]);
         if (arg2 != 0)
             *arg2 = r;
     }

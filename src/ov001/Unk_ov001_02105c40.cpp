@@ -100,8 +100,8 @@ extern "C" s32 _ZN11MatchEngine13func_0206bfb4Ei(...);
 extern "C" void _ZN11MatchEngine13func_0206c8c8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206c9b0Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206d9a0Ev(void);
-extern "C" void _ZN11MatchEngine13func_0206df68Ev(void);
-extern "C" void _ZN11MatchEngine13func_02079d9cEv(void);
+extern "C" void _ZN11MatchEngine13func_0206df68Ei(void);
+extern "C" void _ZN11MatchEngine13func_02079d9cEP11MatchPlayer(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void GX_LoadBG1Scr(void);
 extern "C" void GX_LoadBG2Scr(void);
@@ -1952,7 +1952,7 @@ extern "C" asm void func_ov001_02107660(void)
     ldr r4, =data_020e88a0
     mov r1, r6
     mov r0, r4
-    bl _ZN11MatchEngine13func_02079d9cEv
+    bl _ZN11MatchEngine13func_02079d9cEP11MatchPlayer
     cmp r5, #0
     beq @L_02107788
     ldr r0, =gGameState
@@ -2565,7 +2565,7 @@ extern "C" asm void func_ov001_02107ec4(void)
     mov r0, r7
     mov r1, r6
     ldr r8, [r5, #0x60c]
-    bl _ZN11MatchEngine13func_0206df68Ev
+    bl _ZN11MatchEngine13func_0206df68Ei
     cmp r0, #0
     beq @L_02108060
     mov r0, r7
@@ -2591,7 +2591,7 @@ extern "C" asm void func_ov001_02107ec4(void)
     ldr r6, =data_020e88a0
     mov r1, r4
     mov r0, r6
-    bl _ZN11MatchEngine13func_0206df68Ev
+    bl _ZN11MatchEngine13func_0206df68Ei
     cmp r0, #0
     beq @L_021080c4
     mov r0, r6
@@ -3147,7 +3147,7 @@ extern "C" asm void func_ov001_02108358(void)
 @L_021088c8:
     ldr r0, =data_020e88a0
     mov r1, r9
-    bl _ZN11MatchEngine13func_0206df68Ev
+    bl _ZN11MatchEngine13func_0206df68Ei
     cmp r0, #0
     beq @L_021088f0
     ldr r0, [r10, #0x618]
@@ -3159,7 +3159,7 @@ extern "C" asm void func_ov001_02108358(void)
     mov r5, #1
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN11MatchEngine13func_0206df68Ev
+    bl _ZN11MatchEngine13func_0206df68Ei
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r0, [r10, #0x624]

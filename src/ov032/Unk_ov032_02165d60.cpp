@@ -78,7 +78,7 @@ extern "C" void _ZN12SoundManager13func_0203a7e4Ei(void);
 extern "C" void _ZN12SoundManager13func_0203ba78EiPKc(void);
 extern "C" s32 _ZN12SoundManager8LoadPairEiPKcS1_(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020765d4Eii(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN11MatchEngine13func_02077064Ev(void);
 extern "C" void func_01ffca10(void);
@@ -3267,7 +3267,7 @@ extern "C" asm s32 func_ov032_02168974(...)
     mov r0, r4
     mov r1, r7
     mov r2, r5
-    bl _ZN11MatchEngine13func_020765d4Ev
+    bl _ZN11MatchEngine13func_020765d4Eii
     b @L_02168cc0
 @L_02168c8c:
     ldr r0, =data_020cb0d6

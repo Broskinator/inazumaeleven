@@ -94,7 +94,7 @@ extern "C" void _ZN11MatchEngine13func_020725acEv(void);
 extern "C" void _ZN11MatchEngine13func_02074424Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);
 extern "C" void _ZN11MatchEngine13func_02079d2cEi(void);
-extern "C" void _ZN11MatchEngine13func_02079d9cEv(void);
+extern "C" void _ZN11MatchEngine13func_02079d9cEP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02079dd8Ev(void);
 extern "C" s32 GX_LoadBG1Char(...);
 extern "C" void func_0208f308(void);
@@ -2489,7 +2489,7 @@ extern "C" asm void func_ov001_0210e484(void)
     beq @L_0210e900
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN11MatchEngine13func_02079d9cEv
+    bl _ZN11MatchEngine13func_02079d9cEP11MatchPlayer
     cmp r0, #0
     blt @L_0210e900
     ldr r1, [sp, #8]
@@ -2618,7 +2618,7 @@ extern "C" asm void func_ov001_0210e484(void)
     beq @L_0210eb00
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN11MatchEngine13func_02079d9cEv
+    bl _ZN11MatchEngine13func_02079d9cEP11MatchPlayer
     movs r10, r0
     bmi @L_0210eb00
     mov r0, r7
@@ -2659,7 +2659,7 @@ extern "C" asm void func_ov001_0210e484(void)
     beq @L_0210eba0
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN11MatchEngine13func_02079d9cEv
+    bl _ZN11MatchEngine13func_02079d9cEP11MatchPlayer
     movs r10, r0
     bmi @L_0210eba0
     mov r0, r7

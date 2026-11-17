@@ -89,7 +89,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" s32 _ZN11MatchEngine13func_0206e5e4Ev(...);
-extern "C" s32 _ZN11MatchEngine13func_0206f70cEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0206f70cEt(...);
 extern "C" void GX_LoadBG1Char(void);
 extern "C" void func_02017278(void);
 extern "C" void C3DPlaneCtrl_Create(void);
@@ -2069,7 +2069,7 @@ extern "C" s32 func_ov046_02167a44(s32 arg0, s32 arg1)
     s32 v0;
     s32 v1;
     s32 t0;
-    v0 = _ZN11MatchEngine13func_0206f70cEv((s32)((u8 *)&data_020e88a0), ((u16)arg1));
+    v0 = _ZN11MatchEngine13func_0206f70cEt((s32)((u8 *)&data_020e88a0), ((u16)arg1));
     r4 = arg1;
     r5 = (u8 *)arg0;
     arg0 = v0;
@@ -2087,7 +2087,7 @@ extern "C" s32 func_ov046_02167aac(s32 arg0, s32 arg1)
     s32 r5;
     s32 v0;
     s32 v1;
-    v0 = _ZN11MatchEngine13func_0206f70cEv((s32)((u8 *)&data_020e88a0), arg1);
+    v0 = _ZN11MatchEngine13func_0206f70cEt((s32)((u8 *)&data_020e88a0), arg1);
     r5 = arg0;
     arg0 = v0;
     r4 = arg1;

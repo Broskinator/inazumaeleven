@@ -114,13 +114,13 @@ extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" s32 _ZN11MatchEngine13func_0206d6a4Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206d6b4Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206de44Ev(void);
-extern "C" void _ZN11MatchEngine13func_0206e174Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206e174EiPhi(void);
 extern "C" void _ZN11MatchEngine13func_0206e330Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206e3a8Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206e6bcEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206e738Ev(...);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
-extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020765d4Eii(void);
 extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
@@ -791,7 +791,7 @@ extern "C" asm void func_ov059_02166414(void)
     mov r3, r9
     mov r1, r6
     mov r2, r7
-    bl _ZN11MatchEngine13func_0206e174Ev
+    bl _ZN11MatchEngine13func_0206e174EiPhi
     mov r1, r6
 @L_021665b8:
     ldrb r0, [r7, r1]
@@ -1599,7 +1599,7 @@ extern "C" asm s32 func_ov059_02167084(...)
     beq @L_02167170
     mov r0, r7
     mov r2, r6
-    bl _ZN11MatchEngine13func_020765d4Ev
+    bl _ZN11MatchEngine13func_020765d4Eii
     add r8, r8, #1
 @L_02167168:
     cmp r8, #3
