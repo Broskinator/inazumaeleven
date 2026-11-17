@@ -2,8 +2,8 @@
 
 void wctomb(void);
 void wcstombs(void);
-void func_02018328(void);
-void func_02018348(void);
+void memcpy(void);
+void memmove(void);
 void memset(void);
 
 extern char data_020ab128[];
@@ -56,7 +56,7 @@ asm void wcstombs(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02018328(void)
+asm void memcpy(void)
 {
     mov r12, r0
     cmp r2, #0
@@ -69,7 +69,7 @@ asm void func_02018328(void)
     bx lr
 }
 
-asm void func_02018348(void)
+asm void memmove(void)
 {
     cmp r1, r0
     blo @L_02018370

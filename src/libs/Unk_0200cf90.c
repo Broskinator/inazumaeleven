@@ -1,72 +1,72 @@
 // (asm for now)
 
-void func_0200cf90(void);
+void FS_UnloadOverlayImage(void);
 void FS_LoadOverlay(void);
 void FS_UnloadOverlay(void);
-void func_0200d040(void);
-void func_0200d0a0(void);
-void func_0200d0cc(void);
-void func_0200d168(void);
-void func_0200d294(void);
-void func_0200d4a8(void);
-void func_0200d824(void);
-void func_0200d8ac(void);
-void func_0200d8d0(void);
-void func_0200d900(void);
+void FSi_ReadTable(void);
+void FSi_SeekDirDirect(void);
+void FSi_SeekDirDefault(void);
+void FSi_ReadDirDefault(void);
+void FSi_FindPathDefault(void);
+void FSi_GetPathDefault(void);
+void FSi_OpenFileFastDefault(void);
+void FSi_OpenFileDirectDefault(void);
+void FSi_ReadFileDefault(void);
+void FSi_WriteFileDefault(void);
 void func_0200d930(void);
-void func_0200d938(void);
-void func_0200da08(void);
-void func_0200da4c(void);
-void func_0200da90(void);
-void func_0200dae8(void);
-void func_0200dc10(void);
-void func_0200dc9c(void);
-void func_0200dce0(void);
-void func_0200dd28(void);
-void func_0200dd7c(void);
-void func_0200ddac(void);
-void func_0200dde0(void);
-void func_0200de14(void);
-void func_0200de48(void);
-void func_0200de7c(void);
-void func_0200decc(void);
-void func_0200df38(void);
-void func_0200df54(void);
-void func_0200df70(void);
+void FSi_TranslateCommand(void);
+void FSi_ROMFAT_ReadFile(void);
+void FSi_ROMFAT_WriteFile(void);
+void FSi_ROMFAT_SeekDirectory(void);
+void FSi_ROMFAT_ReadDirectory(void);
+void FSi_ROMFAT_FindPath(void);
+void FSi_ROMFAT_GetPath(void);
+void FSi_ROMFAT_OpenFileFast(void);
+void FSi_ROMFAT_OpenFileDirect(void);
+void FSi_ROMFAT_CloseFile(void);
+void FSi_ROMFAT_Activate(void);
+void FSi_ROMFAT_Idle(void);
+void FSi_ROMFAT_Suspend(void);
+void FSi_ROMFAT_Resume(void);
+void FSi_ROMFAT_OpenFile(void);
+void FSi_ROMFAT_SeekFile(void);
+void FSi_ROMFAT_GetFileLength(void);
+void FSi_ROMFAT_GetFilePosition(void);
+void FSi_ROMFAT_Unmount(void);
 void func_0200dfa0(void);
-void func_0200dfac(void);
-void func_0200e004(void);
-void func_0200e01c(void);
-void func_0200e148(void);
-void func_0200e198(void);
-void func_0200e1c0(void);
-void func_0200e1ec(void);
-void func_0200e258(void);
-void func_0200e264(void);
-void func_0200e2a4(void);
+void FSi_ROMFAT_OpenDirectory(void);
+void FSi_ROMFAT_CloseDirectory(void);
+void FSi_ROMFAT_GetPathInfo(void);
+void FSi_ROMFAT_GetArchiveResource(void);
+void FSi_ReadMemCallback(void);
+void FSi_WriteMemCallback(void);
+void FS_LoadArchive(void);
+void FS_UnloadArchive(void);
+void FSi_GetFileLengthIfProc(void);
+void FSi_GetFilePositionIfProc(void);
 
 void FS_EndOverlay(void);
-void func_0200ca8c(void);
-void func_0200cc70(void);
-void func_0200cdb0(void);
+void FS_LoadOverlayInfo(void);
+void FS_LoadOverlayImage(void);
+void FS_StartOverlay(void);
 void MI_CpuCopy8(void);
-void func_0200b37c(void);
-void func_0200c50c(void);
+void FSi_WaitForArchiveCompletion(void);
+void FSi_IncrementSjisPositionToSlash(void);
 void FS_InitFile(void);
-void func_0200c1b8(void);
+void FS_GetArchiveName(void);
 void STD_GetStringLength(void);
 extern char data_020aadc8[];
 extern char data_020a4294[];
-void func_0200e500(void);
-void func_0200e4e4(void);
+void FSi_IsUnreadableRomOffset(void);
+void FS_IsArchiveTableLoaded(void);
 void MI_CpuFill8(void);
 void CARD_GetOwnRomHeader(void);
-void func_0200e4d4(void);
-extern char data_020a42c8[];
-void func_0200c1c8(void);
-void func_0200c210(void);
+void FS_GetArchiveOffset(void);
+extern char FSiArchiveProcInterface[];
+void FS_MountArchive(void);
+void FS_UnmountArchive(void);
 
-asm void func_0200cf90(void)
+asm void FS_UnloadOverlayImage(void)
 {
     stmdb sp!, {r3, lr}
     bl FS_EndOverlay
@@ -84,15 +84,15 @@ asm void FS_LoadOverlay(void)
     mov r0, r4
     mov r1, r3
     mov r5, #0
-    bl func_0200ca8c
+    bl FS_LoadOverlayInfo
     cmp r0, #0
     beq @L_0200cfe8
     mov r0, r4
-    bl func_0200cc70
+    bl FS_LoadOverlayImage
     cmp r0, #0
     beq @L_0200cfe8
     mov r0, r4
-    bl func_0200cdb0
+    bl FS_StartOverlay
     mov r5, #1
 @L_0200cfe8:
     mov r0, r5
@@ -109,11 +109,11 @@ asm void FS_UnloadOverlay(void)
     mov r2, r1
     mov r0, r4
     mov r1, r3
-    bl func_0200ca8c
+    bl FS_LoadOverlayInfo
     cmp r0, #0
     beq @L_0200d034
     mov r0, r4
-    bl func_0200cf90
+    bl FS_UnloadOverlayImage
     cmp r0, #0
     addne sp, sp, #0x2c
     movne r0, #1
@@ -124,7 +124,7 @@ asm void FS_UnloadOverlay(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_0200d040(void)
+asm void FSi_ReadTable(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
@@ -146,7 +146,7 @@ asm void func_0200d040(void)
     blx r12
     mov r1, r0
     ldr r0, [r5, #8]
-    bl func_0200b37c
+    bl FSi_WaitForArchiveCompletion
 @L_0200d090:
     ldr r1, [r4, #4]
     add r1, r1, r6
@@ -154,7 +154,7 @@ asm void func_0200d040(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200d0a0(void)
+asm void FSi_SeekDirDirect(void)
 {
     stmdb sp!, {r3, lr}
     ldr r12, [r0, #8]
@@ -165,11 +165,11 @@ asm void func_0200d0a0(void)
     str r12, [r0, #0x30]
     strh r3, [r0, #0x36]
     str r3, [r0, #0x38]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200d0cc(void)
+asm void FSi_SeekDirDefault(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #0x10
@@ -185,7 +185,7 @@ asm void func_0200d0cc(void)
     add r3, r3, r2, lsl #3
     mov r2, #8
     str r3, [sp, #4]
-    bl func_0200d040
+    bl FSi_ReadTable
     movs r3, r0
     bne @L_0200d158
     add r12, r6, #0x20
@@ -213,7 +213,7 @@ asm void func_0200d0cc(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200d168(void)
+asm void FSi_ReadDirDefault(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0xc
@@ -228,7 +228,7 @@ asm void func_0200d168(void)
     mov r0, r4
     mov r2, r7
     str r3, [sp, #8]
-    bl func_0200d040
+    bl FSi_ReadTable
     cmp r0, #0
     addne sp, sp, #0xc
     ldmneia sp!, {r4, r5, r6, r7, pc}
@@ -246,7 +246,7 @@ asm void func_0200d168(void)
     bne @L_0200d208
     mov r0, r4
     add r1, r5, #0x14
-    bl func_0200d040
+    bl FSi_ReadTable
     cmp r0, #0
     addne sp, sp, #0xc
     ldmneia sp!, {r4, r5, r6, r7, pc}
@@ -275,7 +275,7 @@ asm void func_0200d168(void)
     add r0, sp, #4
     add r1, sp, #2
     mov r2, #2
-    bl func_0200d040
+    bl FSi_ReadTable
     cmp r0, #0
     bne @L_0200d27c
     ldr r2, [r6, #8]
@@ -295,7 +295,7 @@ asm void func_0200d168(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-asm void func_0200d294(void)
+asm void FSi_FindPathDefault(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x98
@@ -307,14 +307,14 @@ asm void func_0200d294(void)
     str r3, [sp]
     mov r4, r2
     mov r6, #0
-    bl func_0200d938
+    bl FSi_TranslateCommand
     ldrsb r0, [r7]
     cmp r0, #0
     beq @L_0200d480
 @L_0200d2cc:
     mov r0, r7
     mov r1, r6
-    bl func_0200c50c
+    bl FSi_IncrementSjisPositionToSlash
     mov r9, r0
     ldrsb r0, [r7, r9]
     mov r8, #1
@@ -341,7 +341,7 @@ asm void func_0200d294(void)
     beq @L_0200d344
     ldr r1, [r10, #0x2c]
     mov r0, r10
-    bl func_0200d0a0
+    bl FSi_SeekDirDirect
 @L_0200d344:
     add r7, r7, #2
     b @L_0200d464
@@ -361,7 +361,7 @@ asm void func_0200d294(void)
     mov r0, r10
     mov r1, r11
     mov r2, r4
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     addne sp, sp, #0x98
     movne r0, #0xb
@@ -405,7 +405,7 @@ asm void func_0200d294(void)
     mov r1, #2
     mov r2, #1
     add r7, r7, r9
-    bl func_0200d938
+    bl FSi_TranslateCommand
     b @L_0200d464
 @L_0200d430:
     ldr r0, [sp]
@@ -442,7 +442,7 @@ asm void func_0200d294(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0200d4a8(void)
+asm void FSi_GetPathDefault(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xe0
@@ -471,7 +471,7 @@ asm void func_0200d4a8(void)
 @L_0200d508:
     mov r0, r8
     mov r1, r9
-    bl func_0200d0a0
+    bl FSi_SeekDirDirect
     add r2, sp, #0x4c
     str r2, [sp, #0x34]
     cmp r9, #0
@@ -480,7 +480,7 @@ asm void func_0200d4a8(void)
     mov r2, r7
     ldreq r10, [sp, #0x30]
     str r7, [sp, #0x38]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     bne @L_0200d570
 @L_0200d540:
@@ -493,7 +493,7 @@ asm void func_0200d4a8(void)
     mov r0, r8
     mov r1, r6
     mov r2, r7
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     beq @L_0200d540
 @L_0200d570:
@@ -513,12 +513,12 @@ asm void func_0200d4a8(void)
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r0, [sp]
     mov r9, r5
-    bl func_0200c1b8
+    bl FS_GetArchiveName
     bl STD_GetStringLength
     add r10, r0, #2
     add r0, sp, #4
     mov r1, r5
-    bl func_0200d0a0
+    bl FSi_SeekDirDirect
     cmp r4, #0x10000
     ldrne r0, [sp, #0x5c]
     add r8, sp, #4
@@ -528,14 +528,14 @@ asm void func_0200d4a8(void)
 @L_0200d5dc:
     ldr r1, [sp, #0x30]
     mov r0, r8
-    bl func_0200d0a0
+    bl FSi_SeekDirDirect
     add r0, sp, #0x4c
     str r0, [sp, #0x34]
     mov r0, r8
     mov r1, r6
     mov r2, r7
     str r7, [sp, #0x38]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     bne @L_0200d648
 @L_0200d60c:
@@ -552,7 +552,7 @@ asm void func_0200d4a8(void)
     mov r0, r8
     mov r1, r6
     mov r2, r7
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     beq @L_0200d60c
 @L_0200d648:
@@ -573,7 +573,7 @@ asm void func_0200d4a8(void)
     cmp r0, r6
     blo @L_0200d814
     ldr r0, [sp]
-    bl func_0200c1b8
+    bl FS_GetArchiveName
     mov r11, r0
     bl STD_GetStringLength
     mov r10, r0
@@ -589,7 +589,7 @@ asm void func_0200d4a8(void)
     bl MI_CpuCopy8
     mov r0, r9
     mov r1, r5
-    bl func_0200d0a0
+    bl FSi_SeekDirDirect
     cmp r4, #0x10000
     beq @L_0200d750
     add r3, sp, #0x4c
@@ -600,7 +600,7 @@ asm void func_0200d4a8(void)
     mov r2, r8
     str r3, [sp, #0x38]
     mov r10, r1
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     bne @L_0200d72c
 @L_0200d700:
@@ -612,7 +612,7 @@ asm void func_0200d4a8(void)
     mov r0, r9
     mov r1, r10
     mov r2, r8
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     beq @L_0200d700
 @L_0200d72c:
@@ -641,7 +641,7 @@ asm void func_0200d4a8(void)
 @L_0200d77c:
     ldr r1, [sp, #0x30]
     mov r0, r10
-    bl func_0200d0a0
+    bl FSi_SeekDirDirect
     add r1, r7, r6
     str r9, [sp, #0x34]
     str r11, [sp, #0x38]
@@ -651,7 +651,7 @@ asm void func_0200d4a8(void)
     mov r1, r8
     mov r2, r4
     sub r6, r6, #1
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     bne @L_0200d808
 @L_0200d7b8:
@@ -673,7 +673,7 @@ asm void func_0200d4a8(void)
     mov r0, r10
     mov r1, r8
     mov r2, r4
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     beq @L_0200d7b8
 @L_0200d808:
@@ -686,7 +686,7 @@ asm void func_0200d4a8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0200d824(void)
+asm void FSi_OpenFileFastDefault(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x10
@@ -707,7 +707,7 @@ asm void func_0200d824(void)
     add r1, sp, #8
     mov r2, #8
     str r3, [sp, #4]
-    bl func_0200d040
+    bl FSi_ReadTable
     cmp r0, #0
     addne sp, sp, #0x10
     ldmneia sp!, {r3, r4, r5, pc}
@@ -719,12 +719,12 @@ asm void func_0200d824(void)
     mov r2, #1
     str r3, [r5, #0x34]
     str r4, [r5, #0x38]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200d8ac(void)
+asm void FSi_OpenFileDirectDefault(void)
 {
     ldr r3, [r0, #0x30]
     ldr r2, [r0, #0x34]
@@ -737,7 +737,7 @@ asm void func_0200d8ac(void)
     bx lr
 }
 
-asm void func_0200d8d0(void)
+asm void FSi_ReadFileDefault(void)
 {
     stmdb sp!, {r3, lr}
     ldr lr, [r0, #8]
@@ -753,7 +753,7 @@ asm void func_0200d8d0(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200d900(void)
+asm void FSi_WriteFileDefault(void)
 {
     stmdb sp!, {r3, lr}
     ldr lr, [r0, #8]
@@ -775,7 +775,7 @@ asm void func_0200d930(void)
     bx lr
 }
 
-asm void func_0200d938(void)
+asm void FSi_TranslateCommand(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r0
@@ -826,14 +826,14 @@ asm void func_0200d938(void)
     beq @L_0200d9f8
     mov r0, r9
     mov r1, r2
-    bl func_0200b37c
+    bl FSi_WaitForArchiveCompletion
     mov r2, r0
 @L_0200d9f8:
     mov r0, r2
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0200da08(void)
+asm void FSi_ROMFAT_ReadFile(void)
 {
     stmdb sp!, {r3, lr}
     ldr r0, [r1, #4]
@@ -850,11 +850,11 @@ asm void func_0200da08(void)
     str r2, [r1, #0x38]
     mov r1, #0
     mov r2, r1
-    bl func_0200d938
+    bl FSi_TranslateCommand
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200da4c(void)
+asm void FSi_ROMFAT_WriteFile(void)
 {
     stmdb sp!, {r3, lr}
     ldr r0, [r1, #4]
@@ -871,11 +871,11 @@ asm void func_0200da4c(void)
     str r2, [r1, #0x38]
     mov r1, #1
     mov r2, #0
-    bl func_0200d938
+    bl FSi_TranslateCommand
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200da90(void)
+asm void FSi_ROMFAT_SeekDirectory(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r1
@@ -889,7 +889,7 @@ asm void func_0200da90(void)
     str r5, [r4, #0x30]
     strh r12, [r4, #0x36]
     str r3, [r4, #0x38]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     ldr r2, [r4, #0xc]
@@ -901,7 +901,7 @@ asm void func_0200da90(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200dae8(void)
+asm void FSi_ROMFAT_ReadDirectory(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0xa4
@@ -914,7 +914,7 @@ asm void func_0200dae8(void)
     str r4, [r1, #0x34]
     mov r1, #3
     mov r2, #1
-    bl func_0200d938
+    bl FSi_TranslateCommand
     movs r5, r0
     bne @L_0200dc04
     str r4, [r6, #0x10]
@@ -954,7 +954,7 @@ asm void func_0200dae8(void)
     add r1, sp, #8
     mov r2, #8
     str r3, [sp, #4]
-    bl func_0200d040
+    bl FSi_ReadTable
     cmp r0, #0
     bne @L_0200dbe8
     ldr r2, [sp, #0xc]
@@ -963,7 +963,7 @@ asm void func_0200dae8(void)
     sub r1, r2, r1
     str r1, [r6, #0x168]
     ldr r1, [sp, #8]
-    bl func_0200e500
+    bl FSi_IsUnreadableRomOffset
     cmp r0, #0
     ldrne r0, [r6, #0x11c]
     orrne r0, r0, #0x400
@@ -982,7 +982,7 @@ asm void func_0200dae8(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-asm void func_0200dc10(void)
+asm void FSi_ROMFAT_FindPath(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x54
@@ -1007,7 +1007,7 @@ asm void func_0200dc10(void)
     strh lr, [sp, #0x42]
     str lr, [sp, #0x44]
     str r3, [sp, #0x50]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     addne sp, sp, #0x54
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, pc}
@@ -1021,7 +1021,7 @@ asm void func_0200dc10(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0200dc9c(void)
+asm void FSi_ROMFAT_GetPath(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r1
@@ -1035,14 +1035,14 @@ asm void func_0200dc9c(void)
     mov r1, #5
     mov r2, #1
     str r3, [r5, #0x34]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     ldreq r1, [r5, #0x34]
     streq r1, [r4]
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200dce0(void)
+asm void FSi_ROMFAT_OpenFileFast(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r1
@@ -1052,7 +1052,7 @@ asm void func_0200dce0(void)
     mov r1, #6
     mov r2, #1
     str r5, [r4, #0x30]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     ldr r2, [r4, #0xc]
@@ -1064,7 +1064,7 @@ asm void func_0200dce0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200dd28(void)
+asm void FSi_ROMFAT_OpenFileDirect(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r1
@@ -1077,7 +1077,7 @@ asm void func_0200dd28(void)
     mov r1, #7
     mov r2, #1
     str r3, [r4, #0x38]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     ldr r2, [r4, #0xc]
@@ -1089,14 +1089,14 @@ asm void func_0200dd28(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200dd7c(void)
+asm void FSi_ROMFAT_CloseFile(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r1
     mov r0, r4
     mov r1, #8
     mov r2, #1
-    bl func_0200d938
+    bl FSi_TranslateCommand
     ldr r1, [r4, #0xc]
     mov r2, #0
     bic r1, r1, #0x30
@@ -1105,7 +1105,7 @@ asm void func_0200dd7c(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200ddac(void)
+asm void FSi_ROMFAT_Activate(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x48
@@ -1117,12 +1117,12 @@ asm void func_0200ddac(void)
     mov r1, #9
     mov r2, #0
     str r5, [sp, #8]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200dde0(void)
+asm void FSi_ROMFAT_Idle(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x48
@@ -1134,12 +1134,12 @@ asm void func_0200dde0(void)
     mov r1, #0xa
     mov r2, #0
     str r5, [sp, #8]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200de14(void)
+asm void FSi_ROMFAT_Suspend(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x48
@@ -1151,12 +1151,12 @@ asm void func_0200de14(void)
     mov r1, #0xb
     mov r2, #0
     str r5, [sp, #8]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200de48(void)
+asm void FSi_ROMFAT_Resume(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x48
@@ -1168,12 +1168,12 @@ asm void func_0200de48(void)
     mov r1, #0xc
     mov r2, #0
     str r5, [sp, #8]
-    bl func_0200d938
+    bl FSi_TranslateCommand
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200de7c(void)
+asm void FSi_ROMFAT_OpenFile(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #8
@@ -1184,7 +1184,7 @@ asm void func_0200de7c(void)
     add r3, sp, #4
     mov r5, r0
     str r12, [sp]
-    bl func_0200dc10
+    bl FSi_ROMFAT_FindPath
     cmp r0, #0
     addne sp, sp, #8
     ldmneia sp!, {r3, r4, r5, pc}
@@ -1192,12 +1192,12 @@ asm void func_0200de7c(void)
     ldr r3, [sp, #0x18]
     mov r0, r5
     mov r1, r4
-    bl func_0200dce0
+    bl FSi_ROMFAT_OpenFileFast
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200decc(void)
+asm void FSi_ROMFAT_SeekFile(void)
 {
     cmp r3, #0
     ldr r1, [r1, #4]
@@ -1234,7 +1234,7 @@ asm void func_0200decc(void)
     bx lr
 }
 
-asm void func_0200df38(void)
+asm void FSi_ROMFAT_GetFileLength(void)
 {
     ldr r1, [r1, #4]
     mov r0, #0
@@ -1245,7 +1245,7 @@ asm void func_0200df38(void)
     bx lr
 }
 
-asm void func_0200df54(void)
+asm void FSi_ROMFAT_GetFilePosition(void)
 {
     ldr r1, [r1, #4]
     mov r0, #0
@@ -1256,11 +1256,11 @@ asm void func_0200df54(void)
     bx lr
 }
 
-asm void func_0200df70(void)
+asm void FSi_ROMFAT_Unmount(void)
 {
     stmdb sp!, {r4, lr}
     ldr r4, [r0, #0x20]
-    bl func_0200e4e4
+    bl FS_IsArchiveTableLoaded
     mov r0, #0
     str r0, [r4]
     str r0, [r4, #4]
@@ -1279,7 +1279,7 @@ asm void func_0200dfa0(void)
     bx lr
 }
 
-asm void func_0200dfac(void)
+asm void FSi_ROMFAT_OpenDirectory(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #8
@@ -1292,7 +1292,7 @@ asm void func_0200dfac(void)
     mov r12, #1
     mov r6, r0
     str r12, [sp]
-    bl func_0200dc10
+    bl FSi_ROMFAT_FindPath
     cmp r0, #0
     addne sp, sp, #8
     ldmneia sp!, {r4, r5, r6, pc}
@@ -1300,12 +1300,12 @@ asm void func_0200dfac(void)
     mov r0, r6
     mov r1, r5
     mov r3, r4
-    bl func_0200da90
+    bl FSi_ROMFAT_SeekDirectory
     add sp, sp, #8
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200e004(void)
+asm void FSi_ROMFAT_CloseDirectory(void)
 {
     ldr r2, [r1, #0xc]
     mov r0, #0
@@ -1315,7 +1315,7 @@ asm void func_0200e004(void)
     bx lr
 }
 
-asm void func_0200e01c(void)
+asm void FSi_ROMFAT_GetPathInfo(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x18
@@ -1337,7 +1337,7 @@ asm void func_0200e01c(void)
     mov r1, r8
     mov r2, r7
     mov r3, r10
-    bl func_0200dc10
+    bl FSi_ROMFAT_FindPath
     cmp r0, #0
     bne @L_0200e090
     mov r0, #0x100
@@ -1352,7 +1352,7 @@ asm void func_0200e01c(void)
     mov r2, r7
     mov r3, r10
     str r4, [sp]
-    bl func_0200dc10
+    bl FSi_ROMFAT_FindPath
     cmp r0, #0
     bne @L_0200e130
     str r4, [r6]
@@ -1372,7 +1372,7 @@ asm void func_0200e01c(void)
     add r1, sp, #0xc
     mov r2, #8
     str r3, [sp, #8]
-    bl func_0200d040
+    bl FSi_ReadTable
     cmp r0, #0
     bne @L_0200e12c
     ldr r2, [sp, #0x10]
@@ -1381,7 +1381,7 @@ asm void func_0200e01c(void)
     sub r1, r2, r1
     str r1, [r6, #0x4c]
     ldr r1, [sp, #0xc]
-    bl func_0200e500
+    bl FSi_IsUnreadableRomOffset
     cmp r0, #0
     ldrne r0, [r6]
     orrne r0, r0, #0x400
@@ -1397,7 +1397,7 @@ asm void func_0200e01c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0200e148(void)
+asm void FSi_ROMFAT_GetArchiveResource(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r1
@@ -1421,13 +1421,13 @@ asm void func_0200e148(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200e198(void)
+asm void FSi_ReadMemCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r1
     mov r4, r3
     mov r1, r2
-    bl func_0200e4d4
+    bl FS_GetArchiveOffset
     mov r1, r5
     mov r2, r4
     bl MI_CpuCopy8
@@ -1435,13 +1435,13 @@ asm void func_0200e198(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200e1c0(void)
+asm void FSi_WriteMemCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r1
     mov r4, r3
     mov r1, r2
-    bl func_0200e4d4
+    bl FS_GetArchiveOffset
     mov r1, r0
     mov r0, r5
     mov r2, r4
@@ -1450,7 +1450,7 @@ asm void func_0200e1c0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200e1ec(void)
+asm void FS_LoadArchive(void)
 {
     stmdb sp!, {r4, lr}
     ldr r12, [sp, #8]
@@ -1459,44 +1459,44 @@ asm void func_0200e1ec(void)
     str r12, [r0, #0x40]
     ldr lr, [sp, #0xc]
     cmp r4, #0
-    ldreq r4, =func_0200e198
+    ldreq r4, =FSi_ReadMemCallback
     ldr r12, [sp, #0x14]
     str r1, [r0, #0x28]
     cmp r12, #0
-    ldreq r12, =func_0200e1c0
+    ldreq r12, =FSi_WriteMemCallback
     str r3, [r0, #0x30]
     mov r3, #0
     str r2, [r0, #0x2c]
     str r2, [r0, #0x3c]
-    ldr r2, =data_020a42c8
+    ldr r2, =FSiArchiveProcInterface
     add r1, r0, #0x28
     str lr, [r0, #0x38]
     str r4, [r0, #0x48]
     str r12, [r0, #0x4c]
     str r3, [r0, #0x44]
-    bl func_0200c1c8
+    bl FS_MountArchive
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200e258(void)
+asm void FS_UnloadArchive(void)
 {
-    ldr r12, =func_0200c210
+    ldr r12, =FS_UnmountArchive
     bx r12
 }
 
-asm void func_0200e264(void)
+asm void FSi_GetFileLengthIfProc(void)
 {
     stmdb sp!, {r4, lr}
     mov lr, r0
     ldr r0, [lr, #8]
-    ldr r3, =data_020a42c8
+    ldr r3, =FSiArchiveProcInterface
     ldr r12, [r0, #0x24]
     mov r2, r1
     cmp r12, r3
     mov r4, #0
     bne @L_0200e298
     mov r1, lr
-    bl func_0200df38
+    bl FSi_ROMFAT_GetFileLength
     cmp r0, #0
     moveq r4, #1
 @L_0200e298:
@@ -1504,19 +1504,19 @@ asm void func_0200e264(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200e2a4(void)
+asm void FSi_GetFilePositionIfProc(void)
 {
     stmdb sp!, {r4, lr}
     mov lr, r0
     ldr r0, [lr, #8]
-    ldr r3, =data_020a42c8
+    ldr r3, =FSiArchiveProcInterface
     ldr r12, [r0, #0x24]
     mov r2, r1
     cmp r12, r3
     mov r4, #0
     bne @L_0200e2d8
     mov r1, lr
-    bl func_0200df54
+    bl FSi_ROMFAT_GetFilePosition
     cmp r0, #0
     moveq r4, #1
 @L_0200e2d8:

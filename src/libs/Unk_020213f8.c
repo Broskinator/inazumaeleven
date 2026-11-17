@@ -74,7 +74,7 @@ void func_02022534(void);
 void func_020226e8(void);
 void func_02022598(void);
 void func_02022950(void);
-extern char data_020bf3e4[];
+extern char errno[];
 void func_02023248(void);
 void func_02023018(void);
 void __FindExceptionTable(void);
@@ -90,8 +90,8 @@ extern char data_020ab6fc[];
 void func_02025ae0(void);
 void _ZdlPv(void);
 extern char data_020ab6ac[];
-extern char data_020bf410[];
-void func_02017a7c(void);
+extern char __global_destructor_chain[];
+void abort(void);
 
 asm void _dadd(void)
 {
@@ -2022,7 +2022,7 @@ asm void func_02022c90(void)
 @L_02022e04:
     ldr r2, =0x7ff80000
     orr r1, r1, r2
-    ldr r3, =data_020bf3e4
+    ldr r3, =errno
     mov r4, #0x21
     str r4, [r3]
     ldmia sp!, {r4, r5, r6, lr}
@@ -4635,7 +4635,7 @@ asm void func_0202526c(void)
 asm void func_0202529c(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020bf410
+    ldr r4, =__global_destructor_chain
     ldr r2, [r4]
     cmp r2, #0
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -4655,7 +4655,7 @@ asm void func_0202529c(void)
 
 asm void func_020252e0(void)
 {
-    ldr r12, =func_02017a7c
+    ldr r12, =abort
     bx r12
 }
 

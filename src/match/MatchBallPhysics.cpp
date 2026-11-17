@@ -8,16 +8,16 @@ extern "C" void func_0208454c(void);     // (for the asm functions)
 extern "C" char data_020aeadc[];
 extern "C" char data_020aeb28[];
 extern "C" char data_020aeb50[];
-extern "C" char data_020c4648[];
-extern GameHeap data_020c47b4;
+extern "C" char g3DFieldSprite[];
+extern GameHeap gAllocator;
 extern "C" char data_020c4de0[];
 extern "C" char data_020c4ebc[];
 extern "C" char data_020f98a0[];
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZdlPv(void);
-extern "C" s32 func_02001d80(s32 x);     // (the square root of x)
-extern "C" void func_0200226c(void);
+extern "C" s32 FX_Sqrt(s32 x);     // (the square root of x)
+extern "C" void FX_Atan2Idx(void);
 extern "C" BOOL func_02084808(fx32 x, fx32 y, fx32 *rect);    // (is (x, y) in the rectangle?)
 extern "C" void func_ov015_02131704(void);
 extern "C" void func_ov015_0213a818(void);
@@ -584,7 +584,7 @@ asm void MatchBallPhysics::func_02061bc0()
     ldrneb r0, [r7, #0x58]
     cmpne r0, #2
     beq @L_02061c3c
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a818
 @L_02061c3c:
@@ -633,7 +633,7 @@ asm void MatchBallPhysics::func_02061bc0()
     orr r0, r0, r1, lsl #20
     ldr r1, [r7, #0x38]
     str r0, [r7, #0x3c]
-    bl func_0200226c
+    bl FX_Atan2Idx
     strh r0, [r7, #0x50]
     b @L_02061d10
 @L_02061cf8:
@@ -712,10 +712,10 @@ DistanceTable *DistanceTable::func_02061df8()
     return this;
 }
 
-void DistanceTable::func_02061e24()
+void DistanceTable::Release()
 {
     if (table != NULL) {
-        data_020c47b4.Free(table);
+        gAllocator.Free(table);
         table = NULL;
     }
     width = 0;
@@ -725,15 +725,15 @@ void DistanceTable::func_02061e24()
     stepY = 0;
 }
 
-BOOL DistanceTable::func_02061e68(int width, int height)
+BOOL DistanceTable::Create(int width, int height)
 {
     int size = width * height * sizeof(s32);
 
     if (capacity < size) {
         if (table != NULL) {
-            data_020c47b4.Free(table);
+            gAllocator.Free(table);
         }
-        table = (s32 *)data_020c47b4.Alloc(size, 0, TRUE);
+        table = (s32 *)gAllocator.Alloc(size, 0, TRUE);
         if (table == NULL) {
             return FALSE;
         }
@@ -744,7 +744,7 @@ BOOL DistanceTable::func_02061e68(int width, int height)
     return TRUE;
 }
 
-void DistanceTable::func_02061ee0(fx32 stepX, fx32 stepY)
+void DistanceTable::Fill(fx32 stepX, fx32 stepY)
 {
     int i;
     fx32 x;
@@ -760,7 +760,7 @@ void DistanceTable::func_02061ee0(fx32 stepX, fx32 stepY)
         if (width > 0) {
             y2 = FX_Mul(y, y);
             for (; i < width; i++) {
-                *entry++ = func_02001d80((FX_Mul(x, x) >> 4) + (y2 >> 4)) << 2;
+                *entry++ = FX_Sqrt((FX_Mul(x, x) >> 4) + (y2 >> 4)) << 2;
                 x += stepX;
             }
         }
@@ -773,7 +773,7 @@ void DistanceTable::func_02061ee0(fx32 stepX, fx32 stepY)
 DistanceTable *DistanceTable::func_02061f9c()
 {
     vtable = data_020aeb28;
-    func_02061e24();
+    Release();
     operator delete(this);
     return this;
 }
@@ -781,7 +781,7 @@ DistanceTable *DistanceTable::func_02061f9c()
 DistanceTable *DistanceTable::func_02061fc4()
 {
     vtable = data_020aeb28;
-    func_02061e24();
+    Release();
     return this;
 }
 
@@ -795,36 +795,36 @@ DistanceTable32 *DistanceTable32::func_02061fe4()
 DistanceTable32 *DistanceTable32::func_02062004()
 {
     vtable = data_020aeb28;
-    func_02061e24();
+    Release();
     return this;
 }
 
 DistanceTable32 *DistanceTable32::func_02062024()
 {
     vtable = data_020aeb28;
-    func_02061e24();
+    Release();
     operator delete(this);
     return this;
 }
 
-BOOL DistanceTable32::func_0206204c()
+BOOL DistanceTable32::Init()
 {
-    return func_02061e68(32, 32);
+    return Create(32, 32);
 }
 
-void DistanceTable32::func_02062060()
+void DistanceTable32::CalcDistance()
 {
-    func_02061ee0(FX32_ONE, FX32_ONE);
+    Fill(FX32_ONE, FX32_ONE);
 }
 
-s32 DistanceTable32::func_02062074(int x, int y)
+s32 DistanceTable32::GetDistance(int x, int y)
 {
     return table[x + y * 32];
 }
 
 // the length of (x, y), both positive: looked up with as many units dropped as needed
 // for the table, then corrected with the dropped bits
-fx32 DistanceTable32::func_02062084(fx32 x, fx32 y)
+fx32 DistanceTable32::ApproxDistance(fx32 x, fx32 y)
 {
     int ix = x >> FX32_SHIFT;
     int iy = y >> FX32_SHIFT;
@@ -837,7 +837,7 @@ fx32 DistanceTable32::func_02062084(fx32 x, fx32 y)
         iy >>= 1;
         shift++;
     }
-    length = func_02062074(ix, iy);
+    length = GetDistance(ix, iy);
     if (x > y * 2) {
         return (length << shift) + (x & ((1 << (shift + FX32_SHIFT)) - 1));
     }
@@ -849,7 +849,7 @@ fx32 DistanceTable32::func_02062084(fx32 x, fx32 y)
     return length + ((mask & (x | y)) >> 2);
 }
 
-fx32 DistanceTable32::func_0206212c(fx32 x, fx32 y)
+fx32 DistanceTable32::ApproxDistanceAbs(fx32 x, fx32 y)
 {
     if (y < 0) {
         y = -y;
@@ -857,10 +857,10 @@ fx32 DistanceTable32::func_0206212c(fx32 x, fx32 y)
     if (x < 0) {
         x = -x;
     }
-    return func_02062084(x, y);
+    return ApproxDistance(x, y);
 }
 
-fx32 DistanceTable32::func_02062148(VecFx32 *a, VecFx32 *b)
+fx32 DistanceTable32::DistanceBetween(VecFx32 *a, VecFx32 *b)
 {
     fx32 dy = a->y - b->y;
     fx32 dx;
@@ -872,7 +872,7 @@ fx32 DistanceTable32::func_02062148(VecFx32 *a, VecFx32 *b)
     if (dx < 0) {
         dx = -dx;
     }
-    return func_02062084(dx, dy);
+    return ApproxDistance(dx, dy);
 }
 
 void DistanceTable32::func_02062178()
@@ -884,12 +884,12 @@ void DistanceTable32::func_02062184()
 {
 }
 
-fx32 DistanceTable32::func_02062188(MatchPlayer *player)
+fx32 DistanceTable32::DistanceToBall(MatchPlayer *player)
 {
-    return func_02062148(&player->body->pos, &data_020c4920.pos);
+    return DistanceBetween(&player->body->pos, &data_020c4920.pos);
 }
 
-fx32 DistanceTable32::func_020621a0(MatchPlayer *a, MatchPlayer *b)
+fx32 DistanceTable32::DistanceBetweenPlayers(MatchPlayer *a, MatchPlayer *b)
 {
-    return func_02062148(&a->body->pos, &b->body->pos);
+    return DistanceBetween(&a->body->pos, &b->body->pos);
 }

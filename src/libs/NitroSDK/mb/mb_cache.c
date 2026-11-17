@@ -2,16 +2,16 @@
 
 void MBi_AttachCacheBuffer(void);
 void MBi_ReadFromCache(void);
-void func_ov089_02178b1c(void);
+void MBi_TaskThread(void);
 
 void OS_DisableInterrupts(void);
-void func_0200878c(void);
+void OS_Terminate(void);
 void OS_RestoreInterrupts(void);
 void MI_CpuCopy8(void);
-void func_0200628c(void);
+void OS_SetThreadPriority(void);
 void OS_SleepThread(void);
-void func_02006334(void);
-void func_02005ea8(void);
+void OS_GetThreadPriority(void);
+void OS_ExitThread(void);
 
 asm void MBi_AttachCacheBuffer(void)
 {
@@ -27,7 +27,7 @@ asm void MBi_AttachCacheBuffer(void)
 @L_02178a40:
     cmp r6, r4
     blo @L_02178a4c
-    bl func_0200878c
+    bl OS_Terminate
 @L_02178a4c:
     ldr r0, [r6, #0xc]
     cmp r0, #0
@@ -92,7 +92,7 @@ asm void MBi_ReadFromCache(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_ov089_02178b1c(void)
+asm void MBi_TaskThread(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -106,7 +106,7 @@ asm void func_ov089_02178b1c(void)
 @L_02178b3c:
     mov r0, r7
     mov r1, r4
-    bl func_0200628c
+    bl OS_SetThreadPriority
     mov r0, r4
     bl OS_SleepThread
     ldr r0, [r7, #0xc0]
@@ -120,7 +120,7 @@ asm void func_ov089_02178b1c(void)
     str r1, [r7, #0xc0]
     ldr r1, [r4, #4]
     mov r1, r1, lsr #1
-    bl func_0200628c
+    bl OS_SetThreadPriority
     mov r0, r5
     bl OS_RestoreInterrupts
     ldr r1, [r4, #8]
@@ -133,7 +133,7 @@ asm void func_ov089_02178b1c(void)
     mov r5, r0
     mov r0, r7
     ldr r6, [r4, #0xc]
-    bl func_02006334
+    bl OS_GetThreadPriority
     ldr r1, [r7, #0xc0]
     cmp r1, #0
     moveq r1, #0
@@ -149,7 +149,7 @@ asm void func_ov089_02178b1c(void)
     cmp r1, r0
     beq @L_02178be8
     mov r0, r7
-    bl func_0200628c
+    bl OS_SetThreadPriority
 @L_02178be8:
     mov r0, #0
     str r0, [r4]
@@ -168,6 +168,6 @@ asm void func_ov089_02178b1c(void)
     bl OS_RestoreInterrupts
     b @L_02178b24
 @L_02178c24:
-    bl func_02005ea8
+    bl OS_ExitThread
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }

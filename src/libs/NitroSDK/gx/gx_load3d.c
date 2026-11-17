@@ -1,41 +1,41 @@
 // (asm for now)
 
 void GX_BeginLoadTex(void);
-void func_02003eec(void);
-void func_02004038(void);
+void GX_LoadTex(void);
+void GX_EndLoadTex(void);
 void GX_BeginLoadTexPltt(void);
-void func_020040b0(void);
-void func_02004120(void);
-void func_0200415c(void);
-void func_020041f4(void);
-void func_020043f8(void);
-void func_02004528(void);
-void func_02004620(void);
-void func_020046bc(void);
-void func_02004834(void);
-void func_02004910(void);
-void func_02004a10(void);
-void func_02004ab4(void);
-void func_02004ad8(void);
+void GX_LoadTexPltt(void);
+void GX_EndLoadTexPltt(void);
+void GX_VRAMCNT_SetLCDC_(void);
+void GX_SetBankForBG(void);
+void GX_SetBankForOBJ(void);
+void GX_SetBankForBGExtPltt(void);
+void GX_SetBankForOBJExtPltt(void);
+void GX_SetBankForTex(void);
+void GX_SetBankForTexPltt(void);
+void GX_SetBankForClearImage(void);
+void GX_SetBankForARM7(void);
+void GX_SetBankForLCDC(void);
+void GX_SetBankForSubBG(void);
 
-void func_02004d54(void);
+void GX_ResetBankForTex(void);
 extern char data_020a3e0c[];
 extern char data_020a3e0e[];
 extern char data_020a3e10[];
-extern char data_020bb060[];
-extern char data_020aad64[];
-void func_02008964(void);
+extern char sClrImg[];
+extern char GXi_DmaId[];
+void MIi_DmaCopy32(void);
 void MIi_CpuCopy32(void);
-void func_02008bb8(void);
-void func_02008cb4(void);
-void func_02004d68(void);
+void MIi_DmaCopy32Async(void);
+void MI_WaitDma(void);
+void GX_ResetBankForTexPltt(void);
 extern char data_020a3dfc[];
-extern char data_020bb080[];
+extern char gGXState[];
 
 asm void GX_BeginLoadTex(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02004d54
+    bl GX_ResetBankForTex
     mov r1, #6
     mul lr, r0, r1
     ldr r2, =data_020a3e0c
@@ -43,7 +43,7 @@ asm void GX_BeginLoadTex(void)
     ldrh r12, [r2, lr]
     ldr r2, =data_020a3e10
     ldrh r3, [r1, lr]
-    ldr r1, =data_020bb060
+    ldr r1, =sClrImg
     ldrh r2, [r2, lr]
     str r0, [r1, #0x14]
     mov r0, r12, lsl #0xc
@@ -55,11 +55,11 @@ asm void GX_BeginLoadTex(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02003eec(void)
+asm void GX_LoadTex(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0xc
-    ldr r3, =data_020bb060
+    ldr r3, =sClrImg
     mov r7, r0
     ldr r4, [r3, #0x18]
     mov r12, r1
@@ -78,7 +78,7 @@ asm void func_02003eec(void)
     addhs r0, r4, r12
     subhs r2, r0, r1
     bhs @L_02003fe0
-    ldr r0, =data_020aad64
+    ldr r0, =GXi_DmaId
     sub r5, r1, r12
     ldr r0, [r0]
     ldr r8, [r3, #4]
@@ -91,7 +91,7 @@ asm void func_02003eec(void)
     mov r3, r5
     add r2, r8, r12
     str lr, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     b @L_02003f8c
 @L_02003f7c:
     mov r0, r7
@@ -99,7 +99,7 @@ asm void func_02003eec(void)
     add r1, r8, r12
     bl MIi_CpuCopy32
 @L_02003f8c:
-    ldr r0, =data_020aad64
+    ldr r0, =GXi_DmaId
     ldr r0, [r0]
     cmn r0, #1
     beq @L_02003fc8
@@ -111,7 +111,7 @@ asm void func_02003eec(void)
     add r1, r7, r5
     sub r3, r6, r5
     str r4, [sp, #8]
-    bl func_02008bb8
+    bl MIi_DmaCopy32Async
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02003fc8:
@@ -122,7 +122,7 @@ asm void func_02003eec(void)
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02003fe0:
-    ldr r0, =data_020aad64
+    ldr r0, =GXi_DmaId
     ldr r0, [r0]
     cmn r0, #1
     beq @L_02004018
@@ -133,7 +133,7 @@ asm void func_02003eec(void)
     mov r1, r7
     mov r3, r6
     str r4, [sp, #8]
-    bl func_02008bb8
+    bl MIi_DmaCopy32Async
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02004018:
@@ -145,18 +145,18 @@ asm void func_02003eec(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02004038(void)
+asm void GX_EndLoadTex(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_020aad64
+    ldr r0, =GXi_DmaId
     ldr r0, [r0]
     cmn r0, #1
     beq @L_02004050
-    bl func_02008cb4
+    bl MI_WaitDma
 @L_02004050:
-    ldr r4, =data_020bb060
+    ldr r4, =sClrImg
     ldr r0, [r4, #0x14]
-    bl func_020046bc
+    bl GX_SetBankForTex
     mov r0, #0
     str r0, [r4, #0x1c]
     str r0, [r4, #0x18]
@@ -168,9 +168,9 @@ asm void func_02004038(void)
 asm void GX_BeginLoadTexPltt(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02004d68
+    bl GX_ResetBankForTexPltt
     mov r3, r0, asr #4
-    ldr r1, =data_020bb060
+    ldr r1, =sClrImg
     ldr r2, =data_020a3dfc
     mov r3, r3, lsl #1
     ldrh r2, [r2, r3]
@@ -180,12 +180,12 @@ asm void GX_BeginLoadTexPltt(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020040b0(void)
+asm void GX_LoadTexPltt(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0xc
-    ldr r3, =data_020aad64
-    ldr r12, =data_020bb060
+    ldr r3, =GXi_DmaId
+    ldr r12, =sClrImg
     ldr lr, [r3]
     mov r6, r0
     mov r5, r1
@@ -201,7 +201,7 @@ asm void func_020040b0(void)
     mov r1, r6
     add r2, r4, r5
     str r12, [sp, #8]
-    bl func_02008bb8
+    bl MIi_DmaCopy32Async
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02004108:
@@ -211,25 +211,25 @@ asm void func_020040b0(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02004120(void)
+asm void GX_EndLoadTexPltt(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_020aad64
+    ldr r0, =GXi_DmaId
     ldr r0, [r0]
     cmn r0, #1
     beq @L_02004138
-    bl func_02008cb4
+    bl MI_WaitDma
 @L_02004138:
-    ldr r4, =data_020bb060
+    ldr r4, =sClrImg
     ldr r0, [r4, #0xc]
-    bl func_02004834
+    bl GX_SetBankForTexPltt
     mov r0, #0
     str r0, [r4, #0xc]
     str r0, [r4, #8]
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200415c(void)
+asm void GX_VRAMCNT_SetLCDC_(void)
 {
     tst r0, #1
     ldrne r1, =0x4000240
@@ -262,10 +262,10 @@ asm void func_0200415c(void)
     bx lr
 }
 
-asm void func_020041f4(void)
+asm void GX_SetBankForBG(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn lr, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #2]
@@ -408,16 +408,16 @@ asm void func_020041f4(void)
 @L_020043c4:
     strb r2, [r0]
 @L_020043c8:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020043f8(void)
+asm void GX_SetBankForOBJ(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =data_020bb080
+    ldr r2, =gGXState
     mvn lr, r0
     ldrh r12, [r2]
     ldrh r3, [r2, #4]
@@ -497,16 +497,16 @@ asm void func_020043f8(void)
 @L_020044fc:
     strb r1, [r0]
 @L_02004500:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02004528(void)
+asm void GX_SetBankForBGExtPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0xe]
@@ -568,16 +568,16 @@ asm void func_02004528(void)
     orr r0, r0, #0x40000000
     str r0, [r1]
 @L_02004604:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02004620(void)
+asm void GX_SetBankForOBJExtPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0x10]
@@ -613,16 +613,16 @@ asm void func_02004620(void)
     bic r0, r0, #0x80000000
     str r0, [r1]
 @L_020046a0:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020046bc(void)
+asm void GX_SetBankForTex(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r4, [r1]
     ldrh r3, [r1, #8]
@@ -723,16 +723,16 @@ asm void func_020046bc(void)
 @L_02004808:
     strb r1, [r0]
 @L_0200480c:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02004834(void)
+asm void GX_SetBankForTexPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0xa]
@@ -787,16 +787,16 @@ asm void func_02004834(void)
     mov r1, #0x83
     strb r1, [r0]
 @L_020048f0:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02004910(void)
+asm void GX_SetBankForClearImage(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0xc]
@@ -858,16 +858,16 @@ asm void func_02004910(void)
     orr r0, r0, #0x4000
     strh r0, [r1]
 @L_020049e4:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02004a10(void)
+asm void GX_SetBankForARM7(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #6]
@@ -903,27 +903,27 @@ asm void func_02004a10(void)
     mov r1, #0x82
     strb r1, [r0]
 @L_02004a98:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02004ab4(void)
+asm void GX_SetBankForLCDC(void)
 {
-    ldr r2, =data_020bb080
+    ldr r2, =gGXState
     mov r1, r0, lsl #0x10
     ldrh r3, [r2]
-    ldr r12, =func_0200415c
+    ldr r12, =GX_VRAMCNT_SetLCDC_
     orr r1, r3, r1, lsr #16
     strh r1, [r2]
     bx r12
 }
 
-asm void func_02004ad8(void)
+asm void GX_SetBankForSubBG(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0x12]
@@ -956,8 +956,8 @@ asm void func_02004ad8(void)
     mov r1, #0x81
     strb r1, [r0]
 @L_02004b54:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }

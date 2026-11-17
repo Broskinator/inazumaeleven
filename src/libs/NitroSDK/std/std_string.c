@@ -1,14 +1,14 @@
 // (asm for now)
 
 void STD_CopyString(void);
-void func_02016d0c(void);
+void STD_CopyLString(void);
 void func_02016e10(void);
 void func_02016e30(void);
 void func_02016e34(void);
 void func_02016e58(void);
 void func_02016e5c(void);
 void STD_GetStringLength(void);
-void func_02016f44(void);
+void STD_GetStringNLength(void);
 void STD_ConcatenateString(void);
 
 asm void STD_CopyString(void)
@@ -30,7 +30,7 @@ asm void STD_CopyString(void)
     bx lr
 }
 
-asm void func_02016d0c(void)
+asm void STD_CopyLString(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     and lr, r0, #3
@@ -219,7 +219,7 @@ asm void STD_GetStringLength(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02016f44(void)
+asm void STD_GetStringNLength(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, #0

@@ -3,19 +3,19 @@
 void OS_InitContext(void);
 void OS_SaveContext(void);
 void OS_LoadContext(void);
-void func_0200659c(void);
+void OS_GetConsoleType(void);
 void func_020065d0(void);
-void func_02006654(void);
+void OSi_DetectDeviceType(void);
 void func_0200666c(void);
 void func_02006698(void);
-void func_020067a8(void);
+void OS_IsRunOnEmulator(void);
 void func_020067c0(void);
 
 void CP_SaveContext(void);
 void CPi_RestoreContext(void);
 extern char data_020aad78[];
 void WaitByLoop(void);
-void func_0200848c(void);
+void OS_GetBootType(void);
 extern char data_020a3e6c[];
 extern char data_020bb378[];
 
@@ -92,7 +92,7 @@ asm void OS_LoadContext(void)
     subs pc, lr, #4
 }
 
-asm void func_0200659c(void)
+asm void OS_GetConsoleType(void)
 {
     stmdb sp!, {r4, lr}
     ldr r4, =data_020aad78
@@ -101,7 +101,7 @@ asm void func_0200659c(void)
     ldmneia sp!, {r4, pc}
     mov r0, #0x80000001
     str r0, [r4, #4]
-    bl func_02006654
+    bl OSi_DetectDeviceType
     ldr r1, [r4, #4]
     orr r0, r1, r0
     str r0, [r4, #4]
@@ -133,7 +133,7 @@ asm void func_020065d0(void)
     bl func_02006698
     mov r4, r0
 @L_02006620:
-    bl func_02006654
+    bl OSi_DetectDeviceType
     ldr r2, =0x2fffffa
     orr r1, r0, r4
     ldrh r2, [r2]
@@ -147,10 +147,10 @@ asm void func_020065d0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02006654(void)
+asm void OSi_DetectDeviceType(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_0200848c
+    bl OS_GetBootType
     ldr r1, =data_020a3e6c
     ldr r0, [r1, r0, lsl #2]
     ldmia sp!, {r3, pc}
@@ -252,10 +252,10 @@ asm void func_02006698(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020067a8(void)
+asm void OS_IsRunOnEmulator(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_0200659c
+    bl OS_GetConsoleType
     tst r0, #0x10000000
     movne r0, #1
     moveq r0, #0

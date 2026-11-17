@@ -56,10 +56,10 @@ extern "C" void func_ov001_020ff4a0(void);
 extern "C" s32 func_ov001_020ff528(u8 *arg0);
 extern "C" void func_ov001_020ff594(void);
 
-extern "C" char data_020c4648[];
-extern "C" char data_020c4660[];
-extern "C" char data_020c4678[];
-extern "C" char data_020c47b4[];
+extern "C" char g3DFieldSprite[];
+extern "C" char g3DGameMap[];
+extern "C" char g3DGameMapObject[];
+extern "C" char gAllocator[];
 extern "C" char data_020c4824[];
 extern "C" char data_020c482c[];
 extern "C" char data_020c4838[];
@@ -72,11 +72,11 @@ extern "C" char data_020c4b32[];
 extern "C" char data_020c4b52[];
 extern "C" char data_020c4b80[];
 extern "C" char data_020c4de0[];
-extern "C" char data_020c5320[];
-extern "C" char data_020c5e40[];
+extern "C" char gWirelessUtil[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020c6364[];
-extern "C" char data_020c9660[];
-extern "C" char data_020d0d20[];
+extern "C" char gBgMenuManager[];
+extern "C" char gMainScreen0[];
 extern "C" char data_020d9978[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
@@ -133,19 +133,19 @@ extern "C" void _ZN11TreasureBox13func_020525f4El(void);
 extern "C" void _ZN11TreasureBox13func_02052e00El(void);
 extern "C" void _ZN12SoundManager13AreBanksReadyEv(void);
 extern "C" s32 _ZN12SoundManager13func_0203a7b4Ei(...);
-extern "C" s32 _ZN12SoundManager13func_0203b3c8Ei(...);
+extern "C" s32 _ZN12SoundManager14StopAllEffectsEi(...);
 extern "C" s32 _ZN12SoundManager13func_0203bc60Eii(...);
 extern "C" void _ZN12SoundManager6IsIdleEv(void);
 extern "C" s32 _ZN12SoundManager8SetSceneEiii(...);
-extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203dde0Ei(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203de9cEP9UnkObjectP16UnkOverlayObject(void);
-extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203df40Ev(...);
-extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e04cEii(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e114Eii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
-extern "C" s32 _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e224Ev(void);
+extern "C" s32 _ZN13ScreenManager6UpdateEi(...);
+extern "C" void _ZN13ScreenManager13func_0203de9cEP9UnkObjectP16UnkOverlayObject(void);
+extern "C" s32 _ZN13ScreenManager12FadeSubBlackEv(...);
+extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
+extern "C" void _ZN13ScreenManager13func_0203e114Eii(void);
+extern "C" void _ZN13ScreenManager15GetCurSceneMainEv(void);
+extern "C" void _ZN13ScreenManager16GetNextSceneMainEv(void);
+extern "C" s32 _ZN13ScreenManager14GetCurSceneSubEv(...);
+extern "C" void _ZN13ScreenManager13func_0203e224Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_0206aa54Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206aa6cEv(void);
@@ -162,12 +162,12 @@ extern "C" s32 _ZN9EntryPool15ClearExt1BufferEv(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _Znam(void);
 extern "C" void _Znwm(void);
-extern "C" s32 func_02003678(...);
-extern "C" s32 func_02003758(...);
-extern "C" s32 func_02003838(...);
-extern "C" void func_02016d0c(void);
-extern "C" void func_02088ad0(void);
-extern "C" s32 func_02088bec(...);
+extern "C" s32 GX_LoadBG1Scr(...);
+extern "C" s32 GX_LoadBG2Scr(...);
+extern "C" s32 GX_LoadBG3Scr(...);
+extern "C" void STD_CopyLString(void);
+extern "C" void C3DGameBase_OpenFile(void);
+extern "C" s32 C3DGameBase_CloseFile(...);
 extern "C" void func_02088df4(void);
 extern "C" void func_0208e8e4(void);
 extern "C" s32 func_0209bebc(...);
@@ -202,7 +202,7 @@ extern "C" void func_ov015_02131994(void);
 extern "C" void func_ov015_021319bc(void);
 extern "C" void func_ov015_02131bec(void);
 extern "C" s32 func_ov015_02131c30(...);
-extern "C" void func_ov015_02132628(void);
+extern "C" void Graphics_FadeScreensBlack(void);
 extern "C" void func_ov015_02134bd8(void);
 extern "C" s32 func_ov015_02134ccc(...);
 extern "C" s32 func_ov015_021353a4(...);
@@ -214,7 +214,7 @@ extern "C" void func_ov015_0213a894(void);
 extern "C" void func_ov015_0213ab48(void);
 extern "C" s32 func_ov015_0213ad28(...);
 extern "C" s32 func_ov015_0213ad54(...);
-extern "C" void func_ov015_0213b870(void);
+extern "C" void CBgMenuManager_DeleteGroup(void);
 extern "C" void func_ov015_02143664(void);
 extern "C" void func_ov015_02143750(void);
 extern "C" void func_ov017_02165d60(void);
@@ -244,8 +244,8 @@ extern "C" s32 func_ov001_020fc7e0(u8 *arg0)
     s32 v4;
     u8 *t0;
     MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020c4b80), 0xF0);
-    func_0209c380((u8 *)((u8 *)&data_020c5320), (u8 *)((u8 *)&data_020c4b80));
-    func_0209c24c((u8 *)((u8 *)&data_020c5320), (u8 *)((u8 *)&data_020c4b80), 0xF0);
+    func_0209c380((u8 *)((u8 *)&gWirelessUtil), (u8 *)((u8 *)&data_020c4b80));
+    func_0209c24c((u8 *)((u8 *)&gWirelessUtil), (u8 *)((u8 *)&data_020c4b80), 0xF0);
     *(u8 *)(((u8 *)&data_ov001_0212a9e0) + 0x4) = 0;
     *(u8 *)(((u8 *)&data_ov001_0212a9e0) + 0x1) = 1;
     *(s32 *)(arg0 + 0x3B48) = 0x258;
@@ -264,8 +264,8 @@ extern "C" s32 func_ov001_020fc870(u8 *arg0)
     u8 *t0;
     s32 t1;
     MIi_CpuClearFast(0, (s32)data_020c4b80, 0xF0);
-    func_0209c380((s32)data_020c5320, (s32)data_020c4b80);
-    func_0209c24c((s32)data_020c5320, (s32)data_020c4b80, 0xF0);
+    func_0209c380((s32)gWirelessUtil, (s32)data_020c4b80);
+    func_0209c24c((s32)gWirelessUtil, (s32)data_020c4b80, 0xF0);
     if ((s32)*(u8 * *)(arg0 + 0x80) == 0)
         return (s32)*(u8 * *)(arg0 + 0x80);
     t0 = *(u8 * *)(arg0 + 0x80);
@@ -295,7 +295,7 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     addeq sp, sp, #8
     moveq r0, r6
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r4, =data_020c5320
+    ldr r4, =gWirelessUtil
     mov r5, r6
     mov r0, r4
     bl func_0209bf9c
@@ -317,7 +317,7 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     str r0, [r1]
     cmp r5, #0
     bne @L_020fcb28
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf44
     cmp r0, #0
     bne @L_020fca48
@@ -326,11 +326,11 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     cmp r0, #0
     bne @L_020fca48
     ldr r0, [sp]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     cmp r0, #0x4a
     beq @L_020fca3c
     ldr r0, [sp]
-    bl _ZN17UnkClass_0203dc7c13func_0203e1bcEv
+    bl _ZN13ScreenManager16GetNextSceneMainEv
     cmp r0, #0x4a
     beq @L_020fca3c
     ldr r0, =gGameState
@@ -341,15 +341,15 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     mov r1, r7
     bl _ZN11TreasureBox13func_020525f4El
     mov r0, #6
-    bl func_ov015_02132628
+    bl Graphics_FadeScreensBlack
     ldr r0, [sp]
     mov r1, r6
     mov r2, #0x4a
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     ldr r0, [sp]
     mov r1, r7
     mov r2, #0x69
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     ldr r0, =data_020c4ab4
     ldr r1, =data_ov001_02129390
     strb r6, [r0, #0x7e]
@@ -359,20 +359,20 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     beq @L_020fca24
     ldr r0, =data_020c4b32
     mov r2, #0x20
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_020fca24:
     cmp r4, #0
     beq @L_020fca3c
     ldr r0, =data_020c4b52
     mov r1, r4
     mov r2, #0x20
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_020fca3c:
     ldr r0, =data_ov001_0212a9e0
     strb r6, [r0, #1]
     b @L_020fcb1c
 @L_020fca48:
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf44
     cmp r0, #0
     beq @L_020fcb1c
@@ -385,11 +385,11 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     ldr r0, [sp]
     mov r2, #0x258
     str r2, [r1, #0xb48]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     cmp r0, #0x4a
     beq @L_020fcb1c
     ldr r0, [sp]
-    bl _ZN17UnkClass_0203dc7c13func_0203e1bcEv
+    bl _ZN13ScreenManager16GetNextSceneMainEv
     cmp r0, #0x4a
     beq @L_020fcb1c
     ldr r0, =gGameState
@@ -400,15 +400,15 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     mov r1, r7
     bl _ZN11TreasureBox13func_020525f4El
     mov r0, #6
-    bl func_ov015_02132628
+    bl Graphics_FadeScreensBlack
     ldr r0, [sp]
     mov r1, r6
     mov r2, #0x4a
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     ldr r0, [sp]
     mov r1, r7
     mov r2, #0x69
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     ldr r0, =data_020c4ab4
     ldr r1, =data_ov001_021293b4
     strb r6, [r0, #0x7e]
@@ -418,14 +418,14 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     beq @L_020fcb04
     ldr r0, =data_020c4b32
     mov r2, #0x20
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_020fcb04:
     cmp r4, #0
     beq @L_020fcb1c
     ldr r0, =data_020c4b52
     mov r1, r4
     mov r2, #0x20
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_020fcb1c:
     add sp, sp, #8
     mov r0, #0
@@ -436,7 +436,7 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     add r0, r0, #0x3000
     str r1, [r0, #0xb48]
     mov r9, #0
-    ldr r5, =data_020c5320
+    ldr r5, =gWirelessUtil
     ldr r4, =data_020c4848
     b @L_020fcba0
 @L_020fcb48:
@@ -490,7 +490,7 @@ extern "C" asm s32 func_ov001_020fc8d4(...)
     cmp r3, #4
     blt @L_020fcbcc
     ldr r0, [sp]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     mov r3, #0
     mov r2, #0xf0
     b @L_020fcc34
@@ -560,8 +560,8 @@ extern "C" s32 func_ov001_020fccf0(u8 *arg0)
     v1 = ((s32 (*)(...))*(s32 *)(*(u8 * *)(*(u8 * *)(arg0 + 0x80)) + 0x38))(t2);
     if (v1 == 0)
         return v1;
-    func_0209c380((u8 *)((u8 *)&data_020c5320), (u8 *)((u8 *)&data_020c4b80));
-    v3 = func_0209c24c((u8 *)((u8 *)&data_020c5320), (u8 *)((u8 *)&data_020c4b80), 0xF0);
+    func_0209c380((u8 *)((u8 *)&gWirelessUtil), (u8 *)((u8 *)&data_020c4b80));
+    v3 = func_0209c24c((u8 *)((u8 *)&gWirelessUtil), (u8 *)((u8 *)&data_020c4b80), 0xF0);
     return v3;
 }
 
@@ -571,7 +571,7 @@ extern "C" asm void func_ov001_020fcd70(void)
     mov r5, #0
     mov r6, r0
     mov r7, #3
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r7
     mov r2, r5
     mov r3, r5
@@ -588,24 +588,24 @@ extern "C" asm void func_ov001_020fcd70(void)
     mov r0, r4
     bl _ZN9EntryPool13SetExt1BufferEPv
     mov r1, r7
-    ldr r7, =data_020c4660
+    ldr r7, =g3DGameMap
     mov r2, r5
     ldr r0, [r7]
-    bl func_02088ad0
+    bl C3DGameBase_OpenFile
     ldr r0, [r7]
     mov r4, #1
     mov r1, r4
     mov r2, r5
-    bl func_02088ad0
+    bl C3DGameBase_OpenFile
     ldr r0, [r7]
     mov r1, #5
     mov r2, r5
-    bl func_02088ad0
-    ldr r0, =data_020c4678
+    bl C3DGameBase_OpenFile
+    ldr r0, =g3DGameMapObject
     mov r1, #6
     ldr r0, [r0]
     mov r2, r5
-    bl func_02088ad0
+    bl C3DGameBase_OpenFile
     strb r5, [r8, #5]
     strb r5, [r8, #6]
     strb r5, [r8, #2]
@@ -613,7 +613,7 @@ extern "C" asm void func_ov001_020fcd70(void)
     ldrb r0, [r9, #0x1a]
     cmp r0, #0
     beq @L_020fce40
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     ldr r1, =0x5040
     mov r3, r4
     mov r2, #0x12
@@ -651,20 +651,20 @@ extern "C" asm void func_ov001_020fcd70(void)
     mov r2, r5
     str r5, [r6, #0x80]
     str r5, [r6, #0x84]
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
+    bl _ZN13ScreenManager13func_0203e114Eii
     mov r0, r6
     mov r1, r7
     mov r2, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
+    bl _ZN13ScreenManager13func_0203e114Eii
     mov r4, #0x32
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     mov r1, r7
     mov r2, r4
     mov r0, r6
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     strb r5, [r6, #0x89]
     strb r5, [r6, #0x88]
     mov r0, r6
@@ -682,9 +682,9 @@ extern "C" asm void func_ov001_020fcd70(void)
 
 extern "C" s32 func_ov001_020fcf64(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    _ZN17UnkClass_0203dc7c13func_0203dde0Ei(arg0, arg1, arg2, arg3);
+    _ZN13ScreenManager6UpdateEi(arg0, arg1, arg2, arg3);
     if (arg1 == 0) {
-        func_ov015_02137808(*(s32 *)(data_020c4648));
+        func_ov015_02137808(*(s32 *)(g3DFieldSprite));
     }
     return 0;
 }
@@ -714,38 +714,38 @@ extern "C" s32 func_ov001_020fcf90(u8 *arg0)
     }
     r1 = *(s32 *)(((u8 *)&data_ov001_0212a9e0) + 0x8);
     if (r1 != 0) {
-        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), r1);
         *(s32 *)(((u8 *)&data_ov001_0212a9e0) + 0x8) = 0;
     }
     *(s32 *)(((u8 *)&data_020c4a40) + 0x2C) = -1;
-    func_0209bebc((s32)((u8 *)&data_020c5320), (s32)((u8 *)&data_020c4a40), -1);
+    func_0209bebc((s32)((u8 *)&gWirelessUtil), (s32)((u8 *)&data_020c4a40), -1);
     *(u8 *)(((u8 *)&gGameState) + 0x1A) = 0;
     _ZN11TreasureBox13func_020523a8Ev((s32)((u8 *)&data_020d9978), (s32)((u8 *)&gGameState));
-    _ZN12SoundManager13func_0203a7b4Ei((s32)((u8 *)&data_020c5e40), 0);
-    _ZN12SoundManager13func_0203b3c8Ei((s32)((u8 *)&data_020c5e40), 0);
-    _ZN12SoundManager13func_0203bc60Eii((s32)((u8 *)&data_020c5e40), 0, 0);
-    _ZN12SoundManager8SetSceneEiii((s32)((u8 *)&data_020c5e40), 2, 0, 0);
+    _ZN12SoundManager13func_0203a7b4Ei((s32)((u8 *)&gAudioPlayer), 0);
+    _ZN12SoundManager14StopAllEffectsEi((s32)((u8 *)&gAudioPlayer), 0);
+    _ZN12SoundManager13func_0203bc60Eii((s32)((u8 *)&gAudioPlayer), 0, 0);
+    _ZN12SoundManager8SetSceneEiii((s32)((u8 *)&gAudioPlayer), 2, 0, 0);
     t2 = *(s32 *)(((u8 *)&data_020c4824));
     _ZdlPv(t2);
     *(s32 *)(((u8 *)&data_020c4824)) = 0;
     t3 = *(s32 *)(((u8 *)&data_020c482c));
     _ZdlPv(t3);
     *(s32 *)(((u8 *)&data_020c482c)) = 0;
-    t4 = *(s32 *)(((u8 *)&data_020c4660));
-    func_02088bec(t4, 3);
-    t5 = *(s32 *)(((u8 *)&data_020c4660));
-    func_02088bec(t5, 1);
-    t6 = *(s32 *)(((u8 *)&data_020c4660));
-    func_02088bec(t6, 5);
-    t7 = *(s32 *)(((u8 *)&data_020c4678));
-    func_02088bec(t7, 6);
+    t4 = *(s32 *)(((u8 *)&g3DGameMap));
+    C3DGameBase_CloseFile(t4, 3);
+    t5 = *(s32 *)(((u8 *)&g3DGameMap));
+    C3DGameBase_CloseFile(t5, 1);
+    t6 = *(s32 *)(((u8 *)&g3DGameMap));
+    C3DGameBase_CloseFile(t6, 5);
+    t7 = *(s32 *)(((u8 *)&g3DGameMapObject));
+    C3DGameBase_CloseFile(t7, 6);
     ((VCall *)r4)->f10(2);
     _ZN9EntryPool15ClearExt0BufferEv((s32)((u8 *)&gEntryPool));
     _ZN9EntryPool15ClearExt1BufferEv((s32)((u8 *)&gEntryPool));
     t9 = *(s32 *)(r4 + 0x3B40);
-    _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), t9);
+    _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), t9);
     t10 = *(s32 *)(r4 + 0x3B44);
-    v20 = _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), t10);
+    v20 = _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), t10);
     return v20;
 }
 
@@ -755,7 +755,7 @@ extern "C" asm void func_ov001_020fd134(void)
     mov r4, #0
     mov r6, r4
     cmp r1, #0x36
-    ldr r5, =data_020c5e40
+    ldr r5, =gAudioPlayer
     bgt @L_020fd174
     subs r0, r1, #0x33
     addpl pc, pc, r0, lsl #2
@@ -778,20 +778,20 @@ extern "C" asm void func_ov001_020fd134(void)
     beq @L_020fd1b8
     b @L_020fd1f4
 @L_020fd190:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, r4
     mov r3, r4
     mov r1, #0xa
     b @L_020fd204
 @L_020fd1a4:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, r4
     mov r3, r4
     mov r1, #7
     b @L_020fd204
 @L_020fd1b8:
     mov r2, #0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r3, r2
     mov r1, #0xb
     b @L_020fd204
@@ -801,14 +801,14 @@ extern "C" asm void func_ov001_020fd134(void)
     cmp r0, #0
     ldrneb r4, [r0, #0x12]
     ldrneb r6, [r0, #0x13]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, r4
     mov r3, r6
     mov r1, #8
     b @L_020fd204
 @L_020fd1f4:
     mov r2, #0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r3, r2
     mov r1, #9
 @L_020fd204:
@@ -857,8 +857,8 @@ extern "C" s32 func_ov001_020fd274(s32 arg0, s32 arg1, s32 arg2)
             r5 = arg2;
             if (r5 == 0x38) {
                 r5 = 0x41;
-                _ZN17UnkClass_0203dc7c13func_0203e04cEii(arg0, 1, 0x41);
-                _ZN17UnkClass_0203dc7c13func_0203e04cEii(arg0, 1, 0x41);
+                _ZN13ScreenManager12SetNextSceneEii(arg0, 1, 0x41);
+                _ZN13ScreenManager12SetNextSceneEii(arg0, 1, 0x41);
             }
             return r5;
         }
@@ -1841,7 +1841,7 @@ extern "C" asm void func_ov001_020fe0b0(void)
     str r3, [sp, #0x154]
     mov r11, #0x1e0
     str r1, [sp, #0x134]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r11
     mov r2, #0xd
     mov r3, #1
@@ -1886,7 +1886,7 @@ extern "C" asm void func_ov001_020fe0b0(void)
     add r12, r10, #0x3000
     add r11, r4, #0x2a4
     add r10, r11, #0x3400
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r5
     mov r2, #0xd
     mov r3, #1
@@ -1905,10 +1905,10 @@ extern "C" asm void func_ov001_020fe0b0(void)
     bl MI_CpuCopy8
 @L_020fe234:
     mov r0, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e1bcEv
+    bl _ZN13ScreenManager16GetNextSceneMainEv
     mov r5, r0
     mov r0, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     cmp r5, r0
     bne @L_020fe25c
     ldrb r0, [r4, #4]
@@ -1940,7 +1940,7 @@ extern "C" asm void func_ov001_020fe0b0(void)
     ldr r2, [r0, #0xb40]
     mov r0, r4
     ldr r1, [r4, #0x80]
-    bl _ZN17UnkClass_0203dc7c13func_0203de9cEP9UnkObjectP16UnkOverlayObject
+    bl _ZN13ScreenManager13func_0203de9cEP9UnkObjectP16UnkOverlayObject
 @L_020fe2c0:
     add r0, r4, #0x3000
     mov r1, #0
@@ -1973,7 +1973,7 @@ extern "C" asm void func_ov001_020fe0b0(void)
     mov r0, r4
     mov r2, r5
     mov r1, #0
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
+    bl _ZN13ScreenManager13func_0203e114Eii
     ldr r0, [r4, #0x80]
     cmp r0, #0
     beq @L_020fe350
@@ -1984,10 +1984,10 @@ extern "C" asm void func_ov001_020fe0b0(void)
     bl func_ov001_020fc7e0
 @L_020fe350:
     mov r0, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e224Ev
+    bl _ZN13ScreenManager13func_0203e224Ev
     mov r5, r0
     mov r0, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e1f4Ev
+    bl _ZN13ScreenManager14GetCurSceneSubEv
     mov r6, r0
     mov r0, r4
     mov r1, r6
@@ -2025,7 +2025,7 @@ extern "C" asm void func_ov001_020fe0b0(void)
     ldr r1, [r4, #0x84]
     ldr r2, [r0, #0xb44]
     mov r0, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203de9cEP9UnkObjectP16UnkOverlayObject
+    bl _ZN13ScreenManager13func_0203de9cEP9UnkObjectP16UnkOverlayObject
 @L_020fe3f4:
     add r0, r4, #0x3000
     mov r1, #0
@@ -2055,7 +2055,7 @@ extern "C" asm void func_ov001_020fe0b0(void)
     mov r0, r4
     mov r2, r5
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e114Eii
+    bl _ZN13ScreenManager13func_0203e114Eii
     ldr r0, [r4, #0x84]
     cmp r0, #0
     addeq sp, sp, #0x310
@@ -2363,11 +2363,11 @@ extern "C" void func_ov001_020fe8fc(void)
     DC_FlushRange(v8, 0x20);
     s32 v10 = G2_GetBG3CharPtr();
     DC_FlushRange(v10, 0x20);
-    MIi_CpuClearFast(0, (u8 *)((u8 *)&data_020d0d20), 0x800);
-    DC_FlushRange((u8 *)((u8 *)&data_020d0d20), 0x800);
-    func_02003678((u8 *)((u8 *)&data_020d0d20), 0, 0x800);
-    func_02003758((u8 *)((u8 *)&data_020d0d20), 0, 0x800);
-    func_02003838((u8 *)((u8 *)&data_020d0d20), 0, 0x800);
+    MIi_CpuClearFast(0, (u8 *)((u8 *)&gMainScreen0), 0x800);
+    DC_FlushRange((u8 *)((u8 *)&gMainScreen0), 0x800);
+    GX_LoadBG1Scr((u8 *)((u8 *)&gMainScreen0), 0, 0x800);
+    GX_LoadBG2Scr((u8 *)((u8 *)&gMainScreen0), 0, 0x800);
+    GX_LoadBG3Scr((u8 *)((u8 *)&gMainScreen0), 0, 0x800);
 }
 
 extern "C" void func_ov001_020fe9c4(s32 arg0, s32 arg1, s32 arg2)
@@ -2412,13 +2412,13 @@ extern "C" s32 func_ov001_020fea34(u8 *arg0, s32 arg1)
         r4 = (arg1 == 0x38 ? 0x41 : arg1);
     }
     t0 = *(s32 *)(arg0 + 0x4);
-    v2 = _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(t0);
+    v2 = _ZN13ScreenManager14GetCurSceneSubEv(t0);
     if (r4 == v2)
         return v2;
     t1 = *(s32 *)(arg0 + 0x4);
-    _ZN17UnkClass_0203dc7c13func_0203e04cEii(t1, 1, r4);
+    _ZN13ScreenManager12SetNextSceneEii(t1, 1, r4);
     t2 = *(s32 *)(arg0 + 0x4);
-    v4 = _ZN17UnkClass_0203dc7c13func_0203df40Ev(t2);
+    v4 = _ZN13ScreenManager12FadeSubBlackEv(t2);
     return v4;
 }
 
@@ -2498,17 +2498,17 @@ extern "C" asm void func_ov001_020feae0(void)
     ldmia sp!, {r4, r5, r6, pc}
 @L_020febac:
     mov r1, #0
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r3, r1
     mov r2, #5
-    bl func_ov015_0213b870
-    ldr r0, =data_020c4648
+    bl CBgMenuManager_DeleteGroup
+    ldr r0, =g3DFieldSprite
     ldr r1, =0x29e
     ldr r0, [r0]
     bl func_ov015_0213ad28
     ldmia sp!, {r4, r5, r6, pc}
 @L_020febd4:
-    ldr r5, =data_020c4648
+    ldr r5, =g3DFieldSprite
     mov r1, #0x800
     ldr r0, [r5]
     bl func_ov015_0213ad54
@@ -2538,30 +2538,30 @@ extern "C" s32 func_ov001_020fec14(u8 *arg0)
     v0 = _ZN11MatchEngine13func_0206ace8Ev((u8 *)((u8 *)&data_020e88a0));
     if (v0 != 0) {
         *(s32 *)(arg0 + 0x8) = 0x3C;
-        t0 = *(s32 *)(((u8 *)&data_020c4648));
+        t0 = *(s32 *)(((u8 *)&g3DFieldSprite));
         func_ov015_0213ad54(t0, 0x800);
         *(u8 *)(arg0 + 0x21) = 0;
-        t1 = *(s32 *)(((u8 *)&data_020c4648));
+        t1 = *(s32 *)(((u8 *)&g3DFieldSprite));
         func_ov015_0213ad54(t1, 0x1000);
         *(u8 *)(arg0 + 0x22) = 0;
     } else {
         v3 = func_ov001_02122d40();
         r1 = 0x800;
         if (v3 != 0) {
-            t2 = *(s32 *)(((u8 *)&data_020c4648));
+            t2 = *(s32 *)(((u8 *)&g3DFieldSprite));
             func_ov015_0213ad54(t2, r1);
             *(u8 *)(arg0 + 0x21) = 0;
-            t3 = *(s32 *)(((u8 *)&data_020c4648));
+            t3 = *(s32 *)(((u8 *)&g3DFieldSprite));
             func_ov015_0213ad54(t3, 0x1000);
             *(u8 *)(arg0 + 0x22) = 0;
         } else {
-            t4 = *(s32 *)(((u8 *)&data_020c4648));
+            t4 = *(s32 *)(((u8 *)&g3DFieldSprite));
             func_ov015_0213ad28(t4, r1);
             *(u8 *)(arg0 + 0x21) = 1;
             r6 = 1;
             v7 = _ZN11MatchEngine13func_0206d9a0Ev((u8 *)((u8 *)&data_020e88a0));
             if (v7 == 1) {
-                t5 = *(s32 *)(((u8 *)&data_020c4648));
+                t5 = *(s32 *)(((u8 *)&g3DFieldSprite));
                 func_ov015_0213ad28(t5, 0x1000);
                 *(u8 *)(arg0 + 0x22) = r6;
             }
@@ -2623,7 +2623,7 @@ extern "C" asm void func_ov001_020fecfc(void)
     ldr r0, =data_ov001_02130644
     ldr r0, [r0]
     bl func_ov015_02130ae8
-    ldr r6, =data_020c4648
+    ldr r6, =g3DFieldSprite
     mov r1, r0
     ldr r0, [r6]
     bl func_ov015_0213a48c
@@ -2718,7 +2718,7 @@ extern "C" asm void func_ov001_020feea8(void)
     str r2, [r1]
     bl func_ov015_02130ae8
     mov r8, r0
-    ldr r6, =data_020c4648
+    ldr r6, =g3DFieldSprite
     mov r1, r8
     ldr r0, [r6]
     bl func_ov015_0213a48c
@@ -2927,7 +2927,7 @@ extern "C" asm void func_ov001_020ff1a4(void)
     ldr r0, =data_ov001_0213065c
     ldr r0, [r0]
     bl func_ov015_02130ae8
-    ldr r2, =data_020c4648
+    ldr r2, =g3DFieldSprite
     mov r1, r0
     ldr r0, [r2]
     bl func_ov015_0213a48c
@@ -3018,7 +3018,7 @@ extern "C" asm void func_ov001_020ff340(void)
     ldr r0, =data_ov001_02130640
     ldr r0, [r0]
     bl func_ov015_02130ae8
-    ldr r2, =data_020c4648
+    ldr r2, =g3DFieldSprite
     mov r1, r0
     ldr r0, [r2]
     bl func_ov015_0213a48c
@@ -3094,7 +3094,7 @@ extern "C" asm void func_ov001_020ff4a0(void)
     mov r3, r5
 @L_020ff4ec:
     bl _ZN11MatchEngine13func_0206aa6cEv
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a894
     ldr r0, =data_ov001_02130608
@@ -3111,7 +3111,7 @@ extern "C" s32 func_ov001_020ff528(u8 *arg0)
 {
     s32 v2;
     s32 t0;
-    t0 = *(s32 *)(((u8 *)&data_020c4648));
+    t0 = *(s32 *)(((u8 *)&g3DFieldSprite));
     func_ov015_0213ad54(t0, 0x29E);
     *(s32 *)(arg0 + 0x44) = 0;
     ((VCall *)arg0)->f33(0);
@@ -3479,7 +3479,7 @@ extern "C" asm void func_ov001_020ff594(void)
     dcd 0xe8bd83f8
     dcd gGameState
     dcd data_020e88a0
-    dcd data_020c4648
+    dcd g3DFieldSprite
     dcd data_020f98a0
     dcd data_ov001_0213065c
     dcd data_ov001_02130668

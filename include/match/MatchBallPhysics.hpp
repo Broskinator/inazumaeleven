@@ -44,9 +44,9 @@ public:
 class DistanceTable {
 public:
     DistanceTable *func_02061df8();
-    void func_02061e24();
-    BOOL func_02061e68(int width, int height);
-    void func_02061ee0(fx32 stepX, fx32 stepY);
+    void Release();
+    BOOL Create(int width, int height);
+    void Fill(fx32 stepX, fx32 stepY);
     DistanceTable *func_02061f9c();
     DistanceTable *func_02061fc4();
 
@@ -65,16 +65,16 @@ public:
     DistanceTable32 *func_02061fe4();
     DistanceTable32 *func_02062004();
     DistanceTable32 *func_02062024();
-    BOOL func_0206204c();
-    void func_02062060();
-    s32 func_02062074(int x, int y);
-    fx32 func_02062084(fx32 x, fx32 y);
-    fx32 func_0206212c(fx32 x, fx32 y);
-    fx32 func_02062148(VecFx32 *a, VecFx32 *b);
+    BOOL Init();
+    void CalcDistance();
+    s32 GetDistance(int x, int y);
+    fx32 ApproxDistance(fx32 x, fx32 y);
+    fx32 ApproxDistanceAbs(fx32 x, fx32 y);
+    fx32 DistanceBetween(VecFx32 *a, VecFx32 *b);
     void func_02062178();
     void func_02062184();
-    fx32 func_02062188(MatchPlayer *player);     // (the distance to the ball)
-    fx32 func_020621a0(MatchPlayer *a, MatchPlayer *b);
+    fx32 DistanceToBall(MatchPlayer *player);     // (the distance to the ball)
+    fx32 DistanceBetweenPlayers(MatchPlayer *a, MatchPlayer *b);
 };
 
 #endif // MATCH_MATCHBALLPHYSICS_HPP

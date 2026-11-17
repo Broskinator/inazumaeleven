@@ -5,13 +5,13 @@ void _ZSt10unexpectedv(void);
 void __register_global_object(void);
 void func_02025348(void);
 
-extern char data_020ab724[];
-extern char data_020bf410[];
+extern char _ZSt8thandler[];
+extern char __global_destructor_chain[];
 
 asm void _ZSt9terminatev(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020ab724
+    ldr r0, =_ZSt8thandler
     ldr r0, [r0]
     blx r0
     ldmia sp!, {r3, pc}
@@ -20,7 +20,7 @@ asm void _ZSt9terminatev(void)
 asm void _ZSt10unexpectedv(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020ab724
+    ldr r0, =_ZSt8thandler
     ldr r0, [r0, #4]
     blx r0
     ldmia sp!, {r3, pc}
@@ -28,7 +28,7 @@ asm void _ZSt10unexpectedv(void)
 
 asm void __register_global_object(void)
 {
-    ldr r3, =data_020bf410
+    ldr r3, =__global_destructor_chain
     ldr r12, [r3]
     str r12, [r2]
     str r1, [r2, #4]

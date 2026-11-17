@@ -1,4 +1,4 @@
-func_ov088_02174240 kind:function(arm,size=0x5c0) addr:0x02174240
+YuvToArgb kind:function(arm,size=0x5c0) addr:0x02174240
 func_ov088_02174800 kind:function(arm,size=0x30) addr:0x02174800
 func_ov088_02174830 kind:function(arm,size=0xc8) addr:0x02174830
 func_ov088_021748f8 kind:function(arm,size=0x14) addr:0x021748f8
@@ -34,7 +34,7 @@ func_ov088_021757d8 kind:function(arm,size=0x80) addr:0x021757d8
 func_ov088_02175858 kind:function(arm,size=0x28) addr:0x02175858
 func_ov088_02175880 kind:function(arm,size=0x14) addr:0x02175880
 func_ov088_02175894 kind:function(arm,size=0x4) addr:0x02175894
-func_ov088_02175898 kind:function(arm,size=0x130) addr:0x02175898
+__Vx2Deblock kind:function(arm,size=0x130) addr:0x02175898
 func_ov088_021759c8 kind:function(arm,size=0x22c) addr:0x021759c8
 func_ov088_02175bf4 kind:function(arm,size=0x108) addr:0x02175bf4
 data_ov088_02175dd4 kind:data(any) addr:0x02175dd4

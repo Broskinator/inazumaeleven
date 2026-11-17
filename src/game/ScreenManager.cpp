@@ -1,23 +1,23 @@
-#include "game/UnkClass_0203dc7c.hpp"
+#include "game/ScreenManager.hpp"
 #include "match/MatchEngine.hpp"
 #include "nitro/mi.h"
 
 extern "C" char data_020abe94[];        // the vtable
 extern "C" void func_ov015_02132554(int);
-extern "C" void func_ov015_02132600(int);
+extern "C" void Graphics_FadeMainBlack(int);
 extern "C" void func_ov015_02132614(int);
 extern "C" BOOL func_ov015_02132774(UnkObject *object);
 extern "C" BOOL func_ov015_02132784(UnkObject *object);
 extern "C" void func_ov015_021327ec(int which);
 
-UnkClass_0203dc7c *UnkClass_0203dc7c::func_0203dc7c()
+ScreenManager *ScreenManager::func_0203dc7c()
 {
     vtable = data_020abe94;
     func_0203dc9c();
     return this;
 }
 
-void UnkClass_0203dc7c::func_0203dc9c()
+void ScreenManager::func_0203dc9c()
 {
     depth[0] = 0;
     depth[1] = 0;
@@ -34,7 +34,7 @@ void UnkClass_0203dc7c::func_0203dc9c()
     current[1] = 0;
 }
 
-int UnkClass_0203dc7c::func_0203dcec(int a, int b)
+int ScreenManager::func_0203dcec(int a, int b)
 {
     if (swapped) {
         if (children[1] != NULL && !func_ov015_02132784(children[1])) {
@@ -49,7 +49,7 @@ int UnkClass_0203dc7c::func_0203dcec(int a, int b)
     return 0;
 }
 
-int UnkClass_0203dc7c::func_0203dd74(int a)
+int ScreenManager::func_0203dd74(int a)
 {
     if (swapped) {
         if (children[1] != NULL && !func_ov015_02132784(children[1])) {
@@ -63,7 +63,7 @@ int UnkClass_0203dc7c::func_0203dd74(int a)
     return 0;
 }
 
-int UnkClass_0203dc7c::func_0203dde0(int which)
+int ScreenManager::Update(int which)
 {
     if (which == 0) {
         if (children[0] != NULL) {
@@ -81,12 +81,12 @@ int UnkClass_0203dc7c::func_0203dde0(int which)
     return 0;
 }
 
-int UnkClass_0203dc7c::func_0203de48()
+int ScreenManager::func_0203de48()
 {
     return 0;
 }
 
-int UnkClass_0203dc7c::func_0203de50(int which)
+int ScreenManager::func_0203de50(int which)
 {
     func_ov015_021327ec(which);
     if (which == 0) {
@@ -102,7 +102,7 @@ int UnkClass_0203dc7c::func_0203de50(int which)
 }
 
 // deletes an object and unloads the overlay its code is in
-void UnkClass_0203dc7c::func_0203de9c(UnkObject *object, UnkOverlayObject *list)
+void ScreenManager::func_0203de9c(UnkObject *object, UnkOverlayObject *list)
 {
     for (; list->id != 0; list++) {
         if (list->loaded && list->object == object) {
@@ -116,28 +116,28 @@ void UnkClass_0203dc7c::func_0203de9c(UnkObject *object, UnkOverlayObject *list)
     }
 }
 
-void UnkClass_0203dc7c::func_0203df08()
+void ScreenManager::func_0203df08()
 {
     if (children[0] != NULL) {
         func_ov015_02132554(6);
     }
 }
 
-void UnkClass_0203dc7c::func_0203df24()
+void ScreenManager::FadeMainBlack()
 {
     if (children[0] != NULL) {
-        func_ov015_02132600(6);
+        Graphics_FadeMainBlack(6);
     }
 }
 
-void UnkClass_0203dc7c::func_0203df40()
+void ScreenManager::FadeSubBlack()
 {
     if (children[1] != NULL) {
         func_ov015_02132614(6);
     }
 }
 
-int UnkClass_0203dc7c::func_0203df5c(int a)
+int ScreenManager::func_0203df5c(int a)
 {
     if (children[0] == NULL) {
         return -1;
@@ -145,12 +145,12 @@ int UnkClass_0203dc7c::func_0203df5c(int a)
     return children[0]->vtable->func_60(children[0], a);
 }
 
-int UnkClass_0203dc7c::func_0203df80()
+int ScreenManager::func_0203df80()
 {
     return -1;
 }
 
-int UnkClass_0203dc7c::func_0203df88(int a)
+int ScreenManager::func_0203df88(int a)
 {
     if (children[1] == NULL) {
         return -1;
@@ -158,7 +158,7 @@ int UnkClass_0203dc7c::func_0203df88(int a)
     return children[1]->vtable->func_60(children[1], a);
 }
 
-int UnkClass_0203dc7c::func_0203dfac(int a)
+int ScreenManager::func_0203dfac(int a)
 {
     if (children[0] == NULL) {
         return -1;
@@ -166,12 +166,12 @@ int UnkClass_0203dc7c::func_0203dfac(int a)
     return children[0]->vtable->func_64(children[0], a);
 }
 
-int UnkClass_0203dc7c::func_0203dfd0()
+int ScreenManager::func_0203dfd0()
 {
     return -1;
 }
 
-int UnkClass_0203dc7c::func_0203dfd8(int a)
+int ScreenManager::func_0203dfd8(int a)
 {
     if (children[1] == NULL) {
         return -1;
@@ -179,7 +179,7 @@ int UnkClass_0203dc7c::func_0203dfd8(int a)
     return children[1]->vtable->func_64(children[1], a);
 }
 
-int UnkClass_0203dc7c::func_0203dffc()
+int ScreenManager::func_0203dffc()
 {
     if (children[0] == NULL) {
         return -1;
@@ -187,12 +187,12 @@ int UnkClass_0203dc7c::func_0203dffc()
     return children[0]->vtable->func_68(children[0]);
 }
 
-int UnkClass_0203dc7c::func_0203e020()
+int ScreenManager::func_0203e020()
 {
     return -1;
 }
 
-int UnkClass_0203dc7c::func_0203e028()
+int ScreenManager::func_0203e028()
 {
     if (children[1] == NULL) {
         return -1;
@@ -201,7 +201,7 @@ int UnkClass_0203dc7c::func_0203e028()
 }
 
 // replaces the top of a stack
-void UnkClass_0203dc7c::func_0203e04c(int index, int value)
+void ScreenManager::SetNextScene(int index, int value)
 {
     UnkStackEntry *entry = &stack[depth[index]][index];
 
@@ -210,7 +210,7 @@ void UnkClass_0203dc7c::func_0203e04c(int index, int value)
     entry->next = value;
 }
 
-void UnkClass_0203dc7c::func_0203e090(int index, int value)
+void ScreenManager::func_0203e090(int index, int value)
 {
     UnkStackEntry *entry = &stack[depth[index] + 1][index];
 
@@ -219,7 +219,7 @@ void UnkClass_0203dc7c::func_0203e090(int index, int value)
     entry->next = value;
 }
 
-void UnkClass_0203dc7c::func_0203e0cc(int index)
+void ScreenManager::PopScene(int index)
 {
     UnkStackEntry *entry = &stack[depth[index] - 1][index];
 
@@ -230,7 +230,7 @@ void UnkClass_0203dc7c::func_0203e0cc(int index)
 }
 
 // applies the pending change of a stack
-void UnkClass_0203dc7c::func_0203e114(int index, int arg)
+void ScreenManager::func_0203e114(int index, int arg)
 {
     int level = depth[index];
     UnkStackEntry *entry;
@@ -252,7 +252,7 @@ void UnkClass_0203dc7c::func_0203e114(int index, int arg)
     entry->value = arg;
 }
 
-int UnkClass_0203dc7c::func_0203e18c()
+int ScreenManager::GetCurSceneMain()
 {
     int level = depth[0];
 
@@ -267,7 +267,7 @@ int UnkClass_0203dc7c::func_0203e18c()
     return stack[level][0].value;
 }
 
-int UnkClass_0203dc7c::func_0203e1bc()
+int ScreenManager::GetNextSceneMain()
 {
     int level = depth[0];
 
@@ -282,12 +282,12 @@ int UnkClass_0203dc7c::func_0203e1bc()
     return stack[level][0].next;
 }
 
-int UnkClass_0203dc7c::func_0203e1ec()
+int ScreenManager::GetLoadedSceneMain()
 {
     return current[0];
 }
 
-int UnkClass_0203dc7c::func_0203e1f4()
+int ScreenManager::GetCurSceneSub()
 {
     int level = depth[1];
 
@@ -302,7 +302,7 @@ int UnkClass_0203dc7c::func_0203e1f4()
     return stack[level][1].value;
 }
 
-int UnkClass_0203dc7c::func_0203e224()
+int ScreenManager::func_0203e224()
 {
     int level = depth[1];
 
@@ -317,13 +317,13 @@ int UnkClass_0203dc7c::func_0203e224()
     return stack[level][1].next;
 }
 
-int UnkClass_0203dc7c::func_0203e254()
+int ScreenManager::GetLoadedSceneSub()
 {
     return current[1];
 }
 
 // swaps the screens if asked to
-void UnkClass_0203dc7c::func_0203e25c()
+void ScreenManager::func_0203e25c()
 {
     if (!swapPending) {
         return;
@@ -337,49 +337,49 @@ void UnkClass_0203dc7c::func_0203e25c()
     swapPending = FALSE;
 }
 
-BOOL UnkClass_0203dc7c::func_0203e2b0(int value)
+BOOL ScreenManager::func_0203e2b0(int value)
 {
     return (u32)(value - 90) <= 3;
 }
 
-void UnkClass_0203dc7c::func_0203e2c4()
+void ScreenManager::func_0203e2c4()
 {
 }
 
-void UnkClass_0203dc7c::func_0203e2c8()
+void ScreenManager::func_0203e2c8()
 {
 }
 
-UnkClass_0203dc7c *UnkClass_0203dc7c::func_0203e2cc()
+ScreenManager *ScreenManager::func_0203e2cc()
 {
     operator delete(this);
     return this;
 }
 
-void UnkClass_0203dc7c::func_0203e2e0()
+void ScreenManager::func_0203e2e0()
 {
 }
 
-void UnkClass_0203dc7c::func_0203e2e4()
+void ScreenManager::func_0203e2e4()
 {
 }
 
-void UnkClass_0203dc7c::func_0203e2e8()
+void ScreenManager::func_0203e2e8()
 {
 }
 
-void UnkClass_0203dc7c::func_0203e2ec()
+void ScreenManager::func_0203e2ec()
 {
 }
 
-void UnkClass_0203dc7c::func_0203e2f0()
+void ScreenManager::func_0203e2f0()
 {
 }
 
-void UnkClass_0203dc7c::func_0203e2f4()
+void ScreenManager::func_0203e2f4()
 {
 }
 
-void UnkClass_0203dc7c::func_0203e2f8()
+void ScreenManager::func_0203e2f8()
 {
 }

@@ -5,20 +5,20 @@ void DLInsert(void);
 void OS_AllocFromHeap(void);
 void OS_FreeToHeap(void);
 void OS_SetCurrentHeap(void);
-void func_0200745c(void);
-void func_02007504(void);
-void func_020075a4(void);
-void func_020075c8(void);
-void func_020075dc(void);
-void func_020075ec(void);
-void func_020075fc(void);
-void func_0200760c(void);
-void func_0200761c(void);
-void func_0200762c(void);
-void func_0200763c(void);
-void func_02007650(void);
-void func_02007660(void);
-void func_02007670(void);
+void OS_InitAlloc(void);
+void OS_CreateHeap(void);
+void OS_IsOnVram(void);
+void OS_GetDTCMAddress(void);
+void OS_EnableProtectionUnit(void);
+void OS_DisableProtectionUnit(void);
+void OS_EnableICacheForProtectionRegion(void);
+void OS_DisableICacheForProtectionRegion(void);
+void OS_EnableDCacheForProtectionRegion(void);
+void OS_DisableDCacheForProtectionRegion(void);
+void OS_SetDPermissionsForProtectionRegion(void);
+void OS_EnableWriteBufferForProtectionRegion(void);
+void OS_DisableWriteBufferForProtectionRegion(void);
+void OS_SetProtectionRegionParam(void);
 void func_0200768c(void);
 void func_02007694(void);
 void func_0200769c(void);
@@ -35,16 +35,16 @@ void func_020076ec(void);
 void func_020076f4(void);
 void func_020076fc(void);
 void func_02007704(void);
-void func_0200770c(void);
-void func_02007734(void);
+void OS_SetProtectionRegionEx(void);
+void OS_InitException(void);
 void func_0200779c(void);
 
 void OS_DisableInterrupts(void);
-extern char data_020bb398[];
+extern char OSiHeapInfo[];
 void OS_RestoreInterrupts(void);
-void func_020071d0(void);
+void DLAddFront(void);
 extern char data_020aad80[];
-extern char data_020bb3bc[];
+extern char OSi_DebuggerHandler[];
 void OSi_ExceptionHandler(void);
 
 asm void DLExtract(void)
@@ -118,7 +118,7 @@ asm void OS_AllocFromHeap(void)
     mov r5, r1
     mov r7, r2
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb398
+    ldr r1, =OSiHeapInfo
     mov r6, r0
     ldr r1, [r1, r4, lsl #2]
     cmp r1, #0
@@ -178,7 +178,7 @@ asm void OS_AllocFromHeap(void)
 @L_020073a0:
     ldr r0, [r4, #8]
     mov r1, r5
-    bl func_020071d0
+    bl DLAddFront
     str r0, [r4, #8]
     mov r0, r6
     bl OS_RestoreInterrupts
@@ -193,7 +193,7 @@ asm void OS_FreeToHeap(void)
     mov r6, r1
     mov r5, r2
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb398
+    ldr r1, =OSiHeapInfo
     mov r4, r0
     ldr r0, [r1, r7, lsl #2]
     cmp r6, #0
@@ -221,7 +221,7 @@ asm void OS_SetCurrentHeap(void)
     mov r4, r0
     mov r5, r1
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb398
+    ldr r1, =OSiHeapInfo
     ldr r1, [r1, r4, lsl #2]
     ldr r4, [r1]
     str r5, [r1]
@@ -230,7 +230,7 @@ asm void OS_SetCurrentHeap(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200745c(void)
+asm void OS_InitAlloc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -239,7 +239,7 @@ asm void func_0200745c(void)
     mov r6, r3
     bl OS_DisableInterrupts
     mov r1, #0xc
-    ldr r2, =data_020bb398
+    ldr r2, =OSiHeapInfo
     mul r1, r6, r1
     str r5, [r2, r7, lsl #2]
     add r2, r5, #0x14
@@ -277,14 +277,14 @@ asm void func_0200745c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02007504(void)
+asm void OS_CreateHeap(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
     mov r6, r1
     mov r5, r2
     bl OS_DisableInterrupts
-    ldr r2, =data_020bb398
+    ldr r2, =OSiHeapInfo
     add r1, r6, #0x1f
     ldr r2, [r2, r4, lsl #2]
     bic r6, r1, #0x1f
@@ -323,7 +323,7 @@ asm void func_02007504(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020075a4(void)
+asm void OS_IsOnVram(void)
 {
     cmp r0, #0x5000000
     blo @L_020075bc
@@ -336,7 +336,7 @@ asm void func_020075a4(void)
     bx lr
 }
 
-asm void func_020075c8(void)
+asm void OS_GetDTCMAddress(void)
 {
     mrc p15, 0, r0, c9, c1, 0
     ldr r1, =0xfffff000
@@ -344,7 +344,7 @@ asm void func_020075c8(void)
     bx lr
 }
 
-asm void func_020075dc(void)
+asm void OS_EnableProtectionUnit(void)
 {
     mrc p15, 0, r0, c1, c0, 0
     orr r0, r0, #1
@@ -352,7 +352,7 @@ asm void func_020075dc(void)
     bx lr
 }
 
-asm void func_020075ec(void)
+asm void OS_DisableProtectionUnit(void)
 {
     mrc p15, 0, r0, c1, c0, 0
     bic r0, r0, #1
@@ -360,7 +360,7 @@ asm void func_020075ec(void)
     bx lr
 }
 
-asm void func_020075fc(void)
+asm void OS_EnableICacheForProtectionRegion(void)
 {
     mrc p15, 0, r1, c2, c0, 1
     orr r1, r1, r0
@@ -368,7 +368,7 @@ asm void func_020075fc(void)
     bx lr
 }
 
-asm void func_0200760c(void)
+asm void OS_DisableICacheForProtectionRegion(void)
 {
     mrc p15, 0, r1, c2, c0, 1
     bic r1, r1, r0
@@ -376,7 +376,7 @@ asm void func_0200760c(void)
     bx lr
 }
 
-asm void func_0200761c(void)
+asm void OS_EnableDCacheForProtectionRegion(void)
 {
     mrc p15, 0, r1, c2, c0, 0
     orr r1, r1, r0
@@ -384,7 +384,7 @@ asm void func_0200761c(void)
     bx lr
 }
 
-asm void func_0200762c(void)
+asm void OS_DisableDCacheForProtectionRegion(void)
 {
     mrc p15, 0, r1, c2, c0, 0
     bic r1, r1, r0
@@ -392,7 +392,7 @@ asm void func_0200762c(void)
     bx lr
 }
 
-asm void func_0200763c(void)
+asm void OS_SetDPermissionsForProtectionRegion(void)
 {
     mrc p15, 0, r2, c5, c0, 2
     bic r2, r2, r0
@@ -401,7 +401,7 @@ asm void func_0200763c(void)
     bx lr
 }
 
-asm void func_02007650(void)
+asm void OS_EnableWriteBufferForProtectionRegion(void)
 {
     mrc p15, 0, r1, c3, c0, 0
     orr r1, r1, r0
@@ -409,7 +409,7 @@ asm void func_02007650(void)
     bx lr
 }
 
-asm void func_02007660(void)
+asm void OS_DisableWriteBufferForProtectionRegion(void)
 {
     mrc p15, 0, r1, c3, c0, 0
     bic r1, r1, r0
@@ -417,7 +417,7 @@ asm void func_02007660(void)
     bx lr
 }
 
-asm void func_02007670(void)
+asm void OS_SetProtectionRegionParam(void)
 {
     stmdb sp!, {r3, lr}
     ldr r2, =data_020aad80
@@ -523,7 +523,7 @@ asm void func_02007704(void)
     bx lr
 }
 
-asm void func_0200770c(void)
+asm void OS_SetProtectionRegionEx(void)
 {
     stmdb sp!, {r3, lr}
     sub r3, r2, #0x16
@@ -533,14 +533,14 @@ asm void func_0200770c(void)
     and r1, r1, r12, lsl r3
     orr r1, r2, r1
     orr r1, r1, #1
-    bl func_02007670
+    bl OS_SetProtectionRegionParam
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02007734(void)
+asm void OS_InitException(void)
 {
     ldr r1, =0x2fffd9c
-    ldr r0, =data_020bb3bc
+    ldr r0, =OSi_DebuggerHandler
     ldr r2, [r1]
     mov r1, #0
     str r2, [r0, #8]
@@ -549,7 +549,7 @@ asm void func_02007734(void)
     cmp r2, #0x2800000
     movlo r1, #1
 @L_02007758:
-    ldr r0, =data_020bb3bc
+    ldr r0, =OSi_DebuggerHandler
     cmp r1, #0
     moveq r2, #0
     cmp r2, #0
@@ -559,7 +559,7 @@ asm void func_02007734(void)
     biceq r0, r1, #0x800000
     streq r2, [r1]
     streq r2, [r0]
-    ldr r0, =data_020bb3bc
+    ldr r0, =OSi_DebuggerHandler
     mov r1, #0
     str r1, [r0, #0xc]
     bx lr
@@ -567,7 +567,7 @@ asm void func_02007734(void)
 
 asm void func_0200779c(void)
 {
-    ldr r0, =data_020bb3bc
+    ldr r0, =OSi_DebuggerHandler
     ldr r0, [r0, #8]
     bx lr
 }

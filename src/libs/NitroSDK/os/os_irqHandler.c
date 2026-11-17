@@ -4,7 +4,7 @@ void OS_WaitIrq(void);
 void func_0200517c(void);
 
 void OS_DisableInterrupts(void);
-extern char data_027e0000[];
+extern char OS_IRQTable[];
 void OS_RestoreInterrupts(void);
 extern char data_027e0060[];
 void OS_SleepThread(void);
@@ -17,7 +17,7 @@ asm void OS_WaitIrq(void)
     bl OS_DisableInterrupts
     cmp r5, #0
     beq @L_02005138
-    ldr r1, =data_027e0000
+    ldr r1, =OS_IRQTable
     mvn r2, r4
     add r1, r1, #0x3000
     ldr r3, [r1, #0xff8]
@@ -25,7 +25,7 @@ asm void OS_WaitIrq(void)
     str r2, [r1, #0xff8]
 @L_02005138:
     bl OS_RestoreInterrupts
-    ldr r1, =data_027e0000
+    ldr r1, =OS_IRQTable
     add r0, r1, #0x3000
     ldr r0, [r0, #0xff8]
     tst r4, r0

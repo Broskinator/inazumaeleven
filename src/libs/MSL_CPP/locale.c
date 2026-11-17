@@ -1,15 +1,15 @@
 // (asm for now)
 
 void _ZNSsD1Ev(void);
-void func_02020ddc(void);
-void func_02020ef0(void);
-void func_0202128c(void);
+void _ZNSs7replaceEmmRKSsmm(void);
+void _ZNSs10do_replaceEmmPKcS0_St26random_access_iterator_tag(void);
+void _ZNSs6assignIPKcEERSsT_S4_PNN10Metrowerks11restrict_toIXsrNS5_4_notINS5_11is_integralIS4_EEEE5valueEvEE4typeE(void);
 void _ZNSs7replaceIPcEERSsmmT_S3_PNN10Metrowerks11restrict_toIXsrNS4_4_notINS4_11is_integralIS3_EEEE5valueEvEE4typeE(void);
 void func_020212f4(void);
 void func_0202130c(void);
-void func_0202132c(void);
+void _ZNSt12length_errorD1Ev(void);
 void func_02021344(void);
-void func_02021364(void);
+void _ZNSt12out_of_rangeD1Ev(void);
 void func_0202137c(void);
 
 void _ZdlPv(void);
@@ -17,7 +17,7 @@ extern char data_020ab630[];
 extern char data_020ab5ec[];
 void strlen(void);
 void _Znam(void);
-void func_02020c84(void);
+void _ZNSt3tr110shared_ptrIcEC1IcNSt6detail14default_deleteIA0_cEEEEPT_T0_(void);
 void strcpy(void);
 extern char data_020ab5c4[];
 extern char data_020ab64c[];
@@ -26,10 +26,10 @@ extern char data_020ab684[];
 extern char data_020ab5d8[];
 extern char data_020ab5f8[];
 void _Znwm(void);
-void func_02018328(void);
-void func_02018348(void);
+void memcpy(void);
+void memmove(void);
 extern char data_020ab554[];
-void func_02020d34(void);
+void _ZNSt3tr110shared_ptrIcED1Ev(void);
 
 asm void _ZNSsD1Ev(void)
 {
@@ -46,7 +46,7 @@ asm void _ZNSsD1Ev(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02020ddc(void)
+asm void _ZNSs7replaceEmmRKSsmm(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
@@ -81,13 +81,13 @@ asm void func_02020ddc(void)
     mov r1, r0
     ldr r2, [r2]
     mov r0, r6
-    bl func_02020c84
+    bl _ZNSt3tr110shared_ptrIcEC1IcNSt6detail14default_deleteIA0_cEEEEPT_T0_
     ldr r0, [r6]
     mov r1, r11
     bl strcpy
     ldr r3, =data_020ab5c4
     ldr r0, =data_020ab64c
-    ldr r2, =func_02021364
+    ldr r2, =_ZNSt12out_of_rangeD1Ev
     mov r1, r7
     str r3, [sp, #0x10]
     bl func_02025b10
@@ -110,12 +110,12 @@ asm void func_02020ddc(void)
     mov r2, r8
     mov r3, r4
     strb r5, [sp, #4]
-    bl func_02020ef0
+    bl _ZNSs10do_replaceEmmPKcS0_St26random_access_iterator_tag
     add sp, sp, #0x1c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02020ef0(void)
+asm void _ZNSs10do_replaceEmmPKcS0_St26random_access_iterator_tag(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -163,13 +163,13 @@ asm void func_02020ef0(void)
     mov r1, r0
     ldr r2, [r2]
     mov r0, r8
-    bl func_02020c84
+    bl _ZNSt3tr110shared_ptrIcEC1IcNSt6detail14default_deleteIA0_cEEEEPT_T0_
     ldr r0, [r8]
     mov r1, r10
     bl strcpy
     ldr r3, =data_020ab5c4
     ldr r0, =data_020ab64c
-    ldr r2, =func_02021364
+    ldr r2, =_ZNSt12out_of_rangeD1Ev
     mov r1, r9
     str r3, [sp, #0x3c]
     bl func_02025b10
@@ -207,14 +207,14 @@ asm void func_02020ef0(void)
     strb r2, [r3]
     ldr r0, [sp, #0x10]
     ldr r2, [r3]
-    bl func_02020c84
+    bl _ZNSt3tr110shared_ptrIcEC1IcNSt6detail14default_deleteIA0_cEEEEPT_T0_
     ldr r0, [sp, #0x10]
     ldr r1, =data_020ab684
     ldr r0, [r0]
     bl strcpy
     ldr r1, =data_020ab5d8
     ldr r0, =data_020ab5f8
-    ldr r2, =func_0202132c
+    ldr r2, =_ZNSt12length_errorD1Ev
     str r1, [sp, #0x30]
     mov r1, r10
     bl func_02025b10
@@ -247,14 +247,14 @@ asm void func_02020ef0(void)
     beq @L_020210e4
     mov r1, r6
     mov r2, r4
-    bl func_02018328
+    bl memcpy
 @L_020210e4:
     ldr r0, [sp, #0xc]
     ldr r1, [sp]
     add r0, r0, r4
     sub r2, r11, r1
     str r0, [sp, #8]
-    bl func_02018348
+    bl memmove
     ldr r0, [sp, #0x14]
     cmp r0, #0
     beq @L_02021120
@@ -263,7 +263,7 @@ asm void func_02020ef0(void)
     add r1, r6, r4
     add r0, r0, r9
     add r1, r1, r8
-    bl func_02018328
+    bl memcpy
 @L_02021120:
     ldr r1, =data_020ab554
     ldr r0, [sp, #4]
@@ -309,7 +309,7 @@ asm void func_02020ef0(void)
     ldr r1, [sp]
     mov r0, r7
     mov r2, r11
-    bl func_0202128c
+    bl _ZNSs6assignIPKcEERSsT_S4_PNN10Metrowerks11restrict_toIXsrNS5_4_notINS5_11is_integralIS4_EEEE5valueEvEE4typeE
     ldr r0, [sp, #0x24]
     mov r0, r0, lsl #0x1f
     movs r0, r0, lsr #0x1f
@@ -325,12 +325,12 @@ asm void func_02020ef0(void)
     mov r2, r0
     add r0, r1, r9
     add r1, r1, r8
-    bl func_02018348
+    bl memmove
 @L_02021204:
     ldr r1, [sp]
     mov r2, r9
     add r0, r6, r4
-    bl func_02018348
+    bl memmove
     ldr r0, [sp, #4]
     ldr r1, =data_020ab554
     cmp r0, #0
@@ -355,7 +355,7 @@ asm void func_02020ef0(void)
     bx lr
 }
 
-asm void func_0202128c(void)
+asm void _ZNSs6assignIPKcEERSsT_S4_PNN10Metrowerks11restrict_toIXsrNS5_4_notINS5_11is_integralIS4_EEEE5valueEvEE4typeE(void)
 {
     stmdb sp!, {r3, lr}
     sub sp, sp, #8
@@ -384,7 +384,7 @@ asm void _ZNSs7replaceIPcEERSsmmT_S3_PNN10Metrowerks11restrict_toIXsrNS4_4_notIN
     ldrb r12, [sp, #8]
     str lr, [sp]
     strb r12, [sp, #4]
-    bl func_02020ef0
+    bl _ZNSs10do_replaceEmmPKcS0_St26random_access_iterator_tag
     add sp, sp, #0xc
     ldmia sp!, {pc}
 }
@@ -394,7 +394,7 @@ asm void func_020212f4(void)
     stmdb sp!, {r4, lr}
     mov r4, r0
     add r0, r4, #4
-    bl func_02020d34
+    bl _ZNSt3tr110shared_ptrIcED1Ev
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
@@ -404,19 +404,19 @@ asm void func_0202130c(void)
     stmdb sp!, {r4, lr}
     mov r4, r0
     add r0, r4, #4
-    bl func_02020d34
+    bl _ZNSt3tr110shared_ptrIcED1Ev
     mov r0, r4
     bl _ZdlPv
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0202132c(void)
+asm void _ZNSt12length_errorD1Ev(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     add r0, r4, #4
-    bl func_02020d34
+    bl _ZNSt3tr110shared_ptrIcED1Ev
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
@@ -426,19 +426,19 @@ asm void func_02021344(void)
     stmdb sp!, {r4, lr}
     mov r4, r0
     add r0, r4, #4
-    bl func_02020d34
+    bl _ZNSt3tr110shared_ptrIcED1Ev
     mov r0, r4
     bl _ZdlPv
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02021364(void)
+asm void _ZNSt12out_of_rangeD1Ev(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     add r0, r4, #4
-    bl func_02020d34
+    bl _ZNSt3tr110shared_ptrIcED1Ev
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
@@ -448,7 +448,7 @@ asm void func_0202137c(void)
     stmdb sp!, {r4, lr}
     mov r4, r0
     add r0, r4, #4
-    bl func_02020d34
+    bl _ZNSt3tr110shared_ptrIcED1Ev
     mov r0, r4
     bl _ZdlPv
     mov r0, r4

@@ -1,31 +1,31 @@
 // (asm for now)
 
 void CARDi_SendtoPxi(void);
-void func_020123ec(void);
-void func_02012414(void);
-void func_02012640(void);
+void WM_Init(void);
+void WmInitCore(void);
+void WM_Finish(void);
 
-void func_0200b138(void);
+void PXI_SendWordByFifo(void);
 void WaitByLoop(void);
-extern char data_020bdd6c[];
+extern char wmInitialized[];
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
-void func_020075a4(void);
-void func_0200afc0(void);
-void func_0200b114(void);
+void OS_IsOnVram(void);
+void PXI_Init(void);
+void PXI_IsCallbackReady(void);
 void DC_InvalidateRange(void);
-void func_020088e0(void);
-void func_02012d2c(void);
-extern char data_020bdd84[];
+void MIi_DmaFill32(void);
+void WmClearFifoRecvFlag(void);
+extern char bufMsgQ[];
 extern char data_020bdda4[];
 void OS_InitMessageQueue(void);
 extern char data_020bde20[];
 void DC_StoreRange(void);
 void OS_SendMessage(void);
-void func_02012944(void);
-void func_0200b0c8(void);
+void WmReceiveFifo(void);
+void PXI_SetFifoRecvCallback(void);
 void WMi_CheckInitialized(void);
-void func_020128b4(void);
+void WMi_CheckStateEx(void);
 
 asm void CARDi_SendtoPxi(void)
 {
@@ -35,7 +35,7 @@ asm void CARDi_SendtoPxi(void)
     mov r1, r7
     mov r0, #0xe
     mov r2, #0
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     mov r5, #0xe
@@ -46,26 +46,26 @@ asm void CARDi_SendtoPxi(void)
     mov r0, r5
     mov r1, r7
     mov r2, r4
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     bne @L_020123c8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020123ec(void)
+asm void WM_Init(void)
 {
     stmdb sp!, {r3, lr}
     mov r2, #0xf00
-    bl func_02012414
+    bl WmInitCore
     cmp r0, #0
-    ldreq r1, =data_020bdd6c
+    ldreq r1, =wmInitialized
     moveq r2, #0
     ldreq r1, [r1, #4]
     streqh r2, [r1, #0x16]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02012414(void)
+asm void WmInitCore(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
@@ -73,7 +73,7 @@ asm void func_02012414(void)
     mov r7, r1
     mov r5, r2
     bl OS_DisableInterrupts
-    ldr r9, =data_020bdd6c
+    ldr r9, =wmInitialized
     mov r6, r0
     ldrh r1, [r9]
     cmp r1, #0
@@ -91,7 +91,7 @@ asm void func_02012414(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02012468:
     mov r0, r8
-    bl func_020075a4
+    bl OS_IsOnVram
     cmp r0, #0
     beq @L_0201248c
     mov r0, r6
@@ -116,11 +116,11 @@ asm void func_02012414(void)
     mov r0, #6
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_020124c4:
-    bl func_0200afc0
+    bl PXI_Init
     mov r10, #1
     mov r1, r10
     mov r0, #0xa
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     bne @L_020124f4
     mov r0, r6
@@ -138,7 +138,7 @@ asm void func_02012414(void)
     mov r2, r4
     str r10, [sp]
     mov r3, r5
-    bl func_020088e0
+    bl MIi_DmaFill32
     str r8, [r9, #4]
     add r0, r8, #0x200
     str r0, [r8]
@@ -154,7 +154,7 @@ asm void func_02012414(void)
     ldr r0, [r1, #0xc]
     add r0, r0, #0x100
     str r0, [r1, #0x10]
-    bl func_02012d2c
+    bl WmClearFifoRecvFlag
     ldr r0, [r9, #4]
     mov r1, r4
     strh r7, [r0, #0x14]
@@ -175,7 +175,7 @@ asm void func_02012414(void)
 @L_0201259c:
     cmp r4, #0x10
     blt @L_02012580
-    ldr r5, =data_020bdd84
+    ldr r5, =bufMsgQ
     ldr r1, =data_020bdda4
     mov r0, r5
     mov r2, #0xa
@@ -200,10 +200,10 @@ asm void func_02012414(void)
 @L_020125f8:
     cmp r7, #0xa
     blt @L_020125d0
-    ldr r1, =func_02012944
+    ldr r1, =WmReceiveFifo
     mov r0, #0xa
-    bl func_0200b0c8
-    ldr r1, =data_020bdd6c
+    bl PXI_SetFifoRecvCallback
+    ldr r1, =wmInitialized
     mov r2, #1
     mov r0, r6
     strh r2, [r1]
@@ -213,7 +213,7 @@ asm void func_02012414(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02012640(void)
+asm void WM_Finish(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     bl OS_DisableInterrupts
@@ -229,14 +229,14 @@ asm void func_02012640(void)
     mov r4, #0
     mov r1, r4
     mov r0, #1
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
-    bl func_02012d2c
+    bl WmClearFifoRecvFlag
     mov r1, r4
     mov r0, #0xa
-    bl func_0200b0c8
-    ldr r1, =data_020bdd6c
+    bl PXI_SetFifoRecvCallback
+    ldr r1, =wmInitialized
     mov r0, r5
     str r4, [r1, #4]
     strh r4, [r1]

@@ -1,31 +1,31 @@
 // (asm for now)
 
 void GXS_BeginLoadBGExtPltt(void);
-void func_02003df0(void);
-void func_02003e58(void);
+void GXS_LoadBGExtPltt(void);
+void GXS_EndLoadBGExtPltt(void);
 
-void func_02004da4(void);
-extern char data_020bb044[];
-extern char data_020aad64[];
-void func_02008bb8(void);
+void GX_ResetBankForSubBGExtPltt(void);
+extern char sSubBGExtPltt[];
+extern char GXi_DmaId[];
+void MIi_DmaCopy32Async(void);
 void MIi_CpuCopy32(void);
-void func_02008cb4(void);
+void MI_WaitDma(void);
 void GX_SetBankForSubBGExtPltt(void);
 
 asm void GXS_BeginLoadBGExtPltt(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02004da4
-    ldr r1, =data_020bb044
+    bl GX_ResetBankForSubBGExtPltt
+    ldr r1, =sSubBGExtPltt
     str r0, [r1]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02003df0(void)
+asm void GXS_LoadBGExtPltt(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #0xc
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov r4, r0
     ldr lr, [r3]
     mov r3, r2
@@ -40,7 +40,7 @@ asm void func_02003df0(void)
     mov r1, r4
     add r2, r2, #0x6800000
     str r12, [sp, #8]
-    bl func_02008bb8
+    bl MIi_DmaCopy32Async
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, pc}
 @L_02003e40:
@@ -51,16 +51,16 @@ asm void func_02003df0(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02003e58(void)
+asm void GXS_EndLoadBGExtPltt(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_020aad64
+    ldr r0, =GXi_DmaId
     ldr r0, [r0]
     cmn r0, #1
     beq @L_02003e70
-    bl func_02008cb4
+    bl MI_WaitDma
 @L_02003e70:
-    ldr r4, =data_020bb044
+    ldr r4, =sSubBGExtPltt
     ldr r0, [r4]
     bl GX_SetBankForSubBGExtPltt
     mov r0, #0

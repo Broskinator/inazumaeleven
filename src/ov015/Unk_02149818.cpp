@@ -9,11 +9,11 @@ extern "C" void func_ov015_02149920(void);
 extern "C" void func_ov015_02149aa8(u8 *arg0, u8 *arg1);
 extern "C" void func_ov015_02149acc(void);
 extern "C" s32 func_ov015_02149bbc(s32 arg0, u8 *arg1, s32 arg2);
-extern "C" s32 func_ov015_02149c58(...);
+extern "C" s32 CSceneScriptThread_Event_6xxx(...);
 extern "C" s32 func_ov015_02149dcc(...);
 extern "C" s32 func_ov015_0214a8f8(...);
-extern "C" s32 func_ov015_0214b7ac(...);
-extern "C" s32 func_ov015_0214b920(...);
+extern "C" s32 CSceneScriptThread_Event_7xxx(...);
+extern "C" s32 CSceneScriptThread_Event_default(...);
 extern "C" s32 func_ov015_0214b988(...);
 extern "C" void func_ov015_0214bacc(void);
 extern "C" void func_ov015_0214bc94(void);
@@ -31,18 +31,18 @@ extern "C" void func_ov015_0214c68c(void);
 extern "C" char data_020d3d20[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN12Unk_0205dee013func_020601f0Ei(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060624Ei(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060864Eiiii(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060a48Ev(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060b58Ei(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060ddcEv(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060e80Ev(void);
-extern "C" void _ZN17UnkClass_0206029413func_0206131cEv(void);
-extern "C" void _ZN17UnkClass_0206029413func_02061358Ev(void);
+extern "C" void _ZN13ScriptManager17GetGlobalVariableEi(void);
+extern "C" void _ZN13ScriptManager10LoadScriptEiiii(void);
+extern "C" void _ZN13ScriptManager13func_02060a48Ev(void);
+extern "C" void _ZN13ScriptManager12UnloadScriptEi(void);
+extern "C" void _ZN13ScriptManager13func_02060ddcEv(void);
+extern "C" void _ZN13ScriptManager13func_02060e80Ev(void);
+extern "C" void _ZN13ScriptManager13func_0206131cEv(void);
+extern "C" void _ZN13ScriptManager13func_02061358Ev(void);
 extern "C" void func_0209bb10(void);
 extern "C" void func_ov015_0214927c(void);
 extern "C" void func_ov015_021493f8(void);
-extern "C" void func_ov015_021495c0(void);
+extern "C" void CSceneScriptThread_Stop(void);
 extern "C" void func_ov015_02149628(void);
 extern "C" void func_ov015_0214963c(void);
 extern "C" void func_ov015_02149784(void);
@@ -548,7 +548,7 @@ extern "C" asm void func_ov015_02149920(void)
     mov r1, r0, lsr #0x10
     beq @L_02149a2c
     ldr r0, [r9, #4]
-    bl _ZN17UnkClass_0206029413func_02060624Ei
+    bl _ZN13ScriptManager17GetGlobalVariableEi
 @L_02149a24:
     ldr r0, [r0]
     b @L_02149a88
@@ -569,7 +569,7 @@ extern "C" asm void func_ov015_02149920(void)
     mov r1, r0, lsr #0x10
     beq @L_02149a70
     ldr r0, [r9, #4]
-    bl _ZN17UnkClass_0206029413func_02060624Ei
+    bl _ZN13ScriptManager17GetGlobalVariableEi
     b @L_02149a88
 @L_02149a70:
     tst r2, #0x20000
@@ -699,17 +699,17 @@ extern "C" s32 func_ov015_02149bbc(s32 arg0, u8 *arg1, s32 arg2)
             arg0 = v2;
             break;
         case 6:
-            v3 = func_ov015_02149c58(arg0, (s32)arg1, (s32)((u8 *)local));
+            v3 = CSceneScriptThread_Event_6xxx(arg0, (s32)arg1, (s32)((u8 *)local));
             arg0 = v3;
             break;
         case 7:
-            v4 = func_ov015_0214b7ac(arg0, (s32)arg1, (s32)((u8 *)local));
+            v4 = CSceneScriptThread_Event_7xxx(arg0, (s32)arg1, (s32)((u8 *)local));
             arg0 = v4;
             break;
         case 0:
         case 5:
         default:
-            v5 = func_ov015_0214b920(arg0, (s32)arg1, (s32)((u8 *)local));
+            v5 = CSceneScriptThread_Event_default(arg0, (s32)arg1, (s32)((u8 *)local));
             arg0 = v5;
             break;
     }
@@ -720,7 +720,7 @@ extern "C" s32 func_ov015_02149bbc(s32 arg0, u8 *arg1, s32 arg2)
     return arg0;
 }
 
-extern "C" asm s32 func_ov015_02149c58(...)
+extern "C" asm s32 CSceneScriptThread_Event_6xxx(...)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -825,7 +825,7 @@ extern "C" asm s32 func_ov015_02149c58(...)
     b @L_02149db0
 @L_02149da8:
     add r2, sp, #0
-    bl func_ov015_0214b920
+    bl CSceneScriptThread_Event_default
 @L_02149db0:
     cmp r4, #0
     ldrne r1, [sp]
@@ -2872,7 +2872,7 @@ extern "C" asm s32 func_ov015_0214a8f8(...)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm s32 func_ov015_0214b7ac(...)
+extern "C" asm s32 CSceneScriptThread_Event_7xxx(...)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -2981,7 +2981,7 @@ extern "C" asm s32 func_ov015_0214b7ac(...)
     b @L_0214b90c
 @L_0214b904:
     add r2, sp, #0
-    bl func_ov015_0214b920
+    bl CSceneScriptThread_Event_default
 @L_0214b90c:
     cmp r4, #0
     ldrne r1, [sp]
@@ -2990,7 +2990,7 @@ extern "C" asm s32 func_ov015_0214b7ac(...)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" asm s32 func_ov015_0214b920(...)
+extern "C" asm s32 CSceneScriptThread_Event_default(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x100
@@ -3055,7 +3055,7 @@ extern "C" asm s32 func_ov015_0214b988(...)
     ldrh r3, [r1, #4]
     ldr r2, [r9, #0x240]
     mov r1, r10
-    bl _ZN17UnkClass_0206029413func_02060e80Ev
+    bl _ZN13ScriptManager13func_02060e80Ev
     movs r5, r0
     moveq r0, #1
     streqb r0, [r8, #0xa]
@@ -3063,7 +3063,7 @@ extern "C" asm s32 func_ov015_0214b988(...)
     ldr r0, [r9, #4]
     ldr r2, [r9, #0x240]
     sub r1, r4, #0x81
-    bl _ZN17UnkClass_0206029413func_02060ddcEv
+    bl _ZN13ScriptManager13func_02060ddcEv
     ldrsb r1, [r8, #0xb]
     str r0, [r8, #0x10]
     str r5, [r8, #0xc]
@@ -3094,7 +3094,7 @@ extern "C" asm s32 func_ov015_0214b988(...)
     b @L_0214bab8
 @L_0214ba90:
     ldr r0, [r8, #0x10]
-    bl func_ov015_021495c0
+    bl CSceneScriptThread_Stop
     mov r6, r0
     ldr r0, [r8, #0x10]
     bl func_ov015_0214927c
@@ -3146,7 +3146,7 @@ extern "C" asm void func_ov015_0214bacc(void)
     ldr r2, [sp, #0x84]
     ldr r3, [sp, #0x88]
     mov r1, #0xb
-    bl _ZN17UnkClass_0206029413func_02060864Eiiii
+    bl _ZN13ScriptManager10LoadScriptEiiii
     cmp r0, #0
     strltb r5, [r8, #0xa]
     blt @L_0214bc80
@@ -3160,7 +3160,7 @@ extern "C" asm void func_ov015_0214bacc(void)
 @L_0214bb78:
     ldr r0, [r9, #4]
     ldr r1, [r8, #0x18]
-    bl _ZN17UnkClass_0206029413func_02060a48Ev
+    bl _ZN13ScriptManager13func_02060a48Ev
     cmp r0, #0
     beq @L_0214bc80
     add r2, sp, #0x84
@@ -3174,19 +3174,19 @@ extern "C" asm void func_ov015_0214bacc(void)
     ldr r0, [r9, #4]
     ldr r2, [r8, #0x18]
     ldr r3, [sp, #0x8c]
-    bl _ZN17UnkClass_0206029413func_02060e80Ev
+    bl _ZN13ScriptManager13func_02060e80Ev
     movs r4, r0
     ldr r0, [r9, #4]
     bne @L_0214bbdc
     ldr r1, [r8, #0x18]
-    bl _ZN17UnkClass_0206029413func_02060b58Ei
+    bl _ZN13ScriptManager12UnloadScriptEi
     mov r0, #1
     strb r0, [r8, #0xa]
     b @L_0214bc80
 @L_0214bbdc:
     ldr r2, [r8, #0x18]
     mvn r1, #0
-    bl _ZN17UnkClass_0206029413func_02060ddcEv
+    bl _ZN13ScriptManager13func_02060ddcEv
     ldrsb r1, [r8, #0xb]
     str r0, [r8, #0x10]
     str r4, [r8, #0xc]
@@ -3217,13 +3217,13 @@ extern "C" asm void func_ov015_0214bacc(void)
     b @L_0214bc80
 @L_0214bc4c:
     ldr r0, [r8, #0x10]
-    bl func_ov015_021495c0
+    bl CSceneScriptThread_Stop
     mov r6, r0
     ldr r0, [r8, #0x10]
     bl func_ov015_0214927c
     ldr r0, [r9, #4]
     ldr r1, [r8, #0x18]
-    bl _ZN17UnkClass_0206029413func_02060b58Ei
+    bl _ZN13ScriptManager12UnloadScriptEi
     ldrsb r1, [r8, #0xb]
     mov r0, #1
     strb r0, [r8, #0xa]
@@ -3271,7 +3271,7 @@ extern "C" asm void func_ov015_0214bc94(void)
     ldr r0, [r9, #4]
     ldr r3, [sp, #0x94]
     mov r2, r8
-    bl _ZN17UnkClass_0206029413func_02061358Ev
+    bl _ZN13ScriptManager13func_02061358Ev
     movs r5, r0
     ldreqsb r0, [r8, #0xb]
     streqb r4, [r8, #0xa]
@@ -3283,7 +3283,7 @@ extern "C" asm void func_ov015_0214bc94(void)
     ldr r1, [sp, #0x8c]
     ldr r3, [sp, #0x90]
     mov r2, r4
-    bl _ZN17UnkClass_0206029413func_02060864Eiiii
+    bl _ZN13ScriptManager10LoadScriptEiiii
     str r0, [r5, #0x18]
     cmp r0, #0
     ldrltsb r0, [r8, #0xb]
@@ -3301,7 +3301,7 @@ extern "C" asm void func_ov015_0214bc94(void)
     str r6, [sp, #8]
     ldr r0, [r9, #4]
     add r2, sp, #8
-    bl _ZN17UnkClass_0206029413func_0206131cEv
+    bl _ZN13ScriptManager13func_0206131cEv
     movs r4, r0
     ldreqsb r0, [r8, #0xb]
     streqb r10, [r8, #0xa]
@@ -3310,7 +3310,7 @@ extern "C" asm void func_ov015_0214bc94(void)
     beq @L_0214be20
     ldr r0, [r9, #4]
     ldr r1, [r4, #0x18]
-    bl _ZN17UnkClass_0206029413func_02060a48Ev
+    bl _ZN13ScriptManager13func_02060a48Ev
     cmp r0, #0
     beq @L_0214be20
     add r10, sp, #4
@@ -3320,18 +3320,18 @@ extern "C" asm void func_ov015_0214bc94(void)
     ldr r1, [r4, #0xc]
     ldr r2, [r4, #0x18]
     ldr r3, [r4, #0x1c]
-    bl _ZN17UnkClass_0206029413func_02060e80Ev
+    bl _ZN13ScriptManager13func_02060e80Ev
     str r0, [r4, #0xc]
     cmp r0, #0
     ldr r0, [r9, #4]
     bne @L_0214bdec
     ldr r1, [r4, #0x18]
-    bl _ZN17UnkClass_0206029413func_02060b58Ei
+    bl _ZN13ScriptManager12UnloadScriptEi
     b @L_0214be0c
 @L_0214bdec:
     ldr r2, [r4, #0x18]
     sub r1, r5, #0x81
-    bl _ZN17UnkClass_0206029413func_02060ddcEv
+    bl _ZN13ScriptManager13func_02060ddcEv
     str r0, [r4, #0x10]
     ldr r1, [r9]
     ldr r2, [r4, #0xc]

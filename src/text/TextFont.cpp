@@ -12,7 +12,7 @@ TextFont::TextFont()
     isWide = FALSE;
     useGlyphWidth = FALSE;
     MI_CpuClearFast(&font, sizeof(font));
-    MI_CpuFill8(&unk_1C, 0, 2);
+    MI_CpuFill8(&edgeColor, 0, 2);
 }
 
 TextFont::~TextFont()
@@ -809,10 +809,10 @@ void TextFont::ClearRectTile4(u8 *canvas, int width, int height, int x, int y, i
     } while (y < bottom);
 }
 
-void TextFont::SetUnk1C(u8 unk_1C, u8 unk_1D)
+void TextFont::SetSubColors(u8 edgeColor, u8 shadowColor)
 {
-    this->unk_1C = unk_1C;
-    this->unk_1D = unk_1D;
+    this->edgeColor = edgeColor;
+    this->shadowColor = shadowColor;
 }
 
 void TextFont::SetUseGlyphWidth(u8 useGlyphWidth)

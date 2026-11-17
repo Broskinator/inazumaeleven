@@ -16,44 +16,44 @@ void G2_GetBG2CharPtr(void);
 void G2S_GetBG2CharPtr(void);
 void G2_GetBG3CharPtr(void);
 void G2S_GetBG3CharPtr(void);
-void func_02003298(void);
-void func_020032fc(void);
-void func_02003358(void);
-void func_020033b4(void);
-void func_02003410(void);
-void func_02003474(void);
-void func_020034d0(void);
-void func_02003534(void);
-void func_02003598(void);
-void func_02003608(void);
-void func_02003678(void);
-void func_020036e8(void);
-void func_02003758(void);
-void func_020037c8(void);
-void func_02003838(void);
+void GX_LoadBGPltt(void);
+void GXS_LoadBGPltt(void);
+void GX_LoadOBJPltt(void);
+void GXS_LoadOBJPltt(void);
+void GX_LoadOAM(void);
+void GXS_LoadOAM(void);
+void GX_LoadOBJ(void);
+void GXS_LoadOBJ(void);
+void GX_LoadBG0Scr(void);
+void GXS_LoadBG0Scr(void);
+void GX_LoadBG1Scr(void);
+void GXS_LoadBG1Scr(void);
+void GX_LoadBG2Scr(void);
+void GXS_LoadBG2Scr(void);
+void GX_LoadBG3Scr(void);
 void func_020038a8(void);
-void func_02003918(void);
-void func_02003988(void);
-void func_020039f8(void);
-void func_02003a68(void);
-void func_02003ad8(void);
-void func_02003b48(void);
-void func_02003bb8(void);
-void func_02003c28(void);
-void func_02003c98(void);
-void func_02003d24(void);
-void func_02003d98(void);
+void GX_LoadBG0Char(void);
+void GXS_LoadBG0Char(void);
+void GX_LoadBG1Char(void);
+void GXS_LoadBG1Char(void);
+void GX_LoadBG2Char(void);
+void GXS_LoadBG2Char(void);
+void GX_LoadBG3Char(void);
+void GXS_LoadBG3Char(void);
+void GX_BeginLoadBGExtPltt(void);
+void GX_LoadBGExtPltt(void);
+void GX_EndLoadBGExtPltt(void);
 
-extern char data_020aad64[];
-void func_02008a08(void);
+extern char GXi_DmaId[];
+void MIi_DmaCopy16(void);
 void MIi_CpuCopy16(void);
-void func_02008964(void);
+void MIi_DmaCopy32(void);
 void MIi_CpuCopy32(void);
-void func_02004d30(void);
-extern char data_020bb044[];
-void func_02008bb8(void);
-void func_02008cb4(void);
-void func_02004528(void);
+void GX_ResetBankForBGExtPltt(void);
+extern char sSubBGExtPltt[];
+void MIi_DmaCopy32Async(void);
+void MI_WaitDma(void);
+void GX_SetBankForBGExtPltt(void);
 
 asm void G2_GetBG0ScrPtr(void)
 {
@@ -415,11 +415,11 @@ asm void G2S_GetBG3CharPtr(void)
     bx lr
 }
 
-asm void func_02003298(void)
+asm void GX_LoadBGPltt(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov r4, r0
     ldr r0, [r3]
     mov lr, r1
@@ -432,7 +432,7 @@ asm void func_02003298(void)
     mov r1, r4
     add r2, lr, #0x5000000
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_020032e0:
@@ -444,10 +444,10 @@ asm void func_02003298(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_020032fc(void)
+asm void GXS_LoadBGPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov lr, r0
     ldr r0, [r3]
     mov r3, r2
@@ -460,7 +460,7 @@ asm void func_020032fc(void)
     mov r1, lr
     add r2, r2, #0x5000000
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     ldmia sp!, {r3, pc}
 @L_0200333c:
     add r1, r1, #0x400
@@ -471,10 +471,10 @@ asm void func_020032fc(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02003358(void)
+asm void GX_LoadOBJPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov lr, r0
     ldr r0, [r3]
     mov r3, r2
@@ -487,7 +487,7 @@ asm void func_02003358(void)
     mov r1, lr
     add r2, r2, #0x5000000
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     ldmia sp!, {r3, pc}
 @L_02003398:
     add r1, r1, #0x200
@@ -498,10 +498,10 @@ asm void func_02003358(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020033b4(void)
+asm void GXS_LoadOBJPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov lr, r0
     ldr r0, [r3]
     mov r3, r2
@@ -514,7 +514,7 @@ asm void func_020033b4(void)
     mov r1, lr
     add r2, r2, #0x5000000
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     ldmia sp!, {r3, pc}
 @L_020033f4:
     add r1, r1, #0x600
@@ -525,11 +525,11 @@ asm void func_020033b4(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02003410(void)
+asm void GX_LoadOAM(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov r4, r0
     ldr r0, [r3]
     mov lr, r1
@@ -542,7 +542,7 @@ asm void func_02003410(void)
     mov r1, r4
     add r2, lr, #0x7000000
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02003458:
@@ -554,10 +554,10 @@ asm void func_02003410(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02003474(void)
+asm void GXS_LoadOAM(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov lr, r0
     ldr r0, [r3]
     mov r3, r2
@@ -570,7 +570,7 @@ asm void func_02003474(void)
     mov r1, lr
     add r2, r2, #0x7000000
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     ldmia sp!, {r3, pc}
 @L_020034b4:
     add r1, r1, #0x400
@@ -581,11 +581,11 @@ asm void func_02003474(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020034d0(void)
+asm void GX_LoadOBJ(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov r4, r0
     ldr r0, [r3]
     mov lr, r1
@@ -598,7 +598,7 @@ asm void func_020034d0(void)
     mov r1, r4
     add r2, lr, #0x6400000
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02003518:
@@ -610,11 +610,11 @@ asm void func_020034d0(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02003534(void)
+asm void GXS_LoadOBJ(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    ldr r3, =data_020aad64
+    ldr r3, =GXi_DmaId
     mov r4, r0
     ldr r0, [r3]
     mov lr, r1
@@ -627,7 +627,7 @@ asm void func_02003534(void)
     mov r1, r4
     add r2, lr, #0x6600000
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_0200357c:
@@ -639,7 +639,7 @@ asm void func_02003534(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02003598(void)
+asm void GX_LoadBG0Scr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -647,7 +647,7 @@ asm void func_02003598(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG0ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -659,7 +659,7 @@ asm void func_02003598(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_020035ec:
@@ -671,7 +671,7 @@ asm void func_02003598(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003608(void)
+asm void GXS_LoadBG0Scr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -679,7 +679,7 @@ asm void func_02003608(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG0ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -691,7 +691,7 @@ asm void func_02003608(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0200365c:
@@ -703,7 +703,7 @@ asm void func_02003608(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003678(void)
+asm void GX_LoadBG1Scr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -711,7 +711,7 @@ asm void func_02003678(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG1ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -723,7 +723,7 @@ asm void func_02003678(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_020036cc:
@@ -735,7 +735,7 @@ asm void func_02003678(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_020036e8(void)
+asm void GXS_LoadBG1Scr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -743,7 +743,7 @@ asm void func_020036e8(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG1ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -755,7 +755,7 @@ asm void func_020036e8(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0200373c:
@@ -767,7 +767,7 @@ asm void func_020036e8(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003758(void)
+asm void GX_LoadBG2Scr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -775,7 +775,7 @@ asm void func_02003758(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG2ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -787,7 +787,7 @@ asm void func_02003758(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_020037ac:
@@ -799,7 +799,7 @@ asm void func_02003758(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_020037c8(void)
+asm void GXS_LoadBG2Scr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -807,7 +807,7 @@ asm void func_020037c8(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG2ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -819,7 +819,7 @@ asm void func_020037c8(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0200381c:
@@ -831,7 +831,7 @@ asm void func_020037c8(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003838(void)
+asm void GX_LoadBG3Scr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -839,7 +839,7 @@ asm void func_02003838(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG3ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -851,7 +851,7 @@ asm void func_02003838(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0200388c:
@@ -871,7 +871,7 @@ asm void func_020038a8(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG3ScrPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -883,7 +883,7 @@ asm void func_020038a8(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_020038fc:
@@ -895,7 +895,7 @@ asm void func_020038a8(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003918(void)
+asm void GX_LoadBG0Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -903,7 +903,7 @@ asm void func_02003918(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG0CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -915,7 +915,7 @@ asm void func_02003918(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0200396c:
@@ -927,7 +927,7 @@ asm void func_02003918(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003988(void)
+asm void GXS_LoadBG0Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -935,7 +935,7 @@ asm void func_02003988(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG0CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -947,7 +947,7 @@ asm void func_02003988(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_020039dc:
@@ -959,7 +959,7 @@ asm void func_02003988(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_020039f8(void)
+asm void GX_LoadBG1Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -967,7 +967,7 @@ asm void func_020039f8(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG1CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -979,7 +979,7 @@ asm void func_020039f8(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02003a4c:
@@ -991,7 +991,7 @@ asm void func_020039f8(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003a68(void)
+asm void GXS_LoadBG1Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -999,7 +999,7 @@ asm void func_02003a68(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG1CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -1011,7 +1011,7 @@ asm void func_02003a68(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02003abc:
@@ -1023,7 +1023,7 @@ asm void func_02003a68(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003ad8(void)
+asm void GX_LoadBG2Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -1031,7 +1031,7 @@ asm void func_02003ad8(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG2CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -1043,7 +1043,7 @@ asm void func_02003ad8(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02003b2c:
@@ -1055,7 +1055,7 @@ asm void func_02003ad8(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003b48(void)
+asm void GXS_LoadBG2Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -1063,7 +1063,7 @@ asm void func_02003b48(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG2CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -1075,7 +1075,7 @@ asm void func_02003b48(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02003b9c:
@@ -1087,7 +1087,7 @@ asm void func_02003b48(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003bb8(void)
+asm void GX_LoadBG3Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -1095,7 +1095,7 @@ asm void func_02003bb8(void)
     mov r5, r1
     mov r4, r2
     bl G2_GetBG3CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -1107,7 +1107,7 @@ asm void func_02003bb8(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02003c0c:
@@ -1119,7 +1119,7 @@ asm void func_02003bb8(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003c28(void)
+asm void GXS_LoadBG3Char(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -1127,7 +1127,7 @@ asm void func_02003c28(void)
     mov r5, r1
     mov r4, r2
     bl G2S_GetBG3CharPtr
-    ldr r1, =data_020aad64
+    ldr r1, =GXi_DmaId
     mov lr, r0
     ldr r0, [r1]
     cmn r0, #1
@@ -1139,7 +1139,7 @@ asm void func_02003c28(void)
     mov r3, r4
     add r2, lr, r5
     str r12, [sp]
-    bl func_02008964
+    bl MIi_DmaCopy32
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02003c7c:
@@ -1151,11 +1151,11 @@ asm void func_02003c28(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02003c98(void)
+asm void GX_BeginLoadBGExtPltt(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02004d30
-    ldr r1, =data_020bb044
+    bl GX_ResetBankForBGExtPltt
+    ldr r1, =sSubBGExtPltt
     cmp r0, #0x20
     str r0, [r1, #0x14]
     bgt @L_02003cd8
@@ -1182,19 +1182,19 @@ asm void func_02003c98(void)
     ldmneia sp!, {r3, pc}
 @L_02003cfc:
     ldr r2, =0x6890000
-    ldr r0, =data_020bb044
+    ldr r0, =sSubBGExtPltt
     mov r1, #0
     str r2, [r0, #0x10]
     str r1, [r0, #0xc]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02003d24(void)
+asm void GX_LoadBGExtPltt(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #0xc
-    ldr r12, =data_020bb044
-    ldr r3, =data_020aad64
+    ldr r12, =sSubBGExtPltt
+    ldr r3, =GXi_DmaId
     ldr r4, [r12, #0x10]
     ldr lr, [r3]
     ldr r12, [r12, #0xc]
@@ -1211,7 +1211,7 @@ asm void func_02003d24(void)
     mov r0, lr
     mov r2, r4
     str r12, [sp, #8]
-    bl func_02008bb8
+    bl MIi_DmaCopy32Async
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, pc}
 @L_02003d80:
@@ -1221,18 +1221,18 @@ asm void func_02003d24(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02003d98(void)
+asm void GX_EndLoadBGExtPltt(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_020aad64
+    ldr r0, =GXi_DmaId
     ldr r0, [r0]
     cmn r0, #1
     beq @L_02003db0
-    bl func_02008cb4
+    bl MI_WaitDma
 @L_02003db0:
-    ldr r4, =data_020bb044
+    ldr r4, =sSubBGExtPltt
     ldr r0, [r4, #0x14]
-    bl func_02004528
+    bl GX_SetBankForBGExtPltt
     mov r0, #0
     str r0, [r4, #0x14]
     str r0, [r4, #0x10]

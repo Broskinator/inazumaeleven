@@ -1,30 +1,30 @@
 // (asm for now)
 
 void G3X_Reset(void);
-void func_020029f4(void);
+void G3X_ClearFifo(void);
 void G3X_InitMtxStack(void);
 void G3X_ResetMtxStack(void);
-void func_02002b40(void);
+void G3X_SetFog(void);
 void G3X_GetClipMtx(void);
 void G3X_GetVectorMtx(void);
-void func_02002bf4(void);
-void func_02002c0c(void);
-void func_02002c20(void);
+void G3X_SetEdgeColorTable(void);
+void G3X_SetFogTable(void);
+void G3X_SetToonTable(void);
 void G3X_SetClearColor(void);
-void func_02002c60(void);
-void func_02002d14(void);
-void func_02002d40(void);
-void func_02002d6c(void);
+void G3X_InitTable(void);
+void G3X_GetMtxStackLevelPV(void);
+void G3X_GetMtxStackLevelPJ(void);
+void G3X_GetBoxTestResult(void);
 void GXi_NopClearFifo128_(void);
 
 void MI_Copy64B(void);
-void func_02009280(void);
+void MI_Copy36B(void);
 void MIi_CpuCopy16(void);
 void MI_Copy32B(void);
-extern char data_020aad64[];
-void func_02008ab0(void);
-void func_020088e0(void);
-void func_0200919c(void);
+extern char GXi_DmaId[];
+void MIi_DmaFill32Async(void);
+void MIi_DmaFill32(void);
+void MIi_CpuClear32(void);
 
 asm void G3X_Reset(void)
 {
@@ -54,7 +54,7 @@ asm void G3X_Reset(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020029f4(void)
+asm void G3X_ClearFifo(void)
 {
     stmdb sp!, {r4, lr}
     ldr r4, =0x4000400
@@ -78,13 +78,13 @@ asm void G3X_InitMtxStack(void)
     add r4, sp, #4
 @L_02002a34:
     mov r0, r4
-    bl func_02002d14
+    bl G3X_GetMtxStackLevelPV
     cmp r0, #0
     bne @L_02002a34
     add r4, sp, #0
 @L_02002a48:
     mov r0, r4
-    bl func_02002d40
+    bl G3X_GetMtxStackLevelPJ
     cmp r0, #0
     bne @L_02002a48
     ldr r1, =0x4000440
@@ -119,13 +119,13 @@ asm void G3X_ResetMtxStack(void)
     add r4, sp, #4
 @L_02002acc:
     mov r0, r4
-    bl func_02002d14
+    bl G3X_GetMtxStackLevelPV
     cmp r0, #0
     bne @L_02002acc
     add r4, sp, #0
 @L_02002ae0:
     mov r0, r4
-    bl func_02002d40
+    bl G3X_GetMtxStackLevelPJ
     cmp r0, #0
     bne @L_02002ae0
     ldr r1, =0x4000440
@@ -148,7 +148,7 @@ asm void G3X_ResetMtxStack(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02002b40(void)
+asm void G3X_SetFog(void)
 {
     cmp r0, #0
     ldreq r2, =0x4000060
@@ -195,12 +195,12 @@ asm void G3X_GetVectorMtx(void)
     mvnne r0, #0
     ldmneia sp!, {r3, pc}
     add r0, r2, #0x80
-    bl func_02009280
+    bl MI_Copy36B
     mov r0, #0
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02002bf4(void)
+asm void G3X_SetEdgeColorTable(void)
 {
     ldr r1, =0x4000330
     ldr r12, =MIi_CpuCopy16
@@ -208,14 +208,14 @@ asm void func_02002bf4(void)
     bx r12
 }
 
-asm void func_02002c0c(void)
+asm void G3X_SetFogTable(void)
 {
     ldr r1, =0x4000360
     ldr r12, =MI_Copy32B
     bx r12
 }
 
-asm void func_02002c20(void)
+asm void G3X_SetToonTable(void)
 {
     ldr r1, =0x4000380
     ldr r12, =MIi_CpuCopy16
@@ -236,11 +236,11 @@ asm void G3X_SetClearColor(void)
     bx lr
 }
 
-asm void func_02002c60(void)
+asm void G3X_InitTable(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0xc
-    ldr r4, =data_020aad64
+    ldr r4, =GXi_DmaId
     ldr r0, [r4]
     cmn r0, #1
     beq @L_02002cbc
@@ -253,13 +253,13 @@ asm void func_02002c60(void)
     mov r2, r7
     str r6, [sp, #8]
     mov r3, #0x10
-    bl func_02008ab0
+    bl MIi_DmaFill32Async
     str r6, [sp]
     ldr r0, [r4]
     mov r2, r7
     add r1, r5, #0x30
     mov r3, #0x60
-    bl func_020088e0
+    bl MIi_DmaFill32
     b @L_02002ce4
 @L_02002cbc:
     ldr r4, =0x4000330
@@ -267,11 +267,11 @@ asm void func_02002c60(void)
     mov r0, r5
     mov r1, r4
     mov r2, #0x10
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r0, r5
     add r1, r4, #0x30
     mov r2, #0x60
-    bl func_0200919c
+    bl MIi_CpuClear32
 @L_02002ce4:
     mov r2, #0
     ldr r0, =0x40004d0
@@ -285,7 +285,7 @@ asm void func_02002c60(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-asm void func_02002d14(void)
+asm void G3X_GetMtxStackLevelPV(void)
 {
     ldr r2, =0x4000600
     ldr r1, [r2]
@@ -299,7 +299,7 @@ asm void func_02002d14(void)
     bx lr
 }
 
-asm void func_02002d40(void)
+asm void G3X_GetMtxStackLevelPJ(void)
 {
     ldr r2, =0x4000600
     ldr r1, [r2]
@@ -313,7 +313,7 @@ asm void func_02002d40(void)
     bx lr
 }
 
-asm void func_02002d6c(void)
+asm void G3X_GetBoxTestResult(void)
 {
     ldr r2, =0x4000600
     ldr r1, [r2]

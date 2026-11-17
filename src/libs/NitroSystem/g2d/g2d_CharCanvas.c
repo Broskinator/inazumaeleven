@@ -1,37 +1,37 @@
 // (asm for now)
 
 void OBJSizeToShape(void);
-void func_02026044(void);
-void func_02026174(void);
-void func_020263a8(void);
-void func_0202653c(void);
+void ClearChar(void);
+void LetterChar(void);
+void DrawGlyphLine(void);
+void DrawGlyph1D(void);
 void ClearContinuous(void);
 void ClearLine(void);
-void func_02026814(void);
-void func_020269ac(void);
-void func_02026b98(void);
-void func_02026bc0(void);
+void ClearAreaLine(void);
+void ClearArea1D(void);
+void InitCharCanvas(void);
+void NNS_G2dCharCanvasDrawChar(void);
 void NNS_G2dCharCanvasInitForBG(void);
-void func_02026d08(void);
-void func_02026d8c(void);
+void NNS_G2dCharCanvasInitForOBJ1D(void);
+void NNS_G2dMapScrToCharText(void);
 void NNS_G2dMapScrToChar256x16Pltt(void);
-void func_02026e98(void);
-void func_02026ef4(void);
-void func_020271f4(void);
-void func_020272a8(void);
-void func_020273f8(void);
+void NNSi_G2dCalcRequiredOBJ(void);
+void NNS_G2dArrangeOBJ1D(void);
+void NNSi_G2dTextCanvasDrawString(void);
+void NNSi_G2dTextCanvasDrawTextAlign(void);
+void NNSi_G2dTextCanvasDrawText(void);
 
 extern char data_020a486c[];
 void MIi_CpuClearFast(void);
-void func_02027898(void);
-void func_02025f40(void);
+void NNSi_G2dBitReaderRead(void);
+void GetCharIndex1D(void);
 void NNS_G2dFontFindGlyphIndex(void);
 void NNS_G2dFontGetCharWidthsFromIndex(void);
 extern char data_020a4834[];
 extern char data_020a484c[];
 extern char data_020a4840[];
-void func_02025d8c(void);
-void func_02025eac(void);
+void NNSi_G2dFontGetStringWidth(void);
+void NNSi_G2dFontGetTextRect(void);
 
 asm void OBJSizeToShape(void)
 {
@@ -43,7 +43,7 @@ asm void OBJSizeToShape(void)
     bx lr
 }
 
-asm void func_02026044(void)
+asm void ClearChar(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r3, #8
@@ -127,7 +127,7 @@ asm void func_02026044(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02026174(void)
+asm void LetterChar(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x28
@@ -195,7 +195,7 @@ asm void func_02026174(void)
     strb r0, [sp, #0x25]
     mov r0, r5
     add r1, r1, r2, ror #29
-    bl func_02027898
+    bl NNSi_G2dBitReaderRead
     ldr r6, [sp]
     mov r0, r6
     cmp r0, r10
@@ -203,7 +203,7 @@ asm void func_02026174(void)
 @L_0202628c:
     mov r0, r5
     mov r1, r8
-    bl func_02027898
+    bl NNSi_G2dBitReaderRead
     cmp r0, #0
     mvnne r1, r11, lsl r6
     addne r0, r7, r0
@@ -243,7 +243,7 @@ asm void func_02026174(void)
     add r0, r0, r4, lsr #3
     str r0, [sp, #0x18]
     add r0, sp, #0x18
-    bl func_02027898
+    bl NNSi_G2dBitReaderRead
     ldr r9, [sp]
     mov r0, r9
     cmp r0, r10
@@ -251,7 +251,7 @@ asm void func_02026174(void)
 @L_0202633c:
     add r0, sp, #0x18
     mov r1, r8
-    bl func_02027898
+    bl NNSi_G2dBitReaderRead
     cmp r0, #0
     beq @L_02026378
     add r1, r5, r0
@@ -280,7 +280,7 @@ asm void func_02026174(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020263a8(void)
+asm void DrawGlyphLine(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x2c
@@ -373,7 +373,7 @@ asm void func_020263a8(void)
     mov r0, r4
     str r7, [sp, #4]
     str r5, [sp, #0xc]
-    bl func_02026174
+    bl LetterChar
     sub r5, r5, #8
     cmp r5, r6
     add r7, r7, r8
@@ -388,7 +388,7 @@ asm void func_020263a8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202653c(void)
+asm void DrawGlyph1D(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x4c
@@ -503,12 +503,12 @@ asm void func_0202653c(void)
     mov r0, r6
     mov r1, r10
     str r7, [sp, #4]
-    bl func_02025f40
+    bl GetCharIndex1D
     mla r1, r0, r9, r11
     add r0, sp, #0x24
     str r4, [sp, #0x2c]
     str r1, [sp, #0x24]
-    bl func_02026174
+    bl LetterChar
     sub r4, r4, #8
     add r6, r6, #1
     cmp r4, r5
@@ -586,7 +586,7 @@ asm void ClearLine(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02026814(void)
+asm void ClearAreaLine(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
@@ -674,7 +674,7 @@ asm void func_02026814(void)
     mov r0, r7
     mov r2, r8
     stmia sp, {r5, r10, r11}
-    bl func_02026044
+    bl ClearChar
     ldr r0, [sp, #0x14]
     add r4, r4, #8
     add r7, r7, r0
@@ -695,7 +695,7 @@ asm void func_02026814(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020269ac(void)
+asm void ClearArea1D(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x48
@@ -792,7 +792,7 @@ asm void func_020269ac(void)
     str r0, [sp, #4]
     mov r0, r6
     mov r1, r8
-    bl func_02025f40
+    bl GetCharIndex1D
     ldr r2, [sp, #0x3c]
     sub r1, r10, r4
     cmp r4, r10
@@ -808,7 +808,7 @@ asm void func_020269ac(void)
     ldr r2, [sp, #0x30]
     mla r0, r12, r0, r2
     mov r2, r9
-    bl func_02026044
+    bl ClearChar
     add r4, r4, #8
     add r6, r6, #1
     cmp r4, r7
@@ -825,7 +825,7 @@ asm void func_020269ac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02026b98(void)
+asm void InitCharCanvas(void)
 {
     stmdb sp!, {r4, lr}
     ldr r4, [sp, #8]
@@ -839,7 +839,7 @@ asm void func_02026b98(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02026bc0(void)
+asm void NNS_G2dCharCanvasDrawChar(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x10
@@ -928,12 +928,12 @@ asm void NNS_G2dCharCanvasInitForBG(void)
     str lr, [sp]
     str r12, [sp, #4]
     str r2, [sp, #8]
-    bl func_02026b98
+    bl InitCharCanvas
     add sp, sp, #0xc
     ldmia sp!, {pc}
 }
 
-asm void func_02026d08(void)
+asm void NNS_G2dCharCanvasInitForOBJ1D(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #0x10
@@ -963,12 +963,12 @@ asm void func_02026d08(void)
     str r12, [sp, #4]
     orr r4, lr, r4, lsr #16
     str r4, [sp, #8]
-    bl func_02026b98
+    bl InitCharCanvas
     add sp, sp, #0x10
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02026d8c(void)
+asm void NNS_G2dMapScrToCharText(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #8
@@ -1050,7 +1050,7 @@ asm void NNS_G2dMapScrToChar256x16Pltt(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02026e98(void)
+asm void NNSi_G2dCalcRequiredOBJ(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r3, r0, lsr #3
@@ -1077,7 +1077,7 @@ asm void func_02026e98(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02026ef4(void)
+asm void NNS_G2dArrangeOBJ1D(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x3c
@@ -1205,7 +1205,7 @@ asm void func_02026ef4(void)
     mov r0, r6
     mov r1, r7
     str r4, [sp, #0xc]
-    bl func_02026ef4
+    bl NNS_G2dArrangeOBJ1D
     ldr r1, [sp, #0x18]
     add r6, r6, r0, lsl #3
     mul r2, r1, r7
@@ -1233,7 +1233,7 @@ asm void func_02026ef4(void)
     ldr r1, [sp, #0x2c]
     mov r0, r6
     mov r2, r7
-    bl func_02026ef4
+    bl NNS_G2dArrangeOBJ1D
     ldr r2, [sp, #0x18]
     ldr r1, [sp, #0x2c]
     add r6, r6, r0, lsl #3
@@ -1267,7 +1267,7 @@ asm void func_02026ef4(void)
     mov r0, r6
     add r3, r3, r5, lsl #3
     str r4, [sp, #0xc]
-    bl func_02026ef4
+    bl NNS_G2dArrangeOBJ1D
     ldr r1, [sp, #0x24]
     add r0, r1, r0
     str r0, [sp, #0x24]
@@ -1277,7 +1277,7 @@ asm void func_02026ef4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020271f4(void)
+asm void NNSi_G2dTextCanvasDrawString(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -1306,7 +1306,7 @@ asm void func_020271f4(void)
     ldr r0, [r10]
     mov r1, r4
     mov r3, r8
-    bl func_02026bc0
+    bl NNS_G2dCharCanvasDrawChar
     add r0, r11, r0
     mla r9, r0, r6, r9
     mla r8, r0, r7, r8
@@ -1328,7 +1328,7 @@ asm void func_020271f4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020272a8(void)
+asm void NNSi_G2dTextCanvasDrawTextAlign(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
@@ -1380,7 +1380,7 @@ asm void func_020272a8(void)
     ldr r2, [sp, #0x2c]
     mov r3, #0
     ldmib r10, {r0, r1}
-    bl func_02025d8c
+    bl NNSi_G2dFontGetStringWidth
     sub r0, r9, r0
     b @L_020273a4
 @L_02027378:
@@ -1389,7 +1389,7 @@ asm void func_020272a8(void)
     ldr r2, [sp, #0x2c]
     mov r3, #0
     ldmib r10, {r0, r1}
-    bl func_02025d8c
+    bl NNSi_G2dFontGetStringWidth
     add r0, r0, #1
     add r0, r0, r0, lsr #31
     mov r1, r0, asr #1
@@ -1411,7 +1411,7 @@ asm void func_020272a8(void)
     mov r0, r10
     strb r3, [sp, #9]
     ldr r3, [sp, #0x58]
-    bl func_020271f4
+    bl NNSi_G2dTextCanvasDrawString
     ldr r0, [sp, #0x2c]
     add r4, r4, #1
     cmp r0, #0
@@ -1420,7 +1420,7 @@ asm void func_020272a8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020273f8(void)
+asm void NNSi_G2dTextCanvasDrawText(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x28
@@ -1434,7 +1434,7 @@ asm void func_020273f8(void)
     mov r6, r2
     ldmib r8, {r1, r2}
     ldr r4, [sp, #0x40]
-    bl func_02025eac
+    bl NNSi_G2dFontGetTextRect
     ldr r2, [sp, #0x18]
     ldr r0, [sp, #0x1c]
     str r2, [sp, #0x10]
@@ -1496,7 +1496,7 @@ asm void func_020273f8(void)
     mov r1, r7
     mov r2, r6
     strb r4, [sp, #0xd]
-    bl func_020272a8
+    bl NNSi_G2dTextCanvasDrawTextAlign
     add sp, sp, #0x28
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }

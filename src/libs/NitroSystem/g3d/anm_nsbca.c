@@ -1,12 +1,12 @@
 // (asm for now)
 
 void NNSi_G3dAnmCalcNsBca(void);
-void func_0202c378(void);
+void getMdlTrans_(void);
 void getMdlScale_(void);
 void getMdlRot_(void);
 
-void func_0202c61c(void);
-extern char data_020bf67c[];
+void getJntSRTAnmResult_(void);
+extern char NNS_G3dRS[];
 void func_02009bc8(void);
 extern char data_020a48f0[];
 extern char data_020a48f1[];
@@ -29,13 +29,13 @@ asm void NNSi_G3dAnmCalcNsBca(void)
 @L_0202c368:
     mov r1, r2
     mov r2, r12
-    bl func_0202c61c
+    bl getJntSRTAnmResult_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202c378(void)
+asm void getMdlTrans_(void)
 {
-    ldr r1, =data_020bf67c
+    ldr r1, =NNS_G3dRS
     ldr r2, [r1]
     ldr r1, [r2]
     ldr r12, [r2, #0xd4]
@@ -80,7 +80,7 @@ asm void func_0202c378(void)
 asm void getMdlScale_(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020bf67c
+    ldr r1, =NNS_G3dRS
     ldr r12, [r1]
     ldr r2, [r12]
     ldr r4, [r12, #0xd4]
@@ -124,7 +124,7 @@ asm void getMdlScale_(void)
 asm void getMdlRot_(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r1, =data_020bf67c
+    ldr r1, =NNS_G3dRS
     mov r8, r0
     ldr r1, [r1]
     ldr r0, [r1]

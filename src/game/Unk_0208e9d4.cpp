@@ -10,8 +10,8 @@ typedef struct {
     u8 unk_290;
 } UnkListOwner_0208e9d4;
 
-extern "C" void func_020326f8(NNSFndList *list, void *object);
-extern "C" void *func_02032878(NNSFndList *list);
+extern "C" void NNS_FndAppendListObject(NNSFndList *list, void *object);
+extern "C" void *NNS_FndGetPrevListObject(NNSFndList *list);
 extern "C" u8 data_020fc708[];
 
 extern "C" void func_0208e9d4(void);
@@ -46,20 +46,20 @@ extern "C" void *func_0208ff34(u8 *obj, int index);
 extern "C" void func_0208ff4c(u8 *obj, void *object);
 extern "C" void *func_0208ff5c(u8 *obj, void *object);
 extern "C" void func_0208ff6c(u8 *obj, void *object);
-extern "C" void func_0208ff7c(void);
+extern "C" void Vram_ClearTexPool(void);
 
 extern "C" void FX_SinCosTable_(void);
 extern "C" s32 NNS_FndInitList(...);
 extern "C" void NNS_G3dGlbFlushVP(void);
-extern "C" void func_02001d60(void);
-extern "C" void func_02001d80(void);
-extern "C" void func_0200226c(void);
+extern "C" void FX_Div(void);
+extern "C" void FX_Sqrt(void);
+extern "C" void FX_Atan2Idx(void);
 extern "C" void _fflt(void);
 extern "C" void _ffix(void);
 extern "C" void _fadd(void);
 extern "C" void _fsub(void);
-extern "C" s32 func_0202b608(...);
-extern "C" s32 func_0203274c(...);
+extern "C" s32 NNS_G3dGeBufferOP_N(...);
+extern "C" s32 NNS_FndPrependListObject(...);
 
 extern "C" asm void func_0208e9d4(void)
 {
@@ -118,7 +118,7 @@ extern "C" asm void func_0208e9d4(void)
     ldr r1, [sp, #0xa8]
     sub r0, r0, r8
     sub r1, r1, r9
-    bl func_0200226c
+    bl FX_Atan2Idx
     str r0, [sp, #0x2c]
     ldr r0, [sp, #0xa8]
     sub r0, r9, r0
@@ -142,7 +142,7 @@ extern "C" asm void func_0208e9d4(void)
     mov r0, r1, asr #4
     add r0, r0, r3, asr #4
     mov r5, #0
-    bl func_02001d80
+    bl FX_Sqrt
     mov r0, r0, lsl #4
     str r0, [sp, #0x4c]
     mov r0, r10
@@ -823,7 +823,7 @@ extern "C" asm void func_0208f3c0(void)
     orr r3, r3, r2, lsl #20
     sub r0, r0, r3
     mov r0, r0, lsl #2
-    bl func_02001d60
+    bl FX_Div
     mov r1, r7
     mov r7, r0
     ldr r2, [sp, #0x20]
@@ -849,7 +849,7 @@ extern "C" asm void func_0208f3c0(void)
     orr r3, r3, r2, lsl #20
     sub r0, r0, r3
     mov r0, r0, lsl #2
-    bl func_02001d60
+    bl FX_Div
     adds r1, r7, #2
     bmi @L_0208f5b8
     sub r1, r7, #2
@@ -998,7 +998,7 @@ extern "C" asm void func_0208f7c8(void)
     str r2, [sp]
     mov r7, r8, asr #0x1f
     mov r9, r10, asr #0x1f
-    bl func_02001d60
+    bl FX_Div
     cmp r0, #0
     blt @L_0208f878
     cmp r0, #0x1000
@@ -1022,10 +1022,10 @@ extern "C" asm void func_0208f7c8(void)
     cmp r6, r0
     bge @L_0208f8c8
     mov r0, r6
-    bl func_02001d80
+    bl FX_Sqrt
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0208f8c8:
-    bl func_02001d80
+    bl FX_Sqrt
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0208f8d0:
     mov r1, r0, asr #0x1f
@@ -1061,7 +1061,7 @@ extern "C" asm void func_0208f7c8(void)
     orr r4, r4, r3, lsl #20
     mov r0, r1, asr #4
     add r0, r0, r4, asr #4
-    bl func_02001d80
+    bl FX_Sqrt
     mov r0, r0, lsl #2
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -1107,7 +1107,7 @@ extern "C" asm void func_0208f960(void)
     ldr r9, [sp, #0x28]
     mov r4, #0
     mov r11, #0x800
-    bl func_02001d60
+    bl FX_Div
     cmp r0, #0
     blt @L_0208fa10
     cmp r0, #0x1000
@@ -1156,7 +1156,7 @@ extern "C" asm void func_0208f960(void)
     orr r3, r3, r2, lsl #20
     mov r0, r1, asr #4
     add r0, r0, r3, asr #4
-    bl func_02001d80
+    bl FX_Sqrt
     mov r0, r0, lsl #2
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -1177,7 +1177,7 @@ extern "C" asm void func_0208fac4(void)
     mov r1, r8
     mov r2, r8
     mov r0, #0x11
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     bl NNS_G3dGlbFlushVP
     mov r0, r7
     bl func_0208fc04
@@ -1188,7 +1188,7 @@ extern "C" asm void func_0208fac4(void)
     add r1, sp, #8
     mov r2, #1
     str r8, [sp, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r0, r6, #0x100
     ldrh r0, [r0, #8]
     add r0, r0, #0x82
@@ -1217,7 +1217,7 @@ extern "C" asm void func_0208fac4(void)
     mov r0, #0x1c
     str r3, [sp, #0x18]
     str r4, [sp, #0x1c]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r4, #0x400000
     mov r3, #0x1000
     add r1, sp, #0xc
@@ -1226,7 +1226,7 @@ extern "C" asm void func_0208fac4(void)
     str r4, [sp, #0xc]
     str r4, [sp, #0x10]
     str r3, [sp, #0x14]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r0, r6, #0x100
     ldrh r0, [r0, #0xa]
     mov r4, #1
@@ -1234,7 +1234,7 @@ extern "C" asm void func_0208fac4(void)
     str r0, [sp, #4]
     mov r2, r4
     mov r0, #0x20
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, r7
     mov r1, r6
     bl func_0208fc70
@@ -1242,7 +1242,7 @@ extern "C" asm void func_0208fac4(void)
     mov r0, #0x12
     add r1, sp, #0
     str r4, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
@@ -1252,9 +1252,9 @@ extern "C" void func_0208fc04(void)
     s32 a;
     s32 b;
     a = 0;
-    ((void (*)(s32, s32 *, s32))func_0202b608)(0x30, &a, 1);
+    ((void (*)(s32, s32 *, s32))NNS_G3dGeBufferOP_N)(0x30, &a, 1);
     b = 0;
-    ((void (*)(s32, s32 *, s32))func_0202b608)(0x31, &b, 1);
+    ((void (*)(s32, s32 *, s32))NNS_G3dGeBufferOP_N)(0x31, &b, 1);
 }
 
 extern "C" s32 func_0208fc44(s32 arg0, u8 *arg1)
@@ -1264,7 +1264,7 @@ extern "C" s32 func_0208fc44(s32 arg0, u8 *arg1)
     s32 t0;
     *(s32 *)(((u8 *)local)) = (0x3F0000C0 | (*(u8 *)(arg1 + 0x10C) << 0x10));
     t0 = (0x3F0000C0 | (*(u8 *)(arg1 + 0x10C) << 0x10));
-    v0 = func_0202b608(0x29, (s32)((u8 *)local), 1, t0);
+    v0 = NNS_G3dGeBufferOP_N(0x29, (s32)((u8 *)local), 1, t0);
     return v0;
 }
 
@@ -1279,7 +1279,7 @@ extern "C" asm void func_0208fc70(void)
     add r1, sp, #0xc
     mov r2, r7
     mov r0, #0x40
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [r10]
     add r8, r10, #0x7c
     cmp r0, #0
@@ -1315,7 +1315,7 @@ extern "C" asm void func_0208fc70(void)
     mov r1, r4
     mov r2, r11
     str r6, [sp, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r7, #0
     b @L_0208fd64
 @L_0208fd2c:
@@ -1332,7 +1332,7 @@ extern "C" asm void func_0208fc70(void)
     mov r0, #0x25
     add r1, sp, #0
     mov r2, #1
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0208fd64:
     ldr r0, [r10]
     add r9, r9, #1
@@ -1343,7 +1343,7 @@ extern "C" asm void func_0208fc70(void)
     mov r1, #0
     mov r2, r1
     mov r0, #0x41
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -1361,7 +1361,7 @@ extern "C" void func_0208fd90(s32 arg0)
     do {
         *(s32 *)(((u8 *)(arg0 + (r6 << 4))) + 0x180) = 0;
         *(s32 *)(((u8 *)(arg0 + (r6 << 4))) + 0x17C) = 0;
-        func_0203274c((arg0 + 0x26C), ((arg0 + 0x17C) + (r6 << 4)), (arg0 + (r6 << 4)));
+        NNS_FndPrependListObject((arg0 + 0x26C), ((arg0 + 0x17C) + (r6 << 4)), (arg0 + (r6 << 4)));
         r4 = (arg0 + 0x17C);
         r5 = 0;
         r6 = (r6 + 1);
@@ -1382,12 +1382,12 @@ extern "C" void func_0208fe20(s32 arg0, u8 *arg1)
     NNS_FndRemoveListObject((NNSFndList *)(arg0 + 0x278), (void *)arg1);
     *(s32 *)(arg1 + 0x4) = 0;
     *(s32 *)(arg1) = 0;
-    func_0203274c((arg0 + 0x26C), (s32)arg1, 0);
+    NNS_FndPrependListObject((arg0 + 0x26C), (s32)arg1, 0);
 }
 
 extern "C" void func_0208fe50(u8 *obj, void *object)
 {
-    func_020326f8(&((UnkListOwner_0208e9d4 *)obj)->list278, object);
+    NNS_FndAppendListObject(&((UnkListOwner_0208e9d4 *)obj)->list278, object);
 }
 
 extern "C" void func_0208fe60(u8 *obj, void *object, void *target)
@@ -1415,7 +1415,7 @@ extern "C" void func_0208fe88(s32 arg0, s32 arg1, s32 arg2)
 
 extern "C" void *func_0208fed0(u8 *obj)
 {
-    void *object = func_02032878(&((UnkListOwner_0208e9d4 *)obj)->list278);
+    void *object = NNS_FndGetPrevListObject(&((UnkListOwner_0208e9d4 *)obj)->list278);
 
     if (object != NULL) {
         return object;
@@ -1458,10 +1458,10 @@ extern "C" void *func_0208ff5c(u8 *obj, void *object)
 
 extern "C" void func_0208ff6c(u8 *obj, void *object)
 {
-    func_020326f8(&((UnkListOwner_0208e9d4 *)obj)->list284, object);
+    NNS_FndAppendListObject(&((UnkListOwner_0208e9d4 *)obj)->list284, object);
 }
 
-extern "C" void func_0208ff7c(void)
+extern "C" void Vram_ClearTexPool(void)
 {
     MIi_CpuClearFast(0, data_020fc708, 0x1C);
 }

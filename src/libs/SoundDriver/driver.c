@@ -1,7 +1,7 @@
 // (asm for now)
 
 void func_020406d8(void);
-void func_02040770(void);
+void DSEi_SsdCheckInitData(void);
 void func_02040854(void);
 void func_02040884(void);
 void func_020408b4(void);
@@ -9,24 +9,24 @@ void func_020408e0(void);
 void func_02040924(void);
 void func_02040b64(void);
 void func_02040bcc(void);
-void func_02040c00(void);
+void DSE_SsdSuspend(void);
 void func_02040c98(void);
 void func_02040d38(void);
 void func_02040d58(void);
-void func_02040d98(void);
-void func_02040dcc(void);
-void func_02040e08(void);
+void DSE_SsdSetError(void);
+void DSE_SsdSetWarning(void);
+void DSE_SsdByteSwap32(void);
 void func_02040e38(void);
 void func_02040e60(void);
 void func_02040ed0(void);
 void func_02040eec(void);
-void func_02040f00(void);
+void DSE_SsdAllocFirstFit(void);
 void func_02041010(void);
-void func_02041158(void);
-void func_02041200(void);
-void func_02041290(void);
+void DSE_SsdFree(void);
+void DSE_SsdCheckHeap(void);
+void DSE_SsdMemoryClear(void);
 void func_020412f0(void);
-void func_02041384(void);
+void DSE_SsdCheckFileHeader(void);
 void func_02041404(void);
 void func_02041490(void);
 void func_020414d0(void);
@@ -34,39 +34,39 @@ void func_02041530(void);
 void func_020417a8(void);
 void func_02041858(void);
 void func_02041964(void);
-void func_020419d8(void);
-void func_02041a10(void);
-void func_02041a48(void);
+void DSE_SsdGetWaviEntry(void);
+void DSE_SsdGetProgramEntry(void);
+void DSE_SsdGetNextSplit(void);
 void func_02041ad0(void);
-void func_02041b20(void);
+void DSEi_SsdGetWaveByID(void);
 void func_02041b70(void);
 void func_02041c34(void);
 void func_02041c3c(void);
 void func_02041d40(void);
-void func_02041d78(void);
+void DSE_SsdIsPlaySequence(void);
 void func_02041d90(void);
 void func_02041e70(void);
 void func_02041eb0(void);
 void func_02041f10(void);
 void func_02041f50(void);
-void func_02041fe0(void);
+void DSE_SsdSuspendList(void);
 void func_0204204c(void);
 void func_02042144(void);
 void func_02042438(void);
 void func_02042590(void);
-void func_020426b4(void);
-void func_02042720(void);
-void func_02042820(void);
+void DSEi_FindSmdlSongChunk(void);
+void DSEi_LoadSequenceSong(void);
+void DSEi_GetSequenceById(void);
 void func_0204286c(void);
 void func_020429a4(void);
-void func_02042a28(void);
+void DSEi_InitSequenceTracks(void);
 void func_02042a78(void);
 void func_02042aec(void);
 void func_02042be4(void);
 void func_02042d98(void);
 void func_02042e28(void);
 void func_02042ef4(void);
-void func_020430a8(void);
+void DSEi_GetEffectSong(void);
 void func_020430f0(void);
 void func_020431f8(void);
 void func_02043300(void);
@@ -87,26 +87,26 @@ void func_02043c94(void);
 void func_02044030(void);
 void func_020441c8(void);
 void func_020441d4(void);
-void func_020441e0(void);
-void func_020441f8(void);
-void func_02044208(void);
-void func_02044224(void);
-void func_02044248(void);
+void DSE_SeqWaitDelta(void);
+void DSE_SeqWait8(void);
+void DSE_SeqWait16(void);
+void DSE_SeqWait24(void);
+void DSE_SeqWaitUntilFadeout(void);
 void func_02044274(void);
-void func_020442fc(void);
-void func_0204433c(void);
+void DSE_SeqMainLoopBegin(void);
+void DSE_SeqSubLoopBegin(void);
 void func_0204437c(void);
-void func_020443b8(void);
+void DSE_SeqSubLoopBreakOnLastIteration(void);
 void func_020443e0(void);
 void func_020443ec(void);
 void func_02044400(void);
 void func_02044440(void);
-void func_02044480(void);
-void func_020444ac(void);
-void func_020444dc(void);
+void DSE_SeqSetBank(void);
+void DSE_SsdSeqBankMSB(void);
+void DSE_SsdSeqBankLSB(void);
 void func_0204450c(void);
-void func_02044514(void);
-void func_0204455c(void);
+void DSE_SsdSeqProgramChange(void);
+void DSE_SeqSongVolumeFade(void);
 void func_020445e8(void);
 void func_02044600(void);
 void func_02044620(void);
@@ -115,9 +115,9 @@ void func_02044660(void);
 void func_02044690(void);
 void func_020446b0(void);
 void func_020446d0(void);
-void func_020446dc(void);
+void DSE_SeqModulationDepth(void);
 void func_020446f8(void);
-void func_02044730(void);
+void DSE_SeqFlagBit1Unknown(void);
 void func_02044740(void);
 void func_0204474c(void);
 void func_02044754(void);
@@ -125,9 +125,9 @@ void func_020447d4(void);
 void func_0204485c(void);
 void func_020448e4(void);
 void func_02044974(void);
-void func_02044a64(void);
-void func_02044a8c(void);
-void func_02044aa4(void);
+void DSE_SeqSetNoteRandomRegion(void);
+void DSE_SeqTuningJitterAmplitude(void);
+void DSE_SeqKeyBend(void);
 void func_02044ad0(void);
 void func_02044ae8(void);
 void func_02044af4(void);
@@ -152,11 +152,11 @@ void func_0204511c(void);
 void func_02045258(void);
 void func_0204528c(void);
 void func_020452bc(void);
-void func_020452c4(void);
+void DSE_SsdMidiInit(void);
 void func_020452d8(void);
 void func_020454d8(void);
-void func_020456c0(void);
-void func_020456e0(void);
+void DSE_SsdMidiControlBankMSB(void);
+void DSE_SsdMidiControlBankLSB(void);
 void func_02045700(void);
 void func_02045718(void);
 void func_02045728(void);
@@ -195,26 +195,26 @@ void func_02045b98(void);
 void func_02045ba0(void);
 void func_02045ba4(void);
 void func_02045ba8(void);
-void func_02045bac(void);
+void DSEi_ResetSynth(void);
 void func_02045c24(void);
 void func_02045cf4(void);
 void func_02045d60(void);
-void func_02045dfc(void);
-void func_02045e24(void);
+void DSEi_InitSynth(void);
+void DSEi_StopSynthChannels(void);
 void func_02045e50(void);
 void func_02045ea8(void);
 void func_02045f10(void);
 void func_02045ff8(void);
 void func_0204608c(void);
 void func_0204615c(void);
-void func_020461f0(void);
-void func_02046280(void);
-void func_02046434(void);
+void DSEi_SetSynthBankAndSequence(void);
+void DSEi_InitChannel(void);
+void DSEi_ReleaseChannelVoices(void);
 void func_020464b8(void);
-void func_02046534(void);
-void func_0204656c(void);
-void func_02046600(void);
-void func_02046634(void);
+void DSEi_SetWave(void);
+void DSE_SsdSetChannelProgram(void);
+void DSEi_SetModulationDepth(void);
+void DSEi_SetKeyBend(void);
 void func_0204667c(void);
 void func_0204670c(void);
 void func_020467bc(void);
@@ -231,27 +231,27 @@ void func_0204712c(void);
 void func_020471d4(void);
 void func_02047230(void);
 void func_02047288(void);
-void func_020472cc(void);
+void DSEi_StopVoice(void);
 void func_020473d0(void);
 void func_02047420(void);
-void func_02047458(void);
+void DSEi_CountActiveVoicesInChannel(void);
 void func_02047484(void);
-void func_0204769c(void);
+void DSEi_ResetEnvelope(void);
 void func_020476b0(void);
 void func_020476cc(void);
-void func_02047720(void);
-void func_02047784(void);
+void DSEi_SetEnvelopeParameters(void);
+void DSEi_SetEnvelopeSlide(void);
 void func_02047838(void);
-void func_02047904(void);
-void func_02047930(void);
+void DSEi_ReleaseEnvelope(void);
+void DSEi_StopEnvelope(void);
 void func_02047948(void);
 void func_02047968(void);
 void func_02047980(void);
-void func_02047ac8(void);
+void DSEi_LfoBank_Reset(void);
 void func_02047ae0(void);
-void func_02047cd8(void);
+void DSEi_LfoBank_SetModulationDepth(void);
 void func_02047d24(void);
-void func_02047dd8(void);
+void DSE_SsdLfoOffProc(void);
 void func_02047dec(void);
 void func_02047e28(void);
 void func_02047e70(void);
@@ -269,29 +269,29 @@ void func_0204812c(void);
 void func_02048168(void);
 void func_0204817c(void);
 void func_020481b8(void);
-void func_020481d4(void);
-void func_020481f0(void);
-void func_02048210(void);
+void DSEi_StreamDefaultFree(void);
+void DSE_SsdStreamInit(void);
+void DSEi_AllocateStreams(void);
 void func_02048280(void);
 void func_0204832c(void);
 void func_020485c8(void);
-void func_02048604(void);
+void DSEi_FindFreeStream(void);
 void func_02048650(void);
 void func_020486c8(void);
-void func_0204871c(void);
-void func_02048730(void);
-void func_02048784(void);
+void DSE_SsdSetMonoToStereo(void);
+void DSE_SsdIsOpenStream(void);
+void DSEi_InitFreeStream(void);
 void func_020487c4(void);
-void func_02048914(void);
-void func_02048ab4(void);
-void func_02048b80(void);
-void func_02048bb8(void);
-void func_02048cec(void);
-void func_02048d1c(void);
-void func_02048d30(void);
+void DSEi_InitStream(void);
+void DSEi_ResetStream(void);
+void DSEi_CloseAllStreams(void);
+void DSE_SsdCloseStream(void);
+void DSEi_InitStreamFifo(void);
+void DSEi_ResetStreamFifo(void);
+void DSE_SsdIsPlayStream(void);
 void func_02048d80(void);
-void func_02048f18(void);
-void func_02048f60(void);
+void DSE_SsdStopStreamAll(void);
+void DSE_SsdStopStream(void);
 void func_0204905c(void);
 void func_02049180(void);
 void func_020491c4(void);
@@ -299,27 +299,27 @@ void func_02049258(void);
 void func_02049280(void);
 void func_02049420(void);
 void func_020494c0(void);
-void func_02049568(void);
+void DSEi_Stream_FUN_0207d734(void);
 void func_02049570(void);
 void func_02049578(void);
-void func_0204958c(void);
+void DSEi_Stream_FUN_0207d75c(void);
 void func_020495b0(void);
 void func_0204966c(void);
 void func_02049780(void);
-void func_02049864(void);
-void func_0204990c(void);
+void DSEi_FUN_0207d9f4(void);
+void DSEi_GetStreamById(void);
 void func_02049968(void);
 void func_02049970(void);
-void func_02049a60(void);
-void func_02049adc(void);
+void DSEi_StreamAlloc(void);
+void DSEi_StreamFree(void);
 void func_02049b04(void);
-void func_02049d88(void);
-void func_02049dc0(void);
+void DSEi_FUN_0207ded8(void);
+void DSEi_StreamAlarmCallback(void);
 void func_02049df0(void);
 void func_02049ef0(void);
 void func_02049f6c(void);
-void func_0204a10c(void);
-void func_0204a1b0(void);
+void DSEi_StreamReadThreadFunc(void);
+void DSEi_Stream_FUN_0207e2e0(void);
 void func_0204a494(void);
 void func_0204a710(void);
 void func_0204a798(void);
@@ -330,19 +330,19 @@ void func_0204ad58(void);
 void func_0204ae24(void);
 void func_0204b0b4(void);
 void func_0204b340(void);
-void func_0204b4c4(void);
+void DSEi_FUN_0207f55c_GetMinMaxSamples(void);
 void func_0204b51c(void);
 void func_0204b55c(void);
-void func_0204b584(void);
+void DSEi_ResetFifoBuffer(void);
 void func_0204b5a4(void);
-void func_0204b654(void);
-void func_0204b708(void);
+void DSEi_FifoRead(void);
+void DSEi_Stream_FUN_0207f864(void);
 void func_0204b76c(void);
-void func_0204b7e0(void);
+void DSEi_Stream_FUN_0207f934(void);
 void func_0204b924(void);
-void func_0204ba88(void);
+void DSEi_Stream_FUN_0207fbd8(void);
 void func_0204bc1c(void);
-void func_0204be18(void);
+void DSEi_Stream_FUN_0207ff60(void);
 void func_0204bfe4(void);
 void func_0204c210(void);
 void func_0204c260(void);
@@ -355,25 +355,25 @@ void func_0204c50c(void);
 void func_0204c6d0(void);
 void func_0204c6e4(void);
 void func_0204c748(void);
-void func_0204c7e4(void);
-void func_0204c8ac(void);
-void func_0204c8fc(void);
-void func_0204c958(void);
-void func_0204cabc(void);
-void func_0204cbb0(void);
-void func_0204cc70(void);
+void DSEi_FUN_020803e8(void);
+void DSEi_FUN_020804b0(void);
+void DSEi_FUN_02080500(void);
+void DSEi_FUN_0208055c(void);
+void DSEi_FUN_020806c0(void);
+void DSEi_FUN_020807b4(void);
+void DSEi_FUN_02080874(void);
 void func_0204cd1c(void);
 void func_0204d14c(void);
 void func_0204d350(void);
-void func_0204d890(void);
+void DSEi_FUN_02081438(void);
 void func_0204d950(void);
-void func_0204dd4c(void);
-void func_0204dde4(void);
-void func_0204de6c(void);
+void DSEi_FUN_020818d0(void);
+void DSEi_FUN_02081968(void);
+void DSEi_FUN_020819f0(void);
 void func_0204ded0(void);
 void func_0204e1d0(void);
-void func_0204e350(void);
-void func_0204e3c8(void);
+void DSEi_FUN_02081ecc(void);
+void DSEi_FUN_02081f44(void);
 void func_0204e430(void);
 void func_0204e4f8(void);
 void func_0204e6c0(void);
@@ -388,32 +388,32 @@ void func_02050338(void);
 void func_02050348(void);
 void func_02050ac8(void);
 void func_02050ed4(void);
-void func_02050ef8(void);
+void DSE_SsdQuitCapture(void);
 void func_02050f08(void);
-void func_02050f38(void);
+void DSE_SsdCaptureSuspend(void);
 void func_02050f58(void);
 void func_02050f98(void);
-void func_0205102c(void);
+void DSE_SsdQuitCaptureThread(void);
 void func_02051098(void);
 void func_0205140c(void);
 void func_02051480(void);
-void func_0205168c(void);
+void DSEi_SuspendCapture(void);
 void func_02051724(void);
 void func_02051738(void);
-void func_020517d8(void);
-void func_02051830(void);
-void func_02051908(void);
-void func_020519c4(void);
-void func_020519ec(void);
-void func_02051ad8(void);
+void DSEi_CaptureFilterVolumeStereo(void);
+void DSEi_CaptureFilterEchoStereo(void);
+void DSEi_CaptureFilterEchoMono(void);
+void DSEi_CaptureFilterInvert(void);
+void DSEi_CaptureFilterEchoStereoInvert(void);
+void DSEi_CaptureFilterEchoMonoInvert(void);
 
-extern char data_020fa1d4[];
+extern char DSEi_SsdWork[];
 void _ZN4Main13func_0204069cEPvm(void);
 void _ZN4Main13func_020406b4EPvS0_(void);
 void _ZN4Main13func_020406d4Ev(void);
 void OS_InitTick(void);
-void func_02007aec(void);
-void func_02007be4(void);
+void OS_SetTick(void);
+void OS_InitAlarm(void);
 extern char data_020fb1d4[];
 extern char data_020aca50[];
 extern char data_020fa1f0[];
@@ -428,7 +428,7 @@ extern char data_020ac9d0[];
 extern char data_020fbfc8[];
 void OS_CreateThread(void);
 void OS_WakeupThreadDirect(void);
-void func_02006048(void);
+void OS_JoinThread(void);
 void OS_SleepThread(void);
 extern char data_020fa838[];
 void FS_SeekFile(void);
@@ -445,11 +445,11 @@ extern char data_020fa844[];
 extern char data_020fbeec[];
 void SND_SetupAlarm(void);
 void SND_StartTimer(void);
-void func_0200a550(void);
-void func_0200a390(void);
+void SND_FlushCommand(void);
+void SND_RecvCommandReply(void);
 void SND_StopTimer(void);
 extern char data_020fa8d4[];
-void func_02007adc(void);
+void OS_GetTickLo(void);
 void _ffltu(void);
 void _fdiv(void);
 void _fmul(void);
@@ -463,7 +463,7 @@ extern char data_020fa214[];
 extern char data_020fa914[];
 extern char data_020acad0[];
 extern char data_020acb54[];
-void func_0200aa94(void);
+void SND_GetChannelStatus(void);
 void SND_SetupChannelPcm(void);
 void SND_SetupChannelPsg(void);
 void SND_SetupChannelNoise(void);
@@ -491,7 +491,7 @@ extern char data_020fc1a8[];
 void OS_GetTick(void);
 void DC_FlushRange(void);
 void FS_InitFile(void);
-void func_0200c964(void);
+void FS_OpenFile(void);
 void FS_CloseFile(void);
 void MIi_CpuCopyFast(void);
 extern char data_020fc32c[];
@@ -500,7 +500,7 @@ extern char data_020a4a50[];
 extern char data_020fc5f4[];
 extern char data_020a6dc4[];
 extern char data_020a571c[];
-void func_0200919c(void);
+void MIi_CpuClear32(void);
 extern char data_020a6e98[];
 extern char data_020a6e88[];
 extern char data_020a6e84[];
@@ -516,7 +516,7 @@ extern char data_020a66c8[];
 extern char data_020a6308[];
 extern char data_020a5f08[];
 extern char data_020a6108[];
-void func_0200878c(void);
+void OS_Terminate(void);
 extern char data_020a6f18[];
 extern char data_020a6f38[];
 extern char data_020fc5f8[];
@@ -524,19 +524,19 @@ extern char data_020fc630[];
 extern char data_020fa8e6[];
 void SND_SetOutputSelector(void);
 void SND_SetupCapture(void);
-void func_02006d84(void);
+void DC_WaitWriteBufferEmpty(void);
 
 asm void func_020406d8(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r2, #1
     movs r4, r0
     strb r2, [r1, #0x3d]
     subeq r0, r2, #0x100
     ldmeqia sp!, {r4, pc}
     mov r1, #0x40
-    bl func_02041290
+    bl DSE_SsdMemoryClear
     mov r0, #0
     str r0, [r4, #4]
     str r0, [r4, #8]
@@ -564,7 +564,7 @@ asm void func_020406d8(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02040770(void)
+asm void DSEi_SsdCheckInitData(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r4, r0
@@ -572,7 +572,7 @@ asm void func_02040770(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, #2
     ldmia sp!, {r3, r4, r5, pc}
 @L_02040794:
@@ -581,7 +581,7 @@ asm void func_02040770(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, #2
     ldmia sp!, {r3, r4, r5, pc}
 @L_020407b4:
@@ -625,7 +625,7 @@ asm void func_02040770(void)
     mov r1, r5
     mvn r0, #0x17
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
 @L_02040848:
     mov r0, r5
     str r5, [r4]
@@ -643,7 +643,7 @@ asm void func_02040854(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 }
@@ -659,7 +659,7 @@ asm void func_02040884(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 }
@@ -674,7 +674,7 @@ asm void func_020408b4(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 }
@@ -687,7 +687,7 @@ asm void func_020408e0(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 @L_02040904:
@@ -704,7 +704,7 @@ asm void func_020408e0(void)
 asm void func_02040924(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r4, r0
     ldrsb r1, [r1]
     cmp r1, #1
@@ -712,37 +712,37 @@ asm void func_02040924(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0xbf
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xbf
     ldmia sp!, {r4, pc}
 @L_02040954:
-    bl func_02040770
+    bl DSEi_SsdCheckInitData
     movs r1, r0
     beq @L_02040974
     mvn r0, #0x1d
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x1d
     ldmia sp!, {r4, pc}
 @L_02040974:
     bl OS_InitTick
     mov r0, #0
     mov r1, r0
-    bl func_02007aec
-    bl func_02007be4
+    bl OS_SetTick
+    bl OS_InitAlarm
     ldrb r0, [r4, #0x11]
     cmp r0, #0
     ldrne r2, =0x414b
-    ldrne r0, =data_020fa1d4
+    ldrne r0, =DSEi_SsdWork
     movne r1, #0x3c
     bne @L_020409ac
     ldr r2, =0x2710
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #0x64
 @L_020409ac:
     strh r2, [r0, #0x28]
     str r1, [r0, #0x30]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r3, #0
     strh r3, [r0, #2]
     str r3, [r0, #4]
@@ -760,7 +760,7 @@ asm void func_02040924(void)
     ldr r0, =data_020fb1d4
     strb r1, [r0, #0xddc]
     bl func_02040d58
-    ldr r12, =data_020fa1d4
+    ldr r12, =DSEi_SsdWork
     mov r0, #1
     strb r0, [r12, #0x38]
     mov r2, #2
@@ -782,7 +782,7 @@ asm void func_02040924(void)
     cmp r2, #0x80
     add r12, r12, #1
     blt @L_02040a3c
-    ldr r12, =data_020fa1d4
+    ldr r12, =DSEi_SsdWork
     mov r0, #0x64
     strb r0, [r12, #0x67f]
     mov r0, #0x7f
@@ -816,8 +816,8 @@ asm void func_02040924(void)
     bl func_02046d84
     bl func_02046ce0
     bl func_02050ed4
-    bl func_020481f0
-    bl func_020452c4
+    bl DSE_SsdStreamInit
+    bl DSE_SsdMidiInit
     ldr r1, =data_020fa1d5
     mov r2, #1
     mov r0, #0x7f
@@ -827,13 +827,13 @@ asm void func_02040924(void)
     cmp r2, #0x10
     add r1, r1, #1
     blt @L_02040aec
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #0
     strb r1, [r0, #0x40]
     bl func_020436c0
     ldrb r0, [r4, #0x12]
     bl func_02041404
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #1
     strb r1, [r0]
     mov r1, #0
@@ -848,7 +848,7 @@ asm void func_02040924(void)
 asm void func_02040b64(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrsb r0, [r0]
     cmp r0, #0
     mvneq r0, #0xc0
@@ -858,12 +858,12 @@ asm void func_02040b64(void)
     bl func_02040d38
     bl func_020485c8
     bl func_02050f08
-    bl func_02050ef8
+    bl DSE_SsdQuitCapture
     bl func_02043754
     bl func_02046ce0
     bl func_02040ed0
     bl func_02040d58
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r0, #0
     strb r0, [r1]
     strb r0, [r1, #1]
@@ -877,7 +877,7 @@ asm void func_02040b64(void)
 asm void func_02040bcc(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrsb r1, [r0]
     cmp r1, #0
     ldrnesb r0, [r0, #1]
@@ -885,22 +885,22 @@ asm void func_02040bcc(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0xc0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xc0
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02040c00(void)
+asm void DSE_SsdSuspend(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrsb r1, [r0]
     cmp r1, #0
     bne @L_02040c2c
     mov r1, #0
     mov r2, r1
     mvn r0, #0xc0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xc0
     ldmia sp!, {r3, pc}
 @L_02040c2c:
@@ -911,21 +911,21 @@ asm void func_02040c00(void)
     mov r1, #1
     strb r1, [r0, #1]
     bl func_020437fc
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #0
     ldr r0, [r0, #0x668]
-    bl func_02041fe0
-    ldr r0, =data_020fa1d4
+    bl DSE_SsdSuspendList
+    ldr r0, =DSEi_SsdWork
     mov r1, #0
     ldr r0, [r0, #0x66c]
-    bl func_02041fe0
+    bl DSE_SsdSuspendList
     mov r0, #0
     bl func_02048650
     mov r0, #0
-    bl func_02050f38
+    bl DSE_SsdCaptureSuspend
     mov r0, #0
     bl func_02046d84
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #2
     strb r1, [r0, #0x38]
     mov r0, #0
@@ -935,7 +935,7 @@ asm void func_02040c00(void)
 asm void func_02040c98(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r4, r0
     ldrsb r0, [r1, #1]
     cmp r0, #0
@@ -946,17 +946,17 @@ asm void func_02040c98(void)
     ldrh r0, [r1, #0x3e]
     mov r1, r4
     tst r0, #0xf
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     moveq r2, #0
     mov r2, r2, lsl #0x18
     ldr r0, [r0, #0x668]
     mov r2, r2, asr #0x18
     bl func_0204204c
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrh r0, [r0, #0x3e]
     tst r0, #0xf0
     movne r1, #1
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     moveq r1, #0
     mov r2, r1, lsl #0x18
     ldr r0, [r0, #0x66c]
@@ -967,7 +967,7 @@ asm void func_02040c98(void)
     bl func_020486c8
     mov r0, r4
     bl func_02050f58
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #0
     strb r1, [r0, #1]
     bl func_02043790
@@ -983,13 +983,13 @@ asm void func_02040d38(void)
     mov r0, r4
     bl func_020435d8
     mov r0, r4
-    bl func_02048f18
+    bl DSE_SsdStopStreamAll
     ldmia sp!, {r4, pc}
 }
 
 asm void func_02040d58(void)
 {
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r2, #0
     str r2, [r1, #0x654]
     str r2, [r1, #0x658]
@@ -1004,10 +1004,10 @@ asm void func_02040d58(void)
     bx r12
 }
 
-asm void func_02040d98(void)
+asm void DSE_SsdSetError(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020fa1d4
+    ldr r3, =DSEi_SsdWork
     stmib r3, {r0, r1, r2}
     ldr r12, [r3, #0x1c]
     cmp r12, #0
@@ -1019,10 +1019,10 @@ asm void func_02040d98(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02040dcc(void)
+asm void DSE_SsdSetWarning(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020fa1d4
+    ldr r3, =DSEi_SsdWork
     str r0, [r3, #0x10]
     str r1, [r3, #0x14]
     str r2, [r3, #0x18]
@@ -1036,7 +1036,7 @@ asm void func_02040dcc(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02040e08(void)
+asm void DSE_SsdByteSwap32(void)
 {
     mov r3, r0, lsr #0x18
     mov r2, r0, lsr #8
@@ -1054,7 +1054,7 @@ asm void func_02040e08(void)
 
 asm void func_02040e38(void)
 {
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldr r0, =0x7fff
     ldr r2, [r1, #0x34]
     eor r2, r2, r2, lsl #17
@@ -1069,7 +1069,7 @@ asm void func_02040e60(void)
     mov r12, r1
     tst r0, #0xf
     bicne r0, r0, #0xf
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     addne r0, r0, #0x10
     subne r12, r12, #0x10
     add r3, r0, r12
@@ -1095,7 +1095,7 @@ asm void func_02040e60(void)
 
 asm void func_02040ed0(void)
 {
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #0
     str r1, [r0, #0x6f8]
     str r1, [r0, #0x6fc]
@@ -1105,15 +1105,15 @@ asm void func_02040ed0(void)
 
 asm void func_02040eec(void)
 {
-    ldr r12, =func_02040f00
+    ldr r12, =DSE_SsdAllocFirstFit
     ldr r2, =0x72657375
     bx r12
 }
 
-asm void func_02040f00(void)
+asm void DSE_SsdAllocFirstFit(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r3, =data_020fa1d4
+    ldr r3, =DSEi_SsdWork
     mov lr, r0
     ldr r0, [r3, #0x6f8]
     cmp r0, #0
@@ -1126,7 +1126,7 @@ asm void func_02040f00(void)
     mov r0, #0
     sub r5, r1, #1
     strh r0, [r4]
-    ldr r3, =data_020fa1d4
+    ldr r3, =DSEi_SsdWork
     mvn r0, r5
     add r4, lr, r5
     and r4, r0, r4
@@ -1136,7 +1136,7 @@ asm void func_02040f00(void)
     ldr r4, [r3, #0xc]
     cmp r4, #0
     bne @L_02040f70
-    ldr r4, =data_020fa1d4
+    ldr r4, =DSEi_SsdWork
     ldr r7, [r3, #8]
     ldr r4, [r4, #0x6fc]
     sub r5, r4, r7
@@ -1187,7 +1187,7 @@ asm void func_02040f00(void)
 asm void func_02041010(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    ldr r3, =data_020fa1d4
+    ldr r3, =DSEi_SsdWork
     mov r6, r0
     ldr r0, [r3, #0x6f8]
     mov r5, r1
@@ -1196,7 +1196,7 @@ asm void func_02041010(void)
     mov r1, r6
     mov r2, r5
     mvn r0, #0xc1
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02041044:
@@ -1207,7 +1207,7 @@ asm void func_02041010(void)
     sub r4, r5, #1
     mov r1, #0
     strh r1, [r3]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mvn lr, r4
     add r3, r6, r4
     and r3, lr, r3
@@ -1218,7 +1218,7 @@ asm void func_02041010(void)
     ldr r8, [r0, #0xc]
     cmp r8, #0
     bne @L_020410a8
-    ldr r7, =data_020fa1d4
+    ldr r7, =DSEi_SsdWork
     ldr r8, [r0, #8]
     ldr r9, [r7, #0x6fc]
     sub r7, r9, r8
@@ -1273,17 +1273,17 @@ asm void func_02041010(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02041158(void)
+asm void DSE_SsdFree(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     mov r1, r0
     ldr r0, [r2, #0x6f8]
     cmp r0, #0
     bne @L_02041184
     mvn r0, #0xc1
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xc1
     ldmia sp!, {r3, pc}
 @L_02041184:
@@ -1316,18 +1316,18 @@ asm void func_02041158(void)
     ldrh r2, [r12]
     mov r2, #0
     strh r3, [r12]
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x8b
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02041200(void)
+asm void DSE_SsdCheckHeap(void)
 {
     stmdb sp!, {r3, lr}
     ldr r2, =0x4000208
     mov r3, #0
     ldrh r12, [r2]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r0, #1
     strh r3, [r2]
     ldr r2, [r1, #0x6f8]
@@ -1362,7 +1362,7 @@ asm void func_02041200(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02041290(void)
+asm void DSE_SsdMemoryClear(void)
 {
     cmp r1, #0x10
     blt @L_020412b8
@@ -1405,11 +1405,11 @@ asm void func_020412f0(void)
 @L_02041304:
     mvn r0, #0x17
     mov r1, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 @L_02041318:
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     cmp r2, #1
     strb r2, [r0, #0x39]
     beq @L_02041334
@@ -1437,10 +1437,10 @@ asm void func_020412f0(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02041384(void)
+asm void DSE_SsdCheckFileHeader(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    ldr r3, =data_020fa1d4
+    ldr r3, =DSEi_SsdWork
     mov r6, r0
     ldrsb r0, [r3]
     mov r4, r2
@@ -1453,7 +1453,7 @@ asm void func_02041384(void)
     beq @L_020413e8
     beq @L_020413e8
     ldr r0, [r6]
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
     cmp r5, r0
     mvnne r4, #0x10
     bne @L_020413e8
@@ -1468,7 +1468,7 @@ asm void func_02041384(void)
     mov r0, r4
     mov r1, r6
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, r4
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -1519,10 +1519,10 @@ asm void func_02041490(void)
     strb r2, [r1, #0xdf2]
     bl OS_WakeupThreadDirect
     ldr r0, =data_020fbfc8
-    bl func_02006048
+    bl OS_JoinThread
     ldr r0, =data_020fb1d4
     ldr r0, [r0, #0xeb4]
-    bl func_02041158
+    bl DSE_SsdFree
     ldmia sp!, {r3, pc}
 }
 
@@ -1562,31 +1562,31 @@ asm void func_02041530(void)
     ldr r2, =0x415
     mov r3, #4
     mov r10, r0
-    bl func_02041384
+    bl DSE_SsdCheckFileHeader
     movs r4, r0
     ldmmiia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r4, lsl #0x10
     mov r0, r0, lsr #0x10
-    bl func_02041b20
+    bl DSEi_SsdGetWaveByID
     cmp r0, #0
     beq @L_02041580
     mov r1, r4
     mvn r0, #0x47
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x47
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02041580:
     ldr r2, =0x69766177
     mov r0, #0x28
     mov r1, #0x10
-    bl func_02040f00
+    bl DSE_SsdAllocFirstFit
     movs r9, r0
     mov r1, #0
     bne @L_020415b0
     mov r2, r1
     mvn r0, #0x7f
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x7f
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_020415b0:
@@ -1609,7 +1609,7 @@ asm void func_02041530(void)
     str r1, [r9, #0x20]
     str r1, [r9, #0x24]
     ldr r0, [r10, #0x50]
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
     ldr r7, =0x656f6420
     cmp r0, r7
     beq @L_02041698
@@ -1619,7 +1619,7 @@ asm void func_02041530(void)
     ldr r5, =0x6b677270
 @L_0204161c:
     ldr r0, [r8]
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
     cmp r0, r6
     bhi @L_02041640
     bhs @L_02041664
@@ -1650,7 +1650,7 @@ asm void func_02041530(void)
     add r0, r0, r2
     and r0, r1, r0
     ldr r0, [r8, r0]!
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
     cmp r0, r7
     bne @L_0204161c
 @L_02041698:
@@ -1681,9 +1681,9 @@ asm void func_02041530(void)
     mov r1, #0
     mov r0, r4
     mov r2, r1
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, r9
-    bl func_02041158
+    bl DSE_SsdFree
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0204170c:
@@ -1726,13 +1726,13 @@ asm void func_020417a8(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
     mov r6, r1
-    bl func_02041b20
+    bl DSEi_SsdGetWaveByID
     movs r4, r0
     bne @L_020417d8
     mov r1, r5
     mvn r0, #0x40
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x40
     ldmia sp!, {r4, r5, r6, pc}
 @L_020417d8:
@@ -1747,7 +1747,7 @@ asm void func_020417a8(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x4b
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x4b
     ldmia sp!, {r4, r5, r6, pc}
 @L_02041810:
@@ -1784,7 +1784,7 @@ asm void func_02041858(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x4b
-    bl func_02040d98
+    bl DSE_SsdSetError
     add sp, sp, #0x1c
     mvn r0, #0x4b
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1805,7 +1805,7 @@ asm void func_02041858(void)
     mov r1, r7, lsl #0x10
     mov r0, r10
     mov r1, r1, asr #0x10
-    bl func_020419d8
+    bl DSE_SsdGetWaviEntry
     cmp r0, #0
     beq @L_02041944
     str r5, [r0, #0x24]
@@ -1875,12 +1875,12 @@ asm void func_02041964(void)
     str r1, [r3]
     ldrh r1, [r2]
     strh r12, [r2]
-    bl func_02041158
+    bl DSE_SsdFree
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020419d8(void)
+asm void DSE_SsdGetWaviEntry(void)
 {
     ldr r2, [r0, #0x10]
     cmp r2, #0
@@ -1898,7 +1898,7 @@ asm void func_020419d8(void)
     bx lr
 }
 
-asm void func_02041a10(void)
+asm void DSE_SsdGetProgramEntry(void)
 {
     ldr r2, [r0, #0x14]
     cmp r2, #0
@@ -1916,7 +1916,7 @@ asm void func_02041a10(void)
     bx lr
 }
 
-asm void func_02041a48(void)
+asm void DSE_SsdGetNextSplit(void)
 {
     stmdb sp!, {r3, lr}
     ldrb lr, [r0, #2]
@@ -1981,12 +1981,12 @@ asm void func_02041ad0(void)
     bx lr
 }
 
-asm void func_02041b20(void)
+asm void DSEi_SsdGetWaveByID(void)
 {
     ldr r3, =0x4000208
     mov r2, #0
     ldrh r12, [r3]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     strh r2, [r3]
     ldr r3, [r1, #0x664]
     cmp r3, #0
@@ -2073,30 +2073,30 @@ asm void func_02041c3c(void)
     ldr r2, =0x415
     mov r3, #4
     mov r7, r0
-    bl func_02041384
+    bl DSE_SsdCheckFileHeader
     cmp r0, #0
     ldmltia sp!, {r3, r4, r5, r6, r7, pc}
     add r6, r0, #0x10000
     mov r0, r6
-    bl func_02042820
+    bl DSEi_GetSequenceById
     cmp r0, #0
     beq @L_02041c88
     mov r1, r6
     mvn r0, #0x48
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x48
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02041c88:
     mov r0, r7
     mov r1, #1
-    bl func_020426b4
+    bl DSEi_FindSmdlSongChunk
     movs r5, r0
     bne @L_02041cb4
     mov r1, r7
     mvn r0, #0x42
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x42
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02041cb4:
@@ -2110,7 +2110,7 @@ asm void func_02041c3c(void)
     str r6, [r4, #0x28]
     mov r1, r5
     str r7, [r4, #0x1c]
-    bl func_02042720
+    bl DSEi_LoadSequenceSong
     mov r1, #0
     ldr r0, =0x4000208
     strb r1, [r4, #0xa]
@@ -2138,13 +2138,13 @@ asm void func_02041d40(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
-    bl func_02042820
+    bl DSEi_GetSequenceById
     cmp r0, #0
     bne @L_02041d6c
     mov r1, r4
     mvn r0, #0x41
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x41
     ldmia sp!, {r4, pc}
 @L_02041d6c:
@@ -2153,10 +2153,10 @@ asm void func_02041d40(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02041d78(void)
+asm void DSE_SsdIsPlaySequence(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02042820
+    bl DSEi_GetSequenceById
     cmp r0, #0
     mvneq r0, #0x41
     ldrnesb r0, [r0, #4]
@@ -2169,13 +2169,13 @@ asm void func_02041d90(void)
     mov r7, r0
     mov r4, r1
     mov r6, r2
-    bl func_02042820
+    bl DSEi_GetSequenceById
     movs r5, r0
     bne @L_02041dc4
     mov r1, r7
     mvn r0, #0x41
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x41
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02041dc4:
@@ -2185,7 +2185,7 @@ asm void func_02041d90(void)
     mov r1, r7
     mvn r0, #0x3d
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x3d
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02041de8:
@@ -2232,13 +2232,13 @@ asm void func_02041e70(void)
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r4, r1
-    bl func_02042820
+    bl DSEi_GetSequenceById
     cmp r0, #0
     mov r2, #0
     bne @L_02041ea0
     mov r1, r5
     mvn r0, #0x41
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x41
     ldmia sp!, {r3, r4, r5, pc}
 @L_02041ea0:
@@ -2254,7 +2254,7 @@ asm void func_02041eb0(void)
     ldr r3, =0x4000208
     mov r2, #0
     ldrh r4, [r3]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r7, r0
     strh r2, [r3]
     ldr r6, [r1, #0x668]
@@ -2281,13 +2281,13 @@ asm void func_02041f10(void)
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r4, r1
-    bl func_02042820
+    bl DSEi_GetSequenceById
     cmp r0, #0
     bne @L_02041f40
     mov r1, r5
     mvn r0, #0x41
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x41
     ldmia sp!, {r3, r4, r5, pc}
 @L_02041f40:
@@ -2308,7 +2308,7 @@ asm void func_02041f50(void)
     cmp r2, #0
     mvnlt r0, #0
     blt @L_02041f88
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r0, #0x3e8
     ldrsh r1, [r1, #0x28]
     smulbb r0, r2, r0
@@ -2339,7 +2339,7 @@ asm void func_02041f50(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02041fe0(void)
+asm void DSE_SsdSuspendList(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     movs r4, r0
@@ -2359,7 +2359,7 @@ asm void func_02041fe0(void)
     ldrh r6, [r7]
     strh r8, [r7]
     ldr r0, [r4, #0x24]
-    bl func_02045e24
+    bl DSEi_StopSynthChannels
     ldrh r0, [r7]
     strh r6, [r7]
     strb r5, [r4, #8]
@@ -2400,7 +2400,7 @@ asm void func_0204204c(void)
     ldrsb r4, [r10, #0x98]
     moveq r6, #0
     beq @L_020420c8
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrsh r1, [r0, #0x28]
     mov r0, r7
     bl _u32_div_f
@@ -2461,7 +2461,7 @@ asm void func_02042144(void)
     beq @L_02042198
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -2510,7 +2510,7 @@ asm void func_02042144(void)
     beq @L_0204224c
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -2560,7 +2560,7 @@ asm void func_02042144(void)
     beq @L_02042308
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -2606,7 +2606,7 @@ asm void func_02042144(void)
     beq @L_020423b4
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -2655,7 +2655,7 @@ asm void func_02042438(void)
     ldr r0, [r4, #0x24]
     ldr r2, [r4, #0x28]
     mov r1, #0
-    bl func_02045dfc
+    bl DSEi_InitSynth
     ldrb r1, [r4, #0x13]
     ldr r0, [r4, #0x24]
     mov r2, #0
@@ -2665,7 +2665,7 @@ asm void func_02042438(void)
     strb lr, [r4, #3]
     mov r0, #1
     strb r0, [r4, #9]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     strb lr, [r4, #0xd]
     ldr r2, [r0, #0x2c]
     mov r1, #0x78
@@ -2765,7 +2765,7 @@ asm void func_02042590(void)
     beq @L_02042608
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -2806,7 +2806,7 @@ asm void func_02042590(void)
     ldrh r6, [r0]
     strh r1, [r0]
     ldr r0, [r5, #0x24]
-    bl func_02045e24
+    bl DSEi_StopSynthChannels
     cmp r4, #1
     bne @L_02042698
     ldr r0, [r5, #0x24]
@@ -2820,7 +2820,7 @@ asm void func_02042590(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020426b4(void)
+asm void DSEi_FindSmdlSongChunk(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r6, =0x736f6e67
@@ -2829,7 +2829,7 @@ asm void func_020426b4(void)
     add r4, r0, #0x40
 @L_020426c8:
     ldr r0, [r4]
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
     cmp r0, r7
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
@@ -2850,7 +2850,7 @@ asm void func_020426b4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02042720(void)
+asm void DSEi_LoadSequenceSong(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r7, r0
@@ -2883,7 +2883,7 @@ asm void func_02042720(void)
     moveq r0, #0
     strb r0, [r7, #0xb]
     ldr r0, [r6, #0x30]
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
     ldr r9, =0x74726b20
     ldr r10, =0x626e6b6c
     ldr r8, =0x656f6320
@@ -2909,7 +2909,7 @@ asm void func_02042720(void)
     add r0, r0, r2
     and r0, r1, r0
     ldr r0, [r4, r0]!
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
 @L_02042800:
     cmp r0, r8
     bne @L_020427b0
@@ -2918,10 +2918,10 @@ asm void func_02042720(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02042820(void)
+asm void DSEi_GetSequenceById(void)
 {
     ldr r3, =0x4000208
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrh r12, [r3]
     mov r2, #0
     strh r2, [r3]
@@ -2951,13 +2951,13 @@ asm void func_0204286c(void)
     add r0, r0, #0xa8
     mov r1, #0x10
     mov r5, r2
-    bl func_02040f00
+    bl DSE_SsdAllocFirstFit
     movs r4, r0
     bne @L_020428b0
     mov r1, #0
     mov r2, r1
     mvn r0, #0x83
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_020428b0:
@@ -2991,11 +2991,11 @@ asm void func_0204286c(void)
     cmp r0, #0
     bne @L_02042944
     mov r0, r4
-    bl func_02041158
+    bl DSE_SsdFree
     mov r1, #0
     mov r2, r1
     mvn r0, #0x85
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02042944:
@@ -3003,7 +3003,7 @@ asm void func_0204286c(void)
     strb r0, [r4, #0x17]
     mov r3, #0
     str r3, [r4, #0x3c]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrb r2, [r4, #0x15]
     ldrsh r0, [r0, #0x28]
     ldr r1, =0x7a120
@@ -3016,7 +3016,7 @@ asm void func_0204286c(void)
     str r3, [r4, #0xa0]
     mov r0, r4
     str r3, [r4, #0xa4]
-    bl func_02042a28
+    bl DSEi_InitSequenceTracks
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -3054,12 +3054,12 @@ asm void func_020429a4(void)
     ldr r0, [r4, #0x24]
     bl func_02045cf4
     mov r0, r4
-    bl func_02041158
+    bl DSE_SsdFree
     mov r0, #0
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02042a28(void)
+asm void DSEi_InitSequenceTracks(void)
 {
     ldrb r1, [r0, #0xf]
     add r3, r0, #0xa8
@@ -3087,7 +3087,7 @@ asm void func_02042a28(void)
 asm void func_02042a78(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     mov r1, #0
     mvn r0, #0
 @L_02042a88:
@@ -3096,7 +3096,7 @@ asm void func_02042a78(void)
     cmp r1, #0x80
     add r2, r2, #0xc
     blt @L_02042a88
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     ldr r12, =data_020fa224
     mov lr, #0
     mov r0, #0xc
@@ -3110,7 +3110,7 @@ asm void func_02042a78(void)
     blt @L_02042aac
     ldr r1, =data_020fa22c
     mov r2, #0
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     str r2, [r1, r3]
     str r12, [r0, #0x650]
     ldmia sp!, {r3, pc}
@@ -3119,7 +3119,7 @@ asm void func_02042a78(void)
 asm void func_02042aec(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     mov r9, r0
     ldrsb r0, [r2]
     mov r8, r1
@@ -3128,7 +3128,7 @@ asm void func_02042aec(void)
     bne @L_02042b20
     mov r2, r1
     mvn r0, #0xc0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xc0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02042b20:
@@ -3149,7 +3149,7 @@ asm void func_02042aec(void)
     ldr r1, =0x4000208
     mov r6, #0
     ldrh r0, [r1]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r4, r6
     strh r5, [r1]
     strb r9, [r0, #0x3a]
@@ -3190,7 +3190,7 @@ asm void func_02042be4(void)
     ldr r2, =0x415
     mov r3, #4
     mov r4, r0
-    bl func_02041384
+    bl DSE_SsdCheckFileHeader
     movs r5, r0
     ldmmiia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r5, lsl #0x10
@@ -3201,20 +3201,20 @@ asm void func_02042be4(void)
     mov r1, r5
     mvn r0, #0x49
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x49
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02042c30:
     ldr r2, =0x66646573
     mov r0, #0x1c
     mov r1, #0x10
-    bl func_02040f00
+    bl DSE_SsdAllocFirstFit
     movs r10, r0
     bne @L_02042c60
     mov r1, r5
     mvn r0, #0x7f
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x7f
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02042c60:
@@ -3241,7 +3241,7 @@ asm void func_02042be4(void)
 @L_02042cb0:
     ldr r0, [r8]
     mov r9, r11
-    bl func_02040e08
+    bl DSE_SsdByteSwap32
     cmp r0, r7
     bhi @L_02042cd8
     bhs @L_02042cfc
@@ -3324,7 +3324,7 @@ asm void func_02042d98(void)
     mov r2, #0
     mvn r0, #0x43
     strh r12, [r3]
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x43
     ldmia sp!, {r4, pc}
 @L_02042e00:
@@ -3333,7 +3333,7 @@ asm void func_02042d98(void)
     str r1, [r3]
     ldrh r1, [r2]
     strh r12, [r2]
-    bl func_02041158
+    bl DSE_SsdFree
     mov r0, #0
     ldmia sp!, {r4, pc}
 }
@@ -3343,7 +3343,7 @@ asm void func_02042e28(void)
     mvn r2, #0
     cmp r0, r2
     beq @L_02042ea4
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     ldr r3, [r2, #0x66c]
     cmp r3, #0
     beq @L_02042ee8
@@ -3375,7 +3375,7 @@ asm void func_02042e28(void)
     bne @L_02042e44
     b @L_02042ee8
 @L_02042ea4:
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldr r2, [r0, #0x66c]
     cmp r2, #0
     beq @L_02042ee8
@@ -3414,7 +3414,7 @@ asm void func_02042ef4(void)
     mov r1, r5
     mvn r0, #0x43
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x43
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02042f34:
@@ -3424,13 +3424,13 @@ asm void func_02042ef4(void)
     ldr r2, [r4, #0xc]
     mov r0, r5
     mov r1, r1, asr #0x10
-    bl func_020430a8
+    bl DSEi_GetEffectSong
     movs r6, r0
     bne @L_02042f70
     mov r1, r10
     mvn r0, #0x44
     mov r2, #0
-    bl func_02040dcc
+    bl DSE_SsdSetWarning
     mvn r0, #0x44
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02042f70:
@@ -3482,15 +3482,15 @@ asm void func_02042ef4(void)
     str r10, [r7, #0x28]
     mov r0, r7
     str r5, [r7, #0x1c]
-    bl func_02042a28
+    bl DSEi_InitSequenceTracks
     mov r0, r7
     mov r1, r6
-    bl func_02042720
+    bl DSEi_LoadSequenceSong
     movs r1, r0
     bpl @L_0204304c
     mov r2, r10
     mvn r0, #0x4e
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x4e
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0204304c:
@@ -3519,7 +3519,7 @@ asm void func_02042ef4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020430a8(void)
+asm void DSEi_GetEffectSong(void)
 {
     cmp r1, #0
     movlt r0, #0
@@ -3554,7 +3554,7 @@ asm void func_020430f0(void)
     str r1, [sp]
     strh r0, [r3]
     bne @L_020431a4
-    ldr r4, =data_020fa1d4
+    ldr r4, =DSEi_SsdWork
     mov r11, r0
     mov r6, r0
     mvn r5, #0x80000000
@@ -3594,7 +3594,7 @@ asm void func_020430f0(void)
     mov r0, #0
     b @L_020431dc
 @L_020431a4:
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldr r2, [r1, #0x66c]
     cmp r2, #0
     beq @L_020431d4
@@ -3631,7 +3631,7 @@ asm void func_020431f8(void)
     str r1, [sp]
     strh r0, [r3]
     bne @L_020432ac
-    ldr r4, =data_020fa1d4
+    ldr r4, =DSEi_SsdWork
     mov r11, r0
     mov r6, r0
     mvn r5, #0x80000000
@@ -3671,7 +3671,7 @@ asm void func_020431f8(void)
     mov r0, #0
     b @L_020432e4
 @L_020432ac:
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldr r2, [r1, #0x66c]
     cmp r2, #0
     beq @L_020432dc
@@ -3705,7 +3705,7 @@ asm void func_02043300(void)
     cmp r1, #1
     strh r4, [r2]
     bne @L_0204336c
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldr r5, [r0, #0x66c]
     cmp r5, #0
     beq @L_020433a0
@@ -3727,7 +3727,7 @@ asm void func_02043300(void)
     bne @L_02043338
     b @L_020433a0
 @L_0204336c:
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldr r1, [r0, #0x66c]
     cmp r1, #0
     beq @L_020433a0
@@ -3755,7 +3755,7 @@ asm void func_020433bc(void)
     ldr r2, =0x4000208
     mov r3, #0
     ldrh lr, [r2]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     sub r12, r3, #1
     strh r3, [r2]
     ldr r2, [r1, #0x66c]
@@ -3788,7 +3788,7 @@ asm void func_020433bc(void)
 asm void func_02043438(void)
 {
     ldr r3, =0x4000208
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrh r12, [r3]
     mov r2, #0
     strh r2, [r3]
@@ -3822,7 +3822,7 @@ asm void func_02043484(void)
     cmp r7, #0
     bne @L_0204350c
     ldrh r4, [r2]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     strh r1, [r2]
     ldr r7, [r0, #0x66c]
     cmp r7, #0
@@ -3849,7 +3849,7 @@ asm void func_02043484(void)
     b @L_020435c8
 @L_0204350c:
     ldrh r4, [r2]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     strh r1, [r2]
     ldr r5, [r0, #0x66c]
     cmp r5, #0
@@ -3878,7 +3878,7 @@ asm void func_02043484(void)
     b @L_020435c8
 @L_02043570:
     ldrh r4, [r2]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     strh r1, [r2]
     ldr r8, [r0, #0x66c]
     cmp r8, #0
@@ -3913,7 +3913,7 @@ asm void func_020435d8(void)
     ldr r3, =0x4000208
     mov r2, #0
     ldrh r4, [r3]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r5, r0
     strh r2, [r3]
     ldr r7, [r1, #0x66c]
@@ -3945,7 +3945,7 @@ asm void func_02043644(void)
     ldr r3, =0x4000208
     mov r2, #0
     ldrh r5, [r3]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r6, r0
     strh r2, [r3]
     ldr r4, [r1, #0x66c]
@@ -4023,10 +4023,10 @@ asm void func_02043754(void)
     strb r2, [r1, #0xd15]
     bl OS_WakeupThreadDirect
     ldr r0, =data_020fbeec
-    bl func_02006048
+    bl OS_JoinThread
     ldr r0, =data_020fb1d4
     ldr r0, [r0, #0xdd8]
-    bl func_02041158
+    bl DSE_SsdFree
     ldmia sp!, {r3, pc}
 }
 
@@ -4038,7 +4038,7 @@ asm void func_02043790(void)
     cmp r0, #0
     bne @L_020437e4
     ldr r1, =0x1474
-    ldr r12, =data_020fa1d4
+    ldr r12, =DSEi_SsdWork
     ldr r3, =func_02043880
     mov r2, r1
     mov r0, #0
@@ -4050,9 +4050,9 @@ asm void func_02043790(void)
     mov r2, #1
     bl SND_StartTimer
     mov r0, #1
-    bl func_0200a550
+    bl SND_FlushCommand
     mov r0, #1
-    bl func_0200a390
+    bl SND_RecvCommandReply
 @L_020437e4:
     mov r0, #0
     ldmia sp!, {r3, pc}
@@ -4078,14 +4078,14 @@ asm void func_020437fc(void)
     bl SND_SetupAlarm
 @L_0204383c:
     mov r0, #1
-    bl func_0200a550
+    bl SND_FlushCommand
     mov r0, #1
-    bl func_0200a390
+    bl SND_RecvCommandReply
     ldr r2, =data_020fa8d4
     mov r0, #0
     strh r0, [r2, #0x34]
     strh r0, [r2, #0x38]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     strh r0, [r2, #0x36]
     strb r0, [r1, #0x73d]
     strb r0, [r1, #0x73c]
@@ -4115,7 +4115,7 @@ asm void func_020438c0(void)
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r8, =data_020fb1d4
     ldr r7, =data_020fbfd4
-    ldr r6, =data_020fa1d4
+    ldr r6, =DSEi_SsdWork
     add r4, r8, #0xd00
     add r5, r8, #0xe00
     mov r11, #1
@@ -4126,7 +4126,7 @@ asm void func_020438c0(void)
     ldrsb r0, [r5, #0xd4]
     cmp r0, #1
     bne @L_0204397c
-    bl func_02007adc
+    bl OS_GetTickLo
     ldr r2, [r8, #0xecc]
     ldr r1, [r8, #0xed0]
     sub r10, r0, r2
@@ -4165,7 +4165,7 @@ asm void func_020438c0(void)
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, #0
-    bl func_0200a390
+    bl SND_RecvCommandReply
     ldr r0, [r6, #0x2c]
     add r0, r0, #1
     str r0, [r6, #0x2c]
@@ -4185,11 +4185,11 @@ asm void func_020438c0(void)
     bl func_02047484
     bl func_02046f24
     mov r0, #0
-    bl func_0200a550
+    bl SND_FlushCommand
     ldrsb r0, [r5, #0xd4]
     cmp r0, #1
     bne @L_020438dc
-    bl func_02007adc
+    bl OS_GetTickLo
     str r0, [r8, #0xed0]
     b @L_020438dc
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -4212,7 +4212,7 @@ asm void func_02043a0c(void)
     add r10, r7, #0xb8
     cmp r8, #0
     beq @L_02043aac
-    ldr r4, =data_020fa1d4
+    ldr r4, =DSEi_SsdWork
 @L_02043a48:
     ldmib r8, {r0, r9}
     sub r1, r0, #1
@@ -4603,7 +4603,7 @@ asm void func_02043c94(void)
     mov r0, #0
     str r0, [r10, #4]
     ldr r0, [r10, #0x24]
-    bl func_02045e24
+    bl DSEi_StopSynthChannels
     ldr r0, [r10, #0x28]
     ldr r3, [r10, #0xa0]
     ldr r4, [r10, #0x9c]
@@ -4759,7 +4759,7 @@ asm void func_020441d4(void)
     bx lr
 }
 
-asm void func_020441e0(void)
+asm void DSE_SeqWaitDelta(void)
 {
     ldrsb r1, [r0], #1
     ldr r3, [r2, #0x10]
@@ -4769,7 +4769,7 @@ asm void func_020441e0(void)
     bx lr
 }
 
-asm void func_020441f8(void)
+asm void DSE_SeqWait8(void)
 {
     ldrb r1, [r0], #1
     str r1, [r2, #0x10]
@@ -4777,7 +4777,7 @@ asm void func_020441f8(void)
     bx lr
 }
 
-asm void func_02044208(void)
+asm void DSE_SeqWait16(void)
 {
     ldrb r3, [r0]
     ldrb r1, [r0, #1]
@@ -4788,7 +4788,7 @@ asm void func_02044208(void)
     bx lr
 }
 
-asm void func_02044224(void)
+asm void DSE_SeqWait24(void)
 {
     ldrb r3, [r0]
     ldrb r1, [r0, #1]
@@ -4801,13 +4801,13 @@ asm void func_02044224(void)
     bx lr
 }
 
-asm void func_02044248(void)
+asm void DSE_SeqWaitUntilFadeout(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r0, r3
     mov r4, r2
-    bl func_02047458
+    bl DSEi_CountActiveVoicesInChannel
     cmp r0, #0
     ldrgtb r0, [r5], #-1
     addle r5, r5, #1
@@ -4828,7 +4828,7 @@ asm void func_02044274(void)
     mov r0, r3
     strb r1, [r2, #2]
     sub r4, r4, #1
-    bl func_02046434
+    bl DSEi_ReleaseChannelVoices
     b @L_020442f4
 @L_020442a4:
     ldrh r1, [r2, #0xa]
@@ -4856,7 +4856,7 @@ asm void func_02044274(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020442fc(void)
+asm void DSE_SeqMainLoopBegin(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -4877,7 +4877,7 @@ asm void func_020442fc(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0204433c(void)
+asm void DSE_SeqSubLoopBegin(void)
 {
     stmdb sp!, {r4, lr}
     ldrb r4, [r2, #6]
@@ -4916,7 +4916,7 @@ asm void func_0204437c(void)
     bx lr
 }
 
-asm void func_020443b8(void)
+asm void DSE_SeqSubLoopBreakOnLastIteration(void)
 {
     ldrb r12, [r2, #6]
     add r3, r2, #0x24
@@ -4984,7 +4984,7 @@ asm void func_02044440(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02044480(void)
+asm void DSE_SeqSetBank(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -4994,12 +4994,12 @@ asm void func_02044480(void)
     add r1, r1, r2, lsl #8
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
-    bl func_02046534
+    bl DSEi_SetWave
     add r0, r4, #2
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020444ac(void)
+asm void DSE_SsdSeqBankMSB(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -5010,12 +5010,12 @@ asm void func_020444ac(void)
     add r1, r1, r2, lsl #8
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
-    bl func_02046534
+    bl DSEi_SetWave
     add r0, r4, #1
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020444dc(void)
+asm void DSE_SsdSeqBankLSB(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -5026,7 +5026,7 @@ asm void func_020444dc(void)
     add r1, r2, r1
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
-    bl func_02046534
+    bl DSEi_SetWave
     add r0, r4, #1
     ldmia sp!, {r4, pc}
 }
@@ -5037,7 +5037,7 @@ asm void func_0204450c(void)
     bx lr
 }
 
-asm void func_02044514(void)
+asm void DSE_SsdSeqProgramChange(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -5045,7 +5045,7 @@ asm void func_02044514(void)
     mov r4, r3
     ldrb r1, [r6]
     mov r0, r4
-    bl func_0204656c
+    bl DSE_SsdSetChannelProgram
     movs r2, r0
     bpl @L_02044554
     ldrh r1, [r4, #0xe]
@@ -5060,7 +5060,7 @@ asm void func_02044514(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0204455c(void)
+asm void DSE_SeqSongVolumeFade(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -5074,7 +5074,7 @@ asm void func_0204455c(void)
     beq @L_020445a4
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -5193,13 +5193,13 @@ asm void func_020446d0(void)
     bx lr
 }
 
-asm void func_020446dc(void)
+asm void DSE_SeqModulationDepth(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     ldrsb r1, [r4]
     mov r0, r3
-    bl func_02046600
+    bl DSEi_SetModulationDepth
     add r0, r4, #1
     ldmia sp!, {r4, pc}
 }
@@ -5223,7 +5223,7 @@ asm void func_020446f8(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02044730(void)
+asm void DSE_SeqFlagBit1Unknown(void)
 {
     ldrb r1, [r3, #4]
     orr r1, r1, #2
@@ -5466,7 +5466,7 @@ asm void func_02044974(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02044a64(void)
+asm void DSE_SeqSetNoteRandomRegion(void)
 {
     ldrb r1, [r0]
     ldrb r12, [r0, #1]
@@ -5480,7 +5480,7 @@ asm void func_02044a64(void)
     bx lr
 }
 
-asm void func_02044a8c(void)
+asm void DSE_SeqTuningJitterAmplitude(void)
 {
     ldrb r2, [r0]
     ldrb r1, [r0, #1]
@@ -5490,7 +5490,7 @@ asm void func_02044a8c(void)
     bx lr
 }
 
-asm void func_02044aa4(void)
+asm void DSE_SeqKeyBend(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -5500,7 +5500,7 @@ asm void func_02044aa4(void)
     add r1, r1, r2, lsl #8
     mov r1, r1, lsl #0x10
     mov r1, r1, asr #0x10
-    bl func_02046634
+    bl DSEi_SetKeyBend
     add r0, r4, #2
     ldmia sp!, {r4, pc}
 }
@@ -6133,7 +6133,7 @@ asm void func_020452bc(void)
     bx lr
 }
 
-asm void func_020452c4(void)
+asm void DSE_SsdMidiInit(void)
 {
     ldr r0, =data_020fc0b0
     mov r1, #0
@@ -6407,7 +6407,7 @@ asm void func_020454d8(void)
 @L_02045670:
     ldrb r1, [sp, #0xa]
     mov r0, r10
-    bl func_0204656c
+    bl DSE_SsdSetChannelProgram
     b @L_020456a0
 @L_02045680:
     ldrb r2, [sp, #0xa]
@@ -6417,7 +6417,7 @@ asm void func_020454d8(void)
     sub r1, r1, #0x2000
     mov r1, r1, lsl #0x10
     mov r1, r1, asr #0x10
-    bl func_02046634
+    bl DSEi_SetKeyBend
 @L_020456a0:
     add r0, sp, #8
     bl func_020452d8
@@ -6427,10 +6427,10 @@ asm void func_020454d8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020456c0(void)
+asm void DSE_SsdMidiControlBankMSB(void)
 {
     ldrh r2, [r0, #0xe]
-    ldr r12, =func_02046534
+    ldr r12, =DSEi_SetWave
     and r2, r2, #0xff
     add r1, r2, r1, lsl #8
     strh r1, [r0, #0xe]
@@ -6438,10 +6438,10 @@ asm void func_020456c0(void)
     bx r12
 }
 
-asm void func_020456e0(void)
+asm void DSE_SsdMidiControlBankLSB(void)
 {
     ldrh r2, [r0, #0xe]
-    ldr r12, =func_02046534
+    ldr r12, =DSEi_SetWave
     bic r2, r2, #0xff
     add r1, r2, r1
     mov r1, r1, lsl #0x10
@@ -6453,7 +6453,7 @@ asm void func_02045700(void)
 {
     mov r1, r1, lsl #0x18
     mov r1, r1, asr #0x18
-    ldr r12, =func_02046600
+    ldr r12, =DSEi_SetModulationDepth
     strb r1, [r0, #0x51]
     bx r12
 }
@@ -6653,7 +6653,7 @@ asm void func_02045918(void)
     ldr r0, =data_020fc0b0
     ldr r0, [r0]
     ldr r0, [r0]
-    bl func_02045e24
+    bl DSEi_StopSynthChannels
     ldr r0, =data_020fc0b0
     ldr r0, [r0]
     ldr r0, [r0]
@@ -6666,7 +6666,7 @@ asm void func_02045944(void)
     ldr r0, =data_020fc0b0
     mov r1, #0
     ldr r0, [r0]
-    ldr r12, =func_020461f0
+    ldr r12, =DSEi_SetSynthBankAndSequence
     mov r2, r1
     ldr r0, [r0]
     bx r12
@@ -6676,7 +6676,7 @@ asm void func_02045968(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
-    bl func_02046434
+    bl DSEi_ReleaseChannelVoices
     ldr r1, =0x4000208
     mov r0, #0
     ldrh r5, [r1]
@@ -6696,7 +6696,7 @@ asm void func_02045968(void)
     cmp r0, #0
     movne r12, r0
     bne @L_020459a4
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldr r1, =0x4000208
     ldr r2, [r0, #0x650]
     str r2, [r12, #8]
@@ -6895,10 +6895,10 @@ asm void func_02045ba8(void)
     bx lr
 }
 
-asm void func_02045bac(void)
+asm void DSEi_ResetSynth(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r2, #1
     ldrsb r3, [r1, #0x41]
     mov r4, #0
@@ -6935,7 +6935,7 @@ asm void func_02045c24(void)
     mov r2, r1
     add r0, r0, #0x10
     mov r1, #0x10
-    bl func_02040f00
+    bl DSE_SsdAllocFirstFit
     movs r4, r0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -6943,7 +6943,7 @@ asm void func_02045c24(void)
     strb r1, [r4]
     strb r5, [r4, #1]
     str r1, [r4, #0xc]
-    bl func_02045bac
+    bl DSEi_ResetSynth
     cmp r5, #0
     add r1, r4, #0x10
     mov r2, #0
@@ -6988,7 +6988,7 @@ asm void func_02045cf4(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
-    bl func_02045e24
+    bl DSEi_StopSynthChannels
     ldr r2, =0x4000208
     mov r0, r5
     ldrh r4, [r2]
@@ -7011,7 +7011,7 @@ asm void func_02045cf4(void)
     ldrh r1, [r2]
     mov r0, r5
     strh r4, [r2]
-    bl func_02041158
+    bl DSE_SsdFree
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -7024,7 +7024,7 @@ asm void func_02045d60(void)
     cmp r3, #0
     ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     ldr r7, =0x4000208
-    ldr r12, =data_020fa1d4
+    ldr r12, =DSEi_SsdWork
     mvn r5, #0
     mov r4, r2
     mov r6, r2
@@ -7059,21 +7059,21 @@ asm void func_02045d60(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02045dfc(void)
+asm void DSEi_InitSynth(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r5, r1
     mov r4, r2
-    bl func_02045bac
+    bl DSEi_ResetSynth
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_020461f0
+    bl DSEi_SetSynthBankAndSequence
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02045e24(void)
+asm void DSEi_StopSynthChannels(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldrb r5, [r0, #1]
@@ -7082,7 +7082,7 @@ asm void func_02045e24(void)
     ldmeqia sp!, {r3, r4, r5, pc}
 @L_02045e38:
     mov r0, r4
-    bl func_02046434
+    bl DSEi_ReleaseChannelVoices
     subs r5, r5, #1
     add r4, r4, #0xc8
     bne @L_02045e38
@@ -7353,10 +7353,10 @@ asm void func_0204615c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020461f0(void)
+asm void DSEi_SetSynthBankAndSequence(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    ldr r3, =data_020fa1d4
+    ldr r3, =DSEi_SsdWork
     mov r10, r0
     ldrsb r6, [r3, #0x3d]
     mov r7, #0
@@ -7371,18 +7371,18 @@ asm void func_020461f0(void)
     mov r4, r0, lsr #0x10
 @L_02046228:
     mov r0, r5
-    bl func_02046434
+    bl DSEi_ReleaseChannelVoices
     mov r0, r5
     mov r1, r8
-    bl func_02046280
+    bl DSEi_InitChannel
     cmp r9, #0
     blt @L_0204625c
     mov r0, r5
     mov r1, r4
-    bl func_02046534
+    bl DSEi_SetWave
     mov r0, r5
     mov r1, r4
-    bl func_0204656c
+    bl DSE_SsdSetChannelProgram
 @L_0204625c:
     ldrb r0, [r10, #1]
     add r7, r7, #1
@@ -7390,12 +7390,12 @@ asm void func_020461f0(void)
     cmp r7, r0
     blt @L_02046228
 @L_02046270:
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     strb r6, [r0, #0x3d]
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02046280(void)
+asm void DSEi_InitChannel(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
@@ -7408,7 +7408,7 @@ asm void func_02046280(void)
     ldr r1, =data_020fa8d4
     strb r0, [r4, #8]
     ldrh r3, [r1, #0x32]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r2, #0x7f
     strb r3, [r4, #9]
     strh r0, [r4, #0xa]
@@ -7477,7 +7477,7 @@ asm void func_02046280(void)
     cmp r0, #0
     movne r12, r0
     bne @L_020463a0
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldr r1, =0x4000208
     ldr r2, [r0, #0x650]
     str r2, [r12, #8]
@@ -7488,7 +7488,7 @@ asm void func_02046280(void)
 @L_020463d8:
     mov r1, #0
     str r1, [r4, #0xbc]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     str r1, [r4, #0xc0]
     strh r1, [r4, #0x16]
     add r0, r0, #0x600
@@ -7507,7 +7507,7 @@ asm void func_02046280(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02046434(void)
+asm void DSEi_ReleaseChannelVoices(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r6, [r0, #0xb4]
@@ -7524,7 +7524,7 @@ asm void func_02046434(void)
     strh r5, [r6, #4]
     str r5, [r6, #0x158]
     str r5, [r6, #0x154]
-    bl func_02047930
+    bl DSEi_StopEnvelope
     ldr r0, [r6, #0x14c]
     cmp r7, #0
     and r0, r0, #0xff
@@ -7583,13 +7583,13 @@ asm void func_020464b8(void)
     bx lr
 }
 
-asm void func_02046534(void)
+asm void DSEi_SetWave(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     mov r0, r1
     strh r1, [r4, #0xe]
-    bl func_02041b20
+    bl DSEi_SsdGetWaveByID
     str r0, [r4, #0xbc]
     cmp r0, #0
     moveq r0, #0
@@ -7597,11 +7597,11 @@ asm void func_02046534(void)
     ldmeqia sp!, {r4, pc}
     ldrh r1, [r4, #0x10]
     mov r0, r4
-    bl func_0204656c
+    bl DSE_SsdSetChannelProgram
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0204656c(void)
+asm void DSE_SsdSetChannelProgram(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r5, r0
@@ -7618,7 +7618,7 @@ asm void func_0204656c(void)
     mov r1, r0, asr #0x10
     strh r1, [r5, #0x10]
     ldr r0, [r5, #0xbc]
-    bl func_02041a10
+    bl DSE_SsdGetProgramEntry
     movs lr, r0
     beq @L_020465ec
     mov r6, #0
@@ -7646,7 +7646,7 @@ asm void func_0204656c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02046600(void)
+asm void DSEi_SetModulationDepth(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r1
@@ -7657,14 +7657,14 @@ asm void func_02046600(void)
 @L_02046618:
     mov r1, r5
     add r0, r4, #0x5c
-    bl func_02047cd8
+    bl DSEi_LfoBank_SetModulationDepth
     ldr r4, [r4, #0x154]
     cmp r4, #0
     bne @L_02046618
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02046634(void)
+asm void DSEi_SetKeyBend(void)
 {
     strh r1, [r0, #0x52]
     ldr r2, [r0, #0xb4]
@@ -7706,7 +7706,7 @@ asm void func_0204667c(void)
     add r0, r2, r0, asr #15
     strb r0, [r4, #2]
 @L_020466bc:
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldr r0, [r1, #0x650]
     cmp r0, #0
     moveq r0, #0
@@ -7768,7 +7768,7 @@ asm void func_0204670c(void)
 @L_02046788:
     cmp r4, #0
     beq @L_020467b0
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mvn r2, #0
     ldr r3, [r0, #0x650]
     mov r1, #0
@@ -7880,7 +7880,7 @@ asm void func_02046888(void)
     ldrsb r3, [r9, #3]
     mov r0, r6
     mov r1, r5
-    bl func_02041a48
+    bl DSE_SsdGetNextSplit
     movs r5, r0
     addeq sp, sp, #0xc
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -7896,7 +7896,7 @@ asm void func_02046888(void)
     str r2, [sp, #4]
     str r1, [sp, #8]
     ldrsh r1, [r5, #0x12]
-    bl func_020419d8
+    bl DSE_SsdGetWaviEntry
     movs r11, r0
     beq @L_020468ec
     ldrb r3, [r10, #5]
@@ -7939,7 +7939,7 @@ asm void func_02046888(void)
     strh r0, [r4, #0x14]
     ldrb r0, [r5, #0x19]
     strb r0, [r4, #0x19]
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrb r0, [r0, #0x39]
     cmp r0, #7
     bne @L_02046a2c
@@ -7998,7 +7998,7 @@ asm void func_02046888(void)
     beq @L_02046ad0
     mov r0, r8
     add r1, r10, #0x64
-    bl func_02047720
+    bl DSEi_SetEnvelopeParameters
 @L_02046ad0:
     mov r1, r4
     mov r0, r10
@@ -8168,9 +8168,9 @@ asm void func_02046ce0(void)
     strb r7, [r9, #0x18]
     add r0, r9, #0x3c
     strb r5, [r9, #0x19]
-    bl func_0204769c
+    bl DSEi_ResetEnvelope
     add r0, r9, #0x5c
-    bl func_02047ac8
+    bl DSEi_LfoBank_Reset
     str r4, [r9, #0x154]
     str r4, [r9, #0x158]
     ldrh r0, [r10, #0x32]
@@ -8179,7 +8179,7 @@ asm void func_02046ce0(void)
     cmp r8, r0
     blt @L_02046d0c
 @L_02046d68:
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     mov r1, #0
     str r1, [r0, #0x654]
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
@@ -8206,7 +8206,7 @@ asm void func_02046d84(void)
     mov r0, #0
     strh r0, [r2, #0x36]
     strh r0, [r2, #0x38]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     strh r0, [r2, #0x3a]
     strb r0, [r1, #0x73c]
     strb r0, [r1, #0x73d]
@@ -8299,7 +8299,7 @@ asm void func_02046f24(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r6, =data_020fa914
-    bl func_0200aa94
+    bl SND_GetChannelStatus
     ldr r4, =data_020fa8d4
     mov r0, r0, lsl #0x10
     ldrh r2, [r4, #0x34]
@@ -8405,13 +8405,13 @@ asm void func_02046fc0(void)
     mov r0, #0x15c
     mla r6, lr, r0, r1
     mov r0, r6
-    bl func_020472cc
+    bl DSEi_StopVoice
     b @L_02047118
 @L_020470b4:
     cmp r7, r4
     add r2, r4, #1
     bgt @L_020470f8
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r0, #0x15c
     mla r1, r7, r0, r1
 @L_020470cc:
@@ -8435,7 +8435,7 @@ asm void func_02046fc0(void)
     mov r0, #0x15c
     mla r6, r2, r0, r1
     mov r0, r6
-    bl func_020472cc
+    bl DSEi_StopVoice
 @L_02047118:
     mov r0, r6
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -8458,7 +8458,7 @@ asm void func_0204712c(void)
     cmp r3, r4
     add r12, r0, #0x100
     bgt @L_020471a0
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     mov r0, #0x15c
     mla r2, r3, r0, r2
 @L_02047174:
@@ -8482,7 +8482,7 @@ asm void func_0204712c(void)
     mov r0, #0x15c
     mla r4, r1, r0, r2
     mov r0, r4
-    bl func_020472cc
+    bl DSEi_StopVoice
 @L_020471c0:
     mov r0, r4
     ldmia sp!, {r4, pc}
@@ -8558,14 +8558,14 @@ asm void func_02047288(void)
     add r0, r4, #0x3c
     and r1, r1, #0xff
     str r1, [r4, #0x14c]
-    bl func_02047904
+    bl DSEi_ReleaseEnvelope
     ldrh r0, [r4, #6]
     bic r0, r0, #1
     strh r0, [r4, #6]
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020472cc(void)
+asm void DSEi_StopVoice(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -8594,7 +8594,7 @@ asm void func_020472cc(void)
     str r0, [r4, #0x158]
     str r0, [r4, #0x154]
     add r0, r4, #0x3c
-    bl func_02047930
+    bl DSEi_StopEnvelope
     ldr r1, [r4, #0x14c]
     mov r0, #0
     and r1, r1, #0xff
@@ -8617,7 +8617,7 @@ asm void func_020472cc(void)
     str r0, [r4, #0x158]
     str r0, [r4, #0x154]
     add r0, r4, #0x3c
-    bl func_02047930
+    bl DSEi_StopEnvelope
     ldr r1, [r4, #0x14c]
     mov r0, #0
     and r1, r1, #0xff
@@ -8676,7 +8676,7 @@ asm void func_02047420(void)
     bx lr
 }
 
-asm void func_02047458(void)
+asm void DSEi_CountActiveVoicesInChannel(void)
 {
     ldr r2, [r0, #0xb4]
     mov r0, #0
@@ -8799,7 +8799,7 @@ asm void func_02047484(void)
     blt @L_020474b4
 @L_020475f4:
     ldr r1, =data_020fa8d4
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     ldrh r0, [r1, #0x36]
     strh r0, [r1, #0x34]
     ldrb r1, [r2, #0x73e]
@@ -8809,7 +8809,7 @@ asm void func_02047484(void)
     beq @L_02047638
     mov r3, #0
     bl SND_StartTimer
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r2, #0
     strb r2, [r1, #0x73c]
     ldr r0, =data_020fa8d4
@@ -8817,7 +8817,7 @@ asm void func_02047484(void)
     strh r2, [r0, #0x36]
 @L_02047638:
     ldr r1, =data_020fa8d4
-    ldr r0, =data_020fa1d4
+    ldr r0, =DSEi_SsdWork
     ldrh r4, [r1, #0x38]
     ldrh r3, [r1, #0x3a]
     ldrb r1, [r0, #0x73f]
@@ -8829,7 +8829,7 @@ asm void func_02047484(void)
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r3, #0
     bl SND_StopTimer
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r2, #0
     strb r2, [r1, #0x73d]
     ldr r0, =data_020fa8d4
@@ -8840,7 +8840,7 @@ asm void func_02047484(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0204769c(void)
+asm void DSEi_ResetEnvelope(void)
 {
     mov r1, #0
     strb r1, [r0]
@@ -8885,7 +8885,7 @@ asm void func_020476cc(void)
     bx lr
 }
 
-asm void func_02047720(void)
+asm void DSEi_SetEnvelopeParameters(void)
 {
     ldrb r2, [r1, #1]
     cmp r2, #0x7f
@@ -8914,7 +8914,7 @@ asm void func_02047720(void)
     bx lr
 }
 
-asm void func_02047784(void)
+asm void DSEi_SetEnvelopeSlide(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -8932,7 +8932,7 @@ asm void func_02047784(void)
     cmp r3, #0
     bne @L_020477dc
     ldr r0, =data_020ac710
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldr r2, [r0, r2, lsl #2]
     mov r0, #0x3e8
     mul r0, r2, r0
@@ -8943,7 +8943,7 @@ asm void func_02047784(void)
     ldr r0, =data_020ac610
     mov r1, r2, lsl #1
     ldrh r2, [r0, r1]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r0, #0x3e8
     mul r2, r3, r2
     mul r0, r2, r0
@@ -8980,7 +8980,7 @@ asm void func_02047838(void)
     str r3, [r4, #0x10]
     strb r2, [r4, #0x1c]
     ldrb r2, [r4, #9]
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     b @L_020478d8
 @L_0204787c:
     mov r1, #0x3f800000
@@ -8989,7 +8989,7 @@ asm void func_02047838(void)
     cmp r2, #0
     beq @L_020478a4
     mov r1, #0x7f
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #4
     strb r0, [r4, #0x1c]
     b @L_020478d8
@@ -8998,14 +8998,14 @@ asm void func_02047838(void)
     cmp r2, #0
     beq @L_020478c4
     ldrsb r1, [r4, #0xb]
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #5
     strb r0, [r4, #0x1c]
     b @L_020478d8
 @L_020478c4:
     ldrb r2, [r4, #0xd]
     mov r1, #0
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #6
     strb r0, [r4, #0x1c]
 @L_020478d8:
@@ -9023,7 +9023,7 @@ asm void func_02047838(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02047904(void)
+asm void DSEi_ReleaseEnvelope(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -9032,13 +9032,13 @@ asm void func_02047904(void)
     ldmeqia sp!, {r4, pc}
     ldrb r2, [r4, #0xe]
     mov r1, #0
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #7
     strb r0, [r4, #0x1c]
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02047930(void)
+asm void DSEi_StopEnvelope(void)
 {
     mov r1, #0
     strb r1, [r0, #0x1c]
@@ -9100,7 +9100,7 @@ asm void func_02047980(void)
     cmp r2, #0
     beq @L_020479fc
     mov r1, #0x7f
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #4
     strb r0, [r4, #0x1c]
     b @L_02047ab4
@@ -9110,7 +9110,7 @@ asm void func_02047980(void)
     beq @L_02047a20
     ldrsb r1, [r4, #0xb]
     mov r0, r4
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #5
     strb r0, [r4, #0x1c]
     b @L_02047ab4
@@ -9124,7 +9124,7 @@ asm void func_02047980(void)
     beq @L_02047a50
     mov r0, r4
     mov r1, #0
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #6
     strb r0, [r4, #0x1c]
     b @L_02047ab4
@@ -9132,7 +9132,7 @@ asm void func_02047980(void)
     mov r1, #0
     mov r0, r4
     mov r2, r1
-    bl func_02047784
+    bl DSEi_SetEnvelopeSlide
     mov r0, #2
     strb r0, [r4, #0x1c]
     b @L_02047ab4
@@ -9164,7 +9164,7 @@ asm void func_02047980(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02047ac8(void)
+asm void DSEi_LfoBank_Reset(void)
 {
     mov r1, #0
     str r1, [r0]
@@ -9227,12 +9227,12 @@ asm void func_02047ae0(void)
     bne @L_02047c04
     ldrh r2, [r8, #0xa]
     mov r0, #0x3e8
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mul r0, r2, r0
     ldrsh r1, [r1, #0x28]
     bl _s32_div_f
     strh r0, [r5, #0x1a]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrh r2, [r8, #0xc]
     mov r0, #0x3e8
     ldrsh r1, [r1, #0x28]
@@ -9268,7 +9268,7 @@ asm void func_02047ae0(void)
     beq @L_02047c6c
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _s32_div_f
     movs r1, r0
@@ -9308,7 +9308,7 @@ asm void func_02047ae0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02047cd8(void)
+asm void DSEi_LfoBank_SetModulationDepth(void)
 {
     stmdb sp!, {r3, lr}
     ldr lr, [r0, #0xc]
@@ -9384,7 +9384,7 @@ asm void func_02047d24(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02047dd8(void)
+asm void DSE_SsdLfoOffProc(void)
 {
     mov r1, #0
     strb r1, [r0]
@@ -9637,7 +9637,7 @@ asm void func_020480c8(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 }
@@ -9671,7 +9671,7 @@ asm void func_0204812c(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 @L_0204815c:
@@ -9700,7 +9700,7 @@ asm void func_0204817c(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, pc}
 @L_020481ac:
@@ -9711,25 +9711,25 @@ asm void func_0204817c(void)
 
 asm void func_020481b8(void)
 {
-    ldr r12, =func_02040f00
+    ldr r12, =DSE_SsdAllocFirstFit
     mov r0, r1
     ldr r2, =0x66627473
     mov r1, #0x20
     bx r12
 }
 
-asm void func_020481d4(void)
+asm void DSEi_StreamDefaultFree(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r1
-    bl func_02041200
+    bl DSE_SsdCheckHeap
     mov r0, r4
-    bl func_02041158
+    bl DSE_SsdFree
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020481f0(void)
+asm void DSE_SsdStreamInit(void)
 {
     ldr r0, =data_020fc0b4
     mov r2, #0
@@ -9740,7 +9740,7 @@ asm void func_020481f0(void)
     bx lr
 }
 
-asm void func_02048210(void)
+asm void DSEi_AllocateStreams(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r10, r0
@@ -9756,7 +9756,7 @@ asm void func_02048210(void)
     mov r0, r7
     mov r1, r6
     mov r2, r5
-    bl func_02040f00
+    bl DSE_SsdAllocFirstFit
     cmp r0, #0
     mvneq r0, #0x7f
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
@@ -9781,7 +9781,7 @@ asm void func_02048280(void)
     beq @L_020482a8
 @L_02048294:
     ldr r4, [r0, #0x358]
-    bl func_02041158
+    bl DSE_SsdFree
     mov r0, r4
     cmp r4, #0
     bne @L_02048294
@@ -9792,7 +9792,7 @@ asm void func_02048280(void)
     ldr r0, [r0, #0xe8]
     cmp r0, #0
     beq @L_020482c4
-    bl func_02041158
+    bl DSE_SsdFree
 @L_020482c4:
     ldr r0, =data_020fc0b4
     mov r1, #0
@@ -9800,7 +9800,7 @@ asm void func_02048280(void)
     ldr r0, [r0, #0x1b4]
     cmp r0, #0
     beq @L_020482e0
-    bl func_02041158
+    bl DSE_SsdFree
 @L_020482e0:
     ldr r0, =data_020fc0b4
     mov r1, #0
@@ -9808,7 +9808,7 @@ asm void func_02048280(void)
     ldr r0, [r0, #0x18]
     cmp r0, #0
     beq @L_020482fc
-    bl func_02049adc
+    bl DSEi_StreamFree
 @L_020482fc:
     ldr r0, =data_020fc0b4
     mov r1, #0
@@ -9816,7 +9816,7 @@ asm void func_02048280(void)
     ldr r0, [r0, #0x1c]
     cmp r0, #0
     beq @L_02048318
-    bl func_02049adc
+    bl DSEi_StreamFree
 @L_02048318:
     ldr r0, =data_020fc0b4
     mov r1, #0
@@ -9827,7 +9827,7 @@ asm void func_02048280(void)
 asm void func_0204832c(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mov r4, r0
     ldrsb r0, [r1]
     cmp r0, #0
@@ -9835,7 +9835,7 @@ asm void func_0204832c(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0xc1
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xc1
     ldmia sp!, {r3, r4, r5, pc}
 @L_0204835c:
@@ -9849,7 +9849,7 @@ asm void func_0204832c(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, r4, r5, pc}
 @L_02048390:
@@ -9900,7 +9900,7 @@ asm void func_0204832c(void)
     b @L_0204844c
 @L_02048438:
     ldr r2, =func_020481b8
-    ldr r1, =func_020481d4
+    ldr r1, =DSEi_StreamDefaultFree
     str r2, [r0, #0x1bc]
     str r1, [r0, #0x1c0]
     str r0, [r0, #0x1c4]
@@ -9931,7 +9931,7 @@ asm void func_0204832c(void)
     ldr r0, [r0, #0x20]
     add r0, r0, r0, lsr #31
     mov r0, r0, asr #1
-    bl func_02049a60
+    bl DSEi_StreamAlloc
     ldr r1, =data_020fc0b4
     cmp r0, #0
     str r0, [r1, #0x18]
@@ -9940,13 +9940,13 @@ asm void func_0204832c(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x7f
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x7f
     ldmia sp!, {r3, r4, r5, pc}
 @L_020484e0:
     ldr r0, [r1, #0x14]
     ldr r1, =0x656c6966
-    bl func_02049a60
+    bl DSEi_StreamAlloc
     ldr r1, =data_020fc0b4
     cmp r0, #0
     str r0, [r1, #0x1c]
@@ -9955,19 +9955,19 @@ asm void func_0204832c(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x7f
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x7f
     ldmia sp!, {r3, r4, r5, pc}
 @L_02048518:
     ldrb r0, [r4, #2]
-    bl func_02048210
+    bl DSEi_AllocateStreams
     movs r5, r0
     bpl @L_02048544
     bl func_02048280
     mov r1, #0
     mov r0, r5
     mov r2, r1
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, r5
     ldmia sp!, {r3, r4, r5, pc}
 @L_02048544:
@@ -9989,7 +9989,7 @@ asm void func_0204832c(void)
     mov r1, #0
     mov r0, r4
     mov r2, r1
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 @L_02048594:
@@ -10008,7 +10008,7 @@ asm void func_020485c8(void)
     cmp r0, #0
     mvneq r0, #0x59
     ldmeqia sp!, {r3, pc}
-    bl func_02048b80
+    bl DSEi_CloseAllStreams
     bl func_02049ef0
     bl func_0204c260
     bl func_02048280
@@ -10018,7 +10018,7 @@ asm void func_020485c8(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02048604(void)
+asm void DSEi_FindFreeStream(void)
 {
     ldr r2, =0x4000208
     mov r1, #0
@@ -10103,7 +10103,7 @@ asm void func_020486c8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0204871c(void)
+asm void DSE_SsdSetMonoToStereo(void)
 {
     ldr r1, =data_020fc0b4
     strb r0, [r1, #9]
@@ -10111,7 +10111,7 @@ asm void func_0204871c(void)
     bx lr
 }
 
-asm void func_02048730(void)
+asm void DSE_SsdIsOpenStream(void)
 {
     stmdb sp!, {r3, lr}
     ldr r1, =data_020fc0b4
@@ -10119,7 +10119,7 @@ asm void func_02048730(void)
     cmp r1, #0
     mvneq r0, #0x59
     ldmeqia sp!, {r3, pc}
-    bl func_0204990c
+    bl DSEi_GetStreamById
     cmp r0, #0
     mvneq r0, #0xb0
     ldmeqia sp!, {r3, pc}
@@ -10136,7 +10136,7 @@ asm void func_02048730(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02048784(void)
+asm void DSEi_InitFreeStream(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r1, =data_020fc0b4
@@ -10145,11 +10145,11 @@ asm void func_02048784(void)
     cmp r0, #0
     mvneq r0, #0x59
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02048604
+    bl DSEi_FindFreeStream
     movs r4, r0
     mvneq r0, #0xb4
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02048914
+    bl DSEi_InitStream
     str r4, [r5]
     mov r0, #0
     ldmia sp!, {r3, r4, r5, pc}
@@ -10165,17 +10165,17 @@ asm void func_020487c4(void)
     mov r2, r5
     mvn r0, #0x17
     mov r1, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_020487f0:
     add r0, sp, #0
-    bl func_02048784
+    bl DSEi_InitFreeStream
     movs r7, r0
     beq @L_02048814
     mov r1, #0
     mov r2, r1
-    bl func_02040d98
+    bl DSE_SsdSetError
     mov r0, r7
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02048814:
@@ -10192,30 +10192,30 @@ asm void func_020487c4(void)
     moveq r5, #0x1000
     ldr r0, [sp]
     mov r1, r5
-    bl func_02048cec
+    bl DSEi_InitStreamFifo
     movs r5, r0
     bpl @L_02048870
     ldr r0, [sp]
-    bl func_02048ab4
+    bl DSEi_ResetStream
     mov r2, r5
     mvn r0, #0xae
     mov r1, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xae
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02048870:
     ldr r0, [sp]
-    ldr r1, =func_02049568
+    ldr r1, =DSEi_Stream_FUN_0207d734
     mov r2, #0
     str r1, [r0, #0x210]
     ldr r0, [sp]
     ldr r1, =func_02049968
     str r2, [r0, #0x214]
     ldr r0, [sp]
-    ldr r2, =func_0204958c
+    ldr r2, =DSEi_Stream_FUN_0207d75c
     str r1, [r0, #0x218]
     ldr r0, [sp]
-    ldr r1, =func_0204b708
+    ldr r1, =DSEi_Stream_FUN_0207f864
     str r2, [r0, #0x21c]
     ldr r0, [sp]
     ldr r2, =func_0204ac80
@@ -10240,7 +10240,7 @@ asm void func_020487c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02048914(void)
+asm void DSEi_InitStream(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r4, r0
@@ -10262,11 +10262,11 @@ asm void func_02048914(void)
     ldr r1, =0xbb80
     strb r0, [r4, #0x20]
     str r1, [r4, #0x40]
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     strb r2, [r4, #0x25]
     ldrsb r2, [r1, #0x41]
     ldr r1, =data_020fc0b4
-    ldr r3, =func_02049568
+    ldr r3, =DSEi_Stream_FUN_0207d734
     strb r2, [r4, #0x26]
     strb r0, [r4, #0x2e]
     strb r0, [r4, #0x2f]
@@ -10295,7 +10295,7 @@ asm void func_02048914(void)
     ldr r1, =func_02049578
     mov r2, r0
     str r1, [r4, #0x21c]
-    ldr r1, =func_0204b708
+    ldr r1, =DSEi_Stream_FUN_0207f864
     str r0, [r4, #0x224]
     str r1, [r4, #0x220]
 @L_020489f4:
@@ -10343,7 +10343,7 @@ asm void func_02048914(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02048ab4(void)
+asm void DSEi_ResetStream(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r1, =0x4000208
@@ -10363,7 +10363,7 @@ asm void func_02048ab4(void)
     ldr r0, [r0, #0x1f0]
     cmp r0, #0
     beq @L_02048afc
-    bl func_020472cc
+    bl DSEi_StopVoice
 @L_02048afc:
     add r7, r7, #1
     cmp r7, #2
@@ -10372,11 +10372,11 @@ asm void func_02048ab4(void)
     mov r0, r6
     ldrh r1, [r2]
     strh r5, [r2]
-    bl func_02048d1c
+    bl DSEi_ResetStreamFifo
     ldr r0, [r6, #0x1d4]
     cmp r0, #0
     beq @L_02048b34
-    bl func_02049adc
+    bl DSEi_StreamFree
     mov r0, #0
     str r0, [r6, #0x1d4]
 @L_02048b34:
@@ -10390,7 +10390,7 @@ asm void func_02048ab4(void)
     ldr r4, [r6, #0x210]
     blx r4
     mov r0, #0
-    ldr r1, =func_02049568
+    ldr r1, =DSEi_Stream_FUN_0207d734
     str r0, [r6]
     ldr r2, =0x4000208
     str r1, [r6, #0x210]
@@ -10399,7 +10399,7 @@ asm void func_02048ab4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02048b80(void)
+asm void DSEi_CloseAllStreams(void)
 {
     stmdb sp!, {r4, lr}
     ldr r0, =data_020fc0b4
@@ -10410,7 +10410,7 @@ asm void func_02048b80(void)
     ldr r0, [r4]
     cmp r0, #0
     ble @L_02048ba4
-    bl func_02048bb8
+    bl DSE_SsdCloseStream
 @L_02048ba4:
     ldr r4, [r4, #0x358]
     cmp r4, #0
@@ -10418,7 +10418,7 @@ asm void func_02048b80(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02048bb8(void)
+asm void DSE_SsdCloseStream(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r1, =data_020fc0b4
@@ -10427,13 +10427,13 @@ asm void func_02048bb8(void)
     cmp r1, #0
     mvneq r0, #0x59
     ldmeqia sp!, {r4, r5, r6, pc}
-    bl func_0204990c
+    bl DSEi_GetStreamById
     movs r4, r0
     bne @L_02048bf8
     mov r1, r5
     mvn r0, #0x3f
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x3f
     ldmia sp!, {r4, r5, r6, pc}
 @L_02048bf8:
@@ -10458,9 +10458,9 @@ asm void func_02048bb8(void)
     cmp r0, #1
     bne @L_02048c7c
     mov r0, r5
-    bl func_02048f60
+    bl DSE_SsdStopStream
     mov r0, r5
-    bl func_02048d30
+    bl DSE_SsdIsPlayStream
     cmp r0, #0
     ble @L_02048c7c
     mov r6, #4
@@ -10468,7 +10468,7 @@ asm void func_02048bb8(void)
     mov r0, r6
     bl OS_Sleep
     mov r0, r5
-    bl func_02048d30
+    bl DSE_SsdIsPlayStream
     cmp r0, #0
     bgt @L_02048c64
 @L_02048c7c:
@@ -10487,7 +10487,7 @@ asm void func_02048bb8(void)
     cmp r0, #2
     mov r0, r5
     streqb r1, [r4, #7]
-    bl func_02048730
+    bl DSE_SsdIsOpenStream
     cmp r0, #0
     blt @L_02048cdc
     mov r4, #4
@@ -10495,7 +10495,7 @@ asm void func_02048bb8(void)
     mov r0, r4
     bl OS_Sleep
     mov r0, r5
-    bl func_02048730
+    bl DSE_SsdIsOpenStream
     cmp r0, #0
     bge @L_02048cc4
 @L_02048cdc:
@@ -10503,7 +10503,7 @@ asm void func_02048bb8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02048cec(void)
+asm void DSEi_InitStreamFifo(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -10511,14 +10511,14 @@ asm void func_02048cec(void)
     mov r4, r1
     bl func_0204b51c
     cmp r0, #0
-    ldrgt r1, =func_0204958c
+    ldrgt r1, =DSEi_Stream_FUN_0207d75c
     mvnle r0, #0
     movgt r0, r4
     strgt r1, [r5, #0x21c]
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02048d1c(void)
+asm void DSEi_ResetStreamFifo(void)
 {
     stmdb sp!, {r3, lr}
     add r0, r0, #0xe4
@@ -10527,7 +10527,7 @@ asm void func_02048d1c(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02048d30(void)
+asm void DSE_SsdIsPlayStream(void)
 {
     stmdb sp!, {r3, lr}
     ldr r1, =data_020fc0b4
@@ -10535,7 +10535,7 @@ asm void func_02048d30(void)
     cmp r1, #0
     mvneq r0, #0x59
     ldmeqia sp!, {r3, pc}
-    bl func_0204990c
+    bl DSEi_GetStreamById
     cmp r0, #0
     mvneq r0, #0x3f
     ldmeqia sp!, {r3, pc}
@@ -10561,13 +10561,13 @@ asm void func_02048d80(void)
     cmp r3, #0
     mvneq r0, #0x59
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    bl func_0204990c
+    bl DSEi_GetStreamById
     movs r4, r0
     bne @L_02048dc8
     mov r1, r7
     mvn r0, #0x3f
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x3f
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02048dc8:
@@ -10618,7 +10618,7 @@ asm void func_02048d80(void)
     bne @L_02048ee4
     ldrh r2, [r6, #0xe]
     mov r0, #0x3e8
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     mul r0, r2, r0
     ldrsh r1, [r1, #0x28]
     bl _s32_div_f
@@ -10660,7 +10660,7 @@ asm void func_02048d80(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02048f18(void)
+asm void DSE_SsdStopStreamAll(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r1, =data_020fc0b4
@@ -10674,7 +10674,7 @@ asm void func_02048f18(void)
     bne @L_02048f48
     ldr r0, [r4]
     mov r1, r5
-    bl func_02048f60
+    bl DSE_SsdStopStream
 @L_02048f48:
     ldr r4, [r4, #0x358]
     cmp r4, #0
@@ -10684,7 +10684,7 @@ asm void func_02048f18(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02048f60(void)
+asm void DSE_SsdStopStream(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r2, =data_020fc0b4
@@ -10694,13 +10694,13 @@ asm void func_02048f60(void)
     cmp r2, #0
     mvneq r0, #0x59
     ldmeqia sp!, {r4, r5, r6, pc}
-    bl func_0204990c
+    bl DSEi_GetStreamById
     movs r4, r0
     bne @L_02048fa4
     mov r1, r5
     mvn r0, #0x3f
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x3f
     ldmia sp!, {r4, r5, r6, pc}
 @L_02048fa4:
@@ -10710,7 +10710,7 @@ asm void func_02048f60(void)
     beq @L_02048fd4
     mov r0, #0x3e8
     mul r0, r6, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -10760,7 +10760,7 @@ asm void func_0204905c(void)
     mov r3, #0x3e8
     mov r4, r0
     mul r0, r2, r3
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     mov r5, r1
     ldrsh r1, [r2, #0x28]
     bl _s32_div_f
@@ -10840,13 +10840,13 @@ asm void func_02049180(void)
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r4, r1
-    bl func_0204990c
+    bl DSEi_GetStreamById
     cmp r0, #0
     bne @L_020491b0
     mov r1, r5
     mvn r0, #0x3f
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x3f
     ldmia sp!, {r3, r4, r5, pc}
 @L_020491b0:
@@ -10871,7 +10871,7 @@ asm void func_020491c4(void)
     beq @L_0204920c
     mov r0, #0x3e8
     mul r0, r2, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -10895,7 +10895,7 @@ asm void func_020491c4(void)
     cmp r5, #0
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, r4
-    bl func_02049864
+    bl DSEi_FUN_0207d9f4
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -10919,13 +10919,13 @@ asm void func_02049280(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r5, r1
-    bl func_0204990c
+    bl DSEi_GetStreamById
     movs r4, r0
     bne @L_020492b0
     mov r1, r6
     mvn r0, #0x3f
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x3f
     ldmia sp!, {r4, r5, r6, pc}
 @L_020492b0:
@@ -10934,7 +10934,7 @@ asm void func_02049280(void)
     mov r1, r5
     mvn r0, #0x17
     mov r2, #0
-    bl func_02040dcc
+    bl DSE_SsdSetWarning
     bic r5, r5, #0xff
 @L_020492cc:
     cmp r5, #0
@@ -10945,14 +10945,14 @@ asm void func_02049280(void)
     mov r1, r6
     mvn r0, #0xb5
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0xb5
     ldmia sp!, {r4, r5, r6, pc}
 @L_020492f8:
     mov r1, #1
     add r0, r4, #0xe4
     strb r1, [r4, #0x15]
-    bl func_0204b584
+    bl DSEi_ResetFifoBuffer
     cmp r5, #0
     movlt r5, #0
     blt @L_02049328
@@ -11037,13 +11037,13 @@ asm void func_02049420(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r5, r1
-    bl func_0204990c
+    bl DSEi_GetStreamById
     movs r4, r0
     bne @L_02049450
     mov r1, r6
     mvn r0, #0x3f
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x3f
     ldmia sp!, {r4, r5, r6, pc}
 @L_02049450:
@@ -11082,7 +11082,7 @@ asm void func_020494c0(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r1
-    bl func_0204990c
+    bl DSEi_GetStreamById
     cmp r0, #0
     mvneq r0, #0x3f
     ldmeqia sp!, {r4, pc}
@@ -11125,7 +11125,7 @@ asm void func_020494c0(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02049568(void)
+asm void DSEi_Stream_FUN_0207d734(void)
 {
     mov r0, #0
     bx lr
@@ -11146,7 +11146,7 @@ asm void func_02049578(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0204958c(void)
+asm void DSEi_Stream_FUN_0207d75c(void)
 {
     stmdb sp!, {r3, lr}
     ldrsb r3, [r0, #8]
@@ -11155,7 +11155,7 @@ asm void func_0204958c(void)
     ldmeqia sp!, {r3, pc}
     add r0, r0, #0xe4
     mov r3, #0
-    bl func_0204b654
+    bl DSEi_FifoRead
     ldmia sp!, {r3, pc}
 }
 
@@ -11190,7 +11190,7 @@ asm void func_020495b0(void)
     str r0, [r4, #0x30]
     ldrh r8, [r4, #0x3c]
     mov r0, r4
-    bl func_02049864
+    bl DSEi_FUN_0207d9f4
     cmp r8, #0
     ldreqsb r0, [r4, #0x14]
     cmpeq r0, #1
@@ -11256,12 +11256,12 @@ asm void func_0204966c(void)
     bl func_0204712c
     movs r7, r0
     beq @L_02049748
-    bl func_020472cc
+    bl DSEi_StopVoice
     mov r1, r6
     add r0, r7, #0x3c
     bl func_02047948
     add r0, r7, #0x5c
-    bl func_02047ac8
+    bl DSEi_LfoBank_Reset
     strh r5, [r7, #6]
     add r0, r10, r8, lsl #2
     strb r4, [r7, #0x14e]
@@ -11310,14 +11310,14 @@ asm void func_02049780(void)
     add r7, r2, r0, asr #1
     mul r10, r7, r8
     add r0, r5, r10
-    bl func_02049a60
+    bl DSEi_StreamAlloc
     movs r1, r0
     str r0, [r4, #0x14]
     bne @L_02049800
     mov r1, #0
     mov r2, r1
     mvn r0, #0x80
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x80
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02049800:
@@ -11349,7 +11349,7 @@ asm void func_02049780(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02049864(void)
+asm void DSEi_FUN_0207d9f4(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r1, [r0, #0x30]
@@ -11394,7 +11394,7 @@ asm void func_02049864(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0204990c(void)
+asm void DSEi_GetStreamById(void)
 {
     cmp r0, #0
     moveq r0, #0
@@ -11459,7 +11459,7 @@ asm void func_02049970(void)
     add r1, r2, r1, asr #6
     mov r6, #0
     ble @L_02049a40
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     mov lr, #0x7f
     mov r4, r6
     mov r5, #0x40
@@ -11491,7 +11491,7 @@ asm void func_02049970(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02049a60(void)
+asm void DSEi_StreamAlloc(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -11522,7 +11522,7 @@ asm void func_02049a60(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02049adc(void)
+asm void DSEi_StreamFree(void)
 {
     stmdb sp!, {r4, lr}
     ldr r1, =data_020fc0b4
@@ -11703,7 +11703,7 @@ asm void func_02049b04(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02049d88(void)
+asm void DSEi_FUN_0207ded8(void)
 {
     stmdb sp!, {r3, lr}
     ldr r3, =data_020fc0b4
@@ -11721,7 +11721,7 @@ asm void func_02049d88(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02049dc0(void)
+asm void DSEi_StreamAlarmCallback(void)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_020fc0b4
@@ -11783,7 +11783,7 @@ asm void func_02049df0(void)
     str r0, [sp]
     ldrb r3, [r2, #0xf0]
     ldr r0, =data_020fc1a8
-    ldr r1, =func_0204a10c
+    ldr r1, =DSEi_StreamReadThreadFunc
     str r3, [sp, #4]
     ldr r3, [r2, #0x1b4]
     mov r2, #0
@@ -11799,7 +11799,7 @@ asm void func_02049df0(void)
 asm void func_02049ef0(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     ldr r1, =data_020fc0b4
     ldrb r12, [r2, #0x73c]
     mov r3, #0
@@ -11814,7 +11814,7 @@ asm void func_02049ef0(void)
     strb r3, [r1, #0x26]
     bl OS_WakeupThreadDirect
     ldr r0, =data_020fc0dc
-    bl func_02006048
+    bl OS_JoinThread
     ldr r1, =data_020fc0b4
     mov r2, #0
     ldr r0, =data_020fc1a8
@@ -11823,7 +11823,7 @@ asm void func_02049ef0(void)
     strb r2, [r1, #0xf2]
     bl OS_WakeupThreadDirect
     ldr r0, =data_020fc1a8
-    bl func_02006048
+    bl OS_JoinThread
     ldmia sp!, {r3, pc}
 }
 
@@ -11901,7 +11901,7 @@ asm void func_02049f6c(void)
     ldr r1, [r9, r8, lsl #2]
     ldr r2, [r6, #0x1c8]
     mov r0, r10
-    bl func_0204b4c4
+    bl DSEi_FUN_0207f55c_GetMinMaxSamples
     ldrb r0, [r6, #0x22]
     add r8, r8, #1
     add r10, r10, #4
@@ -11943,7 +11943,7 @@ asm void func_02049f6c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0204a10c(void)
+asm void DSEi_StreamReadThreadFunc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldr r8, =data_020fc0b4
@@ -11975,14 +11975,14 @@ asm void func_0204a10c(void)
     cmp r0, #1
     bne @L_0204a180
     mov r0, r7
-    bl func_0204a1b0
+    bl DSEi_Stream_FUN_0207e2e0
 @L_0204a180:
     ldrsb r0, [r7, #7]
     cmp r0, #1
     bne @L_0204a198
     mov r0, r7
     strb r9, [r7, #7]
-    bl func_02048ab4
+    bl DSEi_ResetStream
 @L_0204a198:
     ldr r7, [r7, #0x358]
     cmp r7, #0
@@ -11991,7 +11991,7 @@ asm void func_0204a10c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0204a1b0(void)
+asm void DSEi_Stream_FUN_0207e2e0(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -12079,7 +12079,7 @@ asm void func_0204a1b0(void)
     beq @L_0204a310
     mov r0, #0x3e8
     mul r0, r1, r0
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldrsh r1, [r1, #0x28]
     bl _u32_div_f
     mov r0, r0, lsl #0x10
@@ -12238,7 +12238,7 @@ asm void func_0204a494(void)
     mul r1, r4, r1
     mov r1, r1, lsr #6
     str r0, [sp]
-    ldr r3, =func_02049dc0
+    ldr r3, =DSEi_StreamAlarmCallback
     mov r2, r1
     mov r0, #2
     bl SND_SetupAlarm
@@ -12294,7 +12294,7 @@ asm void func_0204a494(void)
     str r9, [r6, #0x140]
     ldrb r0, [r10, #0x22]
     cmp r0, #1
-    ldrne r0, =data_020fa1d4
+    ldrne r0, =DSEi_SsdWork
     ldrneb r0, [r0, #0x39]
     cmpne r0, #1
     moveq r0, #0x40
@@ -12309,7 +12309,7 @@ asm void func_0204a494(void)
     mov r1, r11
     bl func_02047948
     add r0, r6, #0x5c
-    bl func_02047ac8
+    bl DSEi_LfoBank_Reset
     mov r0, #1
     strh r0, [r6, #6]
     ldrb r0, [r10, #0x23]
@@ -12317,7 +12317,7 @@ asm void func_0204a494(void)
     cmp r8, r0
     blt @L_0204a5d0
 @L_0204a680:
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldr r3, =0x4000208
     ldrb r4, [r1, #0x73d]
     mov r2, #1
@@ -12378,7 +12378,7 @@ asm void func_0204a710(void)
     cmp r12, r2
     blt @L_0204a750
 @L_0204a76c:
-    ldr r2, =data_020fa1d4
+    ldr r2, =DSEi_SsdWork
     ldr r3, =0x4000208
     ldrb r12, [r2, #0x73d]
     mov r0, #0
@@ -12445,7 +12445,7 @@ asm void func_0204a798(void)
     ldrsb r0, [r4, #0x27]
     cmp r0, #0
     bne @L_0204a87c
-    ldr r1, =func_0204b7e0
+    ldr r1, =DSEi_Stream_FUN_0207f934
     mov r0, #0x20
     str r1, [r4, #0x220]
     str r0, [r4, #0x200]
@@ -12464,7 +12464,7 @@ asm void func_0204a798(void)
     ldrsb r0, [r4, #0x27]
     cmp r0, #0
     bne @L_0204a8c0
-    ldr r1, =func_0204ba88
+    ldr r1, =DSEi_Stream_FUN_0207fbd8
     mov r0, #0x40
     str r1, [r4, #0x220]
     str r0, [r4, #0x200]
@@ -12480,7 +12480,7 @@ asm void func_0204a798(void)
     str r0, [r4, #0x204]
     b @L_0204a960
 @L_0204a8dc:
-    ldr r1, =func_0204be18
+    ldr r1, =DSEi_Stream_FUN_0207ff60
     mov r0, #0x1e
     str r1, [r4, #0x220]
     str r0, [r4, #0x200]
@@ -12560,7 +12560,7 @@ asm void func_0204a798(void)
     ldr r1, [r4, #0x1c0]
     mvn r0, #0xfe
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     add sp, sp, #0x10
     mvn r0, #0xfe
     ldmia sp!, {r4, r5, r6, pc}
@@ -12571,7 +12571,7 @@ asm void func_0204a798(void)
     ldr r1, [r4, #0x1c0]
     mvn r0, #0xfe
     mov r2, #0
-    bl func_02040d98
+    bl DSE_SsdSetError
     add sp, sp, #0x10
     mvn r0, #0xfe
     ldmia sp!, {r4, r5, r6, pc}
@@ -12620,7 +12620,7 @@ asm void func_0204a798(void)
     bl func_02049b04
     add r0, sp, #4
     mov r1, #3
-    bl func_02049d88
+    bl DSEi_FUN_0207ded8
 @L_0204aad8:
     mov r0, r4
     bl func_0204966c
@@ -12737,13 +12737,13 @@ asm void func_0204ac80(void)
     bl FS_InitFile
     add r0, r5, #0xf8
     add r1, r5, #0x140
-    bl func_0200c964
+    bl FS_OpenFile
     movs r4, r0
     bne @L_0204acd4
     mov r1, #0
     mov r2, r1
     mvn r0, #0xb2
-    bl func_02040d98
+    bl DSE_SsdSetError
     ldr r0, [r5]
     ldr r3, [r5, #0x214]
     ldr r12, [r5, #0x210]
@@ -12890,7 +12890,7 @@ asm void func_0204ae24(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0xb7
-    bl func_02040dcc
+    bl DSE_SsdSetWarning
     ldrb r0, [r5, #0x22]
     mov r7, #0
     cmp r0, #0
@@ -13094,7 +13094,7 @@ asm void func_0204b0b4(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0xb7
-    bl func_02040dcc
+    bl DSE_SsdSetWarning
     b @L_0204b338
 @L_0204b1a8:
     ldrb r7, [r10, #0x22]
@@ -13256,7 +13256,7 @@ asm void func_0204b340(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0xb7
-    bl func_02040dcc
+    bl DSE_SsdSetWarning
     b @L_0204b4bc
 @L_0204b3ec:
     ldrb r8, [r6, #0x22]
@@ -13321,7 +13321,7 @@ asm void func_0204b340(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0204b4c4(void)
+asm void DSEi_FUN_0207f55c_GetMinMaxSamples(void)
 {
     stmdb sp!, {r4, lr}
     add r2, r2, r2, lsr #31
@@ -13355,14 +13355,14 @@ asm void func_0204b51c(void)
     mov r5, r0
     ldr r1, =0x6f666966
     mov r0, r4
-    bl func_02049a60
+    bl DSEi_StreamAlloc
     cmp r0, #0
     mvneq r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
     str r0, [r5]
     mov r0, r5
     str r4, [r5, #4]
-    bl func_0204b584
+    bl DSEi_ResetFifoBuffer
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 }
@@ -13374,14 +13374,14 @@ asm void func_0204b55c(void)
     ldr r0, [r4]
     cmp r0, #0
     ldmeqia sp!, {r4, pc}
-    bl func_02049adc
+    bl DSEi_StreamFree
     mov r0, #0
     str r0, [r4]
     str r0, [r4, #4]
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0204b584(void)
+asm void DSEi_ResetFifoBuffer(void)
 {
     ldr r1, [r0]
     cmp r1, #0
@@ -13443,7 +13443,7 @@ asm void func_0204b5a4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0204b654(void)
+asm void DSEi_FifoRead(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
@@ -13495,7 +13495,7 @@ asm void func_0204b654(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0204b708(void)
+asm void DSEi_Stream_FUN_0207f864(void)
 {
     stmdb sp!, {r3, lr}
     ldrh lr, [r0, #0x9e]
@@ -13561,7 +13561,7 @@ asm void func_0204b76c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0204b7e0(void)
+asm void DSEi_Stream_FUN_0207f934(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x18
@@ -13747,7 +13747,7 @@ asm void func_0204b924(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0204ba88(void)
+asm void DSEi_Stream_FUN_0207fbd8(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -13994,7 +13994,7 @@ asm void func_0204bc1c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0204be18(void)
+asm void DSEi_Stream_FUN_0207ff60(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x20
@@ -14270,7 +14270,7 @@ asm void func_0204c210(void)
     stmdb sp!, {r3, lr}
     ldr r1, =0x38646f63
     mov r0, #0x5500
-    bl func_02049a60
+    bl DSEi_StreamAlloc
     mov r1, r0
     ldr r3, =data_020fc5f4
     ldr r2, =0x5280
@@ -14301,7 +14301,7 @@ asm void func_0204c260(void)
     bl func_02050338
     ldr r0, =data_020fc5f4
     ldr r0, [r0]
-    bl func_02049adc
+    bl DSEi_StreamFree
     ldr r0, =data_020fc5f4
     mov r1, #0
     str r1, [r0]
@@ -14697,7 +14697,7 @@ asm void func_0204c748(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0204c7e4(void)
+asm void DSEi_FUN_020803e8(void)
 {
     mov r1, r0
     cmp r0, #0x10000
@@ -14749,7 +14749,7 @@ asm void func_0204c7e4(void)
     bx lr
 }
 
-asm void func_0204c8ac(void)
+asm void DSEi_FUN_020804b0(void)
 {
     stmdb sp!, {r4, lr}
     cmp r3, #0
@@ -14776,7 +14776,7 @@ asm void func_0204c8ac(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0204c8fc(void)
+asm void DSEi_FUN_02080500(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r3, #0
@@ -14803,7 +14803,7 @@ asm void func_0204c8fc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0204c958(void)
+asm void DSEi_FUN_0208055c(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     cmp r1, #0
@@ -14851,7 +14851,7 @@ asm void func_0204c958(void)
 @L_0204c9f8:
     mov r0, r2
     bl _s32_div_f
-    bl func_0204c7e4
+    bl DSEi_FUN_020803e8
     mov r0, r0, lsl #0x14
     mov r0, r0, asr #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
@@ -14894,7 +14894,7 @@ asm void func_0204c958(void)
 @L_0204ca98:
     mov r0, r2
     bl _s32_div_f
-    bl func_0204c7e4
+    bl DSEi_FUN_020803e8
     rsb r1, r4, #3
     mov r0, r0, lsl r1
     mov r0, r0, lsl #0x10
@@ -14902,7 +14902,7 @@ asm void func_0204c958(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0204cabc(void)
+asm void DSEi_FUN_020806c0(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r4, [sp, #0x28]
@@ -14970,7 +14970,7 @@ asm void func_0204cabc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0204cbb0(void)
+asm void DSEi_FUN_020807b4(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r10, [sp, #0x28]
@@ -15025,7 +15025,7 @@ asm void func_0204cbb0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0204cc70(void)
+asm void DSEi_FUN_02080874(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x10
@@ -15052,7 +15052,7 @@ asm void func_0204cc70(void)
     str r6, [sp]
     ldr r3, [sp, #0x2c]
     stmib sp, {r4, r5}
-    bl func_0204cbb0
+    bl DSEi_FUN_020807b4
     cmp r6, #0
     mov r1, #0
     ble @L_0204ccf0
@@ -15071,7 +15071,7 @@ asm void func_0204cc70(void)
     mov r2, r7
     mov r3, r0
     str r5, [sp, #0xc]
-    bl func_0204cabc
+    bl DSEi_FUN_020806c0
     add sp, sp, #0x10
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
@@ -15382,7 +15382,7 @@ asm void func_0204d14c(void)
     ldr r0, [sp]
     ldr r2, [sp, #0xc]
     mov r1, r6
-    bl func_0204de6c
+    bl DSEi_FUN_020819f0
     str r0, [r4, r5, lsl #2]
     add r5, r5, #1
     cmp r5, #7
@@ -15593,29 +15593,29 @@ asm void func_0204d350(void)
     mov r0, r4
     mov r1, r4
     mov r2, r8
-    bl func_0204de6c
+    bl DSEi_FUN_020819f0
     add r0, r0, #0x3e8
-    bl func_0204c7e4
+    bl DSEi_FUN_020803e8
     add r1, r4, r8, lsl #1
     mov r11, r0
     mov r0, r1
     mov r2, r8
     str r1, [sp, #8]
-    bl func_0204de6c
+    bl DSEi_FUN_020819f0
     add r0, r0, #0x3e8
-    bl func_0204c7e4
+    bl DSEi_FUN_020803e8
     mov r5, r0
     mov r0, r10
     mov r1, r10
     mov r2, r8
-    bl func_0204de6c
+    bl DSEi_FUN_020819f0
     add r0, r0, #1
-    bl func_0204c7e4
+    bl DSEi_FUN_020803e8
     mov r6, r0
     mov r0, r4
     mov r1, r10
     mov r2, r8
-    bl func_0204de6c
+    bl DSEi_FUN_020819f0
     str r0, [sp, #0x18]
     cmp r0, #0
     movlt r0, #0
@@ -15623,7 +15623,7 @@ asm void func_0204d350(void)
     ldr r0, [sp, #8]
     mov r1, r10
     mov r2, r8
-    bl func_0204de6c
+    bl DSEi_FUN_020819f0
     str r0, [sp, #0x14]
     cmp r0, #0
     movlt r0, #0
@@ -15800,11 +15800,11 @@ asm void func_0204d350(void)
 @L_0204d788:
     mov r0, r9
     mov r1, r8
-    bl func_0204c958
+    bl DSEi_FUN_0208055c
     mov r4, r0
     mov r0, r10
     mov r1, r8
-    bl func_0204c958
+    bl DSEi_FUN_0208055c
     cmp r0, #1
     movlt r0, #1
     cmp r4, #1
@@ -15862,7 +15862,7 @@ asm void func_0204d350(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0204d890(void)
+asm void DSEi_FUN_02081438(void)
 {
     ldr r1, =0x3244
     cmp r0, r1
@@ -15974,7 +15974,7 @@ asm void func_0204d950(void)
 @L_0204da24:
     mov r0, r8, lsl #1
     ldrsh r0, [r7, r0]
-    bl func_0204d890
+    bl DSEi_FUN_02081438
     mov r1, r8, lsl #1
     mov r0, r0, lsl #2
     strh r0, [r6, r1]
@@ -16182,7 +16182,7 @@ asm void func_0204d950(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0204dd4c(void)
+asm void DSEi_FUN_020818d0(void)
 {
     stmdb sp!, {r4, lr}
     ldr r3, =0x6488
@@ -16224,7 +16224,7 @@ asm void func_0204dd4c(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0204dde4(void)
+asm void DSEi_FUN_02081968(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r5, [sp, #0x18]
@@ -16263,7 +16263,7 @@ asm void func_0204dde4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0204de6c(void)
+asm void DSEi_FUN_020819f0(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     movs r2, r2, asr #2
@@ -16446,7 +16446,7 @@ asm void func_0204ded0(void)
     strh r10, [sp, #4]
     strh r9, [sp, #6]
     strh r3, [sp, #8]
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r3, #0
 @L_0204e118:
     add r0, r8, #1
@@ -16579,7 +16579,7 @@ asm void func_0204e1d0(void)
     ldr r3, [sp, #0x30]
     mov r0, r7
     str lr, [sp, #0xc]
-    bl func_0204cc70
+    bl DSEi_FUN_02080874
     cmp r4, #0
     mov r9, #0
     ble @L_0204e33c
@@ -16608,7 +16608,7 @@ asm void func_0204e1d0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0204e350(void)
+asm void DSEi_FUN_02081ecc(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r5, [sp, #0x18]
@@ -16644,7 +16644,7 @@ asm void func_0204e350(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0204e3c8(void)
+asm void DSEi_FUN_02081f44(void)
 {
     cmp r1, #0
     beq @L_0204e3dc
@@ -16808,7 +16808,7 @@ asm void func_0204e4f8(void)
     ldr r1, [r5, #0x30]
     add r2, r3, r2
     mov r2, r2, lsl #1
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r0, #0x28
     str r0, [r5, #0x5c]
     mov r3, #0
@@ -17198,7 +17198,7 @@ asm void func_0204e6c4(void)
     mov r2, r2, lsl #1
     mov r0, #0
     mov r1, r8
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r2, [r5, #0x74]
     ldr r0, [r5, #0x78]
     mvn r1, #0
@@ -17257,7 +17257,7 @@ asm void func_0204e6c4(void)
     ldr r3, [r5, #0x10]
     rsb r1, r1, #0
     mov r2, #0xfa00000
-    bl func_0204c8ac
+    bl DSEi_FUN_020804b0
     ldrsh r1, [sp, #0x7c]
     ldrsh r2, [sp, #0x7e]
     ldrsh r3, [sp, #0x80]
@@ -17354,7 +17354,7 @@ asm void func_0204e6c4(void)
     mov r1, r6
     ldr r2, [r5, #0x10]
     mov r2, r2, lsl #2
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r5, #0x74]
     ldr r0, [r5, #0x78]
     ldr r0, [r1, r0, lsl #2]
@@ -17439,7 +17439,7 @@ asm void func_0204e6c4(void)
     mov r0, r6
     mov r1, r6
     mov r2, r11
-    bl func_0204c8fc
+    bl DSEi_FUN_02080500
     ldr r1, [r5, #0x74]
     ldr r0, [r5, #0x78]
     ldr r0, [r1, r0, lsl #2]
@@ -17459,7 +17459,7 @@ asm void func_0204e6c4(void)
     str r1, [sp, #0x5c]
     mov r0, #0
     mov r1, r10
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r5, #0x74]
     ldr r0, [r5, #0x78]
     add r2, r5, #0x6c
@@ -17482,7 +17482,7 @@ asm void func_0204e6c4(void)
     ldr r3, [r5, #0x10]
     mov r0, r10
     mov r1, r10
-    bl func_0204c8fc
+    bl DSEi_FUN_02080500
     ldr r0, [r5, #0x10]
     mov r2, #0
     cmp r0, #0
@@ -17554,7 +17554,7 @@ asm void func_0204e6c4(void)
     mov r0, #0
     mov r1, r8
     movgt r9, #0x40
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r2, [r5, #0x10]
     ldr r1, [r5, #0x1e0]
     cmp r1, r2
@@ -17737,7 +17737,7 @@ asm void func_0204e6c4(void)
     beq @L_0204f464
     ldr r0, [r5, #0x34]
     ldr r1, [r5, #0xc]
-    bl func_0204c958
+    bl DSEi_FUN_0208055c
     add r0, r0, #1
     mov r0, r0, lsl #0x10
     mov r1, r0, asr #0x10
@@ -17787,11 +17787,11 @@ asm void func_0204e6c4(void)
     add r6, r2, r6, lsl #1
     ldr r3, [r5, #0x18]
     mov r2, r4
-    bl func_0204dde4
+    bl DSEi_FUN_02081968
     ldr r1, [r5, #0x18]
     mov r0, r4
     mov r2, #0x10
-    bl func_0204dd4c
+    bl DSEi_FUN_020818d0
     ldr r2, [r5, #0x18]
     ldr r3, [sp, #0x5c]
     mov r0, r4
@@ -17825,7 +17825,7 @@ asm void func_0204e6c4(void)
     str r1, [sp, #8]
     ldr r1, [r5, #0x3c]
     ldr r3, [r5, #0x10]
-    bl func_0204cbb0
+    bl DSEi_FUN_020807b4
     ldr r0, [r5, #0x18]
     mov r3, #0
     cmp r0, #0
@@ -18178,7 +18178,7 @@ asm void func_0204f6b0(void)
     ldr r2, [r6, #0x34]
     mul r0, r4, r1
     add r0, r2, r0, lsl #1
-    bl func_0204c958
+    bl DSEi_FUN_0208055c
     mov r1, r4, lsl #1
     strh r0, [r5, r1]
     ldr r0, [r6, #0x14]
@@ -18841,7 +18841,7 @@ asm void func_02050348(void)
     b @L_020503e4
 @L_020503dc:
     mov r5, #0
-    bl func_0200878c
+    bl OS_Terminate
 @L_020503e4:
     cmp r5, #0
     beq @L_02050474
@@ -18883,7 +18883,7 @@ asm void func_02050348(void)
 @L_02050474:
     mov r0, #0
     str r0, [r10, #0x60]
-    bl func_0200878c
+    bl OS_Terminate
 @L_02050480:
     ldr r1, [r10, #0x60]
     cmp r1, #0
@@ -18892,7 +18892,7 @@ asm void func_02050348(void)
     ldr r0, [r0, r1, lsl #2]
     cmp r0, #0
     bne @L_020504ac
-    bl func_0200878c
+    bl OS_Terminate
     add sp, sp, #0x44
     mvn r0, #1
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -18989,7 +18989,7 @@ asm void func_02050348(void)
     add r6, r3, r2, lsl #1
     mov r2, r1, lsl #2
     mov r1, r6
-    bl func_0200919c
+    bl MIi_CpuClear32
 @L_02050614:
     str r9, [sp]
     ldr r0, [r10, #0x14]
@@ -18998,11 +18998,11 @@ asm void func_02050348(void)
     ldr r0, [r10, #0x38]
     ldr r2, [sp, #0x34]
     ldr r3, [r10, #0x18]
-    bl func_0204dde4
+    bl DSEi_FUN_02081968
     ldr r0, [sp, #0x34]
     ldr r1, [r10, #0x18]
     ldr r2, =0x19a
-    bl func_0204dd4c
+    bl DSEi_FUN_020818d0
     ldr r0, [sp, #0x34]
     ldr r2, [r10, #0x18]
     mov r1, r5
@@ -19055,7 +19055,7 @@ asm void func_02050348(void)
     mov r0, #0
     mov r1, r7
     mov r2, r2, lsl #2
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r11, #4]
     ldr r2, [r11, #0xc]
     ldr r1, [r1]
@@ -19124,7 +19124,7 @@ asm void func_02050348(void)
     ldr r3, [r10, #0x10]
     mov r0, r7
     mov r1, r7
-    bl func_0204c8fc
+    bl DSEi_FUN_02080500
     ldr r1, [r10, #0x5c]
     ldr r0, [r10, #0x60]
     ldr r0, [r1, r0, lsl #2]
@@ -19141,7 +19141,7 @@ asm void func_02050348(void)
     mov r2, r1, lsl #2
     mov r0, #0
     mov r1, r8
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r2, [r10, #0x5c]
     ldr r0, [r10, #0x60]
     add r1, r10, #0x54
@@ -19167,7 +19167,7 @@ asm void func_02050348(void)
     ldr r3, [r10, #0x10]
     mov r0, r8
     mov r1, r8
-    bl func_0204c8fc
+    bl DSEi_FUN_02080500
     ldr r0, [r10, #0x10]
     mov r2, #0
     cmp r0, #0
@@ -19214,7 +19214,7 @@ asm void func_02050348(void)
     ldr r0, [r10, #0x34]
     ldr r1, [r10, #0x3c]
     ldr r3, [r10, #0x10]
-    bl func_0204cbb0
+    bl DSEi_FUN_020807b4
     ldr r1, [r10, #0x10]
     mov r0, #0
     cmp r1, #0
@@ -19247,7 +19247,7 @@ asm void func_02050348(void)
 @L_020509d4:
     ldr r0, [r10, #0x34]
     ldr r1, [r10, #0x10]
-    bl func_0204c958
+    bl DSEi_FUN_0208055c
     ldr r2, [r10, #0x48]
     mov r1, r9, lsl #1
     strh r0, [r2, r1]
@@ -19615,10 +19615,10 @@ asm void func_02050ed4(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02050ef8(void)
+asm void DSE_SsdQuitCapture(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_0205102c
+    bl DSE_SsdQuitCaptureThread
     mov r0, #0
     ldmia sp!, {r3, pc}
 }
@@ -19639,14 +19639,14 @@ asm void func_02050f08(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02050f38(void)
+asm void DSE_SsdCaptureSuspend(void)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_020fc5f8
     ldrsb r1, [r0, #0x24]
     cmp r1, #0
     ldmeqia sp!, {r3, pc}
-    bl func_0205168c
+    bl DSEi_SuspendCapture
     ldmia sp!, {r3, pc}
 }
 
@@ -19705,7 +19705,7 @@ asm void func_02050f98(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0205102c(void)
+asm void DSE_SsdQuitCaptureThread(void)
 {
     stmdb sp!, {r4, lr}
     mov r0, #0
@@ -19725,10 +19725,10 @@ asm void func_0205102c(void)
     ldr r0, =data_020fc630
     ldrh r1, [r2]
     strh r4, [r2]
-    bl func_02006048
+    bl OS_JoinThread
     ldr r0, =data_020fc5f8
     ldr r0, [r0, #0x34]
-    bl func_02041158
+    bl DSE_SsdFree
     mov r0, #0
     ldmia sp!, {r4, pc}
 }
@@ -19754,7 +19754,7 @@ asm void func_02051098(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_020510f0:
@@ -19763,7 +19763,7 @@ asm void func_02051098(void)
     mov r1, #0
     mov r2, r1
     mvn r0, #0x17
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x17
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02051110:
@@ -19785,14 +19785,14 @@ asm void func_02051098(void)
     strh r5, [r1, #2]
     strh r6, [r1, #8]
     strh r7, [r1, #0xa]
-    bl func_0205168c
+    bl DSEi_SuspendCapture
     ldr r0, =data_020fc5f8
     mov r1, #0
     strb r1, [r0, #0x24]
     ldr r0, [r0]
     cmp r0, #0
     beq @L_02051180
-    bl func_02041158
+    bl DSE_SsdFree
     ldr r0, =data_020fc5f8
     mov r1, #0
     str r1, [r0]
@@ -19801,7 +19801,7 @@ asm void func_02051098(void)
     ldr r0, [r0, #8]
     cmp r0, #0
     beq @L_020511a0
-    bl func_02041158
+    bl DSE_SsdFree
     ldr r0, =data_020fc5f8
     mov r1, #0
     str r1, [r0, #8]
@@ -19823,7 +19823,7 @@ asm void func_02051098(void)
     b @L_0205128c
 @L_020511d8:
     ldr r0, =data_020fc5f8
-    ldr r1, =func_020517d8
+    ldr r1, =DSEi_CaptureFilterVolumeStereo
     strb r5, [r0, #0x1e]
     cmp r6, #0
     moveq r8, #0
@@ -19834,7 +19834,7 @@ asm void func_02051098(void)
     ldr r0, =data_020fc5f8
     mov r1, #0x7f
     strb r1, [r0, #0x1e]
-    ldr r1, =func_02051830
+    ldr r1, =DSEi_CaptureFilterEchoStereo
     strb r5, [r0, #0x21]
     cmp r6, #0
     moveq r8, #0
@@ -19845,7 +19845,7 @@ asm void func_02051098(void)
     ldr r0, =data_020fc5f8
     mov r1, #0x7f
     strb r1, [r0, #0x1e]
-    ldr r1, =func_02051908
+    ldr r1, =DSEi_CaptureFilterEchoMono
     strb r5, [r0, #0x21]
     cmp r6, #0
     moveq r8, #0
@@ -19855,7 +19855,7 @@ asm void func_02051098(void)
 @L_02051248:
     ldr r0, =data_020fc5f8
     mov r2, #0x7f
-    ldr r1, =func_020519c4
+    ldr r1, =DSEi_CaptureFilterInvert
     strb r2, [r0, #0x1e]
     str r1, [r0, #0x30]
     mov r4, #0
@@ -19864,7 +19864,7 @@ asm void func_02051098(void)
     ldr r0, =data_020fc5f8
     mov r1, #0x7f
     strb r1, [r0, #0x1e]
-    ldr r1, =func_020519ec
+    ldr r1, =DSEi_CaptureFilterEchoStereoInvert
     strb r5, [r0, #0x21]
     cmp r6, #0
     moveq r8, #0
@@ -19875,7 +19875,7 @@ asm void func_02051098(void)
     ldr r0, =data_020fc5f8
     mov r1, #0x7f
     strb r1, [r0, #0x1e]
-    ldr r1, =func_02051ad8
+    ldr r1, =DSEi_CaptureFilterEchoMonoInvert
     strb r5, [r0, #0x21]
     cmp r6, #0
     moveq r8, #0
@@ -19933,13 +19933,13 @@ asm void func_02051098(void)
     str r0, [r1, #8]
     bne @L_02051398
     ldr r0, [r1]
-    bl func_02041158
+    bl DSE_SsdFree
     mov r1, #0
     ldr r3, =data_020fc5f8
     mov r2, r1
     sub r0, r1, #0x80
     str r1, [r3]
-    bl func_02040d98
+    bl DSE_SsdSetError
     mvn r0, #0x7f
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02051398:
@@ -19979,12 +19979,12 @@ asm void func_0205140c(void)
     mov r0, r5
     mov r6, r1
     strh r2, [r3]
-    bl func_020472cc
+    bl DSEi_StopVoice
     add r0, r5, #0x3c
     mvn r1, #0xc0000000
     bl func_02047948
     add r0, r5, #0x5c
-    bl func_02047ac8
+    bl DSEi_LfoBank_Reset
     mov r0, #0
     strh r0, [r5, #6]
     mov r0, #0x10
@@ -20105,12 +20105,12 @@ asm void func_02051480(void)
     add r0, r10, #0x3c
     bl func_02047948
     add r0, r10, #0x5c
-    bl func_02047ac8
+    bl DSEi_LfoBank_Reset
     add r9, r9, #1
     strh r5, [r10, #6]
     cmp r9, #2
     blt @L_020515a8
-    ldr r1, =data_020fa1d4
+    ldr r1, =DSEi_SsdWork
     ldr r0, =data_020fc5f8
     ldrb r3, [r1, #0x73d]
     strb r5, [r0, #0x25]
@@ -20133,7 +20133,7 @@ asm void func_02051480(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0205168c(void)
+asm void DSEi_SuspendCapture(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r1, =data_020fc5f8
@@ -20151,12 +20151,12 @@ asm void func_0205168c(void)
     ldr r0, [r0, #0x28]
     cmp r0, #0
     beq @L_020516cc
-    bl func_020472cc
+    bl DSEi_StopVoice
 @L_020516cc:
     add r5, r5, #1
     cmp r5, #2
     blt @L_020516b8
-    ldr r12, =data_020fa1d4
+    ldr r12, =DSEi_SsdWork
     mov r0, #0
     ldrb r2, [r12, #0x73d]
     ldr lr, =0x4000208
@@ -20216,7 +20216,7 @@ asm void func_02051738(void)
     mov r0, r8
     mov r1, r10
     bl DC_FlushRange
-    bl func_02006d84
+    bl DC_WaitWriteBufferEmpty
     cmp r7, #0
     moveq r0, r4
     movne r0, r11
@@ -20225,7 +20225,7 @@ asm void func_02051738(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020517d8(void)
+asm void DSEi_CaptureFilterVolumeStereo(void)
 {
     stmdb sp!, {r3, lr}
     ldrb r0, [r0, #0x1f]
@@ -20252,7 +20252,7 @@ asm void func_020517d8(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02051830(void)
+asm void DSEi_CaptureFilterEchoStereo(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldrb r5, [r0, #0x20]
@@ -20313,7 +20313,7 @@ asm void func_02051830(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02051908(void)
+asm void DSEi_CaptureFilterEchoMono(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldrb r4, [r0, #0x20]
@@ -20367,7 +20367,7 @@ asm void func_02051908(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_020519c4(void)
+asm void DSEi_CaptureFilterInvert(void)
 {
     mov r2, r3, asr #1
     cmp r2, #0
@@ -20382,7 +20382,7 @@ asm void func_020519c4(void)
     bx lr
 }
 
-asm void func_020519ec(void)
+asm void DSEi_CaptureFilterEchoStereoInvert(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldrb r5, [r0, #0x20]
@@ -20448,7 +20448,7 @@ asm void func_020519ec(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02051ad8(void)
+asm void DSEi_CaptureFilterEchoMonoInvert(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldrb r4, [r0, #0x20]

@@ -1,11 +1,11 @@
 // (asm for now)
 
 void NNS_G3dGetAnmByIdx(void);
-void func_0202c1c8(void);
-void func_0202c1f0(void);
+void NNSi_G3dGetTexPatAnmTexNameByIdx(void);
+void NNSi_G3dGetTexPatAnmPlttNameByIdx(void);
 void NNSi_G3dGetTexPatAnmFV(void);
 void NNSi_G3dGetTexPatAnmDataByIdx(void);
-void func_0202c2c0(void);
+void NNSi_G3dAnmObjInitNsBca(void);
 
 extern char data_020ab82c[];
 void MIi_CpuClear16(void);
@@ -40,7 +40,7 @@ asm void NNS_G3dGetAnmByIdx(void)
     bx lr
 }
 
-asm void func_0202c1c8(void)
+asm void NNSi_G3dGetTexPatAnmTexNameByIdx(void)
 {
     cmp r0, #0
     beq @L_0202c1e8
@@ -55,7 +55,7 @@ asm void func_0202c1c8(void)
     bx lr
 }
 
-asm void func_0202c1f0(void)
+asm void NNSi_G3dGetTexPatAnmPlttNameByIdx(void)
 {
     cmp r0, #0
     beq @L_0202c210
@@ -127,7 +127,7 @@ asm void NNSi_G3dGetTexPatAnmDataByIdx(void)
     bx lr
 }
 
-asm void func_0202c2c0(void)
+asm void NNSi_G3dAnmObjInitNsBca(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0

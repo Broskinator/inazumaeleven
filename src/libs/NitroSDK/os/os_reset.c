@@ -1,14 +1,14 @@
 // (asm for now)
 
 void OSi_SendToPxi(void);
-void func_02005598(void);
+void OS_InitLock(void);
 
-void func_0200b138(void);
+void PXI_SendWordByFifo(void);
 extern char data_020bb100[];
-void func_020056b4(void);
+void OS_LockByWord(void);
 void WaitByLoop(void);
-void func_0200919c(void);
-void func_02005738(void);
+void MIi_CpuClear32(void);
+void OS_UnlockByWord(void);
 
 asm void OSi_SendToPxi(void)
 {
@@ -20,13 +20,13 @@ asm void OSi_SendToPxi(void)
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     bne @L_0200557c
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02005598(void)
+asm void OS_InitLock(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r3, =data_020bb100
@@ -40,7 +40,7 @@ asm void func_02005598(void)
     str r2, [r5]
     mov r0, #0x7e
     str r4, [r3]
-    bl func_020056b4
+    bl OS_LockByWord
     ldrh r0, [r5, #6]
     cmp r0, #0
     beq @L_020055f0
@@ -61,7 +61,7 @@ asm void func_02005598(void)
     add r1, r4, #0x10
     mov r2, #0x28
     str r3, [r4, #4]
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r12, =0x4000204
     mov r2, r5
     ldrh r3, [r12]
@@ -72,10 +72,10 @@ asm void func_02005598(void)
     ldrh r3, [r12]
     orr r3, r3, #0x80
     strh r3, [r12]
-    bl func_02005738
+    bl OS_UnlockByWord
     mov r2, r5
     add r1, r4, #0x40
     mov r0, #0x7f
-    bl func_020056b4
+    bl OS_LockByWord
     ldmia sp!, {r3, r4, r5, pc}
 }

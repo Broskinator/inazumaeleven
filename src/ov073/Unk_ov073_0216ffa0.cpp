@@ -22,8 +22,8 @@ extern "C" s32 func_ov073_0217067c(u8 *arg0);
 extern "C" s32 func_ov073_021706cc(s32 arg0);
 extern "C" void func_ov073_021706e0(void);
 
-extern "C" char data_020c46a8[];
-extern "C" char data_020c9660[];
+extern "C" char gFont12Manager[];
+extern "C" char gBgMenuManager[];
 extern "C" char data_ov073_021706e4[];
 extern "C" char data_ov073_021706e4_b[];
 extern "C" char data_ov073_02170814[];
@@ -34,36 +34,36 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" s32 func_02003608(...);
-extern "C" s32 func_02003988(...);
-extern "C" void func_02003b48(void);
+extern "C" s32 GXS_LoadBG0Scr(...);
+extern "C" s32 GXS_LoadBG0Char(...);
+extern "C" void GXS_LoadBG2Char(void);
 extern "C" void func_0209d8b8(void);
-extern "C" s32 func_ov015_02132240(...);
-extern "C" void func_ov015_021322b0(void);
-extern "C" void func_ov015_02132984(void);
-extern "C" void func_ov015_02132b7c(void);
+extern "C" s32 Graphics_LoadBGPaletteSub(...);
+extern "C" void Graphics_LoadTempPaletteFromPac(void);
+extern "C" void Graphics_SetupScreen(void);
+extern "C" void Graphics_LoadBGXCharSub(void);
 extern "C" void func_ov015_02133dc8(void);
 extern "C" s32 func_ov015_02133e24(...);
 extern "C" s32 func_ov015_02133e50(...);
 extern "C" s32 func_ov015_02133e8c(...);
-extern "C" s32 func_ov015_02133f94(...);
-extern "C" void func_ov015_021340c0(void);
-extern "C" s32 func_ov015_02134118(...);
-extern "C" s32 func_ov015_02134198(...);
-extern "C" void func_ov015_02134208(void);
+extern "C" s32 Archive_RequestNewRead(...);
+extern "C" void Archive_ReadFromSFP(void);
+extern "C" s32 Archive_TryFinalize(...);
+extern "C" s32 Archive_Close(...);
+extern "C" void Archive_Deallocate(void);
 extern "C" s32 func_ov015_02135440(...);
 extern "C" s32 func_ov015_02135e10(...);
-extern "C" s32 func_ov015_0213b364(...);
-extern "C" s32 func_ov015_0213b3fc(...);
-extern "C" s32 func_ov015_0213b6ac(...);
-extern "C" s32 func_ov015_0213b870(...);
-extern "C" s32 func_ov015_0213bfcc(...);
-extern "C" s32 func_ov015_0213c33c(...);
+extern "C" s32 CBgMenuManager_Init(...);
+extern "C" s32 CBgMenuManager_Finalize(...);
+extern "C" s32 CBgMenuManager_AddStatic(...);
+extern "C" s32 CBgMenuManager_DeleteGroup(...);
+extern "C" s32 CBgMenuManager_UpdateGraphics(...);
+extern "C" s32 CBgMenuManager_Draw(...);
 
 extern "C" void func_ov073_0216ffa0(s32 arg0)
 {
     MI_CpuFill8((arg0 + 0x20), 0, 0x30);
-    func_ov015_02133f94((s32)data_ov073_02170814, (arg0 + 0x20));
+    Archive_RequestNewRead((s32)data_ov073_02170814, (arg0 + 0x20));
 }
 
 extern "C" asm s32 func_ov073_0216ffcc(...)
@@ -82,7 +82,7 @@ extern "C" asm s32 func_ov073_0216ffcc(...)
     mov r0, r1
     mla r1, r2, r4, r5
     mov r2, r6
-    bl func_ov015_021340c0
+    bl Archive_ReadFromSFP
     ldr r1, [r7, #8]!
     cmp r1, #0
     bne @L_0216fff0
@@ -91,12 +91,12 @@ extern "C" asm s32 func_ov073_0216ffcc(...)
 
 extern "C" void func_ov073_0217001c(s32 arg0)
 {
-    func_ov015_02134118((arg0 + 0x20), 4);
+    Archive_TryFinalize((arg0 + 0x20), 4);
 }
 
 extern "C" void func_ov073_02170030(s32 arg0)
 {
-    func_ov015_02134198((arg0 + 0x20), 4);
+    Archive_Close((arg0 + 0x20), 4);
 }
 
 extern "C" asm s32 func_ov073_02170044(...)
@@ -104,7 +104,7 @@ extern "C" asm s32 func_ov073_02170044(...)
     add r2, r0, #0x20
     mov r0, #0xc
     mla r0, r1, r0, r2
-    ldr r12, =func_ov015_02134208
+    ldr r12, =Archive_Deallocate
     bx r12
 }
 
@@ -147,7 +147,7 @@ extern "C" asm s32 func_ov073_021700bc(...)
     mov r3, #0xc
     mla r0, r1, r3, r0
     ldr r1, [r0, #0x20]
-    ldr r12, =func_ov015_02132b7c
+    ldr r12, =Graphics_LoadBGXCharSub
     mov r0, #1
     bx r12
 }
@@ -166,11 +166,11 @@ extern "C" asm s32 func_ov073_021700d8(...)
     mov r2, r4
     mov r3, r7
     add r0, r6, r0
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
     mov r0, r6
     mov r1, r7
     mov r2, r7
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
 @L_0217011c:
     ldr r8, [r5, #0x38]
     cmp r8, #0
@@ -181,12 +181,12 @@ extern "C" asm s32 func_ov073_021700d8(...)
     mov r2, r7
     mov r3, r6
     add r0, r8, r0
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
     mov r4, r0
     mov r0, r8
     mov r1, r7
     mov r2, r6
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
 @L_02170158:
     ldr r7, [r5, #0x44]
     cmp r7, #0
@@ -197,11 +197,11 @@ extern "C" asm s32 func_ov073_021700d8(...)
     mov r3, r6
     add r0, r7, r0
     add r2, r4, #1
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
     mov r0, r7
     mov r2, r6
     mov r1, #1
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
 @L_02170190:
     ldr r0, [r5, #0xc]
     mov r2, #0
@@ -217,9 +217,9 @@ extern "C" asm s32 func_ov073_021700d8(...)
     mov r3, #0
     mul r1, r4, r1
     mov r1, r1, lsl #1
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
 @L_021701cc:
-    bl func_ov015_02132240
+    bl Graphics_LoadBGPaletteSub
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
@@ -241,10 +241,10 @@ extern "C" s32 func_ov073_021701d4(u8 *arg0)
     if ((s32)r6 != 0) {
         t0 = (s32)(r6 + *(s32 *)(r6 + 0x14));
         t1 = *(s32 *)(r6 + 0x18);
-        func_02003988(t0, 0, t1);
+        GXS_LoadBG0Char(t0, 0, t1);
         t2 = (s32)(r6 + *(s32 *)(r6 + 0xC));
         t3 = *(s32 *)(r6 + 0x10);
-        func_02003608(t2, 0, t3);
+        GXS_LoadBG0Scr(t2, 0, t3);
     }
     v2 = G2S_GetBG1CharPtr();
     MIi_CpuClearFast(0, v2, 0x20);
@@ -265,7 +265,7 @@ extern "C" s32 func_ov073_021701d4(u8 *arg0)
         *(s32 *)(arg0 + 0x14) = 0x20;
         r0 = 0x20;
     }
-    v12 = func_ov015_02132240(r0);
+    v12 = Graphics_LoadBGPaletteSub(r0);
     return v12;
 }
 
@@ -291,7 +291,7 @@ extern "C" asm s32 func_ov073_021702a8(...)
     ldr r1, [lr, #0x14]
     mov r2, r3, lsl #5
     strb r12, [lr, #0x1c]
-    bl func_02003b48
+    bl GXS_LoadBG2Char
     ldmia sp!, {r3, pc}
 }
 
@@ -304,17 +304,17 @@ extern "C" s32 func_ov073_02170300(u8 *arg0)
     s32 v4;
     r5 = 1;
     r4 = 0;
-    func_ov015_0213b870((u8 *)((u8 *)&data_020c9660), 1, 1, 0);
+    CBgMenuManager_DeleteGroup((u8 *)((u8 *)&gBgMenuManager), 1, 1, 0);
     r2 = (u8 *)*(s32 *)(arg0 + 0x38);
     if ((s32)r2 != 0) {
-        func_ov015_0213b6ac((u8 *)((u8 *)&data_020c9660), r5, r5, r4, r5, r5, r5, 2, 0x1E, 3, 2, (s32)((r2 + *(s32 *)(r2 + 0xC)) + 0x168));
+        CBgMenuManager_AddStatic((u8 *)((u8 *)&gBgMenuManager), r5, r5, r4, r5, r5, r5, 2, 0x1E, 3, 2, (s32)((r2 + *(s32 *)(r2 + 0xC)) + 0x168));
     }
     r3 = (u8 *)*(s32 *)(arg0 + 0x44);
     if ((s32)r3 != 0) {
-        func_ov015_0213b6ac((u8 *)((u8 *)&data_020c9660), 1, 1, 0, 2, 1, 2, 8, 0x1C, 9, 3, (s32)(r3 + *(s32 *)(r3 + 0xC)));
+        CBgMenuManager_AddStatic((u8 *)((u8 *)&gBgMenuManager), 1, 1, 0, 2, 1, 2, 8, 0x1C, 9, 3, (s32)(r3 + *(s32 *)(r3 + 0xC)));
     }
     func_ov073_021703fc((s32)arg0);
-    v4 = func_ov015_0213bfcc((u8 *)((u8 *)&data_020c9660), 1);
+    v4 = CBgMenuManager_UpdateGraphics((u8 *)((u8 *)&gBgMenuManager), 1);
     return v4;
 }
 
@@ -349,12 +349,12 @@ extern "C" asm s32 func_ov073_021703fc(...)
     mov r0, #7
     str r0, [sp, #0x14]
     str r4, [sp, #0x18]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r5
     mov r2, r4
     mov r3, r4
     str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     add r0, r8, #0xc
     bl func_ov015_02133dc8
     mov r0, r8
@@ -367,7 +367,7 @@ extern "C" asm s32 func_ov073_021703fc(...)
     rsb r0, r0, #0x1e
     mov r0, r0, lsl #0x10
     mov r10, r0, asr #0x10
-    ldr r9, =data_020c46a8
+    ldr r9, =gFont12Manager
     mov r1, r5
     ldr r0, [r9]
     mov r2, #8
@@ -421,7 +421,7 @@ extern "C" void func_ov073_02170558(u8 *arg0)
     t1 = *(s32 *)(*(u8 * *)(*(u8 * *)(arg0 + 0x4)) + 0x28);
     ((s32 (*)(...))*(s32 *)(*(u8 * *)(*(u8 * *)(arg0 + 0x4)) + 0x28))(t0, 1, t1);
     func_ov015_02135440(6);
-    func_ov015_0213b364((s32)data_020c9660, 1);
+    CBgMenuManager_Init((s32)gBgMenuManager, 1);
     func_ov015_02133e24((arg0 + 0xC), 1);
     func_ov015_02133e50((arg0 + 0xC), 0x18, 7);
     func_ov073_0216ffa0((s32)arg0);
@@ -470,7 +470,7 @@ extern "C" s32 func_ov073_02170634(u8 *arg0)
             return 3;
         case 4:
             func_ov073_021702a8((s32)arg0, r1);
-            v2 = func_ov015_0213c33c((u8 *)((u8 *)&data_020c9660), 1);
+            v2 = CBgMenuManager_Draw((u8 *)((u8 *)&gBgMenuManager), 1);
             return v2;
     }
 }
@@ -481,7 +481,7 @@ extern "C" s32 func_ov073_0217067c(u8 *arg0)
     u8 *t0;
     func_ov073_02170030((s32)arg0);
     ((s32 (*)(...))func_ov073_0217005c)((s32)arg0);
-    func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 1);
+    CBgMenuManager_Finalize((s32)((u8 *)&gBgMenuManager), 1);
     func_ov015_02133e8c((s32)(arg0 + 0xC), 1);
     func_ov015_02135e10();
     t0 = *(u8 * *)(arg0 + 0x4);

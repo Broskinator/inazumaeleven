@@ -1,21 +1,21 @@
 // (asm for now)
 
 void SND_DestroyWaveArc(void);
-void func_0200ad7c(void);
-void func_0200ad9c(void);
-void func_0200af48(void);
+void SND_GetFirstInstDataPos(void);
+void SND_GetNextInstData(void);
+void SND_GetWaveDataCount(void);
 void SND_SetWaveDataAddress(void);
 void SND_GetWaveDataAddress(void);
 
-void func_0200a298(void);
+void SNDi_LockMutex(void);
 void DC_StoreRange(void);
-void func_0200a2ac(void);
+void SNDi_UnlockMutex(void);
 
 asm void SND_DestroyWaveArc(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
-    bl func_0200a298
+    bl SNDi_LockMutex
     ldr r0, [r4, #0x18]
     cmp r0, #0
     beq @L_0200ad74
@@ -31,11 +31,11 @@ asm void SND_DestroyWaveArc(void)
     cmp r6, #0
     bne @L_0200ad54
 @L_0200ad74:
-    bl func_0200a2ac
+    bl SNDi_UnlockMutex
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200ad7c(void)
+asm void SND_GetFirstInstDataPos(void)
 {
     sub sp, sp, #8
     mov r1, #0
@@ -47,7 +47,7 @@ asm void func_0200ad7c(void)
     bx lr
 }
 
-asm void func_0200ad9c(void)
+asm void SND_GetNextInstData(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r4, [r2]
@@ -169,7 +169,7 @@ asm void func_0200ad9c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200af48(void)
+asm void SND_GetWaveDataCount(void)
 {
     ldr r0, [r0, #0x38]
     bx lr
@@ -181,14 +181,14 @@ asm void SND_SetWaveDataAddress(void)
     mov r6, r0
     mov r5, r1
     mov r4, r2
-    bl func_0200a298
+    bl SNDi_LockMutex
     add r0, r6, #0x3c
     add r2, r6, r5, lsl #2
     add r0, r0, r5, lsl #2
     mov r1, #4
     str r4, [r2, #0x3c]
     bl DC_StoreRange
-    bl func_0200a2ac
+    bl SNDi_UnlockMutex
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -197,7 +197,7 @@ asm void SND_GetWaveDataAddress(void)
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r4, r1
-    bl func_0200a298
+    bl SNDi_LockMutex
     add r0, r5, r4, lsl #2
     ldr r4, [r0, #0x3c]
     cmp r4, #0
@@ -208,7 +208,7 @@ asm void SND_GetWaveDataAddress(void)
 @L_0200afb0:
     mov r4, #0
 @L_0200afb4:
-    bl func_0200a2ac
+    bl SNDi_UnlockMutex
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 }

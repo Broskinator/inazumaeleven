@@ -2,13 +2,13 @@
 
 void GetMatColAnmuAlphaValue_(void);
 void func_0202da58(void);
-void func_0202db24(void);
-void func_0202dc30(void);
+void NNSi_G3dAnmCalcNsBma(void);
+void GetTexSRTAnmVectorVal_(void);
 
 extern char data_020ab838[];
 void MIi_CpuClear16(void);
-void func_0202bfb8(void);
-void func_0202d80c(void);
+void NNS_G3dGetResDictIdxByName(void);
+void GetMatColAnmValue_(void);
 
 asm void GetMatColAnmuAlphaValue_(void)
 {
@@ -121,7 +121,7 @@ asm void func_0202da58(void)
     moveq r0, r4
     beq @L_0202dafc
     add r0, r8, #4
-    bl func_0202bfb8
+    bl NNS_G3dGetResDictIdxByName
 @L_0202dafc:
     cmp r0, #0
     orrge r1, r7, #0x100
@@ -134,7 +134,7 @@ asm void func_0202da58(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0202db24(void)
+asm void NNSi_G3dAnmCalcNsBma(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r4, [r1, #8]
@@ -168,12 +168,12 @@ asm void func_0202db24(void)
     ldr r1, [r6]
     mov r0, r4
     mov r2, r5
-    bl func_0202d80c
+    bl GetMatColAnmValue_
     mov r8, r0
     ldr r1, [r6, #4]
     mov r0, r4
     mov r2, r5
-    bl func_0202d80c
+    bl GetMatColAnmValue_
     ldr r1, [r7, #4]
     orr r0, r8, r0, lsl #16
     tst r1, #0x8000
@@ -184,12 +184,12 @@ asm void func_0202db24(void)
     ldr r1, [r6, #0xc]
     mov r0, r4
     mov r2, r5
-    bl func_0202d80c
+    bl GetMatColAnmValue_
     mov r8, r0
     ldr r1, [r6, #8]
     mov r0, r4
     mov r2, r5
-    bl func_0202d80c
+    bl GetMatColAnmValue_
     ldr r1, [r7, #8]
     orr r0, r0, r8, lsl #16
     tst r1, #0x8000
@@ -208,7 +208,7 @@ asm void func_0202db24(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0202dc30(void)
+asm void GetTexSRTAnmVectorVal_(void)
 {
     tst r1, #0x20000000
     movne r0, r2

@@ -108,7 +108,7 @@ extern "C" void func_01fff184(void);
 extern "C" void func_01fff198(void);
 extern "C" void func_01fff308(void);
 extern "C" void func_01fff37c(void);
-extern "C" void func_0200226c(void);
+extern "C" void FX_Atan2Idx(void);
 extern "C" void _fflt(void);
 extern "C" void _ffix(void);
 extern "C" void _fadd(void);
@@ -135,7 +135,7 @@ extern "C" void func_02084970(void);
 extern "C" void func_0208f294(void);
 extern "C" void func_0208f300(void);
 extern "C" void func_ov001_021280bc(void);
-extern "C" void func_ov015_021309f8(void);
+extern "C" void Random_RandB(void);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_02130cb8(void);
 extern "C" void func_ov015_021317c8(void);
@@ -482,7 +482,7 @@ extern "C" asm void func_ov087_0217450c(void)
     cmp r0, #0
     beq @L_0217475c
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, #0x32
     bhs @L_0217475c
     mov r0, r4
@@ -898,7 +898,7 @@ extern "C" asm void func_ov087_02174aec(void)
     cmp r0, #0
     beq @L_02174cc8
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, #0x32
     ldrlob r1, [r8, #0xf]
     movlo r0, #0x17
@@ -1217,7 +1217,7 @@ extern "C" asm void func_ov087_021750e0(void)
 @L_02175160:
     sub r0, r9, r7
     sub r1, r8, r6
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r0, r0, asr #4
     mov r11, r0, lsl #1
     ldr r0, [sp, #4]
@@ -2017,7 +2017,7 @@ extern "C" asm s32 func_ov087_02175b94(...)
     sub r0, r0, r9
     sub r1, r1, r8
     movgt r7, #0x14000
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r0, r0, asr #4
     mov r0, r0, lsl #1
     add r2, r0, #1
@@ -2768,7 +2768,7 @@ extern "C" asm void func_ov087_02176714(void)
     bl _ZN11MatchEngine13func_0206707cEii
     sub r0, r0, r5
     rsb r1, r4, r11, asr #1
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r11, r0
     ldr r0, [r7]
     ldr r1, [r7, #8]
@@ -2838,7 +2838,7 @@ extern "C" asm void func_ov087_02176714(void)
     bl _ZN11MatchEngine13func_0206707cEii
     sub r0, r0, r5
     sub r1, r7, r4
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r0, r0, asr #4
     mov r0, r0, lsl #1
     add r1, r0, #1
@@ -2967,7 +2967,7 @@ extern "C" asm void func_ov087_021769f8(void)
     sub r0, r0, r1
     ldr r1, [sp, #0x20]
     sub r1, r4, r1
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r0, r0, asr #4
     mov r3, r0, lsl #1
     add r0, r3, #1

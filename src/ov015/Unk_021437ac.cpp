@@ -133,11 +133,11 @@ extern "C" s32 func_ov015_02146700(u8 *arg0);
 extern "C" s32 func_ov015_02146740(s32 arg0);
 extern "C" void func_ov015_0214675c(void);
 
-extern "C" char data_020bf464[];
-extern "C" char data_020c464c[];
-extern "C" char data_020c47b4[];
+extern "C" char NNS_G3dGlb_cameraMtx[];
+extern "C" char gNsbResourceMan[];
+extern "C" char gAllocator[];
 extern "C" char data_020c4920[];
-extern "C" char data_020c5e40[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov015_02164830[];
 extern "C" char data_ov015_02164844[];
@@ -181,29 +181,29 @@ extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_01ff8ca4(void);
-extern "C" void func_02000e88(void);
-extern "C" void func_02002d6c(void);
+extern "C" void MTX_Inverse43(void);
+extern "C" void G3X_GetBoxTestResult(void);
 extern "C" void _u32_div_f(void);
-extern "C" s32 func_02027cb0(...);
-extern "C" s32 func_02027cc4(...);
-extern "C" void func_02028084(void);
-extern "C" void func_020282e0(void);
-extern "C" void func_0202b4c4(void);
-extern "C" s32 func_0202b608(...);
-extern "C" void func_0202b6e4(void);
-extern "C" s32 func_0202bd7c(...);
-extern "C" s32 func_0202bdbc(...);
-extern "C" void func_0202c11c(void);
+extern "C" s32 NNS_G3dRenderObjResetCallBack(...);
+extern "C" s32 NNS_G3dRenderObjSetInitFunc(...);
+extern "C" void NNS_G3dBindMdlTex(void);
+extern "C" void NNS_G3dBindMdlPltt(void);
+extern "C" void NNS_G3dGeFlushBuffer(void);
+extern "C" s32 NNS_G3dGeBufferOP_N(...);
+extern "C" void NNS_G3dGetCurrentMtx(void);
+extern "C" s32 NNS_G3dMdlSetMdlDiffAll(...);
+extern "C" s32 NNS_G3dMdlSetMdlAlphaAll(...);
+extern "C" void NNS_G3dGetMdlSet(void);
 extern "C" s32 func_02099da0(...);
 extern "C" void func_02099e78(void);
 extern "C" s32 func_02099f50(...);
 extern "C" s32 func_0209a2ac(...);
-extern "C" s32 func_0209d684(...);
-extern "C" void func_0209d688(void);
-extern "C" void func_0209d874(void);
-extern "C" void func_ov015_021307e4(void);
-extern "C" void func_ov015_021309a4(void);
-extern "C" void func_ov015_021309f8(void);
+extern "C" s32 CSceneScriptData_Dtor(...);
+extern "C" void CSceneScriptData_InitFile(void);
+extern "C" void CSceneScriptData_GetInstructionByID(void);
+extern "C" void Shadow_Draw(void);
+extern "C" void Random_RandA(void);
+extern "C" void Random_RandB(void);
 extern "C" s32 func_ov015_02130ae8(...);
 extern "C" void func_ov015_021317c8(void);
 extern "C" void func_ov015_02131910(void);
@@ -223,13 +223,13 @@ extern "C" s32 func_ov015_021476f0(...);
 extern "C" s32 func_ov015_0214775c(...);
 extern "C" void func_ov015_02147840(void);
 extern "C" s32 func_ov015_02147878(...);
-extern "C" void func_ov015_02147ad8(void);
-extern "C" s32 func_ov015_02147ccc(...);
-extern "C" s32 func_ov015_02147f00(...);
-extern "C" s32 func_ov015_02147ffc(...);
-extern "C" s32 func_ov015_02148058(...);
-extern "C" s32 func_ov015_02148114(...);
-extern "C" void func_ov015_0214827c(void);
+extern "C" void CNsbResourceMan_GetFromPathEx(void);
+extern "C" s32 CNsbResourceMan_GetFromContainer(...);
+extern "C" s32 CNsbResourceMan_Allocate(...);
+extern "C" s32 CNsbResourceMan_Aquire(...);
+extern "C" s32 CNsbResourceMan_TryFinalize(...);
+extern "C" s32 CNsbResourceMan_Release(...);
+extern "C" void CNsbResourceMan_Load(void);
 extern "C" void func_ov015_02148410(void);
 extern "C" s32 func_ov015_02148628(...);
 extern "C" s32 func_ov015_0214869c(...);
@@ -258,7 +258,7 @@ extern "C" asm void func_ov015_021437ac(void)
     sub sp, sp, #0x1c
     mov r9, r0
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r7, r0
     mov r0, r9
     bl func_ov015_02143664
@@ -338,7 +338,7 @@ extern "C" asm void func_ov015_021438cc(void)
     mov r10, r0
     mov r0, #0x64
     mov r9, r2
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r8, r0
     mov r0, r10
     bl func_ov015_02143664
@@ -503,7 +503,7 @@ extern "C" asm void func_ov015_021439e0(void)
     beq @L_02143b64
     mov r7, #0x64
     mov r0, r7
-    bl func_ov015_021309a4
+    bl Random_RandA
     sub r9, r7, #0x65
     cmp r8, r0
     movls r9, #0
@@ -630,7 +630,7 @@ extern "C" asm void func_ov015_021439e0(void)
     mov r7, #1
     bge @L_02143d48
     mov r0, #5
-    bl func_ov015_021309a4
+    bl Random_RandA
     add r0, r0, #3
     b @L_02143d48
 @L_02143d38:
@@ -715,7 +715,7 @@ extern "C" asm void func_ov015_021439e0(void)
     bl _ZN11MatchEngine13func_020673d8EP11MatchPlayerlP10MatchPoint
     mov r0, #0xf
     rsb r0, r0, #0x1c80
-    bl func_ov015_021309a4
+    bl Random_RandA
     ldr r2, =0xfffff1c8
     ldr r1, [sp, #0x28]
     add r0, r0, r2
@@ -926,11 +926,11 @@ extern "C" asm void func_ov015_021439e0(void)
     bl func_ov015_02131910
     cmp r0, #0
     beq @L_021441a8
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #0x20
     b @L_021441b0
 @L_021441a8:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #0x1f
 @L_021441b0:
     bl _ZN12SoundManager9PlaySoundEi
@@ -957,7 +957,7 @@ extern "C" asm void func_ov015_021441f8(void)
     mov r0, #0x64
     mov r5, r1
     mov r8, r2
-    bl func_ov015_021309f8
+    bl Random_RandB
     ldr r4, =data_020c4920
     mov r7, r0
     ldr r0, [r4, #0x48]
@@ -1029,7 +1029,7 @@ extern "C" asm void func_ov015_021441f8(void)
     streq r0, [r8]
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
     mov r0, #2
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, #0
     bne @L_02144348
     mov r2, #0
@@ -1154,13 +1154,13 @@ extern "C" void func_ov015_021444b8(u8 *arg0)
     f = *(u16 *)(q + 0x40);
     b = *(u8 **)(q + 0x14);
     if (f & 2) {
-        ((s32 (*)(...))func_0202b6e4)(b + i * 0x30, 0);
+        ((s32 (*)(...))NNS_G3dGetCurrentMtx)(b + i * 0x30, 0);
         return;
     }
     if (f & 4) {
         if (i != *(s8 *)(q + 0x49))
             return;
-        ((s32 (*)(...))func_0202b6e4)(b, 0);
+        ((s32 (*)(...))NNS_G3dGetCurrentMtx)(b, 0);
         return;
     }
     *(s32 *)(arg0 + 0x24) = 0;
@@ -1218,14 +1218,14 @@ extern "C" asm void func_ov015_021445cc(void)
     mov r1, #0
     mov r2, r1
     mov r0, #0x15
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     bl NNS_G3dGlbFlushVP
     ldrsb r2, [r4, #0xd]
     mov r1, #0x30
     mov r0, #0x19
     mla r1, r2, r1, r5
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x60
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02144640:
@@ -1242,7 +1242,7 @@ extern "C" asm void func_ov015_021445cc(void)
     str r5, [sp, #0x24]
     str r3, [sp, #0x28]
     mov r0, #0x1c
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r1, [r4, #0x10]
     add r0, sp, #0xc
     bl func_ov015_0214552c
@@ -1259,7 +1259,7 @@ extern "C" asm void func_ov015_021445cc(void)
     mov r1, r5
     mov r0, #0x19
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r1, [r4, #0x10]
     add r0, sp, #0
     bl func_ov015_02145540
@@ -1272,7 +1272,7 @@ extern "C" asm void func_ov015_021445cc(void)
     mov r2, r6
     mov r0, #0x1b
     str r3, [sp, #0x2c]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x60
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -1285,11 +1285,11 @@ extern "C" asm void func_ov015_021446f8(void)
     add r1, r4, #0x18
     mov r0, #0x1c
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldrh r0, [r4, #0x40]
     tst r0, #0x10
     beq @L_02144764
-    ldr lr, =data_020bf464
+    ldr lr, =NNS_G3dGlb_cameraMtx
     add r12, sp, #0
     ldmia lr!, {r0, r1, r2, r3}
     mov r5, r12
@@ -1304,7 +1304,7 @@ extern "C" asm void func_ov015_021446f8(void)
     str r0, [sp, #0x24]
     mov r0, r5
     mov r1, r5
-    bl func_02000e88
+    bl MTX_Inverse43
     b @L_02144778
 @L_02144764:
     add r5, sp, #0
@@ -1316,11 +1316,11 @@ extern "C" asm void func_ov015_021446f8(void)
     mov r1, r5
     mov r0, #0x19
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r1, r4, #0x30
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x30
     ldmia sp!, {r3, r4, r5, pc}
 }
@@ -1336,18 +1336,18 @@ extern "C" s32 func_ov015_021447a4(u8 *arg0)
     s32 t2;
     v0 = func_ov015_021455fc(arg0);
     t0 = *(u16 *)(arg0 + 0xE);
-    func_0202bd7c(v0, t0);
+    NNS_G3dMdlSetMdlDiffAll(v0, t0);
     v2 = func_ov015_021455fc((s32)arg0);
     t1 = *(u8 *)(arg0 + 0x4B);
-    func_0202bdbc(v2, t1);
+    NNS_G3dMdlSetMdlAlphaAll(v2, t1);
     r4 = arg0;
     if (*(u8 *)(r4 + 0x43) == 0) {
         func_ov015_02145bd0((s32)r4, 1);
     }
     t2 = *(s32 *)(r4 + 0x8);
-    func_02027cc4(t2, (s32)func_ov015_0214448c);
+    NNS_G3dRenderObjSetInitFunc(t2, (s32)func_ov015_0214448c);
     func_0209a2ac(t2);
-    v7 = func_02027cb0(t2);
+    v7 = NNS_G3dRenderObjResetCallBack(t2);
     return v7;
 }
 
@@ -1420,13 +1420,13 @@ extern "C" asm s32 func_ov015_02144808(...)
     mov r1, #0
     mov r2, r1
     mov r0, #0x15
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     bl NNS_G3dGlbFlushVP
     mov r4, #3
     add r1, sp, #0
     mov r2, r4
     mov r0, #0x1c
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r3, [r5, #0x44]
     ldr r1, [r5, #0x30]
     mov r0, #0x1000
@@ -1447,10 +1447,10 @@ extern "C" asm s32 func_ov015_02144808(...)
     str r1, [sp, #0x14]
     add r1, sp, #0xc
     mov r0, #0x1b
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldrb r0, [r5, #0x48]
     mov r1, #8
-    bl func_ov015_021307e4
+    bl Shadow_Draw
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, pc}
 }
@@ -1493,7 +1493,7 @@ extern "C" asm s32 func_ov015_02144984(...)
     strh r3, [sp, #0x1c]
     ldrsh r3, [r4, #0x22]
     strh r3, [sp, #0x1e]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r3, [r4, #0x24]
     mov r4, #3
     add r1, sp, #8
@@ -1502,8 +1502,8 @@ extern "C" asm s32 func_ov015_02144984(...)
     str r3, [sp, #8]
     str r3, [sp, #0xc]
     str r3, [sp, #0x10]
-    bl func_0202b608
-    bl func_0202b4c4
+    bl NNS_G3dGeBufferOP_N
+    bl NNS_G3dGeFlushBuffer
     ldr r0, =0x30c1
     ldr r3, =0x40004a4
     add r1, sp, #0x14
@@ -1512,12 +1512,12 @@ extern "C" asm s32 func_ov015_02144984(...)
     mov r2, r4
     mov r0, #0x70
     str r5, [r3, #0x60]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     bl OS_GetTick
     add r5, sp, #4
     mov r6, r0
     mov r0, r5
-    bl func_02002d6c
+    bl G3X_GetBoxTestResult
     cmp r0, #0
     beq @L_02144ab4
     ldr r4, =0x7d269b01
@@ -1532,7 +1532,7 @@ extern "C" asm s32 func_ov015_02144984(...)
     strhi r0, [sp, #4]
     bhi @L_02144ab4
     mov r0, r5
-    bl func_02002d6c
+    bl G3X_GetBoxTestResult
     cmp r0, #0
     bne @L_02144a80
 @L_02144ab4:
@@ -1541,7 +1541,7 @@ extern "C" asm s32 func_ov015_02144984(...)
     mov r2, r4
     mov r0, #0x12
     str r4, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [sp, #4]
     cmp r0, #0
     moveq r4, #0
@@ -1589,25 +1589,25 @@ extern "C" asm void func_ov015_02144af0(void)
     mov r1, r7
     mov r2, r7
     mov r0, #0x11
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r4, =0x1f801f
     mov r6, #1
     add r1, sp, #0x1c
     mov r2, r6
     mov r0, #0x30
     str r4, [sp, #0x1c]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r1, sp, #0x18
     mov r2, r6
     mov r0, #0x31
     str r4, [sp, #0x18]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, =0x3f0000c0
     add r1, sp, #0x14
     str r0, [sp, #0x14]
     mov r2, r6
     mov r0, #0x29
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [r8, #0x24]
     mov r4, #3
     mov r5, #0x1b
@@ -1617,7 +1617,7 @@ extern "C" asm void func_ov015_02144af0(void)
     mov r0, r5
     add r1, sp, #0x38
     mov r2, r4
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldrsh r9, [r8, #0x1c]
     ldrsh r3, [r8, #0x1a]
     ldrsh r2, [r8, #0x18]
@@ -1627,7 +1627,7 @@ extern "C" asm void func_ov015_02144af0(void)
     str r3, [sp, #0x30]
     str r9, [sp, #0x34]
     mov r2, r4
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, r5
     ldrsh r9, [r8, #0x22]
     ldrsh r5, [r8, #0x20]
@@ -1637,18 +1637,18 @@ extern "C" asm void func_ov015_02144af0(void)
     str r3, [sp, #0x20]
     str r5, [sp, #0x24]
     str r9, [sp, #0x28]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, #0x40
     add r1, sp, #0x10
     mov r2, r6
     str r4, [sp, #0x10]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, #0x1f
     str r0, [sp, #0xc]
     mov r2, r6
     mov r0, #0x20
     add r1, sp, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r6, sp, #0x6c
     add r5, sp, #0x58
     add r4, sp, #0x44
@@ -1666,19 +1666,19 @@ extern "C" asm void func_ov015_02144af0(void)
     mov r2, r8
     str r12, [sp, #4]
     str r3, [sp, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r7, r7, #1
     cmp r7, #0xa
     blt @L_02144c80
     mov r1, #0
     mov r2, r1
     mov r0, #0x41
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r2, #1
     add r1, sp, #0
     mov r0, #0x12
     str r2, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x80
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
@@ -1747,10 +1747,10 @@ extern "C" asm s32 func_ov015_02144da8(...)
     moveq r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
     bl func_ov015_02145144
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     ldr r1, [r4, #4]
     ldr r0, [r0]
-    bl func_ov015_02147ffc
+    bl CNsbResourceMan_Aquire
     str r0, [r5, #4]
     mov r0, #1
     ldmia sp!, {r3, r4, r5, pc}
@@ -1764,7 +1764,7 @@ extern "C" s32 func_ov015_02144df8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     if (arg1 == *(s32 *)(arg0 + 0x4))
         return 1;
     func_ov015_02145144((s32)arg0, *(s32 *)(arg0 + 0x4), arg2, arg3);
-    v1 = func_ov015_02147ffc(*(s32 *)(data_020c464c), arg1);
+    v1 = CNsbResourceMan_Aquire(*(s32 *)(gNsbResourceMan), arg1);
     *(s32 *)(arg0 + 0x4) = v1;
     return 1;
 }
@@ -1776,7 +1776,7 @@ extern "C" s32 func_ov015_02144e40(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
     if (arg3 == 0 && arg4 == 0)
         arg5 = 0;
     k = 1;
-    r = ((s32 (*)(...))func_ov015_02147ad8)(*(s32 *)data_020c464c, arg1, 4, arg2, arg3, arg4, arg5, k);
+    r = ((s32 (*)(...))CNsbResourceMan_GetFromPathEx)(*(s32 *)gNsbResourceMan, arg1, 4, arg2, arg3, arg4, arg5, k);
     if (r == 0)
         return 0;
     ((s32 (*)(...))func_ov015_02145144)(arg0);
@@ -1788,8 +1788,8 @@ extern "C" s32 func_ov015_02144eb8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
 {
     s32 v0;
     s32 t0;
-    t0 = *(s32 *)(data_020c464c);
-    v0 = func_ov015_02147ccc(t0, arg1, arg2, 4, arg3, arg4, arg5, 1);
+    t0 = *(s32 *)(gNsbResourceMan);
+    v0 = CNsbResourceMan_GetFromContainer(t0, arg1, arg2, 4, arg3, arg4, arg5, 1);
     if (v0 == 0)
         return 0;
     func_ov015_02145144((s32)arg0);
@@ -1800,7 +1800,7 @@ extern "C" s32 func_ov015_02144eb8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
 extern "C" s32 func_ov015_02144f1c(u8 *arg0, s32 arg1, s32 arg2)
 {
     s32 v0;
-    v0 = func_ov015_02147f00(*(s32 *)(data_020c464c), arg1, arg2, 4);
+    v0 = CNsbResourceMan_Allocate(*(s32 *)(gNsbResourceMan), arg1, arg2, 4);
     if (v0 == 0)
         return 0;
     func_ov015_02145144((s32)arg0);
@@ -1840,7 +1840,7 @@ extern "C" asm void func_ov015_02144f58(void)
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     mov r6, #0
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, r6
     mov r1, #0x54
     mov r3, #1
@@ -1878,7 +1878,7 @@ extern "C" asm void func_ov015_02144f58(void)
     cmp r6, #0
     ble @L_02145080
     mov r7, #0
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r6
     mov r2, r7
     mov r3, #1
@@ -1890,7 +1890,7 @@ extern "C" asm void func_ov015_02144f58(void)
     bl MIi_CpuClearFast
 @L_02145080:
     ldr r0, [r8, #8]
-    ldr r6, =data_020c464c
+    ldr r6, =gNsbResourceMan
     str r8, [r0, #0x2c]
     ldr r0, [r6]
     ldr r1, [r8, #4]
@@ -1899,7 +1899,7 @@ extern "C" asm void func_ov015_02144f58(void)
     bne @L_021450b0
     ldr r0, [r6]
     ldr r1, [r8, #4]
-    bl func_ov015_0214827c
+    bl CNsbResourceMan_Load
     strb r4, [r8, #0x42]
 @L_021450b0:
     ldr r1, =data_ov015_02165820
@@ -1922,12 +1922,12 @@ extern "C" s32 func_ov015_021450d8(u8 *arg0)
     } while (r4 < 5);
     r1 = *(s32 *)(arg0 + 0x8);
     if (r1 != 0) {
-        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), r1);
         *(s32 *)(arg0 + 0x8) = 0;
     }
     r1 = *(s32 *)(arg0 + 0x14);
     if (r1 != 0) {
-        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), r1);
         *(s32 *)(arg0 + 0x14) = 0;
     }
     v3 = ((s32 (*)(...))func_ov015_02145ba8)((s32)arg0);
@@ -1967,9 +1967,9 @@ extern "C" asm s32 func_ov015_02145144(...)
     ldr r1, [r4, #4]
     cmp r1, #0
     beq @L_021451bc
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     ldr r0, [r0]
-    bl func_ov015_02148114
+    bl CNsbResourceMan_Release
 @L_021451bc:
     mov r1, #0
     mov r0, r4
@@ -1980,7 +1980,7 @@ extern "C" asm s32 func_ov015_02145144(...)
 
 extern "C" void func_ov015_021451d4(s32 arg0)
 {
-    func_0202b608(0x1C, (arg0 + 0x18), 3);
+    NNS_G3dGeBufferOP_N(0x1C, (arg0 + 0x18), 3);
 }
 
 extern "C" void func_ov015_021451ec(s32 arg0)
@@ -1990,12 +1990,12 @@ extern "C" void func_ov015_021451ec(s32 arg0)
     s32 t1 = *(s32 *)(((u8 *)(arg0 + 0x24)) + 0x4);
     s32 t2 = *(s32 *)(((u8 *)(arg0 + 0x24)) + 0x8);
     func_02099da0((s32)((u8 *)local), *(W3 *)(((u8 *)(arg0 + 0x24))));
-    func_0202b608(0x19, (s32)((u8 *)local), 0xC);
+    NNS_G3dGeBufferOP_N(0x19, (s32)((u8 *)local), 0xC);
 }
 
 extern "C" void func_ov015_02145220(s32 arg0)
 {
-    func_0202b608(0x1B, (arg0 + 0x30), 3);
+    NNS_G3dGeBufferOP_N(0x1B, (arg0 + 0x30), 3);
 }
 
 extern "C" asm s32 func_ov015_02145238(...)
@@ -2012,7 +2012,7 @@ extern "C" asm s32 func_ov015_02145238(...)
     mov r1, #0
     mov r2, r1
     mov r0, #0x11
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0214526c:
     mov r0, r4
     bl func_ov015_021445cc
@@ -2027,7 +2027,7 @@ extern "C" asm s32 func_ov015_02145238(...)
     add r1, sp, #0
     mov r0, #0x12
     str r2, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_021452a4:
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
@@ -2055,7 +2055,7 @@ extern "C" s32 func_ov015_021452f0(s32 arg0)
     v0 = func_ov015_021445b8(arg0);
     if (v0 == 0)
         return 0;
-    func_0202b608(0x15, 0, 0);
+    NNS_G3dGeBufferOP_N(0x15, 0, 0);
     NNS_G3dGlbFlushVP();
     v3 = func_ov015_02145238(arg0, 0);
     return v3;
@@ -2245,7 +2245,7 @@ extern "C" asm s32 func_ov015_021455fc(...)
     cmpne r0, #0
     moveq r0, #0
     ldmeqia sp!, {r4, pc}
-    bl func_0202c11c
+    bl NNS_G3dGetMdlSet
     ldrb r12, [r4, #0xc]
     ldrb r1, [r0, #9]
     cmp r12, r1
@@ -2472,9 +2472,9 @@ extern "C" s32 func_ov015_02145900(u8 *arg0)
     s32 t1;
     if (*(s32 *)(arg0 + 0x4) == 0)
         return 0;
-    t0 = *(s32 *)(data_020c464c);
+    t0 = *(s32 *)(gNsbResourceMan);
     t1 = *(s32 *)(arg0 + 0x4);
-    v0 = func_ov015_02148058(t0, t1);
+    v0 = CNsbResourceMan_TryFinalize(t0, t1);
     return v0;
 }
 
@@ -2596,7 +2596,7 @@ extern "C" s32 func_ov015_02145a88(u8 *arg0)
     s32 r6;
     s32 t0;
     s32 t1;
-    t0 = *(s32 *)(((u8 *)&data_020c464c));
+    t0 = *(s32 *)(((u8 *)&gNsbResourceMan));
     t1 = *(s32 *)(arg0 + 0x4);
     func_ov015_02148628(t0, t1);
     r6 = 0;
@@ -2648,7 +2648,7 @@ extern "C" s32 func_ov015_02145b58(u8 *arg0)
     s32 r6;
     s32 t0;
     s32 t1;
-    t0 = *(s32 *)(((u8 *)&data_020c464c));
+    t0 = *(s32 *)(((u8 *)&gNsbResourceMan));
     t1 = *(s32 *)(arg0 + 0x4);
     func_ov015_0214869c(t0, t1);
     r6 = 0;
@@ -2754,10 +2754,10 @@ extern "C" asm s32 func_ov015_02145bd0(...)
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r0, [sp]
     mov r1, r4
-    bl func_02028084
+    bl NNS_G3dBindMdlTex
     ldr r0, [sp]
     mov r1, r4
-    bl func_020282e0
+    bl NNS_G3dBindMdlPltt
     mov r0, #1
     strb r0, [r10, #0x42]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2827,8 +2827,8 @@ extern "C" s32 func_ov015_02145dd0(u8 *arg0, u8 *arg1)
     if (*(u8 *)(arg1 + 0x28) != 2)
         return 0;
     ((VCall *)arg0)->f8();
-    t1 = *(s32 *)(((u8 *)&data_020c464c));
-    v1 = func_ov015_02147ffc(t1, (s32)arg1);
+    t1 = *(s32 *)(((u8 *)&gNsbResourceMan));
+    v1 = CNsbResourceMan_Aquire(t1, (s32)arg1);
     *(s32 *)(arg0 + 0x4) = v1;
     return 1;
 }
@@ -2858,13 +2858,13 @@ extern "C" asm void func_ov015_02145e30(void)
     str r5, [sp, #4]
     str r5, [sp, #8]
     mov r4, #1
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     str r4, [sp, #0xc]
     ldr r0, [r0]
     mov r1, r7
     mov r3, r6
     mov r2, #2
-    bl func_ov015_02147ad8
+    bl CNsbResourceMan_GetFromPathEx
     str r0, [r8, #4]
     cmp r0, #0
     moveq r0, r5
@@ -2878,8 +2878,8 @@ extern "C" s32 func_ov015_02145e9c(u8 *arg0, s32 arg1, s32 arg2)
     s32 v1;
     s32 t1;
     ((VCall *)arg0)->f8(arg1, arg2);
-    t1 = *(s32 *)(((u8 *)&data_020c464c));
-    v1 = func_ov015_02147f00(t1, arg1, arg2, 2);
+    t1 = *(s32 *)(((u8 *)&gNsbResourceMan));
+    v1 = CNsbResourceMan_Allocate(t1, arg1, arg2, 2);
     *(s32 *)(arg0 + 0x4) = v1;
     if (v1 == 0) {
         arg0 = (u8 *)0;
@@ -2896,8 +2896,8 @@ extern "C" s32 func_ov015_02145ee8(u8 *arg0)
     s32 t0;
     r1 = *(s32 *)(arg0 + 0x4);
     if (r1 != 0) {
-        t0 = *(s32 *)(((u8 *)&data_020c464c));
-        func_ov015_02148114(t0, r1);
+        t0 = *(s32 *)(((u8 *)&gNsbResourceMan));
+        CNsbResourceMan_Release(t0, r1);
     }
     v1 = ((VCall *)arg0)->f2();
     return v1;
@@ -2987,9 +2987,9 @@ extern "C" asm s32 func_ov015_02146014(...)
     cmp r0, #0
     movne r5, #1
     bne @L_02146080
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     ldr r0, [r0]
-    bl func_ov015_02148058
+    bl CNsbResourceMan_TryFinalize
     cmp r0, #0
     mov r5, #0
     bne @L_02146080
@@ -2997,7 +2997,7 @@ extern "C" asm s32 func_ov015_02146014(...)
     mov r2, r5
     ldr r1, [r0, #0x20]
     add r0, r6, #0xc
-    bl func_0209d688
+    bl CSceneScriptData_InitFile
     cmp r0, #0
     movne r5, #1
     strne r5, [r6, #8]
@@ -3007,7 +3007,7 @@ extern "C" asm s32 func_ov015_02146014(...)
     ldmeqia sp!, {r4, r5, r6, pc}
     add r0, r6, #0xc
     mov r1, #0x3e8
-    bl func_0209d874
+    bl CSceneScriptData_GetInstructionByID
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -3043,9 +3043,9 @@ extern "C" asm s32 func_ov015_021460d4(...)
     cmp r0, #0
     movne r5, #1
     bne @L_02146148
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     ldr r0, [r0]
-    bl func_ov015_02148058
+    bl CNsbResourceMan_TryFinalize
     cmp r0, #0
     mov r5, #0
     bne @L_02146148
@@ -3053,7 +3053,7 @@ extern "C" asm s32 func_ov015_021460d4(...)
     mov r2, r5
     ldr r1, [r0, #0x20]
     add r0, r6, #0xc
-    bl func_0209d688
+    bl CSceneScriptData_InitFile
     cmp r0, #0
     movne r5, #1
     strne r5, [r6, #8]
@@ -3063,7 +3063,7 @@ extern "C" asm s32 func_ov015_021460d4(...)
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     add r0, r6, #0xc
     mov r1, #0x3e8
-    bl func_0209d874
+    bl CSceneScriptData_GetInstructionByID
     movs r5, r0
     mvneq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
@@ -3141,7 +3141,7 @@ extern "C" asm void func_ov015_021461b0(void)
 
 extern "C" void func_ov015_0214625c(u8 *arg0)
 {
-    func_ov015_02148058(*(s32 *)(data_020c464c), *(s32 *)(arg0 + 0x4), (s32)arg0);
+    CNsbResourceMan_TryFinalize(*(s32 *)(gNsbResourceMan), *(s32 *)(arg0 + 0x4), (s32)arg0);
 }
 
 extern "C" void func_ov015_0214627c(u8 *arg0)
@@ -3156,7 +3156,7 @@ extern "C" s32 func_ov015_02146294(u8 *arg0)
 {
     *(s32 *)(arg0) = (s32)((u8 *)&data_ov015_02165848);
     ((VCall *)arg0)->f8();
-    func_0209d684((s32)(arg0 + 0xC));
+    CSceneScriptData_Dtor((s32)(arg0 + 0xC));
     _ZdlPv((s32)arg0);
     return (s32)arg0;
 }
@@ -3306,7 +3306,7 @@ extern "C" asm void func_ov015_02146514(void)
     mov r1, r8
     mov r2, r8
     mov r0, #0x11
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r0, r10, #0x178
     mov r9, r8
     add r5, r0, #0x800
@@ -3318,23 +3318,23 @@ extern "C" asm void func_ov015_02146514(void)
     mov r1, #0
     mov r0, #0x15
     mov r2, r1
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     bl NNS_G3dGlbFlushVP
     mov r0, #0x1c
     add r1, r10, #0x990
     mov r2, r7
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, r6
     ldmia r5, {r1, r2, r3}
     bl func_02099e78
     mov r0, #0x19
     mov r1, r6
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, #0x1b
     add r1, r4, #0x800
     mov r2, r7
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mla r0, r9, r11, r10
     mov r1, #1
     bl func_ov015_02145238
@@ -3348,7 +3348,7 @@ extern "C" asm void func_ov015_02146514(void)
     mov r2, r4
     mov r0, #0x12
     str r4, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     cmp r8, #0
     movle r4, #0
     mov r0, r4
@@ -3426,7 +3426,7 @@ extern "C" s32 func_ov015_021466d0(u8 *arg0)
 {
     if (*(s32 *)(arg0 + 0x85C) == 0)
         return (s32)arg0;
-    func_ov015_02148114(*(s32 *)(data_020c464c), *(s32 *)(arg0 + 0x85C));
+    CNsbResourceMan_Release(*(s32 *)(gNsbResourceMan), *(s32 *)(arg0 + 0x85C));
     *(s32 *)(arg0 + 0x85C) = 0;
     return 0;
 }
@@ -3439,9 +3439,9 @@ extern "C" s32 func_ov015_02146700(u8 *arg0)
     v0 = ((VCall *)(arg0 + 0x860))->f8();
     if (*(s32 *)(arg0 + 0x974) == 0)
         return v0;
-    t1 = *(s32 *)(((u8 *)&data_020c464c));
+    t1 = *(s32 *)(((u8 *)&gNsbResourceMan));
     t2 = *(s32 *)(arg0 + 0x974);
-    func_ov015_02148114(t1, t2);
+    CNsbResourceMan_Release(t1, t2);
     *(s32 *)(arg0 + 0x974) = 0;
     return 0;
 }

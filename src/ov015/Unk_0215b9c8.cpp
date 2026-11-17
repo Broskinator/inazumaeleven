@@ -77,8 +77,8 @@ extern "C" s32 func_ov015_0215e84c(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215e8cc(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_0215e94c(void);
 
-extern "C" char data_020c4648[];
-extern "C" char data_020c46cc[];
+extern "C" char g3DFieldSprite[];
+extern "C" char g2DAdventureLogic[];
 extern "C" char data_020d3d20[];
 extern "C" char data_020d4184[];
 extern "C" char data_020e88a0[];
@@ -116,7 +116,7 @@ extern "C" void _ZN11MatchEngine13func_0207bdf8Ev(void);
 extern "C" void func_01ff99e0(void);
 extern "C" void func_01fff0ac(void);
 extern "C" void func_01fff0f4(void);
-extern "C" void func_02016d0c(void);
+extern "C" void STD_CopyLString(void);
 extern "C" void func_02084dd8(void);
 extern "C" void func_02084e08(void);
 extern "C" void func_02085228(void);
@@ -186,7 +186,7 @@ extern "C" s32 func_ov015_0215b9c8(u8 *arg0, u8 *arg1, s32 *arg2)
     ((s8 *)arg1)[0xB]++;
     arg1[0xA] = 1;
     {
-        s32 v = *(s32 *)(*(u8 **)data_020c4648 + 0x20);
+        s32 v = *(s32 *)(*(u8 **)g3DFieldSprite + 0x20);
         if (arg2 != 0)
             *arg2 = v;
     }
@@ -224,7 +224,7 @@ extern "C" asm void func_ov015_0215ba40(void)
     mov r4, r0
     mov r0, r7
     bl func_0209bb1c
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r1, [sp, #0x80]
     ldr r0, [r0]
     bl func_ov015_0213ad04
@@ -1278,13 +1278,13 @@ extern "C" asm void func_ov015_0215ce88(void)
     ldr r1, [sp, #0x84]
     mov r2, r4
     add r0, r6, #4
-    bl func_02016d0c
+    bl STD_CopyLString
     ldr r0, [sp, #0x88]
     bl func_0209d8dc
     mov r1, r0
     mov r2, r4
     add r0, r6, #0x44
-    bl func_02016d0c
+    bl STD_CopyLString
     ldr r0, [sp, #0x8c]
     ldr r1, [sp, #0x90]
     str r0, [r6, #0x64]
@@ -1302,7 +1302,7 @@ extern "C" asm void func_ov015_0215ce88(void)
     beq @L_0215cfc0
     mov r2, r4
     add r0, r6, #0x24
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_0215cfc0:
     mov r0, #1
     cmp r7, #0
@@ -1329,8 +1329,8 @@ extern "C" s32 func_ov015_0215cfe0(u8 *arg0, u8 *arg1, s32 *arg2)
         g[1] = z;
     } else {
         g[1] = k;
-        ((s32 (*)(...))func_02016d0c)(g + 4, ((s32 *)a)[0], 0x20);
-        ((s32 (*)(...))func_02016d0c)(g + 0x44, ((s32 (*)(...))func_0209d8b8)(k + 0x158), 0x20);
+        ((s32 (*)(...))STD_CopyLString)(g + 4, ((s32 *)a)[0], 0x20);
+        ((s32 (*)(...))STD_CopyLString)(g + 0x44, ((s32 (*)(...))func_0209d8b8)(k + 0x158), 0x20);
     }
     if (arg2 != 0)
         *arg2 = 1;
@@ -1524,7 +1524,7 @@ extern "C" asm void func_ov015_0215d308(void)
     mov r1, r0
     add r0, r6, #0x76
     mov r2, #0x10
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_0215d390:
     ldr r0, [sp, #0x288]
     cmp r0, #0
@@ -1538,7 +1538,7 @@ extern "C" asm void func_ov015_0215d308(void)
     mov r1, r5
     add r0, r6, #0x86
     mov r2, #0x40
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_0215d3c4:
     cmp r4, #0
     movne r0, #1
@@ -1769,8 +1769,8 @@ extern "C" s32 func_ov015_0215d95c(u8 *arg0, u8 *arg1, s32 *arg2)
     {
         u8 *e = (u8 *)((s32 (*)(...))_ZN17UnkClass_0205480013func_0205ab14Ev)(*(s32 *)arg0, ((s32 *)a)[0], ((s32 *)a)[1]);
         ((s32 (*)(...))func_0209ac24)(data_020d3d20, *(s32 *)(e + 4));
-        ((s32 (*)(...))func_02086164)(*(s32 *)data_020c46cc, *(s32 *)(e + 4), -1);
-        ((s32 (*)(...))func_02086294)(*(s32 *)data_020c46cc, *(s32 *)(e + 4));
+        ((s32 (*)(...))func_02086164)(*(s32 *)g2DAdventureLogic, *(s32 *)(e + 4), -1);
+        ((s32 (*)(...))func_02086294)(*(s32 *)g2DAdventureLogic, *(s32 *)(e + 4));
         if (arg2 != 0)
             *arg2 = k;
     }
@@ -1789,7 +1789,7 @@ extern "C" asm void func_ov015_0215da0c(void)
     mov r0, r6
     mov r1, r7
     mov r2, #0x80
-    ldr r4, =data_020c46cc
+    ldr r4, =g2DAdventureLogic
     bl MI_CpuFill8
     add r3, sp, #0x3c
     mov r2, r6
@@ -2002,7 +2002,7 @@ extern "C" asm void func_ov015_0215dc80(void)
 @L_0215dd58:
     cmp r4, #0
     beq @L_0215dd74
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     mov r2, #1

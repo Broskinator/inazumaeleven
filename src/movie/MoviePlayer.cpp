@@ -146,7 +146,7 @@ BOOL MoviePlayer::Open(const char *name0, const char *name1, BOOL noSound, u8 lo
     STD_CopyString(path, name0);
     STD_ConcatenateString(path, ".sad");
     if (!(flags & MOVIE_NO_SOUND)) {
-        if (data_020c5e40.func_0203b9a8(0, path, 0)) {
+        if (gAudioPlayer.func_0203b9a8(0, path, 0)) {
             flags |= MOVIE_SOUND_LOADED;
         }
     }
@@ -165,7 +165,7 @@ BOOL MoviePlayer::Open(const char *name0, const char *name1, BOOL noSound, u8 lo
     OS_SetThreadStackWarningOffset(&thread, 0x100);
 
     if (!(flags & MOVIE_NO_SOUND)) {
-        data_020c5e40.func_0203a7e4(0);
+        gAudioPlayer.func_0203a7e4(0);
     }
 
     flags |= MOVIE_OPEN;
@@ -202,11 +202,11 @@ BOOL MoviePlayer::Update()
 
     if (flags & MOVIE_SOUND_LOADED) {
         if (!(flags & MOVIE_SOUND_PLAYING)) {
-            data_020c5e40.func_0203ba78(0, NULL);
+            gAudioPlayer.func_0203ba78(0, NULL);
             flags |= MOVIE_SOUND_PLAYING | MOVIE_SOUND_STARTING;
         }
 
-        if (!data_020c5e40.func_0203bba8(0)) {
+        if (!gAudioPlayer.func_0203bba8(0)) {
             if (flags & MOVIE_SOUND_STARTING) {
                 sMovie.vblankCount = 0;
                 return TRUE;
@@ -266,7 +266,7 @@ void MoviePlayer::Pause()
     flags |= MOVIE_PAUSED;
     numDue += sMovie.vblankCount;
     if (flags & MOVIE_SOUND_PLAYING) {
-        data_020c5e40.func_0203bc60(0, 300);
+        gAudioPlayer.func_0203bc60(0, 300);
     }
 }
 
@@ -281,7 +281,7 @@ void MoviePlayer::Resume()
     if (flags & MOVIE_SOUND_PLAYING) {
         u32 frameTime = ((u64)1000 << 24) / (u64)func_ov088_0217492c(video);
         u32 frame = numShown + numDue + 1;
-        data_020c5e40.func_0203bab8(0, (u64)frame * frameTime);
+        gAudioPlayer.func_0203bab8(0, (u64)frame * frameTime);
         flags |= MOVIE_SOUND_STARTING;
     }
 }
@@ -346,7 +346,7 @@ void MoviePlayer::Close(BOOL reloadOverlay)
     }
 
     if (flags & MOVIE_SOUND_PLAYING) {
-        data_020c5e40.func_0203ba5c(0);
+        gAudioPlayer.func_0203ba5c(0);
     }
 
     OS_CancelAlarm(&alarm);

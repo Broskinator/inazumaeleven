@@ -47,10 +47,10 @@ extern "C" void func_ov015_0213fc58(void);
 extern "C" void func_ov015_0213fde4(void);
 extern "C" void func_ov015_0213ffc4(void);
 
-extern "C" char data_020bf418[];
-extern "C" char data_020bf420[];
-extern "C" char data_020c4648[];
-extern "C" char data_020c47b4[];
+extern "C" char NNS_G3dGlb[];
+extern "C" char NNS_G3dGlb_projMtx[];
+extern "C" char g3DFieldSprite[];
+extern "C" char gAllocator[];
 extern "C" char data_020c4920[];
 extern "C" char data_020c4de0[];
 extern "C" char data_020c4ecc[];
@@ -98,14 +98,14 @@ extern "C" void func_01ffecec(void);
 extern "C" void func_01fff15c(void);
 extern "C" void func_01fff184(void);
 extern "C" void func_01fff198(void);
-extern "C" void func_020011fc(void);
-extern "C" void func_02001b4c(void);
-extern "C" s32 func_02001d60(...);
-extern "C" void func_02001f08(void);
-extern "C" void func_02001f38(void);
-extern "C" void func_02002084(void);
-extern "C" void func_020021f0(void);
-extern "C" void func_0200226c(void);
+extern "C" void MTX_Concat43(void);
+extern "C" void MTX_OrthoW(void);
+extern "C" s32 FX_Div(...);
+extern "C" void VEC_Add(void);
+extern "C" void VEC_Subtract(void);
+extern "C" void VEC_Normalize(void);
+extern "C" void VEC_Distance(void);
+extern "C" void FX_Atan2Idx(void);
 extern "C" void _fflt(void);
 extern "C" void _ffix(void);
 extern "C" void _fadd(void);
@@ -125,7 +125,7 @@ extern "C" void func_020996ec(void);
 extern "C" void func_02099e78(void);
 extern "C" void func_ov001_02127da4(void);
 extern "C" void func_ov001_02127db8(void);
-extern "C" void func_ov015_021309f8(void);
+extern "C" void Random_RandB(void);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" s32 func_ov015_02130e28(...);
 extern "C" void func_ov015_02131704(void);
@@ -171,7 +171,7 @@ extern "C" asm s32 func_ov015_0213d138(...)
     mov r1, #0x1800
     str r0, [sp]
     ldr r2, [r3, #0x28]
-    ldr r0, =data_020bf420
+    ldr r0, =NNS_G3dGlb_projMtx
     str r2, [sp, #4]
     str r1, [sp, #8]
     str r0, [sp, #0xc]
@@ -179,8 +179,8 @@ extern "C" asm s32 func_ov015_0213d138(...)
     ldr r1, [r3, #0x18]
     ldr r2, [r3, #0x1c]
     ldr r3, [r3, #0x20]
-    bl func_02001b4c
-    ldr r2, =data_020bf418
+    bl MTX_OrthoW
+    ldr r2, =NNS_G3dGlb
     mov r0, r4
     ldr r3, [r2, #0xfc]
     mov r1, #0
@@ -399,7 +399,7 @@ extern "C" s32 func_ov015_0213d4f8(s32 arg0, s32 arg1, s32 arg2)
     s32 v0;
     if ((arg1 == 0 && arg2 == 0))
         return 0;
-    v0 = func_02001d60(arg2, arg1, arg2);
+    v0 = FX_Div(arg2, arg1, arg2);
     return v0;
 }
 
@@ -538,7 +538,7 @@ extern "C" asm void func_ov015_0213d6f4(void)
     mov r6, r2, lsr #0x10
     moveq r7, #0x1000
     beq @L_0213d764
-    bl func_02001d60
+    bl FX_Div
     rsb r7, r0, #0x1000
 @L_0213d764:
     ldr r0, [r4, #4]
@@ -592,16 +592,16 @@ extern "C" asm void func_ov015_0213d6f4(void)
     mov r0, r6
     mov r1, r4
     add r2, sp, #0x60
-    bl func_020011fc
+    bl MTX_Concat43
     add r4, sp, #0x84
     mov r0, r5
     mov r2, r5
     mov r1, r4
-    bl func_02001f08
+    bl VEC_Add
     add r0, r5, #0xc
     mov r1, r4
     mov r2, r0
-    bl func_02001f08
+    bl VEC_Add
     add sp, sp, #0x90
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
@@ -619,7 +619,7 @@ extern "C" asm s32 func_ov015_0213d864(...)
     beq @L_0213d898
     mov r0, r8
     mov r1, r10
-    bl func_020021f0
+    bl VEC_Distance
     mov r7, r0
 @L_0213d898:
     cmp r4, #0
@@ -635,7 +635,7 @@ extern "C" asm s32 func_ov015_0213d864(...)
     add r2, sp, #0
     mov r0, r10
     mov r1, r8
-    bl func_02001f38
+    bl VEC_Subtract
     ldr r0, [sp]
     cmp r0, #0
     ldreq r0, [sp, #4]
@@ -650,7 +650,7 @@ extern "C" asm s32 func_ov015_0213d864(...)
     add r4, sp, #0
     mov r0, r4
     mov r1, r4
-    bl func_02002084
+    bl VEC_Normalize
     add r0, sp, #0xc
     mov r1, r4
     bl func_ov015_0213c8cc
@@ -769,14 +769,14 @@ extern "C" asm void func_ov015_0213da48(void)
 @L_0213dab8:
     mov r0, r5
     mov r1, r4
-    bl func_020021f0
+    bl VEC_Distance
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_0213dacc:
     add r4, sp, #0
     mov r0, r4
     mov r1, r4
-    bl func_02002084
+    bl VEC_Normalize
     ldr r2, [sp]
     ldr r1, [sp, #4]
     smull r12, r3, r2, r6
@@ -801,10 +801,10 @@ extern "C" asm void func_ov015_0213da48(void)
     str r3, [sp]
     str r12, [sp, #4]
     str r6, [sp, #8]
-    bl func_02001f08
+    bl VEC_Add
     mov r0, r5
     mov r1, r4
-    bl func_020021f0
+    bl VEC_Distance
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
@@ -833,7 +833,7 @@ extern "C" asm void func_ov015_0213db60(void)
 @L_0213db94:
     mov r0, r4
     bl func_ov015_0213e0e8
-    ldr r7, =data_020c47b4
+    ldr r7, =gAllocator
     ldr r10, =0x444
     mov r0, r7
     mov r1, r10
@@ -868,7 +868,7 @@ extern "C" asm void func_ov015_0213db60(void)
     add r0, r4, #4
     str r0, [sp, #0x14]
     ldr r0, [r4]
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldrh r1, [r0, #0x10]
     ldr r0, [r3]
     mov r6, #1
@@ -890,7 +890,7 @@ extern "C" asm void func_ov015_0213db60(void)
     add r0, r4, #0x104
     str r0, [sp, #0x14]
     ldr r0, [r4]
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldrh r2, [r0, #0x12]
     ldr r1, [r3]
     mov r0, #0x30
@@ -944,7 +944,7 @@ extern "C" asm void func_ov015_0213db60(void)
 @L_0213dd38:
     ldr r0, [r4]
     ldrb r0, [r0, #0x43d]
-    bl func_ov015_021309f8
+    bl Random_RandB
     ldr r1, [r4]
     and r0, r0, #0xff
     str r0, [r1, #0x424]
@@ -983,7 +983,7 @@ extern "C" asm void func_ov015_0213db60(void)
     streq r5, [r0, #0x42c]
     beq @L_0213ddf0
     sub r0, r8, r5
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r1, r5, r0
     ldr r0, [r4]
     and r1, r1, #0xff
@@ -1102,7 +1102,7 @@ extern "C" asm void func_ov015_0213db60(void)
     b @L_0213dfe8
 @L_0213dfa0:
     mov r0, r5
-    bl func_ov015_021309f8
+    bl Random_RandB
     tst r0, #1
     beq @L_0213dfcc
     ldr r1, [sp, #0x28]
@@ -1187,7 +1187,7 @@ extern "C" void func_ov015_0213e0e8(u8 *arg0)
     if (*(s32 *)(arg0) == 0)
         return;
     s32 t0 = *(s32 *)(arg0);
-    _ZN8GameHeap4FreeEPv((s32)data_020c47b4, t0);
+    _ZN8GameHeap4FreeEPv((s32)gAllocator, t0);
     *(s32 *)(arg0) = 0;
     *(u16 *)(((u8 *)(arg0 + 0x100)) + 0x34) = 0;
 }
@@ -1258,7 +1258,7 @@ extern "C" asm void func_ov015_0213e198(void)
 @L_0213e220:
     cmp r0, #0
     beq @L_0213e278
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r2, r6
     cmp r6, #0x1f
     bge @L_0213e25c
@@ -1357,7 +1357,7 @@ extern "C" asm void func_ov015_0213e2d0(void)
     cmp r7, #0x20
     blt @L_0213e34c
     mov r0, r8
-    bl func_ov015_021309f8
+    bl Random_RandB
     ldr r11, =data_020e88a0
     ldr r4, =0xfff
     mov r8, r0
@@ -1431,7 +1431,7 @@ extern "C" asm void func_ov015_0213e420(void)
 @L_0213e484:
     cmp r0, #0
     beq @L_0213e4e4
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r12, r6
     cmp r6, #7
     bge @L_0213e4c8
@@ -1648,7 +1648,7 @@ extern "C" asm void func_ov015_0213e514(void)
 @L_0213e78c:
     rsb r0, r4, #4
     ldr r10, [r11, r4, lsl #2]
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r1, r4, r0
     ldr r0, [r11, r1, lsl #2]
     str r0, [r11, r4, lsl #2]
@@ -1794,7 +1794,7 @@ extern "C" asm void func_ov015_0213e918(void)
     ldmgeia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0213e994:
     mov r0, r4
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r1, sp, #0x24
     ldr r3, [r1, r0, lsl #2]
     mov r5, #0
@@ -1817,7 +1817,7 @@ extern "C" asm void func_ov015_0213e918(void)
 @L_0213e9e4:
     rsb r0, r7, #4
     ldr r6, [r5, r7, lsl #2]
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r1, r7, r0
     ldr r0, [r5, r1, lsl #2]
     str r0, [r5, r7, lsl #2]
@@ -2004,7 +2004,7 @@ extern "C" asm void func_ov015_0213ec08(void)
     mov r1, r6, lsl #1
     sub r0, r0, r6
     ldrh r5, [r4, r1]
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r1, r6, r0
     ldr r0, [r7]
     mov r12, r1, lsl #1
@@ -2086,7 +2086,7 @@ extern "C" asm void func_ov015_0213ed24(void)
     str r0, [sp, #0x1c]
     beq @L_0213edb4
     ldr r0, [r8, #0x3c]
-    bl func_02001d60
+    bl FX_Div
     mov r7, r0
 @L_0213edb4:
     ldr r0, [sp, #0x48]
@@ -2111,7 +2111,7 @@ extern "C" asm void func_ov015_0213ed24(void)
     adc r2, r2, r4
     ldr r0, =0x9ccd
     orr r1, r1, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [r8, #0x20]
     cmp r9, #1
     str r1, [r10]
@@ -2168,7 +2168,7 @@ extern "C" asm void func_ov015_0213ed24(void)
     bl _ffix
     mov r1, r0
     mov r0, r11
-    bl func_02001d60
+    bl FX_Div
     mov r11, r0
     cmp r9, #0
     mov r0, r5
@@ -2212,7 +2212,7 @@ extern "C" asm void func_ov015_0213ed24(void)
     bl _ffix
     mov r1, r0
     mov r0, r6
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [sp, #0x48]
     cmp r1, #0
     ldr r1, [r8, #0x20]
@@ -2228,7 +2228,7 @@ extern "C" asm void func_ov015_0213ed24(void)
     beq @L_0213efc0
     ldr r1, [sp, #0x1c]
     mov r0, r11
-    bl func_02001d60
+    bl FX_Div
 @L_0213efc0:
     cmp r7, #0
     bne @L_0213f00c
@@ -2721,7 +2721,7 @@ extern "C" asm void func_ov015_0213f338(void)
     add r0, r10, #0x11000
     ldr r0, [r0, #0x7ec]
     rsbmi r1, r1, #0
-    bl func_0200226c
+    bl FX_Atan2Idx
     sub r0, r0, #0xb6
     add sp, sp, #0x40
     strh r0, [r7]
@@ -2751,7 +2751,7 @@ extern "C" asm void func_ov015_0213f338(void)
     bl func_01fff15c
     ldr r1, [r8]
     mov r4, r0
-    bl func_02001d60
+    bl FX_Div
     cmp r0, #0
     moveq r0, #1
     smull r2, r1, r0, r0
@@ -2784,14 +2784,14 @@ extern "C" asm void func_ov015_0213f338(void)
     beq @L_0213f7f4
     mov r1, r4
     add r0, r5, #0x3000
-    bl func_0200226c
+    bl FX_Atan2Idx
     add sp, sp, #0x40
     strh r0, [r7]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0213f7f4:
     mov r0, r5
     mov r1, r4
-    bl func_0200226c
+    bl FX_Atan2Idx
     ldrh r1, [r7]
     cmp r0, r1
     blo @L_0213f818
@@ -3043,7 +3043,7 @@ extern "C" asm void func_ov015_0213f908(void)
     rsbmi r1, r1, #0
     subs r0, r5, r7
     rsbmi r0, r0, #0
-    bl func_02001d60
+    bl FX_Div
 @L_0213fbac:
     cmp r6, #0
     ldrne r0, [sp, #4]
@@ -3485,7 +3485,7 @@ extern "C" asm void func_ov015_0213ffc4(void)
     cmp r0, #0
     bne @L_021402a8
     mov r0, #0x10
-    bl func_ov015_021309f8
+    bl Random_RandB
     ldr r1, [r11, #4]
     mov r4, r0, lsl #0xc
     subs r2, r1, r8
@@ -3605,7 +3605,7 @@ extern "C" asm void func_ov015_0213ffc4(void)
     ldr r1, [r11]
     sub r0, r8, r0
     sub r1, r9, r1
-    bl func_0200226c
+    bl FX_Atan2Idx
     str r0, [sp, #0x20]
     mov r0, r5
     bl func_02083e54
@@ -3674,7 +3674,7 @@ extern "C" asm void func_ov015_0213ffc4(void)
     ldr r0, [r11, #4]
     sub r1, r9, r1
     sub r0, r8, r0
-    bl func_0200226c
+    bl FX_Atan2Idx
     str r0, [sp, #0x20]
 @L_02140510:
     ldr r0, [sp, #0x20]
@@ -3715,7 +3715,7 @@ extern "C" asm void func_ov015_0213ffc4(void)
     ldr r0, [r0, #4]
     sub r1, r9, r1
     sub r0, r8, r0
-    bl func_0200226c
+    bl FX_Atan2Idx
     cmp r7, #0xe
     bne @L_021405bc
     mov r0, r0, lsl #0x10
@@ -3742,7 +3742,7 @@ extern "C" asm void func_ov015_0213ffc4(void)
     mov r11, #1
     mov r9, #0
     blt @L_02140610
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r9, [sp]
     ldr r0, [r0]
     mov r1, r5

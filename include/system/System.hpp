@@ -63,7 +63,7 @@ struct SystemGlobals {
     void *unk_3c;
     void *unk_40;
     void *unk_44;
-    u32 heapSize;               // the game's heap (data_020c47b4)
+    u32 heapSize;               // the game's heap (gAllocator)
     u32 arenaLo;
     void *unk_50;
     s32 systemHeap;             // the SDK's heap

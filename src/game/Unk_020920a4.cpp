@@ -1,43 +1,43 @@
 #include "game/Unk_020920a4.hpp"
 
-extern "C" void func_020985fc(void);     // (for the asm functions)
-extern "C" void func_02096eb4(void);     // (for the asm functions)
+extern "C" void C3DSprFile_GetSpriteSheet(void);     // (for the asm functions)
+extern "C" void C3DSprSheet_IsIdle(void);     // (for the asm functions)
 extern "C" int func_02091d74(void *self, BOOL a);
 
 extern "C" int func_020920a4(void *self);
 extern "C" int func_020920b4(void *self);
-extern "C" void func_020920c4(void);
-extern "C" s32 func_02092270(u8 *arg0, s32 arg1);
-extern "C" void func_020922fc(void);
-extern "C" void func_020923e0(void);
-extern "C" void func_0209249c(void);
-extern "C" void func_02092544(void);
-extern "C" void func_0209263c(void);
+extern "C" void C3DPlaneCtrl_Create(void);
+extern "C" s32 C3DPlaneCtrl_Destroy(u8 *arg0, s32 arg1);
+extern "C" void C3DPlaneCtrl_SetTexAll(void);
+extern "C" void C3DPlaneCtrl_SetPlttAll(void);
+extern "C" void C3DPlaneCtrl_SetPlttIdxAll(void);
+extern "C" void C3DPlaneCtrl_SetDepthAll(void);
+extern "C" void C3DPlaneCtrl_SetDepthStepAll(void);
 extern "C" void func_02092758(void);
 extern "C" void func_02092808(void);
-extern "C" void func_020928b0(void);
+extern "C" void C3DPlaneCtrl_SetPosAll(void);
 extern "C" void func_020929cc(void);
 extern "C" void func_02092aac(void);
 extern "C" void func_02092b68(void);
-extern "C" void func_02092c48(void);
-extern "C" void func_02092d3c(void);
-extern "C" void func_02092e18(void);
-extern "C" void func_02092ed4(void);
+extern "C" void C3DPlaneCtrl_SetFlagAll(void);
+extern "C" void C3DPlaneCtrl_ClearFlagAll(void);
+extern "C" void C3DPlaneCtrl_SetGraphicIdxAll(void);
+extern "C" void C3DPlaneCtrl_SetPosAnchorAll(void);
 extern "C" void func_02092fc4(void);
 extern "C" void func_020930e0(void);
-extern "C" void func_02093188(void);
-extern "C" void func_0209323c(void);
-extern "C" void func_020932f0(u8 *arg0, s32 arg1, s32 arg2, u8 arg3);
-extern "C" void func_02093368(void);
+extern "C" void C3DPlaneCtrl_SetTex(void);
+extern "C" void C3DPlaneCtrl_SetPltt(void);
+extern "C" void C3DPlaneCtrl_SetPlttIdx(u8 *arg0, s32 arg1, s32 arg2, u8 arg3);
+extern "C" void C3DPlaneCtrl_SetDepth(void);
 extern "C" void func_0209342c(u8 *arg0, s32 arg1, s32 arg2, u32 arg3);
 extern "C" void func_020934ac(u8 *arg0, s32 arg1, s32 arg2, u16 arg3);
-extern "C" void func_02093524(void);
-extern "C" void func_0209360c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
-extern "C" void func_020936b4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
-extern "C" void func_02093734(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
+extern "C" void C3DPlaneCtrl_SetPos(void);
+extern "C" void C3DPlaneCtrl_SetTexScale(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
+extern "C" void C3DPlaneCtrl_SetTexWH(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
+extern "C" void C3DPlaneCtrl_SetTexST(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4);
 extern "C" void func_020937dc(u8 *arg0, s32 arg1, s32 arg2, u16 arg3);
 
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -64,7 +64,7 @@ extern "C" int func_020920b4(void *self)
     return func_02091d74(self, 0);
 }
 
-extern "C" asm void func_020920c4(void)
+extern "C" asm void C3DPlaneCtrl_Create(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r5, r1
@@ -110,7 +110,7 @@ extern "C" asm void func_020920c4(void)
     mov r0, #0x1f
     strb r0, [r9, #7]
     ldr r2, =0x7fff
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     strh r2, [r9, #0x14]
     mov r1, r6
     mov r2, r11
@@ -185,7 +185,7 @@ extern "C" asm void func_020920c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_02092270(u8 *arg0, s32 arg1)
+extern "C" s32 C3DPlaneCtrl_Destroy(u8 *arg0, s32 arg1)
 {
     s32 r2;
     s32 r3;
@@ -208,25 +208,25 @@ extern "C" s32 func_02092270(u8 *arg0, s32 arg1)
     }
     arg1 = *(s32 *)(r4);
     if (arg1 != 0) {
-        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), arg1);
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), arg1);
     }
     v2 = MIi_CpuClearFast(0, (s32)r4, 0x20);
     return v2;
 }
 
-extern "C" asm void func_020922fc(void)
+extern "C" asm void C3DPlaneCtrl_SetTexAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r6, r2
     mov r4, r1
     mov r1, r6
     mov r7, r0
-    bl func_020985fc
+    bl C3DSprFile_GetSpriteSheet
     cmp r6, #0
     beq @L_02092330
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    bl func_02096eb4
+    bl C3DSprSheet_IsIdle
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02092330:
@@ -284,7 +284,7 @@ extern "C" asm void func_020922fc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_020923e0(void)
+extern "C" asm void C3DPlaneCtrl_SetPlttAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r0
@@ -343,7 +343,7 @@ extern "C" asm void func_020923e0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_0209249c(void)
+extern "C" asm void C3DPlaneCtrl_SetPlttIdxAll(void)
 {
     stmdb sp!, {r4, lr}
     ldr r3, [r0, #0x1c]
@@ -396,7 +396,7 @@ extern "C" asm void func_0209249c(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_02092544(void)
+extern "C" asm void C3DPlaneCtrl_SetDepthAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r3, =0x7fff
@@ -471,7 +471,7 @@ extern "C" asm void func_02092544(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_0209263c(void)
+extern "C" asm void C3DPlaneCtrl_SetDepthStepAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     movs r10, r2
@@ -664,7 +664,7 @@ extern "C" asm void func_02092808(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_020928b0(void)
+extern "C" asm void C3DPlaneCtrl_SetPosAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r4, [r0, #0x1c]
@@ -945,13 +945,13 @@ extern "C" asm void func_02092b68(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02092c48(void)
+extern "C" asm void C3DPlaneCtrl_SetFlagAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
     cmp r3, #0
     bne @L_02092c60
-    bl func_02092d3c
+    bl C3DPlaneCtrl_ClearFlagAll
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02092c60:
     ldr r3, [r10, #0x1c]
@@ -1018,7 +1018,7 @@ extern "C" asm void func_02092c48(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02092d3c(void)
+extern "C" asm void C3DPlaneCtrl_ClearFlagAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -1085,7 +1085,7 @@ extern "C" asm void func_02092d3c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02092e18(void)
+extern "C" asm void C3DPlaneCtrl_SetGraphicIdxAll(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r9, r0
@@ -1143,7 +1143,7 @@ extern "C" asm void func_02092e18(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_02092ed4(void)
+extern "C" asm void C3DPlaneCtrl_SetPosAnchorAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -1351,7 +1351,7 @@ extern "C" asm void func_020930e0(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_02093188(void)
+extern "C" asm void C3DPlaneCtrl_SetTex(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, r3
@@ -1359,12 +1359,12 @@ extern "C" asm void func_02093188(void)
     mov r1, r4
     mov r6, r0
     mov r5, r2
-    bl func_020985fc
+    bl C3DSprFile_GetSpriteSheet
     cmp r4, #0
     beq @L_020931c0
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    bl func_02096eb4
+    bl C3DSprSheet_IsIdle
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
 @L_020931c0:
@@ -1407,7 +1407,7 @@ extern "C" asm void func_02093188(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_0209323c(void)
+extern "C" asm void C3DPlaneCtrl_SetPltt(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, r3
@@ -1415,12 +1415,12 @@ extern "C" asm void func_0209323c(void)
     mov r1, r4
     mov r6, r0
     mov r5, r2
-    bl func_020985fc
+    bl C3DSprFile_GetSpriteSheet
     cmp r4, #0
     beq @L_02093274
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    bl func_02096eb4
+    bl C3DSprSheet_IsIdle
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02093274:
@@ -1463,7 +1463,7 @@ extern "C" asm void func_0209323c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_020932f0(u8 *arg0, s32 arg1, s32 arg2, u8 arg3)
+extern "C" void C3DPlaneCtrl_SetPlttIdx(u8 *arg0, s32 arg1, s32 arg2, u8 arg3)
 {
     u8 *t = *(u8 **)(arg0 + 0x1C);
     s32 c;
@@ -1483,7 +1483,7 @@ extern "C" void func_020932f0(u8 *arg0, s32 arg1, s32 arg2, u8 arg3)
         r[0x34] = arg3;
 }
 
-extern "C" asm void func_02093368(void)
+extern "C" asm void C3DPlaneCtrl_SetDepth(void)
 {
     stmdb sp!, {r4, lr}
     ldr r12, =0x7fff
@@ -1585,7 +1585,7 @@ extern "C" void func_020934ac(u8 *arg0, s32 arg1, s32 arg2, u16 arg3)
         *(u16 *)(r + 6) = arg3;
 }
 
-extern "C" asm void func_02093524(void)
+extern "C" asm void C3DPlaneCtrl_SetPos(void)
 {
     stmdb sp!, {r4, lr}
     ldr r12, [r0, #0x1c]
@@ -1657,7 +1657,7 @@ extern "C" asm void func_02093524(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" void func_0209360c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
+extern "C" void C3DPlaneCtrl_SetTexScale(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
 {
     u8 *t = *(u8 **)(arg0 + 0x1C);
     s32 c;
@@ -1682,7 +1682,7 @@ extern "C" void func_0209360c(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
     ((s32 (*)(...))func_020917c0)(arg0, r, 0xD);
 }
 
-extern "C" void func_020936b4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
+extern "C" void C3DPlaneCtrl_SetTexWH(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
 {
     u8 *t = *(u8 **)(arg0 + 0x1C);
     s32 c;
@@ -1701,7 +1701,7 @@ extern "C" void func_020936b4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
     ((s32 (*)(...))func_02091f8c)(arg0, r, arg3, arg4);
 }
 
-extern "C" void func_02093734(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
+extern "C" void C3DPlaneCtrl_SetTexST(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s16 arg4)
 {
     u8 *t = *(u8 **)(arg0 + 0x1C);
     s32 c;

@@ -1,48 +1,48 @@
 // (asm for now)
 
-void func_02013f08(void);
-void func_02013f70(void);
-void func_02013fec(void);
-void func_02014030(void);
-void func_0201407c(void);
-void func_020141b4(void);
-void func_0201422c(void);
-void func_020142d4(void);
-void func_020143a4(void);
-void func_02014414(void);
-void func_02014654(void);
-void func_020146a0(void);
-void func_020149d0(void);
-void func_02014aa8(void);
-void func_02014bdc(void);
-void func_02014cc0(void);
-void func_02014d90(void);
-void func_02014ee0(void);
+void WM_StartMP(void);
+void WM_SetMPParameter(void);
+void WM_SetMPParentSize(void);
+void WM_SetMPTiming(void);
+void WM_SetMPDataToPortEx(void);
+void WM_EndMP(void);
+void WM_StartDCF(void);
+void WM_SetDCFData(void);
+void WM_EndDCF(void);
+void WM_StartDataSharing(void);
+void WM_EndDataSharing(void);
+void WM_StepDataSharing(void);
+void WmDataSharingSetDataCallback(void);
+void WmDataSharingReceiveCallback_Parent(void);
+void WmDataSharingReceiveCallback_Child(void);
+void WmDataSharingReceiveData(void);
+void WmDataSharingSendDataSet(void);
+void WM_GetSharedDataAddress(void);
 
-void func_0200919c(void);
-void func_02013ce4(void);
-void func_02012844(void);
+void MIi_CpuClear32(void);
+void WMi_StartMP(void);
+void WMi_GetSystemWork(void);
 void WMi_CheckInitialized(void);
 void WMi_SetCallbackTable(void);
 void MIi_CpuCopy32(void);
-void func_020127d4(void);
-void func_020128b4(void);
+void WMi_SendCommandDirect(void);
+void WMi_CheckStateEx(void);
 void DC_InvalidateRange(void);
 void DC_StoreRange(void);
-void func_02012728(void);
+void WMi_SendCommand(void);
 void MI_CpuCopy8(void);
 void WM_GetAID(void);
 void WM_GetConnectedAIDs(void);
 void MIi_CpuClearFast(void);
-void func_02015aa0(void);
-void func_02012e6c(void);
+void MATH_CountPopulation(void);
+void WM_SetPortCallback(void);
 void MIi_CpuCopy16(void);
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
 void WmGetSharedDataAddress(void);
 void MIi_CpuClear16(void);
 
-asm void func_02013f08(void)
+asm void WM_StartMP(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x18
@@ -54,7 +54,7 @@ asm void func_02013f08(void)
     mov r0, #0
     mov r2, #0x10
     mov r5, r3
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldrh r12, [sp, #0x34]
     mov r0, r8
     mov r1, r7
@@ -67,18 +67,18 @@ asm void func_02013f08(void)
     mov r3, r5
     str r12, [sp]
     str r4, [sp, #4]
-    bl func_02013ce4
+    bl WMi_StartMP
     add sp, sp, #0x18
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02013f70(void)
+asm void WM_SetMPParameter(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x20
     mov r4, r0
     mov r7, r1
-    bl func_02012844
+    bl WMi_GetSystemWork
     bl WMi_CheckInitialized
     cmp r0, #0
     addne sp, sp, #0x20
@@ -92,7 +92,7 @@ asm void func_02013f70(void)
     mov r1, r5
     mov r2, r4
     mov r0, #0
-    bl func_0200919c
+    bl MIi_CpuClear32
     add r1, sp, #4
     mov r0, r7
     mov r2, #0x1c
@@ -100,14 +100,14 @@ asm void func_02013f70(void)
     bl MIi_CpuCopy32
     mov r0, r5
     mov r1, r4
-    bl func_020127d4
+    bl WMi_SendCommandDirect
     cmp r0, #0
     moveq r0, #2
     add sp, sp, #0x20
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02013fec(void)
+asm void WM_SetMPParentSize(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0x1c
@@ -117,18 +117,18 @@ asm void func_02013fec(void)
     mov r1, r4
     mov r0, #0
     mov r2, #0x1c
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r2, #8
     mov r0, r6
     mov r1, r4
     str r2, [sp]
     strh r5, [sp, #0xa]
-    bl func_02013f70
+    bl WM_SetMPParameter
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_02014030(void)
+asm void WM_SetMPTiming(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0x1c
@@ -139,19 +139,19 @@ asm void func_02014030(void)
     mov r1, r4
     mov r0, #0
     mov r2, #0x1c
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r2, #0x180
     mov r0, r7
     mov r1, r4
     str r2, [sp]
     strh r6, [sp, #0x12]
     strh r5, [sp, #0x14]
-    bl func_02013f70
+    bl WM_SetMPParameter
     add sp, sp, #0x1c
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-asm void func_0201407c(void)
+asm void WM_SetMPDataToPortEx(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x14
@@ -160,13 +160,13 @@ asm void func_0201407c(void)
     mov r6, r2
     mov r5, r3
     mov r10, #1
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r9, #2
     ldr r4, [r0, #4]
     mov r0, r9
     mov r1, #9
     mov r2, #0xa
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     addne sp, sp, #0x14
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -227,24 +227,24 @@ asm void func_0201407c(void)
     mov r0, #0xf
     mov r1, #7
     str r7, [sp, #0x10]
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, r9
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_020141b4(void)
+asm void WM_EndMP(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r5, #2
     mov r4, r0
     mov r0, r5
     mov r1, #9
     mov r2, #0xa
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     ldr r0, [r4, #4]
@@ -262,23 +262,23 @@ asm void func_020141b4(void)
     bl WMi_SetCallbackTable
     mov r0, r4
     mov r1, #0
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, r5
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0201422c(void)
+asm void WM_StartDCF(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
     mov r5, r1
     mov r4, r2
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r7, r0
     mov r0, #1
     mov r1, #8
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r0, [r7, #4]
@@ -308,13 +308,13 @@ asm void func_0201422c(void)
     mov r1, r6
     mov r2, r5
     mov r3, r4
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, r6
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020142d4(void)
+asm void WM_SetDCFData(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x10
@@ -322,11 +322,11 @@ asm void func_020142d4(void)
     mov r7, r1
     mov r6, r2
     mov r5, r3
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r9, r0
     mov r0, #1
     mov r1, #0xb
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     addne sp, sp, #0x10
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -363,22 +363,22 @@ asm void func_020142d4(void)
     ldr r3, [sp, #0xc]
     mov r0, r9
     mov r1, r4
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_020143a4(void)
+asm void WM_EndDCF(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r4, r0
     mov r0, #1
     mov r1, #0xb
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     ldr r0, [r4, #4]
@@ -396,13 +396,13 @@ asm void func_020143a4(void)
     bl WMi_SetCallbackTable
     mov r0, r4
     mov r1, #0
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02014414(void)
+asm void WM_StartDataSharing(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -414,7 +414,7 @@ asm void func_02014414(void)
     mov r2, #0xa
     mov r5, r3
     mov r8, #1
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     addne sp, sp, #0xc
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -458,7 +458,7 @@ asm void func_02014414(void)
     orr r0, r6, r0, lsr #16
     strh r4, [r1, #0x18]
     strh r0, [r1, #0xe]
-    bl func_02015aa0
+    bl MATH_CountPopulation
     add r3, r10, #0x800
     mul r1, r5, r0
     strh r1, [r3, #0x14]
@@ -485,14 +485,14 @@ asm void func_02014414(void)
     strh r1, [r10, r0]
     cmp r2, #4
     blt @L_02014534
-    ldr r1, =func_02014aa8
+    ldr r1, =WmDataSharingReceiveCallback_Parent
     mov r0, r9
     mov r2, r10
-    bl func_02012e6c
+    bl WM_SetPortCallback
     mov r9, #0
     add r4, r10, #0x800
     mov r11, #2
-    ldr r6, =func_020149d0
+    ldr r6, =WmDataSharingSetDataCallback
     ldr r5, =0xffff
     b @L_02014604
 @L_02014578:
@@ -511,7 +511,7 @@ asm void func_02014414(void)
     add r2, r10, r9, lsl #9
     stmib sp, {r3, r7}
     ldrh r3, [r4, #0x14]
-    bl func_0201407c
+    bl WM_SetMPDataToPortEx
     cmp r0, #7
     bne @L_020145e0
     add r0, r10, r9, lsl #1
@@ -542,19 +542,19 @@ asm void func_02014414(void)
     blt @L_02014578
     b @L_02014638
 @L_02014620:
-    ldr r1, =func_02014bdc
+    ldr r1, =WmDataSharingReceiveCallback_Child
     mov r4, #3
     mov r0, r9
     mov r2, r10
     strh r4, [r3, #0xa]
-    bl func_02012e6c
+    bl WM_SetPortCallback
 @L_02014638:
     mov r0, #0
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02014654(void)
+asm void WM_EndDataSharing(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r5, r0
@@ -569,7 +569,7 @@ asm void func_02014654(void)
     mov r4, #0
     mov r1, r4
     mov r2, r4
-    bl func_02012e6c
+    bl WM_SetPortCallback
     add r1, r5, #0x800
     mov r0, r4
     strh r4, [r1, #0xe]
@@ -577,7 +577,7 @@ asm void func_02014654(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020146a0(void)
+asm void WM_StepDataSharing(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -589,7 +589,7 @@ asm void func_020146a0(void)
     mov r2, #0xa
     mov r5, #0
     mov r11, #1
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     addne sp, sp, #0x10
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -642,10 +642,10 @@ asm void func_020146a0(void)
     and r6, r0, #3
     stmib sp, {r1, r11}
     ldrh r3, [r2, #0x14]
-    ldr r0, =func_020149d0
+    ldr r0, =WmDataSharingSetDataCallback
     mov r1, r10
     add r2, r10, r6, lsl #9
-    bl func_0201407c
+    bl WM_SetMPDataToPortEx
     cmp r0, #7
     bne @L_020147d8
     add r0, r10, r6, lsl #1
@@ -710,20 +710,20 @@ asm void func_020146a0(void)
     mov r4, #0
     mov r0, r10
     mov r1, r4
-    bl func_02014d90
+    bl WmDataSharingSendDataSet
     cmp r5, #0
     beq @L_020149c0
     mov r0, r10
     mov r1, r4
     mov r2, r9
-    bl func_02014cc0
+    bl WmDataSharingReceiveData
     add r0, r10, #0x800
     ldrh r0, [r0, #0x18]
     cmp r0, #0
     bne @L_020149c0
     ldr r1, [sp, #0xc]
     mov r0, r10
-    bl func_02014d90
+    bl WmDataSharingSendDataSet
     b @L_020149c0
 @L_020148d4:
     cmp r0, #4
@@ -768,14 +768,14 @@ asm void func_020146a0(void)
     bl MIi_CpuCopy16
     add r3, r10, #0x800
     ldrh r1, [r3, #0xe]
-    ldr r0, =func_020149d0
+    ldr r0, =WmDataSharingSetDataCallback
     add r2, r5, #0x20
     str r1, [sp]
     ldrh r4, [r3, #0x16]
     mov r1, r10
     stmib sp, {r4, r11}
     ldrh r3, [r3, #0x10]
-    bl func_0201407c
+    bl WM_SetMPDataToPortEx
     add r1, r10, #0x800
     ldrh r2, [r1, #0xa]
     cmp r0, #2
@@ -792,19 +792,19 @@ asm void func_020146a0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020149d0(void)
+asm void WmDataSharingSetDataCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
-    bl func_02012844
+    bl WMi_GetSystemWork
     ldrh r2, [r5, #0xa]
-    ldr r1, =func_02014aa8
+    ldr r1, =WmDataSharingReceiveCallback_Parent
     add r0, r0, r2, lsl #2
     ldr r2, [r0, #0xcc]
     ldr r4, [r0, #0x10c]
     cmp r2, r1
     beq @L_02014a04
-    ldr r0, =func_02014bdc
+    ldr r0, =WmDataSharingReceiveCallback_Child
     cmp r2, r0
     ldmneia sp!, {r3, r4, r5, pc}
 @L_02014a04:
@@ -851,7 +851,7 @@ asm void func_020149d0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02014aa8(void)
+asm void WmDataSharingReceiveCallback_Parent(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, [r0, #0x1c]
@@ -885,15 +885,15 @@ asm void func_02014aa8(void)
     ldrh r1, [r0, #0x12]
     ldr r2, [r0, #0xc]
     mov r0, r4
-    bl func_02014cc0
+    bl WmDataSharingReceiveData
     mov r0, r4
     mov r1, #0
-    bl func_02014d90
+    bl WmDataSharingSendDataSet
     ldmia sp!, {r4, r5, r6, pc}
 @L_02014b34:
     mov r0, r4
     mov r1, #0
-    bl func_02014d90
+    bl WmDataSharingSendDataSet
     ldmia sp!, {r4, r5, r6, pc}
 @L_02014b44:
     ldrh r5, [r0, #0x12]
@@ -922,14 +922,14 @@ asm void func_02014aa8(void)
     mov r5, #0
     mov r0, r4
     mov r1, r5
-    bl func_02014d90
+    bl WmDataSharingSendDataSet
     add r0, r4, #0x800
     ldrh r0, [r0, #0x18]
     cmp r0, #1
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, r4
     mov r1, r5
-    bl func_02014d90
+    bl WmDataSharingSendDataSet
     ldmia sp!, {r4, r5, r6, pc}
 @L_02014bcc:
     add r0, r4, #0x800
@@ -938,7 +938,7 @@ asm void func_02014aa8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02014bdc(void)
+asm void WmDataSharingReceiveCallback_Child(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
@@ -1003,7 +1003,7 @@ asm void func_02014bdc(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02014cc0(void)
+asm void WmDataSharingReceiveData(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
@@ -1062,7 +1062,7 @@ asm void func_02014cc0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02014d90(void)
+asm void WmDataSharingSendDataSet(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0xc
@@ -1111,7 +1111,7 @@ asm void func_02014d90(void)
     add r3, r10, #0x800
     ldrh r1, [r3, #0xe]
     mov r4, #1
-    ldr r0, =func_020149d0
+    ldr r0, =WmDataSharingSetDataCallback
     and r1, r1, r7
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
@@ -1122,7 +1122,7 @@ asm void func_02014d90(void)
     str r5, [sp, #4]
     str r4, [sp, #8]
     ldrh r3, [r3, #0x14]
-    bl func_0201407c
+    bl WM_SetMPDataToPortEx
     cmp r0, #7
     bne @L_02014eb0
     add r0, r10, r6, lsl #1
@@ -1150,7 +1150,7 @@ asm void func_02014d90(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02014ee0(void)
+asm void WM_GetSharedDataAddress(void)
 {
     stmdb sp!, {r3, lr}
     mov r3, r2

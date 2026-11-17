@@ -1,7 +1,7 @@
 #include "game/Unk_0209e134.hpp"
 #include "system/GameHeap.hpp"
 
-extern GameHeap data_020c47b4;
+extern GameHeap gAllocator;
 extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
 
 extern "C" s32 func_0209e134(s32 arg0, s32 arg1);
@@ -35,7 +35,7 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void func_02016e10(void);
 extern "C" void func_02016e5c(void);
-extern "C" void func_020170b8(void);
+extern "C" void STD_CompareNString(void);
 
 extern "C" s32 func_0209e134(s32 arg0, s32 arg1)
 {
@@ -99,7 +99,7 @@ extern "C" s32 func_0209e25c(u8 *arg0)
     s32 v0;
     s32 v1;
     if (*(s32 *)(arg0) == 0) {
-        v0 = _ZN8GameHeap5AllocEiii((s32)((u8 *)&data_020c47b4), 0x28800, 0, 1);
+        v0 = _ZN8GameHeap5AllocEiii((s32)((u8 *)&gAllocator), 0x28800, 0, 1);
         *(s32 *)(arg0) = v0;
     }
     v1 = ((s32 (*)(...))func_0209e5ec)((s32)arg0);
@@ -177,7 +177,7 @@ extern "C" asm void func_0209e360(void)
     mov r0, #0
     str r0, [sp, #4]
     ldr r1, [sp]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     ldr r2, [sp, #4]
     add r1, r1, #1
     mov r3, #1
@@ -223,7 +223,7 @@ extern "C" asm void func_0209e360(void)
     bl STD_CompareString
     cmp r0, #0
     bne @L_0209e454
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r11
     bl _ZN8GameHeap4FreeEPv
     add sp, sp, #0xc
@@ -239,7 +239,7 @@ extern "C" asm void func_0209e360(void)
     bl func_0209e83c
     cmp r0, #1
     bne @L_0209e558
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r11
     bl _ZN8GameHeap4FreeEPv
     add sp, sp, #0xc
@@ -312,7 +312,7 @@ extern "C" asm void func_0209e360(void)
     ldr r0, [r0, #0x140]
     cmp r5, r0
     bne @L_0209e598
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r11
     bl _ZN8GameHeap4FreeEPv
     add sp, sp, #0xc
@@ -326,7 +326,7 @@ extern "C" asm void func_0209e360(void)
     cmp r0, r1
     blo @L_0209e3d8
 @L_0209e5b0:
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r11
     bl _ZN8GameHeap4FreeEPv
 @L_0209e5bc:
@@ -340,7 +340,7 @@ extern "C" void func_0209e5cc(void **obj)
     if (*obj == NULL) {
         return;
     }
-    data_020c47b4.Free(*obj);
+    gAllocator.Free(*obj);
 }
 
 extern "C" s32 func_0209e5ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
@@ -400,7 +400,7 @@ extern "C" asm void func_0209e654(void)
     mov r1, r5
     mov r2, r11
     add r0, r9, r8
-    bl func_020170b8
+    bl STD_CompareNString
     cmp r0, #0
     bne @L_0209e6e8
     ldr r2, [r7, #0x140]

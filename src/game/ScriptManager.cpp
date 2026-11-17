@@ -1,15 +1,15 @@
-#include "game/UnkClass_02060294.hpp"
+#include "game/ScriptManager.hpp"
 #include "game/Unk_0205dee0.hpp"
 #include "system/GameHeap.hpp"
 
-extern GameHeap data_020c47b4;
+extern GameHeap gAllocator;
 
 extern "C" void _ZN12Unk_0205dee013func_0205f958Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205f97cEv(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205f994El(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205f9a8Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205fed0Ev(void);     // (for the asm functions)
-extern "C" void _ZN12Unk_0205dee013func_0205ff20Ev(void);     // (for the asm functions)
+extern "C" void _ZN12Unk_0205dee018CompareTypeAndCodeEv(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205ff58Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_02060104Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_02060164Ev(void);     // (for the asm functions)
@@ -22,8 +22,8 @@ extern "C" char data_020aea6c[];
 extern "C" char data_020aea80[];
 extern "C" char data_020aea94[];
 extern "C" char data_020aeaa8[];
-extern "C" char data_020c48a0[];
-extern "C" char data_020c5e40[];
+extern "C" char gScreenFades[];
+extern "C" char gAudioPlayer[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void STD_ConcatenateString(void);
@@ -31,8 +31,8 @@ extern "C" void STD_CopyString(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11FileManager7ReleaseEPv(void);
 extern "C" void _ZN12SceneManager13func_0203e30cEv(void);
-extern "C" void _ZN12SoundManager13func_0203b3c8Ei(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
+extern "C" void _ZN12SoundManager14StopAllEffectsEi(void);
+extern "C" void _ZN13ScreenManager14GetCurSceneSubEv(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _Znwm(void);
@@ -45,7 +45,7 @@ extern "C" void func_ov015_02149240(void);
 extern "C" void func_ov015_0214927c(void);
 extern "C" void func_ov015_02149294(void);
 extern "C" void func_ov015_021493f8(void);
-extern "C" void func_ov015_021495c0(void);
+extern "C" void CSceneScriptThread_Stop(void);
 extern "C" void func_ov015_02149614(void);
 extern "C" void func_ov015_0214963c(void);
 extern "C" void func_ov015_021496b4(void);
@@ -53,7 +53,7 @@ extern "C" void func_ov015_021496bc(void);
 extern "C" void func_ov015_021496c4(void);
 extern "C" void func_ov015_021496cc(void);
 
-asm UnkClass_02060294 * UnkClass_02060294::func_02060294()
+asm ScriptManager * ScriptManager::func_02060294()
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -78,7 +78,7 @@ asm UnkClass_02060294 * UnkClass_02060294::func_02060294()
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void UnkClass_02060294::func_020602ec()
+asm void ScriptManager::func_020602ec()
 {
     stmdb sp!, {r4, lr}
     ldr r3, =_ZN12Unk_0205dee013func_0205f97cEv
@@ -90,7 +90,7 @@ asm void UnkClass_02060294::func_020602ec()
     ldmia sp!, {r4, pc}
 }
 
-asm void UnkClass_02060294::func_02060310()
+asm void ScriptManager::func_02060310()
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
@@ -150,7 +150,7 @@ asm void UnkClass_02060294::func_02060310()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_02060294::func_020603e0()
+asm void ScriptManager::func_020603e0()
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -181,10 +181,10 @@ asm void UnkClass_02060294::func_020603e0()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_02060294::func_02060448()
+asm void ScriptManager::Callocate()
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, #2
     mov r3, #1
     mov r5, r1
@@ -199,12 +199,12 @@ asm void UnkClass_02060294::func_02060448()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-void UnkClass_02060294::func_02060480(void *ptr)
+void ScriptManager::func_02060480(void *ptr)
 {
-    data_020c47b4.Free(ptr);
+    gAllocator.Free(ptr);
 }
 
-asm void UnkClass_02060294::func_02060494(void *dst)
+asm void ScriptManager::func_02060494(void *dst)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r4, r0
@@ -234,7 +234,7 @@ asm void UnkClass_02060294::func_02060494(void *dst)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_02060294::func_020604f8(void *src)
+asm void ScriptManager::func_020604f8(void *src)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x54
@@ -316,12 +316,12 @@ asm void UnkClass_02060294::func_020604f8(void *src)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-u8 *UnkClass_02060294::func_02060624(int i)
+u8 *ScriptManager::GetGlobalVariable(int i)
 {
     return &((u8 *)this + 0x2674)[i * 4];
 }
 
-asm void UnkClass_02060294::func_02060634()
+asm void ScriptManager::func_02060634()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x94
@@ -343,7 +343,7 @@ asm void UnkClass_02060294::func_02060634()
     mov r0, r4
     ldr r1, [r1, r5, lsl #2]
     bl STD_ConcatenateString
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r0, [r3]
     cmp r0, #0
     beq @L_020606c0
@@ -375,7 +375,7 @@ asm void UnkClass_02060294::func_02060634()
     ldr r1, [r4, r5, lsl #2]
     mov r0, r6
     bl STD_ConcatenateString
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r0, [r3]
     cmp r0, #0
     beq @L_0206073c
@@ -391,7 +391,7 @@ asm void UnkClass_02060294::func_02060634()
     str r7, [sp, #0x10]
     bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
 @L_0206073c:
-    ldr r5, =data_020c47b4
+    ldr r5, =gAllocator
     ldr r11, =data_020ae9a4
     mov r8, #1
     add r6, sp, #0x54
@@ -460,12 +460,12 @@ asm void UnkClass_02060294::func_02060634()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-u8 *UnkClass_02060294::func_02060858(int i)
+u8 *ScriptManager::GetFileContext(int i)
 {
     return (u8 *)this + i * 0x22C;
 }
 
-asm void UnkClass_02060294::func_02060864(int a, int b, int c, int d)
+asm void ScriptManager::LoadScript(int a, int b, int c, int d)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -524,7 +524,7 @@ asm void UnkClass_02060294::func_02060864(int a, int b, int c, int d)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void UnkClass_02060294::func_02060938(int a, int b, int c, int d)
+asm void ScriptManager::RequestLoad(int a, int b, int c, int d)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldr r4, [sp, #0x20]
@@ -559,7 +559,7 @@ asm void UnkClass_02060294::func_02060938(int a, int b, int c, int d)
     mla r0, r5, r10, r9
     mov r1, r7
     mov r2, r6
-    bl _ZN12Unk_0205dee013func_0205ff20Ev
+    bl _ZN12Unk_0205dee018CompareTypeAndCodeEv
     cmp r0, #0
     beq @L_020609f0
     mov r6, #0
@@ -604,7 +604,7 @@ asm void UnkClass_02060294::func_02060938(int a, int b, int c, int d)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void UnkClass_02060294::func_02060a48()
+asm void ScriptManager::func_02060a48()
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -630,7 +630,7 @@ asm void UnkClass_02060294::func_02060a48()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_02060294::func_02060a98()
+asm void ScriptManager::func_02060a98()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #8
@@ -680,18 +680,18 @@ asm void UnkClass_02060294::func_02060a98()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-s32 UnkClass_02060294::func_02060b48(int i)
+s32 ScriptManager::GetFileCode(int i)
 {
-    return *(s32 *)(func_02060858(i) + 0x28);
+    return *(s32 *)(GetFileContext(i) + 0x28);
 }
 
-BOOL UnkClass_02060294::func_02060b58(int i)
+BOOL ScriptManager::UnloadScript(int i)
 {
     ((Unk_0205dee0 *)((u8 *)this + i * 0x22C))->func_0205fed0();
     return TRUE;
 }
 
-asm void UnkClass_02060294::func_02060b70()
+asm void ScriptManager::RequestUnloadSlot()
 {
     stmdb sp!, {r3, lr}
     add r2, r1, #1
@@ -727,7 +727,7 @@ asm void UnkClass_02060294::func_02060b70()
     ldmia sp!, {r3, pc}
 }
 
-asm void UnkClass_02060294::func_02060be8()
+asm void ScriptManager::func_02060be8()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r4, r2
@@ -758,12 +758,12 @@ asm void UnkClass_02060294::func_02060be8()
     mla r0, r8, r7, r6
     mov r1, r5
     mov r2, r4
-    bl _ZN12Unk_0205dee013func_0205ff20Ev
+    bl _ZN12Unk_0205dee018CompareTypeAndCodeEv
     cmp r0, #0
     beq @L_02060c6c
     mov r0, r6
     mov r1, r8
-    bl func_02060b70
+    bl RequestUnloadSlot
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02060c6c:
     add r8, r8, #1
@@ -773,10 +773,10 @@ asm void UnkClass_02060294::func_02060be8()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkClass_02060294::func_02060c80()
+asm void ScriptManager::func_02060c80()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, =data_020c47b4
+    ldr r6, =gAllocator
     mov r5, r0
     mov r4, #1
     mvn r7, #0
@@ -818,7 +818,7 @@ asm void UnkClass_02060294::func_02060c80()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkClass_02060294::func_02060d14()
+asm void ScriptManager::func_02060d14()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -857,7 +857,7 @@ asm void UnkClass_02060294::func_02060d14()
     ldr r2, [r1, #0x538]
     ldr r3, [r1, #0x53c]
     sub r1, r12, #1
-    bl func_02060864
+    bl LoadScript
     add r0, r7, r6, lsl #4
     add r0, r0, #0x2000
     ldr r0, [r0, #0x534]
@@ -876,7 +876,7 @@ asm void UnkClass_02060294::func_02060d14()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkClass_02060294::func_02060ddc()
+asm void ScriptManager::func_02060ddc()
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -925,7 +925,7 @@ asm void UnkClass_02060294::func_02060ddc()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkClass_02060294::func_02060e80()
+asm void ScriptManager::func_02060e80()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r8, r1
@@ -963,7 +963,7 @@ asm void UnkClass_02060294::func_02060e80()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void UnkClass_02060294::func_02060efc()
+asm void ScriptManager::func_02060efc()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -989,7 +989,7 @@ asm void UnkClass_02060294::func_02060efc()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkClass_02060294::func_02060f54()
+asm void ScriptManager::func_02060f54()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x14
@@ -1014,11 +1014,11 @@ asm void UnkClass_02060294::func_02060f54()
     ldrne r1, [r1, #0x4ec]
     cmpne r1, #0
     beq @L_020611c8
-    bl _ZN17UnkClass_0203dc7c13func_0203e1f4Ev
+    bl _ZN13ScreenManager14GetCurSceneSubEv
     cmp r0, #0x83
     bne @L_020611c8
     ldr r0, =data_020a71bc
-    ldr r5, =data_020c48a0
+    ldr r5, =gScreenFades
     add r3, sp, #8
     ldmia r0, {r0, r1, r2}
     stmia r3, {r0, r1, r2}
@@ -1063,7 +1063,7 @@ asm void UnkClass_02060294::func_02060f54()
     bne @L_02061074
     ldr r1, [r1, #0xa90]
     mov r0, r4
-    bl func_02060b58
+    bl UnloadScript
     b @L_020611c8
 @L_02061074:
     ldr r2, [r1, #0xa90]
@@ -1103,7 +1103,7 @@ asm void UnkClass_02060294::func_02060f54()
     mla r0, r7, r5, r4
     add r0, r0, #0x2000
     ldr r0, [r0, #0xa88]
-    bl func_ov015_021495c0
+    bl CSceneScriptThread_Stop
     mla r0, r7, r5, r4
     add r0, r0, #0x2000
     ldr r0, [r0, #0xa88]
@@ -1112,7 +1112,7 @@ asm void UnkClass_02060294::func_02060f54()
     add r0, r0, #0x2000
     ldr r1, [r0, #0xa90]
     mov r0, r4
-    bl func_02060b58
+    bl UnloadScript
     add r0, r4, #0x278
     add r0, r0, #0x2800
     mla r1, r7, r5, r0
@@ -1175,7 +1175,7 @@ asm void UnkClass_02060294::func_02060f54()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void UnkClass_02060294::func_02061210()
+asm void ScriptManager::StopActiveThread()
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -1188,7 +1188,7 @@ asm void UnkClass_02060294::func_02061210()
     add r0, r5, r4, lsl #2
     add r0, r0, #0x2000
     ldr r0, [r0, #0x4f4]
-    bl func_ov015_021495c0
+    bl CSceneScriptThread_Stop
     add r4, r4, #1
     cmp r4, #8
     blt @L_0206122c
@@ -1198,7 +1198,7 @@ asm void UnkClass_02060294::func_02061210()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void UnkClass_02060294::func_02061258()
+asm void ScriptManager::func_02061258()
 {
     stmdb sp!, {r3, lr}
     add r0, r0, #0x2000
@@ -1209,7 +1209,7 @@ asm void UnkClass_02060294::func_02061258()
     ldmia sp!, {r3, pc}
 }
 
-asm void UnkClass_02060294::func_02061274()
+asm void ScriptManager::func_02061274()
 {
     stmdb sp!, {r3, lr}
     add r0, r0, #0x2000
@@ -1217,23 +1217,23 @@ asm void UnkClass_02060294::func_02061274()
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
     bl func_ov015_02149628
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #0x64
-    bl _ZN12SoundManager13func_0203b3c8Ei
+    bl _ZN12SoundManager14StopAllEffectsEi
     ldmia sp!, {r3, pc}
 }
 
-void UnkClass_02060294::func_020612a0(s32 value)
+void ScriptManager::func_020612a0(s32 value)
 {
     *(s32 *)&data[0x24F0] = value;
 }
 
-void UnkClass_02060294::func_020612ac(s32 value)
+void ScriptManager::func_020612ac(s32 value)
 {
     *(s32 *)&data[0x24EC] = value;
 }
 
-asm void UnkClass_02060294::func_020612b8()
+asm void ScriptManager::func_020612b8()
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r2, #0x4c
@@ -1244,7 +1244,7 @@ asm void UnkClass_02060294::func_020612b8()
     ldr r0, [r0, #0xa88]
     cmp r0, #0
     beq @L_02061304
-    bl func_ov015_021495c0
+    bl CSceneScriptThread_Stop
     add r0, r5, r4
     add r0, r0, #0x2000
     ldr r0, [r0, #0xa88]
@@ -1253,7 +1253,7 @@ asm void UnkClass_02060294::func_020612b8()
     add r0, r0, #0x2000
     ldr r1, [r0, #0xa90]
     mov r0, r5
-    bl func_02060b58
+    bl UnloadScript
 @L_02061304:
     add r0, r5, #0x278
     add r1, r0, #0x2800
@@ -1263,7 +1263,7 @@ asm void UnkClass_02060294::func_020612b8()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void UnkClass_02060294::func_0206131c()
+asm void ScriptManager::func_0206131c()
 {
     cmp r1, #0
     mov r3, #0
@@ -1283,7 +1283,7 @@ asm void UnkClass_02060294::func_0206131c()
     bx lr
 }
 
-asm void UnkClass_02060294::func_02061358()
+asm void ScriptManager::func_02061358()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     movs r6, r1
@@ -1330,7 +1330,7 @@ asm void UnkClass_02060294::func_02061358()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkClass_02060294::func_02061400()
+asm void ScriptManager::func_02061400()
 {
     stmdb sp!, {r3, lr}
     add r2, r0, #0x278
@@ -1356,22 +1356,22 @@ asm void UnkClass_02060294::func_02061400()
     ldmia sp!, {r3, pc}
 }
 
-s32 UnkClass_02060294::func_02061450()
+s32 ScriptManager::func_02061450()
 {
     return *(s32 *)&data[0x2AC8];
 }
 
-void UnkClass_02060294::func_0206145c()
+void ScriptManager::func_0206145c()
 {
     data[0x2AC4] = 0;
 }
 
-void UnkClass_02060294::func_0206146c(int bit)
+void ScriptManager::func_0206146c(int bit)
 {
     data[0x2AC4] |= (u8)(1 << bit);
 }
 
-u8 UnkClass_02060294::func_0206148c()
+u8 ScriptManager::func_0206148c()
 {
     return data[0x2AC4];
 }

@@ -8,7 +8,7 @@
 #include "msl/stdio.h"
 #include "msl/string.h"
 
-extern GameHeap data_020c47b4;
+extern GameHeap gAllocator;
 extern FileManager data_020c6364;
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" const char *data_020abc68[];        // names of tracks
@@ -44,7 +44,7 @@ extern "C" char data_020abe44[];
 extern "C" char data_020abe4c[];
 extern "C" char data_020abe54[];
 extern "C" char data_020abe64[];
-extern "C" s32 data_020c484c;        // frames since the last update
+extern "C" s32 gDeltaTime;        // frames since the last update
 extern "C" void SND_Init(void);
 extern "C" void SND_LockChannel(u32 channels, u32 flags);
 extern "C" void func_020406d8(SoundDriverConfig *config);
@@ -54,13 +54,13 @@ extern "C" void func_020408b4(SoundDriverConfig *config, int);
 extern "C" void func_020408e0(SoundDriverConfig *config, int, int);
 extern "C" void func_02040924(SoundDriverConfig *config);    // starts the driver
 extern "C" void func_02040b64(int);
-extern "C" void func_02040c00(int);
+extern "C" void DSE_SsdSuspend(int);
 extern "C" void func_02040c98(int);
 extern "C" void *func_02041530(void *data, int, int);       // a wave bank or stream
 extern "C" void func_02041964(u16 wave);
 extern "C" void *func_02041c3c(void *data);               // a sequence
 extern "C" void func_02041d40(void *sequence);
-extern "C" int func_02041d78(void *sequence);
+extern "C" int DSE_SsdIsPlaySequence(void *sequence);
 extern "C" void func_02041d90(void *sequence, SoundParam *param, BOOL fadeIn);
 extern "C" void func_02041e70(void *sequence, u16 fadeTime);   // stops it
 extern "C" void func_02041f10(void *sequence, SoundParam *param);
@@ -81,13 +81,13 @@ extern "C" void func_0204812c(void *streams, int);
 extern "C" void func_02048168(void *streams, void *(*alloc)(void *, u32), void *(*free)(void *, void *), int);
 extern "C" void func_0204817c(void *streams, int);
 extern "C" void func_0204832c(void *streams);
-extern "C" void func_0204871c(s8 loop);
-extern "C" int func_02048730(s32 stream);
+extern "C" void DSE_SsdSetMonoToStereo(s8 loop);
+extern "C" int DSE_SsdIsOpenStream(s32 stream);
 extern "C" s32 func_020487c4(const char *path, int bufferSize, int);   // opens a stream
-extern "C" void func_02048bb8(s32 stream);
-extern "C" int func_02048d30(s32 stream);              // > 0 while it plays
+extern "C" void DSE_SsdCloseStream(s32 stream);
+extern "C" int DSE_SsdIsPlayStream(s32 stream);              // > 0 while it plays
 extern "C" void func_02048d80(s32 stream, SoundParam *param, s8 fadeIn);
-extern "C" void func_02048f60(s32 stream, u16 fadeTime);  // stops it
+extern "C" void DSE_SsdStopStream(s32 stream, u16 fadeTime);  // stops it
 extern "C" void func_02049180(s32 stream, SoundParam *param);
 extern "C" void func_02049258(s32 stream, s32 position);
 extern "C" int func_02049420(s32 stream, int);
@@ -144,12 +144,12 @@ SoundManager::~SoundManager()
 // (memory for the driver)
 void *SoundManager::Alloc(void *arg, u32 size)
 {
-    return data_020c47b4.Alloc(size, 4, TRUE);
+    return gAllocator.Alloc(size, 4, TRUE);
 }
 
 void *SoundManager::Free(void *arg, void *ptr)
 {
-    data_020c47b4.Free(ptr);
+    gAllocator.Free(ptr);
     return ptr;
 }
 
@@ -361,19 +361,19 @@ asm void SoundManager::Init(GameHeap *heap)
 
 void SoundManager::func_02039bcc()
 {
-    func_02040c00(0);
+    DSE_SsdSuspend(0);
 }
 
-void SoundManager::func_02039bdc()
+void SoundManager::WakeUp()
 {
     func_02040c98(0);
     if (streams[0].state & 4) {
-        func_02048f60(streams[0].handle, 0);
+        DSE_SsdStopStream(streams[0].handle, 0);
         streams[0].state &= ~4;
     }
 }
 
-void SoundManager::func_02039c28()
+void SoundManager::Quit()
 {
     func_02040b64(1);
 }
@@ -583,7 +583,7 @@ asm void SoundManager::SetFade(int volume, int time)
 void SoundManager::func_0203a154()
 {
     func_0203a7b4(0);
-    func_0203b3c8(0);
+    StopAllEffects(0);
 }
 
 // the banks and the tracks to save with the game
@@ -1171,12 +1171,12 @@ void SoundManager::PlaySound(int id)
     func_02042ef4(GetSound(id), 0, &param);
 }
 
-void SoundManager::func_0203b3a8(int id, int arg)
+void SoundManager::StopEffect(int id, int arg)
 {
     func_02043484(GetSound(id), 0, (u16)arg);
 }
 
-void SoundManager::func_0203b3c8(int arg)
+void SoundManager::StopAllEffects(int arg)
 {
     func_020435d8((u16)arg);
 }
@@ -1219,7 +1219,7 @@ void SoundManager::StopTrack(int index)
         return;
     }
     handle = banks[tracks[index].sequence].handle;
-    if (func_02041d78(handle) > 0) {
+    if (DSE_SsdIsPlaySequence(handle) > 0) {
         func_02041e70(handle, 0);
     }
     FreeBank(tracks[index].sequence);
@@ -1248,7 +1248,7 @@ BOOL SoundManager::func_0203b5b8(int index)
     if (tracks[index].state & 4) {
         return FALSE;
     }
-    if ((tracks[index].state & 2) && func_02041d78(banks[tracks[index].sequence].handle) > 0) {
+    if ((tracks[index].state & 2) && DSE_SsdIsPlaySequence(banks[tracks[index].sequence].handle) > 0) {
         return TRUE;
     }
     tracks[index].state &= ~2;
@@ -1276,7 +1276,7 @@ void SoundManager::func_0203b664()
         sequence = banks[tracks[i].sequence].handle;
 
         if (tracks[i].flags & 4) {
-            if (func_02041d78(sequence) > 0) {
+            if (DSE_SsdIsPlaySequence(sequence) > 0) {
                 func_02041e70(sequence, tracks[i].unk_28);
                 tracks[i].state = (tracks[i].state | 4) & (u16)~2;
             }
@@ -1285,7 +1285,7 @@ void SoundManager::func_0203b664()
         }
 
         if (tracks[i].state & 4) {
-            if (func_02041d78(sequence) > 0) {
+            if (DSE_SsdIsPlaySequence(sequence) > 0) {
                 return;
             }
             tracks[i].state &= ~4;
@@ -1386,7 +1386,7 @@ asm void SoundManager::func_0203b664()
     ldr r8, [r0, #0x84]
     beq @L_0203b740
     mov r0, r8
-    bl func_02041d78
+    bl DSE_SsdIsPlaySequence
     cmp r0, #0
     ble @L_0203b728
     ldr r1, [r4, #0x2d0]
@@ -1412,7 +1412,7 @@ asm void SoundManager::func_0203b664()
     tst r0, #4
     beq @L_0203b778
     mov r0, r8
-    bl func_02041d78
+    bl DSE_SsdIsPlaySequence
     cmp r0, #0
     addgt sp, sp, #0x58
     ldmgtia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1603,7 +1603,7 @@ void SoundManager::func_0203ba78(int index, const char *name)
 // starts the stream again at the movie's current frame (or at the start for 0)
 BOOL SoundManager::func_0203bab8(int index, int seek)
 {
-    MoviePlayer *movie = &data_020c4f60;
+    MoviePlayer *movie = &gMoviePlayer;
     u32 frameRate = movie->GetFrameRate();
 
     if (seek > 0) {
@@ -1626,7 +1626,7 @@ BOOL SoundManager::func_0203bba8(int index)
     if (streams[index].flags & 4) {
         return FALSE;
     }
-    if ((streams[index].state & 2) && func_02048d30(streams[index].handle) > 0) {
+    if ((streams[index].state & 2) && DSE_SsdIsPlayStream(streams[index].handle) > 0) {
         return TRUE;
     }
     streams[index].state &= ~2;
@@ -1681,7 +1681,7 @@ void SoundManager::func_0203bd04()
         handle = streams[i].handle;
 
         if (streams[i].delay != 0) {
-            streams[i].delay -= (s8)data_020c484c;
+            streams[i].delay -= (s8)gDeltaTime;
             if (streams[i].delay < 0) {
                 streams[i].delay = 0;
             }
@@ -1690,14 +1690,14 @@ void SoundManager::func_0203bd04()
         if (streams[i].flags & 4) {
             streams[i].flags &= ~4;
             if (func_0203bba8(i)) {
-                func_02048f60(handle, (u16)streams[i].unk_2c);
+                DSE_SsdStopStream(handle, (u16)streams[i].unk_2c);
                 streams[i].state = (streams[i].state | 4) & (u16)~2;
             }
             streams[i].unk_2c = 0;
         }
 
         if (streams[i].state & 4) {
-            if (func_02048d30(handle) > 0) {
+            if (DSE_SsdIsPlayStream(handle) > 0) {
                 return;
             }
             streams[i].state &= ~4;
@@ -1706,7 +1706,7 @@ void SoundManager::func_0203bd04()
 
         if ((streams[i].flags & 8) && !(streams[i].state & 4)) {
             if (streams[i].state & 1) {
-                func_02048bb8(handle);
+                DSE_SsdCloseStream(handle);
                 streams[i].state |= 8;
             }
             streams[i].state &= ~1;
@@ -1714,7 +1714,7 @@ void SoundManager::func_0203bd04()
         }
 
         if (streams[i].state & 8) {
-            if (func_02048730(handle) > 0) {
+            if (DSE_SsdIsOpenStream(handle) > 0) {
                 return;
             }
             streams[i].state &= ~8;
@@ -1729,7 +1729,7 @@ void SoundManager::func_0203bd04()
                 if (!GetSoundFilePath(path, path, sizeof(path))) {
                     continue;
                 }
-                func_0204871c(streams[i].unk_21 != 0 ? 1 : 0);
+                DSE_SsdSetMonoToStereo(streams[i].unk_21 != 0 ? 1 : 0);
                 streams[i].unk_21 = 0;
                 opened = func_020487c4(path, 0x6000, 1);
                 if (opened < 0) {
@@ -1751,7 +1751,7 @@ void SoundManager::func_0203bd04()
             streams[i].flags &= ~0x82;
         }
 
-        if ((streams[i].state & 2) && func_02048d30(handle) == 0) {
+        if ((streams[i].state & 2) && DSE_SsdIsPlayStream(handle) == 0) {
             func_0203ba5c(i);
         }
     }
@@ -1797,7 +1797,7 @@ asm void SoundManager::func_0203bd04()
     ldr r6, [r8, #0x328]
     cmp r2, #0
     beq @L_0203bdbc
-    ldr r0, =data_020c484c
+    ldr r0, =gDeltaTime
     ldr r0, [r0]
     mov r0, r0, lsl #0x18
     sub r0, r2, r0, asr #24
@@ -1824,7 +1824,7 @@ asm void SoundManager::func_0203bd04()
     mov r0, r6
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
-    bl func_02048f60
+    bl DSE_SsdStopStream
     add r1, r9, #0x300
     ldrh r0, [r1, #0x26]
     orr r2, r0, #4
@@ -1840,7 +1840,7 @@ asm void SoundManager::func_0203bd04()
     tst r0, #4
     beq @L_0203be68
     mov r0, r6
-    bl func_02048d30
+    bl DSE_SsdIsPlayStream
     cmp r0, #0
     addgt sp, sp, #0x60
     ldmgtia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1863,7 +1863,7 @@ asm void SoundManager::func_0203bd04()
     tst r0, #1
     beq @L_0203bea4
     mov r0, r6
-    bl func_02048bb8
+    bl DSE_SsdCloseStream
     add r0, r8, #0x300
     ldrh r1, [r0, #0x26]
     orr r1, r1, #8
@@ -1885,7 +1885,7 @@ asm void SoundManager::func_0203bd04()
     tst r0, #8
     beq @L_0203bf10
     mov r0, r6
-    bl func_02048730
+    bl DSE_SsdIsOpenStream
     cmp r0, #0
     addgt sp, sp, #0x60
     ldmgtia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1930,7 +1930,7 @@ asm void SoundManager::func_0203bd04()
     moveq r0, #0
     mov r0, r0, lsl #0x18
     mov r0, r0, asr #0x18
-    bl func_0204871c
+    bl DSE_SsdSetMonoToStereo
     mov r0, #0
     strb r0, [r9, #0x321]
     mov r0, r5
@@ -2007,7 +2007,7 @@ asm void SoundManager::func_0203bd04()
     tst r0, #2
     beq @L_0203c0c8
     mov r0, r6
-    bl func_02048d30
+    bl DSE_SsdIsPlayStream
     cmp r0, #0
     bne @L_0203c0c8
     mov r0, r4

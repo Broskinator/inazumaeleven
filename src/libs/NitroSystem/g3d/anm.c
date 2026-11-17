@@ -1,25 +1,25 @@
 // (asm for now)
 
 void NNSi_G3dAnmBlendMat(void);
-void func_02028968(void);
-void func_020289d8(void);
+void blendScaleVec_(void);
+void NNSi_G3dAnmBlendJnt(void);
 void NNSi_G3dAnmBlendVis(void);
-void func_02028e50(void);
-void func_02028e98(void);
-void func_02029030(void);
-void func_02029094(void);
+void G3dDrawInternal_Loop_(void);
+void G3dDrawInternal_(void);
+void Sbc_updateHintVec_(void);
+void NNS_G3dDraw(void);
 
 void MIi_CpuClearFast(void);
 void MIi_CpuCopy32(void);
-void func_02001d60(void);
-void func_02001fa4(void);
-void func_02002084(void);
+void FX_Div(void);
+void VEC_CrossProduct(void);
+void VEC_Normalize(void);
 extern char data_020ab9c0[];
 extern char data_020ab8a4[];
 extern char data_020ab898[];
 extern char data_020ab8b0[];
-void func_0200919c(void);
-extern char data_020bf67c[];
+void MIi_CpuClear32(void);
+extern char NNS_G3dRS[];
 
 asm void NNSi_G3dAnmBlendMat(void)
 {
@@ -54,7 +54,7 @@ asm void NNSi_G3dAnmBlendMat(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02028968(void)
+asm void blendScaleVec_(void)
 {
     stmdb sp!, {r4, lr}
     cmp r3, #0
@@ -87,7 +87,7 @@ asm void func_02028968(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020289d8(void)
+asm void NNSi_G3dAnmBlendJnt(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x70
@@ -217,7 +217,7 @@ asm void func_020289d8(void)
     beq @L_02028bbc
     ldr r0, [r9, #4]
     mov r1, r5
-    bl func_02001d60
+    bl FX_Div
     mov r7, r0
 @L_02028bbc:
     ldr r3, [sp, #0x18]
@@ -225,19 +225,19 @@ asm void func_020289d8(void)
     add r1, sp, #0x1c
     mov r2, r7
     and r3, r3, #1
-    bl func_02028968
+    bl blendScaleVec_
     ldr r3, [sp, #0x18]
     add r0, r10, #0x10
     add r1, sp, #0x28
     mov r2, r7
     and r3, r3, #8
-    bl func_02028968
+    bl blendScaleVec_
     ldr r3, [sp, #0x18]
     add r0, r10, #0x1c
     add r1, sp, #0x34
     mov r2, r7
     and r3, r3, #0x10
-    bl func_02028968
+    bl blendScaleVec_
     ldr r0, [sp, #0x18]
     tst r0, #4
     bne @L_02028c64
@@ -317,7 +317,7 @@ asm void func_020289d8(void)
     add r0, r10, #0x28
     add r1, r10, #0x34
     add r2, r10, #0x40
-    bl func_02001fa4
+    bl VEC_CrossProduct
     ldr r0, [r10, #0x28]
     cmp r0, #0
     ldreq r0, [r10, #0x2c]
@@ -333,7 +333,7 @@ asm void func_020289d8(void)
 @L_02028d64:
     add r0, r10, #0x28
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
 @L_02028d70:
     ldr r0, [r10, #0x40]
     cmp r0, #0
@@ -350,12 +350,12 @@ asm void func_020289d8(void)
 @L_02028da0:
     add r0, r10, #0x40
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
 @L_02028dac:
     add r0, r10, #0x40
     add r1, r10, #0x28
     add r2, r10, #0x34
-    bl func_02001fa4
+    bl VEC_CrossProduct
     mov r0, #1
     add sp, sp, #0x70
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -401,7 +401,7 @@ asm void NNSi_G3dAnmBlendVis(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02028e50(void)
+asm void G3dDrawInternal_Loop_(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r5, =data_020ab9c0
@@ -423,7 +423,7 @@ asm void func_02028e50(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02028e98(void)
+asm void G3dDrawInternal_(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -521,14 +521,14 @@ asm void func_02028e98(void)
     blx r1
 @L_0202900c:
     mov r0, r5
-    bl func_02028e50
+    bl G3dDrawInternal_Loop_
     ldr r0, [r4]
     bic r0, r0, #1
     str r0, [r4]
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02029030(void)
+asm void Sbc_updateHintVec_(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r1, #0
@@ -560,7 +560,7 @@ asm void func_02029030(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02029094(void)
+asm void NNS_G3dDraw(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #0x188
@@ -574,50 +574,50 @@ asm void func_02029094(void)
     mov r0, r6
     mov r2, r5
     add r1, r4, #0x3c
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r0, r6
     mov r2, r5
     add r1, r4, #0x44
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r0, r6
     mov r2, r5
     add r1, r4, #0x4c
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r4, #8]
     cmp r1, #0
     beq @L_020290fc
     add r0, r4, #0x3c
-    bl func_02029030
+    bl Sbc_updateHintVec_
 @L_020290fc:
     ldr r1, [r4, #0x10]
     cmp r1, #0
     beq @L_02029110
     add r0, r4, #0x44
-    bl func_02029030
+    bl Sbc_updateHintVec_
 @L_02029110:
     ldr r1, [r4, #0x18]
     cmp r1, #0
     beq @L_02029124
     add r0, r4, #0x4c
-    bl func_02029030
+    bl Sbc_updateHintVec_
 @L_02029124:
     ldr r0, [r4]
     bic r0, r0, #0x10
     str r0, [r4]
 @L_02029130:
-    ldr r5, =data_020bf67c
+    ldr r5, =NNS_G3dRS
     ldr r0, [r5]
     cmp r0, #0
     beq @L_02029150
     mov r1, r4
-    bl func_02028e98
+    bl G3dDrawInternal_
     add sp, sp, #0x188
     ldmia sp!, {r4, r5, r6, pc}
 @L_02029150:
     add r0, sp, #0
     mov r1, r4
     str r0, [r5]
-    bl func_02028e98
+    bl G3dDrawInternal_
     mov r0, #0
     str r0, [r5]
     add sp, sp, #0x188

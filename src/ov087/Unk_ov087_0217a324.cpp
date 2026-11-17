@@ -40,7 +40,7 @@ extern "C" s32 func_ov087_0217d158(s32 arg0, s32 arg1);
 extern "C" s32 func_ov087_0217d18c(s32 arg0, u8 *arg1);
 extern "C" void func_ov087_0217d29c(void);
 
-extern "C" char data_020c4648[];
+extern "C" char g3DFieldSprite[];
 extern "C" char data_020c4920[];
 extern "C" char data_020ca766[];
 extern "C" char data_020e88a0[];
@@ -132,7 +132,7 @@ extern "C" void func_01ffed20(void);
 extern "C" void func_01fff15c(void);
 extern "C" void func_01fff184(void);
 extern "C" void func_01fff1f4(void);
-extern "C" void func_0200226c(void);
+extern "C" void FX_Atan2Idx(void);
 extern "C" void func_02080b38(void);
 extern "C" s32 func_02080b90(...);
 extern "C" void func_0208130c(void);
@@ -148,8 +148,8 @@ extern "C" void func_02084788(void);
 extern "C" s32 func_020847b0(...);
 extern "C" s32 func_02084870(...);
 extern "C" void func_ov001_021280bc(void);
-extern "C" void func_ov015_021309a4(void);
-extern "C" void func_ov015_021309f8(void);
+extern "C" void Random_RandA(void);
+extern "C" void Random_RandB(void);
 extern "C" s32 func_ov015_02130ae8(...);
 extern "C" void func_ov015_02131704(void);
 extern "C" void func_ov015_0213178c(void);
@@ -638,7 +638,7 @@ extern "C" asm void func_ov087_0217a858(void)
     cmp r0, #0
     beq @L_0217a9b4
     ldrb r3, [r0, #0x1a]
-    ldr r1, =data_020c4648
+    ldr r1, =g3DFieldSprite
     mov r0, #0
     str r0, [sp]
     ldr r0, [r1]
@@ -1044,7 +1044,7 @@ extern "C" asm void func_ov087_0217aed8(void)
     orrne r0, r0, #0x1000
     strneh r0, [r1, #0x16]
     mov r0, r4
-    bl func_ov015_021309a4
+    bl Random_RandA
     cmp r0, #0x32
     blo @L_0217afd0
     ldr r0, [r5, #0xe8]
@@ -1458,7 +1458,7 @@ extern "C" asm void func_ov087_0217b3c8(void)
     bl func_ov015_02140df0
     cmp r0, #0
     beq @L_0217b594
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a65c
 @L_0217b594:
@@ -1624,7 +1624,7 @@ extern "C" asm void func_ov087_0217b5bc(void)
     cmp r1, r0
     blt @L_0217b82c
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r10, r0
     mov r0, r9
     mov r1, #9
@@ -1637,7 +1637,7 @@ extern "C" asm void func_ov087_0217b5bc(void)
     cmp r1, r0
     blt @L_0217b858
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r10, r0
     mov r0, r9
     mov r1, #8
@@ -1914,7 +1914,7 @@ extern "C" asm void func_ov087_0217bb68(void)
     b @L_0217bcb0
 @L_0217bc5c:
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, r10
     bhs @L_0217bc90
     mov r8, #0xf
@@ -2293,7 +2293,7 @@ extern "C" asm s32 func_ov087_0217c2a8(...)
     mov r11, #0
     ble @L_0217c344
     mov r0, r5
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r11, r0
 @L_0217c344:
     mov r7, #0
@@ -2581,7 +2581,7 @@ extern "C" asm void func_ov087_0217c634(void)
     mov r1, r9
     ldrb r3, [r0, #0x1a]
     ldrb r2, [r0, #0x1d]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r5, [sp]
     ldr r0, [r0]
     bl func_ov015_0213a75c
@@ -2703,7 +2703,7 @@ extern "C" asm void func_ov087_0217c93c(void)
     mov r2, #0
     sub r0, r4, r3
     str r2, [sp]
-    bl func_0200226c
+    bl FX_Atan2Idx
     ldr r1, [r8, #0xe8]
     mov r6, r0
     ldrh r1, [r1, #0x18]
@@ -2772,7 +2772,7 @@ extern "C" asm void func_ov087_0217c93c(void)
     moveq r4, r6
     beq @L_0217ca9c
     mov r1, r5
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r4, r0
 @L_0217ca9c:
     mov r0, r6
@@ -3037,31 +3037,31 @@ extern "C" asm void func_ov087_0217cd3c(void)
     cmp r0, #0
     beq @L_0217cf08
     mov r0, r5
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, r7
     ldrlo r0, [r4, r6, lsl #2]
     orrlo r0, r0, #1
     strlo r0, [r4, r6, lsl #2]
     mov r0, r5
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, #0x14
     ldrlo r0, [r4, r6, lsl #2]
     orrlo r0, r0, #2
     strlo r0, [r4, r6, lsl #2]
     mov r0, r5
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, r8
     ldrlo r0, [r4, r6, lsl #2]
     orrlo r0, r0, #4
     strlo r0, [r4, r6, lsl #2]
     mov r0, r5
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, #0xa
     ldrlo r0, [r4, r6, lsl #2]
     orrlo r0, r0, #8
     strlo r0, [r4, r6, lsl #2]
     mov r0, r5
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, #0x14
     bhs @L_0217cf08
     tst r0, #1

@@ -1,6 +1,6 @@
 #include "ov088/Unk_ov088_02174240.hpp"
 
-extern "C" void func_ov088_02174240(void);
+extern "C" void YuvToArgb(void);
 extern "C" void func_ov088_02174800(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_ov088_02174830(void);
 extern "C" s32 func_ov088_021748f8(s32 arg0);
@@ -36,7 +36,7 @@ extern "C" s32 func_ov088_021757d8(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_ov088_02175858(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov088_02175880(u8 *arg0);
 extern "C" void func_ov088_02175894(void);
-extern "C" void func_ov088_02175898(void);
+extern "C" void __Vx2Deblock(void);
 extern "C" void func_ov088_021759c8(void);
 extern "C" void func_ov088_02175bf4(void);
 
@@ -56,13 +56,13 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" void _ZN11MoviePlayer12FreeCallbackEPv(void);
 extern "C" void _ZN11MoviePlayer13AllocCallbackEm(void);
-extern "C" s32 func_02000b64(...);
-extern "C" s32 func_0200c974(...);
+extern "C" s32 OSi_ReferSymbol(...);
+extern "C" s32 FS_GetLength(...);
 extern "C" s32 func_0200c980(...);
 extern "C" void func_02175b00(void);
 extern "C" void func_02175cfc(void);
 
-extern "C" asm void func_ov088_02174240(void)
+extern "C" asm void YuvToArgb(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
     ldr r8, [r0, #0xc]
@@ -438,7 +438,7 @@ extern "C" asm void func_ov088_02174240(void)
 
 extern "C" void func_ov088_02174800(s32 arg0, s32 arg1, s32 arg2)
 {
-    func_02000b64(0x2000C64, arg1, arg2);
+    OSi_ReferSymbol(0x2000C64, arg1, arg2);
     func_ov088_02174a48(arg0, arg1, arg2);
 }
 
@@ -1328,7 +1328,7 @@ extern "C" asm s32 func_ov088_02175368(...)
     movne r0, #1
     strne r0, [sp, #0x20]
     add r0, sp, #0
-    bl func_ov088_02175898
+    bl __Vx2Deblock
     ldr r1, [r8, #0x68]
     ldr r0, [r8, #0x6c]
     str r1, [r8, #0x3c]
@@ -1346,7 +1346,7 @@ extern "C" asm s32 func_ov088_02175368(...)
     add r0, r8, #0x3c
     str r7, [r8, #0x44]
     str r1, [r8, #0x48]
-    bl func_ov088_02174240
+    bl YuvToArgb
     ldr r1, [r8, #0x9c]
     ldr r0, [r8, #0xc4]
     add r2, r1, #1
@@ -1482,7 +1482,7 @@ extern "C" void func_ov088_021756e0(void)
 extern "C" s32 func_ov088_021756ec(u8 *arg0, s32 arg1)
 {
     *(s32 *)(arg0 + 0xC) = arg1;
-    s32 v0 = func_0200c974(arg1, arg1);
+    s32 v0 = FS_GetLength(arg1, arg1);
     *(s32 *)(arg0 + 0x4) = v0;
     s32 v1 = func_0200c980(*(s32 *)(arg0 + 0xC));
     *(s32 *)(arg0 + 0x8) = v1;
@@ -1588,7 +1588,7 @@ extern "C" void func_ov088_02175894(void)
 {
 }
 
-extern "C" asm void func_ov088_02175898(void)
+extern "C" asm void __Vx2Deblock(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x18

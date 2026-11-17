@@ -1,5 +1,5 @@
-#ifndef GAME_UNKCLASS_0203DC7C_HPP
-#define GAME_UNKCLASS_0203DC7C_HPP
+#ifndef GAME_SCREENMANAGER_HPP
+#define GAME_SCREENMANAGER_HPP
 
 #include "nitro/types.h"
 #include "nitro/fs.h"
@@ -57,19 +57,19 @@ struct UnkStackEntry {
 
 
 // A base class with virtual functions (vtable data_020abe94); its subclasses follow it in the ROM
-class UnkClass_0203dc7c {
+class ScreenManager {
 public:
-    UnkClass_0203dc7c *func_0203dc7c();
+    ScreenManager *func_0203dc7c();
     void func_0203dc9c();
     int func_0203dcec(int a, int b);
     int func_0203dd74(int a);
-    int func_0203dde0(int which);
+    int Update(int which);
     int func_0203de48();
     int func_0203de50(int which);
     void func_0203de9c(UnkObject *object, UnkOverlayObject *list);
     void func_0203df08();
-    void func_0203df24();
-    void func_0203df40();
+    void FadeMainBlack();
+    void FadeSubBlack();
     int func_0203df5c(int a);
     int func_0203df80();
     int func_0203df88(int a);
@@ -79,21 +79,21 @@ public:
     int func_0203dffc();
     int func_0203e020();
     int func_0203e028();
-    void func_0203e04c(int index, int value);
+    void SetNextScene(int index, int value);
     void func_0203e090(int index, int value);
-    void func_0203e0cc(int index);
+    void PopScene(int index);
     void func_0203e114(int index, int arg);
-    int func_0203e18c();
-    int func_0203e1bc();
-    int func_0203e1ec();
-    int func_0203e1f4();
+    int GetCurSceneMain();
+    int GetNextSceneMain();
+    int GetLoadedSceneMain();
+    int GetCurSceneSub();
     int func_0203e224();
-    int func_0203e254();
+    int GetLoadedSceneSub();
     void func_0203e25c();
     BOOL func_0203e2b0(int value);
     void func_0203e2c4();
     void func_0203e2c8();
-    UnkClass_0203dc7c *func_0203e2cc();
+    ScreenManager *func_0203e2cc();
     void func_0203e2e0();
     void func_0203e2e4();
     void func_0203e2e8();
@@ -115,4 +115,4 @@ public:
 
 #define REG_POWCNT (*(volatile u16 *)0x04000304)
 
-#endif // GAME_UNKCLASS_0203DC7C_HPP
+#endif // GAME_SCREENMANAGER_HPP

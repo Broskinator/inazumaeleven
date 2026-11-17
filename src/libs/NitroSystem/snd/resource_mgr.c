@@ -6,7 +6,7 @@ void NNS_SndFreeAlarm(void);
 void NNSi_SndInitResourceMgr(void);
 
 void SND_UnlockChannel(void);
-extern char data_020c23ec[];
+extern char sCaptureLock[];
 
 asm void NNS_SndUnlockChannel(void)
 {
@@ -15,7 +15,7 @@ asm void NNS_SndUnlockChannel(void)
     ldmeqia sp!, {r4, pc}
     mov r1, #0
     bl SND_UnlockChannel
-    ldr r0, =data_020c23ec
+    ldr r0, =sCaptureLock
     mvn r1, r4
     ldr r2, [r0, #8]
     and r1, r2, r1
@@ -25,7 +25,7 @@ asm void NNS_SndUnlockChannel(void)
 
 asm void NNS_SndUnlockCapture(void)
 {
-    ldr r1, =data_020c23ec
+    ldr r1, =sCaptureLock
     mvn r0, r0
     ldr r2, [r1]
     and r0, r2, r0
@@ -35,7 +35,7 @@ asm void NNS_SndUnlockCapture(void)
 
 asm void NNS_SndFreeAlarm(void)
 {
-    ldr r1, =data_020c23ec
+    ldr r1, =sCaptureLock
     mov r2, #1
     mvn r0, r2, lsl r0
     ldr r2, [r1, #4]
@@ -46,7 +46,7 @@ asm void NNS_SndFreeAlarm(void)
 
 asm void NNSi_SndInitResourceMgr(void)
 {
-    ldr r0, =data_020c23ec
+    ldr r0, =sCaptureLock
     mov r1, #0
     str r1, [r0, #8]
     str r1, [r0]

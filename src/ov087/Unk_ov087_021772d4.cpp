@@ -69,9 +69,9 @@ extern "C" void func_01ffed20(void);
 extern "C" void func_01fff13c(void);
 extern "C" void func_01fff15c(void);
 extern "C" void func_01fff184(void);
-extern "C" void func_02001d60(void);
-extern "C" void func_02001d80(void);
-extern "C" void func_0200226c(void);
+extern "C" void FX_Div(void);
+extern "C" void FX_Sqrt(void);
+extern "C" void FX_Atan2Idx(void);
 extern "C" void _s32_div_f(void);
 extern "C" s32 func_02080b00(...);
 extern "C" s32 func_02080b38(...);
@@ -97,8 +97,8 @@ extern "C" void func_02084808(void);
 extern "C" void func_02084870(void);
 extern "C" void func_02084958(void);
 extern "C" void func_02084970(void);
-extern "C" void func_ov015_021309a4(void);
-extern "C" s32 func_ov015_021309f8(...);
+extern "C" void Random_RandA(void);
+extern "C" s32 Random_RandB(...);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_0213178c(void);
 extern "C" s32 func_ov015_02131854(...);
@@ -199,7 +199,7 @@ extern "C" asm void func_ov087_021773b4(void)
     ldr r0, [r6, #4]
     sub r1, r12, r3
     sub r0, r2, r0
-    bl func_0200226c
+    bl FX_Atan2Idx
     add r0, r0, #0x4000
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
@@ -455,7 +455,7 @@ extern "C" asm void func_ov087_02177634(void)
     mov r0, r5, asr #1
     cmp r1, #0
     rsblt r1, r1, #0
-    bl func_02001d60
+    bl FX_Div
     ldrh r1, [r9, #0x52]
     ldr r2, =FX_SinCosTable_
     mov r1, r1, asr #4
@@ -895,15 +895,15 @@ extern "C" asm void func_ov087_02177a10(void)
     orr r1, r1, r0, lsl #20
     mov r0, r12, asr #4
     add r0, r0, r1, asr #4
-    bl func_02001d80
+    bl FX_Sqrt
     mov r10, r0, lsl #2
     ldr r0, [sp, #8]
     mov r1, r10
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #8]
     ldr r0, [sp, #0xc]
     mov r1, r10
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0xc]
     b @L_02177e50
 @L_02177e30:
@@ -1999,7 +1999,7 @@ extern "C" asm void func_ov087_02178c34(void)
     ldr r1, [r4, #4]
     sub r0, r0, r2
     sub r1, r1, r2
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [r9, #0xe8]
     ldr r1, [r1, #4]
     str r1, [r4, #4]
@@ -2092,7 +2092,7 @@ extern "C" asm void func_ov087_02178c34(void)
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02178f80:
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     ldrb r1, [r4, #0x59]
     mov r6, r0
     mov r7, #0x28
@@ -2151,7 +2151,7 @@ extern "C" asm void func_ov087_02178c34(void)
     cmp r0, #0
     beq @L_02179088
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, #0x28
     bhs @L_02179088
     mov r0, r10
@@ -2508,7 +2508,7 @@ extern "C" asm void func_ov087_021790a4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02179574:
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r4, r0
     mov r0, r9
     bl func_02081438
@@ -2574,7 +2574,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0x14
     ble @L_02179688
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x5a
     b @L_02179748
@@ -2582,7 +2582,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0x12
     ble @L_021796a4
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x32
     b @L_02179748
@@ -2590,7 +2590,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0x10
     ble @L_021796c0
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x28
     b @L_02179748
@@ -2598,7 +2598,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0xe
     ble @L_021796dc
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x1e
     b @L_02179748
@@ -2606,7 +2606,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0xc
     ble @L_021796f8
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x14
     b @L_02179748
@@ -2614,7 +2614,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0xa
     ble @L_02179714
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0xa
     b @L_02179748
@@ -2622,7 +2622,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #8
     ble @L_02179730
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #8
     b @L_02179748
@@ -2630,7 +2630,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #6
     ble @L_0217974c
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #5
 @L_02179748:
@@ -2664,7 +2664,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0x14
     blt @L_021797c8
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x5a
     b @L_02179888
@@ -2672,7 +2672,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0x12
     blt @L_021797e4
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x32
     b @L_02179888
@@ -2680,7 +2680,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0x10
     blt @L_02179800
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x28
     b @L_02179888
@@ -2688,7 +2688,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0xe
     blt @L_0217981c
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x1e
     b @L_02179888
@@ -2696,7 +2696,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0xc
     blt @L_02179838
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0x14
     b @L_02179888
@@ -2704,7 +2704,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #0xa
     blt @L_02179854
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #0xa
     b @L_02179888
@@ -2712,7 +2712,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #8
     blt @L_02179870
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #8
     b @L_02179888
@@ -2720,7 +2720,7 @@ extern "C" asm void func_ov087_021795f8(void)
     cmp r0, #6
     blt @L_0217988c
     mov r0, #0x64
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r4, #1
     cmp r0, #5
 @L_02179888:
@@ -3340,7 +3340,7 @@ extern "C" s32 func_ov087_02179f54(s32 arg0, u8 *arg1, u8 *arg2, s32 arg3)
                                     if (*(s16 *)(arg2 + 0x94) < *(s16 *)(r7 + 0x94)) {
                                         return 1;
                                     } else {
-                                        v16 = func_ov015_021309f8(0x64, (s32)arg1);
+                                        v16 = Random_RandB(0x64, (s32)arg1);
                                         if ((u32)v16 < (u32)0x32) {
                                             r4 = 0;
                                         } else {

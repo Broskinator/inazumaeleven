@@ -2,100 +2,100 @@
 struct F021084b4 { u8 lo : 4; u8 hi : 4; };
 struct K021084b4 { u8 mode : 2; u8 rest : 6; };
 
-extern "C" s32 func_ov014_02105c64(...);
-extern "C" s32 func_ov014_02105d54(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_02105d94(void);
-extern "C" s32 func_ov014_02105da8(...);
-extern "C" s32 func_ov014_02105ef0(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_02105f24(void);
-extern "C" s32 func_ov014_02106018(s32 arg0);
-extern "C" void func_ov014_02106120(void);
-extern "C" BOOL func_ov014_02106490(void);
-extern "C" void func_ov014_021064e8(void);
-extern "C" void func_ov014_021065e4(void);
-extern "C" s32 func_ov014_0210664c(u8 *arg0);
-extern "C" s32 func_ov014_0210667c(...);
-extern "C" void func_ov014_02106924(void);
-extern "C" s32 func_ov014_02106958(u8 *arg0, u32 *arg1);
-extern "C" s32 func_ov014_021069f8(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02106a54(void);
-extern "C" s32 func_ov014_02106bd0(s32 arg0);
-extern "C" void func_ov014_02106be4(void);
-extern "C" s32 func_ov014_02106ecc(void);
-extern "C" s32 func_ov014_02106ed8(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_02106f5c(s32 arg0);
-extern "C" s32 func_ov014_02106f9c(s32 arg0);
-extern "C" s32 func_ov014_02107054(s32 arg0);
-extern "C" s32 func_ov014_0210708c(...);
-extern "C" s32 func_ov014_02107128(s32 arg0);
-extern "C" s32 func_ov014_021071d0(...);
-extern "C" s32 func_ov014_02107330(s32 arg0);
-extern "C" s32 func_ov014_021073cc(void);
-extern "C" s32 func_ov014_021073d4(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_02107450(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_021074e0(void);
-extern "C" void func_ov014_02107664(void);
-extern "C" void func_ov014_021076c4(void);
-extern "C" void func_ov014_02107748(void);
-extern "C" s32 func_ov014_02107934(u8 *arg0);
-extern "C" s32 func_ov014_021079c0(...);
-extern "C" s32 func_ov014_02107a40(void);
-extern "C" s32 func_ov014_02107ad4(void);
-extern "C" s32 func_ov014_02107b18(void);
-extern "C" s32 func_ov014_02107b58(...);
-extern "C" s32 func_ov014_02107c50(...);
-extern "C" void func_ov014_02107da8(void);
-extern "C" s32 func_ov014_02107f38(u8 *arg0);
-extern "C" s32 func_ov014_02107f54(u8 *arg0);
-extern "C" void func_ov014_02107f70(void);
-extern "C" void func_ov014_02108054(void);
-extern "C" void func_ov014_0210821c(void);
-extern "C" s32 func_ov014_02108308(void);
-extern "C" s32 func_ov014_02108374(void);
-extern "C" s32 func_ov014_021083a4(s32 arg0);
-extern "C" u8 func_ov014_021083fc(void);
-extern "C" s32 func_ov014_02108410(void);
-extern "C" s32 func_ov014_0210844c(...);
-extern "C" void func_ov014_021084b4(u8 *arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02108568(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_02108594(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_021085b0(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_021085f8(...);
-extern "C" s32 func_ov014_02108664(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_0210878c(...);
-extern "C" s32 func_ov014_021087d4(u8 arg0);
-extern "C" s32 func_ov014_02108834(...);
-extern "C" void func_ov014_02108854(s32 arg0);
-extern "C" s32 func_ov014_02108878(void);
-extern "C" s32 func_ov014_0210888c(s32 arg0);
-extern "C" s32 func_ov014_0210892c(s32 arg0);
-extern "C" s32 func_ov014_0210896c(s32 arg0);
-extern "C" void func_ov014_0210897c(void);
-extern "C" s32 func_ov014_021089b0(void);
-extern "C" s32 func_ov014_02108a50(void);
-extern "C" s32 func_ov014_02108a58(void);
-extern "C" s32 func_ov014_02108a60(...);
-extern "C" void func_ov014_02108ac4(s32 arg0);
-extern "C" void func_ov014_02108adc(void);
-extern "C" s32 func_ov014_02108af4(...);
-extern "C" s32 func_ov014_02108bb8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern "C" s32 func_ov014_02108c28(void);
+extern "C" s32 dacktimer_reschedule(...);
+extern "C" s32 dacktimer(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void dacktimer_alarmhandler(void);
+extern "C" s32 dhcp_setcommon(...);
+extern "C" s32 pad_mem(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void dhcp_send_discover(void);
+extern "C" s32 dhcp_send_request(s32 arg0);
+extern "C" void dhcp_analyze_response(void);
+extern "C" BOOL dhcp_discover_server(void);
+extern "C" void dhcp_request_server(void);
+extern "C" void dhcp_release_server(void);
+extern "C" s32 dns_skipname(u8 *arg0);
+extern "C" s32 resolve_common(...);
+extern "C" void strtol10(void);
+extern "C" s32 rawip(u8 *arg0, u32 *arg1);
+extern "C" s32 resolve_sub(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void CPS_Resolve(void);
+extern "C" s32 WDSGetRssi8(s32 arg0);
+extern "C" void WDSScanCallback(void);
+extern "C" s32 WDS_GetWorkAreaSize(void);
+extern "C" s32 WDS_Initialize(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 WDS_End(s32 arg0);
+extern "C" s32 WDS_StartScan(s32 arg0);
+extern "C" s32 WDS_EndScan(s32 arg0);
+extern "C" s32 WDS_GetApInfoByIndex(...);
+extern "C" s32 WDS_GetApInfoAll(s32 arg0);
+extern "C" s32 DWCi_AC_GetBeacon(...);
+extern "C" s32 DWCi_AC_CheckNintendoSSID(s32 arg0);
+extern "C" s32 DWCi_AC_IsSupportWPA(void);
+extern "C" s32 CompareList(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 CompareListDiff(u8 *arg0, s32 arg1);
+extern "C" void AddList(void);
+extern "C" void SetDataListTail(void);
+extern "C" void UpDateList(void);
+extern "C" void SortList(void);
+extern "C" s32 DWCi_AC_CallBackWCM(u8 *arg0);
+extern "C" s32 DWCi_AC_CloseNetwork(...);
+extern "C" s32 DisConnectAP(void);
+extern "C" s32 CloseSocket(void);
+extern "C" s32 DWCi_AC_ConnectAP(void);
+extern "C" s32 ConnectStart(...);
+extern "C" s32 ConnectAP(...);
+extern "C" void GetConnectType(void);
+extern "C" s32 GetPowerMode(u8 *arg0);
+extern "C" s32 GetAuthMode(u8 *arg0);
+extern "C" void GetWepKey(void);
+extern "C" void DWC_AC_Create(void);
+extern "C" void DWC_AC_Process(void);
+extern "C" s32 DWC_AC_GetStatus(void);
+extern "C" s32 DWC_AC_GetApType(void);
+extern "C" s32 DWC_AC_GetApSpotInfo(s32 arg0);
+extern "C" u8 DWC_AC_GetSecuritySetting(void);
+extern "C" s32 DWC_AC_Destroy(void);
+extern "C" s32 DWC_AC_SetSpecifyApEx(...);
+extern "C" void DWC_AC_SetSpecifyAp(u8 *arg0, s32 arg1, s32 arg2);
+extern "C" void DWCi_AC_InsertApInfo(s32 arg0, s32 arg1);
+extern "C" s32 DWCi_AC_InvalidatePriorityWPA(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 DWCi_AC_Alloc(s32 arg0, s32 arg1);
+extern "C" s32 DWCi_AC_Free(...);
+extern "C" s32 DWCi_AC_FreeAll(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 DWCi_AC_GetMemPtr(...);
+extern "C" s32 DWCi_AC_SetPhase(u8 arg0);
+extern "C" s32 DWCi_AC_GetPhase(...);
+extern "C" void DWCi_AC_SetError(s32 arg0);
+extern "C" s32 DWCi_AC_GetError(void);
+extern "C" s32 DWCi_AC_SetApType(s32 arg0);
+extern "C" s32 DWCi_AC_CopyExSetting(s32 arg0);
+extern "C" s32 DWCi_ConvConnectAPType(s32 arg0);
+extern "C" void Free_Disused(void);
+extern "C" s32 CheckDuplicate(void);
+extern "C" s32 CheckEULA(void);
+extern "C" s32 CheckWirelessPowerON(void);
+extern "C" s32 DWC_InitInetEx(...);
+extern "C" void DWC_InitInet(s32 arg0);
+extern "C" void DWC_SetRwinSize(void);
+extern "C" s32 DWC_ConnectInetAsync(...);
+extern "C" s32 DWC_DebugConnectInetExAsync(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
+extern "C" s32 DWC_CheckInet(void);
 
-extern "C" char data_020bb120[];
+extern "C" char OSi_ThreadInfo[];
 extern "C" char data_ov014_02123d8c[];
 extern "C" char data_ov014_02124788[];
 extern "C" char data_ov014_021247b8[];
-extern "C" char data_ov014_02125e3c[];
+extern "C" char SOCLiConfigPtr[];
 extern "C" char data_ov014_02126ac8[];
-extern "C" char data_ov014_02126b30[];
-extern "C" char data_ov014_02126b38[];
+extern "C" char CPSMyMac[];
+extern "C" char CPSDnsIp[];
 extern "C" char data_ov014_02126b58[];
 extern "C" char data_ov014_02126d80[];
 extern "C" char data_ov014_02126e40[];
 extern "C" char data_ov014_02126fea[];
-extern "C" char data_ov014_02128c80[];
-extern "C" char data_ov014_02128c84[];
-extern "C" char data_ov014_02128c98[];
+extern "C" char gWdsWork[];
+extern "C" char wcmBuffer[];
+extern "C" char _ZZ17DWC_GetInetStatusvE8stateOld[];
 extern "C" s32 DC_InvalidateRange(...);
 extern "C" void MATH_CalcCRC16(void);
 extern "C" s32 MATHi_CRC16InitTableRev(...);
@@ -111,68 +111,68 @@ extern "C" void OS_RestoreInterrupts(void);
 extern "C" void OS_Sleep(void);
 extern "C" s32 OS_SleepThread(...);
 extern "C" s32 OS_WakeupThreadDirect(...);
-extern "C" void func_02007d68(void);
-extern "C" void func_0200919c(void);
-extern "C" void func_020095c4(void);
+extern "C" void OS_SetAlarm(void);
+extern "C" void MIi_CpuClear32(void);
+extern "C" void MI_CpuCopy(void);
 extern "C" void func_020131c0(void);
-extern "C" void func_02013308(void);
+extern "C" void WM_GetDispersionScanPeriod(void);
 extern "C" s32 func_020136b4(...);
-extern "C" s32 func_02013768(...);
-extern "C" void func_02013994(void);
-extern "C" s32 func_02013ae4(...);
-extern "C" void func_0209d524(void);
-extern "C" void func_0209d5a4(void);
-extern "C" void func_ov014_0210157c(void);
-extern "C" void func_ov014_02101ab4(void);
-extern "C" void func_ov014_02101ba8(void);
-extern "C" void func_ov014_02101f78(void);
-extern "C" void func_ov014_0210214c(void);
-extern "C" void func_ov014_021035f0(void);
-extern "C" s32 func_ov014_02104c2c(...);
-extern "C" s32 func_ov014_02104c54(...);
-extern "C" s32 func_ov014_02104cb4(...);
-extern "C" s32 func_ov014_02104d00(...);
-extern "C" void func_ov014_02105054(void);
-extern "C" void func_ov014_02105208(void);
-extern "C" s32 func_ov014_02105614(...);
-extern "C" void func_ov014_021056a8(void);
-extern "C" s32 func_ov014_02108dbc(...);
-extern "C" void func_ov014_0210930c(void);
-extern "C" s32 func_ov014_02109330(...);
-extern "C" void func_ov014_021095f0(void);
-extern "C" void func_ov014_02109644(void);
-extern "C" void func_ov014_02109e00(void);
-extern "C" void func_ov014_02109ed4(void);
-extern "C" void func_ov014_02109ff8(void);
-extern "C" s32 func_ov014_0210a9e8(...);
-extern "C" s32 func_ov014_0210aa50(...);
-extern "C" s32 func_ov014_0210aaa0(...);
-extern "C" void func_ov014_0210af94(void);
-extern "C" void func_ov014_0210b01c(void);
-extern "C" void func_ov014_0210dd00(void);
-extern "C" void func_ov014_0210ddd0(void);
-extern "C" void func_ov014_0210f1f8(void);
-extern "C" void func_ov014_02110be4(void);
-extern "C" void func_ov014_02110d34(void);
-extern "C" void func_ov014_02110d78(void);
-extern "C" s32 func_ov014_0211b070(...);
-extern "C" s32 func_ov014_0211bcb4(...);
-extern "C" void func_ov014_0211c1f8(void);
-extern "C" void func_ov014_02120ed0(void);
-extern "C" void func_ov014_02121370(void);
-extern "C" void func_ov014_02121700(void);
-extern "C" void func_ov014_02122040(void);
-extern "C" s32 func_ov014_021222b4(...);
+extern "C" s32 WM_End(...);
+extern "C" void WM_StartScanEx(void);
+extern "C" s32 WM_EndScan(...);
+extern "C" void CRYPTO_RC4Init(void);
+extern "C" void CRYPTO_RC4Encrypt(void);
+extern "C" void OS_YieldThread__(void);
+extern "C" void get_targetip(void);
+extern "C" void maccmp(void);
+extern "C" void inq_arpcache(void);
+extern "C" void arprequest(void);
+extern "C" void _tcp_send_ack(void);
+extern "C" s32 CPS_SocDatagramMode(...);
+extern "C" s32 CPS_SocBind(...);
+extern "C" s32 CPS_SocUse(...);
+extern "C" s32 CPS_SocRelease(...);
+extern "C" void CPS_SocRead(void);
+extern "C" void CPS_SocConsume(void);
+extern "C" s32 CPS_SocWrite(...);
+extern "C" void CPS_SocGetLength(void);
+extern "C" s32 DWC_GetInetStatus(...);
+extern "C" void DWCi_AC_Error(void);
+extern "C" s32 DWCi_AC_GetResult(...);
+extern "C" void DWCi_AC_CheckFreespot(void);
+extern "C" void DWCi_AC_GetSearchListNum(void);
+extern "C" void DWCi_AC_ConnectRetryAP(void);
+extern "C" void DWCi_AC_SearchAP(void);
+extern "C" void DWCi_AC_SetStealthChannel(void);
+extern "C" s32 DWCi_AC_CheckNintendoShopAP(...);
+extern "C" s32 DWCi_AC_GetPostalCode(...);
+extern "C" s32 DWCi_AC_CheckNintendoUsbAP(...);
+extern "C" void DWCi_AC_Start(void);
+extern "C" void DWCi_AC_ConnectTest(void);
+extern "C" void DWC_Netcheck_Destroy(void);
+extern "C" void DWC_Netcheck_Abort(void);
+extern "C" void DWCi_BM_GetApInfo(void);
+extern "C" void DWCi_SetError(void);
+extern "C" void DWC_Alloc(void);
+extern "C" void DWC_Free(void);
+extern "C" s32 SOCL_CalmDown(...);
+extern "C" s32 SOC_Cleanup(...);
+extern "C" void CPS_SetSslHandshakePriority(void);
+extern "C" void WCM_Init(void);
+extern "C" void WCM_ConnectAsync(void);
+extern "C" void WCM_GetPhase(void);
+extern "C" void WCMi_BssDescCopy(void);
+extern "C" s32 WCM_GetApEssid(...);
 extern "C" s32 strncmp(...);
 
-extern "C" void func_ov014_0212104c(void);
-extern "C" void func_ov014_021211a8(void);
-extern "C" void func_ov014_021212d0(void);
-extern "C" void func_ov014_02121520(void);
-extern "C" void func_ov014_021215e4(void);
-extern "C" void func_ov014_0210aac4(void);
-extern "C" void func_ov014_0210aa24(void);
-extern "C" asm s32 func_ov014_02105c64(...)
+extern "C" void WCM_Finish(void);
+extern "C" void WCM_CleanupAsync(void);
+extern "C" void WCM_EndSearchAsync(void);
+extern "C" void WCM_DisconnectAsync(void);
+extern "C" void WCM_TerminateAsync(void);
+extern "C" void DWCi_AC_GetNintendoUSBWepKey(void);
+extern "C" void DWCi_AC_GetNintendoShopWepKey(void);
+extern "C" asm s32 dacktimer_reschedule(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
@@ -180,7 +180,7 @@ extern "C" asm s32 func_ov014_02105c64(...)
     bl OS_DisableInterrupts
     mov r7, r0
     bl OS_GetTick
-    ldr r1, =data_020bb120
+    ldr r1, =OSi_ThreadInfo
     mov r8, r0
     ldr r6, [r1, #8]
     cmp r6, #0
@@ -205,7 +205,7 @@ extern "C" asm s32 func_ov014_02105c64(...)
     cmp r2, r10
     blo @L_02105ce4
     mov r1, r4
-    bl func_ov014_021035f0
+    bl _tcp_send_ack
     b @L_02105cf8
 @L_02105ce4:
     subs r1, r10, r2
@@ -224,12 +224,12 @@ extern "C" asm s32 func_ov014_02105c64(...)
     mov r0, r6
     bl OS_CancelAlarm
     mov r4, #0
-    ldr r3, =func_ov014_02105d94
+    ldr r3, =dacktimer_alarmhandler
     mov r0, r6
     mov r1, r5
     mov r2, #0
     str r4, [sp]
-    bl func_02007d68
+    bl OS_SetAlarm
 @L_02105d34:
     mov r0, r7
     bl OS_RestoreInterrupts
@@ -237,7 +237,7 @@ extern "C" asm s32 func_ov014_02105c64(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" s32 func_ov014_02105d54(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 dacktimer(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     s32 r5;
@@ -248,7 +248,7 @@ extern "C" s32 func_ov014_02105d54(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     r4 = 0;
     r5 = (s32)data_ov014_02126e40;
     do {
-        func_ov014_02105c64();
+        dacktimer_reschedule();
         OS_SleepThread(r4);
         s32 v3 = OS_IsThreadTerminated(r5);
         arg0 = v3;
@@ -256,12 +256,12 @@ extern "C" s32 func_ov014_02105d54(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return arg0;
 }
 
-extern "C" void func_ov014_02105d94(void)
+extern "C" void dacktimer_alarmhandler(void)
 {
     OS_WakeupThreadDirect((s32)data_ov014_02126d80);
 }
 
-extern "C" asm s32 func_ov014_02105da8(...)
+extern "C" asm s32 dhcp_setcommon(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r6, #0xec
@@ -276,7 +276,7 @@ extern "C" asm s32 func_ov014_02105da8(...)
     strh r0, [r8]
     strb r5, [r8, #2]
     ldr r0, [r3, #0x30]
-    ldr r4, =data_ov014_02126b30
+    ldr r4, =CPSMyMac
     mov r0, r0, lsr #0x10
     mov r0, r0, lsl #0x10
     mov r1, r0, lsr #0x10
@@ -305,7 +305,7 @@ extern "C" asm s32 func_ov014_02105da8(...)
     mov r3, r12, lsl #8
     orr r3, r3, r12, asr #8
     strh r3, [r8, #0xe]
-    bl func_020095c4
+    bl MI_CpuCopy
     ldr r0, =0x8263
     ldr r2, =0x6353
     strh r0, [r8, #0xec]
@@ -322,14 +322,14 @@ extern "C" asm s32 func_ov014_02105da8(...)
     add r1, r8, #0xf6
     strb r3, [r8, #0xf4]
     strb r6, [r8, #0xf5]
-    bl func_020095c4
+    bl MI_CpuCopy
     mov r0, #0xc
     strb r0, [r8, #0xfc]
     mov r2, #0xa
     strb r2, [r8, #0xfd]
     ldr r0, =data_ov014_021247b8
     add r1, r8, #0xfe
-    bl func_020095c4
+    bl MI_CpuCopy
     strb r6, [r8, #0x10a]
     mov r1, #3
     strb r5, [r8, #0x10c]
@@ -342,7 +342,7 @@ extern "C" asm s32 func_ov014_02105da8(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" s32 func_ov014_02105ef0(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 pad_mem(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r5;
     s32 r12;
@@ -355,7 +355,7 @@ extern "C" s32 func_ov014_02105ef0(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return r5;
 }
 
-extern "C" asm void func_ov014_02105f24(void)
+extern "C" asm void dhcp_send_discover(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r5, =data_ov014_02126ac8
@@ -376,7 +376,7 @@ extern "C" asm void func_ov014_02105f24(void)
     mov r0, r4
     str r1, [r5, #0x30]
     mov r1, #1
-    bl func_ov014_02105da8
+    bl dhcp_setcommon
     ldr r1, [r5, #0x38]
     mov r12, r0
     cmp r1, #0
@@ -409,17 +409,17 @@ extern "C" asm void func_ov014_02105f24(void)
     mov r0, #0
     mov r1, #0x12c
     strb r5, [r12]
-    bl func_ov014_02105ef0
+    bl pad_mem
     mov r1, r0
     mov r0, r4
     sub r1, r1, r4
-    bl func_ov014_02105614
+    bl CPS_SocWrite
     ldr r0, =data_ov014_02126ac8
     ldr r0, [r0, #0x30]
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_02106018(s32 arg0)
+extern "C" s32 dhcp_send_request(s32 arg0)
 {
     s32 r4;
     u8 *r12;
@@ -433,7 +433,7 @@ extern "C" s32 func_ov014_02106018(s32 arg0)
     s32 t5;
     s32 t6;
     s32 t7;
-    v0 = func_ov014_02105da8((s32)((u8 *)&data_ov014_02126fea), 3);
+    v0 = dhcp_setcommon((s32)((u8 *)&data_ov014_02126fea), 3);
     r4 = (s32)((u8 *)&data_ov014_02126fea);
     r12 = (u8 *)v0;
     if (arg0 == 0) {
@@ -460,12 +460,12 @@ extern "C" s32 func_ov014_02106018(s32 arg0)
         r12 = (u8 *)(r12 + 0xC);
     }
     *(u8 *)(r12) = 0xFF;
-    v1 = func_ov014_02105ef0(0, 0x12C, (s32)(r12 + 1), (s32)((r12 + 1) - r4));
-    func_ov014_02105614(r4, (v1 - r4));
+    v1 = pad_mem(0, 0x12C, (s32)(r12 + 1), (s32)((r12 + 1) - r4));
+    CPS_SocWrite(r4, (v1 - r4));
     return *(s32 *)(((u8 *)&data_ov014_02126ac8) + 0x30);
 }
 
-extern "C" asm void func_ov014_02106120(void)
+extern "C" asm void dhcp_analyze_response(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -480,14 +480,14 @@ extern "C" asm void func_ov014_02106120(void)
     mov r4, #0
     b @L_02106440
 @L_02106150:
-    bl func_ov014_021056a8
+    bl CPS_SocGetLength
     cmp r0, #0
     bne @L_02106164
-    bl func_ov014_0210157c
+    bl OS_YieldThread__
     b @L_02106440
 @L_02106164:
     add r0, sp, #8
-    bl func_ov014_02105054
+    bl CPS_SocRead
     ldr r1, [sp, #8]
     mov r5, r0
     cmp r1, #0xf0
@@ -509,9 +509,9 @@ extern "C" asm void func_ov014_02106120(void)
     ldr r0, [sp]
     cmp r0, r1
     bne @L_02106438
-    ldr r1, =data_ov014_02126b30
+    ldr r1, =CPSMyMac
     add r0, r5, #0x1c
-    bl func_ov014_02101ba8
+    bl maccmp
     cmp r0, #0
     bne @L_02106438
     ldrb r3, [r5, #0x10]
@@ -682,7 +682,7 @@ extern "C" asm void func_ov014_02106120(void)
     bne @L_02106250
 @L_02106438:
     ldr r0, [sp, #8]
-    bl func_ov014_02105208
+    bl CPS_SocConsume
 @L_02106440:
     ldr r0, =data_ov014_02126ac8
     ldr r0, [r0, #0x18]
@@ -704,29 +704,29 @@ extern "C" asm void func_ov014_02106120(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" BOOL func_ov014_02106490(void)
+extern "C" BOOL dhcp_discover_server(void)
 {
     s32 r;
     s32 i;
-    ((void (*)(void))func_ov014_02104cb4)();
-    ((void (*)(void))func_ov014_02104c2c)();
-    func_ov014_02104c54(0x44, 0x43, -1);
+    ((void (*)(void))CPS_SocUse)();
+    ((void (*)(void))CPS_SocDatagramMode)();
+    CPS_SocBind(0x44, 0x43, -1);
     for (i = 0; i < 5; i++) {
-        r = ((s32 (*)(s32, s32))func_ov014_02106120)(((s32 (*)(void))func_ov014_02105f24)(), i);
+        r = ((s32 (*)(s32, s32))dhcp_analyze_response)(((s32 (*)(void))dhcp_send_discover)(), i);
         if (r == 1)
             break;
     }
-    ((void (*)(void))func_ov014_02104d00)();
+    ((void (*)(void))CPS_SocRelease)();
     return r == 1 ? TRUE : FALSE;
 }
 
-extern "C" asm void func_ov014_021064e8(void)
+extern "C" asm void dhcp_request_server(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, r1
     mov r5, r0
-    bl func_ov014_02104cb4
-    bl func_ov014_02104c2c
+    bl CPS_SocUse
+    bl CPS_SocDatagramMode
     cmp r4, #1
     mov r0, #0x44
     bne @L_02106518
@@ -738,13 +738,13 @@ extern "C" asm void func_ov014_021064e8(void)
     mov r1, #0x43
     sub r2, r1, #0x44
 @L_02106520:
-    bl func_ov014_02104c54
+    bl CPS_SocBind
     mov r7, #0
 @L_02106528:
     mov r0, r4
-    bl func_ov014_02106018
+    bl dhcp_send_request
     mov r1, r7
-    bl func_ov014_02106120
+    bl dhcp_analyze_response
     movs r6, r0
     cmpne r6, #1
     bne @L_02106550
@@ -752,7 +752,7 @@ extern "C" asm void func_ov014_021064e8(void)
     cmp r7, #5
     blt @L_02106528
 @L_02106550:
-    bl func_ov014_02104d00
+    bl CPS_SocRelease
     cmp r6, #2
     bne @L_02106584
     ldr r1, =data_ov014_02126ac8
@@ -794,21 +794,21 @@ extern "C" asm void func_ov014_021064e8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_ov014_021065e4(void)
+extern "C" void dhcp_release_server(void)
 {
     u8 *p;
     u8 *e;
-    ((void (*)(void))func_ov014_02104cb4)();
-    ((void (*)(void))func_ov014_02104c2c)();
-    func_ov014_02104c54(0x44, 0x43, *(s32 *)(data_ov014_02126ac8 + 0x1C));
-    p = (u8 *)func_ov014_02105da8((u8 *)data_ov014_02126fea, 7);
+    ((void (*)(void))CPS_SocUse)();
+    ((void (*)(void))CPS_SocDatagramMode)();
+    CPS_SocBind(0x44, 0x43, *(s32 *)(data_ov014_02126ac8 + 0x1C));
+    p = (u8 *)dhcp_setcommon((u8 *)data_ov014_02126fea, 7);
     *p = 0xFF;
-    e = (u8 *)func_ov014_02105ef0(0, 0x12C, (s32)(p + 1), (p + 1) - (u8 *)data_ov014_02126fea);
-    ((void (*)(void *, s32))func_ov014_02105614)(data_ov014_02126fea, e - (u8 *)data_ov014_02126fea);
-    ((void (*)(void))func_ov014_02104d00)();
+    e = (u8 *)pad_mem(0, 0x12C, (s32)(p + 1), (p + 1) - (u8 *)data_ov014_02126fea);
+    ((void (*)(void *, s32))CPS_SocWrite)(data_ov014_02126fea, e - (u8 *)data_ov014_02126fea);
+    ((void (*)(void))CPS_SocRelease)();
 }
 
-extern "C" s32 func_ov014_0210664c(u8 *arg0)
+extern "C" s32 dns_skipname(u8 *arg0)
 {
     s32 r0;
     s32 r2;
@@ -830,7 +830,7 @@ extern "C" s32 func_ov014_0210664c(u8 *arg0)
     return r0;
 }
 
-extern "C" asm s32 func_ov014_0210667c(...)
+extern "C" asm s32 resolve_common(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x48
@@ -898,13 +898,13 @@ extern "C" asm s32 func_ov014_0210667c(...)
     mov r3, #1
     sub r1, r1, r0
     strb r3, [r2, #4]
-    bl func_ov014_02105614
+    bl CPS_SocWrite
     bl OS_GetTick
     mov r5, r0, lsr #0x10
     orr r5, r5, r1, lsl #16
     b @L_021068dc
 @L_0210678c:
-    bl func_ov014_021056a8
+    bl CPS_SocGetLength
     cmp r0, #0
     bne @L_021067a4
     mov r0, #0xa
@@ -912,7 +912,7 @@ extern "C" asm s32 func_ov014_0210667c(...)
     b @L_021068dc
 @L_021067a4:
     add r0, sp, #0
-    bl func_ov014_02105054
+    bl CPS_SocRead
     ldr r1, [sp]
     cmp r1, #0xc
     bls @L_021068d4
@@ -939,7 +939,7 @@ extern "C" asm s32 func_ov014_0210667c(...)
     sub r7, r1, #1
     beq @L_02106824
 @L_02106810:
-    bl func_ov014_0210664c
+    bl dns_skipname
     cmp r7, #0
     add r0, r0, #4
     sub r7, r7, #1
@@ -948,7 +948,7 @@ extern "C" asm s32 func_ov014_0210667c(...)
     cmp r0, r6
     bhs @L_021068d4
 @L_0210682c:
-    bl func_ov014_0210664c
+    bl dns_skipname
     ldrb r7, [r0, #8]
     ldrb r1, [r0, #9]
     ldrb r3, [r0]
@@ -984,7 +984,7 @@ extern "C" asm s32 func_ov014_0210667c(...)
     bhi @L_021068d4
     mov r1, r11
     add r0, r0, #0xa
-    bl func_020095c4
+    bl MI_CpuCopy
     mov r4, #1
     b @L_021068d4
 @L_021068c4:
@@ -994,7 +994,7 @@ extern "C" asm s32 func_ov014_0210667c(...)
     blo @L_0210682c
 @L_021068d4:
     ldr r0, [sp]
-    bl func_ov014_02105208
+    bl CPS_SocConsume
 @L_021068dc:
     ldr r0, =data_ov014_02126ac8
     ldr r0, [r0, #0x18]
@@ -1015,7 +1015,7 @@ extern "C" asm s32 func_ov014_0210667c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02106924(void)
+extern "C" asm void strtol10(void)
 {
     str r0, [r1]
     mov r12, #0
@@ -1033,13 +1033,13 @@ extern "C" asm void func_ov014_02106924(void)
     bx lr
 }
 
-extern "C" s32 func_ov014_02106958(u8 *arg0, u32 *arg1)
+extern "C" s32 rawip(u8 *arg0, u32 *arg1)
 {
     u32 r = 0;
     s32 i;
     u8 *end;
     for (i = 0; i < 4; i++) {
-        u32 v = ((s32 (*)(...))func_ov014_02106924)(arg0, &end);
+        u32 v = ((s32 (*)(...))strtol10)(arg0, &end);
         if (arg0 == end)
             return 0;
         arg0 = end;
@@ -1051,22 +1051,22 @@ extern "C" s32 func_ov014_02106958(u8 *arg0, u32 *arg1)
     return 1;
 }
 
-extern "C" s32 func_ov014_021069f8(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 resolve_sub(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 v3;
     if (arg1 == 0) {
         return -1;
     } else {
-        func_ov014_02104cb4();
-        func_ov014_02104c2c();
-        func_ov014_02104c54(0, 0x35, arg1);
-        v3 = func_ov014_0210667c(arg0, 1, arg2, 0, 0);
-        func_ov014_02104d00();
+        CPS_SocUse();
+        CPS_SocDatagramMode();
+        CPS_SocBind(0, 0x35, arg1);
+        v3 = resolve_common(arg0, 1, arg2, 0, 0);
+        CPS_SocRelease();
         return v3;
     }
 }
 
-extern "C" asm void func_ov014_02106a54(void)
+extern "C" asm void CPS_Resolve(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -1103,13 +1103,13 @@ extern "C" asm void func_ov014_02106a54(void)
     str r4, [r2, #0x7c]
     strh r7, [sp, #6]
     strh r3, [sp, #8]
-    bl func_ov014_02106958
+    bl rawip
     cmp r0, #0
     ldrne r0, [sp, #0xc]
     addne sp, sp, #0x10
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, #1
-    ldr r6, =data_ov014_02126b38
+    ldr r6, =CPSDnsIp
     strb r0, [sp, #4]
     strb r0, [sp, #5]
     mov r8, r5
@@ -1125,18 +1125,18 @@ extern "C" asm void func_ov014_02106a54(void)
     ldr r0, [r6, r9, lsl #2]
     cmp r0, #0
     beq @L_02106b3c
-    bl func_ov014_02101ab4
+    bl get_targetip
     movs r5, r0
     bne @L_02106b44
 @L_02106b3c:
     strb r8, [r7, r9]
     b @L_02106b94
 @L_02106b44:
-    bl func_ov014_02101f78
+    bl inq_arpcache
     cmp r0, #0
     bne @L_02106b64
     mov r0, r5
-    bl func_ov014_0210214c
+    bl arprequest
     cmp r0, #0
     streqb r8, [r7, r9]
     beq @L_02106b94
@@ -1145,7 +1145,7 @@ extern "C" asm void func_ov014_02106a54(void)
     ldrh r2, [r11, r0]
     ldr r1, [r6, r9, lsl #2]
     mov r0, r10
-    bl func_ov014_021069f8
+    bl resolve_sub
     str r0, [sp, #0xc]
     cmp r0, #0
     beq @L_02106b8c
@@ -1171,16 +1171,16 @@ extern "C" asm void func_ov014_02106a54(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02106bd0(s32 arg0)
+extern "C" s32 WDSGetRssi8(s32 arg0)
 {
     return (((arg0 & 2) == 0 ? ((arg0 >> 2) + 0x19) : (arg0 >> 2)) & 0xFF);
 }
 
-extern "C" asm void func_ov014_02106be4(void)
+extern "C" asm void WDSScanCallback(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #8
-    ldr r7, =data_ov014_02128c80
+    ldr r7, =gWdsWork
     mov r6, r0
     ldr r0, [r7]
     mov r1, #0x400
@@ -1256,7 +1256,7 @@ extern "C" asm void func_ov014_02106be4(void)
     add r0, r0, #0x96
     mov r2, #8
     add r0, r0, #0x1c00
-    bl func_0209d524
+    bl CRYPTO_RC4Init
     ldr r3, [r7]
     mov r2, r4
     add r0, r3, #0x348
@@ -1268,7 +1268,7 @@ extern "C" asm void func_ov014_02106be4(void)
     add r1, r8, r3
     add r0, r0, #0x1c00
     add r3, r8, r3
-    bl func_0209d5a4
+    bl CRYPTO_RC4Encrypt
     ldr r2, [r7]
     mov r8, #0x6e
     add r0, r2, #0x348
@@ -1311,10 +1311,10 @@ extern "C" asm void func_ov014_02106be4(void)
     ldr r0, [r0, #0x10]
     ldrh r0, [r0, #2]
     and r0, r0, #0xff
-    bl func_ov014_02106bd0
+    bl WDSGetRssi8
     add r1, r8, #0x1000
     ldr r1, [r1, #0xa8c]
-    ldr r3, =data_ov014_02128c80
+    ldr r3, =gWdsWork
     add r1, r8, r1, lsl #1
     add r1, r1, #0x1a00
     strh r0, [r1, #0x48]
@@ -1352,7 +1352,7 @@ extern "C" asm void func_ov014_02106be4(void)
     cmp r5, r0
     blo @L_02106c28
 @L_02106e84:
-    ldr r1, =data_ov014_02128c80
+    ldr r1, =gWdsWork
     mov r2, #2
     ldr r0, [r1]
     add r0, r0, #0x1000
@@ -1369,12 +1369,12 @@ extern "C" asm void func_ov014_02106be4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" s32 func_ov014_02106ecc(void)
+extern "C" s32 WDS_GetWorkAreaSize(void)
 {
     return 0x1DA0;
 }
 
-extern "C" s32 func_ov014_02106ed8(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 WDS_Initialize(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 r4;
     s32 r5;
@@ -1391,17 +1391,17 @@ extern "C" s32 func_ov014_02106ed8(s32 arg0, s32 arg1, s32 arg2)
     if (r6 == 0) {
         return -1;
     } else {
-        *(s32 *)(data_ov014_02128c80) = arg0;
-        v0 = func_ov014_02106ecc();
-        t0 = *(s32 *)(data_ov014_02128c80);
+        *(s32 *)(gWdsWork) = arg0;
+        v0 = WDS_GetWorkAreaSize();
+        t0 = *(s32 *)(gWdsWork);
         MI_CpuFill8(t0, 0, v0);
-        t1 = (u8 *)(*(s32 *)(data_ov014_02128c80) + 0x1000);
+        t1 = (u8 *)(*(s32 *)(gWdsWork) + 0x1000);
         *(s32 *)(t1 + 0xA90) = 0;
-        t2 = (u8 *)(*(s32 *)(data_ov014_02128c80) + 0x1A00);
+        t2 = (u8 *)(*(s32 *)(gWdsWork) + 0x1A00);
         *(u16 *)(t2 + 0x94) = 0;
-        t3 = ((*(s32 *)(data_ov014_02128c80) + 0x96) + 0x1A00);
+        t3 = ((*(s32 *)(gWdsWork) + 0x96) + 0x1A00);
         MATHi_CRC16InitTableRev(t3, 0xA001);
-        t4 = *(s32 *)(data_ov014_02128c80);
+        t4 = *(s32 *)(gWdsWork);
         v3 = func_020136b4(t4, arg1, arg2);
         arg0 = v3;
         r4 = 0;
@@ -1412,7 +1412,7 @@ extern "C" s32 func_ov014_02106ed8(s32 arg0, s32 arg1, s32 arg2)
     }
 }
 
-extern "C" s32 func_ov014_02106f5c(s32 arg0)
+extern "C" s32 WDS_End(s32 arg0)
 {
     s32 r4;
     s32 v0;
@@ -1420,10 +1420,10 @@ extern "C" s32 func_ov014_02106f5c(s32 arg0)
     if (arg0 == 0) {
         return -1;
     } else {
-        t0 = (u8 *)(*(s32 *)(data_ov014_02128c80) + 0x1000);
+        t0 = (u8 *)(*(s32 *)(gWdsWork) + 0x1000);
         *(s32 *)(t0 + 0xA90) = 3;
-        *(s32 *)(data_ov014_02128c80) = 0;
-        v0 = func_02013768(arg0, (s32)t0, (s32)data_ov014_02128c80, 3);
+        *(s32 *)(gWdsWork) = 0;
+        v0 = WM_End(arg0, (s32)t0, (s32)gWdsWork, 3);
         arg0 = v0;
         r4 = 0;
         if (arg0 == 2) {
@@ -1433,41 +1433,41 @@ extern "C" s32 func_ov014_02106f5c(s32 arg0)
     }
 }
 
-extern "C" s32 func_ov014_02106f9c(s32 arg0)
+extern "C" s32 WDS_StartScan(s32 arg0)
 {
     s32 r;
     if (arg0 == 0)
         return -1;
-    *(u8 **)(*(u8 **)data_ov014_02128c80 + 0x1300) = *(u8 **)data_ov014_02128c80 + 0xF00;
-    *(u16 *)(*(u8 **)data_ov014_02128c80 + 0x1304) = 0x400;
-    *(u16 *)(*(u8 **)data_ov014_02128c80 + 0x1306) = ((s32 (*)(...))func_020131c0)();
-    *(u16 *)(*(u8 **)data_ov014_02128c80 + 0x1308) = ((s32 (*)(...))func_02013308)();
-    *(u16 *)(*(u8 **)data_ov014_02128c80 + 0x1310) = 1;
-    ((s32 (*)(...))MI_CpuFill8)(*(u8 **)data_ov014_02128c80 + 0x130A, 0xFF, 6);
-    *(s32 *)(*(u8 **)data_ov014_02128c80 + 0x1344) = arg0;
-    *(s32 *)(*(u8 **)data_ov014_02128c80 + 0x1A90) = 1;
-    r = ((s32 (*)(...))func_02013994)(func_ov014_02106be4, *(u8 **)data_ov014_02128c80 + 0x1300);
+    *(u8 **)(*(u8 **)gWdsWork + 0x1300) = *(u8 **)gWdsWork + 0xF00;
+    *(u16 *)(*(u8 **)gWdsWork + 0x1304) = 0x400;
+    *(u16 *)(*(u8 **)gWdsWork + 0x1306) = ((s32 (*)(...))func_020131c0)();
+    *(u16 *)(*(u8 **)gWdsWork + 0x1308) = ((s32 (*)(...))WM_GetDispersionScanPeriod)();
+    *(u16 *)(*(u8 **)gWdsWork + 0x1310) = 1;
+    ((s32 (*)(...))MI_CpuFill8)(*(u8 **)gWdsWork + 0x130A, 0xFF, 6);
+    *(s32 *)(*(u8 **)gWdsWork + 0x1344) = arg0;
+    *(s32 *)(*(u8 **)gWdsWork + 0x1A90) = 1;
+    r = ((s32 (*)(...))WM_StartScanEx)(WDSScanCallback, *(u8 **)gWdsWork + 0x1300);
     if (r == 2)
         r = 0;
     return r;
 }
 
-extern "C" s32 func_ov014_02107054(s32 arg0)
+extern "C" s32 WDS_EndScan(s32 arg0)
 {
     s32 v0;
     u8 *t0;
     if (arg0 == 0)
         return -1;
-    t0 = (u8 *)(*(s32 *)(data_ov014_02128c80) + 0x1000);
+    t0 = (u8 *)(*(s32 *)(gWdsWork) + 0x1000);
     *(s32 *)(t0 + 0xA90) = 2;
-    v0 = func_02013ae4(arg0, (s32)t0, 2);
+    v0 = WM_EndScan(arg0, (s32)t0, 2);
     return (v0 == 2 ? 0 : v0);
 }
 
-extern "C" asm s32 func_ov014_0210708c(...)
+extern "C" asm s32 WDS_GetApInfoByIndex(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r7, =data_ov014_02128c80
+    ldr r7, =gWdsWork
     mov r6, r0
     ldr r0, [r7]
     mov r5, r1
@@ -1508,7 +1508,7 @@ extern "C" asm s32 func_ov014_0210708c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov014_02107128(s32 arg0)
+extern "C" s32 WDS_GetApInfoAll(s32 arg0)
 {
     s32 r4;
     u8 *r5;
@@ -1517,7 +1517,7 @@ extern "C" s32 func_ov014_02107128(s32 arg0)
     u8 *r8;
     s32 v1;
     r5 = (u8 *)arg0;
-    if (*(s32 *)(((u8 *)(*(s32 *)(data_ov014_02128c80) + 0x1000)) + 0xA90) != 2) {
+    if (*(s32 *)(((u8 *)(*(s32 *)(gWdsWork) + 0x1000)) + 0xA90) != 2) {
         return -1;
     } else {
         MI_CpuFill8(arg0, 0, 0x780);
@@ -1528,42 +1528,42 @@ extern "C" s32 func_ov014_02107128(s32 arg0)
             r6 = (r6 + 1);
         } while (r6 < 0x10);
         r4 = 0;
-        r8 = (u8 *)data_ov014_02128c80;
+        r8 = (u8 *)gWdsWork;
         if (*(s32 *)(((u8 *)(*(s32 *)(r8) + 0x1000)) + 0xA88) > 0) {
             r4 = 0;
             do {
-                v1 = func_ov014_0210708c(r4, (s32)((r4 * 0x78) + r5));
+                v1 = WDS_GetApInfoByIndex(r4, (s32)((r4 * 0x78) + r5));
                 r6 = 0x78;
                 r7 = -1;
-                r8 = (u8 *)data_ov014_02128c80;
+                r8 = (u8 *)gWdsWork;
                 if (v1 == r7)
                     break;
                 r4 = (r4 + 1);
                 r6 = 0x78;
                 r7 = -1;
-                r8 = (u8 *)data_ov014_02128c80;
+                r8 = (u8 *)gWdsWork;
             } while (r4 < *(s32 *)(((u8 *)(*(s32 *)(r8) + 0x1000)) + 0xA88));
         }
         return 0;
     }
 }
 
-extern "C" asm s32 func_ov014_021071d0(...)
+extern "C" asm s32 DWCi_AC_GetBeacon(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
     mov r0, #0x10
     mvn r5, #0
-    bl func_ov014_0210878c
+    bl DWCi_AC_GetMemPtr
     mov r4, #1
     mov r6, r0
     mov r0, r4
-    bl func_ov014_0210878c
+    bl DWCi_AC_GetMemPtr
     ldrb r1, [r0, #0xb]
     bic r1, r1, #0xf
     orr r1, r1, #1
     strb r1, [r0, #0xb]
-    bl func_ov014_02108834
+    bl DWCi_AC_GetPhase
     cmp r0, #3
     beq @L_02107224
     cmp r0, #4
@@ -1579,19 +1579,19 @@ extern "C" asm s32 func_ov014_021071d0(...)
     cmpne r0, #0
     bne @L_02107248
     ldrh r0, [r7, #0x36]
-    bl func_ov014_02109ff8
+    bl DWCi_AC_SetStealthChannel
     b @L_02107308
 @L_02107248:
     cmp r1, #1
     cmpeq r0, #0x20
     bne @L_02107274
     ldrh r0, [r7, #0x36]
-    bl func_ov014_02109ff8
+    bl DWCi_AC_SetStealthChannel
 @L_0210725c:
     ldrb r1, [r6, #0xd10]
     mov r0, r7
     add r2, r6, #0x300
-    bl func_ov014_021073d4
+    bl CompareList
     mov r5, r0
     b @L_02107308
 @L_02107274:
@@ -1606,7 +1606,7 @@ extern "C" asm s32 func_ov014_021071d0(...)
     mov r1, r6
     sub r2, r2, #1
     and r4, r2, #0xff
-    bl func_ov014_02107450
+    bl CompareListDiff
     movs r5, r0
     bmi @L_02107308
     ldrb r1, [r6, #0xd0f]
@@ -1624,7 +1624,7 @@ extern "C" asm s32 func_ov014_021071d0(...)
     mov r1, r4
     mov r0, r7
     ldrb r4, [r6, #0xd11]
-    bl func_ov014_021073d4
+    bl CompareList
     movs r5, r0
     bmi @L_02107308
     ldrb r0, [r6, #0xd0f]
@@ -1641,43 +1641,43 @@ extern "C" asm s32 func_ov014_021071d0(...)
     mov r1, r7
     mov r2, r4
     mov r3, r6
-    bl func_ov014_021074e0
+    bl AddList
     mov r1, r6
-    bl func_ov014_02107748
+    bl SortList
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" s32 func_ov014_02107330(s32 arg0)
+extern "C" s32 DWCi_AC_CheckNintendoSSID(s32 arg0)
 {
     u8 *r4;
     u8 *r5;
     s32 v0;
     s32 v1;
     s32 v2;
-    v0 = func_ov014_0210878c(0x10);
+    v0 = DWCi_AC_GetMemPtr(0x10);
     r5 = (u8 *)arg0;
     r4 = (u8 *)v0;
     arg0 = ((u32)(*(u8 *)(((u8 *)v0) + 0xD0C) << 0x1C) >> 0x1C);
     if (((arg0 == 0 || arg0 == 4) && ((*(u16 *)(r5 + 0x2C) >> 4) & 1) == 1)) {
-        v1 = func_ov014_0210aaa0((s32)(r5 + 0xC));
+        v1 = DWCi_AC_CheckNintendoUsbAP((s32)(r5 + 0xC));
         if (v1 == 1)
             return 6;
     }
     arg0 = ((u32)(*(u8 *)(r4 + 0xD0C) << 0x1C) >> 0x1C);
     if (((arg0 == 0 || arg0 == 5) && ((*(u16 *)(r5 + 0x2C) >> 4) & 1) == 1)) {
-        v2 = func_ov014_0210a9e8((s32)(r5 + 0xC));
+        v2 = DWCi_AC_CheckNintendoShopAP((s32)(r5 + 0xC));
         if (v2 == 1)
             return 7;
     }
     return -1;
 }
 
-extern "C" s32 func_ov014_021073cc(void)
+extern "C" s32 DWCi_AC_IsSupportWPA(void)
 {
     return 0;
 }
 
-extern "C" s32 func_ov014_021073d4(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 CompareList(s32 arg0, s32 arg1, s32 arg2)
 {
     u8 *r4;
     s32 r5;
@@ -1691,7 +1691,7 @@ extern "C" s32 func_ov014_021073d4(s32 arg0, s32 arg1, s32 arg2)
     r5 = arg1;
     r4 = (u8 *)arg2;
     if (*(u16 *)(r6 + 0xA) == 0x20) {
-        v0 = func_ov014_02107330(arg0);
+        v0 = DWCi_AC_CheckNintendoSSID(arg0);
         if (v0 > 0)
             return v0;
     }
@@ -1712,7 +1712,7 @@ extern "C" s32 func_ov014_021073d4(s32 arg0, s32 arg1, s32 arg2)
     return -1;
 }
 
-extern "C" s32 func_ov014_02107450(u8 *arg0, s32 arg1)
+extern "C" s32 CompareListDiff(u8 *arg0, s32 arg1)
 {
     s32 r2;
     s32 r4;
@@ -1726,7 +1726,7 @@ extern "C" s32 func_ov014_02107450(u8 *arg0, s32 arg1)
     r2 = *(u16 *)(arg0 + 0xA);
     r8 = (u8 *)arg1;
     if (r2 == 0x20) {
-        v0 = ((s32 (*)(...))func_ov014_02107330)((s32)arg0, arg1, r2);
+        v0 = ((s32 (*)(...))DWCi_AC_CheckNintendoSSID)((s32)arg0, arg1, r2);
         if (v0 > 0)
             return v0;
     }
@@ -1747,7 +1747,7 @@ extern "C" s32 func_ov014_02107450(u8 *arg0, s32 arg1)
     return -1;
 }
 
-extern "C" asm void func_ov014_021074e0(void)
+extern "C" asm void AddList(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x18
@@ -1837,7 +1837,7 @@ extern "C" asm void func_ov014_021074e0(void)
     ldr r2, [sp, #4]
     ldr r3, [sp, #8]
     and r0, r0, #0xff
-    bl func_ov014_02107664
+    bl SetDataListTail
     ldr r0, [sp, #8]
     ldrb r0, [r0, #0xd12]
     cmp r0, #0xa
@@ -1850,14 +1850,14 @@ extern "C" asm void func_ov014_021074e0(void)
 @L_0210764c:
     ldr r2, [sp, #4]
     ldr r3, [sp, #8]
-    bl func_ov014_021076c4
+    bl UpDateList
 @L_02107658:
     ldr r0, [sp, #0xc]
     add sp, sp, #0x18
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02107664(void)
+extern "C" asm void SetDataListTail(void)
 {
     stmdb sp!, {r4, lr}
     ldrb lr, [r3, #0xd0c]
@@ -1882,11 +1882,11 @@ extern "C" asm void func_ov014_02107664(void)
     add r1, r3, #0xbf0
     strb r4, [r12, #0x402]
     strb r2, [r12, #0x403]
-    bl func_ov014_02122040
+    bl WCMi_BssDescCopy
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_021076c4(void)
+extern "C" asm void UpDateList(void)
 {
     stmdb sp!, {r4, lr}
     ldrb r4, [r3, #0xd0c]
@@ -1925,7 +1925,7 @@ extern "C" asm void func_ov014_021076c4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_02107748(void)
+extern "C" asm void SortList(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc4
@@ -1946,7 +1946,7 @@ extern "C" asm void func_ov014_02107748(void)
     cmp r0, #1
     bne @L_021077c0
     mla r0, r10, r4, r7
-    bl func_ov014_021073cc
+    bl DWCi_AC_IsSupportWPA
     cmp r0, #1
     bne @L_021077c0
     add r0, r6, r10, lsl #2
@@ -2003,7 +2003,7 @@ extern "C" asm void func_ov014_02107748(void)
     bne @L_0210786c
 @L_02107858:
     mla r0, r9, r4, r7
-    bl func_ov014_021073cc
+    bl DWCi_AC_IsSupportWPA
     cmp r0, #0
     moveq r8, r5
     b @L_02107884
@@ -2055,16 +2055,16 @@ extern "C" asm void func_ov014_02107748(void)
     mov r0, r4
     add r1, r6, #0x28
     mov r2, #4
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r0, r4
     add r1, r7, #0x780
     mov r2, #0xc0
-    bl func_0200919c
+    bl MIi_CpuClear32
     add sp, sp, #0xc4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02107934(u8 *arg0)
+extern "C" s32 DWCi_AC_CallBackWCM(u8 *arg0)
 {
     s32 r1;
     u8 *r4;
@@ -2072,7 +2072,7 @@ extern "C" s32 func_ov014_02107934(u8 *arg0)
     s32 v1;
     s16 t0;
     s32 t1;
-    v0 = func_ov014_0210878c(0x10);
+    v0 = DWCi_AC_GetMemPtr(0x10);
     r4 = arg0;
     r1 = *(s16 *)(arg0);
     t0 = *(s16 *)(arg0);
@@ -2099,19 +2099,19 @@ extern "C" s32 func_ov014_02107934(u8 *arg0)
         if (r1 != 7)
             return (s32)arg0;
         t1 = *(s32 *)(r4 + 0x4);
-        v1 = func_ov014_021071d0(t1, r1);
+        v1 = DWCi_AC_GetBeacon(t1, r1);
         return v1;
     }
 }
 
-extern "C" asm s32 func_ov014_021079c0(...)
+extern "C" asm s32 DWCi_AC_CloseNetwork(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     ldrb r0, [r4]
     cmp r0, #0xa
     bhi @L_02107a04
-    bl func_ov014_02107a40
+    bl DisConnectAP
     cmp r0, #1
     moveq r0, #0
     streqb r0, [r4]
@@ -2126,15 +2126,15 @@ extern "C" asm s32 func_ov014_021079c0(...)
 @L_02107a04:
     cmp r0, #0xe
     bne @L_02107a20
-    bl func_ov014_0210ddd0
-    bl func_ov014_0210dd00
+    bl DWC_Netcheck_Abort
+    bl DWC_Netcheck_Destroy
     mov r0, #0xc
     strb r0, [r4]
     b @L_02107a38
 @L_02107a20:
     cmp r0, #0x12
     bhs @L_02107a38
-    bl func_ov014_02107ad4
+    bl CloseSocket
     cmp r0, #1
     moveq r0, #0xa
     streqb r0, [r4]
@@ -2143,48 +2143,48 @@ extern "C" asm s32 func_ov014_021079c0(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov014_02107a40(void)
+extern "C" s32 DisConnectAP(void)
 {
-    switch (((s32 (*)(...))func_ov014_02121700)()) {
+    switch (((s32 (*)(...))WCM_GetPhase)()) {
     case 0:
         return 1;
     case 1:
-        ((s32 (*)(...))func_ov014_0212104c)();
+        ((s32 (*)(...))WCM_Finish)();
         break;
     case 3:
-        ((s32 (*)(...))func_ov014_021211a8)();
+        ((s32 (*)(...))WCM_CleanupAsync)();
         break;
     case 6:
-        ((s32 (*)(...))func_ov014_021212d0)();
+        ((s32 (*)(...))WCM_EndSearchAsync)();
         break;
     case 9:
-        ((s32 (*)(...))func_ov014_02121520)();
+        ((s32 (*)(...))WCM_DisconnectAsync)();
         break;
     case 12:
-        ((s32 (*)(...))func_ov014_021215e4)();
+        ((s32 (*)(...))WCM_TerminateAsync)();
         break;
     case 11: {
         s32 z = 0;
-        ((s32 (*)(...))func_ov014_02108854)(z);
+        ((s32 (*)(...))DWCi_AC_SetError)(z);
         return z - 1;
     }
     }
     return 0;
 }
 
-extern "C" s32 func_ov014_02107ad4(void)
+extern "C" s32 CloseSocket(void)
 {
     s32 r0;
     s32 v0;
     s32 v1;
-    if (*(s32 *)(((u8 *)&data_ov014_02125e3c)) == 0) {
+    if (*(s32 *)(((u8 *)&SOCLiConfigPtr)) == 0) {
         return 1;
     } else {
-        v0 = func_ov014_0211b070();
+        v0 = SOCL_CalmDown();
         if (v0 != 0) {
             return 0;
         } else {
-            v1 = func_ov014_0211bcb4();
+            v1 = SOC_Cleanup();
             r0 = v1;
             if ((r0 == 0 || r0 == -0x27)) {
                 r0 = 1;
@@ -2196,24 +2196,24 @@ extern "C" s32 func_ov014_02107ad4(void)
     }
 }
 
-extern "C" s32 func_ov014_02107b18(void)
+extern "C" s32 DWCi_AC_ConnectAP(void)
 {
     s32 r0;
     s32 r4;
     s32 v0;
     s32 v2;
     s32 v3;
-    v0 = func_ov014_02108834();
-    func_ov014_0210878c(0x10);
+    v0 = DWCi_AC_GetPhase();
+    DWCi_AC_GetMemPtr(0x10);
     r4 = v0;
     switch (r4) {
         case 7:
-            v2 = func_ov014_02107b58();
+            v2 = ConnectStart();
             r0 = v2;
             r4 = r0;
             break;
         case 8:
-            v3 = func_ov014_02107c50();
+            v3 = ConnectAP();
             r0 = v3;
             r4 = r0;
             break;
@@ -2221,7 +2221,7 @@ extern "C" s32 func_ov014_02107b18(void)
     return r4;
 }
 
-extern "C" asm s32 func_ov014_02107b58(...)
+extern "C" asm s32 ConnectStart(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -2229,7 +2229,7 @@ extern "C" asm s32 func_ov014_02107b58(...)
     add r3, r5, #0x470
     mov r1, #0xc0
     mla r4, r2, r1, r3
-    bl func_ov014_02107da8
+    bl GetConnectType
     add r1, r5, #0xb8
     strb r0, [r5, #0xd0d]
     add r0, r1, #0xc00
@@ -2240,7 +2240,7 @@ extern "C" asm s32 func_ov014_02107b58(...)
     ldrb r1, [r5, #0xd0d]
     mov r0, r5
     add r2, r2, #0xc00
-    bl func_ov014_02107f70
+    bl GetWepKey
     cmp r0, #0
     ldrb r0, [r5, #0xd0b]
     bic r0, r0, #0xc
@@ -2290,12 +2290,12 @@ extern "C" asm s32 func_ov014_02107b58(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm s32 func_ov014_02107c50(...)
+extern "C" asm s32 ConnectAP(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
     mov r4, #0
-    bl func_ov014_02121700
+    bl WCM_GetPhase
     ldrb r2, [r8, #0xd13]
     mov r1, #0xc0
     cmp r0, #3
@@ -2303,7 +2303,7 @@ extern "C" asm s32 func_ov014_02107c50(...)
     smulbb r5, r2, r1
     bne @L_02107d54
     mov r0, r8
-    bl func_ov014_02107f38
+    bl GetPowerMode
     ldrb r1, [r8, #0xd15]
     mov r7, r0
     add r0, r1, #1
@@ -2353,13 +2353,13 @@ extern "C" asm s32 func_ov014_02107c50(...)
     streqb r0, [r8, #0xd0b]
 @L_02107d30:
     mov r0, r8
-    bl func_ov014_02107f54
+    bl GetAuthMode
     mov r2, r0
     add r1, r8, #0xb8
     add r0, r6, r5
     add r1, r1, #0xc00
     orr r2, r7, r2
-    bl func_ov014_02121370
+    bl WCM_ConnectAsync
     b @L_02107da0
 @L_02107d54:
     cmp r0, #9
@@ -2374,13 +2374,13 @@ extern "C" asm s32 func_ov014_02107c50(...)
     cmp r0, #0xb
     bne @L_02107d8c
     mov r0, r4
-    bl func_ov014_02108854
+    bl DWCi_AC_SetError
     mov r0, #0x11
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02107d8c:
     ble @L_02107da0
     mov r0, #4
-    bl func_ov014_02108854
+    bl DWCi_AC_SetError
     mov r0, #0x11
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02107da0:
@@ -2388,7 +2388,7 @@ extern "C" asm s32 func_ov014_02107c50(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_02107da8(void)
+extern "C" asm void GetConnectType(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -2399,7 +2399,7 @@ extern "C" asm void func_ov014_02107da8(void)
     mov r0, #0xc0
     str r9, [sp, #4]
     mla r5, r1, r0, r2
-    bl func_ov014_02109644
+    bl DWCi_AC_GetSearchListNum
     ldrb r1, [r10, #0xd0c]
     mov r8, r0
     mov r0, r1, lsl #0x19
@@ -2409,7 +2409,7 @@ extern "C" asm void func_ov014_02107da8(void)
     cmp r0, #0x20
     bne @L_02107e0c
     mov r0, r5
-    bl func_ov014_02107330
+    bl DWCi_AC_CheckNintendoSSID
     cmp r0, #0
     str r0, [sp, #4]
     addgt r9, r9, #1
@@ -2419,7 +2419,7 @@ extern "C" asm void func_ov014_02107da8(void)
     cmp r0, #8
     bne @L_02107e2c
     mov r0, r5
-    bl func_ov014_021095f0
+    bl DWCi_AC_CheckFreespot
     cmp r0, #0
     str r0, [sp, #4]
     addne r9, r9, #1
@@ -2502,7 +2502,7 @@ extern "C" asm void func_ov014_02107da8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02107f38(u8 *arg0)
+extern "C" s32 GetPowerMode(u8 *arg0)
 {
     if (((u32)(*(u8 *)(arg0 + 0xD0B) << 0x1E) >> 0x1E) == 1) {
         arg0 = (u8 *)0x30000;
@@ -2512,7 +2512,7 @@ extern "C" s32 func_ov014_02107f38(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" s32 func_ov014_02107f54(u8 *arg0)
+extern "C" s32 GetAuthMode(u8 *arg0)
 {
     if (((u32)(*(u8 *)(arg0 + 0xD0B) << 0x1C) >> 0x1E) == 1) {
         arg0 = (u8 *)0xC0000;
@@ -2522,7 +2522,7 @@ extern "C" s32 func_ov014_02107f54(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" asm void func_ov014_02107f70(void)
+extern "C" asm void GetWepKey(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r2
@@ -2573,7 +2573,7 @@ extern "C" asm void func_ov014_02107f70(void)
     mov r0, #0xc0
     mla r0, r1, r0, r2
     add r1, r4, #2
-    bl func_ov014_0210aac4
+    bl DWCi_AC_GetNintendoUSBWepKey
     b @L_02108040
 @L_0210801c:
     mov r1, #2
@@ -2584,7 +2584,7 @@ extern "C" asm void func_ov014_02107f70(void)
     mov r0, #0xc0
     mla r0, r1, r0, r2
     add r1, r4, #2
-    bl func_ov014_0210aa24
+    bl DWCi_AC_GetNintendoShopWepKey
 @L_02108040:
     ldrb r0, [r4]
     cmp r0, #0
@@ -2593,7 +2593,7 @@ extern "C" asm void func_ov014_02107f70(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_02108054(void)
+extern "C" asm void DWC_AC_Create(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -2603,13 +2603,13 @@ extern "C" asm void func_ov014_02108054(void)
     mov r0, r9
     mov r1, r5
     blx r2
-    ldr r4, =data_ov014_02128c84
+    ldr r4, =wcmBuffer
     mov r1, r0
     mov r8, #0
     mov r0, r8
     mov r2, r5
     str r1, [r4, #0xc]
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r3, [r4, #0xc]
     ldr r1, [r10]
     ldr r7, =0xd28
@@ -2621,39 +2621,39 @@ extern "C" asm void func_ov014_02108054(void)
     strb r9, [r3, #0x16]
     mov r1, r7
     strb r9, [r3, #8]
-    bl func_ov014_021085b0
+    bl DWCi_AC_Alloc
     mov r6, #0x2300
     str r0, [r4, #0x10]
     mov r0, #2
     mov r1, r6
-    bl func_ov014_021085b0
+    bl DWCi_AC_Alloc
     mov r5, #0x58
     str r0, [r4]
     mov r0, #4
     mov r1, r5
-    bl func_ov014_021085b0
+    bl DWCi_AC_Alloc
     mov r11, #0xc
     str r0, [r4, #4]
     mov r0, #8
     mov r1, r11
-    bl func_ov014_021085b0
+    bl DWCi_AC_Alloc
     str r0, [r4, #8]
     ldr r1, [r4, #0x10]
     mov r2, r7
     mov r0, r8
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r4]
     mov r0, r8
     mov r2, r6
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r4, #4]
     mov r2, r5
     mov r0, r8
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r4, #8]
     mov r2, r11
     mov r0, r8
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldrb r1, [r10, #8]
     ldr r0, [r4, #0x10]
     strb r1, [r0, #0xd0a]
@@ -2694,16 +2694,16 @@ extern "C" asm void func_ov014_02108054(void)
     mov r1, r1, lsl #0x1f
     orr r1, r2, r1, lsr #26
     strb r1, [r0, #0xd0c]
-    bl func_ov014_0210f1f8
+    bl DWCi_BM_GetApInfo
     ldr r0, [r4]
     mov r1, r6
-    bl func_ov014_02120ed0
+    bl WCM_Init
     cmp r0, #1
     beq @L_02108200
     cmp r0, #4
     ble @L_0210820c
 @L_02108200:
-    bl func_ov014_02108664
+    bl DWCi_AC_FreeAll
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0210820c:
@@ -2711,20 +2711,20 @@ extern "C" asm void func_ov014_02108054(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_0210821c(void)
+extern "C" asm void DWC_AC_Process(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    bl func_ov014_02108834
+    bl DWCi_AC_GetPhase
     mov r5, r0
     cmp r5, #1
     bne @L_02108264
-    bl func_ov014_02108a50
+    bl CheckEULA
     cmp r0, #0
     beq @L_02108258
-    bl func_ov014_02108a58
+    bl CheckWirelessPowerON
     cmp r0, #0
     beq @L_02108250
-    bl func_ov014_0210af94
+    bl DWCi_AC_Start
 @L_0210824c:
     b @L_021082c8
 @L_02108250:
@@ -2733,65 +2733,65 @@ extern "C" asm void func_ov014_0210821c(void)
 @L_02108258:
     mov r0, #7
 @L_0210825c:
-    bl func_ov014_02108854
+    bl DWCi_AC_SetError
     b @L_021082c4
 @L_02108264:
     cmp r5, #7
     bhs @L_0210828c
     bl OS_DisableInterrupts
     mov r4, r0
-    bl func_ov014_02109ed4
+    bl DWCi_AC_SearchAP
     mov r5, r0
-    bl func_ov014_021087d4
+    bl DWCi_AC_SetPhase
     mov r0, r4
     bl OS_RestoreInterrupts
     b @L_021082cc
 @L_0210828c:
     cmp r5, #9
     bhs @L_0210829c
-    bl func_ov014_02107b18
+    bl DWCi_AC_ConnectAP
     b @L_0210824c
 @L_0210829c:
     cmp r5, #0xa
     bhs @L_021082ac
-    bl func_ov014_02109e00
+    bl DWCi_AC_ConnectRetryAP
     b @L_0210824c
 @L_021082ac:
     cmp r5, #0x10
     bhs @L_021082bc
-    bl func_ov014_0210b01c
+    bl DWCi_AC_ConnectTest
     b @L_0210824c
 @L_021082bc:
     cmp r5, #0x11
     bne @L_021082cc
 @L_021082c4:
-    bl func_ov014_0210930c
+    bl DWCi_AC_Error
 @L_021082c8:
     mov r5, r0
 @L_021082cc:
     mov r0, r5
-    bl func_ov014_021087d4
+    bl DWCi_AC_SetPhase
     cmp r5, #0x10
     bne @L_021082f0
-    bl func_ov014_021089b0
+    bl CheckDuplicate
     mov r4, r0
-    bl func_ov014_0210897c
+    bl Free_Disused
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 @L_021082f0:
     cmp r5, #0x12
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
-    bl func_ov014_0210897c
+    bl Free_Disused
     mvn r0, #0
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_02108308(void)
+extern "C" s32 DWC_AC_GetStatus(void)
 {
     s32 v0;
     s32 v1;
-    v0 = func_ov014_02108834();
+    v0 = DWCi_AC_GetPhase();
     if ((u32)v0 <= (u32)1)
         return 0;
     if ((u32)v0 < (u32)7)
@@ -2808,78 +2808,78 @@ extern "C" s32 func_ov014_02108308(void)
         return 5;
     if (v0 == 0x11)
         return 4;
-    v1 = func_ov014_02109330(v0);
+    v1 = DWCi_AC_GetResult(v0);
     return v1;
 }
 
-extern "C" s32 func_ov014_02108374(void)
+extern "C" s32 DWC_AC_GetApType(void)
 {
     s32 r0;
     s32 r4;
     s32 v0;
     r4 = 0xFF;
-    v0 = func_ov014_02108834();
+    v0 = DWCi_AC_GetPhase();
     r0 = v0;
     if (((u32)r0 >= (u32)10 && (u32)r0 <= (u32)0x10)) {
-        r4 = *(u8 *)(*(u8 * *)(((u8 *)&data_ov014_02128c84) + 0xC) + 0x17);
+        r4 = *(u8 *)(*(u8 * *)(((u8 *)&wcmBuffer) + 0xC) + 0x17);
     }
     return r4;
 }
 
-extern "C" s32 func_ov014_021083a4(s32 arg0)
+extern "C" s32 DWC_AC_GetApSpotInfo(s32 arg0)
 {
     s32 r2;
     s32 r4;
     s32 r5;
     s32 v0;
     r4 = 0;
-    v0 = func_ov014_02108834(arg0);
+    v0 = DWCi_AC_GetPhase(arg0);
     r5 = arg0;
     arg0 = v0;
-    if ((((u32)arg0 >= (u32)10 && (u32)arg0 <= (u32)0x10) && (r2 = (s32)*(u8 * *)(((u8 *)&data_ov014_02128c84) + 0xC), arg0 = *(u8 *)(*(u8 * *)(((u8 *)&data_ov014_02128c84) + 0xC) + 0x17), (arg0 == 4 || arg0 == 8)))) {
+    if ((((u32)arg0 >= (u32)10 && (u32)arg0 <= (u32)0x10) && (r2 = (s32)*(u8 * *)(((u8 *)&wcmBuffer) + 0xC), arg0 = *(u8 *)(*(u8 * *)(((u8 *)&wcmBuffer) + 0xC) + 0x17), (arg0 == 4 || arg0 == 8)))) {
         MI_CpuCopy8((r2 + 0x18), r5, 10);
         r4 = 1;
     }
     return r4;
 }
 
-extern "C" u8 func_ov014_021083fc(void)
+extern "C" u8 DWC_AC_GetSecuritySetting(void)
 {
-    s32 v0 = func_ov014_0210878c(1);
+    s32 v0 = DWCi_AC_GetMemPtr(1);
     return *(u8 *)(((u8 *)v0) + 0x23);
 }
 
-extern "C" s32 func_ov014_02108410(void)
+extern "C" s32 DWC_AC_Destroy(void)
 {
     s32 local[1];
     s32 r0;
     s32 v0;
     u8 t0;
-    v0 = func_ov014_02108834();
+    v0 = DWCi_AC_GetPhase();
     *(u8 *)(((u8 *)local)) = v0;
     r0 = (v0 & 0xFF);
     if ((r0 == 0 || r0 == 0x12)) {
-        ((s32 (*)(...))func_ov014_02108664)();
+        ((s32 (*)(...))DWCi_AC_FreeAll)();
         return 1;
     } else {
-        func_ov014_021079c0((s32)((u8 *)local));
+        DWCi_AC_CloseNetwork((s32)((u8 *)local));
         t0 = *(u8 *)(((u8 *)local));
-        func_ov014_021087d4(t0);
+        DWCi_AC_SetPhase(t0);
         return 0;
     }
 }
 
-extern "C" asm s32 func_ov014_0210844c(...)
+extern "C" asm s32 DWC_AC_SetSpecifyApEx(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
     mov r0, #1
     mov r6, r1
     mov r5, r2
-    bl func_ov014_0210878c
+    bl DWCi_AC_GetMemPtr
     mov r4, r0
     mov r0, #0x10
-    bl func_ov014_0210878c
+    bl DWCi_AC_GetMemPtr
     ldr r0, [sp, #0x18]
     mov r2, #0xa
     cmp r0, #0
@@ -2897,13 +2897,13 @@ extern "C" asm s32 func_ov014_0210844c(...)
     mov r1, r6
     mov r2, r5
     strb r3, [r4, #0x22]
-    bl func_ov014_021084b4
+    bl DWC_AC_SetSpecifyAp
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_ov014_021084b4(u8 *arg0, s32 arg1, s32 arg2)
+extern "C" void DWC_AC_SetSpecifyAp(u8 *arg0, s32 arg1, s32 arg2)
 {
-    u8 *p = (u8 *)((s32 (*)(...))func_ov014_0210878c)(0x10);
+    u8 *p = (u8 *)((s32 (*)(...))DWCi_AC_GetMemPtr)(0x10);
     s32 i;
     s32 n;
     ((F021084b4 *)(p + 0xD0C))->lo = 1;
@@ -2927,27 +2927,27 @@ extern "C" void func_ov014_021084b4(u8 *arg0, s32 arg1, s32 arg2)
     ((K021084b4 *)(p + 0xE6))->mode = arg2;
 }
 
-extern "C" void func_ov014_02108568(s32 arg0, s32 arg1)
+extern "C" void DWCi_AC_InsertApInfo(s32 arg0, s32 arg1)
 {
-    s32 v0 = func_ov014_0210878c(0x10, arg1);
+    s32 v0 = DWCi_AC_GetMemPtr(0x10, arg1);
     MIi_CpuCopy32(arg1, (v0 + (arg0 << 8)), 0xF0);
 }
 
-extern "C" s32 func_ov014_02108594(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 DWCi_AC_InvalidatePriorityWPA(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 v0;
-    v0 = func_ov014_0210878c(0x10, arg1, arg2, arg3);
+    v0 = DWCi_AC_GetMemPtr(0x10, arg1, arg2, arg3);
     *(u8 *)(((u8 *)v0) + 0xD0C) = (*(u8 *)(((u8 *)v0) + 0xD0C) & -0x81);
     return v0;
 }
 
-extern "C" s32 func_ov014_021085b0(s32 arg0, s32 arg1)
+extern "C" s32 DWCi_AC_Alloc(s32 arg0, s32 arg1)
 {
     s32 v0;
     s32 v1;
     s32 t1;
     s32 t2;
-    v0 = func_ov014_0210878c(1, arg1);
+    v0 = DWCi_AC_GetMemPtr(1, arg1);
     if ((*(u8 *)(((u8 *)v0) + 0x8) & arg0) != 0)
         return 0;
     t1 = (*(u8 *)(((u8 *)v0) + 0x8) | (arg0 & 0xFF));
@@ -2957,7 +2957,7 @@ extern "C" s32 func_ov014_021085b0(s32 arg0, s32 arg1)
     return v1;
 }
 
-extern "C" asm s32 func_ov014_021085f8(...)
+extern "C" asm s32 DWCi_AC_Free(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, #1
@@ -2965,7 +2965,7 @@ extern "C" asm s32 func_ov014_021085f8(...)
     mov r0, r4
     mov r6, r1
     mov r5, r2
-    bl func_ov014_0210878c
+    bl DWCi_AC_GetMemPtr
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldrb r2, [r0, #8]
@@ -2981,13 +2981,13 @@ extern "C" asm s32 func_ov014_021085f8(...)
     mov r2, r5
     blx r3
     cmp r7, #1
-    ldreq r0, =data_ov014_02128c84
+    ldreq r0, =wcmBuffer
     moveq r1, #0
     streq r1, [r0, #0xc]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov014_02108664(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 DWCi_AC_FreeAll(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     u8 *r4;
     s32 r5;
@@ -2996,28 +2996,28 @@ extern "C" s32 func_ov014_02108664(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     s32 v3;
     s32 v5;
     s32 v7;
-    v0 = func_ov014_0210878c(1, arg1, arg2, arg3);
+    v0 = DWCi_AC_GetMemPtr(1, arg1, arg2, arg3);
     if (v0 == 0)
         return v0;
     r4 = (u8 *)v0;
     r5 = 1;
     if ((*(u8 *)(r4 + 0x8) & 0x10) != 0) {
-        v1 = func_ov014_0210878c(0x10);
+        v1 = DWCi_AC_GetMemPtr(0x10);
         *(u8 *)(r4 + 0x8) = (*(u8 *)(r4 + 0x8) & 0xEF);
         ((s32 (*)(...))*(s32 *)(r4 + 0x4))(r5, v1, 0xD28, *(s32 *)(r4 + 0x4));
     }
     if ((*(u8 *)(r4 + 0x8) & 8) != 0) {
-        v3 = func_ov014_0210878c(8);
+        v3 = DWCi_AC_GetMemPtr(8);
         *(u8 *)(r4 + 0x8) = (*(u8 *)(r4 + 0x8) & 0xF7);
         ((s32 (*)(...))*(s32 *)(r4 + 0x4))(1, v3, 0xC, *(s32 *)(r4 + 0x4));
     }
     if ((*(u8 *)(r4 + 0x8) & 4) != 0) {
-        v5 = func_ov014_0210878c(4);
+        v5 = DWCi_AC_GetMemPtr(4);
         *(u8 *)(r4 + 0x8) = (*(u8 *)(r4 + 0x8) & 0xFB);
         ((s32 (*)(...))*(s32 *)(r4 + 0x4))(1, v5, 0x58, *(s32 *)(r4 + 0x4));
     }
     if ((*(u8 *)(r4 + 0x8) & 2) != 0) {
-        v7 = func_ov014_0210878c(2);
+        v7 = DWCi_AC_GetMemPtr(2);
         *(u8 *)(r4 + 0x8) = (*(u8 *)(r4 + 0x8) & 0xFD);
         ((s32 (*)(...))*(s32 *)(r4 + 0x4))(1, v7, 0x2300, *(s32 *)(r4 + 0x4));
     }
@@ -3025,13 +3025,13 @@ extern "C" s32 func_ov014_02108664(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
         return *(u8 *)(r4 + 0x8);
     *(u8 *)(r4 + 0x8) = (*(u8 *)(r4 + 0x8) & 0xFE);
     ((s32 (*)(...))*(s32 *)(r4 + 0x4))(1, (s32)r4, 0xCC, *(s32 *)(r4 + 0x4));
-    *(s32 *)(data_ov014_02128c84 + 0xC) = 0;
-    return (s32)data_ov014_02128c84;
+    *(s32 *)(wcmBuffer + 0xC) = 0;
+    return (s32)wcmBuffer;
 }
 
-extern "C" asm s32 func_ov014_0210878c(...)
+extern "C" asm s32 DWCi_AC_GetMemPtr(...)
 {
-    ldr r1, =data_ov014_02128c84
+    ldr r1, =wcmBuffer
     tst r0, #1
     ldrne r0, [r1, #0xc]
     bxne lr
@@ -3050,7 +3050,7 @@ extern "C" asm s32 func_ov014_0210878c(...)
     bx lr
 }
 
-extern "C" s32 func_ov014_021087d4(u8 arg0)
+extern "C" s32 DWCi_AC_SetPhase(u8 arg0)
 {
     s32 v0;
     s32 v1;
@@ -3058,8 +3058,8 @@ extern "C" s32 func_ov014_021087d4(u8 arg0)
     u8 t0;
     u8 t1;
     u8 t2;
-    v0 = func_ov014_0210878c(1);
-    v1 = func_ov014_0210878c(0x10);
+    v0 = DWCi_AC_GetMemPtr(1);
+    v1 = DWCi_AC_GetMemPtr(0x10);
     *(u8 *)(((u8 *)v0) + 0x9) = arg0;
     if ((u32)arg0 >= (u32)0x10)
         return v1;
@@ -3070,16 +3070,16 @@ extern "C" s32 func_ov014_021087d4(u8 arg0)
     if ((u32)arg0 <= (u32)7)
         return t0;
     t1 = *(u8 *)(((u8 *)v1) + 0xD0D);
-    v2 = func_ov014_0210896c(t1);
+    v2 = DWCi_ConvConnectAPType(t1);
     *(u8 *)(((u8 *)v0) + 0x15) = v2;
     t2 = *(u8 *)(((u8 *)(v1 + (*(u8 *)(((u8 *)v1) + 0xD13) << 2))) + 0x444);
     *(u8 *)(((u8 *)v0) + 0x14) = t2;
     return t2;
 }
 
-extern "C" asm s32 func_ov014_02108834(...)
+extern "C" asm s32 DWCi_AC_GetPhase(...)
 {
-    ldr r0, =data_ov014_02128c84
+    ldr r0, =wcmBuffer
     ldr r0, [r0, #0xc]
     cmp r0, #0
     ldrneb r0, [r0, #9]
@@ -3088,20 +3088,20 @@ extern "C" asm s32 func_ov014_02108834(...)
     bx lr
 }
 
-extern "C" void func_ov014_02108854(s32 arg0)
+extern "C" void DWCi_AC_SetError(s32 arg0)
 {
-    s32 v0 = func_ov014_0210878c(1);
+    s32 v0 = DWCi_AC_GetMemPtr(1);
     *(s32 *)(((u8 *)v0) + 0xC) = arg0;
-    s32 v1 = func_ov014_02108834();
+    s32 v1 = DWCi_AC_GetPhase();
     *(u8 *)(((u8 *)v0) + 0xA) = v1;
 }
 
-extern "C" s32 func_ov014_02108878(void)
+extern "C" s32 DWCi_AC_GetError(void)
 {
-    return *(s32 *)(*(u8 * *)(data_ov014_02128c84 + 0xC) + 0xC);
+    return *(s32 *)(*(u8 * *)(wcmBuffer + 0xC) + 0xC);
 }
 
-extern "C" s32 func_ov014_0210888c(s32 arg0)
+extern "C" s32 DWCi_AC_SetApType(s32 arg0)
 {
     s32 r1;
     s32 r2;
@@ -3111,23 +3111,23 @@ extern "C" s32 func_ov014_0210888c(s32 arg0)
     s32 v4;
     u8 *t0;
     s32 t1;
-    r2 = *(u8 *)(*(u8 * *)(((u8 *)&data_ov014_02128c84) + 0xC) + 0x22);
+    r2 = *(u8 *)(*(u8 * *)(((u8 *)&wcmBuffer) + 0xC) + 0x22);
     if (r2 == 0) {
-        v0 = func_ov014_0210896c(arg0);
+        v0 = DWCi_ConvConnectAPType(arg0);
         r2 = v0;
     }
-    t0 = (u8 *)*(s32 *)(((u8 *)&data_ov014_02128c84) + 0xC);
+    t0 = (u8 *)*(s32 *)(((u8 *)&wcmBuffer) + 0xC);
     *(u8 *)(t0 + 0x17) = r2;
-    v1 = func_ov014_021222b4(0, (s32)t0);
+    v1 = WCM_GetApEssid(0, (s32)t0);
     arg0 = v1;
     r5 = v1;
     if (r5 != 0) {
         DC_InvalidateRange(arg0, 0x20);
-        t1 = (*(s32 *)(((u8 *)&data_ov014_02128c84) + 0xC) + 0x18);
-        func_ov014_0210aa50(r5, t1);
+        t1 = (*(s32 *)(((u8 *)&wcmBuffer) + 0xC) + 0x18);
+        DWCi_AC_GetPostalCode(r5, t1);
     }
     r1 = 0;
-    r2 = *(s32 *)(((u8 *)&data_ov014_02128c84) + 0xC);
+    r2 = *(s32 *)(((u8 *)&wcmBuffer) + 0xC);
     do {
         arg0 = *(s8 *)(((u8 *)(r2 + r1)) + 0x18);
         if ((arg0 < 0x20 || arg0 > 0x7E)) {
@@ -3140,21 +3140,21 @@ extern "C" s32 func_ov014_0210888c(s32 arg0)
     return arg0;
 }
 
-extern "C" s32 func_ov014_0210892c(s32 arg0)
+extern "C" s32 DWCi_AC_CopyExSetting(s32 arg0)
 {
     s32 v0;
     s32 v1;
     s32 v2;
     s32 t0;
-    v0 = func_ov014_0210878c(1);
-    v1 = func_ov014_0210878c(0x10);
-    v2 = func_ov014_0210896c(arg0);
+    v0 = DWCi_AC_GetMemPtr(1);
+    v1 = DWCi_AC_GetMemPtr(0x10);
+    v2 = DWCi_ConvConnectAPType(arg0);
     t0 = ((u32)(*(u8 *)(((u8 *)(v1 + (v2 << 8))) + 0xE6) << 0x1E) >> 0x1E);
     *(u8 *)(((u8 *)v0) + 0x23) = t0;
     return t0;
 }
 
-extern "C" s32 func_ov014_0210896c(s32 arg0)
+extern "C" s32 DWCi_ConvConnectAPType(s32 arg0)
 {
     if ((u32)arg0 > (u32)2) {
         arg0 = ((arg0 - 3) & 0xFF);
@@ -3162,13 +3162,13 @@ extern "C" s32 func_ov014_0210896c(s32 arg0)
     return arg0;
 }
 
-extern "C" void func_ov014_0210897c(void)
+extern "C" void Free_Disused(void)
 {
-    func_ov014_021085f8(8, *(s32 *)(data_ov014_02128c84 + 0x8), 0xC);
-    func_ov014_021085f8(0x10, *(s32 *)(data_ov014_02128c84 + 0x10), (8 + 0xD20));
+    DWCi_AC_Free(8, *(s32 *)(wcmBuffer + 0x8), 0xC);
+    DWCi_AC_Free(0x10, *(s32 *)(wcmBuffer + 0x10), (8 + 0xD20));
 }
 
-extern "C" s32 func_ov014_021089b0(void)
+extern "C" s32 CheckDuplicate(void)
 {
     s32 z = 0;
     s32 o;
@@ -3177,7 +3177,7 @@ extern "C" s32 func_ov014_021089b0(void)
     u8 me;
     u8 *p;
     u8 n;
-    p = *(u8 **)((u8 *)data_ov014_02128c84 + 0x10);
+    p = *(u8 **)((u8 *)wcmBuffer + 0x10);
     me = p[0xD13];
     q = p + 0x474;
     o = me * 0xC0;
@@ -3194,20 +3194,20 @@ extern "C" s32 func_ov014_021089b0(void)
     return 1;
 }
 
-extern "C" s32 func_ov014_02108a50(void)
+extern "C" s32 CheckEULA(void)
 {
     return 1;
 }
 
-extern "C" s32 func_ov014_02108a58(void)
+extern "C" s32 CheckWirelessPowerON(void)
 {
     return 1;
 }
 
-extern "C" asm s32 func_ov014_02108a60(...)
+extern "C" asm s32 DWC_InitInetEx(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r4, =data_ov014_02128c98
+    ldr r4, =_ZZ17DWC_GetInetStatusvE8stateOld
     mov r8, r0
     ldr r2, [r4, #4]
     mov r7, r1
@@ -3228,29 +3228,29 @@ extern "C" asm s32 func_ov014_02108a60(...)
     str r5, [r8, #0x14]
     strb r5, [r8, #0x10]
     str r8, [r4, #4]
-    bl func_ov014_0211c1f8
+    bl CPS_SetSslHandshakePriority
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" void func_ov014_02108ac4(s32 arg0)
+extern "C" void DWC_InitInet(s32 arg0)
 {
-    func_ov014_02108a60(arg0, 3, 1, 0x14);
+    DWC_InitInetEx(arg0, 3, 1, 0x14);
 }
 
-extern "C" asm void func_ov014_02108adc(void)
+extern "C" asm void DWC_SetRwinSize(void)
 {
-    ldr r1, =data_ov014_02128c98
+    ldr r1, =_ZZ17DWC_GetInetStatusvE8stateOld
     ldr r1, [r1, #4]
     cmp r1, #0
     cmpne r0, #0x10c0
     bx lr
 }
 
-extern "C" asm s32 func_ov014_02108af4(...)
+extern "C" asm s32 DWC_ConnectInetAsync(...)
 {
     stmdb sp!, {r4, r5, lr}
     sub sp, sp, #0x14
-    ldr r4, =data_ov014_02128c98
+    ldr r4, =_ZZ17DWC_GetInetStatusvE8stateOld
     ldr r0, [r4, #4]
     cmp r0, #0
     beq @L_02108b94
@@ -3264,9 +3264,9 @@ extern "C" asm s32 func_ov014_02108af4(...)
     mov r2, #0x14
     bl MI_CpuFill8
     ldr r12, [r4, #4]
-    ldr r3, =func_ov014_02110d34
+    ldr r3, =DWC_Alloc
     ldrh r1, [r12, #8]
-    ldr r2, =func_ov014_02110d78
+    ldr r2, =DWC_Free
     mov r0, r5
     strb r1, [sp, #8]
     ldrh r4, [r12, #0xa]
@@ -3279,56 +3279,56 @@ extern "C" asm s32 func_ov014_02108af4(...)
     ldrb r2, [r12, #0x10]
     strb r2, [sp, #0x10]
     strh r1, [r12, #4]
-    bl func_ov014_02108054
+    bl DWC_AC_Create
     cmp r0, #0
     addne sp, sp, #0x14
     ldmneia sp!, {r4, r5, pc}
     ldr r1, =0xffff3be9
     mov r0, #9
-    bl func_ov014_02110be4
+    bl DWCi_SetError
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, pc}
 @L_02108b94:
     ldr r1, =0xffff3be9
     mov r0, #9
-    bl func_ov014_02110be4
+    bl DWCi_SetError
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_02108bb8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+extern "C" s32 DWC_DebugConnectInetExAsync(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
     s32 r6;
     s32 v1;
     s32 v2;
-    func_ov014_02108af4(arg0, (s32)arg1, arg2, arg3);
+    DWC_ConnectInetAsync(arg0, (s32)arg1, arg2, arg3);
     r6 = (s32)arg1;
-    arg1 = (u8 *)*(s32 *)(((u8 *)&data_ov014_02128c98) + 0x4);
+    arg1 = (u8 *)*(s32 *)(((u8 *)&_ZZ17DWC_GetInetStatusvE8stateOld) + 0x4);
     if ((s32)arg1 != 0) {
         *(u8 *)(arg1 + 0x11) = 1;
     }
-    v1 = func_ov014_02108dbc();
+    v1 = DWC_GetInetStatus();
     if (v1 != 2)
         return v1;
-    v2 = func_ov014_0210844c(arg0, r6, arg2, arg3, arg4, arg5);
+    v2 = DWC_AC_SetSpecifyApEx(arg0, r6, arg2, arg3, arg4, arg5);
     return v2;
 }
 
-extern "C" s32 func_ov014_02108c28(void)
+extern "C" s32 DWC_CheckInet(void)
 {
     s32 r0;
     u8 *r1;
     s32 r4;
-    r1 = (u8 *)*(s32 *)(data_ov014_02128c98 + 0x4);
-    r4 = (s32)data_ov014_02128c98;
+    r1 = (u8 *)*(s32 *)(_ZZ17DWC_GetInetStatusvE8stateOld + 0x4);
+    r4 = (s32)_ZZ17DWC_GetInetStatusvE8stateOld;
     if ((s32)r1 == 0) {
         return 0;
     } else {
-        r4 = (s32)data_ov014_02128c98;
+        r4 = (s32)_ZZ17DWC_GetInetStatusvE8stateOld;
         if (*(s32 *)(r1) != 0) {
             *(u16 *)(r1 + 0x4) = 3;
-            func_ov014_02108dbc(3);
-            if (*(u8 *)(*(u8 * *)(data_ov014_02128c98 + 0x4) + 0x11) != 0) {
+            DWC_GetInetStatus(3);
+            if (*(u8 *)(*(u8 * *)(_ZZ17DWC_GetInetStatusvE8stateOld + 0x4) + 0x11) != 0) {
                 r0 = 1;
             } else {
                 r0 = 0;

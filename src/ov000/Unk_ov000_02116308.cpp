@@ -19,7 +19,7 @@ extern "C" void func_ov000_02116e8c(void);
 extern "C" void func_ov000_02116f2c(void);
 extern "C" s32 func_ov000_02116fcc(u8 *arg0, s32 arg1);
 
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 extern "C" char data_020cac9c[];
 extern "C" char data_020cacc4[];
 extern "C" char data_020cacc8[];
@@ -43,16 +43,16 @@ extern "C" s32 _ZN11MatchEngine13func_0207f07cEv(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_01ffca10(void);
-extern "C" void func_0200919c(void);
+extern "C" void MIi_CpuClear32(void);
 extern "C" void func_02016e10(void);
 extern "C" void func_020816b0(void);
 extern "C" s32 func_020816dc(...);
 extern "C" void func_0208170c(void);
 extern "C" void func_020817bc(void);
 extern "C" void func_02084aec(void);
-extern "C" void func_ov015_021309a4(void);
+extern "C" void Random_RandA(void);
 extern "C" void func_ov015_02133efc(void);
-extern "C" void func_ov015_02134208(void);
+extern "C" void Archive_Deallocate(void);
 extern "C" void gGameState(void);
 
 extern "C" s32 func_ov000_02116308(s32 arg0, s32 arg1)
@@ -199,7 +199,7 @@ extern "C" asm void func_ov000_02116348(void)
     bne @L_021163d4
 @L_0211650c:
     add r0, sp, #0x10c
-    bl func_ov015_02134208
+    bl Archive_Deallocate
     ldr r0, [sp, #8]
     add sp, sp, #0x118
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -239,7 +239,7 @@ extern "C" asm void func_ov000_02116530(void)
     bl MI_CpuFill8
     add r0, r10, #0x11800
     ldrh r3, [r0, #0x42]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, r7
     mul r1, r3, r4
     mov r3, #1
@@ -253,7 +253,7 @@ extern "C" asm void func_ov000_02116530(void)
     mov r0, r7
     mov r1, r5
     mul r2, r3, r4
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r4, [r10, #0xbd4]
     add r6, r10, #0x11800
     b @L_02116640
@@ -377,7 +377,7 @@ extern "C" asm void func_ov000_02116530(void)
     cmp r6, #0
     beq @L_02116828
     mov r0, r6
-    bl func_ov015_021309a4
+    bl Random_RandA
     mul r1, r0, r4
     add r2, r0, #1
     ldr r3, [r5, r1]
@@ -443,7 +443,7 @@ extern "C" asm void func_ov000_02116530(void)
     mov r0, r10
     bl _ZN11MatchEngine13func_0207f07cEv
 @L_02116890:
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r5
     bl _ZN8GameHeap4FreeEPv
     ldr r1, =gGameState

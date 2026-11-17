@@ -9,6 +9,11 @@ The names below are the ones the sources use. A name that still carries an addre
 `python tools/rename.py OLD=NEW` renames an identifier everywhere, mangled names and asm
 references included, once it is.
 
+In Inazuma Eleven 3 the match object is the class `CLogicThink`, a player is a `Unit`
+(`CUnitMan`), and the distance tables are `CCalcMap` and `CDistanceMap`: 356 functions of
+`src/match/` and overlay 87 are paired with functions of that game, see
+[ie3_mapping.md](ie3_mapping.md) and the `match` rows of [ie3_mapping.csv](ie3_mapping.csv).
+
 ## Where the code is
 
 | Part | Where | What it is |
@@ -24,7 +29,7 @@ references included, once it is.
 
 Other files of `src/game/` between 0x02054800 and 0x02087500 belong to the match as well and
 are not named yet: `Unk_0205dee0` (it reads `REPLAY_FLICKER_TIME_*`: the replay's display),
-`UnkClass_02054800`, `UnkClass_02060294`, `Unk_02081740`, `Unk_02081c3c`, `Unk_02084ff4`,
+`UnkClass_02054800`, `ScriptManager`, `Unk_02081740`, `Unk_02081c3c`, `Unk_02084ff4`,
 `Unk_02086070`, `Unk_02087500`.
 
 The RPG side meets the match in overlay 0 (the overworld, with `RPG_ENCOUNT_TIME` for the random

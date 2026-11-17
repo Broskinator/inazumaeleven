@@ -8,17 +8,17 @@ extern "C" s32 func_ov040_021691c4(u8 *arg0);
 extern "C" s32 func_ov040_021692a4(s32 arg0);
 extern "C" s32 func_ov040_021692cc(s32 arg0);
 
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 extern "C" char data_020c4ab4[];
 extern "C" char data_020c4ac8[];
-extern "C" char data_020c9660[];
+extern "C" char gBgMenuManager[];
 extern "C" char data_020e88a0[];
 extern "C" s32 G2_GetBG1ScrPtr(...);
 extern "C" s32 G2_GetBG2ScrPtr(...);
 extern "C" s32 G2_GetBG3ScrPtr(...);
 extern "C" s32 STD_CopyString(...);
 extern "C" s32 STD_GetStringLength(...);
-extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
+extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" s32 _ZN8TextFontD1Ev(...);
@@ -30,12 +30,12 @@ extern "C" s32 func_ov015_02132c08(...);
 extern "C" s32 func_ov015_02133e24(...);
 extern "C" s32 func_ov015_02133e50(...);
 extern "C" s32 func_ov015_02133e8c(...);
-extern "C" s32 func_ov015_0213b364(...);
-extern "C" s32 func_ov015_0213b3fc(...);
-extern "C" s32 func_ov015_0213b478(...);
-extern "C" s32 func_ov015_0213be90(...);
-extern "C" void func_ov015_0213bfcc(void);
-extern "C" s32 func_ov015_0213c33c(...);
+extern "C" s32 CBgMenuManager_Init(...);
+extern "C" s32 CBgMenuManager_Finalize(...);
+extern "C" s32 CBgMenuManager_SetScreens(...);
+extern "C" s32 CBgMenuManager_IsFlashActive(...);
+extern "C" void CBgMenuManager_UpdateGraphics(void);
+extern "C" s32 CBgMenuManager_Draw(...);
 extern "C" s32 func_ov040_02165d60(...);
 extern "C" void func_ov040_02165e64(void);
 extern "C" void func_ov040_02165ef4(void);
@@ -66,7 +66,7 @@ extern "C" s32 func_ov040_02168e24(u8 *arg0, s32 arg1)
     s32 t5;
     if (*(s32 *)(arg0 + 0x34) != 4)
         return *(s32 *)(arg0 + 0x34);
-    v0 = func_ov015_0213be90((s32)data_020c9660, 0);
+    v0 = CBgMenuManager_IsFlashActive((s32)gBgMenuManager, 0);
     if (v0 != 0)
         return v0;
     r4 = arg0;
@@ -143,24 +143,24 @@ extern "C" s32 func_ov040_02168f20(u8 *arg0)
     *(u16 *)(arg0 + 0x6C) = 0;
     func_ov040_02166514((s32)arg0, 0, (0 - 1));
     STD_CopyString((arg0 + 0x88), (s32)data_020c4ac8);
-    v2 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, 0x6C0, 0, 1);
+    v2 = _ZN8GameHeap5AllocEiii((s32)gAllocator, 0x6C0, 0, 1);
     *(s32 *)(arg0 + 0x80) = v2;
-    v3 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, 0x6C, 0, 1);
+    v3 = _ZN8GameHeap5AllocEiii((s32)gAllocator, 0x6C, 0, 1);
     *(s32 *)(arg0 + 0x84) = v3;
     r4 = (s32)arg0;
     r5 = (u8 *)data_020c4ab4;
     r7 = (s32)data_020c4ac8;
     if (*(s32 *)(r5 + 0x4) == 3) {
         v4 = func_ov015_021319bc();
-        v5 = _ZN11MatchEngine13func_0206a964Ei((s32)data_020e88a0, v4);
+        v5 = _ZN11MatchEngine11GetTeamInfoEi((s32)data_020e88a0, v4);
         STD_CopyString(r7, v5);
         v7 = STD_GetStringLength(r7);
         *(s32 *)(r5 + 0x8) = v7;
     }
-    func_ov015_0213b364((s32)data_020c9660, 0);
+    CBgMenuManager_Init((s32)gBgMenuManager, 0);
     v9 = G2_GetBG3ScrPtr();
     v10 = G2_GetBG1ScrPtr();
-    func_ov015_0213b478((s32)data_020c9660, 0, v9, v10, 0);
+    CBgMenuManager_SetScreens((s32)gBgMenuManager, 0, v9, v10, 0);
     func_ov015_02133e24((r4 + 0xA8), 1);
     func_ov015_02133e50((r4 + 0xA8), 0x1E, 7);
     v14 = func_ov040_02165d60(r4);
@@ -195,21 +195,21 @@ extern "C" asm void func_ov040_02169088(void)
     str r0, [r4, #0x34]
     ldmia sp!, {r4, r5, r6, pc}
 @L_021690e8:
-    ldr r6, =data_020c9660
+    ldr r6, =gBgMenuManager
     mov r5, #0
     mov r0, r6
     mov r1, r5
-    bl func_ov015_0213b3fc
+    bl CBgMenuManager_Finalize
     mov r0, r6
     mov r1, r5
-    bl func_ov015_0213b364
+    bl CBgMenuManager_Init
     mov r0, r4
     bl func_ov040_02167834
     mov r0, r4
     bl func_ov040_02167378
     mov r0, r6
     mov r1, r5
-    bl func_ov015_0213bfcc
+    bl CBgMenuManager_UpdateGraphics
     mov r0, r4
     ldr r1, [r0]
     ldr r1, [r1, #0x4c]
@@ -226,9 +226,9 @@ extern "C" asm void func_ov040_02169088(void)
     strge r0, [r4, #0xa4]
     mov r0, r4
     bl func_ov040_02167634
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #0
-    bl func_ov015_0213bfcc
+    bl CBgMenuManager_UpdateGraphics
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -247,7 +247,7 @@ extern "C" s32 func_ov040_02169174(u8 *arg0)
         case 4:
         case 5:
             func_ov040_021662f4((s32)arg0, r1);
-            v2 = func_ov015_0213c33c((u8 *)((u8 *)&data_020c9660), 0);
+            v2 = CBgMenuManager_Draw((u8 *)((u8 *)&gBgMenuManager), 0);
             return v2;
     }
 }
@@ -265,16 +265,16 @@ extern "C" s32 func_ov040_021691c4(u8 *arg0)
     v2 = G2_GetBG1ScrPtr();
     v3 = G2_GetBG2ScrPtr();
     r4 = 0;
-    func_ov015_0213b478((s32)((u8 *)&data_020c9660), 0, v1, v2, v3);
-    func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 0);
+    CBgMenuManager_SetScreens((s32)((u8 *)&gBgMenuManager), 0, v1, v2, v3);
+    CBgMenuManager_Finalize((s32)((u8 *)&gBgMenuManager), 0);
     r1 = *(s32 *)(arg0 + 0x80);
     if (r1 != 0) {
-        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), r1);
         *(s32 *)(arg0 + 0x80) = r4;
     }
     r1 = *(s32 *)(arg0 + 0x84);
     if (r1 != 0) {
-        _ZN8GameHeap4FreeEPv((s32)((u8 *)&data_020c47b4), r1);
+        _ZN8GameHeap4FreeEPv((s32)((u8 *)&gAllocator), r1);
         *(s32 *)(arg0 + 0x84) = 0;
     }
     func_ov015_02133e8c((s32)(arg0 + 0xA8), 1);

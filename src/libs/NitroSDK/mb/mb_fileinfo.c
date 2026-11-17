@@ -1,9 +1,9 @@
 // (asm for now)
 
 void MBi_ReadSegmentHeader(void);
-void func_ov089_02175bd8(void);
-void func_ov089_02175e50(void);
-void func_ov089_02175ec4(void);
+void MB_RegisterFile(void);
+void MBi_MakeDownloadFileInfo(void);
+void MBi_SetSegmentInfo(void);
 void MBi_MakeBlockInfoTable(void);
 void MBi_get_blockinfo(void);
 void MBi_IsAbleToRecv(void);
@@ -12,17 +12,17 @@ void IsAbleToLoad(void);
 void MI_CpuFill8(void);
 void MI_CpuCopy8(void);
 void OS_DisableInterrupts(void);
-void func_ov089_021789b0(void);
+void MBi_IsStarted(void);
 void OS_RestoreInterrupts(void);
-extern char data_ov089_021792e0[];
-void func_ov089_021763a0(void);
+extern char mbc[];
+void MBi_MakeGameInfo(void);
 void MB_AddGameInfo(void);
 extern char data_ov089_02179224[];
-void func_ov089_02178cac(void);
-void func_ov089_02178cc8(void);
+void MBi_IsTaskAvailable(void);
+void MBi_InitTaskInfo(void);
 void MBi_InitTaskThread(void);
-extern char data_ov089_02179194[];
-void func_0200878c(void);
+extern char MBi_defaultLoadSegList[];
+void OS_Terminate(void);
 void _u32_div_f(void);
 
 asm void MBi_ReadSegmentHeader(void)
@@ -60,7 +60,7 @@ asm void MBi_ReadSegmentHeader(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_ov089_02175bd8(void)
+asm void MB_RegisterFile(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r7, r0
@@ -68,7 +68,7 @@ asm void func_ov089_02175bd8(void)
     mov r10, #0xff
     bl OS_DisableInterrupts
     mov r4, r0
-    bl func_ov089_021789b0
+    bl MBi_IsStarted
     cmp r0, #0
     bne @L_02175c0c
     mov r0, r4
@@ -76,7 +76,7 @@ asm void func_ov089_02175bd8(void)
     mov r0, #0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02175c0c:
-    ldr r0, =data_ov089_021792e0
+    ldr r0, =mbc
     ldr r0, [r0]
     add r1, r0, #0x1000
     ldrb r1, [r1, #0x524]
@@ -118,7 +118,7 @@ asm void func_ov089_02175bd8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02175c9c:
     ldr r1, =0x5d4
-    ldr r8, =data_ov089_021792e0
+    ldr r8, =mbc
     mul r5, r10, r1
     add r0, r0, r5
     add r0, r0, #0x1000
@@ -129,7 +129,7 @@ asm void func_ov089_02175bd8(void)
     add r0, r0, #0x1400
     add r9, r0, r5
     mov r0, r9
-    bl func_ov089_02175e50
+    bl MBi_MakeDownloadFileInfo
     add r0, r7, #0x1c
     add r1, r9, #0xc4
     mov r2, #0x20
@@ -153,7 +153,7 @@ asm void func_ov089_02175bd8(void)
     add r0, r0, #0x1800
     add r0, r0, r5
     add r2, r2, #0x1300
-    bl func_ov089_021763a0
+    bl MBi_MakeGameInfo
     ldr r0, [r8]
     add r0, r0, r5
     add r0, r0, #0x1000
@@ -197,20 +197,20 @@ asm void func_ov089_02175bd8(void)
     ldr r0, [r0, #0x6c]
     cmp r0, #0
     beq @L_02175e08
-    bl func_ov089_02178cac
+    bl MBi_IsTaskAvailable
     cmp r0, #0
     bne @L_02175e08
     ldr r0, [r8]
     add r0, r0, #0xce0
     add r0, r0, #0x7000
-    bl func_ov089_02178cc8
+    bl MBi_InitTaskInfo
     ldr r0, [r8]
     mov r1, #0x800
     add r0, r0, #0x4e0
     add r0, r0, #0x7000
     bl MBi_InitTaskThread
 @L_02175e08:
-    ldr r2, =data_ov089_021792e0
+    ldr r2, =mbc
     mov r6, #1
     ldr r1, [r2]
     mov r0, r4
@@ -227,7 +227,7 @@ asm void func_ov089_02175bd8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_ov089_02175e50(void)
+asm void MBi_MakeDownloadFileInfo(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r4, r1
@@ -236,7 +236,7 @@ asm void func_ov089_02175e50(void)
     ldr r1, [r4, #0x24]
     str r2, [sp]
     ldr r0, [r4, #0x34]
-    ldr r7, =data_ov089_02179194
+    ldr r7, =MBi_defaultLoadSegList
     str r1, [r5]
     str r0, [r5, #4]
     add r8, r5, #0xc
@@ -247,7 +247,7 @@ asm void func_ov089_02175e50(void)
     mov r1, r7
     mov r2, r8
     mov r3, r6
-    bl func_ov089_02175ec4
+    bl MBi_SetSegmentInfo
     add r9, r9, #1
     cmp r9, #3
     add r8, r8, #0x10
@@ -260,7 +260,7 @@ asm void func_ov089_02175e50(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_ov089_02175ec4(void)
+asm void MBi_SetSegmentInfo(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r1, [r1]
@@ -292,7 +292,7 @@ asm void func_ov089_02175ec4(void)
     str r0, [r6, #0xc]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02175f34:
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02175f3c:
     ldr r12, [r7, #0x38]
@@ -330,7 +330,7 @@ asm void func_ov089_02175ec4(void)
 @L_02175fb0:
     cmp r2, #1
     bne @L_02175fbc
-    bl func_0200878c
+    bl OS_Terminate
 @L_02175fbc:
     ldr r1, [r7, #0x3c]
     ldr r0, [r7, #0x38]
@@ -377,7 +377,7 @@ asm void MBi_MakeBlockInfoTable(void)
     add r0, r0, r3
     blo @L_02176040
     mov r9, #0
-    ldr r4, =data_ov089_021792e0
+    ldr r4, =mbc
     strh r9, [r6]
     add r5, r1, #0xc
 @L_02176070:
@@ -435,7 +435,7 @@ asm void MBi_get_blockinfo(void)
     cmp r12, #0
     movlt r0, #0
     ldmltia sp!, {r3, r4, r5, pc}
-    ldr r4, =data_ov089_021792e0
+    ldr r4, =mbc
     add r5, r1, r12, lsl #1
     ldr lr, [r4]
     ldrh r5, [r5, #0xc]
@@ -466,7 +466,7 @@ asm void MBi_get_blockinfo(void)
 
 asm void MBi_IsAbleToRecv(void)
 {
-    ldr r3, =data_ov089_02179194
+    ldr r3, =MBi_defaultLoadSegList
     ldr r0, [r3, r0, lsl #2]
     cmp r0, #0
     beq @L_021761e8
@@ -517,7 +517,7 @@ asm void MBi_IsAbleToRecv(void)
 asm void IsAbleToLoad(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_ov089_02179194
+    ldr r3, =MBi_defaultLoadSegList
     ldr r3, [r3, r0, lsl #2]
     cmp r3, #0
     beq @L_02176274

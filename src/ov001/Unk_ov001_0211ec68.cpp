@@ -32,17 +32,17 @@ extern "C" void func_ov001_021216f4(void);
 extern "C" void func_ov001_02121808(void);
 extern "C" void func_ov001_02121c5c(void);
 
-extern "C" char data_020c46a8[];
-extern "C" char data_020c46b4[];
-extern "C" char data_020c46bc[];
-extern "C" char data_020c484c[];
-extern "C" char data_020c4850[];
+extern "C" char gFont12Manager[];
+extern "C" char gFont8[];
+extern "C" char gPalSkinFaceFile[];
+extern "C" char gDeltaTime[];
+extern "C" char gDebugFont[];
 extern "C" char data_020c4920[];
-extern "C" char data_020c9660[];
+extern "C" char gBgMenuManager[];
 extern "C" char data_020cddf4[];
-extern "C" char data_020d2520[];
-extern "C" char data_020d2d20[];
-extern "C" char data_020d3520[];
+extern "C" char gSubScreen0[];
+extern "C" char gSubScreen1[];
+extern "C" char gSubScreen2[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov001_02128850[];
 extern "C" char data_ov001_02128878[];
@@ -63,18 +63,18 @@ extern "C" void G2S_GetBG1CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" void _ZN11MatchEngine13func_020690a8Eii(void);
-extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206b3dcEi(void);
 extern "C" s32 _ZN11MatchEngine13func_0206de4cEv(...);
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" s32 _ZN10MatchRules13func_0206efb0Ei(...);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_02001d60(void);
-extern "C" void func_02003608(void);
-extern "C" void func_020036e8(void);
-extern "C" s32 func_020037c8(...);
-extern "C" void func_02003b48(void);
+extern "C" void FX_Div(void);
+extern "C" void GXS_LoadBG0Scr(void);
+extern "C" void GXS_LoadBG1Scr(void);
+extern "C" s32 GXS_LoadBG2Scr(...);
+extern "C" void GXS_LoadBG2Char(void);
 extern "C" void _fflt(void);
 extern "C" void _ffltu(void);
 extern "C" void _s32_div_f(void);
@@ -98,37 +98,37 @@ extern "C" void func_ov015_02131a44(void);
 extern "C" void func_ov015_02131cd4(void);
 extern "C" void func_ov015_02131d4c(void);
 extern "C" void func_ov015_02131da0(void);
-extern "C" s32 func_ov015_02131f84(...);
-extern "C" s32 func_ov015_02132014(...);
-extern "C" void func_ov015_02132240(void);
-extern "C" void func_ov015_021322b0(void);
-extern "C" void func_ov015_021322d8(void);
-extern "C" void func_ov015_02132984(void);
-extern "C" void func_ov015_02132a04(void);
-extern "C" s32 func_ov015_02132a38(...);
-extern "C" void func_ov015_02132a98(void);
-extern "C" void func_ov015_02132b7c(void);
-extern "C" void func_ov015_021330b4(void);
+extern "C" s32 Graphics_ResetBGPulse(...);
+extern "C" s32 Graphics_SetBGPalettePulse(...);
+extern "C" void Graphics_LoadBGPaletteSub(void);
+extern "C" void Graphics_LoadTempPaletteFromPac(void);
+extern "C" void Graphics_LoadTempPalette(void);
+extern "C" void Graphics_SetupScreen(void);
+extern "C" void Graphics_SetupScreen_2(void);
+extern "C" s32 Graphics_ScreenCopy(...);
+extern "C" void Graphics_ScreenFill(void);
+extern "C" void Graphics_LoadBGXCharSub(void);
+extern "C" void Graphics_DrawTextTileWithRuby(void);
 extern "C" void func_ov015_02133c24(void);
 extern "C" void func_ov015_02133d50(void);
 extern "C" void func_ov015_02133dc8(void);
 extern "C" s32 func_ov015_02133e50(...);
 extern "C" s32 func_ov015_02133e8c(...);
-extern "C" s32 func_ov015_02134118(...);
-extern "C" s32 func_ov015_02134198(...);
-extern "C" s32 func_ov015_02134208(...);
-extern "C" void func_ov015_0213447c(void);
-extern "C" void func_ov015_02134504(void);
-extern "C" void func_ov015_02134554(void);
+extern "C" s32 Archive_TryFinalize(...);
+extern "C" s32 Archive_Close(...);
+extern "C" s32 Archive_Deallocate(...);
+extern "C" void Archive_GetFaceOffsetAndSize(void);
+extern "C" void Archive_GetBodyOffsetAndSize(void);
+extern "C" void Archive_GetBodyPlttOffsetAndSize(void);
 extern "C" s32 func_ov015_0213b228(...);
 extern "C" void func_ov015_0213b270(void);
-extern "C" void func_ov015_0213b310(void);
-extern "C" s32 func_ov015_0213b364(...);
-extern "C" s32 func_ov015_0213b3fc(...);
-extern "C" void func_ov015_0213b540(void);
-extern "C" void func_ov015_0213bcfc(void);
-extern "C" s32 func_ov015_0213bfcc(...);
-extern "C" s32 func_ov015_0213c33c(...);
+extern "C" void CBgAnimeManager_Update(void);
+extern "C" s32 CBgMenuManager_Init(...);
+extern "C" s32 CBgMenuManager_Finalize(...);
+extern "C" void CBgMenuManager_AddDynamic(void);
+extern "C" void CBgMenuManager_SetPos(void);
+extern "C" s32 CBgMenuManager_UpdateGraphics(...);
+extern "C" s32 CBgMenuManager_Draw(...);
 extern "C" void gGameState(void);
 extern "C" void sprintf(void);
 
@@ -206,7 +206,7 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     ldr r0, [r10, #0xa8]
     mov r2, r11
     bl func_ov001_021263a0
-    ldr r1, =data_020c4850
+    ldr r1, =gDebugFont
     ldr r0, [r10, #0x78]
     ldr r1, [r1]
     mov r2, r11
@@ -235,20 +235,20 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     add r2, r11, #1
     mul r1, r7, r1
     mov r1, r1, lsl #1
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
     mov r11, r0
 @L_0211edec:
     add r6, r6, #1
     cmp r6, #3
     add r5, r5, #0x14
     blt @L_0211edac
-    bl func_ov015_02132240
+    bl Graphics_LoadBGPaletteSub
     b @L_0211f304
 @L_0211ee04:
     ldr r1, [r10, #0x60]
     mov r0, r9
     mov r2, r9
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     bl G2S_GetBG1CharPtr
     mov r1, r0
     mov r0, r9
@@ -260,34 +260,34 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     ldr r1, [r10, #0x6c]
     mov r2, r7
     mov r0, r8
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r10, #0x84]
     mov r0, r8
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r10, #0x90]
     mov r0, r8
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r10, #0xa8]
     mov r0, r8
-    bl func_ov015_02132b7c
-    ldr r0, =data_020c4850
+    bl Graphics_LoadBGXCharSub
+    ldr r0, =gDebugFont
     mov r1, r9
     ldr r4, [r0]
     ldr r0, [r4, #0x14]
     ldr r2, [r4, #0x18]
     add r0, r4, r0
-    bl func_02003b48
+    bl GXS_LoadBG2Char
     ldr r2, [r4, #0x18]
     ldr r1, [r10, #0x78]
     mov r0, r11
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r10, #0x9c]
     mov r0, r11
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     add r3, r10, #0x18
     mov r4, r9
 @L_0211eeb8:
@@ -316,14 +316,14 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     ldr r2, [r3, #0x10]
     mov r1, r9
     add r0, r3, r0
-    bl func_02003608
+    bl GXS_LoadBG0Scr
 @L_0211ef1c:
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r8
-    bl func_ov015_0213b3fc
-    ldr r0, =data_020c9660
+    bl CBgMenuManager_Finalize
+    ldr r0, =gBgMenuManager
     mov r1, r8
-    bl func_ov015_0213b364
+    bl CBgMenuManager_Init
     ldr r1, [r10, #0x84]
     cmp r1, #0
     beq @L_0211efa4
@@ -346,12 +346,12 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     str r6, [sp]
     stmib sp, {r0, r6}
     str r6, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r8
     mov r2, r8
     mov r3, r8
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_0211efa4:
     ldr r3, [r10, #0x18]
     mov r1, #0
@@ -380,11 +380,11 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     str r2, [sp]
     stmib sp, {r0, r2}
     str r2, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #1
     mov r3, #2
     str r2, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_0211f024:
     ldr r1, [r10, #0xa8]
     cmp r1, #0
@@ -407,11 +407,11 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     stmia sp, {r6, r11}
     str r6, [sp, #8]
     str r6, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r8
     mov r3, #0xf
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     mov r0, #0xf
     strh r0, [sp, #0x18]
     mov r0, #3
@@ -428,12 +428,12 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     stmia sp, {r6, r11}
     str r6, [sp, #8]
     str r6, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r8
     mov r2, r8
     mov r3, #0x10
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_0211f0e4:
     mov r9, #0
     add r4, r10, #0x18
@@ -452,7 +452,7 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     beq @L_0211f170
     ldrh r12, [r3, #0xe]
     ldrh r3, [r3, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r8
     strh r3, [sp, #0x18]
     str r2, [sp, #0x28]
@@ -470,7 +470,7 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     mov r2, r6
     add r3, r9, #0x11
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_0211f170:
     add r9, r9, #1
     cmp r9, #2
@@ -501,11 +501,11 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     stmib sp, {r0, r6}
     mov r1, #1
     str r6, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r2, r1
     mov r3, #3
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_0211f1f8:
     mov r0, r10
     mov r1, r8
@@ -539,11 +539,11 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     str r6, [sp]
     stmib sp, {r4, r6}
     str r6, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r2, r1
     mov r3, #9
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     add r1, r9, #0x60
     mov r0, #6
     strh r0, [sp, #0x1a]
@@ -560,11 +560,11 @@ extern "C" asm s32 func_ov001_0211ecdc(...)
     str r6, [sp]
     stmib sp, {r4, r6}
     str r6, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r2, r1
     mov r3, #0xa
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_0211f2e0:
     mov r0, r10
     mov r2, #1
@@ -608,7 +608,7 @@ extern "C" asm s32 func_ov001_0211f324(...)
     ldmib r7, {r0, r1}
     mul r2, r3, r2
     mov r2, r2, lsl #5
-    bl func_02003b48
+    bl GXS_LoadBG2Char
 @L_0211f378:
     add r8, r8, #1
     cmp r8, #3
@@ -699,21 +699,21 @@ extern "C" asm void func_ov001_0211f38c(void)
     str r0, [sp, #8]
     str r0, [sp, #0xc]
     str r0, [sp, #0x10]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #1
     mov r2, #0
     add r3, r7, #4
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     b @L_0211f4fc
 @L_0211f4d8:
     str r0, [sp]
-    ldr r0, =data_020d2520
+    ldr r0, =gSubScreen0
     mov r1, r9
     str r0, [sp, #4]
     mov r0, r10
     mov r2, #2
     mov r3, #4
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
     add r10, r10, #2
 @L_0211f4fc:
     add r7, r7, #1
@@ -788,22 +788,22 @@ extern "C" asm void func_ov001_0211f530(void)
     str r0, [sp, #8]
     str r0, [sp, #0xc]
     str r0, [sp, #0x10]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #1
     mov r2, #0
     mov r3, r6
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     add r6, r6, #1
     b @L_0211f65c
 @L_0211f638:
     str r0, [sp]
-    ldr r0, =data_020d2520
+    ldr r0, =gSubScreen0
     mov r1, #0x11
     str r0, [sp, #4]
     mov r0, r7
     mov r2, #3
     mov r3, #4
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
     sub r7, r7, #3
 @L_0211f65c:
     mov r1, r8
@@ -857,9 +857,9 @@ extern "C" asm s32 func_ov001_0211f68c(...)
     mov r3, r1, lsl #3
     ldr r1, [r10, #0x1c]
     mov r2, r2, lsl #3
-    bl func_ov015_021330b4
+    bl Graphics_DrawTextTileWithRuby
 @L_0211f728:
-    ldr r4, =data_020c46a8
+    ldr r4, =gFont12Manager
     mov r8, #0
     add r5, r10, #0x18
     mov r11, #3
@@ -890,7 +890,7 @@ extern "C" asm s32 func_ov001_0211f68c(...)
 @L_0211f794:
     ldr r0, =data_020e88a0
     mov r1, r8
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     movs r3, r0
     beq @L_0211f7f0
     mov r0, #3
@@ -999,7 +999,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     sub sp, sp, #8
     mov r10, r0
     ldr r1, [r10, #0x84]
-    ldr r8, =data_020d2d20
+    ldr r8, =gSubScreen1
     cmp r1, #0
     mov r4, #1
     mov r11, #0
@@ -1012,7 +1012,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     mov r1, r4
     mov r3, #0xb
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_0211f974:
     ldr r0, [r10, #0x18]
     mov r1, #0
@@ -1023,14 +1023,14 @@ extern "C" asm void func_ov001_0211f92c(void)
     cmp r1, #0
     beq @L_0211f9b8
     ldr r1, [r10, #0x18]
-    ldr r0, =data_020d2520
+    ldr r0, =gSubScreen0
     str r1, [sp]
     str r0, [sp, #4]
     ldrh r2, [r10, #0x24]
     ldrh r3, [r10, #0x26]
     mov r0, #2
     mov r1, #4
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_0211f9b8:
     ldr r1, [r10, #0xa8]
     cmp r1, #0
@@ -1046,7 +1046,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     mov r3, r5
     mov r0, #0
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
     add r0, r9, #0x5a
     str r0, [sp]
     mov r1, r7
@@ -1054,7 +1054,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     mov r3, r5
     mov r0, #0x11
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_0211fa14:
     ldr r0, [r10, #0x2c]
     mov r1, #0
@@ -1065,14 +1065,14 @@ extern "C" asm void func_ov001_0211f92c(void)
     cmp r1, #0
     beq @L_0211fa58
     ldr r1, [r10, #0x2c]
-    ldr r0, =data_020d2520
+    ldr r0, =gSubScreen0
     str r1, [sp]
     str r0, [sp, #4]
     ldrh r2, [r10, #0x38]
     ldrh r3, [r10, #0x3a]
     mov r0, #0
     mov r1, #0xc
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_0211fa58:
     ldr r0, [r10, #0x40]
     mov r1, #0
@@ -1083,14 +1083,14 @@ extern "C" asm void func_ov001_0211f92c(void)
     cmp r1, #0
     beq @L_0211fa9c
     ldr r1, [r10, #0x40]
-    ldr r0, =data_020d2520
+    ldr r0, =gSubScreen0
     str r1, [sp]
     str r0, [sp, #4]
     ldrh r2, [r10, #0x4c]
     ldrh r3, [r10, #0x4e]
     mov r0, #0x12
     mov r1, #0xc
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_0211fa9c:
     ldr r1, [r10, #0x6c]
     cmp r1, #0
@@ -1103,7 +1103,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     mov r1, #0xf
     mov r3, #8
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_0211facc:
     mov r0, r10
     mov r1, #0xb
@@ -1128,7 +1128,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     mov r3, r7
     mov r0, #1
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
     add r0, r9, #0x60
     str r0, [sp]
     mov r1, r6
@@ -1136,7 +1136,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     mov r3, r7
     mov r0, #0x17
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_0211fb4c:
     mov r0, r10
     mov r1, r11
@@ -1154,7 +1154,7 @@ extern "C" asm void func_ov001_0211f92c(void)
     mov r0, r8
     mov r2, r5
     mov r1, #0
-    bl func_020036e8
+    bl GXS_LoadBG1Scr
     ldr r0, =data_ov001_0212a9e2
     strb r4, [r0]
     add sp, sp, #8
@@ -1169,7 +1169,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     ldr r1, [r10, #0x14]
     mov r6, #0
     cmp r1, #4
-    ldr r5, =data_020c9660
+    ldr r5, =gBgMenuManager
     mov r4, #1
     beq @L_0211fbe4
     cmp r1, #5
@@ -1182,7 +1182,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     ldrb r1, [r10, #0x10]
     ldr r0, =data_020cddf4
     mov r7, r4
-    bl func_ov015_0213b310
+    bl CBgAnimeManager_Update
     movs r6, r0
     beq @L_0211fc40
     ldrsh r1, [r6, #2]
@@ -1191,7 +1191,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     str r1, [sp]
     ldrsh r3, [r6]
     mov r1, r7
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     ldrsh r2, [r6, #2]
     mov r0, r5
     mov r1, r7
@@ -1200,12 +1200,12 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     ldrsh r3, [r6]
     mov r2, #2
     add r3, r3, #2
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     mov r7, #0
 @L_0211fc40:
     ldrb r1, [r10, #0x11]
     ldr r0, =data_020cddf4
-    bl func_ov015_0213b310
+    bl CBgAnimeManager_Update
     cmp r0, #0
     beq @L_0211fe60
     ldrsh r7, [r0]
@@ -1215,7 +1215,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r3, r7
     mov r2, #0xf
     str r6, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     mov r0, r7, lsl #0x10
     mov r8, r0, asr #0x10
     add r0, r8, #0x11
@@ -1225,7 +1225,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r1, r4
     mov r2, #0x10
     str r6, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     sub r0, r6, #0xc
     mov r0, r0, lsl #0x10
     mov r9, r0, asr #0x10
@@ -1238,7 +1238,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r1, r4
     mov r2, #0x11
     str r6, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r0, r8, #0x12
     mov r0, r0, lsl #0x10
     mov r3, r0, asr #0x10
@@ -1246,7 +1246,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r1, r4
     mov r2, #0x12
     str r6, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r0, r8, #9
     mov r0, r0, lsl #0x10
     mov r3, r0, asr #0x10
@@ -1257,7 +1257,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r1, r4
     mov r0, r5
     mov r2, #3
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r0, r9, #0x12
     mov r0, r0, lsl #0x10
     mov r7, r0, asr #0x10
@@ -1273,12 +1273,12 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r2, r6
     add r3, r3, r4, asr #16
     str r7, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r6, r6, #1
     cmp r6, #8
     ble @L_0211fd38
     mov r0, r10
-    ldr r6, =data_020c9660
+    ldr r6, =gBgMenuManager
     mov r4, #1
     bl func_ov001_0211ec68
     cmp r0, #0
@@ -1294,7 +1294,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r1, r11
     mov r2, #9
     str r7, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r0, r9, #0x11
     mov r0, r0, lsl #0x10
     add r1, r8, #2
@@ -1309,7 +1309,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     add r2, r7, #0xb
     add r3, r3, r9, asr #16
     str r5, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r7, r7, #1
     cmp r7, #2
     blt @L_0211fdc4
@@ -1323,9 +1323,9 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     mov r3, r2, asr #0x10
     mov r2, #0xa
     str r7, [sp]
-    ldr r6, =data_020c9660
+    ldr r6, =gBgMenuManager
     mov r4, #1
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r0, r8, #0x18
     mov r8, r0, lsl #0x10
     mov r7, #0
@@ -1337,7 +1337,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     add r2, r7, #0xd
     add r3, r3, r8, asr #16
     str r5, [sp]
-    bl func_ov015_0213bcfc
+    bl CBgMenuManager_SetPos
     add r7, r7, #1
     cmp r7, #2
     blt @L_0211fe30
@@ -1355,9 +1355,9 @@ extern "C" asm s32 func_ov001_0211fba8(...)
     ldr r2, [r2, #0x40]
     blx r2
 @L_0211fe88:
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #1
-    bl func_ov015_0213b364
+    bl CBgMenuManager_Init
     mov r0, r10
     bl func_ov001_0211f92c
     mov r1, #6
@@ -1385,7 +1385,7 @@ extern "C" asm s32 func_ov001_0211fba8(...)
 
 extern "C" void func_ov001_0211fef4(u8 *arg0)
 {
-    func_ov015_0213b364((s32)data_020c9660, 1);
+    CBgMenuManager_Init((s32)gBgMenuManager, 1);
     *(s32 *)(arg0 + 0x8) = 0;
     *(s32 *)(arg0 + 0x14) = 0;
     *(u8 *)(arg0 + 0x12) = 0;
@@ -1411,7 +1411,7 @@ extern "C" s32 func_ov001_0211ff90(u8 *arg0)
         default:
             return (s32)arg0;
         case 1:
-            v0 = func_ov015_02134118((s32)(arg0 + 0x54), 9);
+            v0 = Archive_TryFinalize((s32)(arg0 + 0x54), 9);
             if (v0 == 0)
                 return v0;
             func_ov001_0211ebe8((s32)arg0);
@@ -1421,7 +1421,7 @@ extern "C" s32 func_ov001_0211ff90(u8 *arg0)
         case 3:
             func_ov001_0211f68c((s32)arg0, r1);
             func_ov001_0211fba8((s32)arg0);
-            v4 = func_ov015_0213bfcc((u8 *)((u8 *)&data_020c9660), 1);
+            v4 = CBgMenuManager_UpdateGraphics((u8 *)((u8 *)&gBgMenuManager), 1);
             return v4;
         case 4:
             v5 = func_ov001_0211fba8((s32)arg0, r1);
@@ -1452,21 +1452,21 @@ extern "C" s32 func_ov001_02120010(u8 *arg0)
                 func_ov001_0211f324((s32)arg0, r1);
                 *(s32 *)(arg0 + 0x14) = 2;
             }
-            v3 = func_ov015_0213c33c((u8 *)((u8 *)&data_020c9660), 1);
+            v3 = CBgMenuManager_Draw((u8 *)((u8 *)&gBgMenuManager), 1);
             return v3;
         case 4:
-            DC_FlushRange((u8 *)((u8 *)&data_020d2520), 0x800);
-            v5 = func_020037c8((u8 *)((u8 *)&data_020d2520), 0, 0x800);
+            DC_FlushRange((u8 *)((u8 *)&gSubScreen0), 0x800);
+            v5 = GXS_LoadBG2Scr((u8 *)((u8 *)&gSubScreen0), 0, 0x800);
             return v5;
     }
 }
 
 extern "C" void func_ov001_021200b8(s32 arg0)
 {
-    func_ov015_02134198((arg0 + 0x54), 9);
+    Archive_Close((arg0 + 0x54), 9);
     func_ov001_0211ec08(arg0);
     func_ov015_02133e8c((arg0 + 0x18), 3);
-    func_ov015_0213b3fc((s32)data_020c9660, 1);
+    CBgMenuManager_Finalize((s32)gBgMenuManager, 1);
 }
 
 extern "C" s32 func_ov001_021200f4(s32 arg0)
@@ -1481,7 +1481,7 @@ extern "C" void func_ov001_02120108(u8 *arg0, s32 arg1, s32 arg2)
     s32 y;
     if (*(s32 *)(arg0 + 0x31C) == 0)
         return;
-    if (((s32 (*)(...))func_ov015_0213447c)(*(s32 *)(arg0 + 0x31C), arg2, 0, &x, &y) == 0)
+    if (((s32 (*)(...))Archive_GetFaceOffsetAndSize)(*(s32 *)(arg0 + 0x31C), arg2, 0, &x, &y) == 0)
         return;
     ((s32 (*)(...))func_ov001_021261b4)(data_ov001_0212a6e8, arg0 + 0xC4 + arg1 * 0xC, x, y, 1);
 }
@@ -1509,7 +1509,7 @@ extern "C" asm void func_ov001_0212017c(void)
     mov r1, r8
     mov r2, r4
     str r12, [sp, #4]
-    bl func_ov015_02134504
+    bl Archive_GetBodyOffsetAndSize
     cmp r0, #0
     beq @L_02120200
     add r1, r7, #0xc4
@@ -1531,7 +1531,7 @@ extern "C" asm void func_ov001_0212017c(void)
     add r3, sp, #0xc
     mov r1, r4
     str r6, [sp]
-    bl func_ov015_02134554
+    bl Archive_GetBodyPlttOffsetAndSize
     cmp r0, #0
     addeq sp, sp, #0x10
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
@@ -1566,7 +1566,7 @@ extern "C" asm void func_ov001_02120268(void)
     add r0, r10, #0xc4
     mov r2, #0x27c
     bl MI_CpuFill8
-    ldr r4, =data_020d3520
+    ldr r4, =gSubScreen2
     mov r5, #0x800
     mov r0, r6
     mov r1, r4
@@ -1575,7 +1575,7 @@ extern "C" asm void func_ov001_02120268(void)
     mov r0, r4
     mov r1, r5
     bl DC_FlushRange
-    ldr r4, =data_020d2d20
+    ldr r4, =gSubScreen1
     mov r0, r6
     mov r1, r4
     mov r2, r5
@@ -1584,7 +1584,7 @@ extern "C" asm void func_ov001_02120268(void)
     mov r1, r5
     bl DC_FlushRange
     mov r0, r6
-    ldr r4, =data_020d2520
+    ldr r4, =gSubScreen0
     mov r2, r5
     mov r1, r4
     bl MIi_CpuClearFast
@@ -1611,7 +1611,7 @@ extern "C" asm void func_ov001_02120268(void)
 @L_02120348:
     ldr r0, =data_020e88a0
     ldr r1, [sp, #8]
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     mov r8, r0
     ldr r0, [sp, #8]
     mov r1, #0x54
@@ -1687,7 +1687,7 @@ extern "C" void func_ov001_0212049c(s32 arg0)
     s32 r6;
     r6 = 0;
     do {
-        func_ov015_02134208(((r6 * 0xC) + (arg0 + 0xC4)));
+        Archive_Deallocate(((r6 * 0xC) + (arg0 + 0xC4)));
         r4 = 0xC;
         r5 = (arg0 + 0xC4);
         r6 = (r6 + 1);
@@ -1775,7 +1775,7 @@ extern "C" asm void func_ov001_021204c4(void)
     add r0, r2, r0
     add r2, r9, #1
     mov r3, r8
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
     mov r9, r0
 @L_021205fc:
     add r10, r10, #1
@@ -1802,7 +1802,7 @@ extern "C" asm void func_ov001_021204c4(void)
     ldr r0, [r0, #0xc4]
     mov r1, r10
     mov r2, r8
-    bl func_ov015_021322d8
+    bl Graphics_LoadTempPalette
     add r5, r5, #1
     add r8, r8, #1
     add r7, r7, #1
@@ -1864,7 +1864,7 @@ extern "C" asm void func_ov001_021204c4(void)
     add r2, r5, #1
     mov r1, #0x48
     mov r3, #0
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
 @L_02120748:
     ldr r9, [sp, #0x24]
     mov r11, #0xc
@@ -1887,12 +1887,12 @@ extern "C" asm void func_ov001_021204c4(void)
     add r0, r10, r0
     add r2, r9, #1
     mov r3, r8
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
     mov r9, r0
     mov r0, r10
     mov r1, #1
     mov r2, r8
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
 @L_021207ac:
     add r6, r6, #1
     add r8, r8, #1
@@ -1968,24 +1968,24 @@ extern "C" asm void func_ov001_021204c4(void)
     beq @L_021208d0
     mov r2, r5
     add r1, r1, #1
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
 @L_021208d0:
     movs r0, #1
     bne @L_021208e8
     ldr r0, [r4, #0x1fc]
     mov r1, #1
     mov r2, #2
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
 @L_021208e8:
     ldr r0, [r4, #0x118]
     mov r1, #1
     mov r2, #3
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
 @L_021208f8:
     mov r1, #1
     ldr r0, [r4, #0x208]
     mov r2, r1
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     b @L_02120e3c
     dcd 0xe59410d0
     dcd 0xe59d0028
@@ -2044,7 +2044,7 @@ extern "C" asm void func_ov001_021204c4(void)
     ldr r1, [r0, #0xc4]
     mov r0, #1
     mov r2, r7
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r7, r0
     add r6, r6, #1
     cmp r6, #0x25
@@ -2052,15 +2052,15 @@ extern "C" asm void func_ov001_021204c4(void)
     ldr r1, [r4, #0x1a8]
     mov r0, #1
     mov r2, r7
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x124]
     mov r0, #1
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x13c]
     mov r0, #1
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r7, r0
     ldrb r0, [r5, #0x1a]
     cmp r0, #0
@@ -2068,30 +2068,30 @@ extern "C" asm void func_ov001_021204c4(void)
     ldr r1, [r4, #0x154]
     mov r0, #1
     mov r2, r7
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x16c]
     mov r0, #1
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x184]
     mov r0, #1
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r7, r0
 @L_02120a74:
     ldr r1, [r4, #0xf4]
     mov r0, #1
     mov r2, r7
     mov r6, #2
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x10c]
     mov r0, #1
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x1e4]
     mov r0, #1
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r7, r0
     bl G2S_GetBG1CharPtr
     add r0, r7, r0
@@ -2107,7 +2107,7 @@ extern "C" asm void func_ov001_021204c4(void)
     ldr r1, [r0, #0xc4]
     mov r0, r6
     mov r2, r7
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r7, r0
     add r8, r8, #1
 @L_02120aec:
@@ -2116,58 +2116,58 @@ extern "C" asm void func_ov001_021204c4(void)
     ldr r1, [r4, #0x190]
     mov r0, r6
     mov r2, r7
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x19c]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x1b4]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x1c0]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x208]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x214]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x220]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x22c]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x238]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x100]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x1cc]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldr r1, [r4, #0x1d8]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     mov r2, r0
     ldrb r0, [r5, #0x1a]
     cmp r0, #0
     beq @L_02120e3c
     ldr r1, [r4, #0x1f0]
     mov r0, r6
-    bl func_ov015_02132b7c
+    bl Graphics_LoadBGXCharSub
     ldr r1, [r4, #0x1f0]
     cmp r1, #0
     ldrne r0, [r1, #0xc]
@@ -2335,9 +2335,9 @@ extern "C" asm void func_ov001_021204c4(void)
     add sp, sp, #0x3c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     dcd gGameState
-    dcd data_020c46b4
-    dcd data_020d3520
-    dcd data_020d2520
+    dcd gFont8
+    dcd gSubScreen2
+    dcd gSubScreen0
     dcd data_020e88a0
 }
 
@@ -2559,18 +2559,18 @@ extern "C" void func_ov001_02121158(u8 *arg0)
         for (j = 0; j < arg0[i + 0x19]; j++, k++) {
             s32 r = ((s32 (*)(...))func_ov015_02130ae8)(*(s16 *)(arg0 + i * 0x54 + j * 0x1C + 0x1C));
             if (r != 0 && *(s32 *)(arg0 + k * 0xC + 0x2D4) != 0)
-                ((s32 (*)(...))func_ov015_02131da0)(r, *(s32 *)(arg0 + k * 0xC + 0x2D4), *(s32 *)data_020c46bc);
+                ((s32 (*)(...))func_ov015_02131da0)(r, *(s32 *)(arg0 + k * 0xC + 0x2D4), *(s32 *)gPalSkinFaceFile);
         }
     }
 }
 
 extern "C" void func_ov001_021211f0(u8 *arg0)
 {
-    func_ov015_02131f84(1);
-    func_ov015_02132014(1, 10, 1);
-    func_ov015_02132014(1, (*(u8 *)(arg0 + 0x19) + 10), 1);
-    func_ov015_02132014(1, 4, 1);
-    func_ov015_02132014(1, (*(u8 *)(arg0 + 0x19) + 4), 1);
+    Graphics_ResetBGPulse(1);
+    Graphics_SetBGPalettePulse(1, 10, 1);
+    Graphics_SetBGPalettePulse(1, (*(u8 *)(arg0 + 0x19) + 10), 1);
+    Graphics_SetBGPalettePulse(1, 4, 1);
+    Graphics_SetBGPalettePulse(1, (*(u8 *)(arg0 + 0x19) + 4), 1);
 }
 
 #pragma push
@@ -2591,13 +2591,13 @@ extern "C" void func_ov001_02121250(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     r8 = (u8 *)arg3;
     r7 = 0;
     r6 = (s32)(*(u8 * *)(arg0 + 0x1D8) + *(s32 *)(*(u8 * *)(arg0 + 0x1D8) + 0xC));
-    r5 = (s32)((u8 *)&data_020d2520);
+    r5 = (s32)((u8 *)&gSubScreen0);
     r4 = 1;
     while (r7 < 2) {
         arg0 = (u8 *)*(s8 *)(r8);
         if (((s32)arg0 < 0x30 || (s32)arg0 > 0x39))
             break;
-        func_ov015_02132a38(r10, arg2, r4, r4, (s32)(r6 + ((s32)(arg0 - 0x30) << 1)), r5);
+        Graphics_ScreenCopy(r10, arg2, r4, r4, (s32)(r6 + ((s32)(arg0 - 0x30) << 1)), r5);
         r7 = (r7 + 1);
         r8 = (u8 *)(r8 + 1);
         r10 = (r10 + 1);
@@ -2606,14 +2606,14 @@ extern "C" void func_ov001_02121250(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
         return;
     r4 = 0;
     r6 = (s32)(*(u8 * *)(r11 + 0x1E4) + *(s32 *)(*(u8 * *)(r11 + 0x1E4) + 0xC));
-    r7 = (s32)((u8 *)&data_020d2d20);
+    r7 = (s32)((u8 *)&gSubScreen1);
     r5 = 1;
     while (r4 < 2) {
         if (*(s8 *)(r8) < 0x30)
             return;
         if (*(s8 *)(r8) > 0x39)
             return;
-        func_ov015_02132a38(r10, arg2, r5, r5, (r6 + ((*(s8 *)(r8) - 0x30) << 1)), r7);
+        Graphics_ScreenCopy(r10, arg2, r5, r5, (r6 + ((*(s8 *)(r8) - 0x30) << 1)), r7);
         r4 = (r4 + 1);
         r8 = (u8 *)(r8 + 1);
         r10 = (r10 + 1);
@@ -2701,14 +2701,14 @@ extern "C" asm void func_ov001_02121448(void)
     cmp r3, #0
     ble @L_021214b8
     add r0, r4, r3, lsl #2
-    ldr r12, =data_020d2d20
+    ldr r12, =gSubScreen1
     str r0, [sp]
     mov r0, r7
     mov r1, r6
     mov r2, #1
     mov r3, #2
     str r12, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_021214b8:
     ldr r2, =0x66666667
     mov r0, r5, lsr #0x1f
@@ -2718,14 +2718,14 @@ extern "C" asm void func_ov001_02121448(void)
     smull r0, r1, r2, r3
     sub r3, r5, r0
     add r0, r4, r3, lsl #2
-    ldr r4, =data_020d2d20
+    ldr r4, =gSubScreen1
     str r0, [sp]
     mov r1, r6
     add r0, r7, #1
     mov r2, #1
     mov r3, #2
     str r4, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -2754,7 +2754,7 @@ extern "C" asm void func_ov001_02121508(void)
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
     ldr r7, [r9, #0xc]
     mov r10, #0
-    ldr r8, =data_020d2520
+    ldr r8, =gSubScreen0
     str r10, [sp]
     mov r0, r5
     mov r1, r4
@@ -2762,7 +2762,7 @@ extern "C" asm void func_ov001_02121508(void)
     mov r3, #1
     str r8, [sp, #4]
     add r9, r9, r7
-    bl func_ov015_02132a98
+    bl Graphics_ScreenFill
     add r7, sp, #8
     ldr r1, =data_ov001_0212a730
     mov r0, r7
@@ -2782,7 +2782,7 @@ extern "C" asm void func_ov001_02121508(void)
     mov r2, r6
     mov r3, r6
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_021215d0:
     add r5, r5, #1
     add r10, r10, #1
@@ -2835,7 +2835,7 @@ extern "C" asm void func_ov001_02121604(void)
     mov r2, #4
     mov r3, #1
     stmia sp, {r7, r8}
-    bl func_ov015_02132a98
+    bl Graphics_ScreenFill
     add r4, r5, #0x10
     mov r5, #8
     mov r11, #1
@@ -2852,7 +2852,7 @@ extern "C" asm void func_ov001_02121604(void)
     mov r2, r11
     mov r3, r11
     str r8, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_021216d4:
     add r7, r7, #1
     cmp r7, #4
@@ -2884,7 +2884,7 @@ extern "C" asm void func_ov001_021216f4(void)
     bl func_ov001_02121508
     ldrsh r2, [r5, #0xd0]
     ldrsh r1, [r6, #2]
-    ldr r4, =data_020d2520
+    ldr r4, =gSubScreen0
     mov r0, r7
     stmia sp, {r1, r2, r4}
     ldrsh r2, [r6, #0x18]
@@ -2921,7 +2921,7 @@ extern "C" asm void func_ov001_021216f4(void)
     mov r1, r3, asr #0xb
     add r1, r3, r1, lsr #20
     mov r1, r1, asr #0xc
-    ldr r2, =data_020d2d20
+    ldr r2, =gSubScreen1
     stmia sp, {r1, r4}
     str r2, [sp, #8]
     ldrsh r2, [r6, #0x18]
@@ -2964,13 +2964,13 @@ extern "C" asm void func_ov001_02121808(void)
     ldr r0, [r1, #0xc]
     mov r2, #2
     add r0, r1, r0
-    ldr r11, =data_020d2520
+    ldr r11, =gSubScreen0
     str r0, [sp]
     mov r0, r4
     mov r3, r2
     add r1, r7, #6
     str r11, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121894:
     ldrb r11, [r10, #0xb8]
     add r4, r8, #8
@@ -2992,13 +2992,13 @@ extern "C" asm void func_ov001_02121808(void)
     mov r1, r1, lsr #3
     sub r0, r11, #1
     mla r0, r1, r0, r3
-    ldr r11, =data_020d2d20
+    ldr r11, =gSubScreen1
     str r0, [sp]
     mov r0, r4
     mov r3, r2
     add r1, r7, #3
     str r11, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121900:
     ldr r3, [r9, #0x344]
     cmp r3, #0
@@ -3007,13 +3007,13 @@ extern "C" asm void func_ov001_02121808(void)
     mov r2, #6
     mul r1, r0, r2
     add r0, r3, r1, lsl #1
-    ldr r11, =data_020d2d20
+    ldr r11, =gSubScreen1
     str r0, [sp]
     add r0, r4, #1
     add r1, r7, #3
     mov r3, #1
     str r11, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121938:
     ldrsh r0, [r10, #0x96]
     cmp r0, #0
@@ -3067,13 +3067,13 @@ extern "C" asm void func_ov001_02121808(void)
     cmp r6, #0
     addne r4, r8, #1
     str r0, [sp]
-    ldr r12, =data_020d3520
+    ldr r12, =gSubScreen2
     mov r0, r4
     add r1, r7, #4
     mov r2, #0xf
     mov r3, #4
     str r12, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121a18:
     ldr r0, =gGameState
     ldrb r0, [r0, #0x1a]
@@ -3099,13 +3099,13 @@ extern "C" asm void func_ov001_02121808(void)
     cmp r6, #0
     addeq r4, r8, #0xf
     str r0, [sp]
-    ldr r12, =data_020d2d20
+    ldr r12, =gSubScreen1
     mov r0, r4
     add r1, r7, #4
     mov r2, #1
     mov r3, #4
     str r12, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121a90:
     ldr r0, [sp, #0x30]
     mov r4, r8
@@ -3119,13 +3119,13 @@ extern "C" asm void func_ov001_02121808(void)
     ldr r0, [r1, #0xc]
     mov r2, #8
     add r0, r1, r0
-    ldr r11, =data_020d2d20
+    ldr r11, =gSubScreen1
     str r0, [sp]
     mov r0, r4
     mov r1, r7
     mov r3, r2
     str r11, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121adc:
     ldr r1, [sp, #0x30]
     mov r0, #0xc
@@ -3137,13 +3137,13 @@ extern "C" asm void func_ov001_02121808(void)
     ldr r0, [r1, #0xc]
     mov r2, #8
     add r0, r1, r0
-    ldr r11, =data_020d2520
+    ldr r11, =gSubScreen0
     str r0, [sp]
     mov r0, r4
     mov r1, r7
     mov r3, r2
     str r11, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121b20:
     ldr r0, =data_020e88a0
     mov r4, r8
@@ -3183,7 +3183,7 @@ extern "C" asm void func_ov001_02121808(void)
     beq @L_02121bd0
     ldrb r0, [r5, #0x1b]
     ldr r1, [r2, #0xc]
-    ldr r10, =data_020d2520
+    ldr r10, =gSubScreen0
     cmp r0, #0
     add r0, r2, r1
     addne r0, r0, #8
@@ -3193,7 +3193,7 @@ extern "C" asm void func_ov001_02121808(void)
     mov r3, r2
     add r1, r7, #6
     str r10, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121bd0:
     ldrb r0, [r5, #0x1a]
     cmp r0, #0
@@ -3210,14 +3210,14 @@ extern "C" asm void func_ov001_02121808(void)
     add r2, r3, r2
     sub r1, r1, #1
     mla r0, r1, r0, r2
-    ldr r6, =data_020d2520
+    ldr r6, =gSubScreen0
     str r0, [sp]
     mov r0, r4
     add r1, r7, #6
     mov r2, #6
     mov r3, #2
     str r6, [sp, #4]
-    bl func_ov015_02132a38
+    bl Graphics_ScreenCopy
 @L_02121c2c:
     mov r0, r9
     mov r1, r5
@@ -3274,7 +3274,7 @@ extern "C" asm void func_ov001_02121c5c(void)
     ldr r0, [r5, #8]
     cmp r6, r0
     bge @L_02121d78
-    ldr r0, =data_020c484c
+    ldr r0, =gDeltaTime
     ldr r0, [r0]
     cmp r0, #0
     mov r0, r0, lsl #0xc
@@ -3298,7 +3298,7 @@ extern "C" asm void func_ov001_02121c5c(void)
     adc r2, r0, #0
     mov r0, r3, lsr #0xc
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [r5, #8]
     sub r0, r1, r0
     cmp r0, r6
@@ -3310,7 +3310,7 @@ extern "C" asm void func_ov001_02121c5c(void)
     ldr r0, [r5, #0x10]
     cmp r6, r0
     bge @L_02121e04
-    ldr r0, =data_020c484c
+    ldr r0, =gDeltaTime
     ldr r0, [r0]
     cmp r0, #0
     mov r0, r0, lsl #0xc
@@ -3334,7 +3334,7 @@ extern "C" asm void func_ov001_02121c5c(void)
     adc r2, r0, #0
     mov r0, r3, lsr #0xc
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [r5, #0x10]
     sub r0, r1, r0
     cmp r0, r6

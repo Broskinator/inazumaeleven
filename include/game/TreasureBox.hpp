@@ -3,9 +3,9 @@
 
 #include "nitro/types.h"
 #include "nitro/tp.h"
-#include "game/UnkClass_0203dc7c.hpp"
+#include "game/ScreenManager.hpp"
 #include "game/UnkClass_02054800.hpp"
-#include "game/UnkClass_02060294.hpp"
+#include "game/ScriptManager.hpp"
 
 #define TREASURE_BOX_NUM_ENTRIES 8
 
@@ -17,7 +17,7 @@ struct TreasureBoxEntry {
 };
 
 // The treasure boxes (/data_iz/script/treasurebox.dat): a scene object, the global data_020d9978 (objects[1] of the scene manager)
-class TreasureBox : public UnkClass_0203dc7c {
+class TreasureBox : public ScreenManager {
 public:
     TreasureBox *func_02051ba0();
     void func_02051bd4();
@@ -33,7 +33,7 @@ public:
     void func_02052394();
     void func_020523a8();
     void func_020523bc();
-    void func_02052438(UnkClass_0203dc7c *scene);
+    void func_02052438(ScreenManager *scene);
     void func_02052444(int arg, int arg2);
     void *func_02052468();
     void func_02052474(void *dst);      // (saves the boxes)
@@ -50,9 +50,9 @@ public:
     void func_020526ec(int arg, int keep);
     void func_02052720();
     void func_02052c68();
-    BOOL func_02052d48(UnkClass_0203dc7c *scene);
+    BOOL func_02052d48(ScreenManager *scene);
     void func_02052da8(s32 top, s32 bottom);
-    void func_02052db8(UnkClass_0203dc7c *scene);
+    void func_02052db8(ScreenManager *scene);
     void func_02052e00(s32 value);
     void func_02052e0c();
     void func_02052eec();
@@ -72,13 +72,13 @@ public:
     void func_02054620();
     TreasureBox *func_020547d4();
 
-    UnkClass_02060294 unk_8c;
+    ScriptManager unk_8c;
     UnkClass_02054800 unk_2b58;
     TreasureBoxEntry entries[TREASURE_BOX_NUM_ENTRIES];     // a ring
     s8 readIndex;
     s8 writeIndex;
     u8 unk_6a3a[2];
-    UnkClass_0203dc7c *scene;
+    ScreenManager *scene;
     s32 unk_6a40;
     s32 unk_6a44;
     s32 unk_6a48;

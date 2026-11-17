@@ -1,6 +1,6 @@
 #include "game/Unk_0209a3b0.hpp"
 
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 
 extern "C" void func_0209a3b0(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3);
 extern "C" void func_0209a420(u8 *arg0);
@@ -69,8 +69,8 @@ extern "C" char data_020afe44[];
 extern "C" char data_020afe48[];
 extern "C" char data_020afe4c[];
 extern "C" char data_020afe6c[];
-extern "C" char data_020c46e4[];
-extern "C" char data_020c5e40[];
+extern "C" char gConfig[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020fc724[];
 extern "C" char data_020fc724_b[];
@@ -85,11 +85,11 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN12SoundManager13func_0203a4d4EiPKci(void);
 extern "C" void _ZN11MatchEngine13func_0206cfc8Ev(void);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
-extern "C" void func_02003eec(void);
-extern "C" void func_02004038(void);
-extern "C" void func_020040b0(void);
-extern "C" void func_02004120(void);
-extern "C" void func_ov015_021309f8(void);
+extern "C" void GX_LoadTex(void);
+extern "C" void GX_EndLoadTex(void);
+extern "C" void GX_LoadTexPltt(void);
+extern "C" void GX_EndLoadTexPltt(void);
+extern "C" void Random_RandB(void);
 
 extern "C" void func_0209a3b0(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3)
 {
@@ -115,7 +115,7 @@ extern "C" void func_0209a3b0(s32 arg0, s32 arg1, s32 *arg2, s32 *arg3)
 
 extern "C" void func_0209a420(u8 *arg0)
 {
-    s32 v0 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, 0x8000, 0, 1);
+    s32 v0 = _ZN8GameHeap5AllocEiii((s32)gAllocator, 0x8000, 0, 1);
     *(s32 *)(arg0 + 0x1C) = v0;
     *(s32 *)(arg0 + 0x20) = 0;
 }
@@ -136,7 +136,7 @@ extern "C" void func_0209a45c(s32 arg0)
     if (arg0 <= 0)
         return;
     s = arg0 * 0x1C;
-    r = ((s32 (*)(...))_ZN8GameHeap5AllocEiii)(data_020c47b4, s, z, 1);
+    r = ((s32 (*)(...))_ZN8GameHeap5AllocEiii)(gAllocator, s, z, 1);
     *p = r;
     if (r != 0)
         ((s32 (*)(...))MIi_CpuClearFast)(z, r, s);
@@ -370,7 +370,7 @@ extern "C" asm void func_0209a798(void)
     add r1, r3, r1
     mov r2, r10
     ldr r9, [r8, #0xc]
-    bl func_02003eec
+    bl GX_LoadTex
     ldr r0, [r8, #0x14]
     add r1, r0, r10
     str r1, [r8, #0x14]
@@ -400,7 +400,7 @@ extern "C" asm void func_0209a798(void)
     cmp r9, #0
     bne @L_0209a7ec
 @L_0209a884:
-    bl func_02004038
+    bl GX_EndLoadTex
 @L_0209a888:
     ldr r0, =data_020fc724_b
     ldr r8, [r0, #0x14]
@@ -421,7 +421,7 @@ extern "C" asm void func_0209a798(void)
     add r1, r3, r1
     mov r2, r10
     ldr r9, [r8, #0xc]
-    bl func_020040b0
+    bl GX_LoadTexPltt
     ldr r0, [r8, #0x14]
     add r1, r0, r10
     str r1, [r8, #0x14]
@@ -451,7 +451,7 @@ extern "C" asm void func_0209a798(void)
     cmp r9, #0
     bne @L_0209a8a4
 @L_0209a93c:
-    bl func_02004120
+    bl GX_EndLoadTexPltt
 @L_0209a940:
     ldr r0, =data_020fc724_b
     ldr r2, [sp, #4]
@@ -603,7 +603,7 @@ extern "C" asm void func_0209ab38(void)
     str r12, [r6, #0x644]
     bl func_0209ac74
     mov r2, #0xe000
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020afe30
     str r2, [r6, #0x5cc]
     bl _ZN10ConfigFile6GetIntEPKc
@@ -611,7 +611,7 @@ extern "C" asm void func_0209ab38(void)
     strb r4, [r6, #0x52b]
     add r0, r6, #0x5000
     strb r5, [r0, #0xc05]
-    ldr r6, =data_020c5e40
+    ldr r6, =gAudioPlayer
     mov r1, r5
     mov r0, r6
     ldr r2, =data_020afe44
@@ -1339,7 +1339,7 @@ extern "C" asm void func_0209b550(void)
     ldr r1, =data_020afe4c
     cmp r0, r4
     beq @L_0209b5c8
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     add r2, r5, #0xc30
     ldr r0, [r3]
     add r2, r2, #0x5000
@@ -1393,7 +1393,7 @@ extern "C" asm void func_0209b608(void)
     ldr r7, =data_020afe6c
     cmpne r0, r1
     beq @L_0209b680
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     add r2, sp, #0x38
     ldr r0, [r3]
     str r2, [sp, #0x14]
@@ -1440,7 +1440,7 @@ extern "C" asm void func_0209b608(void)
 @L_0209b6cc:
     cmp r0, #0
     beq @L_0209b724
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r2, r7
     cmp r7, #7
     bge @L_0209b708

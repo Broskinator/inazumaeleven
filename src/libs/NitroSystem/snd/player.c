@@ -3,70 +3,70 @@
 void NNS_SndPlayerSetPlayerVolume(void);
 void NNS_SndPlayerSetPlayableSeqCount(void);
 void NNS_SndPlayerSetAllocatableChannel(void);
-void func_02030828(void);
-void func_020308ac(void);
+void NNS_SndPlayerCreateHeap(void);
+void NNS_SndPlayerStopSeq(void);
 void func_020308bc(void);
-void func_020308c8(void);
-void func_020308e4(void);
-void func_020308f8(void);
+void NNS_SndHandleReleaseSeq(void);
+void NNS_SndPlayerSetVolume(void);
+void NNS_SndPlayerSetInitialVolume(void);
 void NNS_SndPlayerSetChannelPriority(void);
 void NNS_SndPlayerSetTrackMute(void);
 void NNS_SndPlayerSetSeqArcNo(void);
-void func_02030978(void);
+void NNSi_SndPlayerInit(void);
 void NNSi_SndPlayerMain(void);
-void func_02030b90(void);
-void func_02030c2c(void);
-void func_02030c38(void);
-void func_02030c88(void);
-void func_02030cd8(void);
-void func_02030d30(void);
+void NNSi_SndPlayerAllocSeqPlayer(void);
+void NNSi_SndPlayerFreeSeqPlayer(void);
+void NNSi_SndPlayerStartSeq(void);
+void NNSi_SndPlayerStopSeq(void);
+void NNSi_SndPlayerAllocHeap(void);
+void InitPlayer(void);
 void InsertPlayerList(void);
-void func_02030dc8(void);
+void InsertPrioList(void);
 void ForceStopSeq(void);
-void func_02030e54(void);
+void AllocSeqPlayer(void);
 void func_02030ec0(void);
 void PlayerHeapDisposeCallback(void);
 void SetPlayerPriority(void);
-void func_02030ff0(void);
-void func_02031018(void);
-void func_0203106c(void);
-void func_02031088(void);
+void NNS_SndStrmFreeChannel(void);
+void NNS_SndStrmStart(void);
+void NNS_SndStrmStop(void);
+void NNS_SndStrmSetVolume(void);
 void func_020310f4(void);
-void func_02031168(void);
-void func_02031198(void);
-void func_020311b8(void);
-void func_02031238(void);
-void func_0203131c(void);
-void func_02031374(void);
-void func_020313f4(void);
-void func_020314ac(void);
-void func_020314c4(void);
-void func_020314d4(void);
-void func_02031538(void);
+void ShutdownStrm(void);
+void NNSi_SndCaptureInit(void);
+void NNSi_SndCaptureMain(void);
+void NNSi_SndCaptureStop(void);
+void NNSi_SndCaptureBeginSleep(void);
+void NNSi_SndCaptureEndSleep(void);
+void NNS_SndArcInitOnMemory(void);
+void NNS_SndArcSetCurrent(void);
+void NNS_SndArcGetCurrent(void);
+void NNS_SndArcGetSeqArcInfo(void);
+void NNS_SndArcGetBankInfo(void);
 void func_0203159c(void);
-void func_02031600(void);
+void NNS_SndArcGetPlayerInfo(void);
 void func_02031664(void);
-void func_0203168c(void);
-void func_02031754(void);
-void func_0203177c(void);
-void func_02031798(void);
+void NNS_SndArcReadFile(void);
+void NNS_SndArcGetFileAddress(void);
+void NNS_SndArcSetFileAddress(void);
+void NNS_SndHeapCreate(void);
 
 extern char data_020c2870[];
 extern char data_020c2868[];
 extern char data_020c286c[];
 void NNS_SndHeapAlloc(void);
-extern char data_020c2850[];
-void func_020326f8(void);
+extern char sPlayer[];
+void NNS_FndAppendListObject(void);
 void SND_SetPlayerChannelPriority(void);
 void SND_SetTrackPitch(void);
-extern char data_020c2404[];
+extern char sPrioList[];
 void NNS_FndInitList(void);
-extern char data_020c23f8[];
+extern char nns_sFreeList[];
 extern char data_020c2410[];
-void func_0200aa6c(void);
+void SND_GetPlayerStatus(void);
 void NNS_FndGetNextListObject(void);
-extern char data_020a3e80[];
-void func_0200a784(void);
+extern char SNDi_DecibelTable[];
+void SND_IsFinishedCommandTag(void);
 void NNSi_SndFaderUpdate(void);
 void NNSi_SndFaderGet(void);
 void SND_SetPlayerVolume(void);
@@ -75,7 +75,7 @@ void SND_StartPreparedSeq(void);
 void SND_PrepareSeq(void);
 void SND_SetTrackAllocatableChannel(void);
 void SND_GetCurrentCommandTag(void);
-void func_02032628(void);
+void NNSi_SndFaderSet(void);
 void NNS_FndRemoveListObject(void);
 void NNS_SndHeapClear(void);
 void NNSi_SndFaderInit(void);
@@ -84,33 +84,33 @@ void SND_StopSeq(void);
 void NNS_SndHeapDestroy(void);
 void NNS_SndUnlockChannel(void);
 void SND_StartTimer(void);
-void func_02010104(void);
-void func_02010124(void);
+void PM_PrependPreSleepCallback(void);
+void PM_AppendPostSleepCallback(void);
 extern char data_020c2ce0[];
 void SND_CalcChannelVolume(void);
 void SND_SetChannelVolume(void);
 void SND_StopTimer(void);
-void func_02010168(void);
-void func_02010180(void);
-void func_0200a550(void);
+void PM_DeletePreSleepCallback(void);
+void PM_DeletePostSleepCallback(void);
+void SND_FlushCommand(void);
 void SND_WaitForCommandProc(void);
 void NNS_SndFreeAlarm(void);
 extern char data_020c2cd4[];
 extern char data_020c2d60[];
-extern char data_020c2da8[];
+extern char sCapParam[];
 extern char data_020c2d68[];
-void func_020068c0(void);
+void OS_ReceiveMessage(void);
 void NNS_SndUnlockCapture(void);
 void SND_SetOutputSelector(void);
-void func_0200919c(void);
+void MIi_CpuClear32(void);
 void DC_FlushRange(void);
 void MIi_CpuCopy32(void);
-extern char data_020c2dfc[];
+extern char sCurrent[];
 void FS_SeekFile(void);
 void FS_ReadFile(void);
 void NNS_FndCreateFrmHeapEx(void);
 void InitHeap(void);
-void func_020331ac(void);
+void NNS_FndDestroyFrmHeap(void);
 
 asm void NNS_SndPlayerSetPlayerVolume(void)
 {
@@ -141,7 +141,7 @@ asm void NNS_SndPlayerSetAllocatableChannel(void)
     bx lr
 }
 
-asm void func_02030828(void)
+asm void NNS_SndPlayerCreateHeap(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, #0
@@ -161,25 +161,25 @@ asm void func_02030828(void)
     mov r1, r6
     add r0, r4, #0x14
     str r5, [r4, #8]
-    bl func_02031798
+    bl NNS_SndHeapCreate
     cmp r0, #0
     moveq r0, r5
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r2, =data_020c2850
+    ldr r2, =sPlayer
     mov r1, #0x24
     mla r2, r7, r1, r2
     str r0, [r4, #8]
     mov r1, r4
     add r0, r2, #0xc
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     mov r0, #1
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020308ac(void)
+asm void NNS_SndPlayerStopSeq(void)
 {
     ldr r0, [r0]
-    ldr r12, =func_02030c88
+    ldr r12, =NNSi_SndPlayerStopSeq
     bx r12
 }
 
@@ -190,7 +190,7 @@ asm void func_020308bc(void)
     bx lr
 }
 
-asm void func_020308c8(void)
+asm void NNS_SndHandleReleaseSeq(void)
 {
     ldr r1, [r0]
     cmp r1, #0
@@ -201,7 +201,7 @@ asm void func_020308c8(void)
     bx lr
 }
 
-asm void func_020308e4(void)
+asm void NNS_SndPlayerSetVolume(void)
 {
     ldr r2, [r0]
     cmp r2, #0
@@ -210,7 +210,7 @@ asm void func_020308e4(void)
     bx lr
 }
 
-asm void func_020308f8(void)
+asm void NNS_SndPlayerSetInitialVolume(void)
 {
     ldr r2, [r0]
     cmp r2, #0
@@ -258,14 +258,14 @@ asm void NNS_SndPlayerSetSeqArcNo(void)
     bx lr
 }
 
-asm void func_02030978(void)
+asm void NNSi_SndPlayerInit(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r4, #0x14
-    ldr r0, =data_020c2404
+    ldr r0, =sPrioList
     mov r1, r4
     bl NNS_FndInitList
-    ldr r6, =data_020c23f8
+    ldr r6, =nns_sFreeList
     mov r1, r4
     mov r0, r6
     bl NNS_FndInitList
@@ -278,11 +278,11 @@ asm void func_02030978(void)
     strb r10, [r1, #0x2c]
     mov r0, r6
     strb r7, [r1, #0x3c]
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     add r7, r7, #1
     cmp r7, #0x10
     blt @L_020309ac
-    ldr r8, =data_020c2850
+    ldr r8, =sPlayer
     mov r11, #0xc
     mov r7, #0
     mov r6, #0x7f
@@ -308,18 +308,18 @@ asm void func_02030978(void)
 asm void NNSi_SndPlayerMain(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    bl func_0200aa6c
+    bl SND_GetPlayerStatus
     mov r11, r0
-    ldr r0, =data_020c2404
+    ldr r0, =sPrioList
     mov r1, #0
     bl NNS_FndGetNextListObject
     movs r6, r0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r4, #0x8000
-    ldr r5, =data_020a3e80
+    ldr r5, =SNDi_DecibelTable
     rsb r4, r4, #0
 @L_02030a58:
-    ldr r0, =data_020c2404
+    ldr r0, =sPrioList
     mov r1, r6
     bl NNS_FndGetNextListObject
     ldrb r1, [r6, #0x2d]
@@ -327,7 +327,7 @@ asm void NNSi_SndPlayerMain(void)
     cmp r1, #0
     bne @L_02030a88
     ldr r0, [r6, #0x30]
-    bl func_0200a784
+    bl SND_IsFinishedCommandTag
     cmp r0, #0
     movne r0, #1
     strneb r0, [r6, #0x2d]
@@ -402,10 +402,10 @@ asm void NNSi_SndPlayerMain(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02030b90(void)
+asm void NNSi_SndPlayerAllocSeqPlayer(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r4, =data_020c2850
+    ldr r4, =sPlayer
     mov r3, #0x24
     mov r6, r0
     ldr r7, [r6]
@@ -413,7 +413,7 @@ asm void func_02030b90(void)
     mov r5, r2
     cmp r7, #0
     beq @L_02030bb8
-    bl func_020308c8
+    bl NNS_SndHandleReleaseSeq
 @L_02030bb8:
     ldrh r1, [r4, #8]
     ldr r0, [r4, #0x18]
@@ -433,7 +433,7 @@ asm void func_02030b90(void)
     bl ForceStopSeq
 @L_02030bf8:
     mov r0, r5
-    bl func_02030e54
+    bl AllocSeqPlayer
     movs r5, r0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
@@ -446,13 +446,13 @@ asm void func_02030b90(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02030c2c(void)
+asm void NNSi_SndPlayerFreeSeqPlayer(void)
 {
     ldr r12, =func_02030ec0
     bx r12
 }
 
-asm void func_02030c38(void)
+asm void NNSi_SndPlayerStartSeq(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -467,7 +467,7 @@ asm void func_02030c38(void)
     bl SND_SetTrackAllocatableChannel
 @L_02030c64:
     mov r0, r5
-    bl func_02030d30
+    bl InitPlayer
     bl SND_GetCurrentCommandTag
     mov r1, #1
     str r0, [r5, #0x30]
@@ -476,7 +476,7 @@ asm void func_02030c38(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02030c88(void)
+asm void NNSi_SndPlayerStopSeq(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r5, r0
@@ -492,7 +492,7 @@ asm void func_02030c88(void)
     mov r4, #0
     mov r1, r4
     add r0, r5, #0x1c
-    bl func_02032628
+    bl NNSi_SndFaderSet
     mov r0, r5
     mov r1, r4
     bl SetPlayerPriority
@@ -501,10 +501,10 @@ asm void func_02030c88(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02030cd8(void)
+asm void NNSi_SndPlayerAllocHeap(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r3, =data_020c2850
+    ldr r3, =sPlayer
     mov r2, #0x24
     mla r6, r0, r2, r3
     mov r5, #0
@@ -526,7 +526,7 @@ asm void func_02030cd8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02030d30(void)
+asm void InitPlayer(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -544,7 +544,7 @@ asm void func_02030d30(void)
     add r0, r4, #0x1c
     mov r1, #0x7f00
     mov r2, #1
-    bl func_02032628
+    bl NNSi_SndFaderSet
     ldmia sp!, {r4, pc}
 }
 
@@ -574,10 +574,10 @@ asm void InsertPlayerList(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02030dc8(void)
+asm void InsertPrioList(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020c2404
+    ldr r4, =sPrioList
     mov r5, r0
     mov r0, r4
     mov r1, #0
@@ -594,7 +594,7 @@ asm void func_02030dc8(void)
     movs r1, r0
     bne @L_02030de8
 @L_02030e08:
-    ldr r0, =data_020c2404
+    ldr r0, =sPrioList
     mov r2, r5
     bl NNS_FndInsertListObject
     ldmia sp!, {r3, r4, r5, pc}
@@ -618,17 +618,17 @@ asm void ForceStopSeq(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02030e54(void)
+asm void AllocSeqPlayer(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r4, #0
-    ldr r0, =data_020c23f8
+    ldr r0, =nns_sFreeList
     mov r1, r4
     bl NNS_FndGetNextListObject
     movs r5, r0
     bne @L_02030e98
-    ldr r0, =data_020c2404
+    ldr r0, =sPrioList
     mov r1, r4
     bl NNS_FndGetNextListObject
     mov r5, r0
@@ -638,12 +638,12 @@ asm void func_02030e54(void)
     ldmltia sp!, {r4, r5, r6, pc}
     bl ForceStopSeq
 @L_02030e98:
-    ldr r0, =data_020c23f8
+    ldr r0, =nns_sFreeList
     mov r1, r5
     bl NNS_FndRemoveListObject
     mov r0, r5
     strb r6, [r5, #0x3d]
-    bl func_02030dc8
+    bl InsertPrioList
     mov r0, r5
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -667,17 +667,17 @@ asm void func_02030ec0(void)
     cmp r1, #0
     beq @L_02030f14
     add r0, r5, #0xc
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     ldr r0, [r6, #8]
     str r4, [r0, #0xc]
     str r4, [r6, #8]
 @L_02030f14:
-    ldr r0, =data_020c2404
+    ldr r0, =sPrioList
     mov r1, r6
     bl NNS_FndRemoveListObject
-    ldr r0, =data_020c23f8
+    ldr r0, =nns_sFreeList
     mov r1, r6
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     mov r0, #0
     strb r0, [r6, #0x2c]
     ldmia sp!, {r4, r5, r6, pc}
@@ -697,7 +697,7 @@ asm void PlayerHeapDisposeCallback(void)
     strne r0, [r1, #8]
     ldmneia sp!, {r4, pc}
     ldr r1, [r4, #0x10]
-    ldr r2, =data_020c2850
+    ldr r2, =sPlayer
     mov r0, #0x24
     mla r0, r1, r0, r2
     mov r1, r4
@@ -720,7 +720,7 @@ asm void SetPlayerPriority(void)
     mov r0, #0
     str r0, [r6, #4]
 @L_02030fbc:
-    ldr r0, =data_020c2404
+    ldr r0, =sPrioList
     mov r1, r6
     bl NNS_FndRemoveListObject
     strb r5, [r6, #0x3d]
@@ -731,11 +731,11 @@ asm void SetPlayerPriority(void)
     bl InsertPlayerList
 @L_02030fe0:
     mov r0, r6
-    bl func_02030dc8
+    bl InsertPrioList
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02030ff0(void)
+asm void NNS_SndStrmFreeChannel(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -749,7 +749,7 @@ asm void func_02030ff0(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02031018(void)
+asm void NNS_SndStrmStart(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -765,16 +765,16 @@ asm void func_02031018(void)
     movs r0, r0, asr #0x1f
     ldmneia sp!, {r4, pc}
     add r0, r4, #8
-    bl func_02010104
+    bl PM_PrependPreSleepCallback
     add r0, r4, #0x18
-    bl func_02010124
+    bl PM_AppendPostSleepCallback
     ldr r0, [r4, #0x2c]
     orr r0, r0, #2
     str r0, [r4, #0x2c]
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0203106c(void)
+asm void NNS_SndStrmStop(void)
 {
     stmdb sp!, {r3, lr}
     ldr r1, [r0, #0x2c]
@@ -785,7 +785,7 @@ asm void func_0203106c(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02031088(void)
+asm void NNS_SndStrmSetVolume(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
@@ -832,25 +832,25 @@ asm void func_020310f4(void)
     mov r3, r1
     bl SND_StopTimer
     add r0, r4, #8
-    bl func_02010168
+    bl PM_DeletePreSleepCallback
     add r0, r4, #0x18
-    bl func_02010180
+    bl PM_DeletePostSleepCallback
     ldr r0, [r4, #0x2c]
     bic r0, r0, #2
     str r0, [r4, #0x2c]
     bl SND_GetCurrentCommandTag
     mov r5, r0
     mov r0, r6
-    bl func_0200a550
+    bl SND_FlushCommand
     mov r0, r5
     bl SND_WaitForCommandProc
 @L_0203115c:
     mov r0, r4
-    bl func_02031168
+    bl ShutdownStrm
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02031168(void)
+asm void ShutdownStrm(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -865,20 +865,20 @@ asm void func_02031168(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02031198(void)
+asm void NNSi_SndCaptureInit(void)
 {
     ldr r1, =data_020c2d60
     mov r2, #0
-    ldr r0, =data_020c2da8
+    ldr r0, =sCapParam
     str r2, [r1]
     str r2, [r0]
     bx lr
 }
 
-asm void func_020311b8(void)
+asm void NNSi_SndCaptureMain(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020c2da8
+    ldr r4, =sCapParam
     ldr r0, [r4]
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -894,7 +894,7 @@ asm void func_020311b8(void)
     bl NNSi_SndFaderIsFinished
     cmp r0, #0
     beq @L_02031204
-    bl func_02031238
+    bl NNSi_SndCaptureStop
     ldmia sp!, {r3, r4, r5, pc}
 @L_02031204:
     add r0, r4, #0x3c
@@ -911,10 +911,10 @@ asm void func_020311b8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02031238(void)
+asm void NNSi_SndCaptureStop(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r6, =data_020c2da8
+    ldr r6, =sCapParam
     mov r4, #0
     ldr r0, [r6]
     cmp r0, #0
@@ -936,7 +936,7 @@ asm void func_02031238(void)
     bl SND_GetCurrentCommandTag
     mov r5, r0
     mov r0, #1
-    bl func_0200a550
+    bl SND_FlushCommand
     mov r0, r5
     bl SND_WaitForCommandProc
     ldr r5, =data_020c2d68
@@ -944,7 +944,7 @@ asm void func_02031238(void)
     mov r0, r5
     mov r1, r4
     mov r2, r4
-    bl func_020068c0
+    bl OS_ReceiveMessage
     cmp r0, #0
     bne @L_020312a4
 @L_020312bc:
@@ -976,10 +976,10 @@ asm void func_02031238(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0203131c(void)
+asm void NNSi_SndCaptureBeginSleep(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r3, =data_020c2da8
+    ldr r3, =sCapParam
     ldr r0, [r3]
     cmp r0, #0
     ldmeqia sp!, {r4, pc}
@@ -995,16 +995,16 @@ asm void func_0203131c(void)
     bl SND_GetCurrentCommandTag
     mov r4, r0
     mov r0, #1
-    bl func_0200a550
+    bl SND_FlushCommand
     mov r0, r4
     bl SND_WaitForCommandProc
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02031374(void)
+asm void NNSi_SndCaptureEndSleep(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020c2da8
+    ldr r4, =sCapParam
     ldr r0, [r4]
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -1013,11 +1013,11 @@ asm void func_02031374(void)
     ldr r2, [r4, #0x14]
     mov r0, r5
     str r5, [r4, #0x1c]
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [r4, #0x10]
     ldr r2, [r4, #0x14]
     mov r0, r5
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r0, [r4, #0xc]
     ldr r1, [r4, #0x14]
     bl DC_FlushRange
@@ -1036,7 +1036,7 @@ asm void func_02031374(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020313f4(void)
+asm void NNS_SndArcInitOnMemory(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -1081,31 +1081,31 @@ asm void func_020313f4(void)
     cmp r2, r0
     blo @L_02031468
 @L_02031498:
-    ldr r0, =data_020c2dfc
+    ldr r0, =sCurrent
     str r6, [r5, #0x30]
     str r5, [r0]
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020314ac(void)
+asm void NNS_SndArcSetCurrent(void)
 {
-    ldr r1, =data_020c2dfc
+    ldr r1, =sCurrent
     ldr r2, [r1]
     str r0, [r1]
     mov r0, r2
     bx lr
 }
 
-asm void func_020314c4(void)
+asm void NNS_SndArcGetCurrent(void)
 {
-    ldr r0, =data_020c2dfc
+    ldr r0, =sCurrent
     ldr r0, [r0]
     bx lr
 }
 
-asm void func_020314d4(void)
+asm void NNS_SndArcGetSeqArcInfo(void)
 {
-    ldr r1, =data_020c2dfc
+    ldr r1, =sCurrent
     ldr r3, [r1]
     ldr r2, [r3, #0x98]
     ldr r1, [r2, #0xc]
@@ -1131,9 +1131,9 @@ asm void func_020314d4(void)
     bx lr
 }
 
-asm void func_02031538(void)
+asm void NNS_SndArcGetBankInfo(void)
 {
-    ldr r1, =data_020c2dfc
+    ldr r1, =sCurrent
     ldr r3, [r1]
     ldr r2, [r3, #0x98]
     ldr r1, [r2, #0x10]
@@ -1161,7 +1161,7 @@ asm void func_02031538(void)
 
 asm void func_0203159c(void)
 {
-    ldr r1, =data_020c2dfc
+    ldr r1, =sCurrent
     ldr r3, [r1]
     ldr r2, [r3, #0x98]
     ldr r1, [r2, #0x14]
@@ -1187,9 +1187,9 @@ asm void func_0203159c(void)
     bx lr
 }
 
-asm void func_02031600(void)
+asm void NNS_SndArcGetPlayerInfo(void)
 {
-    ldr r1, =data_020c2dfc
+    ldr r1, =sCurrent
     ldr r3, [r1]
     ldr r2, [r3, #0x98]
     ldr r1, [r2, #0x18]
@@ -1217,7 +1217,7 @@ asm void func_02031600(void)
 
 asm void func_02031664(void)
 {
-    ldr r1, =data_020c2dfc
+    ldr r1, =sCurrent
     ldr r1, [r1]
     ldr r2, [r1, #0x90]
     ldr r1, [r2, #8]
@@ -1228,10 +1228,10 @@ asm void func_02031664(void)
     bx lr
 }
 
-asm void func_0203168c(void)
+asm void NNS_SndArcReadFile(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    ldr r4, =data_020c2dfc
+    ldr r4, =sCurrent
     mov r9, r2
     ldr r7, [r4]
     mov r10, r1
@@ -1283,9 +1283,9 @@ asm void func_0203168c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02031754(void)
+asm void NNS_SndArcGetFileAddress(void)
 {
-    ldr r1, =data_020c2dfc
+    ldr r1, =sCurrent
     ldr r1, [r1]
     ldr r2, [r1, #0x90]
     ldr r1, [r2, #8]
@@ -1296,9 +1296,9 @@ asm void func_02031754(void)
     bx lr
 }
 
-asm void func_0203177c(void)
+asm void NNS_SndArcSetFileAddress(void)
 {
-    ldr r2, =data_020c2dfc
+    ldr r2, =sCurrent
     ldr r2, [r2]
     ldr r2, [r2, #0x90]
     add r0, r2, r0, lsl #4
@@ -1306,7 +1306,7 @@ asm void func_0203177c(void)
     bx lr
 }
 
-asm void func_02031798(void)
+asm void NNS_SndHeapCreate(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     add r2, r0, #3
@@ -1334,7 +1334,7 @@ asm void func_02031798(void)
     movne r0, r6
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, r4
-    bl func_020331ac
+    bl NNS_FndDestroyFrmHeap
     mov r0, r5
     ldmia sp!, {r4, r5, r6, pc}
 }

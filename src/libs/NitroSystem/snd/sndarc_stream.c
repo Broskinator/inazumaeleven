@@ -8,7 +8,7 @@ void NNS_FndGetNextListObject(void);
 void NNS_FndRemoveListObject(void);
 void OS_RestoreInterrupts(void);
 extern char data_020c2e48[];
-void func_020326f8(void);
+void NNS_FndAppendListObject(void);
 
 asm void RemoveCommandByPlayer(void)
 {
@@ -53,7 +53,7 @@ asm void FreeCommandBuffer(void)
     mov r4, r0
     ldr r0, =data_020c2e48
     mov r1, r5
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     mov r0, r4
     bl OS_RestoreInterrupts
     ldmia sp!, {r3, r4, r5, pc}

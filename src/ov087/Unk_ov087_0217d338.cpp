@@ -50,7 +50,7 @@ extern "C" void func_ov087_0217fec8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 
 extern "C" s32 func_ov087_0217ff14(...);
 extern "C" void func_ov087_021802e4(void);
 
-extern "C" char data_020c4648[];
+extern "C" char g3DFieldSprite[];
 extern "C" char data_020c4920[];
 extern "C" char data_020c4de0[];
 extern "C" char data_020c4ebc[];
@@ -64,7 +64,7 @@ extern "C" char data_ov087_021823c0[];
 extern "C" void DC_FlushRange(void);
 extern "C" void FX_SinCosTable_(void);
 extern "C" void _ZN15DistanceTable3213func_02062178Ev(void);
-extern "C" void _ZN15DistanceTable3213func_02062188EP11MatchPlayer(void);
+extern "C" void _ZN15DistanceTable3214DistanceToBallEP11MatchPlayer(void);
 extern "C" void _ZN16MatchBallPhysics13func_02061a84EP9MatchBall(void);
 extern "C" void _ZN11MatchEngine11isunorderedEv(void);
 extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
@@ -154,7 +154,7 @@ extern "C" void func_02084788(void);
 extern "C" void func_020847b0(void);
 extern "C" void func_02084870(void);
 extern "C" void func_ov001_02128194(void);
-extern "C" s32 func_ov015_021309f8(...);
+extern "C" s32 Random_RandB(...);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_02130b14(void);
 extern "C" void func_ov015_021313d4(void);
@@ -413,7 +413,7 @@ extern "C" asm void func_ov087_0217d338(void)
     str r4, [sp, #0xc]
     bl func_ov015_0213ffc4
     mov r0, #5
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r1, r0
     mov r0, r5
     add r1, r1, #3
@@ -647,7 +647,7 @@ extern "C" asm void func_ov087_0217da24(void)
     add r0, r5, #0x11000
     ldr r0, [r0, #0x7bc]
     mov r1, r4
-    bl _ZN15DistanceTable3213func_02062188EP11MatchPlayer
+    bl _ZN15DistanceTable3214DistanceToBallEP11MatchPlayer
     mov r0, r4
     bl func_02084870
     cmp r0, #0
@@ -1397,7 +1397,7 @@ extern "C" void func_ov087_0217e540(s32 arg0, u8 *arg1)
     v1 = func_02083e44();
     if ((u32)*(u8 *)(((u8 *)((arg0 + v1) + 0x11000)) + 0x8D9) < (u32)3)
         return;
-    v2 = func_ov015_021309f8(2);
+    v2 = Random_RandB(2);
     r4 = v1;
     if (v2 != 0) {
         r5 = arg1;
@@ -1520,7 +1520,7 @@ extern "C" s32 func_ov087_0217e720(u8 *arg0, s32 arg1, s32 arg2)
     if (*(s32 *)(arg0 + 0xBFC) == 0)
         return 0;
     t0 = *(s32 *)(arg0 + 0xBFC);
-    v0 = func_ov015_021309f8(4, arg1, arg2);
+    v0 = Random_RandB(4, arg1, arg2);
     t1 = *(u8 *)(((u8 *)v0) + (t0 + (arg2 << 3)));
     v1 = func_ov087_0217e764((s32)arg0, arg1, t1, 0x5A);
     return v1;
@@ -1609,7 +1609,7 @@ extern "C" s32 func_ov087_0217e844(s32 arg0)
 
 extern "C" s32 func_ov087_0217e878(u8 *arg0, u8 *arg1)
 {
-    s32 v = ((s32 (*)(s32))func_ov015_021309f8)(0x1E);
+    s32 v = ((s32 (*)(s32))Random_RandB)(0x1E);
     s32 i = ((s32 (*)(u8 *))func_02080b90)(arg1);
     if (*(u32 *)(arg0 + i * 4 + 0x117F0) & 2)
         v += 0xF;
@@ -1683,7 +1683,7 @@ extern "C" asm void func_ov087_0217e8c4(void)
     moveq r0, r5
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r4, r0
     mov r0, r6
     mov r1, #0x14
@@ -2107,7 +2107,7 @@ extern "C" asm void func_ov087_0217eec8(void)
     ldrb r2, [r0, #0x1d]
     mov r0, #0
     str r0, [sp]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a75c
     add r8, r8, #1
@@ -2735,7 +2735,7 @@ extern "C" asm s32 func_ov087_0217f854(...)
     mov r0, #1
     strb r0, [r2, #0x1d]
     str r0, [sp]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r3, [sp, #0x14]
     ldr r0, [r0]
     mov r1, r4

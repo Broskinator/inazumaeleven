@@ -53,7 +53,7 @@ extern "C" void func_0208169c(void *data);
 extern "C" void func_020816b0(u8 *bits, int i);
 extern "C" void func_020816dc(u8 *bits, int i);
 
-extern "C" char data_020c5320[];
+extern "C" char gWirelessUtil[];
 extern "C" char data_020cb6e0[];
 extern "C" char data_020e88a0[];
 extern "C" s32 _ZN11MatchEngine13func_0206deecEv(...);
@@ -724,7 +724,7 @@ extern "C" s32 func_02080be4(s32 arg0)
     s32 v1;
     s32 v2;
     s32 v3;
-    v0 = func_0209bf9c((u8 *)((u8 *)&data_020c5320));
+    v0 = func_0209bf9c((u8 *)((u8 *)&gWirelessUtil));
     v1 = func_02080b98(arg0);
     if ((u32)v1 >= (u32)4)
         return v1;

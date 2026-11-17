@@ -51,8 +51,8 @@ extern "C" s32 func_ov015_0215267c(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_0215272c(s32 *arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_021527e0(void);
 
-extern "C" char data_020c46cc[];
-extern "C" char data_020c5e40[];
+extern "C" char g2DAdventureLogic[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_ov015_02165b0c[];
 extern "C" char data_ov015_02165b10[];
 extern "C" char data_ov015_02165b14[];
@@ -73,7 +73,7 @@ extern "C" void _ZN12SoundManager13func_0203a724Eiii(void);
 extern "C" void _ZN12SoundManager13func_0203a790Eii(void);
 extern "C" void _ZN12SoundManager13func_0203a7f0Eii(void);
 extern "C" void _ZN12SoundManager13func_0203a8c0Ei(void);
-extern "C" void _ZN12SoundManager13func_0203b3a8Eii(void);
+extern "C" void _ZN12SoundManager10StopEffectEii(void);
 extern "C" void _ZN12SoundManager13func_0203b9a8EiPKci(void);
 extern "C" void _ZN12SoundManager13func_0203ba78EiPKc(void);
 extern "C" void _ZN12SoundManager13func_0203bba8Ei(void);
@@ -125,8 +125,8 @@ extern "C" void _ZN17UnkClass_0205480013func_0205c304Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205c33cEv(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205c378Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205c584Ei(void);
-extern "C" void _ZN17UnkClass_0206029413func_02061450Ev(void);
-extern "C" void _ZN17UnkClass_0206029413func_0206148cEv(void);
+extern "C" void _ZN13ScriptManager13func_02061450Ev(void);
+extern "C" void _ZN13ScriptManager13func_0206148cEv(void);
 extern "C" void _s32_div_f(void);
 extern "C" void func_02085ba4(void);
 extern "C" void func_02086484(void);
@@ -496,7 +496,7 @@ extern "C" asm void func_ov015_0214fde0(void)
     ldr r1, =data_ov015_02165b1c
     mov r0, r6
     bl STD_ConcatenateString
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     ldr r1, [sp, #0x100]
     mov r2, r7
     mov r3, r6
@@ -506,7 +506,7 @@ extern "C" asm void func_ov015_0214fde0(void)
     strb r0, [r5, #0xb]
     b @L_0214fecc
 @L_0214feac:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager13AreBanksReadyEv
     cmp r0, #0
     ldrnesb r0, [r5, #0xb]
@@ -582,7 +582,7 @@ extern "C" asm void func_ov015_0214fefc(void)
     cmp r0, #0
     bgt @L_0214fffc
     ldr r1, [r5, #0xc]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r5, #0x1c]
     ldr r1, [r5, #0x18]
@@ -641,7 +641,7 @@ extern "C" asm void func_ov015_02150028(void)
     cmp r9, #0
     orr r7, r0, r1, lsl #14
     beq @L_02150130
-    ldr r4, =data_020c5e40
+    ldr r4, =gAudioPlayer
     ldr r5, =0x3015
     mov r11, r8
 @L_021500b4:
@@ -658,9 +658,9 @@ extern "C" asm void func_ov015_02150028(void)
     beq @L_02150100
     cmp r1, r7
     bne @L_02150128
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, #0
-    bl _ZN12SoundManager13func_0203b3a8Eii
+    bl _ZN12SoundManager10StopEffectEii
     mov r0, #1
     strb r0, [r6, #0xa]
     b @L_02150130
@@ -670,7 +670,7 @@ extern "C" asm void func_ov015_02150028(void)
     bne @L_02150118
     mov r0, r4
     mov r2, r11
-    bl _ZN12SoundManager13func_0203b3a8Eii
+    bl _ZN12SoundManager10StopEffectEii
 @L_02150118:
     ldr r0, [r10, #0x238]
     add r8, r8, #1
@@ -704,7 +704,7 @@ extern "C" s32 func_ov015_0215016c(u8 *arg0, s8 *arg1, s32 *arg2)
     switch (arg1[0xB]) {
     case 0:
         *(s32 *)(arg1 + 4) = ((s32 (*)(u8 *, s8 *, u8 *, u8 *))func_ov015_02149920)(arg0, arg1, a, b);
-        ((s32 (*)(...))_ZN12SoundManager10UnloadPairEi)(data_020c5e40, ((s32 *)a)[0]);
+        ((s32 (*)(...))_ZN12SoundManager10UnloadPairEi)(gAudioPlayer, ((s32 *)a)[0]);
         arg1[0xB]++;
         break;
     case 1:
@@ -749,7 +749,7 @@ extern "C" asm void func_ov015_02150208(void)
     beq @L_021502dc
 @L_02150278:
     ldr r1, [sp, #0x80]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     str r1, [r5, #0xc]
     ldr r3, [sp, #0x88]
     ldr r2, [sp, #0x84]
@@ -766,7 +766,7 @@ extern "C" asm void func_ov015_02150208(void)
     b @L_021502dc
 @L_021502b8:
     ldr r1, [r5, #0xc]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager14IsTrackPlayingEi
     cmp r0, #0
     ldrnesb r0, [r5, #0xb]
@@ -832,7 +832,7 @@ extern "C" asm void func_ov015_02150304(void)
     bgt @L_021503cc
     ldr r1, [r5, #0xc]
     ldr r3, [r5, #0x14]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, #0
     bl _ZN12SoundManager13func_0203a724Eiii
     ldrsb r0, [r5, #0xb]
@@ -898,7 +898,7 @@ extern "C" asm void func_ov015_021503f4(void)
     bgt @L_021504b8
     ldr r1, [r5, #0xc]
     ldr r2, [r5, #0x14]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager13func_0203a7f0Eii
     ldrsb r0, [r5, #0xb]
     mov r1, #1
@@ -960,7 +960,7 @@ extern "C" asm void func_ov015_021504e0(void)
     bgt @L_02150598
     ldr r1, [r5, #0xc]
     ldr r2, [r5, #0x14]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager13func_0203a790Eii
     ldrsb r0, [r5, #0xb]
     mov r1, #1
@@ -991,7 +991,7 @@ extern "C" asm void func_ov015_021505c0(void)
     mov r0, r8
     mov r1, r4
     mov r2, #0x80
-    ldr r7, =data_020c5e40
+    ldr r7, =gAudioPlayer
     bl MI_CpuFill8
     ldrsb r0, [r6, #0xb]
     cmp r0, #0
@@ -1009,7 +1009,7 @@ extern "C" asm void func_ov015_021505c0(void)
     ldr r0, [sp, #0xa8]
     cmp r0, #0
     beq @L_02150644
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r4
     bl _ZN12SoundManager13func_0203a8c0Ei
     cmp r0, #0
@@ -1024,7 +1024,7 @@ extern "C" asm void func_ov015_021505c0(void)
     mov r0, r8
     bl sprintf
     mov r1, #0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, r8
     mov r3, r1
     bl _ZN12SoundManager13func_0203a3e0EiPKci
@@ -1036,7 +1036,7 @@ extern "C" asm void func_ov015_021505c0(void)
     ldr r1, =data_ov015_02165b2c
     mov r0, r8
     bl sprintf
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, r8
     mov r1, #1
     mov r3, #0
@@ -1061,7 +1061,7 @@ extern "C" asm void func_ov015_021505c0(void)
     strb r0, [r6, #0xb]
     b @L_02150708
 @L_021506e8:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager6IsIdleEv
     cmp r0, #0
     ldrnesb r0, [r6, #0xb]
@@ -1122,7 +1122,7 @@ extern "C" asm void func_ov015_02150738(void)
     bgt @L_021507ec
     mov r2, #0
     ldr r1, [r5, #0xc]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r3, r2
     bl _ZN12SoundManager13func_0203a6f8Eiii
     ldrsb r0, [r5, #0xb]
@@ -1172,7 +1172,7 @@ extern "C" asm void func_ov015_02150814(void)
     str r0, [r6, #4]
     str r4, [r6, #0xc]
     ldr r1, [sp, #0x88]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     str r1, [r6, #0x10]
     ldr r1, [sp, #0x8c]
     ldr r2, [sp, #0x84]
@@ -1191,7 +1191,7 @@ extern "C" asm void func_ov015_02150814(void)
     cmp r0, #0
     bgt @L_021508f4
     ldr r1, [r6, #0xc]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, #0
     bl _ZN12SoundManager13func_0203ba78EiPKc
     ldrsb r0, [r6, #0xb]
@@ -1258,7 +1258,7 @@ extern "C" asm void func_ov015_0215091c(void)
     bgt @L_021509d4
     ldr r1, [r5, #0xc]
     ldr r2, [r5, #0x14]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager13func_0203bc60Eii
     ldrsb r0, [r5, #0xb]
     mov r1, #1
@@ -1315,7 +1315,7 @@ extern "C" asm void func_ov015_021509fc(void)
     strb r0, [r5, #0xb]
 @L_02150a80:
     ldr r1, [r5, #0xc]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager13func_0203bba8Ei
     cmp r0, #0
     bne @L_02150ac8
@@ -2361,7 +2361,7 @@ extern "C" asm void func_ov015_02151958(void)
     addeq r0, r0, #1
     streqb r0, [r6, #0xb]
     beq @L_02151b64
-    ldr r2, =data_020c46cc
+    ldr r2, =g2DAdventureLogic
     ldr r1, [r0, #4]
     ldr r0, [r2]
     bl func_02085ba4
@@ -2373,7 +2373,7 @@ extern "C" asm void func_ov015_02151958(void)
     mov r0, #4
     strb r0, [r4, #0x2d]
     ldr r0, [r7, #4]
-    bl _ZN17UnkClass_0206029413func_02061450Ev
+    bl _ZN13ScriptManager13func_02061450Ev
     ldrb r1, [r4, #0x2d]
     and r0, r0, #0xff
     add r0, r1, r0
@@ -2407,7 +2407,7 @@ extern "C" asm void func_ov015_02151958(void)
     ldr r1, [r6, #0xc]
     ldr r2, [r6, #0x10]
     bl _ZN17UnkClass_0205480013func_0205ab14Ev
-    ldr r2, =data_020c46cc
+    ldr r2, =g2DAdventureLogic
     ldr r1, [r0, #4]
     ldr r0, [r2]
     bl func_02085ba4
@@ -2430,17 +2430,17 @@ extern "C" asm void func_ov015_02151958(void)
     b @L_02151b64
 @L_02151b24:
     ldr r0, [r7, #4]
-    bl _ZN17UnkClass_0206029413func_02061450Ev
+    bl _ZN13ScriptManager13func_02061450Ev
     mov r8, r0
     ldr r0, [r7, #4]
-    bl _ZN17UnkClass_0206029413func_0206148cEv
+    bl _ZN13ScriptManager13func_0206148cEv
     mov r1, #1
     tst r0, r1, lsl r8
     bne @L_02151b64
     mov r0, #4
     strb r0, [r4, #0x2d]
     ldr r0, [r7, #4]
-    bl _ZN17UnkClass_0206029413func_02061450Ev
+    bl _ZN13ScriptManager13func_02061450Ev
     ldrb r1, [r4, #0x2d]
     and r0, r0, #0xff
     add r0, r1, r0
@@ -2904,7 +2904,7 @@ extern "C" asm void func_ov015_02152338(void)
     ldr r1, [r7, #0xc]
     ldr r2, [r7, #0x10]
     bl _ZN17UnkClass_0205480013func_0205b188Ev
-    ldr r4, =data_020c46cc
+    ldr r4, =g2DAdventureLogic
     ldr r1, [r7, #0x18]
     ldr r0, [r4]
     mov r2, #3

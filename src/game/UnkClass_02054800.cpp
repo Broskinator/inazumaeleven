@@ -1,47 +1,47 @@
 #include "game/UnkClass_02054800.hpp"
 
-extern "C" void func_02097aa0(void);     // (for the asm functions)
-extern "C" void func_02097b3c(void);     // (for the asm functions)
-extern "C" void func_02097ca8(void);     // (for the asm functions)
-extern "C" void func_02097e58(void);     // (for the asm functions)
-extern "C" void func_02097ef8(void);     // (for the asm functions)
+extern "C" void C3DSprFile_TryFinalize(void);     // (for the asm functions)
+extern "C" void C3DSprFile_Release(void);     // (for the asm functions)
+extern "C" void C3DSprFile_LoadToVram(void);     // (for the asm functions)
+extern "C" void C3DSprFile_FreeVram(void);     // (for the asm functions)
+extern "C" void C3DSprFile_UploadTex(void);     // (for the asm functions)
 extern "C" void func_02097f98(void);     // (for the asm functions)
-extern "C" void func_02097fcc(void);     // (for the asm functions)
-extern "C" void func_020982a0(void);     // (for the asm functions)
-extern "C" void func_020985fc(void);     // (for the asm functions)
-extern "C" void func_02097898(void);     // (for the asm functions)
-extern "C" void func_0209386c(void);     // (for the asm functions)
-extern "C" void func_02093928(void);     // (for the asm functions)
-extern "C" void func_020939c8(void);     // (for the asm functions)
+extern "C" void C3DSprFile_AllocTexBuffer(void);     // (for the asm functions)
+extern "C" void C3DSprFile_CreateTex16(void);     // (for the asm functions)
+extern "C" void C3DSprFile_GetSpriteSheet(void);     // (for the asm functions)
+extern "C" void C3DSprFile_LoadFromPath(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetFlag(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_ClearFlag(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetGraphicIdx(void);     // (for the asm functions)
 extern "C" void func_02093afc(void);     // (for the asm functions)
-extern "C" void func_02093bf4(void);     // (for the asm functions)
-extern "C" void func_02093ca8(void);     // (for the asm functions)
-extern "C" void func_02093d1c(void);     // (for the asm functions)
-extern "C" void func_02093e2c(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetPos_2(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetFlag_2(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_ClearFlag_2(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_GetDimensions(void);     // (for the asm functions)
 extern "C" void func_02093edc(void);     // (for the asm functions)
-extern "C" void func_020920c4(void);     // (for the asm functions)
-extern "C" void func_02092270(void);     // (for the asm functions)
-extern "C" void func_020922fc(void);     // (for the asm functions)
-extern "C" void func_02092544(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_Create(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_Destroy(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetTexAll(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetDepthAll(void);     // (for the asm functions)
 extern "C" void func_02092758(void);     // (for the asm functions)
 extern "C" void func_02092808(void);     // (for the asm functions)
 extern "C" void func_02092aac(void);     // (for the asm functions)
-extern "C" void func_02092d3c(void);     // (for the asm functions)
-extern "C" void func_02092e18(void);     // (for the asm functions)
-extern "C" void func_02092ed4(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_ClearFlagAll(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetGraphicIdxAll(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetPosAnchorAll(void);     // (for the asm functions)
 extern "C" void func_02092fc4(void);     // (for the asm functions)
-extern "C" void func_02093188(void);     // (for the asm functions)
-extern "C" void func_0209323c(void);     // (for the asm functions)
-extern "C" void func_020932f0(void);     // (for the asm functions)
-extern "C" void func_02093368(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetTex(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetPltt(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetPlttIdx(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetDepth(void);     // (for the asm functions)
 extern "C" void func_0209342c(void);     // (for the asm functions)
 extern "C" void func_020934ac(void);     // (for the asm functions)
-extern "C" void func_02093524(void);     // (for the asm functions)
-extern "C" void func_0209360c(void);     // (for the asm functions)
-extern "C" void func_020936b4(void);     // (for the asm functions)
-extern "C" void func_02093734(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetPos(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetTexScale(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetTexWH(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_SetTexST(void);     // (for the asm functions)
 extern "C" void func_02090550(void);     // (for the asm functions)
-extern "C" void func_02090dcc(void);     // (for the asm functions)
+extern "C" void C3DPlaneCtrl_GetTexWidth(void);     // (for the asm functions)
 extern "C" void func_0208d38c(void);     // (for the asm functions)
 extern "C" void func_0208d3d8(void);     // (for the asm functions)
 extern "C" void func_0208d434(void);     // (for the asm functions)
@@ -140,7 +140,7 @@ extern "C" void func_02084e08(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a9d0Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_0206145cEv(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_0206145cEv(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205ed8cEv(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205ee18Ev(void);     // (for the asm functions)
 extern "C" void _ZN12Unk_0205dee013func_0205f394Ev(void);     // (for the asm functions)
@@ -176,25 +176,25 @@ extern "C" char data_020ae6b0[];
 extern "C" char data_020ae6b8[];
 extern "C" char data_020ae6c0[];
 extern "C" char data_020ae6c4[];
-extern "C" char data_020c4650[];
-extern "C" char data_020c4660[];
-extern "C" char data_020c4670[];
-extern "C" char data_020c4674[];
-extern "C" char data_020c4678[];
+extern "C" char g3DGameChar[];
+extern "C" char g3DGameMap[];
+extern "C" char g3DMagicCamera[];
+extern "C" char g3DGameEffect[];
+extern "C" char g3DGameMapObject[];
 extern "C" char data_020c46a0[];
-extern "C" char data_020c46a8[];
-extern "C" char data_020c46b4[];
-extern "C" char data_020c46bc[];
-extern "C" char data_020c46c8[];
-extern "C" char data_020c46cc[];
-extern "C" char data_020c46d0[];
-extern "C" char data_020c46d4[];
-extern "C" char data_020c46e4[];
-extern "C" char data_020c47b4[];
-extern "C" char data_020c484c[];
+extern "C" char gFont12Manager[];
+extern "C" char gFont8[];
+extern "C" char gPalSkinFaceFile[];
+extern "C" char g2DGChar[];
+extern "C" char g2DAdventureLogic[];
+extern "C" char gCameraCtrl[];
+extern "C" char g3DPlaneCtrl[];
+extern "C" char gConfig[];
+extern "C" char gAllocator[];
+extern "C" char gDeltaTime[];
 extern "C" char data_020c4ab4[];
 extern "C" char data_020c4eb4[];
-extern "C" char data_020c5e40[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020d3d20[];
 extern "C" char data_020d9978[];
 extern "C" char data_020d9a04[];
@@ -215,21 +215,21 @@ extern "C" void _ZN11TreasureBox13func_02052550Ev(void);
 extern "C" void _ZN11TreasureBox13func_02052da8Ell(void);
 extern "C" void _ZN12SceneManager13func_0203e30cEv(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e090Eii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
+extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
+extern "C" void _ZN13ScreenManager13func_0203e090Eii(void);
+extern "C" void _ZN13ScreenManager15GetCurSceneMainEv(void);
+extern "C" void _ZN13ScreenManager16GetNextSceneMainEv(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12GetCharWidthEPKc(void);
 extern "C" void _ZN8TextFont12GetTextWidthEPKc(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" void atoi(void);
-extern "C" void func_02001d60(void);
-extern "C" void func_02001f08(void);
-extern "C" void func_02001f38(void);
-extern "C" void func_020021f0(void);
-extern "C" void func_02016d0c(void);
+extern "C" void FX_Div(void);
+extern "C" void VEC_Add(void);
+extern "C" void VEC_Subtract(void);
+extern "C" void VEC_Distance(void);
+extern "C" void STD_CopyLString(void);
 extern "C" void _fgr(void);
 extern "C" void _s32_div_f(void);
 extern "C" void _ffix(void);
@@ -252,16 +252,16 @@ extern "C" void func_ov015_021324a4(void);
 extern "C" void func_ov015_021324b4(void);
 extern "C" void func_ov015_021324c4(void);
 extern "C" void func_ov015_02132554(void);
-extern "C" void func_ov015_02132568(void);
+extern "C" void Graphics_FadeInSub(void);
 extern "C" void func_ov015_0213257c(void);
-extern "C" void func_ov015_02132600(void);
+extern "C" void Graphics_FadeMainBlack(void);
 extern "C" void func_ov015_02132614(void);
-extern "C" void func_ov015_02132628(void);
+extern "C" void Graphics_FadeScreensBlack(void);
 extern "C" void func_ov015_021326b8(void);
 extern "C" void func_ov015_021326cc(void);
 extern "C" void func_ov015_021326e0(void);
-extern "C" void func_ov015_02132794(void);
-extern "C" void func_ov015_02134300(void);
+extern "C" void Graphics_IsAnyScreenFading(void);
+extern "C" void Archive_PackHeaderGetOffsetAndSize(void);
 extern "C" void func_ov015_0213d1f0(void);
 extern "C" void func_ov015_0213d290(void);
 extern "C" void func_ov015_0213d330(void);
@@ -512,7 +512,7 @@ asm void UnkClass_02054800::func_02054aa8()
     mov r9, r4
     mov r8, #5
     add r7, sp, #0x14
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     b @L_02054b74
 @L_02054b40:
     ldr r0, [r6]
@@ -524,7 +524,7 @@ asm void UnkClass_02054800::func_02054aa8()
     mov r3, r9
     add r2, r7, r4, lsl #5
     str r9, [sp, #0x10]
-    bl func_02097898
+    bl C3DSprFile_LoadFromPath
     add r1, r5, r4, lsl #2
     str r0, [r1, #0x14]
     add r4, r4, #1
@@ -536,11 +536,11 @@ asm void UnkClass_02054800::func_02054aa8()
     mov r1, #0
     mov r2, #0x30
     bl MI_CpuFill8
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     mov r1, #8
     ldr r0, [r0]
     mov r2, #1
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     add r1, r5, #0x1000
     str r0, [r1, #0xf14]
     add sp, sp, #0x114
@@ -639,7 +639,7 @@ asm void UnkClass_02054800::func_02054cd0()
     mov r0, r1
     mov r4, r2
     str r1, [r5]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     str r0, [r5, #4]
     bl _ZN12SceneManager13func_0203e30cEv
     cmp r0, #2
@@ -695,7 +695,7 @@ asm void UnkClass_02054800::func_02054d4c()
     bl _ZN12Unk_0205dee013func_0205ed8cEv
     mov r0, r4
     bl _ZN12Unk_0205dee013func_0205f394Ev
-    ldr r0, =data_020c4670
+    ldr r0, =g3DMagicCamera
     ldr r0, [r0]
     bl func_02090550
     ldmia sp!, {r4, pc}
@@ -704,7 +704,7 @@ asm void UnkClass_02054800::func_02054d4c()
 asm void UnkClass_02054800::func_02054db4()
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020c484c
+    ldr r1, =gDeltaTime
     mov r4, r0
     ldr r2, [r1]
     add r1, r4, #0x1000
@@ -780,7 +780,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r4, =data_020c4ab4
     mov r5, #1
     mov r6, #0
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     add r1, r9, #0x1000
     str r0, [r1, #0xf18]
     cmp r8, #0x1c
@@ -824,7 +824,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x60
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02054f80:
@@ -837,7 +837,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x60
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02054fb0:
@@ -848,7 +848,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x85
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02054fd8:
@@ -861,11 +861,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055018:
@@ -876,7 +876,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x88
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055040:
@@ -889,11 +889,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055080:
@@ -906,11 +906,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_020550c0:
@@ -923,11 +923,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055100:
@@ -938,7 +938,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x8f
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055128:
@@ -968,7 +968,7 @@ asm void UnkClass_02054800::func_02054ea0()
     strb r1, [r4, #0x63]
     ldr r0, [r9]
     mov r2, #0x5f
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055198:
@@ -998,7 +998,7 @@ asm void UnkClass_02054800::func_02054ea0()
     strb r1, [r4, #0x63]
     ldr r0, [r9]
     mov r2, #0x5f
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055208:
@@ -1009,7 +1009,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x64
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055230:
@@ -1020,7 +1020,7 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x65
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055258:
@@ -1036,11 +1036,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_020552a4:
@@ -1056,11 +1056,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_020552f0:
@@ -1075,11 +1075,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r1, r6
     mov r0, r4
     mov r2, #0x6c
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r4
     mov r1, r5
     mov r2, #0x5d
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055338:
@@ -1094,11 +1094,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r1, r6
     mov r0, r4
     mov r2, #0x6b
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r4
     mov r2, r6
     mov r1, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055380:
@@ -1113,11 +1113,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r1, r6
     mov r0, r4
     mov r2, #0x6e
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r4
     mov r1, r5
     mov r2, #0x5d
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_020553c8:
@@ -1130,11 +1130,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055408:
@@ -1147,11 +1147,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055448:
@@ -1162,13 +1162,13 @@ asm void UnkClass_02054800::func_02054ea0()
     ldr r0, [r9]
     mov r1, r6
     mov r2, #0x68
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055470:
     mov r6, #6
     mov r0, r6
-    bl func_ov015_02132628
+    bl Graphics_FadeScreensBlack
     ldrb r1, [r10]
     ldr r2, =0x2aaaaaab
     add r5, sp, #0
@@ -1189,7 +1189,7 @@ asm void UnkClass_02054800::func_02054ea0()
     str r1, [r4]
     ldr r0, [r9]
     mov r2, #0x5e
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     ldr r0, =data_020d9978
     mov r1, r6
     mov r2, r6
@@ -1208,11 +1208,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02055530:
@@ -1237,11 +1237,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r7
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r7
     mov r1, r5
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_020555a0:
@@ -1254,11 +1254,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_020555e0:
@@ -1271,11 +1271,11 @@ asm void UnkClass_02054800::func_02054ea0()
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     mov r0, r5
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
 @L_02055618:
     add sp, sp, #0x40
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
@@ -1285,7 +1285,7 @@ asm void UnkClass_02054800::func_02055634()
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
-    bl func_ov015_02132794
+    bl Graphics_IsAnyScreenFading
     cmp r0, #0
     movne r0, #0
     ldmneia sp!, {r4, pc}
@@ -1295,7 +1295,7 @@ asm void UnkClass_02054800::func_02055634()
     movlt r0, #1
     ldmltia sp!, {r4, pc}
     ldr r0, [r4]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     add r1, r4, #0x1000
     ldr r1, [r1, #0xf18]
     cmp r1, r0
@@ -1346,7 +1346,7 @@ asm void UnkClass_02054800::func_020556c0()
     ldr r0, [r6]
     mov r1, r4
     mov r2, r5
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     ldr r0, [r6]
     ldr r1, [r0]
     ldr r1, [r1, #0x34]
@@ -1358,15 +1358,15 @@ asm void UnkClass_02054800::func_02055728()
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
-    bl func_ov015_02132794
+    bl Graphics_IsAnyScreenFading
     cmp r0, #0
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     ldr r0, [r5]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     mov r4, r0
     ldr r0, [r5]
-    bl _ZN17UnkClass_0203dc7c13func_0203e1bcEv
+    bl _ZN13ScreenManager16GetNextSceneMainEv
     cmp r4, r0
     moveq r0, #1
     movne r0, #0
@@ -1454,7 +1454,7 @@ asm void UnkClass_02054800::func_02055764()
     ldmia sp!, {r3, r4, r5, pc}
 @L_02055860:
     mov r0, r4
-    bl func_ov015_02132568
+    bl Graphics_FadeInSub
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -1495,11 +1495,11 @@ asm void UnkClass_02054800::func_02055870()
     ldmia sp!, {r4, pc}
 @L_020558e8:
     mov r0, r4
-    bl func_ov015_02132600
+    bl Graphics_FadeMainBlack
     ldmia sp!, {r4, pc}
 @L_020558f4:
     mov r0, r4
-    bl func_ov015_02132600
+    bl Graphics_FadeMainBlack
     ldmia sp!, {r4, pc}
 @L_02055900:
     mov r0, r4
@@ -1528,7 +1528,7 @@ asm void UnkClass_02054800::func_02055870()
 
 asm void UnkClass_02054800::func_0205594c()
 {
-    ldr r12, =func_ov015_02132794
+    ldr r12, =Graphics_IsAnyScreenFading
     bx r12
 }
 
@@ -1546,9 +1546,9 @@ asm void UnkClass_02054800::func_02055958()
     mov r4, r3
     cmp r1, #0
     beq @L_020559ac
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r0, [r0]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     add r0, r6, #0x31c
     add r0, r0, #0x1c00
     mla r0, r5, r7, r0
@@ -1556,19 +1556,19 @@ asm void UnkClass_02054800::func_02055958()
     mov r1, #0
     bl MI_CpuFill8
 @L_020559ac:
-    ldr r7, =data_020c46d4
+    ldr r7, =g3DPlaneCtrl
     add r1, r6, #0x1000
     ldr r0, [r7]
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
     mov r3, #0xa
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r1, r6, #0x1000
     ldr r0, [r7]
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
     mov r3, #0xc8
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     add r0, r6, #0x1000
     ldr r1, [r0, #0xf14]
     ldr r0, [r7]
@@ -1609,7 +1609,7 @@ asm void UnkClass_02054800::func_02055958()
     mov r1, #5
     mov r3, r7
     str r8, [sp, #0x10]
-    bl func_02097898
+    bl C3DSprFile_LoadFromPath
     mov r1, #0x30
     mul r1, r5, r1
     add r2, r6, r1
@@ -1643,18 +1643,18 @@ asm void UnkClass_02054800::func_02055ae4()
     ldr r0, [r0, #0xf1c]
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r7, =data_020c46d4
+    ldr r7, =g3DPlaneCtrl
     add r1, r6, #0x1000
     ldr r0, [r7]
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
     mov r3, #2
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     mla r0, r5, r4, r6
     add r0, r0, #0x1000
     ldr r1, [r0, #0xf1c]
     ldr r0, [r7]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     add r0, r6, #0x31c
     add r0, r0, #0x1c00
     mla r0, r5, r4, r0
@@ -1676,7 +1676,7 @@ asm void UnkClass_02054800::func_02055b58()
     cmp r1, #0
     ldmeqia sp!, {r3, pc}
     and r1, r3, #0xff
-    ldr r2, =data_020c46d4
+    ldr r2, =g3DPlaneCtrl
     str r1, [sp]
     add r1, r0, #0x1000
     ldr r0, [r2]
@@ -1764,7 +1764,7 @@ asm void UnkClass_02054800::func_02055c80()
     tst r1, #1
     addeq sp, sp, #0x1c
     ldmeqia sp!, {r4, r5, pc}
-    ldr r2, =data_020c46cc
+    ldr r2, =g2DAdventureLogic
     ldr r1, [r0, #4]
     ldr r0, [r2]
     bl func_02085ba4
@@ -1814,7 +1814,7 @@ asm void UnkClass_02054800::func_02055d58()
     ldmeqia sp!, {r3, pc}
     mov r1, r3, lsl #0x10
     mov r1, r1, asr #0x10
-    ldr lr, =data_020c46d4
+    ldr lr, =g3DPlaneCtrl
     str r1, [sp]
     add r1, r0, #0x1000
     mov r3, r2, lsl #0x10
@@ -1822,7 +1822,7 @@ asm void UnkClass_02054800::func_02055d58()
     ldr r1, [r1, #0xf14]
     add r2, r12, #1
     mov r3, r3, asr #0x10
-    bl func_0209360c
+    bl C3DPlaneCtrl_SetTexScale
     ldmia sp!, {r3, pc}
 }
 
@@ -1843,7 +1843,7 @@ asm void UnkClass_02054800::func_02055dac()
     cmp r1, #0
     bne @L_02055e0c
     ldr r2, [r12, #0xf40]
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     mov r3, r2, asr #0xc
     add r1, r5, #0x1000
     ldr r0, [r0]
@@ -1881,14 +1881,14 @@ asm void UnkClass_02054800::func_02055e50()
     ldr r1, [r1, #0xf1c]
     cmp r1, #0
     ldmeqia sp!, {r3, pc}
-    ldr r12, =data_020c46d4
+    ldr r12, =g3DPlaneCtrl
     add r1, r0, #0x1000
     mov r3, r2, lsl #0x10
     ldr r0, [r12]
     ldr r1, [r1, #0xf14]
     add r2, lr, #1
     mov r3, r3, lsr #0x10
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     ldmia sp!, {r3, pc}
 }
 
@@ -1920,13 +1920,13 @@ asm void UnkClass_02054800::func_02055eb4()
     str r1, [r0, #0xf2c]
     str r1, [r0, #0xf30]
     mov r3, #0x64
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     str r3, [sp]
     add r1, r5, #0x1000
     ldr r0, [r6]
     ldr r1, [r1, #0xf14]
     add r2, r4, #1
-    bl func_0209360c
+    bl C3DPlaneCtrl_SetTexScale
     mov r0, #1
     str r0, [sp]
     add r1, r5, #0x1000
@@ -1934,13 +1934,13 @@ asm void UnkClass_02054800::func_02055eb4()
     ldr r1, [r1, #0xf14]
     add r2, r4, #1
     mov r3, #8
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     add r1, r5, #0x1000
     ldr r0, [r6]
     ldr r1, [r1, #0xf14]
     add r2, r4, #1
     mov r3, #0x12c
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     add r1, r5, #0x1000
     add r2, r4, #1
     mov r0, #0xc0
@@ -1948,7 +1948,7 @@ asm void UnkClass_02054800::func_02055eb4()
     ldr r0, [r6]
     ldr r1, [r1, #0xf14]
     mov r3, #0x100
-    bl func_020936b4
+    bl C3DPlaneCtrl_SetTexWH
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
@@ -1975,7 +1975,7 @@ asm void UnkClass_02054800::func_02055f94()
     mov r9, #0
     add r8, r0, #0x1c00
     add r4, r10, #0x1000
-    ldr r7, =data_020c46d4
+    ldr r7, =g3DPlaneCtrl
     mov r5, r11
     mov r6, r11
     b @L_02056010
@@ -1989,12 +1989,12 @@ asm void UnkClass_02054800::func_02055f94()
     ldr r1, [r4, #0xf14]
     mov r3, #2
     add r2, r9, #1
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     mla r0, r9, r11, r10
     add r0, r0, #0x1000
     ldr r1, [r0, #0xf1c]
     ldr r0, [r7]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     mla r0, r9, r5, r8
     mov r1, #0
     mov r2, #0x30
@@ -2016,12 +2016,12 @@ asm void UnkClass_02054800::func_02056020()
     ldr r12, [r2, #0xf1c]
     mov r2, r1
     add r1, r0, #0x1000
-    ldr r3, =data_020c46d4
+    ldr r3, =g3DPlaneCtrl
     ldr r1, [r1, #0xf14]
     ldr r0, [r3]
     add r2, r2, #1
     and r3, r12, #0xff
-    bl func_0209323c
+    bl C3DPlaneCtrl_SetPltt
     ldmia sp!, {r3, pc}
 }
 
@@ -2030,7 +2030,7 @@ asm void UnkClass_02054800::func_0205605c()
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r11, #0
     mov r6, r0
-    ldr r10, =data_020c46d4
+    ldr r10, =g3DPlaneCtrl
     mov r4, #0x30
     mov r5, r11
     b @L_02056398
@@ -2051,7 +2051,7 @@ asm void UnkClass_02054800::func_0205605c()
     b @L_0205619c
 @L_020560b0:
     ldr r0, [r10]
-    bl func_02097aa0
+    bl C3DSprFile_TryFinalize
     cmp r0, #0
     bne @L_02056394
     mla r0, r5, r4, r6
@@ -2060,13 +2060,13 @@ asm void UnkClass_02054800::func_0205605c()
     ldr r1, [r0, #0xf1c]
     ldr r0, [r10]
     mov r2, #0
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     ldr r0, [r10]
     add r1, r6, #0x1000
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
     mov r3, #2
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r0, r6, #0x22
     add r2, r0, #0x1f00
     mul r1, r5, r4
@@ -2089,7 +2089,7 @@ asm void UnkClass_02054800::func_0205605c()
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     mla r1, r5, r4, r6
     str r11, [sp]
     add r1, r1, #0x1f00
@@ -2098,7 +2098,7 @@ asm void UnkClass_02054800::func_0205605c()
     ldr r0, [r10]
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     add r0, r6, #0x23
     add r1, r6, #0x22
     mul r2, r5, r4
@@ -2123,14 +2123,14 @@ asm void UnkClass_02054800::func_0205605c()
     ldr r0, [r10]
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     b @L_020561e8
 @L_020561d4:
     add r1, r6, #0x1000
     ldr r0, [r10]
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
 @L_020561e8:
     mul r12, r5, r4
     add r0, r6, r12
@@ -2165,7 +2165,7 @@ asm void UnkClass_02054800::func_0205605c()
     add r1, r6, r0
     add r3, r1, #0x1000
     ldr r1, [r3, #0xf3c]
-    ldr r7, =data_020c46d4
+    ldr r7, =g3DPlaneCtrl
     cmp r1, #0
     bne @L_02056288
     add r1, r6, #0x23
@@ -2247,7 +2247,7 @@ asm void UnkClass_02054800::func_0205605c()
     ldr r1, [r1, #0xf14]
     add r2, r5, #1
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
 @L_02056394:
     add r5, r5, #1
 @L_02056398:
@@ -2305,18 +2305,18 @@ asm void UnkClass_02054800::func_020563a8()
     cmp r4, #0
     addeq sp, sp, #0x28
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     ldrsh r1, [r5, #0x3e]
     mov r8, #0
     ldr r0, [r6]
     add r2, sp, #0x20
     add r3, sp, #0x24
     str r8, [sp, #0x20]
-    bl func_02097fcc
+    bl C3DSprFile_AllocTexBuffer
     ldrsh r1, [r5, #0x3e]
     ldr r9, [sp, #0x20]
     ldr r0, [r6]
-    bl func_02090dcc
+    bl C3DPlaneCtrl_GetTexWidth
     stmia sp, {r0, r8}
     str r8, [sp, #8]
     mov r7, #1
@@ -2324,7 +2324,7 @@ asm void UnkClass_02054800::func_020563a8()
     str r8, [sp, #0x10]
     str r8, [sp, #0x14]
     str r7, [sp, #0x18]
-    ldr r0, =data_020c46b4
+    ldr r0, =gFont8
     str r8, [sp, #0x1c]
     ldr r0, [r0]
     mov r1, r4
@@ -2341,13 +2341,13 @@ asm void UnkClass_02054800::func_020563a8()
     str r8, [sp]
     str r8, [sp, #4]
     str r8, [sp, #8]
-    bl func_02097ef8
+    bl C3DSprFile_UploadTex
     str r8, [sp]
     ldrsh r1, [r5, #0x3a]
     ldr r0, [r6]
     mov r3, r8
     mov r2, r7
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsb r0, [r5, #0x41]
     ldr r3, =data_020a6fc4
     ldr r1, [r5, #0x4c]
@@ -2371,7 +2371,7 @@ asm void UnkClass_02054800::func_020563a8()
     add r3, r3, #0xa
     mov r3, r3, lsl #0x10
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
@@ -2460,7 +2460,7 @@ asm void UnkClass_02054800::func_02056580()
     ldrsb r0, [r4, #0xd2]
     cmp r0, #0
     bne @L_02056764
-    ldr r9, =data_020c46d4
+    ldr r9, =g3DPlaneCtrl
     ldr r7, =0x7fff
 @L_020566b8:
     ldrsh r1, [r10, #0x3a]
@@ -2479,7 +2479,7 @@ asm void UnkClass_02054800::func_02056580()
     ldrsb r0, [r4, #0xd2]
     cmp r0, #0
     bne @L_02056764
-    ldr r9, =data_020c46d4
+    ldr r9, =g3DPlaneCtrl
     ldr r7, =0x318c
     b @L_020566b8
 @L_02056700:
@@ -2561,7 +2561,7 @@ asm void UnkClass_02054800::func_020567fc()
     mov r7, #0
     strb r1, [r0, #0xe98]
     str r3, [r0, #0xe94]
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     str r2, [r4, #0x10]
     mov r6, #0xe
     strb r7, [r0, #0xe99]
@@ -2569,13 +2569,13 @@ asm void UnkClass_02054800::func_020567fc()
     ldr r0, [r5]
     mov r2, r6
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r7, [sp]
     ldrsh r1, [r4, #0x3a]
     ldr r0, [r5]
     mov r2, r6
     mov r3, r7
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     mov r3, #0x64
     str r3, [sp]
     ldrsh r1, [r4, #0x3a]
@@ -2588,7 +2588,7 @@ asm void UnkClass_02054800::func_020567fc()
     ldr r0, [r5]
     mov r2, r6
     add r3, sp, #8
-    bl func_02093e2c
+    bl C3DPlaneCtrl_GetDimensions
     ldr r1, [sp, #8]
     add r0, r4, #0x1e00
     strh r1, [r0, #0x9a]
@@ -2610,11 +2610,11 @@ asm void UnkClass_02054800::func_020568c4()
     mov r8, #0x30
     mla r0, r6, r8, r7
     add r0, r0, #0x1000
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     ldr r1, [r0, #0xf1c]
     ldr r0, [r4]
     mov r5, r2
-    bl func_02097aa0
+    bl C3DSprFile_TryFinalize
     cmp r0, #0
     addne sp, sp, #0xc
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, pc}
@@ -2634,13 +2634,13 @@ asm void UnkClass_02054800::func_020568c4()
     ldr r0, [r4]
     mov r2, r6
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r8, [sp]
     ldrsh r1, [r7, #0x3a]
     ldr r0, [r4]
     mov r2, r6
     mov r3, r8
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     mov r3, #0x64
     str r3, [sp]
     ldrsh r1, [r7, #0x3a]
@@ -2653,7 +2653,7 @@ asm void UnkClass_02054800::func_020568c4()
     ldr r0, [r4]
     mov r2, r6
     add r3, sp, #8
-    bl func_02093e2c
+    bl C3DPlaneCtrl_GetDimensions
     ldr r1, [sp, #8]
     add r0, r7, #0x1e00
     strh r1, [r0, #0x9a]
@@ -2707,16 +2707,16 @@ asm void UnkClass_02054800::func_020569e4()
     bl MI_CpuCopy8
     add r0, r4, #0x1000
     mov r6, #2
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     ldr r1, [r0, #0xc70]
     ldr r0, [r5]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     ldrsh r1, [r4, #0x3a]
     ldr r0, [r5]
     mov r3, r6
     mov r2, #3
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     ldrsb r0, [r4, #0x43]
     cmp r0, #0
     movne r0, #0
@@ -2779,7 +2779,7 @@ asm void UnkClass_02054800::func_02056ac8()
     mov r6, r7
     b @L_02056b90
 @L_02056b44:
-    ldr r0, =data_020c46a8
+    ldr r0, =gFont12Manager
     mov r1, r5
     ldr r0, [r0]
     bl _ZN8TextFont12GetCharWidthEPKc
@@ -2884,7 +2884,7 @@ asm void UnkClass_02054800::func_02056c6c()
     mov r5, #0
     mov r10, r0
     mov r9, r5
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     b @L_02056ca4
 @L_02056c88:
     add r0, r10, r9, lsl #2
@@ -2892,7 +2892,7 @@ asm void UnkClass_02054800::func_02056c6c()
     ldr r0, [r4]
     mov r2, r5
     mov r3, r5
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     add r9, r9, #1
 @L_02056ca4:
     cmp r9, #8
@@ -2906,40 +2906,40 @@ asm void UnkClass_02054800::func_02056c6c()
     mov r1, r9
     add r0, r10, #0x21c
     bl MI_CpuFill8
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     mov r6, #1
     ldr r0, [r4]
     mov r1, #0xf
     mov r2, r6
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     strh r0, [r10, #0x3a]
     mov r1, #3
     ldr r0, [r4]
     mov r2, r1
-    bl func_020982a0
+    bl C3DSprFile_CreateTex16
     add r1, r10, #0x1c00
     strh r0, [r1, #0x6e]
     ldrsh r1, [r1, #0x6e]
     ldr r0, [r4]
     mov r2, r9
     mov r3, r9
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     ldr r0, [r4]
     mov r2, r6
     mov r1, #0x10
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     add r2, r10, #0x1c00
     strh r0, [r2, #0x6c]
     ldrsh r1, [r2, #0x6c]
     ldrsh r2, [r2, #0x6e]
     ldr r0, [r4]
     and r2, r2, #0xff
-    bl func_020922fc
+    bl C3DPlaneCtrl_SetTexAll
     add r1, r10, #0x1c00
     ldrsh r1, [r1, #0x6c]
     ldr r0, [r4]
     mov r2, #0x36
-    bl func_02092544
+    bl C3DPlaneCtrl_SetDepthAll
     add r6, r10, #0x1c00
     b @L_02056d84
 @L_02056d60:
@@ -2950,13 +2950,13 @@ asm void UnkClass_02054800::func_02056c6c()
     ldr r0, [r4]
     mov r3, r5
     add r2, r9, #1
-    bl func_02093734
+    bl C3DPlaneCtrl_SetTexST
     add r9, r9, #1
 @L_02056d84:
     cmp r9, #8
     blt @L_02056d60
     add r0, r10, #0x1c00
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     mov r6, #0x40
     ldrsh r1, [r0, #0x6c]
     ldr r0, [r4]
@@ -2974,44 +2974,44 @@ asm void UnkClass_02054800::func_02056c6c()
     ldr r0, [r4]
     mov r2, #0x32
     mov r3, #0x64
-    bl func_02092ed4
+    bl C3DPlaneCtrl_SetPosAnchorAll
     ldr r0, [r4]
     mov r8, #3
     mov r1, r8
     mov r7, #1
     mov r2, r7
-    bl func_020982a0
+    bl C3DSprFile_CreateTex16
     strh r0, [r10, #0x3e]
     ldrsh r1, [r10, #0x3e]
     ldr r0, [r4]
     mov r9, #0
     mov r2, r9
     mov r3, r9
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     ldr r0, [r4]
     ldrsh r1, [r10, #0x3a]
     mov r2, r7
     ldrsh r3, [r10, #0x3e]
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r9, [sp]
     ldr r0, [r4]
     ldrsh r1, [r10, #0x3a]
     mov r2, r7
     mov r3, r9
-    bl func_02093734
+    bl C3DPlaneCtrl_SetTexST
     mov r3, r6
     mov r6, #0x10
     str r6, [sp]
     ldr r0, [r4]
     ldrsh r1, [r10, #0x3a]
     mov r2, r7
-    bl func_020936b4
+    bl C3DPlaneCtrl_SetTexWH
     ldr r0, [r4]
     ldrsh r1, [r10, #0x3a]
     mov r2, r7
     mov r3, #0x34
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     mov r3, r5
     ldr r0, [r4]
     ldrsh r1, [r10, #0x3a]
@@ -3023,88 +3023,88 @@ asm void UnkClass_02054800::func_02056c6c()
     ldr r0, [r4]
     mov r2, r5
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r9, [sp]
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r5
     mov r3, r9
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r5
     mov r3, #0x35
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     ldr r3, [r10, #0x18]
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r8
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r9, [sp]
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r8
     mov r3, r9
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r8
     mov r3, #0x36
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     mov r11, #4
     ldr r0, [r4]
     mov r1, r11
     mov r2, r7
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     strh r0, [r10, #0x3c]
     ldr r3, [r10, #0x1c]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r7
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r9, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r7
     mov r3, r9
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r7
     mov r3, #0x38
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     add r0, sp, #4
     str r0, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     add r3, sp, #8
     mov r2, r7
-    bl func_02093e2c
+    bl C3DPlaneCtrl_GetDimensions
     ldr r1, [r10, #0x1c]
     ldr r0, [r4]
     and r3, r1, #0xff
     ldrsh r1, [r10, #0x3c]
     mov r2, r5
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r9, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r5
     mov r3, r9
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r5
     mov r3, #0x38
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     str r7, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r3, r6
     mov r2, r5
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     str r9, [sp]
     ldr r3, [sp, #8]
     ldrsh r1, [r10, #0x3c]
@@ -3112,30 +3112,30 @@ asm void UnkClass_02054800::func_02056c6c()
     ldr r0, [r4]
     mov r2, r5
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldr r3, [r10, #0x1c]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r8
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r9, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r8
     mov r3, r9
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r8
     mov r3, #0x38
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     str r7, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r8
     mov r3, #0x20
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     ldr r0, [sp, #4]
     mov r2, r8
     mov r0, r0, lsl #0x10
@@ -3144,30 +3144,30 @@ asm void UnkClass_02054800::func_02056c6c()
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r3, r9
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldr r3, [r10, #0x1c]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r11
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r9, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r11
     mov r3, r9
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r3, #0x38
     mov r2, r11
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     str r7, [sp]
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r11
     mov r3, #0x30
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     ldr r0, [sp, #4]
     mov r2, r11
     mov r0, r0, lsl #0x10
@@ -3178,7 +3178,7 @@ asm void UnkClass_02054800::func_02056c6c()
     mov r3, r3, lsl #0x10
     ldr r0, [r4]
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     mov r7, r5
     mov r6, r9
     mov r8, #0x39
@@ -3190,71 +3190,71 @@ asm void UnkClass_02054800::func_02056c6c()
     ldr r0, [r4]
     mov r3, r8
     add r2, r2, #6
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     mov r2, r9, lsl #1
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     add r2, r2, #6
     mov r3, r7
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     ldr r0, [r4]
     ldrsh r1, [r10, #0x3a]
     mov r2, r9, lsl #1
     add r2, r2, #7
     mov r3, r5
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     ldr r0, [r4]
     ldrsh r1, [r10, #0x3a]
     mov r2, r9, lsl #1
     add r2, r2, #7
     mov r3, r7
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r9, r9, #1
 @L_02057184:
     cmp r9, #4
     blt @L_02057120
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     ldr r3, [r10, #0x2c]
     mov r5, #0xe
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r5
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r6, [sp]
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r5
     mov r3, r6
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r5
     mov r3, #0x33
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     ldr r0, [r4]
     mov r1, #0xfa
     mov r2, #1
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     add r1, r10, #0x1000
     str r0, [r1, #0xc70]
     mov r5, #3
     ldr r0, [r4]
     mov r1, #5
     mov r2, r5
-    bl func_020982a0
+    bl C3DSprFile_CreateTex16
     mov r1, r0
     add r0, r10, #0x1000
     str r1, [r0, #0xc74]
     ldr r0, [r4]
     mov r2, r6
     mov r3, r6
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     add r1, r10, #0x1000
     ldr r0, [r4]
     ldr r1, [r1, #0xc70]
     mov r2, #0x37
-    bl func_02092544
+    bl C3DPlaneCtrl_SetDepthAll
     mov r1, #0xa
     add r0, r10, #0x1000
     str r1, [r0, #0xc78]
@@ -3268,21 +3268,21 @@ asm void UnkClass_02054800::func_02056c6c()
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r5
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r5
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r1, r10, #0x1c00
     ldrsh r1, [r1, #0x6c]
     ldr r0, [r4]
     mov r2, r5
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r1, r10, #0x1000
     ldr r0, [r4]
     ldr r1, [r1, #0xc70]
     mov r2, r5
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -3292,44 +3292,44 @@ asm void UnkClass_02054800::func_020572b8()
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
     bl func_02057474
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     ldrsh r1, [r4, #0x3a]
     ldr r0, [r5]
-    bl func_02092270
+    bl C3DPlaneCtrl_Destroy
     ldrsh r1, [r4, #0x3c]
     ldr r0, [r5]
-    bl func_02092270
+    bl C3DPlaneCtrl_Destroy
     add r0, r4, #0x1c00
     ldrsh r1, [r0, #0x6c]
     ldr r0, [r5]
-    bl func_02092270
+    bl C3DPlaneCtrl_Destroy
     add r1, r4, #0x1000
     ldr r0, [r5]
     ldr r1, [r1, #0xc70]
-    bl func_02092270
+    bl C3DPlaneCtrl_Destroy
     mov r6, #0
     b @L_0205731c
 @L_02057308:
     add r0, r4, r6, lsl #2
     ldr r1, [r0, #0x14]
     ldr r0, [r5]
-    bl func_02097e58
+    bl C3DSprFile_FreeVram
     add r6, r6, #1
 @L_0205731c:
     cmp r6, #8
     blt @L_02057308
     add r0, r4, #0x1c00
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     ldrsh r1, [r0, #0x6e]
     ldr r0, [r5]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     ldrsh r1, [r4, #0x3e]
     ldr r0, [r5]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     add r0, r4, #0x1000
     ldr r1, [r0, #0xc74]
     ldr r0, [r5]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -3358,7 +3358,7 @@ asm void UnkClass_02054800::func_0205735c()
     str lr, [r4, #0x5c]
     str lr, [r4, #0x60]
     ldmeqia sp!, {r3, r4, pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020ae5a8
     ldr r0, [r3]
     cmp r0, #0
@@ -3371,7 +3371,7 @@ asm void UnkClass_02054800::func_0205735c()
     str r12, [sp, #0x10]
     bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
 @L_020573e8:
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020ae5c0
     ldr r0, [r3]
     cmp r0, #0
@@ -3386,7 +3386,7 @@ asm void UnkClass_02054800::func_0205735c()
     str r12, [sp, #0x10]
     bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
 @L_02057420:
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020ae5d8
     ldr r0, [r3]
     cmp r0, #0
@@ -3411,22 +3411,22 @@ asm void UnkClass_02054800::func_02057474()
     mov r4, r0
     mov r9, #0
     mov r6, #2
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     str r9, [r4, #0x10]
     ldrsh r1, [r4, #0x3a]
     ldr r0, [r5]
     mov r2, r6
     mov r8, r9
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     ldrsh r1, [r4, #0x3a]
     ldr r0, [r5]
     mov r3, r6
     mov r2, #3
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     ldrsh r1, [r4, #0x3c]
     ldr r0, [r5]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     b @L_020574fc
 @L_020574c8:
     ldrsh r1, [r4, #0x3a]
@@ -3434,41 +3434,41 @@ asm void UnkClass_02054800::func_02057474()
     ldr r0, [r5]
     mov r3, r6
     add r2, r2, #6
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     mov r2, r9, lsl #1
     ldrsh r1, [r4, #0x3a]
     ldr r0, [r5]
     mov r3, r6
     add r2, r2, #7
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r9, r9, #1
 @L_020574fc:
     cmp r9, #4
     blt @L_020574c8
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     add r1, r4, #0x1000
     mov r6, #2
     ldr r0, [r5]
     ldr r1, [r1, #0xc70]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r1, r4, #0x1000
     ldr r0, [r5]
     ldr r1, [r1, #0xc70]
     mov r2, r6
-    bl func_02092d3c
+    bl C3DPlaneCtrl_ClearFlagAll
     add r0, r4, #0x1c00
     ldrsh r1, [r0, #0x6c]
     ldr r0, [r5]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r1, r4, #0x1c00
     ldrsh r1, [r1, #0x6c]
     ldr r0, [r5]
     mov r2, r6
-    bl func_02092d3c
+    bl C3DPlaneCtrl_ClearFlagAll
     mov r9, #0
-    ldr r5, =data_020c47b4
+    ldr r5, =gAllocator
     b @L_0205758c
 @L_02057568:
     add r0, r4, r9, lsl #2
@@ -3486,7 +3486,7 @@ asm void UnkClass_02054800::func_02057474()
     blt @L_02057568
     mov r9, #0
     mov r5, #6
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     b @L_020575f8
 @L_020575a4:
     mla r7, r9, r5, r4
@@ -3499,7 +3499,7 @@ asm void UnkClass_02054800::func_02057474()
     cmp r1, #0
     beq @L_020575cc
     ldr r0, [r6]
-    bl func_02097b3c
+    bl C3DSprFile_Release
 @L_020575cc:
     add r0, r7, r10, lsl #1
     add r0, r0, #0x200
@@ -3507,7 +3507,7 @@ asm void UnkClass_02054800::func_02057474()
     cmp r1, #0
     beq @L_020575e8
     ldr r0, [r6]
-    bl func_02097b3c
+    bl C3DSprFile_Release
 @L_020575e8:
     add r10, r10, #1
 @L_020575ec:
@@ -3538,7 +3538,7 @@ asm void UnkClass_02054800::func_02057630()
     mov r11, r1
     mov r5, #2
     cmp r0, #0
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     mov r8, #1
     beq @L_02057678
     ldr r0, [r10, #0x10]
@@ -3556,32 +3556,32 @@ asm void UnkClass_02054800::func_02057630()
     ldr r0, [r4]
     mov r2, r5
     bne @L_020576d4
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     ldrsh r1, [r10, #0x3c]
     ldr r0, [r4]
     mov r2, r5
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r1, r10, #0x1000
     ldr r0, [r4]
     ldr r1, [r1, #0xc70]
     mov r2, r5
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r0, r10, #0x1c00
     ldrsh r1, [r0, #0x6c]
     ldr r0, [r4]
     mov r2, r5
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_020576d4:
     mov r3, r8
-    bl func_02093ca8
+    bl C3DPlaneCtrl_SetFlag_2
     add r1, r10, #0x1000
     ldr r0, [r4]
     ldr r1, [r1, #0xc70]
     mov r2, r5
     mov r3, r8
-    bl func_02093ca8
+    bl C3DPlaneCtrl_SetFlag_2
     ldr r1, [r10, #0x10]
     mov r0, r10
     bic r2, r1, #0xc0
@@ -3604,7 +3604,7 @@ asm void UnkClass_02054800::func_02057630()
     tst r0, #0xc0
     addne r0, r10, #0x1000
     mov r9, #2
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     strneb r8, [r0, #0xe80]
     bne @L_02057768
     ldrsb r0, [r10, #0x38]
@@ -3635,20 +3635,20 @@ asm void UnkClass_02054800::func_02057630()
     ldr r0, [r4]
     mov r2, r8
     mov r3, r9
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     str r8, [sp]
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r9
     mov r3, r9
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     str r7, [sp]
     ldrsb r3, [r10, #0x40]
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r9
     sub r3, r3, #1
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldrsb r0, [r10, #0x41]
     ldr r7, =data_020a6fc4
     mov r2, r9
@@ -3668,7 +3668,7 @@ asm void UnkClass_02054800::func_02057630()
     add r3, r5, r3
     mov r3, r3, lsl #0x10
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldrsb r0, [r10, #0x41]
     mov r2, r8
     sub r0, r0, #1
@@ -3689,24 +3689,24 @@ asm void UnkClass_02054800::func_02057630()
     add r3, r3, #0xa
     mov r3, r3, lsl #0x10
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     b @L_020578c8
 @L_020578a0:
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r3, r9
     mov r2, #1
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r4]
     mov r2, r9
     mov r3, r9
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
 @L_020578c8:
     ldr r0, [r10, #0x10]
     mov r1, #0
     tst r0, #4
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     beq @L_020578ec
     add r0, r10, #0x1e00
     ldrsb r0, [r0, #0x82]
@@ -3728,7 +3728,7 @@ asm void UnkClass_02054800::func_02057630()
     ldr r0, [r4]
     mov r2, #3
     mov r3, #2
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
 @L_0205792c:
     ldr r0, [r10, #0x34]
     and r0, r0, #0x1f
@@ -3754,11 +3754,11 @@ asm void UnkClass_02054800::func_02057630()
     ldr r0, [r4]
     mov r2, #3
     mov r3, #2
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
 @L_0205798c:
     ldrsb r1, [r10, #0x46]
     ldr r3, =data_020a6fcc
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     sub r1, r1, #1
     add r1, r3, r1, lsl #2
     ldrsh r1, [r1, #2]
@@ -3770,7 +3770,7 @@ asm void UnkClass_02054800::func_02057630()
     sub r4, r4, #1
     mov r4, r4, lsl #2
     ldrsh r3, [r3, r4]
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldrsb r0, [r10, #0x38]
     ldrsh r2, [r10, #0x3a]
     mov r3, #1
@@ -3805,7 +3805,7 @@ asm void UnkClass_02054800::func_02057630()
     ldr r2, [r10, #0x10]
     ldr r1, =gGameState
     tst r2, #0x100
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     beq @L_02057d60
     tst r2, #4
     beq @L_02057d60
@@ -3855,7 +3855,7 @@ asm void UnkClass_02054800::func_02057630()
     bl _s32_div_f
     add r0, r10, #0x1000
     strb r1, [r0, #0xe99]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     b @L_02057bcc
@@ -3891,7 +3891,7 @@ asm void UnkClass_02054800::func_02057630()
     ldrsb r0, [r0, #0x99]
     cmp r0, r9
     beq @L_02057ba8
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
 @L_02057ba8:
@@ -3909,13 +3909,13 @@ asm void UnkClass_02054800::func_02057630()
 @L_02057bcc:
     mov r0, #0x80
     str r0, [sp]
-    ldr r7, =data_020c46d4
+    ldr r7, =g3DPlaneCtrl
     mov r4, #0xe
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r7]
     mov r2, r4
     mov r3, #0xf8
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     mov r11, #0
     str r11, [sp]
     add r0, r10, #0x1e00
@@ -3923,7 +3923,7 @@ asm void UnkClass_02054800::func_02057630()
     ldrsb r3, [r0, #0x99]
     ldr r0, [r7]
     mov r2, r4
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     mov r2, r4
     mov r4, #1
     str r4, [sp]
@@ -3931,12 +3931,12 @@ asm void UnkClass_02054800::func_02057630()
     ldrsh r1, [r10, #0x3a]
     mov r8, #2
     mov r3, r8
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     ldr r0, [r7]
     mov r3, r8
     ldrsh r1, [r10, #0x3a]
     mov r2, #3
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r0, r10, #0x3000
     ldr r0, [r0, #0xe9c]
     cmp r0, #0
@@ -3998,7 +3998,7 @@ asm void UnkClass_02054800::func_02057630()
     strneb r1, [r0, #0xe99]
 @L_02057d24:
     cmp r11, #0
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     beq @L_02057d74
     ldr r1, [r10, #0x10]
     mov r2, #0xe
@@ -4007,8 +4007,8 @@ asm void UnkClass_02054800::func_02057630()
     ldrsh r1, [r10, #0x3a]
     ldr r0, [r0]
     mov r3, #2
-    bl func_02093928
-    ldr r0, =data_020c5e40
+    bl C3DPlaneCtrl_ClearFlag
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     b @L_02057d74
@@ -4017,9 +4017,9 @@ asm void UnkClass_02054800::func_02057630()
     ldr r0, [r0]
     mov r2, #0xe
     mov r3, #2
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
 @L_02057d74:
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     add r1, r10, #0x1000
     add r2, r5, #0xc
     add r0, r6, #0x12
@@ -4029,7 +4029,7 @@ asm void UnkClass_02054800::func_02057630()
     ldr r1, [r1, #0xc70]
     mov r2, r2, asr #0x10
     mov r3, r3, asr #0x10
-    bl func_02093bf4
+    bl C3DPlaneCtrl_SetPos_2
     add r0, r10, #0x1c00
     add r2, r5, #0xc
     add r1, r6, #0x12
@@ -4039,7 +4039,7 @@ asm void UnkClass_02054800::func_02057630()
     ldr r0, [r4]
     mov r2, r2, asr #0x10
     mov r3, r3, asr #0x10
-    bl func_02093bf4
+    bl C3DPlaneCtrl_SetPos_2
     ldr r0, [r10, #0x10]
     tst r0, #0x50
     bne @L_02057dec
@@ -4098,18 +4098,18 @@ asm void UnkClass_02054800::func_02057e80()
     mov r6, #2
     mov r9, #0
     mov r11, #1
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     beq @L_02057edc
     add r1, r4, #0x1000
     ldr r0, [r5]
     ldr r1, [r1, #0xa54]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r0, r4, #0x1a00
     ldrsh r1, [r0, #0x50]
     ldr r0, [r5]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
 @L_02057edc:
     add r1, r4, #0x1c00
     ldrsb r2, [r1, #0x65]
@@ -4135,12 +4135,12 @@ asm void UnkClass_02054800::func_02057e80()
     ldr r0, [r5]
     ldr r1, [r1, #0xa54]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r0, r4, #0x1a00
     ldrsh r1, [r0, #0x50]
     ldr r0, [r5]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r1, r4, #0x1c00
     ldrsb r3, [r1, #0x65]
     add r0, r4, #0xa60
@@ -4207,12 +4207,12 @@ asm void UnkClass_02054800::func_02057e80()
     ldr r1, [r0, #0xc60]
     mov r0, r6
     add r2, r9, #1
-    bl func_02016d0c
+    bl STD_CopyLString
     add r0, r9, #2
     mov r1, #0
     strb r1, [r6, r0]
     ldrsb r0, [r7]
-    ldr r6, =data_020c46a8
+    ldr r6, =gFont12Manager
     mov r2, r11
     cmp r0, #0
     addne r1, r7, #1
@@ -4228,7 +4228,7 @@ asm void UnkClass_02054800::func_02057e80()
     add r2, sp, #0x28
     add r3, sp, #0x2c
     str r9, [sp, #0x28]
-    bl func_02097fcc
+    bl C3DSprFile_AllocTexBuffer
     ldr r10, [sp, #0x28]
     mov r0, #0x40
     stmia sp, {r0, r9}
@@ -4256,7 +4256,7 @@ asm void UnkClass_02054800::func_02057e80()
     str r9, [sp]
     str r9, [sp, #4]
     str r9, [sp, #8]
-    bl func_02097ef8
+    bl C3DSprFile_UploadTex
     ldr r0, [r6]
     mov r1, r11
     mov r2, r11
@@ -4270,13 +4270,13 @@ asm void UnkClass_02054800::func_02057e80()
     strh r9, [r0, #0x6e]
     ldr r0, [r5]
     and r2, r2, #0xff
-    bl func_020922fc
+    bl C3DPlaneCtrl_SetTexAll
     add r1, r4, #0x1000
     mov r6, #2
     ldr r0, [r5]
     ldr r1, [r1, #0xa54]
     mov r2, r6
-    bl func_02092d3c
+    bl C3DPlaneCtrl_ClearFlagAll
     add r1, r4, #0x1000
     ldrb r3, [r1, #0xc68]
     ldr r0, [r5]
@@ -4289,7 +4289,7 @@ asm void UnkClass_02054800::func_02057e80()
     ldr r1, [r1, #0xa54]
     mov r2, r11
     mov r3, r6
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     add r8, r4, #0x1000
     mov r7, r9
     mov r10, #0x8a
@@ -4310,7 +4310,7 @@ asm void UnkClass_02054800::func_02057e80()
     ldrsh r3, [r3, #0xe0]
     ldr r0, [r5]
     ldr r1, [r8, #0xa54]
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     add r9, r9, #1
 @L_020581d0:
     ldrb r0, [r8, #0xc68]
@@ -4318,27 +4318,27 @@ asm void UnkClass_02054800::func_02057e80()
     blt @L_02058190
     add r0, r4, #0x1a00
     ldrsh r1, [r0, #0x50]
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     mov r5, #2
     ldr r0, [r0]
     mov r2, r5
     mov r3, #1
     mov r8, #0
-    bl func_02093ca8
+    bl C3DPlaneCtrl_SetFlag_2
     add r0, r4, #0x1a00
     ldrsh r1, [r0, #0x50]
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     mov r2, r5
     ldr r0, [r0]
-    bl func_02092d3c
+    bl C3DPlaneCtrl_ClearFlagAll
     add r0, r4, #0x1a00
     ldrsh r1, [r0, #0x52]
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     add r2, sp, #0x24
     ldr r0, [r0]
     str r8, [sp, #0x24]
     add r3, sp, #0x2c
-    bl func_02097fcc
+    bl C3DSprFile_AllocTexBuffer
     mov r9, r8
     ldr r10, [sp, #0x24]
     add r5, r4, #0x1000
@@ -4392,7 +4392,7 @@ asm void UnkClass_02054800::func_02057e80()
     mov r0, r10
     bl DC_FlushRange
     add r0, r4, #0x1a00
-    ldr r2, =data_020c46d4
+    ldr r2, =g3DPlaneCtrl
     ldrsh r1, [r0, #0x52]
     ldr r3, [sp, #0x2c]
     ldr r0, [r2]
@@ -4401,7 +4401,7 @@ asm void UnkClass_02054800::func_02057e80()
     str r5, [sp, #4]
     mov r2, r10
     str r5, [sp, #8]
-    bl func_02097ef8
+    bl C3DSprFile_UploadTex
     b @L_02058680
 @L_0205832c:
     add r1, r4, #0x1000
@@ -4410,7 +4410,7 @@ asm void UnkClass_02054800::func_02057e80()
     mov r2, #2
     mov r3, #1
     mov r10, #0x2a
-    bl func_02093ca8
+    bl C3DPlaneCtrl_SetFlag_2
     add r1, r4, #0x1c00
     add r0, r8, #0x1000
     ldrsh r2, [r1, #0x6c]
@@ -4423,7 +4423,7 @@ asm void UnkClass_02054800::func_02057e80()
     cmp r7, #0
     beq @L_02058390
     mov r6, #5
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r6
     bl _ZN12SoundManager9PlaySoundEi
     sub r1, r6, #6
@@ -4510,7 +4510,7 @@ asm void UnkClass_02054800::func_02057e80()
     strh r2, [r0, #6]
     ldrb r3, [r5, #0xc69]
     add r2, r4, #0x1a00
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     add r3, r4, r3, lsl #3
     add r3, r3, #0x200
     ldrsh r11, [r3, #0xe2]
@@ -4526,7 +4526,7 @@ asm void UnkClass_02054800::func_02057e80()
     ldrsh r1, [r2, #0x50]
     ldrb r2, [r0, #3]
     ldr r0, [r5]
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     mov r11, #0x2a
     mla r3, r9, r11, r4
     ldrsh r1, [r3, #8]
@@ -4536,7 +4536,7 @@ asm void UnkClass_02054800::func_02057e80()
     ldrb r2, [r3, #3]
     ldrsh r3, [r3, #6]
     ldr r0, [r5]
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     mov r0, #8
     str r0, [sp]
     mla r3, r9, r11, r4
@@ -4545,7 +4545,7 @@ asm void UnkClass_02054800::func_02057e80()
     ldrsh r1, [r1, #0x6c]
     ldrb r3, [r3, #4]
     ldr r0, [r5]
-    bl func_020936b4
+    bl C3DPlaneCtrl_SetTexWH
     b @L_02058560
 @L_02058554:
     add r9, r9, #1
@@ -4557,12 +4557,12 @@ asm void UnkClass_02054800::func_02057e80()
     str r0, [sp]
     add r0, r4, #0x1000
     ldrb r2, [r0, #0xc69]
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     ldr r1, [r0, #0xa54]
     ldr r0, [r5]
     add r2, r2, #1
     mov r3, #2
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     add r1, r4, #0x1000
     ldrb r2, [r1, #0xc69]
     add r3, r4, #0x1c00
@@ -4594,7 +4594,7 @@ asm void UnkClass_02054800::func_02057e80()
     subs r9, r5, r1
     bne @L_0205860c
     ldr r1, [r0, #0xa5c]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager9PlaySoundEi
     mov r6, #0
 @L_0205860c:
@@ -4664,7 +4664,7 @@ asm void UnkClass_02054800::func_02057e80()
     ldr r1, [r1, #0xa54]
     mov r3, r6
     mov r2, #2
-    bl func_02093ca8
+    bl C3DPlaneCtrl_SetFlag_2
     add r0, r4, #0x1000
     ldr r0, [r0, #0xc60]
     cmp r0, #0
@@ -4681,12 +4681,12 @@ asm void UnkClass_02054800::func_02057e80()
     beq @L_02058828
     cmp r6, #0
     beq @L_0205874c
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #5
     bl _ZN12SoundManager9PlaySoundEi
 @L_0205874c:
     ldr r0, =data_020d9a04
-    bl _ZN17UnkClass_0206029413func_0206145cEv
+    bl _ZN13ScriptManager13func_0206145cEv
     add r0, r4, #0x1c00
     ldrsb r2, [r0, #0x65]
     mov r3, #0x20
@@ -4729,12 +4729,12 @@ asm void UnkClass_02054800::func_02057e80()
     streqb r9, [r0, #0xc66]
     ldr r0, [r5]
     ldr r1, [r1, #0xa54]
-    bl func_02092d3c
+    bl C3DPlaneCtrl_ClearFlagAll
     add r0, r4, #0x1a00
     ldrsh r1, [r0, #0x50]
     ldr r0, [r5]
     mov r2, r6
-    bl func_02092d3c
+    bl C3DPlaneCtrl_ClearFlagAll
     add r0, r4, #0x1c00
     ldrsb r1, [r0, #0x65]
     add r0, r4, #0x1000
@@ -4767,7 +4767,7 @@ asm void UnkClass_02054800::func_02058858()
     strh r3, [sp, #8]
     cmp r1, #0
     mov r4, #2
-    ldr r9, =data_020c46d4
+    ldr r9, =g3DPlaneCtrl
     add r2, sp, #4
     mov r6, #1
     bne @L_020588d8
@@ -4827,63 +4827,63 @@ asm void UnkClass_02054800::func_02058858()
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     and r2, r2, #0xff
-    bl func_020922fc
+    bl C3DPlaneCtrl_SetTexAll
     mov r2, #0
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     mov r3, r2
-    bl func_02092e18
+    bl C3DPlaneCtrl_SetGraphicIdxAll
     ldr r1, [r8, #0x24]
     ldrsb r2, [r7, #0xf]
     and r3, r1, #0xff
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
 @L_020589a0:
     ldrsh r1, [r7, #2]
     ldr r0, [r9]
     mov r2, #5
     mov r3, #2
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     b @L_02058a90
 @L_020589b8:
     ldr r2, [r8, #0x1c]
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     and r2, r2, #0xff
-    bl func_020922fc
+    bl C3DPlaneCtrl_SetTexAll
     mov r2, #0
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     mov r3, r2
-    bl func_02092e18
+    bl C3DPlaneCtrl_SetGraphicIdxAll
     b @L_020589a0
 @L_020589e4:
     ldr r2, [r8, #0x20]
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     and r2, r2, #0xff
-    bl func_020922fc
+    bl C3DPlaneCtrl_SetTexAll
     mov r10, #0
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     mov r2, r10
     mov r3, r10
-    bl func_02092e18
+    bl C3DPlaneCtrl_SetGraphicIdxAll
     ldr r1, [r8, #0x28]
     mov r8, #5
     and r3, r1, #0xff
     ldrsh r1, [r7, #2]
     ldr r0, [r9]
     mov r2, r8
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r10, [sp]
     ldrsb r3, [r7, #0xc]
     ldrsh r1, [r7, #2]
     ldr r0, [r9]
     mov r2, r8
     sub r3, r3, #2
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     sub r0, r5, #6
     mov r0, r0, lsl #0x10
     mov r0, r0, asr #0x10
@@ -4894,14 +4894,14 @@ asm void UnkClass_02054800::func_02058858()
     ldr r0, [r9]
     mov r2, r8
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     mov r0, #1
     str r0, [sp]
     ldrsh r1, [r7, #2]
     ldr r0, [r9]
     mov r2, r8
     mov r3, #2
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
 @L_02058a90:
     ldrsh r1, [r7, #4]
     mov r2, r4, lsl #0x10
@@ -4909,23 +4909,23 @@ asm void UnkClass_02054800::func_02058858()
     ldr r0, [r9]
     mov r2, r2, asr #0x10
     mov r3, r3, asr #0x10
-    bl func_02093bf4
+    bl C3DPlaneCtrl_SetPos_2
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     mov r2, #2
     mov r3, #1
-    bl func_02093ca8
+    bl C3DPlaneCtrl_SetFlag_2
     b @L_02058ae8
 @L_02058ac4:
     ldrsh r1, [r7, #4]
     ldr r0, [r9]
     mov r2, r4
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     ldrsh r1, [r7, #2]
     ldr r0, [r9]
     mov r3, r4
     mov r2, #5
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
 @L_02058ae8:
     mov r0, r6
     add sp, sp, #0xc
@@ -4989,7 +4989,7 @@ asm void UnkClass_02054800::func_02058afc()
 asm void UnkClass_02054800::func_02058ba8()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r4, =data_020c46e4
+    ldr r4, =gConfig
     mov r6, r1
     mov r7, r0
     ldr r1, =data_020ae5f0
@@ -5020,7 +5020,7 @@ asm void UnkClass_02054800::func_02058ba8()
 @L_02058c18:
     bl _ffix
     mov r4, r0
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020ae62c
     bl _ZN10ConfigFile6GetIntEPKc
     ldrsb r3, [r6, #0xa]
@@ -5154,7 +5154,7 @@ asm void UnkClass_02054800::func_02058d74()
     b @L_0205925c
 @L_02058e0c:
     ldrsb r1, [r10, #0xcf]
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     cmp r1, #0
     addle sp, sp, #0xb8
     movle r0, #0
@@ -5177,7 +5177,7 @@ asm void UnkClass_02054800::func_02058d74()
     cmp r1, #0
     beq @L_02058e6c
     ldr r0, [r6]
-    bl func_02097b3c
+    bl C3DSprFile_Release
 @L_02058e6c:
     ldrsb r1, [r10, #0xd1]
     mla r0, r1, r4, r10
@@ -5234,7 +5234,7 @@ asm void UnkClass_02054800::func_02058d74()
     mov r1, r8
     add r2, sp, #0x28
     add r3, sp, #0x24
-    bl func_ov015_02134300
+    bl Archive_PackHeaderGetOffsetAndSize
     cmp r0, #0
     bne @L_02058f94
 @L_02058f44:
@@ -5288,7 +5288,7 @@ asm void UnkClass_02054800::func_02058d74()
 @L_02058fe8:
     mov r2, r5
     mov r3, #1
-    bl func_02097898
+    bl C3DSprFile_LoadFromPath
     ldrsb r2, [r10, #0xd1]
     mla r1, r2, r4, r10
     add r1, r1, r9, lsl #1
@@ -5308,12 +5308,12 @@ asm void UnkClass_02054800::func_02058d74()
 @L_02059028:
     mla r1, r0, r4, r10
     ldrsh r1, [r1, #0xc0]
-    ldr r8, =data_020c46d4
+    ldr r8, =g3DPlaneCtrl
     cmp r1, #0
     beq @L_02059050
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r0, [r0]
-    bl func_02097aa0
+    bl C3DSprFile_TryFinalize
     cmp r0, #0
     bgt @L_020594c4
 @L_02059050:
@@ -5322,9 +5322,9 @@ asm void UnkClass_02054800::func_02058d74()
     ldrsh r1, [r0, #0xc2]
     cmp r1, #0
     beq @L_02059078
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r0, [r0]
-    bl func_02097aa0
+    bl C3DSprFile_TryFinalize
     cmp r0, #0
     bgt @L_020594c4
 @L_02059078:
@@ -5333,9 +5333,9 @@ asm void UnkClass_02054800::func_02058d74()
     ldrsh r1, [r0, #0xc4]
     cmp r1, #0
     beq @L_020590a0
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r0, [r0]
-    bl func_02097aa0
+    bl C3DSprFile_TryFinalize
     cmp r0, #0
     bgt @L_020594c4
 @L_020590a0:
@@ -5366,7 +5366,7 @@ asm void UnkClass_02054800::func_02058d74()
     add r1, r1, r9, lsl #1
     ldrsh r1, [r1, #0xc0]
     mov r3, r7
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     ldrsb r12, [r10, #0xd1]
     ldr r0, [r8]
     mov r1, r6
@@ -5375,13 +5375,13 @@ asm void UnkClass_02054800::func_02058d74()
     ldrsh r3, [r3, #0xc0]
     add r2, r5, r9
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r7, [sp]
     ldr r0, [r8]
     mov r1, r6
     add r2, r5, r9
     mov r3, r7
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     str r7, [sp]
     ldr r0, [r8]
     mov r1, r6
@@ -5394,22 +5394,22 @@ asm void UnkClass_02054800::func_02058d74()
     ldr r3, [sp, #0x20]
     mov r1, r6
     add r2, r5, r9
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     add r9, r9, #1
 @L_02059180:
     cmp r9, #2
     blt @L_020590d4
     ldrsb r1, [r10, #0xd1]
     mov r7, #6
-    ldr r8, =data_020c46d4
+    ldr r8, =g3DPlaneCtrl
     mla r0, r1, r7, r10
     ldrsh r1, [r0, #0xc4]
     ldr r0, [r8]
     mov r4, #0
-    bl func_020985fc
+    bl C3DSprFile_GetSpriteSheet
     movs r1, r0
     beq @L_020591c4
-    ldr r2, =data_020c46bc
+    ldr r2, =gPalSkinFaceFile
     ldrb r0, [r10, #0xcc]
     ldr r1, [r1, #0x20]
     ldr r2, [r2]
@@ -5421,7 +5421,7 @@ asm void UnkClass_02054800::func_02058d74()
     mla r0, r1, r7, r10
     ldrsh r1, [r0, #0xc4]
     ldr r0, [r8]
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     ldrsb r3, [r10, #0xd1]
     ldr r0, [r8]
     mov r1, r6
@@ -5429,12 +5429,12 @@ asm void UnkClass_02054800::func_02058d74()
     ldrsh r3, [r2, #0xc4]
     add r2, r5, #1
     and r3, r3, #0xff
-    bl func_0209323c
+    bl C3DPlaneCtrl_SetPltt
     ldr r0, [r8]
     mov r3, r4
     mov r1, r6
     add r2, r5, #1
-    bl func_020932f0
+    bl C3DPlaneCtrl_SetPlttIdx
     ldrsb r0, [r10, #0xcf]
     cmp r0, #2
     beq @L_02059228
@@ -5500,9 +5500,9 @@ asm void UnkClass_02054800::func_02058d74()
     ldrsh r1, [r0, #0xc0]
     cmp r1, #0
     beq @L_02059310
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r0, [r0]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     add r0, r6, r9, lsl #1
     strh r7, [r0, #0xc0]
 @L_02059310:
@@ -5544,7 +5544,7 @@ asm void UnkClass_02054800::func_02058d74()
     mov r1, r8
     add r2, sp, #0x28
     add r3, sp, #0x24
-    bl func_ov015_02134300
+    bl Archive_PackHeaderGetOffsetAndSize
     cmp r0, #0
     bne @L_020593f8
 @L_020593a8:
@@ -5575,7 +5575,7 @@ asm void UnkClass_02054800::func_02058d74()
 @L_020593f8:
     cmp r9, #2
     beq @L_0205942c
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r8, [sp, #0x24]
     ldr r3, [sp, #0x28]
     ldr r0, [r0]
@@ -5587,7 +5587,7 @@ asm void UnkClass_02054800::func_02058d74()
     str r8, [sp, #0x10]
     b @L_02059454
 @L_0205942c:
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r3, [sp, #0x24]
     ldr r2, [sp, #0x28]
     ldr r0, [r0]
@@ -5600,7 +5600,7 @@ asm void UnkClass_02054800::func_02058d74()
 @L_02059454:
     mov r2, r5
     mov r3, #1
-    bl func_02097898
+    bl C3DSprFile_LoadFromPath
     add r1, r6, r9, lsl #1
     strh r0, [r1, #0xc0]
 @L_02059468:
@@ -5662,7 +5662,7 @@ asm void UnkClass_02054800::func_02059514()
     mov r7, #0
     mov r5, r0, asr #0x10
     mov r11, #0x40
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     b @L_020595ac
 @L_02059574:
     str r11, [sp]
@@ -5670,14 +5670,14 @@ asm void UnkClass_02054800::func_02059514()
     mov r1, r9
     mov r3, r5
     add r2, r6, r7
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     mov r0, #1
     str r0, [sp]
     ldr r0, [r4]
     mov r1, r9
     add r2, r6, r7
     mov r3, #2
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     add r7, r7, #1
 @L_020595ac:
     cmp r7, #2
@@ -5690,14 +5690,14 @@ asm void UnkClass_02054800::func_02059514()
     mov r7, #0
     add r6, r1, r0, lsl #1
     mov r5, #2
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     b @L_020595f4
 @L_020595dc:
     ldr r0, [r4]
     mov r1, r9
     mov r3, r5
     add r2, r6, r7
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r7, r7, #1
 @L_020595f4:
     cmp r7, #2
@@ -5719,7 +5719,7 @@ asm void UnkClass_02054800::func_02059514()
     mov r5, r0, asr #0x10
     mov r8, #0x40
     mov r11, #2
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     b @L_02059674
 @L_02059644:
     str r8, [sp]
@@ -5727,12 +5727,12 @@ asm void UnkClass_02054800::func_02059514()
     mov r1, r9
     mov r3, r5
     add r2, r6, r7
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldr r0, [r4]
     mov r1, r9
     add r2, r6, r7
     mov r3, r11
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r7, r7, #1
 @L_02059674:
     cmp r7, #2
@@ -5778,7 +5778,7 @@ asm void UnkClass_02054800::func_0205968c()
     mov r5, r0, asr #0x10
     mov r6, #0x40
     mov r11, #1
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     b @L_02059748
 @L_02059714:
     str r6, [sp]
@@ -5786,13 +5786,13 @@ asm void UnkClass_02054800::func_0205968c()
     mov r1, r9
     mov r3, r5
     add r2, r7, r8
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     str r11, [sp]
     ldr r0, [r4]
     mov r1, r9
     add r2, r7, r8
     mov r3, #2
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     add r8, r8, #1
 @L_02059748:
     cmp r8, #2
@@ -5823,12 +5823,12 @@ asm void UnkClass_02054800::func_0205968c()
     mov r6, #0x40
     mov r2, r0, lsl #0x10
     mov r3, r2, asr #0x10
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     str r6, [sp]
     ldr r0, [r5]
     mov r1, r9
     mov r2, r7
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     add r3, r8, #0x70
     mul r4, r3, r4
     str r6, [sp]
@@ -5838,7 +5838,7 @@ asm void UnkClass_02054800::func_0205968c()
     mov r1, r9
     add r2, r7, #1
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldr r0, [r10, #0xd4]
     cmp r0, #0
     moveq r0, #0xa
@@ -5869,12 +5869,12 @@ asm void UnkClass_02054800::func_0205968c()
     mov r6, #0x40
     mov r2, r0, lsl #0x10
     mov r3, r2, asr #0x10
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     str r6, [sp]
     ldr r0, [r5]
     mov r1, r9
     mov r2, r7
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     add r0, r8, #0x70
     mul r1, r0, r4
     rsb r0, r1, #0x80
@@ -5884,7 +5884,7 @@ asm void UnkClass_02054800::func_0205968c()
     ldr r0, [r5]
     mov r1, r9
     add r2, r7, #1
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldr r0, [r10, #0xd4]
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -5893,12 +5893,12 @@ asm void UnkClass_02054800::func_0205968c()
     mov r1, r9
     mov r2, r7
     mov r3, r4
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     ldr r0, [r5]
     mov r1, r9
     mov r3, r4
     add r2, r7, #1
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     mov r0, #0x14
     strb r0, [r10, #0xce]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -5912,7 +5912,7 @@ asm void UnkClass_02054800::func_020598ec()
     add r4, r0, #0x3c00
     mov r0, #0x28
     mla r4, r1, r0, r4
-    ldr r6, =data_020c4660
+    ldr r6, =g3DGameMap
     mov r8, r2
     ldr r0, [r6]
     mov r1, r8
@@ -5962,7 +5962,7 @@ asm void UnkClass_02054800::func_020598ec()
     str r3, [sp]
     str r3, [sp, #4]
     str r3, [sp, #8]
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     ldr r1, [r4, #4]
     ldr r0, [r0]
     ldr r2, =data_020c4eb4
@@ -5988,7 +5988,7 @@ asm void UnkClass_02054800::func_020599f8()
     ldmeqia sp!, {r4, pc}
     tst r0, #0x20
     bne @L_02059a30
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_0208ca90
@@ -6011,7 +6011,7 @@ asm void UnkClass_02054800::func_02059a48()
     tst r0, #1
     moveq r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r4, =data_020c4660
+    ldr r4, =g3DGameMap
     ldr r1, [r5, #4]
     ldr r0, [r4]
     bl func_0208ca30
@@ -6087,7 +6087,7 @@ asm void UnkClass_02054800::func_02059acc()
     ldr r0, [sp, #0x10]
     str r1, [sp, #4]
     str r0, [sp, #8]
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     ldr r1, [r4, #4]
     ldr r0, [r0]
     mov r2, r6
@@ -6115,7 +6115,7 @@ asm void UnkClass_02054800::func_02059ba4()
     tst r0, #1
     addeq sp, sp, #0x28
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     ldr r2, [r4, #4]
     ldr r1, [r0]
     add r0, sp, #4
@@ -6136,22 +6136,22 @@ asm void UnkClass_02054800::func_02059ba4()
     add r1, sp, #0x10
     add r0, sp, #0x1c
     mov r2, r1
-    bl func_02001f08
+    bl VEC_Add
 @L_02059c3c:
     ldr r0, [sp, #0x4c]
     cmp r0, #0
     beq @L_02059c60
     add r0, sp, #0x1c
     add r1, sp, #0x10
-    bl func_020021f0
+    bl VEC_Distance
     ldr r1, [sp, #0x4c]
-    bl func_02001d60
+    bl FX_Div
     mov r5, r0, asr #0xc
 @L_02059c60:
     cmp r5, #0
     bne @L_02059c90
     ldr r1, [sp, #0x18]
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     str r1, [sp]
     ldr r0, [r0]
     ldr r1, [r4, #4]
@@ -6164,18 +6164,18 @@ asm void UnkClass_02054800::func_02059ba4()
     add r0, sp, #0x10
     add r1, sp, #0x1c
     mov r2, r0
-    bl func_02001f38
+    bl VEC_Subtract
     ldr r0, [sp, #0x10]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [sp, #0x10]
     str r0, [sp, #0x18]
     str r1, [r4, #0x10]
@@ -6236,7 +6236,7 @@ asm void UnkClass_02054800::func_02059d04()
     mov r0, r0, lsl #4
     mov r0, r0, lsr #0x10
     str r0, [sp]
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     mov r3, r3, lsl #4
     ldr r1, [r4, #4]
     ldr r0, [r0]
@@ -6246,7 +6246,7 @@ asm void UnkClass_02054800::func_02059d04()
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02059dd4:
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     ldr r2, [r4, #4]
     ldr r1, [r0]
     add r0, sp, #4
@@ -6344,7 +6344,7 @@ asm void UnkClass_02054800::func_02059f34()
     ldrh r0, [r12, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     ldr r1, [r12, #4]
     ldr r0, [r0]
     bl func_0208cf4c
@@ -6360,7 +6360,7 @@ asm void UnkClass_02054800::func_02059f6c()
     add r0, r10, #0x21c
     add r8, r0, #0x3c00
     mov r7, r9
-    ldr r6, =data_020c4660
+    ldr r6, =g3DGameMap
     mov r4, r11
     mov r5, r11
     b @L_02059fd8
@@ -6394,7 +6394,7 @@ asm void UnkClass_02054800::func_02059fe8()
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x34
     mov r9, r0
-    ldr r4, =data_020c4660
+    ldr r4, =g3DGameMap
     mov r7, #0
     b @L_0205a1dc
 @L_0205a000:
@@ -6452,7 +6452,7 @@ asm void UnkClass_02054800::func_02059fe8()
     mov r0, r5
     mov r2, r5
     add r1, r6, #0x10
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r6, #0xc]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -6583,7 +6583,7 @@ asm void UnkClass_02054800::func_0205a240()
     strh r8, [r4, #8]
     ldrh r1, [r6, #0x42]
     mov r2, #1
-    ldr r0, =data_020c4650
+    ldr r0, =g3DGameChar
     str r2, [sp]
     str r2, [sp, #4]
     ldr r0, [r0]
@@ -6612,7 +6612,7 @@ asm void UnkClass_02054800::func_0205a2e8()
     ldrh r0, [r4, #0xa]
     tst r0, #1
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c4650
+    ldr r0, =g3DGameChar
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_02089bd4
@@ -6634,7 +6634,7 @@ asm void UnkClass_02054800::func_0205a334()
     ldrh r1, [r0, #0xa]
     tst r1, #1
     ldmeqia sp!, {r3, pc}
-    ldr r2, =data_020c4650
+    ldr r2, =g3DGameChar
     ldr r1, [r0, #4]
     ldr r0, [r2]
     bl func_02089b4c
@@ -6653,7 +6653,7 @@ asm void UnkClass_02054800::func_0205a370()
     ldrh r1, [r0, #0xa]
     tst r1, #1
     ldmeqia sp!, {r4, pc}
-    ldr r2, =data_020c4650
+    ldr r2, =g3DGameChar
     ldr r1, [r0, #4]
     ldr r0, [r2]
     mov r2, r4
@@ -6673,7 +6673,7 @@ asm void UnkClass_02054800::func_0205a3b4()
     ldrh r1, [r0, #0xa]
     tst r1, #1
     ldmeqia sp!, {r4, pc}
-    ldr r2, =data_020c4650
+    ldr r2, =g3DGameChar
     ldr r1, [r0, #4]
     ldr r0, [r2]
     rsb r2, r4, r4, lsl #3
@@ -6698,7 +6698,7 @@ asm void UnkClass_02054800::func_0205a3f8()
     tst r0, #1
     addeq sp, sp, #0x28
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r7, =data_020c4650
+    ldr r7, =g3DGameChar
     ldr r1, [r4, #4]
     ldr r0, [r7]
     mov r2, #1
@@ -6724,22 +6724,22 @@ asm void UnkClass_02054800::func_0205a3f8()
     add r1, sp, #0x10
     add r0, sp, #0x1c
     mov r2, r1
-    bl func_02001f08
+    bl VEC_Add
 @L_0205a4a0:
     ldr r0, [sp, #0x50]
     cmp r0, #0
     beq @L_0205a4c4
     add r0, sp, #0x1c
     add r1, sp, #0x10
-    bl func_020021f0
+    bl VEC_Distance
     ldr r1, [sp, #0x50]
-    bl func_02001d60
+    bl FX_Div
     mov r5, r0, asr #0xc
 @L_0205a4c4:
     cmp r5, #0
     bne @L_0205a4f4
     ldr r1, [sp, #0x18]
-    ldr r0, =data_020c4650
+    ldr r0, =g3DGameChar
     str r1, [sp]
     ldr r0, [r0]
     ldr r1, [r4, #4]
@@ -6752,18 +6752,18 @@ asm void UnkClass_02054800::func_0205a3f8()
     add r0, sp, #0x10
     add r1, sp, #0x1c
     mov r2, r0
-    bl func_02001f38
+    bl VEC_Subtract
     ldr r0, [sp, #0x10]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [sp, #0x10]
     str r0, [sp, #0x18]
     str r1, [r4, #0x10]
@@ -6808,7 +6808,7 @@ asm void UnkClass_02054800::func_0205a568()
     adds r0, r12, #0
     adc r0, r6, #0x800
     mov r3, r0, lsl #4
-    ldr r1, =data_020c4650
+    ldr r1, =g3DGameChar
     str r2, [sp]
     ldr r0, [r1]
     ldr r1, [r4, #4]
@@ -6817,7 +6817,7 @@ asm void UnkClass_02054800::func_0205a568()
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0205a5f4:
-    ldr r0, =data_020c4650
+    ldr r0, =g3DGameChar
     ldr r2, [r4, #4]
     ldr r1, [r0]
     add r0, sp, #4
@@ -6876,7 +6876,7 @@ asm void UnkClass_02054800::func_0205a69c()
     mov r0, #0
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0205a6d0:
-    ldr r2, =data_020c4650
+    ldr r2, =g3DGameChar
     ldr r1, [r0, #4]
     ldr r0, [r2]
     bl func_02089e64
@@ -6896,7 +6896,7 @@ asm void UnkClass_02054800::func_0205a69c()
     ldr r2, [r0, #0xc]
     ldr r1, [r0, #0x14]
     sub r0, r3, r2
-    bl func_02001d60
+    bl FX_Div
     add r7, r7, r0, asr #12
     add r8, r8, #1
 @L_0205a728:
@@ -6918,7 +6918,7 @@ asm void UnkClass_02054800::func_0205a73c()
     ldrh r0, [r4, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c4650
+    ldr r0, =g3DGameChar
     ldr r1, [r4, #4]
     ldr r0, [r0]
     ldr r3, [sp, #0x10]
@@ -6941,7 +6941,7 @@ asm void UnkClass_02054800::func_0205a790()
     ldrh r1, [r0, #0xa]
     tst r1, #1
     ldmeqia sp!, {r3, pc}
-    ldr r2, =data_020c4650
+    ldr r2, =g3DGameChar
     ldr r1, [r0, #4]
     ldr r0, [r2]
     bl func_02089b4c
@@ -6960,7 +6960,7 @@ asm void UnkClass_02054800::func_0205a7cc()
     ldrh r0, [r4, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c4650
+    ldr r0, =g3DGameChar
     ldr r1, [r4, #4]
     ldr r0, [r0]
     ldr r3, [sp, #0x10]
@@ -7002,7 +7002,7 @@ asm void UnkClass_02054800::func_0205a864()
     mov r9, #0x28
     add r4, r0, #0x2000
     mov r10, r6
-    ldr r8, =data_020c4650
+    ldr r8, =g3DGameChar
     mov r7, r9
     b @L_0205a8bc
 @L_0205a888:
@@ -7031,7 +7031,7 @@ asm void UnkClass_02054800::func_0205a8cc()
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x40
     mov r9, r0
-    ldr r4, =data_020c4650
+    ldr r4, =g3DGameChar
     mov r7, #0
     b @L_0205aaf0
 @L_0205a8e4:
@@ -7097,7 +7097,7 @@ asm void UnkClass_02054800::func_0205a8cc()
     mov r0, r5
     mov r2, r5
     add r1, r6, #0x10
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r6, #0xc]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -7212,7 +7212,7 @@ asm void UnkClass_02054800::func_0205ab14()
     cmp r5, #0
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     mov r1, r5
     ldr r0, [r0]
     mov r2, r4
@@ -7303,7 +7303,7 @@ asm void UnkClass_02054800::func_0205ac0c()
 @L_0205acb8:
     str r7, [r9]
     strh r6, [r9, #8]
-    ldr r8, =data_020c46cc
+    ldr r8, =g2DAdventureLogic
     str r4, [sp]
     ldr r0, [r8]
     mov r1, r7
@@ -7316,7 +7316,7 @@ asm void UnkClass_02054800::func_0205ac0c()
     ldr r2, =0xc350
     mov r3, #3
     bl func_02085e00
-    ldr r0, =data_020c46c8
+    ldr r0, =g2DGChar
     str r4, [sp]
     ldr r0, [r0]
     mov r1, r7
@@ -7342,7 +7342,7 @@ asm void UnkClass_02054800::func_0205ad38()
     ldrh r0, [r5, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r4, =data_020c46cc
+    ldr r4, =g2DAdventureLogic
     ldr r1, [r5, #4]
     ldr r0, [r4]
     bl func_02086274
@@ -7351,7 +7351,7 @@ asm void UnkClass_02054800::func_0205ad38()
     ldr r0, [r4]
     ldr r1, [r5, #4]
     bl func_02085bfc
-    ldr r2, =data_020c46c8
+    ldr r2, =g2DGChar
     mov r1, r0
     ldr r0, [r2]
     mov r2, #1
@@ -7405,13 +7405,13 @@ asm void UnkClass_02054800::func_0205adbc()
     cmp r8, #0x20
     blt @L_0205ae08
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r10, =data_020c46cc
+    ldr r10, =g2DAdventureLogic
     mov r1, #1
     ldr r0, [r10]
     bl func_02085c60
     mov r4, r0
     mov r8, #0
-    ldr r7, =data_020c46c8
+    ldr r7, =g2DGChar
     b @L_0205aeb8
 @L_0205ae64:
     ldrh r0, [r4, #0x20]
@@ -7444,9 +7444,9 @@ asm void UnkClass_02054800::func_0205adbc()
     add r0, r0, #0x18c
     add r10, r0, #0x2000
     ldr r0, =0x76c
-    ldr r5, =data_020c46cc
+    ldr r5, =g2DAdventureLogic
     sub r4, r0, #0x258
-    ldr r11, =data_020c46c8
+    ldr r11, =g2DGChar
     b @L_0205af5c
 @L_0205aee0:
     ldr r1, [r10]
@@ -7485,7 +7485,7 @@ asm void UnkClass_02054800::func_0205adbc()
 @L_0205af5c:
     cmp r8, #0x20
     blt @L_0205aee0
-    ldr r7, =data_020c46cc
+    ldr r7, =g2DAdventureLogic
     mov r1, #1
     ldr r0, [r7]
     bl func_02085c60
@@ -7493,7 +7493,7 @@ asm void UnkClass_02054800::func_0205adbc()
     mov r10, r0
     mov r8, #0
     sub r4, r11, #0x258
-    ldr r5, =data_020c46c8
+    ldr r5, =g2DGChar
     b @L_0205afe8
 @L_0205af8c:
     ldrh r0, [r10, #0x20]
@@ -7543,7 +7543,7 @@ asm void UnkClass_02054800::func_0205b004()
     tst r0, #1
     addeq sp, sp, #0xc
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    ldr r7, =data_020c46cc
+    ldr r7, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r7]
     bl func_02085ba4
@@ -7557,7 +7557,7 @@ asm void UnkClass_02054800::func_0205b004()
     str r3, [sp]
     str r1, [sp, #4]
     ldrb r3, [r8, #0x67]
-    ldr r6, =data_020c46c8
+    ldr r6, =g2DGChar
     mov r1, r0
     str r3, [sp, #8]
     ldr r0, [r6]
@@ -7586,7 +7586,7 @@ asm void UnkClass_02054800::func_0205b0b4()
     ldrh r0, [r4, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_02085ba4
@@ -7605,14 +7605,14 @@ asm void UnkClass_02054800::func_0205b0b4()
     str r0, [r4, #0x38]
     mov r1, r5, lsl #0xc
     mov r0, #0x20000
-    bl func_02001d60
+    bl FX_Div
     b @L_0205b148
 @L_0205b130:
     mov r2, #0x1f000
     mov r1, r5, lsl #0xc
     mov r0, #0x20000
     str r2, [r4, #0x38]
-    bl func_02001d60
+    bl FX_Div
     rsb r0, r0, #0
 @L_0205b148:
     str r0, [r4, #0x3c]
@@ -7650,7 +7650,7 @@ asm void UnkClass_02054800::func_0205b188()
     tst r0, #1
     addeq sp, sp, #0x38
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_02085ba4
@@ -7686,7 +7686,7 @@ asm void UnkClass_02054800::func_0205b188()
     add r1, sp, #0x20
     add r0, sp, #0x2c
     mov r2, r1
-    bl func_02001f08
+    bl VEC_Add
 @L_0205b24c:
     cmp r5, #0
     bne @L_0205b2d8
@@ -7702,7 +7702,7 @@ asm void UnkClass_02054800::func_0205b188()
     str r1, [sp, #8]
     str r1, [sp, #0xc]
     str r0, [sp, #0x10]
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r2, [r4, #4]
     ldr r1, [r0]
     ldr r3, [sp, #0x20]
@@ -7711,7 +7711,7 @@ asm void UnkClass_02054800::func_0205b188()
     add sp, sp, #0x38
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0205b2a4:
-    ldr r3, =data_020c46cc
+    ldr r3, =g2DAdventureLogic
     add r0, sp, #0x20
     str r1, [sp, #4]
     sub r5, sp, #8
@@ -7728,18 +7728,18 @@ asm void UnkClass_02054800::func_0205b188()
     add r0, sp, #0x20
     add r1, sp, #0x2c
     mov r2, r0
-    bl func_02001f38
+    bl VEC_Subtract
     ldr r0, [sp, #0x20]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x20]
     ldr r0, [sp, #0x24]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x24]
     ldr r0, [sp, #0x28]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [sp, #0x20]
     str r0, [sp, #0x28]
     str r1, [r4, #0x10]
@@ -7750,7 +7750,7 @@ asm void UnkClass_02054800::func_0205b188()
     strh r5, [r4, #0xc]
 @L_0205b334:
     ldrh r1, [r4, #0xa]
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     mov r2, #0x18
     orr r1, r1, #0x100
     strh r1, [r4, #0xa]
@@ -7778,7 +7778,7 @@ asm void UnkClass_02054800::func_0205b360()
     tst r0, #1
     addeq sp, sp, #0x38
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r5, #4]
     ldr r0, [r0]
     bl func_02085ba4
@@ -7804,7 +7804,7 @@ asm void UnkClass_02054800::func_0205b360()
     add r1, sp, #0x20
     add r0, sp, #0x2c
     mov r2, r1
-    bl func_02001f08
+    bl VEC_Add
 @L_0205b408:
     cmp r6, #0
     bne @L_0205b490
@@ -7815,7 +7815,7 @@ asm void UnkClass_02054800::func_0205b360()
     mov r1, #1
     str r0, [sp]
     ldr r2, [sp, #0x28]
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     str r2, [sp, #4]
     str r1, [sp, #8]
     str r1, [sp, #0xc]
@@ -7828,7 +7828,7 @@ asm void UnkClass_02054800::func_0205b360()
     add sp, sp, #0x38
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0205b45c:
-    ldr r3, =data_020c46cc
+    ldr r3, =g2DAdventureLogic
     add r0, sp, #0x20
     str r1, [sp, #4]
     sub r4, sp, #8
@@ -7845,18 +7845,18 @@ asm void UnkClass_02054800::func_0205b360()
     add r0, sp, #0x20
     add r1, sp, #0x2c
     mov r2, r0
-    bl func_02001f38
+    bl VEC_Subtract
     ldr r0, [sp, #0x20]
     mov r1, r6, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x20]
     ldr r0, [sp, #0x24]
     mov r1, r6, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x24]
     ldr r0, [sp, #0x28]
     mov r1, r6, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [sp, #0x20]
     str r0, [sp, #0x28]
     str r1, [r5, #0x10]
@@ -7891,7 +7891,7 @@ asm void UnkClass_02054800::func_0205b504()
     ldmeqia sp!, {r3, r4, r5, r6, pc}
     cmp r5, #0
     beq @L_0205b59c
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_02085ba4
@@ -7914,7 +7914,7 @@ asm void UnkClass_02054800::func_0205b504()
     str r2, [sp, #0x30]
     str r0, [sp, #0x34]
 @L_0205b59c:
-    ldr r5, =data_020c46cc
+    ldr r5, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r5]
     mov r2, #1
@@ -7947,7 +7947,7 @@ asm void UnkClass_02054800::func_0205b5e0()
     tst r0, #1
     addeq sp, sp, #0x2c
     ldmeqia sp!, {r3, r4, r5, r6, pc}
-    ldr r5, =data_020c46cc
+    ldr r5, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r5]
     bl func_02085ba4
@@ -8000,7 +8000,7 @@ asm void UnkClass_02054800::func_0205b6a8()
     ldrh r0, [r4, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_02085ba4
@@ -8066,7 +8066,7 @@ asm void UnkClass_02054800::func_0205b7a8()
     ldrh r0, [r4, #0xa]
     tst r0, #1
     ldmeqia sp!, {r4, r5, r6, pc}
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_02085ba4
@@ -8093,7 +8093,7 @@ asm void UnkClass_02054800::func_0205b7a8()
     adds r0, r6, #0
     adc r0, r3, #0x800
     mov r2, r0, lsl #4
-    ldr r1, =data_020c46cc
+    ldr r1, =g2DAdventureLogic
     mov r2, r2, lsr #0x10
     ldr r0, [r1]
     ldr r1, [r4, #4]
@@ -8137,7 +8137,7 @@ asm void UnkClass_02054800::func_0205b8ac()
     tst r0, #1
     addeq sp, sp, #0x1c
     ldmeqia sp!, {r4, r5, r6, r7, pc}
-    ldr r7, =data_020c46cc
+    ldr r7, =g2DAdventureLogic
     ldr r1, [r5, #4]
     ldr r0, [r7]
     bl func_02085ba4
@@ -8236,7 +8236,7 @@ asm void UnkClass_02054800::func_0205ba1c()
     tst r1, #1
     addeq sp, sp, #0x1c
     ldmeqia sp!, {r4, r5, r6, r7, pc}
-    ldr r7, =data_020c46cc
+    ldr r7, =g2DAdventureLogic
     ldr r1, [r0, #4]
     ldr r0, [r7]
     bl func_02085ba4
@@ -8350,12 +8350,12 @@ asm void UnkClass_02054800::func_0205bbe8()
     tst r0, #1
     addeq sp, sp, #4
     ldmeqia sp!, {r3, r4, r5, r6, pc}
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_02085ba4
     str r5, [sp]
-    ldr r1, =data_020c46c8
+    ldr r1, =g2DGChar
     ldrh r2, [r0, #0xa8]
     ldr r0, [r1]
     mov r1, r6
@@ -8383,7 +8383,7 @@ asm void UnkClass_02054800::func_0205bc68()
     ldr r0, [sp, #0x10]
     cmp r0, #0
     beq @L_0205bcc4
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     mov r2, r5
@@ -8394,7 +8394,7 @@ asm void UnkClass_02054800::func_0205bc68()
     strh r0, [r4, #0xa]
     b @L_0205bcdc
 @L_0205bcc4:
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r4, #4]
     ldr r0, [r0]
     mov r2, r5
@@ -8454,7 +8454,7 @@ asm void UnkClass_02054800::func_0205bd20()
 @L_0205bd78:
     cmp r2, #0x20
     bne @L_0205bdc4
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     mov r1, #1
     ldr r0, [r0]
     bl func_02085c60
@@ -8511,7 +8511,7 @@ asm void UnkClass_02054800::func_0205be1c()
     mov r11, r0
     add r0, r11, #0x1000
     ldr r6, [r0, #0xf10]
-    ldr r9, =data_020c46cc
+    ldr r9, =g2DAdventureLogic
     mov r7, #0
     b @L_0205c1c4
 @L_0205be3c:
@@ -8530,7 +8530,7 @@ asm void UnkClass_02054800::func_0205be1c()
     mov r5, r0
     tst r1, #0x10
     beq @L_0205be98
-    ldr r0, =data_020c46c8
+    ldr r0, =g2DGChar
     ldr r0, [r0]
     bl func_02087b68
     cmp r0, #0
@@ -8547,7 +8547,7 @@ asm void UnkClass_02054800::func_0205be1c()
     ldr r0, [r9]
     ldr r1, [r4, #4]
     bl func_02085bfc
-    ldr r2, =data_020c46c8
+    ldr r2, =g2DGChar
     mov r1, r0
     ldr r0, [r2]
     bl func_02088140
@@ -8591,7 +8591,7 @@ asm void UnkClass_02054800::func_0205be1c()
     mov r0, r8
     mov r2, r8
     add r1, r4, #0x10
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r4, #0xc]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -8604,7 +8604,7 @@ asm void UnkClass_02054800::func_0205be1c()
     blo @L_0205bf50
 @L_0205bf84:
     ldrh r0, [r4, #0xc]
-    ldr r8, =data_020c46cc
+    ldr r8, =g2DAdventureLogic
     mov r10, #0
     cmp r0, #0
     bne @L_0205bfe8
@@ -8780,7 +8780,7 @@ asm void UnkClass_02054800::func_0205c1f4()
     add r0, r0, #0x28c
     add r5, sp, #4
     add r7, r0, #0x2800
-    ldr r4, =data_020c4678
+    ldr r4, =g3DGameMapObject
     ldr r1, =data_020ae6b8
     ldr r0, [r4]
     mov r9, r2
@@ -8812,7 +8812,7 @@ asm void UnkClass_02054800::func_0205c268()
     ldrh r0, [r5, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r5, #4]
     ldr r0, [r0]
     bl func_0208e0e4
@@ -8833,7 +8833,7 @@ asm void UnkClass_02054800::func_0205c2b0()
     ldrh r0, [r5, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r4, =data_020c4678
+    ldr r4, =g3DGameMapObject
     ldr r1, [r5, #4]
     ldr r0, [r4]
     bl func_0208e064
@@ -8857,7 +8857,7 @@ asm void UnkClass_02054800::func_0205c304()
     ldrh r0, [r3, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r3, #4]
     ldr r0, [r0]
     bl func_0208e754
@@ -8874,7 +8874,7 @@ asm void UnkClass_02054800::func_0205c33c()
     ldrh r0, [r3, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r3, #4]
     ldr r0, [r0]
     add r2, r2, r2, lsl #1
@@ -8897,7 +8897,7 @@ asm void UnkClass_02054800::func_0205c378()
     mov r6, r3
     addeq sp, sp, #0x1c
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    ldr r8, =data_020c4678
+    ldr r8, =g3DGameMapObject
     ldr r1, [r4, #4]
     ldr r0, [r8]
     mov r2, #1
@@ -8929,15 +8929,15 @@ asm void UnkClass_02054800::func_0205c378()
     str r3, [sp, #0x14]
     mov r1, r5, lsl #0xc
     str r2, [sp, #0x18]
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     ldr r2, [sp, #0x10]
     ldr r1, [sp, #0x14]
     str r2, [r4, #0x10]
@@ -8966,7 +8966,7 @@ asm void UnkClass_02054800::func_0205c480()
     ldmeqia sp!, {r3, r4, r5, r6, pc}
     add r5, sp, #4
     str r5, [sp]
-    ldr r4, =data_020c4678
+    ldr r4, =g3DGameMapObject
     ldr r3, [r6]
     ldr r0, [r4]
     ldr r1, =data_020ae6c0
@@ -8993,7 +8993,7 @@ asm void UnkClass_02054800::func_0205c4f4()
     ldrh r0, [r2, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r2, #4]
     ldr r0, [r0]
     bl func_0208e064
@@ -9011,7 +9011,7 @@ asm void UnkClass_02054800::func_0205c52c()
     mov r5, r3
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_0208e600
@@ -9038,7 +9038,7 @@ asm void UnkClass_02054800::func_0205c598()
     mov r9, #0x28
     add r4, r0, #0x2800
     mov r10, r6
-    ldr r8, =data_020c4678
+    ldr r8, =g3DGameMapObject
     mov r7, r9
     b @L_0205c5ec
 @L_0205c5bc:
@@ -9066,7 +9066,7 @@ asm void UnkClass_02054800::func_0205c5fc()
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x20
     mov r9, r0
-    ldr r4, =data_020c4678
+    ldr r4, =g3DGameMapObject
     mov r7, #0
     b @L_0205c780
 @L_0205c614:
@@ -9140,7 +9140,7 @@ asm void UnkClass_02054800::func_0205c5fc()
     mov r0, r5
     mov r2, r5
     add r1, r6, #0x10
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r6, #0xc]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -9186,7 +9186,7 @@ asm void UnkClass_02054800::func_0205c7a0()
     add r4, r1, r3
     cmp r0, r2
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c4674
+    ldr r0, =g3DGameEffect
     str r2, [r4]
     ldr r0, [r0]
     mov r1, r2
@@ -9208,7 +9208,7 @@ asm void UnkClass_02054800::func_0205c7f0()
     ldrh r0, [r5, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c4674
+    ldr r0, =g3DGameEffect
     ldr r1, [r5, #4]
     ldr r0, [r0]
     bl func_0208b4d8
@@ -9229,7 +9229,7 @@ asm void UnkClass_02054800::func_0205c838()
     ldrh r0, [r5, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r4, =data_020c4674
+    ldr r4, =g3DGameEffect
     ldr r1, [r5, #4]
     ldr r0, [r4]
     bl func_0208b444
@@ -9255,7 +9255,7 @@ asm void UnkClass_02054800::func_0205c880()
     mov r6, r3
     addeq sp, sp, #0x1c
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    ldr r8, =data_020c4674
+    ldr r8, =g3DGameEffect
     ldr r1, [r4, #4]
     ldr r0, [r8]
     mov r2, #1
@@ -9287,15 +9287,15 @@ asm void UnkClass_02054800::func_0205c880()
     str r3, [sp, #0x14]
     mov r1, r5, lsl #0xc
     str r2, [sp, #0x18]
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     ldr r2, [sp, #0x10]
     ldr r1, [sp, #0x14]
     str r2, [r4, #0x10]
@@ -9352,7 +9352,7 @@ asm void UnkClass_02054800::func_0205c988()
     mov r0, r0, lsl #4
     mov r0, r0, lsr #0x10
     str r0, [sp]
-    ldr r0, =data_020c4674
+    ldr r0, =g3DGameEffect
     mov r3, r3, lsl #4
     ldr r1, [r4, #4]
     ldr r0, [r0]
@@ -9362,7 +9362,7 @@ asm void UnkClass_02054800::func_0205c988()
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_0205ca4c:
-    ldr r0, =data_020c4674
+    ldr r0, =g3DGameEffect
     ldr r2, [r4, #4]
     ldr r1, [r0]
     add r0, sp, #4
@@ -9464,7 +9464,7 @@ asm void UnkClass_02054800::func_0205cbac()
     cmp r0, #0
     ldmneia sp!, {r3, pc}
     ldr r1, [sp, #8]
-    ldr r0, =data_020c4674
+    ldr r0, =g3DGameEffect
     str r1, [sp]
     ldr r0, [r0]
     ldr r1, [r12, #4]
@@ -9484,7 +9484,7 @@ asm void UnkClass_02054800::func_0205cbf8()
     mov r6, r3
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r4, =data_020c4674
+    ldr r4, =g3DGameEffect
     ldr r1, [r5, #4]
     ldr r0, [r4]
     mov r2, #1
@@ -9517,7 +9517,7 @@ asm void UnkClass_02054800::func_0205cc6c()
     mov r7, r3
     tst r0, #1
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r5, =data_020c4674
+    ldr r5, =g3DGameEffect
     ldr r1, [r6, #4]
     ldr r0, [r5]
     bl func_0208b658
@@ -9562,7 +9562,7 @@ asm void UnkClass_02054800::func_0205cd14()
     mov r7, #0x28
     add r9, r0, #0x2800
     mov r8, r4
-    ldr r6, =data_020c4674
+    ldr r6, =g3DGameEffect
     mov r5, r7
     b @L_0205cd64
 @L_0205cd38:
@@ -9591,7 +9591,7 @@ asm void UnkClass_02054800::func_0205cd74()
     mov r8, r0
     add r0, r8, #0x1000
     ldr r5, [r0, #0xf10]
-    ldr r9, =data_020c4674
+    ldr r9, =g3DGameEffect
     mov r6, #0
     b @L_0205cfc4
 @L_0205cd94:
@@ -9673,7 +9673,7 @@ asm void UnkClass_02054800::func_0205cd74()
     mov r0, r10
     mov r2, r10
     add r1, r4, #0x10
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r4, #0xc]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -9719,7 +9719,7 @@ asm void UnkClass_02054800::func_0205cd74()
     mov r0, r10
     mov r2, r10
     add r1, r4, #0x1c
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r4, #0xe]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -9787,7 +9787,7 @@ asm void UnkClass_02054800::func_0205d02c()
     mov r5, r2
     mov r7, r3
     tst r0, #1
-    ldr r6, =data_020c4678
+    ldr r6, =g3DGameMapObject
     beq @L_0205d09c
     mov r1, r5
     add r0, r4, #0x30
@@ -9864,7 +9864,7 @@ asm void UnkClass_02054800::func_0205d144()
     ldrh r0, [r5, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r5, #4]
     ldr r0, [r0]
     bl func_0208e0e4
@@ -9884,7 +9884,7 @@ asm void UnkClass_02054800::func_0205d18c()
     add r7, r0, #0x2c00
     mov r11, r9
     mvn r4, #0
-    ldr r6, =data_020c4678
+    ldr r6, =g3DGameMapObject
     mov r5, #0x48
     b @L_0205d1f4
 @L_0205d1b4:
@@ -9921,7 +9921,7 @@ asm void UnkClass_02054800::func_0205d204()
     ldrh r0, [r2, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r2, #4]
     ldr r0, [r0]
     bl func_0208e064
@@ -9938,7 +9938,7 @@ asm void UnkClass_02054800::func_0205d23c()
     ldrh r0, [r3, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r3, #4]
     ldr r0, [r0]
     bl func_0208e754
@@ -9955,7 +9955,7 @@ asm void UnkClass_02054800::func_0205d274()
     ldrh r0, [r3, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r3, #4]
     ldr r0, [r0]
     bl func_0208e710
@@ -9977,7 +9977,7 @@ asm void UnkClass_02054800::func_0205d2ac()
     mov r6, r3
     addeq sp, sp, #0x1c
     ldmeqia sp!, {r4, r5, r6, r7, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r4, #4]
     ldr r0, [r0]
     mov r2, #1
@@ -9989,7 +9989,7 @@ asm void UnkClass_02054800::func_0205d2ac()
     ldr r0, [r4, #0x28]
     cmp r0, #0
     bge @L_0205d324
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     add r1, sp, #0x10
     ldr r0, [r0]
     bl func_ov000_0210c7c0
@@ -9998,7 +9998,7 @@ asm void UnkClass_02054800::func_0205d2ac()
     cmp r5, #0
     bne @L_0205d354
     ldr r1, [sp, #0x30]
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     str r1, [sp]
     ldr r0, [r0]
     ldr r1, [r4, #4]
@@ -10008,7 +10008,7 @@ asm void UnkClass_02054800::func_0205d2ac()
     add sp, sp, #0x1c
     ldmia sp!, {r4, r5, r6, r7, pc}
 @L_0205d354:
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r2, [r4, #4]
     ldr r1, [r0]
     add r0, sp, #4
@@ -10024,15 +10024,15 @@ asm void UnkClass_02054800::func_0205d2ac()
     str r3, [sp, #0x14]
     mov r1, r5, lsl #0xc
     str r2, [sp, #0x18]
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x10]
     ldr r0, [sp, #0x14]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     str r0, [sp, #0x14]
     ldr r0, [sp, #0x18]
     mov r1, r5, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [sp, #0x10]
     str r0, [sp, #0x18]
     str r1, [r4, #0x10]
@@ -10090,7 +10090,7 @@ asm void UnkClass_02054800::func_0205d3f4()
     mov r0, r0, lsl #4
     mov r0, r0, lsr #0x10
     str r0, [sp]
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     mov r3, r3, lsl #4
     ldr r1, [r4, #4]
     ldr r0, [r0]
@@ -10100,7 +10100,7 @@ asm void UnkClass_02054800::func_0205d3f4()
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_0205d4b8:
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r2, [r4, #4]
     ldr r1, [r0]
     add r0, sp, #4
@@ -10201,7 +10201,7 @@ asm void UnkClass_02054800::func_0205d618()
     addeq sp, sp, #0x104
     ldmeqia sp!, {r3, r4, r5, r6, pc}
     add r5, sp, #4
-    ldr r4, =data_020c4678
+    ldr r4, =g3DGameMapObject
     str r5, [sp]
     mov r1, r2
     mov r2, r3
@@ -10238,7 +10238,7 @@ asm void UnkClass_02054800::func_0205d68c()
     bl sprintf
     add r7, sp, #0x24
     str r7, [sp]
-    ldr r6, =data_020c4678
+    ldr r6, =g3DGameMapObject
     ldr r3, [r4]
     ldr r0, [r6]
     mov r1, r8
@@ -10269,7 +10269,7 @@ asm void UnkClass_02054800::func_0205d720()
     ldrh r0, [r2, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r2, #4]
     ldr r0, [r0]
     bl func_0208e064
@@ -10288,7 +10288,7 @@ asm void UnkClass_02054800::func_0205d758()
     tst r0, #1
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r4, #4]
     ldr r0, [r0]
     bl func_0208e600
@@ -10338,7 +10338,7 @@ asm void UnkClass_02054800::func_0205d804()
     mov r9, #0x48
     add r4, r0, #0x2c00
     mov r10, r6
-    ldr r8, =data_020c4678
+    ldr r8, =g3DGameMapObject
     mov r7, r9
     b @L_0205d864
 @L_0205d828:
@@ -10371,7 +10371,7 @@ asm void UnkClass_02054800::func_0205d874()
     mov r8, r0
     add r0, r8, #0x1000
     ldr r5, [r0, #0xf10]
-    ldr r9, =data_020c4678
+    ldr r9, =g3DGameMapObject
     mov r6, #0
     b @L_0205daa0
 @L_0205d894:
@@ -10444,7 +10444,7 @@ asm void UnkClass_02054800::func_0205d874()
     mov r0, r10
     mov r2, r10
     add r1, r4, #0x10
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r4, #0xc]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -10490,7 +10490,7 @@ asm void UnkClass_02054800::func_0205d874()
     mov r0, r10
     mov r2, r10
     add r1, r4, #0x1c
-    bl func_02001f08
+    bl VEC_Add
     ldrh r0, [r4, #0xe]
     sub r0, r0, #1
     mov r0, r0, lsl #0x10
@@ -10534,7 +10534,7 @@ asm void UnkClass_02054800::func_0205dac4()
     ldrh r0, [r3, #0xa]
     tst r0, #1
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r1, [r3, #4]
     ldr r0, [r0]
     bl func_0208e7c8
@@ -10573,7 +10573,7 @@ asm void UnkClass_02054800::func_0205db20()
     ldmia sp!, {r3, r4, r5, pc}
     b @L_0205db60
 @L_0205db60:
-    ldr r4, =data_020c4678
+    ldr r4, =g3DGameMapObject
     ldr r1, [r5, #4]
     ldr r0, [r4]
     bl func_0208dd58
@@ -10598,7 +10598,7 @@ asm void UnkClass_02054800::func_0205db88()
     cmp r0, #0
     ldmneia sp!, {r3, pc}
     ldr r1, [sp, #8]
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     str r1, [sp]
     ldr r0, [r0]
     ldr r1, [r12, #4]
@@ -10621,7 +10621,7 @@ asm void UnkClass_02054800::func_0205dbd4()
     mov r0, r0, lsr #0x10
     str r0, [sp, #4]
     ldr r2, [sp, #0x28]
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     str r2, [sp, #8]
     add r1, sp, #0x14
     ldr r0, [r0]
@@ -10651,7 +10651,7 @@ asm void UnkClass_02054800::func_0205dc34()
     mov r0, r2, lsr #0x10
     str r0, [sp, #4]
     ldr r2, [sp, #0x28]
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     str r2, [sp, #8]
     add r1, sp, #0x14
     ldr r0, [r0]
@@ -10678,7 +10678,7 @@ asm void UnkClass_02054800::func_0205dca0()
     mov r0, r0, lsr #0x10
     str r0, [sp, #4]
     ldr r2, [sp, #0x28]
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     str r2, [sp, #8]
     add r1, sp, #0x14
     ldr r0, [r0]
@@ -10694,7 +10694,7 @@ asm void UnkClass_02054800::func_0205dd00()
 {
     stmdb sp!, {r3, lr}
     ldr r12, [sp, #8]
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     str r12, [sp]
     orr r2, r2, #4
     mov r2, r2, lsl #0x10
@@ -10748,7 +10748,7 @@ asm void UnkClass_02054800::func_0205ddb0()
 {
     stmdb sp!, {r4, r5, lr}
     sub sp, sp, #0x24
-    ldr r1, =data_020c46d0
+    ldr r1, =gCameraCtrl
     mov r5, r0
     ldr r0, [r1]
     bl func_ov015_0213d4c8
@@ -10772,7 +10772,7 @@ asm void UnkClass_02054800::func_0205ddb0()
 @L_0205de0c:
     add r0, r5, #0x3000
     ldr r1, [r0, #0xe6c]
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     ldr r1, [r1, #4]
     ldr r0, [r0]
     bl func_02085ba4
@@ -10785,7 +10785,7 @@ asm void UnkClass_02054800::func_0205ddb0()
 @L_0205de3c:
     add r0, r5, #0x3000
     ldr r1, [r0, #0xe6c]
-    ldr r0, =data_020c4650
+    ldr r0, =g3DGameChar
     ldr r2, [r1, #4]
     ldr r1, [r0]
     add r0, sp, #0xc

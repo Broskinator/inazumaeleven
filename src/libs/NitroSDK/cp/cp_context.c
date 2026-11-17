@@ -2,21 +2,21 @@
 
 void CP_SaveContext(void);
 void CPi_RestoreContext(void);
-void func_0200e83c(void);
-void func_0200eab0(void);
-void func_0200eb24(void);
-void func_0200ebb8(void);
-void func_0200eca8(void);
+void TPi_TpCallback(void);
+void TP_Init(void);
+void TP_GetUserInfo(void);
+void TP_SetCalibrateParam(void);
+void TP_RequestSamplingAsync(void);
 
-extern char data_020bd340[];
-void func_0200878c(void);
-void func_0200afc0(void);
-void func_0200b114(void);
-void func_0200b0c8(void);
-void func_0200ef64(void);
+extern char initial_020976e4[];
+void OS_Terminate(void);
+void PXI_Init(void);
+void PXI_IsCallbackReady(void);
+void PXI_SetFifoRecvCallback(void);
+void TP_CalcCalibrateParam(void);
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
-void func_0200b138(void);
+void PXI_SendWordByFifo(void);
 
 asm void CP_SaveContext(void)
 {
@@ -55,7 +55,7 @@ asm void CPi_RestoreContext(void)
     bx lr
 }
 
-asm void func_0200e83c(void)
+asm void TPi_TpCallback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #8
@@ -66,7 +66,7 @@ asm void func_0200e83c(void)
     cmp r2, #0
     mov r0, r0, lsr #0x10
     mov r2, #0
-    ldr r3, =data_020bd340
+    ldr r3, =initial_020976e4
     beq @L_0200e8a4
     mov r1, #1
     mov r1, r1, lsl r0
@@ -220,21 +220,21 @@ asm void func_0200e83c(void)
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0200ea9c:
-    bl func_0200878c
+    bl OS_Terminate
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200eab0(void)
+asm void TP_Init(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020bd340
+    ldr r4, =initial_020976e4
     ldrh r0, [r4]
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, #1
     strh r0, [r4]
-    bl func_0200afc0
+    bl PXI_Init
     mov r0, #0
     strh r0, [r4, #0x10]
     str r0, [r4, #4]
@@ -248,16 +248,16 @@ asm void func_0200eab0(void)
 @L_0200eaf8:
     mov r0, r5
     mov r1, r4
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     beq @L_0200eaf8
-    ldr r1, =func_0200e83c
+    ldr r1, =TPi_TpCallback
     mov r0, r5
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200eb24(void)
+asm void TP_GetUserInfo(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0x14
@@ -281,7 +281,7 @@ asm void func_0200eb24(void)
     str r6, [sp, #0xc]
     mov r0, r4
     str r12, [sp, #0x10]
-    bl func_0200ef64
+    bl TP_CalcCalibrateParam
     cmp r0, #0
     beq @L_0200eba8
 @L_0200eb88:
@@ -299,10 +299,10 @@ asm void func_0200eb24(void)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_0200ebb8(void)
+asm void TP_SetCalibrateParam(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    ldr r6, =data_020bd340
+    ldr r6, =initial_020976e4
     movs r5, r0
     mov r4, #0
     streqh r4, [r6, #0x34]
@@ -366,7 +366,7 @@ asm void func_0200ebb8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200eca8(void)
+asm void TP_RequestSamplingAsync(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     bl OS_DisableInterrupts
@@ -375,14 +375,14 @@ asm void func_0200eca8(void)
     mov r2, r5
     mov r0, #6
     mov r1, #0x3000000
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     movge r5, #1
     cmp r5, #0
     bne @L_0200ed10
     mov r0, r4
     bl OS_RestoreInterrupts
-    ldr r0, =data_020bd340
+    ldr r0, =initial_020976e4
     ldrh r1, [r0, #0x38]
     orr r1, r1, #1
     strh r1, [r0, #0x38]
@@ -395,7 +395,7 @@ asm void func_0200eca8(void)
     blx r3
     ldmia sp!, {r3, r4, r5, pc}
 @L_0200ed10:
-    ldr r2, =data_020bd340
+    ldr r2, =initial_020976e4
     ldr r1, =0xfffe
     ldrh r3, [r2, #0x3a]
     mov r0, r4

@@ -2,30 +2,30 @@
 
 void RTC_ConvertDateToDay(void);
 void RTCi_ConvertTimeToSecond(void);
-void func_02010ab4(void);
+void RTC_ConvertDateTimeToSecond(void);
 void RTC_GetDayOfWeek(void);
-void func_02010bcc(void);
-void func_02010c24(void);
+void CARDi_PeekEventListener(void);
+void CARDi_LockBusCondition(void);
 void CARD_Init(void);
-void func_02010d34(void);
+void CARD_IsEnabled(void);
 
-extern char data_020aadd8[];
-void func_02008894(void);
-void func_02008104(void);
-void func_0200585c(void);
-extern char data_020bd460[];
-void func_0200848c(void);
+extern char PMi_WaitBusyMethod[];
+void OS_SignalEvent(void);
+void OS_SetVAlarm(void);
+void OS_TryLockCard(void);
+extern char cardi_common[];
+void OS_GetBootType(void);
 void MI_CpuCopy8(void);
-extern char data_020bdaa0[];
-void func_02010fa8(void);
-void func_02011100(void);
+extern char cardi_rom_base[];
+void CARDi_InitResourceLock(void);
+void CARDi_OldTypeTaskThread(void);
 void OS_CreateThread(void);
 void OS_WakeupThreadDirect(void);
-void func_02010fd0(void);
-void func_020121b0(void);
-void func_02010d5c(void);
-void func_02012240(void);
-extern char data_020bd3e0[];
+void CARDi_InitCommand(void);
+void CARDi_InitRom(void);
+void CARD_Enable(void);
+void CARD_InitPulledOutCallback(void);
+extern char CARDi_EnableFlag[];
 
 asm void RTC_ConvertDateToDay(void)
 {
@@ -53,7 +53,7 @@ asm void RTC_ConvertDateToDay(void)
     mvn r0, #0
     bx lr
 @L_02010a60:
-    ldr r0, =data_020aadd8
+    ldr r0, =PMi_WaitBusyMethod
     sub r1, r1, #1
     ldr r0, [r0, r2, lsl #2]
     cmp r2, #3
@@ -79,7 +79,7 @@ asm void RTCi_ConvertTimeToSecond(void)
     bx lr
 }
 
-asm void func_02010ab4(void)
+asm void RTC_ConvertDateTimeToSecond(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r1
@@ -154,7 +154,7 @@ asm void RTC_GetDayOfWeek(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02010bcc(void)
+asm void CARDi_PeekEventListener(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -166,25 +166,25 @@ asm void func_02010bcc(void)
     beq @L_02010c00
     mov r0, r4
     mov r1, #1
-    bl func_02008894
+    bl OS_SignalEvent
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02010c00:
     mov r1, #0xc0
-    ldr r3, =func_02010bcc
+    ldr r3, =CARDi_PeekEventListener
     add r0, r4, #0xc
     add r2, r1, #0x47
     str r4, [sp]
-    bl func_02008104
+    bl OS_SetVAlarm
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02010c24(void)
+asm void CARDi_LockBusCondition(void)
 {
     stmdb sp!, {r3, lr}
     ldrh r0, [r0]
-    bl func_0200585c
+    bl OS_TryLockCard
     cmp r0, #0
     moveq r0, #1
     movne r0, #0
@@ -195,14 +195,14 @@ asm void CARD_Init(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #8
-    ldr r5, =data_020bd460
+    ldr r5, =cardi_common
     ldr r0, [r5, #4]
     cmp r0, #0
     addne sp, sp, #8
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, #1
     str r0, [r5, #4]
-    bl func_0200848c
+    bl OS_GetBootType
     cmp r0, #1
     bne @L_02010c80
     ldr r0, =0x2fffe00
@@ -211,7 +211,7 @@ asm void CARD_Init(void)
     bl MI_CpuCopy8
 @L_02010c80:
     mov r4, #0
-    ldr r0, =data_020bdaa0
+    ldr r0, =cardi_rom_base
     sub r3, r4, #1
     mov r6, #0x400
     mov r2, #0x2400
@@ -225,7 +225,7 @@ asm void CARD_Init(void)
     str r2, [r5, #0x10]
     str r4, [r0]
     str r1, [r5, #8]
-    bl func_02010fa8
+    bl CARDi_InitResourceLock
     add r3, r5, #0xe8
     str r4, [r5, #0x4ec]
     str r4, [r5, #0x4f0]
@@ -233,7 +233,7 @@ asm void CARD_Init(void)
     str r4, [r5, #0x4f4]
     str r6, [sp]
     ldr r12, [r5, #8]
-    ldr r1, =func_02011100
+    ldr r1, =CARDi_OldTypeTaskThread
     mov r2, r4
     add r0, r5, #0x28
     add r3, r3, #0x400
@@ -241,22 +241,22 @@ asm void CARD_Init(void)
     bl OS_CreateThread
     add r0, r5, #0x28
     bl OS_WakeupThreadDirect
-    bl func_02010fd0
-    bl func_020121b0
-    bl func_0200848c
+    bl CARDi_InitCommand
+    bl CARDi_InitRom
+    bl OS_GetBootType
     cmp r0, #1
     bne @L_02010d18
     mov r0, #1
-    bl func_02010d5c
+    bl CARD_Enable
 @L_02010d18:
-    bl func_02012240
+    bl CARD_InitPulledOutCallback
     add sp, sp, #8
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02010d34(void)
+asm void CARD_IsEnabled(void)
 {
-    ldr r0, =data_020bd3e0
+    ldr r0, =CARDi_EnableFlag
     ldr r0, [r0]
     bx lr
 }

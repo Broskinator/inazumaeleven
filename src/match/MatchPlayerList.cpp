@@ -17,7 +17,7 @@ extern "C" void _ZN11MatchEngine13func_0206de4cEv(void);
 extern "C" void _ZN10MatchRules13func_0206ef60Ev(void);
 extern "C" void _ZN10MatchRules13func_0206ef74Ev(void);
 extern "C" void _ZdlPv(void);
-extern "C" void func_02001d80(void);
+extern "C" void FX_Sqrt(void);
 extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_021319b0(void);
 extern "C" void gGameState(void);
@@ -334,7 +334,7 @@ asm void MatchPlayerList::func_02083448()
     orr r1, r1, r0, lsl #20
     add r0, r3, r1
     mov r4, #0
-    bl func_02001d80
+    bl FX_Sqrt
     ldr r1, =0x36e66
     ldr r2, =0x51eb851f
     mul r3, r5, r1

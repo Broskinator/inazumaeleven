@@ -12,8 +12,8 @@ extern "C" void _ZN15MatchPlayerList13func_020830a8Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_020832c8Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_0208331cEv(void);
 extern "C" void _ZdlPv(void);
-extern "C" void func_02001d60(void);
-extern "C" void func_0200226c(void);
+extern "C" void FX_Div(void);
+extern "C" void FX_Atan2Idx(void);
 extern "C" void func_ov015_021319b0(void);
 extern "C" void func_ov015_02131bb4(void);
 extern "C" void func_ov015_021335c0(void);
@@ -232,7 +232,7 @@ asm void UnkClass_0208351c::func_02083778()
     ldr r2, [r5]
     ldr r1, [r9]
     sub r1, r2, r1
-    bl func_0200226c
+    bl FX_Atan2Idx
     add r0, r0, #0x4000
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
@@ -263,7 +263,7 @@ asm void UnkClass_0208351c::func_02083778()
     ldr r1, [r4]
     sub r0, r3, r0
     sub r1, r2, r1
-    bl func_0200226c
+    bl FX_Atan2Idx
     add r0, r0, #0x4000
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
@@ -365,7 +365,7 @@ asm void UnkClass_0208351c::func_020838d0()
     orr r12, r12, r0, lsl #20
     sub r0, r3, r12
     sub r1, r4, r7
-    bl func_02001d60
+    bl FX_Div
     mov r4, r0
     smull r1, r0, r4, r5
     adds r1, r1, #0x800
@@ -373,7 +373,7 @@ asm void UnkClass_0208351c::func_020838d0()
     mov r0, r1, lsr #0xc
     mov r1, r6
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r2, [r10]
     ldr r1, [r10, #4]
     add r2, r4, r2
@@ -412,7 +412,7 @@ asm void UnkClass_0208351c::func_020838d0()
     orr r12, r12, r0, lsl #20
     sub r0, r3, r12
     sub r1, r5, r6
-    bl func_02001d60
+    bl FX_Div
     mov r5, r0
     smull r1, r0, r5, r4
     adds r1, r1, #0x800
@@ -420,7 +420,7 @@ asm void UnkClass_0208351c::func_020838d0()
     mov r0, r1, lsr #0xc
     mov r1, r7
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r2, [r9]
     ldr r1, [r9, #4]
     add r2, r5, r2

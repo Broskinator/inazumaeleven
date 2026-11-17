@@ -1,37 +1,37 @@
 // (asm for now)
 
 void OS_RestoreInterrupts(void);
-void func_02008400(void);
+void OS_DisableInterrupts_IrqAndFiq(void);
 void OS_RestoreInterrupts_IrqAndFiq(void);
-void func_0200842c(void);
-void func_02008438(void);
-void func_02008444(void);
-void func_02008450(void);
-void func_0200846c(void);
-void func_0200848c(void);
-void func_0200849c(void);
-void func_020084a8(void);
+void OS_GetCpsrIrq(void);
+void OS_GetProcMode(void);
+void OS_SpinWaitCpuCycles(void);
+void OS_SpinWaitSysCycles(void);
+void OS_WaitVBlankIntr(void);
+void OS_GetBootType(void);
+void OS_GetBootInfo(void);
+void OS_InitReset(void);
 void func_020084fc(void);
-void func_02008564(void);
-void func_02008580(void);
-void func_02008600(void);
+void OS_GetMacAddress(void);
+void OS_GetOwnerInfo(void);
+void OsCountZeroBits(void);
 
 void WaitByLoop(void);
 void OS_WaitIrq(void);
 extern char data_020bb490[];
-void func_0200afc0(void);
-void func_0200b114(void);
-void func_0200553c(void);
-void func_0200b0c8(void);
-void func_0200878c(void);
+void PXI_Init(void);
+void PXI_IsCallbackReady(void);
+void OSi_CommonCallback(void);
+void PXI_SetFifoRecvCallback(void);
+void OS_Terminate(void);
 void OS_GetLockID(void);
-void func_02010d98(void);
+void CARD_LockRom(void);
 void OS_SetIrqMask(void);
 void OS_ResetRequestIrqMask(void);
-void func_02008d78(void);
+void MI_StopAllDma(void);
 void OSi_SendToPxi(void);
 void func_0200779c(void);
-void func_01ff81b8(void);
+void OSi_DoResetSystem(void);
 void MI_CpuCopy8(void);
 void MIi_CpuCopy16(void);
 
@@ -45,7 +45,7 @@ asm void OS_RestoreInterrupts(void)
     bx lr
 }
 
-asm void func_02008400(void)
+asm void OS_DisableInterrupts_IrqAndFiq(void)
 {
     mrs r0, CPSR
     orr r1, r0, #0xc0
@@ -64,21 +64,21 @@ asm void OS_RestoreInterrupts_IrqAndFiq(void)
     bx lr
 }
 
-asm void func_0200842c(void)
+asm void OS_GetCpsrIrq(void)
 {
     mrs r0, CPSR
     and r0, r0, #0x80
     bx lr
 }
 
-asm void func_02008438(void)
+asm void OS_GetProcMode(void)
 {
     mrs r0, CPSR
     and r0, r0, #0x1f
     bx lr
 }
 
-asm void func_02008444(void)
+asm void OS_SpinWaitCpuCycles(void)
 {
 @L_02008444:
     subs r0, r0, #4
@@ -86,18 +86,18 @@ asm void func_02008444(void)
     bx lr
 }
 
-asm void func_02008450(void)
+asm void OS_SpinWaitSysCycles(void)
 {
     stmdb sp!, {r3, lr}
     mov r0, r0, lsl #1
     cmp r0, #0x10
     ldmlsia sp!, {r3, pc}
     sub r0, r0, #0x10
-    bl func_02008444
+    bl OS_SpinWaitCpuCycles
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200846c(void)
+asm void OS_WaitVBlankIntr(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, #1
@@ -109,21 +109,21 @@ asm void func_0200846c(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200848c(void)
+asm void OS_GetBootType(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_0200849c
+    bl OS_GetBootInfo
     ldrh r0, [r0]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200849c(void)
+asm void OS_GetBootInfo(void)
 {
     ldr r0, =0x2fffc40
     bx lr
 }
 
-asm void func_020084a8(void)
+asm void OS_InitReset(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r0, =data_020bb490
@@ -132,18 +132,18 @@ asm void func_020084a8(void)
     ldmneia sp!, {r3, r4, r5, pc}
     mov r1, #1
     strh r1, [r0]
-    bl func_0200afc0
+    bl PXI_Init
     mov r5, #0xc
     mov r4, #1
 @L_020084d0:
     mov r0, r5
     mov r1, r4
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     beq @L_020084d0
-    ldr r1, =func_0200553c
+    ldr r1, =OSi_CommonCallback
     mov r0, r5
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -155,28 +155,28 @@ asm void func_020084fc(void)
     ldrh r0, [r1]
     cmp r0, #2
     bne @L_02008518
-    bl func_0200878c
+    bl OS_Terminate
 @L_02008518:
     bl OS_GetLockID
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
-    bl func_02010d98
+    bl CARD_LockRom
     mov r0, #0x40000
     bl OS_SetIrqMask
     mvn r0, #0x40000
     bl OS_ResetRequestIrqMask
-    bl func_02008d78
+    bl MI_StopAllDma
     ldr r4, =0x2fffc20
     mov r0, #0x10
     str r5, [r4]
     bl OSi_SendToPxi
     bl func_0200779c
     str r0, [r4, #0x37c]
-    bl func_01ff81b8
+    bl OSi_DoResetSystem
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02008564(void)
+asm void OS_GetMacAddress(void)
 {
     mov r1, r0
     ldr r0, =0x2fffcf4
@@ -185,7 +185,7 @@ asm void func_02008564(void)
     bx r12
 }
 
-asm void func_02008580(void)
+asm void OS_GetOwnerInfo(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r4, =0x2fffc80
@@ -220,7 +220,7 @@ asm void func_02008580(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02008600(void)
+asm void OsCountZeroBits(void)
 {
     clz r0, r0
     bx lr

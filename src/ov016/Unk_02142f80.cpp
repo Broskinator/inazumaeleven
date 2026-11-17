@@ -1,110 +1,110 @@
 #include "ov016/Unk_02142f80.hpp"
 
-extern "C" void func_ov016_02142f80(void);
-extern "C" s32 func_ov016_021430f8(s32 arg0);
-extern "C" void func_ov016_02143164(u8 arg0);
-extern "C" void func_ov016_0214319c(void);
-extern "C" void func_ov016_021433bc(void);
-extern "C" void func_ov016_021433dc(void);
-extern "C" void func_ov016_02143434(void);
-extern "C" s32 func_ov016_02143708(...);
-extern "C" void func_ov016_021437c4(void);
-extern "C" void func_ov016_02143964(void);
-extern "C" s32 func_ov016_02143a98(s32 arg0);
-extern "C" void func_ov016_02143b24(void);
-extern "C" void func_ov016_02143c14(void);
-extern "C" void func_ov016_02143d60(void);
-extern "C" void func_ov016_02143df8(void);
-extern "C" void func_ov016_02143fa8(void);
-extern "C" s32 func_ov016_02144224(...);
-extern "C" s32 func_ov016_02144268(s32 arg0);
-extern "C" void func_ov016_0214428c(s32 arg0);
-extern "C" void func_ov016_02144350(void);
-extern "C" void func_ov016_021443ec(void);
-extern "C" s32 func_ov016_0214446c(...);
-extern "C" s32 func_ov016_02144544(void);
-extern "C" s32 func_ov016_021445e8(u8 arg0);
-extern "C" void func_ov016_02144614(void);
-extern "C" s32 func_ov016_021448a4(void);
-extern "C" s32 func_ov016_021448d8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov016_0214492c(void);
-extern "C" s32 func_ov016_021449d4(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov016_02144a74(void);
-extern "C" void func_ov016_02144ab4(void);
-extern "C" void func_ov016_02144ad4(u8 arg0);
-extern "C" void func_ov016_02144ae4(void);
-extern "C" s32 func_ov016_02144b04(...);
-extern "C" void func_ov016_02144b98(void);
-extern "C" void func_ov016_02144c00(void);
-extern "C" void func_ov016_02144c54(void);
-extern "C" void func_ov016_02144c7c(void);
-extern "C" void func_ov016_02144c80(void);
-extern "C" void func_ov016_02144c84(void);
-extern "C" void func_ov016_02144cc8(void);
-extern "C" s32 func_ov016_02144d2c(void);
-extern "C" void func_ov016_02144d4c(void);
-extern "C" s32 func_ov016_02144d88(...);
-extern "C" void func_ov016_02144e08(void);
-extern "C" void func_ov016_02144e44(void);
-extern "C" void func_ov016_02144e70(void);
-extern "C" void func_ov016_02144e94(void);
-extern "C" s32 func_ov016_02144eb4(...);
-extern "C" void func_ov016_02144eec(void);
-extern "C" s32 func_ov016_02144ef0(...);
-extern "C" void func_ov016_02144f1c(void);
-extern "C" s32 func_ov016_02144f3c(void);
-extern "C" s32 func_ov016_02144fb0(void);
-extern "C" s32 func_ov016_0214507c(...);
-extern "C" void func_ov016_0214510c(void);
-extern "C" void func_ov016_02145138(void);
-extern "C" s32 func_ov016_02145158(void);
-extern "C" void func_ov016_02145178(void);
-extern "C" s32 func_ov016_021451b4(...);
-extern "C" void func_ov016_02145234(void);
-extern "C" void func_ov016_02145270(void);
-extern "C" void func_ov016_0214529c(void);
-extern "C" void func_ov016_021452c0(void);
-extern "C" s32 func_ov016_021452e0(...);
-extern "C" void func_ov016_02145318(void);
-extern "C" s32 func_ov016_0214531c(...);
-extern "C" void func_ov016_02145348(void);
-extern "C" s32 func_ov016_02145368(void);
-extern "C" s32 func_ov016_021453d0(void);
-extern "C" s32 func_ov016_0214548c(...);
-extern "C" void func_ov016_02145570(void);
-extern "C" void func_ov016_0214559c(void);
-extern "C" void func_ov016_021455bc(void);
-extern "C" s32 func_ov016_021455f8(...);
-extern "C" void func_ov016_02145678(void);
-extern "C" void func_ov016_021456b4(void);
-extern "C" void func_ov016_021456d8(void);
-extern "C" void func_ov016_021456e8(void);
-extern "C" void func_ov016_021456ec(void);
-extern "C" void func_ov016_02145730(void);
-extern "C" s32 func_ov016_021457a8(...);
-extern "C" s32 func_ov016_021457dc(void);
-extern "C" void func_ov016_021457fc(void);
-extern "C" s32 func_ov016_02145858(...);
-extern "C" void func_ov016_02145900(void);
-extern "C" void func_ov016_02145968(void);
-extern "C" void func_ov016_021459ac(void);
-extern "C" void func_ov016_021459d0(void);
-extern "C" s32 func_ov016_021459f0(...);
-extern "C" void func_ov016_02145a28(void);
-extern "C" s32 func_ov016_02145a2c(...);
-extern "C" void func_ov016_02145a58(void);
-extern "C" s32 func_ov016_02145a78(void);
-extern "C" s32 func_ov016_02145aec(void);
-extern "C" s32 func_ov016_02145bb8(...);
-extern "C" void func_ov016_02145c48(void);
-extern "C" void func_ov016_02145c74(void);
-extern "C" void func_ov016_02145c94(void);
-extern "C" s32 func_ov016_02145d00(...);
-extern "C" void func_ov016_02145da8(void);
-extern "C" void func_ov016_02145e10(void);
-extern "C" void func_ov016_02145e50(void);
-extern "C" void func_ov016_02145e74(void);
-extern "C" s32 func_ov016_02145e8c(...);
+extern "C" void pushWinButton(void);
+extern "C" s32 pushIpAuto(s32 arg0);
+extern "C" void pushDnsAuto(u8 arg0);
+extern "C" void draw_20(void);
+extern "C" void endScene_21(void);
+extern "C" void endScene1_20(void);
+extern "C" void endScene2_17(void);
+extern "C" s32 drawWindow(...);
+extern "C" void drawColumnChar(void);
+extern "C" void drawColumnObj(void);
+extern "C" s32 isEnablePush(s32 arg0);
+extern "C" void dispObj(void);
+extern "C" void drawString(void);
+extern "C" void drawAddress_2(void);
+extern "C" void setOffset_2(void);
+extern "C" void isPush(void);
+extern "C" s32 calcColumnIdx(...);
+extern "C" s32 calcIdxColumn(s32 arg0);
+extern "C" void taskUp_2(s32 arg0);
+extern "C" void taskDown_2(void);
+extern "C" void taskVBlank_3(void);
+extern "C" s32 dispFocus_4(...);
+extern "C" s32 applyForcus(void);
+extern "C" s32 applyForcus1(u8 arg0);
+extern "C" void moveFocus_6(void);
+extern "C" s32 dispPushButton_3(void);
+extern "C" s32 taskPushCount(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
+extern "C" void pushButtonYesNo(void);
+extern "C" s32 isCorrect_3(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void procError_5(void);
+extern "C" void procError1_5(void);
+extern "C" void DWCi_SetListReturn(u8 arg0);
+extern "C" void DWCi_SceneSetListSave(void);
+extern "C" s32 initGraphics_21(...);
+extern "C" void procInit_21(void);
+extern "C" void procInit1_21(void);
+extern "C" void procScene_21(void);
+extern "C" void input_19(void);
+extern "C" void draw_21(void);
+extern "C" void endScene_22(void);
+extern "C" void endScene1_21(void);
+extern "C" s32 DWCi_IsFold_3(void);
+extern "C" void DWCi_SceneSetRakuButton(void);
+extern "C" s32 initGraphics_22(...);
+extern "C" void procInit_22(void);
+extern "C" void procInit1_22(void);
+extern "C" void procInit2_17(void);
+extern "C" void procScene_22(void);
+extern "C" s32 input_20(...);
+extern "C" void draw_22(void);
+extern "C" s32 button_14(...);
+extern "C" void endScene_23(void);
+extern "C" s32 endScene1_22(void);
+extern "C" s32 endScene2_18(void);
+extern "C" s32 checkRaku(...);
+extern "C" void procError_6(void);
+extern "C" void procError1_6(void);
+extern "C" s32 DWCi_IsFold_4(void);
+extern "C" void DWCi_SceneSetRakuButton1(void);
+extern "C" s32 initGraphics_23(...);
+extern "C" void procInit_23(void);
+extern "C" void procInit1_23(void);
+extern "C" void procInit2_18(void);
+extern "C" void procScene_23(void);
+extern "C" s32 input_21(...);
+extern "C" void draw_23(void);
+extern "C" s32 button_15(...);
+extern "C" void endScene_24(void);
+extern "C" s32 endScene1_23(void);
+extern "C" s32 endScene2_19(void);
+extern "C" s32 checkRaku_2(...);
+extern "C" void procError_7(void);
+extern "C" void procError1_7(void);
+extern "C" void DWCi_SceneSetRakuComplete(void);
+extern "C" s32 initGraphics_24(...);
+extern "C" void procInit_24(void);
+extern "C" void procInit1_24(void);
+extern "C" void procScene_24(void);
+extern "C" void draw_24(void);
+extern "C" void endScene_25(void);
+extern "C" void endScene1_24(void);
+extern "C" s32 wait_3(...);
+extern "C" s32 DWCi_IsFold_5(void);
+extern "C" void DWCi_SceneSetRakuReady(void);
+extern "C" s32 initGraphics_25(...);
+extern "C" void procInit_25(void);
+extern "C" void procInit1_25(void);
+extern "C" void procInit2_19(void);
+extern "C" void procScene_25(void);
+extern "C" s32 input_22(...);
+extern "C" void draw_25(void);
+extern "C" s32 button_16(...);
+extern "C" void endScene_26(void);
+extern "C" s32 endScene1_25(void);
+extern "C" s32 endScene2_20(void);
+extern "C" s32 checkRaku_3(...);
+extern "C" void procError_8(void);
+extern "C" void procError1_8(void);
+extern "C" void DWCi_SceneSetSearch(void);
+extern "C" s32 initGraphics_26(...);
+extern "C" void procInit_26(void);
+extern "C" void procInit1_26(void);
+extern "C" void procInit2_20(void);
+extern "C" void procScene_26(void);
+extern "C" s32 isEnd(...);
 
 extern "C" char data_ov016_02154b18[];
 extern "C" char data_ov016_02154b3a[];
@@ -118,7 +118,7 @@ extern "C" char data_ov016_02154b92[];
 extern "C" char data_ov016_02154b94[];
 extern "C" char data_ov016_02154bc0[];
 extern "C" char data_ov016_02154bc4[];
-extern "C" char data_ov016_02154f78[];
+extern "C" char DWCi_R_SCR[];
 extern "C" char data_ov016_02155ac8[];
 extern "C" char data_ov016_02155ae0[];
 extern "C" char data_ov016_02155af0[];
@@ -144,108 +144,108 @@ extern "C" s32 FX_DivS32(...);
 extern "C" void FX_ModS32(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 OS_Sleep(...);
-extern "C" void func_02003298(void);
-extern "C" void func_02003358(void);
-extern "C" void func_02003758(void);
-extern "C" void func_02003ad8(void);
-extern "C" void func_02005978(void);
-extern "C" void func_ov014_0210f51c(void);
-extern "C" s32 func_ov014_0210f5b4(...);
-extern "C" s32 func_ov014_0210f61c(...);
-extern "C" s32 func_ov016_02136d50(...);
-extern "C" s32 func_ov016_02136e1c(...);
-extern "C" s32 func_ov016_02137014(...);
-extern "C" s32 func_ov016_02137044(...);
-extern "C" void func_ov016_02137058(void);
-extern "C" s32 func_ov016_02137088(...);
-extern "C" s32 func_ov016_021370b4(...);
-extern "C" s32 func_ov016_021370cc(...);
-extern "C" s32 func_ov016_02137590(...);
-extern "C" s32 func_ov016_02137668(...);
-extern "C" void func_ov016_02137704(void);
-extern "C" s32 func_ov016_02137744(...);
-extern "C" s32 func_ov016_02137794(...);
-extern "C" s32 func_ov016_021377cc(...);
-extern "C" void func_ov016_0213794c(void);
-extern "C" void func_ov016_02137ad8(void);
-extern "C" s32 func_ov016_02137c04(...);
-extern "C" s32 func_ov016_0213b354(...);
-extern "C" s32 func_ov016_0213b364(...);
-extern "C" s32 func_ov016_0213b3a0(...);
-extern "C" s32 func_ov016_0213b99c(...);
-extern "C" s32 func_ov016_0213ba08(...);
-extern "C" void func_ov016_0213ba2c(void);
-extern "C" void func_ov016_0213bae4(void);
-extern "C" void func_ov016_02140a9c(void);
-extern "C" void func_ov016_0214159c(void);
-extern "C" void func_ov016_02142ca8(void);
-extern "C" s32 func_ov016_02145fb4(...);
-extern "C" s32 func_ov016_02145fd8(...);
-extern "C" s32 func_ov016_02145fdc(...);
-extern "C" void func_ov016_02146008(void);
-extern "C" void func_ov016_02146158(void);
-extern "C" void func_ov016_021461a4(void);
-extern "C" void func_ov016_02146eac(void);
-extern "C" void func_ov016_02147674(void);
-extern "C" void func_ov016_02147d20(void);
-extern "C" void func_ov016_02148bd8(void);
-extern "C" void func_ov016_02148c04(void);
-extern "C" void func_ov016_02148c1c(void);
-extern "C" s32 func_ov016_02148cc4(...);
-extern "C" s32 func_ov016_02148d2c(...);
-extern "C" void func_ov016_02148e60(void);
-extern "C" void func_ov016_02148e98(void);
-extern "C" void func_ov016_02148eac(void);
-extern "C" void func_ov016_02148ec0(void);
-extern "C" void func_ov016_02148ecc(void);
-extern "C" s32 func_ov016_02148ee4(...);
-extern "C" s32 func_ov016_02149434(...);
-extern "C" s32 func_ov016_02149498(...);
-extern "C" void func_ov016_02149628(void);
-extern "C" s32 func_ov016_02149918(...);
-extern "C" s32 func_ov016_0214992c(...);
-extern "C" s32 func_ov016_02149940(...);
-extern "C" void func_ov016_02149d20(void);
-extern "C" s32 func_ov016_02149dec(...);
-extern "C" s32 func_ov016_0214a4c0(...);
-extern "C" void func_ov016_0214a528(void);
-extern "C" s32 func_ov016_0214b71c(...);
-extern "C" s32 func_ov016_0214ba38(...);
-extern "C" s32 func_ov016_0214ba7c(...);
-extern "C" s32 func_ov016_0214ba90(...);
-extern "C" void func_ov016_0214f17c(void);
-extern "C" void func_ov016_0214f7e8(void);
-extern "C" s32 func_ov016_0214fa94(...);
-extern "C" s32 func_ov016_0214fab8(...);
-extern "C" s32 func_ov016_0214fca4(...);
-extern "C" s32 func_ov016_021501bc(...);
-extern "C" void func_ov016_021502c4(void);
-extern "C" void func_ov016_02150428(void);
-extern "C" void func_ov016_021504d8(void);
-extern "C" s32 func_ov016_02150550(...);
-extern "C" s32 func_ov016_021505a4(...);
-extern "C" void func_ov016_0215094c(void);
-extern "C" void func_ov016_02150d38(void);
-extern "C" void func_ov016_02150e80(void);
-extern "C" void func_ov016_02151018(void);
-extern "C" void func_ov016_0215144c(void);
-extern "C" void func_ov016_02151714(void);
-extern "C" void func_ov016_02151740(void);
-extern "C" void func_ov016_02151b94(void);
-extern "C" void func_ov016_02151c38(void);
-extern "C" void func_ov016_02151c58(void);
+extern "C" void GX_LoadBGPltt(void);
+extern "C" void GX_LoadOBJPltt(void);
+extern "C" void GX_LoadBG2Scr(void);
+extern "C" void GX_LoadBG2Char(void);
+extern "C" void OS_SNPrintf(void);
+extern "C" void DWCi_BACKUPlConvMaskCidr(void);
+extern "C" s32 DWC_BACKUPlCheckIp(...);
+extern "C" s32 DWC_BACKUPlCheckAddress(...);
+extern "C" s32 DWCi_ANIMElInitEx(...);
+extern "C" s32 DWCi_ANIMElEnd(...);
+extern "C" s32 DWCi_BTNlEnd(...);
+extern "C" s32 DWCi_BTNlGet(...);
+extern "C" void DWCi_BTNlSet(void);
+extern "C" s32 DWCi_BTNlIsEnd(...);
+extern "C" s32 DWCi_BTNlEnable(...);
+extern "C" s32 DWCi_BTNlDisable(...);
+extern "C" s32 DWCi_COMMENTlDispEx(...);
+extern "C" s32 DWCi_COMMENTlDelete(...);
+extern "C" void DWCi_CMNlLoadResource(void);
+extern "C" s32 DWCi_CMNlStep(...);
+extern "C" s32 DWCi_CMNlButton(...);
+extern "C" s32 DWCi_CMNlMsgDraw(...);
+extern "C" void DWCi_FOCUSlDisp(void);
+extern "C" void DWCi_FOCUSlDelete(void);
+extern "C" s32 DWCi_HLlLoadSet(...);
+extern "C" s32 DWCi_ChangeScene(...);
+extern "C" s32 DWCi_SetParam_(...);
+extern "C" s32 DWCi_SetParam2_(...);
+extern "C" s32 DWCi_RAKUlInit(...);
+extern "C" s32 DWCi_RAKUlEnd(...);
+extern "C" void DWCi_RAKUlGetState(void);
+extern "C" void DWCi_RAKUlSetResult(void);
+extern "C" void DWCi_SceneSetEdit32(void);
+extern "C" void DWCi_SceneSetEditAddress(void);
+extern "C" void procScene_20(void);
+extern "C" s32 input_23(...);
+extern "C" s32 draw_26(...);
+extern "C" s32 button_17(...);
+extern "C" void endScene_27(void);
+extern "C" void procError_9(void);
+extern "C" void DWCi_SceneSetSelectAp(void);
+extern "C" void DWCi_SceneSetSelectWay(void);
+extern "C" void DWCi_SceneSetTest(void);
+extern "C" void DWCi_SceneSetTestConfirm(void);
+extern "C" void DWCi_SCREENlEnd(void);
+extern "C" void DWCi_SCREENlRenew(void);
+extern "C" void DWCi_SCREENlCopy(void);
+extern "C" s32 DWCi_SCREENlCopyPalette(...);
+extern "C" s32 DWCi_SCREENlSetPalette(...);
+extern "C" void DWCi_SBlEnd(void);
+extern "C" void DWCi_SBlGet(void);
+extern "C" void DWCi_SBlGetState(void);
+extern "C" void DWCi_SBlSet(void);
+extern "C" void DWCi_SBlEnable(void);
+extern "C" s32 DWCi_SBlDisable(...);
+extern "C" s32 DWCi_SEARCHlInit(...);
+extern "C" s32 DWCi_SEARCHlBegin(...);
+extern "C" void DWCi_SEARCHlGetApInfo(void);
+extern "C" s32 DWCi_SETTIGNlGet(...);
+extern "C" s32 DWCi_SETTINGlSetIpAuto(...);
+extern "C" s32 DWCi_SETTINGlSetDnsAuto(...);
+extern "C" void DWCi_SETTINGlSetSetting(void);
+extern "C" s32 DWCi_SETTINGlSet(...);
+extern "C" s32 DWCi_SNDlPlay(...);
+extern "C" void DWCi_SNDlStop(void);
+extern "C" s32 DWCi_WINlInitEx(...);
+extern "C" s32 DWCi_WINlEnd(...);
+extern "C" s32 DWCi_WINlGet(...);
+extern "C" s32 DWCi_WINlIsInit(...);
+extern "C" void DWCi_ARClRelease(void);
+extern "C" void DWCi_CEINlSet(void);
+extern "C" s32 DWCi_EFFlCheck(...);
+extern "C" s32 DWCi_EFFlFade(...);
+extern "C" s32 DWCi_EFFlWait(...);
+extern "C" s32 DWCi_FNTlDeleteBgLcd(...);
+extern "C" void DWCi_FNTlDrawStringEx(void);
+extern "C" void DWCi_FNTlClear(void);
+extern "C" void DWCi_FNTlRenewBg(void);
+extern "C" s32 DWCi_GXlVisible(...);
+extern "C" s32 DWCi_GXlInvisible(...);
+extern "C" void DWCi_HEAPlFree_(void);
+extern "C" void DWCi_IPTlCheckTrigger(void);
+extern "C" void DWCi_TPlCheckTrigger(void);
+extern "C" void DWCi_TPlCheckATrigger(void);
+extern "C" void DWCi_OBJlDelete(void);
+extern "C" void DWCi_STRlNLen(void);
+extern "C" void DWCi_STRlConvertStringAsciiToUnicode(void);
+extern "C" void DWCi_TSKlForm(void);
+extern "C" void DWCi_TSKlDelete(void);
+extern "C" void DWCi_TSKlDeleteEx(void);
 extern "C" void memset(void);
 
-extern "C" asm void func_ov016_02142f80(void)
+extern "C" asm void pushWinButton(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
     mov r4, r0
-    bl func_ov016_02143a98
+    bl isEnablePush
     cmp r0, #0
     bne @L_02142fa8
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02142fa8:
@@ -263,22 +263,22 @@ extern "C" asm void func_ov016_02142f80(void)
     b @L_02142ffc
 @L_02142fd8:
     mov r0, #6
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     sub r0, r4, #2
     teq r0, #1
     movne r0, #1
     moveq r0, #0
-    bl func_ov016_021430f8
+    bl pushIpAuto
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02142ffc:
     mov r0, #6
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     sub r0, r4, #7
     teq r0, #1
     movne r0, #1
     moveq r0, #0
-    bl func_ov016_02143164
+    bl pushDnsAuto
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02143020:
@@ -288,21 +288,21 @@ extern "C" asm void func_ov016_02142f80(void)
     cmp r1, #1
     strb r4, [r0, #0x40]
     bhi @L_02143098
-    bl func_ov016_021448a4
-    bl func_ov016_021449d4
+    bl dispPushButton_3
+    bl isCorrect_3
     cmp r0, #0
     bne @L_0214307c
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r1, #1
     mov r12, #0
     mov r2, r1
     sub r3, r1, #2
     mov r0, #6
     str r12, [sp]
-    bl func_ov016_0214b71c
-    ldr r0, =func_ov016_02144a74
-    bl func_ov016_0213b354
+    bl DWCi_WINlInitEx
+    ldr r0, =procError_5
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_0214307c:
@@ -310,7 +310,7 @@ extern "C" asm void func_ov016_02142f80(void)
     bne @L_02143090
     mov r0, #6
 @L_02143088:
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     b @L_021430d4
 @L_02143090:
     mov r0, #0xe
@@ -318,29 +318,29 @@ extern "C" asm void func_ov016_02142f80(void)
 @L_02143098:
     cmp r4, #0xd
     bne @L_021430ac
-    bl func_ov016_021448a4
+    bl dispPushButton_3
     mov r0, #7
     b @L_02143088
 @L_021430ac:
     mov r0, #6
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     ldr r0, =data_ov016_02154b4c
     ldrb r0, [r0, r4]
-    bl func_ov016_02144224
+    bl calcColumnIdx
     mov r2, r0
     mov r0, #0
     mov r1, #1
-    bl func_ov016_02143b24
-    bl func_ov016_02143df8
+    bl dispObj
+    bl setOffset_2
 @L_021430d4:
-    bl func_ov016_02148ee4
-    ldr r0, =func_ov016_021433bc
-    bl func_ov016_0213b354
+    bl DWCi_SBlDisable
+    ldr r0, =endScene_21
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" s32 func_ov016_021430f8(s32 arg0)
+extern "C" s32 pushIpAuto(s32 arg0)
 {
     u8 *r0;
     s32 r5;
@@ -348,7 +348,7 @@ extern "C" s32 func_ov016_021430f8(s32 arg0)
     s32 v3;
     u8 *t0;
     u8 t1;
-    v0 = func_ov016_02149918(arg0);
+    v0 = DWCi_SETTIGNlGet(arg0);
     if (*(u8 *)(((u8 *)v0) + 0xF5) == arg0)
         return v0;
     r0 = (u8 *)v0;
@@ -363,24 +363,24 @@ extern "C" s32 func_ov016_021430f8(s32 arg0)
         *(u8 *)(t0 + 0x43) = t1;
         r5 = 0;
     }
-    func_ov016_0214992c(arg0);
-    func_ov016_02149940(r5);
-    v3 = func_ov016_02143708();
+    DWCi_SETTINGlSetIpAuto(arg0);
+    DWCi_SETTINGlSetDnsAuto(r5);
+    v3 = drawWindow();
     return v3;
 }
 
-extern "C" void func_ov016_02143164(u8 arg0)
+extern "C" void pushDnsAuto(u8 arg0)
 {
-    s32 v0 = func_ov016_02149918(arg0);
+    s32 v0 = DWCi_SETTIGNlGet(arg0);
     if (*(u8 *)(((u8 *)v0) + 0xF6) == arg0)
         return;
     u8 *t0 = (u8 *)*(s32 *)(data_ov016_02158acc + 0x8);
     *(u8 *)(t0 + 0x43) = arg0;
-    func_ov016_02149940(arg0, (s32)t0);
-    func_ov016_02143708();
+    DWCi_SETTINGlSetDnsAuto(arg0, (s32)t0);
+    drawWindow();
 }
 
-extern "C" asm void func_ov016_0214319c(void)
+extern "C" asm void draw_20(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r4, =data_ov016_02158acc
@@ -392,7 +392,7 @@ extern "C" asm void func_ov016_0214319c(void)
     cmp r0, #0
     subne r0, r0, #1
     strneb r0, [r1, #0x41]
-    bl func_ov016_02148eac
+    bl DWCi_SBlGetState
     cmp r0, #7
     addls pc, pc, r0, lsl #2
     ldmia sp!, {r3, r4, r5, pc}
@@ -414,8 +414,8 @@ extern "C" asm void func_ov016_0214319c(void)
     ldrb r0, [r0, #0x41]
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
-    bl func_ov016_02137ad8
-    bl func_ov016_02148e98
+    bl DWCi_FOCUSlDelete
+    bl DWCi_SBlGet
     mov r1, #0x91
     mul r1, r0, r1
     ldr r2, =0x94f2095
@@ -423,7 +423,7 @@ extern "C" asm void func_ov016_0214319c(void)
     smull r1, r3, r2, r1
     add r3, r0, r3, asr #1
     strh r3, [r4, #4]
-    bl func_ov016_02143708
+    bl drawWindow
     ldr r0, [r4, #8]
     mov r1, #4
     strb r1, [r0, #0x41]
@@ -432,7 +432,7 @@ extern "C" asm void func_ov016_0214319c(void)
     ldr r0, [r4, #8]
     mov r5, #0
     strb r5, [r0, #0x45]
-    bl func_ov016_02148e98
+    bl DWCi_SBlGet
     mov r1, #0x91
     mul r1, r0, r1
     ldr r2, =0x94f2095
@@ -441,31 +441,31 @@ extern "C" asm void func_ov016_0214319c(void)
     add r3, r0, r3, asr #1
     strh r3, [r4, #4]
     mov r0, #0x13
-    bl func_ov016_0214a4c0
-    bl func_ov016_02143708
+    bl DWCi_SNDlPlay
+    bl drawWindow
     ldrh r0, [r4, #4]
     mov r1, #0x1d
     bl FX_ModS32
     cmp r0, #0
     bne @L_021432a0
-    bl func_ov016_02144544
+    bl applyForcus
     ldmia sp!, {r3, r4, r5, pc}
 @L_021432a0:
     cmp r0, #0x10
     mov r3, #0x78
     bge @L_021432c8
-    ldr r1, =func_ov016_0214428c
+    ldr r1, =taskUp_2
     mov r0, r5
     mov r2, r5
-    bl func_ov016_02151b94
+    bl DWCi_TSKlForm
     ldr r1, [r4, #8]
     str r0, [r1, #0x38]
     ldmia sp!, {r3, r4, r5, pc}
 @L_021432c8:
-    ldr r1, =func_ov016_02144350
+    ldr r1, =taskDown_2
     mov r0, r5
     mov r2, r5
-    bl func_ov016_02151b94
+    bl DWCi_TSKlForm
     ldr r1, [r4, #8]
     str r0, [r1, #0x38]
     ldmia sp!, {r3, r4, r5, pc}
@@ -478,19 +478,19 @@ extern "C" asm void func_ov016_0214319c(void)
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     ldr r0, [r4, #8]
     mov r1, #1
     strb r1, [r0, #0x46]
     ldmia sp!, {r3, r4, r5, pc}
 @L_02143318:
     mov r0, #0x13
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r0, #0
-    ldr r1, =func_ov016_0214428c
+    ldr r1, =taskUp_2
     mov r2, r0
     mov r3, #0x78
-    bl func_ov016_02151b94
+    bl DWCi_TSKlForm
     ldr r1, [r4, #8]
     str r0, [r1, #0x38]
     ldmia sp!, {r3, r4, r5, pc}
@@ -503,19 +503,19 @@ extern "C" asm void func_ov016_0214319c(void)
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     ldr r0, [r4, #8]
     mov r1, #1
     strb r1, [r0, #0x46]
     ldmia sp!, {r3, r4, r5, pc}
 @L_02143374:
     mov r0, #0x13
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r0, #0
-    ldr r1, =func_ov016_02144350
+    ldr r1, =taskDown_2
     mov r2, r0
     mov r3, #0x78
-    bl func_ov016_02151b94
+    bl DWCi_TSKlForm
     ldr r1, [r4, #8]
     str r0, [r1, #0x38]
     ldmia sp!, {r3, r4, r5, pc}
@@ -526,51 +526,51 @@ extern "C" asm void func_ov016_0214319c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" void func_ov016_021433bc(void)
+extern "C" void endScene_21(void)
 {
-    func_ov016_02148ee4();
-    func_ov016_0214fca4(8);
-    func_ov016_0213b354((s32)func_ov016_021433dc);
+    DWCi_SBlDisable();
+    DWCi_EFFlWait(8);
+    DWCi_ChangeScene((s32)endScene1_20);
 }
 
-extern "C" void func_ov016_021433dc(void)
+extern "C" void endScene1_20(void)
 {
-    s32 v0 = func_ov016_0214fa94(1);
+    s32 v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return;
-    func_ov016_0214fab8(3, 1, 1, 8);
-    func_ov016_0214fab8(3, 0, 0x1D, 8);
-    func_ov016_0213b354((s32)func_ov016_02143434);
+    DWCi_EFFlFade(3, 1, 1, 8);
+    DWCi_EFFlFade(3, 0, 0x1D, 8);
+    DWCi_ChangeScene((s32)endScene2_17);
 }
 
-extern "C" asm void func_ov016_02143434(void)
+extern "C" asm void endScene2_17(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, #1
     ldr r6, =data_ov016_02158acc
     mov r0, r7
     mov r4, #0
-    bl func_ov016_0214fa94
+    bl DWCi_EFFlCheck
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
     mov r5, r4
     mov r0, r5
-    bl func_ov016_0214fa94
+    bl DWCi_EFFlCheck
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r1, [r6, #8]
     mov r0, r5
     ldr r1, [r1]
-    bl func_ov016_02151c58
+    bl DWCi_TSKlDeleteEx
     ldr r1, [r6, #8]
     mov r0, r7
     ldr r1, [r1, #0x3c]
-    bl func_ov016_02151c58
+    bl DWCi_TSKlDeleteEx
 @L_02143488:
     ldr r0, [r6, #8]
     add r0, r0, r5, lsl #2
     ldr r0, [r0, #0x18]
-    bl func_ov016_0215144c
+    bl DWCi_OBJlDelete
     add r5, r5, #1
     cmp r5, #7
     blt @L_02143488
@@ -578,41 +578,41 @@ extern "C" asm void func_ov016_02143434(void)
     ldr r0, [r0, #0x34]
     cmp r0, #0
     beq @L_021434b8
-    bl func_ov016_0215144c
+    bl DWCi_OBJlDelete
 @L_021434b8:
-    bl func_ov016_02148e60
+    bl DWCi_SBlEnd
     mov r0, #0
-    bl func_ov016_021501bc
-    bl func_ov016_02137ad8
+    bl DWCi_FNTlDeleteBgLcd
+    bl DWCi_FOCUSlDelete
     ldr r0, [r6, #8]
     ldrb r0, [r0, #0x40]
     cmp r0, #0xc
     beq @L_021434dc
-    bl func_ov016_02137668
+    bl DWCi_COMMENTlDelete
 @L_021434dc:
-    bl func_ov016_02148bd8
+    bl DWCi_SCREENlEnd
     ldr r0, [r6, #8]
     ldr r0, [r0, #8]
-    bl func_ov016_0214f17c
+    bl DWCi_ARClRelease
     mov r5, #0
 @L_021434f0:
     ldr r0, [r6, #8]
     add r0, r0, r5, lsl #2
     ldr r0, [r0, #0xc]
-    bl func_ov016_0214f17c
+    bl DWCi_ARClRelease
     add r5, r5, #1
     cmp r5, #2
     blt @L_021434f0
     ldr r0, =data_ov016_02155ac8
-    ldr r1, =func_02003358
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadOBJPltt
+    bl DWCi_CMNlLoadResource
     mov r5, #1
     mov r0, r5
     mov r1, r5
-    bl func_ov016_021505a4
+    bl DWCi_GXlInvisible
     mov r0, r4
     mov r1, #0x1d
-    bl func_ov016_021505a4
+    bl DWCi_GXlInvisible
     ldr r0, =0x4000010
     str r4, [r0]
     sub r1, r0, #4
@@ -642,11 +642,11 @@ extern "C" asm void func_ov016_02143434(void)
     b @L_02143690
 @L_021435a0:
     mov r1, r4
-    bl func_ov016_0213b3a0
+    bl DWCi_SetParam2_
     mov r1, r4
     mov r0, #2
-    bl func_ov016_0213b364
-    ldr r0, =func_ov016_02140a9c
+    bl DWCi_SetParam_
+    ldr r0, =DWCi_SceneSetEdit32
     b @L_021436cc
 @L_021435bc:
     sub r5, r0, #4
@@ -654,17 +654,17 @@ extern "C" asm void func_ov016_02143434(void)
     subhs r5, r5, #2
     mov r1, r4
     mov r0, #2
-    bl func_ov016_0213b364
+    bl DWCi_SetParam_
     mov r0, r5
     mov r1, r4
-    bl func_ov016_0213b3a0
-    ldr r0, =func_ov016_0214159c
+    bl DWCi_SetParam2_
+    ldr r0, =DWCi_SceneSetEditAddress
     b @L_021436cc
 @L_021435e8:
-    bl func_ov016_02149918
+    bl DWCi_SETTIGNlGet
     mov r6, r0
     add r0, r6, #0xf0
-    bl func_ov014_0210f51c
+    bl DWCi_BACKUPlConvMaskCidr
     strb r0, [r6, #0xd0]
     ldrb r0, [r6, #0xf5]
     cmp r0, #0
@@ -694,17 +694,17 @@ extern "C" asm void func_ov016_02143434(void)
 @L_0214365c:
     mov r1, r4
     mov r0, #2
-    bl func_ov016_0213b364
+    bl DWCi_SetParam_
     mov r0, r4
     mov r1, r4
-    bl func_ov016_0213b3a0
-    ldr r0, =func_ov016_02147674
+    bl DWCi_SetParam2_
+    ldr r0, =DWCi_SceneSetTest
     b @L_021436cc
 @L_0214367c:
     mov r0, r4
     mov r1, r4
-    bl func_ov016_0213b364
-    ldr r0, =func_ov016_02144ae4
+    bl DWCi_SetParam_
+    ldr r0, =DWCi_SceneSetListSave
     b @L_021436cc
 @L_02143690:
     ldrb r0, [r6, #1]
@@ -712,26 +712,26 @@ extern "C" asm void func_ov016_02143434(void)
     bne @L_021436b0
     mov r1, r5
     mov r0, #2
-    bl func_ov016_0213b364
-    ldr r0, =func_ov016_021461a4
+    bl DWCi_SetParam_
+    ldr r0, =DWCi_SceneSetSelectAp
     b @L_021436cc
 @L_021436b0:
-    bl func_ov016_02149918
+    bl DWCi_SETTIGNlGet
     ldrb r0, [r0, #0xf4]
-    bl func_ov016_02149d20
+    bl DWCi_SETTINGlSetSetting
     mov r0, r4
     mov r1, r5
-    bl func_ov016_0213b364
-    ldr r0, =func_ov016_02146eac
+    bl DWCi_SetParam_
+    ldr r0, =DWCi_SceneSetSelectWay
 @L_021436cc:
-    bl func_ov016_0213b354
+    bl DWCi_ChangeScene
 @L_021436d0:
     ldr r0, =data_ov016_02158ad4
-    bl func_ov016_0215094c
+    bl DWCi_HEAPlFree_
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm s32 func_ov016_02143708(...)
+extern "C" asm s32 drawWindow(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, =data_ov016_02158acc
@@ -743,12 +743,12 @@ extern "C" asm s32 func_ov016_02143708(...)
     mov r6, #0
     ldr r0, [r1, #0x14]
     mov r1, r6
-    bl func_ov016_02150428
+    bl DWCi_FNTlClear
     mov r5, r4
 @L_02143738:
     mov r0, r5
     mov r1, r6
-    bl func_ov016_021437c4
+    bl drawColumnChar
     add r6, r6, #1
     cmp r6, #5
     add r5, r5, #1
@@ -764,31 +764,31 @@ extern "C" asm s32 func_ov016_02143708(...)
     add r0, r2, r0, lsl #1
     mov r2, #0x1e
     mov r3, #0x13
-    bl func_ov016_02148c1c
+    bl DWCi_SCREENlCopy
 @L_02143784:
     mov r0, r4
     mov r1, r5
-    bl func_ov016_02143964
+    bl drawColumnObj
     add r5, r5, #1
     cmp r5, #5
     add r4, r4, #1
     blt @L_02143784
-    bl func_ov016_02148c04
+    bl DWCi_SCREENlRenew
     ldr r0, =data_ov016_02158acc
     ldr r0, [r0, #8]
     ldr r0, [r0, #0x14]
-    bl func_ov016_021504d8
-    bl func_ov016_02143df8
+    bl DWCi_FNTlRenewBg
+    bl setOffset_2
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov016_021437c4(void)
+extern "C" asm void drawColumnChar(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0x24
     mov r6, r0
     mov r5, r1
-    bl func_ov016_02149918
+    bl DWCi_SETTIGNlGet
     cmp r6, #8
     addls pc, pc, r6, lsl #2
     b @L_0214395c
@@ -804,7 +804,7 @@ extern "C" asm void func_ov016_021437c4(void)
 @L_02143808:
     mov r1, r5
     add r0, r0, #0x40
-    bl func_ov016_02143c14
+    bl drawString
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0214381c:
@@ -847,7 +847,7 @@ extern "C" asm void func_ov016_021437c4(void)
     bl memset
     mov r0, r6
     mov r1, r5
-    bl func_ov016_02143c14
+    bl drawString
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_021438b0:
@@ -857,7 +857,7 @@ extern "C" asm void func_ov016_021437c4(void)
     ldmneia sp!, {r3, r4, r5, r6, pc}
     mov r1, r5
     add r0, r0, #0xc0
-    bl func_ov016_02143d60
+    bl drawAddress_2
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_021438d4:
@@ -867,7 +867,7 @@ extern "C" asm void func_ov016_021437c4(void)
     ldmneia sp!, {r3, r4, r5, r6, pc}
     mov r1, r5
     add r0, r0, #0xf0
-    bl func_ov016_02143d60
+    bl drawAddress_2
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_021438f8:
@@ -877,7 +877,7 @@ extern "C" asm void func_ov016_021437c4(void)
     ldmneia sp!, {r3, r4, r5, r6, pc}
     mov r1, r5
     add r0, r0, #0xc4
-    bl func_ov016_02143d60
+    bl drawAddress_2
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0214391c:
@@ -887,7 +887,7 @@ extern "C" asm void func_ov016_021437c4(void)
     ldmneia sp!, {r3, r4, r5, r6, pc}
     mov r1, r5
     add r0, r0, #0xc8
-    bl func_ov016_02143d60
+    bl drawAddress_2
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_02143940:
@@ -897,18 +897,18 @@ extern "C" asm void func_ov016_021437c4(void)
     ldmneia sp!, {r3, r4, r5, r6, pc}
     mov r1, r5
     add r0, r0, #0xcc
-    bl func_ov016_02143d60
+    bl drawAddress_2
 @L_0214395c:
     add sp, sp, #0x24
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov016_02143964(void)
+extern "C" asm void drawColumnObj(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
     mov r6, r1
-    bl func_ov016_02149918
+    bl DWCi_SETTIGNlGet
     cmp r4, #8
     addls pc, pc, r4, lsl #2
     b @L_02143a78
@@ -925,7 +925,7 @@ extern "C" asm void func_ov016_02143964(void)
     mov r4, #0
     mov r0, r4
     mov r5, r4
-    bl func_ov016_02143a98
+    bl isEnablePush
     cmp r0, #0
     moveq r5, #2
     b @L_02143a80
@@ -948,7 +948,7 @@ extern "C" asm void func_ov016_02143964(void)
     cmp r2, #0
     movne r1, #1
     mov r2, r6
-    bl func_ov016_02143b24
+    bl dispObj
     b @L_02143a80
 @L_02143a0c:
     ldrb r0, [r0, #0xf5]
@@ -989,16 +989,16 @@ extern "C" asm void func_ov016_02143964(void)
     mov r0, r4
     mov r1, r5
     mov r2, r6
-    bl func_ov016_02143b24
+    bl dispObj
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov016_02143a98(s32 arg0)
+extern "C" s32 isEnablePush(s32 arg0)
 {
     u8 *r0;
     s32 r1;
     s32 v0;
-    v0 = func_ov016_02149918(arg0);
+    v0 = DWCi_SETTIGNlGet(arg0);
     r0 = (u8 *)v0;
     r1 = 1;
     switch (arg0) {
@@ -1024,7 +1024,7 @@ extern "C" s32 func_ov016_02143a98(s32 arg0)
     return r1;
 }
 
-extern "C" asm void func_ov016_02143b24(void)
+extern "C" asm void dispObj(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0xc
@@ -1046,7 +1046,7 @@ extern "C" asm void func_ov016_02143b24(void)
     add r4, r3, r2, lsl #2
     bhi @L_02143b88
     mov r0, r2
-    bl func_ov016_02144268
+    bl calcIdxColumn
     cmp r0, #2
     ldr r0, [r7, #8]
     addeq r4, r0, #0x2c
@@ -1066,7 +1066,7 @@ extern "C" asm void func_ov016_02143b24(void)
     streq r0, [r2]
     ldmeqia sp!, {r4, r5, r6, r7, pc}
     mov r0, #0
-    bl func_ov016_0214f7e8
+    bl DWCi_CEINlSet
     ldr r3, [r4]
     add r0, sp, #0
     mov r1, r6, lsl #1
@@ -1086,7 +1086,7 @@ extern "C" asm void func_ov016_02143b24(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_02143c14(void)
+extern "C" asm void drawString(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x30
@@ -1098,7 +1098,7 @@ extern "C" asm void func_ov016_02143c14(void)
     bl MI_CpuFill8
     mov r0, r8
     mov r1, #0x20
-    bl func_ov016_02151714
+    bl DWCi_STRlNLen
     mov r5, r0
     mov r7, r5
     cmp r5, #0x10
@@ -1134,7 +1134,7 @@ extern "C" asm void func_ov016_02143c14(void)
     mov r2, r6
     mov r1, #0x48
     mov r3, #2
-    bl func_ov016_021502c4
+    bl DWCi_FNTlDrawStringEx
     cmp r5, #0x10
     addle sp, sp, #0x30
     ldmleia sp!, {r4, r5, r6, r7, r8, pc}
@@ -1170,12 +1170,12 @@ extern "C" asm void func_ov016_02143c14(void)
     mov r1, #0x48
     ldr r0, [r0, #0x14]
     mov r3, #2
-    bl func_ov016_021502c4
+    bl DWCi_FNTlDrawStringEx
     add sp, sp, #0x30
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov016_02143d60(void)
+extern "C" asm void drawAddress_2(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0x3c
@@ -1192,12 +1192,12 @@ extern "C" asm void func_ov016_02143d60(void)
     mov r0, r7
     mov r1, r6
     str r5, [sp, #8]
-    bl func_02005978
+    bl OS_SNPrintf
     add r5, sp, #0x1c
     mov r1, r7
     mov r0, r5
     mov r2, r6
-    bl func_ov016_02151740
+    bl DWCi_STRlConvertStringAsciiToUnicode
     mov r2, #7
     mov r0, #0x1d
     mul r1, r4, r0
@@ -1210,12 +1210,12 @@ extern "C" asm void func_ov016_02143d60(void)
     mov r1, #0x5f
     ldr r0, [r0, #0x14]
     mov r3, #2
-    bl func_ov016_021502c4
+    bl DWCi_FNTlDrawStringEx
     add sp, sp, #0x3c
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov016_02143df8(void)
+extern "C" asm void setOffset_2(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #8
@@ -1329,13 +1329,13 @@ extern "C" asm void func_ov016_02143df8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov016_02143fa8(void)
+extern "C" asm void isPush(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #8
-    ldr r0, =data_ov016_02154f78
+    ldr r0, =DWCi_R_SCR
     mov r7, #0x1d
-    bl func_ov016_02150e80
+    bl DWCi_TPlCheckTrigger
     cmp r0, #0
     addeq sp, sp, #8
     moveq r0, #0xe
@@ -1361,7 +1361,7 @@ extern "C" asm void func_ov016_02143fa8(void)
     cmpne r5, #6
     beq @L_02144034
     mov r0, r4
-    bl func_ov016_02151018
+    bl DWCi_TPlCheckATrigger
     cmp r0, #0
     ldrne r0, =data_ov016_02154b3a
     addne sp, sp, #8
@@ -1398,7 +1398,7 @@ extern "C" asm void func_ov016_02143fa8(void)
     strh r3, [sp, #4]
     strh r2, [sp, #6]
     strh r1, [sp, #2]
-    bl func_ov016_02151018
+    bl DWCi_TPlCheckATrigger
     cmp r0, #0
     addne sp, sp, #8
     movne r0, #2
@@ -1415,7 +1415,7 @@ extern "C" asm void func_ov016_02143fa8(void)
     strh r3, [sp, #4]
     strh r2, [sp, #6]
     strh r1, [sp, #2]
-    bl func_ov016_02151018
+    bl DWCi_TPlCheckATrigger
     cmp r0, #0
     beq @L_02144114
     add sp, sp, #8
@@ -1450,7 +1450,7 @@ extern "C" asm void func_ov016_02143fa8(void)
     strh r3, [sp, #4]
     strh r2, [sp, #6]
     strh r1, [sp, #2]
-    bl func_ov016_02151018
+    bl DWCi_TPlCheckATrigger
     cmp r0, #0
     addne sp, sp, #8
     movne r0, #7
@@ -1467,7 +1467,7 @@ extern "C" asm void func_ov016_02143fa8(void)
     strh r3, [sp, #4]
     strh r2, [sp, #6]
     strh r1, [sp, #2]
-    bl func_ov016_02151018
+    bl DWCi_TPlCheckATrigger
     cmp r0, #0
     beq @L_021441d8
     add sp, sp, #8
@@ -1483,7 +1483,7 @@ extern "C" asm void func_ov016_02143fa8(void)
     mov r5, #0
 @L_021441e0:
     add r0, r4, r5, lsl #3
-    bl func_ov016_02150e80
+    bl DWCi_TPlCheckTrigger
     cmp r0, #0
     addne sp, sp, #8
     addne r0, r5, #0xb
@@ -1496,7 +1496,7 @@ extern "C" asm void func_ov016_02143fa8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm s32 func_ov016_02144224(...)
+extern "C" asm s32 calcColumnIdx(...)
 {
     stmdb sp!, {r4, lr}
     ldr r1, =data_ov016_02158acc
@@ -1517,46 +1517,46 @@ extern "C" asm s32 func_ov016_02144224(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov016_02144268(s32 arg0)
+extern "C" s32 calcIdxColumn(s32 arg0)
 {
     s32 v0 = FX_DivS32(*(u16 *)(data_ov016_02158acc + 0x4), 0x1D);
     return (v0 + arg0);
 }
 
-extern "C" void func_ov016_0214428c(s32 arg0)
+extern "C" void taskUp_2(s32 arg0)
 {
     s32 m;
-    ((s32 (*)(...))func_ov016_02148ee4)();
-    ((s32 (*)(...))func_ov016_02137ad8)();
+    ((s32 (*)(...))DWCi_SBlDisable)();
+    ((s32 (*)(...))DWCi_FOCUSlDelete)();
     if (*(u16 *)((u8 *)data_ov016_02158acc + 4) > 6)
         *(u16 *)((u8 *)data_ov016_02158acc + 4) = *(u16 *)((u8 *)data_ov016_02158acc + 4) - 6;
     else
         *(u16 *)((u8 *)data_ov016_02158acc + 4) = 0;
     m = ((s32 (*)(...))FX_ModS32)(*(u16 *)((u8 *)data_ov016_02158acc + 4), 0x1D);
     if (m == 0x17) {
-        ((s32 (*)(...))func_ov016_02143708)();
+        ((s32 (*)(...))drawWindow)();
         return;
     }
     if (m > 0x17) {
         *(u16 *)((u8 *)data_ov016_02158acc + 4) += (u16)(0x1D - m);
         m = 0;
     }
-    ((s32 (*)(...))func_ov016_02143df8)();
+    ((s32 (*)(...))setOffset_2)();
     if (m != 0)
         return;
-    ((s32 (*)(...))func_ov016_02148ec0)(*(u16 *)((u8 *)data_ov016_02158acc + 4) * 0x37 / 0x91);
-    ((s32 (*)(...))func_ov016_02148ecc)();
-    ((s32 (*)(...))func_ov016_02144544)();
+    ((s32 (*)(...))DWCi_SBlSet)(*(u16 *)((u8 *)data_ov016_02158acc + 4) * 0x37 / 0x91);
+    ((s32 (*)(...))DWCi_SBlEnable)();
+    ((s32 (*)(...))applyForcus)();
     *(s32 *)(*(u8 **)((u8 *)data_ov016_02158acc + 8) + 0x38) = 0;
-    ((s32 (*)(...))func_ov016_02151c38)(0, arg0);
+    ((s32 (*)(...))DWCi_TSKlDelete)(0, arg0);
 }
 
-extern "C" asm void func_ov016_02144350(void)
+extern "C" asm void taskDown_2(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
-    bl func_ov016_02148ee4
-    bl func_ov016_02137ad8
+    bl DWCi_SBlDisable
+    bl DWCi_FOCUSlDelete
     ldr r5, =data_ov016_02158acc
     mov r1, #0x1d
     ldrh r0, [r5, #4]
@@ -1566,14 +1566,14 @@ extern "C" asm void func_ov016_02144350(void)
     bl FX_ModS32
     cmp r0, #6
     blt @L_0214438c
-    bl func_ov016_02143df8
+    bl setOffset_2
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214438c:
     ldrh r1, [r5, #4]
     mov r0, r0, lsl #0x10
     sub r0, r1, r0, lsr #16
     strh r0, [r5, #4]
-    bl func_ov016_02143708
+    bl drawWindow
     ldrh r1, [r5, #4]
     mov r0, #0x37
     ldr r2, =0xe1fc780f
@@ -1582,18 +1582,18 @@ extern "C" asm void func_ov016_02144350(void)
     add r0, r3, r0
     mov r1, r3, lsr #0x1f
     add r0, r1, r0, asr #7
-    bl func_ov016_02148ec0
-    bl func_ov016_02148ecc
-    bl func_ov016_02144544
+    bl DWCi_SBlSet
+    bl DWCi_SBlEnable
+    bl applyForcus
     ldr r1, [r5, #8]
     mov r0, #0
     str r0, [r1, #0x38]
     mov r1, r4
-    bl func_ov016_02151c38
+    bl DWCi_TSKlDelete
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" void func_ov016_021443ec(void)
+extern "C" void taskVBlank_3(void)
 {
     u8 *d = (u8 *)data_ov016_02158acc;
     s32 q;
@@ -1609,7 +1609,7 @@ extern "C" void func_ov016_021443ec(void)
     (*(u8 **)(d + 8))[0x44] = 0;
 }
 
-extern "C" asm s32 func_ov016_0214446c(...)
+extern "C" asm s32 dispFocus_4(...)
 {
     stmdb sp!, {r3, lr}
     sub sp, sp, #0x18
@@ -1637,7 +1637,7 @@ extern "C" asm s32 func_ov016_0214446c(...)
     ldrh r2, [r2, r3]
     ldrh r3, [r0, r3]
     mov r0, #3
-    bl func_ov016_0213794c
+    bl DWCi_FOCUSlDisp
     add sp, sp, #0x18
     ldmia sp!, {r3, pc}
 @L_021444dc:
@@ -1659,12 +1659,12 @@ extern "C" asm s32 func_ov016_0214446c(...)
     strh r1, [sp]
     strh r2, [sp, #4]
     strh r12, [sp, #6]
-    bl func_ov016_0213794c
+    bl DWCi_FOCUSlDisp
     add sp, sp, #0x18
     ldmia sp!, {r3, pc}
 }
 
-extern "C" s32 func_ov016_02144544(void)
+extern "C" s32 applyForcus(void)
 {
     s32 r0;
     s32 r1;
@@ -1677,10 +1677,10 @@ extern "C" s32 func_ov016_02144544(void)
     u8 t1;
     r0 = ((*(u8 *)(((u8 *)&data_ov016_02158acc)) + 0xF5) & 0xFF);
     if ((u32)r0 <= (u32)2) {
-        v0 = func_ov016_0214446c(r0);
+        v0 = dispFocus_4(r0);
         return v0;
     } else {
-        v1 = func_ov016_02149918(r0);
+        v1 = DWCi_SETTIGNlGet(r0);
         t0 = *(u16 *)(((u8 *)&data_ov016_02158acc) + 0x4);
         v2 = FX_DivS32(t0, 0x1D);
         r5 = (u8 *)v1;
@@ -1696,7 +1696,7 @@ extern "C" s32 func_ov016_02144544(void)
                     r0 = 3;
                     break;
                 }
-                v3 = func_ov016_0214446c(r0, r1);
+                v3 = dispFocus_4(r0, r1);
                 return v3;
             case 6:
                 if (*(u8 *)(r5 + 0xF6) != 0) {
@@ -1708,7 +1708,7 @@ extern "C" s32 func_ov016_02144544(void)
                     r0 = 8;
                     break;
                 }
-                v3 = func_ov016_0214446c(r0, r1);
+                v3 = dispFocus_4(r0, r1);
                 return v3;
             default:
                 t1 = *(u8 *)(((u8 *)&data_ov016_02154b3a) + r1);
@@ -1716,29 +1716,29 @@ extern "C" s32 func_ov016_02144544(void)
                 r0 = t1;
                 break;
         }
-        v3 = func_ov016_0214446c(r0, r1);
+        v3 = dispFocus_4(r0, r1);
         return v3;
     }
 }
 
-extern "C" s32 func_ov016_021445e8(u8 arg0)
+extern "C" s32 applyForcus1(u8 arg0)
 {
     s32 v0;
     s32 v1;
     u8 t0;
     *(u8 *)(data_ov016_02158acc) = arg0;
     t0 = *(u8 *)(data_ov016_02154b4c + arg0);
-    v0 = func_ov016_02144224(t0, (s32)data_ov016_02154b4c);
+    v0 = calcColumnIdx(t0, (s32)data_ov016_02154b4c);
     *(u8 *)(data_ov016_02158acc + 0x2) = v0;
-    v1 = func_ov016_0214446c();
+    v1 = dispFocus_4();
     return v1;
 }
 
-extern "C" asm void func_ov016_02144614(void)
+extern "C" asm void moveFocus_6(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
-    bl func_ov016_02149918
+    bl DWCi_SETTIGNlGet
     ldr r6, =data_ov016_02158acc
     mov r4, #0
     ldrb r1, [r6]
@@ -1794,7 +1794,7 @@ extern "C" asm void func_ov016_02144614(void)
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     ldr r0, [r6, #8]
     mov r1, #1
     strb r1, [r0, #0x47]
@@ -1807,9 +1807,9 @@ extern "C" asm void func_ov016_02144614(void)
     strb r5, [r6]
     strb r5, [r6, #2]
     strh r5, [r6, #4]
-    bl func_ov016_02143708
+    bl drawWindow
     mov r0, r5
-    bl func_ov016_02148ec0
+    bl DWCi_SBlSet
     b @L_02144878
 @L_02144724:
     ldr r0, [r6, #8]
@@ -1822,9 +1822,9 @@ extern "C" asm void func_ov016_02144614(void)
     strb r0, [r6, #2]
     mov r0, #0x91
     strh r0, [r6, #4]
-    bl func_ov016_02143708
+    bl drawWindow
     mov r0, #0x37
-    bl func_ov016_02148ec0
+    bl DWCi_SBlSet
     b @L_02144878
 @L_0214475c:
     cmp r5, #3
@@ -1834,7 +1834,7 @@ extern "C" asm void func_ov016_02144614(void)
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     ldr r0, [r6, #8]
     mov r1, #1
     strb r1, [r0, #0x47]
@@ -1855,12 +1855,12 @@ extern "C" asm void func_ov016_02144614(void)
     strneb r0, [r6, #2]
     bne @L_02144878
     mov r0, #0x13
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r0, #0
-    ldr r1, =func_ov016_0214428c
+    ldr r1, =taskUp_2
     mov r2, r0
     mov r3, #0x78
-    bl func_ov016_02151b94
+    bl DWCi_TSKlForm
     ldr r1, [r6, #8]
     str r0, [r1, #0x38]
     ldmia sp!, {r4, r5, r6, pc}
@@ -1873,12 +1873,12 @@ extern "C" asm void func_ov016_02144614(void)
     strlob r0, [r6, #2]
     blo @L_02144878
     mov r0, #0x13
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r0, #0
-    ldr r1, =func_ov016_02144350
+    ldr r1, =taskDown_2
     mov r2, r0
     mov r3, #0x78
-    bl func_ov016_02151b94
+    bl DWCi_TSKlForm
     ldr r1, [r6, #8]
     str r0, [r1, #0x38]
     ldmia sp!, {r4, r5, r6, pc}
@@ -1901,31 +1901,31 @@ extern "C" asm void func_ov016_02144614(void)
     strb r0, [r6]
 @L_0214486c:
     mov r0, #8
-    bl func_ov016_0214a4c0
-    bl func_ov016_0214446c
+    bl DWCi_SNDlPlay
+    bl dispFocus_4
 @L_02144878:
     cmp r4, #2
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r0, #8
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     cmp r4, #0
     ldmneia sp!, {r4, r5, r6, pc}
-    bl func_ov016_02144544
+    bl applyForcus
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov016_021448a4(void)
+extern "C" s32 dispPushButton_3(void)
 {
     s32 v0;
     s32 t0;
     u8 t1;
     t0 = *(s32 *)(*(u8 * *)(((u8 *)&data_ov016_02158acc) + 0x8) + 0x10);
     t1 = *(u8 *)(((u8 *)&data_ov016_02154b18) + (*(u8 *)(((u8 *)&data_ov016_02158acc)) - 0xB));
-    v0 = func_ov016_02148cc4(t0, t1, t1);
+    v0 = DWCi_SCREENlCopyPalette(t0, t1, t1);
     return v0;
 }
 
-extern "C" s32 func_ov016_021448d8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
+extern "C" s32 taskPushCount(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     u8 *r5;
@@ -1938,7 +1938,7 @@ extern "C" s32 func_ov016_021448d8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
             *(u8 *)(arg1 + 0x4) = (arg0 - 1);
             arg0 = *(u8 *)(((u8 *)(*(s32 *)(r5 + 0x8) + r4)) + 0x4);
             if (arg0 == 0) {
-                s32 v0 = func_ov016_02143708();
+                s32 v0 = drawWindow();
                 arg0 = v0;
             }
         }
@@ -1947,7 +1947,7 @@ extern "C" s32 func_ov016_021448d8(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
     return arg0;
 }
 
-extern "C" asm void func_ov016_0214492c(void)
+extern "C" asm void pushButtonYesNo(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -1993,79 +1993,79 @@ extern "C" asm void func_ov016_0214492c(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" s32 func_ov016_021449d4(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 isCorrect_3(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     u8 *r4;
-    s32 v0 = func_ov016_02149918(arg0, arg1, arg2, arg3);
+    s32 v0 = DWCi_SETTIGNlGet(arg0, arg1, arg2, arg3);
     if (*(u8 *)(((u8 *)v0) + 0x40) == 0)
         return 0;
     r4 = (u8 *)v0;
     if (*(u8 *)(r4 + 0xF6) == 0) {
-        s32 v1 = func_ov014_0210f61c((r4 + 0xC8));
+        s32 v1 = DWC_BACKUPlCheckAddress((r4 + 0xC8));
         if (v1 == 0) {
-            s32 v2 = func_ov014_0210f61c((r4 + 0xCC));
+            s32 v2 = DWC_BACKUPlCheckAddress((r4 + 0xCC));
             if (v2 == 0)
                 return 0;
         }
     }
     if (*(u8 *)(r4 + 0xF5) == 0) {
-        s32 v3 = func_ov014_0210f61c((r4 + 0xC0));
+        s32 v3 = DWC_BACKUPlCheckAddress((r4 + 0xC0));
         if (v3 == 0)
             return 0;
-        s32 v4 = func_ov014_0210f61c((r4 + 0xC4));
+        s32 v4 = DWC_BACKUPlCheckAddress((r4 + 0xC4));
         if (v4 == 0)
             return 0;
-        s32 v5 = func_ov014_0210f5b4((r4 + 0xC0), (r4 + 0xF0));
+        s32 v5 = DWC_BACKUPlCheckIp((r4 + 0xC0), (r4 + 0xF0));
         if (v5 == 0)
             return 0;
     }
     return 1;
 }
 
-extern "C" void func_ov016_02144a74(void)
+extern "C" void procError_5(void)
 {
-    s32 v0 = func_ov016_0214ba7c();
+    s32 v0 = DWCi_WINlGet();
     if (v0 != 0)
         return;
-    func_ov016_0214a4c0(6);
-    func_ov016_0214ba38();
-    func_ov016_02148d2c(*(s32 *)(*(u8 * *)(data_ov016_02158acc + 0x8) + 0xC));
-    func_ov016_0213b354((s32)func_ov016_02144ab4);
+    DWCi_SNDlPlay(6);
+    DWCi_WINlEnd();
+    DWCi_SCREENlSetPalette(*(s32 *)(*(u8 * *)(data_ov016_02158acc + 0x8) + 0xC));
+    DWCi_ChangeScene((s32)procError1_5);
 }
 
-extern "C" void func_ov016_02144ab4(void)
+extern "C" void procError1_5(void)
 {
-    s32 v0 = func_ov016_0214ba90();
+    s32 v0 = DWCi_WINlIsInit();
     if (v0 != 0)
         return;
-    func_ov016_0213b354((s32)func_ov016_02142ca8);
+    DWCi_ChangeScene((s32)procScene_20);
 }
 
-extern "C" void func_ov016_02144ad4(u8 arg0)
+extern "C" void DWCi_SetListReturn(u8 arg0)
 {
     *(u8 *)(data_ov016_02158acc + 0x1) = arg0;
 }
 
-extern "C" void func_ov016_02144ae4(void)
+extern "C" void DWCi_SceneSetListSave(void)
 {
-    func_ov016_02144b04();
-    func_ov016_02137c04();
-    func_ov016_02149dec();
-    func_ov016_0213b354((s32)func_ov016_02144b98);
+    initGraphics_21();
+    DWCi_HLlLoadSet();
+    DWCi_SETTINGlSet();
+    DWCi_ChangeScene((s32)procInit_21);
 }
 
-extern "C" asm s32 func_ov016_02144b04(...)
+extern "C" asm s32 initGraphics_21(...)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_ov016_02155af0
-    ldr r1, =func_02003ad8
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Char
+    bl DWCi_CMNlLoadResource
     ldr r0, =data_ov016_02155b08
-    ldr r1, =func_02003298
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBGPltt
+    bl DWCi_CMNlLoadResource
     ldr r0, =data_ov016_02155b20
-    ldr r1, =func_02003758
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Scr
+    bl DWCi_CMNlLoadResource
     ldr r2, =0x4001008
     ldr r1, =0x400000a
     ldrh r0, [r2]
@@ -2087,68 +2087,68 @@ extern "C" asm s32 func_ov016_02144b04(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02144b98(void)
+extern "C" void procInit_21(void)
 {
-    func_ov016_0214fab8(2, 1, 1, 8);
-    func_ov016_0214fab8(2, 0, 0x14, 8);
-    func_ov016_02150550(1, 1);
-    func_ov016_02150550(0, 0x14);
-    func_ov016_0213b354((s32)func_ov016_02144c00);
+    DWCi_EFFlFade(2, 1, 1, 8);
+    DWCi_EFFlFade(2, 0, 0x14, 8);
+    DWCi_GXlVisible(1, 1);
+    DWCi_GXlVisible(0, 0x14);
+    DWCi_ChangeScene((s32)procInit1_21);
 }
 
-extern "C" void func_ov016_02144c00(void)
+extern "C" void procInit1_21(void)
 {
-    s32 v0 = func_ov016_0214fa94(1);
+    s32 v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return;
-    s32 v1 = func_ov016_0214fa94(0);
+    s32 v1 = DWCi_EFFlCheck(0);
     if (v1 != 0)
         return;
-    func_ov016_0214b71c(0x44, 5, 1, (5 - 6), 0);
-    func_ov016_0213b354((s32)func_ov016_02144c54);
+    DWCi_WINlInitEx(0x44, 5, 1, (5 - 6), 0);
+    DWCi_ChangeScene((s32)procScene_21);
 }
 
-extern "C" void func_ov016_02144c54(void)
+extern "C" void procScene_21(void)
 {
-    func_ov016_02144c7c();
-    func_ov016_02144c80();
-    s32 v2 = func_ov016_0214ba90();
+    input_19();
+    draw_21();
+    s32 v2 = DWCi_WINlIsInit();
     if (v2 != 0)
         return;
-    func_ov016_0213b354((s32)func_ov016_02144c84);
+    DWCi_ChangeScene((s32)endScene_22);
 }
 
-extern "C" void func_ov016_02144c7c(void)
+extern "C" void input_19(void)
 {
 }
 
-extern "C" void func_ov016_02144c80(void)
+extern "C" void draw_21(void)
 {
 }
 
-extern "C" void func_ov016_02144c84(void)
+extern "C" void endScene_22(void)
 {
-    func_ov016_0214fab8(3, 1, 1, 8);
-    func_ov016_0214fab8(3, 0, 0x14, 8);
-    func_ov016_0213b354((s32)func_ov016_02144cc8);
+    DWCi_EFFlFade(3, 1, 1, 8);
+    DWCi_EFFlFade(3, 0, 0x14, 8);
+    DWCi_ChangeScene((s32)endScene1_21);
 }
 
-extern "C" void func_ov016_02144cc8(void)
+extern "C" void endScene1_21(void)
 {
-    s32 v0 = func_ov016_0214fa94(1);
+    s32 v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return;
-    s32 v1 = func_ov016_0214fa94(0);
+    s32 v1 = DWCi_EFFlCheck(0);
     if (v1 != 0)
         return;
-    func_ov016_02137668();
-    func_ov016_021505a4(1, 1);
-    func_ov016_021505a4(0, 0x14);
-    func_ov016_0213b364(2, 1);
-    func_ov016_0213b354((s32)func_ov016_021461a4);
+    DWCi_COMMENTlDelete();
+    DWCi_GXlInvisible(1, 1);
+    DWCi_GXlInvisible(0, 0x14);
+    DWCi_SetParam_(2, 1);
+    DWCi_ChangeScene((s32)DWCi_SceneSetSelectAp);
 }
 
-extern "C" s32 func_ov016_02144d2c(void)
+extern "C" s32 DWCi_IsFold_3(void)
 {
     s32 r0;
     if (((*(u16 *)(((u8 *)0x2FFFFA8)) & 0x8000) >> 0xF) != 0) {
@@ -2159,22 +2159,22 @@ extern "C" s32 func_ov016_02144d2c(void)
     return r0;
 }
 
-extern "C" void func_ov016_02144d4c(void)
+extern "C" void DWCi_SceneSetRakuButton(void)
 {
     *(u8 *)(data_ov016_02158ad8) = 0;
-    func_ov016_02144d88((s32)data_ov016_02158ad8, 0);
-    func_ov016_02137c04();
-    func_ov016_021377cc(0x25);
-    func_ov016_02136d50(1);
-    func_ov016_0213b354((s32)func_ov016_02144e08);
+    initGraphics_22((s32)data_ov016_02158ad8, 0);
+    DWCi_HLlLoadSet();
+    DWCi_CMNlMsgDraw(0x25);
+    DWCi_ANIMElInitEx(1);
+    DWCi_ChangeScene((s32)procInit_22);
 }
 
-extern "C" asm s32 func_ov016_02144d88(...)
+extern "C" asm s32 initGraphics_22(...)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_ov016_02155b34
-    ldr r1, =func_02003758
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Scr
+    bl DWCi_CMNlLoadResource
     ldr r3, =0x4001008
     ldr r1, =0x400000a
     ldrh r0, [r3]
@@ -2201,103 +2201,103 @@ extern "C" asm s32 func_ov016_02144d88(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02144e08(void)
+extern "C" void procInit_22(void)
 {
-    func_ov016_0214fab8(2, 0, 0x15, 8);
-    func_ov016_02150550(0, 0x15);
-    func_ov016_0213b354((s32)func_ov016_02144e44);
+    DWCi_EFFlFade(2, 0, 0x15, 8);
+    DWCi_GXlVisible(0, 0x15);
+    DWCi_ChangeScene((s32)procInit1_22);
 }
 
-extern "C" void func_ov016_02144e44(void)
+extern "C" void procInit1_22(void)
 {
-    s32 v0 = func_ov016_0214fa94(0);
+    s32 v0 = DWCi_EFFlCheck(0);
     if (v0 != 0)
         return;
-    func_ov016_02137794(1);
-    func_ov016_0213b354((s32)func_ov016_02144e70);
+    DWCi_CMNlButton(1);
+    DWCi_ChangeScene((s32)procInit2_17);
 }
 
-extern "C" void func_ov016_02144e70(void)
+extern "C" void procInit2_17(void)
 {
-    s32 v0 = func_ov016_02137044();
+    s32 v0 = DWCi_BTNlGet();
     if (v0 == -2)
         return;
-    func_ov016_021370b4();
-    func_ov016_0213b354((s32)func_ov016_02144e94);
+    DWCi_BTNlEnable();
+    DWCi_ChangeScene((s32)procScene_22);
 }
 
-extern "C" void func_ov016_02144e94(void)
+extern "C" void procScene_22(void)
 {
     OS_Sleep(10);
-    func_ov016_0214507c();
-    func_ov016_02144eb4();
-    func_ov016_02144eec();
-    func_ov016_02144ef0();
+    checkRaku();
+    input_20();
+    draw_22();
+    button_14();
 }
 
-extern "C" asm s32 func_ov016_02144eb4(...)
+extern "C" asm s32 input_20(...)
 {
     stmdb sp!, {r3, lr}
     mov r0, #2
-    bl func_ov016_02150d38
+    bl DWCi_IPTlCheckTrigger
     cmp r0, #0
     beq @L_02144ed4
     mov r0, #0
-    bl func_ov016_02137058
+    bl DWCi_BTNlSet
     ldmia sp!, {r3, pc}
 @L_02144ed4:
-    bl func_ov016_02144d2c
+    bl DWCi_IsFold_3
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
     mov r0, #0
-    bl func_ov016_02137058
+    bl DWCi_BTNlSet
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02144eec(void)
+extern "C" void draw_22(void)
 {
 }
 
-extern "C" asm s32 func_ov016_02144ef0(...)
+extern "C" asm s32 button_14(...)
 {
     stmdb sp!, {r3, lr}
-    bl func_ov016_02137044
+    bl DWCi_BTNlGet
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     mov r0, #7
-    bl func_ov016_0214a4c0
-    ldr r0, =func_ov016_02144f1c
-    bl func_ov016_0213b354
+    bl DWCi_SNDlPlay
+    ldr r0, =endScene_23
+    bl DWCi_ChangeScene
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02144f1c(void)
+extern "C" void endScene_23(void)
 {
-    func_ov016_021370cc();
-    func_ov016_0214fca4(8);
-    func_ov016_0213b354((s32)func_ov016_02144f3c);
+    DWCi_BTNlDisable();
+    DWCi_EFFlWait(8);
+    DWCi_ChangeScene((s32)endScene1_22);
 }
 
-extern "C" s32 func_ov016_02144f3c(void)
+extern "C" s32 endScene1_22(void)
 {
     s32 v0;
     s32 v4;
-    v0 = func_ov016_0214fa94(1);
+    v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return v0;
     if (*(u8 *)(data_ov016_02158ad8) == 0) {
-        func_ov016_02137014();
+        DWCi_BTNlEnd();
     }
     if (*(u8 *)(data_ov016_02158ad8) == 0) {
-        func_ov016_0214fab8(3, 1, 1, 8);
+        DWCi_EFFlFade(3, 1, 1, 8);
     }
-    func_ov016_0214fab8(3, 0, 0x15, 8);
-    v4 = func_ov016_0213b354((s32)func_ov016_02144fb0);
+    DWCi_EFFlFade(3, 0, 0x15, 8);
+    v4 = DWCi_ChangeScene((s32)endScene2_18);
     return v4;
 }
 
-extern "C" s32 func_ov016_02144fb0(void)
+extern "C" s32 endScene2_18(void)
 {
     s32 r4;
     s32 v0;
@@ -2305,42 +2305,42 @@ extern "C" s32 func_ov016_02144fb0(void)
     s32 v2;
     s32 v10;
     s32 v12;
-    v0 = func_ov016_0214fa94(0);
+    v0 = DWCi_EFFlCheck(0);
     if (v0 != 0)
         return v0;
     if (*(u8 *)(data_ov016_02158ad8) == 0) {
-        v1 = func_ov016_0214fa94(1);
+        v1 = DWCi_EFFlCheck(1);
         if (v1 != 0)
             return v1;
     }
-    v2 = func_ov016_02137088();
+    v2 = DWCi_BTNlIsEnd();
     if (v2 == 0)
         return v2;
-    func_ov016_02136e1c();
-    func_ov016_021501bc(0);
+    DWCi_ANIMElEnd();
+    DWCi_FNTlDeleteBgLcd(0);
     if (*(u8 *)(data_ov016_02158ad8) == 0) {
-        func_ov016_02137668();
-        func_ov016_021505a4(1, 1);
+        DWCi_COMMENTlDelete();
+        DWCi_GXlInvisible(1, 1);
     }
-    func_ov016_021505a4(0, 0x15);
+    DWCi_GXlInvisible(0, 0x15);
     r4 = 0;
     if (*(u8 *)(data_ov016_02158ad8) == 0) {
-        func_ov016_0213ba08();
-        func_ov016_0213b364(2, 1);
-        v10 = func_ov016_0213b354((s32)func_ov016_02146eac);
+        DWCi_RAKUlEnd();
+        DWCi_SetParam_(2, 1);
+        v10 = DWCi_ChangeScene((s32)DWCi_SceneSetSelectWay);
         return v10;
     } else {
-        func_ov016_0213b364(r4, r4);
-        v12 = func_ov016_0213b354((s32)func_ov016_02145178);
+        DWCi_SetParam_(r4, r4);
+        v12 = DWCi_ChangeScene((s32)DWCi_SceneSetRakuButton1);
         return v12;
     }
 }
 
-extern "C" asm s32 func_ov016_0214507c(...)
+extern "C" asm s32 checkRaku(...)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    bl func_ov016_0213ba2c
+    bl DWCi_RAKUlGetState
     cmp r0, #2
     beq @L_021450a0
     cmp r0, #4
@@ -2350,50 +2350,50 @@ extern "C" asm s32 func_ov016_0214507c(...)
 @L_021450a0:
     ldr r1, =data_ov016_02158ad8
     mov r2, #1
-    ldr r0, =func_ov016_02144f1c
+    ldr r0, =endScene_23
     strb r2, [r1]
-    bl func_ov016_0213b354
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_021450bc:
     ldr r0, =data_ov016_02158ad8
     mov r4, #0
     strb r4, [r0]
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r1, #1
     mov r2, r1
     sub r3, r1, #2
     mov r0, #0xd
     str r4, [sp]
-    bl func_ov016_0214b71c
-    bl func_ov016_021370cc
-    ldr r0, =func_ov016_0214510c
-    bl func_ov016_0213b354
+    bl DWCi_WINlInitEx
+    bl DWCi_BTNlDisable
+    ldr r0, =procError_6
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" void func_ov016_0214510c(void)
+extern "C" void procError_6(void)
 {
-    s32 v0 = func_ov016_0214ba7c();
+    s32 v0 = DWCi_WINlGet();
     if (v0 != 0)
         return;
-    func_ov016_0214a4c0(6);
-    func_ov016_0214ba38();
-    func_ov016_0213b354((s32)func_ov016_02145138);
+    DWCi_SNDlPlay(6);
+    DWCi_WINlEnd();
+    DWCi_ChangeScene((s32)procError1_6);
 }
 
-extern "C" void func_ov016_02145138(void)
+extern "C" void procError1_6(void)
 {
-    s32 v0 = func_ov016_0214ba90();
+    s32 v0 = DWCi_WINlIsInit();
     if (v0 != 0)
         return;
-    func_ov016_0213b354((s32)func_ov016_02144f1c);
+    DWCi_ChangeScene((s32)endScene_23);
 }
 
-extern "C" s32 func_ov016_02145158(void)
+extern "C" s32 DWCi_IsFold_4(void)
 {
     s32 r0;
     if (((*(u16 *)(((u8 *)0x2FFFFA8)) & 0x8000) >> 0xF) != 0) {
@@ -2404,22 +2404,22 @@ extern "C" s32 func_ov016_02145158(void)
     return r0;
 }
 
-extern "C" void func_ov016_02145178(void)
+extern "C" void DWCi_SceneSetRakuButton1(void)
 {
     *(u8 *)(data_ov016_02158adc) = 0;
-    func_ov016_021451b4((s32)data_ov016_02158adc, 0);
-    func_ov016_02137c04();
-    func_ov016_021377cc(0x2A);
-    func_ov016_02136d50(2);
-    func_ov016_0213b354((s32)func_ov016_02145234);
+    initGraphics_23((s32)data_ov016_02158adc, 0);
+    DWCi_HLlLoadSet();
+    DWCi_CMNlMsgDraw(0x2A);
+    DWCi_ANIMElInitEx(2);
+    DWCi_ChangeScene((s32)procInit_23);
 }
 
-extern "C" asm s32 func_ov016_021451b4(...)
+extern "C" asm s32 initGraphics_23(...)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_ov016_02155b48
-    ldr r1, =func_02003758
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Scr
+    bl DWCi_CMNlLoadResource
     ldr r3, =0x4001008
     ldr r1, =0x400000a
     ldrh r0, [r3]
@@ -2446,143 +2446,143 @@ extern "C" asm s32 func_ov016_021451b4(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145234(void)
+extern "C" void procInit_23(void)
 {
-    func_ov016_0214fab8(2, 0, 0x15, 8);
-    func_ov016_02150550(0, 0x15);
-    func_ov016_0213b354((s32)func_ov016_02145270);
+    DWCi_EFFlFade(2, 0, 0x15, 8);
+    DWCi_GXlVisible(0, 0x15);
+    DWCi_ChangeScene((s32)procInit1_23);
 }
 
-extern "C" void func_ov016_02145270(void)
+extern "C" void procInit1_23(void)
 {
-    s32 v0 = func_ov016_0214fa94(0);
+    s32 v0 = DWCi_EFFlCheck(0);
     if (v0 != 0)
         return;
-    func_ov016_02137794(1);
-    func_ov016_0213b354((s32)func_ov016_0214529c);
+    DWCi_CMNlButton(1);
+    DWCi_ChangeScene((s32)procInit2_18);
 }
 
-extern "C" void func_ov016_0214529c(void)
+extern "C" void procInit2_18(void)
 {
-    s32 v0 = func_ov016_02137044();
+    s32 v0 = DWCi_BTNlGet();
     if (v0 == -2)
         return;
-    func_ov016_021370b4();
-    func_ov016_0213b354((s32)func_ov016_021452c0);
+    DWCi_BTNlEnable();
+    DWCi_ChangeScene((s32)procScene_23);
 }
 
-extern "C" void func_ov016_021452c0(void)
+extern "C" void procScene_23(void)
 {
     OS_Sleep(10);
-    func_ov016_0214548c();
-    func_ov016_021452e0();
-    func_ov016_02145318();
-    func_ov016_0214531c();
+    checkRaku_2();
+    input_21();
+    draw_23();
+    button_15();
 }
 
-extern "C" asm s32 func_ov016_021452e0(...)
+extern "C" asm s32 input_21(...)
 {
     stmdb sp!, {r3, lr}
     mov r0, #2
-    bl func_ov016_02150d38
+    bl DWCi_IPTlCheckTrigger
     cmp r0, #0
     beq @L_02145300
     mov r0, #0
-    bl func_ov016_02137058
+    bl DWCi_BTNlSet
     ldmia sp!, {r3, pc}
 @L_02145300:
-    bl func_ov016_02145158
+    bl DWCi_IsFold_4
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
     mov r0, #0
-    bl func_ov016_02137058
+    bl DWCi_BTNlSet
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145318(void)
+extern "C" void draw_23(void)
 {
 }
 
-extern "C" asm s32 func_ov016_0214531c(...)
+extern "C" asm s32 button_15(...)
 {
     stmdb sp!, {r3, lr}
-    bl func_ov016_02137044
+    bl DWCi_BTNlGet
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     mov r0, #7
-    bl func_ov016_0214a4c0
-    ldr r0, =func_ov016_02145348
-    bl func_ov016_0213b354
+    bl DWCi_SNDlPlay
+    ldr r0, =endScene_24
+    bl DWCi_ChangeScene
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145348(void)
+extern "C" void endScene_24(void)
 {
-    func_ov016_021370cc();
-    func_ov016_0214fca4(8);
-    func_ov016_0213b354((s32)func_ov016_02145368);
+    DWCi_BTNlDisable();
+    DWCi_EFFlWait(8);
+    DWCi_ChangeScene((s32)endScene1_23);
 }
 
-extern "C" s32 func_ov016_02145368(void)
+extern "C" s32 endScene1_23(void)
 {
     s32 r4;
     s32 v0;
     s32 v4;
-    v0 = func_ov016_0214fa94(1);
+    v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return v0;
-    func_ov016_02137014();
+    DWCi_BTNlEnd();
     r4 = 1;
     if (*(u8 *)(data_ov016_02158adc) == 0) {
-        func_ov016_0214fab8(3, r4, r4, 8);
+        DWCi_EFFlFade(3, r4, r4, 8);
     }
-    func_ov016_0214fab8(3, 0, 0x15, 8);
-    v4 = func_ov016_0213b354((s32)func_ov016_021453d0);
+    DWCi_EFFlFade(3, 0, 0x15, 8);
+    v4 = DWCi_ChangeScene((s32)endScene2_19);
     return v4;
 }
 
-extern "C" s32 func_ov016_021453d0(void)
+extern "C" s32 endScene2_19(void)
 {
     s32 v0;
     s32 v1;
     s32 v2;
     s32 v9;
     s32 v11;
-    v0 = func_ov016_0214fa94(0);
+    v0 = DWCi_EFFlCheck(0);
     if (v0 != 0)
         return v0;
     if (*(u8 *)(data_ov016_02158adc) == 0) {
-        v1 = func_ov016_0214fa94(1);
+        v1 = DWCi_EFFlCheck(1);
         if (v1 != 0)
             return v1;
     }
-    v2 = func_ov016_02137088();
+    v2 = DWCi_BTNlIsEnd();
     if (v2 == 0)
         return v2;
-    func_ov016_02136e1c();
-    func_ov016_021501bc(0);
+    DWCi_ANIMElEnd();
+    DWCi_FNTlDeleteBgLcd(0);
     if (*(u8 *)(data_ov016_02158adc) == 0) {
-        func_ov016_02137668();
-        func_ov016_021505a4(1, 1);
+        DWCi_COMMENTlDelete();
+        DWCi_GXlInvisible(1, 1);
     }
-    func_ov016_0213ba08();
+    DWCi_RAKUlEnd();
     if (*(u8 *)(data_ov016_02158adc) == 0) {
-        func_ov016_0213b364(2, 1);
-        v9 = func_ov016_0213b354((s32)func_ov016_02146eac);
+        DWCi_SetParam_(2, 1);
+        v9 = DWCi_ChangeScene((s32)DWCi_SceneSetSelectWay);
         return v9;
     } else {
-        func_ov016_0213b364(0, 0);
-        v11 = func_ov016_0213b354((s32)func_ov016_021455bc);
+        DWCi_SetParam_(0, 0);
+        v11 = DWCi_ChangeScene((s32)DWCi_SceneSetRakuComplete);
         return v11;
     }
 }
 
-extern "C" asm s32 func_ov016_0214548c(...)
+extern "C" asm s32 checkRaku_2(...)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    bl func_ov016_0213ba2c
+    bl DWCi_RAKUlGetState
     cmp r0, #3
     beq @L_021454b8
     cmp r0, #4
@@ -2595,84 +2595,84 @@ extern "C" asm s32 func_ov016_0214548c(...)
     ldr r0, =data_ov016_02158adc
     mov r1, #1
     strb r1, [r0]
-    bl func_ov016_0214a528
-    bl func_ov016_0213bae4
-    ldr r0, =func_ov016_02145348
-    bl func_ov016_0213b354
+    bl DWCi_SNDlStop
+    bl DWCi_RAKUlSetResult
+    ldr r0, =endScene_24
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_021454dc:
     ldr r0, =data_ov016_02158adc
     mov r4, #0
     strb r4, [r0]
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r1, #1
     mov r2, r1
     sub r3, r1, #2
     mov r0, #0xd
     str r4, [sp]
-    bl func_ov016_0214b71c
-    bl func_ov016_021370cc
-    ldr r0, =func_ov016_02145570
-    bl func_ov016_0213b354
+    bl DWCi_WINlInitEx
+    bl DWCi_BTNlDisable
+    ldr r0, =procError_7
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02145520:
     ldr r0, =data_ov016_02158adc
     mov r4, #0
     strb r4, [r0]
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     mov r0, #0x12
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r1, #1
     mov r2, r1
     sub r3, r1, #2
     mov r0, #0xe
     str r4, [sp]
-    bl func_ov016_0214b71c
-    bl func_ov016_021370cc
-    ldr r0, =func_ov016_02145570
-    bl func_ov016_0213b354
+    bl DWCi_WINlInitEx
+    bl DWCi_BTNlDisable
+    ldr r0, =procError_7
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" void func_ov016_02145570(void)
+extern "C" void procError_7(void)
 {
-    s32 v0 = func_ov016_0214ba7c();
+    s32 v0 = DWCi_WINlGet();
     if (v0 != 0)
         return;
-    func_ov016_0214a4c0(6);
-    func_ov016_0214ba38();
-    func_ov016_0213b354((s32)func_ov016_0214559c);
+    DWCi_SNDlPlay(6);
+    DWCi_WINlEnd();
+    DWCi_ChangeScene((s32)procError1_7);
 }
 
-extern "C" void func_ov016_0214559c(void)
+extern "C" void procError1_7(void)
 {
-    s32 v0 = func_ov016_0214ba90();
+    s32 v0 = DWCi_WINlIsInit();
     if (v0 != 0)
         return;
-    func_ov016_0213b354((s32)func_ov016_02145348);
+    DWCi_ChangeScene((s32)endScene_24);
 }
 
-extern "C" void func_ov016_021455bc(void)
+extern "C" void DWCi_SceneSetRakuComplete(void)
 {
     *(u8 *)(data_ov016_02158ae0) = 0;
-    func_ov016_021455f8((s32)data_ov016_02158ae0, 0);
-    func_ov016_02137c04();
-    func_ov016_021377cc(0x26);
-    func_ov016_0214a4c0(0x10);
-    func_ov016_0213b354((s32)func_ov016_02145678);
+    initGraphics_24((s32)data_ov016_02158ae0, 0);
+    DWCi_HLlLoadSet();
+    DWCi_CMNlMsgDraw(0x26);
+    DWCi_SNDlPlay(0x10);
+    DWCi_ChangeScene((s32)procInit_24);
 }
 
-extern "C" asm s32 func_ov016_021455f8(...)
+extern "C" asm s32 initGraphics_24(...)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_ov016_02155b5c
-    ldr r1, =func_02003758
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Scr
+    bl DWCi_CMNlLoadResource
     ldr r3, =0x4001008
     ldr r1, =0x400000a
     ldrh r0, [r3]
@@ -2699,56 +2699,56 @@ extern "C" asm s32 func_ov016_021455f8(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145678(void)
+extern "C" void procInit_24(void)
 {
-    func_ov016_0214fab8(2, 0, 0x15, 8);
-    func_ov016_02150550(0, 0x15);
-    func_ov016_0213b354((s32)func_ov016_021456b4);
+    DWCi_EFFlFade(2, 0, 0x15, 8);
+    DWCi_GXlVisible(0, 0x15);
+    DWCi_ChangeScene((s32)procInit1_24);
 }
 
-extern "C" void func_ov016_021456b4(void)
+extern "C" void procInit1_24(void)
 {
-    s32 v0 = func_ov016_0214fa94(0);
+    s32 v0 = DWCi_EFFlCheck(0);
     if (v0 != 0)
         return;
-    func_ov016_0213b354((s32)func_ov016_021456d8);
+    DWCi_ChangeScene((s32)procScene_24);
 }
 
-extern "C" void func_ov016_021456d8(void)
+extern "C" void procScene_24(void)
 {
-    func_ov016_021457a8();
-    func_ov016_021456e8();
+    wait_3();
+    draw_24();
 }
 
-extern "C" void func_ov016_021456e8(void)
+extern "C" void draw_24(void)
 {
 }
 
-extern "C" void func_ov016_021456ec(void)
+extern "C" void endScene_25(void)
 {
-    func_ov016_0214fab8(3, 1, 1, 8);
-    func_ov016_0214fab8(3, 0, 0x15, 8);
-    func_ov016_0213b354((s32)func_ov016_02145730);
+    DWCi_EFFlFade(3, 1, 1, 8);
+    DWCi_EFFlFade(3, 0, 0x15, 8);
+    DWCi_ChangeScene((s32)endScene1_24);
 }
 
-extern "C" void func_ov016_02145730(void)
+extern "C" void endScene1_24(void)
 {
-    s32 v0 = func_ov016_0214fa94(1);
+    s32 v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return;
-    s32 v1 = func_ov016_0214fa94(0);
+    s32 v1 = DWCi_EFFlCheck(0);
     if (v1 != 0)
         return;
-    func_ov016_021501bc(0);
-    func_ov016_02137668();
-    func_ov016_021505a4(1, 1);
-    func_ov016_021505a4(0, 0x15);
-    func_ov016_0213b364(0, 0);
-    func_ov016_0213b3a0(0, 1);
-    func_ov016_0213b354((s32)func_ov016_02147d20);
+    DWCi_FNTlDeleteBgLcd(0);
+    DWCi_COMMENTlDelete();
+    DWCi_GXlInvisible(1, 1);
+    DWCi_GXlInvisible(0, 0x15);
+    DWCi_SetParam_(0, 0);
+    DWCi_SetParam2_(0, 1);
+    DWCi_ChangeScene((s32)DWCi_SceneSetTestConfirm);
 }
 
-extern "C" asm s32 func_ov016_021457a8(...)
+extern "C" asm s32 wait_3(...)
 {
     stmdb sp!, {r3, lr}
     ldr r1, =data_ov016_02158ae0
@@ -2758,12 +2758,12 @@ extern "C" asm s32 func_ov016_021457a8(...)
     strb r0, [r1]
     cmp r2, #0x78
     ldmloia sp!, {r3, pc}
-    ldr r0, =func_ov016_021456ec
-    bl func_ov016_0213b354
+    ldr r0, =endScene_25
+    bl DWCi_ChangeScene
     ldmia sp!, {r3, pc}
 }
 
-extern "C" s32 func_ov016_021457dc(void)
+extern "C" s32 DWCi_IsFold_5(void)
 {
     s32 r0;
     if (((*(u16 *)(((u8 *)0x2FFFFA8)) & 0x8000) >> 0xF) != 0) {
@@ -2774,31 +2774,31 @@ extern "C" s32 func_ov016_021457dc(void)
     return r0;
 }
 
-extern "C" void func_ov016_021457fc(void)
+extern "C" void DWCi_SceneSetRakuReady(void)
 {
     *(u8 *)(data_ov016_02158ae4) = 0;
-    func_ov016_02145858((s32)data_ov016_02158ae4);
-    func_ov016_02137c04();
-    func_ov016_02137590(0x37, (0x37 - 0x38), 0);
-    func_ov016_02137744(2);
-    func_ov016_021377cc(0x24);
-    func_ov016_02136d50(0);
-    func_ov016_0214a4c0(0xB);
-    func_ov016_0213b354((s32)func_ov016_02145900);
+    initGraphics_25((s32)data_ov016_02158ae4);
+    DWCi_HLlLoadSet();
+    DWCi_COMMENTlDispEx(0x37, (0x37 - 0x38), 0);
+    DWCi_CMNlStep(2);
+    DWCi_CMNlMsgDraw(0x24);
+    DWCi_ANIMElInitEx(0);
+    DWCi_SNDlPlay(0xB);
+    DWCi_ChangeScene((s32)procInit_25);
 }
 
-extern "C" asm s32 func_ov016_02145858(...)
+extern "C" asm s32 initGraphics_25(...)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_ov016_02155b70
-    ldr r1, =func_02003ad8
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Char
+    bl DWCi_CMNlLoadResource
     ldr r0, =data_ov016_02155b88
-    ldr r1, =func_02003298
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBGPltt
+    bl DWCi_CMNlLoadResource
     ldr r0, =data_ov016_02155ba0
-    ldr r1, =func_02003758
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Scr
+    bl DWCi_CMNlLoadResource
     ldr r3, =0x4001008
     ldr r1, =0x400000a
     ldrh r0, [r3]
@@ -2825,109 +2825,109 @@ extern "C" asm s32 func_ov016_02145858(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145900(void)
+extern "C" void procInit_25(void)
 {
-    func_ov016_0214fab8(2, 1, 1, 8);
-    func_ov016_0214fab8(2, 0, 0x15, 8);
-    func_ov016_02150550(1, 1);
-    func_ov016_02150550(0, 0x15);
-    func_ov016_0213b354((s32)func_ov016_02145968);
+    DWCi_EFFlFade(2, 1, 1, 8);
+    DWCi_EFFlFade(2, 0, 0x15, 8);
+    DWCi_GXlVisible(1, 1);
+    DWCi_GXlVisible(0, 0x15);
+    DWCi_ChangeScene((s32)procInit1_25);
 }
 
-extern "C" void func_ov016_02145968(void)
+extern "C" void procInit1_25(void)
 {
-    s32 v0 = func_ov016_0214fa94(1);
+    s32 v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return;
-    s32 v1 = func_ov016_0214fa94(0);
+    s32 v1 = DWCi_EFFlCheck(0);
     if (v1 != 0)
         return;
-    func_ov016_0213b99c();
-    func_ov016_02137794(1);
-    func_ov016_0213b354((s32)func_ov016_021459ac);
+    DWCi_RAKUlInit();
+    DWCi_CMNlButton(1);
+    DWCi_ChangeScene((s32)procInit2_19);
 }
 
-extern "C" void func_ov016_021459ac(void)
+extern "C" void procInit2_19(void)
 {
-    s32 v0 = func_ov016_02137044();
+    s32 v0 = DWCi_BTNlGet();
     if (v0 == -2)
         return;
-    func_ov016_021370b4();
-    func_ov016_0213b354((s32)func_ov016_021459d0);
+    DWCi_BTNlEnable();
+    DWCi_ChangeScene((s32)procScene_25);
 }
 
-extern "C" void func_ov016_021459d0(void)
+extern "C" void procScene_25(void)
 {
     OS_Sleep(10);
-    func_ov016_02145bb8();
-    func_ov016_021459f0();
-    func_ov016_02145a28();
-    func_ov016_02145a2c();
+    checkRaku_3();
+    input_22();
+    draw_25();
+    button_16();
 }
 
-extern "C" asm s32 func_ov016_021459f0(...)
+extern "C" asm s32 input_22(...)
 {
     stmdb sp!, {r3, lr}
     mov r0, #2
-    bl func_ov016_02150d38
+    bl DWCi_IPTlCheckTrigger
     cmp r0, #0
     beq @L_02145a10
     mov r0, #0
-    bl func_ov016_02137058
+    bl DWCi_BTNlSet
     ldmia sp!, {r3, pc}
 @L_02145a10:
-    bl func_ov016_021457dc
+    bl DWCi_IsFold_5
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
     mov r0, #0
-    bl func_ov016_02137058
+    bl DWCi_BTNlSet
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145a28(void)
+extern "C" void draw_25(void)
 {
 }
 
-extern "C" asm s32 func_ov016_02145a2c(...)
+extern "C" asm s32 button_16(...)
 {
     stmdb sp!, {r3, lr}
-    bl func_ov016_02137044
+    bl DWCi_BTNlGet
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     mov r0, #7
-    bl func_ov016_0214a4c0
-    ldr r0, =func_ov016_02145a58
-    bl func_ov016_0213b354
+    bl DWCi_SNDlPlay
+    ldr r0, =endScene_26
+    bl DWCi_ChangeScene
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145a58(void)
+extern "C" void endScene_26(void)
 {
-    func_ov016_021370cc();
-    func_ov016_0214fca4(8);
-    func_ov016_0213b354((s32)func_ov016_02145a78);
+    DWCi_BTNlDisable();
+    DWCi_EFFlWait(8);
+    DWCi_ChangeScene((s32)endScene1_25);
 }
 
-extern "C" s32 func_ov016_02145a78(void)
+extern "C" s32 endScene1_25(void)
 {
     s32 v0;
     s32 v4;
-    v0 = func_ov016_0214fa94(1);
+    v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return v0;
     if (*(u8 *)(data_ov016_02158ae4) == 0) {
-        func_ov016_02137014();
+        DWCi_BTNlEnd();
     }
     if (*(u8 *)(data_ov016_02158ae4) == 0) {
-        func_ov016_0214fab8(3, 1, 1, 8);
+        DWCi_EFFlFade(3, 1, 1, 8);
     }
-    func_ov016_0214fab8(3, 0, 0x14, 8);
-    v4 = func_ov016_0213b354((s32)func_ov016_02145aec);
+    DWCi_EFFlFade(3, 0, 0x14, 8);
+    v4 = DWCi_ChangeScene((s32)endScene2_20);
     return v4;
 }
 
-extern "C" s32 func_ov016_02145aec(void)
+extern "C" s32 endScene2_20(void)
 {
     s32 r4;
     s32 v0;
@@ -2935,42 +2935,42 @@ extern "C" s32 func_ov016_02145aec(void)
     s32 v2;
     s32 v10;
     s32 v12;
-    v0 = func_ov016_0214fa94(0);
+    v0 = DWCi_EFFlCheck(0);
     if (v0 != 0)
         return v0;
     if (*(u8 *)(data_ov016_02158ae4) == 0) {
-        v1 = func_ov016_0214fa94(1);
+        v1 = DWCi_EFFlCheck(1);
         if (v1 != 0)
             return v1;
     }
-    v2 = func_ov016_02137088();
+    v2 = DWCi_BTNlIsEnd();
     if (v2 == 0)
         return v2;
-    func_ov016_02136e1c();
-    func_ov016_021501bc(0);
+    DWCi_ANIMElEnd();
+    DWCi_FNTlDeleteBgLcd(0);
     if (*(u8 *)(data_ov016_02158ae4) == 0) {
-        func_ov016_02137668();
-        func_ov016_021505a4(1, 1);
+        DWCi_COMMENTlDelete();
+        DWCi_GXlInvisible(1, 1);
     }
-    func_ov016_021505a4(0, 0x15);
+    DWCi_GXlInvisible(0, 0x15);
     r4 = 0;
     if (*(u8 *)(data_ov016_02158ae4) == 0) {
-        func_ov016_0213ba08();
-        func_ov016_0213b364(2, 1);
-        v10 = func_ov016_0213b354((s32)func_ov016_02146eac);
+        DWCi_RAKUlEnd();
+        DWCi_SetParam_(2, 1);
+        v10 = DWCi_ChangeScene((s32)DWCi_SceneSetSelectWay);
         return v10;
     } else {
-        func_ov016_0213b364(r4, r4);
-        v12 = func_ov016_0213b354((s32)func_ov016_02144d4c);
+        DWCi_SetParam_(r4, r4);
+        v12 = DWCi_ChangeScene((s32)DWCi_SceneSetRakuButton);
         return v12;
     }
 }
 
-extern "C" asm s32 func_ov016_02145bb8(...)
+extern "C" asm s32 checkRaku_3(...)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    bl func_ov016_0213ba2c
+    bl DWCi_RAKUlGetState
     cmp r0, #1
     beq @L_02145bdc
     cmp r0, #4
@@ -2980,77 +2980,77 @@ extern "C" asm s32 func_ov016_02145bb8(...)
 @L_02145bdc:
     ldr r1, =data_ov016_02158ae4
     mov r2, #1
-    ldr r0, =func_ov016_02145a58
+    ldr r0, =endScene_26
     strb r2, [r1]
-    bl func_ov016_0213b354
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 @L_02145bf8:
     ldr r0, =data_ov016_02158ae4
     mov r4, #0
     strb r4, [r0]
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     mov r0, #9
-    bl func_ov016_0214a4c0
+    bl DWCi_SNDlPlay
     mov r1, #1
     mov r2, r1
     sub r3, r1, #2
     mov r0, #0xd
     str r4, [sp]
-    bl func_ov016_0214b71c
-    bl func_ov016_021370cc
-    ldr r0, =func_ov016_02145c48
-    bl func_ov016_0213b354
+    bl DWCi_WINlInitEx
+    bl DWCi_BTNlDisable
+    ldr r0, =procError_8
+    bl DWCi_ChangeScene
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
 
-extern "C" void func_ov016_02145c48(void)
+extern "C" void procError_8(void)
 {
-    s32 v0 = func_ov016_0214ba7c();
+    s32 v0 = DWCi_WINlGet();
     if (v0 != 0)
         return;
-    func_ov016_0214a4c0(6);
-    func_ov016_0214ba38();
-    func_ov016_0213b354((s32)func_ov016_02145c74);
+    DWCi_SNDlPlay(6);
+    DWCi_WINlEnd();
+    DWCi_ChangeScene((s32)procError1_8);
 }
 
-extern "C" void func_ov016_02145c74(void)
+extern "C" void procError1_8(void)
 {
-    s32 v0 = func_ov016_0214ba90();
+    s32 v0 = DWCi_WINlIsInit();
     if (v0 != 0)
         return;
-    func_ov016_0213b354((s32)func_ov016_02145a58);
+    DWCi_ChangeScene((s32)endScene_26);
 }
 
-extern "C" void func_ov016_02145c94(void)
+extern "C" void DWCi_SceneSetSearch(void)
 {
     *(u16 *)(data_ov016_02158ae8 + 0x2) = 0;
     *(u8 *)(data_ov016_02158ae8) = 0;
-    func_ov016_02145d00((s32)data_ov016_02158ae8);
-    func_ov016_02137590(0x33, (0x33 - 0x34), 0);
-    func_ov016_02137c04();
-    func_ov016_02137744(2);
-    func_ov016_021377cc(0x33);
-    func_ov016_02136d50(0);
-    func_ov016_02149434();
-    func_ov016_02149498();
-    func_ov016_0214a4c0(10);
-    func_ov016_0213b354((s32)func_ov016_02145da8);
+    initGraphics_26((s32)data_ov016_02158ae8);
+    DWCi_COMMENTlDispEx(0x33, (0x33 - 0x34), 0);
+    DWCi_HLlLoadSet();
+    DWCi_CMNlStep(2);
+    DWCi_CMNlMsgDraw(0x33);
+    DWCi_ANIMElInitEx(0);
+    DWCi_SEARCHlInit();
+    DWCi_SEARCHlBegin();
+    DWCi_SNDlPlay(10);
+    DWCi_ChangeScene((s32)procInit_26);
 }
 
-extern "C" asm s32 func_ov016_02145d00(...)
+extern "C" asm s32 initGraphics_26(...)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_ov016_02155bb4
-    ldr r1, =func_02003ad8
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Char
+    bl DWCi_CMNlLoadResource
     ldr r0, =data_ov016_02155bcc
-    ldr r1, =func_02003298
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBGPltt
+    bl DWCi_CMNlLoadResource
     ldr r0, =data_ov016_02155be4
-    ldr r1, =func_02003758
-    bl func_ov016_02137704
+    ldr r1, =GX_LoadBG2Scr
+    bl DWCi_CMNlLoadResource
     ldr r3, =0x4001008
     ldr r1, =0x400000a
     ldrh r0, [r3]
@@ -3077,45 +3077,45 @@ extern "C" asm s32 func_ov016_02145d00(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov016_02145da8(void)
+extern "C" void procInit_26(void)
 {
-    func_ov016_0214fab8(2, 1, 1, 8);
-    func_ov016_0214fab8(2, 0, 0x15, 8);
-    func_ov016_02150550(1, 1);
-    func_ov016_02150550(0, 0x15);
-    func_ov016_0213b354((s32)func_ov016_02145e10);
+    DWCi_EFFlFade(2, 1, 1, 8);
+    DWCi_EFFlFade(2, 0, 0x15, 8);
+    DWCi_GXlVisible(1, 1);
+    DWCi_GXlVisible(0, 0x15);
+    DWCi_ChangeScene((s32)procInit1_26);
 }
 
-extern "C" void func_ov016_02145e10(void)
+extern "C" void procInit1_26(void)
 {
-    s32 v0 = func_ov016_0214fa94(1);
+    s32 v0 = DWCi_EFFlCheck(1);
     if (v0 != 0)
         return;
-    s32 v1 = func_ov016_0214fa94(0);
+    s32 v1 = DWCi_EFFlCheck(0);
     if (v1 != 0)
         return;
-    func_ov016_02137794(1);
-    func_ov016_0213b354((s32)func_ov016_02145e50);
+    DWCi_CMNlButton(1);
+    DWCi_ChangeScene((s32)procInit2_20);
 }
 
-extern "C" void func_ov016_02145e50(void)
+extern "C" void procInit2_20(void)
 {
-    s32 v0 = func_ov016_02137044();
+    s32 v0 = DWCi_BTNlGet();
     if (v0 == -2)
         return;
-    func_ov016_021370b4();
-    func_ov016_0213b354((s32)func_ov016_02145e74);
+    DWCi_BTNlEnable();
+    DWCi_ChangeScene((s32)procScene_26);
 }
 
-extern "C" void func_ov016_02145e74(void)
+extern "C" void procScene_26(void)
 {
-    func_ov016_02145fb4();
-    func_ov016_02145fd8();
-    func_ov016_02145fdc();
-    func_ov016_02145e8c();
+    input_23();
+    draw_26();
+    button_17();
+    isEnd();
 }
 
-extern "C" asm s32 func_ov016_02145e8c(...)
+extern "C" asm s32 isEnd(...)
 {
     stmdb sp!, {r4, lr}
     sub sp, sp, #8
@@ -3127,9 +3127,9 @@ extern "C" asm s32 func_ov016_02145e8c(...)
     cmp r0, #0x12c
     addlo sp, sp, #8
     ldmloia sp!, {r4, pc}
-    bl func_ov016_0214a528
+    bl DWCi_SNDlStop
     add r0, sp, #4
-    bl func_ov016_02149628
+    bl DWCi_SEARCHlGetApInfo
     cmp r0, #0
     bne @L_02145f08
     mov r1, #1
@@ -3140,12 +3140,12 @@ extern "C" asm s32 func_ov016_02145e8c(...)
     sub r3, r1, #2
     mov r0, #0xf
     str r4, [sp]
-    bl func_ov016_0214b71c
+    bl DWCi_WINlInitEx
     mov r0, #0x12
-    bl func_ov016_0214a4c0
-    bl func_ov016_021370cc
-    ldr r0, =func_ov016_02146158
-    bl func_ov016_0213b354
+    bl DWCi_SNDlPlay
+    bl DWCi_BTNlDisable
+    ldr r0, =procError_9
+    bl DWCi_ChangeScene
     add sp, sp, #8
     ldmia sp!, {r4, pc}
 @L_02145f08:
@@ -3174,12 +3174,12 @@ extern "C" asm s32 func_ov016_02145e8c(...)
     sub r3, r1, #2
     mov r0, #0xe
     str r4, [sp]
-    bl func_ov016_0214b71c
+    bl DWCi_WINlInitEx
     mov r0, #0x12
-    bl func_ov016_0214a4c0
-    bl func_ov016_021370cc
-    ldr r0, =func_ov016_02146158
-    bl func_ov016_0213b354
+    bl DWCi_SNDlPlay
+    bl DWCi_BTNlDisable
+    ldr r0, =procError_9
+    bl DWCi_ChangeScene
     add sp, sp, #8
     ldmia sp!, {r4, pc}
 @L_02145f84:
@@ -3187,9 +3187,9 @@ extern "C" asm s32 func_ov016_02145e8c(...)
     mov r2, #1
     mov r0, #0xf
     strb r2, [r1]
-    bl func_ov016_0214a4c0
-    ldr r0, =func_ov016_02146008
-    bl func_ov016_0213b354
+    bl DWCi_SNDlPlay
+    ldr r0, =endScene_27
+    bl DWCi_ChangeScene
     add sp, sp, #8
     ldmia sp!, {r4, pc}
 }

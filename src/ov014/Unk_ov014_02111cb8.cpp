@@ -3,113 +3,113 @@ struct T02114224 { u32 v[9]; };
 struct A02113acc { u8 len; u8 fam; u16 port; u32 addr; };
 struct N02114864 { N02114864 *next; N02114864 *prev; };
 
-extern "C" s32 func_ov014_02111cb8(s32 arg0);
-extern "C" s32 func_ov014_02111d10(s32 arg0);
-extern "C" s32 func_ov014_02111d1c(s32 arg0);
-extern "C" s32 func_ov014_02111d38(...);
-extern "C" void func_ov014_02111e30(void);
-extern "C" s32 func_ov014_02111f6c(s32 arg0);
-extern "C" s32 func_ov014_02111fb8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
-extern "C" s32 func_ov014_02112150(void);
-extern "C" void func_ov014_0211218c(s32 arg0);
-extern "C" s32 func_ov014_021121bc(...);
-extern "C" s32 func_ov014_0211220c(...);
-extern "C" s32 func_ov014_021122dc(void);
-extern "C" s32 func_ov014_02112374(...);
-extern "C" s32 func_ov014_0211246c(s32 arg0, s32 arg1);
-extern "C" void func_ov014_02112508(s32 arg0);
-extern "C" void func_ov014_0211252c(void);
-extern "C" s32 func_ov014_021127b4(...);
-extern "C" void func_ov014_0211285c(s32 arg0, s32 arg1);
-extern "C" void func_ov014_0211287c(void);
-extern "C" s32 func_ov014_02112d44(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_02112d94(s32 arg0);
-extern "C" void func_ov014_02112e10(void);
-extern "C" void func_ov014_021130ac(void);
-extern "C" s32 func_ov014_02113268(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_021132a8(s32 arg0, u8 *arg1);
-extern "C" BOOL func_ov014_02113300(s32 arg0, u8 *arg1);
-extern "C" void func_ov014_02113330(void);
-extern "C" s32 func_ov014_021135b0(void);
-extern "C" void func_ov014_021135c8(void);
-extern "C" void func_ov014_021135cc(void);
-extern "C" void func_ov014_021135e0(void);
-extern "C" s32 func_ov014_021135f4(void);
-extern "C" void func_ov014_0211361c(void);
-extern "C" s32 func_ov014_02113620(void);
-extern "C" void func_ov014_02113668(void);
-extern "C" void func_ov014_02113698(s32 arg0);
-extern "C" s32 func_ov014_021136ac(...);
-extern "C" void func_ov014_02113704(void);
-extern "C" void func_ov014_02113710(void);
-extern "C" void func_ov014_0211371c(s32 arg0, s32 arg1);
-extern "C" void func_ov014_02113730(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02113748(void);
-extern "C" void func_ov014_02113754(void);
-extern "C" void func_ov014_02113760(void);
-extern "C" void func_ov014_02113834(void);
-extern "C" void func_ov014_0211388c(void);
-extern "C" void func_ov014_02113898(void);
-extern "C" s32 func_ov014_021138a4(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02113914(s32 arg0, u8 *arg1);
-extern "C" void func_ov014_02113934(s32 arg0);
-extern "C" void func_ov014_02113948(s32 arg0);
-extern "C" s32 func_ov014_0211395c(...);
-extern "C" void func_ov014_021139a0(void);
-extern "C" s32 func_ov014_021139ac(s32 arg0);
-extern "C" s32 func_ov014_021139b8(void);
-extern "C" void func_ov014_021139c0(void);
-extern "C" s32 func_ov014_021139e4(s32 arg0);
-extern "C" void func_ov014_02113a24(void);
-extern "C" s32 func_ov014_02113a3c(...);
-extern "C" s32 func_ov014_02113acc(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, u32 arg4, s32 arg5);
-extern "C" void func_ov014_02113b7c(void);
-extern "C" void func_ov014_02113c0c(void);
-extern "C" s32 func_ov014_02113cd4(s32 arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern "C" void func_ov014_02113d54(void);
-extern "C" s32 func_ov014_02113d60(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" s32 func_ov014_02113da8(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_02113dd8(void *arg0, s32 arg1);
-extern "C" void func_ov014_02113e40(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02113e58(void);
-extern "C" void func_ov014_02113e64(void);
-extern "C" void func_ov014_02113e70(void);
-extern "C" void func_ov014_02113e7c(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_02113e90(u8 *arg0, u8 *arg1, s32 arg2);
-extern "C" s32 func_ov014_02113f34(s8 *arg0);
-extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_02114010(void);
-extern "C" void func_ov014_0211409c(void);
-extern "C" void func_ov014_02114188(void);
-extern "C" s32 func_ov014_02114224(u8 *arg0, u32 arg1);
-extern "C" s32 func_ov014_021142d0(s8 *a, s8 *b);
-extern "C" s32 func_ov014_02114360(s8 *arg0, s32 arg1);
-extern "C" void func_ov014_021143d0(void);
-extern "C" void func_ov014_02114454(u8 *arg0);
-extern "C" s32 func_ov014_02114498(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_021144c8(s32 arg0);
-extern "C" void func_ov014_021144ec(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_021144f4(u8 *arg0, s32 arg1);
-extern "C" s32 func_ov014_021144fc(u8 *arg0);
-extern "C" void func_ov014_02114504(void);
-extern "C" s32 func_ov014_02114600(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_0211468c(...);
-extern "C" s32 func_ov014_02114794(s32 arg0);
-extern "C" s32 func_ov014_021147c8(...);
-extern "C" N02114864 *func_ov014_02114864(N02114864 **arg0);
-extern "C" s32 func_ov014_021148a8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_021148c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0211495c(u8 *arg0);
-extern "C" void func_ov014_0211496c(void);
-extern "C" s32 func_ov014_02114a04(...);
-extern "C" s32 func_ov014_02114a50(u8 *arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_02114b00(u8 *arg0, s32 arg1);
-extern "C" N02114864 *func_ov014_02114b38(N02114864 **arg0);
-extern "C" void func_ov014_02114b44(u8 *arg0, s32 arg1, void **arg2, s32 *arg3);
-extern "C" void func_ov014_02114b9c(void);
-extern "C" void func_ov014_02114c10(void);
+extern "C" s32 decodeChar(s32 arg0);
+extern "C" s32 DWCi_Ndi_getDecodeLenBASE64(s32 arg0);
+extern "C" s32 DWCi_Ndi_getEncodeLenBASE64(s32 arg0);
+extern "C" s32 DWCi_Ndi_encodeBASE64(...);
+extern "C" void DWCi_Ndi_decodeBASE64(void);
+extern "C" s32 strAlloc(s32 arg0);
+extern "C" s32 DWCi_NdStartup(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6);
+extern "C" s32 nhttpCleanupCallback(void);
+extern "C" void DWCi_NdCleanupAsync(s32 arg0);
+extern "C" s32 DWCi_NdCleanupConnectionHandle(...);
+extern "C" s32 DWCi_NdSetError(...);
+extern "C" s32 DWCi_NdCancelAsync(void);
+extern "C" s32 DWCi_Ndi_getApInfo(...);
+extern "C" s32 DWCi_Ndi_getDSdesc(s32 arg0, s32 arg1);
+extern "C" void DWCi_Ndi_getUserAgent(s32 arg0);
+extern "C" void req_callback(void);
+extern "C" s32 freeHttpParam(...);
+extern "C" void freeHttp(s32 arg0, s32 arg1);
+extern "C" void setupHttp(void);
+extern "C" s32 runHttp(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 DWCi_NdGetFileListNumAsync(s32 arg0);
+extern "C" void DWCi_NdGetFileListAsync(void);
+extern "C" void DWCi_NdGetFileAsync(void);
+extern "C" s32 DWCi_NdGetProgress(s32 arg0, s32 arg1);
+extern "C" s32 DWCi_Ndi_response_count(s32 arg0, u8 *arg1);
+extern "C" BOOL DWCi_Ndi_response_contents(s32 arg0, u8 *arg1);
+extern "C" void DWCi_Ndi_response_list(void);
+extern "C" s32 DWCi_Ndi_initLockGlobal(void);
+extern "C" void DWCi_Ndi_exitLockGlobal(void);
+extern "C" void DWCi_Ndi_lockGlobal(void);
+extern "C" void DWCi_Ndi_unlockGlobal(void);
+extern "C" s32 DWCi_Ndi_initHttpCallback(void);
+extern "C" void DWCi_Ndi_exitHttpCallback(void);
+extern "C" s32 DWCi_Ndi_prepareHttpCallback(void);
+extern "C" void DWCi_Ndi_unprepareHttpCallback(void);
+extern "C" void DWCi_Ndi_kickThread(s32 arg0);
+extern "C" s32 DWCi_Ndi_getMacAddress(...);
+extern "C" void DWCi_Ndi_strlen(void);
+extern "C" void DWCi_Ndi_strncmp(void);
+extern "C" void DWCi_Ndi_memclr(s32 arg0, s32 arg1);
+extern "C" void DWCi_Ndi_memcpy(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void DWCi_Ndi_strToInt(void);
+extern "C" void DWCi_Ndi_intToStr(void);
+extern "C" void DWCi_Ndi_intToStrFigure(void);
+extern "C" void DWCi_Ndi_hexToStrFigure(void);
+extern "C" void NHTTPi_InitMutex(void);
+extern "C" void NHTTPi_LockMutex(void);
+extern "C" s32 NHTTPi_createCommThread(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void NHTTPi_destroyCommThread(s32 arg0, u8 *arg1);
+extern "C" void NHTTPi_idleCommThread(s32 arg0);
+extern "C" void NHTTPi_kickCommThread(s32 arg0);
+extern "C" s32 NHTTPi_CheckCurrentThread(...);
+extern "C" void NHTTPi_CommThreadProc(void);
+extern "C" s32 NHTTPi_CpsAuthCallback(s32 arg0);
+extern "C" s32 NHTTPi_CpsAuthCallbackForDebug(void);
+extern "C" void NHTTPi_SetSSLseed(void);
+extern "C" s32 NHTTPi_checkKeepAlive(s32 arg0);
+extern "C" void NHTTPi_SocOpen(void);
+extern "C" s32 NHTTPi_SocClose(...);
+extern "C" s32 NHTTPi_SocConnect(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, u32 arg4, s32 arg5);
+extern "C" void NHTTPi_SocSSLConnect(void);
+extern "C" void NHTTPi_SocRecv_sub(void);
+extern "C" s32 NHTTPi_SocRecv(s32 arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
+extern "C" void NHTTPi_SocSend_sub(void);
+extern "C" s32 NHTTPi_SocSend(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+extern "C" s32 NHTTPi_SocCancel(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 NHTTPi_resolveHostname(void *arg0, s32 arg1);
+extern "C" void NHTTPi_memcpy(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void NHTTPi_strlen(void);
+extern "C" void NHTTPi_strnlen(void);
+extern "C" void NHTTPi_strcmp(void);
+extern "C" void NHTTPi_memclr(s32 arg0, s32 arg1);
+extern "C" s32 NHTTPi_strnicmp(u8 *arg0, u8 *arg1, s32 arg2);
+extern "C" s32 NHTTPi_getUrlEncodedSize(s8 *arg0);
+extern "C" s32 NHTTPi_getUrlEncodedSize2(u8 *arg0, s32 arg1);
+extern "C" void NHTTPi_encodeUrlChar(void);
+extern "C" void NHTTPi_strToHex(void);
+extern "C" void NHTTPi_strToInt(void);
+extern "C" s32 NHTTPi_intToStr(u8 *arg0, u32 arg1);
+extern "C" s32 NHTTPi_compareToken(s8 *a, s8 *b);
+extern "C" s32 NHTTPi_strtonum(s8 *arg0, s32 arg1);
+extern "C" void NHTTPi_memfind(void);
+extern "C" void NHTTPi_InitBgnEndInfo(u8 *arg0);
+extern "C" s32 NHTTPi_alloc(s32 arg0, s32 arg1);
+extern "C" s32 NHTTPi_free(s32 arg0);
+extern "C" void NHTTPi_SetError(u8 *arg0, s32 arg1);
+extern "C" void NHTTPi_SetSSLError(u8 *arg0, s32 arg1);
+extern "C" s32 NHTTPi_GetSSLError(u8 *arg0);
+extern "C" void NHTTPi_Startup(void);
+extern "C" s32 NHTTPi_CleanupAsync(s32 arg0, s32 arg1);
+extern "C" s32 addHdrList(...);
+extern "C" s32 incAscii(s32 arg0);
+extern "C" s32 checkTagPost(...);
+extern "C" N02114864 *NHTTPi_getHdrFromList(N02114864 **arg0);
+extern "C" s32 NHTTPi_AddRequestHeaderField(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 NHTTPi_AddRequestPostDataAscii(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void NHTTPi_InitListInfo(u8 *arg0);
+extern "C" void NHTTPi_setReqQueue(void);
+extern "C" s32 NHTTPi_findReqQueue(...);
+extern "C" s32 NHTTPi_freeReqQueue(u8 *arg0, s32 arg1, s32 arg2);
+extern "C" s32 NHTTPi_allFreeReqQueue(u8 *arg0, s32 arg1);
+extern "C" N02114864 *NHTTPi_getReqFromReqQueue(N02114864 **arg0);
+extern "C" void setupGetcharFromHdrRecvBuf(u8 *arg0, s32 arg1, void **arg2, s32 *arg3);
+extern "C" void getcharFromHdrRecvBuf(void);
+extern "C" void NHTTPi_findNextLineHdrRecvBuf(void);
 
-extern "C" char data_020bb120[];
+extern "C" char OSi_ThreadInfo[];
 extern "C" char data_ov014_02123e9d[];
 extern "C" char data_ov014_02123ea6[];
 extern "C" char data_ov014_02123eaf[];
@@ -117,7 +117,7 @@ extern "C" char data_ov014_02123ebc[];
 extern "C" char data_ov014_02123ecc[];
 extern "C" char data_ov014_02123f10[];
 extern "C" char data_ov014_02123f90[];
-extern "C" char data_ov014_02123fb4[];
+extern "C" char NHTTPi_strMultipartBound[];
 extern "C" char data_ov014_02125b44[];
 extern "C" char data_ov014_02125c2c[];
 extern "C" char data_ov014_02125c44[];
@@ -139,16 +139,16 @@ extern "C" char data_ov014_02125cd8[];
 extern "C" char data_ov014_02125ce0[];
 extern "C" char data_ov014_02125ce4[];
 extern "C" char data_ov014_02125cf0[];
-extern "C" char data_ov014_02128e24[];
+extern "C" char DWCi_Ndi_dlcallback[];
 extern "C" char data_ov014_02128e4c[];
-extern "C" char data_ov014_02128e55[];
-extern "C" char data_ov014_02128e6c[];
-extern "C" char data_ov014_02128e7d[];
+extern "C" char DWCi_Ndi_dwcgamecd[];
+extern "C" char DWCi_Ndi_macaddr[];
+extern "C" char DWCi_Ndi_strApinfo[];
 extern "C" char data_ov014_02128e92[];
-extern "C" char data_ov014_02128ea8[];
-extern "C" char data_ov014_02128ec0[];
-extern "C" char data_ov014_02128ed8[];
-extern "C" char data_ov014_02128ef1[];
+extern "C" char g_MutexHttp[];
+extern "C" char g_MutexAttr[];
+extern "C" char DWCi_Ndi_password[];
+extern "C" char DWCi_Ndi_userAgent[];
 extern "C" char data_ov014_02128f14[];
 extern "C" char data_ov014_02128f20[];
 extern "C" char data_ov014_02128f54[];
@@ -167,72 +167,72 @@ extern "C" s32 OS_WakeupThreadDirect(...);
 extern "C" void STD_CompareString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void _ll_udiv(void);
-extern "C" s32 func_02005978(...);
-extern "C" s32 func_02006048(...);
-extern "C" s32 func_020068c0(...);
-extern "C" void func_02008564(void);
-extern "C" s32 func_020086c0(...);
-extern "C" void func_0200878c(void);
-extern "C" void func_02016f44(void);
+extern "C" s32 OS_SNPrintf(...);
+extern "C" s32 OS_JoinThread(...);
+extern "C" s32 OS_ReceiveMessage(...);
+extern "C" void OS_GetMacAddress(void);
+extern "C" s32 OS_GetLowEntropyData(...);
+extern "C" void OS_Terminate(void);
+extern "C" void STD_GetStringNLength(void);
 extern "C" void _u32_div_f(void);
-extern "C" void func_ov014_02109134(void);
-extern "C" void func_ov014_0210f20c(void);
-extern "C" void func_ov014_02110be4(void);
-extern "C" void func_ov014_02111a84(void);
-extern "C" s32 func_ov014_02111ae8(...);
-extern "C" void func_ov014_02111c74(void);
-extern "C" void func_ov014_02115030(void);
-extern "C" s32 func_ov014_021155a4(...);
-extern "C" s32 func_ov014_0211571c(...);
-extern "C" s32 func_ov014_02115a78(...);
-extern "C" s32 func_ov014_02115a90(...);
-extern "C" void func_ov014_021180ac(void);
-extern "C" s32 func_ov014_02118220(...);
-extern "C" s32 func_ov014_02118258(...);
-extern "C" void func_ov014_02118270(void);
-extern "C" void func_ov014_021182fc(void);
-extern "C" void func_ov014_02118350(void);
-extern "C" void func_ov014_0211838c(void);
-extern "C" void func_ov014_021183bc(void);
-extern "C" s32 func_ov014_021185d4(...);
-extern "C" s32 func_ov014_0211863c(...);
-extern "C" s32 func_ov014_02118810(...);
-extern "C" s32 func_ov014_021188fc(...);
-extern "C" s32 func_ov014_02118930(...);
-extern "C" void func_ov014_02118934(void);
-extern "C" void func_ov014_0211893c(void);
-extern "C" s32 func_ov014_02118944(...);
-extern "C" void func_ov014_0211894c(void);
-extern "C" void func_ov014_02118960(void);
-extern "C" void func_ov014_02118998(void);
-extern "C" s32 func_ov014_021189bc(...);
-extern "C" s32 func_ov014_021189c0(...);
-extern "C" s32 func_ov014_021189cc(...);
-extern "C" void func_ov014_02118a40(void);
-extern "C" void func_ov014_02118b78(void);
-extern "C" s32 func_ov014_02118ba4(...);
-extern "C" s32 func_ov014_02118cfc(...);
-extern "C" void func_ov014_02118d68(void);
-extern "C" void func_ov014_02118db0(void);
-extern "C" void func_ov014_02118dd8(void);
-extern "C" void func_ov014_02118e38(void);
-extern "C" void func_ov014_02118e7c(void);
-extern "C" s32 func_ov014_02118ea4(...);
-extern "C" void func_ov014_0211aec4(void);
-extern "C" s32 func_ov014_0211b738(...);
-extern "C" void func_ov014_0211b790(void);
-extern "C" s32 func_ov014_0211b7ec(...);
-extern "C" void func_ov014_0211b8a0(void);
-extern "C" s32 func_ov014_0211b948(...);
-extern "C" void func_ov014_0211b954(void);
-extern "C" void func_ov014_0211b960(void);
-extern "C" void func_ov014_0211bcc0(void);
-extern "C" void func_ov014_0211bdec(void);
-extern "C" s32 func_ov014_0211e3b4(...);
+extern "C" void DWC_GetApInfo(void);
+extern "C" void DWCi_BM_GetWiFiInfo(void);
+extern "C" void DWCi_SetError(void);
+extern "C" void DWC_NdGetProgress(void);
+extern "C" s32 DWCi_Ndi_freeAttr(...);
+extern "C" void getNchar(void);
+extern "C" void NHTTPi_InitRequestInfo(void);
+extern "C" s32 NHTTPi_destroyRequestObject(...);
+extern "C" s32 NHTTPi_cancelAllRequests(...);
+extern "C" s32 NHTTPi_IsCreateCommThreadMessageQueueOn(...);
+extern "C" s32 NHTTPi_IsCreateCommThreadMessageQueue(...);
+extern "C" void NHTTPi_CommThreadProcMain(void);
+extern "C" s32 NHTTP_Startup(...);
+extern "C" s32 NHTTP_CleanupAsync(...);
+extern "C" void NHTTP_AddHeaderField(void);
+extern "C" void NHTTP_AddPostDataAscii(void);
+extern "C" void NHTTP_GetHeaderField(void);
+extern "C" void NHTTP_SetVerifyOption(void);
+extern "C" void NHTTP_SetRootCA(void);
+extern "C" s32 NHTTPi_Request2Connection(...);
+extern "C" s32 NHTTPi_GetConnectionListLength(...);
+extern "C" s32 NHTTPi_CompleteCallback(...);
+extern "C" s32 NHTTPi_GetSystemInfoP(...);
+extern "C" s32 NHTTPi_GetBgnEndInfoP(...);
+extern "C" void NHTTPi_GetListInfoP(void);
+extern "C" void NHTTPi_GetReqInfoP(void);
+extern "C" s32 NHTTPi_GetThreadInfoP(...);
+extern "C" void NHTTPi_GetMutexInfoP(void);
+extern "C" void NHTTPi_InitConnectionList(void);
+extern "C" void NHTTPi_initLockReqList(void);
+extern "C" s32 NHTTPi_exitLockReqList(...);
+extern "C" s32 NHTTPi_lockReqList(...);
+extern "C" s32 NHTTPi_unlockReqList(...);
+extern "C" void NHTTP_CreateConnection(void);
+extern "C" void NHTTP_DeleteConnection(void);
+extern "C" s32 NHTTPi_DeleteConnection(...);
+extern "C" s32 NHTTP_StartConnection(...);
+extern "C" void NHTTP_CancelConnection(void);
+extern "C" void NHTTP_GetConnectionStatus(void);
+extern "C" void NHTTP_GetBodyBuffer(void);
+extern "C" void NHTTP_GetUserParam(void);
+extern "C" void NHTTP_GetConnectionError(void);
+extern "C" s32 NHTTP_GetConnectionProgress(...);
+extern "C" void SOCLi_TrashSocket(void);
+extern "C" s32 SOC_Socket(...);
+extern "C" void SOC_Connect(void);
+extern "C" s32 SOC_Recv(...);
+extern "C" void SOC_Send(void);
+extern "C" s32 SOC_Shutdown(...);
+extern "C" void SOC_Close(void);
+extern "C" void SOC_GetHostByName(void);
+extern "C" void SOC_InetAtoN(void);
+extern "C" void SOCL_EnableSsl(void);
+extern "C" s32 CPS_SslAddRandomSeed(...);
 extern "C" void strlen(void);
 extern "C" void strncmp(void);
 
-extern "C" s32 func_ov014_02111cb8(s32 arg0)
+extern "C" s32 decodeChar(s32 arg0)
 {
     if (((u32)arg0 >= (u32)0x41 && (u32)arg0 <= (u32)0x5A)) {
         return (arg0 - 0x41);
@@ -258,17 +258,17 @@ extern "C" s32 func_ov014_02111cb8(s32 arg0)
     }
 }
 
-extern "C" s32 func_ov014_02111d10(s32 arg0)
+extern "C" s32 DWCi_Ndi_getDecodeLenBASE64(s32 arg0)
 {
     return ((arg0 >> 2) + ((arg0 >> 2) << 1));
 }
 
-extern "C" s32 func_ov014_02111d1c(s32 arg0)
+extern "C" s32 DWCi_Ndi_getEncodeLenBASE64(s32 arg0)
 {
     return ((arg0 + 2) / 3) * 4;
 }
 
-extern "C" asm s32 func_ov014_02111d38(...)
+extern "C" asm s32 DWCi_Ndi_encodeBASE64(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r7, r2
@@ -279,7 +279,7 @@ extern "C" asm s32 func_ov014_02111d38(...)
     mov r1, r8
     add r0, sp, #0
     mov r6, #0
-    bl func_ov014_02111c74
+    bl getNchar
     cmp r0, #0
     ble @L_02111e1c
     mov r5, #0
@@ -325,7 +325,7 @@ extern "C" asm s32 func_ov014_02111d38(...)
     movle r2, r7
     add r0, sp, #0
     mov r1, r8
-    bl func_ov014_02111c74
+    bl getNchar
     cmp r0, #0
     bgt @L_02111d78
 @L_02111e1c:
@@ -335,7 +335,7 @@ extern "C" asm s32 func_ov014_02111d38(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02111e30(void)
+extern "C" asm void DWCi_Ndi_decodeBASE64(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #8
@@ -345,7 +345,7 @@ extern "C" asm void func_ov014_02111e30(void)
     mov r6, #0
     mov r2, #4
     mov r8, r1
-    bl func_ov014_02111c74
+    bl getNchar
     mov r5, r0
     mov r4, r6
     b @L_02111f48
@@ -355,13 +355,13 @@ extern "C" asm void func_ov014_02111e30(void)
     strb r1, [sp]
     strb r1, [sp, #1]
     strb r1, [sp, #2]
-    bl func_ov014_02111cb8
+    bl decodeChar
     movs r4, r0
     bmi @L_02111ef4
     ldrb r0, [sp, #4]
     mov r1, r4, lsl #2
     strb r1, [sp]
-    bl func_ov014_02111cb8
+    bl decodeChar
     movs r4, r0
     bmi @L_02111ef4
     ldrsb r2, [sp]
@@ -371,7 +371,7 @@ extern "C" asm void func_ov014_02111e30(void)
     mov r1, r4, lsl #4
     strb r2, [sp]
     strb r1, [sp, #1]
-    bl func_ov014_02111cb8
+    bl decodeChar
     movs r4, r0
     bmi @L_02111ef4
     ldrsb r2, [sp, #1]
@@ -381,7 +381,7 @@ extern "C" asm void func_ov014_02111e30(void)
     mov r1, r4, lsl #6
     strb r1, [sp, #2]
     strb r2, [sp, #1]
-    bl func_ov014_02111cb8
+    bl decodeChar
     movs r4, r0
     ldrplsb r1, [sp, #2]
     movpl r0, r4, lsl #0x18
@@ -409,7 +409,7 @@ extern "C" asm void func_ov014_02111e30(void)
     add r0, sp, #3
     mov r1, r8
     mov r2, #4
-    bl func_ov014_02111c74
+    bl getNchar
     mov r5, r0
 @L_02111f48:
     cmp r5, #0
@@ -424,27 +424,27 @@ extern "C" asm void func_ov014_02111e30(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" s32 func_ov014_02111f6c(s32 arg0)
+extern "C" s32 strAlloc(s32 arg0)
 {
     s32 r4;
     u8 *r5;
     s32 r6;
     s32 v0;
     s32 v1;
-    v0 = ((s32 (*)(...))func_ov014_02113704)();
-    v1 = ((s32 (*)(...))*(s32 *)(((u8 *)&data_ov014_02128e24) + 0x4))((v0 + 1), 4);
+    v0 = ((s32 (*)(...))DWCi_Ndi_strlen)();
+    v1 = ((s32 (*)(...))*(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x4))((v0 + 1), 4);
     r6 = arg0;
     r4 = v0;
     arg0 = v1;
     r5 = (u8 *)v1;
     if ((s32)r5 != 0) {
-        func_ov014_02113730(arg0, r6, r4);
+        DWCi_Ndi_memcpy(arg0, r6, r4);
         *(u8 *)(r5 + r4) = 0;
     }
     return (s32)r5;
 }
 
-extern "C" s32 func_ov014_02111fb8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6)
+extern "C" s32 DWCi_NdStartup(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6)
 {
     s32 r5;
     s32 r9;
@@ -458,113 +458,113 @@ extern "C" s32 func_ov014_02111fb8(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
     s32 v9;
     s32 t0;
     s32 t2;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x4) = arg0;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x14) = arg1;
-    *(s32 *)(((u8 *)&data_ov014_02128e24)) = arg6;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x3C) = 0;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x40) = 0;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x44) = 0;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0xC) = 0;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x10) = 0;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x18) = 0;
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x1C) = 0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x4) = arg0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x14) = arg1;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback)) = arg6;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x3C) = 0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x40) = 0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x44) = 0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0xC) = 0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x10) = 0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x18) = 0;
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x1C) = 0;
     r9 = 0;
-    func_ov014_021136ac((u8 *)((u8 *)&data_ov014_02128e6c), arg1, arg2, arg3);
-    func_ov014_02112508((s32)((u8 *)&data_ov014_02128ef1));
-    v2 = func_ov014_02111f6c(arg2);
-    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x1C) = v2;
+    DWCi_Ndi_getMacAddress((u8 *)((u8 *)&DWCi_Ndi_macaddr), arg1, arg2, arg3);
+    DWCi_Ndi_getUserAgent((s32)((u8 *)&DWCi_Ndi_userAgent));
+    v2 = strAlloc(arg2);
+    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x1C) = v2;
     r5 = arg0;
     if (v2 != 0) {
-        v3 = func_ov014_02111f6c(arg3);
-        *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x18) = v3;
+        v3 = strAlloc(arg3);
+        *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x18) = v3;
         if (v3 != 0) {
-            v4 = func_ov014_02111d38((u8 *)((u8 *)&data_ov014_02128e55), arg4, 4);
-            *(u8 *)(((u8 *)&data_ov014_02128e55) + v4) = r9;
-            v5 = func_ov014_02111d38((u8 *)((u8 *)&data_ov014_02128ed8), arg5, 0x10);
-            *(u8 *)(((u8 *)&data_ov014_02128ed8) + v5) = r9;
-            v6 = func_ov014_021135f4();
-            if ((v6 != 0 && (v7 = func_ov014_021135b0(), v7 != 0))) {
-                v8 = func_ov014_02118220(r5, arg1, 0x11);
+            v4 = DWCi_Ndi_encodeBASE64((u8 *)((u8 *)&DWCi_Ndi_dwcgamecd), arg4, 4);
+            *(u8 *)(((u8 *)&DWCi_Ndi_dwcgamecd) + v4) = r9;
+            v5 = DWCi_Ndi_encodeBASE64((u8 *)((u8 *)&DWCi_Ndi_password), arg5, 0x10);
+            *(u8 *)(((u8 *)&DWCi_Ndi_password) + v5) = r9;
+            v6 = DWCi_Ndi_initHttpCallback();
+            if ((v6 != 0 && (v7 = DWCi_Ndi_initLockGlobal(), v7 != 0))) {
+                v8 = NHTTP_Startup(r5, arg1, 0x11);
                 arg0 = v8;
                 if (arg0 != (0x11 - 0x12)) {
-                    v9 = func_ov014_02112374((u8 *)((u8 *)&data_ov014_02128e7d), (0x11 - 0x12));
-                    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0xC) = v9;
-                    *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x8) = 1;
+                    v9 = DWCi_Ndi_getApInfo((u8 *)((u8 *)&DWCi_Ndi_strApinfo), (0x11 - 0x12));
+                    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0xC) = v9;
+                    *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x8) = 1;
                     return 1;
                 } else {
-                    ((s32 (*)(...))func_ov014_021135c8)(arg0, (0x11 - 0x12));
+                    ((s32 (*)(...))DWCi_Ndi_exitLockGlobal)(arg0, (0x11 - 0x12));
                 }
             }
-            t0 = *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x18);
-            ((s32 (*)(...))*(s32 *)(((u8 *)&data_ov014_02128e24) + 0x14))(t0);
-            t2 = *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x1C);
-            ((s32 (*)(...))*(s32 *)(((u8 *)&data_ov014_02128e24) + 0x14))(t2);
-            func_ov014_0211220c(8, 0);
+            t0 = *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x18);
+            ((s32 (*)(...))*(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x14))(t0);
+            t2 = *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x1C);
+            ((s32 (*)(...))*(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x14))(t2);
+            DWCi_NdSetError(8, 0);
             return 0;
         }
     }
-    arg0 = *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x18);
+    arg0 = *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x18);
     if (arg0 != 0) {
-        ((s32 (*)(...))*(s32 *)(((u8 *)&data_ov014_02128e24) + 0x14))(arg0);
+        ((s32 (*)(...))*(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x14))(arg0);
     }
-    arg0 = *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x1C);
+    arg0 = *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x1C);
     if (arg0 != 0) {
-        ((s32 (*)(...))*(s32 *)(((u8 *)&data_ov014_02128e24) + 0x14))(arg0);
+        ((s32 (*)(...))*(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x14))(arg0);
     }
-    func_ov014_0211220c(1, 0);
+    DWCi_NdSetError(1, 0);
     return 0;
 }
 
-extern "C" s32 func_ov014_02112150(void)
+extern "C" s32 nhttpCleanupCallback(void)
 {
     s32 v5;
     s32 t0;
     s32 t2;
-    func_ov014_02111ae8();
-    func_ov014_021135c8();
-    func_ov014_0211361c();
-    t0 = *(s32 *)(data_ov014_02128e24 + 0x18);
-    ((s32 (*)(...))*(s32 *)(data_ov014_02128e24 + 0x14))(t0);
-    t2 = *(s32 *)(data_ov014_02128e24 + 0x1C);
-    ((s32 (*)(...))*(s32 *)(data_ov014_02128e24 + 0x14))(t2);
-    v5 = ((s32 (*)(...))*(s32 *)(data_ov014_02128e24 + 0x24))();
+    DWCi_Ndi_freeAttr();
+    DWCi_Ndi_exitLockGlobal();
+    DWCi_Ndi_exitHttpCallback();
+    t0 = *(s32 *)(DWCi_Ndi_dlcallback + 0x18);
+    ((s32 (*)(...))*(s32 *)(DWCi_Ndi_dlcallback + 0x14))(t0);
+    t2 = *(s32 *)(DWCi_Ndi_dlcallback + 0x1C);
+    ((s32 (*)(...))*(s32 *)(DWCi_Ndi_dlcallback + 0x14))(t2);
+    v5 = ((s32 (*)(...))*(s32 *)(DWCi_Ndi_dlcallback + 0x24))();
     return v5;
 }
 
-extern "C" void func_ov014_0211218c(s32 arg0)
+extern "C" void DWCi_NdCleanupAsync(s32 arg0)
 {
-    *(s32 *)(data_ov014_02128e24 + 0x8) = 0;
-    *(s32 *)(data_ov014_02128e24 + 0x24) = arg0;
-    func_ov014_021121bc(*(s32 *)(data_ov014_02128e24 + 0x10), (s32)data_ov014_02128e24, 0);
-    func_ov014_02118258((s32)func_ov014_02112150);
+    *(s32 *)(DWCi_Ndi_dlcallback + 0x8) = 0;
+    *(s32 *)(DWCi_Ndi_dlcallback + 0x24) = arg0;
+    DWCi_NdCleanupConnectionHandle(*(s32 *)(DWCi_Ndi_dlcallback + 0x10), (s32)DWCi_Ndi_dlcallback, 0);
+    NHTTP_CleanupAsync((s32)nhttpCleanupCallback);
 }
 
-extern "C" asm s32 func_ov014_021121bc(...)
+extern "C" asm s32 DWCi_NdCleanupConnectionHandle(...)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, lr}
     mov r4, #1
-    bl func_ov014_021135cc
+    bl DWCi_Ndi_lockGlobal
     ldr r0, [sp, #8]
     cmp r0, #0
     beq @L_021121f8
     ldr r0, [sp, #8]
-    bl func_ov014_02118db0
+    bl NHTTP_GetConnectionStatus
     ldr r0, [sp, #8]
-    bl func_ov014_02118b78
+    bl NHTTP_DeleteConnection
     cmp r0, #0
     moveq r0, #0
     movne r4, #0
     streq r0, [sp, #8]
 @L_021121f8:
-    bl func_ov014_021135e0
+    bl DWCi_Ndi_unlockGlobal
     mov r0, r4
     ldmia sp!, {r4, lr}
     add sp, sp, #0x10
     bx lr
 }
 
-extern "C" asm s32 func_ov014_0211220c(...)
+extern "C" asm s32 DWCi_NdSetError(...)
 {
     stmdb sp!, {r3, lr}
     cmp r0, #8
@@ -611,7 +611,7 @@ extern "C" asm s32 func_ov014_0211220c(...)
 @L_021122b4:
     ldr r1, [pc, #0x18]
     mov r0, #9
-    bl func_ov014_02110be4
+    bl DWCi_SetError
     ldmia sp!, {r3, pc}
     dcd 0xffff86e7
     dcd 0xffff86d4
@@ -621,34 +621,34 @@ extern "C" asm s32 func_ov014_0211220c(...)
     dcd 0xffff86de
 }
 
-extern "C" s32 func_ov014_021122dc(void)
+extern "C" s32 DWCi_NdCancelAsync(void)
 {
     s32 x;
     s32 y;
-    u8 *d = (u8 *)data_ov014_02128e24;
+    u8 *d = (u8 *)DWCi_Ndi_dlcallback;
     s32 z;
     if (*(s32 *)(d + 8) == 0)
         return 0;
     z = 0;
     x = z;
     y = z;
-    ((s32 (*)(...))func_ov014_02111a84)(&x, &y);
+    ((s32 (*)(...))DWC_NdGetProgress)(&x, &y);
     if (x == y)
         return z;
-    if (((s32 (*)(...))func_ov014_02113620)() == 0) {
+    if (((s32 (*)(...))DWCi_Ndi_prepareHttpCallback)() == 0) {
         s32 t;
-        ((s32 (*)(...))func_ov014_021135cc)();
+        ((s32 (*)(...))DWCi_Ndi_lockGlobal)();
         t = *(s32 *)(d + 0x10);
-        ((s32 (*)(...))func_ov014_021135e0)();
-        if (((s32 (*)(...))func_ov014_02118d68)(t) == 0)
+        ((s32 (*)(...))DWCi_Ndi_unlockGlobal)();
+        if (((s32 (*)(...))NHTTP_CancelConnection)(t) == 0)
             z = 1;
         return z;
     }
-    ((s32 (*)(...))func_ov014_02113668)();
+    ((s32 (*)(...))DWCi_Ndi_unprepareHttpCallback)();
     return z;
 }
 
-extern "C" asm s32 func_ov014_02112374(...)
+extern "C" asm s32 DWCi_Ndi_getApInfo(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x10
@@ -667,7 +667,7 @@ extern "C" asm s32 func_ov014_02112374(...)
     ldr r5, =data_ov014_02128f14
     mov r0, r5
     strb r1, [r3]
-    bl func_ov014_02109134
+    bl DWC_GetApInfo
     cmp r0, #0
     beq @L_02112454
     ldr r1, [r5]
@@ -683,7 +683,7 @@ extern "C" asm s32 func_ov014_02112374(...)
     cmp r1, #0x64
     bge @L_021123f4
     add r0, sp, #0
-    bl func_ov014_02113754
+    bl DWCi_Ndi_intToStr
 @L_021123f4:
     ldr r0, =data_ov014_02128f14
     ldr r0, [r0]
@@ -703,12 +703,12 @@ extern "C" asm s32 func_ov014_02112374(...)
     ldr r1, =data_ov014_02128f20
     add r0, sp, #4
     mov r2, #9
-    bl func_ov014_02113730
+    bl DWCi_Ndi_memcpy
 @L_02112438:
     add r1, sp, #0
     mov r0, r4
     mov r2, #0xd
-    bl func_ov014_02111d38
+    bl DWCi_Ndi_encodeBASE64
     add sp, sp, #0x10
     mov r0, #1
     ldmia sp!, {r3, r4, r5, pc}
@@ -718,31 +718,31 @@ extern "C" asm s32 func_ov014_02112374(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_0211246c(s32 arg0, s32 arg1)
+extern "C" s32 DWCi_Ndi_getDSdesc(s32 arg0, s32 arg1)
 {
     u8 b[0x14];
     u8 c[0x10];
     s32 z;
     s32 n;
-    ((s32 (*)(...))func_ov014_0211371c)(b, 0x14);
-    ((s32 (*)(...))func_ov014_0210f20c)(b);
+    ((s32 (*)(...))DWCi_Ndi_memclr)(b, 0x14);
+    ((s32 (*)(...))DWCi_BM_GetWiFiInfo)(b);
     z = 0;
     if (*(s64 *)b == 0)
         return z;
     n = 0xD;
-    if (((s32 (*)(u8 *, s64, s32))func_ov014_02113760)(c, *(s64 *)b, n) < 0)
+    if (((s32 (*)(u8 *, s64, s32))DWCi_Ndi_intToStrFigure)(c, *(s64 *)b, n) < 0)
         return z;
-    ((s32 (*)(...))func_ov014_02111d38)(arg1, c, n);
-    ((s32 (*)(...))func_ov014_02111d38)(arg0, 0x2FFFE0C, 4);
+    ((s32 (*)(...))DWCi_Ndi_encodeBASE64)(arg1, c, n);
+    ((s32 (*)(...))DWCi_Ndi_encodeBASE64)(arg0, 0x2FFFE0C, 4);
     return 1;
 }
 
-extern "C" void func_ov014_02112508(s32 arg0)
+extern "C" void DWCi_Ndi_getUserAgent(s32 arg0)
 {
-    func_02005978(arg0, 0x21, (s32)data_ov014_02125c2c, 5, 3);
+    OS_SNPrintf(arg0, 0x21, (s32)data_ov014_02125c2c, 5, 3);
 }
 
-extern "C" asm void func_ov014_0211252c(void)
+extern "C" asm void req_callback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x18
@@ -751,7 +751,7 @@ extern "C" asm void func_ov014_0211252c(void)
     mov r4, r2
     mov r11, #0
     mvn r7, #0
-    bl func_ov014_02118e38
+    bl NHTTP_GetUserParam
     str r0, [sp, #4]
     ldmia r0, {r5, r6}
     ldr r0, [r0, #8]
@@ -763,21 +763,21 @@ extern "C" asm void func_ov014_0211252c(void)
     cmp r10, #4
     bne @L_0211279c
     mov r0, r8
-    bl func_ov014_02118e7c
+    bl NHTTP_GetConnectionError
     cmp r0, #8
     moveq r9, #6
     beq @L_02112738
     ldr r1, =data_ov014_02125c44
     add r2, sp, #0x10
     mov r0, r8
-    bl func_ov014_02118350
+    bl NHTTP_GetHeaderField
     cmp r0, #3
     movne r9, #3
     bne @L_02112738
     mov r4, #3
     ldr r0, [sp, #0x10]
     mov r1, r4
-    bl func_ov014_02113748
+    bl DWCi_Ndi_strToInt
     ldr r1, =0x12e
     cmp r0, r1
     bne @L_021126cc
@@ -785,7 +785,7 @@ extern "C" asm void func_ov014_0211252c(void)
     add r2, sp, #0x14
     mov r0, r8
     mov r10, r11
-    bl func_ov014_02118dd8
+    bl NHTTP_GetBodyBuffer
     movs r8, r0
     movmi r9, r4
     bmi @L_02112738
@@ -814,7 +814,7 @@ extern "C" asm void func_ov014_0211252c(void)
     add r0, r3, r2
     mov r1, r4
     mov r2, r11
-    bl func_ov014_02113710
+    bl DWCi_Ndi_strncmp
     mov r10, #1
     cmp r0, #0
     movne r10, #0
@@ -843,11 +843,11 @@ extern "C" asm void func_ov014_0211252c(void)
     add r7, sp, #8
     add r1, r0, r1
     mov r0, r7
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
     mov r1, r0
     mov r0, r7
     strb r4, [r7, r1]
-    bl func_ov014_02113748
+    bl DWCi_Ndi_strToInt
     mov r7, r0
     b @L_021126bc
 @L_021126b4:
@@ -877,25 +877,25 @@ extern "C" asm void func_ov014_0211252c(void)
 @L_02112700:
     ldr r1, [sp, #4]
     mov r0, r8
-    bl func_ov014_021132a8
+    bl DWCi_Ndi_response_count
     b @L_0211272c
 @L_02112710:
     ldr r1, [sp, #4]
     mov r0, r8
-    bl func_ov014_02113330
+    bl DWCi_Ndi_response_list
     b @L_0211272c
 @L_02112720:
     ldr r1, [sp, #4]
     mov r0, r8
-    bl func_ov014_02113300
+    bl DWCi_Ndi_response_contents
 @L_0211272c:
     cmp r0, #0
     movne r4, r11
     mov r9, r4
 @L_02112738:
     ldr r0, [sp, #4]
-    bl func_ov014_021127b4
-    bl func_ov014_02113668
+    bl freeHttpParam
+    bl DWCi_Ndi_unprepareHttpCallback
     cmp r6, #0
     beq @L_0211275c
     mov r0, r5
@@ -906,14 +906,14 @@ extern "C" asm void func_ov014_0211252c(void)
     ldr r0, [sp]
     cmp r0, #0
     beq @L_0211279c
-    bl func_ov014_02113698
+    bl DWCi_Ndi_kickThread
     b @L_0211279c
 @L_02112770:
     mov r8, #4
     mov r0, r8
     mov r1, r7
     str r11, [r4, #8]
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     cmp r6, #0
     beq @L_0211279c
     mov r0, r5
@@ -926,10 +926,10 @@ extern "C" asm void func_ov014_0211252c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm s32 func_ov014_021127b4(...)
+extern "C" asm s32 freeHttpParam(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r5, =data_ov014_02128e24
+    ldr r5, =DWCi_Ndi_dlcallback
     movs r4, r0
     ldmeqia sp!, {r3, r4, r5, pc}
     ldr r0, [r4]
@@ -976,14 +976,14 @@ extern "C" asm s32 func_ov014_021127b4(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" void func_ov014_0211285c(s32 arg0, s32 arg1)
+extern "C" void freeHttp(s32 arg0, s32 arg1)
 {
-    func_ov014_021121bc(arg1, arg1);
-    func_ov014_02113668();
-    func_ov014_021127b4(arg0);
+    DWCi_NdCleanupConnectionHandle(arg1, arg1);
+    DWCi_Ndi_unprepareHttpCallback();
+    freeHttpParam(arg0);
 }
 
-extern "C" asm void func_ov014_0211287c(void)
+extern "C" asm void setupHttp(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x108
@@ -994,14 +994,14 @@ extern "C" asm void func_ov014_0211287c(void)
     mov r11, r2
     mov r7, r3
     ldr r8, [sp, #0x134]
-    ldr r4, =data_ov014_02128e24
-    bl func_ov014_0211246c
+    ldr r4, =DWCi_Ndi_dlcallback
+    bl DWCi_Ndi_getDSdesc
     cmp r0, #0
     bne @L_021128cc
     mov r4, #0
     mov r1, r4
     mov r0, #8
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x108
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1015,7 +1015,7 @@ extern "C" asm void func_ov014_0211287c(void)
     mov r4, #0
     mov r1, r4
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x108
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1024,40 +1024,40 @@ extern "C" asm void func_ov014_0211287c(void)
     str r0, [r6, #4]
     mov r0, #0
     str r0, [r6, #8]
-    bl func_ov014_02113620
+    bl DWCi_Ndi_prepareHttpCallback
     cmp r0, #0
     bne @L_0211293c
     mov r0, r6
-    bl func_ov014_021127b4
+    bl freeHttpParam
     mov r1, #0
     mov r0, #2
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x108
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0211293c:
     ldr r0, [r4, #0x10]
-    bl func_ov014_021121bc
+    bl DWCi_NdCleanupConnectionHandle
     cmp r0, #0
     addeq sp, sp, #0x108
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, =func_ov014_0211252c
+    ldr r0, =req_callback
     mov r5, #1
     stmia sp, {r0, r6}
     ldr r0, [r4, #0x1c]
     ldr r3, [sp, #0x130]
     mov r1, r5
     mov r2, r7
-    bl func_ov014_02118a40
+    bl NHTTP_CreateConnection
     movs r7, r0
     bne @L_021129a0
-    bl func_ov014_02113668
+    bl DWCi_Ndi_unprepareHttpCallback
     mov r0, r6
-    bl func_ov014_021127b4
+    bl freeHttpParam
     mov r1, #0
     mov r0, #3
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x108
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1066,48 +1066,48 @@ extern "C" asm void func_ov014_0211287c(void)
     str r6, [r10]
     mov r2, r5
     str r7, [r9]
-    bl func_ov014_021183bc
+    bl NHTTP_SetRootCA
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     mov r0, r7
     mov r1, #0
-    bl func_ov014_0211838c
+    bl NHTTP_SetVerifyOption
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     ldr r1, =data_ov014_02125c60
-    ldr r2, =data_ov014_02128ef1
+    ldr r2, =DWCi_Ndi_userAgent
     mov r0, r7
-    bl func_ov014_02118270
+    bl NHTTP_AddHeaderField
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     ldr r1, =data_ov014_02125c6c
-    ldr r2, =data_ov014_02128e55
+    ldr r2, =DWCi_Ndi_dwcgamecd
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     ldr r1, =data_ov014_02125c74
     ldr r2, =data_ov014_02128e4c
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     ldr r1, =data_ov014_02125c80
-    ldr r2, =data_ov014_02128ed8
+    ldr r2, =DWCi_Ndi_password
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     ldr r2, [r4, #0x18]
     ldr r1, =data_ov014_02125c88
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
@@ -1115,21 +1115,21 @@ extern "C" asm void func_ov014_0211287c(void)
     ldr r2, =data_ov014_02128e92
     mov r0, r7
     mov r9, r4
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     ldr r1, =data_ov014_02125c98
-    ldr r2, =data_ov014_02128e6c
+    ldr r2, =DWCi_Ndi_macaddr
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
     ldr r1, =data_ov014_02125ca0
     mov r0, r7
     mov r2, r11
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
@@ -1139,7 +1139,7 @@ extern "C" asm void func_ov014_0211287c(void)
     beq @L_02112ae4
     ldr r1, =data_ov014_02125ca8
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #2
     cmp r0, r1
     beq @L_02112cbc
@@ -1149,7 +1149,7 @@ extern "C" asm void func_ov014_0211287c(void)
     beq @L_02112b04
     ldr r1, =data_ov014_02125cb0
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     cmn r0, #1
     beq @L_02112cbc
 @L_02112b04:
@@ -1158,7 +1158,7 @@ extern "C" asm void func_ov014_0211287c(void)
     beq @L_02112b24
     ldr r1, =data_ov014_02125cb8
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     cmn r0, #1
     beq @L_02112cbc
 @L_02112b24:
@@ -1166,25 +1166,25 @@ extern "C" asm void func_ov014_0211287c(void)
     cmp r0, #0
     beq @L_02112b48
     ldr r1, =data_ov014_02125cc0
-    ldr r2, =data_ov014_02128e7d
+    ldr r2, =DWCi_Ndi_strApinfo
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     cmn r0, #1
     beq @L_02112cbc
 @L_02112b48:
     cmp r8, #0
     beq @L_02112bc8
     mov r0, r8
-    bl func_ov014_02113704
+    bl DWCi_Ndi_strlen
     mov r5, r0
     cmp r5, #0x40
     ble @L_02112b88
     mov r1, r4
     mov r0, #5
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     mov r0, r6
     mov r1, r7
-    bl func_ov014_0211285c
+    bl freeHttp
     add sp, sp, #0x108
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1193,80 +1193,80 @@ extern "C" asm void func_ov014_0211287c(void)
     mov r4, #0x59
     mov r0, r10
     mov r1, r4
-    bl func_ov014_0211371c
+    bl DWCi_Ndi_memclr
     mov r0, r10
     mov r1, r8
     mov r2, r5
-    bl func_ov014_02111d38
+    bl DWCi_Ndi_encodeBASE64
     ldr r1, =data_ov014_02125cc8
     mov r2, r10
     mov r0, r7
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r4, #0x5a
     cmp r0, r1
     beq @L_02112cbc
 @L_02112bc8:
     add r5, sp, #8
     mov r4, #0x80
-    ldr r1, =data_ov014_02128e55
+    ldr r1, =DWCi_Ndi_dwcgamecd
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
     ldr r1, =data_ov014_02128e4c
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
-    ldr r1, =data_ov014_02128ed8
+    bl DWCi_Ndi_decodeBASE64
+    ldr r1, =DWCi_Ndi_password
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
     ldr r1, [r9, #0x18]
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
     ldr r1, =data_ov014_02128e92
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
-    ldr r1, =data_ov014_02128e6c
+    bl DWCi_Ndi_decodeBASE64
+    ldr r1, =DWCi_Ndi_macaddr
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
     mov r1, r11
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
-    ldr r1, =data_ov014_02128e7d
+    bl DWCi_Ndi_decodeBASE64
+    ldr r1, =DWCi_Ndi_strApinfo
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
     ldr r1, [r9, #0x3c]
     cmp r1, #0
     beq @L_02112c68
     mov r0, r5
     mov r2, r4
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
 @L_02112c68:
     ldr r1, [r9, #0x40]
     cmp r1, #0
     beq @L_02112c80
     add r0, sp, #8
     mov r2, #0x80
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
 @L_02112c80:
     ldr r1, [r9, #0x44]
     cmp r1, #0
     beq @L_02112c98
     add r0, sp, #8
     mov r2, #0x80
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
 @L_02112c98:
     cmp r8, #0
     beq @L_02112cb0
     ldr r1, =data_ov014_02128f54
     add r0, sp, #8
     mov r2, #0x80
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
 @L_02112cb0:
     add sp, sp, #0x108
     mov r0, #1
@@ -1274,54 +1274,54 @@ extern "C" asm void func_ov014_0211287c(void)
 @L_02112cbc:
     mov r0, r6
     mov r1, r7
-    bl func_ov014_0211285c
+    bl freeHttp
     mov r4, #0
     mov r1, r4
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     mov r0, r4
     add sp, sp, #0x108
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02112d44(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 runHttp(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
-    func_ov014_021135cc();
-    s32 v1 = func_ov014_02118cfc(arg1);
+    DWCi_Ndi_lockGlobal();
+    s32 v1 = NHTTP_StartConnection(arg1);
     r4 = arg1;
     if (v1 != 0) {
-        func_ov014_0211220c(3, 0);
-        func_ov014_021135e0();
+        DWCi_NdSetError(3, 0);
+        DWCi_Ndi_unlockGlobal();
         return 0;
     }
-    *(s32 *)(data_ov014_02128e24 + 0x10) = r4;
-    func_ov014_021135e0();
+    *(s32 *)(DWCi_Ndi_dlcallback + 0x10) = r4;
+    DWCi_Ndi_unlockGlobal();
     return 1;
 }
 
-extern "C" s32 func_ov014_02112d94(s32 arg0)
+extern "C" s32 DWCi_NdGetFileListNumAsync(s32 arg0)
 {
     s32 *x;
     s32 y;
     s32 z = 0;
     s32 r;
-    if (((s32 (*)(...))func_ov014_0211287c)(&x, &y, data_ov014_02123e9d, data_ov014_02128fb0, 0x80, z) == 0)
+    if (((s32 (*)(...))setupHttp)(&x, &y, data_ov014_02123e9d, data_ov014_02128fb0, 0x80, z) == 0)
         return z;
     r = 1;
     x[0] = r;
     x[3] = arg0;
-    if (((s32 (*)(...))func_ov014_02112d44)(x, y) == 0)
+    if (((s32 (*)(...))runHttp)(x, y) == 0)
         r = z;
     return r;
 }
 
-extern "C" asm void func_ov014_02112e10(void)
+extern "C" asm void DWCi_NdGetFileListAsync(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x20
     mov r10, r2
-    ldr r4, =data_ov014_02128e24
+    ldr r4, =DWCi_Ndi_dlcallback
     mov r6, r10, lsl #8
     cmp r6, #0x80
     movlt r6, #0x80
@@ -1337,16 +1337,16 @@ extern "C" asm void func_ov014_02112e10(void)
     mov r4, #0
     mov r1, r4
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x20
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02112e6c:
     mov r1, r5
     add r0, sp, #0x14
-    bl func_ov014_02113754
+    bl DWCi_Ndi_intToStr
     mov r5, r0
-    bl func_ov014_02111d1c
+    bl DWCi_Ndi_getEncodeLenBASE64
     ldr r2, [r4, #4]
     mov r1, r9
     add r0, r0, #1
@@ -1359,21 +1359,21 @@ extern "C" asm void func_ov014_02112e10(void)
     mov r4, #0
     mov r1, r4
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x20
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02112ec0:
     add r1, sp, #0x14
     mov r2, r5
-    bl func_ov014_02111d38
+    bl DWCi_Ndi_encodeBASE64
     mov r5, #0
     strb r5, [r8, r0]
     add r0, sp, #0x14
     mov r1, r10
-    bl func_ov014_02113754
+    bl DWCi_Ndi_intToStr
     str r0, [sp, #8]
-    bl func_ov014_02111d1c
+    bl DWCi_Ndi_getEncodeLenBASE64
     ldr r2, [r4, #4]
     mov r1, r9
     add r0, r0, #1
@@ -1388,14 +1388,14 @@ extern "C" asm void func_ov014_02112e10(void)
     blx r1
     mov r1, r5
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x20
     mov r0, r5
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02112f30:
     ldr r2, [sp, #8]
     add r1, sp, #0x14
-    bl func_ov014_02111d38
+    bl DWCi_Ndi_encodeBASE64
     strb r5, [r9, r0]
     str r6, [sp]
     ldr r2, =data_ov014_02123ea6
@@ -1403,7 +1403,7 @@ extern "C" asm void func_ov014_02112e10(void)
     add r1, sp, #0xc
     mov r3, r7
     str r5, [sp, #4]
-    bl func_ov014_0211287c
+    bl setupHttp
     cmp r0, #0
     bne @L_02112f94
     ldr r1, [r4, #0x14]
@@ -1422,14 +1422,14 @@ extern "C" asm void func_ov014_02112e10(void)
     ldr r0, [sp, #0xc]
     ldr r1, =data_ov014_02125cd8
     mov r2, r8
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #1
     cmp r0, r1
     beq @L_0211304c
     ldr r0, [sp, #0xc]
     ldr r1, =data_ov014_02125ce0
     mov r2, r9
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r5, #1
     cmp r0, r1
     beq @L_0211304c
@@ -1448,7 +1448,7 @@ extern "C" asm void func_ov014_02112e10(void)
     str r7, [r0, #0x14]
     ldr r0, [sp, #0x10]
     ldr r1, [sp, #0xc]
-    bl func_ov014_02112d44
+    bl runHttp
     cmp r0, #0
     addne sp, sp, #0x20
     movne r0, #1
@@ -1466,7 +1466,7 @@ extern "C" asm void func_ov014_02112e10(void)
     mov r0, r5
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0211304c:
-    ldr r4, =data_ov014_02128e24
+    ldr r4, =DWCi_Ndi_dlcallback
     mov r0, r9
     ldr r1, [r4, #0x14]
     blx r1
@@ -1478,17 +1478,17 @@ extern "C" asm void func_ov014_02112e10(void)
     blx r1
     ldr r0, [sp, #0x10]
     ldr r1, [sp, #0xc]
-    bl func_ov014_0211285c
+    bl freeHttp
     mov r4, #0
     mov r1, r4
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     mov r0, r4
     add sp, sp, #0x20
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_021130ac(void)
+extern "C" asm void DWCi_NdGetFileAsync(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -1501,18 +1501,18 @@ extern "C" asm void func_ov014_021130ac(void)
     bhs @L_021130e8
     mov r1, r4
     mov r0, #5
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x10
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_021130e8:
-    bl func_ov014_02113704
+    bl DWCi_Ndi_strlen
     mov r5, r0
     cmp r5, #0x20
     ble @L_02113110
     mov r1, r4
     mov r0, #5
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x10
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1520,10 +1520,10 @@ extern "C" asm void func_ov014_021130ac(void)
     cmp r5, #0
     movle r7, r4
     ble @L_02113124
-    bl func_ov014_02111d1c
+    bl DWCi_Ndi_getEncodeLenBASE64
     mov r7, r0
 @L_02113124:
-    ldr r11, =data_ov014_02128e24
+    ldr r11, =DWCi_Ndi_dlcallback
     add r0, r7, #1
     ldr r2, [r11, #4]
     mov r1, #4
@@ -1533,7 +1533,7 @@ extern "C" asm void func_ov014_021130ac(void)
     mov r4, #0
     mov r1, r4
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     add sp, sp, #0x10
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1545,7 +1545,7 @@ extern "C" asm void func_ov014_021130ac(void)
     add r1, sp, #8
     mov r3, r9
     str r8, [sp, #4]
-    bl func_ov014_0211287c
+    bl setupHttp
     cmp r0, #0
     bne @L_0211319c
     ldr r1, [r11, #0x14]
@@ -1560,12 +1560,12 @@ extern "C" asm void func_ov014_021130ac(void)
     mov r0, r6
     mov r1, r10
     mov r2, r5
-    bl func_ov014_02111d38
+    bl DWCi_Ndi_encodeBASE64
     strb r4, [r6, r0]
     ldr r0, [sp, #8]
     ldr r1, =data_ov014_02125ce4
     mov r2, r6
-    bl func_ov014_021182fc
+    bl NHTTP_AddPostDataAscii
     sub r1, r4, #1
     cmp r0, r1
     beq @L_0211322c
@@ -1580,12 +1580,12 @@ extern "C" asm void func_ov014_021130ac(void)
     str r1, [r0, #0x10]
     ldr r0, [sp, #0xc]
     ldr r1, [sp, #8]
-    bl func_ov014_02112d44
+    bl runHttp
     cmp r0, #0
     addne sp, sp, #0x10
     movne r0, #1
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r1, =data_ov014_02128e24
+    ldr r1, =DWCi_Ndi_dlcallback
     mov r0, r6
     ldr r1, [r1, #0x14]
     blx r1
@@ -1595,29 +1595,29 @@ extern "C" asm void func_ov014_021130ac(void)
 @L_0211322c:
     ldr r0, [sp, #0xc]
     ldr r1, [sp, #8]
-    bl func_ov014_0211285c
+    bl freeHttp
     ldr r1, [r11, #0x14]
     mov r0, r6
     blx r1
     mov r1, r4
     mov r0, #1
-    bl func_ov014_0211220c
+    bl DWCi_NdSetError
     mov r0, r4
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02113268(s32 arg0, s32 arg1)
+extern "C" s32 DWCi_NdGetProgress(s32 arg0, s32 arg1)
 {
     s32 r12;
     s32 v0;
     s32 t0;
     r12 = arg0;
-    if (*(s32 *)(((u8 *)&data_ov014_02128e24) + 0x8) == 0) {
+    if (*(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x8) == 0) {
         return 0;
     } else {
-        t0 = *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x10);
-        v0 = func_ov014_02118ea4(t0, r12, arg1, (u8 *)((u8 *)&data_ov014_02128e24));
+        t0 = *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x10);
+        v0 = NHTTP_GetConnectionProgress(t0, r12, arg1, (u8 *)((u8 *)&DWCi_Ndi_dlcallback));
         if (v0 == 0) {
             arg0 = 1;
         } else {
@@ -1627,28 +1627,28 @@ extern "C" s32 func_ov014_02113268(s32 arg0, s32 arg1)
     }
 }
 
-extern "C" s32 func_ov014_021132a8(s32 arg0, u8 *arg1)
+extern "C" s32 DWCi_Ndi_response_count(s32 arg0, u8 *arg1)
 {
     s32 x, y;
-    s32 r = ((s32 (*)(s32, s32 *, s32 *))func_ov014_02118dd8)(arg0, &x, &y);
+    s32 r = ((s32 (*)(s32, s32 *, s32 *))NHTTP_GetBodyBuffer)(arg0, &x, &y);
     if (r >= 0) {
-        **(s32 **)(arg1 + 0xC) = ((s32 (*)(s32, s32))func_ov014_02113748)(x, r);
+        **(s32 **)(arg1 + 0xC) = ((s32 (*)(s32, s32))DWCi_Ndi_strToInt)(x, r);
         return **(s32 **)(arg1 + 0xC) >= 0 ? 1 : 0;
     }
     return 0;
 }
 
-extern "C" BOOL func_ov014_02113300(s32 arg0, u8 *arg1)
+extern "C" BOOL DWCi_Ndi_response_contents(s32 arg0, u8 *arg1)
 {
     s32 x;
     s32 y;
-    s32 r = ((s32 (*)(s32, s32 *, s32 *))func_ov014_02118dd8)(arg0, &x, &y);
+    s32 r = ((s32 (*)(s32, s32 *, s32 *))NHTTP_GetBodyBuffer)(arg0, &x, &y);
     if (r == *(s32 *)(arg1 + 0x10))
         return TRUE;
     return FALSE;
 }
 
-extern "C" asm void func_ov014_02113330(void)
+extern "C" asm void DWCi_Ndi_response_list(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x80
@@ -1661,11 +1661,11 @@ extern "C" asm void func_ov014_02113330(void)
     mov r2, #0
     ldr r0, [r0, #0xc]
     str r2, [sp, #4]
-    bl func_ov014_0211371c
+    bl DWCi_Ndi_memclr
     ldr r1, =data_ov014_02125cf0
     add r2, sp, #0xc
     mov r0, r4
-    bl func_ov014_02118350
+    bl NHTTP_GetHeaderField
     cmp r0, #0
     ble @L_02113398
     ldr r1, [sp, #0xc]
@@ -1680,7 +1680,7 @@ extern "C" asm void func_ov014_02113330(void)
     add r1, sp, #0x14
     add r2, sp, #0x10
     mov r0, r4
-    bl func_ov014_02118dd8
+    bl NHTTP_GetBodyBuffer
     mov r4, r0
     cmp r4, #0
     ldrgt r0, [sp]
@@ -1723,7 +1723,7 @@ extern "C" asm void func_ov014_02113330(void)
     cmp r1, #8
     bgt @L_021135a0
     add r0, r3, r7
-    bl func_ov014_02113748
+    bl DWCi_Ndi_strToInt
     cmp r0, #0
     blt @L_021135a0
     str r0, [r8, #0xac]
@@ -1754,25 +1754,25 @@ extern "C" asm void func_ov014_02113330(void)
     add r1, r3, r7
     mov r0, r8
 @L_021134b4:
-    bl func_ov014_02113730
+    bl DWCi_Ndi_memcpy
     b @L_0211356c
 @L_021134bc:
     sub r9, r5, r7
     mov r0, r9
-    bl func_ov014_02111d10
+    bl DWCi_Ndi_getDecodeLenBASE64
     cmp r0, #0x66
     bhi @L_021135a0
     ldr r1, [sp, #0x14]
     mov r2, r9
     mov r0, r10
     add r1, r1, r7
-    bl func_ov014_02111e30
+    bl DWCi_Ndi_decodeBASE64
     mov r2, r0
     cmp r2, #0x66
     movhi r2, #0x66
     mov r1, r10
     add r0, r8, #0x22
-    bl func_ov014_02113730
+    bl DWCi_Ndi_memcpy
     strh r11, [r8, #0x86]
     b @L_0211356c
 @L_02113504:
@@ -1801,7 +1801,7 @@ extern "C" asm void func_ov014_02113330(void)
     cmp r1, #8
     bgt @L_021135a0
     add r0, r3, r7
-    bl func_ov014_02113748
+    bl DWCi_Ndi_strToInt
     cmp r0, #0
     blt @L_021135a0
     str r0, [r8, #0xac]
@@ -1828,72 +1828,72 @@ extern "C" asm void func_ov014_02113330(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_021135b0(void)
+extern "C" s32 DWCi_Ndi_initLockGlobal(void)
 {
-    OS_InitMutex((s32)data_ov014_02128ec0);
+    OS_InitMutex((s32)g_MutexAttr);
     return 1;
 }
 
-extern "C" void func_ov014_021135c8(void)
+extern "C" void DWCi_Ndi_exitLockGlobal(void)
 {
 }
 
-extern "C" void func_ov014_021135cc(void)
+extern "C" void DWCi_Ndi_lockGlobal(void)
 {
-    OS_LockMutex((s32)data_ov014_02128ec0);
+    OS_LockMutex((s32)g_MutexAttr);
 }
 
-extern "C" void func_ov014_021135e0(void)
+extern "C" void DWCi_Ndi_unlockGlobal(void)
 {
-    OS_UnlockMutex((s32)data_ov014_02128ec0);
+    OS_UnlockMutex((s32)g_MutexAttr);
 }
 
-extern "C" s32 func_ov014_021135f4(void)
+extern "C" s32 DWCi_Ndi_initHttpCallback(void)
 {
-    OS_InitMutex((s32)data_ov014_02128ea8);
-    *(s32 *)(data_ov014_02128e24 + 0x20) = 0;
+    OS_InitMutex((s32)g_MutexHttp);
+    *(s32 *)(DWCi_Ndi_dlcallback + 0x20) = 0;
     return 1;
 }
 
-extern "C" void func_ov014_0211361c(void)
+extern "C" void DWCi_Ndi_exitHttpCallback(void)
 {
 }
 
-extern "C" s32 func_ov014_02113620(void)
+extern "C" s32 DWCi_Ndi_prepareHttpCallback(void)
 {
     s32 r4;
-    OS_LockMutex((u8 *)((u8 *)&data_ov014_02128ea8));
+    OS_LockMutex((u8 *)((u8 *)&g_MutexHttp));
     r4 = 1;
-    if (*(s32 *)(((u8 *)&data_ov014_02128e24) + 0x20) != 0) {
+    if (*(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x20) != 0) {
         r4 = 0;
     }
     if (r4 != 0) {
-        *(s32 *)(((u8 *)&data_ov014_02128e24) + 0x20) = 1;
+        *(s32 *)(((u8 *)&DWCi_Ndi_dlcallback) + 0x20) = 1;
     }
-    OS_UnlockMutex((u8 *)((u8 *)&data_ov014_02128ea8));
+    OS_UnlockMutex((u8 *)((u8 *)&g_MutexHttp));
     return r4;
 }
 
-extern "C" void func_ov014_02113668(void)
+extern "C" void DWCi_Ndi_unprepareHttpCallback(void)
 {
-    OS_LockMutex((s32)data_ov014_02128ea8);
-    *(s32 *)(data_ov014_02128e24 + 0x20) = 0;
-    OS_UnlockMutex((s32)data_ov014_02128ea8, (s32)data_ov014_02128e24, 0);
+    OS_LockMutex((s32)g_MutexHttp);
+    *(s32 *)(DWCi_Ndi_dlcallback + 0x20) = 0;
+    OS_UnlockMutex((s32)g_MutexHttp, (s32)DWCi_Ndi_dlcallback, 0);
 }
 
-extern "C" void func_ov014_02113698(s32 arg0)
+extern "C" void DWCi_Ndi_kickThread(s32 arg0)
 {
     OS_SendMessage(arg0, 0, 0);
 }
 
-extern "C" asm s32 func_ov014_021136ac(...)
+extern "C" asm s32 DWCi_Ndi_getMacAddress(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x14
     add r6, sp, #0
     mov r8, r0
     mov r0, r6
-    bl func_02008564
+    bl OS_GetMacAddress
     mov r7, #0
     add r5, sp, #6
     mov r4, #2
@@ -1901,49 +1901,49 @@ extern "C" asm s32 func_ov014_021136ac(...)
     ldrb r1, [r6, r7]
     mov r2, r4
     add r0, r5, r7, lsl #1
-    bl func_ov014_02113834
+    bl DWCi_Ndi_hexToStrFigure
     add r7, r7, #1
     cmp r7, #6
     blt @L_021136d0
     mov r0, r8
     mov r1, r5
     mov r2, #0xc
-    bl func_ov014_02111d38
+    bl DWCi_Ndi_encodeBASE64
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" void func_ov014_02113704(void)
+extern "C" void DWCi_Ndi_strlen(void)
 {
     strlen();
 }
 
-extern "C" void func_ov014_02113710(void)
+extern "C" void DWCi_Ndi_strncmp(void)
 {
     strncmp();
 }
 
-extern "C" void func_ov014_0211371c(s32 arg0, s32 arg1)
+extern "C" void DWCi_Ndi_memclr(s32 arg0, s32 arg1)
 {
     MI_CpuFill8(arg0, 0, arg1);
 }
 
-extern "C" void func_ov014_02113730(s32 arg0, s32 arg1, s32 arg2)
+extern "C" void DWCi_Ndi_memcpy(s32 arg0, s32 arg1, s32 arg2)
 {
     MI_CpuCopy8(arg1, arg0, arg2, arg0);
 }
 
-extern "C" void func_ov014_02113748(void)
+extern "C" void DWCi_Ndi_strToInt(void)
 {
-    func_ov014_02114188();
+    NHTTPi_strToInt();
 }
 
-extern "C" void func_ov014_02113754(void)
+extern "C" void DWCi_Ndi_intToStr(void)
 {
-    ((void (*)(void))func_ov014_02114224)();
+    ((void (*)(void))NHTTPi_intToStr)();
 }
 
-extern "C" asm void func_ov014_02113760(void)
+extern "C" asm void DWCi_Ndi_intToStrFigure(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r8, r2
@@ -2002,7 +2002,7 @@ extern "C" asm void func_ov014_02113760(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02113834(void)
+extern "C" asm void DWCi_Ndi_hexToStrFigure(void)
 {
     stmdb sp!, {r3, lr}
     mov lr, #0
@@ -2030,58 +2030,58 @@ extern "C" asm void func_ov014_02113834(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov014_0211388c(void)
+extern "C" void NHTTPi_InitMutex(void)
 {
     OS_InitMutex();
 }
 
-extern "C" void func_ov014_02113898(void)
+extern "C" void NHTTPi_LockMutex(void)
 {
     OS_LockMutex();
 }
 
-extern "C" s32 func_ov014_021138a4(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 NHTTPi_createCommThread(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 r4;
     s32 r5;
     s32 r6;
     s32 v0;
-    v0 = func_ov014_02115a90(arg0, arg1, arg2);
+    v0 = NHTTPi_IsCreateCommThreadMessageQueue(arg0, arg1, arg2);
     r4 = arg2;
     r5 = arg1;
     r6 = arg0;
     if (v0 == 0) {
         OS_InitMessageQueue(r6, (r6 + 0x20), 3);
-        func_ov014_02115a78(r6);
+        NHTTPi_IsCreateCommThreadMessageQueueOn(r6);
     }
-    OS_CreateThread((r6 + 0x2C), (s32)func_ov014_021139a0, 0, (r4 + 0x2000), 0x2000, r5);
+    OS_CreateThread((r6 + 0x2C), (s32)NHTTPi_CommThreadProc, 0, (r4 + 0x2000), 0x2000, r5);
     OS_WakeupThreadDirect((r6 + 0x2C));
     return 1;
 }
 
-extern "C" void func_ov014_02113914(s32 arg0, u8 *arg1)
+extern "C" void NHTTPi_destroyCommThread(s32 arg0, u8 *arg1)
 {
     *(s32 *)(arg1 + 0x18) = 1;
-    func_ov014_02113948(arg0);
-    func_02006048((arg0 + 0x2C));
+    NHTTPi_kickCommThread(arg0);
+    OS_JoinThread((arg0 + 0x2C));
 }
 
-extern "C" void func_ov014_02113934(s32 arg0)
+extern "C" void NHTTPi_idleCommThread(s32 arg0)
 {
     s32 local[1];
-    func_020068c0(arg0, (s32)((u8 *)local), 1);
+    OS_ReceiveMessage(arg0, (s32)((u8 *)local), 1);
     return;
 }
 
-extern "C" void func_ov014_02113948(s32 arg0)
+extern "C" void NHTTPi_kickCommThread(s32 arg0)
 {
     OS_SendMessage(arg0, 0, 0);
 }
 
-extern "C" asm s32 func_ov014_0211395c(...)
+extern "C" asm s32 NHTTPi_CheckCurrentThread(...)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =data_020bb120
+    ldr r2, =OSi_ThreadInfo
     add r0, r0, #0x2c
     ldr r2, [r2, #4]
     cmp r2, #0
@@ -2096,32 +2096,32 @@ extern "C" asm s32 func_ov014_0211395c(...)
     cmp r2, r0
     ldmneia sp!, {r3, pc}
 @L_02113994:
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov014_021139a0(void)
+extern "C" void NHTTPi_CommThreadProc(void)
 {
-    func_ov014_021180ac();
+    NHTTPi_CommThreadProcMain();
 }
 
-extern "C" s32 func_ov014_021139ac(s32 arg0)
+extern "C" s32 NHTTPi_CpsAuthCallback(s32 arg0)
 {
     return ((arg0 & 0x8000) != 0 ? (arg0 & -0x8001) : arg0);
 }
 
-extern "C" s32 func_ov014_021139b8(void)
+extern "C" s32 NHTTPi_CpsAuthCallbackForDebug(void)
 {
     return 0;
 }
 
-extern "C" void func_ov014_021139c0(void)
+extern "C" void NHTTPi_SetSSLseed(void)
 {
-    func_020086c0((s32)data_ov014_02129030);
-    func_ov014_0211e3b4((s32)data_ov014_02129030, 0x20);
+    OS_GetLowEntropyData((s32)data_ov014_02129030);
+    CPS_SslAddRandomSeed((s32)data_ov014_02129030, 0x20);
 }
 
-extern "C" s32 func_ov014_021139e4(s32 arg0)
+extern "C" s32 NHTTPi_checkKeepAlive(s32 arg0)
 {
     s32 local[1];
     s32 r4;
@@ -2132,7 +2132,7 @@ extern "C" s32 func_ov014_021139e4(s32 arg0)
         r5 = (r5 - 1);
     } else {
         r4 = 4;
-        v0 = func_ov014_0211b7ec(arg0, (s32)((u8 *)local), 1, 4);
+        v0 = SOC_Recv(arg0, (s32)((u8 *)local), 1, 4);
         if (v0 != (r4 - 10)) {
             r5 = (r4 - 5);
         }
@@ -2140,18 +2140,18 @@ extern "C" s32 func_ov014_021139e4(s32 arg0)
     return r5;
 }
 
-extern "C" void func_ov014_02113a24(void)
+extern "C" void NHTTPi_SocOpen(void)
 {
-    func_ov014_0211b738(2, 1, 0);
+    SOC_Socket(2, 1, 0);
 }
 
-extern "C" asm s32 func_ov014_02113a3c(...)
+extern "C" asm s32 NHTTPi_SocClose(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r10, r2
     mov r0, r10
     mov r4, r1
-    bl func_ov014_0211b954
+    bl SOC_Close
     movs r8, r0
     beq @L_02113a60
     cmn r8, #0x1a
@@ -2165,11 +2165,11 @@ extern "C" asm s32 func_ov014_02113a3c(...)
 @L_02113a74:
     mov r0, r7
     bl OS_Sleep
-    bl func_ov014_0211aec4
+    bl SOCLi_TrashSocket
     add r9, r9, #0x1f4
 @L_02113a84:
     mov r0, r10
-    bl func_ov014_0211b954
+    bl SOC_Close
     mov r8, r0
     cmp r8, r6
     bne @L_02113aa0
@@ -2181,7 +2181,7 @@ extern "C" asm s32 func_ov014_02113a3c(...)
     ldrne r0, [r4, #0xac]
     cmpne r0, #0
     beq @L_02113ac0
-    bl func_ov014_021144c8
+    bl NHTTPi_free
     mov r0, #0
     str r0, [r4, #0xac]
 @L_02113ac0:
@@ -2189,7 +2189,7 @@ extern "C" asm s32 func_ov014_02113a3c(...)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" s32 func_ov014_02113acc(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, u32 arg4, s32 arg5)
+extern "C" s32 NHTTPi_SocConnect(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, u32 arg4, s32 arg5)
 {
     A02113acc a;
     s32 x = (u16)arg5;
@@ -2198,16 +2198,16 @@ extern "C" s32 func_ov014_02113acc(s32 arg0, s32 arg1, s32 *arg2, s32 arg3, u32 
     a.port = ((x >> 8) & 0xFF) | ((x << 8) & 0xFF00);
     a.addr = arg4;
     if (arg2[2] != 0 && arg2[3] == 0) {
-        s32 r = ((s32 (*)(...))func_ov014_02113b7c)(arg0, arg1, arg2, arg3);
+        s32 r = ((s32 (*)(...))NHTTPi_SocSSLConnect)(arg0, arg1, arg2, arg3);
         if (r < 0)
             return r;
     }
-    if (((s32 (*)(...))func_ov014_0211b790)(arg3, &a) < 0)
+    if (((s32 (*)(...))SOC_Connect)(arg3, &a) < 0)
         return *arg2 != 0 ? -0x3EA : -0x3E9;
     return 0;
 }
 
-extern "C" asm void func_ov014_02113b7c(void)
+extern "C" asm void NHTTPi_SocSSLConnect(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r2
@@ -2218,11 +2218,11 @@ extern "C" asm void func_ov014_02113b7c(void)
     mov r6, #0x830
     mov r0, r6
     mov r1, #4
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     mov r4, r0
     mov r1, r6
     str r4, [r7, #0xac]
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
 @L_02113bb4:
     ldr r0, [r7, #0xc0]
     mov r1, r4
@@ -2233,20 +2233,20 @@ extern "C" asm void func_ov014_02113b7c(void)
     str r0, [r4, #0x800]
     ldr r0, [r7, #0xd8]
     cmp r0, #0
-    ldrne r0, =func_ov014_021139b8
-    ldreq r0, =func_ov014_021139ac
+    ldrne r0, =NHTTPi_CpsAuthCallbackForDebug
+    ldreq r0, =NHTTPi_CpsAuthCallback
     str r0, [r4, #0x810]
     mov r0, r5
-    bl func_ov014_0211bdec
+    bl SOCL_EnableSsl
     cmp r0, #0
     mvnlt r0, #0x3e8
     ldmltia sp!, {r3, r4, r5, r6, r7, pc}
-    bl func_ov014_021139c0
+    bl NHTTPi_SetSSLseed
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02113c0c(void)
+extern "C" asm void NHTTPi_SocRecv_sub(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r0
@@ -2264,7 +2264,7 @@ extern "C" asm void func_ov014_02113c0c(void)
     mov r0, r1
     mov r1, r4
     mov r2, #0x8000
-    bl func_ov014_0211b7ec
+    bl SOC_Recv
     cmp r0, #0
     ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     add r1, r9, #0x8000
@@ -2282,7 +2282,7 @@ extern "C" asm void func_ov014_02113c0c(void)
     mov r0, r8
     mov r2, r6
     add r1, r4, r1
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     add r0, r9, #0x8000
     ldr r1, [r0, #0x44]
     subs r1, r1, r6
@@ -2292,7 +2292,7 @@ extern "C" asm void func_ov014_02113c0c(void)
     bne @L_02113cc4
     mov r0, r4
     mov r1, #0x8000
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     add r0, r9, #0x8000
     mov r1, #0
 @L_02113cc4:
@@ -2303,12 +2303,12 @@ extern "C" asm void func_ov014_02113c0c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" s32 func_ov014_02113cd4(s32 arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+extern "C" s32 NHTTPi_SocRecv(s32 arg0, s32 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
-    s32 h = ((s32 (*)(...))func_ov014_021185d4)(arg0);
+    s32 h = ((s32 (*)(...))NHTTPi_Request2Connection)(arg0);
     s32 r;
     if (h != 0) {
-        r = ((s32 (*)(...))func_ov014_02113c0c)(h, arg2, arg3, arg4, arg5);
+        r = ((s32 (*)(...))NHTTPi_SocRecv_sub)(h, arg2, arg3, arg4, arg5);
     } else {
         return -0x3E9;
     }
@@ -2319,16 +2319,16 @@ extern "C" s32 func_ov014_02113cd4(s32 arg0, s32 *arg1, s32 arg2, s32 arg3, s32 
     return r == -0x38 ? 0 : -0x3E9;
 }
 
-extern "C" void func_ov014_02113d54(void)
+extern "C" void NHTTPi_SocSend_sub(void)
 {
-    func_ov014_0211b8a0();
+    SOC_Send();
 }
 
-extern "C" s32 func_ov014_02113d60(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
+extern "C" s32 NHTTPi_SocSend(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
     s32 r0;
     s32 v0;
-    v0 = ((s32 (*)(...))func_ov014_02113d54)(arg1, arg2, arg3, arg4);
+    v0 = ((s32 (*)(...))NHTTPi_SocSend_sub)(arg1, arg2, arg3, arg4);
     if (v0 >= 0)
         return v0;
     r0 = v0;
@@ -2344,62 +2344,62 @@ extern "C" s32 func_ov014_02113d60(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
     }
 }
 
-extern "C" s32 func_ov014_02113da8(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 NHTTPi_SocCancel(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 r4;
     s32 r5;
     s32 v2;
-    func_ov014_021189c0(arg0, arg1, arg2);
+    NHTTPi_lockReqList(arg0, arg1, arg2);
     r4 = arg2;
     r5 = arg0;
     if (r4 >= 0) {
-        func_ov014_0211b948(r4, 2);
+        SOC_Shutdown(r4, 2);
     }
-    v2 = func_ov014_021189cc(r5);
+    v2 = NHTTPi_unlockReqList(r5);
     return v2;
 }
 
-extern "C" s32 func_ov014_02113dd8(void *arg0, s32 arg1)
+extern "C" s32 NHTTPi_resolveHostname(void *arg0, s32 arg1)
 {
     s32 v;
     s32 x;
     v = 0;
-    if (((s32 (*)(...))func_ov014_0211bcc0)(arg1, &x, 0) != 0) {
+    if (((s32 (*)(...))SOC_InetAtoN)(arg1, &x, 0) != 0) {
         v = x;
     } else {
-        u8 *p = (u8 *)((s32 (*)(...))func_ov014_0211b960)(arg1);
+        u8 *p = (u8 *)((s32 (*)(...))SOC_GetHostByName)(arg1);
         if (p != 0 && *(s16 *)(p + 0xA) > 0)
-            ((s32 (*)(...))func_ov014_02113e40)(&v, **(s32 **)(p + 0xC), 4);
+            ((s32 (*)(...))NHTTPi_memcpy)(&v, **(s32 **)(p + 0xC), 4);
     }
     return v;
 }
 
-extern "C" void func_ov014_02113e40(s32 arg0, s32 arg1, s32 arg2)
+extern "C" void NHTTPi_memcpy(s32 arg0, s32 arg1, s32 arg2)
 {
     MI_CpuCopy8(arg1, arg0, arg2, arg0);
 }
 
-extern "C" void func_ov014_02113e58(void)
+extern "C" void NHTTPi_strlen(void)
 {
     STD_GetStringLength();
 }
 
-extern "C" void func_ov014_02113e64(void)
+extern "C" void NHTTPi_strnlen(void)
 {
-    func_02016f44();
+    STD_GetStringNLength();
 }
 
-extern "C" void func_ov014_02113e70(void)
+extern "C" void NHTTPi_strcmp(void)
 {
     STD_CompareString();
 }
 
-extern "C" void func_ov014_02113e7c(s32 arg0, s32 arg1)
+extern "C" void NHTTPi_memclr(s32 arg0, s32 arg1)
 {
     MI_CpuFill8(arg0, 0, arg1);
 }
 
-extern "C" s32 func_ov014_02113e90(u8 *arg0, u8 *arg1, s32 arg2)
+extern "C" s32 NHTTPi_strnicmp(u8 *arg0, u8 *arg1, s32 arg2)
 {
     s32 r3;
     s32 r4;
@@ -2482,7 +2482,7 @@ extern "C" s32 func_ov014_02113e90(u8 *arg0, u8 *arg1, s32 arg2)
     return arg2;
 }
 
-extern "C" s32 func_ov014_02113f34(s8 *arg0)
+extern "C" s32 NHTTPi_getUrlEncodedSize(s8 *arg0)
 {
     s32 n = 0;
     s32 c = *arg0++;
@@ -2496,7 +2496,7 @@ extern "C" s32 func_ov014_02113f34(s8 *arg0)
     return n;
 }
 
-extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1)
+extern "C" s32 NHTTPi_getUrlEncodedSize2(u8 *arg0, s32 arg1)
 {
     s32 r2;
     s32 r3;
@@ -2520,7 +2520,7 @@ extern "C" s32 func_ov014_02113f9c(u8 *arg0, s32 arg1)
     return r3;
 }
 
-extern "C" asm void func_ov014_02114010(void)
+extern "C" asm void NHTTPi_encodeUrlChar(void)
 {
     cmp r1, #0x20
     moveq r1, #0x2b
@@ -2563,7 +2563,7 @@ extern "C" asm void func_ov014_02114010(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_0211409c(void)
+extern "C" asm void NHTTPi_strToHex(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     cmp r1, #8
@@ -2633,7 +2633,7 @@ extern "C" asm void func_ov014_0211409c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02114188(void)
+extern "C" asm void NHTTPi_strToInt(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r1, #0xa
@@ -2683,7 +2683,7 @@ extern "C" asm void func_ov014_02114188(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_02114224(u8 *arg0, u32 arg1)
+extern "C" s32 NHTTPi_intToStr(u8 *arg0, u32 arg1)
 {
     T02114224 t = *(T02114224 *)data_ov014_02123f90;
     s32 i;
@@ -2707,7 +2707,7 @@ extern "C" s32 func_ov014_02114224(u8 *arg0, u32 arg1)
 }
 
 static inline s32 low021142d0(s32 c) { return ((c >= 0x41) & (c <= 0x5A)) ? c + 0x20 : c; }
-extern "C" s32 func_ov014_021142d0(s8 *a, s8 *b)
+extern "C" s32 NHTTPi_compareToken(s8 *a, s8 *b)
 {
     s32 cb;
     s32 ca;
@@ -2721,7 +2721,7 @@ extern "C" s32 func_ov014_021142d0(s8 *a, s8 *b)
     return -1;
 }
 
-extern "C" s32 func_ov014_02114360(s8 *arg0, s32 arg1)
+extern "C" s32 NHTTPi_strtonum(s8 *arg0, s32 arg1)
 {
     s32 c = 0;
     s32 v = c;
@@ -2740,7 +2740,7 @@ extern "C" s32 func_ov014_02114360(s8 *arg0, s32 arg1)
     return v;
 }
 
-extern "C" asm void func_ov014_021143d0(void)
+extern "C" asm void NHTTPi_memfind(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     cmp r1, r3
@@ -2782,25 +2782,25 @@ extern "C" asm void func_ov014_021143d0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" void func_ov014_02114454(u8 *arg0)
+extern "C" void NHTTPi_InitBgnEndInfo(u8 *arg0)
 {
     *(s32 *)(arg0) = 0;
     *(s32 *)(arg0 + 0x4) = 0;
     *(s32 *)(arg0 + 0x8) = 0;
     *(s32 *)(arg0 + 0xC) = (0 - 1);
-    func_ov014_021144f4(arg0, 0);
-    func_ov014_021144ec(arg0, 0);
+    NHTTPi_SetSSLError(arg0, 0);
+    NHTTPi_SetError(arg0, 0);
     *(s32 *)(arg0 + 0x18) = 0;
     *(s32 *)(arg0 + 0x1C) = 0;
     *(s32 *)(arg0 + 0x20) = 0;
 }
 
-extern "C" s32 func_ov014_02114498(s32 arg0, s32 arg1)
+extern "C" s32 NHTTPi_alloc(s32 arg0, s32 arg1)
 {
     s32 v0;
     s32 v1;
     s32 t0;
-    v0 = func_ov014_021188fc(arg0, arg1);
+    v0 = NHTTPi_GetSystemInfoP(arg0, arg1);
     if (*(s32 *)(((u8 *)v0)) == 0)
         return 0;
     t0 = *(s32 *)(((u8 *)v0));
@@ -2808,12 +2808,12 @@ extern "C" s32 func_ov014_02114498(s32 arg0, s32 arg1)
     return v1;
 }
 
-extern "C" s32 func_ov014_021144c8(s32 arg0)
+extern "C" s32 NHTTPi_free(s32 arg0)
 {
     s32 v0;
     s32 v1;
     s32 t0;
-    v0 = func_ov014_021188fc(arg0);
+    v0 = NHTTPi_GetSystemInfoP(arg0);
     if (*(s32 *)(((u8 *)v0) + 0x4) == 0)
         return v0;
     t0 = *(s32 *)(((u8 *)v0) + 0x4);
@@ -2821,41 +2821,41 @@ extern "C" s32 func_ov014_021144c8(s32 arg0)
     return v1;
 }
 
-extern "C" void func_ov014_021144ec(u8 *arg0, s32 arg1)
+extern "C" void NHTTPi_SetError(u8 *arg0, s32 arg1)
 {
     *(s32 *)(arg0 + 0x14) = arg1;
 }
 
-extern "C" void func_ov014_021144f4(u8 *arg0, s32 arg1)
+extern "C" void NHTTPi_SetSSLError(u8 *arg0, s32 arg1)
 {
     *(s32 *)(arg0 + 0x10) = arg1;
 }
 
-extern "C" s32 func_ov014_021144fc(u8 *arg0)
+extern "C" s32 NHTTPi_GetSSLError(u8 *arg0)
 {
     return *(s32 *)(arg0 + 0x10);
 }
 
-extern "C" asm void func_ov014_02114504(void)
+extern "C" asm void NHTTPi_Startup(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
     mov r9, r1
     mov r8, r2
     mov r7, r3
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r6, r0
     mov r0, r10
-    bl func_ov014_02118934
+    bl NHTTPi_GetListInfoP
     mov r5, r0
     mov r0, r10
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     mov r4, r0
     mov r0, r10
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r11, r0
     mov r0, r10
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     str r9, [r6]
     str r8, [r6, #4]
     mov r8, r0
@@ -2865,46 +2865,46 @@ extern "C" asm void func_ov014_02114504(void)
     str r5, [r6, #0x10]
     str r5, [r6, #0x18]
     str r5, [r6, #0x24]
-    bl func_ov014_0211495c
+    bl NHTTPi_InitListInfo
     mov r0, r4
-    bl func_ov014_02115030
+    bl NHTTPi_InitRequestInfo
     mov r0, r11
-    bl func_ov014_02118998
-    bl func_ov014_02118960
+    bl NHTTPi_initLockReqList
+    bl NHTTPi_InitConnectionList
     sub r0, r5, #1
     str r0, [r6, #0xc]
     mov r0, #0x2000
     mov r1, #8
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     str r0, [r6, #0x1c]
     movs r2, r0
     bne @L_021145c0
     mov r0, r6
     mov r1, #1
-    bl func_ov014_021144ec
-    bl func_ov014_021189bc
+    bl NHTTPi_SetError
+    bl NHTTPi_exitLockReqList
     mov r0, r5
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_021145c0:
     mov r0, r8
     mov r1, r7
-    bl func_ov014_021138a4
+    bl NHTTPi_createCommThread
     cmp r0, #0
     movne r0, #1
     strne r0, [r6, #8]
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r6
     mov r1, #9
-    bl func_ov014_021144ec
+    bl NHTTPi_SetError
     ldr r0, [r6, #0x1c]
-    bl func_ov014_021144c8
+    bl NHTTPi_free
     str r5, [r6, #0x1c]
-    bl func_ov014_021189bc
+    bl NHTTPi_exitLockReqList
     mov r0, r5
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02114600(s32 arg0, s32 arg1)
+extern "C" s32 NHTTPi_CleanupAsync(s32 arg0, s32 arg1)
 {
     u8 *r5;
     s32 r6;
@@ -2913,31 +2913,31 @@ extern "C" s32 func_ov014_02114600(s32 arg0, s32 arg1)
     s32 v8;
     s32 t0;
     s32 t1;
-    v0 = func_ov014_02118930(arg0, arg1);
-    v1 = func_ov014_02118944(arg0);
-    func_ov014_0211395c(v1, 1);
-    func_ov014_0211571c(arg0);
-    func_ov014_02113914(v1, (u8 *)v0);
+    v0 = NHTTPi_GetBgnEndInfoP(arg0, arg1);
+    v1 = NHTTPi_GetThreadInfoP(arg0);
+    NHTTPi_CheckCurrentThread(v1, 1);
+    NHTTPi_cancelAllRequests(arg0);
+    NHTTPi_destroyCommThread(v1, (u8 *)v0);
     t0 = *(s32 *)(((u8 *)v0) + 0x1C);
-    func_ov014_021144c8(t0);
+    NHTTPi_free(t0);
     *(s32 *)(((u8 *)v0) + 0x1C) = 0;
-    func_ov014_021189bc();
+    NHTTPi_exitLockReqList();
     *(s32 *)(((u8 *)v0) + 0x8) = 0;
     r5 = (u8 *)v0;
     r6 = arg1;
     if (r6 != 0) {
         ((s32 (*)(...))r6)();
     }
-    v8 = func_ov014_0211863c();
+    v8 = NHTTPi_GetConnectionListLength();
     if (*(s32 *)(r5 + 0xC) < 0)
         return v8;
     t1 = *(s32 *)(r5 + 0xC);
-    func_ov014_02113a3c(0, 0, t1);
+    NHTTPi_SocClose(0, 0, t1);
     *(s32 *)(r5 + 0xC) = (0 - 1);
     return (0 - 1);
 }
 
-extern "C" asm s32 func_ov014_0211468c(...)
+extern "C" asm s32 addHdrList(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r9, r0
@@ -2951,7 +2951,7 @@ extern "C" asm s32 func_ov014_0211468c(...)
     ldr r1, [r10, #8]
     mov r0, r7
     mov r5, r10
-    bl func_ov014_021142d0
+    bl NHTTPi_compareToken
     cmp r0, #0
     beq @L_02114704
     ldr r5, [r10, #4]
@@ -2961,7 +2961,7 @@ extern "C" asm s32 func_ov014_0211468c(...)
 @L_021146d8:
     ldr r1, [r5, #8]
     mov r0, r7
-    bl func_ov014_021142d0
+    bl NHTTPi_compareToken
     cmp r0, #0
     moveq r4, #1
     beq @L_02114708
@@ -2978,12 +2978,12 @@ extern "C" asm s32 func_ov014_0211468c(...)
     bne @L_0211478c
     mov r0, #0x18
     mov r1, #4
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     cmp r0, #0
     bne @L_0211473c
     mov r0, r8
     mov r1, #1
-    bl func_ov014_021144ec
+    bl NHTTPi_SetError
     mov r0, #0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_0211473c:
@@ -3012,7 +3012,7 @@ extern "C" asm s32 func_ov014_0211468c(...)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" s32 func_ov014_02114794(s32 arg0)
+extern "C" s32 incAscii(s32 arg0)
 {
     arg0 = ((arg0 + 1) & 0xFF);
     if (arg0 == 0x7B) {
@@ -3029,7 +3029,7 @@ extern "C" s32 func_ov014_02114794(s32 arg0)
     return ((s8)arg0);
 }
 
-extern "C" asm s32 func_ov014_021147c8(...)
+extern "C" asm s32 checkTagPost(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -3039,20 +3039,20 @@ extern "C" asm s32 func_ov014_021147c8(...)
     mov r1, r8
     add r2, r10, #0x3a
     mov r3, #0x12
-    bl func_ov014_021143d0
+    bl NHTTPi_memfind
     cmp r0, #0
     movlt r0, #1
     ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r11, #0x13
     mov r4, #0x12
 @L_02114800:
-    ldr r0, =data_ov014_02123fb4
+    ldr r0, =NHTTPi_strMultipartBound
     add r6, r10, r11
     ldrsb r5, [r6, #0x38]
     ldrsb r7, [r0, r11]
 @L_02114810:
     and r0, r5, #0xff
-    bl func_ov014_02114794
+    bl incAscii
     mov r5, r0
     strb r5, [r6, #0x38]
     cmp r5, r7
@@ -3061,7 +3061,7 @@ extern "C" asm s32 func_ov014_021147c8(...)
     mov r1, r8
     mov r3, r4
     add r2, r10, #0x3a
-    bl func_ov014_021143d0
+    bl NHTTPi_memfind
     cmp r0, #0
     bge @L_02114810
     mov r0, #1
@@ -3074,7 +3074,7 @@ extern "C" asm s32 func_ov014_021147c8(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" N02114864 *func_ov014_02114864(N02114864 **arg0)
+extern "C" N02114864 *NHTTPi_getHdrFromList(N02114864 **arg0)
 {
     N02114864 *n = *arg0;
     if (n != 0) {
@@ -3089,14 +3089,14 @@ extern "C" N02114864 *func_ov014_02114864(N02114864 **arg0)
     return n;
 }
 
-extern "C" s32 func_ov014_021148a8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 NHTTPi_AddRequestHeaderField(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     if (*(s32 *)(arg0 + 4) != 0)
         return 0;
-    return ((s32 (*)(u8 *, s32, s32, s32))func_ov014_0211468c)(arg0 + 0x30, arg1, arg2, arg3);
+    return ((s32 (*)(u8 *, s32, s32, s32))addHdrList)(arg0 + 0x30, arg1, arg2, arg3);
 }
 
-extern "C" s32 func_ov014_021148c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 NHTTPi_AddRequestPostDataAscii(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     s32 r5;
@@ -3121,12 +3121,12 @@ extern "C" s32 func_ov014_021148c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
             return r4;
         } else {
             if (r6 != 0) {
-                v0 = ((s32 (*)(...))func_ov014_02113e58)(r6);
+                v0 = ((s32 (*)(...))NHTTPi_strlen)(r6);
                 r5 = v0;
             }
-            v1 = func_ov014_021147c8((s32)r9, r6, r5);
+            v1 = checkTagPost((s32)r9, r6, r5);
             if (v1 != 0) {
-                v2 = func_ov014_0211468c((s32)(r9 + 0x34), r8, r7, r6);
+                v2 = addHdrList((s32)(r9 + 0x34), r8, r7, r6);
                 r4 = v2;
                 if (r4 != 0) {
                     t0 = (u8 *)*(s32 *)(*(u8 * *)(r9 + 0x34));
@@ -3138,13 +3138,13 @@ extern "C" s32 func_ov014_021148c8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     }
 }
 
-extern "C" void func_ov014_0211495c(u8 *arg0)
+extern "C" void NHTTPi_InitListInfo(u8 *arg0)
 {
     *(s32 *)(arg0) = 0;
     *(s32 *)(arg0 + 0x4) = 0;
 }
 
-extern "C" asm void func_ov014_0211496c(void)
+extern "C" asm void NHTTPi_setReqQueue(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -3152,7 +3152,7 @@ extern "C" asm void func_ov014_0211496c(void)
     mov r0, #0x14
     mov r1, #4
     mvn r4, #0
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     cmp r0, #0
     beq @L_021149fc
     ldr r1, [r6]
@@ -3188,7 +3188,7 @@ extern "C" asm void func_ov014_0211496c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm s32 func_ov014_02114a04(...)
+extern "C" asm s32 NHTTPi_findReqQueue(...)
 {
     ldr r3, [r0]
     mov r0, #0
@@ -3212,7 +3212,7 @@ extern "C" asm s32 func_ov014_02114a04(...)
     bx lr
 }
 
-extern "C" s32 func_ov014_02114a50(u8 *arg0, s32 arg1, s32 arg2)
+extern "C" s32 NHTTPi_freeReqQueue(u8 *arg0, s32 arg1, s32 arg2)
 {
     u8 *r4;
     u8 *r6;
@@ -3227,7 +3227,7 @@ extern "C" s32 func_ov014_02114a50(u8 *arg0, s32 arg1, s32 arg2)
     s32 t5;
     s32 t6;
     r7 = 0;
-    v0 = func_ov014_02114a04((s32)arg0, arg2, arg2);
+    v0 = NHTTPi_findReqQueue((s32)arg0, arg2, arg2);
     r4 = (u8 *)v0;
     if ((s32)r4 != 0) {
         if ((s32)*(u8 * *)(arg0) != *(s32 *)(*(u8 * *)(arg0))) {
@@ -3245,22 +3245,22 @@ extern "C" s32 func_ov014_02114a50(u8 *arg0, s32 arg1, s32 arg2)
             *(s32 *)(arg0) = r7;
         }
         t5 = *(s32 *)(r4 + 0xC);
-        v1 = func_ov014_021185d4(arg1, t5);
+        v1 = NHTTPi_Request2Connection(arg1, t5);
         t6 = *(s32 *)(r4 + 0xC);
-        func_ov014_021155a4(arg1, t6);
-        func_ov014_021144c8((s32)r4);
+        NHTTPi_destroyRequestObject(arg1, t6);
+        NHTTPi_free((s32)r4);
         r6 = (u8 *)v1;
         if ((s32)r6 != 0) {
             *(s32 *)(r6 + 0x4) = 8;
-            func_ov014_02118810(arg1, (s32)r6, 8);
-            func_ov014_02118ba4((s32)r6);
+            NHTTPi_CompleteCallback(arg1, (s32)r6, 8);
+            NHTTPi_DeleteConnection((s32)r6);
         }
         r7 = 1;
     }
     return r7;
 }
 
-extern "C" s32 func_ov014_02114b00(u8 *arg0, s32 arg1)
+extern "C" s32 NHTTPi_allFreeReqQueue(u8 *arg0, s32 arg1)
 {
     u8 *r0;
     s32 t0;
@@ -3269,18 +3269,18 @@ extern "C" s32 func_ov014_02114b00(u8 *arg0, s32 arg1)
     r0 = (u8 *)*(s32 *)(arg0);
     do {
         t0 = *(s32 *)(r0 + 0x8);
-        func_ov014_02114a50(arg0, arg1, t0);
+        NHTTPi_freeReqQueue(arg0, arg1, t0);
         r0 = (u8 *)*(s32 *)(arg0);
     } while ((s32)r0 != 0);
     return (s32)r0;
 }
 
-extern "C" N02114864 *func_ov014_02114b38(N02114864 **arg0)
+extern "C" N02114864 *NHTTPi_getReqFromReqQueue(N02114864 **arg0)
 {
-    return func_ov014_02114864(arg0);
+    return NHTTPi_getHdrFromList(arg0);
 }
 
-extern "C" void func_ov014_02114b44(u8 *arg0, s32 arg1, void **arg2, s32 *arg3)
+extern "C" void setupGetcharFromHdrRecvBuf(u8 *arg0, s32 arg1, void **arg2, s32 *arg3)
 {
     s32 n;
     void **p;
@@ -3297,7 +3297,7 @@ extern "C" void func_ov014_02114b44(u8 *arg0, s32 arg1, void **arg2, s32 *arg3)
     *arg3 = (arg1 - 0x400) & 0x1FF;
 }
 
-extern "C" asm void func_ov014_02114b9c(void)
+extern "C" asm void getcharFromHdrRecvBuf(void)
 {
     ldr r3, [r1]
     cmp r3, #0
@@ -3332,7 +3332,7 @@ extern "C" asm void func_ov014_02114b9c(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_02114c10(void)
+extern "C" asm void NHTTPi_findNextLineHdrRecvBuf(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -3351,7 +3351,7 @@ extern "C" asm void func_ov014_02114c10(void)
     add r3, sp, #0
     mvn r6, #0
     mov r5, #0
-    bl func_ov014_02114b44
+    bl setupGetcharFromHdrRecvBuf
     cmp r10, r9
     bge @L_02114d20
     sub r4, r9, #1
@@ -3359,7 +3359,7 @@ extern "C" asm void func_ov014_02114c10(void)
     mov r0, r11
     add r1, sp, #4
     add r2, sp, #0
-    bl func_ov014_02114b9c
+    bl getcharFromHdrRecvBuf
     cmp r0, #0x3a
     bne @L_02114c8c
     cmp r8, #0

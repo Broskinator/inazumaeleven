@@ -3,8 +3,8 @@ struct T0209d998 { s32 v[14]; };
 struct T0209d8dc { s32 v[121]; };
 
 extern "C" void func_0209c480(void *a);
-extern "C" void func_02008580(void *buffer);
-extern "C" u8 data_020c5320[];
+extern "C" void OS_GetOwnerInfo(void *buffer);
+extern "C" u8 gWirelessUtil[];
 extern "C" s32 data_020fc794[];
 extern "C" u32 data_020fc7d4;
 extern "C" s32 *data_020affd0[];
@@ -27,16 +27,16 @@ extern "C" int func_0209d3a0(void *callback);
 extern "C" void func_0209d420(s32 value);
 extern "C" void func_0209d444(void);
 extern "C" void func_0209d480(void);
-extern "C" void func_0209d524(void);
-extern "C" void func_0209d5a4(void);
+extern "C" void CRYPTO_RC4Init(void);
+extern "C" void CRYPTO_RC4Encrypt(void);
 extern "C" int func_0209d61c(void);
 extern "C" void func_0209d638(void);
 extern "C" void func_0209d648(u32 value);
 extern "C" u32 func_0209d668(void);
-extern "C" void func_0209d678(s32 *obj);
-extern "C" void func_0209d684(void *obj);
-extern "C" void func_0209d688(void);
-extern "C" u8 *func_0209d874(u8 **arg0, s16 arg1);
+extern "C" void CSceneScriptData_Ctor(s32 *obj);
+extern "C" void CSceneScriptData_Dtor(void *obj);
+extern "C" void CSceneScriptData_InitFile(void);
+extern "C" u8 *CSceneScriptData_GetInstructionByID(u8 **arg0, s16 arg1);
 extern "C" s32 func_0209d8b8(int i);
 extern "C" void func_0209d8cc(s32 *table);
 extern "C" s32 func_0209d8dc(s32 arg0);
@@ -105,7 +105,7 @@ extern "C" void func_0209cd14(BOOL a)
     if (!a) {
         return;
     }
-    func_0209c480(data_020c5320);
+    func_0209c480(gWirelessUtil);
 }
 
 extern "C" asm s32 func_0209cd30(...)
@@ -667,7 +667,7 @@ extern "C" asm void func_0209d480(void)
     mov pc, lr
 }
 
-extern "C" asm void func_0209d524(void)
+extern "C" asm void CRYPTO_RC4Init(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r3, #0
@@ -705,7 +705,7 @@ extern "C" asm void func_0209d524(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_0209d5a4(void)
+extern "C" asm void CRYPTO_RC4Encrypt(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     ldrb r7, [r0]
@@ -745,7 +745,7 @@ extern "C" int func_0209d61c(void)
 {
     u8 buffer[0x54];
 
-    func_02008580(buffer);
+    OS_GetOwnerInfo(buffer);
     return 0;
 }
 
@@ -768,16 +768,16 @@ extern "C" u32 func_0209d668(void)
     return data_020fc7d4;
 }
 
-extern "C" void func_0209d678(s32 *obj)
+extern "C" void CSceneScriptData_Ctor(s32 *obj)
 {
     *obj = 0;
 }
 
-extern "C" void func_0209d684(void *obj)
+extern "C" void CSceneScriptData_Dtor(void *obj)
 {
 }
 
-extern "C" asm void func_0209d688(void)
+extern "C" asm void CSceneScriptData_InitFile(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -917,7 +917,7 @@ extern "C" asm void func_0209d688(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" u8 *func_0209d874(u8 **arg0, s16 arg1)
+extern "C" u8 *CSceneScriptData_GetInstructionByID(u8 **arg0, s16 arg1)
 {
     u8 *h = arg0[0];
     u8 *e = arg0[1];
@@ -1303,7 +1303,7 @@ extern "C" asm void func_0209deb0(void)
     movne r0, #1
     strneb r0, [r9, #0x15]
 @L_0209defc:
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf9c
     mov r6, r0
     mov r7, #0

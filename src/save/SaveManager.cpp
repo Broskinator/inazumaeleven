@@ -16,10 +16,10 @@ extern "C" void _ZN11MatchEngine13func_0206db10EP8SaveBody(void);     // (for th
 extern "C" void _ZN11MatchEngine13func_0206dcdcEP8SaveBody(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);     // (for the asm functions)
 // (other systems, not decompiled yet)
-extern GameHeap data_020c47b4;
+extern GameHeap gAllocator;
 extern "C" u8 data_020d3d20[];
-extern "C" void *data_020c46cc;
-extern "C" void *data_020c4678;
+extern "C" void *g2DAdventureLogic;
+extern "C" void *g3DGameMapObject;
 extern "C" u8 data_020c4638;
 extern "C" void func_02081c3c(SaveBlock8 *block);
 extern "C" void func_0209ac8c(void *obj, void *dst);
@@ -421,10 +421,10 @@ s32 SaveManager::Save(int slot, BOOL async)
     body->block12 = gGameState.block12;
     func_0209ac8c(data_020d3d20, body->unk_49FC);
     data_020d9978.func_02052474(body->unk_5338);
-    data_020c5e40.SaveState(&body->soundState);
+    gAudioPlayer.SaveState(&body->soundState);
     data_020e88a0.func_0206db10(body);
-    func_02086988(data_020c46cc, body->unk_3DDC);
-    func_0208e81c(data_020c4678, body->unk_43FC);
+    func_02086988(g2DAdventureLogic, body->unk_3DDC);
+    func_0208e81c(g3DGameMapObject, body->unk_43FC);
     gGameState.SaveExtra(extra);
     body->unk_7D14 = gGameState.unk_1238;
     body->unk_7D16 = gGameState.unk_123A;
@@ -458,7 +458,7 @@ s32 SaveManager::Save(int slot, BOOL async)
 
     team = body->team;
     for (i = 0; i < team.count; i++) {
-        file->header.members[i] = *(u16 *)((u8 *)func_02085ba4(data_020c46cc, team.ids[i]) + 0x20);
+        file->header.members[i] = *(u16 *)((u8 *)func_02085ba4(g2DAdventureLogic, team.ids[i]) + 0x20);
     }
 
     DC_FlushRange(&file->header, sizeof(SaveHeader));
@@ -684,18 +684,18 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     add r1, r1, #0x5000
     bl _ZN11TreasureBox13func_02052474EPv
     add r1, r5, #0x44
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     add r1, r1, #0x7c00
     bl _ZN12SoundManager9SaveStateEP10SoundState
     ldr r0, =data_020e88a0
     mov r1, r5
     bl _ZN11MatchEngine13func_0206db10EP8SaveBody
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     add r1, r5, #0x1dc
     ldr r0, [r0]
     add r1, r1, #0x3c00
     bl func_02086988
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     add r1, r5, #0x3fc
     ldr r0, [r0]
     add r1, r1, #0x4000
@@ -802,7 +802,7 @@ asm s32 SaveManager::Save(int slot, BOOL async)
     mov r10, #0
     stmia r5, {r0, r1}
     mov r6, r10
-    ldr r5, =data_020c46cc
+    ldr r5, =g2DAdventureLogic
     b @L_020389b4
 @L_02038998:
     ldr r1, [r9, r10, lsl #2]
@@ -1295,10 +1295,10 @@ s32 SaveManager::ApplyLoad(int slot)
         gGameState.unk_1281 = 0;
         func_0209ae70(data_020d3d20, body->unk_49FC);
         data_020d9978.func_020524b0(body->unk_5338);
-        data_020c5e40.RestoreState(&body->soundState);
+        gAudioPlayer.RestoreState(&body->soundState);
         data_020e88a0.func_0206dcdc(body);
-        func_0208663c(data_020c46cc, body->unk_3DDC);
-        func_0208e844(data_020c4678, body->unk_43FC);
+        func_0208663c(g2DAdventureLogic, body->unk_3DDC);
+        func_0208e844(g3DGameMapObject, body->unk_43FC);
         gGameState.LoadExtra(extra);
         data_020c4638 = gGameState.unk_123C;
 
@@ -1539,20 +1539,20 @@ asm s32 SaveManager::ApplyLoad(int slot)
     add r1, r1, #0x5000
     bl _ZN11TreasureBox13func_020524b0EPv
     add r1, r5, #0x44
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     add r1, r1, #0x7c00
     bl _ZN12SoundManager12RestoreStateEP10SoundState
     ldr r0, =data_020e88a0
     mov r1, r5
     bl _ZN11MatchEngine13func_0206dcdcEP8SaveBody
-    ldr r0, =data_020c46cc
+    ldr r0, =g2DAdventureLogic
     add r1, r5, #0x1dc
     ldr r0, [r0]
     add r1, r1, #0x3c00
     bl func_0208663c
     add r0, r5, #0x3fc
     add r1, r0, #0x4000
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     ldr r0, [r0]
     bl func_0208e844
     add r1, r7, #0x7c00
@@ -1612,14 +1612,14 @@ s32 SaveManager::Verify(SaveHeader *header, SaveBody *body, void *extra)
 
 void *SaveManager::Alloc(u32 size)
 {
-    void *ptr = data_020c47b4.Alloc(size, 16, TRUE);
+    void *ptr = gAllocator.Alloc(size, 16, TRUE);
     MI_CpuFill8(ptr, 0, size);
     return ptr;
 }
 
 void SaveManager::Free(void *ptr)
 {
-    data_020c47b4.Free(ptr);
+    gAllocator.Free(ptr);
 }
 
 u32 SaveManager::ReverseBits(u32 value, int bits)

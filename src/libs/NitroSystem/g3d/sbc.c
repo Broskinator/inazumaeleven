@@ -2,19 +2,19 @@
 
 void NNSi_G3dFuncSbc_NOP(void);
 void NNSi_G3dFuncSbc_RET(void);
-void func_020291c4(void);
-void func_0202933c(void);
-void func_02029408(void);
+void NNSi_G3dFuncSbc_NODE(void);
+void NNSi_G3dFuncSbc_MTX(void);
+void NNSi_G3dFuncSbc_MAT_InternalDefault(void);
 void NNSi_G3dFuncSbc_MAT(void);
-void func_0202992c(void);
+void NNSi_G3dFuncSbc_SHP_InternalDefault(void);
 void NNSi_G3dFuncSbc_SHP(void);
 
-void func_0202b608(void);
+void NNS_G3dGeBufferOP_N(void);
 extern char data_020bf680[];
 extern char data_020a48ac[];
-extern char data_020bf418[];
+extern char NNS_G3dGlb[];
 extern char data_020ab8d0[];
-void func_0202b550(void);
+void NNS_G3dGeSendDL(void);
 extern char data_020ab8e0[];
 
 asm void NNSi_G3dFuncSbc_NOP(void)
@@ -47,7 +47,7 @@ asm void NNSi_G3dFuncSbc_RET(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020291c4(void)
+asm void NNSi_G3dFuncSbc_NODE(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -153,7 +153,7 @@ asm void func_020291c4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0202933c(void)
+asm void NNSi_G3dFuncSbc_MTX(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
@@ -195,7 +195,7 @@ asm void func_0202933c(void)
     add r1, sp, #0
     mov r0, #0x14
     mov r2, #1
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_020293d8:
     cmp r5, #3
     bne @L_020293f8
@@ -212,7 +212,7 @@ asm void func_0202933c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02029408(void)
+asm void NNSi_G3dFuncSbc_MAT_InternalDefault(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
@@ -341,7 +341,7 @@ asm void func_02029408(void)
     mov r1, r10, asr #6
     orrne r0, r0, #0x20
     strne r0, [r4]
-    ldr r11, =data_020bf418
+    ldr r11, =NNS_G3dGlb
     and r1, r1, #7
     ldr r9, [r2, r1, lsl #2]
     ldr r3, [r7, #4]
@@ -491,7 +491,7 @@ asm void func_02029408(void)
     str r3, [sp, #0x14]
     ldr r3, [r4, #0x14]
     str r3, [sp, #0x18]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [r4]
     tst r0, #0x18
     beq @L_0202983c
@@ -570,7 +570,7 @@ asm void NNSi_G3dFuncSbc_MAT(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0202992c(void)
+asm void NNSi_G3dFuncSbc_SHP_InternalDefault(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -605,7 +605,7 @@ asm void func_0202992c(void)
     ldr r0, [r4, #8]
     ldr r1, [r4, #0xc]
     add r0, r4, r0
-    bl func_0202b550
+    bl NNS_G3dGeSendDL
 @L_020299ac:
     cmp r6, #2
     bne @L_020299dc

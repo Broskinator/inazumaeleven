@@ -1,24 +1,24 @@
 // (asm for now)
 
 void MIi_CheckDma0SourceAddress(void);
-void func_02008e80(void);
-void func_02008f6c(void);
-void func_02009020(void);
-void func_02009080(void);
+void MI_SendGXCommandAsync(void);
+void MIi_FIFOCallback(void);
+void MIi_DMACallback(void);
+void MI_SendGXCommandAsyncFast(void);
 
-void func_0200878c(void);
-extern char data_020bb4b4[];
-void func_02008cb4(void);
+void OS_Terminate(void);
+extern char MIi_GXDmaParams[];
+void MI_WaitDma(void);
 void OS_DisableInterrupts(void);
 void OS_GetIrqFunction(void);
 void OS_SetIrqFunction(void);
 void OS_EnableIrqMask(void);
 void OS_RestoreInterrupts(void);
 void OSi_EnterDmaCallback(void);
-void func_01ff845c(void);
+void MIi_DmaSetParameters(void);
 void OS_ResetRequestIrqMask(void);
 void OS_DisableIrqMask(void);
-void func_02008da0(void);
+void MIi_CheckAnotherAutoDMA(void);
 void MIi_DMAFastCallback(void);
 
 asm void MIi_CheckDma0SourceAddress(void)
@@ -45,11 +45,11 @@ asm void MIi_CheckDma0SourceAddress(void)
     cmp r0, #0x8000000
     ldmloia sp!, {r3, pc}
 @L_02008e78:
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02008e80(void)
+asm void MI_SendGXCommandAsync(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, r0
@@ -61,7 +61,7 @@ asm void func_02008e80(void)
     blx r3
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02008ea4:
-    ldr r0, =data_020bb4b4
+    ldr r0, =MIi_GXDmaParams
 @L_02008ea8:
     ldr r5, [r0]
     cmp r5, #0
@@ -73,7 +73,7 @@ asm void func_02008e80(void)
     mov r0, r0, lsr #0x18
     tst r0, #2
     beq @L_02008eb8
-    ldr r6, =data_020bb4b4
+    ldr r6, =MIi_GXDmaParams
     mov r0, #1
     str r0, [r6]
     str r4, [r6, #4]
@@ -86,7 +86,7 @@ asm void func_02008e80(void)
     str r7, [r6, #0x14]
     bl MIi_CheckDma0SourceAddress
     mov r0, r4
-    bl func_02008cb4
+    bl MI_WaitDma
     bl OS_DisableInterrupts
     ldr r1, [r5]
     mov r7, #0x200000
@@ -98,7 +98,7 @@ asm void func_02008e80(void)
     bl OS_GetIrqFunction
     str r0, [r6, #0x1c]
     ldr r0, [r5]
-    ldr r1, =func_02008f6c
+    ldr r1, =MIi_FIFOCallback
     bic r0, r0, #0xc0000000
     orr r0, r0, #0x40000000
     str r0, [r5]
@@ -106,20 +106,20 @@ asm void func_02008e80(void)
     bl OS_SetIrqFunction
     mov r0, r7
     bl OS_EnableIrqMask
-    bl func_02008f6c
+    bl MIi_FIFOCallback
     mov r0, r4
     bl OS_RestoreInterrupts
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02008f6c(void)
+asm void MIi_FIFOCallback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r0, =data_020bb4b4
+    ldr r0, =MIi_GXDmaParams
     ldr r5, [r0, #0xc]
     cmp r5, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r6, =data_020bb4b4
+    ldr r6, =MIi_GXDmaParams
     cmp r5, #0x1d8
     ldr r0, [r6, #0xc]
     movhs r5, #0x1d8
@@ -131,7 +131,7 @@ asm void func_02008f6c(void)
     bne @L_02008fe4
     mov r7, #0
     ldr r0, [r6, #4]
-    ldr r1, =func_02009020
+    ldr r1, =MIi_DMACallback
     mov r2, r7
     bl OSi_EnterDmaCallback
     str r7, [sp]
@@ -140,7 +140,7 @@ asm void func_02008f6c(void)
     ldr r2, =0x4000400
     mov r1, r4
     orr r3, r3, r5, lsr #2
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     mov r0, #0x200000
     bl OS_ResetRequestIrqMask
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
@@ -152,20 +152,20 @@ asm void func_02008f6c(void)
     ldr r2, =0x4000400
     mov r1, r4
     orr r3, r3, r5, lsr #2
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     mov r0, #0x200000
     bl OS_ResetRequestIrqMask
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02009020(void)
+asm void MIi_DMACallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, #0x200000
     mov r0, r5
     bl OS_DisableIrqMask
     ldr r1, =0x4000600
-    ldr r4, =data_020bb4b4
+    ldr r4, =MIi_GXDmaParams
     ldr r0, [r1]
     ldr r2, [r4, #0x18]
     bic r0, r0, #0xc0000000
@@ -184,7 +184,7 @@ asm void func_02009020(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02009080(void)
+asm void MI_SendGXCommandAsyncFast(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     movs r4, r2
@@ -197,12 +197,12 @@ asm void func_02009080(void)
     blx r3
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_020090a8:
-    ldr r0, =data_020bb4b4
+    ldr r0, =MIi_GXDmaParams
 @L_020090ac:
     ldr r1, [r0]
     cmp r1, #0
     bne @L_020090ac
-    ldr r2, =data_020bb4b4
+    ldr r2, =MIi_GXDmaParams
     mov r0, #1
     str r0, [r2]
     str r6, [r2, #4]
@@ -211,7 +211,7 @@ asm void func_02009080(void)
     mov r0, r6
     mov r1, #0x38000000
     str r7, [r2, #0x14]
-    bl func_02008da0
+    bl MIi_CheckAnotherAutoDMA
     mov r7, #0
     mov r0, r6
     mov r1, r5
@@ -219,7 +219,7 @@ asm void func_02009080(void)
     mov r3, r7
     bl MIi_CheckDma0SourceAddress
     mov r0, r6
-    bl func_02008cb4
+    bl MI_WaitDma
     mov r0, r6
     ldr r1, =MIi_DMAFastCallback
     mov r2, r7
@@ -230,6 +230,6 @@ asm void func_02009080(void)
     sub r2, r7, #0x3c00000
     orr r3, r2, r4, lsr #2
     ldr r2, =0x4000400
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }

@@ -4,8 +4,8 @@ void DC_FlushAll(void);
 void DC_InvalidateRange(void);
 void DC_StoreRange(void);
 void DC_FlushRange(void);
-void func_02006d84(void);
-void func_02006d90(void);
+void DC_WaitWriteBufferEmpty(void);
+void IC_InvalidateAll(void);
 void IC_InvalidateRange(void);
 
 asm void DC_FlushAll(void)
@@ -65,14 +65,14 @@ asm void DC_FlushRange(void)
     bx lr
 }
 
-asm void func_02006d84(void)
+asm void DC_WaitWriteBufferEmpty(void)
 {
     mov r0, #0
     mcr p15, 0, r0, c7, c10, 4
     bx lr
 }
 
-asm void func_02006d90(void)
+asm void IC_InvalidateAll(void)
 {
     mov r0, #0
     mcr p15, 0, r0, c7, c5, 0

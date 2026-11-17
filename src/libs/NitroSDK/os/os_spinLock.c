@@ -1,38 +1,38 @@
 // (asm for now)
 
 void OSi_DoLockByWord(void);
-void func_020056b4(void);
+void OS_LockByWord(void);
 void OSi_DoUnlockByWord(void);
-void func_02005738(void);
+void OS_UnlockByWord(void);
 void OSi_DoTryLockByWord(void);
-void func_020057b4(void);
-void func_020057c4(void);
-void func_020057e4(void);
-void func_020057f0(void);
+void OS_TryLockByWord(void);
+void OS_UnLockCartridge(void);
+void OS_UnlockCartridge(void);
+void OS_TryLockCartridge(void);
 void OSi_AllocateCartridgeBus(void);
 void OSi_FreeCartridgeBus(void);
-void func_02005840(void);
-void func_0200585c(void);
+void OS_UnlockCard(void);
+void OS_TryLockCard(void);
 void OSi_AllocateCardBus(void);
 void OSi_FreeCardBus(void);
-void func_020058a8(void);
+void OS_ReadOwnerOfLockWord(void);
 void OS_GetLockID(void);
-void func_02005908(void);
-void func_02005938(void);
-void func_02005960(void);
-void func_02005978(void);
-void func_020059a0(void);
-void func_020059ac(void);
-void func_020059c4(void);
+void OS_ReleaseLockID(void);
+void OS_SPrintf(void);
+void OS_VSPrintf(void);
+void OS_SNPrintf(void);
+void OS_VSNPrintf(void);
+void OSi_GetUnusedThreadId(void);
+void OSi_InsertLinkToQueue(void);
 
 void WaitByLoop(void);
-void func_02008400(void);
+void OS_DisableInterrupts_IrqAndFiq(void);
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts_IrqAndFiq(void);
 void OS_RestoreInterrupts(void);
-void func_02009bd8(void);
-void func_020172a0(void);
-extern char data_020bb104[];
+void MI_SwapWord(void);
+void STD_TVSNPrintf(void);
+extern char OSi_SystemCallbackInSwitchThread[];
 
 asm void OSi_DoLockByWord(void)
 {
@@ -58,7 +58,7 @@ asm void OSi_DoLockByWord(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_020056b4(void)
+asm void OS_LockByWord(void)
 {
     ldr r12, =OSi_DoLockByWord
     mov r3, #0
@@ -77,7 +77,7 @@ asm void OSi_DoUnlockByWord(void)
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
     cmp r5, #0
     beq @L_020056f4
-    bl func_02008400
+    bl OS_DisableInterrupts_IrqAndFiq
     b @L_020056f8
 @L_020056f4:
     bl OS_DisableInterrupts
@@ -103,7 +103,7 @@ asm void OSi_DoUnlockByWord(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02005738(void)
+asm void OS_UnlockByWord(void)
 {
     ldr r12, =OSi_DoUnlockByWord
     mov r3, #0
@@ -118,7 +118,7 @@ asm void OSi_DoTryLockByWord(void)
     mov r8, r1
     mov r7, r2
     beq @L_02005768
-    bl func_02008400
+    bl OS_DisableInterrupts_IrqAndFiq
     b @L_0200576c
 @L_02005768:
     bl OS_DisableInterrupts
@@ -126,7 +126,7 @@ asm void OSi_DoTryLockByWord(void)
     mov r5, r0
     mov r0, r9
     mov r1, r8
-    bl func_02009bd8
+    bl MI_SwapWord
     movs r4, r0
     bne @L_02005794
     cmp r7, #0
@@ -147,14 +147,14 @@ asm void OSi_DoTryLockByWord(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_020057b4(void)
+asm void OS_TryLockByWord(void)
 {
     ldr r12, =OSi_DoTryLockByWord
     mov r3, #0
     bx r12
 }
 
-asm void func_020057c4(void)
+asm void OS_UnLockCartridge(void)
 {
     ldr r1, =0x2ffffe8
     ldr r2, =OSi_FreeCartridgeBus
@@ -163,13 +163,13 @@ asm void func_020057c4(void)
     bx r12
 }
 
-asm void func_020057e4(void)
+asm void OS_UnlockCartridge(void)
 {
-    ldr r1, =func_020057c4
+    ldr r1, =OS_UnLockCartridge
     bx r1
 }
 
-asm void func_020057f0(void)
+asm void OS_TryLockCartridge(void)
 {
     ldr r1, =0x2ffffe8
     ldr r2, =OSi_AllocateCartridgeBus
@@ -196,19 +196,19 @@ asm void OSi_FreeCartridgeBus(void)
     bx lr
 }
 
-asm void func_02005840(void)
+asm void OS_UnlockCard(void)
 {
     ldr r1, =0x2ffffe0
     ldr r2, =OSi_FreeCardBus
-    ldr r12, =func_02005738
+    ldr r12, =OS_UnlockByWord
     bx r12
 }
 
-asm void func_0200585c(void)
+asm void OS_TryLockCard(void)
 {
     ldr r1, =0x2ffffe0
     ldr r2, =OSi_AllocateCardBus
-    ldr r12, =func_020057b4
+    ldr r12, =OS_TryLockByWord
     bx r12
 }
 
@@ -230,7 +230,7 @@ asm void OSi_FreeCardBus(void)
     bx lr
 }
 
-asm void func_020058a8(void)
+asm void OS_ReadOwnerOfLockWord(void)
 {
     ldrh r0, [r0, #4]
     bx lr
@@ -261,7 +261,7 @@ asm void OS_GetLockID(void)
     bx lr
 }
 
-asm void func_02005908(void)
+asm void OS_ReleaseLockID(void)
 {
     ldr r3, =0x2ffffb0
     cmp r0, #0x60
@@ -276,7 +276,7 @@ asm void func_02005908(void)
     bx lr
 }
 
-asm void func_02005938(void)
+asm void OS_SPrintf(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, lr}
@@ -284,22 +284,22 @@ asm void func_02005938(void)
     bic r2, r2, #3
     ldr r1, [sp, #0xc]
     add r2, r2, #4
-    bl func_02005960
+    bl OS_VSPrintf
     ldmia sp!, {r3, lr}
     add sp, sp, #0x10
     bx lr
 }
 
-asm void func_02005960(void)
+asm void OS_VSPrintf(void)
 {
-    ldr r12, =func_020059a0
+    ldr r12, =OS_VSNPrintf
     mov r3, r2
     mov r2, r1
     mvn r1, #0x80000000
     bx r12
 }
 
-asm void func_02005978(void)
+asm void OS_SNPrintf(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, lr}
@@ -307,28 +307,28 @@ asm void func_02005978(void)
     bic r3, r3, #3
     ldr r2, [sp, #0x10]
     add r3, r3, #4
-    bl func_020059a0
+    bl OS_VSNPrintf
     ldmia sp!, {r3, lr}
     add sp, sp, #0x10
     bx lr
 }
 
-asm void func_020059a0(void)
+asm void OS_VSNPrintf(void)
 {
-    ldr r12, =func_020172a0
+    ldr r12, =STD_TVSNPrintf
     bx r12
 }
 
-asm void func_020059ac(void)
+asm void OSi_GetUnusedThreadId(void)
 {
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     ldr r0, [r1, #0x18]
     add r0, r0, #1
     str r0, [r1, #0x18]
     bx lr
 }
 
-asm void func_020059c4(void)
+asm void OSi_InsertLinkToQueue(void)
 {
     ldr r12, [r0]
     b @L_020059d8

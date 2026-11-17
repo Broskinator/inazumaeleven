@@ -51,7 +51,7 @@ extern "C" void func_02081304(void);
 extern "C" void func_02081390(void);
 extern "C" void func_02081398(void);
 extern "C" void func_020813a0(void);
-extern "C" void func_ov015_021309a4(void);
+extern "C" void Random_RandA(void);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_02130b14(void);
 extern "C" void func_ov015_02130b94(void);
@@ -70,7 +70,7 @@ extern "C" asm void func_02081c3c(void)
     ldr r6, =data_020cb0a0
     bl MI_CpuFill8
     mov r0, #6
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r7, #0
     str r0, [r6, #8]
     mov r4, r7
@@ -79,7 +79,7 @@ extern "C" asm void func_02081c3c(void)
     b @L_02081cc0
 @L_02081c7c:
     rsb r0, r7, #8
-    bl func_ov015_021309a4
+    bl Random_RandA
     mov r2, r4
     and r1, r0, #0xff
     b @L_02081ca8
@@ -117,7 +117,7 @@ extern "C" asm void func_02081c3c(void)
     mov r0, #0x20
     mov r1, r1, lsl #5
     str r1, [r6, #8]
-    bl func_ov015_021309a4
+    bl Random_RandA
     ldr r1, [r6, #8]
     orr r0, r1, r0
     str r0, [r6, #8]

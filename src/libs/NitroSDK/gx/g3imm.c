@@ -3,13 +3,13 @@
 void G3_LoadMtx43(void);
 void G3_MultMtx43(void);
 void G3_MultMtx33(void);
-void func_02002884(void);
+void G3X_Init(void);
 
 void GX_SendFifo48B(void);
-void func_02009280(void);
-void func_020029f4(void);
+void MI_Copy36B(void);
+void G3X_ClearFifo(void);
 void G3X_InitMtxStack(void);
-void func_02002c60(void);
+void G3X_InitTable(void);
 
 asm void G3_LoadMtx43(void)
 {
@@ -33,15 +33,15 @@ asm void G3_MultMtx33(void)
 {
     ldr r1, =0x4000400
     mov r2, #0x1a
-    ldr r12, =func_02009280
+    ldr r12, =MI_Copy36B
     str r2, [r1]
     bx r12
 }
 
-asm void func_02002884(void)
+asm void G3X_Init(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    bl func_020029f4
+    bl G3X_ClearFifo
     ldr r0, =0x4000504
     mov r1, #0
     str r1, [r0]
@@ -92,7 +92,7 @@ asm void func_02002884(void)
     ldrh r0, [r1]
     bic r0, r0, #3
     strh r0, [r1]
-    bl func_02002c60
+    bl G3X_InitTable
     ldr r1, =0x1f0080
     ldr r0, =0x40004a4
     str r1, [r0]

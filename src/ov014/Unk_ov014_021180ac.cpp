@@ -1,149 +1,149 @@
 #include "ov014/Unk_ov014_021180ac.hpp"
 struct M0211ae24 { s32 a; s32 b; s32 c; };
 
-extern "C" void func_ov014_021180ac(void);
-extern "C" s32 func_ov014_02118220(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02118258(s32 arg0);
-extern "C" void func_ov014_02118270(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_021182a0(...);
-extern "C" s32 func_ov014_021182fc(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_02118350(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_0211838c(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_021183bc(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_021183ec(...);
-extern "C" s32 func_ov014_02118414(...);
-extern "C" s32 func_ov014_02118458(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0211848c(u8 *arg0);
-extern "C" s32 func_ov014_021184ac(...);
-extern "C" s32 func_ov014_0211857c(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_0211859c(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_021185bc(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_021185d4(s32 arg0, s32 arg1);
-extern "C" void func_ov014_021185e4(s32 arg0, s32 arg1);
-extern "C" void func_ov014_021185f4(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_02118604(...);
-extern "C" s32 func_ov014_02118620(...);
-extern "C" s32 func_ov014_0211863c(...);
-extern "C" s32 func_ov014_02118668(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_021186f8(s32 arg0, u8 *arg1);
-extern "C" void func_ov014_02118784(s32 arg0, u8 *arg1);
-extern "C" s32 func_ov014_02118810(s32 arg0, u8 *arg1);
-extern "C" s32 func_ov014_02118840(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_02118868(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" void func_ov014_021188b8(s32 arg0);
-extern "C" s32 func_ov014_021188fc(...);
-extern "C" void func_ov014_02118930(void);
-extern "C" s32 func_ov014_02118934(s32 arg0);
-extern "C" s32 func_ov014_0211893c(s32 arg0);
-extern "C" s32 func_ov014_02118944(s32 arg0);
-extern "C" s32 func_ov014_0211894c(s32 arg0);
-extern "C" void func_ov014_02118954(u8 *arg0, s32 arg1);
-extern "C" s32 func_ov014_02118960(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0211898c(u8 *arg0);
-extern "C" s32 func_ov014_02118998(u8 *arg0);
-extern "C" void func_ov014_021189bc(void);
-extern "C" void func_ov014_021189c0(void);
-extern "C" void func_ov014_021189cc(void);
-extern "C" s32 func_ov014_021189d8(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_02118a0c(s32 arg0, s32 arg1);
-extern "C" void func_ov014_02118a40(void);
-extern "C" s32 func_ov014_02118b78(s32 arg0);
-extern "C" s32 func_ov014_02118ba4(...);
-extern "C" s32 func_ov014_02118c7c(s32 arg0);
-extern "C" s32 func_ov014_02118cfc(s32 arg0);
-extern "C" s32 func_ov014_02118d68(s32 arg0);
-extern "C" s32 func_ov014_02118db0(u8 *arg0);
-extern "C" s32 func_ov014_02118dd8(u8 *arg0, s32 arg1, u8 *arg2);
-extern "C" s32 func_ov014_02118e38(u8 *arg0);
-extern "C" s32 func_ov014_02118e7c(u8 *arg0);
-extern "C" s32 func_ov014_02118ea4(s32 arg0, s32 *arg1, s32 *arg2);
-extern "C" s32 func_ov014_02118f14(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_02118f6c(...);
-extern "C" s32 func_ov014_02118fac(...);
-extern "C" void func_ov014_02119128(void);
-extern "C" char *func_ov014_02119194(void);
-extern "C" s32 func_ov014_021191ac(void);
-extern "C" void func_ov014_021191c4(void);
-extern "C" s32 func_ov014_02119258(void);
-extern "C" s32 func_ov014_0211929c(...);
-extern "C" void func_ov014_021192c4(s32 arg0, u8 *arg1, u8 arg2);
-extern "C" s32 func_ov014_02119304(s32 arg0);
-extern "C" s32 func_ov014_02119324(...);
-extern "C" s32 func_ov014_02119338(...);
-extern "C" void func_ov014_02119384(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_0211939c(...);
-extern "C" void func_ov014_02119410(u8 *arg0);
-extern "C" void func_ov014_02119420(u8 *arg0);
-extern "C" void func_ov014_02119430(s32 arg0, s32 arg1);
-extern "C" void func_ov014_02119448(void);
+extern "C" void NHTTPi_CommThreadProcMain(void);
+extern "C" s32 NHTTP_Startup(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void NHTTP_CleanupAsync(s32 arg0);
+extern "C" void NHTTP_AddHeaderField(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 NHTTP_AddRequestHeaderField(...);
+extern "C" s32 NHTTP_AddPostDataAscii(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 NHTTP_GetHeaderField(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 NHTTP_SetVerifyOption(u8 *arg0, s32 arg1);
+extern "C" void NHTTP_SetRootCA(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 NHTTP_SetRequestRootCA(...);
+extern "C" s32 NHTTPi_GetStaticResource(...);
+extern "C" s32 NHTTPi_WaitForCompletion(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void NHTTPi_NotifyCompletion(u8 *arg0);
+extern "C" s32 NHTTPi_ControlConnectionList(...);
+extern "C" s32 NHTTPi_CommitConnectionList(s32 arg0, s32 arg1);
+extern "C" s32 NHTTPi_OmitConnectionList(s32 arg0, s32 arg1);
+extern "C" s32 NHTTPi_Connection2Response(u8 *arg0, s32 arg1);
+extern "C" void NHTTPi_Request2Connection(s32 arg0, s32 arg1);
+extern "C" void NHTTPi_Response2Connection(s32 arg0, s32 arg1);
+extern "C" void NHTTPi_GetConnection(s32 arg0, s32 arg1);
+extern "C" s32 NHTTPi_GetRequest(...);
+extern "C" s32 NHTTPi_GetResponse(...);
+extern "C" s32 NHTTPi_GetConnectionListLength(...);
+extern "C" s32 NHTTPi_PostSendCallback(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
+extern "C" void NHTTPi_BufferFullCallback(s32 arg0, u8 *arg1);
+extern "C" void NHTTPi_ReceivedCallback(s32 arg0, u8 *arg1);
+extern "C" s32 NHTTPi_CompleteCallback(s32 arg0, u8 *arg1);
+extern "C" s32 NHTTPi_SetPostDataBuffer(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 NHTTPi_SetBodyBuffer(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
+extern "C" void NHTTPi_InitSystemInfo(s32 arg0);
+extern "C" s32 NHTTPi_GetSystemInfoP(...);
+extern "C" void NHTTPi_GetBgnEndInfoP(void);
+extern "C" s32 NHTTPi_GetListInfoP(s32 arg0);
+extern "C" s32 NHTTPi_GetReqInfoP(s32 arg0);
+extern "C" s32 NHTTPi_GetThreadInfoP(s32 arg0);
+extern "C" s32 NHTTPi_GetMutexInfoP(s32 arg0);
+extern "C" void NHTTPi_SetVirtualContentLength(u8 *arg0, s32 arg1);
+extern "C" s32 NHTTPi_InitConnectionList(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void NHTTPi_InitMutexInfo(u8 *arg0);
+extern "C" s32 NHTTPi_initLockReqList(u8 *arg0);
+extern "C" void NHTTPi_exitLockReqList(void);
+extern "C" void NHTTPi_lockReqList(void);
+extern "C" void NHTTPi_unlockReqList(void);
+extern "C" s32 NHTTPi_addRef(s32 arg0, s32 arg1);
+extern "C" s32 NHTTPi_decRef(s32 arg0, s32 arg1);
+extern "C" void NHTTP_CreateConnection(void);
+extern "C" s32 NHTTP_DeleteConnection(s32 arg0);
+extern "C" s32 NHTTPi_DeleteConnection(...);
+extern "C" s32 NHTTP_WaitForConnection(s32 arg0);
+extern "C" s32 NHTTP_StartConnection(s32 arg0);
+extern "C" s32 NHTTP_CancelConnection(s32 arg0);
+extern "C" s32 NHTTP_GetConnectionStatus(u8 *arg0);
+extern "C" s32 NHTTP_GetBodyBuffer(u8 *arg0, s32 arg1, u8 *arg2);
+extern "C" s32 NHTTP_GetUserParam(u8 *arg0);
+extern "C" s32 NHTTP_GetConnectionError(u8 *arg0);
+extern "C" s32 NHTTP_GetConnectionProgress(s32 arg0, s32 *arg1, s32 *arg2);
+extern "C" s32 SOCL_Startup(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 SOCLi_StartupSOCL(...);
+extern "C" s32 SOCLi_StartupCPS(...);
+extern "C" void SOCLi_SetMyIP(void);
+extern "C" char *SOCLi_DhcpTimeout(void);
+extern "C" s32 SOCL_LinkIsOn(void);
+extern "C" void SOCLi_StartupCommandPacketQueue(void);
+extern "C" s32 SOCLi_CleanupCommandPacketQueue(void);
+extern "C" s32 SOCLi_AllocCommandPacket(...);
+extern "C" void SOCLi_CreateCommandPacket(s32 arg0, u8 *arg1, u8 arg2);
+extern "C" s32 SOCLi_FreeCommandPacket(s32 arg0);
+extern "C" s32 SOCLi_GetCtrlPipe(...);
+extern "C" s32 SOCLi_SendCommandPacket(...);
+extern "C" void SOCLi_SendCommandPacketToCtrlPipe(s32 arg0, s32 arg1);
+extern "C" s32 SOCLi_ExecCommandPacket(...);
+extern "C" void SOCLi_ExecCommandPacketInRecvPipe(u8 *arg0);
+extern "C" void SOCLi_ExecCommandPacketInSendPipe(u8 *arg0);
+extern "C" void SOCLi_ExecCommandPacketInCtrlPipe(s32 arg0, s32 arg1);
+extern "C" void SOCLi_CommandPacketHandler(void);
 extern "C" void func_ov014_021194f0(void);
-extern "C" void func_ov014_021194f8(void);
-extern "C" s32 func_ov014_021195ac(u8 *arg0);
-extern "C" void *func_ov014_02119620(s32 arg0);
-extern "C" s32 func_ov014_02119688(u8 *arg0);
-extern "C" s32 func_ov014_02119708(u8 *arg0);
-extern "C" void func_ov014_02119730(void);
-extern "C" s32 func_ov014_02119828(s32 arg0, u8 *arg1, s32 arg2);
-extern "C" void func_ov014_02119850(void);
-extern "C" s32 func_ov014_021198c4(s32 arg0, s32 arg1);
-extern "C" void func_ov014_02119934(void);
-extern "C" s32 func_ov014_02119a80(u8 *arg0);
-extern "C" void func_ov014_02119ad8(void);
-extern "C" void func_ov014_02119b50(void);
-extern "C" s32 func_ov014_02119c98(u8 *arg0, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6);
-extern "C" s32 func_ov014_02119d34(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern "C" s32 func_ov014_02119da4(...);
-extern "C" void func_ov014_02119eac(void);
-extern "C" s32 func_ov014_02119f20(...);
-extern "C" void func_ov014_02119f6c(void);
-extern "C" s32 func_ov014_0211a0bc(u8 *arg0);
-extern "C" void func_ov014_0211a10c(u8 *arg0);
-extern "C" s32 func_ov014_0211a11c(...);
-extern "C" void func_ov014_0211a158(void);
-extern "C" void func_ov014_0211a29c(void);
-extern "C" void func_ov014_0211a3b8(void);
-extern "C" void func_ov014_0211a4cc(void);
-extern "C" s32 func_ov014_0211a5d0(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, s32 arg4);
-extern "C" s32 func_ov014_0211a654(...);
-extern "C" void func_ov014_0211a678(void);
-extern "C" void func_ov014_0211a7e4(void);
-extern "C" void func_ov014_0211a91c(void);
-extern "C" s32 func_ov014_0211a9b4(s32 arg0, s32 arg1, s32 *arg2);
-extern "C" void func_ov014_0211aa4c(void);
-extern "C" s32 func_ov014_0211aaf8(u8 *arg0);
-extern "C" s32 func_ov014_0211ab28(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0211ab5c(void);
-extern "C" s32 func_ov014_0211ac90(u8 *arg0);
-extern "C" s32 func_ov014_0211ad2c(...);
-extern "C" void func_ov014_0211ae24(u8 *arg0);
-extern "C" s32 func_ov014_0211aec4(void);
-extern "C" s32 func_ov014_0211af00(void);
-extern "C" void func_ov014_0211afa0(void);
-extern "C" s32 func_ov014_0211afc8(void);
-extern "C" s32 func_ov014_0211b070(...);
+extern "C" void SOCL_CreateSocket(void);
+extern "C" s32 SOCLi_CreateSocketCallBack(u8 *arg0);
+extern "C" void *SOCLi_StartupSocket(s32 arg0);
+extern "C" s32 SOCLi_GetSizeSocket(u8 *arg0);
+extern "C" s32 SOCLi_GetSizeCommandPipe(u8 *arg0);
+extern "C" void SOCLi_InitSocket(void);
+extern "C" s32 SOCLi_InitSocketBuffer(s32 arg0, u8 *arg1, s32 arg2);
+extern "C" void SOCLi_InitCommandPipe(void);
+extern "C" s32 SOCL_Bind(s32 arg0, s32 arg1);
+extern "C" void SOCL_Connect(void);
+extern "C" s32 SOCLi_ExecBindCommand(u8 *arg0);
+extern "C" void SOCLi_BindCallBack(void);
+extern "C" void SOCL_ReadFrom(void);
+extern "C" s32 SOCLi_ReadAndConsumeBuffer(u8 *arg0, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6);
+extern "C" s32 SOCLi_ReadBuffer(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
+extern "C" s32 SOCLi_CopyCPSBuffer(...);
+extern "C" void SOCLi_ReadCPSBuffer(void);
+extern "C" s32 SOCLi_ExecReadCommand(...);
+extern "C" void SOCLi_ReadCallBack(void);
+extern "C" s32 SOCLi_ConsumeBuffer(u8 *arg0);
+extern "C" void SOCLi_ConsumeCallBack(u8 *arg0);
+extern "C" s32 SOCLi_ConsumeCPSBuffer(...);
+extern "C" void SOCLi_ReadUdpBuffer(void);
+extern "C" void SOCLi_UdpRecvCallback(void);
+extern "C" void SOCL_WriteTo(void);
+extern "C" void SOCLi_WriteBuffer(void);
+extern "C" s32 SOCLi_AllocWriteBuffer(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, s32 arg4);
+extern "C" s32 SOCLi_GetWriteBufferFreeSize(...);
+extern "C" void SOCLi_ExecWriteCommand(void);
+extern "C" void SOCLi_WriteCallBack(void);
+extern "C" void SOCLi_GetOptimumSendBufLen(void);
+extern "C" s32 SOCLi_MemCpy(s32 arg0, s32 arg1, s32 *arg2);
+extern "C" void SOCL_Shutdown(void);
+extern "C" s32 SOCLi_ShutdownCallBack(u8 *arg0);
+extern "C" s32 SOCL_IsClosed(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void SOCL_Close(void);
+extern "C" s32 SOCLi_CloseCallBack(u8 *arg0);
+extern "C" s32 SOCLi_CleanupSocket(...);
+extern "C" void SOCLi_FreeCommandPipe(u8 *arg0);
+extern "C" s32 SOCLi_TrashSocket(void);
+extern "C" s32 SOCL_Cleanup(void);
+extern "C" void SOCLi_CleanupCPS(void);
+extern "C" s32 SOCL_CloseAll(void);
+extern "C" s32 SOCL_CalmDown(...);
 
-extern "C" char data_020bb120[];
-extern "C" char data_ov014_02125e3c[];
+extern "C" char OSi_ThreadInfo[];
+extern "C" char SOCLiConfigPtr[];
 extern "C" char data_ov014_02125e44[];
-extern "C" char data_ov014_02125e60[];
+extern "C" char SOCLSocketParamTCP[];
 extern "C" char data_ov014_02125e78[];
-extern "C" char data_ov014_02126ad8[];
-extern "C" char data_ov014_02126af4[];
-extern "C" char data_ov014_02126b18[];
-extern "C" char data_ov014_02126b38[];
-extern "C" char data_ov014_02129050[];
+extern "C" char CPSNetMask[];
+extern "C" char CPSGatewayIp[];
+extern "C" char CPSMyIp[];
+extern "C" char CPSDnsIp[];
+extern "C" char l_nhttp_connection_list_p[];
 extern "C" char data_ov014_02129058[];
 extern "C" char data_ov014_02129080[];
-extern "C" char data_ov014_0212d1e0[];
-extern "C" char data_ov014_0212d1e4[];
-extern "C" char data_ov014_0212d1ec[];
-extern "C" char data_ov014_0212d1f0[];
-extern "C" char data_ov014_0212d220[];
-extern "C" char data_ov014_0212d224[];
+extern "C" char SOCLiYieldWait[];
+extern "C" char SOCLiRequestedIP[];
+extern "C" char SOCLiUDPSendSocket[];
+extern "C" char SOCLiCPSConfig[];
+extern "C" char SOCLiCommandPackets[];
+extern "C" char SOCLiCommandPacketQueue[];
 extern "C" char data_ov014_0212d244[];
-extern "C" char data_ov014_0212d24c[];
-extern "C" char data_ov014_0212d254[];
-extern "C" char data_ov014_0212d258[];
+extern "C" char SOCLi_Resource[];
+extern "C" char SOCLiSocketList[];
+extern "C" char SOCLiSocketListTrash[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void OS_CreateThread(void);
 extern "C" s32 OS_DisableInterrupts(...);
@@ -160,93 +160,93 @@ extern "C" void OS_UnlockMutex(void);
 extern "C" s32 OS_WakeupThread(...);
 extern "C" void OS_WakeupThreadDirect(void);
 extern "C" s32 WBT_CancelCurrentCommand(...);
-extern "C" s32 func_02000b64(...);
-extern "C" s32 func_02006048(...);
-extern "C" void func_020061a4(void);
-extern "C" void func_02006434(void);
-extern "C" void func_020068c0(void);
-extern "C" void func_020069fc(void);
-extern "C" void func_02008438(void);
-extern "C" void func_020095c4(void);
+extern "C" s32 OSi_ReferSymbol(...);
+extern "C" s32 OS_JoinThread(...);
+extern "C" void OS_RescheduleThread(void);
+extern "C" void OS_DisableScheduler(void);
+extern "C" void OS_ReceiveMessage(void);
+extern "C" void OS_ReadMessage(void);
+extern "C" void OS_GetProcMode(void);
+extern "C" void MI_CpuCopy(void);
 extern "C" void _s32_div_f(void);
-extern "C" s32 func_ov014_0210146c(...);
-extern "C" void func_ov014_021015b0(void);
-extern "C" void func_ov014_021017c8(void);
-extern "C" s32 func_ov014_0210181c(...);
-extern "C" s32 func_ov014_0210182c(...);
-extern "C" void func_ov014_021018b4(void);
-extern "C" void func_ov014_02101e14(void);
-extern "C" void func_ov014_02104b14(void);
-extern "C" s32 func_ov014_02104c00(...);
-extern "C" s32 func_ov014_02104c14(...);
-extern "C" void func_ov014_02104c54(void);
-extern "C" s32 func_ov014_02104d00(...);
-extern "C" void func_ov014_02104e04(void);
-extern "C" s32 func_ov014_02104ea4(...);
-extern "C" s32 func_ov014_02104ee0(...);
-extern "C" void func_ov014_02105054(void);
-extern "C" void func_ov014_02105208(void);
-extern "C" void func_ov014_02105614(void);
-extern "C" s32 func_ov014_0211388c(...);
-extern "C" void func_ov014_02113898(void);
-extern "C" s32 func_ov014_0211395c(...);
-extern "C" void func_ov014_02113e7c(void);
-extern "C" s32 func_ov014_02114454(...);
-extern "C" void func_ov014_02114498(void);
-extern "C" void func_ov014_021144c8(void);
-extern "C" void func_ov014_021144ec(void);
-extern "C" s32 func_ov014_02114504(...);
-extern "C" s32 func_ov014_02114600(...);
-extern "C" void func_ov014_021148a8(void);
-extern "C" s32 func_ov014_021148c8(...);
-extern "C" s32 func_ov014_0211495c(...);
-extern "C" s32 func_ov014_02115030(...);
-extern "C" void func_ov014_0211503c(void);
-extern "C" void func_ov014_02115524(void);
-extern "C" s32 func_ov014_021155ec(...);
-extern "C" s32 func_ov014_02115684(...);
-extern "C" void func_ov014_02115798(void);
-extern "C" s32 func_ov014_02115960(...);
-extern "C" s32 func_ov014_02115a6c(...);
-extern "C" void func_ov014_02116df8(void);
-extern "C" void func_ov014_02116e48(void);
-extern "C" void func_ov014_02116f90(void);
-extern "C" void func_ov014_02117008(void);
-extern "C" void func_ov014_02117120(void);
-extern "C" void func_ov014_021172b4(void);
-extern "C" void func_ov014_021173c0(void);
-extern "C" void func_ov014_02117740(void);
-extern "C" void func_ov014_0211790c(void);
-extern "C" void func_ov014_02117bd0(void);
-extern "C" s32 func_ov014_0211b3d8(...);
-extern "C" s32 func_ov014_0211b3e4(...);
-extern "C" void func_ov014_0211b4e4(void);
-extern "C" void func_ov014_0211b5ec(void);
-extern "C" s32 func_ov014_0211b614(...);
-extern "C" s32 func_ov014_0211b62c(...);
-extern "C" void func_ov014_0211b6c8(void);
-extern "C" s32 func_ov014_0211b6e0(...);
-extern "C" s32 func_ov014_02122270(...);
-extern "C" s32 func_ov014_02122310(...);
+extern "C" s32 CPS_SetCheckNConfigCallback(...);
+extern "C" void CPS_Startup(void);
+extern "C" void CPS_CalmDown(void);
+extern "C" s32 CPS_SetScavengerCallback(...);
+extern "C" s32 CPS_Cleanup(...);
+extern "C" void CPS_SetThreadPriority(void);
+extern "C" void CPSi_RecvCallbackFunc(void);
+extern "C" void CPS_SocGetEport(void);
+extern "C" s32 CPS_SocRegister(...);
+extern "C" s32 CPS_SocUnRegister(...);
+extern "C" void CPS_SocBind(void);
+extern "C" s32 CPS_SocRelease(...);
+extern "C" void CPS_TcpConnect(void);
+extern "C" s32 CPS_TcpShutdown(...);
+extern "C" s32 CPS_TcpClose(...);
+extern "C" void CPS_SocRead(void);
+extern "C" void CPS_SocConsume(void);
+extern "C" void CPS_SocWrite(void);
+extern "C" s32 NHTTPi_InitMutex(...);
+extern "C" void NHTTPi_LockMutex(void);
+extern "C" s32 NHTTPi_CheckCurrentThread(...);
+extern "C" void NHTTPi_memclr(void);
+extern "C" s32 NHTTPi_InitBgnEndInfo(...);
+extern "C" void NHTTPi_alloc(void);
+extern "C" void NHTTPi_free(void);
+extern "C" void NHTTPi_SetError(void);
+extern "C" s32 NHTTPi_Startup(...);
+extern "C" s32 NHTTPi_CleanupAsync(...);
+extern "C" void NHTTPi_AddRequestHeaderField(void);
+extern "C" s32 NHTTPi_AddRequestPostDataAscii(...);
+extern "C" s32 NHTTPi_InitListInfo(...);
+extern "C" s32 NHTTPi_InitRequestInfo(...);
+extern "C" void NHTTPi_CreateRequest(void);
+extern "C" void NHTTPi_DestroyRequest(void);
+extern "C" s32 NHTTPi_SendRequestAsync(...);
+extern "C" s32 NHTTPi_CancelRequestAsync(...);
+extern "C" void NHTTPi_DestroyResponse(void);
+extern "C" s32 NHTTP_GetResponseHeaderField(...);
+extern "C" s32 NHTTPi_InitThreadInfo(...);
+extern "C" void NHTTPi_ThreadInit(void);
+extern "C" void NHTTPi_ThreadReqEnd(void);
+extern "C" void NHTTPi_ThreadExecReqQueue(void);
+extern "C" void NHTTPi_ThreadHostAddrProc(void);
+extern "C" void NHTTPi_ThreadConnectProc(void);
+extern "C" void NHTTPi_ThreadProxyProc(void);
+extern "C" void NHTTPi_ThreadSendProc(void);
+extern "C" void NHTTPi_ThreadRecvHeaderProc(void);
+extern "C" void NHTTPi_ThreadParseHeaderProc(void);
+extern "C" void NHTTPi_ThreadRecvBodyProc(void);
+extern "C" s32 SOCLi_RoundUp4(...);
+extern "C" s32 SOCLi_InitResource(...);
+extern "C" void SOCLi_CheckNConfig(void);
+extern "C" void SOCLi_SocketRegister(void);
+extern "C" s32 SOCLi_SocketRegisterTrash(...);
+extern "C" s32 SOCLi_SocketUnregister(...);
+extern "C" void SOCLi_SocketUnregisterTrash(void);
+extern "C" s32 SOCL_SocketIsInvalid(...);
+extern "C" s32 WCM_GetApMacAddress(...);
+extern "C" s32 WCM_SetRecvDCFCallback(...);
 
-extern "C" s32 func_ov014_02104d20(...);
-extern "C" s32 func_ov014_02104cb4(...);
-extern "C" s32 func_ov014_02104c2c(...);
-extern "C" s32 func_ov014_02104d38(...);
-extern "C" asm void func_ov014_021180ac(void)
+extern "C" s32 CPS_SocDup(...);
+extern "C" s32 CPS_SocUse(...);
+extern "C" s32 CPS_SocDatagramMode(...);
+extern "C" s32 CPS_SetUdpCallback(...);
+extern "C" asm void NHTTPi_CommThreadProcMain(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x340
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r4, r0
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r8, r0
     mov r0, r4
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     add r7, sp, #0
     mov r9, r0
     mov r0, r7
-    bl func_ov014_02116df8
+    bl NHTTPi_ThreadInit
     ldr r0, [r8, #0x18]
     cmp r0, #0
     addne sp, sp, #0x340
@@ -259,7 +259,7 @@ extern "C" asm void func_ov014_021180ac(void)
     cmp r0, #0
     bne @L_02118140
     mov r0, r7
-    bl func_ov014_02116f90
+    bl NHTTPi_ThreadExecReqQueue
     cmp r0, #0
     beq @L_0211820c
     ldr r0, [r9]
@@ -271,7 +271,7 @@ extern "C" asm void func_ov014_021180ac(void)
 @L_0211812c:
     b @L_02118208
 @L_02118130:
-    bl func_ov014_02117008
+    bl NHTTPi_ThreadHostAddrProc
     cmp r0, #0
     bne @L_02118140
     b @L_02118204
@@ -280,13 +280,13 @@ extern "C" asm void func_ov014_021180ac(void)
     cmp r0, #1
     mov r0, r7
     streq r6, [sp, #0x334]
-    bl func_ov014_02117120
+    bl NHTTPi_ThreadConnectProc
     cmp r0, #0
     mov r0, r7
     bne @L_02118164
     b @L_0211812c
 @L_02118164:
-    bl func_ov014_021172b4
+    bl NHTTPi_ThreadProxyProc
     cmp r0, #0
     beq @L_0211818c
     cmp r0, #1
@@ -299,7 +299,7 @@ extern "C" asm void func_ov014_021180ac(void)
     b @L_02118204
 @L_0211818c:
     mov r0, r7
-    bl func_ov014_021173c0
+    bl NHTTPi_ThreadSendProc
     cmp r0, #3
     addls pc, pc, r0, lsl #2
     b @L_021181bc
@@ -321,23 +321,23 @@ extern "C" asm void func_ov014_021180ac(void)
     beq @L_021181d8
     b @L_0211812c
 @L_021181d8:
-    bl func_ov014_02117740
+    bl NHTTPi_ThreadRecvHeaderProc
     cmp r0, #0
     mov r0, r7
     bne @L_021181ec
     b @L_0211812c
 @L_021181ec:
-    bl func_ov014_0211790c
+    bl NHTTPi_ThreadParseHeaderProc
     cmp r0, #0
     mov r0, r7
     bne @L_02118200
     b @L_0211812c
 @L_02118200:
-    bl func_ov014_02117bd0
+    bl NHTTPi_ThreadRecvBodyProc
 @L_02118204:
     mov r0, r7
 @L_02118208:
-    bl func_ov014_02116e48
+    bl NHTTPi_ThreadReqEnd
 @L_0211820c:
     ldr r0, [r8, #0x18]
     cmp r0, #0
@@ -346,12 +346,12 @@ extern "C" asm void func_ov014_021180ac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" s32 func_ov014_02118220(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 NHTTP_Startup(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 v0;
     s32 v1;
-    v0 = func_ov014_021188fc(arg0, arg1, arg2);
-    v1 = func_ov014_02114504(v0, arg0, arg1, arg2);
+    v0 = NHTTPi_GetSystemInfoP(arg0, arg1, arg2);
+    v1 = NHTTPi_Startup(v0, arg0, arg1, arg2);
     if (v1 == 0) {
         arg0 = 1;
     } else {
@@ -360,28 +360,28 @@ extern "C" s32 func_ov014_02118220(s32 arg0, s32 arg1, s32 arg2)
     return (0 - arg0);
 }
 
-extern "C" void func_ov014_02118258(s32 arg0)
+extern "C" void NHTTP_CleanupAsync(s32 arg0)
 {
-    s32 v0 = func_ov014_021188fc(arg0);
-    func_ov014_02114600(v0, arg0);
+    s32 v0 = NHTTPi_GetSystemInfoP(arg0);
+    NHTTPi_CleanupAsync(v0, arg0);
 }
 
-extern "C" void func_ov014_02118270(s32 arg0, s32 arg1, s32 arg2)
+extern "C" void NHTTP_AddHeaderField(s32 arg0, s32 arg1, s32 arg2)
 {
-    s32 v0 = func_ov014_021188fc(arg0, arg1, arg2);
-    s32 v1 = func_ov014_0211894c(v0);
-    s32 v2 = func_ov014_02118604(v1, arg0);
-    func_ov014_021182a0(v2, arg1, arg2);
+    s32 v0 = NHTTPi_GetSystemInfoP(arg0, arg1, arg2);
+    s32 v1 = NHTTPi_GetMutexInfoP(v0);
+    s32 v2 = NHTTPi_GetRequest(v1, arg0);
+    NHTTP_AddRequestHeaderField(v2, arg1, arg2);
 }
 
-extern "C" asm s32 func_ov014_021182a0(...)
+extern "C" asm s32 NHTTP_AddRequestHeaderField(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r5, r1
     mov r4, r2
-    bl func_ov014_021188fc
-    bl func_ov014_02118930
+    bl NHTTPi_GetSystemInfoP
+    bl NHTTPi_GetBgnEndInfoP
     mov r1, r0
     cmp r6, #0
     mvneq r0, #0
@@ -393,7 +393,7 @@ extern "C" asm s32 func_ov014_021182a0(...)
     mov r0, r6
     mov r2, r5
     mov r3, r4
-    bl func_ov014_021148a8
+    bl NHTTPi_AddRequestHeaderField
     cmp r0, #0
     moveq r0, #1
     movne r0, #0
@@ -401,18 +401,18 @@ extern "C" asm s32 func_ov014_021182a0(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov014_021182fc(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 NHTTP_AddPostDataAscii(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 v0;
     s32 v1;
     s32 v2;
     s32 v3;
     s32 v4;
-    v0 = func_ov014_021188fc(arg0, arg1, arg2);
-    v1 = ((s32 (*)(...))func_ov014_02118930)();
-    v2 = func_ov014_0211894c(v0);
-    v3 = func_ov014_02118604(v2, arg0);
-    v4 = func_ov014_021148c8(v3, v1, arg1, arg2);
+    v0 = NHTTPi_GetSystemInfoP(arg0, arg1, arg2);
+    v1 = ((s32 (*)(...))NHTTPi_GetBgnEndInfoP)();
+    v2 = NHTTPi_GetMutexInfoP(v0);
+    v3 = NHTTPi_GetRequest(v2, arg0);
+    v4 = NHTTPi_AddRequestPostDataAscii(v3, v1, arg1, arg2);
     if (v4 == 0) {
         arg0 = 1;
     } else {
@@ -421,30 +421,30 @@ extern "C" s32 func_ov014_021182fc(s32 arg0, s32 arg1, s32 arg2)
     return (0 - arg0);
 }
 
-extern "C" s32 func_ov014_02118350(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 NHTTP_GetHeaderField(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 v0;
     s32 v1;
     s32 v2;
     s32 v3;
-    v0 = func_ov014_021188fc(arg0, arg1, arg2);
-    v1 = func_ov014_0211894c(v0);
-    v2 = func_ov014_02118620(v1, arg0);
+    v0 = NHTTPi_GetSystemInfoP(arg0, arg1, arg2);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = NHTTPi_GetResponse(v1, arg0);
     if (v2 == 0)
         return -1;
-    v3 = func_ov014_02115960(v2, arg1, arg2);
+    v3 = NHTTP_GetResponseHeaderField(v2, arg1, arg2);
     return v3;
 }
 
-extern "C" s32 func_ov014_0211838c(u8 *arg0, s32 arg1)
+extern "C" s32 NHTTP_SetVerifyOption(u8 *arg0, s32 arg1)
 {
     s32 r4;
     s32 v0;
     s32 v1;
     s32 v2;
-    v0 = func_ov014_021188fc((s32)arg0, arg1);
-    v1 = func_ov014_0211894c(v0);
-    v2 = func_ov014_02118604(v1, (s32)arg0);
+    v0 = NHTTPi_GetSystemInfoP((s32)arg0, arg1);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = NHTTPi_GetRequest(v1, (s32)arg0);
     arg0 = (u8 *)v2;
     r4 = arg1;
     if ((s32)arg0 == 0) {
@@ -456,15 +456,15 @@ extern "C" s32 func_ov014_0211838c(u8 *arg0, s32 arg1)
     return (s32)arg0;
 }
 
-extern "C" void func_ov014_021183bc(s32 arg0, s32 arg1, s32 arg2)
+extern "C" void NHTTP_SetRootCA(s32 arg0, s32 arg1, s32 arg2)
 {
-    s32 v0 = func_ov014_021188fc(arg0, arg1, arg2);
-    s32 v1 = func_ov014_0211894c(v0);
-    s32 v2 = func_ov014_02118604(v1, arg0);
-    func_ov014_021183ec(v2, arg1, arg2);
+    s32 v0 = NHTTPi_GetSystemInfoP(arg0, arg1, arg2);
+    s32 v1 = NHTTPi_GetMutexInfoP(v0);
+    s32 v2 = NHTTPi_GetRequest(v1, arg0);
+    NHTTP_SetRequestRootCA(v2, arg1, arg2);
 }
 
-extern "C" asm s32 func_ov014_021183ec(...)
+extern "C" asm s32 NHTTP_SetRequestRootCA(...)
 {
     cmp r0, #0
     mvneq r0, #0
@@ -478,16 +478,16 @@ extern "C" asm s32 func_ov014_021183ec(...)
     bx lr
 }
 
-extern "C" asm s32 func_ov014_02118414(...)
+extern "C" asm s32 NHTTPi_GetStaticResource(...)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_ov014_02129050
+    ldr r0, =l_nhttp_connection_list_p
     ldr r4, =data_ov014_02129058
     ldr r0, [r0, #8]
     cmp r0, #0
     bne @L_02118448
     add r0, r4, #4
-    bl func_ov014_0211388c
+    bl NHTTPi_InitMutex
     mov r1, #0
     mov r0, #1
     str r1, [r4, #0x20]
@@ -498,11 +498,11 @@ extern "C" asm s32 func_ov014_02118414(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov014_02118458(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 NHTTPi_WaitForCompletion(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     u8 *r5;
-    s32 v0 = func_ov014_02118414((s32)arg0, arg1, arg2, arg3);
+    s32 v0 = NHTTPi_GetStaticResource((s32)arg0, arg1, arg2, arg3);
     if (*(s32 *)(arg0 + 0xC) == 0)
         return v0;
     arg1 = *(s32 *)(arg0 + 0xC);
@@ -515,21 +515,21 @@ extern "C" s32 func_ov014_02118458(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     return (s32)arg0;
 }
 
-extern "C" void func_ov014_0211848c(u8 *arg0)
+extern "C" void NHTTPi_NotifyCompletion(u8 *arg0)
 {
-    s32 v0 = func_ov014_02118414(arg0);
+    s32 v0 = NHTTPi_GetStaticResource(arg0);
     *(s32 *)(arg0 + 0xC) = 0;
     OS_WakeupThread((v0 + 0x1C), 0);
 }
 
-extern "C" asm s32 func_ov014_021184ac(...)
+extern "C" asm s32 NHTTPi_ControlConnectionList(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r2
     mov r7, r0
     mov r6, r1
     mov r4, #0
-    bl func_ov014_021189c0
+    bl NHTTPi_lockReqList
     cmp r5, #3
     bne @L_021184e4
     ldr r0, [pc, #0xa0]
@@ -575,17 +575,17 @@ extern "C" asm s32 func_ov014_021184ac(...)
     bne @L_021184f8
 @L_02118564:
     mov r0, r7
-    bl func_ov014_021189cc
+    bl NHTTPi_unlockReqList
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
-    dcd data_ov014_02129050
-    dcd data_ov014_02129050
+    dcd l_nhttp_connection_list_p
+    dcd l_nhttp_connection_list_p
 }
 
-extern "C" s32 func_ov014_0211857c(s32 arg0, s32 arg1)
+extern "C" s32 NHTTPi_CommitConnectionList(s32 arg0, s32 arg1)
 {
     s32 v0;
-    v0 = func_ov014_021184ac(arg0, arg1, 3);
+    v0 = NHTTPi_ControlConnectionList(arg0, arg1, 3);
     if (v0 == 0) {
         arg0 = 1;
     } else {
@@ -594,10 +594,10 @@ extern "C" s32 func_ov014_0211857c(s32 arg0, s32 arg1)
     return (0 - arg0);
 }
 
-extern "C" s32 func_ov014_0211859c(s32 arg0, s32 arg1)
+extern "C" s32 NHTTPi_OmitConnectionList(s32 arg0, s32 arg1)
 {
     s32 v0;
-    v0 = func_ov014_021184ac(arg0, arg1, 4);
+    v0 = NHTTPi_ControlConnectionList(arg0, arg1, 4);
     if (v0 == 0) {
         arg0 = 1;
     } else {
@@ -606,10 +606,10 @@ extern "C" s32 func_ov014_0211859c(s32 arg0, s32 arg1)
     return (0 - arg0);
 }
 
-extern "C" s32 func_ov014_021185bc(u8 *arg0, s32 arg1)
+extern "C" s32 NHTTPi_Connection2Response(u8 *arg0, s32 arg1)
 {
     s32 v0;
-    v0 = ((s32 (*)(...))func_ov014_021185f4)((s32)arg0, arg1);
+    v0 = ((s32 (*)(...))NHTTPi_GetConnection)((s32)arg0, arg1);
     arg0 = (u8 *)v0;
     if ((s32)arg0 != 0) {
         arg0 = (u8 *)*(s32 *)(arg0 + 0x14);
@@ -619,46 +619,46 @@ extern "C" s32 func_ov014_021185bc(u8 *arg0, s32 arg1)
     return (s32)arg0;
 }
 
-extern "C" void func_ov014_021185d4(s32 arg0, s32 arg1)
+extern "C" void NHTTPi_Request2Connection(s32 arg0, s32 arg1)
 {
-    func_ov014_021184ac(arg0, arg1, 1);
+    NHTTPi_ControlConnectionList(arg0, arg1, 1);
 }
 
-extern "C" void func_ov014_021185e4(s32 arg0, s32 arg1)
+extern "C" void NHTTPi_Response2Connection(s32 arg0, s32 arg1)
 {
-    func_ov014_021184ac(arg0, arg1, 2);
+    NHTTPi_ControlConnectionList(arg0, arg1, 2);
 }
 
-extern "C" void func_ov014_021185f4(s32 arg0, s32 arg1)
+extern "C" void NHTTPi_GetConnection(s32 arg0, s32 arg1)
 {
-    func_ov014_021184ac(arg0, arg1, 0);
+    NHTTPi_ControlConnectionList(arg0, arg1, 0);
 }
 
-extern "C" asm s32 func_ov014_02118604(...)
+extern "C" asm s32 NHTTPi_GetRequest(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r1
-    bl func_ov014_021185f4
+    bl NHTTPi_GetConnection
     cmp r0, #0
     ldrne r4, [r0, #0x10]
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm s32 func_ov014_02118620(...)
+extern "C" asm s32 NHTTPi_GetResponse(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r1
-    bl func_ov014_021185f4
+    bl NHTTPi_GetConnection
     cmp r0, #0
     ldrne r4, [r0, #0x14]
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm s32 func_ov014_0211863c(...)
+extern "C" asm s32 NHTTPi_GetConnectionListLength(...)
 {
-    ldr r1, =data_ov014_02129050
+    ldr r1, =l_nhttp_connection_list_p
     mov r0, #0
     ldr r1, [r1]
     cmp r1, #0
@@ -671,7 +671,7 @@ extern "C" asm s32 func_ov014_0211863c(...)
     bx lr
 }
 
-extern "C" s32 func_ov014_02118668(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
+extern "C" s32 NHTTPi_PostSendCallback(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
     s32 local[4];
     s32 r6;
@@ -682,9 +682,9 @@ extern "C" s32 func_ov014_02118668(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
     s32 t0;
     s32 t1;
     r6 = -1;
-    v0 = ((s32 (*)(...))func_ov014_021185f4)(arg0, (s32)arg1);
+    v0 = ((s32 (*)(...))NHTTPi_GetConnection)(arg0, (s32)arg1);
     r7 = arg3;
-    if (((v0 != 0 && (v1 = func_ov014_021185bc((u8 *)arg0, (s32)arg1), v1 != 0)) && (arg3 = *(s32 *)(arg1 + 0x1C), arg3 != 0))) {
+    if (((v0 != 0 && (v1 = NHTTPi_Connection2Response((u8 *)arg0, (s32)arg1), v1 != 0)) && (arg3 = *(s32 *)(arg1 + 0x1C), arg3 != 0))) {
         *(s32 *)(((u8 *)local)) = arg2;
         *(s32 *)(((u8 *)local) + 0x4) = *(s32 *)(arg1 + 0x24);
         *(s32 *)(((u8 *)local) + 0x8) = *(s32 *)(arg1 + 0x28);
@@ -692,51 +692,51 @@ extern "C" s32 func_ov014_02118668(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
         v2 = ((s32 (*)(...))arg3)((s32)arg1, 1, (s32)((u8 *)local));
         t0 = *(s32 *)(((u8 *)local) + 0x4);
         t1 = *(s32 *)(((u8 *)local) + 0x8);
-        func_ov014_02118840((u8 *)arg0, (s32)arg1, t0, t1);
+        NHTTPi_SetPostDataBuffer((u8 *)arg0, (s32)arg1, t0, t1);
         r6 = v2;
     }
     return r6;
 }
 
-extern "C" void func_ov014_021186f8(s32 arg0, u8 *arg1)
+extern "C" void NHTTPi_BufferFullCallback(s32 arg0, u8 *arg1)
 {
     s32 buf[3];
     u8 *e;
     void (*f)(u8 *, s32, s32 *);
-    if (((s32 (*)(...))func_ov014_021185f4)(arg0, arg1) == 0)
+    if (((s32 (*)(...))NHTTPi_GetConnection)(arg0, arg1) == 0)
         return;
-    e = (u8 *)((s32 (*)(...))func_ov014_021185bc)(arg0, arg1);
+    e = (u8 *)((s32 (*)(...))NHTTPi_Connection2Response)(arg0, arg1);
     if (e == 0 || (f = *(void (**)(u8 *, s32, s32 *))(arg1 + 0x1C)) == 0)
         return;
     buf[0] = *(s32 *)(e + 0x28);
     buf[1] = *(s32 *)(e + 0x1C);
     buf[2] = *(s32 *)(e + 4);
     f(arg1, 2, buf);
-    ((s32 (*)(...))func_ov014_02118868)(arg0, arg1, buf[0], buf[1], buf[2]);
+    ((s32 (*)(...))NHTTPi_SetBodyBuffer)(arg0, arg1, buf[0], buf[1], buf[2]);
 }
 
-extern "C" void func_ov014_02118784(s32 arg0, u8 *arg1)
+extern "C" void NHTTPi_ReceivedCallback(s32 arg0, u8 *arg1)
 {
     s32 buf[3];
     u8 *e;
     void (*f)(u8 *, s32, s32 *);
-    if (((s32 (*)(...))func_ov014_021185f4)(arg0, arg1) == 0)
+    if (((s32 (*)(...))NHTTPi_GetConnection)(arg0, arg1) == 0)
         return;
-    e = (u8 *)((s32 (*)(...))func_ov014_021185bc)(arg0, arg1);
+    e = (u8 *)((s32 (*)(...))NHTTPi_Connection2Response)(arg0, arg1);
     if (e == 0 || (f = *(void (**)(u8 *, s32, s32 *))(arg1 + 0x1C)) == 0)
         return;
     buf[0] = *(s32 *)(e + 0x28);
     buf[1] = *(s32 *)(e + 0x1C);
     buf[2] = *(s32 *)(e + 4);
     f(arg1, 3, buf);
-    ((s32 (*)(...))func_ov014_02118868)(arg0, arg1, buf[0], buf[1], buf[2]);
+    ((s32 (*)(...))NHTTPi_SetBodyBuffer)(arg0, arg1, buf[0], buf[1], buf[2]);
 }
 
-extern "C" s32 func_ov014_02118810(s32 arg0, u8 *arg1)
+extern "C" s32 NHTTPi_CompleteCallback(s32 arg0, u8 *arg1)
 {
     s32 v0;
     s32 v1;
-    v0 = ((s32 (*)(...))func_ov014_021185f4)(arg0, (s32)arg1);
+    v0 = ((s32 (*)(...))NHTTPi_GetConnection)(arg0, (s32)arg1);
     if (v0 == 0)
         return v0;
     if (*(s32 *)(arg1 + 0x1C) == 0)
@@ -745,10 +745,10 @@ extern "C" s32 func_ov014_02118810(s32 arg0, u8 *arg1)
     return v1;
 }
 
-extern "C" s32 func_ov014_02118840(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 NHTTPi_SetPostDataBuffer(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 v0;
-    v0 = ((s32 (*)(...))func_ov014_021185f4)((s32)arg0, arg1);
+    v0 = ((s32 (*)(...))NHTTPi_GetConnection)((s32)arg0, arg1);
     arg0 = (u8 *)v0;
     if ((s32)arg0 == 0) {
         arg0 = (u8 *)-1;
@@ -760,16 +760,16 @@ extern "C" s32 func_ov014_02118840(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     return (s32)arg0;
 }
 
-extern "C" s32 func_ov014_02118868(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
+extern "C" s32 NHTTPi_SetBodyBuffer(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
     s32 r6;
     s32 v0;
     s32 v1;
-    v0 = ((s32 (*)(...))func_ov014_021185f4)((s32)arg0, arg1);
+    v0 = ((s32 (*)(...))NHTTPi_GetConnection)((s32)arg0, arg1);
     r6 = (s32)arg0;
     arg1 = v0;
     if (arg1 != 0) {
-        v1 = func_ov014_021185bc((u8 *)r6, arg1);
+        v1 = NHTTPi_Connection2Response((u8 *)r6, arg1);
         arg0 = (u8 *)v1;
         if ((s32)arg0 == 0) {
             return -1;
@@ -784,124 +784,124 @@ extern "C" s32 func_ov014_02118868(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
     }
 }
 
-extern "C" void func_ov014_021188b8(s32 arg0)
+extern "C" void NHTTPi_InitSystemInfo(s32 arg0)
 {
-    func_ov014_02118930();
-    func_ov014_02114454();
-    func_ov014_02118934(arg0);
-    func_ov014_0211495c();
-    func_ov014_0211893c(arg0);
-    func_ov014_02115030();
-    s32 v6 = func_ov014_0211894c(arg0);
-    func_ov014_0211898c((u8 *)v6);
-    func_ov014_02118944(arg0);
-    func_ov014_02115a6c();
+    NHTTPi_GetBgnEndInfoP();
+    NHTTPi_InitBgnEndInfo();
+    NHTTPi_GetListInfoP(arg0);
+    NHTTPi_InitListInfo();
+    NHTTPi_GetReqInfoP(arg0);
+    NHTTPi_InitRequestInfo();
+    s32 v6 = NHTTPi_GetMutexInfoP(arg0);
+    NHTTPi_InitMutexInfo((u8 *)v6);
+    NHTTPi_GetThreadInfoP(arg0);
+    NHTTPi_InitThreadInfo();
 }
 
-extern "C" asm s32 func_ov014_021188fc(...)
+extern "C" asm s32 NHTTPi_GetSystemInfoP(...)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_ov014_02129050
+    ldr r1, =l_nhttp_connection_list_p
     ldr r4, [r1, #4]
     cmp r4, #0
     bne @L_02118920
     ldr r4, =data_ov014_02129080
     mov r0, r4
     str r4, [r1, #4]
-    bl func_ov014_021188b8
+    bl NHTTPi_InitSystemInfo
 @L_02118920:
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-extern "C" void func_ov014_02118930(void)
+extern "C" void NHTTPi_GetBgnEndInfoP(void)
 {
 }
 
-extern "C" s32 func_ov014_02118934(s32 arg0)
+extern "C" s32 NHTTPi_GetListInfoP(s32 arg0)
 {
     return (arg0 + 0x28);
 }
 
-extern "C" s32 func_ov014_0211893c(s32 arg0)
+extern "C" s32 NHTTPi_GetReqInfoP(s32 arg0)
 {
     return (arg0 + 0x30);
 }
 
-extern "C" s32 func_ov014_02118944(s32 arg0)
+extern "C" s32 NHTTPi_GetThreadInfoP(s32 arg0)
 {
     return (arg0 + 0x50);
 }
 
-extern "C" s32 func_ov014_0211894c(s32 arg0)
+extern "C" s32 NHTTPi_GetMutexInfoP(s32 arg0)
 {
     return (arg0 + 0x34);
 }
 
-extern "C" void func_ov014_02118954(u8 *arg0, s32 arg1)
+extern "C" void NHTTPi_SetVirtualContentLength(u8 *arg0, s32 arg1)
 {
     if ((s32)arg0 != 0)
         *(s32 *)(arg0 + 0x2C) = arg1;
     return;
 }
 
-extern "C" s32 func_ov014_02118960(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 NHTTPi_InitConnectionList(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
-    arg0 = *(s32 *)(data_ov014_02129050);
+    arg0 = *(s32 *)(l_nhttp_connection_list_p);
     if (arg0 != 0) {
-        func_ov014_0211863c();
+        NHTTPi_GetConnectionListLength();
     }
-    *(s32 *)(data_ov014_02129050) = 0;
-    return (s32)data_ov014_02129050;
+    *(s32 *)(l_nhttp_connection_list_p) = 0;
+    return (s32)l_nhttp_connection_list_p;
 }
 
-extern "C" void func_ov014_0211898c(u8 *arg0)
+extern "C" void NHTTPi_InitMutexInfo(u8 *arg0)
 {
     *(s32 *)(arg0 + 0x18) = 0;
 }
 
-extern "C" s32 func_ov014_02118998(u8 *arg0)
+extern "C" s32 NHTTPi_initLockReqList(u8 *arg0)
 {
     if (*(s32 *)(arg0 + 0x18) != 0)
         return (s32)arg0;
-    func_ov014_0211388c((s32)arg0, *(s32 *)(arg0 + 0x18));
+    NHTTPi_InitMutex((s32)arg0, *(s32 *)(arg0 + 0x18));
     *(s32 *)(arg0 + 0x18) = 1;
     return 1;
 }
 
-extern "C" void func_ov014_021189bc(void)
+extern "C" void NHTTPi_exitLockReqList(void)
 {
 }
 
-extern "C" void func_ov014_021189c0(void)
+extern "C" void NHTTPi_lockReqList(void)
 {
-    func_ov014_02113898();
+    NHTTPi_LockMutex();
 }
 
-extern "C" void func_ov014_021189cc(void)
+extern "C" void NHTTPi_unlockReqList(void)
 {
     OS_UnlockMutex();
 }
 
-extern "C" s32 func_ov014_021189d8(s32 arg0, s32 arg1)
+extern "C" s32 NHTTPi_addRef(s32 arg0, s32 arg1)
 {
-    func_ov014_021189c0();
+    NHTTPi_lockReqList();
     s32 t0 = (*(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) + 1);
     *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) = t0;
-    ((s32 (*)(...))func_ov014_021189cc)(arg0, (arg1 + 0x8000), t0);
+    ((s32 (*)(...))NHTTPi_unlockReqList)(arg0, (arg1 + 0x8000), t0);
     return *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48);
 }
 
-extern "C" s32 func_ov014_02118a0c(s32 arg0, s32 arg1)
+extern "C" s32 NHTTPi_decRef(s32 arg0, s32 arg1)
 {
-    func_ov014_021189c0();
+    NHTTPi_lockReqList();
     s32 t0 = (*(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) - 1);
     *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48) = t0;
-    ((s32 (*)(...))func_ov014_021189cc)(arg0, (arg1 + 0x8000), t0);
+    ((s32 (*)(...))NHTTPi_unlockReqList)(arg0, (arg1 + 0x8000), t0);
     return *(s32 *)(((u8 *)(arg1 + 0x8000)) + 0x48);
 }
 
-extern "C" asm void func_ov014_02118a40(void)
+extern "C" asm void NHTTP_CreateConnection(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -909,28 +909,28 @@ extern "C" asm void func_ov014_02118a40(void)
     mov r9, r1
     mov r8, r2
     mov r7, r3
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r4, r0
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r6, r0
     mov r0, r4
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     ldr r11, =0x804c
     mov r5, r0
     mov r0, r11
     mov r1, #0x20
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     movs r4, r0
     bne @L_02118aa4
     mov r0, r6
     mov r1, #1
-    bl func_ov014_021144ec
+    bl NHTTPi_SetError
     add sp, sp, #0x10
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02118aa4:
     mov r1, r11
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     ldr r0, [sp, #0x3c]
     str r7, [sp]
     str r0, [sp, #4]
@@ -941,12 +941,12 @@ extern "C" asm void func_ov014_02118a40(void)
     mov r2, r9
     mov r3, r8
     str r7, [sp, #0xc]
-    bl func_ov014_0211503c
+    bl NHTTPi_CreateRequest
     str r0, [r4, #0x10]
     cmp r0, #0
     bne @L_02118af8
     mov r0, r4
-    bl func_ov014_021144c8
+    bl NHTTPi_free
     add sp, sp, #0x10
     mov r0, r7
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -962,21 +962,21 @@ extern "C" asm void func_ov014_02118a40(void)
     str r7, [r4, #0x28]
     sub r2, r7, #1
     str r2, [r4, #0x18]
-    bl func_ov014_0211857c
+    bl NHTTPi_CommitConnectionList
     mov r0, #0xf
     stmib r4, {r0, r7}
     mov r5, #1
     mov r0, r4
     mov r1, r7
     str r5, [r4, #0xc]
-    bl func_ov014_02118954
+    bl NHTTPi_SetVirtualContentLength
     str r7, [r4, #0x30]
     add r2, r4, #0x8000
     str r7, [r2, #0x40]
     add r0, r4, #0x40
     mov r1, #0x8000
     str r7, [r2, #0x44]
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     add r1, r4, #0x8000
     mov r0, r4
     str r5, [r1, #0x48]
@@ -984,33 +984,33 @@ extern "C" asm void func_ov014_02118a40(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02118b78(s32 arg0)
+extern "C" s32 NHTTP_DeleteConnection(s32 arg0)
 {
     s32 v0;
     s32 v1;
     s32 v2;
     s32 v3;
-    v0 = func_ov014_021188fc(arg0);
-    v1 = func_ov014_0211894c(v0);
-    v2 = ((s32 (*)(...))func_ov014_021185f4)(v1, arg0);
+    v0 = NHTTPi_GetSystemInfoP(arg0);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = ((s32 (*)(...))NHTTPi_GetConnection)(v1, arg0);
     if (v2 == 0) {
         return -1;
     } else {
-        v3 = func_ov014_02118ba4();
+        v3 = NHTTPi_DeleteConnection();
         return v3;
     }
 }
 
-extern "C" asm s32 func_ov014_02118ba4(...)
+extern "C" asm s32 NHTTPi_DeleteConnection(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r6, r0
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r4, r0
     mov r0, r6
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     cmp r5, #0
     mvneq r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -1022,13 +1022,13 @@ extern "C" asm s32 func_ov014_02118ba4(...)
     cmp r1, #0
     blt @L_02118bfc
     mov r0, r6
-    bl func_ov014_02115684
+    bl NHTTPi_CancelRequestAsync
     mvn r0, #0
     str r0, [r5, #0x18]
 @L_02118bfc:
     mov r0, r4
     mov r1, r5
-    bl func_ov014_02118a0c
+    bl NHTTPi_decRef
     cmp r0, #0
     movgt r0, #0
     ldmgtia sp!, {r4, r5, r6, pc}
@@ -1039,7 +1039,7 @@ extern "C" asm s32 func_ov014_02118ba4(...)
     cmp r0, #0
     bne @L_02118c34
     mov r0, r6
-    bl func_ov014_02115524
+    bl NHTTPi_DestroyRequest
 @L_02118c34:
     ldr r0, [r5, #0x14]
     cmp r0, #0
@@ -1048,22 +1048,22 @@ extern "C" asm s32 func_ov014_02118ba4(...)
     cmp r0, #0
     beq @L_02118c54
     mov r0, r5
-    bl func_ov014_02118c7c
+    bl NHTTP_WaitForConnection
 @L_02118c54:
     ldr r1, [r5, #0x14]
     mov r0, r4
-    bl func_ov014_02115798
+    bl NHTTPi_DestroyResponse
 @L_02118c60:
     mov r0, r4
     mov r1, r5
-    bl func_ov014_0211859c
+    bl NHTTPi_OmitConnectionList
     mov r0, r5
-    bl func_ov014_021144c8
+    bl NHTTPi_free
     mov r0, #0
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov014_02118c7c(s32 arg0)
+extern "C" s32 NHTTP_WaitForConnection(s32 arg0)
 {
     s32 r5;
     s32 r6;
@@ -1074,26 +1074,26 @@ extern "C" s32 func_ov014_02118c7c(s32 arg0)
     s32 v3;
     s32 v4;
     s32 v6;
-    v0 = func_ov014_021188fc(arg0);
-    v1 = ((s32 (*)(...))func_ov014_02118944)();
-    v2 = func_ov014_0211894c(v0);
-    v3 = ((s32 (*)(...))func_ov014_021185f4)(v2, arg0);
+    v0 = NHTTPi_GetSystemInfoP(arg0);
+    v1 = ((s32 (*)(...))NHTTPi_GetThreadInfoP)();
+    v2 = NHTTPi_GetMutexInfoP(v0);
+    v3 = ((s32 (*)(...))NHTTPi_GetConnection)(v2, arg0);
     r7 = v1;
     r6 = v3;
     if (r6 == 0) {
         return -1;
     } else {
-        v4 = func_ov014_02118db0((u8 *)arg0);
-        func_ov014_0211395c(r7, 1);
+        v4 = NHTTP_GetConnectionStatus((u8 *)arg0);
+        NHTTPi_CheckCurrentThread(r7, 1);
         r5 = v4;
-        if (((r5 != (1 - 2) && r5 != 0) && (v6 = func_ov014_02118e7c((u8 *)arg0), v6 == 0xF))) {
-            ((s32 (*)(...))func_ov014_02118458)(r6);
+        if (((r5 != (1 - 2) && r5 != 0) && (v6 = NHTTP_GetConnectionError((u8 *)arg0), v6 == 0xF))) {
+            ((s32 (*)(...))NHTTPi_WaitForCompletion)(r6);
         }
         return 0;
     }
 }
 
-extern "C" s32 func_ov014_02118cfc(s32 arg0)
+extern "C" s32 NHTTP_StartConnection(s32 arg0)
 {
     u8 *r4;
     s32 r5;
@@ -1102,51 +1102,51 @@ extern "C" s32 func_ov014_02118cfc(s32 arg0)
     s32 v2;
     s32 v3;
     s32 t0;
-    v0 = func_ov014_021188fc(arg0);
-    v1 = func_ov014_0211894c(v0);
-    v2 = ((s32 (*)(...))func_ov014_021185f4)(v1, arg0);
+    v0 = NHTTPi_GetSystemInfoP(arg0);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = ((s32 (*)(...))NHTTPi_GetConnection)(v1, arg0);
     if (v2 == 0)
         return -1;
     if (*(s32 *)(((u8 *)v2) + 0x10) == 0)
         return -1;
     t0 = *(s32 *)(((u8 *)v2) + 0x10);
-    v3 = func_ov014_021155ec(v0, t0);
+    v3 = NHTTPi_SendRequestAsync(v0, t0);
     *(s32 *)(((u8 *)v2) + 0x18) = v3;
     r5 = v1;
     r4 = (u8 *)v2;
     if (v3 >= 0) {
         *(s32 *)(r4) = 1;
-        ((s32 (*)(...))func_ov014_021189d8)(r5, (s32)r4, 1);
+        ((s32 (*)(...))NHTTPi_addRef)(r5, (s32)r4, 1);
     }
     return 0;
 }
 
-extern "C" s32 func_ov014_02118d68(s32 arg0)
+extern "C" s32 NHTTP_CancelConnection(s32 arg0)
 {
     s32 v0;
     s32 v1;
     s32 v2;
     s32 t0;
-    v0 = func_ov014_021188fc(arg0);
-    v1 = func_ov014_0211894c(v0);
-    v2 = ((s32 (*)(...))func_ov014_021185f4)(v1, arg0);
+    v0 = NHTTPi_GetSystemInfoP(arg0);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = ((s32 (*)(...))NHTTPi_GetConnection)(v1, arg0);
     if (v2 == 0)
         return -1;
     if (*(s32 *)(((u8 *)v2) + 0x18) < 0)
         return -1;
     t0 = *(s32 *)(((u8 *)v2) + 0x18);
-    func_ov014_02115684(v0, t0);
+    NHTTPi_CancelRequestAsync(v0, t0);
     return 0;
 }
 
-extern "C" s32 func_ov014_02118db0(u8 *arg0)
+extern "C" s32 NHTTP_GetConnectionStatus(u8 *arg0)
 {
     s32 v0;
     s32 v1;
     s32 v2;
-    v0 = func_ov014_021188fc((s32)arg0);
-    v1 = func_ov014_0211894c(v0);
-    v2 = ((s32 (*)(...))func_ov014_021185f4)(v1, (s32)arg0);
+    v0 = NHTTPi_GetSystemInfoP((s32)arg0);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = ((s32 (*)(...))NHTTPi_GetConnection)(v1, (s32)arg0);
     arg0 = (u8 *)v2;
     if ((s32)arg0 == 0) {
         arg0 = (u8 *)-1;
@@ -1156,7 +1156,7 @@ extern "C" s32 func_ov014_02118db0(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" s32 func_ov014_02118dd8(u8 *arg0, s32 arg1, u8 *arg2)
+extern "C" s32 NHTTP_GetBodyBuffer(u8 *arg0, s32 arg1, u8 *arg2)
 {
     s32 r4;
     u8 *r6;
@@ -1166,14 +1166,14 @@ extern "C" s32 func_ov014_02118dd8(u8 *arg0, s32 arg1, u8 *arg2)
     s32 v3;
     s32 t0;
     s32 t1;
-    v0 = func_ov014_021188fc((s32)arg0, arg1, (s32)arg2);
-    v1 = func_ov014_0211894c(v0);
-    v2 = ((s32 (*)(...))func_ov014_021185f4)(v1, (s32)arg0);
+    v0 = NHTTPi_GetSystemInfoP((s32)arg0, arg1, (s32)arg2);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = ((s32 (*)(...))NHTTPi_GetConnection)(v1, (s32)arg0);
     r6 = (u8 *)arg1;
     r4 = v1;
     arg1 = v2;
     if (arg1 != 0) {
-        v3 = func_ov014_021185bc((u8 *)r4, arg1);
+        v3 = NHTTPi_Connection2Response((u8 *)r4, arg1);
         arg0 = (u8 *)v3;
         if ((s32)arg0 == 0) {
             return -1;
@@ -1189,7 +1189,7 @@ extern "C" s32 func_ov014_02118dd8(u8 *arg0, s32 arg1, u8 *arg2)
     }
 }
 
-extern "C" s32 func_ov014_02118e38(u8 *arg0)
+extern "C" s32 NHTTP_GetUserParam(u8 *arg0)
 {
     s32 r1;
     s32 r4;
@@ -1197,13 +1197,13 @@ extern "C" s32 func_ov014_02118e38(u8 *arg0)
     s32 v1;
     s32 v2;
     s32 v3;
-    v0 = func_ov014_021188fc((s32)arg0);
-    v1 = func_ov014_0211894c(v0);
-    v2 = ((s32 (*)(...))func_ov014_021185f4)(v1, (s32)arg0);
+    v0 = NHTTPi_GetSystemInfoP((s32)arg0);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = ((s32 (*)(...))NHTTPi_GetConnection)(v1, (s32)arg0);
     r4 = v1;
     r1 = v2;
     if (r1 != 0) {
-        v3 = func_ov014_021185bc((u8 *)r4, r1);
+        v3 = NHTTPi_Connection2Response((u8 *)r4, r1);
         arg0 = (u8 *)v3;
         if ((s32)arg0 != 0) {
             arg0 = (u8 *)*(s32 *)(arg0 + 0x438);
@@ -1216,14 +1216,14 @@ extern "C" s32 func_ov014_02118e38(u8 *arg0)
     }
 }
 
-extern "C" s32 func_ov014_02118e7c(u8 *arg0)
+extern "C" s32 NHTTP_GetConnectionError(u8 *arg0)
 {
     s32 v0;
     s32 v1;
     s32 v2;
-    v0 = func_ov014_021188fc((s32)arg0);
-    v1 = func_ov014_0211894c(v0);
-    v2 = ((s32 (*)(...))func_ov014_021185f4)(v1, (s32)arg0);
+    v0 = NHTTPi_GetSystemInfoP((s32)arg0);
+    v1 = NHTTPi_GetMutexInfoP(v0);
+    v2 = ((s32 (*)(...))NHTTPi_GetConnection)(v1, (s32)arg0);
     arg0 = (u8 *)v2;
     if ((s32)arg0 != 0) {
         arg0 = (u8 *)*(s32 *)(arg0 + 0x4);
@@ -1233,13 +1233,13 @@ extern "C" s32 func_ov014_02118e7c(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" s32 func_ov014_02118ea4(s32 arg0, s32 *arg1, s32 *arg2)
+extern "C" s32 NHTTP_GetConnectionProgress(s32 arg0, s32 *arg1, s32 *arg2)
 {
-    s32 ctx = ((s32 (*)(...))func_ov014_0211894c)(((s32 (*)(...))func_ov014_021188fc)());
-    s32 r = ((s32 (*)(...))func_ov014_021185f4)(ctx, arg0);
+    s32 ctx = ((s32 (*)(...))NHTTPi_GetMutexInfoP)(((s32 (*)(...))NHTTPi_GetSystemInfoP)());
+    s32 r = ((s32 (*)(...))NHTTPi_GetConnection)(ctx, arg0);
     u8 *e;
     if (r != 0) {
-        e = (u8 *)((s32 (*)(...))func_ov014_021185bc)(ctx, r);
+        e = (u8 *)((s32 (*)(...))NHTTPi_Connection2Response)(ctx, r);
         if (e != 0) {
             *arg1 = *(s32 *)(e + 8);
             *arg2 = *(u32 *)(e + 0xC) == 0xFFFFFFFF ? 0 : *(s32 *)(e + 0xC);
@@ -1250,50 +1250,50 @@ extern "C" s32 func_ov014_02118ea4(s32 arg0, s32 *arg1, s32 *arg2)
     return -1;
 }
 
-extern "C" s32 func_ov014_02118f14(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 SOCL_Startup(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     u8 *r4;
     s32 r5;
-    func_02000b64(0x2000C20, arg1, arg2, arg3);
-    if (*(s32 *)(data_ov014_02125e3c) != 0)
+    OSi_ReferSymbol(0x2000C20, arg1, arg2, arg3);
+    if (*(s32 *)(SOCLiConfigPtr) != 0)
         return 0;
-    func_ov014_0211b3e4(*(s32 *)(data_ov014_02125e3c));
-    *(s32 *)(data_ov014_02125e3c) = arg0;
-    func_ov014_02118fac();
-    s32 v3 = func_ov014_02118f6c();
+    SOCLi_InitResource(*(s32 *)(SOCLiConfigPtr));
+    *(s32 *)(SOCLiConfigPtr) = arg0;
+    SOCLi_StartupCPS();
+    s32 v3 = SOCLi_StartupSOCL();
     arg0 = v3;
-    r4 = (u8 *)data_ov014_02125e3c;
+    r4 = (u8 *)SOCLiConfigPtr;
     r5 = v3;
     if (r5 < 0) {
-        func_ov014_0211afa0();
+        SOCLi_CleanupCPS();
         *(s32 *)(r4) = 0;
     }
     return r5;
 }
 
-extern "C" asm s32 func_ov014_02118f6c(...)
+extern "C" asm s32 SOCLi_StartupSOCL(...)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_ov014_02125e3c
+    ldr r0, =SOCLiConfigPtr
     ldr r0, [r0]
     ldr r0, [r0, #0x20]
-    bl func_ov014_021191c4
+    bl SOCLi_StartupCommandPacketQueue
     movs r4, r0
     bmi @L_02118f98
     ldr r0, =data_ov014_02125e78
-    bl func_ov014_021194f8
-    ldr r1, =data_ov014_0212d1e0
+    bl SOCL_CreateSocket
+    ldr r1, =SOCLiYieldWait
     str r0, [r1, #0xc]
 @L_02118f98:
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm s32 func_ov014_02118fac(...)
+extern "C" asm s32 SOCLi_StartupCPS(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r7, =data_ov014_02125e3c
-    ldr r5, =data_ov014_0212d1f0
+    ldr r7, =SOCLiConfigPtr
+    ldr r5, =SOCLiCPSConfig
     mov r4, #0
     ldr r6, [r7]
     mov r0, r5
@@ -1301,8 +1301,8 @@ extern "C" asm s32 func_ov014_02118fac(...)
     mov r2, #0x30
     bl MI_CpuFill8
     ldr r2, [r6, #0x18]
-    ldr r0, =data_ov014_0212d1e0
-    ldr r1, =func_ov014_021191ac
+    ldr r0, =SOCLiYieldWait
+    ldr r1, =SOCL_LinkIsOn
     str r2, [r0, #0x14]
     ldr r2, [r6, #0x1c]
     str r2, [r0, #0x18]
@@ -1318,7 +1318,7 @@ extern "C" asm s32 func_ov014_02118fac(...)
     ldr r0, [r6, #0x28]
     cmp r0, #0
     bne @L_0211902c
-    ldr r1, =data_ov014_02125e3c
+    ldr r1, =SOCLiConfigPtr
     ldr r0, [r5, #0x20]
     ldr r1, [r1]
     ldr r1, [r1, #0x18]
@@ -1336,11 +1336,11 @@ extern "C" asm s32 func_ov014_02118fac(...)
     movlt r2, #0x240
 @L_02119054:
     ldr r7, [r6, #0x34]
-    ldr r1, =data_ov014_02125e60
+    ldr r1, =SOCLSocketParamTCP
     sub r4, r2, #0x28
     cmp r7, #0
     moveq r7, #0x10c0
-    ldr r0, =data_ov014_02126b18
+    ldr r0, =CPSMyIp
     mov r3, #0
     strh r7, [r1, #2]
     mov r2, r4, lsl #1
@@ -1350,14 +1350,14 @@ extern "C" asm s32 func_ov014_02118fac(...)
     ldr r0, [r6]
     mov r2, #1
     cmp r0, #0
-    ldreq r0, =data_ov014_0212d1e0
-    ldreq r1, =func_ov014_02119128
+    ldreq r0, =SOCLiYieldWait
+    ldreq r1, =SOCLi_SetMyIP
     streq r3, [r0, #8]
     streq r2, [r5]
     streq r1, [r5, #0xc]
     beq @L_021190c4
-    ldr r1, =func_ov014_02119194
-    ldr r0, =data_ov014_0212d1e0
+    ldr r1, =SOCLi_DhcpTimeout
+    ldr r0, =SOCLiYieldWait
     str r3, [r5]
     str r1, [r5, #0xc]
     str r2, [r0, #8]
@@ -1367,32 +1367,32 @@ extern "C" asm s32 func_ov014_02118fac(...)
     ldr r0, [r6, #0x2c]
     cmp r0, #0
     moveq r0, #0xb
-    bl func_ov014_021018b4
-    ldr r0, =func_ov014_02101e14
-    bl func_ov014_02122310
-    ldr r0, =func_ov014_0211aec4
-    bl func_ov014_0210181c
-    ldr r0, =func_ov014_0211b4e4
-    bl func_ov014_0210146c
+    bl CPS_SetThreadPriority
+    ldr r0, =CPSi_RecvCallbackFunc
+    bl WCM_SetRecvDCFCallback
+    ldr r0, =SOCLi_TrashSocket
+    bl CPS_SetScavengerCallback
+    ldr r0, =SOCLi_CheckNConfig
+    bl CPS_SetCheckNConfigCallback
     mov r0, r5
-    bl func_ov014_021015b0
+    bl CPS_Startup
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02119128(void)
+extern "C" asm void SOCLi_SetMyIP(void)
 {
-    ldr r0, =data_ov014_02125e3c
-    ldr r1, =data_ov014_02126b18
+    ldr r0, =SOCLiConfigPtr
+    ldr r1, =CPSMyIp
     ldr r12, [r0]
-    ldr r0, =data_ov014_02126ad8
+    ldr r0, =CPSNetMask
     ldr r3, [r12, #4]
-    ldr r2, =data_ov014_02126af4
+    ldr r2, =CPSGatewayIp
     str r3, [r1]
     ldr r3, [r12, #8]
-    ldr r1, =data_ov014_02126b38
+    ldr r1, =CPSDnsIp
     str r3, [r0]
     ldr r3, [r12, #0xc]
-    ldr r0, =data_ov014_0212d1e0
+    ldr r0, =SOCLiYieldWait
     str r3, [r2]
     ldr r2, [r12, #0x10]
     str r2, [r1]
@@ -1404,26 +1404,26 @@ extern "C" asm void func_ov014_02119128(void)
     bx lr
 }
 
-extern "C" char *func_ov014_02119194(void)
+extern "C" char *SOCLi_DhcpTimeout(void)
 {
-    s32 t0 = (*(s32 *)(((u8 *)&data_ov014_0212d1e0) + 0x8) | 2);
-    *(s32 *)(((u8 *)&data_ov014_0212d1e0) + 0x8) = t0;
-    return (char *)((u8 *)&data_ov014_0212d1e0);
+    s32 t0 = (*(s32 *)(((u8 *)&SOCLiYieldWait) + 0x8) | 2);
+    *(s32 *)(((u8 *)&SOCLiYieldWait) + 0x8) = t0;
+    return (char *)((u8 *)&SOCLiYieldWait);
 }
 
-extern "C" s32 func_ov014_021191ac(void)
+extern "C" s32 SOCL_LinkIsOn(void)
 {
-    s32 v0 = func_ov014_02122270();
+    s32 v0 = WCM_GetApMacAddress();
     return (v0 != 0 ? 1 : 0);
 }
 
-extern "C" asm void func_ov014_021191c4(void)
+extern "C" asm void SOCLi_StartupCommandPacketQueue(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r0
     mov r6, #0x2c
     mul r1, r5, r6
-    ldr r0, =data_ov014_02125e3c
+    ldr r0, =SOCLiConfigPtr
     mov r2, r5, lsl #2
     add r2, r2, #3
     ldr r0, [r0]
@@ -1436,7 +1436,7 @@ extern "C" asm void func_ov014_021191c4(void)
     movs r7, r0
     subeq r0, r6, #0x2d
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =data_ov014_0212d224
+    ldr r0, =SOCLiCommandPacketQueue
     mov r1, r7
     mov r2, r5
     bl OS_InitMessageQueue
@@ -1445,47 +1445,47 @@ extern "C" asm void func_ov014_021191c4(void)
     ble @L_0211923c
 @L_02119224:
     mov r0, r4
-    bl func_ov014_02119304
+    bl SOCLi_FreeCommandPacket
     sub r5, r5, #1
     cmp r5, #0
     add r4, r4, #0x2c
     bgt @L_02119224
 @L_0211923c:
-    ldr r1, =data_ov014_0212d220
+    ldr r1, =SOCLiCommandPackets
     mov r0, #0
     str r7, [r1]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov014_02119258(void)
+extern "C" s32 SOCLi_CleanupCommandPacketQueue(void)
 {
     s32 t0;
     s32 t1;
-    if (*(s32 *)(data_ov014_0212d220 + 0x20) < *(s32 *)(data_ov014_0212d220 + 0x18))
+    if (*(s32 *)(SOCLiCommandPackets + 0x20) < *(s32 *)(SOCLiCommandPackets + 0x18))
         return -1;
-    t0 = *(s32 *)(data_ov014_0212d220);
-    t1 = *(s32 *)(*(u8 * *)(data_ov014_02125e3c) + 0x1C);
-    ((s32 (*)(...))*(s32 *)(*(u8 * *)(data_ov014_02125e3c) + 0x1C))(t0, t1);
-    *(s32 *)(data_ov014_0212d220) = 0;
+    t0 = *(s32 *)(SOCLiCommandPackets);
+    t1 = *(s32 *)(*(u8 * *)(SOCLiConfigPtr) + 0x1C);
+    ((s32 (*)(...))*(s32 *)(*(u8 * *)(SOCLiConfigPtr) + 0x1C))(t0, t1);
+    *(s32 *)(SOCLiCommandPackets) = 0;
     return 0;
 }
 
-extern "C" asm s32 func_ov014_0211929c(...)
+extern "C" asm s32 SOCLi_AllocCommandPacket(...)
 {
     stmdb sp!, {r3, lr}
     mov r2, r0
-    ldr r0, =data_ov014_0212d224
+    ldr r0, =SOCLiCommandPacketQueue
     add r1, sp, #0
-    bl func_020068c0
+    bl OS_ReceiveMessage
     cmp r0, #0
     ldrne r0, [sp]
     moveq r0, #0
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov014_021192c4(s32 arg0, u8 *arg1, u8 arg2)
+extern "C" void SOCLi_CreateCommandPacket(s32 arg0, u8 *arg1, u8 arg2)
 {
-    s32 v0 = func_ov014_0211929c(arg2, (s32)arg1, arg2);
+    s32 v0 = SOCLi_AllocCommandPacket(arg2, (s32)arg1, arg2);
     if (v0 == 0)
         return;
     *(s32 *)(((u8 *)v0)) = arg0;
@@ -1496,16 +1496,16 @@ extern "C" void func_ov014_021192c4(s32 arg0, u8 *arg1, u8 arg2)
     *(u8 *)(((u8 *)v0) + 0xD) = arg2;
 }
 
-extern "C" s32 func_ov014_02119304(s32 arg0)
+extern "C" s32 SOCLi_FreeCommandPacket(s32 arg0)
 {
     s32 v0;
     if (arg0 == 0)
         return arg0;
-    v0 = OS_SendMessage((s32)data_ov014_0212d224, arg0, 0);
+    v0 = OS_SendMessage((s32)SOCLiCommandPacketQueue, arg0, 0);
     return v0;
 }
 
-extern "C" asm s32 func_ov014_02119324(...)
+extern "C" asm s32 SOCLi_GetCtrlPipe(...)
 {
     ldr r1, [r0, #0xa0]
     cmp r1, #0
@@ -1514,7 +1514,7 @@ extern "C" asm s32 func_ov014_02119324(...)
     bx lr
 }
 
-extern "C" asm s32 func_ov014_02119338(...)
+extern "C" asm s32 SOCLi_SendCommandPacket(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r5, r1
@@ -1533,7 +1533,7 @@ extern "C" asm s32 func_ov014_02119338(...)
     movs r4, r0
     bne @L_02119374
     mov r0, r5
-    bl func_ov014_02119304
+    bl SOCLi_FreeCommandPacket
 @L_02119374:
     mov r0, #0
     cmp r4, #0
@@ -1541,13 +1541,13 @@ extern "C" asm s32 func_ov014_02119338(...)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" void func_ov014_02119384(s32 arg0, s32 arg1)
+extern "C" void SOCLi_SendCommandPacketToCtrlPipe(s32 arg0, s32 arg1)
 {
-    s32 v0 = func_ov014_02119324(arg0, arg1);
-    func_ov014_02119338(v0, arg1);
+    s32 v0 = SOCLi_GetCtrlPipe(arg0, arg1);
+    SOCLi_SendCommandPacket(v0, arg1);
 }
 
-extern "C" asm s32 func_ov014_0211939c(...)
+extern "C" asm s32 SOCLi_ExecCommandPacket(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x28
@@ -1565,16 +1565,16 @@ extern "C" asm s32 func_ov014_0211939c(...)
     mov r0, r7
     mov r1, r6
     str r5, [r6, #8]
-    bl func_ov014_02119338
+    bl SOCLi_SendCommandPacket
     add r1, sp, #4
     mov r0, r5
     mov r2, r4
-    bl func_020068c0
+    bl OS_ReceiveMessage
     b @L_02119404
 @L_021193f4:
     mov r2, #0
     str r2, [r6, #8]
-    bl func_ov014_02119338
+    bl SOCLi_SendCommandPacket
     str r0, [sp, #4]
 @L_02119404:
     ldr r0, [sp, #4]
@@ -1582,23 +1582,23 @@ extern "C" asm s32 func_ov014_0211939c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_ov014_02119410(u8 *arg0)
+extern "C" void SOCLi_ExecCommandPacketInRecvPipe(u8 *arg0)
 {
-    func_ov014_0211939c(*(s32 *)(arg0 + 0xA0));
+    SOCLi_ExecCommandPacket(*(s32 *)(arg0 + 0xA0));
 }
 
-extern "C" void func_ov014_02119420(u8 *arg0)
+extern "C" void SOCLi_ExecCommandPacketInSendPipe(u8 *arg0)
 {
-    func_ov014_0211939c(*(s32 *)(arg0 + 0xA4));
+    SOCLi_ExecCommandPacket(*(s32 *)(arg0 + 0xA4));
 }
 
-extern "C" void func_ov014_02119430(s32 arg0, s32 arg1)
+extern "C" void SOCLi_ExecCommandPacketInCtrlPipe(s32 arg0, s32 arg1)
 {
-    s32 v0 = func_ov014_02119324(arg0, arg1);
-    func_ov014_0211939c(v0, arg1);
+    s32 v0 = SOCLi_GetCtrlPipe(arg0, arg1);
+    SOCLi_ExecCommandPacket(v0, arg1);
 }
 
-extern "C" asm void func_ov014_02119448(void)
+extern "C" asm void SOCLi_CommandPacketHandler(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
@@ -1611,7 +1611,7 @@ extern "C" asm void func_ov014_02119448(void)
     mov r0, r9
     mov r1, r6
     mov r2, r5
-    bl func_020069fc
+    bl OS_ReadMessage
     ldr r0, [sp]
     cmp r0, #0
     addeq sp, sp, #4
@@ -1621,11 +1621,11 @@ extern "C" asm void func_ov014_02119448(void)
     mov r8, r0
     bl OS_DisableInterrupts
     mov r7, r0
-    bl func_02006434
+    bl OS_DisableScheduler
     mov r0, r9
     mov r1, r4
     mov r2, r4
-    bl func_020068c0
+    bl OS_ReceiveMessage
     ldr r0, [sp]
     ldr r0, [r0, #4]
     cmp r0, #0
@@ -1639,7 +1639,7 @@ extern "C" asm void func_ov014_02119448(void)
     bl OS_SendMessage
 @L_021194d8:
     ldr r0, [sp]
-    bl func_ov014_02119304
+    bl SOCLi_FreeCommandPacket
     bl OS_EnableScheduler
     mov r0, r7
     bl OS_RestoreInterrupts
@@ -1652,26 +1652,26 @@ extern "C" asm void func_ov014_021194f0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_021194f8(void)
+extern "C" asm void SOCL_CreateSocket(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_ov014_02125e3c
+    ldr r1, =SOCLiConfigPtr
     ldr r1, [r1]
     cmp r1, #0
     mvneq r0, #0x26
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_ov014_02119620
+    bl SOCLi_StartupSocket
     movs r4, r0
     mvneq r0, #0x30
     ldmeqia sp!, {r3, r4, r5, pc}
     mov r5, #1
-    ldr r0, =func_ov014_021195ac
+    ldr r0, =SOCLi_CreateSocketCallBack
     mov r1, r4
     mov r2, r5
-    bl func_ov014_021192c4
+    bl SOCLi_CreateCommandPacket
     mov r1, r0
     mov r0, r4
-    bl func_ov014_02119430
+    bl SOCLi_ExecCommandPacketInCtrlPipe
     cmp r4, #0
     mov r1, #0
     beq @L_02119558
@@ -1687,11 +1687,11 @@ extern "C" asm void func_ov014_021194f8(void)
     cmpne r0, #4
     movne r1, #0
     cmp r1, #0
-    ldrne r0, =data_ov014_0212d24c
+    ldrne r0, =SOCLi_Resource
     ldrne r1, [r0]
     addne r1, r1, #1
     strne r1, [r0]
-    ldreq r0, =data_ov014_0212d24c
+    ldreq r0, =SOCLi_Resource
     ldreq r1, [r0, #4]
     addeq r1, r1, #1
     streq r1, [r0, #4]
@@ -1700,79 +1700,79 @@ extern "C" asm void func_ov014_021194f8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_021195ac(u8 *arg0)
+extern "C" s32 SOCLi_CreateSocketCallBack(u8 *arg0)
 {
     s32 r1;
     u8 *r4;
     u8 *t0;
     t0 = (u8 *)*(s32 *)(arg0 + 0x4);
-    func_ov014_02104c00((s32)t0);
+    CPS_SocRegister((s32)t0);
     r4 = t0;
     arg0 = (u8 *)*(s8 *)(t0 + 0xAF);
     r1 = *(s32 *)(t0 + 0xA4);
     switch ((s32)arg0) {
         case 0:
         case 4:
-            func_ov014_02104d20((r1 + 0x20), r1);
-            func_ov014_02104cb4();
+            CPS_SocDup((r1 + 0x20), r1);
+            CPS_SocUse();
             break;
         case 1:
-            func_ov014_02104cb4((s32)arg0, r1);
-            func_ov014_02104c2c();
-            func_ov014_02104d38((s32)((u8 *)&func_ov014_0211a29c));
+            CPS_SocUse((s32)arg0, r1);
+            CPS_SocDatagramMode();
+            CPS_SetUdpCallback((s32)((u8 *)&SOCLi_UdpRecvCallback));
             break;
         case 2:
-            func_ov014_02104c2c((s32)arg0, r1);
+            CPS_SocDatagramMode((s32)arg0, r1);
             break;
     }
     *(u16 *)(r4 + 0xAC) = 1;
     return 0;
 }
 
-extern "C" void *func_ov014_02119620(s32 arg0)
+extern "C" void *SOCLi_StartupSocket(s32 arg0)
 {
     s32 n;
     void *p;
     s32 s;
-    n = ((s32 (*)(...))func_ov014_02119688)(arg0);
+    n = ((s32 (*)(...))SOCLi_GetSizeSocket)(arg0);
     s = ((s32 (*)(...))OS_DisableInterrupts)();
-    p = (*(void *(**)(s32))(*(u8 **)data_ov014_02125e3c + 0x18))(n);
+    p = (*(void *(**)(s32))(*(u8 **)SOCLiConfigPtr + 0x18))(n);
     if (p != 0) {
         ((s32 (*)(...))MI_CpuFill8)(p, 0, n);
-        ((s32 (*)(...))func_ov014_02119730)(p, arg0);
-        ((s32 (*)(...))func_ov014_0211b5ec)(p);
+        ((s32 (*)(...))SOCLi_InitSocket)(p, arg0);
+        ((s32 (*)(...))SOCLi_SocketRegister)(p);
     }
     ((s32 (*)(...))OS_RestoreInterrupts)(s);
     return p;
 }
 
-extern "C" s32 func_ov014_02119688(u8 *arg0)
+extern "C" s32 SOCLi_GetSizeSocket(u8 *arg0)
 {
     s32 n = 0xBC;
     if (*(u16 *)(arg0 + 2) != 0) {
         n += 0x114;
-        n += ((s32 (*)(...))func_ov014_0211b3d8)(*(u16 *)(arg0 + 2));
-        n += ((s32 (*)(...))func_ov014_0211b3d8)(*(u16 *)(arg0 + 8));
-        n += ((s32 (*)(...))func_ov014_02119708)(arg0 + 0x10);
+        n += ((s32 (*)(...))SOCLi_RoundUp4)(*(u16 *)(arg0 + 2));
+        n += ((s32 (*)(...))SOCLi_RoundUp4)(*(u16 *)(arg0 + 8));
+        n += ((s32 (*)(...))SOCLi_GetSizeCommandPipe)(arg0 + 0x10);
     }
     if (*(u16 *)(arg0 + 6) != 0) {
         n += 0x110;
-        n += ((s32 (*)(...))func_ov014_0211b3d8)(*(u16 *)(arg0 + 6));
-        n += ((s32 (*)(...))func_ov014_0211b3d8)(*(u16 *)(arg0 + 0xA));
-        n += ((s32 (*)(...))func_ov014_0211b3d8)(*(u16 *)(arg0 + 0xC));
-        n += ((s32 (*)(...))func_ov014_02119708)(arg0 + 0x14);
+        n += ((s32 (*)(...))SOCLi_RoundUp4)(*(u16 *)(arg0 + 6));
+        n += ((s32 (*)(...))SOCLi_RoundUp4)(*(u16 *)(arg0 + 0xA));
+        n += ((s32 (*)(...))SOCLi_RoundUp4)(*(u16 *)(arg0 + 0xC));
+        n += ((s32 (*)(...))SOCLi_GetSizeCommandPipe)(arg0 + 0x14);
     }
     return n;
 }
 
-extern "C" s32 func_ov014_02119708(u8 *arg0)
+extern "C" s32 SOCLi_GetSizeCommandPipe(u8 *arg0)
 {
-    s32 v0 = func_ov014_0211b3d8((*(u8 *)(arg0 + 0x3) << 2));
-    s32 v1 = func_ov014_0211b3d8(*(u16 *)(arg0));
+    s32 v0 = SOCLi_RoundUp4((*(u8 *)(arg0 + 0x3) << 2));
+    s32 v1 = SOCLi_RoundUp4(*(u16 *)(arg0));
     return (v0 + v1);
 }
 
-extern "C" asm void func_ov014_02119730(void)
+extern "C" asm void SOCLi_InitSocket(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r1
@@ -1792,13 +1792,13 @@ extern "C" asm void func_ov014_02119730(void)
     mov r4, r5
     str r5, [r7, #0xa0]
     strh r3, [r5, #0xfc]
-    bl func_ov014_02119850
+    bl SOCLi_InitCommandPipe
     ldrh r2, [r6, #2]
     add r1, r7, #0x48
-    bl func_ov014_02119828
+    bl SOCLi_InitSocketBuffer
     ldrh r2, [r6, #8]
     add r1, r7, #0x5c
-    bl func_ov014_02119828
+    bl SOCLi_InitSocketBuffer
     mov r2, #0
     ldrh r3, [r6, #0xe]
     add r1, r4, #0x100
@@ -1809,7 +1809,7 @@ extern "C" asm void func_ov014_02119730(void)
 @L_021197b0:
     ldrh r0, [r6, #6]
     cmp r0, #0
-    ldreq r0, =data_ov014_0212d1ec
+    ldreq r0, =SOCLiUDPSendSocket
     ldreq r0, [r0]
     ldreq r0, [r0, #0xa4]
     streq r0, [r7, #0xa4]
@@ -1820,16 +1820,16 @@ extern "C" asm void func_ov014_02119730(void)
     add r2, r6, #0x14
     mov r4, r5
     str r7, [r5, #0x10c]
-    bl func_ov014_02119850
+    bl SOCLi_InitCommandPipe
     ldrh r2, [r6, #6]
     add r1, r7, #0x54
-    bl func_ov014_02119828
+    bl SOCLi_InitSocketBuffer
     ldrh r2, [r6, #0xa]
     add r1, r7, #0x64
-    bl func_ov014_02119828
+    bl SOCLi_InitSocketBuffer
     ldrh r2, [r6, #0xc]
     add r1, r5, #0xf8
-    bl func_ov014_02119828
+    bl SOCLi_InitSocketBuffer
     mov r1, #0
     str r1, [r4, #0x108]
     mov r5, r0
@@ -1839,7 +1839,7 @@ extern "C" asm void func_ov014_02119730(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov014_02119828(s32 arg0, u8 *arg1, s32 arg2)
+extern "C" s32 SOCLi_InitSocketBuffer(s32 arg0, u8 *arg1, s32 arg2)
 {
     s32 r3;
     s32 v0;
@@ -1849,11 +1849,11 @@ extern "C" s32 func_ov014_02119828(s32 arg0, u8 *arg1, s32 arg2)
     }
     *(s32 *)(arg1) = arg2;
     *(s32 *)(arg1 + 0x4) = r3;
-    v0 = func_ov014_0211b3d8(arg2);
+    v0 = SOCLi_RoundUp4(arg2);
     return (arg0 + v0);
 }
 
-extern "C" asm void func_ov014_02119850(void)
+extern "C" asm void SOCLi_InitCommandPipe(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #8
@@ -1861,7 +1861,7 @@ extern "C" asm void func_ov014_02119850(void)
     mov r7, r0
     mov r0, r5
     mov r6, r1
-    bl func_ov014_02119708
+    bl SOCLi_GetSizeCommandPipe
     mov r4, r0
     ldrb r2, [r5, #3]
     mov r0, r6
@@ -1874,7 +1874,7 @@ extern "C" asm void func_ov014_02119850(void)
     add r0, r6, #0x20
     str r2, [sp]
     str r1, [sp, #4]
-    ldr r1, =func_ov014_02119448
+    ldr r1, =SOCLi_CommandPacketHandler
     mov r2, r6
     add r3, r7, r4
     bl OS_CreateThread
@@ -1885,7 +1885,7 @@ extern "C" asm void func_ov014_02119850(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov014_021198c4(s32 arg0, s32 arg1)
+extern "C" s32 SOCL_Bind(s32 arg0, s32 arg1)
 {
     s32 r0;
     s32 r1;
@@ -1893,7 +1893,7 @@ extern "C" s32 func_ov014_021198c4(s32 arg0, s32 arg1)
     u8 *r5;
     s32 v0;
     s32 v1;
-    v0 = func_ov014_0211b6e0(arg0, arg1);
+    v0 = SOCL_SocketIsInvalid(arg0, arg1);
     r0 = 0;
     if (v0 != 0)
         return -0x1C;
@@ -1911,17 +1911,17 @@ extern "C" s32 func_ov014_021198c4(s32 arg0, s32 arg1)
     *(u16 *)(r5 + 0xB0) = r4;
     if (*(s8 *)(r5 + 0xAF) != 1)
         return 0;
-    v1 = func_ov014_02119a80(r5);
+    v1 = SOCLi_ExecBindCommand(r5);
     return v1;
 }
 
-extern "C" asm void func_ov014_02119934(void)
+extern "C" asm void SOCL_Connect(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r5, r1
     mov r4, r2
-    bl func_ov014_0211b6e0
+    bl SOCL_SocketIsInvalid
     cmp r0, #0
     bne @L_0211995c
     ldrsh r0, [r6, #0xac]
@@ -1951,8 +1951,8 @@ extern "C" asm void func_ov014_02119934(void)
     and r0, r4, #0xf0000000
     cmp r0, #0xe0000000
     beq @L_021199f0
-    ldr r0, =data_ov014_02126b18
-    ldr r1, =data_ov014_02126ad8
+    ldr r0, =CPSMyIp
+    ldr r1, =CPSNetMask
     ldr r0, [r0]
     ldr r1, [r1]
     eor r0, r0, r4
@@ -1995,7 +1995,7 @@ extern "C" asm void func_ov014_02119934(void)
     strh r5, [r6, #0xb2]
     mov r0, r6
     str r4, [r6, #0xb4]
-    bl func_ov014_02119a80
+    bl SOCLi_ExecBindCommand
     ldrsb r1, [r6, #0xae]
     cmp r1, #1
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -2009,7 +2009,7 @@ extern "C" asm void func_ov014_02119934(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov014_02119a80(u8 *arg0)
+extern "C" s32 SOCLi_ExecBindCommand(u8 *arg0)
 {
     u8 *r1;
     s32 v0;
@@ -2020,7 +2020,7 @@ extern "C" s32 func_ov014_02119a80(u8 *arg0)
     s32 t3;
     s32 t4;
     t0 = *(s8 *)(arg0 + 0xAE);
-    v0 = ((s32 (*)(...))func_ov014_021192c4)((s32)((u8 *)&func_ov014_02119ad8), arg0, t0);
+    v0 = ((s32 (*)(...))SOCLi_CreateCommandPacket)((s32)((u8 *)&SOCLi_BindCallBack), arg0, t0);
     r1 = (u8 *)v0;
     if ((s32)r1 == 0) {
         return -0x21;
@@ -2033,12 +2033,12 @@ extern "C" s32 func_ov014_02119a80(u8 *arg0)
         *(s32 *)(r1 + 0x14) = t3;
         t4 = (*(s16 *)(arg0 + 0xAC) | 2);
         *(u16 *)(arg0 + 0xAC) = t4;
-        v1 = ((s32 (*)(...))func_ov014_02119410)((s32)arg0, (s32)r1, t4);
+        v1 = ((s32 (*)(...))SOCLi_ExecCommandPacketInRecvPipe)((s32)arg0, (s32)r1, t4);
         return v1;
     }
 }
 
-extern "C" asm void func_ov014_02119ad8(void)
+extern "C" asm void SOCLi_BindCallBack(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -2050,13 +2050,13 @@ extern "C" asm void func_ov014_02119ad8(void)
     ldrh r0, [r7, #0x10]
     ldrh r1, [r7, #0x12]
     ldr r2, [r7, #0x14]
-    bl func_ov014_02104c54
+    bl CPS_SocBind
     str r6, [r5, #0xf8]
     ldrsb r0, [r7, #0xc]
     cmp r0, #0
     cmpne r0, #4
     bne @L_02119b20
-    bl func_ov014_02104e04
+    bl CPS_TcpConnect
     mov r6, r0
 @L_02119b20:
     add r0, r5, #0xe0
@@ -2073,7 +2073,7 @@ extern "C" asm void func_ov014_02119ad8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02119b50(void)
+extern "C" asm void SOCL_ReadFrom(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0xc
@@ -2081,7 +2081,7 @@ extern "C" asm void func_ov014_02119b50(void)
     mov r8, r1
     mov r7, r2
     mov r6, r3
-    bl func_ov014_0211b6e0
+    bl SOCL_SocketIsInvalid
     cmp r0, #0
     addne sp, sp, #0xc
     mvnne r0, #0x1b
@@ -2101,7 +2101,7 @@ extern "C" asm void func_ov014_02119b50(void)
     mov r5, #0
     b @L_02119bc8
 @L_02119bb0:
-    bl func_02008438
+    bl OS_GetProcMode
     cmp r0, #0x12
     addeq sp, sp, #0xc
     mvneq r0, #0x1b
@@ -2158,7 +2158,7 @@ extern "C" asm void func_ov014_02119b50(void)
     mov r2, r7
     mov r3, r6
     stmib sp, {r5, r12}
-    bl func_ov014_02119c98
+    bl SOCLi_ReadAndConsumeBuffer
     mov r5, r0
     add r0, r4, #0xe0
     bl OS_UnlockMutex
@@ -2167,7 +2167,7 @@ extern "C" asm void func_ov014_02119b50(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" s32 func_ov014_02119c98(u8 *arg0, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6)
+extern "C" s32 SOCLi_ReadAndConsumeBuffer(u8 *arg0, s32 a1, s32 a2, s32 a3, s32 a4, s32 a5, s32 a6)
 {
     u8 *p = *(u8 **)(arg0 + 0xA0);
     s32 f = (a6 & 2) && p != 0;
@@ -2178,37 +2178,37 @@ extern "C" s32 func_ov014_02119c98(u8 *arg0, s32 a1, s32 a2, s32 a3, s32 a4, s32
         p[0xFE] = 1;
     }
     if (((s8 *)arg0)[0xAF] == 1) {
-        r = ((s32 (*)(...))func_ov014_0211a158)(arg0, a1, a2, a3, a4, a5);
+        r = ((s32 (*)(...))SOCLi_ReadUdpBuffer)(arg0, a1, a2, a3, a4, a5);
     } else {
-        r = ((s32 (*)(...))func_ov014_02119d34)(arg0, a1, a2, a3, a4, a5);
+        r = ((s32 (*)(...))SOCLi_ReadBuffer)(arg0, a1, a2, a3, a4, a5);
         if (r >= 0)
-            ((s32 (*)(...))func_ov014_0211a0bc)(arg0);
+            ((s32 (*)(...))SOCLi_ConsumeBuffer)(arg0);
     }
     if (f != 0)
         p[0xFE] = old;
     return r;
 }
 
-extern "C" s32 func_ov014_02119d34(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+extern "C" s32 SOCLi_ReadBuffer(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
     s32 v0;
     s32 v1;
     s32 v2;
     if (*(s8 *)(arg0 + 0xAF) == 4) {
-        v0 = func_ov014_02119f20((s32)arg0, arg1, arg2, arg3, arg4);
+        v0 = SOCLi_ExecReadCommand((s32)arg0, arg1, arg2, arg3, arg4);
         return v0;
     } else {
-        v1 = func_ov014_02119da4((s32)arg0, arg1, arg2, arg3, arg4);
+        v1 = SOCLi_CopyCPSBuffer((s32)arg0, arg1, arg2, arg3, arg4);
         if (v1 != -6)
             return v1;
         if ((arg5 & 1) == 0)
             return v1;
-        v2 = func_ov014_02119f20((s32)arg0, arg1, arg2, arg3, arg4);
+        v2 = SOCLi_ExecReadCommand((s32)arg0, arg1, arg2, arg3, arg4);
         return v2;
     }
 }
 
-extern "C" asm s32 func_ov014_02119da4(...)
+extern "C" asm s32 SOCLi_CopyCPSBuffer(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x10
@@ -2224,7 +2224,7 @@ extern "C" asm s32 func_ov014_02119da4(...)
     mov r0, r9
     add r2, sp, #6
     add r3, sp, #4
-    bl func_ov014_02119eac
+    bl SOCLi_ReadCPSBuffer
     cmp r0, #0
     beq @L_02119e48
     ldr r5, [sp, #0xc]
@@ -2242,7 +2242,7 @@ extern "C" asm s32 func_ov014_02119da4(...)
     mov r1, r8
     mov r2, r7
     movne r5, r7
-    bl func_020095c4
+    bl MI_CpuCopy
     ldr r1, [r9, #0xa0]
     ldrsb r0, [r1, #0xfe]
     cmp r0, #0
@@ -2281,7 +2281,7 @@ extern "C" asm s32 func_ov014_02119da4(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov014_02119eac(void)
+extern "C" asm void SOCLi_ReadCPSBuffer(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r0, [r0, #0xa0]
@@ -2316,17 +2316,17 @@ extern "C" asm void func_ov014_02119eac(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm s32 func_ov014_02119f20(...)
+extern "C" asm s32 SOCLi_ExecReadCommand(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
     mov r6, r1
     mov r5, r2
-    ldr r0, =func_ov014_02119f6c
+    ldr r0, =SOCLi_ReadCallBack
     mov r1, r7
     mov r2, #1
     mov r4, r3
-    bl func_ov014_021192c4
+    bl SOCLi_CreateCommandPacket
     mov r1, r0
     str r6, [r1, #0x10]
     str r5, [r1, #0x14]
@@ -2334,11 +2334,11 @@ extern "C" asm s32 func_ov014_02119f20(...)
     str r4, [r1, #0x18]
     mov r0, r7
     str r2, [r1, #0x1c]
-    bl func_ov014_02119410
+    bl SOCLi_ExecCommandPacketInRecvPipe
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02119f6c(void)
+extern "C" asm void SOCLi_ReadCallBack(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -2358,7 +2358,7 @@ extern "C" asm void func_ov014_02119f6c(void)
     add r6, sp, #0x10
 @L_02119fac:
     mov r0, r6
-    bl func_ov014_02105054
+    bl CPS_SocRead
     cmp r0, #0
     beq @L_0211a000
     ldr r1, [sp, #0x10]
@@ -2396,9 +2396,9 @@ extern "C" asm void func_ov014_02119f6c(void)
     movhi r10, r1
     ldr r1, [sp, #0xc]
     mov r2, r10
-    bl func_020095c4
+    bl MI_CpuCopy
     mov r0, r10
-    bl func_ov014_02105208
+    bl CPS_SocConsume
     add sp, sp, #0x14
     mov r0, r10
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2412,7 +2412,7 @@ extern "C" asm void func_ov014_02119f6c(void)
     mov r0, r7
     mov r2, r10
     str r4, [sp]
-    bl func_ov014_02119da4
+    bl SOCLi_CopyCPSBuffer
     mov r4, r0
 @L_0211a088:
     cmp r4, #0
@@ -2424,32 +2424,32 @@ extern "C" asm void func_ov014_02119f6c(void)
     cmp r1, r0
     blt @L_0211a0b0
     mov r0, r7
-    bl func_ov014_0211a11c
+    bl SOCLi_ConsumeCPSBuffer
 @L_0211a0b0:
     mov r0, r4
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_0211a0bc(u8 *arg0)
+extern "C" s32 SOCLi_ConsumeBuffer(u8 *arg0)
 {
     s32 v0;
     s32 v1;
     if (*(s32 *)(*(u8 * *)(arg0 + 0xA0) + 0xF8) < *(u16 *)(*(u8 * *)(arg0 + 0xA0) + 0xFC))
         return 0;
-    v0 = ((s32 (*)(...))func_ov014_021192c4)((s32)((u8 *)&func_ov014_0211a10c), arg0, 0);
+    v0 = ((s32 (*)(...))SOCLi_CreateCommandPacket)((s32)((u8 *)&SOCLi_ConsumeCallBack), arg0, 0);
     if (v0 == 0)
         return (0 - 0x21);
-    v1 = ((s32 (*)(...))func_ov014_02119410)((s32)arg0, v0);
+    v1 = ((s32 (*)(...))SOCLi_ExecCommandPacketInRecvPipe)((s32)arg0, v0);
     return v1;
 }
 
-extern "C" void func_ov014_0211a10c(u8 *arg0)
+extern "C" void SOCLi_ConsumeCallBack(u8 *arg0)
 {
-    func_ov014_0211a11c(*(s32 *)(arg0 + 0x4));
+    SOCLi_ConsumeCPSBuffer(*(s32 *)(arg0 + 0x4));
 }
 
-extern "C" asm s32 func_ov014_0211a11c(...)
+extern "C" asm s32 SOCLi_ConsumeCPSBuffer(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, [r0, #0xa0]
@@ -2461,7 +2461,7 @@ extern "C" asm s32 func_ov014_0211a11c(...)
     mov r1, #0
     mov r0, r6
     str r1, [r4, #0xf8]
-    bl func_ov014_02105208
+    bl CPS_SocConsume
 @L_0211a148:
     mov r0, r5
     bl OS_RestoreInterrupts
@@ -2469,7 +2469,7 @@ extern "C" asm s32 func_ov014_0211a11c(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_0211a158(void)
+extern "C" asm void SOCLi_ReadUdpBuffer(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -2494,7 +2494,7 @@ extern "C" asm void func_ov014_0211a158(void)
     add r0, r6, #0x10c
     bl OS_SleepThread
     mov r0, r10
-    bl func_ov014_0211b6e0
+    bl SOCL_SocketIsInvalid
     cmp r0, #0
     bne @L_0211a1dc
     mov r1, r5
@@ -2523,7 +2523,7 @@ extern "C" asm void func_ov014_0211a158(void)
     ldr r1, [sp]
     ldr r2, [sp, #4]
     add r0, r7, #0xc
-    bl func_020095c4
+    bl MI_CpuCopy
     cmp r11, #0
     ldrneh r0, [r7, #6]
     ldr r1, [sp, #0x30]
@@ -2536,7 +2536,7 @@ extern "C" asm void func_ov014_0211a158(void)
     cmp r0, #0
     bne @L_0211a284
     ldr r0, [r7]
-    ldr r1, =data_ov014_02125e3c
+    ldr r1, =SOCLiConfigPtr
     str r0, [r6, #0x104]
     ldr r0, [r7]
     cmp r0, #0
@@ -2559,7 +2559,7 @@ extern "C" asm void func_ov014_0211a158(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_0211a29c(void)
+extern "C" asm void SOCLi_UdpRecvCallback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r2
@@ -2574,7 +2574,7 @@ extern "C" asm void func_ov014_0211a29c(void)
     add r0, r2, r8
     cmp r1, r0
     blo @L_0211a368
-    ldr r1, =data_ov014_02125e3c
+    ldr r1, =SOCLiConfigPtr
     add r0, r8, #0xc
     ldr r1, [r1]
     ldr r1, [r1, #0x18]
@@ -2597,7 +2597,7 @@ extern "C" asm void func_ov014_0211a29c(void)
     ldr r3, [r7, #0x1c]
     add r1, r5, #0xc
     str r3, [r5, #8]
-    bl func_020095c4
+    bl MI_CpuCopy
     ldr r0, [r4, #0x100]
     cmp r0, #0
     ldrne r0, [r4, #0x100]
@@ -2635,7 +2635,7 @@ extern "C" asm void func_ov014_0211a29c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov014_0211a3b8(void)
+extern "C" asm void SOCL_WriteTo(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #8
@@ -2643,7 +2643,7 @@ extern "C" asm void func_ov014_0211a3b8(void)
     mov r7, r1
     mov r6, r2
     mov r5, r3
-    bl func_ov014_0211b6e0
+    bl SOCL_SocketIsInvalid
     cmp r0, #0
     addne sp, sp, #8
     mvnne r0, #0x1b
@@ -2705,7 +2705,7 @@ extern "C" asm void func_ov014_0211a3b8(void)
     mov r2, r6
     mov r3, r5
     str r12, [sp, #4]
-    bl func_ov014_0211a4cc
+    bl SOCLi_WriteBuffer
     mov r5, r0
     add r0, r4, #0xe0
     bl OS_UnlockMutex
@@ -2714,7 +2714,7 @@ extern "C" asm void func_ov014_0211a3b8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_0211a4cc(void)
+extern "C" asm void SOCLi_WriteBuffer(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x18
@@ -2753,7 +2753,7 @@ extern "C" asm void func_ov014_0211a4cc(void)
     mov r1, r8
     add r3, sp, #0x14
     str r6, [sp]
-    bl func_ov014_0211a5d0
+    bl SOCLi_AllocWriteBuffer
     mov r4, r0
     cmp r4, #0
     ble @L_0211a5a0
@@ -2764,7 +2764,7 @@ extern "C" asm void func_ov014_0211a4cc(void)
     ldr r3, [sp, #0x14]
     mov r0, r10
     mov r2, r4
-    bl func_ov014_0211a678
+    bl SOCLi_ExecWriteCommand
     cmp r0, #0
     addle sp, sp, #0x18
     mvnle r0, #5
@@ -2789,7 +2789,7 @@ extern "C" asm void func_ov014_0211a4cc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_0211a5d0(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, s32 arg4)
+extern "C" s32 SOCLi_AllocWriteBuffer(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, s32 arg4)
 {
     s32 r0;
     u8 *r4;
@@ -2806,7 +2806,7 @@ extern "C" s32 func_ov014_0211a5d0(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, s32 a
     v0 = OS_DisableInterrupts();
     r11 = v0;
     for (;;) {
-        v1 = func_ov014_0211a654((s32)arg0);
+        v1 = SOCLi_GetWriteBufferFreeSize((s32)arg0);
         r5 = v1;
         if (r5 >= r8) {
             r0 = *(u16 *)(r4 + 0x100);
@@ -2826,7 +2826,7 @@ extern "C" s32 func_ov014_0211a5d0(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3, s32 a
     return r5;
 }
 
-extern "C" asm s32 func_ov014_0211a654(...)
+extern "C" asm s32 SOCLi_GetWriteBufferFreeSize(...)
 {
     ldr r2, [r0, #0xa4]
     add r0, r2, #0x100
@@ -2839,7 +2839,7 @@ extern "C" asm s32 func_ov014_0211a654(...)
     bx lr
 }
 
-extern "C" asm void func_ov014_0211a678(void)
+extern "C" asm void SOCLi_ExecWriteCommand(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r0
@@ -2848,9 +2848,9 @@ extern "C" asm void func_ov014_0211a678(void)
     mov r8, r2
     ldr r1, [r4, #0x10c]
     ldr r2, [sp, #0x28]
-    ldr r0, =func_ov014_0211a7e4
+    ldr r0, =SOCLi_WriteCallBack
     mov r7, r3
-    bl func_ov014_021192c4
+    bl SOCLi_CreateCommandPacket
     movs r5, r0
     mvneq r0, #0x20
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -2885,12 +2885,12 @@ extern "C" asm void func_ov014_0211a678(void)
     mov r2, r7
     add r0, r6, r0
     str r7, [r5, #0x1c]
-    bl func_020095c4
+    bl MI_CpuCopy
 @L_0211a728:
     ldr r1, [r5, #0x10]
     ldr r2, [r5, #0x14]
     mov r0, r6
-    bl func_020095c4
+    bl MI_CpuCopy
     add r0, r4, #0x100
     ldrh r6, [r0]
     strh r7, [r5, #0x20]
@@ -2902,7 +2902,7 @@ extern "C" asm void func_ov014_0211a678(void)
     ldrh r0, [r9, #0xb0]
     cmp r0, #0
     bne @L_0211a774
-    bl func_ov014_02104b14
+    bl CPS_SocGetEport
     strh r0, [r9, #0xb0]
     ldrh r0, [r9, #0xb0]
     strh r0, [r9, #0xa]
@@ -2932,7 +2932,7 @@ extern "C" asm void func_ov014_0211a678(void)
 @L_0211a7bc:
     ldr r0, [r4, #0x10c]
     mov r1, r5
-    bl func_ov014_02119420
+    bl SOCLi_ExecCommandPacketInSendPipe
     cmp r0, #0
     addne r0, r4, #0x100
     movne r8, #0
@@ -2941,7 +2941,7 @@ extern "C" asm void func_ov014_0211a678(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov014_0211a7e4(void)
+extern "C" asm void SOCLi_WriteCallBack(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r9, r0
@@ -2968,7 +2968,7 @@ extern "C" asm void func_ov014_0211a7e4(void)
     beq @L_0211a844
     ldrh r0, [r9, #0x24]
     ldrh r1, [r9, #0x26]
-    bl func_ov014_02104c54
+    bl CPS_SocBind
 @L_0211a844:
     ldrsb r1, [r5, #0xaf]
     mov r0, #1
@@ -2986,18 +2986,18 @@ extern "C" asm void func_ov014_0211a7e4(void)
     bne @L_0211a88c
     ldr r0, [r5, #0x54]
     sub r0, r0, r8
-    bl func_ov014_0211a91c
+    bl SOCLi_GetOptimumSendBufLen
     mov r10, r0
 @L_0211a88c:
     mov r1, r10
     mov r2, r9
     add r0, r4, r8
-    bl func_ov014_0211a9b4
+    bl SOCLi_MemCpy
     mov r1, r0
     cmp r1, #0
     ble @L_0211a900
     add r0, r4, r8
-    bl func_ov014_02105614
+    bl CPS_SocWrite
     cmp r0, #0
     bgt @L_0211a8f4
     ldrsb r0, [r5, #0xaf]
@@ -3013,7 +3013,7 @@ extern "C" asm void func_ov014_0211a7e4(void)
     ldrsh r0, [r5, #0xac]
     orr r0, r0, #0x80
     strh r0, [r5, #0xac]
-    bl func_ov014_02104ee0
+    bl CPS_TcpClose
 @L_0211a8f0:
     b @L_0211a8fc
 @L_0211a8f4:
@@ -3031,10 +3031,10 @@ extern "C" asm void func_ov014_0211a7e4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_0211a91c(void)
+extern "C" asm void SOCLi_GetOptimumSendBufLen(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r1, =data_020bb120
+    ldr r1, =OSi_ThreadInfo
     mov r4, r0
     ldr r0, [r1, #4]
     ldr r5, [r0, #0xa4]
@@ -3046,7 +3046,7 @@ extern "C" asm void func_ov014_0211a91c(void)
     ldrneh r2, [r5, #0x38]
     cmpne r2, #0
     beq @L_0211a970
-    ldr r1, =data_ov014_0212d1f0
+    ldr r1, =SOCLiCPSConfig
     cmp r3, r2
     ldr r1, [r1, #0x24]
     movgt r3, r2
@@ -3057,7 +3057,7 @@ extern "C" asm void func_ov014_0211a91c(void)
 @L_0211a970:
     b @L_0211a974
 @L_0211a974:
-    ldr r1, =data_ov014_0212d1f0
+    ldr r1, =SOCLiCPSConfig
     ldr r1, [r1, #0x24]
     mov r5, r1, lsl #1
 @L_0211a980:
@@ -3075,7 +3075,7 @@ extern "C" asm void func_ov014_0211a91c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_0211a9b4(s32 arg0, s32 arg1, s32 *arg2)
+extern "C" s32 SOCLi_MemCpy(s32 arg0, s32 arg1, s32 *arg2)
 {
     s32 a = arg2[5];
     s32 b = arg2[7];
@@ -3086,23 +3086,23 @@ extern "C" s32 func_ov014_0211a9b4(s32 arg0, s32 arg1, s32 *arg2)
         b = arg1 - a;
     }
     if (a > 0) {
-        ((s32 (*)(...))func_020095c4)(arg2[4], arg0, a);
+        ((s32 (*)(...))MI_CpuCopy)(arg2[4], arg0, a);
         arg2[4] += a;
         arg2[5] -= a;
     }
     if (b > 0) {
-        ((s32 (*)(...))func_020095c4)(arg2[6], arg0 + a, b);
+        ((s32 (*)(...))MI_CpuCopy)(arg2[6], arg0 + a, b);
         arg2[6] += b;
         arg2[7] -= b;
     }
     return a + b;
 }
 
-extern "C" asm void func_ov014_0211aa4c(void)
+extern "C" asm void SOCL_Shutdown(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
-    bl func_ov014_0211b6e0
+    bl SOCL_SocketIsInvalid
     cmp r0, #0
     mvnne r0, #0x1b
     ldmneia sp!, {r3, r4, r5, pc}
@@ -3135,20 +3135,20 @@ extern "C" asm void func_ov014_0211aa4c(void)
     cmpne r1, #0
     beq @L_0211aaec
     ldrsb r2, [r4, #0xae]
-    ldr r0, =func_ov014_0211aaf8
-    bl func_ov014_021192c4
+    ldr r0, =SOCLi_ShutdownCallBack
+    bl SOCLi_CreateCommandPacket
     movs r1, r0
     mvneq r0, #0x20
     ldmeqia sp!, {r3, r4, r5, pc}
     ldr r0, [r5, #0x10c]
-    bl func_ov014_02119420
+    bl SOCLi_ExecCommandPacketInSendPipe
     ldmia sp!, {r3, r4, r5, pc}
 @L_0211aaec:
     mov r0, #0
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov014_0211aaf8(u8 *arg0)
+extern "C" s32 SOCLi_ShutdownCallBack(u8 *arg0)
 {
     s32 r1;
     arg0 = (u8 *)*(s8 *)(*(u8 * *)(arg0 + 0x4) + 0xAF);
@@ -3157,17 +3157,17 @@ extern "C" s32 func_ov014_0211aaf8(u8 *arg0)
         r1 = 0;
     }
     if (r1 != 0) {
-        func_ov014_02104ea4();
+        CPS_TcpShutdown();
     }
     return 0;
 }
 
-extern "C" s32 func_ov014_0211ab28(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 SOCL_IsClosed(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     r4 = arg0;
     if (r4 >= 0) {
-        s32 v0 = func_ov014_0211b6e0();
+        s32 v0 = SOCL_SocketIsInvalid();
         if (v0 != 0) {
             s32 v1 = WBT_CancelCurrentCommand(r4);
             if (v1 == 0)
@@ -3177,7 +3177,7 @@ extern "C" s32 func_ov014_0211ab28(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return 0;
 }
 
-extern "C" asm void func_ov014_0211ab5c(void)
+extern "C" asm void SOCL_Close(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
@@ -3197,7 +3197,7 @@ extern "C" asm void func_ov014_0211ab5c(void)
     ldmia sp!, {r4, r5, r6, pc}
 @L_0211ab9c:
     mov r0, r4
-    bl func_ov014_0211b6e0
+    bl SOCL_SocketIsInvalid
     cmp r0, #0
     beq @L_0211abbc
     mov r0, r6
@@ -3237,32 +3237,32 @@ extern "C" asm void func_ov014_0211ab5c(void)
     cmpne r0, #4
     movne r1, #0
     cmp r1, #0
-    ldreq r0, =data_ov014_0212d24c
+    ldreq r0, =SOCLi_Resource
     ldreq r1, [r0, #4]
     subeq r1, r1, #1
     streq r1, [r0, #4]
     beq @L_0211ac60
     ldr r0, [r4, #0xa4]
     mov r1, #0
-    bl func_ov014_02119338
-    ldr r0, =data_ov014_0212d24c
+    bl SOCLi_SendCommandPacket
+    ldr r0, =SOCLi_Resource
     ldr r1, [r0]
     sub r1, r1, #1
     str r1, [r0]
 @L_0211ac60:
-    ldr r0, =func_ov014_0211ac90
+    ldr r0, =SOCLi_CloseCallBack
     mov r1, r4
     mov r2, #1
-    bl func_ov014_021192c4
+    bl SOCLi_CreateCommandPacket
     mov r1, r0
     mov r0, r4
     str r5, [r1, #8]
-    bl func_ov014_02119384
+    bl SOCLi_SendCommandPacketToCtrlPipe
     mov r0, r5
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov014_0211ac90(u8 *arg0)
+extern "C" s32 SOCLi_CloseCallBack(u8 *arg0)
 {
     s32 r1;
     u8 *r4;
@@ -3279,12 +3279,12 @@ extern "C" s32 func_ov014_0211ac90(u8 *arg0)
     }
     if (r1 != 0) {
         t0 = (*(s32 *)(r4 + 0xA4) + 0x20);
-        func_02006048(t0, r1);
-        func_ov014_02104ea4();
-        func_ov014_02104ee0();
-        func_ov014_02104d00();
+        OS_JoinThread(t0, r1);
+        CPS_TcpShutdown();
+        CPS_TcpClose();
+        CPS_SocRelease();
     }
-    func_ov014_02104c14();
+    CPS_SocUnRegister();
     t1 = (*(s16 *)(r4 + 0xAC) & -7);
     *(u16 *)(r4 + 0xAC) = t1;
     r6 = 0;
@@ -3294,17 +3294,17 @@ extern "C" s32 func_ov014_0211ac90(u8 *arg0)
     } else {
         arg0 = (u8 *)*(s32 *)(r4 + 0xA0);
     }
-    func_ov014_02119338((s32)arg0, r1);
+    SOCLi_SendCommandPacket((s32)arg0, r1);
     v6 = OS_DisableInterrupts();
-    func_ov014_0211b62c((s32)r4);
-    func_ov014_0211b614((s32)r4);
+    SOCLi_SocketUnregister((s32)r4);
+    SOCLi_SocketRegisterTrash((s32)r4);
     OS_RestoreInterrupts(v6);
     t2 = (*(s16 *)(r4 + 0xAC) | 0x20);
     *(u16 *)(r4 + 0xAC) = t2;
     return r6;
 }
 
-extern "C" asm s32 func_ov014_0211ad2c(...)
+extern "C" asm s32 SOCLi_CleanupSocket(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     movs r4, r0
@@ -3319,7 +3319,7 @@ extern "C" asm s32 func_ov014_0211ad2c(...)
     cmp r1, #0
     beq @L_0211ad6c
     ldr r0, [r4, #0xa4]
-    bl func_ov014_0211ae24
+    bl SOCLi_FreeCommandPipe
     ldr r0, [r4, #0xa0]
     b @L_0211ade4
 @L_0211ad6c:
@@ -3329,7 +3329,7 @@ extern "C" asm s32 func_ov014_0211ad2c(...)
     ldr r0, [r0, #0x104]
     cmp r0, #0
     beq @L_0211ada4
-    ldr r5, =data_ov014_02125e3c
+    ldr r5, =SOCLiConfigPtr
 @L_0211ad88:
     ldr r1, [r5]
     ldr r6, [r0]
@@ -3357,15 +3357,15 @@ extern "C" asm s32 func_ov014_0211ad2c(...)
     bne @L_0211ade8
     ldr r0, [r4, #0xa4]
 @L_0211ade4:
-    bl func_ov014_0211ae24
+    bl SOCLi_FreeCommandPipe
 @L_0211ade8:
     bl OS_DisableInterrupts
     mov r5, r0
     mov r0, r4
-    bl func_ov014_0211b62c
+    bl SOCLi_SocketUnregister
     mov r0, r4
-    bl func_ov014_0211b6c8
-    ldr r1, =data_ov014_02125e3c
+    bl SOCLi_SocketUnregisterTrash
+    ldr r1, =SOCLiConfigPtr
     mov r0, r4
     ldr r1, [r1]
     ldr r1, [r1, #0x1c]
@@ -3375,46 +3375,46 @@ extern "C" asm s32 func_ov014_0211ad2c(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" void func_ov014_0211ae24(u8 *arg0)
+extern "C" void SOCLi_FreeCommandPipe(u8 *arg0)
 {
     s32 s;
     M0211ae24 *m;
     if (arg0 == 0)
         return;
-    ((s32 (*)(...))func_02006048)(arg0 + 0x20);
+    ((s32 (*)(...))OS_JoinThread)(arg0 + 0x20);
     s = ((s32 (*)(...))OS_DisableInterrupts)();
-    ((s32 (*)(...))func_02006434)();
-    while (((s32 (*)(...))func_020068c0)(arg0, &m, 0) != 0) {
+    ((s32 (*)(...))OS_DisableScheduler)();
+    while (((s32 (*)(...))OS_ReceiveMessage)(arg0, &m, 0) != 0) {
         if (m != 0) {
             if (m->c != 0)
                 ((s32 (*)(...))OS_SendMessage)(m->c, -0xB, 0);
-            ((s32 (*)(...))func_ov014_02119304)(m);
+            ((s32 (*)(...))SOCLi_FreeCommandPacket)(m);
         }
     }
     ((s32 (*)(...))OS_EnableScheduler)();
-    ((s32 (*)(...))func_020061a4)();
+    ((s32 (*)(...))OS_RescheduleThread)();
     ((s32 (*)(...))OS_RestoreInterrupts)(s);
 }
 
-extern "C" s32 func_ov014_0211aec4(void)
+extern "C" s32 SOCLi_TrashSocket(void)
 {
     u8 *r4;
     s32 r5;
     s32 v0;
     s32 v2;
     v0 = OS_DisableInterrupts();
-    r4 = (u8 *)data_ov014_0212d258;
+    r4 = (u8 *)SOCLiSocketListTrash;
     r5 = v0;
     if (*(s32 *)(r4) != 0) {
         do {
-            func_ov014_0211ad2c();
+            SOCLi_CleanupSocket();
         } while (*(s32 *)(r4) != 0);
     }
     v2 = OS_RestoreInterrupts(r5);
     return v2;
 }
 
-extern "C" s32 func_ov014_0211af00(void)
+extern "C" s32 SOCL_Cleanup(void)
 {
     u8 *r1;
     s32 r4;
@@ -3425,95 +3425,95 @@ extern "C" s32 func_ov014_0211af00(void)
     s32 t0;
     s32 t1;
     s32 t2;
-    r1 = (u8 *)data_ov014_0212d1e4;
+    r1 = (u8 *)SOCLiRequestedIP;
     if (*(s32 *)(r1) == 0) {
-        t0 = *(s32 *)(data_ov014_02126b18);
+        t0 = *(s32 *)(CPSMyIp);
         *(s32 *)(r1) = t0;
     }
-    v0 = func_ov014_0211b070();
+    v0 = SOCL_CalmDown();
     r4 = -0x1A;
     if (v0 == r4) {
         r5 = 0x64;
         do {
             OS_Sleep(r5);
-            v2 = func_ov014_0211b070();
+            v2 = SOCL_CalmDown();
         } while (v2 == r4);
     }
-    v3 = func_ov014_02119258();
+    v3 = SOCLi_CleanupCommandPacketQueue();
     r4 = v3;
     if (r4 >= 0) {
-        func_ov014_0211afa0();
-        r1 = (u8 *)*(s32 *)(data_ov014_02125e3c);
+        SOCLi_CleanupCPS();
+        r1 = (u8 *)*(s32 *)(SOCLiConfigPtr);
         if (*(s32 *)(r1 + 0x28) == 0) {
-            t1 = *(s32 *)(data_ov014_0212d1f0 + 0x1C);
+            t1 = *(s32 *)(SOCLiCPSConfig + 0x1C);
             t2 = *(s32 *)(r1 + 0x1C);
             ((s32 (*)(...))*(s32 *)(r1 + 0x1C))(t1, t2);
         }
-        *(s32 *)(data_ov014_02125e3c) = 0;
-        func_ov014_0211b3e4((s32)data_ov014_02125e3c, 0);
+        *(s32 *)(SOCLiConfigPtr) = 0;
+        SOCLi_InitResource((s32)SOCLiConfigPtr, 0);
     }
     return r4;
 }
 
-extern "C" void func_ov014_0211afa0(void)
+extern "C" void SOCLi_CleanupCPS(void)
 {
-    func_ov014_0210182c();
-    func_ov014_0210181c(0);
-    func_ov014_0210146c(0);
-    func_ov014_02122310(0);
+    CPS_Cleanup();
+    CPS_SetScavengerCallback(0);
+    CPS_SetCheckNConfigCallback(0);
+    WCM_SetRecvDCFCallback(0);
 }
 
-extern "C" s32 func_ov014_0211afc8(void)
+extern "C" s32 SOCL_CloseAll(void)
 {
     u8 *p;
     for (;;) {
         s32 s = ((s32 (*)(...))OS_DisableInterrupts)();
-        for (p = *(u8 **)data_ov014_0212d254; p != 0; p = *(u8 **)(p + 0xB8)) {
-            if (p != *(u8 **)data_ov014_0212d1ec && !(*(s16 *)(p + 0xAC) & 0x10))
+        for (p = *(u8 **)SOCLiSocketList; p != 0; p = *(u8 **)(p + 0xB8)) {
+            if (p != *(u8 **)SOCLiUDPSendSocket && !(*(s16 *)(p + 0xAC) & 0x10))
                 break;
         }
         ((s32 (*)(...))OS_RestoreInterrupts)(s);
         if (p == 0)
             break;
-        ((s32 (*)(...))func_ov014_0211ab5c)(p);
+        ((s32 (*)(...))SOCL_Close)(p);
     }
-    p = *(u8 **)data_ov014_0212d254;
-    if (p == 0 || (p == *(u8 **)data_ov014_0212d1ec && *(s32 *)(p + 0xB8) == 0)) {
-        if (*(s32 *)data_ov014_0212d258 == 0)
+    p = *(u8 **)SOCLiSocketList;
+    if (p == 0 || (p == *(u8 **)SOCLiUDPSendSocket && *(s32 *)(p + 0xB8) == 0)) {
+        if (*(s32 *)SOCLiSocketListTrash == 0)
             return 0;
     }
     return -0x1A;
 }
 
-extern "C" asm s32 func_ov014_0211b070(...)
+extern "C" asm s32 SOCL_CalmDown(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_ov014_0212d1ec
+    ldr r4, =SOCLiUDPSendSocket
     ldr r0, [r4]
     cmp r0, #0
     beq @L_0211b0b8
-    bl func_ov014_0211afc8
+    bl SOCL_CloseAll
     movs r5, r0
     bne @L_0211b0b0
     ldr r0, [r4]
-    bl func_ov014_0211ab5c
+    bl SOCL_Close
     ldr r0, [r4]
-    bl func_ov014_0211ab28
+    bl SOCL_IsClosed
     cmp r0, #0
     movne r0, #0
     strne r0, [r4]
     mvn r5, #0x19
 @L_0211b0b0:
-    bl func_ov014_0211aec4
+    bl SOCLi_TrashSocket
     b @L_0211b0d4
 @L_0211b0b8:
-    bl func_ov014_021017c8
+    bl CPS_CalmDown
     cmp r0, #0
     mvneq r5, #0x19
     beq @L_0211b0d4
     mov r5, #0
     mov r0, r5
-    bl func_ov014_02122310
+    bl WCM_SetRecvDCFCallback
 @L_0211b0d4:
     mov r0, r5
     ldmia sp!, {r3, r4, r5, pc}

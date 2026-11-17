@@ -19,12 +19,12 @@ extern "C" s32 func_ov061_02169c40(s32 arg0);
 extern "C" s32 func_ov061_02169c54(u8 *arg0);
 extern "C" void func_ov061_02169c5c(void);
 
-extern "C" char data_020c4648[];
-extern "C" char data_020c4678[];
-extern "C" char data_020c46bc[];
+extern "C" char g3DFieldSprite[];
+extern "C" char g3DGameMapObject[];
+extern "C" char gPalSkinFaceFile[];
 extern "C" char data_020c4824[];
-extern "C" char data_020c484c[];
-extern "C" char data_020c9660[];
+extern "C" char gDeltaTime[];
+extern "C" char gBgMenuManager[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" char data_ov001_0213062c[];
@@ -40,7 +40,7 @@ extern "C" char data_ov061_0216a154[];
 extern "C" char data_ov061_0216a15c[];
 extern "C" char data_ov061_0216a164[];
 extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" s32 _ZN11MatchEngine13func_0206ad94Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206ceacEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206dedcEv(...);
@@ -57,27 +57,27 @@ extern "C" s32 func_ov015_02130b14(...);
 extern "C" void func_ov015_02131cd4(void);
 extern "C" void func_ov015_02131d4c(void);
 extern "C" s32 func_ov015_02131da0(...);
-extern "C" void func_ov015_02132224(void);
-extern "C" s32 func_ov015_021322b0(...);
-extern "C" void func_ov015_021322d8(void);
+extern "C" void Graphics_LoadBGPaletteMain(void);
+extern "C" s32 Graphics_LoadTempPaletteFromPac(...);
+extern "C" void Graphics_LoadTempPalette(void);
 extern "C" void func_ov015_02133e50(void);
 extern "C" s32 func_ov015_02133e8c(...);
-extern "C" void func_ov015_02134118(void);
-extern "C" s32 func_ov015_02134198(...);
-extern "C" s32 func_ov015_02134208(...);
-extern "C" void func_ov015_0213447c(void);
-extern "C" void func_ov015_02134504(void);
-extern "C" void func_ov015_02134554(void);
+extern "C" void Archive_TryFinalize(void);
+extern "C" s32 Archive_Close(...);
+extern "C" s32 Archive_Deallocate(...);
+extern "C" void Archive_GetFaceOffsetAndSize(void);
+extern "C" void Archive_GetBodyOffsetAndSize(void);
+extern "C" void Archive_GetBodyPlttOffsetAndSize(void);
 extern "C" s32 func_ov015_02136680(...);
 extern "C" void func_ov015_02136734(void);
 extern "C" void func_ov015_0213782c(void);
 extern "C" void func_ov015_0213a688(void);
 extern "C" void func_ov015_0213a690(void);
 extern "C" void func_ov015_0213a8b8(void);
-extern "C" void func_ov015_0213b364(void);
-extern "C" s32 func_ov015_0213b3fc(...);
-extern "C" s32 func_ov015_0213bfcc(...);
-extern "C" void func_ov015_0213c33c(void);
+extern "C" void CBgMenuManager_Init(void);
+extern "C" s32 CBgMenuManager_Finalize(...);
+extern "C" s32 CBgMenuManager_UpdateGraphics(...);
+extern "C" void CBgMenuManager_Draw(void);
 extern "C" void func_ov061_02166514(void);
 extern "C" void func_ov061_02167130(void);
 extern "C" void func_ov061_0216719c(void);
@@ -95,7 +95,7 @@ extern "C" void gGameState(void);
 extern "C" void func_ov061_02169110(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 t0 = *(s32 *)(((u8 *)((arg1 * 0xC) + arg0)) + 0x464);
-    func_ov015_021322b0(t0, 0, arg2);
+    Graphics_LoadTempPaletteFromPac(t0, 0, arg2);
 }
 
 extern "C" asm void func_ov061_0216912c(void)
@@ -160,7 +160,7 @@ extern "C" asm void func_ov061_0216912c(void)
     ldr r0, [r0, #0x464]
     mov r1, r7
     add r2, r4, #5
-    bl func_ov015_021322d8
+    bl Graphics_LoadTempPalette
 @L_02169208:
     add r4, r4, #1
 @L_0216920c:
@@ -213,7 +213,7 @@ extern "C" asm void func_ov061_0216912c(void)
     mov r1, #7
     bl func_ov061_02169110
 @L_021692c0:
-    bl func_ov015_02132224
+    bl Graphics_LoadBGPaletteMain
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
@@ -238,7 +238,7 @@ extern "C" void func_ov061_021692d4(u8 *arg0)
         v0 = func_ov015_02130b14(t0, 0);
         arg0 = (u8 *)v0;
         if (((s32)arg0 != 0 && (r1 = *(s32 *)(((u8 *)((r4 * r6) + r5)) + 0x5D8), r1 != 0))) {
-            t1 = *(s32 *)(((u8 *)&data_020c46bc));
+            t1 = *(s32 *)(((u8 *)&gPalSkinFaceFile));
             func_ov015_02131da0((s32)arg0, r1, t1);
         }
         r4 = (r4 + 1);
@@ -309,7 +309,7 @@ extern "C" asm void func_ov061_021693e8(void)
     beq @L_021695e8
     ldr r0, =data_020e88a0
     mov r1, #1
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     mov r7, r0
     mov r0, r10
     bl func_ov061_0216933c
@@ -334,7 +334,7 @@ extern "C" asm void func_ov061_021693e8(void)
     mov r2, #0
     add r3, sp, #0xc
     str r11, [sp]
-    bl func_ov015_0213447c
+    bl Archive_GetFaceOffsetAndSize
     cmp r0, #0
     beq @L_02169514
     add r2, r8, #0x1b
@@ -365,7 +365,7 @@ extern "C" asm void func_ov061_021693e8(void)
     mov r1, r6
     mov r2, r9
     mov r3, r5
-    bl func_ov015_02134504
+    bl Archive_GetBodyOffsetAndSize
     cmp r0, #0
     beq @L_0216958c
     add r2, r8, #0x17
@@ -385,7 +385,7 @@ extern "C" asm void func_ov061_021693e8(void)
     mov r2, r5
     add r3, sp, #0xc
     str r11, [sp]
-    bl func_ov015_02134554
+    bl Archive_GetBodyPlttOffsetAndSize
     cmp r0, #0
     beq @L_021695d8
     add r2, r8, #0x1f
@@ -435,7 +435,7 @@ extern "C" void func_ov061_02169668(s32 arg0)
     s32 r6;
     r6 = 0;
     do {
-        func_ov015_02134208(((r6 * 0xC) + ((arg0 + 0x64) + 0x400)));
+        Archive_Deallocate(((r6 * 0xC) + ((arg0 + 0x64) + 0x400)));
         r4 = 0xC;
         r5 = ((arg0 + 0x64) + 0x400);
         r6 = (r6 + 1);
@@ -449,15 +449,15 @@ extern "C" asm void func_ov061_02169694(void)
     mov r4, r0
     add r0, r4, #0x64
     add r0, r0, #0x4f0
-    bl func_ov015_02134208
+    bl Archive_Deallocate
     add r0, r4, #0x64
     add r0, r0, #0x400
     add r0, r0, #0xfc
-    bl func_ov015_02134208
+    bl Archive_Deallocate
     add r0, r4, #0x64
     add r0, r0, #0x400
     add r0, r0, #0x108
-    bl func_ov015_02134208
+    bl Archive_Deallocate
     ldmia sp!, {r4, pc}
 }
 
@@ -468,22 +468,22 @@ extern "C" asm s32 func_ov061_021696cc(...)
     ldr r1, [r0, #0x14]
     cmp r1, #0
     blt @L_021696f0
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a688
     b @L_021696fc
 @L_021696f0:
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a690
 @L_021696fc:
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     mov r1, r4
     ldr r0, [r0]
     mov r2, #0
     bl func_ov015_0213782c
-    ldr r0, =data_020c4678
-    ldr r1, =data_020c484c
+    ldr r0, =g3DGameMapObject
+    ldr r1, =gDeltaTime
     ldr r0, [r0]
     ldr r1, [r1]
     bl func_0208dc5c
@@ -494,7 +494,7 @@ extern "C" void func_ov061_02169734(s32 arg0, s32 arg1)
 {
     _ZN11MatchEngine13func_0206ad94Ev((s32)data_020e88a0, 1, 0);
     func_ov061_02168c4c(arg0);
-    func_ov015_0213bfcc((s32)data_020c9660, 0);
+    CBgMenuManager_UpdateGraphics((s32)gBgMenuManager, 0);
     func_ov061_021696cc(arg0, arg1);
 }
 
@@ -524,7 +524,7 @@ extern "C" asm void func_ov061_02169780(void)
     b @L_0216996c
     b @L_0216996c
 @L_021697dc:
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a8b8
     cmp r0, #0
@@ -532,7 +532,7 @@ extern "C" asm void func_ov061_02169780(void)
     add r0, r5, #0x64
     add r0, r0, #0x400
     mov r1, #0x23
-    bl func_ov015_02134118
+    bl Archive_TryFinalize
     cmp r0, #0
     beq @L_02169978
     ldr r0, [r5, #0xc]
@@ -567,7 +567,7 @@ extern "C" asm void func_ov061_02169780(void)
     mov r1, #2
     b @L_02169840
 @L_02169874:
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a8b8
     cmp r0, #0
@@ -688,9 +688,9 @@ extern "C" asm void func_ov061_021699a8(void)
     ldr r1, [r1, #0x3c]
     blx r1
 @L_02169a1c:
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #0
-    bl func_ov015_0213c33c
+    bl CBgMenuManager_Draw
     ldmia sp!, {r4, pc}
 @L_02169a2c:
     ldr r1, [r4, #0x24]
@@ -703,9 +703,9 @@ extern "C" asm void func_ov061_021699a8(void)
     bne @L_02169a4c
     bl func_ov061_0216719c
 @L_02169a4c:
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #0
-    bl func_ov015_0213c33c
+    bl CBgMenuManager_Draw
     ldmia sp!, {r4, pc}
 }
 
@@ -757,14 +757,14 @@ extern "C" asm void func_ov061_02169a60(void)
     cmp r4, #4
     blt @L_02169af0
     mov r7, #0
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r7
-    bl func_ov015_0213b364
+    bl CBgMenuManager_Init
     mov r6, #1
     mov r0, r5
     mov r1, r6
     bl func_ov061_021693e8
-    ldr r4, =data_020c4648
+    ldr r4, =g3DFieldSprite
     ldr r1, =0x1869
     ldr r0, [r4]
     bl func_ov015_02136734
@@ -804,13 +804,13 @@ extern "C" s32 func_ov061_02169bc8(u8 *arg0)
 {
     s32 v6;
     s32 t0;
-    t0 = *(s32 *)(((u8 *)&data_020c4648));
-    func_ov015_02136680(t0, (s32)((u8 *)&data_020c4648));
-    func_ov015_0213b3fc((s32)((u8 *)&data_020c9660), 0);
+    t0 = *(s32 *)(((u8 *)&g3DFieldSprite));
+    func_ov015_02136680(t0, (s32)((u8 *)&g3DFieldSprite));
+    CBgMenuManager_Finalize((s32)((u8 *)&gBgMenuManager), 0);
     func_ov087_02181e68((s32)((u8 *)&data_020e88a0));
     ((VCall *)arg0)->f27();
     *(s32 *)(arg0 + 0x8) = 0;
-    func_ov015_02134198((s32)((arg0 + 0x64) + 0x400), 0x23);
+    Archive_Close((s32)((arg0 + 0x64) + 0x400), 0x23);
     func_ov061_02169668((s32)arg0);
     v6 = func_ov015_02133e8c((s32)((arg0 + 0x14) + 0x400), 4);
     return v6;

@@ -2,40 +2,40 @@
 
 void SND_AllocCommand(void);
 void SND_PushCommand(void);
-void func_0200a550(void);
+void SND_FlushCommand(void);
 void SND_WaitForCommandProc(void);
 void SND_GetCurrentCommandTag(void);
-void func_0200a784(void);
+void SND_IsFinishedCommandTag(void);
 void SND_CountFreeCommand(void);
 void SND_CountReservedCommand(void);
 void SND_CountWaitingCommand(void);
 void PxiFifoCallback(void);
-void func_0200a88c(void);
+void InitPXI(void);
 void RequestCommandProc(void);
 void AllocCommand(void);
-void func_0200a960(void);
-void func_0200a9a0(void);
+void IsCommandAvailable(void);
+void SND_AlarmInit(void);
 
-void func_0200a390(void);
+void SND_RecvCommandReply(void);
 void OS_DisableInterrupts(void);
-extern char data_020bb4f0[];
+extern char sFreeList[];
 void OS_RestoreInterrupts(void);
-extern char data_020bb7c0[];
+extern char sCommandArray[];
 void DC_FlushRange(void);
-void func_0200b138(void);
-extern char data_020bb514[];
+void PXI_SendWordByFifo(void);
+extern char sWaitingCommandListQueue[];
 void SNDi_CallAlarmHandler(void);
-void func_0200b0c8(void);
-void func_0200b114(void);
-void func_02008450(void);
-void func_020067a8(void);
-extern char data_020bcfc0[];
+void PXI_SetFifoRecvCallback(void);
+void PXI_IsCallbackReady(void);
+void OS_SpinWaitSysCycles(void);
+void OS_IsRunOnEmulator(void);
+extern char sCallbackTable[];
 
 asm void SND_AllocCommand(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
-    bl func_0200a960
+    bl IsCommandAvailable
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r4, pc}
@@ -51,7 +51,7 @@ asm void SND_AllocCommand(void)
     mov r4, #0
 @L_0200a4d0:
     mov r0, r4
-    bl func_0200a390
+    bl SND_RecvCommandReply
     cmp r0, #0
     bne @L_0200a4d0
     bl AllocCommand
@@ -60,13 +60,13 @@ asm void SND_AllocCommand(void)
     ldmia sp!, {r4, pc}
 @L_0200a4f0:
     mov r0, #1
-    bl func_0200a550
+    bl SND_FlushCommand
 @L_0200a4f8:
     bl RequestCommandProc
     mov r4, #1
 @L_0200a500:
     mov r0, r4
-    bl func_0200a390
+    bl SND_RecvCommandReply
     bl AllocCommand
     cmp r0, #0
     beq @L_0200a500
@@ -78,7 +78,7 @@ asm void SND_PushCommand(void)
     stmdb sp!, {r4, lr}
     mov r4, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb4f0
+    ldr r1, =sFreeList
     ldr r2, [r1, #0xc]
     cmp r2, #0
     streq r4, [r1, #8]
@@ -90,13 +90,13 @@ asm void SND_PushCommand(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200a550(void)
+asm void SND_FlushCommand(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r8, r0
     mov r5, #0
     bl OS_DisableInterrupts
-    ldr r9, =data_020bb4f0
+    ldr r9, =sFreeList
     mov r7, r0
     ldr r1, [r9, #8]
     cmp r1, #0
@@ -117,7 +117,7 @@ asm void func_0200a550(void)
     mov r4, #1
 @L_0200a5a4:
     mov r0, r4
-    bl func_0200a390
+    bl SND_RecvCommandReply
     ldr r0, [r9, #0x1c]
     cmp r0, #8
     bge @L_0200a5a4
@@ -129,14 +129,14 @@ asm void func_0200a550(void)
     mov r0, r4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_0200a5d4:
-    ldr r6, =data_020bb7c0
+    ldr r6, =sCommandArray
     mov r1, #0x1800
     mov r0, r6
     bl DC_FlushRange
     ldr r1, [r9, #8]
     mov r2, r5
     mov r0, #7
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     bge @L_0200a684
     tst r8, #1
@@ -153,7 +153,7 @@ asm void func_0200a550(void)
     mov r0, r7
     bl OS_RestoreInterrupts
     mov r0, r5
-    bl func_0200a390
+    bl SND_RecvCommandReply
     bl OS_DisableInterrupts
     mov r7, r0
     mov r0, r6
@@ -173,13 +173,13 @@ asm void func_0200a550(void)
     ldr r1, [r9, #8]
     mov r0, r10
     mov r2, r5
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     blt @L_0200a620
 @L_0200a684:
     ldr r2, [r9, #0x18]
     ldr r3, [r9, #8]
-    ldr r1, =data_020bb514
+    ldr r1, =sWaitingCommandListQueue
     add r0, r2, #1
     str r3, [r1, r2, lsl #2]
     str r0, [r9, #0x18]
@@ -207,30 +207,30 @@ asm void SND_WaitForCommandProc(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
-    bl func_0200a784
+    bl SND_IsFinishedCommandTag
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r4, #0
 @L_0200a704:
     mov r0, r4
-    bl func_0200a390
+    bl SND_RecvCommandReply
     cmp r0, #0
     bne @L_0200a704
     mov r0, r5
-    bl func_0200a784
+    bl SND_IsFinishedCommandTag
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     bl RequestCommandProc
     mov r0, r5
-    bl func_0200a784
+    bl SND_IsFinishedCommandTag
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r4, #1
 @L_0200a73c:
     mov r0, r4
-    bl func_0200a390
+    bl SND_RecvCommandReply
     mov r0, r5
-    bl func_0200a784
+    bl SND_IsFinishedCommandTag
     cmp r0, #0
     beq @L_0200a73c
     ldmia sp!, {r3, r4, r5, pc}
@@ -240,7 +240,7 @@ asm void SND_GetCurrentCommandTag(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb4f0
+    ldr r1, =sFreeList
     ldr r2, [r1, #8]
     cmp r2, #0
     ldreq r4, [r1, #4]
@@ -250,12 +250,12 @@ asm void SND_GetCurrentCommandTag(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200a784(void)
+asm void SND_IsFinishedCommandTag(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb4f0
+    ldr r1, =sFreeList
     ldr r1, [r1, #4]
     cmp r4, r1
     bls @L_0200a7b4
@@ -279,7 +279,7 @@ asm void SND_CountFreeCommand(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb4f0
+    ldr r1, =sFreeList
     mov r4, #0
     ldr r1, [r1]
     cmp r1, #0
@@ -299,7 +299,7 @@ asm void SND_CountReservedCommand(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb4f0
+    ldr r1, =sFreeList
     mov r4, #0
     ldr r1, [r1, #8]
     cmp r1, #0
@@ -339,19 +339,19 @@ asm void PxiFifoCallback(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200a88c(void)
+asm void InitPXI(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, #7
     ldr r1, =PxiFifoCallback
     mov r0, r4
-    bl func_0200b0c8
-    bl func_0200a960
+    bl PXI_SetFifoRecvCallback
+    bl IsCommandAvailable
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r0, r4
     mov r1, #1
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     mov r5, r4
@@ -359,10 +359,10 @@ asm void func_0200a88c(void)
     mov r4, #1
 @L_0200a8cc:
     mov r0, r6
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r5
     mov r1, r4
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     beq @L_0200a8cc
     ldmia sp!, {r4, r5, r6, pc}
@@ -377,7 +377,7 @@ asm void RequestCommandProc(void)
     mov r0, r5
     mov r1, r4
     mov r2, r4
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     blt @L_0200a8fc
     ldmia sp!, {r3, r4, r5, pc}
@@ -387,7 +387,7 @@ asm void AllocCommand(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb4f0
+    ldr r1, =sFreeList
     ldr r4, [r1]
     cmp r4, #0
     bne @L_0200a93c
@@ -405,10 +405,10 @@ asm void AllocCommand(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200a960(void)
+asm void IsCommandAvailable(void)
 {
     stmdb sp!, {r4, lr}
-    bl func_020067a8
+    bl OS_IsRunOnEmulator
     cmp r0, #0
     moveq r0, #1
     ldmeqia sp!, {r4, pc}
@@ -424,10 +424,10 @@ asm void func_0200a960(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200a9a0(void)
+asm void SND_AlarmInit(void)
 {
     mov r12, #0
-    ldr r3, =data_020bcfc0
+    ldr r3, =sCallbackTable
     mov r1, r12
     mov r0, #0xc
 @L_0200a9b0:

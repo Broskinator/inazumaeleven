@@ -3,61 +3,61 @@
 void OSi_RemoveLinkFromQueue(void);
 void OSi_RemoveSpecifiedLinkFromQueue(void);
 void OSi_RemoveMutexLinkFromQueue(void);
-void func_02005af4(void);
-void func_02005b50(void);
-void func_02005b98(void);
-void func_02005c5c(void);
+void OSi_InsertThreadToList(void);
+void OSi_RemoveThreadFromList(void);
+void OSi_RescheduleThread(void);
+void OS_InitThread(void);
 void func_02005da8(void);
 void OS_CreateThread(void);
-void func_02005ea8(void);
-void func_02005ec8(void);
+void OS_ExitThread(void);
+void OSi_ExitThread_ArgSpecified(void);
 void OSi_ExitThread(void);
 void OSi_ExitThread_Destroy(void);
 void OS_DestroyThread(void);
 void OSi_CancelThreadAlarmForSleep(void);
-void func_02006048(void);
+void OS_JoinThread(void);
 void OS_IsThreadTerminated(void);
 void OS_SleepThread(void);
 void OS_WakeupThread(void);
 void OS_WakeupThreadDirect(void);
-void func_02006178(void);
-void func_020061a4(void);
-void func_020061c0(void);
+void OS_SelectThread(void);
+void OS_RescheduleThread(void);
+void OS_YieldThread(void);
 void OS_SetThreadStackWarningOffset(void);
-void func_0200628c(void);
-void func_02006334(void);
+void OS_SetThreadPriority(void);
+void OS_GetThreadPriority(void);
 void OS_Sleep(void);
 void OSi_SleepAlarmCallback(void);
-void func_020063fc(void);
-void func_02006424(void);
-void func_02006434(void);
+void OS_SetSwitchThreadCallback(void);
+void OSi_IdleThreadProc(void);
+void OS_DisableScheduler(void);
 void OS_EnableScheduler(void);
-void func_02006498(void);
+void OS_SetThreadDestructor(void);
 
-extern char data_020bb104[];
-extern char data_020bb120[];
-void func_02008438(void);
+extern char OSi_SystemCallbackInSwitchThread[];
+extern char OSi_ThreadInfo[];
+void OS_GetProcMode(void);
 void OS_SaveContext(void);
 void OS_LoadContext(void);
 extern char data_020bb124[];
 extern char data_020bb1f0[];
-extern char data_027e0000[];
-extern char data_020bb130[];
+extern char OS_IRQTable[];
+extern char OSi_IdleThread[];
 extern char data_020bb378[];
 extern char data_020bb110[];
 void OS_DisableInterrupts(void);
-void func_020059ac(void);
+void OSi_GetUnusedThreadId(void);
 void OS_InitContext(void);
-void func_0200919c(void);
+void MIi_CpuClear32(void);
 void OS_RestoreInterrupts(void);
-void func_02006af8(void);
-void func_0200878c(void);
+void OSi_UnlockAllMutex(void);
+void OS_Terminate(void);
 void OS_CancelAlarm(void);
-void func_020059c4(void);
+void OSi_InsertLinkToQueue(void);
 void OS_CreateAlarm(void);
-void func_02007d68(void);
-void func_020083c0(void);
-void func_020087cc(void);
+void OS_SetAlarm(void);
+void OS_EnableInterrupts(void);
+void OS_Halt(void);
 
 asm void OSi_RemoveLinkFromQueue(void)
 {
@@ -122,10 +122,10 @@ asm void OSi_RemoveMutexLinkFromQueue(void)
     bx lr
 }
 
-asm void func_02005af4(void)
+asm void OSi_InsertThreadToList(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     mov r12, #0
     ldr lr, [r1, #0x24]
     mov r3, lr
@@ -142,7 +142,7 @@ asm void func_02005af4(void)
     blo @L_02005b0c
 @L_02005b2c:
     cmp r12, #0
-    ldreq r1, =data_020bb104
+    ldreq r1, =OSi_SystemCallbackInSwitchThread
     streq lr, [r0, #0x68]
     streq r0, [r1, #0x24]
     ldrne r1, [r12, #0x68]
@@ -151,9 +151,9 @@ asm void func_02005af4(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02005b50(void)
+asm void OSi_RemoveThreadFromList(void)
 {
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     mov r2, #0
     ldr r1, [r1, #0x24]
     b @L_02005b68
@@ -168,25 +168,25 @@ asm void func_02005b50(void)
 @L_02005b78:
     cmp r2, #0
     ldreq r1, [r0, #0x68]
-    ldreq r0, =data_020bb104
+    ldreq r0, =OSi_SystemCallbackInSwitchThread
     streq r1, [r0, #0x24]
     ldrne r0, [r0, #0x68]
     strne r0, [r2, #0x68]
     bx lr
 }
 
-asm void func_02005b98(void)
+asm void OSi_RescheduleThread(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    ldr r5, =data_020bb104
+    ldr r5, =OSi_SystemCallbackInSwitchThread
     ldr r0, [r5, #4]
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     ldrh r0, [r5, #0x1e]
-    ldr r4, =data_020bb120
+    ldr r4, =OSi_ThreadInfo
     cmp r0, #0
     bne @L_02005bc8
-    bl func_02008438
+    bl OS_GetProcMode
     cmp r0, #0x12
     bne @L_02005bd4
 @L_02005bc8:
@@ -196,7 +196,7 @@ asm void func_02005b98(void)
 @L_02005bd4:
     ldr r0, [r5, #8]
     ldr r6, [r0]
-    bl func_02006178
+    bl OS_SelectThread
     mov r5, r0
     cmp r6, r5
     cmpne r5, #0
@@ -209,7 +209,7 @@ asm void func_02005b98(void)
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
 @L_02005c0c:
-    ldr r0, =data_020bb104
+    ldr r0, =OSi_SystemCallbackInSwitchThread
     ldr r2, [r0]
     cmp r2, #0
     beq @L_02005c28
@@ -224,18 +224,18 @@ asm void func_02005b98(void)
     mov r1, r5
     blx r2
 @L_02005c40:
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     mov r0, r5
     str r5, [r1, #0x20]
     bl OS_LoadContext
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02005c5c(void)
+asm void OS_InitThread(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #8
-    ldr r0, =data_020bb104
+    ldr r0, =OSi_SystemCallbackInSwitchThread
     ldr r1, [r0, #0xc]
     cmp r1, #0
     addne sp, sp, #8
@@ -257,12 +257,12 @@ asm void func_02005c5c(void)
     str r1, [r0, #0x20]
     cmp r2, #0
     ldrle r0, =0x27e0080
-    ldrgt r1, =data_027e0000
+    ldrgt r1, =OS_IRQTable
     ldrgt r0, =0x400
     addgt r1, r1, #0x3f80
     subgt r0, r1, r0
     sub r3, r0, r2
-    ldr r1, =data_027e0000
+    ldr r1, =OS_IRQTable
     ldr r0, =0x400
     add r2, r1, #0x3f80
     sub r2, r2, r0
@@ -275,21 +275,21 @@ asm void func_02005c5c(void)
     str r0, [r2, #-8]
     ldr r2, [r1, #0x90]
     ldr r3, =0x7bf9dd5b
-    ldr r0, =data_020bb104
+    ldr r0, =OSi_SystemCallbackInSwitchThread
     str r3, [r2]
     str r4, [r1, #0xa0]
     str r4, [r1, #0x9c]
     strh r4, [r0, #0x1c]
     strh r4, [r0, #0x1e]
-    ldr r2, =data_020bb120
+    ldr r2, =OSi_ThreadInfo
     ldr r1, =0x2ffffa0
     mov r0, r4
     str r2, [r1]
-    bl func_020063fc
-    ldr r5, =data_020bb130
+    bl OS_SetSwitchThreadCallback
+    ldr r5, =OSi_IdleThread
     mov r12, #0xc8
     mov r2, r4
-    ldr r1, =func_02006424
+    ldr r1, =OSi_IdleThreadProc
     ldr r3, =data_020bb378
     mov r0, r5
     str r12, [sp]
@@ -320,7 +320,7 @@ asm void OS_CreateThread(void)
     mov r7, r3
     bl OS_DisableInterrupts
     mov r5, r0
-    bl func_020059ac
+    bl OSi_GetUnusedThreadId
     str r0, [r9, #0x6c]
     ldr r0, [sp, #0x24]
     mov r4, #0
@@ -328,7 +328,7 @@ asm void OS_CreateThread(void)
     str r4, [r9, #0x64]
     str r4, [r9, #0x74]
     mov r0, r9
-    bl func_02005af4
+    bl OSi_InsertThreadToList
     mov r1, r6
     str r7, [r9, #0x94]
     str r4, [r9, #0x98]
@@ -347,46 +347,46 @@ asm void OS_CreateThread(void)
     bl OS_InitContext
     str r8, [r9, #4]
     add r1, r6, #4
-    ldr r2, =func_02005ea8
+    ldr r2, =OS_ExitThread
     mov r0, r4
     str r2, [r9, #0x3c]
     ldr r2, [sp, #0x20]
     sub r2, r2, #0xc
-    bl func_0200919c
+    bl MIi_CpuClear32
     str r4, [r9, #0x84]
     str r4, [r9, #0x88]
     str r4, [r9, #0x8c]
     mov r0, r9
     mov r1, r4
-    bl func_02006498
+    bl OS_SetThreadDestructor
     str r4, [r9, #0x78]
     str r4, [r9, #0x80]
     str r4, [r9, #0x7c]
     mov r0, r4
     add r1, r9, #0xa4
     mov r2, #0xc
-    bl func_0200919c
+    bl MIi_CpuClear32
     str r4, [r9, #0xb0]
     mov r0, r5
     bl OS_RestoreInterrupts
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02005ea8(void)
+asm void OS_ExitThread(void)
 {
     stmdb sp!, {r3, lr}
     bl OS_DisableInterrupts
-    ldr r0, =data_020bb104
+    ldr r0, =OSi_SystemCallbackInSwitchThread
     mov r1, #0
     ldr r0, [r0, #0x20]
-    bl func_02005ec8
+    bl OSi_ExitThread_ArgSpecified
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02005ec8(void)
+asm void OSi_ExitThread_ArgSpecified(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r2, =data_020bb104
+    ldr r2, =OSi_SystemCallbackInSwitchThread
     mov r5, r0
     ldr r2, [r2, #0x14]
     mov r4, r1
@@ -411,7 +411,7 @@ asm void func_02005ec8(void)
 asm void OSi_ExitThread(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     ldr r1, [r1, #8]
     ldr r3, [r1]
     ldr r2, [r3, #0xb4]
@@ -429,12 +429,12 @@ asm void OSi_ExitThread(void)
 asm void OSi_ExitThread_Destroy(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_020bb104
+    ldr r0, =OSi_SystemCallbackInSwitchThread
     ldr r0, [r0, #8]
     ldr r4, [r0]
-    bl func_02006434
+    bl OS_DisableScheduler
     mov r0, r4
-    bl func_02006af8
+    bl OSi_UnlockAllMutex
     ldr r0, [r4, #0x78]
     cmp r0, #0
     beq @L_02005f88
@@ -442,14 +442,14 @@ asm void OSi_ExitThread_Destroy(void)
     bl OSi_RemoveSpecifiedLinkFromQueue
 @L_02005f88:
     mov r0, r4
-    bl func_02005b50
+    bl OSi_RemoveThreadFromList
     mov r1, #2
     add r0, r4, #0x9c
     str r1, [r4, #0x64]
     bl OS_WakeupThread
     bl OS_EnableScheduler
-    bl func_020061a4
-    bl func_0200878c
+    bl OS_RescheduleThread
+    bl OS_Terminate
     ldmia sp!, {r4, pc}
 }
 
@@ -458,16 +458,16 @@ asm void OS_DestroyThread(void)
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     mov r4, r0
     ldr r0, [r1, #0x20]
     cmp r0, r5
     bne @L_02005fd8
     bl OSi_ExitThread_Destroy
 @L_02005fd8:
-    bl func_02006434
+    bl OS_DisableScheduler
     mov r0, r5
-    bl func_02006af8
+    bl OSi_UnlockAllMutex
     mov r0, r5
     bl OSi_CancelThreadAlarmForSleep
     ldr r0, [r5, #0x78]
@@ -477,7 +477,7 @@ asm void OS_DestroyThread(void)
     bl OSi_RemoveSpecifiedLinkFromQueue
 @L_02006000:
     mov r0, r5
-    bl func_02005b50
+    bl OSi_RemoveThreadFromList
     mov r1, #2
     add r0, r5, #0x9c
     str r1, [r5, #0x64]
@@ -485,7 +485,7 @@ asm void OS_DestroyThread(void)
     bl OS_EnableScheduler
     mov r0, r4
     bl OS_RestoreInterrupts
-    bl func_020061a4
+    bl OS_RescheduleThread
     ldmia sp!, {r3, r4, r5, pc}
 }
 
@@ -499,7 +499,7 @@ asm void OSi_CancelThreadAlarmForSleep(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02006048(void)
+asm void OS_JoinThread(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -534,7 +534,7 @@ asm void OS_SleepThread(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     mov r4, r0
     ldr r0, [r1, #8]
     cmp r6, #0
@@ -543,11 +543,11 @@ asm void OS_SleepThread(void)
     mov r0, r6
     mov r1, r5
     str r6, [r5, #0x78]
-    bl func_020059c4
+    bl OSi_InsertLinkToQueue
 @L_020060cc:
     mov r0, #0
     str r0, [r5, #0x64]
-    bl func_02005b98
+    bl OSi_RescheduleThread
     mov r0, r4
     bl OS_RestoreInterrupts
     ldmia sp!, {r4, r5, r6, pc}
@@ -579,7 +579,7 @@ asm void OS_WakeupThread(void)
     mov r0, #0
     str r0, [r7, #4]
     str r0, [r7]
-    bl func_02005b98
+    bl OSi_RescheduleThread
 @L_02006144:
     mov r0, r6
     bl OS_RestoreInterrupts
@@ -594,15 +594,15 @@ asm void OS_WakeupThreadDirect(void)
     mov r1, #1
     mov r4, r0
     str r1, [r5, #0x64]
-    bl func_02005b98
+    bl OSi_RescheduleThread
     mov r0, r4
     bl OS_RestoreInterrupts
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02006178(void)
+asm void OS_SelectThread(void)
 {
-    ldr r0, =data_020bb104
+    ldr r0, =OSi_SystemCallbackInSwitchThread
     ldr r0, [r0, #0x24]
     b @L_02006188
 @L_02006184:
@@ -616,21 +616,21 @@ asm void func_02006178(void)
     bx lr
 }
 
-asm void func_020061a4(void)
+asm void OS_RescheduleThread(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
     mov r4, r0
-    bl func_02005b98
+    bl OSi_RescheduleThread
     mov r0, r4
     bl OS_RestoreInterrupts
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020061c0(void)
+asm void OS_YieldThread(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r5, =data_020bb104
+    ldr r5, =OSi_SystemCallbackInSwitchThread
     mov r7, #0
     mov r4, r7
     mov r8, r7
@@ -665,14 +665,14 @@ asm void func_020061c0(void)
 @L_02006238:
     cmp r7, #0
     ldreq r1, [r6, #0x68]
-    ldreq r0, =data_020bb104
+    ldreq r0, =OSi_SystemCallbackInSwitchThread
     streq r1, [r0, #0x24]
     ldrne r0, [r6, #0x68]
     strne r0, [r7, #0x68]
     ldr r0, [r4, #0x68]
     str r0, [r6, #0x68]
     str r6, [r4, #0x68]
-    bl func_02005b98
+    bl OSi_RescheduleThread
     mov r0, r5
     bl OS_RestoreInterrupts
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
@@ -688,10 +688,10 @@ asm void OS_SetThreadStackWarningOffset(void)
     bx lr
 }
 
-asm void func_0200628c(void)
+asm void OS_SetThreadPriority(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r2, =data_020bb104
+    ldr r2, =OSi_SystemCallbackInSwitchThread
     mov r7, r0
     mov r6, r1
     ldr r8, [r2, #0x24]
@@ -709,7 +709,7 @@ asm void func_0200628c(void)
     bne @L_020062b0
 @L_020062c8:
     cmp r8, #0
-    ldrne r0, =data_020bb130
+    ldrne r0, =OSi_IdleThread
     cmpne r8, r0
     bne @L_020062e8
     mov r0, r5
@@ -722,14 +722,14 @@ asm void func_0200628c(void)
     beq @L_0200631c
     cmp r4, #0
     ldreq r1, [r7, #0x68]
-    ldreq r0, =data_020bb104
+    ldreq r0, =OSi_SystemCallbackInSwitchThread
     streq r1, [r0, #0x24]
     ldrne r0, [r7, #0x68]
     strne r0, [r4, #0x68]
     mov r0, r7
     str r6, [r7, #0x70]
-    bl func_02005af4
-    bl func_02005b98
+    bl OSi_InsertThreadToList
+    bl OSi_RescheduleThread
 @L_0200631c:
     mov r0, r5
     bl OS_RestoreInterrupts
@@ -737,7 +737,7 @@ asm void func_0200628c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02006334(void)
+asm void OS_GetThreadPriority(void)
 {
     ldr r0, [r0, #0x70]
     bx lr
@@ -751,7 +751,7 @@ asm void OS_Sleep(void)
     mov r5, r0
     mov r0, r4
     bl OS_CreateAlarm
-    ldr r0, =data_020bb104
+    ldr r0, =OSi_SystemCallbackInSwitchThread
     ldr r0, [r0, #8]
     ldr r0, [r0]
     str r0, [sp, #4]
@@ -768,7 +768,7 @@ asm void OS_Sleep(void)
     mov r0, r4
     mov r2, r12, lsr #6
     orr r1, r1, r12, lsl #26
-    bl func_02007d68
+    bl OS_SetAlarm
     ldr r0, [sp, #4]
     cmp r0, #0
     beq @L_020063c0
@@ -797,12 +797,12 @@ asm void OSi_SleepAlarmCallback(void)
     bx r12
 }
 
-asm void func_020063fc(void)
+asm void OS_SetSwitchThreadCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     ldr r4, [r1, #0x28]
     str r5, [r1, #0x28]
     bl OS_RestoreInterrupts
@@ -810,20 +810,20 @@ asm void func_020063fc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02006424(void)
+asm void OSi_IdleThreadProc(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_020083c0
+    bl OS_EnableInterrupts
 @L_0200642c:
-    bl func_020087cc
+    bl OS_Halt
     b @L_0200642c
 }
 
-asm void func_02006434(void)
+asm void OS_DisableScheduler(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     ldr r3, [r1, #4]
     cmn r3, #1
     addlo r2, r3, #1
@@ -838,7 +838,7 @@ asm void OS_EnableScheduler(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb104
+    ldr r1, =OSi_SystemCallbackInSwitchThread
     mov r4, #0
     ldr r3, [r1, #4]
     cmp r3, #0
@@ -850,7 +850,7 @@ asm void OS_EnableScheduler(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02006498(void)
+asm void OS_SetThreadDestructor(void)
 {
     str r1, [r0, #0xb4]
     bx lr

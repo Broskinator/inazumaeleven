@@ -49,11 +49,11 @@ extern "C" s32 func_ov015_021557c8(u8 *arg0, s8 *arg1, s32 *arg2);
 extern "C" s32 func_ov015_02155864(u8 *arg0, u8 *arg1, s32 *arg2);
 
 extern "C" char data_020ac094[];
-extern "C" char data_020c4660[];
-extern "C" char data_020c4678[];
-extern "C" char data_020c46d0[];
-extern "C" char data_020c46d4[];
-extern "C" char data_020c47b4[];
+extern "C" char g3DGameMap[];
+extern "C" char g3DGameMapObject[];
+extern "C" char gCameraCtrl[];
+extern "C" char g3DPlaneCtrl[];
+extern "C" char gAllocator[];
 extern "C" char data_020c4920[];
 extern "C" char data_020c4de0[];
 extern "C" char data_020c4df0[];
@@ -142,20 +142,20 @@ extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN11MatchEngine13func_0207a2a8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207e8f8Ev(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void func_0202bdfc(void);
+extern "C" void NNS_G3dGetResDataByName(void);
 extern "C" void func_0208cee0(void);
 extern "C" void func_0208e3e4(void);
 extern "C" void func_02090d60(void);
 extern "C" void func_02090d84(void);
 extern "C" void func_02090da8(void);
-extern "C" void func_02097898(void);
-extern "C" void func_02097aa0(void);
-extern "C" void func_02097b3c(void);
+extern "C" void C3DSprFile_LoadFromPath(void);
+extern "C" void C3DSprFile_TryFinalize(void);
+extern "C" void C3DSprFile_Release(void);
 extern "C" void func_ov015_02130e40(void);
 extern "C" void func_ov015_021319bc(void);
 extern "C" void func_ov015_021319dc(void);
 extern "C" void func_ov015_021319fc(void);
-extern "C" void func_ov015_02134300(void);
+extern "C" void Archive_PackHeaderGetOffsetAndSize(void);
 extern "C" void func_ov015_0213d498(void);
 extern "C" void func_ov015_0213d4d8(void);
 extern "C" void func_ov015_021456e0(void);
@@ -741,7 +741,7 @@ extern "C" asm void func_ov015_02153280(void)
     cmp r1, #1
     subeq r0, r0, #1
     beq @L_02153328
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     ldr r0, [r0]
     bl func_0208cee0
 @L_02153328:
@@ -1148,7 +1148,7 @@ extern "C" asm void func_ov015_02153b10(void)
     beq @L_02153ecc
 @L_02153ba8:
     ldr r0, [sp, #0xe8]
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     str r0, [r5, #0x10]
     str r7, [r5, #0x14]
     ldr r1, [sp, #0xec]
@@ -1174,7 +1174,7 @@ extern "C" asm void func_ov015_02153b10(void)
     add r0, r0, #1
     strb r0, [r5, #0xb]
 @L_02153c0c:
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     ldr r1, [r5, #0x1c]
     ldr r0, [r0]
     mov r8, #1
@@ -1202,8 +1202,8 @@ extern "C" asm void func_ov015_02153b10(void)
     add r2, sp, #0x24
     add r3, sp, #0x20
     mov r1, r9
-    bl func_ov015_02134300
-    ldr r0, =data_020c46d4
+    bl Archive_PackHeaderGetOffsetAndSize
+    ldr r0, =g3DPlaneCtrl
     ldr r3, [sp, #0x20]
     ldr r0, [r0]
     ldr r1, [sp, #0x24]
@@ -1214,9 +1214,9 @@ extern "C" asm void func_ov015_02153b10(void)
     str r3, [sp, #0x10]
     mov r1, #5
     mov r3, r8
-    bl func_02097898
+    bl C3DSprFile_LoadFromPath
     str r0, [r5, #0x18]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     ldr r1, [r5, #0x1c]
     bl _ZN8GameHeap4FreeEPv
     str r7, [sp]
@@ -1245,16 +1245,16 @@ extern "C" asm void func_ov015_02153b10(void)
     bl _ZN17UnkClass_0205480013func_0205d204Ev
     b @L_02153e90
 @L_02153d14:
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     mov r1, r8
     ldr r0, [r0]
-    bl func_02097aa0
+    bl C3DSprFile_TryFinalize
     cmp r0, #0
     bgt @L_02153ecc
     ldr r0, [r6]
     ldr r1, [r5, #0x10]
     bl _ZN17UnkClass_0205480013func_0205d7e0Ev
-    ldr r2, =data_020c4678
+    ldr r2, =g3DGameMapObject
     mov r1, r0
     ldr r0, [r2]
     bl func_0208e3e4
@@ -1264,7 +1264,7 @@ extern "C" asm void func_ov015_02153b10(void)
     beq @L_02153d68
     ldr r1, =data_ov015_021648d8
     add r0, r7, #0x3c
-    bl func_0202bdfc
+    bl NNS_G3dGetResDataByName
     mov r10, r0
 @L_02153d68:
     cmp r7, #0
@@ -1274,12 +1274,12 @@ extern "C" asm void func_ov015_02153b10(void)
     beq @L_02153d88
     ldr r1, =data_ov015_021648ec
     add r0, r7, r0
-    bl func_0202bdfc
+    bl NNS_G3dGetResDataByName
 @L_02153d88:
     ldr r11, [r10]
     ldr r2, [r7, #0x14]
     ldr r1, [r7, #0x38]
-    ldr r9, =data_020c46d4
+    ldr r9, =g3DPlaneCtrl
     ldrh r10, [r0]
     add r3, r7, r1
     ldr r0, [r9]
@@ -1326,10 +1326,10 @@ extern "C" asm void func_ov015_02153b10(void)
     ldr r0, [r6]
     ldr r1, [r5, #0x10]
     bl _ZN17UnkClass_0205480013func_0205d204Ev
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     mov r1, r8
     ldr r0, [r0]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     b @L_02153e90
 @L_02153e64:
     ldr r0, [r6]
@@ -1554,7 +1554,7 @@ extern "C" asm void func_ov015_021540c8(void)
     add r0, r0, #1
     strb r0, [r6, #0xb]
 @L_02154194:
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     ldr r0, [r0]
     bl func_ov015_0213d498
     ldrh r0, [r0, #0x3a]
@@ -1636,7 +1636,7 @@ extern "C" asm void func_ov015_021541ec(void)
     add r0, r0, #1
     strb r0, [r6, #0xb]
 @L_021542b8:
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     ldr r0, [r0]
     bl func_ov015_0213d498
     ldrh r0, [r0, #0x3a]
@@ -1749,7 +1749,7 @@ extern "C" asm void func_ov015_02154310(void)
     add r0, r0, #1
     strb r0, [r6, #0xb]
 @L_02154458:
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     ldr r0, [r0]
     bl func_ov015_0213d498
     ldrh r0, [r0, #0x3a]
@@ -1812,7 +1812,7 @@ extern "C" asm void func_ov015_021544b4(void)
 @L_02154534:
     mov r4, #2
 @L_02154538:
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     ldr r0, [r0]
     bl func_ov015_0213d4d8
     ldr r12, [sp, #0x9c]
@@ -1844,7 +1844,7 @@ extern "C" asm void func_ov015_021544b4(void)
     add r0, r0, #1
     strb r0, [r6, #0xb]
 @L_021545b4:
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     ldr r0, [r0]
     bl func_ov015_0213d498
     ldrh r0, [r0, #0x3a]
@@ -1918,7 +1918,7 @@ extern "C" asm void func_ov015_02154610(void)
     add r0, r0, #1
     strb r0, [r6, #0xb]
 @L_021546bc:
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     ldr r0, [r0]
     bl func_ov015_0213d498
     ldrh r0, [r0, #0x3a]
@@ -1996,7 +1996,7 @@ extern "C" asm void func_ov015_02154714(void)
     strb r0, [r5, #0xb]
     b @L_02154800
 @L_021547d0:
-    ldr r0, =data_020c46d0
+    ldr r0, =gCameraCtrl
     ldr r0, [r0]
     bl func_ov015_0213d498
     ldrh r0, [r0, #0x3a]

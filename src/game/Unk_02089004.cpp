@@ -25,10 +25,10 @@ extern "C" void func_ov015_02164494(void *a);
 extern "C" void func_ov015_02163f50(void *a);
 extern "C" void func_ov015_02163f80(void *a);
 extern "C" void func_ov015_021644b4(void *a);
-extern "C" void func_0209d678(void *a);
-extern "C" void func_0209d684(void *a);
-extern "C" void func_ov015_02134198(void *a, int n);
-extern "C" void func_ov015_02134208(void *a);
+extern "C" void CSceneScriptData_Ctor(void *a);
+extern "C" void CSceneScriptData_Dtor(void *a);
+extern "C" void Archive_Close(void *a, int n);
+extern "C" void Archive_Deallocate(void *a);
 extern "C" void *data_ov015_02165848[];
 extern "C" void *data_020af768[];
 
@@ -42,7 +42,7 @@ extern "C" void *data_020af7ec[];
 extern "C" void *data_020af808[];
 
 extern "C" void func_02089004(void *a, void *b);
-extern "C" void func_02089024(u8 *obj);
+extern "C" void C3DGameChar_Reset(u8 *obj);
 extern "C" s32 func_02089058(u8 *arg0, u8 *arg1);
 extern "C" s32 func_020890ac(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3);
 extern "C" s32 func_02089118(...);
@@ -95,7 +95,7 @@ extern "C" void **func_0208a698(void **obj);
 extern "C" void **func_0208a6c8(void **obj);
 extern "C" void *func_0208a6f0(void *self, int a);
 extern "C" void *func_0208a704(void *self, int a);
-extern "C" void func_0208a718(u8 *obj);
+extern "C" void C3DGameEffect_Reset(u8 *obj);
 extern "C" int func_0208a730(void *self, int a, int b);
 extern "C" int func_0208a748(void *self, int a);
 extern "C" s32 func_0208a764(u8 *arg0, s32 arg1, u8 *arg2);
@@ -111,11 +111,11 @@ extern "C" char data_020a7288[];
 extern "C" char data_020ac094[];
 extern "C" char data_020af770[];
 extern "C" char data_020af798[];
-extern "C" char data_020c464c[];
-extern "C" char data_020c4650[];
-extern "C" char data_020c4660[];
-extern "C" char data_020c467c[];
-extern "C" char data_020c47b4[];
+extern "C" char gNsbResourceMan[];
+extern "C" char g3DGameChar[];
+extern "C" char g3DGameMap[];
+extern "C" char g3DDevice[];
+extern "C" char gAllocator[];
 extern "C" char data_ov015_0216581c[];
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -123,18 +123,18 @@ extern "C" s32 __cxa_vec_cleanup(...);
 extern "C" s32 __cxa_vec_ctor(...);
 extern "C" void __cxa_vec_delete(void);
 extern "C" void __cxa_vec_new(void);
-extern "C" void func_02001f08(void);
-extern "C" s32 func_020286e4(...);
-extern "C" s32 func_0202b608(...);
+extern "C" void VEC_Add(void);
+extern "C" s32 NNS_G3dGlbFlushP(...);
+extern "C" s32 NNS_G3dGeBufferOP_N(...);
 extern "C" void func_02088a5c(void);
-extern "C" void func_02088aa0(void);
-extern "C" void func_02088ad0(void);
-extern "C" void func_02088bec(void);
+extern "C" void C3DGameBase_CloseFiles(void);
+extern "C" void C3DGameBase_OpenFile(void);
+extern "C" void C3DGameBase_CloseFile(void);
 extern "C" s32 func_ov015_02130b14(...);
-extern "C" void func_ov015_02133f94(void);
-extern "C" s32 func_ov015_02134118(...);
-extern "C" void func_ov015_0213476c(void);
-extern "C" void func_ov015_0213490c(void);
+extern "C" void Archive_RequestNewRead(void);
+extern "C" s32 Archive_TryFinalize(...);
+extern "C" void Archive_GetCharacterMotionPath(void);
+extern "C" void Archive_GetCharacterMotionSizeAndOffset(void);
 extern "C" void func_ov015_02144cf8(void);
 extern "C" void func_ov015_02144d9c(void);
 extern "C" void func_ov015_02144df8(void);
@@ -175,9 +175,9 @@ extern "C" void func_ov015_02146f10(void);
 extern "C" void func_ov015_02147214(void);
 extern "C" s32 func_ov015_02147424(...);
 extern "C" s32 func_ov015_02147440(...);
-extern "C" void func_ov015_02148058(void);
-extern "C" void func_ov015_02148114(void);
-extern "C" void func_ov015_02148488(void);
+extern "C" void CNsbResourceMan_TryFinalize(void);
+extern "C" void CNsbResourceMan_Release(void);
+extern "C" void CNsbResourceMan_InitPacResource(void);
 extern "C" void sprintf(void);
 
 extern "C" void func_02089004(void *a, void *b)
@@ -186,7 +186,7 @@ extern "C" void func_02089004(void *a, void *b)
     func_ov015_0213cd80(a, b);
 }
 
-extern "C" void func_02089024(u8 *obj)
+extern "C" void C3DGameChar_Reset(u8 *obj)
 {
     *(s32 *)(obj + 0xC) = 0;
     *(s32 *)(obj + 8) = 0;
@@ -268,9 +268,9 @@ extern "C" asm s32 func_02089118(...)
     ldr r1, [r6, #0x18]
     cmp r1, #0
     beq @L_02089164
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     ldr r0, [r0]
-    bl func_ov015_02148114
+    bl CNsbResourceMan_Release
 @L_02089164:
     mov r0, r6
     mov r1, #0
@@ -330,7 +330,7 @@ extern "C" asm void func_02089214(void)
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
     mov r9, r1
-    bl func_02089024
+    bl C3DGameChar_Reset
     mov r4, #8
     ldr r5, =func_020895d0
     str r9, [r10, #4]
@@ -352,7 +352,7 @@ extern "C" asm void func_02089214(void)
     str r0, [r10, #0x10]
     mov r5, #0
     mul r1, r9, r1
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, r5
     mov r3, #1
     bl _ZN8GameHeap5AllocEiii
@@ -408,7 +408,7 @@ extern "C" asm void func_02089214(void)
 extern "C" s32 func_02089350(u8 *arg0)
 {
     *(s32 *)(arg0) = (s32)((u8 *)&data_ov015_02165848);
-    ((s32 (*)(...))func_0209d678)((s32)(arg0 + 0xC), (s32)((u8 *)&data_ov015_02165848));
+    ((s32 (*)(...))CSceneScriptData_Ctor)((s32)(arg0 + 0xC), (s32)((u8 *)&data_ov015_02165848));
     ((VCall *)arg0)->f2();
     return (s32)arg0;
 }
@@ -417,7 +417,7 @@ extern "C" s32 func_02089384(u8 *arg0)
 {
     *(s32 *)(arg0) = (s32)((u8 *)&data_ov015_02165848);
     ((VCall *)arg0)->f8();
-    func_0209d684((void *)(arg0 + 0xC));
+    CSceneScriptData_Dtor((void *)(arg0 + 0xC));
     return (s32)arg0;
 }
 
@@ -429,11 +429,11 @@ extern "C" u8 *func_020893b4(u8 *arg0)
     ((s32 (*)(...))__cxa_vec_ctor)(arg0 + 0x720, 2, 0x14, func_020894d4, func_020894f4);
     o = arg0 + 0x748;
     *(void **)(arg0 + 0x748) = data_ov015_02165848;
-    ((s32 (*)(...))func_0209d678)(o + 0xC);
+    ((s32 (*)(...))CSceneScriptData_Ctor)(o + 0xC);
     ((C020893b4 *)o)->v08();
     *(void **)(arg0 + 0x860) = data_ov015_02165848;
     o = arg0 + 0x860;
-    ((s32 (*)(...))func_0209d678)(o + 0xC);
+    ((s32 (*)(...))CSceneScriptData_Ctor)(o + 0xC);
     ((C020893b4 *)o)->v08();
     return arg0;
 }
@@ -491,11 +491,11 @@ extern "C" u8 *func_020895d0(u8 *arg0)
     C020895d0 *a = (C020895d0 *)(arg0 + 0x860);
     *(void **)(arg0 + 0x860) = vt;
     a->v20();
-    ((s32 (*)(...))func_0209d684)((u8 *)a + 0xC);
+    ((s32 (*)(...))CSceneScriptData_Dtor)((u8 *)a + 0xC);
     a = (C020895d0 *)(arg0 + 0x748);
     *(void **)(arg0 + 0x748) = vt;
     a->v20();
-    ((s32 (*)(...))func_0209d684)((u8 *)a + 0xC);
+    ((s32 (*)(...))CSceneScriptData_Dtor)((u8 *)a + 0xC);
     ((s32 (*)(...))__cxa_vec_cleanup)(arg0 + 0x720, 2, 0x14, func_020894f4);
     ((s32 (*)(...))__cxa_vec_cleanup)(arg0 + 0x6F0, 1, 0x30, func_020894ac);
     ((s32 (*)(...))__cxa_vec_cleanup)(arg0, 4, 0x1BC, func_02089584);
@@ -510,7 +510,7 @@ extern "C" asm void func_02089674(void)
     ldr r1, [r4, #0xc]
     cmp r1, #0
     beq @L_02089694
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
 @L_02089694:
     ldr r0, [r4, #0x10]
@@ -562,7 +562,7 @@ extern "C" asm void func_02089674(void)
     bl __cxa_vec_delete
 @L_0208973c:
     mov r0, r4
-    bl func_02089024
+    bl C3DGameChar_Reset
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -598,7 +598,7 @@ extern "C" asm void func_0208977c(void)
 @L_020897b0:
     cmp r7, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r0, =data_020c467c
+    ldr r0, =g3DDevice
     mov r6, #0
     ldr r0, [r0]
     mov r5, r6
@@ -703,9 +703,9 @@ extern "C" s32 func_020898ac(u8 *arg0, s32 arg1)
     if (r4 <= 0)
         return (s32)arg0;
     *(s32 *)(((u8 *)local)) = 3;
-    func_0202b608(0x10, (s32)((u8 *)local), 1, 3);
-    func_0202b608(0x15, 0, 0);
-    v3 = func_020286e4();
+    NNS_G3dGeBufferOP_N(0x10, (s32)((u8 *)local), 1, 3);
+    NNS_G3dGeBufferOP_N(0x15, 0, 0);
+    v3 = NNS_G3dGlbFlushP();
     return v3;
 }
 
@@ -861,7 +861,7 @@ extern "C" asm void func_02089c14(void *obj)
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
     mov r6, #0
-    ldr r5, =data_020c464c
+    ldr r5, =gNsbResourceMan
     ldr r4, =0x9a4
     mov r11, #0x114
     b @L_02089ca4
@@ -871,7 +871,7 @@ extern "C" asm void func_02089c14(void *obj)
     mla r1, r6, r1, r2
     ldr r0, [r5]
     ldr r1, [r1, #0x18]
-    bl func_ov015_02148114
+    bl CNsbResourceMan_Release
     ldr r1, [r10, #0xc]
     mov r0, #0x1c
     mla r7, r6, r0, r1
@@ -950,14 +950,14 @@ extern "C" asm void func_02089cbc(void)
     mov r2, r5
     mov r3, r4
     mov r6, r0
-    bl func_ov015_0213476c
+    bl Archive_GetCharacterMotionPath
     add r0, sp, #4
     str r0, [sp]
     ldrb r1, [r6, #0x54]
     ldr r0, [r10, #0x84]
     mov r2, r9
     add r3, sp, #8
-    bl func_ov015_0213490c
+    bl Archive_GetCharacterMotionSizeAndOffset
     cmp r0, #0
     addeq sp, sp, #0x10c
     moveq r0, r7
@@ -1294,7 +1294,7 @@ extern "C" void func_0208a460(u8 *arg0)
     for (i = 9; i >= 0; i--) {
         *p = 0;
         ((s32 (*)(...))sprintf)(b, data_020af798, t.a[i]);
-        ((s32 (*)(...))func_ov015_02133f94)(b, p);
+        ((s32 (*)(...))Archive_RequestNewRead)(b, p);
         p -= 3;
     }
     *(s32 *)(arg0 + 0x90) = 1;
@@ -1312,7 +1312,7 @@ extern "C" s32 func_0208a4e8(u8 *arg0)
                 return 0;
             }
         } else {
-            v0 = func_ov015_02134118((s32)(r4 + 0x18), 10);
+            v0 = Archive_TryFinalize((s32)(r4 + 0x18), 10);
             if (v0 == 0) {
                 arg0 = (u8 *)1;
             } else {
@@ -1330,10 +1330,10 @@ extern "C" void func_0208a540(void *obj)
     u8 *entry;
     int i;
 
-    func_ov015_02134198((u8 *)obj + 0x18, 10);
+    Archive_Close((u8 *)obj + 0x18, 10);
     entry = (u8 *)obj + 0x84;
     for (i = 9; i >= 0; i--) {
-        func_ov015_02134208(entry);
+        Archive_Deallocate(entry);
         entry -= 0xC;
     }
 }
@@ -1436,7 +1436,7 @@ extern "C" void *func_0208a704(void *self, int a)
     return result;
 }
 
-extern "C" void func_0208a718(u8 *obj)
+extern "C" void C3DGameEffect_Reset(u8 *obj)
 {
     *(s32 *)(obj + 0x14) = 0;
     *(s32 *)(obj + 0x10) = 0;
@@ -1532,9 +1532,9 @@ extern "C" asm void func_0208a824(void)
     ldr r1, [r4, #0x38]
     cmp r1, #0
     beq @L_0208a870
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     ldr r0, [r0]
-    bl func_ov015_02148114
+    bl CNsbResourceMan_Release
 @L_0208a870:
     mov r3, #0
     sub r0, r3, #1
@@ -1581,10 +1581,10 @@ extern "C" asm void func_0208a8cc(void)
     cmp r0, #3
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
-    ldr r0, =data_020c464c
+    ldr r0, =gNsbResourceMan
     ldr r1, [r4, #0x38]
     ldr r0, [r0]
-    bl func_ov015_02148058
+    bl CNsbResourceMan_TryFinalize
     movs r6, r0
     beq @L_0208a954
     cmp r6, #1
@@ -1637,12 +1637,12 @@ extern "C" asm void func_0208a968(void)
     bl func_ov015_021458f4
     cmp r0, #0
     bne @L_0208aa94
-    ldr r7, =data_020c464c
+    ldr r7, =gNsbResourceMan
     ldr r1, [r6, #0x38]
     ldr r0, [r7]
     mov r2, #1
     mov r3, #4
-    bl func_ov015_02148488
+    bl CNsbResourceMan_InitPacResource
     movs r8, r0
     bne @L_0208aa20
     mov r0, r5
@@ -1657,7 +1657,7 @@ extern "C" asm void func_0208a968(void)
     bl func_ov015_02144df8
     ldr r0, [r7]
     mov r1, r8
-    bl func_ov015_02148114
+    bl CNsbResourceMan_Release
     ldr r0, [r6, #0x30]
     mov r1, r4
     mov r2, r4
@@ -1683,12 +1683,12 @@ extern "C" asm void func_0208a968(void)
     streq r0, [r6, #0x28]
     streq r0, [r6, #0x2c]
 @L_0208aa94:
-    ldr r7, =data_020c464c
+    ldr r7, =gNsbResourceMan
     mov r2, #2
     ldr r0, [r7]
     ldr r1, [r6, #0x38]
     mov r3, r2
-    bl func_ov015_02148488
+    bl CNsbResourceMan_InitPacResource
     movs r8, r0
     bne @L_0208aacc
     mov r0, r5
@@ -1705,7 +1705,7 @@ extern "C" asm void func_0208a968(void)
     blx r2
     ldr r0, [r7]
     mov r1, r8
-    bl func_ov015_02148114
+    bl CNsbResourceMan_Release
     mov r5, #0
     mov r10, #1
     add r9, sp, #0
@@ -1724,7 +1724,7 @@ extern "C" asm void func_0208a968(void)
     ldr r0, [r7]
     ldr r1, [r6, #0x38]
     ldr r3, [r9, r2, lsl #2]
-    bl func_ov015_02148488
+    bl CNsbResourceMan_InitPacResource
     movs r8, r0
     beq @L_0208ab94
     ldr r0, [r6, #0x30]
@@ -1733,7 +1733,7 @@ extern "C" asm void func_0208a968(void)
     bl func_ov015_021457b4
     ldr r0, [r7]
     mov r1, r8
-    bl func_ov015_02148114
+    bl CNsbResourceMan_Release
     ldr r0, [r6, #0x30]
     mov r1, r5
     mov r2, r4
@@ -1792,7 +1792,7 @@ extern "C" asm void func_0208abb8(void)
     bl func_ov015_02145490
     b @L_0208ad54
 @L_0208ac20:
-    ldr r5, =data_020c4660
+    ldr r5, =g3DGameMap
     mov r7, #1
     ldr r1, [r5]
     add r0, sp, #0x24
@@ -1818,12 +1818,12 @@ extern "C" asm void func_0208abb8(void)
     str r12, [sp, #0x54]
     str r5, [sp, #0x58]
     str r3, [sp, #0x5c]
-    bl func_02001f08
+    bl VEC_Add
     add r5, sp, #0x54
     add r1, r4, #0x18
     mov r0, r5
     mov r2, r5
-    bl func_02001f08
+    bl VEC_Add
     ldr r0, [r4, #0x30]
     mov r1, r6
     bl func_ov015_02145438
@@ -1832,7 +1832,7 @@ extern "C" asm void func_0208abb8(void)
 @L_0208acb4:
     b @L_0208ac0c
 @L_0208acb8:
-    ldr r5, =data_020c4650
+    ldr r5, =g3DGameChar
     ldr r2, [r4, #4]
     ldr r1, [r5]
     add r0, sp, #0xc
@@ -1884,7 +1884,7 @@ extern "C" asm void func_0208ad68(void)
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
     mov r9, r1
-    bl func_0208a718
+    bl C3DGameEffect_Reset
     mov r5, #1
     mov r0, r10
     mov r1, r5
@@ -1910,7 +1910,7 @@ extern "C" asm void func_0208ad68(void)
     str r0, [r10, #0x18]
     mov r6, #0
     mul r1, r9, r1
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r3, r5
     mov r2, r6
     bl _ZN8GameHeap5AllocEiii
@@ -1974,7 +1974,7 @@ extern "C" asm void func_0208ad68(void)
     mov r1, #0
     mov r0, r10
     mov r2, r1
-    bl func_02088ad0
+    bl C3DGameBase_OpenFile
     mov r0, #1
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -1984,15 +1984,15 @@ extern "C" asm void func_0208aef0(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
     mvn r1, #0
-    bl func_02088bec
+    bl C3DGameBase_CloseFile
     mov r0, r4
-    bl func_02088aa0
+    bl C3DGameBase_CloseFiles
     mov r0, r4
     bl func_0208b508
     ldr r1, [r4, #0x14]
     cmp r1, #0
     beq @L_0208af24
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
 @L_0208af24:
     ldr r0, [r4, #0x18]
@@ -2044,6 +2044,6 @@ extern "C" asm void func_0208aef0(void)
     bl __cxa_vec_delete
 @L_0208afcc:
     mov r0, r4
-    bl func_0208a718
+    bl C3DGameEffect_Reset
     ldmia sp!, {r4, r5, r6, pc}
 }

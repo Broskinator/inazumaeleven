@@ -6,7 +6,7 @@ struct V02084f84 { s32 x, y, z; };
 struct S02084f84 { V02084f84 a; V02084f84 b[0x60]; s32 c; s32 pad[2]; V02084f84 d[4]; };
 struct V12 { s32 x, y, z; };
 
-extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
+extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" fx32 data_020c4ebc[4];     // (the field's rectangle)
 
 extern "C" int func_ov015_02131970(MatchPlayer *player);
@@ -92,15 +92,15 @@ extern "C" void func_02084e70(void);
 extern "C" void func_02084f84(S02084f84 *arg0, s32 x, s32 y, s32 z);
 extern "C" void func_02084fdc(void *data);
 
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" s32 _ZN11MatchEngine13func_0206de54Eii(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
-extern "C" void func_02001d60(void);
-extern "C" void func_02001d80(void);
+extern "C" void FX_Div(void);
+extern "C" void FX_Sqrt(void);
 extern "C" void func_02099adc(void);
 extern "C" s32 func_ov015_02131854(...);
 
@@ -250,7 +250,7 @@ extern "C" asm void func_02083afc(void)
     mov r3, r3, lsr #0xc
     orr r3, r3, r2, lsl #20
     sub r1, r1, r3
-    bl func_02001d60
+    bl FX_Div
     mov r7, r0
     smull r1, r0, r7, r5
     adds r1, r1, #0x800
@@ -258,7 +258,7 @@ extern "C" asm void func_02083afc(void)
     mov r0, r1, lsr #0xc
     mov r1, r6
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [r10]
     add r1, r7, r1
     str r1, [r8]
@@ -296,7 +296,7 @@ extern "C" asm void func_02083afc(void)
     mov r3, r3, lsr #0xc
     orr r3, r3, r2, lsl #20
     sub r1, r1, r3
-    bl func_02001d60
+    bl FX_Div
     mov r5, r0
     smull r1, r0, r5, r11
     adds r1, r1, #0x800
@@ -304,7 +304,7 @@ extern "C" asm void func_02083afc(void)
     mov r0, r1, lsr #0xc
     mov r1, r7
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [r9]
     add r1, r5, r1
     str r1, [r8]
@@ -407,7 +407,7 @@ extern "C" asm void func_02083ec4(void)
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r1, r5
     rsb r0, r12, #0
-    bl func_02001d60
+    bl FX_Div
     ldmia sp!, {r4, r5, r6, pc}
 @L_02083f68:
     cmp r12, #0
@@ -417,7 +417,7 @@ extern "C" asm void func_02083ec4(void)
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r1, r4
     rsb r0, r5, #0
-    bl func_02001d60
+    bl FX_Div
     ldmia sp!, {r4, r5, r6, pc}
 @L_02083f8c:
     smull r0, r2, r5, r5
@@ -431,18 +431,18 @@ extern "C" asm void func_02083ec4(void)
     orr r3, r3, r2, lsl #20
     orr r1, r1, r0, lsl #20
     sub r0, r3, r1, lsl #2
-    bl func_02001d80
+    bl FX_Sqrt
     cmp r6, #0
     beq @L_02083fd8
     add r0, r0, r5
     rsb r0, r0, #0
     mov r1, r4, lsl #1
-    bl func_02001d60
+    bl FX_Div
     ldmia sp!, {r4, r5, r6, pc}
 @L_02083fd8:
     sub r0, r0, r5
     mov r1, r4, lsl #1
-    bl func_02001d60
+    bl FX_Div
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -452,27 +452,27 @@ extern "C" s32 func_02083fe8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     if (arg0 == 0) {
         if (arg1 == 0)
             return 0;
-        return ((s32 (*)(...))func_02001d60)(-arg2, arg1);
+        return ((s32 (*)(...))FX_Div)(-arg2, arg1);
     }
     if (arg2 == 0) {
         if (arg0 == 0)
             return 0;
-        return ((s32 (*)(...))func_02001d60)(-arg1, arg0);
+        return ((s32 (*)(...))FX_Div)(-arg1, arg0);
     }
-    s = ((s32 (*)(...))func_02001d80)((s32)(((s64)arg1 * arg1 + 0x800) >> 12) - ((s32)(((s64)arg0 * arg2 + 0x800) >> 12) << 2));
+    s = ((s32 (*)(...))FX_Sqrt)((s32)(((s64)arg1 * arg1 + 0x800) >> 12) - ((s32)(((s64)arg0 * arg2 + 0x800) >> 12) << 2));
     if (arg3 != 0)
-        return ((s32 (*)(...))func_02001d60)(-(s + arg1), arg0 << 1);
-    return ((s32 (*)(...))func_02001d60)(s - arg1, arg0 << 1);
+        return ((s32 (*)(...))FX_Div)(-(s + arg1), arg0 << 1);
+    return ((s32 (*)(...))FX_Div)(s - arg1, arg0 << 1);
 }
 
 extern "C" u16 func_02084094(fx32 *segment)
 {
-    return func_0200226c(segment[3] - segment[1], segment[2] - segment[0]);
+    return FX_Atan2Idx(segment[3] - segment[1], segment[2] - segment[0]);
 }
 
 extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b)
 {
-    return func_0200226c(b->y - a->y, b->x - a->x) + 0x10000;
+    return FX_Atan2Idx(b->y - a->y, b->x - a->x) + 0x10000;
 }
 
 extern "C" int func_020840e0(int a, int b)
@@ -554,8 +554,8 @@ extern "C" void func_020841d8(MatchPoint *point)
 
 extern "C" void func_020841e8(fx32 arg0, fx32 arg1, s32 arg2, fx32 *arg3)
 {
-    u16 a = func_0200226c(arg3[1] - arg1, arg3[0] - arg0);
-    u16 b = func_0200226c(arg3[3] - arg1, arg3[2] - arg0);
+    u16 a = FX_Atan2Idx(arg3[1] - arg1, arg3[0] - arg0);
+    u16 b = FX_Atan2Idx(arg3[3] - arg1, arg3[2] - arg0);
     func_020845e0(arg2, a, b, 1, 1);
 }
 
@@ -1045,7 +1045,7 @@ extern "C" asm void func_02084970(void)
     ldr r1, [r5]
     sub r0, r1, r0
     sub r1, r1, r2
-    bl func_02001d60
+    bl FX_Div
     ldr r3, [r5, #4]
     ldr r1, [r6, #4]
     ldr r12, [r4]
@@ -1061,7 +1061,7 @@ extern "C" asm void func_02084970(void)
     ldr r1, [r5]
     sub r0, r0, r1
     sub r1, r2, r1
-    bl func_02001d60
+    bl FX_Div
     ldr r3, [r5, #4]
     ldr r1, [r6, #4]
     ldr r12, [r4, #8]
@@ -1084,7 +1084,7 @@ extern "C" asm void func_02084970(void)
     ldr r1, [r5, #4]
     sub r0, r1, r0
     sub r1, r1, r2
-    bl func_02001d60
+    bl FX_Div
     ldr r5, [r5]
     ldr r2, [r6]
     ldr r1, [r4, #4]
@@ -1100,7 +1100,7 @@ extern "C" asm void func_02084970(void)
     ldr r1, [r5, #4]
     sub r0, r0, r1
     sub r1, r2, r1
-    bl func_02001d60
+    bl FX_Div
     ldr r5, [r5]
     ldr r2, [r6]
     ldr r1, [r4, #0xc]
@@ -1131,12 +1131,12 @@ extern "C" s32 func_02084aec(s32 arg0, s32 arg1, s32 arg2)
         MI_CpuCopy8((const void *)arg0, (void *)arg1, (u32)arg2);
         return 1;
     } else {
-        v1 = _ZN8GameHeap5AllocEiii((u8 *)((u8 *)&data_020c47b4), arg2, 0, 1);
+        v1 = _ZN8GameHeap5AllocEiii((u8 *)((u8 *)&gAllocator), arg2, 0, 1);
         if (v1 == 0)
             return 0;
         MI_CpuCopy8((const void *)arg0, (void *)v1, (u32)arg2);
         MI_CpuCopy8((const void *)v1, (void *)arg1, (u32)arg2);
-        _ZN8GameHeap4FreeEPv((u8 *)((u8 *)&data_020c47b4), v1);
+        _ZN8GameHeap4FreeEPv((u8 *)((u8 *)&gAllocator), v1);
         return 1;
     }
 }

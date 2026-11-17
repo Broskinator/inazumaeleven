@@ -1,14 +1,14 @@
 // (asm for now)
 
 void FX_GetDivResultFx64c(void);
-void func_02001dd8(void);
-void func_02001e0c(void);
+void FX_GetDivResult(void);
+void FX_InvAsync(void);
 void FX_GetSqrtResult(void);
 void FX_DivAsync(void);
 void FX_DivS32(void);
 void FX_ModS32(void);
-void func_02001f08(void);
-void func_02001f38(void);
+void VEC_Add(void);
+void VEC_Subtract(void);
 
 asm void FX_GetDivResultFx64c(void)
 {
@@ -22,7 +22,7 @@ asm void FX_GetDivResultFx64c(void)
     bx lr
 }
 
-asm void func_02001dd8(void)
+asm void FX_GetDivResult(void)
 {
     ldr r1, =0x4000280
 @L_02001ddc:
@@ -38,7 +38,7 @@ asm void func_02001dd8(void)
     bx lr
 }
 
-asm void func_02001e0c(void)
+asm void FX_InvAsync(void)
 {
     ldr r3, =0x4000280
     mov r1, #1
@@ -116,7 +116,7 @@ asm void FX_ModS32(void)
     bx lr
 }
 
-asm void func_02001f08(void)
+asm void VEC_Add(void)
 {
     stmdb sp!, {r4, lr}
     ldr lr, [r1]
@@ -132,7 +132,7 @@ asm void func_02001f08(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02001f38(void)
+asm void VEC_Subtract(void)
 {
     stmdb sp!, {r4, lr}
     ldr lr, [r1]

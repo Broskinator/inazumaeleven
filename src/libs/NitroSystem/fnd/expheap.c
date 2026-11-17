@@ -3,11 +3,11 @@
 void GetRegionOfMBlock(void);
 void RemoveMBlock(void);
 void InsertMBlock(void);
-void func_02032a7c(void);
-void func_02032aa8(void);
-void func_02032b18(void);
-void func_02032c84(void);
-void func_02032d38(void);
+void InitMBlock(void);
+void InitExpHeap(void);
+void AllocUsedBlockFromFreeBlock(void);
+void AllocFromHead_02017C6C(void);
+void AllocFromTail_02017D20(void);
 void RecycleRegion(void);
 void NNS_FndCreateExpHeapEx(void);
 void NNS_FndDestroyExpHeap(void);
@@ -15,11 +15,11 @@ void NNS_FndAllocFromExpHeapEx(void);
 void NNS_FndFreeToExpHeap(void);
 void NNS_FndGetTotalFreeSizeForExpHeap(void);
 void NNS_FndGetAllocatableSizeForExpHeapEx(void);
-void func_02033038(void);
+void InitFrameHeap(void);
 
-void func_02032964(void);
-void func_0200919c(void);
-void func_020329e0(void);
+void NNSi_FndInitHeapHead(void);
+void MIi_CpuClear32(void);
+void NNSi_FndFinalizeHeap(void);
 void func_02017cdc(void);
 
 asm void GetRegionOfMBlock(void)
@@ -67,7 +67,7 @@ asm void InsertMBlock(void)
     bx lr
 }
 
-asm void func_02032a7c(void)
+asm void InitMBlock(void)
 {
     ldr r3, [r0]
     ldr r2, [r0, #4]
@@ -82,7 +82,7 @@ asm void func_02032a7c(void)
     bx lr
 }
 
-asm void func_02032aa8(void)
+asm void InitExpHeap(void)
 {
     stmdb sp!, {r4, r5, lr}
     sub sp, sp, #0xc
@@ -91,7 +91,7 @@ asm void func_02032aa8(void)
     str r2, [sp]
     ldr r1, =0x45585048
     add r2, r5, #0x38
-    bl func_02032964
+    bl NNSi_FndInitHeapHead
     mov r4, #0
     bic r1, r4, #1
     strh r1, [r5, #0x36]
@@ -102,7 +102,7 @@ asm void func_02032aa8(void)
     ldr r1, =0x4652
     add r0, sp, #4
     str r2, [sp, #8]
-    bl func_02032a7c
+    bl InitMBlock
     str r0, [r5, #0x24]
     str r0, [r5, #0x28]
     mov r0, r5
@@ -112,7 +112,7 @@ asm void func_02032aa8(void)
     ldmia sp!, {r4, r5, pc}
 }
 
-asm void func_02032b18(void)
+asm void AllocUsedBlockFromFreeBlock(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x18
@@ -141,7 +141,7 @@ asm void func_02032b18(void)
     blo @L_02032b9c
     ldr r1, =0x4652
     mov r0, r4
-    bl func_02032a7c
+    bl InitMBlock
     mov r1, r0
     mov r0, r8
     mov r2, r5
@@ -156,7 +156,7 @@ asm void func_02032b18(void)
     blo @L_02032bd0
     ldr r1, =0x4652
     add r0, sp, #8
-    bl func_02032a7c
+    bl InitMBlock
     mov r1, r0
     mov r0, r8
     mov r2, r5
@@ -170,14 +170,14 @@ asm void func_02032b18(void)
     sub r2, r2, r1
     beq @L_02032bf4
     mov r0, #0
-    bl func_0200919c
+    bl MIi_CpuClear32
 @L_02032bf4:
     ldr r2, [sp, #8]
     ldr r1, =0x5544
     add r0, sp, #0
     str r6, [sp]
     str r2, [sp, #4]
-    bl func_02032a7c
+    bl InitMBlock
     mov r1, r0
     ldrh r3, [r1, #2]
     ldrh r2, [sp, #0x38]
@@ -208,7 +208,7 @@ asm void func_02032b18(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02032c84(void)
+asm void AllocFromHead_02017C6C(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldrh r4, [r0, #0x36]
@@ -256,11 +256,11 @@ asm void func_02032c84(void)
     mov r2, r4
     add r0, r0, #0x24
     str r5, [sp]
-    bl func_02032b18
+    bl AllocUsedBlockFromFreeBlock
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02032d38(void)
+asm void AllocFromTail_02017D20(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldrh r4, [r0, #0x36]
@@ -307,7 +307,7 @@ asm void func_02032d38(void)
     mov r2, r4
     add r0, r0, #0x24
     str r5, [sp]
-    bl func_02032b18
+    bl AllocUsedBlockFromFreeBlock
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
@@ -368,7 +368,7 @@ asm void RecycleRegion(void)
     ldmloia sp!, {r4, r5, r6, pc}
     ldr r1, =0x4652
     add r0, sp, #0
-    bl func_02032a7c
+    bl InitMBlock
     mov r1, r0
     mov r0, r6
     mov r2, r4
@@ -394,13 +394,13 @@ asm void NNS_FndCreateExpHeapEx(void)
     mov r0, #0
     ldmia sp!, {r3, pc}
 @L_02032f08:
-    bl func_02032aa8
+    bl InitExpHeap
     ldmia sp!, {r3, pc}
 }
 
 asm void NNS_FndDestroyExpHeap(void)
 {
-    ldr r12, =func_020329e0
+    ldr r12, =NNSi_FndFinalizeHeap
     bx r12
 }
 
@@ -413,11 +413,11 @@ asm void NNS_FndAllocFromExpHeapEx(void)
     cmp r2, #0
     bic r1, r1, #3
     blt @L_02032f40
-    bl func_02032c84
+    bl AllocFromHead_02017C6C
     ldmia sp!, {r3, pc}
 @L_02032f40:
     rsb r2, r2, #0
-    bl func_02032d38
+    bl AllocFromTail_02017D20
     ldmia sp!, {r3, pc}
 }
 
@@ -497,7 +497,7 @@ asm void NNS_FndGetAllocatableSizeForExpHeapEx(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02033038(void)
+asm void InitFrameHeap(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -506,7 +506,7 @@ asm void func_02033038(void)
     str r2, [sp]
     ldr r1, =0x46524d48
     add r2, r4, #0x30
-    bl func_02032964
+    bl NNSi_FndInitHeapHead
     ldr r3, [r4, #0x18]
     ldr r2, [r4, #0x1c]
     mov r1, #0

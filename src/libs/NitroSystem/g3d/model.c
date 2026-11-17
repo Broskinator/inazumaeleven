@@ -2,11 +2,11 @@
 
 void NNS_G3dMdlSetMdlDiff(void);
 void NNS_G3dMdlSetMdlAlpha(void);
-void func_0202bd7c(void);
-void func_0202bdbc(void);
-void func_0202bdfc(void);
-void func_0202bfb8(void);
-void func_0202c11c(void);
+void NNS_G3dMdlSetMdlDiffAll(void);
+void NNS_G3dMdlSetMdlAlphaAll(void);
+void NNS_G3dGetResDataByName(void);
+void NNS_G3dGetResDictIdxByName(void);
+void NNS_G3dGetMdlSet(void);
 
 asm void NNS_G3dMdlSetMdlDiff(void)
 {
@@ -86,7 +86,7 @@ asm void NNS_G3dMdlSetMdlAlpha(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202bd7c(void)
+asm void NNS_G3dMdlSetMdlDiffAll(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -107,7 +107,7 @@ asm void func_0202bd7c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0202bdbc(void)
+asm void NNS_G3dMdlSetMdlAlphaAll(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -128,7 +128,7 @@ asm void func_0202bdbc(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0202bdfc(void)
+asm void NNS_G3dGetResDataByName(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, #0
@@ -255,7 +255,7 @@ asm void func_0202bdfc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202bfb8(void)
+asm void NNS_G3dGetResDictIdxByName(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     cmp r1, #0
@@ -357,7 +357,7 @@ asm void func_0202bfb8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0202c11c(void)
+asm void NNS_G3dGetMdlSet(void)
 {
     ldrh r1, [r0, #0xc]
     ldr r1, [r0, r1]

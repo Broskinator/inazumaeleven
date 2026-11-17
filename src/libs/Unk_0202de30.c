@@ -1,72 +1,72 @@
 // (asm for now)
 
-void func_0202de30(void);
+void GetTexSRTAnm_(void);
 void func_0202df2c(void);
-void func_0202dff8(void);
-void func_0202e058(void);
-void func_0202e128(void);
-void func_0202e1fc(void);
-void func_0202e260(void);
-void func_0202e2f0(void);
-void func_0202e338(void);
-void func_0202e38c(void);
-void func_0202e400(void);
-void func_0202e43c(void);
-void func_0202e4f8(void);
-void func_0202e640(void);
-void func_0202e748(void);
-void func_0202e80c(void);
-void func_0202e880(void);
-void func_0202e8cc(void);
-void func_0202e9ac(void);
-void func_0202ea58(void);
+void NNSi_G3dAnmCalcNsBta(void);
+void NNSi_G3dAnmObjInitNsBtp(void);
+void SetTexParamaters_(void);
+void SetPlttParamaters_(void);
+void NNSi_G3dAnmCalcNsBtp(void);
+void NNSi_G3dAnmObjInitNsBva(void);
+void NNSi_G3dAnmCalcNsBva(void);
+void NNSi_G3dSendJointSRTBasic(void);
+void NNSi_G3dGetJointScaleBasic(void);
+void NNSi_G3dSendJointSRTMaya(void);
+void NNSi_G3dGetJointScaleMaya(void);
+void texmtxCalc_flag_Maya(void);
+void texmtxCalc_flagS_Maya(void);
+void texmtxCalc_flagR_Maya(void);
+void texmtxCalc_flagRS_Maya(void);
+void texmtxCalc_flagT_Maya(void);
+void texmtxCalc_flagTS_Maya(void);
+void texmtxCalc_flagTR_Maya(void);
 void func_0202ea98(void);
 void func_0202eabc(void);
-void func_0202ebf4(void);
-void func_0202ed18(void);
-void func_0202ef2c(void);
-void func_0202f0dc(void);
-void func_0202f1e0(void);
-void func_0202f2b8(void);
-void func_0202f32c(void);
-void func_0202f378(void);
-void func_0202f46c(void);
-void func_0202f534(void);
+void NNSi_G3dSendJointSRTSi3d(void);
+void NNSi_G3dGetJointScaleSi3d(void);
+void NNSi_G3dSendTexSRTSi3d(void);
+void texmtxCalc_flag_3dsMax(void);
+void texmtxCalc_flagS_3dsMax(void);
+void texmtxCalc_flagR_3dsMax(void);
+void texmtxCalc_flagRS_3dsMax(void);
+void texmtxCalc_flagT_3dsMax(void);
+void texmtxCalc_flagTS_3dsMax(void);
+void texmtxCalc_flagTR_3dsMax(void);
 void func_0202f57c(void);
 void func_0202f5a0(void);
-void func_0202f6d8(void);
-void func_0202f838(void);
-void func_0202f910(void);
-void func_0202f988(void);
-void func_0202f9d8(void);
-void func_0202faa4(void);
-void func_0202fb44(void);
+void texmtxCalc_flag_Xsi(void);
+void texmtxCalc_flagS_Xsi(void);
+void texmtxCalc_flagR_Xsi(void);
+void texmtxCalc_flagRS_Xsi(void);
+void texmtxCalc_flagT_Xsi(void);
+void texmtxCalc_flagTS_Xsi(void);
+void texmtxCalc_flagTR_Xsi(void);
 void func_0202fb80(void);
-void func_0202fba4(void);
+void NNSi_G3dSendTexSRTXsi(void);
 void func_0202fd18(void);
 void func_0202fd20(void);
 void func_0202fd28(void);
 void func_0202fd30(void);
 
-void func_0202dc30(void);
+void GetTexSRTAnmVectorVal_(void);
 void GetTexSRTAnmSinCosVal_(void);
 extern char data_020ab830[];
 void MIi_CpuClear16(void);
-void func_0202bfb8(void);
+void NNS_G3dGetResDictIdxByName(void);
 extern char data_020ab834[];
-void func_0202bdfc(void);
-void func_02001d60(void);
+void NNS_G3dGetResDataByName(void);
+void FX_Div(void);
 void NNSi_G3dGetTexPatAnmFV(void);
-void func_0202c1c8(void);
-void func_0202c1f0(void);
+void NNSi_G3dGetTexPatAnmTexNameByIdx(void);
+void NNSi_G3dGetTexPatAnmPlttNameByIdx(void);
 extern char data_020ab828[];
-void func_0202b608(void);
-extern char data_020bf67c[];
+void NNS_G3dGeBufferOP_N(void);
+extern char NNS_G3dRS[];
 extern char data_020c048c[];
 extern char data_020c0490[];
 extern char data_020c0494[];
 void FX_DivAsync(void);
-void func_02001dd8(void);
+void FX_GetDivResult(void);
 extern char data_020aba40[];
 extern char data_020c0480[];
 void MIi_CpuCopy32(void);
@@ -75,7 +75,7 @@ extern char data_020c0488[];
 extern char data_020aba60[];
 extern char data_020aba80[];
 
-asm void func_0202de30(void)
+asm void GetTexSRTAnm_(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r0
@@ -100,13 +100,13 @@ asm void func_0202de30(void)
     mov r0, r7
     mov r3, r6
     ldr r8, [r5]
-    bl func_0202dc30
+    bl GetTexSRTAnmVectorVal_
     mov r9, r0
     ldr r1, [r4, #0x20]
     ldr r2, [r4, #0x24]
     mov r0, r7
     mov r3, r6
-    bl func_0202dc30
+    bl GetTexSRTAnmVectorVal_
     cmp r9, #0
     cmpeq r0, #0
     strne r0, [r5, #0x28]
@@ -127,13 +127,13 @@ asm void func_0202de30(void)
     mov r3, r6
     bicne r8, r8, #2
     ldmia r4, {r1, r2}
-    bl func_0202dc30
+    bl GetTexSRTAnmVectorVal_
     mov r9, r0
     ldr r1, [r4, #8]
     ldr r2, [r4, #0xc]
     mov r0, r7
     mov r3, r6
-    bl func_0202dc30
+    bl GetTexSRTAnmVectorVal_
     cmp r9, #0x1000
     cmpeq r0, #0x1000
     orreq r8, r8, #1
@@ -189,7 +189,7 @@ asm void func_0202df2c(void)
     moveq r0, r4
     beq @L_0202dfd0
     add r0, r8, #4
-    bl func_0202bfb8
+    bl NNS_G3dGetResDictIdxByName
 @L_0202dfd0:
     cmp r0, #0
     orrge r1, r7, #0x100
@@ -202,7 +202,7 @@ asm void func_0202df2c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0202dff8(void)
+asm void NNSi_G3dAnmCalcNsBta(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -220,7 +220,7 @@ asm void func_0202dff8(void)
     mov r3, r4
     mov r1, r1, lsr #0x10
     mov r2, r12, asr #0xc
-    bl func_0202de30
+    bl GetTexSRTAnm_
     ldr r1, [r4, #0x10]
     ldr r0, [r4]
     bic r1, r1, #0xc0000000
@@ -231,7 +231,7 @@ asm void func_0202dff8(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0202e058(void)
+asm void NNSi_G3dAnmObjInitNsBtp(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r10, r0
@@ -277,7 +277,7 @@ asm void func_0202e058(void)
     moveq r0, r4
     beq @L_0202e100
     add r0, r8, #4
-    bl func_0202bfb8
+    bl NNS_G3dGetResDictIdxByName
 @L_0202e100:
     cmp r0, #0
     orrge r1, r7, #0x100
@@ -290,7 +290,7 @@ asm void func_0202e058(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0202e128(void)
+asm void SetTexParamaters_(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r5, r0
@@ -298,7 +298,7 @@ asm void func_0202e128(void)
     moveq r0, #0
     beq @L_0202e144
     add r0, r5, #0x3c
-    bl func_0202bdfc
+    bl NNS_G3dGetResDataByName
 @L_0202e144:
     ldr r1, [r0]
     ldr r3, [r4, #0x10]
@@ -333,7 +333,7 @@ asm void func_0202e128(void)
     beq @L_0202e1cc
     mov r0, r3, lsl #0xc
     mov r1, r1, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
 @L_0202e1cc:
     ldrh r1, [r4, #0x2e]
     str r0, [r4, #0x30]
@@ -342,13 +342,13 @@ asm void func_0202e128(void)
     beq @L_0202e1ec
     mov r0, r5, lsl #0xc
     mov r1, r1, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
 @L_0202e1ec:
     str r0, [r4, #0x34]
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0202e1fc(void)
+asm void SetPlttParamaters_(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r5, r0
@@ -358,7 +358,7 @@ asm void func_0202e1fc(void)
     moveq r0, #0
     beq @L_0202e220
     add r0, r5, r0
-    bl func_0202bdfc
+    bl NNS_G3dGetResDataByName
 @L_0202e220:
     ldr r1, [r5, #0x2c]
     ldrh r2, [r0, #2]
@@ -378,7 +378,7 @@ asm void func_0202e1fc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0202e260(void)
+asm void NNSi_G3dAnmCalcNsBtp(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -402,24 +402,24 @@ asm void func_0202e260(void)
     mov r7, r0
     ldrb r1, [r7, #2]
     mov r0, r4
-    bl func_0202c1c8
+    bl NNSi_G3dGetTexPatAnmTexNameByIdx
     mov r1, r0
     ldr r0, [r5, #0x14]
     mov r2, r6
-    bl func_0202e128
+    bl SetTexParamaters_
     ldrb r1, [r7, #3]
     cmp r1, #0xff
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     mov r0, r4
-    bl func_0202c1f0
+    bl NNSi_G3dGetTexPatAnmPlttNameByIdx
     mov r1, r0
     ldr r0, [r5, #0x14]
     mov r2, r6
-    bl func_0202e1fc
+    bl SetPlttParamaters_
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202e2f0(void)
+asm void NNSi_G3dAnmObjInitNsBva(void)
 {
     ldr r3, =data_020ab828
     ldrb r2, [r2, #0x17]
@@ -441,7 +441,7 @@ asm void func_0202e2f0(void)
     bx lr
 }
 
-asm void func_0202e338(void)
+asm void NNSi_G3dAnmCalcNsBva(void)
 {
     stmdb sp!, {r3, lr}
     ldr lr, [r1, #8]
@@ -467,7 +467,7 @@ asm void func_0202e338(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202e38c(void)
+asm void NNSi_G3dSendJointSRTBasic(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -492,7 +492,7 @@ asm void func_0202e38c(void)
     mov r0, #0x1a
     mov r2, #9
 @L_0202e3dc:
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202e3e0:
     ldr r0, [r4]
     tst r0, #1
@@ -500,11 +500,11 @@ asm void func_0202e38c(void)
     add r1, r4, #4
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0202e400(void)
+asm void NNSi_G3dGetJointScaleBasic(void)
 {
     tst r3, #4
     ldrne r1, [r0]
@@ -524,7 +524,7 @@ asm void func_0202e400(void)
     bx lr
 }
 
-asm void func_0202e43c(void)
+asm void NNSi_G3dSendJointSRTMaya(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -541,13 +541,13 @@ asm void func_0202e43c(void)
     add r1, r5, #0x4c
     mov r0, #0x1c
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r4, #0
 @L_0202e480:
     add r1, r5, #0x10
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202e490:
     ldr r0, [r5]
     tst r0, #2
@@ -569,7 +569,7 @@ asm void func_0202e43c(void)
     mov r0, #0x1c
     mov r2, #3
 @L_0202e4d4:
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202e4d8:
     ldr r0, [r5]
     tst r0, #1
@@ -577,11 +577,11 @@ asm void func_0202e43c(void)
     add r1, r5, #4
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0202e4f8(void)
+asm void NNSi_G3dGetJointScaleMaya(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov lr, r0
@@ -593,7 +593,7 @@ asm void func_0202e4f8(void)
     orr r0, r0, #1
     str r0, [lr]
     beq @L_0202e5c4
-    ldr r0, =data_020bf67c
+    ldr r0, =NNS_G3dRS
     ldrb r6, [r2, #1]
     ldr r0, [r0]
     mov r1, #1
@@ -613,7 +613,7 @@ asm void func_0202e4f8(void)
     str r0, [lr, #0xc]
     tst r12, #2
     beq @L_0202e5c4
-    ldr r0, =data_020bf67c
+    ldr r0, =NNS_G3dRS
     ldrb r7, [r2, #1]
     ldr r0, [r0]
     mov r4, #0x18
@@ -641,7 +641,7 @@ asm void func_0202e4f8(void)
     ldr r0, [lr]
     ldrb r4, [r2, #2]
     orr r3, r0, #0x20
-    ldr r0, =data_020bf67c
+    ldr r0, =NNS_G3dRS
     str r3, [lr]
     ldr r1, [r0]
     mov r0, r4, lsr #5
@@ -666,7 +666,7 @@ asm void func_0202e4f8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202e640(void)
+asm void texmtxCalc_flag_Maya(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r1
@@ -696,7 +696,7 @@ asm void func_0202e640(void)
     orr r4, r4, r0, lsl #20
     str r6, [r10]
     str r4, [r10, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     mov r1, r11
     rsb r2, r5, #0
     mul r0, r2, r0
@@ -729,14 +729,14 @@ asm void func_0202e640(void)
     mul r0, r3, r1
     add r0, r0, r2, lsl #3
     str r0, [r10, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     mul r0, r7, r0
     mov r0, r0, asr #0xc
     str r0, [r10, #0x10]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202e748(void)
+asm void texmtxCalc_flagS_Maya(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -751,7 +751,7 @@ asm void func_0202e748(void)
     ldrsh r0, [r5, #0x22]
     str r0, [r6]
     str r0, [r6, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r2, [r5, #0x20]
     mov r1, r7
     rsb r2, r2, #0
@@ -781,7 +781,7 @@ asm void func_0202e748(void)
     add r0, r0, r2, lsl #3
     str r4, [r6, #0x30]
     str r0, [r6, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r1, [r5, #0x20]
     mul r0, r1, r0
     mov r0, r0, asr #0xc
@@ -789,7 +789,7 @@ asm void func_0202e748(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202e80c(void)
+asm void texmtxCalc_flagR_Maya(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r3, [r1, #0x1c]
@@ -822,7 +822,7 @@ asm void func_0202e80c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0202e880(void)
+asm void texmtxCalc_flagRS_Maya(void)
 {
     stmdb sp!, {r3, lr}
     ldrh r3, [r1, #0x2c]
@@ -845,7 +845,7 @@ asm void func_0202e880(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202e8cc(void)
+asm void texmtxCalc_flagT_Maya(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r1
@@ -875,7 +875,7 @@ asm void func_0202e8cc(void)
     orr r4, r4, r0, lsl #20
     str r6, [r10]
     str r4, [r10, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     mov r1, r11
     rsb r2, r5, #0
     mul r0, r2, r0
@@ -898,14 +898,14 @@ asm void func_0202e8cc(void)
     mul r0, r2, r0
     mov r0, r0, lsl #3
     str r0, [r10, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     mul r0, r7, r0
     mov r0, r0, asr #0xc
     str r0, [r10, #0x10]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202e9ac(void)
+asm void texmtxCalc_flagTS_Maya(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -920,7 +920,7 @@ asm void func_0202e9ac(void)
     ldrsh r0, [r5, #0x22]
     str r0, [r6]
     str r0, [r6, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r2, [r5, #0x20]
     mov r1, r7
     rsb r2, r2, #0
@@ -944,7 +944,7 @@ asm void func_0202e9ac(void)
     mov r0, r0, lsl #3
     str r1, [r6, #0x30]
     str r0, [r6, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r1, [r5, #0x20]
     mul r0, r1, r0
     mov r0, r0, asr #0xc
@@ -952,7 +952,7 @@ asm void func_0202e9ac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202ea58(void)
+asm void texmtxCalc_flagTR_Maya(void)
 {
     stmdb sp!, {r4, lr}
     ldr lr, [r1, #0x1c]
@@ -1061,12 +1061,12 @@ asm void func_0202eabc(void)
     ldr r0, [sp]
     add r1, r1, #4
     mov r2, #0x12
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x4c
     ldmia sp!, {r4, r5, pc}
 }
 
-asm void func_0202ebf4(void)
+asm void NNSi_G3dSendJointSRTSi3d(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0xc
@@ -1078,7 +1078,7 @@ asm void func_0202ebf4(void)
     add r1, r6, #0x1c
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202ec20:
     ldr r0, [r6]
     tst r0, #4
@@ -1107,7 +1107,7 @@ asm void func_0202ebf4(void)
     str r12, [sp]
     str r3, [sp, #4]
     str lr, [sp, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202ec90:
     ldr r0, [r6]
     tst r0, #2
@@ -1129,14 +1129,14 @@ asm void func_0202ebf4(void)
     mov r0, #0x1c
     mov r2, #3
 @L_0202ecd4:
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202ecd8:
     cmp r5, #0
     bne @L_0202ecf0
     add r1, r6, #0x10
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202ecf0:
     ldr r0, [r6]
     tst r0, #1
@@ -1145,12 +1145,12 @@ asm void func_0202ebf4(void)
     add r1, r6, #4
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_0202ed18(void)
+asm void NNSi_G3dGetJointScaleSi3d(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r5, r0
@@ -1159,7 +1159,7 @@ asm void func_0202ed18(void)
     ldrb r0, [r2, #2]
     beq @L_0202edb8
     ldr r2, [r5]
-    ldr r1, =data_020bf67c
+    ldr r1, =NNS_G3dRS
     orr r2, r2, #1
     str r2, [r5]
     ldr r3, [r1]
@@ -1197,7 +1197,7 @@ asm void func_0202ed18(void)
     ldr r10, [r1]
     ldr r9, [r1, #4]
     ldr r8, [r1, #8]
-    ldr r6, =data_020bf67c
+    ldr r6, =NNS_G3dRS
     str r10, [r5, #4]
     str r9, [r5, #8]
     str r8, [r5, #0xc]
@@ -1283,7 +1283,7 @@ asm void func_0202ed18(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202ef2c(void)
+asm void NNSi_G3dSendTexSRTSi3d(void)
 {
     stmdb sp!, {r4, r5, lr}
     sub sp, sp, #0x3c
@@ -1393,12 +1393,12 @@ asm void func_0202ef2c(void)
     ldr r0, [sp]
     add r1, r1, #4
     mov r2, #0xe
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x3c
     ldmia sp!, {r4, r5, pc}
 }
 
-asm void func_0202f0dc(void)
+asm void texmtxCalc_flag_3dsMax(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r1
@@ -1428,7 +1428,7 @@ asm void func_0202f0dc(void)
     orr r4, r4, r0, lsl #20
     str r7, [r10]
     str r5, [r10, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     mov r1, r11
     mul r0, r4, r0
     mov r0, r0, asr #0xc
@@ -1459,7 +1459,7 @@ asm void func_0202f0dc(void)
     orr r1, r1, r2, lsl #24
     add r0, r1, r0, lsl #15
     str r0, [r10, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     rsb r1, r6, #0
     mul r0, r1, r0
     mov r0, r0, asr #0xc
@@ -1467,7 +1467,7 @@ asm void func_0202f0dc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202f1e0(void)
+asm void texmtxCalc_flagS_3dsMax(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r5, r1
@@ -1482,7 +1482,7 @@ asm void func_0202f1e0(void)
     ldrsh r0, [r5, #0x22]
     str r0, [r6]
     str r0, [r6, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r2, [r5, #0x20]
     mov r1, r7
     mul r0, r2, r0
@@ -1516,7 +1516,7 @@ asm void func_0202f1e0(void)
     orr r0, r0, r3, lsl #24
     add r0, r0, r1, lsl #15
     str r0, [r6, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r1, [r5, #0x20]
     rsb r1, r1, #0
     mul r0, r1, r0
@@ -1525,7 +1525,7 @@ asm void func_0202f1e0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0202f2b8(void)
+asm void texmtxCalc_flagR_3dsMax(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldrh r3, [r1, #0x2e]
@@ -1558,7 +1558,7 @@ asm void func_0202f2b8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0202f32c(void)
+asm void texmtxCalc_flagRS_3dsMax(void)
 {
     stmdb sp!, {r3, lr}
     ldr r2, [r1, #0x24]
@@ -1581,7 +1581,7 @@ asm void func_0202f32c(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202f378(void)
+asm void texmtxCalc_flagT_3dsMax(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r1
@@ -1611,7 +1611,7 @@ asm void func_0202f378(void)
     orr r4, r4, r0, lsl #20
     str r7, [r10]
     str r5, [r10, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     mov r1, r11
     mul r0, r4, r0
     mov r0, r0, asr #0xc
@@ -1638,7 +1638,7 @@ asm void func_0202f378(void)
     orr r1, r1, r0, lsl #24
     add r0, r1, r8, lsl #15
     str r0, [r10, #0x30]
-    bl func_02001dd8
+    bl FX_GetDivResult
     rsb r1, r6, #0
     mul r0, r1, r0
     mov r0, r0, asr #0xc
@@ -1646,7 +1646,7 @@ asm void func_0202f378(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202f46c(void)
+asm void texmtxCalc_flagTS_3dsMax(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r5, r1
@@ -1661,7 +1661,7 @@ asm void func_0202f46c(void)
     ldrsh r0, [r5, #0x22]
     str r0, [r6]
     str r0, [r6, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r2, [r5, #0x20]
     mov r1, r7
     mul r0, r2, r0
@@ -1691,7 +1691,7 @@ asm void func_0202f46c(void)
     orr r1, r1, r2, lsl #24
     add r0, r1, r0, lsl #15
     str r0, [r6, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r1, [r5, #0x20]
     rsb r1, r1, #0
     mul r0, r1, r0
@@ -1700,7 +1700,7 @@ asm void func_0202f46c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0202f534(void)
+asm void texmtxCalc_flagTR_3dsMax(void)
 {
     stmdb sp!, {r4, lr}
     ldr lr, [r1, #0x1c]
@@ -1811,12 +1811,12 @@ asm void func_0202f5a0(void)
     ldr r0, [sp]
     add r1, r1, #4
     mov r2, #0x12
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x4c
     ldmia sp!, {r4, r5, pc}
 }
 
-asm void func_0202f6d8(void)
+asm void texmtxCalc_flag_Xsi(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -1844,7 +1844,7 @@ asm void func_0202f6d8(void)
     smull r2, r1, r0, r9
     mov r5, r2, lsr #0xc
     orr r5, r5, r1, lsl #20
-    bl func_02001dd8
+    bl FX_GetDivResult
     smull r2, r1, r8, r9
     mov r2, r2, lsr #0xc
     orr r2, r2, r1, lsl #20
@@ -1899,7 +1899,7 @@ asm void func_0202f6d8(void)
     mul r1, r0, r1
     mov r0, r1, lsl #4
     str r0, [r7, #0x30]
-    bl func_02001dd8
+    bl FX_GetDivResult
     rsb r1, r5, #0
     mul r0, r1, r0
     mov r0, r0, asr #0xc
@@ -1908,7 +1908,7 @@ asm void func_0202f6d8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202f838(void)
+asm void texmtxCalc_flagS_Xsi(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -1923,7 +1923,7 @@ asm void func_0202f838(void)
     ldrsh r0, [r5, #0x22]
     str r0, [r6]
     str r0, [r6, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r2, [r5, #0x20]
     mov r1, r7
     mul r0, r2, r0
@@ -1957,7 +1957,7 @@ asm void func_0202f838(void)
     mov r0, r1, lsl #4
     str r2, [r6, #0x30]
     str r0, [r6, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r1, [r5, #0x20]
     rsb r1, r1, #0
     mul r0, r1, r0
@@ -1966,7 +1966,7 @@ asm void func_0202f838(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202f910(void)
+asm void texmtxCalc_flagR_Xsi(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r2, [r1, #0x28]
@@ -2000,7 +2000,7 @@ asm void func_0202f910(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202f988(void)
+asm void texmtxCalc_flagRS_Xsi(void)
 {
     stmdb sp!, {r4, lr}
     ldrh r2, [r1, #0x2e]
@@ -2024,7 +2024,7 @@ asm void func_0202f988(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0202f9d8(void)
+asm void texmtxCalc_flagT_Xsi(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r1
@@ -2051,7 +2051,7 @@ asm void func_0202f9d8(void)
     mov r6, r2, lsr #0xc
     orr r6, r6, r1, lsl #20
     str r4, [r10, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     smull r2, r1, r5, r7
     mov r2, r2, lsr #0xc
     orr r2, r2, r1, lsl #20
@@ -2071,7 +2071,7 @@ asm void func_0202f9d8(void)
     mul r0, r1, r0
     mov r0, r0, lsl #4
     str r0, [r10, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     rsb r1, r6, #0
     mul r0, r1, r0
     mov r0, r0, asr #0xc
@@ -2079,7 +2079,7 @@ asm void func_0202f9d8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202faa4(void)
+asm void texmtxCalc_flagTS_Xsi(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -2094,7 +2094,7 @@ asm void func_0202faa4(void)
     ldrsh r0, [r5, #0x22]
     str r0, [r6]
     str r0, [r6, #0x14]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r2, [r5, #0x20]
     mov r1, r7
     mul r0, r2, r0
@@ -2114,7 +2114,7 @@ asm void func_0202faa4(void)
     mov r0, r0, lsl #4
     str r1, [r6, #0x30]
     str r0, [r6, #0x34]
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldrsh r1, [r5, #0x20]
     rsb r1, r1, #0
     mul r0, r1, r0
@@ -2123,7 +2123,7 @@ asm void func_0202faa4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202fb44(void)
+asm void texmtxCalc_flagTR_Xsi(void)
 {
     stmdb sp!, {r3, lr}
     ldrh r2, [r1, #0x2e]
@@ -2155,7 +2155,7 @@ asm void func_0202fb80(void)
     bx lr
 }
 
-asm void func_0202fba4(void)
+asm void NNSi_G3dSendTexSRTXsi(void)
 {
     stmdb sp!, {r4, r5, lr}
     sub sp, sp, #0x4c
@@ -2246,7 +2246,7 @@ asm void func_0202fba4(void)
     ldr r0, [sp]
     add r1, r1, #4
     mov r2, #0x12
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x4c
     ldmia sp!, {r4, r5, pc}
 }

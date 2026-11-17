@@ -4,15 +4,15 @@ void __must_round(void);
 void __dorounddecup(void);
 void func_0201c19c(void);
 void __rounddec(void);
-void func_0201c1e0(void);
-void func_0201c2a4(void);
-void func_0201c424(void);
-void func_0201c4c0(void);
+void __ull2dec(void);
+void __timesdec(void);
+void __str2dec(void);
+void __two_exp(void);
 void func_0201c840(void);
 void __less_dec(void);
 void func_0201ca00(void);
-void func_0201cca0(void);
-void func_0201ce20(void);
+void __num2dec_internal(void);
+void __num2dec(void);
 void func_0201cecc(void);
 
 void func_020226e0(void);
@@ -38,13 +38,13 @@ extern char data_020ab430[];
 extern char data_020ab434[];
 extern char data_020ab438[];
 extern char data_020ab43c[];
-void func_020181bc(void);
+void __signbitd(void);
 void _deq(void);
 void __fpclassifyd(void);
 void _dsub(void);
-void func_020207d4(void);
+void frexp(void);
 void __msl_generic_count_bits64(void);
-void func_02020894(void);
+void ldexp(void);
 void func_02022c04(void);
 void copysign(void);
 extern char data_020ab0c4[];
@@ -141,7 +141,7 @@ asm void __rounddec(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0201c1e0(void)
+asm void __ull2dec(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r5, r2
@@ -198,7 +198,7 @@ asm void func_0201c1e0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0201c2a4(void)
+asm void __timesdec(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x40
@@ -307,7 +307,7 @@ asm void func_0201c2a4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0201c424(void)
+asm void __str2dec(void)
 {
     stmdb sp!, {r3, lr}
     mov r12, #0
@@ -356,7 +356,7 @@ asm void func_0201c424(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0201c4c0(void)
+asm void __two_exp(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0x4c
@@ -420,127 +420,127 @@ asm void func_0201c4c0(void)
     ldr r1, =data_020ab36c
     mov r0, r5
     mvn r2, #0x13
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c5bc:
     ldr r1, =data_020ab39c
     add r2, r2, #0x25
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c5d0:
     ldr r1, =data_020ab3c4
     add r2, r2, #0x2b
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c5e4:
     ldr r1, =data_020ab3dc
     add r2, r2, #0x30
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c5f8:
     ldr r1, =data_020ab3ec
     add r2, r2, #0x32
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c60c:
     ldr r1, =data_020ab3f4
     add r2, r2, #0x32
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c620:
     ldr r1, =data_020ab3fc
     add r2, r2, #0x33
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c634:
     ldr r1, =data_020ab404
     add r2, r2, #0x33
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c648:
     ldr r1, =data_020ab40c
     add r2, r2, #0x33
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c65c:
     ldr r1, =data_020ab410
     add r2, r2, #0x34
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c670:
     ldr r1, =data_020ab414
     add r2, r2, #0x34
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c684:
     ldr r1, =data_020ab418
     add r2, r2, #0x34
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c698:
     ldr r1, =data_020ab41c
     mov r2, #0
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c6ac:
     ldr r1, =data_020ab420
     mov r2, #0
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c6c0:
     ldr r1, =data_020ab424
     mov r2, #0
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c6d4:
     ldr r1, =data_020ab428
     mov r2, #0
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c6e8:
     ldr r1, =data_020ab42c
     mov r2, #1
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c6fc:
     ldr r1, =data_020ab430
     mov r2, #1
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c710:
     ldr r1, =data_020ab434
     mov r2, #1
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c724:
     ldr r1, =data_020ab438
     mov r2, #2
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c738:
     ldr r1, =data_020ab43c
     mov r2, #2
-    bl func_0201c424
+    bl __str2dec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_0201c74c:
@@ -549,11 +549,11 @@ asm void func_0201c4c0(void)
     add r6, sp, #0x26
     mov r0, r6
     mov r1, r1, asr #1
-    bl func_0201c4c0
+    bl __two_exp
     mov r0, r5
     mov r1, r6
     mov r2, r6
-    bl func_0201c2a4
+    bl __timesdec
     tst r4, #1
     addeq sp, sp, #0x4c
     ldmeqia sp!, {r3, r4, r5, r6, pc}
@@ -580,11 +580,11 @@ asm void func_0201c4c0(void)
     ldr r1, =data_020ab418
     mvn r2, #0
 @L_0201c7d0:
-    bl func_0201c424
+    bl __str2dec
     add r1, sp, #0
     add r2, sp, #0x26
     mov r0, r5
-    bl func_0201c2a4
+    bl __timesdec
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
@@ -919,7 +919,7 @@ asm void func_0201ca00(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0201cca0(void)
+asm void __num2dec_internal(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x58
@@ -928,7 +928,7 @@ asm void func_0201cca0(void)
     mov r7, r0
     mov r0, r8
     mov r1, r6
-    bl func_020181bc
+    bl __signbitd
     mov r4, #0
     cmp r0, #0
     mov r5, #1
@@ -980,7 +980,7 @@ asm void func_0201cca0(void)
     add r2, sp, #8
     mov r0, r8
     mov r1, r6
-    bl func_020207d4
+    bl frexp
     mov r4, r0
     mov r6, r1
     orr r8, r4, #0
@@ -1002,33 +1002,33 @@ asm void func_0201cca0(void)
     add r8, sp, #0xc
     sub r1, r1, r9
     mov r0, r8
-    bl func_0201c4c0
+    bl __two_exp
     mov r0, r4
     mov r1, r6
     mov r2, r9
-    bl func_02020894
+    bl ldexp
     bl func_02022c04
     mov r2, r1
     add r4, sp, #0x32
     mov r1, r0
     mov r0, r4
-    bl func_0201c1e0
+    bl __ull2dec
     mov r1, r4
     mov r2, r8
     mov r0, r7
-    bl func_0201c2a4
+    bl __timesdec
     strb r5, [r7]
     add sp, sp, #0x58
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0201ce20(void)
+asm void __num2dec(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r3
     ldrsh r5, [r0, #2]
     mov r0, r4
-    bl func_0201cca0
+    bl __num2dec_internal
     ldrb r0, [r4, #5]
     cmp r0, #9
     ldmhiia sp!, {r3, r4, r5, pc}
@@ -1176,7 +1176,7 @@ asm void func_0201cecc(void)
     mov r0, r6
     mov r2, #0x134
     ldrsh r11, [sp, #0xd8]
-    bl func_0201c424
+    bl __str2dec
     add r1, sp, #0xd6
     mov r0, r6
     bl __less_dec
@@ -1291,7 +1291,7 @@ asm void func_0201cecc(void)
     ldr r0, [sp, #8]
     ldr r1, [sp, #0xc]
     mov r2, r11
-    bl func_02020894
+    bl ldexp
     str r0, [sp, #8]
     str r1, [sp, #0xc]
     bl __fpclassifyd
@@ -1305,7 +1305,7 @@ asm void func_0201cecc(void)
     mov r0, r7
     add r5, sp, #0
     mov r6, #0
-    bl func_0201cca0
+    bl __num2dec_internal
     mov r0, r7
     mov r1, r4
     bl func_0201c840
@@ -1345,7 +1345,7 @@ asm void func_0201cecc(void)
     ldr r1, [sp]
     ldr r2, [sp, #4]
     mov r0, r4
-    bl func_0201cca0
+    bl __num2dec_internal
     cmp r6, #0
     beq @L_0201d2dc
     add r1, sp, #0xd6

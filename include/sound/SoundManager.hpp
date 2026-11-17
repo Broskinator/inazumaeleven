@@ -113,8 +113,8 @@ public:
     static void *Free(void *arg, void *ptr);
     void Init(GameHeap *heap);
     void func_02039bcc();
-    void func_02039bdc();
-    void func_02039c28();
+    void WakeUp();
+    void Quit();
     void Update();
     BOOL IsIdle();
     BOOL AreBanksReady();
@@ -154,8 +154,8 @@ public:
     void UnloadPair(int index);
     u32 GetSound(int id);
     void PlaySound(int id);
-    void func_0203b3a8(int id, int arg);
-    void func_0203b3c8(int arg);
+    void StopEffect(int id, int arg);
+    void StopAllEffects(int arg);
     void StopSound(int id);
     void func_0203b3f0(int index, char *name);
     BOOL IsTrackPlaying(int index);
@@ -196,7 +196,7 @@ public:
     s32 unk_520;
 };
 
-extern SoundManager data_020c5e40;
+extern SoundManager gAudioPlayer;
 
 BOOL GetSoundFilePath(const char *name, char *path, u32 length);
 

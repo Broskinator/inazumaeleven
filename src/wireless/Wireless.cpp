@@ -5,39 +5,39 @@
 
 extern "C" void DC_InvalidateRange(void);
 extern "C" int func_020136b4(void *buffer, WMCallbackFunc callback, u16 dma);     // starts WM
-extern "C" void func_02009380(void *dest, u32 data, u32 size);
-extern "C" int func_02014414(void *dataSharing, u16 port, u16 aidBitmap, u16 dataLength, BOOL doubleMode);   // starts data sharing
-extern "C" void func_020131e0(void);
-extern "C" int func_02013768(WMCallbackFunc callback);         // ends WM
-extern "C" int func_020146a0(void *dataSharing, int, void *dataSet);   // steps data sharing
-extern "C" u16 func_020134f8(void);                         // the next TGID
-extern "C" u16 func_02013274(void);                         // the beacon period
-extern "C" int func_020137ac(WMCallbackFunc callback, WMParentParam *param);   // sets the parent parameters
-extern "C" u16 func_02013308(void);                         // the scan time per channel
-extern "C" int func_02013994(WMCallbackFunc callback, WMScanExParam *param);   // scans
-extern "C" int func_02013b28(WMCallbackFunc callback, WMBssDesc *parent, u8 *ssid, u16 powerSave, u16 authMode);   // connects
-extern "C" void func_02006d84(void);                        // waits for the write buffer
+extern "C" void MI_CpuFill(void *dest, u32 data, u32 size);
+extern "C" int WM_StartDataSharing(void *dataSharing, u16 port, u16 aidBitmap, u16 dataLength, BOOL doubleMode);   // starts data sharing
+extern "C" void WM_GetLinkLevel(void);
+extern "C" int WM_End(WMCallbackFunc callback);         // ends WM
+extern "C" int WM_StepDataSharing(void *dataSharing, int, void *dataSet);   // steps data sharing
+extern "C" u16 WM_GetNextTgid(void);                         // the next TGID
+extern "C" u16 WM_GetDispersionBeaconPeriod(void);                         // the beacon period
+extern "C" int WM_SetParentParameter(WMCallbackFunc callback, WMParentParam *param);   // sets the parent parameters
+extern "C" u16 WM_GetDispersionScanPeriod(void);                         // the scan time per channel
+extern "C" int WM_StartScanEx(WMCallbackFunc callback, WMScanExParam *param);   // scans
+extern "C" int WM_StartConnectEx(WMCallbackFunc callback, WMBssDesc *parent, u8 *ssid, u16 powerSave, u16 authMode);   // connects
+extern "C" void DC_WaitWriteBufferEmpty(void);                        // waits for the write buffer
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void func_02014654(void);
+extern "C" void WM_EndDataSharing(void);
 extern "C" void memcmp(void);
-extern "C" int func_02012e6c(u16 port, WMCallbackFunc callback, void *arg);   // sets a port callback
+extern "C" int WM_SetPortCallback(u16 port, WMCallbackFunc callback, void *arg);   // sets a port callback
 extern "C" u16 func_020131c0(void);                         // the allowed channels
-extern "C" int func_0201372c(WMCallbackFunc callback);         // resets
-extern "C" int func_02013940(WMCallbackFunc callback);         // starts the parent
-extern "C" int func_02013950(WMCallbackFunc callback);         // ends the parent
-extern "C" int func_02013ae4(WMCallbackFunc callback);         // ends the scan
-extern "C" int func_02013bf4(WMCallbackFunc callback, u16 aid);   // disconnects
-extern "C" int func_02013f08(WMCallbackFunc callback, void *receiveBuffer, u16 receiveSize, void *sendBuffer, u16 sendSize, int frequency);   // starts MP
-extern "C" int func_02013fec(WMCallbackFunc callback, u16);
-extern "C" int func_02014030(WMCallbackFunc callback, u16, u16);
-extern "C" int func_0201407c(WMCallbackFunc callback, void *arg, const void *data, u16 size, u16 destBitmap, u16 port, u16 priority);  // sends data to a port
-extern "C" int func_020141b4(WMCallbackFunc callback);         // ends MP
-extern "C" void *func_02014ee0(void *dataSharing, void *dataSet, u16 aid);   // a player's shared data
-extern "C" int func_02014f80(void *keySharing);              // ends key sharing
-extern "C" int func_02014f8c(WMCallbackFunc callback, u16, const void *key);
-extern "C" int func_0201509c(WMCallbackFunc callback, void *userGameInfo, u16 length, u32 ggid, u16 tgid, u8 flags);  // sets the game info
-extern "C" int func_02015218(WMCallbackFunc callback, u16 ccaMode, u16 edThreshold, u16 channel, u16 measureTime);  // measures a channel
+extern "C" int WM_Reset(WMCallbackFunc callback);         // resets
+extern "C" int WM_StartParent(WMCallbackFunc callback);         // starts the parent
+extern "C" int WM_EndParent(WMCallbackFunc callback);         // ends the parent
+extern "C" int WM_EndScan(WMCallbackFunc callback);         // ends the scan
+extern "C" int WM_Disconnect(WMCallbackFunc callback, u16 aid);   // disconnects
+extern "C" int WM_StartMP(WMCallbackFunc callback, void *receiveBuffer, u16 receiveSize, void *sendBuffer, u16 sendSize, int frequency);   // starts MP
+extern "C" int WM_SetMPParentSize(WMCallbackFunc callback, u16);
+extern "C" int WM_SetMPTiming(WMCallbackFunc callback, u16, u16);
+extern "C" int WM_SetMPDataToPortEx(WMCallbackFunc callback, void *arg, const void *data, u16 size, u16 destBitmap, u16 port, u16 priority);  // sends data to a port
+extern "C" int WM_EndMP(WMCallbackFunc callback);         // ends MP
+extern "C" void *WM_GetSharedDataAddress(void *dataSharing, void *dataSet, u16 aid);   // a player's shared data
+extern "C" int WM_EndKeySharing(void *keySharing);              // ends key sharing
+extern "C" int WM_SetWEPKey(WMCallbackFunc callback, u16, const void *key);
+extern "C" int WM_SetGameInfo(WMCallbackFunc callback, void *userGameInfo, u16 length, u32 ggid, u16 tgid, u8 flags);  // sets the game info
+extern "C" int WM_MeasureChannel(WMCallbackFunc callback, u16 ccaMode, u16 edThreshold, u16 channel, u16 measureTime);  // measures a channel
 
 void Wireless::func_0203c0ec()
 {
@@ -125,7 +125,7 @@ BOOL Wireless::func_0203c170(u32 ggid, u16 size, u16 numPlayers)
     state = WIRELESS_STATE_NONE;
     sendBuffer = func_0203c0fc(bytes + 0x20);
     sendSize = bytes;
-    func_02009380(sendBuffer, 0, bytes);
+    MI_CpuFill(sendBuffer, 0, bytes);
 
     receiveBytes = (((childMaxSize + 0xE) * (maxEntry - 1) + 0x29) & ~0x1F) * 2;
     sendBytes = ((parentMaxSize + 0x55) & ~0x1F) * 2;
@@ -135,7 +135,7 @@ BOOL Wireless::func_0203c170(u32 ggid, u16 size, u16 numPlayers)
     bytes = (receiveBytes + 0x3F) & ~0x3F;
     receiveBuffer = func_0203c0fc(bytes + 0x20);
     receiveSize = bytes;
-    func_02009380(receiveBuffer, 0, bytes);
+    MI_CpuFill(receiveBuffer, 0, bytes);
 
     if (sendBuffer != NULL && receiveBuffer != NULL) {
         data_020c4588.receive = NULL;
@@ -231,7 +231,7 @@ asm BOOL Wireless::func_0203c170(u32 ggid, u16 size, u16 numPlayers)
     mov r1, #0
     str r0, [r6, #0x204]
     str r5, [r6, #0x238]
-    bl func_02009380
+    bl MI_CpuFill
     add r0, r6, #0x2400
     ldrh r2, [r0, #0x66]
     ldrh r1, [r0, #0x5e]
@@ -256,7 +256,7 @@ asm BOOL Wireless::func_0203c170(u32 ggid, u16 size, u16 numPlayers)
     mov r2, r5
     str r0, [r6, #0x208]
     str r5, [r6, #0x23c]
-    bl func_02009380
+    bl MI_CpuFill
     ldr r0, [r6, #0x204]
     cmp r0, #0
     ldrne r0, [r6, #0x208]
@@ -272,7 +272,7 @@ asm BOOL Wireless::func_0203c170(u32 ggid, u16 size, u16 numPlayers)
 
 void Wireless::func_0203c358()
 {
-    func_020131e0();
+    WM_GetLinkLevel();
 }
 
 void Wireless::func_0203c364(BOOL flag)
@@ -282,7 +282,7 @@ void Wireless::func_0203c364(BOOL flag)
     } else {
         gameInfoFlags &= ~1;
     }
-    func_0201509c(func_0203c41c, parentParam.userGameInfo, parentParam.userGameInfoLength,
+    WM_SetGameInfo(func_0203c41c, parentParam.userGameInfo, parentParam.userGameInfoLength,
         parentParam.ggid, tgid, gameInfoFlags);
 }
 
@@ -294,7 +294,7 @@ void Wireless::func_0203c3bc(void *info, u16 length)
     if (!(flags & 2)) {
         return;
     }
-    func_0201509c(func_0203c41c, parentParam.userGameInfo, parentParam.userGameInfoLength,
+    WM_SetGameInfo(func_0203c41c, parentParam.userGameInfo, parentParam.userGameInfoLength,
         parentParam.ggid, tgid, gameInfoFlags);
 }
 
@@ -331,7 +331,7 @@ void Wireless::func_0203c4a4(void *arg)
 BOOL Wireless::func_0203c4a8()
 {
     state = WIRELESS_STATE_BUSY;
-    return func_0201372c(func_0203c4d4) == WM_ERRCODE_OPERATING;
+    return WM_Reset(func_0203c4d4) == WM_ERRCODE_OPERATING;
 }
 
 void Wireless::func_0203c4d4(void *arg)
@@ -376,7 +376,7 @@ asm void Wireless::func_0203c540()
     b @L_0203c608
 @L_0203c594:
     add r0, r4, #0x1400
-    bl func_02014654
+    bl WM_EndDataSharing
     cmp r0, #0
     beq @L_0203c5a8
     b @L_0203c608
@@ -447,7 +447,7 @@ BOOL Wireless::func_0203c67c()
     if (state != WIRELESS_STATE_IDLE) {
         return FALSE;
     }
-    if (func_02013768(func_0203c650) != WM_ERRCODE_OPERATING) {
+    if (WM_End(func_0203c650) != WM_ERRCODE_OPERATING) {
         return FALSE;
     }
     while (state == WIRELESS_STATE_IDLE) {
@@ -481,7 +481,7 @@ BOOL Wireless::func_0203c75c()
     if (flags & 2) {
         return TRUE;
     }
-    result = func_02013f08(func_0203c7e0, (void *)(((u32)receiveBuffer + 0x1F) & ~0x1F), receiveSize,
+    result = WM_StartMP(func_0203c7e0, (void *)(((u32)receiveBuffer + 0x1F) & ~0x1F), receiveSize,
         (void *)(((u32)sendBuffer + 0x1F) & ~0x1F), sendSize, 1);
     if (result != WM_ERRCODE_OPERATING) {
         error = result;
@@ -518,7 +518,7 @@ void Wireless::func_0203c7e0(void *arg)
                     return;
                 }
             } else if (data_020c4588.instance->connectMode & 2) {
-                result = func_02014414(data_020c4588.instance->dataSharing, 13,
+                result = WM_StartDataSharing(data_020c4588.instance->dataSharing, 13,
                     (1 << data_020c4588.instance->maxEntry) - 1, data_020c4588.instance->childMaxSize, TRUE);
                 if (result == WM_ERRCODE_SUCCESS) {
                     data_020c4588.instance->state = WIRELESS_STATE_DATA_SHARING;
@@ -638,7 +638,7 @@ asm void Wireless::func_0203c7e0(void *arg)
     mov r1, r1, lsl #0x10
     mov r2, r1, lsr #0x10
     mov r1, #0xd
-    bl func_02014414
+    bl WM_StartDataSharing
     cmp r0, #0
     ldreq r0, [r4]
     moveq r1, #6
@@ -667,7 +667,7 @@ asm void Wireless::func_0203c7e0(void *arg)
 
 BOOL Wireless::func_0203c988()
 {
-    int result = func_02014030(func_0203c9c0, mpParam0, mpParam1);
+    int result = WM_SetMPTiming(func_0203c9c0, mpParam0, mpParam1);
 
     if (result != WM_ERRCODE_OPERATING) {
         error = result;
@@ -692,7 +692,7 @@ BOOL Wireless::func_0203c9ec(int arg)
     if (state != WIRELESS_STATE_DATA_SHARING) {
         return FALSE;
     }
-    result = func_020146a0(dataSharing, arg, unk_004);
+    result = WM_StepDataSharing(dataSharing, arg, unk_004);
     switch (result) {
     case WM_ERRCODE_NO_DATASET:
         break;
@@ -714,7 +714,7 @@ asm BOOL Wireless::func_0203c9ec(int arg)
     ldmneia sp!, {r3, pc}
     add r0, r2, #0x1400
     add r2, r2, #4
-    bl func_020146a0
+    bl WM_StepDataSharing
     cmp r0, #0
     beq @L_0203ca24
     cmp r0, #5
@@ -759,7 +759,7 @@ BOOL Wireless::func_0203ca80(const void *data, u16 size, void *arg)
         return FALSE;
     }
     DC_FlushRange(sendBuffer, sendSize);
-    error = func_0201407c(func_0203ca48, arg, data, size, 0xFFFF, 14, 1);
+    error = WM_SetMPDataToPortEx(func_0203ca48, arg, data, size, 0xFFFF, 14, 1);
     result = TRUE;
     if (error != WM_ERRCODE_OPERATING) {
         result = FALSE;
@@ -789,7 +789,7 @@ void Wireless::func_0203cb2c(void *arg)
 void Wireless::func_0203cb90(WirelessReceiveCallback callback)
 {
     data_020c4588.receive = callback;
-    func_02012e6c(14, func_0203cb2c, NULL);
+    WM_SetPortCallback(14, func_0203cb2c, NULL);
 }
 
 void Wireless::func_0203cbb8(void *arg)
@@ -802,13 +802,13 @@ void Wireless::func_0203cbb8(void *arg)
 
 void Wireless::func_0203cbec(int arg)
 {
-    func_02013fec(func_0203cbb8, arg);
+    WM_SetMPParentSize(func_0203cbb8, arg);
 }
 
 // copies the data shared by a player
 BOOL Wireless::func_0203cc08(u16 aid, void *dest, u32 size)
 {
-    void *data = func_02014ee0(dataSharing, unk_004, aid);
+    void *data = WM_GetSharedDataAddress(dataSharing, unk_004, aid);
 
     if (data == NULL) {
         return FALSE;
@@ -819,7 +819,7 @@ BOOL Wireless::func_0203cc08(u16 aid, void *dest, u32 size)
 
 BOOL Wireless::func_0203cc48()
 {
-    if (func_02014f80(keySharing) != WM_ERRCODE_SUCCESS) {
+    if (WM_EndKeySharing(keySharing) != WM_ERRCODE_SUCCESS) {
         return FALSE;
     }
     return func_0203cc80() ? TRUE : FALSE;
@@ -827,7 +827,7 @@ BOOL Wireless::func_0203cc48()
 
 BOOL Wireless::func_0203cc80()
 {
-    return func_020141b4(func_0203cca0) == WM_ERRCODE_OPERATING;
+    return WM_EndMP(func_0203cca0) == WM_ERRCODE_OPERATING;
 }
 
 void Wireless::func_0203cca0(void *arg)
@@ -854,7 +854,7 @@ void Wireless::func_0203cca0(void *arg)
 
 BOOL Wireless::func_0203cd04()
 {
-    return func_02013950(func_0203cd24) == WM_ERRCODE_OPERATING;
+    return WM_EndParent(func_0203cd24) == WM_ERRCODE_OPERATING;
 }
 
 void Wireless::func_0203cd24(void *arg)
@@ -871,7 +871,7 @@ void Wireless::func_0203cd24(void *arg)
 
 BOOL Wireless::func_0203cd70()
 {
-    if (func_02013bf4(func_0203cdac, 0) == WM_ERRCODE_OPERATING) {
+    if (WM_Disconnect(func_0203cdac, 0) == WM_ERRCODE_OPERATING) {
         return TRUE;
     }
     data_020c4588.instance->func_0203c4a8();
@@ -897,7 +897,7 @@ BOOL Wireless::func_0203cdf8(u16 arg, const void *key)
     }
     MI_CpuCopy8(key, unk_220, sizeof(unk_220));
     state = 8;
-    return func_02014f8c(func_0203ce58, arg, unk_220) == WM_ERRCODE_OPERATING;
+    return WM_SetWEPKey(func_0203ce58, arg, unk_220) == WM_ERRCODE_OPERATING;
 }
 
 void Wireless::func_0203ce58(void *arg)
@@ -944,7 +944,7 @@ BOOL Wireless::func_0203cef8(u16 channel)
         }
     }
     state = WIRELESS_STATE_BUSY;
-    if ((u16)func_02015218(func_0203cf98, 3, 17, channel, 30) != WM_ERRCODE_OPERATING) {
+    if ((u16)WM_MeasureChannel(func_0203cf98, 3, 17, channel, 30) != WM_ERRCODE_OPERATING) {
         return FALSE;
     }
     return TRUE;
@@ -986,10 +986,10 @@ BOOL Wireless::func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1)
 
     connectMode = mode | 0x100;
     aid = 0;
-    tgid = func_020134f8();
+    tgid = WM_GetNextTgid();
     parentParam.tgid = tgid;
     parentParam.channel = channel;
-    parentParam.beaconPeriod = func_02013274();
+    parentParam.beaconPeriod = WM_GetDispersionBeaconPeriod();
     parentParam.maxEntry = maxEntry - 1;
     parentParam.entryFlag = 1;
     parentParam.parentMaxSize = parentMaxSize;
@@ -1000,7 +1000,7 @@ BOOL Wireless::func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1)
     connectedMask = 0;
     this->mpParam0 = mpParam0;
     this->mpParam1 = mpParam1;
-    if (func_020137ac(func_0203d128, &parentParam) != WM_ERRCODE_OPERATING) {
+    if (WM_SetParentParameter(func_0203d128, &parentParam) != WM_ERRCODE_OPERATING) {
         return FALSE;
     }
     return TRUE;
@@ -1021,7 +1021,7 @@ asm BOOL Wireless::func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1)
     mov r4, #0
     strh r1, [r0, #0x68]
     strh r4, [r0, #0x5c]
-    bl func_020134f8
+    bl WM_GetNextTgid
     add r1, r7, #0x200
     strh r0, [r1, #0x34]
     add r0, r7, #0x2400
@@ -1030,7 +1030,7 @@ asm BOOL Wireless::func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1)
     ldrh r0, [r0, #0x62]
     strh r2, [r1, #0x2c]
     strh r0, [r1, #0x52]
-    bl func_02013274
+    bl WM_GetDispersionBeaconPeriod
     add r2, r7, #0x2400
     add r1, r7, #0x300
     ldrh r8, [r2, #0x5e]
@@ -1057,7 +1057,7 @@ asm BOOL Wireless::func_0203d04c(u16 mode, u16 mpParam0, u16 mpParam1)
     strh r8, [r4, #0x60]
     strh r6, [r4, #0x6e]
     strh r5, [r4, #0x70]
-    bl func_020137ac
+    bl WM_SetParentParameter
     cmp r0, #2
     movne r0, r8
     moveq r0, #1
@@ -1075,7 +1075,7 @@ void Wireless::func_0203d128(void *arg)
         data_020c4588.instance->error = ((WMCallback *)arg)->errcode;
         return;
     }
-    func_02013940(func_0203d17c);
+    WM_StartParent(func_0203d17c);
 }
 
 // (the parent's events)
@@ -1176,9 +1176,9 @@ BOOL Wireless::func_0203d37c()
     scanParam.scanType = 1;
     scanParam.ssidLength = 0;
     MI_CpuFill8(scanParam.ssid, 0xFF, sizeof(scanParam.ssid));
-    scanParam.maxChannelTime = func_02013308();
+    scanParam.maxChannelTime = WM_GetDispersionScanPeriod();
     flags |= 1;
-    if (func_02013994(func_0203d44c, &scanParam) == WM_ERRCODE_OPERATING) {
+    if (WM_StartScanEx(func_0203d44c, &scanParam) == WM_ERRCODE_OPERATING) {
         return TRUE;
     }
     return FALSE;
@@ -1224,7 +1224,7 @@ asm BOOL Wireless::func_0203d37c()
     strh r5, [r12, #0x90]
     strh r4, [r12, #0x92]
     bl MI_CpuFill8
-    bl func_02013308
+    bl WM_GetDispersionScanPeriod
     add r2, r6, #0x2400
     ldrh r3, [r2, #0x6c]
     add r1, r6, #0x300
@@ -1233,7 +1233,7 @@ asm BOOL Wireless::func_0203d37c()
     ldr r0, =func_0203d44c
     add r1, r6, #0x380
     strh r3, [r2, #0x6c]
-    bl func_02013994
+    bl WM_StartScanEx
     cmp r0, #2
     movne r0, r4
     moveq r0, r5
@@ -1574,7 +1574,7 @@ void Wireless::func_0203d8dc()
         return;
     }
     state = WIRELESS_STATE_BUSY;
-    func_02013ae4(func_0203d908);
+    WM_EndScan(func_0203d908);
 }
 
 void Wireless::func_0203d908(void *arg)
@@ -1611,8 +1611,8 @@ BOOL Wireless::func_0203d960(u16 mode, int index)
     connectedMask = 0;
     MI_CpuCopy8(&bss[index], &target, sizeof(WMBssDesc));
     DC_FlushRange(&target, sizeof(WMBssDesc));
-    func_02006d84();
-    if (func_02013b28(func_0203dad8, &target, unk_2444, 1, (flags & 4) ? 1 : 0) != WM_ERRCODE_OPERATING) {
+    DC_WaitWriteBufferEmpty();
+    if (WM_StartConnectEx(func_0203dad8, &target, unk_2444, 1, (flags & 4) ? 1 : 0) != WM_ERRCODE_OPERATING) {
         return FALSE;
     }
     return TRUE;
@@ -1620,7 +1620,7 @@ BOOL Wireless::func_0203d960(u16 mode, int index)
 
 BOOL Wireless::func_0203da3c()
 {
-    if (func_0201372c(func_0203da6c) != WM_ERRCODE_OPERATING) {
+    if (WM_Reset(func_0203da6c) != WM_ERRCODE_OPERATING) {
         return FALSE;
     }
     state = WIRELESS_STATE_BUSY;

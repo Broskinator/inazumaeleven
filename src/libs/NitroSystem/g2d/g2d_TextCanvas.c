@@ -1,14 +1,14 @@
 // (asm for now)
 
 void NNSi_G2dTextCanvasDrawTextRect(void);
-void func_020275fc(void);
-void func_020277c0(void);
-void func_02027898(void);
+void NNSi_G2dGetUnpackedFont(void);
+void NNSi_G2dUnpackNFT(void);
+void NNSi_G2dBitReaderRead(void);
 void NNSi_G2dSplitCharUTF16(void);
 
-void func_02025e38(void);
-void func_020272a8(void);
-void func_0200878c(void);
+void NNSi_G2dFontGetTextHeight(void);
+void NNSi_G2dTextCanvasDrawTextAlign(void);
+void OS_Terminate(void);
 void NNS_G2dFindBinaryBlock(void);
 
 asm void NNSi_G2dTextCanvasDrawTextRect(void)
@@ -25,7 +25,7 @@ asm void NNSi_G2dTextCanvasDrawTextRect(void)
     ldr r0, [r7, #4]
     ldr r1, [r7, #0xc]
     ldr r2, [sp, #0x34]
-    bl func_02025e38
+    bl NNSi_G2dFontGetTextHeight
     ldrsb r2, [sp, #0x39]
     ldr r3, [sp, #0x28]
     ldrsb r1, [sp, #0x38]
@@ -40,7 +40,7 @@ asm void NNSi_G2dTextCanvasDrawTextRect(void)
     ldr r0, [r7, #4]
     ldr r1, [r7, #0xc]
     ldr r2, [sp, #0x34]
-    bl func_02025e38
+    bl NNSi_G2dFontGetTextHeight
     ldr r1, [sp, #0x28]
     add r0, r0, #1
     ldrsb r3, [sp, #0x39]
@@ -68,12 +68,12 @@ asm void NNSi_G2dTextCanvasDrawTextRect(void)
     mov r2, r5
     mov r3, r4
     strb r12, [sp, #0xd]
-    bl func_020272a8
+    bl NNSi_G2dTextCanvasDrawTextAlign
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020275fc(void)
+asm void NNSi_G2dGetUnpackedFont(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, #0
@@ -184,12 +184,12 @@ asm void func_020275fc(void)
 @L_02027760:
     cmp r0, #0
     bne @L_0202776c
-    bl func_0200878c
+    bl OS_Terminate
 @L_0202776c:
     mov r5, #1
 @L_02027770:
     mov r0, r7
-    bl func_020277c0
+    bl NNSi_G2dUnpackNFT
     ldr r1, =0x46494e46
     mov r0, r7
     bl NNS_G2dFindBinaryBlock
@@ -206,7 +206,7 @@ asm void func_020275fc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020277c0(void)
+asm void NNSi_G2dUnpackNFT(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldrh r1, [r0, #0xc]
@@ -266,7 +266,7 @@ asm void func_020277c0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02027898(void)
+asm void NNSi_G2dBitReaderRead(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldrsb r3, [r0, #4]
@@ -286,7 +286,7 @@ asm void func_02027898(void)
     mov r1, r6
     strb r3, [r0, #5]
     strb r2, [r0, #4]
-    bl func_02027898
+    bl NNSi_G2dBitReaderRead
     orr r2, r0, r4, lsl r6
 @L_020278e8:
     rsb r0, r5, #8

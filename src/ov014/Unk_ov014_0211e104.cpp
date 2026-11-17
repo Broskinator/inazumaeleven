@@ -1,70 +1,70 @@
 #include "ov014/Unk_ov014_0211e104.hpp"
 
-extern "C" s32 func_ov014_0211e104(...);
-extern "C" void func_ov014_0211e294(void);
-extern "C" char *func_ov014_0211e3b4(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_0211e42c(...);
-extern "C" s32 func_ov014_0211e584(...);
-extern "C" s32 func_ov014_0211e724(...);
-extern "C" s32 func_ov014_0211e9d8(...);
-extern "C" s32 func_ov014_0211ea08(u8 *arg0);
-extern "C" s32 func_ov014_0211ead4(u8 *arg0);
-extern "C" s32 func_ov014_0211eb28(u8 *arg0, u8 *arg1);
-extern "C" void func_ov014_0211ec00(u32 arg0, u8 *arg1);
-extern "C" s32 func_ov014_0211ec50(...);
-extern "C" s32 func_ov014_0211ed94(u8 *arg0);
-extern "C" void func_ov014_0211ee0c(void);
-extern "C" s32 func_ov014_0211ef44(u8 *arg0);
-extern "C" s32 func_ov014_0211efc8(u8 *arg0);
-extern "C" void func_ov014_0211f000(u8 arg0);
-extern "C" void func_ov014_0211f030(void);
-extern "C" void func_ov014_0211f110(void);
-extern "C" void func_ov014_0211f12c(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_0211f144(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_0211f15c(void);
-extern "C" s32 func_ov014_0211f55c(u8 *arg0);
-extern "C" s32 func_ov014_0211f5a4(...);
-extern "C" s32 func_ov014_0211f65c(u8 *arg0, s32 arg1);
+extern "C" s32 parse_record(...);
+extern "C" void set_random(void);
+extern "C" char *CPS_SslAddRandomSeed(s32 arg0, s32 arg1);
+extern "C" s32 send_change_cipher_spec_and_finished(...);
+extern "C" s32 send_client_hello(...);
+extern "C" s32 send_client_key_exchange(...);
+extern "C" s32 mustget_change_cipher_spec_and_finished(...);
+extern "C" s32 ssl_connect_try(u8 *arg0);
+extern "C" s32 CPSi_SslConnect(u8 *arg0);
+extern "C" s32 CPSi_SslRead(u8 *arg0, u8 *arg1);
+extern "C" void CPSi_SslConsume(u32 arg0, u8 *arg1);
+extern "C" s32 try_fill_record(...);
+extern "C" s32 CPSi_SslGetLength(u8 *arg0);
+extern "C" void CPSi_SslWrite2(void);
+extern "C" s32 CPSi_SslShutdown(u8 *arg0);
+extern "C" s32 CPSi_SslClose(u8 *arg0);
+extern "C" void CPS_SetSsl(u8 arg0);
+extern "C" void CPSi_SslPeriodical(void);
+extern "C" void CPSi_SslCleanup(void);
+extern "C" void char_from_long(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void long_from_char(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void CPSi_md5_block(void);
+extern "C" s32 CPSi_md5_init(u8 *arg0);
+extern "C" s32 CPSi_md5_calc(...);
+extern "C" s32 CPSi_md5_result(u8 *arg0, s32 arg1);
 extern "C" u32 func_ov014_0211f6c4(s32 arg0, u32 *arg1);
-extern "C" s32 func_ov014_0211f708(...);
-extern "C" void func_ov014_0211f74c(u32 *arg0, u8 *arg1, u32 arg2);
-extern "C" void func_ov014_0211f794(void);
-extern "C" s32 func_ov014_0211fe08(u8 *arg0);
-extern "C" s32 func_ov014_0211fe5c(...);
-extern "C" s32 func_ov014_0211ff14(...);
-extern "C" void func_ov014_0211ff7c(s32 arg0, s32 arg1);
-extern "C" void func_ov014_0211ffac(void);
-extern "C" void func_ov014_02120024(u8 *arg0, u8 *arg1, s32 arg2);
-extern "C" s32 func_ov014_02120090(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_021200b8(u8 *arg0, s32 arg1);
-extern "C" s32 func_ov014_021200e8(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3);
-extern "C" void func_ov014_02120184(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_021201e4(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_02120224(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3);
-extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2);
-extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_0212039c(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3);
-extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3);
-extern "C" void func_ov014_021204c4(void);
-extern "C" u64 func_ov014_021205f0(u16 *arg0);
-extern "C" void func_ov014_021205fc(void);
-extern "C" void func_ov014_0212060c(void);
-extern "C" void func_ov014_02120620(void);
-extern "C" void func_ov014_0212063c(void);
-extern "C" void func_ov014_02120808(void);
-extern "C" void func_ov014_0212099c(void);
-extern "C" void func_ov014_02120ae8(void);
-extern "C" void func_ov014_02120c14(void);
-extern "C" void func_ov014_02120e30(u16 *arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_02120e8c(u8 *arg0, u16 *arg1, s32 arg2);
-extern "C" void func_ov014_02120ed0(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_02120ee0(...);
-extern "C" s32 func_ov014_0212104c(void);
-extern "C" void func_ov014_021210a4(void);
-extern "C" void func_ov014_021210dc(void);
+extern "C" s32 char_from_long_2(...);
+extern "C" void long_from_char_2(u32 *arg0, u8 *arg1, u32 arg2);
+extern "C" void CPSi_sha1_block(void);
+extern "C" s32 CPSi_sha1_init(u8 *arg0);
+extern "C" s32 CPSi_sha1_calc(...);
+extern "C" s32 CPSi_sha1_result(...);
+extern "C" void CPSi_sha1_result_prng(s32 arg0, s32 arg1);
+extern "C" void CPSi_rc4_init(void);
+extern "C" void CPSi_rc4_crypt(u8 *arg0, u8 *arg1, s32 arg2);
+extern "C" s32 count_digits(s32 arg0, s32 arg1);
+extern "C" s32 CPSi_big_sign(u8 *arg0, s32 arg1);
+extern "C" s32 CPSi_big_add(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3);
+extern "C" void CPSi_big_add_small(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
+extern "C" void CPSi_big_negate(u8 *arg0, s32 arg1);
+extern "C" void CPSi_big_sub(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3);
+extern "C" void CPSi_big_sub_small(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
+extern "C" s32 CPSi_big_compare(u8 *arg0, u8 *arg1, s32 arg2);
+extern "C" void CPSi_big_add_part(u16 *arg0, u32 arg1, s32 arg2, s32 arg3);
+extern "C" void CPSi_big_mult(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3);
+extern "C" s32 CPSi_big_mult_small(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3);
+extern "C" void CPSi_big_sqr(void);
+extern "C" u64 get48bits_1(u16 *arg0);
+extern "C" void get48bits_2(void);
+extern "C" void get48bits_3(void);
+extern "C" void get64bits(void);
+extern "C" void CPSi_big_div(void);
+extern "C" void CPSi_big_power(void);
+extern "C" void CPSi_big_modinv(void);
+extern "C" void CPSi_big_montmult(void);
+extern "C" void CPSi_big_montpower(void);
+extern "C" void CPSi_big_from_char(u16 *arg0, u8 *arg1, s32 arg2, s32 arg3);
+extern "C" void CPSi_char_from_big(u8 *arg0, u16 *arg1, s32 arg2);
+extern "C" void WCM_Init(s32 arg0, s32 arg1);
+extern "C" s32 WCM_InitEx(...);
+extern "C" s32 WCM_Finish(void);
+extern "C" void WCM_GetWorkSize(void);
+extern "C" void WCM_StartupAsync(void);
 
-extern "C" char data_020bb120[];
+extern "C" char OSi_ThreadInfo[];
 extern "C" char data_ov014_021240a0[];
 extern "C" char data_ov014_02125e98[];
 extern "C" char data_ov014_02125f00[];
@@ -72,13 +72,13 @@ extern "C" char data_ov014_02125f40[];
 extern "C" char data_ov014_02125f80[];
 extern "C" char data_ov014_02126080[];
 extern "C" char data_ov014_02126081[];
-extern "C" char data_ov014_02126adc[];
-extern "C" char data_ov014_02126b0c[];
+extern "C" char CPSiAlloc[];
+extern "C" char CPSiFree[];
 extern "C" char data_ov014_02126b40[];
-extern "C" char data_ov014_0212d3e8[];
+extern "C" char pool_initialized[];
 extern "C" char data_ov014_0212d3f0[];
-extern "C" char data_ov014_0212d404[];
-extern "C" char data_ov014_0212d574[];
+extern "C" char session[];
+extern "C" char WCMi_OverridedDeviceId[];
 extern "C" s32 MI_CpuCopy8(...);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void OS_CreateAlarm(void);
@@ -87,37 +87,37 @@ extern "C" void OS_InitTick(void);
 extern "C" s32 OS_RestoreInterrupts(...);
 extern "C" void OS_WakeupThreadDirect(void);
 extern "C" void _ll_udiv(void);
-extern "C" s32 func_02000b64(...);
-extern "C" void func_020079c4(void);
-extern "C" void func_02007be4(void);
-extern "C" void func_02007c20(void);
+extern "C" s32 OSi_ReferSymbol(...);
+extern "C" void OS_IsTickAvailable(void);
+extern "C" void OS_InitAlarm(void);
+extern "C" void OS_IsAlarmAvailable(void);
 extern "C" void func_020131c0(void);
-extern "C" void func_02018348(void);
-extern "C" s32 func_ov014_02104d54(...);
-extern "C" void func_ov014_02104fbc(void);
-extern "C" void func_ov014_021050b8(void);
-extern "C" s32 func_ov014_0210533c(...);
-extern "C" void func_ov014_0211bfa8(void);
-extern "C" s32 func_ov014_0211c04c(...);
-extern "C" void func_ov014_0211c1a8(void);
-extern "C" void func_ov014_0211c208(void);
-extern "C" void func_ov014_0211c250(void);
-extern "C" void func_ov014_0211cf88(void);
-extern "C" s32 func_ov014_0211d3d0(...);
-extern "C" s32 func_ov014_0211d434(...);
-extern "C" void func_ov014_0211d628(void);
-extern "C" void func_ov014_0211d704(void);
-extern "C" s32 func_ov014_0211db38(...);
-extern "C" s32 func_ov014_0211dd54(...);
-extern "C" void func_ov014_0211ddc0(void);
-extern "C" s32 func_ov014_0211ddec(...);
-extern "C" void func_ov014_02121818(void);
-extern "C" void func_ov014_02121938(void);
-extern "C" void func_ov014_02121ba8(void);
-extern "C" void func_ov014_021221f0(void);
-extern "C" void func_ov014_0212267c(void);
+extern "C" void memmove(void);
+extern "C" s32 CPSi_TcpConnectRaw(...);
+extern "C" void CPSi_TcpReadRaw(void);
+extern "C" void CPSi_SocConsumeRaw(void);
+extern "C" s32 CPSi_TcpWrite2Raw(...);
+extern "C" void find_session_from_IP(void);
+extern "C" s32 cache_session(...);
+extern "C" void date2sec(void);
+extern "C" void enter_computebound(void);
+extern "C" void exit_computebound(void);
+extern "C" void client_hello_v2(void);
+extern "C" s32 create_master_secret(...);
+extern "C" s32 create_key_block(...);
+extern "C" void finished_md5(void);
+extern "C" void finished_sha1(void);
+extern "C" s32 make_ciphertext(...);
+extern "C" s32 tcp_read_raw_nbytes(...);
+extern "C" void update_digest(void);
+extern "C" s32 parse_record_in_buf(...);
+extern "C" void WcmConfigure(void);
+extern "C" void WcmInitOption(void);
+extern "C" void WCMi_GetDefaultDeviceId(void);
+extern "C" void WCMi_InitCpsif(void);
+extern "C" void WCMi_WmifStartupAsync(void);
 
-extern "C" asm s32 func_ov014_0211e104(...)
+extern "C" asm s32 parse_record(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r0
@@ -127,7 +127,7 @@ extern "C" asm s32 func_ov014_0211e104(...)
 @L_0211e118:
     mov r0, r7
     mov r1, r5
-    bl func_ov014_02104fbc
+    bl CPSi_TcpReadRaw
     ldr r1, [sp]
     cmp r1, #5
     bhs @L_0211e150
@@ -154,8 +154,8 @@ extern "C" asm s32 func_ov014_0211e104(...)
     mov r1, r5
     mov r0, #2
     str r2, [sp]
-    bl func_ov014_021050b8
-    ldr r1, =data_ov014_02126adc
+    bl CPSi_SocConsumeRaw
+    ldr r1, =CPSiAlloc
     ldr r0, [sp]
     ldr r1, [r1]
     blx r1
@@ -165,7 +165,7 @@ extern "C" asm s32 func_ov014_0211e104(...)
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r1, [sp]
     mov r2, r5
-    bl func_ov014_0211dd54
+    bl tcp_read_raw_nbytes
     cmp r0, #0
     ldreqb r0, [r7]
     cmpeq r0, #1
@@ -173,13 +173,13 @@ extern "C" asm s32 func_ov014_0211e104(...)
     bne @L_0211e1d4
     mov r0, r4
     add r1, r7, #1
-    bl func_ov014_0211cf88
+    bl client_hello_v2
 @L_0211e1d4:
     ldr r2, [sp]
     mov r0, r4
     mov r1, r7
-    bl func_ov014_0211ddc0
-    ldr r1, =data_ov014_02126b0c
+    bl update_digest
+    ldr r1, =CPSiFree
     mov r0, r7
     ldr r1, [r1]
     blx r1
@@ -198,7 +198,7 @@ extern "C" asm s32 func_ov014_0211e104(...)
     movhi r0, #9
     strhib r0, [r4, #0x455]
     ldmhiia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r1, =data_ov014_02126adc
+    ldr r1, =CPSiAlloc
     ldr r1, [r1]
     blx r1
     movs r6, r0
@@ -207,10 +207,10 @@ extern "C" asm s32 func_ov014_0211e104(...)
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r1, [sp]
     mov r2, r5
-    bl func_ov014_0211dd54
+    bl tcp_read_raw_nbytes
     cmp r0, #0
     beq @L_0211e274
-    ldr r1, =data_ov014_02126b0c
+    ldr r1, =CPSiFree
     mov r0, r6
     ldr r1, [r1]
     blx r1
@@ -220,17 +220,17 @@ extern "C" asm s32 func_ov014_0211e104(...)
 @L_0211e274:
     mov r0, r4
     mov r1, r6
-    bl func_ov014_0211ddec
+    bl parse_record_in_buf
 @L_0211e280:
     ldrb r0, [r4, #0x455]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_0211e294(void)
+extern "C" asm void set_random(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x74
-    ldr r2, =data_ov014_0212d3e8
+    ldr r2, =pool_initialized
     mov r10, r0
     ldrb r0, [r2]
     mov r9, r1
@@ -251,7 +251,7 @@ extern "C" asm void func_ov014_0211e294(void)
     mov r1, #4
     str r3, [r2, #4]
     str r3, [sp]
-    bl func_ov014_0211e3b4
+    bl CPS_SslAddRandomSeed
 @L_0211e2f4:
     cmp r9, #0
     mov r8, #0
@@ -266,16 +266,16 @@ extern "C" asm void func_ov014_0211e294(void)
     cmp r1, #0x14
     bne @L_0211e384
     mov r0, r6
-    bl func_ov014_0211fe08
+    bl CPSi_sha1_init
     bl OS_DisableInterrupts
     mov r7, r0
     mov r0, r6
     mov r1, r5
     mov r2, r11
-    bl func_ov014_0211fe5c
+    bl CPSi_sha1_calc
     mov r0, r6
     mov r1, r4
-    bl func_ov014_0211ff7c
+    bl CPSi_sha1_result_prng
     mov r1, #1
     mov r0, #0x13
 @L_0211e354:
@@ -303,24 +303,24 @@ extern "C" asm void func_ov014_0211e294(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" char *func_ov014_0211e3b4(s32 arg0, s32 arg1)
+extern "C" char *CPS_SslAddRandomSeed(s32 arg0, s32 arg1)
 {
     s32 local[23];
-    func_ov014_0211fe08(((u8 *)local));
+    CPSi_sha1_init(((u8 *)local));
     s32 v1 = OS_DisableInterrupts();
-    func_ov014_0211fe5c((s32)((u8 *)local), (s32)data_ov014_0212d3f0, 0x14);
-    func_ov014_0211fe5c((s32)((u8 *)local), arg0, arg1);
-    func_ov014_0211ff14((s32)((u8 *)local), (s32)data_ov014_0212d3f0);
+    CPSi_sha1_calc((s32)((u8 *)local), (s32)data_ov014_0212d3f0, 0x14);
+    CPSi_sha1_calc((s32)((u8 *)local), arg0, arg1);
+    CPSi_sha1_result((s32)((u8 *)local), (s32)data_ov014_0212d3f0);
     OS_RestoreInterrupts(v1);
-    *(u8 *)(data_ov014_0212d3e8) = 1;
-    return (char *)data_ov014_0212d3e8;
+    *(u8 *)(pool_initialized) = 1;
+    return (char *)pool_initialized;
 }
 
-extern "C" asm s32 func_ov014_0211e42c(...)
+extern "C" asm s32 send_change_cipher_spec_and_finished(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
-    ldr r1, =data_ov014_02126adc
+    ldr r1, =CPSiAlloc
     mov r9, r0
     ldr r1, [r1]
     mov r0, #0x83
@@ -365,7 +365,7 @@ extern "C" asm s32 func_ov014_0211e42c(...)
     mov r0, r8
     add r1, r7, #0xf
     mov r2, r5
-    bl func_ov014_0211d628
+    bl finished_md5
     mov r2, r10
     add r0, r8, #0x3fc
     add r1, r8, #0x3a4
@@ -378,7 +378,7 @@ extern "C" asm s32 func_ov014_0211e42c(...)
     mov r0, r8
     add r1, r7, #0x1f
     mov r2, r5
-    bl func_ov014_0211d704
+    bl finished_sha1
     mov r2, r6
     add r0, r8, #0x348
     add r1, r8, #0x2ec
@@ -386,17 +386,17 @@ extern "C" asm s32 func_ov014_0211e42c(...)
     mov r2, r4
     mov r0, r8
     add r1, r7, #0xb
-    bl func_ov014_0211ddc0
+    bl update_digest
     mov r0, r8
     add r1, r7, #6
-    bl func_ov014_0211db38
+    bl make_ciphertext
     add r1, r0, #6
     mov r0, r7
     mov r2, r5
     mov r3, r5
     str r9, [sp]
-    bl func_ov014_0210533c
-    ldr r1, =data_ov014_02126b0c
+    bl CPSi_TcpWrite2Raw
+    ldr r1, =CPSiFree
     mov r0, r7
     ldr r1, [r1]
     blx r1
@@ -404,11 +404,11 @@ extern "C" asm s32 func_ov014_0211e42c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm s32 func_ov014_0211e584(...)
+extern "C" asm s32 send_client_hello(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #4
-    ldr r1, =data_ov014_02126adc
+    ldr r1, =CPSiAlloc
     mov r7, r0
     ldr r1, [r1]
     mov r0, #0x98
@@ -423,7 +423,7 @@ extern "C" asm s32 func_ov014_0211e584(...)
     strb r0, [r6, #9]
     mov r4, #0
     strb r4, [r6, #0xa]
-    bl func_ov014_0211c1a8
+    bl date2sec
     mov r1, r0, lsr #0x18
     strb r1, [r5, #0x34]
     mov r1, r0, lsr #0x10
@@ -433,7 +433,7 @@ extern "C" asm s32 func_ov014_0211e584(...)
     strb r0, [r5, #0x37]
     add r0, r5, #0x38
     mov r1, #0x1c
-    bl func_ov014_0211e294
+    bl set_random
     mov r8, #0x20
     mov r2, r8
     add r0, r5, #0x34
@@ -442,7 +442,7 @@ extern "C" asm s32 func_ov014_0211e584(...)
     ldrh r2, [r7, #0x18]
     ldr r1, [r7, #0x1c]
     mov r0, r5
-    bl func_ov014_0211bfa8
+    bl find_session_from_IP
     ldrb r0, [r5, #0x30]
     cmp r0, #0
     streqb r4, [r6, #0x2b]
@@ -498,12 +498,12 @@ extern "C" asm s32 func_ov014_0211e584(...)
     mov r3, r2
     add r1, r4, #5
     str r7, [sp]
-    bl func_ov014_0210533c
+    bl CPSi_TcpWrite2Raw
     mov r0, r5
     mov r2, r4
     add r1, r6, #5
-    bl func_ov014_0211ddc0
-    ldr r1, =data_ov014_02126b0c
+    bl update_digest
+    ldr r1, =CPSiFree
     mov r0, r6
     ldr r1, [r1]
     blx r1
@@ -511,7 +511,7 @@ extern "C" asm s32 func_ov014_0211e584(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm s32 func_ov014_0211e724(...)
+extern "C" asm s32 send_client_key_exchange(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -525,7 +525,7 @@ extern "C" asm s32 func_ov014_0211e724(...)
     mov r3, r2
     mov r1, #7
     str r10, [sp]
-    bl func_ov014_0210533c
+    bl CPSi_TcpWrite2Raw
 @L_0211e758:
     mov r0, #3
     strb r0, [r4]
@@ -533,11 +533,11 @@ extern "C" asm s32 func_ov014_0211e724(...)
     strb r0, [r4, #1]
     add r0, r4, #2
     mov r1, #0x2e
-    bl func_ov014_0211e294
+    bl set_random
     ldr r9, [r4, #0x594]
     mov r0, r9, lsl #1
     add r1, r0, r0, lsr #31
-    ldr r0, =data_ov014_02126adc
+    ldr r0, =CPSiAlloc
     mov r7, r1, asr #1
     ldr r2, [r0]
     mov r0, r9
@@ -553,7 +553,7 @@ extern "C" asm s32 func_ov014_0211e724(...)
     add r0, r8, #2
     sub r1, r9, #0x33
     strb r2, [r8, #1]
-    bl func_ov014_0211e294
+    bl set_random
     sub r3, r9, #0x31
     mov r1, #0
     add r2, r8, r9
@@ -562,13 +562,13 @@ extern "C" asm s32 func_ov014_0211e724(...)
     mov r0, r4
     mov r2, #0x30
     bl MI_CpuCopy8
-    ldr r0, =data_ov014_02126adc
+    ldr r0, =CPSiAlloc
     ldr r1, [r0]
     mov r0, r7, lsl #3
     blx r1
     movs r5, r0
     bne @L_0211e81c
-    ldr r1, =data_ov014_02126b0c
+    ldr r1, =CPSiFree
     mov r0, r8
     ldr r1, [r1]
     blx r1
@@ -584,36 +584,36 @@ extern "C" asm s32 func_ov014_0211e724(...)
     mov r3, r7
     str r0, [sp, #4]
     add r6, r11, r7, lsl #1
-    bl func_ov014_02120e30
+    bl CPSi_big_from_char
     add r1, r4, #0x198
     ldr r2, [r4, #0x5a0]
     mov r0, r11
     add r1, r1, #0x400
     mov r3, r7
-    bl func_ov014_02120e30
+    bl CPSi_big_from_char
     add r1, r4, #0x94
     mov r0, r6
     add r1, r1, #0x400
     mov r2, r9
     mov r3, r7
-    bl func_ov014_02120e30
-    bl func_ov014_0211c208
+    bl CPSi_big_from_char
+    bl enter_computebound
     str r6, [sp]
     mov r6, r0
     ldr r1, [sp, #4]
     mov r2, r11
     mov r3, r7
     mov r0, r5
-    bl func_ov014_02120808
+    bl CPSi_big_power
     mov r0, r6
-    bl func_ov014_0211c250
-    ldr r0, =data_ov014_02126adc
+    bl exit_computebound
+    ldr r0, =CPSiAlloc
     ldr r1, [r0]
     add r0, r9, #0x49
     blx r1
     movs r6, r0
     bne @L_0211e8d8
-    ldr r6, =data_ov014_02126b0c
+    ldr r6, =CPSiFree
     mov r0, r8
     ldr r1, [r6]
     blx r1
@@ -672,12 +672,12 @@ extern "C" asm s32 func_ov014_0211e724(...)
     mov r3, r2
     add r1, r9, #9
     str r10, [sp]
-    bl func_ov014_0210533c
+    bl CPSi_TcpWrite2Raw
     mov r0, r4
     add r1, r6, #5
     add r2, r9, #4
-    bl func_ov014_0211ddc0
-    ldr r4, =data_ov014_02126b0c
+    bl update_digest
+    ldr r4, =CPSiFree
     mov r0, r6
     ldr r1, [r4]
     blx r1
@@ -691,23 +691,23 @@ extern "C" asm s32 func_ov014_0211e724(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm s32 func_ov014_0211e9d8(...)
+extern "C" asm s32 mustget_change_cipher_spec_and_finished(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
-    bl func_ov014_0211e104
+    bl parse_record
     cmp r0, #7
     movne r0, #1
     ldmneia sp!, {r4, pc}
     mov r0, r4
-    bl func_ov014_0211e104
+    bl parse_record
     cmp r0, #6
     movne r0, #1
     moveq r0, #0
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov014_0211ea08(u8 *arg0)
+extern "C" s32 ssl_connect_try(u8 *arg0)
 {
     u8 *r4;
     s32 v1;
@@ -717,32 +717,32 @@ extern "C" s32 func_ov014_0211ea08(u8 *arg0)
     s32 t1;
     u16 t2;
     t0 = *(s32 *)(arg0 + 0xC);
-    func_ov014_0211e584((s32)arg0);
+    send_client_hello((s32)arg0);
     r4 = (u8 *)t0;
     do {
-        v1 = func_ov014_0211e104((s32)arg0);
+        v1 = parse_record((s32)arg0);
         if (v1 == 9)
             return 1;
         if (v1 == 4)
             break;
     } while (*(u8 *)(r4 + 0x31) == 0);
     if (*(u8 *)(r4 + 0x31) != 0) {
-        func_ov014_0211d434((s32)r4);
-        v3 = func_ov014_0211e9d8((s32)arg0);
+        create_key_block((s32)r4);
+        v3 = mustget_change_cipher_spec_and_finished((s32)arg0);
         if (v3 != 0)
             return 1;
-        func_ov014_0211e42c((s32)arg0);
+        send_change_cipher_spec_and_finished((s32)arg0);
     } else {
-        func_ov014_0211e724((s32)arg0);
-        func_ov014_0211d3d0((s32)r4);
+        send_client_key_exchange((s32)arg0);
+        create_master_secret((s32)r4);
         if (*(u8 *)(r4 + 0x30) != 0) {
             t1 = *(s32 *)(arg0 + 0x1C);
             t2 = *(u16 *)(arg0 + 0x18);
-            func_ov014_0211c04c((s32)r4, t1, t2);
+            cache_session((s32)r4, t1, t2);
         }
-        func_ov014_0211d434((s32)r4);
-        func_ov014_0211e42c((s32)arg0);
-        v10 = func_ov014_0211e9d8((s32)arg0);
+        create_key_block((s32)r4);
+        send_change_cipher_spec_and_finished((s32)arg0);
+        v10 = mustget_change_cipher_spec_and_finished((s32)arg0);
         if (v10 != 0)
             return 1;
     }
@@ -750,7 +750,7 @@ extern "C" s32 func_ov014_0211ea08(u8 *arg0)
     return 0;
 }
 
-extern "C" s32 func_ov014_0211ead4(u8 *arg0)
+extern "C" s32 CPSi_SslConnect(u8 *arg0)
 {
     s32 r1;
     u8 *r4;
@@ -758,20 +758,20 @@ extern "C" s32 func_ov014_0211ead4(u8 *arg0)
     s32 v3;
     r1 = *(u8 *)(arg0 + 0x8);
     r4 = (u8 *)*(s32 *)(arg0 + 0xC);
-    if ((r1 != 4 && (v0 = func_ov014_02104d54((s32)arg0, r1), v0 != 0))) {
+    if ((r1 != 4 && (v0 = CPSi_TcpConnectRaw((s32)arg0, r1), v0 != 0))) {
         return 1;
     } else {
         *(u8 *)(r4 + 0x455) = 0;
         *(s32 *)(r4 + 0x1D4) = 0;
         *(u8 *)(r4 + 0x454) = 0;
-        ((s32 (*)(...))func_ov014_0211fe08)((s32)(r4 + 0x2EC), 0);
-        func_ov014_0211f55c((u8 *)(r4 + 0x3A4));
-        v3 = func_ov014_0211ea08(arg0);
+        ((s32 (*)(...))CPSi_sha1_init)((s32)(r4 + 0x2EC), 0);
+        CPSi_md5_init((u8 *)(r4 + 0x3A4));
+        v3 = ssl_connect_try(arg0);
         return v3;
     }
 }
 
-extern "C" s32 func_ov014_0211eb28(u8 *arg0, u8 *arg1)
+extern "C" s32 CPSi_SslRead(u8 *arg0, u8 *arg1)
 {
     u8 *r4;
     s32 r12;
@@ -789,16 +789,16 @@ extern "C" s32 func_ov014_0211eb28(u8 *arg0, u8 *arg1)
         t0 = (r12 + *(s32 *)(r4 + 0x82C));
         t1 = (*(s32 *)(r4 + 0x828) - *(s32 *)(r4 + 0x82C));
         t2 = *(s32 *)(r4 + 0x82C);
-        v0 = func_ov014_0211dd54(t0, t1, (s32)arg1, t2);
+        v0 = tcp_read_raw_nbytes(t0, t1, (s32)arg1, t2);
         if (v0 != 0) {
             t3 = *(s32 *)(r4 + 0x824);
-            ((s32 (*)(...))*(s32 *)(((u8 *)&data_ov014_02126b0c)))(t3);
+            ((s32 (*)(...))*(s32 *)(((u8 *)&CPSiFree)))(t3);
             *(s32 *)(r4 + 0x824) = 0;
             *(s32 *)(arg0) = 0;
             return 0;
         } else {
             t5 = *(s32 *)(r4 + 0x824);
-            func_ov014_0211ddec((s32)r4, t5);
+            parse_record_in_buf((s32)r4, t5);
             if (*(u8 *)(r4 + 0x456) == 0) {
                 *(s32 *)(r4 + 0x824) = 0;
             }
@@ -806,7 +806,7 @@ extern "C" s32 func_ov014_0211eb28(u8 *arg0, u8 *arg1)
     }
     if (*(s32 *)(r4 + 0x824) == 0) {
         do {
-            v3 = func_ov014_0211e104((s32)arg1);
+            v3 = parse_record((s32)arg1);
             if (v3 == 9) {
                 *(s32 *)(arg0) = 0;
                 return 0;
@@ -818,19 +818,19 @@ extern "C" s32 func_ov014_0211eb28(u8 *arg0, u8 *arg1)
     return (*(s32 *)(r4 + 0x824) + *(s32 *)(r4 + 0x82C));
 }
 
-extern "C" void func_ov014_0211ec00(u32 arg0, u8 *arg1)
+extern "C" void CPSi_SslConsume(u32 arg0, u8 *arg1)
 {
     u8 *s = *(u8 **)(arg1 + 0xC);
     if (arg0 >= *(u32 *)(s + 0x828) - *(u32 *)(s + 0x82C)) {
         if (*(s32 *)(s + 0x824) != 0)
-            (*(void (**)(s32))data_ov014_02126b0c)(*(s32 *)(s + 0x824));
+            (*(void (**)(s32))CPSiFree)(*(s32 *)(s + 0x824));
         *(s32 *)(s + 0x824) = 0;
     } else {
         *(u32 *)(s + 0x82C) += arg0;
     }
 }
 
-extern "C" asm s32 func_ov014_0211ec50(...)
+extern "C" asm s32 try_fill_record(...)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -845,7 +845,7 @@ extern "C" asm s32 func_ov014_0211ec50(...)
     ldmloia sp!, {r3, r4, r5, r6, pc}
     add r0, sp, #0
     mov r1, r5
-    bl func_ov014_02104fbc
+    bl CPSi_TcpReadRaw
     ldrb r2, [r0, #3]
     ldrb r0, [r0, #4]
     ldr r1, =0x4805
@@ -857,7 +857,7 @@ extern "C" asm s32 func_ov014_0211ec50(...)
     addhi sp, sp, #4
     strhib r0, [r4, #0x455]
     ldmhiia sp!, {r3, r4, r5, r6, pc}
-    ldr r1, =data_ov014_02126adc
+    ldr r1, =CPSiAlloc
     ldr r1, [r1]
     blx r1
     cmp r0, #0
@@ -879,7 +879,7 @@ extern "C" asm s32 func_ov014_0211ec50(...)
 @L_0211ecfc:
     add r0, sp, #0
     mov r1, r5
-    bl func_ov014_02104fbc
+    bl CPSi_TcpReadRaw
     ldr r3, [r4, #0x828]
     ldr r2, [r4, #0x82c]
     ldr r1, [sp]
@@ -895,12 +895,12 @@ extern "C" asm s32 func_ov014_0211ec50(...)
     bl MI_CpuCopy8
     ldr r0, [sp]
     mov r1, r5
-    bl func_ov014_021050b8
+    bl CPSi_SocConsumeRaw
     cmp r6, #0
     beq @L_0211ed74
     ldr r1, [r4, #0x824]
     mov r0, r4
-    bl func_ov014_0211ddec
+    bl parse_record_in_buf
     ldrb r0, [r4, #0x456]
     add sp, sp, #4
     cmp r0, #0
@@ -916,13 +916,13 @@ extern "C" asm s32 func_ov014_0211ec50(...)
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov014_0211ed94(u8 *arg0)
+extern "C" s32 CPSi_SslGetLength(u8 *arg0)
 {
     s32 r1;
     u8 *r4;
     r4 = (u8 *)*(s32 *)(arg0 + 0xC);
     if ((*(s32 *)(r4 + 0x824) == 0 || *(u8 *)(r4 + 0x456) == 0)) {
-        func_ov014_0211ec50((s32)arg0);
+        try_fill_record((s32)arg0);
     }
     r1 = *(s32 *)(r4 + 0x824);
     if ((r1 != 0 && *(u8 *)(r4 + 0x456) != 0)) {
@@ -936,7 +936,7 @@ extern "C" s32 func_ov014_0211ed94(u8 *arg0)
     }
 }
 
-extern "C" asm void func_ov014_0211ee0c(void)
+extern "C" asm void CPSi_SslWrite2(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -953,7 +953,7 @@ extern "C" asm void func_ov014_0211ee0c(void)
     str r0, [sp, #4]
 @L_0211ee40:
     ldr r0, =0xb4f
-    ldr r1, =data_ov014_02126adc
+    ldr r1, =CPSiAlloc
     mov r6, r0
     cmp r5, r0
     movle r6, r5
@@ -989,7 +989,7 @@ extern "C" asm void func_ov014_0211ee0c(void)
     mov r1, r4
     add r8, r8, r11
     strb r6, [r4, #4]
-    bl func_ov014_0211db38
+    bl make_ciphertext
     ldr r1, [sp, #0x30]
     mov r7, r0
     mov r2, #0
@@ -997,9 +997,9 @@ extern "C" asm void func_ov014_0211ee0c(void)
     mov r0, r4
     mov r1, r7
     mov r3, r2
-    bl func_ov014_0210533c
+    bl CPSi_TcpWrite2Raw
     cmp r0, r7
-    ldr r1, =data_ov014_02126b0c
+    ldr r1, =CPSiFree
     mov r0, r4
     ldr r1, [r1]
     movlo r6, #0
@@ -1017,7 +1017,7 @@ extern "C" asm void func_ov014_0211ee0c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_0211ef44(u8 *arg0)
+extern "C" s32 CPSi_SslShutdown(u8 *arg0)
 {
     s32 local[7];
     u8 *r4;
@@ -1031,14 +1031,14 @@ extern "C" s32 func_ov014_0211ef44(u8 *arg0)
         *(u8 *)(((u8 *)local) + 0x4) = 2;
         *(u8 *)(((u8 *)local) + 0x5) = 1;
         *(u8 *)(((u8 *)local) + 0x6) = 0;
-        v0 = func_ov014_0211db38((s32)r4, (s32)((u8 *)local));
-        func_ov014_0210533c((s32)((u8 *)local), v0, 0, 0, (s32)arg0);
+        v0 = make_ciphertext((s32)r4, (s32)((u8 *)local));
+        CPSi_TcpWrite2Raw((s32)((u8 *)local), v0, 0, 0, (s32)arg0);
     }
     *(u8 *)(r4 + 0x455) = 0;
     return 0;
 }
 
-extern "C" s32 func_ov014_0211efc8(u8 *arg0)
+extern "C" s32 CPSi_SslClose(u8 *arg0)
 {
     u8 *r4;
     u8 *t0;
@@ -1047,27 +1047,27 @@ extern "C" s32 func_ov014_0211efc8(u8 *arg0)
     r4 = t0;
     arg0 = (u8 *)*(s32 *)(t0 + 0x824);
     if ((s32)arg0 != 0) {
-        ((s32 (*)(...))*(s32 *)(((u8 *)&data_ov014_02126b0c)))((s32)arg0);
+        ((s32 (*)(...))*(s32 *)(((u8 *)&CPSiFree)))((s32)arg0);
     }
     *(s32 *)(r4 + 0x824) = 0;
     return 0;
 }
 
-extern "C" void func_ov014_0211f000(u8 arg0)
+extern "C" void CPS_SetSsl(u8 arg0)
 {
-    func_02000b64(0x2000C4C);
-    if ((s32)*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) != 0)
-        *(u8 *)(*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) + 0x9) = arg0;
+    OSi_ReferSymbol(0x2000C4C);
+    if ((s32)*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) != 0)
+        *(u8 *)(*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) + 0x9) = arg0;
     return;
 }
 
-extern "C" asm void func_ov014_0211f030(void)
+extern "C" asm void CPSi_SslPeriodical(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
     bl OS_DisableInterrupts
     mov lr, #0
-    ldr r6, =data_ov014_0212d404
+    ldr r6, =session
     ldr r1, =0x3bd
     mov r3, lr
     mov r2, #0x5c
@@ -1083,7 +1083,7 @@ extern "C" asm void func_ov014_0211f030(void)
     cmp lr, #4
     blt @L_0211f050
     bl OS_RestoreInterrupts
-    ldr r0, =data_020bb120
+    ldr r0, =OSi_ThreadInfo
     ldr r4, [r0, #8]
     cmp r4, #0
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -1121,22 +1121,22 @@ extern "C" asm void func_ov014_0211f030(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" void func_ov014_0211f110(void)
+extern "C" void CPSi_SslCleanup(void)
 {
-    MI_CpuFill8((s32)data_ov014_0212d404, 0, 0x170);
+    MI_CpuFill8((s32)session, 0, 0x170);
 }
 
-extern "C" void func_ov014_0211f12c(s32 arg0, s32 arg1, s32 arg2)
-{
-    MI_CpuCopy8(arg1, arg0, arg2, arg0);
-}
-
-extern "C" void func_ov014_0211f144(s32 arg0, s32 arg1, s32 arg2)
+extern "C" void char_from_long(s32 arg0, s32 arg1, s32 arg2)
 {
     MI_CpuCopy8(arg1, arg0, arg2, arg0);
 }
 
-extern "C" asm void func_ov014_0211f15c(void)
+extern "C" void long_from_char(s32 arg0, s32 arg1, s32 arg2)
+{
+    MI_CpuCopy8(arg1, arg0, arg2, arg0);
+}
+
+extern "C" asm void CPSi_md5_block(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x44
@@ -1147,7 +1147,7 @@ extern "C" asm void func_ov014_0211f15c(void)
     mov r2, #0x40
     ldmia r3, {r5, r6, r7}
     ldr r8, [r3, #0xc]
-    bl func_ov014_0211f144
+    bl long_from_char
     mov lr, #0
     ldr r11, =data_ov014_02125f80
     mov r9, lr
@@ -1398,7 +1398,7 @@ extern "C" asm void func_ov014_0211f15c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_0211f55c(u8 *arg0)
+extern "C" s32 CPSi_md5_init(u8 *arg0)
 {
     MI_CpuFill8(arg0, 0, 0x58);
     *(s32 *)(arg0) = 0x67452301;
@@ -1408,7 +1408,7 @@ extern "C" s32 func_ov014_0211f55c(u8 *arg0)
     return 0x10325476;
 }
 
-extern "C" asm s32 func_ov014_0211f5a4(...)
+extern "C" asm s32 CPSi_md5_calc(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
@@ -1437,14 +1437,14 @@ extern "C" asm s32 func_ov014_0211f5a4(...)
     mov r0, r8
     add r1, r8, #0x18
     mov r4, #0
-    bl func_ov014_0211f15c
+    bl CPSi_md5_block
     add r0, r5, #0x3f
     cmp r0, r6
     bhs @L_0211f644
 @L_0211f620:
     mov r0, r8
     add r1, r7, r5
-    bl func_ov014_0211f15c
+    bl CPSi_md5_block
     add r5, r5, #0x40
     add r0, r5, #0x3f
     cmp r0, r6
@@ -1461,21 +1461,21 @@ extern "C" asm s32 func_ov014_0211f5a4(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" s32 func_ov014_0211f65c(u8 *arg0, s32 arg1)
+extern "C" s32 CPSi_md5_result(u8 *arg0, s32 arg1)
 {
     s32 r2;
     s32 r5;
     s32 v3;
-    func_ov014_0211f12c(arg1, (s32)(arg0 + 0x10), 8);
+    char_from_long(arg1, (s32)(arg0 + 0x10), 8);
     r5 = (s32)arg0;
     r2 = (0x38 - (((u32)*(s32 *)(arg0 + 0x10) >> 3) & 0x3F));
     arg0 = (u8 *)(((u32)*(s32 *)(arg0 + 0x10) >> 3) & 0x3F);
     if ((s32)arg0 >= 0x38) {
         r2 = (s32)(0x78 - (s32)arg0);
     }
-    func_ov014_0211f5a4(r5, (u8 *)((u8 *)&data_ov014_02125f40), r2);
-    func_ov014_0211f5a4(r5, arg1, 8);
-    v3 = ((s32 (*)(...))func_ov014_0211f12c)(arg1, r5, 0x10);
+    CPSi_md5_calc(r5, (u8 *)((u8 *)&data_ov014_02125f40), r2);
+    CPSi_md5_calc(r5, arg1, 8);
+    v3 = ((s32 (*)(...))char_from_long)(arg1, r5, 0x10);
     return v3;
 }
 
@@ -1487,7 +1487,7 @@ extern "C" u32 func_ov014_0211f6c4(s32 arg0, u32 *arg1)
     return t;
 }
 
-extern "C" asm s32 func_ov014_0211f708(...)
+extern "C" asm s32 char_from_long_2(...)
 {
     stmdb sp!, {r3, lr}
     movs r2, r2, lsr #2
@@ -1509,14 +1509,14 @@ extern "C" asm s32 func_ov014_0211f708(...)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov014_0211f74c(u32 *arg0, u8 *arg1, u32 arg2)
+extern "C" void long_from_char_2(u32 *arg0, u8 *arg1, u32 arg2)
 {
     u32 i;
     for (i = 0; i < arg2; i += 4)
         *arg0++ = (arg1[i] << 24) | (arg1[i + 1] << 16) | (arg1[i + 2] << 8) | arg1[i + 3];
 }
 
-extern "C" asm void func_ov014_0211f794(void)
+extern "C" asm void CPSi_sha1_block(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x50
@@ -1528,7 +1528,7 @@ extern "C" asm void func_ov014_0211f794(void)
     ldmia r3, {r5, r6, r10}
     ldr r8, [r3, #0xc]
     ldr r9, [r3, #0x10]
-    bl func_ov014_0211f74c
+    bl long_from_char_2
     mov r0, #0
     ldr r2, =0x5a827999
     mov r1, r0
@@ -1933,7 +1933,7 @@ extern "C" asm void func_ov014_0211f794(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_0211fe08(u8 *arg0)
+extern "C" s32 CPSi_sha1_init(u8 *arg0)
 {
     MI_CpuFill8(arg0, 0, 0x5C);
     *(s32 *)(arg0) = 0x67452301;
@@ -1944,7 +1944,7 @@ extern "C" s32 func_ov014_0211fe08(u8 *arg0)
     return -0x3C2D1E10;
 }
 
-extern "C" asm s32 func_ov014_0211fe5c(...)
+extern "C" asm s32 CPSi_sha1_calc(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
@@ -1973,14 +1973,14 @@ extern "C" asm s32 func_ov014_0211fe5c(...)
     mov r0, r8
     add r1, r8, #0x1c
     mov r4, #0
-    bl func_ov014_0211f794
+    bl CPSi_sha1_block
     add r0, r5, #0x3f
     cmp r0, r6
     bhs @L_0211fefc
 @L_0211fed8:
     mov r0, r8
     add r1, r7, r5
-    bl func_ov014_0211f794
+    bl CPSi_sha1_block
     add r5, r5, #0x40
     add r0, r5, #0x3f
     cmp r0, r6
@@ -1997,7 +1997,7 @@ extern "C" asm s32 func_ov014_0211fe5c(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm s32 func_ov014_0211ff14(...)
+extern "C" asm s32 CPSi_sha1_result(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -2005,7 +2005,7 @@ extern "C" asm s32 func_ov014_0211ff14(...)
     mov r0, r4
     add r1, r5, #0x14
     mov r2, #8
-    bl func_ov014_0211f708
+    bl char_from_long_2
     ldr r0, [r5, #0x18]
     ldr r1, =data_ov014_02126080
     mov r0, r0, lsr #3
@@ -2014,25 +2014,25 @@ extern "C" asm s32 func_ov014_0211ff14(...)
     cmp r0, #0x38
     rsbge r2, r0, #0x78
     mov r0, r5
-    bl func_ov014_0211fe5c
+    bl CPSi_sha1_calc
     mov r0, r5
     mov r1, r4
     mov r2, #8
-    bl func_ov014_0211fe5c
+    bl CPSi_sha1_calc
     mov r0, r4
     mov r1, r5
     mov r2, #0x14
-    bl func_ov014_0211f708
+    bl char_from_long_2
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" void func_ov014_0211ff7c(s32 arg0, s32 arg1)
+extern "C" void CPSi_sha1_result_prng(s32 arg0, s32 arg1)
 {
-    func_ov014_0211fe5c(arg0, (s32)data_ov014_02126081, 0x2C);
-    func_ov014_0211f708(arg1, arg0, 0x14);
+    CPSi_sha1_calc(arg0, (s32)data_ov014_02126081, 0x2C);
+    char_from_long_2(arg1, arg0, 0x14);
 }
 
-extern "C" asm void func_ov014_0211ffac(void)
+extern "C" asm void CPSi_rc4_init(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r3, #0
@@ -2068,7 +2068,7 @@ extern "C" asm void func_ov014_0211ffac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_ov014_02120024(u8 *arg0, u8 *arg1, s32 arg2)
+extern "C" void CPSi_rc4_crypt(u8 *arg0, u8 *arg1, s32 arg2)
 {
     s32 k;
     u32 i = arg0[0];
@@ -2089,7 +2089,7 @@ extern "C" void func_ov014_02120024(u8 *arg0, u8 *arg1, s32 arg2)
     arg0[1] = j;
 }
 
-extern "C" s32 func_ov014_02120090(s32 arg0, s32 arg1)
+extern "C" s32 count_digits(s32 arg0, s32 arg1)
 {
     while ((arg1 != 0 && *(u16 *)(((u8 *)(arg0 + (arg1 << 1))) - 0x2) == 0)) {
         arg1 = (arg1 - 1);
@@ -2097,13 +2097,13 @@ extern "C" s32 func_ov014_02120090(s32 arg0, s32 arg1)
     return arg1;
 }
 
-extern "C" s32 func_ov014_021200b8(u8 *arg0, s32 arg1)
+extern "C" s32 CPSi_big_sign(u8 *arg0, s32 arg1)
 {
     s32 v0;
     if ((*(u16 *)(arg0 + ((arg1 - 1) << 1)) & 0x8000) != 0) {
         return -1;
     } else {
-        v0 = func_ov014_02120090((s32)arg0, arg1);
+        v0 = count_digits((s32)arg0, arg1);
         if (v0 != 0) {
             arg0 = (u8 *)1;
         } else {
@@ -2113,7 +2113,7 @@ extern "C" s32 func_ov014_021200b8(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" s32 func_ov014_021200e8(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3)
+extern "C" s32 CPSi_big_add(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3)
 {
     s32 r0;
     s32 r3;
@@ -2123,8 +2123,8 @@ extern "C" s32 func_ov014_021200e8(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3)
     s32 v1;
     s32 v2;
     s32 t0;
-    v0 = func_ov014_02120090((s32)arg1, arg3);
-    v1 = func_ov014_02120090((s32)arg2, arg3);
+    v0 = count_digits((s32)arg1, arg3);
+    v1 = count_digits((s32)arg2, arg3);
     r4 = v0;
     r0 = v1;
     if (r4 < r0) {
@@ -2152,7 +2152,7 @@ extern "C" s32 func_ov014_021200e8(u8 *arg0, u8 *arg1, u8 *arg2, s32 arg3)
     return v2;
 }
 
-extern "C" void func_ov014_02120184(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
+extern "C" void CPSi_big_add_small(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     s32 t0;
@@ -2181,7 +2181,7 @@ extern "C" void func_ov014_02120184(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
     return;
 }
 
-extern "C" void func_ov014_021201e4(u8 *arg0, s32 arg1)
+extern "C" void CPSi_big_negate(u8 *arg0, s32 arg1)
 {
     s32 r12;
     s32 t0;
@@ -2193,14 +2193,14 @@ extern "C" void func_ov014_021201e4(u8 *arg0, s32 arg1)
             r12 = (r12 + 1);
         } while (r12 < arg1);
     }
-    func_ov014_02120184(arg0, arg0, 1, arg1);
+    CPSi_big_add_small(arg0, arg0, 1, arg1);
     return;
 }
 
-extern "C" void func_ov014_02120224(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3)
+extern "C" void CPSi_big_sub(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3)
 {
-    s32 m = ((s32 (*)(...))func_ov014_02120090)(arg1, arg3);
-    s32 k = ((s32 (*)(...))func_ov014_02120090)(arg2, arg3);
+    s32 m = ((s32 (*)(...))count_digits)(arg1, arg3);
+    s32 k = ((s32 (*)(...))count_digits)(arg2, arg3);
     s32 i;
     s32 c;
     if (m < k)
@@ -2220,7 +2220,7 @@ extern "C" void func_ov014_02120224(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3)
     ((s32 (*)(...))MI_CpuFill8)(arg0 + i, 0, (arg3 - i) * 2);
 }
 
-extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
+extern "C" void CPSi_big_sub_small(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     s32 t0;
@@ -2251,7 +2251,7 @@ extern "C" void func_ov014_021202cc(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
     return;
 }
 
-extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2)
+extern "C" s32 CPSi_big_compare(u8 *arg0, u8 *arg1, s32 arg2)
 {
     s32 r12;
     r12 = (arg2 - 1);
@@ -2269,7 +2269,7 @@ extern "C" s32 func_ov014_02120330(u8 *arg0, u8 *arg1, s32 arg2)
     return 0;
 }
 
-extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3)
+extern "C" void CPSi_big_add_part(u16 *arg0, u32 arg1, s32 arg2, s32 arg3)
 {
     while (arg1 != 0 && arg2 < arg3) {
         arg1 += arg0[arg2];
@@ -2279,22 +2279,22 @@ extern "C" void func_ov014_02120368(u16 *arg0, u32 arg1, s32 arg2, s32 arg3)
     }
 }
 
-extern "C" void func_ov014_0212039c(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3)
+extern "C" void CPSi_big_mult(u16 *arg0, u16 *arg1, u16 *arg2, s32 arg3)
 {
     s32 la;
     s32 lb;
     s32 i;
     s32 j;
     ((s32 (*)(...))MI_CpuFill8)(arg0, 0, arg3 << 1);
-    la = ((s32 (*)(...))func_ov014_02120090)(arg1, arg3);
-    lb = ((s32 (*)(...))func_ov014_02120090)(arg2, arg3);
+    la = ((s32 (*)(...))count_digits)(arg1, arg3);
+    lb = ((s32 (*)(...))count_digits)(arg2, arg3);
     for (i = 0; i < lb; i++) {
         for (j = 0; j < la && j < arg3 - i; j++)
-            ((s32 (*)(...))func_ov014_02120368)(arg0, arg1[j] * arg2[i], i + j, arg3);
+            ((s32 (*)(...))CPSi_big_add_part)(arg0, arg1[j] * arg2[i], i + j, arg3);
     }
 }
 
-extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3)
+extern "C" s32 CPSi_big_mult_small(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3)
 {
     s32 r0;
     s32 r3;
@@ -2302,7 +2302,7 @@ extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3)
     s32 v0;
     s32 v1;
     s32 t0;
-    v0 = func_ov014_02120090((s32)arg1, arg3);
+    v0 = count_digits((s32)arg1, arg3);
     r0 = v0;
     r3 = 0;
     r12 = 0;
@@ -2322,7 +2322,7 @@ extern "C" s32 func_ov014_0212044c(u8 *arg0, u8 *arg1, s32 arg2, u16 arg3)
     return v1;
 }
 
-extern "C" asm void func_ov014_021204c4(void)
+extern "C" asm void CPSi_big_sqr(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r1
@@ -2330,7 +2330,7 @@ extern "C" asm void func_ov014_021204c4(void)
     mov r10, r0
     mov r0, r9
     mov r1, r8
-    bl func_ov014_02120090
+    bl count_digits
     mov r11, r0
     cmp r8, r11, lsl #1
     mov r0, r11, lsl #1
@@ -2388,13 +2388,13 @@ extern "C" asm void func_ov014_021204c4(void)
     mov r1, r7
     mov r2, r4
     mov r3, r8
-    bl func_ov014_02120368
+    bl CPSi_big_add_part
     mov r1, r7
     mov r2, r4
     mov r0, r10
     mov r3, r8
 @L_021205c0:
-    bl func_ov014_02120368
+    bl CPSi_big_add_part
     add r6, r6, #1
 @L_021205c8:
     cmp r6, r11
@@ -2409,12 +2409,12 @@ extern "C" asm void func_ov014_021204c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" u64 func_ov014_021205f0(u16 *arg0)
+extern "C" u64 get48bits_1(u16 *arg0)
 {
     return (u64)arg0[0] << 32;
 }
 
-extern "C" asm void func_ov014_021205fc(void)
+extern "C" asm void get48bits_2(void)
 {
     ldrh r1, [r0]
     ldrh r0, [r0, #-2]
@@ -2422,7 +2422,7 @@ extern "C" asm void func_ov014_021205fc(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_0212060c(void)
+extern "C" asm void get48bits_3(void)
 {
     ldrh r1, [r0]
     ldrh r2, [r0, #-2]
@@ -2431,7 +2431,7 @@ extern "C" asm void func_ov014_0212060c(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_02120620(void)
+extern "C" asm void get64bits(void)
 {
     ldrh r2, [r0]
     ldrh r3, [r0, #-2]
@@ -2442,7 +2442,7 @@ extern "C" asm void func_ov014_02120620(void)
     bx lr
 }
 
-extern "C" asm void func_ov014_0212063c(void)
+extern "C" asm void CPSi_big_div(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x20
@@ -2460,11 +2460,11 @@ extern "C" asm void func_ov014_0212063c(void)
     bl MI_CpuFill8
     ldr r0, [sp, #4]
     mov r1, r9
-    bl func_ov014_02120090
+    bl count_digits
     mov r11, r0
     mov r0, r10
     mov r1, r9
-    bl func_ov014_02120090
+    bl count_digits
     mov r5, r0
     cmp r11, #0
     cmpgt r5, #0
@@ -2489,7 +2489,7 @@ extern "C" asm void func_ov014_0212063c(void)
     add r0, r10, r5, lsl #1
     sub r0, r0, #2
     mov r11, r5, lsl #1
-    bl func_ov014_0212060c
+    bl get48bits_3
     b @L_02120714
 @L_021206f4:
     add r0, r10, r5, lsl #1
@@ -2497,10 +2497,10 @@ extern "C" asm void func_ov014_0212063c(void)
     sub r0, r0, #2
     mov r11, r5, lsl #1
     ble @L_02120710
-    bl func_ov014_021205fc
+    bl get48bits_2
     b @L_02120714
 @L_02120710:
-    bl func_ov014_021205f0
+    bl get48bits_1
 @L_02120714:
     str r0, [sp, #0x18]
     str r1, [sp, #0x10]
@@ -2514,9 +2514,9 @@ extern "C" asm void func_ov014_0212063c(void)
     ldr r2, [sp, #0x14]
     mov r1, r6
     add r0, r6, #2
-    bl func_02018348
+    bl memmove
     add r0, r7, r11
-    bl func_ov014_02120620
+    bl get64bits
     ldr r2, [sp, #0x18]
     ldr r3, [sp, #0x10]
     bl _ll_udiv
@@ -2530,11 +2530,11 @@ extern "C" asm void func_ov014_0212063c(void)
     mov r1, r10
     mov r2, r2, lsr #0x10
     mov r3, r9
-    bl func_ov014_0212044c
+    bl CPSi_big_mult_small
     mov r0, r7
     mov r1, r8
     mov r2, r9
-    bl func_ov014_02120330
+    bl CPSi_big_compare
     cmp r0, #0
     sublt r5, r5, #1
     blt @L_02120768
@@ -2542,7 +2542,7 @@ extern "C" asm void func_ov014_0212063c(void)
     mov r1, r7
     mov r2, r8
     mov r3, r9
-    bl func_ov014_02120224
+    bl CPSi_big_sub
     strh r5, [r6]
     add r4, r4, #1
     cmp r4, r9
@@ -2568,11 +2568,11 @@ extern "C" asm void func_ov014_0212063c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02120808(void)
+extern "C" asm void CPSi_big_power(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
-    ldr r4, =data_ov014_02126adc
+    ldr r4, =CPSiAlloc
     mov r8, r3
     ldr r3, [r4]
     mov r10, r0
@@ -2594,7 +2594,7 @@ extern "C" asm void func_ov014_02120808(void)
     mov r0, r9
     mov r1, r8
     strh r2, [r10]
-    bl func_ov014_02120090
+    bl count_digits
     sub r0, r8, r0
     mov r6, r0, lsl #4
     cmp r6, r8, lsl #4
@@ -2625,7 +2625,7 @@ extern "C" asm void func_ov014_02120808(void)
     mov r0, r4
     mov r1, r10
     mov r2, r8
-    bl func_ov014_021204c4
+    bl CPSi_big_sqr
     mov r0, r4
     mov r1, r10
     mov r2, r11
@@ -2638,7 +2638,7 @@ extern "C" asm void func_ov014_02120808(void)
     mov r2, r7
     mov r3, r10
     str r5, [sp, #4]
-    bl func_ov014_0212063c
+    bl CPSi_big_div
 @L_0212090c:
     sub r0, r8, r6, asr #4
     add r0, r9, r0, lsl #1
@@ -2651,7 +2651,7 @@ extern "C" asm void func_ov014_02120808(void)
     mov r0, r4
     mov r1, r10
     mov r3, r8
-    bl func_ov014_0212039c
+    bl CPSi_big_mult
     mov r0, r4
     mov r1, r10
     mov r2, r11
@@ -2664,13 +2664,13 @@ extern "C" asm void func_ov014_02120808(void)
     mov r2, r7
     mov r3, r10
     str r5, [sp, #4]
-    bl func_ov014_0212063c
+    bl CPSi_big_div
 @L_02120970:
     add r6, r6, #1
     cmp r6, r8, lsl #4
     blo @L_021208c8
 @L_0212097c:
-    ldr r1, =data_ov014_02126b0c
+    ldr r1, =CPSiFree
     mov r0, r4
     ldr r1, [r1]
     blx r1
@@ -2678,7 +2678,7 @@ extern "C" asm void func_ov014_02120808(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_0212099c(void)
+extern "C" asm void CPSi_big_modinv(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -2706,7 +2706,7 @@ extern "C" asm void func_ov014_0212099c(void)
     strh r0, [r4, r8]
     mov r0, r9
     mov r1, r10
-    bl func_ov014_021200b8
+    bl CPSi_big_sign
     cmp r0, #0
     ble @L_02120aac
 @L_02120a10:
@@ -2717,7 +2717,7 @@ extern "C" asm void func_ov014_0212099c(void)
     mov r1, r4
     mov r2, r9
     mov r3, r7
-    bl func_ov014_0212063c
+    bl CPSi_big_div
     mov r0, r9
     mov r1, r4
     mov r2, r8
@@ -2730,12 +2730,12 @@ extern "C" asm void func_ov014_0212099c(void)
     mov r1, r11
     mov r2, r5
     mov r3, r10
-    bl func_ov014_0212039c
+    bl CPSi_big_mult
     mov r0, r7
     mov r1, r6
     mov r2, r7
     mov r3, r10
-    bl func_ov014_02120224
+    bl CPSi_big_sub
     mov r0, r5
     mov r1, r6
     mov r2, r8
@@ -2746,7 +2746,7 @@ extern "C" asm void func_ov014_0212099c(void)
     bl MI_CpuCopy8
     mov r0, r9
     mov r1, r10
-    bl func_ov014_021200b8
+    bl CPSi_big_sign
     cmp r0, #0
     bgt @L_02120a10
 @L_02120aac:
@@ -2754,7 +2754,7 @@ extern "C" asm void func_ov014_0212099c(void)
     mov r0, r6
     mov r1, r6
     mov r3, r10
-    bl func_ov014_021200e8
+    bl CPSi_big_add
     ldr r2, [sp, #0xc]
     ldr r3, [sp, #8]
     ldr r4, [sp, #0x10]
@@ -2762,12 +2762,12 @@ extern "C" asm void func_ov014_0212099c(void)
     mov r1, r6
     mov r0, #0
     str r4, [sp, #4]
-    bl func_ov014_0212063c
+    bl CPSi_big_div
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02120ae8(void)
+extern "C" asm void CPSi_big_montmult(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r6, r3
@@ -2783,7 +2783,7 @@ extern "C" asm void func_ov014_02120ae8(void)
     mov r0, r7
     mov r1, r9
     mov r2, r6
-    bl func_ov014_021204c4
+    bl CPSi_big_sqr
     b @L_02120b44
 @L_02120b28:
     cmp r8, #0
@@ -2792,13 +2792,13 @@ extern "C" asm void func_ov014_02120ae8(void)
     mov r1, r9
     mov r2, r8
     mov r3, r6
-    bl func_ov014_0212039c
+    bl CPSi_big_mult
 @L_02120b44:
     ldr r0, [sp, #0x2c]
     ldr r2, [sp, #0x28]
     mov r1, r7
     mov r3, r5
-    bl func_ov014_0212039c
+    bl CPSi_big_mult
     sub r1, r6, r5
     ldr r0, [sp, #0x2c]
     mov r9, r1, lsl #1
@@ -2811,16 +2811,16 @@ extern "C" asm void func_ov014_02120ae8(void)
     ldr r1, [sp, #0x2c]
     ldr r2, [sp, #0x24]
     mov r3, r6
-    bl func_ov014_0212039c
+    bl CPSi_big_mult
     mov r0, r7
     mov r1, r7
     ldr r2, [sp, #0x30]
     mov r3, r6
-    bl func_ov014_021200e8
+    bl CPSi_big_add
     mov r2, r9
     mov r0, r7
     add r1, r7, r5, lsl #1
-    bl func_02018348
+    bl memmove
     add r0, r7, r6, lsl #1
     sub r0, r0, r5, lsl #1
     mov r2, r5, lsl #1
@@ -2829,7 +2829,7 @@ extern "C" asm void func_ov014_02120ae8(void)
     mov r0, r7
     ldr r1, [sp, #0x24]
     mov r2, r6
-    bl func_ov014_02120330
+    bl CPSi_big_compare
     cmp r0, #0
     beq @L_02120be8
     cmp r0, #1
@@ -2846,18 +2846,18 @@ extern "C" asm void func_ov014_02120ae8(void)
     mov r0, r7
     mov r1, r7
     mov r3, r6
-    bl func_ov014_02120224
+    bl CPSi_big_sub
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov014_02120c14(void)
+extern "C" asm void CPSi_big_montpower(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
     mov r10, r3
     mov r3, #0x16
     mul r4, r10, r3
-    ldr r3, =data_ov014_02126adc
+    ldr r3, =CPSiAlloc
     mov r11, r0
     ldr r3, [r3]
     mov r0, r4
@@ -2885,7 +2885,7 @@ extern "C" asm void func_ov014_02120c14(void)
     add r0, r0, r10, lsl #1
     str r0, [sp, #0x20]
     mov r0, r9
-    bl func_ov014_02120090
+    bl count_digits
     mov r4, r0
     ldr r0, [sp, #0x2c]
     mov r2, r4, lsl #1
@@ -2897,17 +2897,17 @@ extern "C" asm void func_ov014_02120c14(void)
     mov r0, r6
     mov r2, r9
     mov r3, r10
-    bl func_ov014_0212099c
+    bl CPSi_big_modinv
     ldr r1, [sp, #0x2c]
     mov r0, r7
     mov r2, r6
     mov r3, r10
-    bl func_ov014_0212039c
+    bl CPSi_big_mult
     mov r2, #1
     mov r0, r6
     mov r1, r7
     mov r3, r10
-    bl func_ov014_021202cc
+    bl CPSi_big_sub_small
     ldr r0, [sp, #0x20]
     str r10, [sp]
     str r0, [sp, #4]
@@ -2915,12 +2915,12 @@ extern "C" asm void func_ov014_02120c14(void)
     mov r1, r6
     mov r2, r9
     mov r3, r5
-    bl func_ov014_0212063c
+    bl CPSi_big_div
     ldr r1, [sp, #0x14]
     ldr r0, [sp, #0x28]
     ldr r2, [sp, #0x2c]
     mov r3, r10
-    bl func_ov014_0212039c
+    bl CPSi_big_mult
     ldr r1, [sp, #0x28]
     ldr r0, [sp, #0x20]
     str r10, [sp]
@@ -2928,7 +2928,7 @@ extern "C" asm void func_ov014_02120c14(void)
     mov r0, r5
     mov r2, r9
     mov r3, r1
-    bl func_ov014_0212063c
+    bl CPSi_big_div
     ldr r0, [sp, #0x20]
     str r10, [sp]
     str r0, [sp, #4]
@@ -2936,7 +2936,7 @@ extern "C" asm void func_ov014_02120c14(void)
     mov r0, r5
     mov r2, r9
     mov r3, r11
-    bl func_ov014_0212063c
+    bl CPSi_big_div
     movs r0, r4, lsl #4
     str r0, [sp, #0x1c]
     beq @L_02120dec
@@ -2949,7 +2949,7 @@ extern "C" asm void func_ov014_02120c14(void)
     mov r2, #1
     mov r3, r10
     str r8, [sp, #0x10]
-    bl func_ov014_02120ae8
+    bl CPSi_big_montmult
     ldr r1, [sp, #0x18]
     sub r2, r4, r5, asr #4
     add r1, r1, r2, lsl #1
@@ -2966,7 +2966,7 @@ extern "C" asm void func_ov014_02120c14(void)
     mov r0, r11
     mov r3, r10
     str r8, [sp, #0x10]
-    bl func_ov014_02120ae8
+    bl CPSi_big_montmult
 @L_02120ddc:
     ldr r0, [sp, #0x1c]
     add r5, r5, #1
@@ -2981,8 +2981,8 @@ extern "C" asm void func_ov014_02120c14(void)
     mov r3, r10
     mov r2, #0
     str r8, [sp, #0x10]
-    bl func_ov014_02120ae8
-    ldr r1, =data_ov014_02126b0c
+    bl CPSi_big_montmult
+    ldr r1, =CPSiFree
     ldr r0, [sp, #0x2c]
     ldr r1, [r1]
     blx r1
@@ -2990,7 +2990,7 @@ extern "C" asm void func_ov014_02120c14(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" void func_ov014_02120e30(u16 *arg0, u8 *arg1, s32 arg2, s32 arg3)
+extern "C" void CPSi_big_from_char(u16 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
     ((s32 (*)(...))MI_CpuFill8)(arg0, 0, arg3 << 1);
     arg1 += arg2 - 1;
@@ -3003,7 +3003,7 @@ extern "C" void func_ov014_02120e30(u16 *arg0, u8 *arg1, s32 arg2, s32 arg3)
         *arg0 = *arg1;
 }
 
-extern "C" void func_ov014_02120e8c(u8 *arg0, u16 *arg1, s32 arg2)
+extern "C" void CPSi_char_from_big(u8 *arg0, u16 *arg1, s32 arg2)
 {
     arg0 += arg2 - 1;
     while (arg2 > 1) {
@@ -3017,12 +3017,12 @@ extern "C" void func_ov014_02120e8c(u8 *arg0, u16 *arg1, s32 arg2)
         *arg0 = *arg1;
 }
 
-extern "C" void func_ov014_02120ed0(s32 arg0, s32 arg1)
+extern "C" void WCM_Init(s32 arg0, s32 arg1)
 {
-    func_ov014_02120ee0(arg0, arg1, 1);
+    WCM_InitEx(arg0, arg1, 1);
 }
 
-extern "C" asm s32 func_ov014_02120ee0(...)
+extern "C" asm s32 WCM_InitEx(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r8, r0
@@ -3030,7 +3030,7 @@ extern "C" asm s32 func_ov014_02120ee0(...)
     mov r6, r2
     mov r4, #1
     bl OS_DisableInterrupts
-    ldr r9, =data_ov014_0212d574
+    ldr r9, =WCMi_OverridedDeviceId
     mov r1, #0
     ldr r2, [r9, #4]
     mov r5, r0
@@ -3060,12 +3060,12 @@ extern "C" asm s32 func_ov014_02120ee0(...)
     ldreqb r6, [r9]
     cmpeq r6, #0
     bne @L_02120f6c
-    bl func_ov014_02121ba8
+    bl WCMi_GetDefaultDeviceId
     mov r6, r0
 @L_02120f6c:
     add r0, sp, #0
     mov r1, r6
-    bl func_ov014_021210a4
+    bl WCM_GetWorkSize
     cmp r0, #0
     bne @L_02120f90
     mov r0, r5
@@ -3081,7 +3081,7 @@ extern "C" asm s32 func_ov014_02120ee0(...)
     mov r0, #6
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02120fac:
-    ldr r1, =data_ov014_0212d574
+    ldr r1, =WCMi_OverridedDeviceId
     add r0, r8, #0x1000
     str r8, [r1, #4]
     strb r4, [r0, #0x2de]
@@ -3101,19 +3101,19 @@ extern "C" asm s32 func_ov014_02120ee0(...)
     ldr r0, [r1, #4]
     add r0, r0, #0x1000
     strb r6, [r0, #0x2df]
-    bl func_ov014_02121938
-    bl func_ov014_021221f0
-    bl func_020079c4
+    bl WcmInitOption
+    bl WCMi_InitCpsif
+    bl OS_IsTickAvailable
     cmp r0, #0
     bne @L_02121014
     bl OS_InitTick
 @L_02121014:
-    bl func_02007c20
+    bl OS_IsAlarmAvailable
     cmp r0, #0
     bne @L_02121024
-    bl func_02007be4
+    bl OS_InitAlarm
 @L_02121024:
-    ldr r0, =data_ov014_0212d574
+    ldr r0, =WCMi_OverridedDeviceId
     ldr r0, [r0, #4]
     add r0, r0, #0x294
     add r0, r0, #0x1000
@@ -3124,37 +3124,37 @@ extern "C" asm s32 func_ov014_02120ee0(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" s32 func_ov014_0212104c(void)
+extern "C" s32 WCM_Finish(void)
 {
     s32 r0;
     u8 *r1;
     s32 v0;
     v0 = OS_DisableInterrupts();
     r0 = v0;
-    r1 = (u8 *)*(s32 *)(((u8 *)&data_ov014_0212d574) + 0x4);
+    r1 = (u8 *)*(s32 *)(((u8 *)&WCMi_OverridedDeviceId) + 0x4);
     if ((s32)r1 == 0) {
-        OS_RestoreInterrupts(r0, (s32)r1, (u8 *)((u8 *)&data_ov014_0212d574));
+        OS_RestoreInterrupts(r0, (s32)r1, (u8 *)((u8 *)&WCMi_OverridedDeviceId));
         return 1;
     } else {
         r1 = (u8 *)*(u8 *)(r1 + 0x12DE);
         if ((s32)r1 != 1) {
-            OS_RestoreInterrupts(r0, (s32)r1, (u8 *)((u8 *)&data_ov014_0212d574));
+            OS_RestoreInterrupts(r0, (s32)r1, (u8 *)((u8 *)&WCMi_OverridedDeviceId));
             return 1;
         } else {
-            *(s32 *)(((u8 *)&data_ov014_0212d574) + 0x4) = 0;
-            OS_RestoreInterrupts(r0, (s32)r1, (u8 *)((u8 *)&data_ov014_0212d574));
+            *(s32 *)(((u8 *)&WCMi_OverridedDeviceId) + 0x4) = 0;
+            OS_RestoreInterrupts(r0, (s32)r1, (u8 *)((u8 *)&WCMi_OverridedDeviceId));
             return 0;
         }
     }
 }
 
-extern "C" asm void func_ov014_021210a4(void)
+extern "C" asm void WCM_GetWorkSize(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     cmp r1, #0
     bne @L_021210bc
-    bl func_ov014_02121ba8
+    bl WCMi_GetDefaultDeviceId
     mov r1, r0
 @L_021210bc:
     cmp r1, #1
@@ -3168,13 +3168,13 @@ extern "C" asm void func_ov014_021210a4(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_021210dc(void)
+extern "C" asm void WCM_StartupAsync(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
     mov r6, r1
     bl OS_DisableInterrupts
-    ldr r5, =data_ov014_0212d574
+    ldr r5, =WCMi_OverridedDeviceId
     mov r4, r0
     ldr r1, [r5, #4]
     cmp r1, #0
@@ -3195,7 +3195,7 @@ extern "C" asm void func_ov014_021210dc(void)
 @L_02121130:
     mov r0, r7
     mov r1, r6
-    bl func_ov014_02121818
+    bl WcmConfigure
     b @L_02121164
 @L_02121140:
     bl OS_RestoreInterrupts
@@ -3220,7 +3220,7 @@ extern "C" asm void func_ov014_021210dc(void)
     cmp r0, #1
     movne r5, #7
     bne @L_02121194
-    bl func_ov014_0212267c
+    bl WCMi_WmifStartupAsync
     mov r5, r0
 @L_02121194:
     mov r0, r4

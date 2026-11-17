@@ -1,24 +1,24 @@
 // (asm for now)
 
 void VEC_DotProduct(void);
-void func_02001fa4(void);
-void func_02002024(void);
-void func_02002084(void);
-void func_02002198(void);
-void func_020021f0(void);
-void func_0200226c(void);
+void VEC_CrossProduct(void);
+void VEC_Mag(void);
+void VEC_Normalize(void);
+void VEC_MultAdd(void);
+void VEC_Distance(void);
+void FX_Atan2Idx(void);
 void func_020023fc(void);
-void func_02002400(void);
+void GX_Init(void);
 
-void func_02001d60(void);
+void FX_Div(void);
 extern char data_020a3cf8[];
 void GX_InitGXState(void);
-extern char data_020bb040[];
+extern char sDispMode[];
 void OS_GetLockID(void);
-void func_0200878c(void);
-extern char data_020aad60[];
-void func_020088e0(void);
-void func_0200919c(void);
+void OS_Terminate(void);
+extern char sIsDispOn[];
+void MIi_DmaFill32(void);
+void MIi_CpuClear32(void);
 
 asm void VEC_DotProduct(void)
 {
@@ -39,7 +39,7 @@ asm void VEC_DotProduct(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02001fa4(void)
+asm void VEC_CrossProduct(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldmia r0, {r5, lr}
@@ -75,7 +75,7 @@ asm void func_02001fa4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02002024(void)
+asm void VEC_Mag(void)
 {
     ldr r1, [r0, #4]
     ldr r2, [r0]
@@ -102,7 +102,7 @@ asm void func_02002024(void)
     bx lr
 }
 
-asm void func_02002084(void)
+asm void VEC_Normalize(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r2, [r0, #4]
@@ -174,7 +174,7 @@ asm void func_02002084(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02002198(void)
+asm void VEC_MultAdd(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldmia r1, {r4, r12}
@@ -200,7 +200,7 @@ asm void func_02002198(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020021f0(void)
+asm void VEC_Distance(void)
 {
     stmdb sp!, {r4, lr}
     ldr r3, [r0, #4]
@@ -234,7 +234,7 @@ asm void func_020021f0(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200226c(void)
+asm void FX_Atan2Idx(void)
 {
     stmdb sp!, {r4, lr}
     cmp r0, #0
@@ -326,7 +326,7 @@ asm void func_0200226c(void)
     cmp r0, #0
     mov r0, r2
     beq @L_020023d4
-    bl func_02001d60
+    bl FX_Div
     mov r1, r0, asr #5
     ldr r0, =data_020a3cf8
     mov r1, r1, lsl #1
@@ -336,7 +336,7 @@ asm void func_0200226c(void)
     mov r0, r0, lsr #0x10
     ldmia sp!, {r4, pc}
 @L_020023d4:
-    bl func_02001d60
+    bl FX_Div
     mov r1, r0, asr #5
     ldr r0, =data_020a3cf8
     mov r1, r1, lsl #1
@@ -352,7 +352,7 @@ asm void func_020023fc(void)
     bx lr
 }
 
-asm void func_02002400(void)
+asm void GX_Init(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r1, =0x4000304
@@ -369,7 +369,7 @@ asm void func_02002400(void)
     orr r0, r0, #1
     strh r0, [r1]
     bl GX_InitGXState
-    ldr r5, =data_020bb040
+    ldr r5, =sDispMode
     ldrh r0, [r5, #2]
     cmp r0, #0
     bne @L_02002474
@@ -379,7 +379,7 @@ asm void func_02002400(void)
     mov r6, r0
     cmp r6, r4
     bne @L_02002464
-    bl func_0200878c
+    bl OS_Terminate
 @L_02002464:
     strh r6, [r5, #2]
     ldrh r0, [r5, #2]
@@ -390,7 +390,7 @@ asm void func_02002400(void)
     mov r7, #0
     mov r6, #0x4000000
     strh r7, [r0]
-    ldr r4, =data_020aad60
+    ldr r4, =sIsDispOn
     str r7, [r6]
     ldr r0, [r4, #4]
     sub r1, r6, #0x4000001
@@ -401,25 +401,25 @@ asm void func_02002400(void)
     str r5, [sp]
     add r1, r6, #8
     mov r3, #0x60
-    bl func_020088e0
+    bl MIi_DmaFill32
     strh r7, [r6, #0x6c]
     str r5, [sp]
     ldr r0, [r4, #4]
     mov r2, r7
     add r1, r6, #0x1000
     mov r3, #0x70
-    bl func_020088e0
+    bl MIi_DmaFill32
     b @L_020024f8
 @L_020024d4:
     mov r0, r7
     add r1, r6, #8
     mov r2, #0x60
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r0, r7
     add r1, r6, #0x1000
     mov r2, #0x70
     strh r7, [r6, #0x6c]
-    bl func_0200919c
+    bl MIi_CpuClear32
 @L_020024f8:
     ldr r0, =0x4000020
     mov r2, #0x100

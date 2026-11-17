@@ -1,7 +1,7 @@
 // (asm for now)
 
 void NNSi_G2dSplitCharShiftJIS(void);
-void func_02027960(void);
+void NNS_G3dAnmObjInit(void);
 
 extern char data_020ab824[];
 extern char data_020ab848[];
@@ -36,7 +36,7 @@ asm void NNSi_G2dSplitCharShiftJIS(void)
     bx lr
 }
 
-asm void func_02027960(void)
+asm void NNS_G3dAnmObjInit(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r12, #0

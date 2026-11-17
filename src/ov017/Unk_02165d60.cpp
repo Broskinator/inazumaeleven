@@ -19,11 +19,11 @@ extern "C" s32 func_ov017_021670e4(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 a
 extern "C" void func_ov017_02167110(void);
 extern "C" void func_ov017_021672c4(void);
 
-extern "C" char data_020c46a8[];
-extern "C" char data_020c46d4[];
-extern "C" char data_020c47b4[];
-extern "C" char data_020c484c[];
-extern "C" char data_020c5e40[];
+extern "C" char gFont12Manager[];
+extern "C" char g3DPlaneCtrl[];
+extern "C" char gAllocator[];
+extern "C" char gDeltaTime[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020cafe0[];
 extern "C" char data_020d3d20[];
 extern "C" char data_020e88a0[];
@@ -42,7 +42,7 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11FileManager7ReleaseEPv(void);
 extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
+extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
@@ -50,29 +50,29 @@ extern "C" void _ZN8TextFont12GetCharWidthEPKc(void);
 extern "C" void _ZN8TextFont12GetTextWidthEPKc(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02091d54(void);
-extern "C" void func_02091d64(void);
-extern "C" void func_020920c4(void);
-extern "C" void func_02092270(void);
-extern "C" void func_02092c48(void);
-extern "C" s32 func_02093188(...);
-extern "C" void func_02093368(void);
-extern "C" void func_02093524(void);
-extern "C" void func_020936b4(void);
-extern "C" void func_0209386c(void);
-extern "C" void func_02093928(void);
-extern "C" void func_020939c8(void);
-extern "C" void func_02093bf4(void);
-extern "C" void func_02093ca8(void);
-extern "C" void func_02093d1c(void);
-extern "C" void func_02097898(void);
-extern "C" void func_02097b3c(void);
-extern "C" void func_02097ca8(void);
-extern "C" void func_020982a0(void);
+extern "C" void C3DPlaneCtrl_Acquire(void);
+extern "C" void C3DPlaneCtrl_Release(void);
+extern "C" void C3DPlaneCtrl_Create(void);
+extern "C" void C3DPlaneCtrl_Destroy(void);
+extern "C" void C3DPlaneCtrl_SetFlagAll(void);
+extern "C" s32 C3DPlaneCtrl_SetTex(...);
+extern "C" void C3DPlaneCtrl_SetDepth(void);
+extern "C" void C3DPlaneCtrl_SetPos(void);
+extern "C" void C3DPlaneCtrl_SetTexWH(void);
+extern "C" void C3DPlaneCtrl_SetFlag(void);
+extern "C" void C3DPlaneCtrl_ClearFlag(void);
+extern "C" void C3DPlaneCtrl_SetGraphicIdx(void);
+extern "C" void C3DPlaneCtrl_SetPos_2(void);
+extern "C" void C3DPlaneCtrl_SetFlag_2(void);
+extern "C" void C3DPlaneCtrl_ClearFlag_2(void);
+extern "C" void C3DSprFile_LoadFromPath(void);
+extern "C" void C3DSprFile_Release(void);
+extern "C" void C3DSprFile_LoadToVram(void);
+extern "C" void C3DSprFile_CreateTex16(void);
 extern "C" void func_0209b3f8(void);
-extern "C" void func_ov015_02132628(void);
+extern "C" void Graphics_FadeScreensBlack(void);
 extern "C" s32 func_ov015_0213328c(...);
-extern "C" void func_ov015_02134b08(void);
+extern "C" void Archive_SFPGetOffsetAndSize(void);
 extern "C" void sprintf(void);
 
 extern "C" void func_ov017_02165d60(u8 *arg0, s32 arg1)
@@ -262,13 +262,13 @@ extern "C" asm void func_ov017_02165fac(void)
     stmia r5!, {r0, r1, r2, r3}
     ldmia r6!, {r0, r1, r2, r3}
     stmia r5!, {r0, r1, r2, r3}
-    ldr r4, =data_020c46d4
+    ldr r4, =g3DPlaneCtrl
     ldr r1, [r6]
     ldr r0, [r4]
     str r1, [r5]
     mov r5, #1
-    bl func_02091d54
-    ldr r3, =data_020c47b4
+    bl C3DPlaneCtrl_Acquire
+    ldr r3, =gAllocator
     mov r11, #0
     ldr r0, [r3]
     str r11, [sp, #0x18]
@@ -307,14 +307,14 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r4]
     mov r2, r11
     mov r3, r11
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
 @L_02166080:
     add r9, r9, #1
 @L_02166084:
     cmp r9, #9
     blt @L_0216603c
     ldr r1, [sp, #0x18]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r5, #1
     bl _ZN8GameHeap4FreeEPv
     mov r9, #0
@@ -325,14 +325,14 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r4]
     mov r1, r7
     mov r2, r6
-    bl func_020982a0
+    bl C3DSprFile_CreateTex16
     add r2, r10, r9, lsl #2
     mov r1, r0
     str r0, [r2, #0x6c]
     ldr r0, [r4]
     mov r2, r11
     mov r3, r11
-    bl func_02097ca8
+    bl C3DSprFile_LoadToVram
     add r9, r9, #1
 @L_021660dc:
     cmp r9, #4
@@ -340,12 +340,12 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r4]
     mov r2, r5
     mov r1, #4
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     str r0, [r10, #0x7c]
     ldr r0, [r4]
     mov r2, r5
     mov r1, #5
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     str r0, [r10, #0x80]
     mov r9, #2
     mov r6, #5
@@ -354,7 +354,7 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r4]
     mov r1, r6
     mov r2, r5
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     add r1, r10, r9, lsl #2
     str r0, [r1, #0x7c]
     add r9, r9, #1
@@ -370,7 +370,7 @@ extern "C" asm void func_ov017_02165fac(void)
     subs r5, r5, #1
     mov r4, #0x1c
     bne @L_02166148
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     mov r9, #0
     ldmia r7, {r0, r1}
     stmia r6, {r0, r1}
@@ -378,12 +378,12 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r1, [r10, #0x7c]
     mov r2, r9
     mov r3, r9
-    bl func_02093bf4
+    bl C3DPlaneCtrl_SetPos_2
     ldr r0, [r5]
     ldr r1, [r10, #0x80]
     mov r2, #0xd0
     mov r3, #8
-    bl func_02093bf4
+    bl C3DPlaneCtrl_SetPos_2
     add r6, sp, #0x60
     b @L_02166244
 @L_0216619c:
@@ -400,14 +400,14 @@ extern "C" asm void func_ov017_02165fac(void)
     and r3, r1, #0xff
     mov r1, r7
     mov r2, r8
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     str r11, [sp]
     ldr r0, [r5]
     mov r1, r7
     mov r2, r8
     mla r3, r9, r4, r6
     ldr r3, [r3, #0xc]
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldr r0, [r5]
     mov r1, r7
     mov r2, r8
@@ -415,7 +415,7 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r3, [r3, #0x10]
     mov r3, r3, lsl #0x10
     mov r3, r3, lsr #0x10
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     mov r1, r7
     mov r2, r8
     mla r3, r9, r4, r6
@@ -427,7 +427,7 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r5]
     mov r3, r3, lsl #0x10
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     add r9, r9, #1
 @L_02166244:
     mul r0, r9, r4
@@ -489,7 +489,7 @@ extern "C" asm void func_ov017_02165fac(void)
     mov r0, r10
     mov r3, #0x68
     bl func_ov017_021670e4
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     mov r4, #0x1c
     b @L_02166478
 @L_0216633c:
@@ -502,7 +502,7 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r5]
     ldr r1, [r1, #0x7c]
     mov r2, #8
-    bl func_02093bf4
+    bl C3DPlaneCtrl_SetPos_2
     add r0, r10, r11, lsl #2
     mov r9, #9
     str r0, [sp, #0x14]
@@ -525,7 +525,7 @@ extern "C" asm void func_ov017_02165fac(void)
     mov r1, r7
     and r3, r2, #0xff
     mov r2, r8
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     b @L_021663f8
 @L_021663c0:
     ldr r3, [sp, #0x14]
@@ -534,14 +534,14 @@ extern "C" asm void func_ov017_02165fac(void)
     mov r1, r7
     mov r2, r8
     and r3, r3, #0xff
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     mov r0, #0x20
     str r0, [sp]
     ldr r0, [r5]
     mov r1, r7
     mov r2, r8
     mov r3, #0x100
-    bl func_020936b4
+    bl C3DPlaneCtrl_SetTexWH
 @L_021663f8:
     mla r3, r9, r4, r6
     mov r0, #0
@@ -550,7 +550,7 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r3, [r3, #0xc]
     mov r1, r7
     mov r2, r8
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     mla r3, r9, r4, r6
     ldr r3, [r3, #0x10]
     ldr r0, [r5]
@@ -558,7 +558,7 @@ extern "C" asm void func_ov017_02165fac(void)
     mov r1, r7
     mov r2, r8
     mov r3, r3, lsr #0x10
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     mla r3, r9, r4, r6
     ldr r0, [r3, #0x18]
     mov r1, r7
@@ -570,7 +570,7 @@ extern "C" asm void func_ov017_02165fac(void)
     mov r3, r3, lsl #0x10
     mov r2, r8
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     add r9, r9, #1
 @L_0216646c:
     cmp r9, #0xe
@@ -617,7 +617,7 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r5]
     ldr r1, [r10, #0x80]
     mov r2, #3
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     smull r1, r3, r4, r6
     mov r0, #0
     str r0, [sp]
@@ -629,7 +629,7 @@ extern "C" asm void func_ov017_02165fac(void)
     ldr r0, [r5]
     ldr r1, [r10, #0x80]
     mov r2, #4
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     add sp, sp, #0x1e8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -638,13 +638,13 @@ extern "C" s32 func_ov017_02166574(void *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 a;
     s32 b;
-    if (((s32 (*)(...))func_ov015_02134b08)(arg1, arg3, &a, &b) == 0)
+    if (((s32 (*)(...))Archive_SFPGetOffsetAndSize)(arg1, arg3, &a, &b) == 0)
         return 0;
     {
         s32 y = *(volatile s32 *)&b;
         s32 x = *(volatile s32 *)&a;
-        s32 m = *(volatile s32 *)data_020c46d4;
-        return ((s32 (*)(...))func_02097898)(m, 5, arg2, 0, 0, 1, 0, x, y);
+        s32 m = *(volatile s32 *)g3DPlaneCtrl;
+        return ((s32 (*)(...))C3DSprFile_LoadFromPath)(m, 5, arg2, 0, 0, 1, 0, x, y);
     }
 }
 
@@ -653,44 +653,44 @@ extern "C" asm void func_ov017_021665e4(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
     mov r4, #0
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     b @L_0216660c
 @L_021665f8:
     add r1, r5, r4, lsl #2
     ldr r0, [r6]
     ldr r1, [r1, #0x7c]
-    bl func_02092270
+    bl C3DPlaneCtrl_Destroy
     add r4, r4, #1
 @L_0216660c:
     cmp r4, #6
     blt @L_021665f8
     mov r4, #0
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     b @L_02166634
 @L_02166620:
     add r0, r5, r4, lsl #2
     ldr r1, [r0, #0x48]
     ldr r0, [r6]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     add r4, r4, #1
 @L_02166634:
     cmp r4, #9
     blt @L_02166620
     mov r4, #0
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     b @L_0216665c
 @L_02166648:
     add r0, r5, r4, lsl #2
     ldr r1, [r0, #0x6c]
     ldr r0, [r6]
-    bl func_02097b3c
+    bl C3DSprFile_Release
     add r4, r4, #1
 @L_0216665c:
     cmp r4, #4
     blt @L_02166648
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r0, [r0]
-    bl func_02091d64
+    bl C3DPlaneCtrl_Release
     ldr r1, [r5, #0x38]
     ldr r0, =data_020cafe0
     strh r1, [r0, #0xf4]
@@ -782,7 +782,7 @@ extern "C" asm void func_ov017_02166688(void)
     ldrh r3, [r12, #2]
     str r3, [r0, #0x3e4]
     str r2, [sp, #0x10]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     ldrb r1, [r8, r1, lsl #2]
     ldr r0, [r0]
     cmp r0, #0
@@ -795,11 +795,11 @@ extern "C" asm void func_ov017_02166688(void)
     str r0, [sp, #4]
     mov r0, #0
     str r0, [sp, #8]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     str r6, [sp, #0xc]
     ldr r0, [r0]
     ldr r1, =data_ov017_02167844
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     add r2, sp, #0x10
     bl _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih
 @L_0216681c:
@@ -813,7 +813,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r9, r10
     str r10, [r4, #0x44]
     mov r6, #2
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     b @L_0216685c
 @L_02166840:
     add r0, r9, #2
@@ -821,7 +821,7 @@ extern "C" asm void func_ov017_02166688(void)
     ldr r0, [r5]
     ldr r1, [r1, #0x7c]
     mov r2, r6
-    bl func_02093d1c
+    bl C3DPlaneCtrl_ClearFlag_2
     add r9, r9, #1
 @L_0216685c:
     cmp r9, #4
@@ -841,7 +841,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r9, #0
     add r7, r4, #0x94
     mvn r8, #0
-    ldr r6, =data_020c47b4
+    ldr r6, =gAllocator
     b @L_021668c8
 @L_021668a4:
     ldr r0, [r6]
@@ -867,7 +867,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r8, #0x108
     mov r9, #0
     add r10, r4, #0x2dc
-    ldr r6, =data_020c47b4
+    ldr r6, =gAllocator
     mov r11, r8
     b @L_02166964
 @L_02166900:
@@ -910,7 +910,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r9, #0
     add r6, r4, #0x2dc
     mvn r7, #0
-    ldr r8, =data_020c47b4
+    ldr r8, =gAllocator
     b @L_021669dc
 @L_02166998:
     mul r2, r9, r5
@@ -946,7 +946,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r9, #0
     add r10, r4, #0x94
     mov r11, #3
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     b @L_02166af0
 @L_02166a14:
     mla r1, r9, r5, r10
@@ -966,21 +966,21 @@ extern "C" asm void func_ov017_02166688(void)
     ldr r1, [r1, #0x7c]
     mov r2, r8
     mov r3, r7
-    bl func_02093ca8
+    bl C3DPlaneCtrl_SetFlag_2
     ldr r0, [r6]
     add r1, r9, #2
     add r1, r4, r1, lsl #2
     ldr r1, [r1, #0x7c]
     mov r2, r8
     mov r3, r7
-    bl func_02092c48
+    bl C3DPlaneCtrl_SetFlagAll
     ldr r0, [r6]
     add r1, r9, #2
     add r1, r4, r1, lsl #2
     ldr r1, [r1, #0x7c]
     mov r2, r7
     mov r3, r8
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     mla r0, r9, r5, r4
     ldrb r0, [r0, #0x3e8]
     tst r0, #1
@@ -991,7 +991,7 @@ extern "C" asm void func_ov017_02166688(void)
     ldr r0, [r6]
     mov r2, r11
     mov r3, r8
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
 @L_02166ac0:
     mla r0, r9, r5, r4
     ldrb r0, [r0, #0x3e8]
@@ -1003,7 +1003,7 @@ extern "C" asm void func_ov017_02166688(void)
     ldr r0, [r6]
     mov r2, #4
     mov r3, r8
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
 @L_02166aec:
     add r9, r9, #1
 @L_02166af0:
@@ -1013,7 +1013,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r7, #0
     str r7, [sp]
     ldr r0, [r4, #0x38]
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     add r0, r0, #1
     ldr r5, =0x66666667
     mov r2, r0, lsr #0x1f
@@ -1023,7 +1023,7 @@ extern "C" asm void func_ov017_02166688(void)
     add r3, r2, r3, asr #2
     mov r2, #1
     mov r8, #0x358
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     str r7, [sp]
     ldr r0, [r4, #0x38]
     mov r1, #0xa
@@ -1036,7 +1036,7 @@ extern "C" asm void func_ov017_02166688(void)
     ldr r1, [r4, #0x80]
     sub r3, r7, r2
     mov r2, #2
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     ldr r2, [r4, #0x34]
     cmp r2, #0
     blt @L_02166b8c
@@ -1061,12 +1061,12 @@ extern "C" asm void func_ov017_02166688(void)
     mov r8, r0
     cmp r8, #3
     bne @L_02166be4
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     mov r5, #6
     mov r0, r5
-    bl func_ov015_02132628
+    bl Graphics_FadeScreensBlack
     add sp, sp, #0x14
     str r5, [r4, #0x30]
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1090,7 +1090,7 @@ extern "C" asm void func_ov017_02166688(void)
     str r1, [r4, #0x38]
     cmp r1, r5
     beq @L_02166c50
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r6
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, #0
@@ -1102,7 +1102,7 @@ extern "C" asm void func_ov017_02166688(void)
     cmp r8, #1
     cmpne r8, #2
     bne @L_02166c68
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #9
     bl _ZN12SoundManager9PlaySoundEi
 @L_02166c68:
@@ -1118,7 +1118,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r8, r0
     mov r9, #0
     mov r11, #3
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     b @L_02166d18
 @L_02166ca0:
     ldr r0, [r4, #0x34]
@@ -1136,7 +1136,7 @@ extern "C" asm void func_ov017_02166688(void)
     ldr r1, [r1, #0x7c]
     mov r2, r6
     mov r3, r7
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     ldr r0, [r5]
     add r1, r9, #2
     add r1, r4, r1, lsl #2
@@ -1151,7 +1151,7 @@ extern "C" asm void func_ov017_02166688(void)
     mov r2, r6
 @L_02166d0c:
     mov r3, r7
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add r9, r9, #1
 @L_02166d18:
     cmp r9, #4
@@ -1168,10 +1168,10 @@ extern "C" asm void func_ov017_02166688(void)
     ldr r4, [r4, #4]
     mov r1, #0
     mov r0, r4
-    bl _ZN17UnkClass_0203dc7c13func_0203e0ccEi
+    bl _ZN13ScreenManager8PopSceneEi
     mov r0, r4
     mov r1, r6
-    bl _ZN17UnkClass_0203dc7c13func_0203e0ccEi
+    bl _ZN13ScreenManager8PopSceneEi
 @L_02166d5c:
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1186,7 +1186,7 @@ extern "C" void func_ov017_02166d80(s32 arg0, u8 *arg1)
 
 extern "C" void func_ov017_02166db8(s32 arg0, s32 arg1, s32 arg2, u8 *arg3)
 {
-    func_02093188(*(s32 *)(data_020c46d4), arg1, 2, (*(s32 *)(((u8 *)(arg0 + ((*(s8 *)(arg3) + 4) << 2))) + 0x48) & 0xFF));
+    C3DPlaneCtrl_SetTex(*(s32 *)(g3DPlaneCtrl), arg1, 2, (*(s32 *)(((u8 *)(arg0 + ((*(s8 *)(arg3) + 4) << 2))) + 0x48) & 0xFF));
     func_ov015_0213328c((arg3 + 2), arg2, 1, 1, 1, 0, 0, 0, 0, 1);
 }
 
@@ -1276,7 +1276,7 @@ extern "C" asm s32 func_ov017_02166e28(...)
 @L_02166f50:
     cmp r7, #0
     beq @L_02167084
-    ldr r0, =data_020c46a8
+    ldr r0, =gFont12Manager
     add r7, sp, #0
     ldr r0, [r0]
     mov r1, r7
@@ -1335,7 +1335,7 @@ extern "C" asm s32 func_ov017_02166e28(...)
     cmp r0, #0xa
     cmpne r0, #0xc
     beq @L_02167034
-    ldr r0, =data_020c46a8
+    ldr r0, =gFont12Manager
     mov r1, r4
     ldr r0, [r0]
     bl _ZN8TextFont12GetCharWidthEPKc
@@ -1413,8 +1413,8 @@ extern "C" asm void func_ov017_02167110(void)
     mov r9, #1
     add r8, r0, #0xc00
     add r7, r1, #0xc00
-    ldr r6, =data_020c484c
-    ldr r5, =data_020c46d4
+    ldr r6, =gDeltaTime
+    ldr r5, =g3DPlaneCtrl
     b @L_021672a8
 @L_02167144:
     mul r0, r9, r4
@@ -1481,7 +1481,7 @@ extern "C" asm void func_ov017_02167110(void)
     ldr r2, [r3, #0xdf8]
     ldr r3, [r3, #0xdfc]
 @L_02167238:
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     mul r0, r9, r4
     ldr r3, [r7, r0]
     ldr r1, [r6]
@@ -1565,7 +1565,7 @@ extern "C" asm void func_ov017_021672c4(void)
     cmp r9, #0
     ble @L_02167394
     mov r4, #1
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r4
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r10, #0x38]
@@ -1577,7 +1577,7 @@ extern "C" asm void func_ov017_021672c4(void)
     str r0, [r10, #0x38]
     b @L_02167448
 @L_02167394:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #9
     bl _ZN12SoundManager9PlaySoundEi
     b @L_02167448
@@ -1606,7 +1606,7 @@ extern "C" asm void func_ov017_021672c4(void)
     cmp r9, r0, asr #2
     bge @L_0216741c
     mov r4, #1
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r4
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r10, #0x38]
@@ -1659,7 +1659,7 @@ extern "C" asm void func_ov017_021672c4(void)
     cmp r8, r0
     addeq sp, sp, #8
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r10, #4]

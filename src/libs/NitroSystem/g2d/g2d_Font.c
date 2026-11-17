@@ -5,12 +5,12 @@ void NNS_G2dFontInitUTF16(void);
 void NNS_G2dFontInitShiftJIS(void);
 void NNS_G2dFontFindGlyphIndex(void);
 void NNS_G2dFontGetCharWidthsFromIndex(void);
-void func_02025d8c(void);
-void func_02025e38(void);
-void func_02025eac(void);
-void func_02025f40(void);
+void NNSi_G2dFontGetStringWidth(void);
+void NNSi_G2dFontGetTextHeight(void);
+void NNSi_G2dFontGetTextRect(void);
+void GetCharIndex1D(void);
 
-void func_020275fc(void);
+void NNSi_G2dGetUnpackedFont(void);
 void NNSi_G2dSplitCharUTF16(void);
 void NNSi_G2dSplitCharShiftJIS(void);
 extern char data_020a484c[];
@@ -80,7 +80,7 @@ asm void NNS_G2dFontInitUTF16(void)
     mov r4, r0
     mov r0, r1
     mov r1, r4
-    bl func_020275fc
+    bl NNSi_G2dGetUnpackedFont
     ldr r0, =NNSi_G2dSplitCharUTF16
     str r0, [r4, #4]
     ldmia sp!, {r4, pc}
@@ -92,7 +92,7 @@ asm void NNS_G2dFontInitShiftJIS(void)
     mov r4, r0
     mov r0, r1
     mov r1, r4
-    bl func_020275fc
+    bl NNSi_G2dGetUnpackedFont
     ldr r0, =NNSi_G2dSplitCharShiftJIS
     str r0, [r4, #4]
     ldmia sp!, {r4, pc}
@@ -146,7 +146,7 @@ asm void NNS_G2dFontGetCharWidthsFromIndex(void)
     bx lr
 }
 
-asm void func_02025d8c(void)
+asm void NNSi_G2dFontGetStringWidth(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
@@ -195,7 +195,7 @@ asm void func_02025d8c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02025e38(void)
+asm void NNSi_G2dFontGetTextHeight(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0xc
@@ -230,7 +230,7 @@ asm void func_02025e38(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02025eac(void)
+asm void NNSi_G2dFontGetTextRect(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #8
@@ -251,7 +251,7 @@ asm void func_02025eac(void)
     mov r0, r7
     mov r1, r6
     mov r3, r9
-    bl func_02025d8c
+    bl NNSi_G2dFontGetStringWidth
     ldr r1, [sp]
     ldr r2, [sp, #0x28]
     cmp r0, r1
@@ -273,7 +273,7 @@ asm void func_02025eac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02025f40(void)
+asm void GetCharIndex1D(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov lr, #3

@@ -58,16 +58,16 @@ extern "C" void func_ov046_02168a18(void);
 extern "C" void func_ov046_02168c80(void);
 
 extern "C" char data_020c463c[];
-extern "C" char data_020c46a8[];
-extern "C" char data_020c46c4[];
-extern "C" char data_020c46d4[];
+extern "C" char gFont12Manager[];
+extern "C" char gSprButtonCtrl[];
+extern "C" char g3DPlaneCtrl[];
 extern "C" char data_020c47a4[];
-extern "C" char data_020c4814[];
-extern "C" char data_020c484c[];
+extern "C" char gKeysRepeated[];
+extern "C" char gDeltaTime[];
 extern "C" char data_020c4ab4[];
 extern "C" char data_020c4c70[];
-extern "C" char data_020c5e40[];
-extern "C" char data_020c9660[];
+extern "C" char gAudioPlayer[];
+extern "C" char gBgMenuManager[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov046_0216a828[];
 extern "C" char data_ov046_0216ad48[];
@@ -86,50 +86,50 @@ extern "C" void _ZN11SaveManager4LoadEii(void);
 extern "C" void _ZN11SaveManager4SaveEii(void);
 extern "C" void _ZN11SaveManager9IsLoadingEv(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
+extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
+extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" s32 _ZN11MatchEngine13func_0206e5e4Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206f70cEv(...);
-extern "C" void func_020039f8(void);
+extern "C" void GX_LoadBG1Char(void);
 extern "C" void func_02017278(void);
-extern "C" void func_020920c4(void);
-extern "C" void func_02092270(void);
-extern "C" void func_02093188(void);
-extern "C" void func_0209323c(void);
-extern "C" void func_02093368(void);
-extern "C" void func_02093524(void);
-extern "C" void func_020939c8(void);
+extern "C" void C3DPlaneCtrl_Create(void);
+extern "C" void C3DPlaneCtrl_Destroy(void);
+extern "C" void C3DPlaneCtrl_SetTex(void);
+extern "C" void C3DPlaneCtrl_SetPltt(void);
+extern "C" void C3DPlaneCtrl_SetDepth(void);
+extern "C" void C3DPlaneCtrl_SetPos(void);
+extern "C" void C3DPlaneCtrl_SetGraphicIdx(void);
 extern "C" void func_0209d668(void);
 extern "C" void func_0209d8b8(void);
-extern "C" void func_ov015_02132224(void);
-extern "C" s32 func_ov015_021322b0(...);
-extern "C" void func_ov015_02132984(void);
-extern "C" void func_ov015_02132a04(void);
-extern "C" s32 func_ov015_02132af0(...);
+extern "C" void Graphics_LoadBGPaletteMain(void);
+extern "C" s32 Graphics_LoadTempPaletteFromPac(...);
+extern "C" void Graphics_SetupScreen(void);
+extern "C" void Graphics_SetupScreen_2(void);
+extern "C" s32 Graphics_LoadBGXCharMain(...);
 extern "C" void func_ov015_021334b8(void);
-extern "C" s32 func_ov015_02133f94(...);
-extern "C" void func_ov015_021340c0(void);
-extern "C" void func_ov015_02134198(void);
-extern "C" s32 func_ov015_02134208(...);
+extern "C" s32 Archive_RequestNewRead(...);
+extern "C" void Archive_ReadFromSFP(void);
+extern "C" void Archive_Close(void);
+extern "C" s32 Archive_Deallocate(...);
 extern "C" s32 func_ov015_02136134(...);
 extern "C" s32 func_ov015_021362b8(...);
 extern "C" void func_ov015_02136330(void);
 extern "C" void func_ov015_021363e8(void);
-extern "C" void func_ov015_0213b540(void);
-extern "C" s32 func_ov015_0213b6ac(...);
-extern "C" s32 func_ov015_0213b990(...);
-extern "C" s32 func_ov015_0213ba04(...);
-extern "C" s32 func_ov015_0213bb80(...);
-extern "C" void func_ov015_0213bd7c(void);
-extern "C" void func_ov015_0213be3c(void);
-extern "C" s32 func_ov015_0213be90(...);
-extern "C" s32 func_ov015_0213bfcc(...);
-extern "C" s32 func_ov015_0213c3dc(...);
-extern "C" s32 func_ov015_0213c488(...);
+extern "C" void CBgMenuManager_AddDynamic(void);
+extern "C" s32 CBgMenuManager_AddStatic(...);
+extern "C" s32 CBgMenuManager_HideID(...);
+extern "C" s32 CBgMenuManager_ShowID(...);
+extern "C" s32 CBgMenuManager_UpdateRadio(...);
+extern "C" void CBgMenuManager_SetBounds(void);
+extern "C" void CBgMenuManager_ReleaseButton(void);
+extern "C" s32 CBgMenuManager_IsFlashActive(...);
+extern "C" s32 CBgMenuManager_UpdateGraphics(...);
+extern "C" s32 CBgMenuManager_GetHit(...);
+extern "C" s32 CBgMenuManager_SetScreen(...);
 extern "C" void func_ov015_0213c530(void);
-extern "C" void func_ov015_0213c5e0(void);
-extern "C" void func_ov015_0213c6d0(void);
-extern "C" void func_ov015_0213c730(void);
+extern "C" void CBgMenuRadioButton_DeactivateGx(void);
+extern "C" void CBgMenuRadioButton_ActivateGx(void);
+extern "C" void CBgMenuRadioButton_ReleaseButton(void);
 extern "C" s32 func_ov015_02162750(...);
 extern "C" s32 func_ov015_021629c8(...);
 extern "C" s32 func_ov015_02162f70(...);
@@ -160,18 +160,18 @@ extern "C" asm s32 func_ov046_02165d74(...)
     str r1, [sp, #0x18]
     str r0, [sp, #0x1c]
     ldr r4, =data_ov046_0216b060
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     ldr r1, [r4, #4]
     ldr r2, [r4]
     mov r3, #0
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     ldr r2, [sp, #0x44]
     cmp r2, #0
     addlt sp, sp, #0x20
     ldmltia sp!, {r3, r4, r5, pc}
     ldr r1, [r4, #4]
     mov r0, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add sp, sp, #0x20
     ldmia sp!, {r3, r4, r5, pc}
 }
@@ -226,7 +226,7 @@ extern "C" void func_ov046_02165e88(u8 *arg0)
         ((VCall *)arg0)->f21();
     else
         ((VCall *)arg0)->f20();
-    ((void (*)(s32, s32))_ZN17UnkClass_0203dc7c13func_0203e0ccEi)(*(s32 *)(arg0 + 4), 0);
+    ((void (*)(s32, s32))_ZN13ScreenManager8PopSceneEi)(*(s32 *)(arg0 + 4), 0);
 }
 
 extern "C" asm void func_ov046_02165ed0(void)
@@ -254,12 +254,12 @@ extern "C" asm void func_ov046_02165ed0(void)
     mov r0, r7
     mov r1, r4
     mov r2, r6
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     mov r4, #1
     mov r0, r7
     mov r1, r4
     mov r2, r6
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     b @L_02165f68
 @L_02165f44:
     mov r2, r3, lsl #0x1a
@@ -438,7 +438,7 @@ extern "C" asm void func_ov046_02166128(void)
     bl func_ov046_02166110
     ldmia sp!, {r4, r5, r6, pc}
 @L_021661b0:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r5, #4
     mov r1, #0x13
     str r5, [r4, #8]
@@ -576,7 +576,7 @@ extern "C" asm void func_ov046_021662bc(void)
     blx r1
     ldmia sp!, {r4, r5, r6, pc}
 @L_021663a4:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #0x14
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r4
@@ -687,7 +687,7 @@ extern "C" asm void func_ov046_02166490(void)
 @L_02166530:
     mov r5, #0
     mov r6, #1
-    ldr r8, =data_020c46d4
+    ldr r8, =g3DPlaneCtrl
     b @L_02166574
 @L_02166540:
     add r0, r7, r5, lsl #2
@@ -700,7 +700,7 @@ extern "C" asm void func_ov046_02166490(void)
     ldr r0, [r8]
     ldr r1, [r7, #0x240]
     mov r2, r6
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     add r5, r5, #1
     add r6, r6, #1
 @L_02166574:
@@ -723,11 +723,11 @@ extern "C" asm void func_ov046_02166490(void)
     ldr r0, [r7, #4]
     mov r2, r5
     mov r1, #0
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     ldr r0, [r7, #4]
     mov r2, r5
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
 @L_021665d0:
     ldr r0, [r7, #0x28]
     cmp r0, #0xc
@@ -823,7 +823,7 @@ extern "C" asm void func_ov046_021666dc(void)
     mov r8, #0
     mov r9, r8
     ldr r7, =0x270f
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     b @L_02166738
 @L_02166710:
     mov r0, r5
@@ -834,7 +834,7 @@ extern "C" asm void func_ov046_021666dc(void)
     ldr r0, [r6]
     ldr r1, [r5, #0x240]
     mov r2, r8
-    bl func_0209323c
+    bl C3DPlaneCtrl_SetPltt
     add r9, r9, #1
 @L_02166738:
     cmp r9, #4
@@ -845,11 +845,11 @@ extern "C" asm void func_ov046_021666dc(void)
     mov r6, #1
     ldr r0, =data_020c47a4
     mov r2, r6
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     add r0, r5, r4
     ldrb r1, [r0, #0x3a]
-    ldr r0, =data_020c9660
-    bl func_ov015_0213be3c
+    ldr r0, =gBgMenuManager
+    bl CBgMenuManager_ReleaseButton
     strb r6, [r5, #0x2c]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
@@ -880,9 +880,9 @@ extern "C" asm void func_ov046_021667d0(void)
     mov r4, #1
     cmpeq r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r7
-    bl func_ov015_0213be90
+    bl CBgMenuManager_IsFlashActive
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
     ldr r0, [r6, #0x30]
@@ -895,7 +895,7 @@ extern "C" asm void func_ov046_021667d0(void)
     cmp r0, #1
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02166830:
-    ldr r0, =data_020c4814
+    ldr r0, =gKeysRepeated
     cmp r1, #0xf
     ldrh r0, [r0]
     orr r0, r0, r5
@@ -932,7 +932,7 @@ extern "C" asm void func_ov046_021667d0(void)
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     str r0, [r6, #0x24]
     str r0, [r6, #0x28]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r1, [r6, #0x24]
@@ -941,7 +941,7 @@ extern "C" asm void func_ov046_021667d0(void)
     add r1, r6, r1
     ldrb r1, [r1, #0x3a]
     mov r2, r4
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_021668ec:
     tst r0, #0x40
@@ -954,7 +954,7 @@ extern "C" asm void func_ov046_021667d0(void)
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     str r0, [r6, #0x24]
     str r0, [r6, #0x28]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r1, [r6, #0x24]
@@ -963,12 +963,12 @@ extern "C" asm void func_ov046_021667d0(void)
     add r1, r6, r1
     ldrb r1, [r1, #0x3a]
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02166940:
     tst r5, #1
     beq @L_02166984
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     add r0, r8, #2
@@ -988,7 +988,7 @@ extern "C" asm void func_ov046_021667d0(void)
     tst r5, #2
     beq @L_021669c0
     mov r4, #4
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r4
     bl _ZN12SoundManager9PlaySoundEi
     ldrb r0, [r6, #0x278]
@@ -1015,14 +1015,14 @@ extern "C" asm void func_ov046_021667d0(void)
     str r1, [r6, #0x28]
     cmp r0, #0xe
     beq @L_02166a00
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
 @L_02166a00:
     ldrb r1, [r6, #0x3a]
     ldr r0, =data_020c47a4
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02166a14:
     tst r5, #0x10
@@ -1035,14 +1035,14 @@ extern "C" asm void func_ov046_021667d0(void)
     str r1, [r6, #0x28]
     cmp r0, #0xe
     beq @L_02166a48
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
 @L_02166a48:
     ldrb r1, [r6, #0x3b]
     ldr r0, =data_020c47a4
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02166a5c:
     ands r0, r5, #1
@@ -1052,7 +1052,7 @@ extern "C" asm void func_ov046_021667d0(void)
 @L_02166a6c:
     cmp r1, #0xe
     bne @L_02166a88
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r4
     bl _ZN12SoundManager9PlaySoundEi
     strb r4, [r6, #0x2c]
@@ -1063,7 +1063,7 @@ extern "C" asm void func_ov046_021667d0(void)
     ldr r0, [r6, #0x28]
     cmp r0, #0xc
     bne @L_02166ab8
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r6
@@ -1073,7 +1073,7 @@ extern "C" asm void func_ov046_021667d0(void)
 @L_02166ab8:
     cmp r0, #0xd
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r6
@@ -1088,8 +1088,8 @@ extern "C" asm void func_ov046_021667d0(void)
     mov r3, #0xd
     mov r2, r4
     str r3, [r6, #0x28]
-    bl func_ov015_0213c730
-    ldr r0, =data_020c5e40
+    bl CBgMenuRadioButton_ReleaseButton
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r6
@@ -1110,7 +1110,7 @@ extern "C" asm void func_ov046_021667d0(void)
     ldr r0, [r6, #0xc]
     cmp r0, #8
     bne @L_02166b54
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #6
     b @L_02166b80
 @L_02166b54:
@@ -1119,12 +1119,12 @@ extern "C" asm void func_ov046_021667d0(void)
     ldrb r0, [r6, #0x293]
     cmp r0, #0
     bne @L_02166b84
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     strb r1, [r6, #0x293]
     b @L_02166b80
 @L_02166b78:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
 @L_02166b80:
     bl _ZN12SoundManager9PlaySoundEi
@@ -1140,7 +1140,7 @@ extern "C" asm void func_ov046_021667d0(void)
 @L_02166ba0:
     tst r5, #1
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r4
     bl _ZN12SoundManager9PlaySoundEi
     mov r2, #3
@@ -1155,7 +1155,7 @@ extern "C" asm void func_ov046_021667d0(void)
 
 extern "C" void func_ov046_02166be4(s32 arg0, s32 arg1, s32 arg2)
 {
-    func_ov015_0213c3dc((s32)data_020c9660, 0, arg1, arg2);
+    CBgMenuManager_GetHit((s32)gBgMenuManager, 0, arg1, arg2);
 }
 
 extern "C" asm s32 func_ov046_02166c04(...)
@@ -1197,7 +1197,7 @@ extern "C" asm s32 func_ov046_02166c04(...)
     add r1, r4, r1
     ldrb r1, [r1, #0x3a]
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, pc}
 @L_02166c9c:
     ldr r0, [r4, #0x28]
@@ -1207,33 +1207,33 @@ extern "C" asm s32 func_ov046_02166c04(...)
     ldrb r1, [r4, #0x3e]
     ldr r0, =data_020c47a4
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, pc}
 @L_02166cc0:
     ldr r0, [r4, #0x28]
     cmp r0, r1
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     str r1, [r4, #0x28]
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldrb r1, [r4, #0x3a]
     ldr r0, =data_020c47a4
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, pc}
 @L_02166cf0:
     ldr r0, [r4, #0x28]
     cmp r0, r1
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     str r1, [r4, #0x28]
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldrb r1, [r4, #0x3b]
     ldr r0, =data_020c47a4
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, pc}
 @L_02166d20:
     ldr r0, [r4, #0x28]
@@ -1243,7 +1243,7 @@ extern "C" asm s32 func_ov046_02166c04(...)
     ldrb r1, [r4, #0x3c]
     ldr r0, =data_020c47a4
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, pc}
 }
 
@@ -1256,14 +1256,14 @@ extern "C" asm s32 func_ov046_02166d4c(...)
     cmp r0, r1
     bne @L_02166dc0
     ldr r0, =data_020c47a4
-    bl func_ov015_0213c6d0
+    bl CBgMenuRadioButton_ActivateGx
     ldr r0, [r4, #0x1c]
     cmp r0, #2
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
     mov r7, #0
     mov r8, #1
     ldr r6, =0x270f
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     b @L_02166db4
 @L_02166d8c:
     mov r0, r4
@@ -1273,7 +1273,7 @@ extern "C" asm s32 func_ov046_02166d4c(...)
     ldr r0, [r5]
     ldr r1, [r4, #0x240]
     mov r2, r8
-    bl func_0209323c
+    bl C3DPlaneCtrl_SetPltt
     add r7, r7, #1
     add r8, r8, #1
 @L_02166db4:
@@ -1283,16 +1283,16 @@ extern "C" asm s32 func_ov046_02166d4c(...)
 @L_02166dc0:
     ldr r5, =data_020c47a4
     mov r0, r5
-    bl func_ov015_0213c5e0
+    bl CBgMenuRadioButton_DeactivateGx
     movs r1, r0
     bmi @L_02166de0
     mov r0, r5
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
 @L_02166de0:
     mov r6, #0
     mov r7, #1
-    ldr r5, =data_020c46d4
+    ldr r5, =g3DPlaneCtrl
     b @L_02166e24
 @L_02166df0:
     add r0, r4, r6, lsl #2
@@ -1305,7 +1305,7 @@ extern "C" asm s32 func_ov046_02166d4c(...)
     ldr r0, [r5]
     ldr r1, [r4, #0x240]
     mov r2, r7
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     add r6, r6, #1
     add r7, r7, #1
 @L_02166e24:
@@ -1340,13 +1340,13 @@ extern "C" asm s32 func_ov046_02166e3c(...)
     b @L_02166f58
 @L_02166e94:
     mov r6, #1
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r6
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r7, #0x24]
     mov r5, #0
     add r4, r0, #1
-    ldr r8, =data_020c46d4
+    ldr r8, =g3DPlaneCtrl
     b @L_02166eec
 @L_02166eb8:
     add r0, r7, r5, lsl #2
@@ -1359,7 +1359,7 @@ extern "C" asm s32 func_ov046_02166e3c(...)
     ldr r0, [r8]
     ldr r1, [r7, #0x240]
     mov r2, r6
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     add r5, r5, #1
     add r6, r6, #1
 @L_02166eec:
@@ -1371,25 +1371,25 @@ extern "C" asm s32 func_ov046_02166e3c(...)
     beq @L_02166fa4
     ldr r5, =data_020c47a4
     mov r0, r5
-    bl func_ov015_0213c5e0
+    bl CBgMenuRadioButton_DeactivateGx
     add r0, r7, r4
     ldrb r1, [r0, #0x3a]
     mov r0, r5
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02166f28:
     mov r4, #4
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r4
     b @L_02166fa0
 @L_02166f38:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     mov r4, #0
     b @L_02166fa0
 @L_02166f48:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     mov r4, #1
     b @L_02166fa0
@@ -1398,7 +1398,7 @@ extern "C" asm s32 func_ov046_02166e3c(...)
     mov r4, #2
     cmp r0, #8
     bne @L_02166f74
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #6
     b @L_02166fa0
 @L_02166f74:
@@ -1407,12 +1407,12 @@ extern "C" asm s32 func_ov046_02166e3c(...)
     ldrb r0, [r7, #0x293]
     cmp r0, #0
     bne @L_02166fa4
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     strb r1, [r7, #0x293]
     b @L_02166fa0
 @L_02166f98:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
 @L_02166fa0:
     bl _ZN12SoundManager9PlaySoundEi
@@ -1444,7 +1444,7 @@ extern "C" s32 func_ov046_02166fc8(u8 *arg0, s32 arg1)
     s32 t6;
     if (*(s32 *)(arg0 + 0x8) != 4)
         return *(s32 *)(arg0 + 0x8);
-    v0 = func_ov015_0213be90((s32)((u8 *)&data_020c9660), 0);
+    v0 = CBgMenuManager_IsFlashActive((s32)((u8 *)&gBgMenuManager), 0);
     if (v0 != 0)
         return v0;
     if (*(s32 *)(arg0 + 0x30) > 0)
@@ -1454,13 +1454,13 @@ extern "C" s32 func_ov046_02166fc8(u8 *arg0, s32 arg1)
         if (*(u8 *)(arg0 + 0x293) == 1)
             return *(u8 *)(arg0 + 0x293);
     }
-    t0 = *(s32 *)(((u8 *)&data_020c46c4));
+    t0 = *(s32 *)(((u8 *)&gSprButtonCtrl));
     v1 = func_ov015_02162750(t0, (s32)r4, 0);
     if (v1 == 2) {
-        t1 = *(s32 *)(((u8 *)&data_020c46c4));
+        t1 = *(s32 *)(((u8 *)&gSprButtonCtrl));
         v2 = func_ov015_021629c8(t1);
         if (v2 == 1) {
-            v3 = _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&data_020c5e40), 1);
+            v3 = _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&gAudioPlayer), 1);
             *(u8 *)(arg0 + 0x2C) = 1;
             return v3;
         }
@@ -1491,7 +1491,7 @@ extern "C" s32 func_ov046_02166fc8(u8 *arg0, s32 arg1)
         }
         if (*(s32 *)(arg0 + 0xC) != 5)
             return *(s32 *)(arg0 + 0xC);
-        _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&data_020c5e40), 1);
+        _ZN12SoundManager9PlaySoundEi((s32)((u8 *)&gAudioPlayer), 1);
         *(s32 *)(arg0 + 0x8) = 3;
         func_ov046_02169928((s32)arg0, 1, 3);
         v10 = func_ov046_02169170((s32)arg0);
@@ -1510,8 +1510,8 @@ extern "C" s32 func_ov046_02166fc8(u8 *arg0, s32 arg1)
 extern "C" s32 func_ov046_02167160(u8 *arg0)
 {
     MI_CpuFill8((arg0 + 0x5C), 0, 0x15C);
-    func_ov015_02133f94((s32)data_ov046_0216ad48, (arg0 + 0x5C));
-    func_ov015_02133f94((s32)data_ov046_0216ad68, (arg0 + 0x1B8));
+    Archive_RequestNewRead((s32)data_ov046_0216ad48, (arg0 + 0x5C));
+    Archive_RequestNewRead((s32)data_ov046_0216ad68, (arg0 + 0x1B8));
     *(s32 *)(arg0 + 0x8) = 1;
     return 1;
 }
@@ -1526,7 +1526,7 @@ extern "C" void func_ov046_021671a4(u8 *arg0)
     if (e->a == 0)
         return;
     do {
-        ((void (*)(s32, u8 *, s32))func_ov015_021340c0)(e->a, arg0 + 0x5C + e->b * 0xC, v);
+        ((void (*)(s32, u8 *, s32))Archive_ReadFromSFP)(e->a, arg0 + 0x5C + e->b * 0xC, v);
         e++;
     } while (e->a != 0);
 }
@@ -1544,9 +1544,9 @@ extern "C" asm s32 func_ov046_02167218(...)
     blo @L_02167258
     add r0, r5, #0x1b8
     mov r1, #1
-    bl func_ov015_02134198
+    bl Archive_Close
     add r0, r5, #0x1b8
-    bl func_ov015_02134208
+    bl Archive_Deallocate
     mov r0, #0
     str r0, [r5, #0x1b8]
     str r0, [r5, #0x1bc]
@@ -1561,9 +1561,9 @@ extern "C" asm s32 func_ov046_02167218(...)
     add r6, r5, r4
     mov r0, r6
     mov r1, #1
-    bl func_ov015_02134198
+    bl Archive_Close
     mov r0, r6
-    bl func_ov015_02134208
+    bl Archive_Deallocate
     mov r0, #0
     str r0, [r5, r4]
     str r0, [r6, #4]
@@ -1583,7 +1583,7 @@ extern "C" s32 func_ov046_02167298(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     r5 = (arg0 + 0x5C);
     r6 = 0;
     do {
-        s32 v1 = func_ov015_02134208(((r6 * r4) + r5));
+        s32 v1 = Archive_Deallocate(((r6 * r4) + r5));
         arg0 = v1;
         r6 = (r6 + 1);
     } while (r6 < 0x1D);
@@ -1599,151 +1599,151 @@ extern "C" asm void func_ov046_021672cc(void)
     ldr r0, [r6, #0xd4]
     mov r1, r4
     mov r2, r8
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r7, r0
     mov r5, #0
     ldr r0, [r6, #0xd4]
     mov r1, r5
     mov r2, r8
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     ldr r0, [r6, #0xe0]
     mov r2, r8
     add r1, r7, #1
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r8
     mov r7, r0
     ldr r0, [r6, #0xe0]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add r1, r7, #1
     ldr r0, [r6, #0xec]
     mov r7, #9
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r7, r0
     ldr r0, [r6, #0xec]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add r1, r7, #1
     ldr r0, [r6, #0xf8]
     mov r7, #0xa
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r7, r0
     ldr r0, [r6, #0xf8]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add r1, r7, #1
     ldr r0, [r6, #0x104]
     mov r7, #0xb
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r7, r0
     ldr r0, [r6, #0x104]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add r1, r7, #1
     ldr r0, [r6, #0x110]
     mov r7, #0xd
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r8, r0
     ldr r0, [r6, #0x110]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     mov r7, #8
     ldr r0, [r6, #0x11c]
     mov r2, r7
     add r1, r8, #1
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x128]
     mov r2, r7
     add r1, r8, #1
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x134]
     mov r2, r7
     add r1, r8, #1
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x140]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x14c]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x164]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x170]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x17c]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x188]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x194]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x158]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0x1a0]
     add r1, r8, #1
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r7, #4
     ldr r0, [r6, #0xb0]
     mov r1, r4
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r7, r0
     ldr r0, [r6, #0xb0]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add r1, r7, #1
     mov r7, #0xc
     ldr r0, [r6, #0xbc]
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r7, r0
     ldr r0, [r6, #0xbc]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add r1, r7, #1
     mov r7, #0xe
     ldr r0, [r6, #0x1ac]
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r7, r0
     ldr r0, [r6, #0x1ac]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add r1, r7, #1
     mov r7, #7
     ldr r0, [r6, #0xc8]
     mov r2, r7
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r7
     mov r7, r0
     ldr r0, [r6, #0xc8]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     ldr r0, [r6, #0x40]
     cmp r0, #0
     ldrne r1, [r6, #0x44]
@@ -1757,48 +1757,48 @@ extern "C" asm void func_ov046_021672cc(void)
     mov r3, #0
     mul r1, r4, r1
     mov r1, r1, lsl #1
-    bl func_ov015_02132984
+    bl Graphics_SetupScreen
 @L_02167564:
     mov r4, #1
     ldr r0, [r6, #0x68]
     mov r1, r4
     mov r2, r4
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r1, r0
     ldr r0, [r6, #0x74]
     mov r2, r4
     add r1, r1, #1
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r1, r0
     ldr r0, [r6, #0x80]
     mov r2, r4
     add r1, r1, #1
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r1, r0
     mov r5, #5
     ldr r0, [r6, #0x8c]
     add r1, r1, #1
     mov r2, r5
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     mov r2, r5
     mov r7, r0
     mov r5, #0
     ldr r0, [r6, #0x8c]
     mov r1, r5
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     ldr r0, [r6, #0x98]
     add r1, r7, #1
     mov r2, r4
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     add r1, r0, #1
     mov r4, #6
     ldr r0, [r6, #0xa4]
     mov r2, r4
-    bl func_ov015_02132a04
+    bl Graphics_SetupScreen_2
     ldr r0, [r6, #0xa4]
     mov r1, r5
     mov r2, r4
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
@@ -1820,27 +1820,27 @@ extern "C" asm void func_ov046_02167608(void)
     ldr r1, [r4, #0xd4]
     mov r0, r5
     mov r2, r6
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0xe0]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0xec]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0xf8]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0x104]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0x110]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     str r0, [r4, #0x34]
     bl G2_GetBG1CharPtr
     mov r1, r0
@@ -1854,19 +1854,19 @@ extern "C" asm void func_ov046_02167608(void)
     ldr r1, [r4, #0xb0]
     mov r2, r6
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0xbc]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0x1ac]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     ldr r1, [r4, #0xc8]
     mov r0, r5
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r1, r0
     ldr r0, [r4, #0x40]
     cmp r0, #0
@@ -1881,7 +1881,7 @@ extern "C" asm void func_ov046_02167608(void)
     str r1, [r4, #0x48]
     mul r2, r3, r2
     mov r2, r2, lsl #5
-    bl func_020039f8
+    bl GX_LoadBG1Char
 @L_02167740:
     bl G2_GetBG2CharPtr
     mov r6, #0x20
@@ -1896,28 +1896,28 @@ extern "C" asm void func_ov046_02167608(void)
     mov r2, r6
     mov r0, r5
     ldr r1, [r4, #0x68]
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     mov r0, r5
     ldr r1, [r4, #0x74]
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     mov r0, r5
     ldr r1, [r4, #0x80]
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     mov r0, r5
     ldr r1, [r4, #0x8c]
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     mov r2, r0
     mov r0, r5
     ldr r1, [r4, #0x98]
-    bl func_ov015_02132af0
+    bl Graphics_LoadBGXCharMain
     ldr r1, [r4, #0xa4]
     mov r2, r0
     mov r0, r5
-    bl func_ov015_02132af0
-    bl func_ov015_02132224
+    bl Graphics_LoadBGXCharMain
+    bl Graphics_LoadBGPaletteMain
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
@@ -1946,7 +1946,7 @@ extern "C" s32 func_ov046_021677d0(u8 *arg0)
         case 3:
             t1 = *(s32 *)(r4 + 0x110);
             t2 = *(s32 *)(r4 + 0x34);
-            func_ov015_02132af0(3, t1, t2);
+            Graphics_LoadBGXCharMain(3, t1, t2);
             r1 = 0x12;
             break;
         case 4:
@@ -1961,7 +1961,7 @@ extern "C" s32 func_ov046_021677d0(u8 *arg0)
         case 7:
             t3 = *(s32 *)(r4 + 0x110);
             t4 = *(s32 *)(r4 + 0x34);
-            func_ov015_02132af0(3, t3, t4);
+            Graphics_LoadBGXCharMain(3, t3, t4);
             r1 = 0x16;
             break;
         case 8:
@@ -1991,7 +1991,7 @@ extern "C" s32 func_ov046_021677d0(u8 *arg0)
     }
     t5 = *(s32 *)(((u8 *)((r1 * 0xC) + r4)) + 0x5C);
     t6 = *(s32 *)(r4 + 0x34);
-    v2 = func_ov015_02132af0(3, t5, t6);
+    v2 = Graphics_LoadBGXCharMain(3, t5, t6);
     return v2;
 }
 
@@ -2003,7 +2003,7 @@ extern "C" void func_ov046_021678dc(u8 *arg0)
 {
     if (ok021678dc(arg0) && *(u8 *)(arg0 + 0x50) != 0) {
         *(u8 *)(arg0 + 0x50) = 0;
-        ((void (*)(s32, s32, s32))func_020039f8)(*(s32 *)(arg0 + 0x44), *(s32 *)(arg0 + 0x48), *(u16 *)(arg0 + 0x4C) * *(u16 *)(arg0 + 0x4E) * 0x20);
+        ((void (*)(s32, s32, s32))GX_LoadBG1Char)(*(s32 *)(arg0 + 0x44), *(s32 *)(arg0 + 0x48), *(u16 *)(arg0 + 0x4C) * *(u16 *)(arg0 + 0x4E) * 0x20);
     }
 }
 
@@ -2029,17 +2029,17 @@ extern "C" s32 func_ov046_02167934(u8 *arg0)
             if (*(s32 *)(r5 + 0x24) != 2) {
                 r2 = 5;
             }
-            func_ov015_0213b990((u8 *)((u8 *)&data_020c9660), 0, r2);
+            CBgMenuManager_HideID((u8 *)((u8 *)&gBgMenuManager), 0, r2);
             r2 = 5;
             if (*(s32 *)(r5 + 0x24) != 2) {
                 r2 = 6;
             }
-            func_ov015_0213ba04((u8 *)((u8 *)&data_020c9660), 0, r2);
+            CBgMenuManager_ShowID((u8 *)((u8 *)&gBgMenuManager), 0, r2);
             break;
         case 3:
         case 7:
-            t0 = ((*(s32 *)(r5 + 0x26C) + *(s32 *)(((u8 *)&data_020c484c))) + ((u32)((*(s32 *)(r5 + 0x26C) + *(s32 *)(((u8 *)&data_020c484c))) >> 2) >> 0x1D));
-            t1 = (*(s32 *)(r5 + 0x26C) + *(s32 *)(((u8 *)&data_020c484c)));
+            t0 = ((*(s32 *)(r5 + 0x26C) + *(s32 *)(((u8 *)&gDeltaTime))) + ((u32)((*(s32 *)(r5 + 0x26C) + *(s32 *)(((u8 *)&gDeltaTime))) >> 2) >> 0x1D));
+            t1 = (*(s32 *)(r5 + 0x26C) + *(s32 *)(((u8 *)&gDeltaTime)));
             *(s32 *)(r5 + 0x26C) = t1;
             if ((t0 >> 3) != 0) {
                 t2 = *(u8 *)(r5 + 0x270);
@@ -2053,12 +2053,12 @@ extern "C" s32 func_ov046_02167934(u8 *arg0)
             if ((s32)r6 == 0)
                 break;
             t3 = (s32)((r6 + *(s32 *)(r6 + 0xC)) + (*(u8 *)(r5 + 0x270) << 3));
-            func_ov015_0213c488((u8 *)((u8 *)&data_020c9660), r4, 0xE, t3);
-            func_ov015_021322b0((s32)r6, r4, 8);
+            CBgMenuManager_SetScreen((u8 *)((u8 *)&gBgMenuManager), r4, 0xE, t3);
+            Graphics_LoadTempPaletteFromPac((s32)r6, r4, 8);
             break;
     }
-    func_ov015_0213bb80((u8 *)((u8 *)&data_020c9660));
-    v5 = func_ov015_0213bfcc((u8 *)((u8 *)&data_020c9660), 0);
+    CBgMenuManager_UpdateRadio((u8 *)((u8 *)&gBgMenuManager));
+    v5 = CBgMenuManager_UpdateGraphics((u8 *)((u8 *)&gBgMenuManager), 0);
     return v5;
 }
 
@@ -2116,10 +2116,10 @@ extern "C" asm void func_ov046_02167ae4(void)
     add r0, r10, #0x1c4
     mvn r1, #0
     bl func_ov015_02136330
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r1, [r10, #0x240]
     ldr r0, [r0]
-    bl func_02092270
+    bl C3DPlaneCtrl_Destroy
     mov r4, #0
     b @L_02167b4c
 @L_02167b38:
@@ -2145,12 +2145,12 @@ extern "C" asm void func_ov046_02167ae4(void)
     mov r0, #3
     str r0, [r10, #0x258]
 @L_02167b84:
-    ldr r6, =data_020c46d4
+    ldr r6, =g3DPlaneCtrl
     mov r8, #0
     ldr r0, [r6]
     mov r1, #4
     mov r2, #1
-    bl func_020920c4
+    bl C3DPlaneCtrl_Create
     mov r9, r8
     str r0, [r10, #0x240]
     mov r7, r8
@@ -2169,7 +2169,7 @@ extern "C" asm void func_ov046_02167ae4(void)
     ldr r0, [r6]
     ldr r1, [r10, #0x240]
     mov r2, r8
-    bl func_02093188
+    bl C3DPlaneCtrl_SetTex
     ldr r0, [r10, #0x268]
     mov r2, r8
     mov r0, r0, lsl #3
@@ -2183,7 +2183,7 @@ extern "C" asm void func_ov046_02167ae4(void)
     add r3, r3, #0x68
     mov r3, r3, lsl #0x10
     mov r3, r3, asr #0x10
-    bl func_02093524
+    bl C3DPlaneCtrl_SetPos
     ldr r0, [r6]
     ldr r1, [r10, #0x240]
     mov r2, r8
@@ -2191,13 +2191,13 @@ extern "C" asm void func_ov046_02167ae4(void)
     rsb r3, r3, #0x1f4
     mov r3, r3, lsl #0x10
     mov r3, r3, lsr #0x10
-    bl func_02093368
+    bl C3DPlaneCtrl_SetDepth
     str r7, [sp]
     ldr r0, [r6]
     ldr r1, [r10, #0x240]
     mov r2, r8
     mov r3, r7
-    bl func_020939c8
+    bl C3DPlaneCtrl_SetGraphicIdx
     add r9, r9, #1
 @L_02167c58:
     cmp r9, #4
@@ -2217,8 +2217,8 @@ extern "C" s32 func_ov046_02167c78(u8 *arg0)
     if ((s32)*(u8 * *)(arg0 + 0x98) == 0)
         return *(u8 *)(arg0 + 0x25C);
     t0 = *(u8 * *)(arg0 + 0x98);
-    func_ov015_0213b6ac((s32)data_020c9660, 0, 2, 0, 3, 1, 2, 0x11, 0x1C, 4, 0, (*(u8 * *)(arg0 + 0x98) + *(s32 *)(*(u8 * *)(arg0 + 0x98) + 0xC)));
-    v1 = func_ov015_021322b0(t0, 0, 1);
+    CBgMenuManager_AddStatic((s32)gBgMenuManager, 0, 2, 0, 3, 1, 2, 0x11, 0x1C, 4, 0, (*(u8 * *)(arg0 + 0x98) + *(s32 *)(*(u8 * *)(arg0 + 0x98) + 0xC)));
+    v1 = Graphics_LoadTempPaletteFromPac(t0, 0, 1);
     *(u8 *)(arg0 + 0x38) = 1;
     return v1;
 }
@@ -2254,17 +2254,17 @@ extern "C" asm s32 func_ov046_02167d10(...)
     str r0, [sp, #0x14]
     str r7, [sp, #0x18]
     ldr r1, [r5, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     add r6, r5, r1
     mov r1, r7
     mov r2, r7
     mov r3, r7
     str r6, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     mov r0, r5
     mov r1, r7
     mov r2, #8
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     mov r0, #1
     strb r0, [r10, #0x38]
 @L_02167db8:
@@ -2277,7 +2277,7 @@ extern "C" asm s32 func_ov046_02167d10(...)
     mov r0, r0, lsl #0x18
     str r1, [sp]
     mov r8, #3
-    ldr r5, =data_020c9660
+    ldr r5, =gBgMenuManager
     mov r6, #0
     str r8, [sp, #4]
     mov r1, #7
@@ -2294,7 +2294,7 @@ extern "C" asm s32 func_ov046_02167d10(...)
     str r6, [sp, #0x18]
     add r9, r11, r9
     str r9, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     mov r0, #0xb
     str r0, [sp]
     add r0, r4, #0xe
@@ -2313,7 +2313,7 @@ extern "C" asm s32 func_ov046_02167d10(...)
     str r6, [sp, #0x18]
     add r5, r9, #0x24
     str r5, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
 @L_02167e70:
     ldr r2, [r10, #0xf8]
     cmp r2, #0
@@ -2343,12 +2343,12 @@ extern "C" asm s32 func_ov046_02167d10(...)
     add r0, sp, #0x20
     stmib sp, {r0, r5}
     str r5, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r5
     mov r2, r5
     mov r3, #0xc
     str r5, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     add r0, r9, #0x24
     mov r1, #0x13
     strh r1, [sp, #0x20]
@@ -2365,12 +2365,12 @@ extern "C" asm s32 func_ov046_02167d10(...)
     add r0, sp, #0x20
     stmib sp, {r0, r5}
     str r5, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r5
     mov r2, r5
     mov r3, #0xd
     str r5, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_02167f50:
     ldr r6, =data_020c47a4
     mov r7, #0xa
@@ -2394,14 +2394,14 @@ extern "C" asm s32 func_ov046_02167d10(...)
     mov r0, r6
     mov r2, #1
     str r4, [r10, #0x28]
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     add sp, sp, #0x38
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
 extern "C" void func_ov046_02167fbc(void)
 {
-    func_ov015_02162f70(*(s32 *)(data_020c46c4), 1, 1, 0, 0, 0x100, 0xC0, 0);
+    func_ov015_02162f70(*(s32 *)(gSprButtonCtrl), 1, 1, 0, 0, 0x100, 0xC0, 0);
 }
 
 extern "C" asm void func_ov046_02168000(void)
@@ -2434,17 +2434,17 @@ extern "C" asm void func_ov046_02168000(void)
     str r2, [sp, #0x14]
     str r7, [sp, #0x18]
     ldr r1, [r4, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     add r12, r4, r1
     mov r1, r7
     mov r2, r7
     mov r3, r7
     str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     mov r0, r4
     mov r1, r7
     mov r2, #8
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     mov r0, #1
     strb r0, [r6, #0x38]
 @L_021680a4:
@@ -2475,11 +2475,11 @@ extern "C" asm void func_ov046_02168000(void)
     str r4, [sp]
     stmib sp, {r0, r1}
     str r1, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r2, r1
     mov r3, #0xe
     str r1, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_02168124:
     ldr r5, =data_020c47a4
     mov r1, #0
@@ -2496,7 +2496,7 @@ extern "C" asm void func_ov046_02168000(void)
     mov r2, #1
     strb r3, [r6, #0x3c]
     str r4, [r6, #0x28]
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     add sp, sp, #0x38
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -2534,17 +2534,17 @@ extern "C" asm s32 func_ov046_02168180(...)
     str r2, [sp, #0x14]
     str r4, [sp, #0x18]
     ldr r1, [r6, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     add r12, r6, r1
     mov r1, r4
     mov r2, r4
     mov r3, r4
     str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     mov r0, r6
     mov r1, r4
     mov r2, #8
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     strb r5, [r8, #0x38]
 @L_02168218:
     ldr r4, [r8, #0x110]
@@ -2573,16 +2573,16 @@ extern "C" asm s32 func_ov046_02168180(...)
     add r0, sp, #0x20
     stmib sp, {r0, r5}
     str r5, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r5
     mov r2, r5
     mov r3, #0xe
     str r5, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     mov r0, r4
     mov r1, r5
     mov r2, #8
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     add sp, sp, #0x38
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
@@ -2662,11 +2662,11 @@ extern "C" asm void func_ov046_0216834c(void)
     add r0, sp, #0x18
     stmib sp, {r0, r1}
     str r1, [sp, #0xc]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r2, r1
     mov r3, #0xe
     str r1, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
 @L_02168448:
     ldr r5, =data_020c47a4
     mov r1, #0
@@ -2683,7 +2683,7 @@ extern "C" asm void func_ov046_0216834c(void)
     mov r2, #1
     strb r3, [r6, #0x3c]
     str r4, [r6, #0x28]
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     add sp, sp, #0x30
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -2696,8 +2696,8 @@ extern "C" s32 func_ov046_02168498(u8 *arg0)
     r6 = (u8 *)*(s32 *)(arg0 + 0x80);
     r7 = arg0;
     if ((s32)r6 != 0) {
-        func_ov015_0213b6ac((s32)data_020c9660, 0, 2, 0, 1, 0, 0, 0, 0x20, 0x18, 0, (r6 + *(s32 *)(r6 + 0xC)));
-        func_ov015_021322b0((s32)r6, 0, 1);
+        CBgMenuManager_AddStatic((s32)gBgMenuManager, 0, 2, 0, 1, 0, 0, 0, 0x20, 0x18, 0, (r6 + *(s32 *)(r6 + 0xC)));
+        Graphics_LoadTempPaletteFromPac((s32)r6, 0, 1);
         *(u8 *)(r7 + 0x38) = 1;
     }
     v2 = func_ov046_02167d10((s32)r7, 0x19);
@@ -2730,7 +2730,7 @@ extern "C" asm s32 func_ov046_02168528(...)
     mov r0, #0x80
     str r0, [sp, #0x10]
     str r4, [sp, #0x14]
-    ldr r0, =data_020c46a8
+    ldr r0, =gFont12Manager
     str r4, [sp, #0x18]
     ldr r0, [r0]
     mov r6, #0xa
@@ -2765,7 +2765,7 @@ extern "C" asm s32 func_ov046_02168528(...)
     mov r4, #0x80
     str r4, [sp, #0x10]
     str r6, [sp, #0x14]
-    ldr r11, =data_020c46a8
+    ldr r11, =gFont12Manager
     str r6, [sp, #0x18]
     ldr r0, [r11]
     mov r2, #0x42
@@ -2860,10 +2860,10 @@ extern "C" asm void func_ov046_021686d8(void)
     mov r0, r2, lsr #0x1f
     add r7, r0, r7, asr #2
     mov r1, #0
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     ldr r2, [sp, #0x5c]
     mov r3, r1
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     ldr r0, [sp, #0x24]
     cmp r7, #0
     sub r0, r10, r0, asr #24
@@ -3065,7 +3065,7 @@ extern "C" asm void func_ov046_02168a18(void)
     mov r0, r0, asr #0x18
     str r0, [sp, #0xc]
     ldrh r2, [r4, #0x4c]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r3, r1
     and r2, r2, #0xff
     str r2, [sp, #0x10]
@@ -3075,7 +3075,7 @@ extern "C" asm void func_ov046_02168a18(void)
     str r9, [sp, #0x14]
     str r1, [sp, #0x18]
     str r8, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
 @L_02168ab8:
     ldr r8, [r4, #0x54]
     cmp r8, #0
@@ -3105,17 +3105,17 @@ extern "C" asm void func_ov046_02168a18(void)
     str r5, [sp, #0x14]
     mov r0, #0xc
     str r0, [sp, #0x18]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     str r9, [sp, #0x1c]
     mov r1, r10
     mov r2, #1
     mov r3, r10
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     str r5, [sp]
     stmib sp, {r5, r11}
     add r3, r9, #0xc
     ldr r9, [r4, #0x268]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     add r9, r9, #9
     mov r9, r9, lsl #0x18
     mov r9, r9, asr #0x18
@@ -3129,7 +3129,7 @@ extern "C" asm void func_ov046_02168a18(void)
     mov r2, #1
     mov r1, r10
     mov r3, r10
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
 @L_02168b8c:
     ldrb r0, [r8, #0x15]
     cmp r0, #0x3c
@@ -3178,11 +3178,11 @@ extern "C" asm void func_ov046_02168a18(void)
     str r5, [sp, #0x14]
     mov r0, #0xe
     str r0, [sp, #0x18]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r3, r1
     mov r2, #1
     str r9, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
 @L_02168c44:
     mov r0, #0x14
     stmia sp, {r0, r10}
@@ -3214,7 +3214,7 @@ extern "C" asm void func_ov046_02168c80(void)
     mov r6, #0
     movne r10, r6
     mov r5, #2
-    ldr r4, =data_020c9660
+    ldr r4, =gBgMenuManager
     cmp r0, #0
     bne @L_02168d00
     mov r0, r8
@@ -3257,16 +3257,16 @@ extern "C" asm void func_ov046_02168c80(void)
     str r0, [sp, #0x14]
     add r12, r10, r2
     str r6, [sp, #0x18]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, r6
     mov r3, r6
     mov r2, #2
     str r12, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
     mov r0, r10
     mov r1, r6
     mov r2, r9
-    bl func_ov015_021322b0
+    bl Graphics_LoadTempPaletteFromPac
     strb r9, [r8, #0x38]
 @L_02168d80:
     ldr r2, [r8, #0x8c]
@@ -3297,7 +3297,7 @@ extern "C" asm void func_ov046_02168c80(void)
     mov r2, r5
     mov r3, r5
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     ldr r0, [r8, #0xc]
     cmp r0, #1
     bne @L_02168e28
@@ -3310,7 +3310,7 @@ extern "C" asm void func_ov046_02168c80(void)
     str r9, [sp, #4]
     mov r9, #0x80
     str r9, [sp, #8]
-    bl func_ov015_0213bd7c
+    bl CBgMenuManager_SetBounds
 @L_02168e28:
     ldrb r0, [r8, #0x25c]
     cmp r0, #1
@@ -3342,7 +3342,7 @@ extern "C" asm void func_ov046_02168c80(void)
     mov r1, r6
     mov r3, r9
     str r6, [sp, #0x10]
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     ldr r0, [r8, #0xc]
     cmp r0, #1
     bne @L_02168ed8
@@ -3355,7 +3355,7 @@ extern "C" asm void func_ov046_02168c80(void)
     str r10, [sp, #4]
     mov r9, #0x20
     str r9, [sp, #8]
-    bl func_ov015_0213bd7c
+    bl CBgMenuManager_SetBounds
 @L_02168ed8:
     mov r0, r8
     bl func_ov046_02168a18
@@ -3378,13 +3378,13 @@ extern "C" asm void func_ov046_02168c80(void)
     str r0, [sp, #0x10]
     mov r0, #0x10
     str r0, [sp, #0x14]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r2, r1
     mov r3, r1
     str r1, [sp, #0x18]
     add r9, lr, r12
     str r9, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
 @L_02168f48:
     ldr lr, [r8, #0xe0]
     cmp lr, #0
@@ -3403,18 +3403,18 @@ extern "C" asm void func_ov046_02168c80(void)
     str r0, [sp, #0x10]
     mov r0, #4
     str r0, [sp, #0x14]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r2, r1
     mov r3, r1
     str r1, [sp, #0x18]
     add r5, lr, r12
     str r5, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
 @L_02168fa8:
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r1, #0
     mov r2, #6
-    bl func_ov015_0213b990
+    bl CBgMenuManager_HideID
     ldr r0, =data_020c4ab4
     ldr r0, [r0, #0x64]
     cmp r0, #4
@@ -3457,7 +3457,7 @@ extern "C" asm void func_ov046_02168c80(void)
     mov r3, r5
     str r6, [sp, #0x10]
     mov r2, #1
-    bl func_ov015_0213b540
+    bl CBgMenuManager_AddDynamic
     ldr r0, [r8, #0xc]
     cmp r0, #1
     bne @L_02169094
@@ -3470,7 +3470,7 @@ extern "C" asm void func_ov046_02168c80(void)
     str r10, [sp, #4]
     mov r4, #0x18
     str r4, [sp, #8]
-    bl func_ov015_0213bd7c
+    bl CBgMenuManager_SetBounds
 @L_02169094:
     mov r0, #8
     str r0, [sp]
@@ -3485,13 +3485,13 @@ extern "C" asm void func_ov046_02168c80(void)
     str r0, [sp, #0x10]
     mov r0, #3
     str r0, [sp, #0x14]
-    ldr r0, =data_020c9660
+    ldr r0, =gBgMenuManager
     mov r3, r1
     str r1, [sp, #0x18]
     add r4, r9, #0x24
     mov r2, #1
     str r4, [sp, #0x1c]
-    bl func_ov015_0213b6ac
+    bl CBgMenuManager_AddStatic
 @L_021690e4:
     ldr r4, =data_020c47a4
     mov r1, r6
@@ -3521,7 +3521,7 @@ extern "C" asm void func_ov046_02168c80(void)
     ldrb r1, [r1, #0x3a]
     mov r0, r4
     mov r2, #1
-    bl func_ov015_0213c730
+    bl CBgMenuRadioButton_ReleaseButton
     add sp, sp, #0x38
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }

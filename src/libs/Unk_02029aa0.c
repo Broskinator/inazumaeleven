@@ -3,14 +3,14 @@
 void func_02029aa0(void);
 void func_02029efc(void);
 void func_0202a1e8(void);
-void func_0202a534(void);
-void func_0202ac7c(void);
-void func_0202ad58(void);
+void NNSi_G3dFuncSbc_NODEMIX(void);
+void NNSi_G3dFuncSbc_CALLDL(void);
+void NNSi_G3dFuncSbc_POSSCALE(void);
 void func_0202adc0(void);
 void func_0202b110(void);
-void func_0202b4c4(void);
+void NNS_G3dGeFlushBuffer(void);
 
-void func_0202b608(void);
+void NNS_G3dGeBufferOP_N(void);
 void func_02009bc8(void);
 extern char data_020a48cc[];
 extern char data_020a48cd[];
@@ -19,23 +19,23 @@ extern char data_020a48cf[];
 extern char data_020ab960[];
 extern char data_020ab96c[];
 void G3X_GetClipMtx(void);
-extern char data_020bf418[];
+extern char NNS_G3dGlb[];
 void func_02028830(void);
-extern char data_020bf464[];
+extern char NNS_G3dGlb_cameraMtx[];
 void MTX_Copy43To44_(void);
-void func_02001644(void);
-void func_02002024(void);
+void MTX_Concat44(void);
+void VEC_Mag(void);
 extern char data_020ab934[];
 void MIi_CpuSend32(void);
 void func_02028864(void);
 extern char data_020ab93c[];
-void func_0202878c(void);
+void NNS_G3dGlbGetInvV(void);
 extern char data_020ab930[];
 extern char data_020ab9a8[];
 extern char data_020ab9b4[];
 extern char data_020ab984[];
-void func_02002084(void);
-void func_02001fa4(void);
+void VEC_Normalize(void);
+void VEC_CrossProduct(void);
 extern char data_020ab97c[];
 extern char data_020ab978[];
 void MIi_CpuClearFast(void);
@@ -45,15 +45,15 @@ void G3_MultMtx33(void);
 extern char data_020c0ac0[];
 void G3X_GetVectorMtx(void);
 void G3_LoadMtx43(void);
-void func_0202b550(void);
+void NNS_G3dGeSendDL(void);
 extern char data_020ab8c0[];
 extern char data_020ab8cc[];
-void func_0202b6e4(void);
-extern char data_020bf4d4[];
+void NNS_G3dGetCurrentMtx(void);
+extern char NNS_G3dGlb_prmBaseRot[];
 extern char data_020ab8c4[];
 extern char data_020ab8f0[];
 extern char data_020bf4f8[];
-extern char data_020c2380[];
+extern char NNS_G3dGeBuffer[];
 void NNS_G3dGeWaitSendDL(void);
 
 asm void func_02029aa0(void)
@@ -89,7 +89,7 @@ asm void func_02029aa0(void)
     mov r0, #0x14
     mov r2, #1
     str r3, [sp, #0x10]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_02029b1c:
     ldr r0, [r10]
     add sp, sp, #0x14
@@ -115,7 +115,7 @@ asm void func_02029aa0(void)
     add r1, sp, #0xc
     mov r0, #0x14
     mov r2, #1
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_02029b78:
     ldr r0, [r10, #0x24]
     add r1, r10, #0x12c
@@ -351,7 +351,7 @@ asm void func_02029aa0(void)
     mov r0, #0x13
     mov r2, #1
     str r3, [sp, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_02029ed8:
     ldr r0, [r10]
     add r0, r0, r4
@@ -402,7 +402,7 @@ asm void func_02029efc(void)
     ldrneb r0, [r0, #3]
     strne r0, [sp, #4]
     mov r0, #0x14
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_02029f98:
     ldr r0, [r10, #0x28]
     cmp r0, #0
@@ -430,7 +430,7 @@ asm void func_02029efc(void)
     tst r0, #0x100
     cmpeq r1, #0
     bne @L_0202a138
-    bl func_0202b4c4
+    bl NNS_G3dGeFlushBuffer
     ldr r1, =0x151110
     ldr r0, =0x4000400
     str r1, [r0]
@@ -442,7 +442,7 @@ asm void func_02029efc(void)
     bl G3X_GetClipMtx
     cmp r0, #0
     bne @L_0202a014
-    ldr r0, =data_020bf418
+    ldr r0, =NNS_G3dGlb
     ldr r0, [r0, #0xfc]
     tst r0, #1
     beq @L_0202a040
@@ -452,7 +452,7 @@ asm void func_02029efc(void)
 @L_0202a040:
     tst r0, #2
     beq @L_0202a068
-    ldr r0, =data_020bf464
+    ldr r0, =NNS_G3dGlb_cameraMtx
     add r11, sp, #8
 @L_0202a050:
     mov r1, r11
@@ -460,7 +460,7 @@ asm void func_02029efc(void)
     mov r0, r4
     mov r1, r11
     mov r2, r4
-    bl func_02001644
+    bl MTX_Concat44
 @L_0202a068:
     ldr r3, [sp, #0xb8]
     ldr r2, [sp, #0xbc]
@@ -469,14 +469,14 @@ asm void func_02029efc(void)
     str r3, [r6]
     str r2, [r6, #4]
     str r1, [r6, #8]
-    bl func_02002024
+    bl VEC_Mag
     str r0, [r7]
     add r0, sp, #0x98
-    bl func_02002024
+    bl VEC_Mag
     str r0, [r7, #4]
     add r0, sp, #0xa8
-    bl func_02002024
-    ldr r1, =data_020bf418
+    bl VEC_Mag
+    ldr r1, =NNS_G3dGlb
     str r0, [r7, #8]
     ldr r0, [r1, #0xfc]
     tst r0, #1
@@ -510,7 +510,7 @@ asm void func_02029efc(void)
     mov r2, #8
     str r3, [r4]
     bl MIi_CpuSend32
-    bl func_0202878c
+    bl NNS_G3dGlbGetInvV
     b @L_0202a0d4
 @L_0202a128:
     ldr r0, =data_020ab930
@@ -547,7 +547,7 @@ asm void func_02029efc(void)
     mov r0, #0x13
     mov r2, #1
     str r3, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202a1a8:
     ldr r0, [r10]
     add r0, r0, r5
@@ -599,7 +599,7 @@ asm void func_0202a1e8(void)
     ldrneb r0, [r0, #3]
     strne r0, [sp, #4]
     mov r0, #0x14
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202a288:
     ldr r0, [r10, #0x2c]
     cmp r0, #0
@@ -627,7 +627,7 @@ asm void func_0202a1e8(void)
     tst r0, #0x100
     cmpeq r1, #0
     bne @L_0202a484
-    bl func_0202b4c4
+    bl NNS_G3dGeFlushBuffer
     ldr r1, =0x151110
     ldr r0, =0x4000400
     str r1, [r0]
@@ -639,7 +639,7 @@ asm void func_0202a1e8(void)
     bl G3X_GetClipMtx
     cmp r0, #0
     bne @L_0202a304
-    ldr r0, =data_020bf418
+    ldr r0, =NNS_G3dGlb
     ldr r0, [r0, #0xfc]
     tst r0, #1
     beq @L_0202a33c
@@ -652,14 +652,14 @@ asm void func_0202a1e8(void)
 @L_0202a33c:
     tst r0, #2
     beq @L_0202a360
-    ldr r0, =data_020bf464
+    ldr r0, =NNS_G3dGlb_cameraMtx
     add r1, sp, #8
     bl MTX_Copy43To44_
     mov r0, r4
     add r1, sp, #8
 @L_0202a358:
     mov r2, r4
-    bl func_02001644
+    bl MTX_Concat44
 @L_0202a360:
     ldr r3, [sp, #0xb8]
     ldr r2, [sp, #0xbc]
@@ -668,13 +668,13 @@ asm void func_0202a1e8(void)
     str r3, [r11]
     str r2, [r11, #4]
     str r1, [r11, #8]
-    bl func_02002024
+    bl VEC_Mag
     str r0, [r6]
     add r0, sp, #0x98
-    bl func_02002024
+    bl VEC_Mag
     str r0, [r6, #4]
     add r0, sp, #0xa8
-    bl func_02002024
+    bl VEC_Mag
     ldr r1, [sp, #0xa0]
     str r0, [r6, #8]
     ldr r0, [sp, #0x9c]
@@ -689,15 +689,15 @@ asm void func_0202a1e8(void)
     str r0, [r7, #4]
     mov r0, r7
     mov r1, r7
-    bl func_02002084
+    bl VEC_Normalize
     add r0, r7, #0xc
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
     mov r0, r7
     add r1, r7, #0xc
     add r2, r7, #0x18
-    bl func_02001fa4
-    ldr r0, =data_020bf418
+    bl VEC_CrossProduct
+    ldr r0, =NNS_G3dGlb
     ldr r0, [r0, #0xfc]
     tst r0, #1
     beq @L_0202a448
@@ -730,7 +730,7 @@ asm void func_0202a1e8(void)
     mov r2, #8
     str r3, [r4]
     bl MIi_CpuSend32
-    bl func_0202878c
+    bl NNS_G3dGlbGetInvV
     b @L_0202a420
 @L_0202a474:
     ldr r0, =data_020ab978
@@ -767,7 +767,7 @@ asm void func_0202a1e8(void)
     mov r0, #0x13
     mov r2, #1
     str r3, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202a4f4:
     ldr r0, [r10]
     add r0, r0, r5
@@ -776,7 +776,7 @@ asm void func_0202a1e8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202a534(void)
+asm void NNSi_G3dFuncSbc_NODEMIX(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x104
@@ -796,7 +796,7 @@ asm void func_0202a534(void)
     str r3, [sp, #0x14]
     add r6, r6, #3
     bl MIi_CpuClearFast
-    bl func_0202b4c4
+    bl NNS_G3dGeFlushBuffer
     ldr r1, =0x4000440
     mov r0, #1
     str r5, [r1]
@@ -1250,7 +1250,7 @@ asm void func_0202a534(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202ac7c(void)
+asm void NNSi_G3dFuncSbc_CALLDL(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -1296,7 +1296,7 @@ asm void func_0202ac7c(void)
     orr r1, r1, r3, lsl #16
     add r0, r0, r6
     orr r1, r1, r2, lsl #24
-    bl func_0202b550
+    bl NNS_G3dGeSendDL
 @L_0202ad28:
     cmp r4, #3
     bne @L_0202ad48
@@ -1313,7 +1313,7 @@ asm void func_0202ac7c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0202ad58(void)
+asm void NNSi_G3dFuncSbc_POSSCALE(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #0xc
@@ -1335,7 +1335,7 @@ asm void func_0202ad58(void)
     strne r0, [sp, #4]
     strne r0, [sp]
     mov r0, #0x1b
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202adac:
     ldr r0, [r4]
     add r0, r0, #1
@@ -1373,14 +1373,14 @@ asm void func_0202adc0(void)
     ldr r3, [r3, #0x10]
     str r3, [r0, #0xc]
     ldr r0, [r0, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202ae30:
     mov r0, #3
     str r0, [sp, #0x10]
     add r1, sp, #0x10
     mov r0, #0x10
     mov r2, #1
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [r8, #0x3c]
     cmp r0, #0
     ldrneb r7, [r8, #0x98]
@@ -1418,7 +1418,7 @@ asm void func_0202adc0(void)
     str lr, [sp, #0x14]
     str r12, [sp, #0x18]
     str r3, [sp, #0x1c]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, r6, lsl #0x13
     mov r1, r0, asr #0x10
     mov r0, r4, lsl #0x13
@@ -1432,7 +1432,7 @@ asm void func_0202adc0(void)
     mov r0, #0x22
     mov r2, #1
     str r3, [sp, #0xc]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202af10:
     cmp r7, #2
     bne @L_0202af4c
@@ -1492,7 +1492,7 @@ asm void func_0202adc0(void)
     addeq r1, r1, #8
     mov r0, #0x18
     mov r2, #0x10
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202afe4:
     cmp r7, #3
     movne r0, #0
@@ -1514,56 +1514,56 @@ asm void func_0202adc0(void)
     mov r0, r6
     mov r2, r5
     str r3, [sp, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r4, sp, #0x20
     mov r0, #0
     mov r1, r4
-    bl func_0202b6e4
+    bl NNS_G3dGetCurrentMtx
     mov r3, #3
     add r1, sp, #4
     mov r0, r6
     mov r2, r5
     str r3, [sp, #4]
-    bl func_0202b608
-    ldr r0, =data_020bf418
+    bl NNS_G3dGeBufferOP_N
+    ldr r0, =NNS_G3dGlb
     ldr r0, [r0, #0xfc]
     tst r0, #1
     beq @L_0202b0a8
     mov r6, #0x1a
     mov r5, #9
-    ldr r1, =data_020bf464
+    ldr r1, =NNS_G3dGlb_cameraMtx
     mov r0, r6
     mov r2, r5
-    bl func_0202b608
-    ldr r1, =data_020bf4d4
+    bl NNS_G3dGeBufferOP_N
+    ldr r1, =NNS_G3dGlb_prmBaseRot
 @L_0202b088:
     mov r0, r6
     mov r2, r5
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, r6
     mov r1, r4
     mov r2, r5
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     b @L_0202b0d0
 @L_0202b0a8:
     tst r0, #2
     beq @L_0202b0c0
     mov r6, #0x1a
     mov r5, #9
-    ldr r1, =data_020bf464
+    ldr r1, =NNS_G3dGlb_cameraMtx
     b @L_0202b088
 @L_0202b0c0:
     mov r1, r4
     mov r0, #0x1a
     mov r2, #9
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202b0d0:
     mov r3, #2
     add r1, sp, #0
     mov r0, #0x10
     mov r2, #1
     str r3, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202b0e8:
     ldr r0, [r8]
     add r0, r0, #3
@@ -1585,14 +1585,14 @@ asm void func_0202b110(void)
     beq @L_0202b490
     add r0, sp, #0x50
     mov r1, r6
-    bl func_0202b6e4
+    bl NNS_G3dGetCurrentMtx
     mov r0, #0x1e
     mov r4, #1
     str r0, [sp, #0xc]
     add r1, sp, #0xc
     mov r2, r4
     mov r0, #0x13
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r2, [r5, #0xb0]
     ldr r0, [r2, #0x10]
     and r1, r0, #0xc0000000
@@ -1611,7 +1611,7 @@ asm void func_0202b110(void)
     ldr r3, [r3, #0x10]
     str r3, [r0, #4]
     ldr r0, [r0]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202b1a8:
     ldr r0, [r5, #0x40]
     cmp r0, #0
@@ -1651,7 +1651,7 @@ asm void func_0202b110(void)
     mov r3, r7, lsl #0xf
     mov r2, #0x10
     str r3, [r1, #0x34]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202b23c:
     cmp r4, #2
     bne @L_0202b278
@@ -1711,7 +1711,7 @@ asm void func_0202b110(void)
     addeq r1, r1, #8
     mov r0, #0x18
     mov r2, #0x10
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202b310:
     cmp r4, #3
     movne r0, #0
@@ -1727,18 +1727,18 @@ asm void func_0202b110(void)
 @L_0202b33c:
     cmp r0, #0
     bne @L_0202b45c
-    ldr r0, =data_020bf418
+    ldr r0, =NNS_G3dGlb
     ldr r0, [r0, #0xfc]
     tst r0, #1
     beq @L_0202b384
     ldr r1, =data_020bf4f8
     mov r0, #0x1c
     mov r2, #3
-    bl func_0202b608
-    ldr r1, =data_020bf4d4
+    bl NNS_G3dGeBufferOP_N
+    ldr r1, =NNS_G3dGlb_prmBaseRot
     mov r0, #0x1a
     mov r2, #9
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r1, sp, #0x50
     mov r0, #0x19
     mov r2, #0xc
@@ -1751,19 +1751,19 @@ asm void func_0202b110(void)
     mov r2, #0xc
     b @L_0202b3c4
 @L_0202b39c:
-    bl func_0202878c
+    bl NNS_G3dGlbGetInvV
     mov r4, #0xc
     mov r7, #0x19
     mov r1, r0
     mov r0, r7
     mov r2, r4
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r1, sp, #0x50
     mov r0, r7
     mov r2, r4
 @L_0202b3c4:
-    bl func_0202b608
-    bl func_0202b4c4
+    bl NNS_G3dGeBufferOP_N
+    bl NNS_G3dGeFlushBuffer
     ldr r0, =0x4000440
     str r6, [r0]
     str r6, [r0, #4]
@@ -1782,7 +1782,7 @@ asm void func_0202b110(void)
     mov r1, r6
     mov r0, #0x16
     mov r2, #0x10
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [sp, #0x44]
     ldr r1, [sp, #0x40]
     mov r0, r0, asr #4
@@ -1800,7 +1800,7 @@ asm void func_0202b110(void)
     mov r2, r4
     mov r0, #0x22
     str r3, [sp, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202b45c:
     mov r4, #1
     mov r3, #2
@@ -1808,13 +1808,13 @@ asm void func_0202b110(void)
     mov r2, r4
     mov r0, #0x10
     str r3, [sp, #4]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r3, #0x1e
     add r1, sp, #0
     mov r2, r4
     mov r0, #0x14
     str r3, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_0202b490:
     ldr r0, [r5]
     add r0, r0, #3
@@ -1823,16 +1823,16 @@ asm void func_0202b110(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202b4c4(void)
+asm void NNS_G3dGeFlushBuffer(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r0, =data_020c2380
+    ldr r0, =NNS_G3dGeBuffer
     ldr r0, [r0, #4]
     cmp r0, #0
     beq @L_0202b4dc
     bl NNS_G3dGeWaitSendDL
 @L_0202b4dc:
-    ldr r4, =data_020c2380
+    ldr r4, =NNS_G3dGeBuffer
     ldr r0, [r4]
     cmp r0, #0
     ldrne r2, [r0]

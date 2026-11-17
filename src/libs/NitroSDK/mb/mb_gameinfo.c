@@ -5,18 +5,18 @@ void MB_AddGameInfo(void);
 void MB_InitSendGameInfoStatus(void);
 void MBi_ClearSendStatus(void);
 void MB_SendGameInfoBeacon(void);
-void func_ov089_021766f0(void);
-void func_ov089_02176790(void);
-void func_ov089_021767dc(void);
+void MBi_ReadyBeaconSendStatus(void);
+void MBi_InitSendFixedBeacon(void);
+void MBi_SendFixedBeacon(void);
 void MBi_InitSendVolatBeacon(void);
-void func_ov089_02176970(void);
+void MBi_SendVolatBeacon(void);
 void MBi_CheckMBParent(void);
 
-extern char data_ov089_02179228[];
-void func_ov089_02178928(void);
-void func_ov089_0217893c(void);
-extern char data_ov089_02179260[];
-void func_0201509c(void);
+extern char mbgameinfo_sUnlockFunc[];
+void MBi_GetGgid(void);
+void MBi_GetTgid(void);
+extern char mbgameinfo_bsendBuff[];
+void WM_SetGameInfo(void);
 extern char data_ov089_0217926e[];
 void MIi_CpuClear16(void);
 void MIi_CpuCopy16(void);
@@ -43,7 +43,7 @@ asm void mystrlen(void)
 
 asm void MB_AddGameInfo(void)
 {
-    ldr r1, =data_ov089_02179228
+    ldr r1, =mbgameinfo_sUnlockFunc
     ldr r2, [r1, #0x18]
     cmp r2, #0
     streq r0, [r1, #0x18]
@@ -66,7 +66,7 @@ asm void MB_AddGameInfo(void)
 
 asm void MB_InitSendGameInfoStatus(void)
 {
-    ldr r0, =data_ov089_02179228
+    ldr r0, =mbgameinfo_sUnlockFunc
     mov r2, #0
     str r2, [r0, #0x18]
     str r2, [r0, #0x1c]
@@ -79,7 +79,7 @@ asm void MB_InitSendGameInfoStatus(void)
 
 asm void MBi_ClearSendStatus(void)
 {
-    ldr r0, =data_ov089_02179228
+    ldr r0, =mbgameinfo_sUnlockFunc
     mov r1, #0
     strb r1, [r0, #0x25]
     strb r1, [r0, #0x26]
@@ -126,39 +126,39 @@ asm void MB_SendGameInfoBeacon(void)
     dcd 0xe1a02005
     dcd 0xeb0000a1
     dcd 0xe8bd80f8
-    dcd data_ov089_02179228
+    dcd mbgameinfo_sUnlockFunc
 }
 
-asm void func_ov089_021766f0(void)
+asm void MBi_ReadyBeaconSendStatus(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #8
-    ldr r0, =data_ov089_02179228
+    ldr r0, =mbgameinfo_sUnlockFunc
     ldr r1, [r0, #0x18]
     cmp r1, #0
     bne @L_02176744
-    bl func_ov089_02178928
+    bl MBi_GetGgid
     mov r5, r0
-    bl func_ov089_0217893c
+    bl MBi_GetTgid
     mov r4, #0
     str r0, [sp]
     mov r12, #8
-    ldr r1, =data_ov089_02179260
+    ldr r1, =mbgameinfo_bsendBuff
     mov r0, r4
     mov r3, r5
     mov r2, #0x70
     str r12, [sp, #4]
-    bl func_0201509c
+    bl WM_SetGameInfo
     add sp, sp, #8
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 @L_02176744:
     ldr r0, [r0, #0x1c]
-    ldr r4, =data_ov089_02179228
+    ldr r4, =mbgameinfo_sUnlockFunc
     cmp r0, #0
     ldrne r0, [r0, #0x4bc]
     cmpne r0, #0
-    ldreq r0, =data_ov089_02179228
+    ldreq r0, =mbgameinfo_sUnlockFunc
     ldreq r0, [r0, #0x18]
     str r0, [r4, #0x1c]
     bl MBi_ClearSendStatus
@@ -172,9 +172,9 @@ asm void func_ov089_021766f0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_ov089_02176790(void)
+asm void MBi_InitSendFixedBeacon(void)
 {
-    ldr r0, =data_ov089_02179228
+    ldr r0, =mbgameinfo_sUnlockFunc
     ldrb r1, [r0, #0x24]
     cmp r1, #2
     bxne lr
@@ -188,17 +188,17 @@ asm void func_ov089_02176790(void)
     strneb r1, [r0, #0x28]
     addne r1, r2, #0x220
     strne r1, [r0, #0x20]
-    ldr r0, =data_ov089_02179228
+    ldr r0, =mbgameinfo_sUnlockFunc
     mov r1, #3
     strb r1, [r0, #0x24]
     bx lr
 }
 
-asm void func_ov089_021767dc(void)
+asm void MBi_SendFixedBeacon(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #8
-    ldr r3, =data_ov089_02179228
+    ldr r3, =mbgameinfo_sUnlockFunc
     mov r6, r0
     ldr r4, [r3, #0x1c]
     ldr r0, [r3, #0x20]
@@ -206,7 +206,7 @@ asm void func_ov089_021767dc(void)
     add r3, r0, #0x62
     cmp r3, r7
     mov r5, r1
-    ldrls r0, =data_ov089_02179260
+    ldrls r0, =mbgameinfo_bsendBuff
     movls r1, #0x62
     mov r4, r2
     strlsb r1, [r0, #0xc]
@@ -214,15 +214,15 @@ asm void func_ov089_021767dc(void)
     sub r7, r7, r0
     and r1, r7, #0xff
     ldr r0, =data_ov089_0217926e
-    ldr r3, =data_ov089_02179260
+    ldr r3, =mbgameinfo_bsendBuff
     rsb r2, r1, #0x62
     add r1, r0, r1
     mov r0, #0
     strb r7, [r3, #0xc]
     bl MIi_CpuClear16
 @L_0217683c:
-    ldr r8, =data_ov089_02179260
-    ldr r7, =data_ov089_02179228
+    ldr r8, =mbgameinfo_bsendBuff
+    ldr r7, =mbgameinfo_sUnlockFunc
     ldrb r2, [r8, #0xc]
     ldr r0, [r7, #0x20]
     ldr r1, =data_ov089_0217926e
@@ -269,7 +269,7 @@ asm void func_ov089_021767dc(void)
     and r1, r1, #0xff
     cmp r1, r0
     ldrlo r0, [r7, #0x20]
-    ldr r1, =data_ov089_02179260
+    ldr r1, =mbgameinfo_bsendBuff
     addlo r0, r0, #0x62
     strlo r0, [r7, #0x20]
     movhs r0, #4
@@ -279,14 +279,14 @@ asm void func_ov089_021767dc(void)
     str r5, [sp]
     mov r0, #0
     str r4, [sp, #4]
-    bl func_0201509c
+    bl WM_SetGameInfo
     add sp, sp, #8
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
 asm void MBi_InitSendVolatBeacon(void)
 {
-    ldr r1, =data_ov089_02179228
+    ldr r1, =mbgameinfo_sUnlockFunc
     mov r3, #1
     ldr r0, [r1, #0x1c]
     mov r2, #5
@@ -299,11 +299,11 @@ asm void MBi_InitSendVolatBeacon(void)
     bx lr
 }
 
-asm void func_ov089_02176970(void)
+asm void MBi_SendVolatBeacon(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
-    ldr r7, =data_ov089_02179228
+    ldr r7, =mbgameinfo_sUnlockFunc
     str r0, [sp, #8]
     ldr r0, [r7, #0x1c]
     ldrb r3, [r7, #0x26]
@@ -314,7 +314,7 @@ asm void func_ov089_02176970(void)
     beq @L_021769a0
     bl MBi_InitSendVolatBeacon
 @L_021769a0:
-    ldr r2, =data_ov089_02179260
+    ldr r2, =mbgameinfo_bsendBuff
     ldrb r0, [r2, #4]
     bic r0, r0, #3
     orr r1, r0, #2
@@ -410,7 +410,7 @@ asm void func_ov089_02176970(void)
     blt @L_02176aa4
 @L_02176b00:
     cmp r10, #4
-    ldr r4, =data_ov089_02179228
+    ldr r4, =mbgameinfo_sUnlockFunc
     bhs @L_02176b24
     mov r0, #0x16
     mul r1, r10, r0
@@ -419,7 +419,7 @@ asm void func_ov089_02176970(void)
     bic r0, r0, #0xf0
     strb r0, [r2, r1]
 @L_02176b24:
-    ldr r5, =data_ov089_02179260
+    ldr r5, =mbgameinfo_bsendBuff
     mov r1, #0
     strh r1, [r5, #8]
     ldr r0, =data_ov089_02179268
@@ -432,7 +432,7 @@ asm void func_ov089_02176970(void)
     add r1, r1, #0x300
     ldrh r2, [r0, #0xb0]
     ldrh r0, [r1, #0x5a]
-    ldr r1, =data_ov089_02179260
+    ldr r1, =mbgameinfo_bsendBuff
     cmp r2, r0
     moveq r0, #1
     streqb r0, [r4, #0x24]
@@ -444,7 +444,7 @@ asm void func_ov089_02176970(void)
     mov r0, #0
     mov r2, #0x70
     str r5, [sp, #4]
-    bl func_0201509c
+    bl WM_SetGameInfo
     ldr r0, [r4, #0x10]
     cmp r0, #1
     addne sp, sp, #0x14

@@ -2,15 +2,15 @@
 
 void MI_Init(void);
 
-void func_020088d0(void);
-void func_02008d10(void);
+void MI_SetWramBank(void);
+void MI_StopDma(void);
 
 asm void MI_Init(void)
 {
     stmdb sp!, {r3, lr}
     mov r0, #3
-    bl func_020088d0
+    bl MI_SetWramBank
     mov r0, #0
-    bl func_02008d10
+    bl MI_StopDma
     ldmia sp!, {r3, pc}
 }

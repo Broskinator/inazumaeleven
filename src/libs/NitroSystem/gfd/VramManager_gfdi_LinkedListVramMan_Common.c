@@ -1,11 +1,11 @@
 // (asm for now)
 
 void TryToMergeBlockRegion_(void);
-void func_0202fe1c(void);
-void func_0202fe28(void);
+void NNSi_GfdInitLnkVramMan(void);
+void NNSi_GfdInitLnkVramBlockPool(void);
 void NNSi_GfdAddNewFreeBlock(void);
-void func_0202fec8(void);
-void func_0202fedc(void);
+void NNSi_GfdAllocLnkVram(void);
+void NNSi_GfdAllocLnkVramAligned(void);
 void NNSi_GfdMergeAllFreeBlocks(void);
 void NNSi_GfdFreeLnkVram(void);
 void func_02030128(void);
@@ -75,14 +75,14 @@ asm void TryToMergeBlockRegion_(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0202fe1c(void)
+asm void NNSi_GfdInitLnkVramMan(void)
 {
     mov r1, #0
     str r1, [r0]
     bx lr
 }
 
-asm void func_0202fe28(void)
+asm void NNSi_GfdInitLnkVramBlockPool(void)
 {
     stmdb sp!, {r3, lr}
     subs lr, r1, #1
@@ -133,16 +133,16 @@ asm void NNSi_GfdAddNewFreeBlock(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202fec8(void)
+asm void NNSi_GfdAllocLnkVram(void)
 {
     stmdb sp!, {r3, lr}
     mov r12, #0
     str r12, [sp]
-    bl func_0202fedc
+    bl NNSi_GfdAllocLnkVramAligned
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202fedc(void)
+asm void NNSi_GfdAllocLnkVramAligned(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r7, [r0]

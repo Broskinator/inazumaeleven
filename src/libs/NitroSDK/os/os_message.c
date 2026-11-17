@@ -2,23 +2,23 @@
 
 void OS_InitMessageQueue(void);
 void OS_SendMessage(void);
-void func_020068c0(void);
-void func_02006960(void);
-void func_020069fc(void);
+void OS_ReceiveMessage(void);
+void OS_JamMessage(void);
+void OS_ReadMessage(void);
 void OS_InitMutex(void);
 void OS_LockMutex(void);
 void OS_UnlockMutex(void);
-void func_02006af8(void);
+void OSi_UnlockAllMutex(void);
 void OS_TryLockMutex(void);
-void func_02006bd4(void);
-void func_02006cac(void);
+void OSi_UnlockMutexCore(void);
+void OSi_EnqueueTail(void);
 
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
 void OS_SleepThread(void);
 void _s32_div_f(void);
 void OS_WakeupThread(void);
-extern char data_020bb120[];
+extern char OSi_ThreadInfo[];
 void OSi_RemoveMutexLinkFromQueue(void);
 void OSi_DequeueItem(void);
 
@@ -80,7 +80,7 @@ asm void OS_SendMessage(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020068c0(void)
+asm void OS_ReceiveMessage(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
@@ -127,7 +127,7 @@ asm void func_020068c0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02006960(void)
+asm void OS_JamMessage(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
@@ -173,7 +173,7 @@ asm void func_02006960(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020069fc(void)
+asm void OS_ReadMessage(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
@@ -228,7 +228,7 @@ asm void OS_LockMutex(void)
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb120
+    ldr r1, =OSi_ThreadInfo
     mov r5, r0
     ldr r6, [r1, #4]
     mov r4, #0
@@ -250,12 +250,12 @@ asm void OS_LockMutex(void)
 
 asm void OS_UnlockMutex(void)
 {
-    ldr r12, =func_02006bd4
+    ldr r12, =OSi_UnlockMutexCore
     mov r1, #0x10000000
     bx r12
 }
 
-asm void func_02006af8(void)
+asm void OSi_UnlockAllMutex(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -284,7 +284,7 @@ asm void OS_TryLockMutex(void)
     mov r6, r0
     bl OS_DisableInterrupts
     ldr r2, [r6, #8]
-    ldr r1, =data_020bb120
+    ldr r1, =OSi_ThreadInfo
     mov r4, r0
     cmp r2, #0
     ldr r0, [r1, #4]
@@ -299,7 +299,7 @@ asm void OS_TryLockMutex(void)
     orr r2, r3, r2
     str r0, [r6, #8]
     str r2, [r6, #0xc]
-    bl func_02006cac
+    bl OSi_EnqueueTail
     mov r5, #1
     b @L_02006bc0
 @L_02006b98:
@@ -320,7 +320,7 @@ asm void OS_TryLockMutex(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02006bd4(void)
+asm void OSi_UnlockMutexCore(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -328,7 +328,7 @@ asm void func_02006bd4(void)
     bl OS_DisableInterrupts
     cmp r5, #0
     ldrne r3, [r6, #0xc]
-    ldr r1, =data_020bb120
+    ldr r1, =OSi_ThreadInfo
     andne r3, r3, #0xff000000
     ldr r2, [r1, #4]
     mov r4, r0
@@ -383,7 +383,7 @@ asm void func_02006bd4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02006cac(void)
+asm void OSi_EnqueueTail(void)
 {
     ldr r3, [r0, #0x8c]
     mov r2, #0

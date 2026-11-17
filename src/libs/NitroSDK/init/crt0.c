@@ -3,12 +3,12 @@
 void MIi_UncompressBackward(void);
 void do_autoload(void);
 void AutoloadCallback(void);
-void func_02000a78(void);
-void func_02000b64(void);
+void init_cp15(void);
+void OSi_ReferSymbol(void);
 void BuildInfo(void);
 void main(void);
 
-extern char data_027e0000[];
+extern char OS_IRQTable[];
 void _ZN4Main13func_0204058cEv(void);
 
 asm void MIi_UncompressBackward(void)
@@ -109,7 +109,7 @@ asm void AutoloadCallback(void)
     bx lr
 }
 
-asm void func_02000a78(void)
+asm void init_cp15(void)
 {
     mrc p15, 0, r0, c1, c0, 0
     ldr r1, [pc, #0xac]
@@ -162,7 +162,7 @@ asm void func_02000a78(void)
     dcd 0x02000031
     dcd 0x027ff017
     dcd 0x08000035
-    dcd data_027e0000
+    dcd OS_IRQTable
     dcd 0x0100002f
     dcd 0xffff001d
     dcd 0x02fff017
@@ -172,7 +172,7 @@ asm void func_02000a78(void)
     dcd 0xe12fff1e
 }
 
-asm void func_02000b64(void)
+asm void OSi_ReferSymbol(void)
 {
     bx lr
     dcd 0x00000000

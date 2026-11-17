@@ -14,39 +14,39 @@
 #include "text/TextFont.hpp"
 #include "text/TextFont2bpp.hpp"
 
-extern GameHeap data_020c47b4;
+extern GameHeap gAllocator;
 extern FileManager data_020c6364;
-extern ConfigFile data_020c46e4;
+extern ConfigFile gConfig;
 extern "C" void func_02099140(void);
 extern "C" void func_0209d1d4(void *);
-extern "C" void *func_02006fa4(int arena);                 // the start of an arena
-extern "C" void *func_02006f90(int arena);                 // the end of an arena
-extern "C" void func_02007150(int arena, void *start);      // sets the start of an arena
-extern "C" void *func_0200745c(int arena, void *start, void *end, int maxHeaps);   // starts allocating from an arena
+extern "C" void *OS_GetArenaLo(int arena);                 // the start of an arena
+extern "C" void *OS_GetArenaHi(int arena);                 // the end of an arena
+extern "C" void OS_SetArenaLo(int arena, void *start);      // sets the start of an arena
+extern "C" void *OS_InitAlloc(int arena, void *start, void *end, int maxHeaps);   // starts allocating from an arena
 extern "C" void *OS_AllocFromArenaLo(int arena, u32 size, int align);
-extern "C" int func_02007504(int arena, void *start, void *end);   // makes a heap
+extern "C" int OS_CreateHeap(int arena, void *start, void *end);   // makes a heap
 extern "C" int OS_SetCurrentHeap(int arena, int heap);
 extern "C" void func_02006dd8(void);
-extern "C" void func_02007be4(void);
-extern "C" void func_02005c5c(void);
-extern "C" void func_0200e794(int);
-extern "C" void func_0201025c(void);
+extern "C" void OS_InitAlarm(void);
+extern "C" void OS_InitThread(void);
+extern "C" void FS_Init(int);
+extern "C" void RTC_Init(void);
 extern "C" void func_020023fc(void);
-extern "C" void func_02002400(void);
-extern "C" void func_020025b8(void);
+extern "C" void GX_Init(void);
+extern "C" void GX_DispOff(void);
 extern "C" void func_0209d638(void);
-extern "C" void func_0200878c(void);                        // stops (out of memory)
+extern "C" void OS_Terminate(void);                        // stops (out of memory)
 extern "C" void DC_FlushAll(void);
-extern "C" void func_02004ab4(int banks);                  // gives VRAM banks to the LCDC
-extern "C" void func_02004f4c(void);
+extern "C" void GX_SetBankForLCDC(int banks);                  // gives VRAM banks to the LCDC
+extern "C" void GX_DisableBankForLCDC(void);
 extern "C" void OS_SetIrqFunction(u32 mask, void (*function)(void));
 extern "C" u32 OS_EnableIrqMask(u32 mask);
-extern "C" void func_02002570(BOOL enable);                // the vblank interrupt
-extern "C" void func_0200846c(void);                        // waits for the vblank
-extern "C" s32 data_020aad64;
+extern "C" void GX_VBlankIntr(BOOL enable);                // the vblank interrupt
+extern "C" void OS_WaitVBlankIntr(void);                        // waits for the vblank
+extern "C" s32 GXi_DmaId;
 extern "C" char data_020ac0cc[];                            // the name of the settings file
-extern "C" u8 data_020c5320[];
-extern "C" u8 data_027e0000[];                              // (the DTCM)
+extern "C" u8 gWirelessUtil[];
+extern "C" u8 OS_IRQTable[];                              // (the DTCM)
 
 extern "C" char data_020af61c[];
 extern "C" char data_020ac084[];
@@ -55,22 +55,22 @@ extern "C" char data_020afa08[];
 extern "C" char data_020afd20[];
 extern "C" char data_020ac064[];
 extern "C" void *func_ov015_02148258(void *);
-extern "C" void func_02089024(void *);
-extern "C" void *func_0208c178(void *);
-extern "C" void func_02088a38(void *);
-extern "C" void func_0208a718(void *);
-extern "C" void func_0208d2f0(void *);
+extern "C" void C3DGameChar_Reset(void *);
+extern "C" void *C3DGameMap_Ctor(void *);
+extern "C" void C3DGameBase_Ctor(void *);
+extern "C" void C3DGameEffect_Reset(void *);
+extern "C" void C3DGameMapObject_Reset(void *);
 extern "C" void *func_ov015_02136584(void *);
 extern "C" void func_020977d0(void *);
-extern "C" void *func_02090320(void *);
+extern "C" void *C3DMagicCamera_Ctor(void *);
 extern "C" void *func_020858fc(void *);
 extern "C" void *func_02087144(void *);
-extern "C" void *func_ov015_02161618(void *);
+extern "C" void *CSprAnimCtrl_Ctor(void *);
 extern "C" void *func_ov015_0213db54(void *);
 extern "C" void func_0208868c(void *);
 extern "C" void func_02098bac(void *, int, int, int);
 extern "C" void func_ov015_0214799c(void *, int);
-extern "C" void func_ov015_0213cc18(void *);
+extern "C" void CCameraCtrl_Init(void *);
 extern "C" void func_02089214(void *, int);
 extern "C" void func_0208d9e8(void *, int);
 extern "C" void func_0208c1f4(void *, int);
@@ -81,12 +81,12 @@ extern "C" void func_02095d70(void *, int, int);
 extern "C" void func_02085934(void *);
 extern "C" void func_0208720c(void *);
 extern "C" void NNS_G3dInit(void);
-extern "C" void func_020285a4(void);
+extern "C" void NNS_G3dGlbInit(void);
 extern "C" void G3X_InitMtxStack(void);
 extern "C" void G2x_ChangeBlendBrightness_(volatile u16 *reg, int brightness);
-extern "C" void func_0200eab0(void);
-extern "C" BOOL func_0200eb24(void *);
-extern "C" void func_0200ebb8(void *);
+extern "C" void TP_Init(void);
+extern "C" BOOL TP_GetUserInfo(void *);
+extern "C" void TP_SetCalibrateParam(void *);
 extern "C" void func_01ff9dc4(void *);
 extern "C" void func_01ff9e1c(void *);
 
@@ -110,7 +110,7 @@ extern "C" void *data_020c46ac;
 extern "C" void *data_020c469c;
 extern "C" void *data_020c4664;
 extern "C" void *data_020c4654;
-extern "C" void *data_020c46bc;
+extern "C" void *gPalSkinFaceFile;
 extern "C" u16 data_020c4658[2];         // (= data_020c4638.unk_20)
 extern SceneStartInfo data_020c4ab4;
 extern "C" s32 data_020c4ac0[2];          // (= data_020c4ab4.unk_0c)
@@ -130,12 +130,12 @@ static inline int LoadFile(const char *name, void **buffer)
     if (fileManager == NULL) {
         return 0;
     }
-    return fileManager->Load(path, buffer, &data_020c47b4, 0, 0, FALSE, 1, TRUE);
+    return fileManager->Load(path, buffer, &gAllocator, 0, 0, FALSE, 1, TRUE);
 }
 
 #define OS_ARENA_MAIN 0
 #define OS_IE_V_BLANK 1
-#define HW_DTCM ((u32)data_027e0000)
+#define HW_DTCM ((u32)OS_IRQTable)
 #define OS_IRQ_CHECK_FLAG (*(volatile u32 *)(HW_DTCM + 0x3FF8))
 #define REG_DISPCNT_SUB (*(volatile u32 *)0x04001000)
 #define REG_POWCNT (*(volatile u16 *)0x04000304)
@@ -172,7 +172,7 @@ extern "C" void _ZN8TextFont7SetFontEPvmh(void);
 extern "C" void _ZN8TextFontC1Ev(void);
 extern "C" void _Znwm(void);
 extern "C" void func_020065d0(void);
-extern "C" void func_0200713c(void);
+extern "C" void OS_SetArenaHi(void);
 
 // (the vblank interrupt)
 void System::func_0203f8ec()
@@ -180,7 +180,7 @@ void System::func_0203f8ec()
     if (data_020c4638.unk_30 != NULL) {
         func_02099140();
     }
-    func_0209d1d4(&data_020c5320);
+    func_0209d1d4(&gWirelessUtil);
     data_020c6364.WakeUp();
     OS_IRQ_CHECK_FLAG |= OS_IE_V_BLANK;
 }
@@ -194,7 +194,7 @@ asm void *System::func_0203f93c(u32 size)
     bl func_020065d0
     mov r4, r0
     mov r0, #0
-    bl func_02006f90
+    bl OS_GetArenaHi
     and r1, r4, #0xf
     mov r6, r0
     cmp r1, #2
@@ -204,19 +204,19 @@ asm void *System::func_0203f93c(u32 size)
 @L_0203f974:
     mov r5, #2
     mov r0, r5
-    bl func_02006f90
+    bl OS_GetArenaHi
     mov r4, r0
     mov r0, r5
-    bl func_02006fa4
+    bl OS_GetArenaLo
     cmp r0, r4
     moveq r0, r6
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     mov r0, r5
     add r1, r6, r7
-    bl func_02007150
+    bl OS_SetArenaLo
     add r1, r6, r7
     mov r0, #0
-    bl func_0200713c
+    bl OS_SetArenaHi
     add r0, r6, r7
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -224,15 +224,15 @@ asm void *System::func_0203f93c(u32 size)
 // clears the main arena and makes the system heap at its start
 void System::func_0203f9b8()
 {
-    void *lo = func_02006fa4(OS_ARENA_MAIN);
+    void *lo = OS_GetArenaLo(OS_ARENA_MAIN);
     void *hi = func_0203f93c(0x100000);
     void *start;
     int heap;
 
     MIi_CpuClearFast(0, lo, (u32)hi - (u32)lo);
-    func_02007150(OS_ARENA_MAIN, func_0200745c(OS_ARENA_MAIN, lo, hi, 2));
+    OS_SetArenaLo(OS_ARENA_MAIN, OS_InitAlloc(OS_ARENA_MAIN, lo, hi, 2));
     start = OS_AllocFromArenaLo(OS_ARENA_MAIN, 0x3C000, 0x20);
-    heap = func_02007504(OS_ARENA_MAIN, start, (u8 *)start + 0x3C000);
+    heap = OS_CreateHeap(OS_ARENA_MAIN, start, (u8 *)start + 0x3C000);
     OS_SetCurrentHeap(OS_ARENA_MAIN, heap);
     data_020c4638.systemHeap = heap;
 }
@@ -242,15 +242,15 @@ void System::func_0203fa48()
 {
     func_02006dd8();
     OS_InitTick();
-    func_02007be4();
-    func_02005c5c();
-    func_0200e794(-1);
-    func_0201025c();
+    OS_InitAlarm();
+    OS_InitThread();
+    FS_Init(-1);
+    RTC_Init();
     func_0203f9b8();
     func_020023fc();
-    data_020aad64 = 3;
-    func_02002400();
-    func_020025b8();
+    GXi_DmaId = 3;
+    GX_Init();
+    GX_DispOff();
     REG_DISPCNT_SUB &= ~0x10000;
     FS_LoadOverlay(MI_PROCESSOR_ARM9, FS_OVERLAY_ID(ov015));
     FS_LoadOverlay(MI_PROCESSOR_ARM9, FS_OVERLAY_ID(ov087));
@@ -260,13 +260,13 @@ void System::func_0203fa48()
 // makes the game's heap from the rest of the main arena, and the file loader
 void System::func_0203fac8()
 {
-    data_020c4638.arenaLo = (u32)func_02006fa4(OS_ARENA_MAIN);
-    data_020c4638.arenaHi = (u32)func_02006f90(OS_ARENA_MAIN);
+    data_020c4638.arenaLo = (u32)OS_GetArenaLo(OS_ARENA_MAIN);
+    data_020c4638.arenaHi = (u32)OS_GetArenaHi(OS_ARENA_MAIN);
     data_020c4638.heapMin = data_020c4638.arenaLo + 0x20E000;
     if (data_020c4638.heapMin <= data_020c4638.arenaHi) {
         data_020c4638.heapEnd = data_020c4638.arenaHi;
     } else {
-        func_0200878c();
+        OS_Terminate();
     }
     {
         u32 start = data_020c4638.arenaLo;
@@ -275,19 +275,19 @@ void System::func_0203fac8()
         MIi_CpuClearFast(0, (void *)start, data_020c4638.heapSize);
     }
     DC_FlushAll();
-    data_020c47b4.Init(0, (void *)data_020c4638.arenaLo, (void *)data_020c4638.heapEnd);
-    func_02007150(OS_ARENA_MAIN, (void *)((data_020c4638.heapEnd + 0x1F) & ~0x1F));
+    gAllocator.Init(0, (void *)data_020c4638.arenaLo, (void *)data_020c4638.heapEnd);
+    OS_SetArenaLo(OS_ARENA_MAIN, (void *)((data_020c4638.heapEnd + 0x1F) & ~0x1F));
     data_020c4638.fileManager = &data_020c6364;
-    data_020c6364.Init(0x40, &data_020c47b4);
-    data_020c4f60.InitSystem(&data_020c47b4);
+    data_020c6364.Init(0x40, &gAllocator);
+    gMoviePlayer.InitSystem(&gAllocator);
 }
 
 // clears the VRAM, the OAM and the palettes
 void System::func_0203fb90()
 {
-    func_02004ab4(0x1FF);
+    GX_SetBankForLCDC(0x1FF);
     MIi_CpuClearFast(0, (void *)HW_LCDC_VRAM, 0xA4000);
-    func_02004f4c();
+    GX_DisableBankForLCDC();
     MIi_CpuClearFast(0xC0, (void *)HW_OAM, HW_OAM_SIZE);
     MIi_CpuClearFast(0, (void *)HW_PLTT, HW_PLTT_SIZE);
     MIi_CpuClearFast(0xC0, (void *)HW_DB_OAM, HW_OAM_SIZE);
@@ -304,8 +304,8 @@ void System::func_0203fc1c()
     OS_EnableIrqMask(OS_IE_V_BLANK);
     OS_EnableIrqMask(0x40000);
     OS_EnableIrq();
-    func_02002570(TRUE);
-    func_0200846c();
+    GX_VBlankIntr(TRUE);
+    OS_WaitVBlankIntr();
 }
 
 void System::func_0203fc70()
@@ -315,9 +315,9 @@ void System::func_0203fc70()
 // reads the settings file
 void System::func_0203fc74()
 {
-    data_020c46e4.Reset();
-    data_020c46e4.Clear();
-    data_020c46e4.Load(data_020ac0cc);
+    gConfig.Reset();
+    gConfig.Clear();
+    gConfig.Load(data_020ac0cc);
 }
 
 // makes the game's systems
@@ -340,26 +340,26 @@ void System::func_0203fca4()
     object = operator new(0x94);
     if (object != NULL) {
         *(void **)object = data_020ac084;
-        func_02089024(object);
+        C3DGameChar_Reset(object);
     }
     data_020c4638.unk_18 = object;
     object = operator new(0x20);
     if (object != NULL) {
-        object = func_0208c178(object);
+        object = C3DGameMap_Ctor(object);
     }
     data_020c4638.unk_28 = object;
     object = operator new(0x1C);
     if (object != NULL) {
-        func_02088a38(object);
+        C3DGameBase_Ctor(object);
         *(void **)object = data_020af7d0;
-        func_0208a718(object);
+        C3DGameEffect_Reset(object);
     }
     data_020c4638.unk_3c = object;
     object = operator new(0x20);
     if (object != NULL) {
-        func_02088a38(object);
+        C3DGameBase_Ctor(object);
         *(void **)object = data_020afa08;
-        func_0208d2f0(object);
+        C3DGameMapObject_Reset(object);
     }
     data_020c4638.unk_40 = object;
     object = operator new(0x1BC);
@@ -380,7 +380,7 @@ void System::func_0203fca4()
     data_020c4638.unk_5c = object;
     object = operator new(0x350);
     if (object != NULL) {
-        object = func_02090320(object);
+        object = C3DMagicCamera_Ctor(object);
     }
     data_020c4638.unk_38 = object;
     object = operator new(0x18FC);
@@ -400,7 +400,7 @@ void System::func_0203fca4()
     data_020c4638.unk_8c = object;
     object = operator new(0x424);
     if (object != NULL) {
-        object = func_ov015_02161618(object);
+        object = CSprAnimCtrl_Ctor(object);
     }
     data_020c4638.unk_80 = object;
     object = operator new(0x138);
@@ -412,7 +412,7 @@ void System::func_0203fca4()
     func_0208868c(data_020c4638.unk_44);
     func_02098bac(data_020c4638.unk_30, 0x100, 0x80, 0x80);
     func_ov015_0214799c(data_020c4638.unk_14, 0x100);
-    func_ov015_0213cc18(data_020c4638.unk_98);
+    CCameraCtrl_Init(data_020c4638.unk_98);
     func_02089214(data_020c4638.unk_18, 8);
     func_0208d9e8(data_020c4638.unk_40, 0x20);
     func_0208c1f4(data_020c4638.unk_28, 8);
@@ -428,7 +428,7 @@ void System::func_0203fca4()
 void System::func_0203ff30()
 {
     NNS_G3dInit();
-    func_020285a4();
+    NNS_G3dGlbInit();
     G3X_InitMtxStack();
     REG_POWCNT = REG_POWCNT & ~0x8000;
     G2x_ChangeBlendBrightness_(&REG_MASTER_BRIGHT, 0);
@@ -439,12 +439,12 @@ void System::func_0203ff78()
 {
     u8 info[8];
 
-    func_0200eab0();
-    if (!func_0200eb24(info)) {
-        func_0200878c();
+    TP_Init();
+    if (!TP_GetUserInfo(info)) {
+        OS_Terminate();
         return;
     }
-    func_0200ebb8(info);
+    TP_SetCalibrateParam(info);
 }
 
 void System::func_0203ffb4()
@@ -471,7 +471,7 @@ void System::func_0203ffd4()
     LoadFile(data_020ac140, &data_020c469c);
     LoadFile(data_020ac15c, &data_020c4664);
     LoadFile(data_020ac17c, &data_020c4654);
-    LoadFile(data_020ac19c, &data_020c46bc);
+    LoadFile(data_020ac19c, &gPalSkinFaceFile);
 }
 
 // a new game: clears the game's state
@@ -670,18 +670,18 @@ void System::func_02040358()
     data_020c4638.font1->SetUseGlyphWidth(TRUE);
     data_020c4638.font2->SetUseGlyphWidth(TRUE);
     data_020c4638.font2bpp->SetUseGlyphWidth(TRUE);
-    data_020c4638.unk_0c = data_020c46e4.GetInt(data_020ac22c);
+    data_020c4638.unk_0c = gConfig.GetInt(data_020ac22c);
 }
 
 // starts the sound and waits until it is ready
 void System::func_020404bc()
 {
-    data_020c5e40.Init(&data_020c47b4);
-    data_020c5e40.SetScene(2, 0, 0);
-    while (!data_020c5e40.IsIdle()) {
+    gAudioPlayer.Init(&gAllocator);
+    gAudioPlayer.SetScene(2, 0, 0);
+    while (!gAudioPlayer.IsIdle()) {
         OS_Sleep(20);
     }
-    while (!data_020c5e40.AreBanksReady()) {
+    while (!gAudioPlayer.AreBanksReady()) {
         OS_Sleep(20);
     }
 }

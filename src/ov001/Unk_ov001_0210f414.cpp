@@ -20,7 +20,7 @@ extern "C" void func_ov001_02111a38(void);
 extern "C" void func_ov001_02111b88(void);
 extern "C" void func_ov001_02112004(void);
 
-extern "C" char data_020c4648[];
+extern "C" char g3DFieldSprite[];
 extern "C" char data_020c4824[];
 extern "C" char data_020c4920[];
 extern "C" char data_020c492c[];
@@ -29,8 +29,8 @@ extern "C" char data_020c4940[];
 extern "C" char data_020c4948[];
 extern "C" char data_020c4b80[];
 extern "C" char data_020c4b84[];
-extern "C" char data_020c5320[];
-extern "C" char data_020c5e40[];
+extern "C" char gWirelessUtil[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" char data_020fa060[];
@@ -1511,7 +1511,7 @@ extern "C" s32 func_ov001_0211093c(s32 arg0, u8 *arg1, u8 *arg2)
     t2 = (*(u16 *)(arg2) >> 4);
     t3 = ((*(u16 *)(arg2) >> 4) & 7);
     v0 = func_ov015_021319fc(0, t2, t1);
-    func_0209bf8c((s32)((u8 *)&data_020c5320));
+    func_0209bf8c((s32)((u8 *)&gWirelessUtil));
     v2 = func_ov015_021319fc();
     r7 = t3;
     if (v0 != v2) {
@@ -1581,7 +1581,7 @@ extern "C" asm void func_ov001_021109ac(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -1703,7 +1703,7 @@ extern "C" asm void func_ov001_02110b34(void)
     and r5, r1, #7
     bl func_ov015_021319fc
     mov r9, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r9, r0
@@ -1719,7 +1719,7 @@ extern "C" asm void func_ov001_02110b34(void)
     and r2, r1, #0xf
     cmp r2, r0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r4, [sp]
     ldr r0, [r0]
     mov r1, r8
@@ -1783,7 +1783,7 @@ extern "C" asm void func_ov001_02110cbc(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r6, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r6, r0
@@ -1914,7 +1914,7 @@ extern "C" asm void func_ov001_02110cbc(void)
     mov r0, r0, lsr #0x1c
     tst r0, #1
     beq @L_02110f70
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a818
 @L_02110f70:
@@ -2010,7 +2010,7 @@ extern "C" asm void func_ov001_02110cbc(void)
     bl func_0208f2d0
 @L_021110b4:
     ldr r1, [r9, #8]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     mov r1, r1, lsr #0x16
     ldr r0, [r0]
     and r1, r1, #7
@@ -2039,7 +2039,7 @@ extern "C" asm void func_ov001_02110cbc(void)
     and r0, r0, #0xf
     bl func_ov015_021316cc
     mov r1, r0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     bl _ZN12SoundManager9PlaySoundEi
 @L_02111134:
     ldrh r0, [r9, #0xac]
@@ -2065,11 +2065,11 @@ extern "C" asm void func_ov001_02110cbc(void)
     mov r0, r0, lsr #0x1f
     tst r0, #1
     beq @L_0211119c
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     mov r1, r5
     b @L_021111a4
 @L_0211119c:
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     mov r1, r7
 @L_021111a4:
     ldr r0, [r0]

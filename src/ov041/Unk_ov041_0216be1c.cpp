@@ -4,12 +4,12 @@ extern "C" void func_ov041_0216be1c(void);
 extern "C" s32 func_ov041_0216bf48(s32 arg0);
 extern "C" void func_ov041_0216bf5c(void);
 
-extern "C" char data_020c46d4[];
+extern "C" char g3DPlaneCtrl[];
 extern "C" char data_ov041_0216c01c[];
 extern "C" char data_ov041_0216c034[];
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_0209386c(void);
-extern "C" void func_02093928(void);
+extern "C" void C3DPlaneCtrl_SetFlag(void);
+extern "C" void C3DPlaneCtrl_ClearFlag(void);
 
 extern "C" asm void func_ov041_0216be1c(void)
 {
@@ -44,13 +44,13 @@ extern "C" asm void func_ov041_0216be1c(void)
     mov lr, #3
     stmia r8, {r0, r1}
     bne @L_0216bebc
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     add r1, sp, #0x34
     ldr r0, [r0]
     ldr r1, [r1, r5, lsl #2]
     mov r2, lr
     mov r3, #2
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_0216bebc:
@@ -69,22 +69,22 @@ extern "C" asm void func_ov041_0216be1c(void)
     mov r2, #1
     add r1, sp, #0x34
     str r2, [sp]
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r1, [r1, r5, lsl #2]
     ldr r0, [r0]
     mov r2, lr
     mov r3, #2
-    bl func_0209386c
+    bl C3DPlaneCtrl_SetFlag
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_0216bf18:
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     add r1, sp, #0x34
     ldr r0, [r0]
     ldr r1, [r1, r5, lsl #2]
     mov r2, lr
     mov r3, #2
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }

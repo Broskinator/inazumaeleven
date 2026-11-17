@@ -1,41 +1,41 @@
 // (asm for now)
 
 void NNS_G3dInit(void);
-void func_0202b798(void);
-void func_0202b9d8(void);
+void NNS_G3dResDefaultSetup(void);
+void NNS_G3dResDefaultRelease(void);
 void NNS_G3dWorldPosToScrPos(void);
 
-void func_02002884(void);
-void func_020285a4(void);
+void G3X_Init(void);
+void NNS_G3dGlbInit(void);
 void NNS_G3dGetTex(void);
-void func_02027ccc(void);
-void func_02027ce0(void);
-void func_02027e10(void);
-extern char data_020abaa0[];
-extern char data_020abaa8[];
-extern char data_020abaac[];
-extern char data_020abaa4[];
-void func_02027cf4(void);
-void func_02027e24(void);
+void NNS_G3dTexGetRequiredSize(void);
+void NNS_G3dTex4x4GetRequiredSize(void);
+void NNS_G3dPlttGetRequiredSize(void);
+extern char NNS_GfdDefaultFuncAllocTexVram[];
+extern char NNS_GfdDefaultFuncAllocPlttVram[];
+extern char NNS_GfdDefaultFuncFreePlttVram[];
+extern char NNS_GfdDefaultFuncFreeTexVram[];
+void NNS_G3dTexSetTexKey(void);
+void NNS_G3dPlttSetPlttKey(void);
 void NNS_G3dTexLoad(void);
 void NNS_G3dPlttLoad(void);
-void func_0202c11c(void);
+void NNS_G3dGetMdlSet(void);
 void NNS_G3dBindMdlSet(void);
 void NNS_G3dReleaseMdlSet(void);
-void func_02027e7c(void);
-void func_02027dc0(void);
-extern char data_020bf420[];
-extern char data_020bf464[];
-void func_02001414(void);
-void func_02001e0c(void);
+void NNS_G3dPlttReleasePlttKey(void);
+void NNS_G3dTexReleaseTexKey(void);
+extern char NNS_G3dGlb_projMtx[];
+extern char NNS_G3dGlb_cameraMtx[];
+void MTX_MultVec43(void);
+void FX_InvAsync(void);
 void FX_GetDivResultFx64c(void);
-void func_02028898(void);
+void NNS_G3dGlbGetViewPort(void);
 
 asm void NNS_G3dInit(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02002884
-    bl func_020285a4
+    bl G3X_Init
+    bl NNS_G3dGlbInit
     ldr r1, =0x4000600
     ldr r0, [r1]
     bic r0, r0, #0xc0000000
@@ -44,7 +44,7 @@ asm void NNS_G3dInit(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0202b798(void)
+asm void NNS_G3dResDefaultSetup(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -87,17 +87,17 @@ asm void func_0202b798(void)
     bl NNS_G3dGetTex
     movs r4, r0
     beq @L_0202b97c
-    bl func_02027ccc
+    bl NNS_G3dTexGetRequiredSize
     mov r9, r0
     mov r0, r4
-    bl func_02027ce0
+    bl NNS_G3dTex4x4GetRequiredSize
     mov r8, r0
     mov r0, r4
-    bl func_02027e10
+    bl NNS_G3dPlttGetRequiredSize
     str r0, [sp]
     cmp r9, #0
     beq @L_0202b878
-    ldr r0, =data_020abaa0
+    ldr r0, =NNS_GfdDefaultFuncAllocTexVram
     mov r1, #0
     ldr r3, [r0]
     mov r0, r9
@@ -111,7 +111,7 @@ asm void func_0202b798(void)
 @L_0202b87c:
     cmp r8, #0
     beq @L_0202b8a8
-    ldr r0, =data_020abaa0
+    ldr r0, =NNS_GfdDefaultFuncAllocTexVram
     mov r2, #0
     ldr r3, [r0]
     mov r0, r8
@@ -127,7 +127,7 @@ asm void func_0202b798(void)
     cmp r0, #0
     beq @L_0202b8e0
     ldrh r1, [r4, #0x20]
-    ldr r0, =data_020abaa8
+    ldr r0, =NNS_GfdDefaultFuncAllocPlttVram
     mov r2, #0
     ldr r3, [r0]
     ldr r0, [sp]
@@ -147,21 +147,21 @@ asm void func_0202b798(void)
 @L_0202b8f8:
     cmp r7, #0
     beq @L_0202b910
-    ldr r1, =data_020abaac
+    ldr r1, =NNS_GfdDefaultFuncFreePlttVram
     mov r0, r9
     ldr r1, [r1]
     blx r1
 @L_0202b910:
     cmp r6, #0
     beq @L_0202b928
-    ldr r1, =data_020abaa4
+    ldr r1, =NNS_GfdDefaultFuncFreeTexVram
     mov r0, r8
     ldr r1, [r1]
     blx r1
 @L_0202b928:
     cmp r5, #0
     beq @L_0202b940
-    ldr r1, =data_020abaa4
+    ldr r1, =NNS_GfdDefaultFuncFreeTexVram
     mov r0, r11
     ldr r1, [r1]
     blx r1
@@ -172,10 +172,10 @@ asm void func_0202b798(void)
     mov r0, r4
     mov r1, r11
     mov r2, r8
-    bl func_02027cf4
+    bl NNS_G3dTexSetTexKey
     mov r0, r4
     mov r1, r9
-    bl func_02027e24
+    bl NNS_G3dPlttSetPlttKey
     mov r0, r4
     mov r1, #1
     bl NNS_G3dTexLoad
@@ -188,7 +188,7 @@ asm void func_0202b798(void)
     cmp r1, r0
     bne @L_0202b9a4
     mov r0, r10
-    bl func_0202c11c
+    bl NNS_G3dGetMdlSet
     cmp r4, #0
     beq @L_0202b9a4
     mov r1, r4
@@ -204,7 +204,7 @@ asm void func_0202b798(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202b9d8(void)
+asm void NNS_G3dResDefaultRelease(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #8
@@ -237,7 +237,7 @@ asm void func_0202b9d8(void)
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, pc}
 @L_0202ba48:
-    bl func_0202c11c
+    bl NNS_G3dGetMdlSet
     mov r4, r0
     mov r0, r5
     bl NNS_G3dGetTex
@@ -251,15 +251,15 @@ asm void func_0202b9d8(void)
     movs r5, r0
     addeq sp, sp, #8
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02027e7c
+    bl NNS_G3dPlttReleasePlttKey
     mov r4, r0
     add r1, sp, #4
     add r2, sp, #0
     mov r0, r5
-    bl func_02027dc0
+    bl NNS_G3dTexReleaseTexKey
     cmp r4, #0
     beq @L_0202baac
-    ldr r1, =data_020abaac
+    ldr r1, =NNS_GfdDefaultFuncFreePlttVram
     mov r0, r4
     ldr r1, [r1]
     blx r1
@@ -267,7 +267,7 @@ asm void func_0202b9d8(void)
     ldr r0, [sp]
     cmp r0, #0
     beq @L_0202bac4
-    ldr r1, =data_020abaa4
+    ldr r1, =NNS_GfdDefaultFuncFreeTexVram
     ldr r1, [r1]
     blx r1
 @L_0202bac4:
@@ -275,7 +275,7 @@ asm void func_0202b9d8(void)
     cmp r0, #0
     addeq sp, sp, #8
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r1, =data_020abaa4
+    ldr r1, =NNS_GfdDefaultFuncFreeTexVram
     ldr r1, [r1]
     blx r1
     add sp, sp, #8
@@ -288,10 +288,10 @@ asm void NNS_G3dWorldPosToScrPos(void)
     sub sp, sp, #0x1c
     mov r5, r1
     mov r4, r2
-    ldr r6, =data_020bf420
-    ldr r1, =data_020bf464
+    ldr r6, =NNS_G3dGlb_projMtx
+    ldr r1, =NNS_G3dGlb_cameraMtx
     add r2, sp, #0x10
-    bl func_02001414
+    bl MTX_MultVec43
     ldr r1, [sp, #0x14]
     ldr r0, [r6, #0x1c]
     ldr r2, [sp, #0x10]
@@ -305,7 +305,7 @@ asm void NNS_G3dWorldPosToScrPos(void)
     mov r1, r8, lsr #0xc
     orr r1, r1, r7, lsl #20
     add r0, r1, r0
-    bl func_02001e0c
+    bl FX_InvAsync
     ldr r2, [sp, #0x14]
     ldr r1, [r6, #0x10]
     ldr r0, [r6, #0x14]
@@ -362,7 +362,7 @@ asm void NNS_G3dWorldPosToScrPos(void)
     add r1, sp, #8
     add r2, sp, #4
     add r3, sp, #0
-    bl func_02028898
+    bl NNS_G3dGlbGetViewPort
     ldr r2, [sp, #0xc]
     ldr r0, [sp, #4]
     ldr r12, [sp]

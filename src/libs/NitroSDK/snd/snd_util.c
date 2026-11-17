@@ -1,12 +1,12 @@
 // (asm for now)
 
 void SND_CalcChannelVolume(void);
-void func_0200abcc(void);
-void func_0200ac9c(void);
+void SND_AssignWaveArc(void);
+void SND_DestroyBank(void);
 
 extern char data_020a3f80[];
-void func_0200a298(void);
-void func_0200a2ac(void);
+void SNDi_LockMutex(void);
+void SNDi_UnlockMutex(void);
 void DC_StoreRange(void);
 
 asm void SND_CalcChannelVolume(void)
@@ -41,20 +41,20 @@ asm void SND_CalcChannelVolume(void)
     bx lr
 }
 
-asm void func_0200abcc(void)
+asm void SND_AssignWaveArc(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r5, r1
     mov r4, r2
-    bl func_0200a298
+    bl SNDi_LockMutex
     add r3, r6, r5, lsl #3
     ldr r2, [r3, #0x18]
     cmp r2, #0
     beq @L_0200ac5c
     cmp r4, r2
     bne @L_0200ac00
-    bl func_0200a2ac
+    bl SNDi_UnlockMutex
     ldmia sp!, {r4, r5, r6, pc}
 @L_0200ac00:
     add r1, r6, #0x18
@@ -92,7 +92,7 @@ asm void func_0200abcc(void)
     add r0, r6, r5, lsl #3
     str r1, [r0, #0x1c]
     str r4, [r0, #0x18]
-    bl func_0200a2ac
+    bl SNDi_UnlockMutex
     mov r5, #0x3c
     mov r0, r6
     mov r1, r5
@@ -103,11 +103,11 @@ asm void func_0200abcc(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200ac9c(void)
+asm void SND_DestroyBank(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
-    bl func_0200a298
+    bl SNDi_LockMutex
     mov r6, #0
     add r5, r7, #0x18
     mov r8, #8
@@ -147,6 +147,6 @@ asm void func_0200ac9c(void)
     add r6, r6, #1
     cmp r6, #4
     blt @L_0200acb8
-    bl func_0200a2ac
+    bl SNDi_UnlockMutex
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }

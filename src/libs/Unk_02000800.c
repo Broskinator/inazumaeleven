@@ -1,10 +1,10 @@
 // (asm for now)
 
 void Entry(void);
-void func_0200093c(void);
+void INITi_CpuClear32(void);
 
-void func_02000a78(void);
-extern char data_027e0000[];
+void init_cp15(void);
+extern char OS_IRQTable[];
 void MIi_UncompressBackward(void);
 void do_autoload(void);
 void OS_IrqHandler(void);
@@ -21,15 +21,15 @@ asm void Entry(void)
     ldrh r0, [r12, #6]
     cmp r0, #0
     bne @L_02000808
-    bl func_02000a78
+    bl init_cp15
     mov r0, #0x13
     msr cpsr_c, r0
-    ldr r0, =data_027e0000
+    ldr r0, =OS_IRQTable
     add r0, r0, #0x3fc0
     mov sp, r0
     mov r0, #0x12
     msr cpsr_c, r0
-    ldr r0, =data_027e0000
+    ldr r0, =OS_IRQTable
     add r0, r0, #0x3fc0
     sub r0, r0, #0x40
     sub sp, r0, #4
@@ -43,17 +43,17 @@ asm void Entry(void)
     tst sp, #4
     subne sp, sp, #4
     mov r0, #0
-    ldr r1, =data_027e0000
+    ldr r1, =OS_IRQTable
     mov r2, #0x4000
-    bl func_0200093c
+    bl INITi_CpuClear32
     mov r0, #0
     ldr r1, =0x5000000
     mov r2, #0x400
-    bl func_0200093c
+    bl INITi_CpuClear32
     mov r0, #0x200
     ldr r1, =0x7000000
     mov r2, #0x400
-    bl func_0200093c
+    bl INITi_CpuClear32
     ldr r1, =0x2000b88
     ldr r0, [r1, #0x14]
     bl MIi_UncompressBackward
@@ -77,7 +77,7 @@ asm void Entry(void)
     blt @L_020008cc
     ldr r1, =0x2ffff9c
     str r0, [r1]
-    ldr r1, =data_027e0000
+    ldr r1, =OS_IRQTable
     add r1, r1, #0x3fc0
     add r1, r1, #0x3c
     ldr r0, =OS_IrqHandler
@@ -90,7 +90,7 @@ asm void Entry(void)
     bx r1
 }
 
-asm void func_0200093c(void)
+asm void INITi_CpuClear32(void)
 {
     add r12, r1, r2
 @L_02000940:

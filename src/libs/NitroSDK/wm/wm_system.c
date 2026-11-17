@@ -1,33 +1,33 @@
 // (asm for now)
 
 void WMi_SetCallbackTable(void);
-void func_020126c8(void);
-void func_02012728(void);
-void func_020127d4(void);
-void func_02012844(void);
+void WmGetCommandBuffer4Arm7(void);
+void WMi_SendCommand(void);
+void WMi_SendCommandDirect(void);
+void WMi_GetSystemWork(void);
 void WMi_CheckInitialized(void);
-void func_02012870(void);
-void func_020128b4(void);
-void func_02012944(void);
-void func_02012d2c(void);
+void WMi_CheckIdle(void);
+void WMi_CheckStateEx(void);
+void WmReceiveFifo(void);
+void WmClearFifoRecvFlag(void);
 void WMi_GetStatusAddress(void);
 void WM_GetAID(void);
 void WM_GetConnectedAIDs(void);
-void func_02012dd4(void);
-void func_02012e08(void);
-void func_02012e1c(void);
+void WMi_RegisterSleepCallback(void);
+void WMi_DeleteSleepCallback(void);
+void WmSleepCallback(void);
 
-extern char data_020bdd6c[];
-extern char data_020bdd84[];
-void func_020068c0(void);
+extern char wmInitialized[];
+extern char bufMsgQ[];
+void OS_ReceiveMessage(void);
 void DC_InvalidateRange(void);
-void func_02006960(void);
+void OS_JamMessage(void);
 void DC_StoreRange(void);
-void func_0200b138(void);
+void PXI_SendWordByFifo(void);
 void OS_SendMessage(void);
 void MI_CpuCopy8(void);
-void func_0200878c(void);
-void func_02012640(void);
+void OS_Terminate(void);
+void WM_Finish(void);
 extern char data_020bddcc[];
 void MI_CpuFill8(void);
 extern char data_020bdde0[];
@@ -36,28 +36,28 @@ void MIi_CpuCopy16(void);
 void MIi_CpuClear16(void);
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
-extern char data_020bdd74[];
-void func_02010144(void);
-void func_02010168(void);
+extern char sleepCbInfo[];
+void PMi_InsertPostSleepCallbackEx(void);
+void PM_DeletePreSleepCallback(void);
 
 asm void WMi_SetCallbackTable(void)
 {
-    ldr r2, =data_020bdd6c
+    ldr r2, =wmInitialized
     ldr r2, [r2, #4]
     add r0, r2, r0, lsl #2
     str r1, [r0, #0x18]
     bx lr
 }
 
-asm void func_020126c8(void)
+asm void WmGetCommandBuffer4Arm7(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r5, =data_020bdd84
+    ldr r5, =bufMsgQ
     mov r4, #0
     add r1, sp, #0
     mov r0, r5
     mov r2, r4
-    bl func_020068c0
+    bl OS_ReceiveMessage
     cmp r0, #0
     moveq r0, r4
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -71,17 +71,17 @@ asm void func_020126c8(void)
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, r5
     mov r2, #1
-    bl func_02006960
+    bl OS_JamMessage
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02012728(void)
+asm void WMi_SendCommand(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
-    bl func_020126c8
+    bl WmGetCommandBuffer4Arm7
     movs r4, r0
     moveq r0, #8
     ldmeqia sp!, {r3, r4, r5, lr}
@@ -110,9 +110,9 @@ asm void func_02012728(void)
     mov r1, r4
     mov r0, #0xa
     mov r2, #0
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     mov r5, r0
-    ldr r0, =data_020bdd84
+    ldr r0, =bufMsgQ
     mov r1, r4
     mov r2, #1
     bl OS_SendMessage
@@ -124,12 +124,12 @@ asm void func_02012728(void)
     bx lr
 }
 
-asm void func_020127d4(void)
+asm void WMi_SendCommandDirect(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     mov r4, r1
-    bl func_020126c8
+    bl WmGetCommandBuffer4Arm7
     movs r5, r0
     moveq r0, #8
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -143,9 +143,9 @@ asm void func_020127d4(void)
     mov r1, r5
     mov r0, #0xa
     mov r2, #0
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     mov r4, r0
-    ldr r0, =data_020bdd84
+    ldr r0, =bufMsgQ
     mov r1, r5
     mov r2, #1
     bl OS_SendMessage
@@ -155,16 +155,16 @@ asm void func_020127d4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02012844(void)
+asm void WMi_GetSystemWork(void)
 {
-    ldr r0, =data_020bdd6c
+    ldr r0, =wmInitialized
     ldr r0, [r0, #4]
     bx lr
 }
 
 asm void WMi_CheckInitialized(void)
 {
-    ldr r0, =data_020bdd6c
+    ldr r0, =wmInitialized
     ldrh r0, [r0]
     cmp r0, #0
     movne r0, #0
@@ -172,13 +172,13 @@ asm void WMi_CheckInitialized(void)
     bx lr
 }
 
-asm void func_02012870(void)
+asm void WMi_CheckIdle(void)
 {
     stmdb sp!, {r4, lr}
     bl WMi_CheckInitialized
     cmp r0, #0
     ldmneia sp!, {r4, pc}
-    ldr r4, =data_020bdd6c
+    ldr r4, =wmInitialized
     mov r1, #2
     ldr r0, [r4, #4]
     ldr r0, [r0, #4]
@@ -192,7 +192,7 @@ asm void func_02012870(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020128b4(void)
+asm void WMi_CheckStateEx(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, lr}
@@ -201,7 +201,7 @@ asm void func_020128b4(void)
     ldmneia sp!, {r4, lr}
     addne sp, sp, #0x10
     bxne lr
-    ldr r4, =data_020bdd6c
+    ldr r4, =wmInitialized
     mov r1, #2
     ldr r0, [r4, #4]
     ldr r0, [r0, #4]
@@ -232,11 +232,11 @@ asm void func_020128b4(void)
     bx lr
 }
 
-asm void func_02012944(void)
+asm void WmReceiveFifo(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
-    ldr r0, =data_020bdd6c
+    ldr r0, =wmInitialized
     cmp r2, #0
     ldr r4, [r0, #4]
     mov r10, r1
@@ -267,7 +267,7 @@ asm void func_02012944(void)
     ldrh r0, [r10, #2]
     cmp r0, #0x13
     bne @L_020129c4
-    bl func_0200878c
+    bl OS_Terminate
 @L_020129c4:
     ldr r1, [r4, #0xc8]
     cmp r1, #0
@@ -342,7 +342,7 @@ asm void func_02012944(void)
     cmp r0, #0
     beq @L_02012ac8
 @L_02012ac4:
-    bl func_02012e08
+    bl WMi_DeleteSleepCallback
 @L_02012ac8:
     ldrh r1, [r10]
     cmp r1, #2
@@ -351,7 +351,7 @@ asm void func_02012944(void)
     add r0, r4, r1, lsl #2
     bne @L_02012b04
     ldr r4, [r0, #0x18]
-    bl func_02012640
+    bl WM_Finish
     cmp r4, #0
     addeq sp, sp, #8
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -365,7 +365,7 @@ asm void func_02012944(void)
     beq @L_02012b2c
     mov r0, r10
     blx r1
-    ldr r0, =data_020bdd6c
+    ldr r0, =wmInitialized
     ldrh r0, [r0]
     cmp r0, #0
     addeq sp, sp, #8
@@ -490,7 +490,7 @@ asm void func_02012944(void)
     ldr r0, [r4, #0x10]
     mov r1, r5
     bl DC_InvalidateRange
-    bl func_02012d2c
+    bl WmClearFifoRecvFlag
     ldr r0, [r4, #0x10]
     cmp r10, r0
     addeq sp, sp, #8
@@ -505,7 +505,7 @@ asm void func_02012944(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02012d2c(void)
+asm void WmClearFifoRecvFlag(void)
 {
     ldr r2, =0x2ffff96
     ldrh r1, [r2]
@@ -522,7 +522,7 @@ asm void WMi_GetStatusAddress(void)
     bl WMi_CheckInitialized
     cmp r0, #0
     movne r0, #0
-    ldreq r0, =data_020bdd6c
+    ldreq r0, =wmInitialized
     ldreq r0, [r0, #4]
     ldreq r0, [r0, #4]
     ldmia sp!, {r3, pc}
@@ -532,7 +532,7 @@ asm void WM_GetAID(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bdd6c
+    ldr r1, =wmInitialized
     ldr r1, [r1, #4]
     cmp r1, #0
     addne r1, r1, #0x100
@@ -547,7 +547,7 @@ asm void WM_GetConnectedAIDs(void)
 {
     stmdb sp!, {r4, lr}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bdd6c
+    ldr r1, =wmInitialized
     ldr r1, [r1, #4]
     cmp r1, #0
     ldrne r4, [r1, #0x14c]
@@ -558,28 +558,28 @@ asm void WM_GetConnectedAIDs(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02012dd4(void)
+asm void WMi_RegisterSleepCallback(void)
 {
-    ldr r1, =func_02012e1c
-    ldr r2, =data_020bdd6c
-    ldr r0, =data_020bdd74
+    ldr r1, =WmSleepCallback
+    ldr r2, =wmInitialized
+    ldr r0, =sleepCbInfo
     str r1, [r2, #8]
     mov r3, #0
-    ldr r12, =func_02010144
+    ldr r12, =PMi_InsertPostSleepCallbackEx
     mov r1, #0x3e8
     str r3, [r2, #0xc]
     bx r12
 }
 
-asm void func_02012e08(void)
+asm void WMi_DeleteSleepCallback(void)
 {
-    ldr r0, =data_020bdd74
-    ldr r12, =func_02010168
+    ldr r0, =sleepCbInfo
+    ldr r12, =PM_DeletePreSleepCallback
     bx r12
 }
 
-asm void func_02012e1c(void)
+asm void WmSleepCallback(void)
 {
-    ldr r12, =func_0200878c
+    ldr r12, =OS_Terminate
     bx r12
 }

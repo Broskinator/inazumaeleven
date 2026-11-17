@@ -3,36 +3,36 @@
 void GX_SetBankForSubOBJ(void);
 void GX_SetBankForSubBGExtPltt(void);
 void GX_SetBankForSubOBJExtPltt(void);
-void func_02004ce4(void);
+void resetBankForX_(void);
 void func_02004d1c(void);
-void func_02004d30(void);
-void func_02004d54(void);
-void func_02004d68(void);
+void GX_ResetBankForBGExtPltt(void);
+void GX_ResetBankForTex(void);
+void GX_ResetBankForTexPltt(void);
 void func_02004d7c(void);
 void func_02004d90(void);
-void func_02004da4(void);
-void func_02004dcc(void);
-void func_02004e8c(void);
-void func_02004ea0(void);
+void GX_ResetBankForSubBGExtPltt(void);
+void disableBankForX_(void);
+void GX_DisableBankForBG(void);
+void GX_DisableBankForOBJ(void);
 void func_02004eb4(void);
-void func_02004ed8(void);
+void GX_DisableBankForOBJExtPltt(void);
 void func_02004efc(void);
 void func_02004f10(void);
 void func_02004f24(void);
 void func_02004f38(void);
-void func_02004f4c(void);
-void func_02004f60(void);
-void func_02004f74(void);
+void GX_DisableBankForLCDC(void);
+void GX_DisableBankForSubBG(void);
+void GX_DisableBankForSubOBJ(void);
 void func_02004f88(void);
-void func_02004fb0(void);
-void func_02004fd8(void);
+void GX_DisableBankForSubOBJExtPltt(void);
+void GX_GetBankForTex(void);
 void GX_GetSizeOfX_(void);
 void GX_GetSizeOfTex(void);
 void GX_GetSizeOfTexPltt(void);
 void GX_GetSizeOfSubOBJ(void);
 
-extern char data_020bb080[];
-void func_0200415c(void);
+extern char gGXState[];
+void GX_VRAMCNT_SetLCDC_(void);
 extern char data_020bb082[];
 extern char data_020bb08e[];
 extern char data_020bb088[];
@@ -41,7 +41,7 @@ extern char data_020bb092[];
 extern char data_020bb094[];
 extern char data_020bb096[];
 extern char data_020bb042[];
-void func_0200863c(void);
+void OSi_UnlockVram(void);
 extern char data_020bb084[];
 extern char data_020bb090[];
 extern char data_020bb08c[];
@@ -51,7 +51,7 @@ extern char data_020bb098[];
 asm void GX_SetBankForSubOBJ(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0x14]
@@ -73,16 +73,16 @@ asm void GX_SetBankForSubOBJ(void)
     mov r1, #0x84
     strb r1, [r0]
 @L_02004bc8:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
 asm void GX_SetBankForSubBGExtPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0x16]
@@ -108,16 +108,16 @@ asm void GX_SetBankForSubBGExtPltt(void)
     bic r0, r0, #0x40000000
     str r0, [r1]
 @L_02004c48:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
 asm void GX_SetBankForSubOBJExtPltt(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb080
+    ldr r1, =gGXState
     mvn r12, r0
     ldrh r3, [r1]
     ldrh r2, [r1, #0x18]
@@ -143,25 +143,25 @@ asm void GX_SetBankForSubOBJExtPltt(void)
     bic r0, r0, #0x80000000
     str r0, [r1]
 @L_02004cc8:
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02004ce4(void)
+asm void resetBankForX_(void)
 {
     stmdb sp!, {r4, lr}
     ldrh r4, [r0]
     mov r1, #0
-    ldr r2, =data_020bb080
+    ldr r2, =gGXState
     strh r1, [r0]
     ldrh r3, [r2]
     mov r1, r4, lsl #0x10
     mov r0, r4
     orr r1, r3, r1, lsr #16
     strh r1, [r2]
-    bl func_0200415c
+    bl GX_VRAMCNT_SetLCDC_
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
@@ -169,61 +169,61 @@ asm void func_02004ce4(void)
 asm void func_02004d1c(void)
 {
     ldr r0, =data_020bb082
-    ldr r12, =func_02004ce4
+    ldr r12, =resetBankForX_
     bx r12
 }
 
-asm void func_02004d30(void)
+asm void GX_ResetBankForBGExtPltt(void)
 {
     mov r2, #0x4000000
     ldr r1, [r2]
     ldr r0, =data_020bb08e
     bic r1, r1, #0x40000000
-    ldr r12, =func_02004ce4
+    ldr r12, =resetBankForX_
     str r1, [r2]
     bx r12
 }
 
-asm void func_02004d54(void)
+asm void GX_ResetBankForTex(void)
 {
     ldr r0, =data_020bb088
-    ldr r12, =func_02004ce4
+    ldr r12, =resetBankForX_
     bx r12
 }
 
-asm void func_02004d68(void)
+asm void GX_ResetBankForTexPltt(void)
 {
     ldr r0, =data_020bb08a
-    ldr r12, =func_02004ce4
+    ldr r12, =resetBankForX_
     bx r12
 }
 
 asm void func_02004d7c(void)
 {
     ldr r0, =data_020bb092
-    ldr r12, =func_02004ce4
+    ldr r12, =resetBankForX_
     bx r12
 }
 
 asm void func_02004d90(void)
 {
     ldr r0, =data_020bb094
-    ldr r12, =func_02004ce4
+    ldr r12, =resetBankForX_
     bx r12
 }
 
-asm void func_02004da4(void)
+asm void GX_ResetBankForSubBGExtPltt(void)
 {
     ldr r2, =0x4001000
     ldr r0, =data_020bb096
     ldr r1, [r2]
-    ldr r12, =func_02004ce4
+    ldr r12, =resetBankForX_
     bic r1, r1, #0x40000000
     str r1, [r2]
     bx r12
 }
 
-asm void func_02004dcc(void)
+asm void disableBankForX_(void)
 {
     stmdb sp!, {r4, lr}
     ldrh r4, [r0]
@@ -260,22 +260,22 @@ asm void func_02004dcc(void)
     mov r0, r4, lsl #0x10
     ldrh r1, [r1]
     mov r0, r0, lsr #0x10
-    bl func_0200863c
+    bl OSi_UnlockVram
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02004e8c(void)
+asm void GX_DisableBankForBG(void)
 {
     ldr r0, =data_020bb082
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
-asm void func_02004ea0(void)
+asm void GX_DisableBankForOBJ(void)
 {
     ldr r0, =data_020bb084
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
@@ -285,18 +285,18 @@ asm void func_02004eb4(void)
     ldr r1, [r2]
     ldr r0, =data_020bb08e
     bic r1, r1, #0x40000000
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     str r1, [r2]
     bx r12
 }
 
-asm void func_02004ed8(void)
+asm void GX_DisableBankForOBJExtPltt(void)
 {
     mov r2, #0x4000000
     ldr r1, [r2]
     ldr r0, =data_020bb090
     bic r1, r1, #0x80000000
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     str r1, [r2]
     bx r12
 }
@@ -304,49 +304,49 @@ asm void func_02004ed8(void)
 asm void func_02004efc(void)
 {
     ldr r0, =data_020bb088
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
 asm void func_02004f10(void)
 {
     ldr r0, =data_020bb08a
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
 asm void func_02004f24(void)
 {
     ldr r0, =data_020bb08c
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
 asm void func_02004f38(void)
 {
     ldr r0, =data_020bb086
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
-asm void func_02004f4c(void)
+asm void GX_DisableBankForLCDC(void)
 {
-    ldr r0, =data_020bb080
-    ldr r12, =func_02004dcc
+    ldr r0, =gGXState
+    ldr r12, =disableBankForX_
     bx r12
 }
 
-asm void func_02004f60(void)
+asm void GX_DisableBankForSubBG(void)
 {
     ldr r0, =data_020bb092
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
-asm void func_02004f74(void)
+asm void GX_DisableBankForSubOBJ(void)
 {
     ldr r0, =data_020bb094
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bx r12
 }
 
@@ -355,26 +355,26 @@ asm void func_02004f88(void)
     ldr r2, =0x4001000
     ldr r0, =data_020bb096
     ldr r1, [r2]
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bic r1, r1, #0x40000000
     str r1, [r2]
     bx r12
 }
 
-asm void func_02004fb0(void)
+asm void GX_DisableBankForSubOBJExtPltt(void)
 {
     ldr r2, =0x4001000
     ldr r0, =data_020bb098
     ldr r1, [r2]
-    ldr r12, =func_02004dcc
+    ldr r12, =disableBankForX_
     bic r1, r1, #0x80000000
     str r1, [r2]
     bx r12
 }
 
-asm void func_02004fd8(void)
+asm void GX_GetBankForTex(void)
 {
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldrh r0, [r0, #8]
     bx lr
 }
@@ -406,7 +406,7 @@ asm void GX_GetSizeOfX_(void)
 
 asm void GX_GetSizeOfTex(void)
 {
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldr r12, =GX_GetSizeOfX_
     ldrh r0, [r0, #8]
     bx r12
@@ -414,7 +414,7 @@ asm void GX_GetSizeOfTex(void)
 
 asm void GX_GetSizeOfTexPltt(void)
 {
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldr r12, =GX_GetSizeOfX_
     ldrh r0, [r0, #0xa]
     bx r12
@@ -422,7 +422,7 @@ asm void GX_GetSizeOfTexPltt(void)
 
 asm void GX_GetSizeOfSubOBJ(void)
 {
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     ldr r12, =GX_GetSizeOfX_
     ldrh r0, [r0, #0x14]
     bx r12

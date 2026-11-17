@@ -2,26 +2,26 @@
 
 void rand(void);
 void func_0201a6f4(void);
-void func_0201a704(void);
-void func_0201a77c(void);
-void func_0201a7a4(void);
-void func_0201a7a8(void);
+void __StringRead(void);
+void __msl_runtime_constraint_violation_s(void);
+void ignore_handler_s(void);
+void raise(void);
 void strlen(void);
 void strcpy(void);
 void strncpy(void);
-void func_0201aa04(void);
+void strcat(void);
 
 extern char data_020ab328[];
 extern char data_020bf3e8[];
 extern char data_020bf0b4[];
 void OS_TryLockMutex(void);
-extern char data_020bb120[];
+extern char OSi_ThreadInfo[];
 extern char data_020befc4[];
 extern char data_020befe8[];
 void OS_LockMutex(void);
 extern char data_020bf3ec[];
 void OS_UnlockMutex(void);
-void func_02017aa4(void);
+void exit(void);
 
 asm void rand(void)
 {
@@ -44,7 +44,7 @@ asm void func_0201a6f4(void)
     bx lr
 }
 
-asm void func_0201a704(void)
+asm void __StringRead(void)
 {
     cmp r2, #0
     beq @L_0201a720
@@ -82,7 +82,7 @@ asm void func_0201a704(void)
     bx lr
 }
 
-asm void func_0201a77c(void)
+asm void __msl_runtime_constraint_violation_s(void)
 {
     stmdb sp!, {r3, lr}
     ldr r3, =data_020bf3e8
@@ -92,16 +92,16 @@ asm void func_0201a77c(void)
     blx r3
     ldmia sp!, {r3, pc}
 @L_0201a798:
-    bl func_0201a7a4
+    bl ignore_handler_s
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0201a7a4(void)
+asm void ignore_handler_s(void)
 {
     bx lr
 }
 
-asm void func_0201a7a8(void)
+asm void raise(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r0
@@ -118,7 +118,7 @@ asm void func_0201a7a8(void)
     bl OS_TryLockMutex
     cmp r0, #0
     bne @L_0201a800
-    ldr r0, =data_020bb120
+    ldr r0, =OSi_ThreadInfo
     ldr r1, =data_020befc4
     ldr r2, [r0, #4]
     ldr r0, =data_020befe8
@@ -128,7 +128,7 @@ asm void func_0201a7a8(void)
     str r2, [r0, #0x1c]
     b @L_0201a84c
 @L_0201a800:
-    ldr r4, =data_020bb120
+    ldr r4, =OSi_ThreadInfo
     ldr r6, =data_020befc4
     ldr r0, [r4, #4]
     ldr r1, [r6, #0x1c]
@@ -174,7 +174,7 @@ asm void func_0201a7a8(void)
     cmp r4, #0
     bne @L_0201a8ac
     mov r0, #0
-    bl func_02017aa4
+    bl exit
 @L_0201a8ac:
     mov r0, r5
     blx r4
@@ -279,7 +279,7 @@ asm void strncpy(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0201aa04(void)
+asm void strcat(void)
 {
     mov r3, r0
 @L_0201aa08:

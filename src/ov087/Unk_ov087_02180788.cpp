@@ -41,7 +41,7 @@ extern "C" s32 func_ov087_0218225c(s32 arg0);
 extern "C" s32 func_ov087_02182270(s32 arg0);
 extern "C" void func_ov087_02182280(void);
 
-extern "C" char data_020c4648[];
+extern "C" char g3DFieldSprite[];
 extern "C" char data_020c4920[];
 extern "C" char data_020c4de0[];
 extern "C" char data_020c4f3c[];
@@ -49,8 +49,8 @@ extern "C" char data_020c4f40[];
 extern "C" char data_020c6cac[];
 extern "C" void FX_SinCosTable_(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN15DistanceTable3213func_02062084Ell(void);
-extern "C" void _ZN15DistanceTable3213func_0206212cEll(void);
+extern "C" void _ZN15DistanceTable3214ApproxDistanceEll(void);
+extern "C" void _ZN15DistanceTable3217ApproxDistanceAbsEll(void);
 extern "C" void _ZN15DistanceTable3213func_02062178Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_020630d8Ev(...);
 extern "C" void _ZN11MatchEngine13func_02063388Esll(void);
@@ -60,7 +60,7 @@ extern "C" void _ZN11MatchEngine13func_02066e28Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);
 extern "C" void _ZN11MatchEngine13func_02068590Eii(void);
 extern "C" void _ZN11MatchEngine13func_020685a8Eiii(void);
-extern "C" s32 _ZN11MatchEngine13func_0206a964Ei(...);
+extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" void _ZN11MatchEngine13func_0206ad94Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206b4a8Ei(...);
 extern "C" void _ZN11MatchEngine13func_0206bf98Ev(void);
@@ -90,7 +90,7 @@ extern "C" void func_01ffecec(void);
 extern "C" void func_01ffed20(void);
 extern "C" void func_01fff13c(void);
 extern "C" void func_01fff15c(void);
-extern "C" void func_0200226c(void);
+extern "C" void FX_Atan2Idx(void);
 extern "C" void _fflt(void);
 extern "C" void _ffix(void);
 extern "C" void _fadd(void);
@@ -112,7 +112,7 @@ extern "C" void func_02084788(void);
 extern "C" s32 func_020847d0(...);
 extern "C" void func_02084808(void);
 extern "C" s32 func_ov001_02128194(...);
-extern "C" void func_ov015_021309a4(void);
+extern "C" void Random_RandA(void);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" s32 func_ov015_02130b14(...);
 extern "C" void func_ov015_02130b94(void);
@@ -444,7 +444,7 @@ extern "C" asm s32 func_ov087_02180be0(...)
     subs r1, r8, r0
     ldr r0, [r11, #0x7bc]
     rsbmi r1, r1, #0
-    bl _ZN15DistanceTable3213func_02062084Ell
+    bl _ZN15DistanceTable3214ApproxDistanceEll
     cmp r0, r5
     strlt r4, [sp]
     movlt r5, r0
@@ -637,7 +637,7 @@ extern "C" asm void func_ov087_02180ea8(void)
     ldr r0, [r0, #4]
     sub r1, r1, r7
     sub r0, r0, r8
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r0, r0, asr #4
     mov r2, r0, lsl #1
     add r0, r2, #1
@@ -870,7 +870,7 @@ extern "C" asm void func_ov087_02181214(void)
     ldr r1, [r4]
     sub r0, r6, r8
     sub r1, r1, r9
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r0, r0, asr #4
     mov r0, r0, lsl #1
     add r1, r0, #1
@@ -894,7 +894,7 @@ extern "C" asm void func_ov087_02181214(void)
     ldr r1, [r4, #8]
     sub r0, r6, r8
     sub r1, r1, r9
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r0, r0, asr #4
     mov r0, r0, lsl #1
     add r1, r0, #1
@@ -975,13 +975,13 @@ extern "C" asm void func_ov087_02181368(void)
     mov r1, r9
     ldr r0, [r0, #0x7bc]
     mov r2, r10
-    bl _ZN15DistanceTable3213func_0206212cEll
+    bl _ZN15DistanceTable3217ApproxDistanceAbsEll
     str r0, [sp, #0x18]
     cmp r0, #0xc000
     bgt @L_021815a8
     mov r0, r10
     mov r1, r9
-    bl func_0200226c
+    bl FX_Atan2Idx
     cmp r9, #0
     mov r9, r0
     cmpeq r10, #0
@@ -1284,7 +1284,7 @@ extern "C" asm s32 func_ov087_0218177c(...)
     bne @L_02181a0c
 @L_021818e4:
     mov r0, #0x41
-    bl func_ov015_021309a4
+    bl Random_RandA
     sub r0, r0, #0x20
     cmp r0, #0
     mov r0, r0, lsl #0xc
@@ -1302,7 +1302,7 @@ extern "C" asm s32 func_ov087_0218177c(...)
     bl _ffix
     add r10, r10, r0
     mov r0, #0x41
-    bl func_ov015_021309a4
+    bl Random_RandA
     sub r0, r0, #0x20
     cmp r0, #0
     mov r0, r0, lsl #0xc
@@ -1688,7 +1688,7 @@ extern "C" void func_ov087_02181e78(s32 arg0, s32 arg1, u16 arg2, s32 arg3, u8 a
     u8 *r7;
     s32 v0;
     s32 v1;
-    v0 = _ZN11MatchEngine13func_0206a964Ei(arg0, arg1, arg2, arg3);
+    v0 = _ZN11MatchEngine11GetTeamInfoEi(arg0, arg1, arg2, arg3);
     r6 = arg0;
     arg0 = v0;
     if (arg3 != 0) {
@@ -1712,7 +1712,7 @@ extern "C" s32 func_ov087_02181ef4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     s32 v0;
-    v0 = _ZN11MatchEngine13func_0206a964Ei((s32)arg0, arg1, arg2, arg3);
+    v0 = _ZN11MatchEngine11GetTeamInfoEi((s32)arg0, arg1, arg2, arg3);
     arg0 = (u8 *)v0;
     r4 = arg3;
     if (arg2 != 0) {
@@ -1973,7 +1973,7 @@ extern "C" asm void func_ov087_02182280(void)
     ldr r0, [r4, #0xe8]
     mov r2, #0
     ldrb r3, [r0, #0x1a]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     mov r1, r4
     str r2, [sp]
     ldr r0, [r0]

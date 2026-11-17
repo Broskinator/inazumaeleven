@@ -1,9 +1,9 @@
 #include "game/Unk_02086070.hpp"
 
-extern "C" s32 func_02097aa0(...);     // (for the asm functions)
-extern "C" void func_02097b3c(void);     // (for the asm functions)
+extern "C" s32 C3DSprFile_TryFinalize(...);     // (for the asm functions)
+extern "C" void C3DSprFile_Release(void);     // (for the asm functions)
 extern "C" void func_0209835c(void);     // (for the asm functions)
-extern "C" void func_02097898(void);     // (for the asm functions)
+extern "C" void C3DSprFile_LoadFromPath(void);     // (for the asm functions)
 extern "C" void func_02096148(void);     // (for the asm functions)
 extern "C" void func_02096160(void);     // (for the asm functions)
 extern "C" void func_020962f4(void);     // (for the asm functions)
@@ -14,10 +14,10 @@ extern "C" BOOL func_020854a8(void *self, u8 *obj);
 extern "C" BOOL func_0208539c(void *self, u8 *obj);
 extern "C" BOOL func_020858b0(void *self, u8 *obj);
 extern "C" BOOL func_02085208(u8 *list, s32 value);
-extern "C" void func_ov015_02134198(void *obj, int a);
-extern "C" void func_ov015_02134208(void *obj);
-extern "C" void func_0208ff7c(void *self, void *obj);
-extern "C" void func_0208ff98(void *obj, int a);
+extern "C" void Archive_Close(void *obj, int a);
+extern "C" void Archive_Deallocate(void *obj);
+extern "C" void Vram_ClearTexPool(void *self, void *obj);
+extern "C" void Vram_InitTexPool(void *obj, int a);
 extern "C" int func_020900a4(void *self);
 extern "C" void func_020885b0(void *self);
 extern "C" void *data_020af504[];     // (a vtable)
@@ -85,9 +85,9 @@ extern "C" void func_020874cc(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, 
 
 extern "C" char data_020af4f4[];
 extern "C" char data_020af50c[];
-extern "C" char data_020c4694[];
-extern "C" char data_020c46e4[];
-extern "C" char data_020c47b4[];
+extern "C" char g3DSpriteCtrl[];
+extern "C" char gConfig[];
+extern "C" char gAllocator[];
 extern "C" void MI_CpuFill8(void);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
@@ -119,9 +119,9 @@ extern "C" s32 func_020858c8(...);
 extern "C" void func_02085934(void);
 extern "C" void func_020859c0(void);
 extern "C" s32 func_02085bb4(...);
-extern "C" s32 func_ov015_02133f94(...);
-extern "C" s32 func_ov015_02134118(...);
-extern "C" void func_ov015_02134300(void);
+extern "C" s32 Archive_RequestNewRead(...);
+extern "C" s32 Archive_TryFinalize(...);
+extern "C" void Archive_PackHeaderGetOffsetAndSize(void);
 
 extern "C" void func_02086070(s32 arg0)
 {
@@ -823,7 +823,7 @@ extern "C" asm int func_02086b2c(void *self, int a, int b, int c, int d)
     add r2, sp, #0x18
     add r3, sp, #0x14
     mov r1, r8
-    bl func_ov015_02134300
+    bl Archive_PackHeaderGetOffsetAndSize
     cmp r0, #0
     addeq sp, sp, #0x1c
     moveq r0, r4
@@ -831,7 +831,7 @@ extern "C" asm int func_02086b2c(void *self, int a, int b, int c, int d)
     ldrb r0, [sp, #0x40]
     cmp r0, #0
     beq @L_02086c24
-    ldr r0, =data_020c4694
+    ldr r0, =g3DSpriteCtrl
     ldr r11, [sp, #0x14]
     ldr r0, [r0]
     ldr r1, [sp, #0x18]
@@ -846,7 +846,7 @@ extern "C" asm int func_02086b2c(void *self, int a, int b, int c, int d)
     str r11, [sp, #0x10]
     b @L_02086c54
 @L_02086c24:
-    ldr r0, =data_020c4694
+    ldr r0, =g3DSpriteCtrl
     ldr r12, [sp, #0x14]
     ldr r0, [r0]
     ldr r1, [sp, #0x18]
@@ -859,13 +859,13 @@ extern "C" asm int func_02086b2c(void *self, int a, int b, int c, int d)
     mov r1, #2
     str r12, [sp, #0x10]
 @L_02086c54:
-    bl func_02097898
+    bl C3DSprFile_LoadFromPath
     mov r4, r0
     cmp r4, #0
     addle sp, sp, #0x1c
     movle r0, #0
     ldmleia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, =data_020c4694
+    ldr r0, =g3DSpriteCtrl
     mov r1, r4
     ldr r0, [r0]
     bl func_02096160
@@ -922,7 +922,7 @@ extern "C" s32 func_02086d40(u8 *arg0, s32 arg1, s32 arg2)
 {
     s32 v1;
     func_02086d14((void *)arg0);
-    v1 = _ZN8GameHeap5AllocEiii((s32)data_020c47b4, (arg1 << 3), 0, 1);
+    v1 = _ZN8GameHeap5AllocEiii((s32)gAllocator, (arg1 << 3), 0, 1);
     *(s32 *)(arg0 + 0x4) = v1;
     if (v1 == 0)
         return 0;
@@ -941,7 +941,7 @@ extern "C" asm void func_02086da0(void *obj)
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     mov r6, #1
     mov r5, #0
-    ldr r4, =data_020c4694
+    ldr r4, =g3DSpriteCtrl
     b @L_02086dec
 @L_02086dc4:
     ldrh r1, [r7]
@@ -949,7 +949,7 @@ extern "C" asm void func_02086da0(void *obj)
     beq @L_02086ddc
     ldr r0, [r4]
     add r0, r0, #4
-    bl func_02097b3c
+    bl C3DSprFile_Release
 @L_02086ddc:
     strh r5, [r7]
     str r5, [r7, #4]
@@ -960,7 +960,7 @@ extern "C" asm void func_02086da0(void *obj)
     cmp r6, r0
     ble @L_02086dc4
     ldr r1, [r8, #4]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, r8
     bl func_0208706c
@@ -1017,9 +1017,9 @@ extern "C" s32 func_02086e9c(u8 *arg0, s32 arg1)
     if ((s32)arg0 == 0) {
         return -1;
     } else {
-        t0 = (*(s32 *)(((u8 *)&data_020c4694)) + 4);
+        t0 = (*(s32 *)(((u8 *)&g3DSpriteCtrl)) + 4);
         t1 = *(u16 *)(arg0);
-        v1 = func_02097aa0(t0, t1, (s32)((u8 *)&data_020c4694));
+        v1 = C3DSprFile_TryFinalize(t0, t1, (s32)((u8 *)&g3DSpriteCtrl));
         return v1;
     }
 }
@@ -1034,11 +1034,11 @@ extern "C" asm s32 func_02086ecc(...)
     ldrh r0, [r5]
     ldrh r1, [r5]
     cmp r0, #0
-    ldr r0, =data_020c4694
+    ldr r0, =g3DSpriteCtrl
     movne r4, #1
     ldr r0, [r0]
     add r0, r0, #4
-    bl func_02097b3c
+    bl C3DSprFile_Release
     mov r1, r5
     mov r0, #0
     mov r2, #8
@@ -1115,7 +1115,7 @@ extern "C" s32 func_02086fe0(u8 *arg0, s32 arg1)
     *(u8 *)(arg0 + 0x1C) = 0;
     *(u8 *)(arg0 + 0x1D) = 0;
     *(u8 *)(arg0 + 0x1E) = 0;
-    func_ov015_02133f94(arg1, (arg0 + 0x14), 0);
+    Archive_RequestNewRead(arg1, (arg0 + 0x14), 0);
     return 1;
 }
 
@@ -1124,14 +1124,14 @@ extern "C" s32 func_02087038(u8 *arg0)
     s32 v0;
     if (*(s32 *)(arg0 + 0x14) == 0)
         return -1;
-    v0 = func_ov015_02134118((arg0 + 0x14), 1);
+    v0 = Archive_TryFinalize((arg0 + 0x14), 1);
     return (v0 != 0 ? 0 : 1);
 }
 
 extern "C" void func_0208706c(u8 *self)
 {
-    func_ov015_02134198(self + 0x14, 1);
-    func_ov015_02134208(self + 0x14);
+    Archive_Close(self + 0x14, 1);
+    Archive_Deallocate(self + 0x14);
 }
 
 extern "C" s32 func_0208708c(u8 *arg0, s32 arg1)
@@ -1175,8 +1175,8 @@ extern "C" s32 func_020870c0(u8 *arg0, u8 *arg1, s32 arg2)
 
 extern "C" void func_0208711c(void *self, void *obj)
 {
-    func_0208ff7c(self, obj);
-    func_0208ff98(obj, 0x200);
+    Vram_ClearTexPool(self, obj);
+    Vram_InitTexPool(obj, 0x200);
 }
 
 extern "C" int func_02087138(void *self)
@@ -1221,7 +1221,7 @@ extern "C" asm void func_0208720c(void *self)
     add r6, r6, #1
     cmp r6, #4
     blt @L_0208721c
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     mov r2, #0
     ldr r1, =data_020af50c
     str r2, [r4, #0x84]
@@ -1281,11 +1281,11 @@ extern "C" asm void func_020872a4(void)
     mov r5, #0
     mov r4, #1
     mul r1, r6, r8
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, r5
     mov r3, r4
     bl _ZN8GameHeap5AllocEiii
-    ldr r9, =data_020c4694
+    ldr r9, =g3DSpriteCtrl
     str r0, [r7, #0x84]
     ldr r0, [r9]
     mov r1, #3
@@ -1329,7 +1329,7 @@ extern "C" asm void func_020873ac(void *self)
     mov r1, r6
     bl func_0208708c
     mov r7, r0
-    ldr r5, =data_020c4694
+    ldr r5, =g3DSpriteCtrl
     b @L_020873ec
 @L_020873d8:
     ldrh r1, [r7, #4]
@@ -1342,7 +1342,7 @@ extern "C" asm void func_020873ac(void *self)
     cmp r6, r0
     ble @L_020873d8
     ldr r1, [r4, #0x84]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, #0
     str r0, [r4, #0x84]
@@ -1360,10 +1360,10 @@ extern "C" asm void func_020873ac(void *self)
     ldr r1, [r4, #0x8c]
     cmp r1, #0
     ble @L_02087450
-    ldr r0, =data_020c4694
+    ldr r0, =g3DSpriteCtrl
     ldr r0, [r0]
     add r0, r0, #4
-    bl func_02097b3c
+    bl C3DSprFile_Release
     mov r0, #0
     str r0, [r4, #0x8c]
 @L_02087450:

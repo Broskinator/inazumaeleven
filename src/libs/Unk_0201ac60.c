@@ -3,15 +3,15 @@
 void func_0201ac60(void);
 void strtod(void);
 void atof(void);
-void func_0201bc10(void);
+void __strtoul(void);
 void strtol(void);
 void atoi(void);
-void func_0201c058(void);
+void fwide(void);
 
 extern char data_020a4600[];
 extern char data_020a45f8[];
-extern char data_020a44f8[];
-extern char data_020a4478[];
+extern char __ctype_mapC[];
+extern char __upper_mapC[];
 extern char data_020ab0c4[];
 void _fsub(void);
 void _f2d(void);
@@ -22,9 +22,9 @@ void func_0201cecc(void);
 void _dneq(void);
 void _dls(void);
 void _dgr(void);
-void func_0201a704(void);
+void __StringRead(void);
 void fabs(void);
-extern char data_020bf3e4[];
+extern char errno[];
 void _u32_div_f(void);
 
 asm void func_0201ac60(void)
@@ -154,7 +154,7 @@ asm void func_0201ac60(void)
 @L_0201ae20:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #0x100
@@ -172,7 +172,7 @@ asm void func_0201ac60(void)
 @L_0201ae64:
     cmp r1, #0x80
     movhs r0, r1
-    ldrlo r0, =data_020a4478
+    ldrlo r0, =__upper_mapC
     ldrlob r0, [r0, r1]
     cmp r0, #0x49
     bgt @L_0201aea0
@@ -239,7 +239,7 @@ asm void func_0201ac60(void)
     ldrb r0, [r11]
     add r11, sp, #0x76
     strb r0, [r7]
-    ldr r7, =data_020a4478
+    ldr r7, =__upper_mapC
     b @L_0201af7c
 @L_0201af60:
     mov r1, #0
@@ -311,7 +311,7 @@ asm void func_0201ac60(void)
     add r2, r2, #4
     subs r0, r0, #1
     bne @L_0201b038
-    ldr r11, =data_020a4478
+    ldr r11, =__upper_mapC
     b @L_0201b078
 @L_0201b05c:
     mov r1, #0
@@ -337,7 +337,7 @@ asm void func_0201ac60(void)
     bhi @L_0201b190
     cmp r6, #4
     bne @L_0201b134
-    ldr r11, =data_020a44f8
+    ldr r11, =__ctype_mapC
     b @L_0201b0dc
 @L_0201b0b8:
     add r0, sp, #0x56
@@ -409,7 +409,7 @@ asm void func_0201ac60(void)
 @L_0201b1a4:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -427,7 +427,7 @@ asm void func_0201ac60(void)
     mov r1, r0
     blt @L_0201b1fc
     cmp r0, #0x80
-    ldrlt r2, =data_020a4478
+    ldrlt r2, =__upper_mapC
     ldrltb r0, [r2, r0]
 @L_0201b1fc:
     cmp r0, #0x58
@@ -446,7 +446,7 @@ asm void func_0201ac60(void)
 @L_0201b228:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -474,7 +474,7 @@ asm void func_0201ac60(void)
 @L_0201b28c:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -485,7 +485,7 @@ asm void func_0201ac60(void)
 @L_0201b2b4:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -513,7 +513,7 @@ asm void func_0201ac60(void)
 @L_0201b318:
     cmp r1, #0x80
     movhs r0, r1
-    ldrlo r0, =data_020a4478
+    ldrlo r0, =__upper_mapC
     ldrlob r0, [r0, r1]
     cmp r0, #0x45
     movne r6, #0x800
@@ -547,7 +547,7 @@ asm void func_0201ac60(void)
 @L_0201b390:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -567,7 +567,7 @@ asm void func_0201ac60(void)
 @L_0201b3d8:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -640,7 +640,7 @@ asm void func_0201ac60(void)
 @L_0201b4e0:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #0x400
@@ -665,7 +665,7 @@ asm void func_0201ac60(void)
     ldrb r0, [r0, r2, asr #1]
     blt @L_0201b550
     cmp r1, #0x80
-    ldrlt r2, =data_020a4478
+    ldrlt r2, =__upper_mapC
     ldrltb r1, [r2, r1]
 @L_0201b550:
     cmp r1, #0x41
@@ -689,7 +689,7 @@ asm void func_0201ac60(void)
 @L_0201b594:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #0x400
@@ -706,7 +706,7 @@ asm void func_0201ac60(void)
     ldrb r0, [r0, r2, asr #1]
     blt @L_0201b5e8
     cmp r1, #0x80
-    ldrlt r2, =data_020a4478
+    ldrlt r2, =__upper_mapC
     ldrltb r1, [r2, r1]
 @L_0201b5e8:
     b @L_0201b550
@@ -715,7 +715,7 @@ asm void func_0201ac60(void)
 @L_0201b5f0:
     cmp r1, #0x80
     movhs r0, r1
-    ldrlo r0, =data_020a4478
+    ldrlo r0, =__upper_mapC
     ldrlob r0, [r0, r1]
     cmp r0, #0x50
     movne r6, #0x800
@@ -739,7 +739,7 @@ asm void func_0201ac60(void)
 @L_0201b644:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -759,7 +759,7 @@ asm void func_0201ac60(void)
 @L_0201b68c:
     cmp r1, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r2, r1, lsl #1
     ldrloh r0, [r0, r2]
     andlo r0, r0, #8
@@ -1100,7 +1100,7 @@ asm void strtod(void)
     str r0, [sp, #8]
     add r12, sp, #0xc
     str r7, [sp, #4]
-    ldr r1, =func_0201a704
+    ldr r1, =__StringRead
     add r2, sp, #4
     add r3, sp, #0x10
     sub r0, r0, #0x80000001
@@ -1117,7 +1117,7 @@ asm void strtod(void)
     bl fabs
     ldr r0, [sp, #0xc]
     cmp r0, #0
-    ldrne r0, =data_020bf3e4
+    ldrne r0, =errno
     movne r1, #0x22
     strne r1, [r0]
     mov r0, r4
@@ -1133,7 +1133,7 @@ asm void atof(void)
     bx r12
 }
 
-asm void func_0201bc10(void)
+asm void __strtoul(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -1210,7 +1210,7 @@ asm void func_0201bc10(void)
 @L_0201bd18:
     cmp r6, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r1, r6, lsl #1
     ldrloh r0, [r0, r1]
     andlo r0, r0, #0x100
@@ -1288,7 +1288,7 @@ asm void func_0201bc10(void)
 @L_0201be28:
     cmp r6, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r1, r6, lsl #1
     ldrloh r0, [r0, r1]
     andlo r0, r0, #8
@@ -1305,7 +1305,7 @@ asm void func_0201bc10(void)
 @L_0201be68:
     cmp r6, #0x80
     movhs r0, #0
-    ldrlo r0, =data_020a44f8
+    ldrlo r0, =__ctype_mapC
     movlo r1, r6, lsl #1
     ldrloh r0, [r0, r1]
     andlo r0, r0, #1
@@ -1313,7 +1313,7 @@ asm void func_0201bc10(void)
     beq @L_0201bea4
     cmp r6, #0x80
     movhs r0, r6
-    ldrlo r0, =data_020a4478
+    ldrlo r0, =__upper_mapC
     ldrlob r0, [r0, r6]
     sub r0, r0, #0x37
     cmp r0, r9
@@ -1327,7 +1327,7 @@ asm void func_0201bc10(void)
     cmp r6, #0
     blt @L_0201bec8
     cmp r6, #0x80
-    ldrlt r0, =data_020a4478
+    ldrlt r0, =__upper_mapC
     ldrltb r6, [r0, r6]
 @L_0201bec8:
     sub r6, r6, #0x37
@@ -1395,11 +1395,11 @@ asm void strtol(void)
     add r1, sp, #0x18
     str r1, [sp, #4]
     add r12, sp, #0x14
-    ldr r2, =func_0201a704
+    ldr r2, =__StringRead
     add r3, sp, #0xc
     sub r1, lr, #0x80000001
     str r12, [sp, #8]
-    bl func_0201bc10
+    bl __strtoul
     cmp r4, #0
     ldrne r1, [sp, #0x1c]
     addne r1, r5, r1
@@ -1419,7 +1419,7 @@ asm void strtol(void)
     bls @L_0201c02c
 @L_0201c008:
     ldr r0, [sp, #0x18]
-    ldr r1, =data_020bf3e4
+    ldr r1, =errno
     mov r2, #0x22
     cmp r0, #0
     movne r0, #0x80000000
@@ -1442,7 +1442,7 @@ asm void atoi(void)
     bx r12
 }
 
-asm void func_0201c058(void)
+asm void fwide(void)
 {
     cmp r0, #0
     beq @L_0201c070

@@ -1,88 +1,88 @@
 // (asm for now)
 
-void func_0200afc0(void);
-void func_0200afcc(void);
-void func_0200b0c8(void);
-void func_0200b114(void);
-void func_0200b138(void);
-void func_0200b1b0(void);
-void func_0200b2b0(void);
-void func_0200b2d8(void);
-void func_0200b37c(void);
-void func_0200b3d4(void);
-void func_0200b754(void);
-void func_0200b900(void);
-void func_0200b984(void);
-void func_0200ba08(void);
+void PXI_Init(void);
+void PXI_InitFifo(void);
+void PXI_SetFifoRecvCallback(void);
+void PXI_IsCallbackReady(void);
+void PXI_SendWordByFifo(void);
+void PXIi_HandlerRecvFifoNotEmpty(void);
+void FSi_IsEventCommand(void);
+void FSi_EndCommand(void);
+void FSi_WaitForArchiveCompletion(void);
+void FSi_InvokeCommand(void);
+void FSi_NextCommand(void);
+void FSi_ExecuteAsyncCommand(void);
+void FSi_ExecuteSyncCommand(void);
+void FSi_SendCommand(void);
 void FS_FindArchive(void);
-void func_0200bbcc(void);
-void func_0200bca0(void);
-void func_0200bd00(void);
-void func_0200bfe8(void);
-void func_0200c00c(void);
-void func_0200c10c(void);
-void func_0200c1b8(void);
-void func_0200c1c8(void);
-void func_0200c210(void);
-void func_0200c2d0(void);
-void func_0200c360(void);
-void func_0200c3bc(void);
+void FS_SetCurrentDirectory(void);
+void FSi_CopySafeString(void);
+void FS_NormalizePath(void);
+void FS_InitArchive(void);
+void FS_RegisterArchiveName(void);
+void FS_ReleaseArchiveName(void);
+void FS_GetArchiveName(void);
+void FS_MountArchive(void);
+void FS_UnmountArchive(void);
+void FS_SuspendArchive(void);
+void FS_ResumeArchive(void);
+void FS_NotifyArchiveAsyncEnd(void);
 void FS_WaitAsync(void);
-void func_0200c4cc(void);
-void func_0200c50c(void);
-void func_0200c560(void);
-void func_0200c594(void);
+void FSi_DecrementSjisPosition(void);
+void FSi_IncrementSjisPositionToSlash(void);
+void FSi_DecrementSjisPositionToSlash(void);
+void FSi_TrimSjisTrailingSlash(void);
 void FS_InitFile(void);
 void FS_CancelFile(void);
 void FS_GetPathName(void);
-void func_0200c68c(void);
+void FS_OpenFileDirect(void);
 void FS_OpenFileFast(void);
 void FS_OpenFileEx(void);
 void FS_CloseFile(void);
 void FS_GetFileLength(void);
-void func_0200c814(void);
+void FS_GetFilePosition(void);
 void FS_SeekFile(void);
 void FS_ReadFile(void);
 void FS_ReadFileAsync(void);
-void func_0200c964(void);
-void func_0200c974(void);
+void FS_OpenFile(void);
+void FS_GetLength(void);
 void func_0200c980(void);
-void func_0200c98c(void);
-void func_0200c998(void);
+void FS_ChangeDir(void);
+void FSi_InitOverlay(void);
 
 void OS_DisableInterrupts(void);
 extern char data_020bd024[];
-extern char data_020bd028[];
+extern char FifoRecvCallbackTable[];
 void OS_ResetRequestIrqMask(void);
 void OS_SetIrqFunction(void);
 void OS_EnableIrqMask(void);
 void OS_RestoreInterrupts(void);
 void OS_WakeupThread(void);
 void OS_SleepThread(void);
-void func_0200878c(void);
-extern char data_020bd0a8[];
-void func_020170b8(void);
-extern char data_020bd1b8[];
-void func_02016d0c(void);
+void OS_Terminate(void);
+extern char arc_list[];
+void STD_CompareNString(void);
+extern char current_dir_path[];
+void STD_CopyLString(void);
 extern char data_020aadc0[];
 void MI_CpuFill8(void);
 extern char data_020bd0a8_b[];
 extern char data_020bd0b8[];
 void STD_GetStringLength(void);
-void func_0200e264(void);
-void func_0200e2a4(void);
-void func_0200848c(void);
-extern char data_020bd2bc[];
+void FSi_GetFileLengthIfProc(void);
+void FSi_GetFilePositionIfProc(void);
+void OS_GetBootType(void);
+extern char FSiOverlayContext[];
 extern char data_020a4254[];
 extern char data_020aadc4[];
 
-asm void func_0200afc0(void)
+asm void PXI_Init(void)
 {
-    ldr r12, =func_0200afcc
+    ldr r12, =PXI_InitFifo
     bx r12
 }
 
-asm void func_0200afcc(void)
+asm void PXI_InitFifo(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     bl OS_DisableInterrupts
@@ -97,7 +97,7 @@ asm void func_0200afcc(void)
     ldr r0, =0x2fffc00
     mov r5, r1
     str r1, [r0, #0x388]
-    ldr r0, =data_020bd028
+    ldr r0, =FifoRecvCallbackTable
 @L_0200b004:
     str r5, [r0, r1, lsl #2]
     add r1, r1, #1
@@ -109,7 +109,7 @@ asm void func_0200afcc(void)
     mov r0, r6
     strh r1, [r7]
     bl OS_ResetRequestIrqMask
-    ldr r1, =func_0200b1b0
+    ldr r1, =PXIi_HandlerRecvFifoNotEmpty
     mov r0, r6
     bl OS_SetIrqFunction
     mov r0, r6
@@ -149,13 +149,13 @@ asm void func_0200afcc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200b0c8(void)
+asm void PXI_SetFifoRecvCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
     mov r5, r1
     bl OS_DisableInterrupts
-    ldr r1, =data_020bd028
+    ldr r1, =FifoRecvCallbackTable
     ldr r3, =0x2fffc00
     str r5, [r1, r4, lsl #2]
     cmp r5, #0
@@ -170,7 +170,7 @@ asm void func_0200b0c8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200b114(void)
+asm void PXI_IsCallbackReady(void)
 {
     ldr r2, =0x2fffc00
     mov r3, #1
@@ -182,7 +182,7 @@ asm void func_0200b114(void)
     bx lr
 }
 
-asm void func_0200b138(void)
+asm void PXI_SendWordByFifo(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r3, [sp]
@@ -216,14 +216,14 @@ asm void func_0200b138(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200b1b0(void)
+asm void PXIi_HandlerRecvFifoNotEmpty(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
     mvn r7, #3
     ldr r9, [sp]
     ldr r8, =0x4000184
-    ldr r4, =data_020bd028
+    ldr r4, =FifoRecvCallbackTable
     add r10, r7, #1
     mov r6, #0x4100000
     mov r5, #0
@@ -288,7 +288,7 @@ asm void func_0200b1b0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0200b2b0(void)
+asm void FSi_IsEventCommand(void)
 {
     sub r3, r0, #9
     cmp r3, #0x1a
@@ -301,7 +301,7 @@ asm void func_0200b2b0(void)
     bx lr
 }
 
-asm void func_0200b2d8(void)
+asm void FSi_EndCommand(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
@@ -332,7 +332,7 @@ asm void func_0200b2d8(void)
     mov r0, r0, lsr #8
     and r8, r0, #0xff
     mov r0, r8
-    bl func_0200b2b0
+    bl FSi_IsEventCommand
     cmp r0, #0
     bne @L_0200b358
     cmp r5, #0
@@ -350,7 +350,7 @@ asm void func_0200b2d8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0200b37c(void)
+asm void FSi_WaitForArchiveCompletion(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -379,7 +379,7 @@ asm void func_0200b37c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200b3d4(void)
+asm void FSi_InvokeCommand(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #4
@@ -636,7 +636,7 @@ asm void func_0200b3d4(void)
     mov r6, #4
 @L_0200b704:
     mov r0, r4
-    bl func_0200b2b0
+    bl FSi_IsEventCommand
     cmp r0, #0
     bne @L_0200b748
     ldr r0, [r5, #0xc]
@@ -644,7 +644,7 @@ asm void func_0200b3d4(void)
     beq @L_0200b734
     mov r0, r5
     mov r1, r6
-    bl func_0200b37c
+    bl FSi_WaitForArchiveCompletion
     mov r6, r0
     b @L_0200b748
 @L_0200b734:
@@ -652,14 +652,14 @@ asm void func_0200b3d4(void)
     beq @L_0200b748
     mov r0, r5
     mov r1, r6
-    bl func_0200b2d8
+    bl FSi_EndCommand
 @L_0200b748:
     mov r0, r6
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, pc}
 }
 
-asm void func_0200b754(void)
+asm void FSi_NextCommand(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x48
@@ -690,7 +690,7 @@ asm void func_0200b754(void)
     tst r1, #0x40
     bne @L_0200b7d0
     mov r1, r4
-    bl func_0200b2d8
+    bl FSi_EndCommand
     cmp r8, #0
     ldreq r8, [r10, #8]
 @L_0200b7d0:
@@ -728,7 +728,7 @@ asm void func_0200b754(void)
     beq @L_0200b850
     ldr r0, [r10, #8]
     mov r1, #9
-    bl func_0200b3d4
+    bl FSi_InvokeCommand
 @L_0200b850:
     bl OS_DisableInterrupts
     cmp r9, #0
@@ -762,7 +762,7 @@ asm void func_0200b754(void)
     bic r2, r1, #0x10
     mov r1, #0xa
     str r2, [r10, #0x14]
-    bl func_0200b3d4
+    bl FSi_InvokeCommand
 @L_0200b8cc:
     ldr r0, [r10, #0x14]
     tst r0, #0x40
@@ -780,7 +780,7 @@ asm void func_0200b754(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0200b900(void)
+asm void FSi_ExecuteAsyncCommand(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     movs r5, r0
@@ -808,18 +808,18 @@ asm void func_0200b900(void)
     mov r0, r5
     mov r1, r1, lsr #8
     and r1, r1, #0xff
-    bl func_0200b3d4
+    bl FSi_InvokeCommand
     cmp r0, #0x100
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     mov r0, r4
     mov r1, r6
-    bl func_0200b754
+    bl FSi_NextCommand
     movs r5, r0
     bne @L_0200b918
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0200b984(void)
+asm void FSi_ExecuteSyncCommand(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -846,20 +846,20 @@ asm void func_0200b984(void)
     mov r1, r1, lsr #8
     and r1, r1, #0xff
     ldr r4, [r5, #8]
-    bl func_0200b3d4
+    bl FSi_InvokeCommand
     mov r1, r0
     mov r0, r5
-    bl func_0200b2d8
+    bl FSi_EndCommand
     mov r0, r4
     mov r1, #1
-    bl func_0200b754
+    bl FSi_NextCommand
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_0200b900
+    bl FSi_ExecuteAsyncCommand
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200ba08(void)
+asm void FSi_SendCommand(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r0
@@ -874,7 +874,7 @@ asm void func_0200ba08(void)
     ldr r4, [r9, #8]
     cmp r0, #0
     beq @L_0200ba40
-    bl func_0200878c
+    bl OS_Terminate
 @L_0200ba40:
     cmp r4, #0
     moveq r0, #6
@@ -899,7 +899,7 @@ asm void func_0200ba08(void)
     beq @L_0200baa4
     mov r0, r9
     mov r1, #3
-    bl func_0200b2d8
+    bl FSi_EndCommand
     b @L_0200bac8
 @L_0200baa4:
     ldr r1, [r4, #8]
@@ -929,11 +929,11 @@ asm void func_0200ba08(void)
     beq @L_0200bb38
     mov r0, r4
     mov r1, r6
-    bl func_0200b754
+    bl FSi_NextCommand
     cmp r8, #0
     beq @L_0200bb28
     mov r0, r9
-    bl func_0200b984
+    bl FSi_ExecuteSyncCommand
     ldr r0, [r9, #0x14]
     mov r7, #1
     cmp r0, #0
@@ -942,7 +942,7 @@ asm void func_0200ba08(void)
 @L_0200bb28:
     cmp r0, #0
     beq @L_0200bb34
-    bl func_0200b900
+    bl FSi_ExecuteAsyncCommand
 @L_0200bb34:
     mov r7, #1
 @L_0200bb38:
@@ -956,7 +956,7 @@ asm void FS_FindArchive(void)
     mov r9, r0
     mov r8, r1
     bl OS_DisableInterrupts
-    ldr r1, =data_020bd0a8
+    ldr r1, =arc_list
     mov r6, r0
     ldr r7, [r1]
     cmp r7, #0
@@ -971,11 +971,11 @@ asm void FS_FindArchive(void)
     cmp r0, #0
     beq @L_0200bbac
     mov r0, r7
-    bl func_0200c1b8
+    bl FS_GetArchiveName
     mov r1, r9
     mov r2, r8
     mov r10, r0
-    bl func_020170b8
+    bl STD_CompareNString
     cmp r0, #0
     ldreqsb r0, [r8, r10]
     cmpeq r0, #0
@@ -991,7 +991,7 @@ asm void FS_FindArchive(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0200bbcc(void)
+asm void FS_SetCurrentDirectory(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x160
@@ -1000,11 +1000,11 @@ asm void func_0200bbcc(void)
     add r1, sp, #0
     mov r2, r8
     str r4, [sp]
-    bl func_0200bd00
+    bl FS_NormalizePath
     movs r7, r0
     beq @L_0200bc8c
-    ldr r9, =data_020bd0a8
-    ldr r6, =data_020bd1b8
+    ldr r9, =arc_list
+    ldr r6, =current_dir_path
     str r7, [r9, #4]
     strh r4, [r9, #8]
     strh r4, [r9, #0xa]
@@ -1013,7 +1013,7 @@ asm void func_0200bbcc(void)
     mov r1, r8
     mov r2, r5
     str r4, [r9, #0xc]
-    bl func_02016d0c
+    bl STD_CopyLString
     ldr r0, [r7, #0x24]
     ldr r0, [r0, #0x10]
     cmp r0, #0
@@ -1031,7 +1031,7 @@ asm void func_0200bbcc(void)
     str r3, [sp, #4]
     str r8, [sp, #8]
     str r2, [sp, #0x10]
-    bl func_0200ba08
+    bl FSi_SendCommand
     cmp r0, #0
     beq @L_0200bc88
     ldr r3, [sp, #0xc]
@@ -1039,7 +1039,7 @@ asm void func_0200bbcc(void)
     mov r1, r8
     mov r2, r5
     strh r3, [r9, #8]
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_0200bc88:
     mov r4, #1
 @L_0200bc8c:
@@ -1048,7 +1048,7 @@ asm void func_0200bbcc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0200bca0(void)
+asm void FSi_CopySafeString(void)
 {
     stmdb sp!, {r3, lr}
     sub lr, r1, #1
@@ -1080,11 +1080,11 @@ asm void func_0200bca0(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200bd00(void)
+asm void FS_NormalizePath(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
-    ldr r3, =data_020bd0a8
+    ldr r3, =arc_list
     mov r6, #0
     ldr r4, [r3, #4]
     mov r7, r1
@@ -1096,7 +1096,7 @@ asm void func_0200bd00(void)
     mov r5, r6
     bne @L_0200bd50
     ldr r2, [r3]
-    ldr r0, =data_020bd1b8
+    ldr r0, =current_dir_path
     str r2, [r3, #4]
     strh r6, [r3, #8]
     str r6, [r3, #0xc]
@@ -1109,7 +1109,7 @@ asm void func_0200bd00(void)
     cmp r0, #0x5c
     bne @L_0200bd7c
 @L_0200bd64:
-    ldr r0, =data_020bd0a8
+    ldr r0, =arc_list
     cmp r7, #0
     ldr r0, [r0, #4]
     add r10, r10, #1
@@ -1125,7 +1125,7 @@ asm void func_0200bd00(void)
     cmp r0, #0x5c
     bne @L_0200be14
 @L_0200bd98:
-    ldr r1, =data_020bd0a8
+    ldr r1, =arc_list
     cmp r7, #0
     ldr r0, [r1, #4]
     str r0, [sp, #4]
@@ -1133,11 +1133,11 @@ asm void func_0200bd00(void)
     strne r0, [r7]
     cmp r9, #0
     beq @L_0200be6c
-    ldr r0, =data_020bd0a8
+    ldr r0, =arc_list
     ldrh r0, [r0, #8]
     cmp r0, #0
     bne @L_0200be6c
-    ldr r2, =data_020bd1b8
+    ldr r2, =current_dir_path
     ldrsb r0, [r2]
     cmp r0, #0
     beq @L_0200be6c
@@ -1146,14 +1146,14 @@ asm void func_0200bd00(void)
     mov r0, r9
     mov r3, r1
     str r4, [sp]
-    bl func_0200bca0
+    bl FSi_CopySafeString
     add r6, r6, r0
     ldr r2, =data_020aadc0
     add r0, r9, r6
     rsb r1, r6, #0x104
     mov r3, #1
     str r4, [sp]
-    bl func_0200bca0
+    bl FSi_CopySafeString
     add r6, r6, r0
     b @L_0200be6c
 @L_0200be14:
@@ -1240,7 +1240,7 @@ asm void func_0200bd00(void)
     subgt r6, r6, #1
     mov r0, r9
     mov r1, r6
-    bl func_0200c560
+    bl FSi_DecrementSjisPositionToSlash
     add r6, r0, #1
     b @L_0200bf90
 @L_0200bf50:
@@ -1249,7 +1249,7 @@ asm void func_0200bd00(void)
     rsb r1, r6, #0x104
     mov r2, r10
     mov r3, r7
-    bl func_0200bca0
+    bl FSi_CopySafeString
     add r6, r6, r0
     cmp r8, #0
     beq @L_0200bf90
@@ -1258,7 +1258,7 @@ asm void func_0200bd00(void)
     rsb r1, r6, #0x104
     mov r3, r4
     str r11, [sp]
-    bl func_0200bca0
+    bl FSi_CopySafeString
     add r6, r6, r0
 @L_0200bf90:
     cmp r8, #0
@@ -1274,7 +1274,7 @@ asm void func_0200bd00(void)
     mov r1, #0
     mov r0, r9
     strb r1, [r9, r6]
-    bl func_0200c594
+    bl FSi_TrimSjisTrailingSlash
 @L_0200bfc0:
     ldr r0, [sp, #8]
     cmp r0, #0
@@ -1285,7 +1285,7 @@ asm void func_0200bd00(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0200bfe8(void)
+asm void FS_InitArchive(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, #0
@@ -1298,7 +1298,7 @@ asm void func_0200bfe8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200c00c(void)
+asm void FS_RegisterArchiveName(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r1
@@ -1312,7 +1312,7 @@ asm void func_0200c00c(void)
     bl FS_FindArchive
     cmp r0, #0
     bne @L_0200c0f0
-    ldr r0, =data_020bd0a8
+    ldr r0, =arc_list
     ldr r1, =data_020bd0a8_b
     ldr r0, [r0]
     cmp r0, #0
@@ -1331,7 +1331,7 @@ asm void func_0200c00c(void)
     mov r1, r7
     add r2, r6, #1
     str r3, [r8]
-    bl func_02016d0c
+    bl STD_CopyLString
     b @L_0200c0e0
 @L_0200c088:
     cmp r6, #0xf
@@ -1341,7 +1341,7 @@ asm void func_0200c00c(void)
 @L_0200c098:
     cmp r5, #0x10
     blt @L_0200c0a8
-    bl func_0200878c
+    bl OS_Terminate
     b @L_0200c0d4
 @L_0200c0a8:
     mov r1, r5, lsl #4
@@ -1352,14 +1352,14 @@ asm void func_0200c00c(void)
     mov r0, r5
     mov r1, r7
     add r2, r6, #1
-    bl func_02016d0c
+    bl STD_CopyLString
     str r5, [r8]
     b @L_0200c0e0
 @L_0200c0d4:
     add r5, r5, #1
     b @L_0200c098
 @L_0200c0dc:
-    bl func_0200878c
+    bl OS_Terminate
 @L_0200c0e0:
     ldr r0, [r8, #0x14]
     mov r5, #1
@@ -1372,21 +1372,21 @@ asm void func_0200c00c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0200c10c(void)
+asm void FS_ReleaseArchiveName(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =data_020bd0a8
+    ldr r1, =arc_list
     mov r4, r0
     ldr r0, [r1]
     cmp r4, r0
     bne @L_0200c128
-    bl func_0200878c
+    bl OS_Terminate
 @L_0200c128:
     ldr r0, [r4]
     cmp r0, #0
     ldmeqia sp!, {r4, pc}
     bl OS_DisableInterrupts
-    ldr r1, =data_020bd0a8
+    ldr r1, =arc_list
     ldr r2, =data_020bd0a8_b
     ldr r1, [r1]
     cmp r1, #0
@@ -1410,7 +1410,7 @@ asm void func_0200c10c(void)
     ldr r1, [r4, #0x14]
     str r3, [r4]
     bic r2, r1, #1
-    ldr r1, =data_020bd0a8
+    ldr r1, =arc_list
     str r3, [r4, #4]
     str r2, [r4, #0x14]
     ldr r2, [r1, #4]
@@ -1420,7 +1420,7 @@ asm void func_0200c10c(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200c1b8(void)
+asm void FS_GetArchiveName(void)
 {
     ldrsb r1, [r0, #3]
     cmp r1, #0
@@ -1428,7 +1428,7 @@ asm void func_0200c1b8(void)
     bx lr
 }
 
-asm void func_0200c1c8(void)
+asm void FS_MountArchive(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x48
@@ -1441,7 +1441,7 @@ asm void func_0200c1c8(void)
     mov r0, r4
     str r5, [sp, #8]
     mov r1, #0x11
-    bl func_0200b3d4
+    bl FSi_InvokeCommand
     ldr r1, [r5, #0x14]
     mov r0, #1
     orr r1, r1, #2
@@ -1450,7 +1450,7 @@ asm void func_0200c1c8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200c210(void)
+asm void FS_UnmountArchive(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x48
@@ -1464,7 +1464,7 @@ asm void func_0200c210(void)
     cmp r0, #0
     beq @L_0200c2bc
     mov r0, r5
-    bl func_0200c2d0
+    bl FS_SuspendArchive
     ldr r1, [r5, #0x14]
     mov r7, r0
     ldr r0, [r5, #8]
@@ -1476,7 +1476,7 @@ asm void func_0200c210(void)
 @L_0200c264:
     ldr r8, [r0]
     mov r1, r6
-    bl func_0200b2d8
+    bl FSi_EndCommand
     mov r0, r8
     cmp r8, #0
     bne @L_0200c264
@@ -1486,7 +1486,7 @@ asm void func_0200c210(void)
     cmp r7, #0
     beq @L_0200c294
     mov r0, r5
-    bl func_0200c360
+    bl FS_ResumeArchive
 @L_0200c294:
     add r6, sp, #0
     mov r0, r6
@@ -1494,7 +1494,7 @@ asm void func_0200c210(void)
     mov r0, r6
     str r5, [sp, #8]
     mov r1, #0x12
-    bl func_0200b3d4
+    bl FSi_InvokeCommand
     ldr r0, [r5, #0x14]
     bic r0, r0, #0xa2
     str r0, [r5, #0x14]
@@ -1506,7 +1506,7 @@ asm void func_0200c210(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0200c2d0(void)
+asm void FS_SuspendArchive(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
@@ -1549,7 +1549,7 @@ asm void func_0200c2d0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200c360(void)
+asm void FS_ResumeArchive(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -1568,16 +1568,16 @@ asm void func_0200c360(void)
     bl OS_RestoreInterrupts
     mov r0, r5
     mov r1, #1
-    bl func_0200b754
+    bl FSi_NextCommand
     cmp r0, #0
     beq @L_0200c3b4
-    bl func_0200b900
+    bl FSi_ExecuteAsyncCommand
 @L_0200c3b4:
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200c3bc(void)
+asm void FS_NotifyArchiveAsyncEnd(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
@@ -1599,13 +1599,13 @@ asm void func_0200c3bc(void)
     ldmia sp!, {r4, r5, r6, pc}
 @L_0200c404:
     mov r0, r5
-    bl func_0200b2d8
+    bl FSi_EndCommand
     mov r0, r4
     mov r1, #1
-    bl func_0200b754
+    bl FSi_NextCommand
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
-    bl func_0200b900
+    bl FSi_ExecuteAsyncCommand
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -1634,7 +1634,7 @@ asm void FS_WaitAsync(void)
     cmp r5, #0
     beq @L_0200c488
     mov r0, r4
-    bl func_0200b984
+    bl FSi_ExecuteSyncCommand
     b @L_0200c4b8
 @L_0200c488:
     bl OS_DisableInterrupts
@@ -1659,7 +1659,7 @@ asm void FS_WaitAsync(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200c4cc(void)
+asm void FSi_DecrementSjisPosition(void)
 {
     sub r3, r1, #1
     b @L_0200c4d8
@@ -1682,7 +1682,7 @@ asm void func_0200c4cc(void)
     bx lr
 }
 
-asm void func_0200c50c(void)
+asm void FSi_IncrementSjisPositionToSlash(void)
 {
     stmdb sp!, {r3, lr}
     mov r3, #0
@@ -1710,13 +1710,13 @@ asm void func_0200c50c(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200c560(void)
+asm void FSi_DecrementSjisPositionToSlash(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
 @L_0200c568:
     mov r0, r4
-    bl func_0200c4cc
+    bl FSi_DecrementSjisPosition
     movs r1, r0
     bmi @L_0200c58c
     ldrb r0, [r4, r1]
@@ -1729,7 +1729,7 @@ asm void func_0200c560(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200c594(void)
+asm void FSi_TrimSjisTrailingSlash(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -1737,7 +1737,7 @@ asm void func_0200c594(void)
     mov r4, r0
     mov r0, r5
     mov r1, r4
-    bl func_0200c4cc
+    bl FSi_DecrementSjisPosition
     cmp r0, #0
     blt @L_0200c5d0
     ldrb r1, [r5, r0]
@@ -1804,12 +1804,12 @@ asm void FS_GetPathName(void)
     mov r1, #5
     mov r2, #1
     str r3, [sp]
-    bl func_0200ba08
+    bl FSi_SendCommand
     add sp, sp, #0xc
     ldmia sp!, {pc}
 }
 
-asm void func_0200c68c(void)
+asm void FS_OpenFileDirect(void)
 {
     stmdb sp!, {r3, lr}
     sub sp, sp, #0x10
@@ -1824,7 +1824,7 @@ asm void func_0200c68c(void)
     str lr, [sp]
     str r3, [sp, #8]
     str r12, [sp, #0xc]
-    bl func_0200ba08
+    bl FSi_SendCommand
     add sp, sp, #0x10
     ldmia sp!, {r3, pc}
 }
@@ -1846,7 +1846,7 @@ asm void FS_OpenFileFast(void)
     mov r2, #1
     str r3, [sp]
     str r12, [sp, #4]
-    bl func_0200ba08
+    bl FSi_SendCommand
     mov r12, r0
 @L_0200c710:
     mov r0, r12
@@ -1868,7 +1868,7 @@ asm void FS_OpenFileEx(void)
     add r1, sp, #0
     mov r2, r4
     str r5, [sp]
-    bl func_0200bd00
+    bl FS_NormalizePath
     movs r9, r0
     beq @L_0200c79c
     mov r0, r7
@@ -1884,7 +1884,7 @@ asm void FS_OpenFileEx(void)
     str r3, [sp, #4]
     str r4, [sp, #8]
     str r6, [sp, #0xc]
-    bl func_0200ba08
+    bl FSi_SendCommand
     cmp r0, #0
     movne r5, r8
     streq r5, [r7, #8]
@@ -1896,7 +1896,7 @@ asm void FS_OpenFileEx(void)
 
 asm void FS_CloseFile(void)
 {
-    ldr r12, =func_0200ba08
+    ldr r12, =FSi_SendCommand
     mov r1, #8
     mov r2, #1
     bx r12
@@ -1910,7 +1910,7 @@ asm void FS_GetFileLength(void)
     add r1, sp, #4
     mov r5, r0
     str r4, [sp, #4]
-    bl func_0200e264
+    bl FSi_GetFileLengthIfProc
     cmp r0, #0
     bne @L_0200c808
     add r1, sp, #0
@@ -1919,7 +1919,7 @@ asm void FS_GetFileLength(void)
     mov r1, #0xf
     mov r2, #1
     str r4, [sp]
-    bl func_0200ba08
+    bl FSi_SendCommand
     cmp r0, #0
     ldrne r0, [sp]
     strne r0, [sp, #4]
@@ -1929,7 +1929,7 @@ asm void FS_GetFileLength(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200c814(void)
+asm void FS_GetFilePosition(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #8
@@ -1937,7 +1937,7 @@ asm void func_0200c814(void)
     add r1, sp, #4
     mov r5, r0
     str r4, [sp, #4]
-    bl func_0200e2a4
+    bl FSi_GetFilePositionIfProc
     cmp r0, #0
     bne @L_0200c860
     add r1, sp, #0
@@ -1946,7 +1946,7 @@ asm void func_0200c814(void)
     mov r1, #0x10
     mov r2, #1
     str r4, [sp]
-    bl func_0200ba08
+    bl FSi_SendCommand
     cmp r0, #0
     ldrne r0, [sp]
     strne r0, [sp, #4]
@@ -1966,7 +1966,7 @@ asm void FS_SeekFile(void)
     str r2, [sp, #4]
     mov r1, #0xe
     mov r2, #1
-    bl func_0200ba08
+    bl FSi_SendCommand
     add sp, sp, #8
     ldmia sp!, {r3, pc}
 }
@@ -1983,7 +1983,7 @@ asm void FS_ReadFile(void)
     str r2, [sp, #4]
     mov r2, r4
     mov r1, #0
-    bl func_0200ba08
+    bl FSi_SendCommand
     cmp r0, #0
     ldrne r2, [sp, #4]
     bne @L_0200c8e0
@@ -2005,12 +2005,12 @@ asm void FS_ReadFileAsync(void)
     add r1, sp, #0
     mov r6, r0
     mov r4, r2
-    bl func_0200e2a4
+    bl FSi_GetFilePositionIfProc
     cmp r0, #0
     beq @L_0200c938
     add r1, sp, #4
     mov r0, r6
-    bl func_0200e264
+    bl FSi_GetFileLengthIfProc
     cmp r0, #0
     beq @L_0200c938
     ldr r2, [sp]
@@ -2026,20 +2026,20 @@ asm void FS_ReadFileAsync(void)
     str r3, [r6, #0x10]
     str r5, [r6, #0x30]
     str r4, [r3, #4]
-    bl func_0200ba08
+    bl FSi_SendCommand
     mov r0, r4
     add sp, sp, #8
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200c964(void)
+asm void FS_OpenFile(void)
 {
     ldr r12, =FS_OpenFileEx
     mov r2, #1
     bx r12
 }
 
-asm void func_0200c974(void)
+asm void FS_GetLength(void)
 {
     ldr r12, =FS_GetFileLength
     bx r12
@@ -2047,28 +2047,28 @@ asm void func_0200c974(void)
 
 asm void func_0200c980(void)
 {
-    ldr r12, =func_0200c814
+    ldr r12, =FS_GetFilePosition
     bx r12
 }
 
-asm void func_0200c98c(void)
+asm void FS_ChangeDir(void)
 {
-    ldr r12, =func_0200bbcc
+    ldr r12, =FS_SetCurrentDirectory
     bx r12
 }
 
-asm void func_0200c998(void)
+asm void FSi_InitOverlay(void)
 {
     stmdb sp!, {r4, lr}
-    bl func_0200848c
+    bl OS_GetBootType
     cmp r0, #2
-    ldrne r0, =data_020bd2bc
+    ldrne r0, =FSiOverlayContext
     mov r1, #0
     strne r1, [r0, #4]
     strne r1, [r0, #8]
     strne r1, [r0, #0xc]
     bne @L_0200c9d0
-    ldr r0, =data_020bd2bc
+    ldr r0, =FSiOverlayContext
     mvn r2, #0
     str r2, [r0, #4]
     str r1, [r0, #8]
@@ -2076,7 +2076,7 @@ asm void func_0200c998(void)
 @L_0200c9d0:
     str r1, [r0, #0x10]
     ldr r1, =data_020a4254
-    ldr r4, =data_020bd2bc
+    ldr r4, =FSiOverlayContext
     ldr r0, =data_020aadc4
     str r1, [r4, #0x14]
     mov r2, #0x40

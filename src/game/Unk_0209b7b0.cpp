@@ -1,6 +1,6 @@
 #include "game/Unk_0209b7b0.hpp"
 
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 #include "wireless/Wireless.hpp"
 
 extern Wireless data_020cb980;
@@ -94,7 +94,7 @@ extern "C" char data_020c4830[];
 extern "C" char data_020c4844[];
 extern "C" char data_020c5120[];
 extern "C" char data_020c5124[];
-extern "C" char data_020c5320[];
+extern "C" char gWirelessUtil[];
 extern "C" char data_020c53b0[];
 extern "C" char data_020c53b4[];
 extern "C" char data_020c8760[];
@@ -127,8 +127,8 @@ extern "C" void _ZN8Wireless13func_0203d8d0Ev(void);
 extern "C" void _ZN8Wireless13func_0203d960Eti(void);
 extern "C" s32 _ZN8Wireless13func_0203da3cEv(...);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_02008564(void);
-extern "C" void func_02008580(void);
+extern "C" void OS_GetMacAddress(void);
+extern "C" void OS_GetOwnerInfo(void);
 extern "C" void func_ov015_02130ae8(void);
 extern "C" void func_ov015_02131994(void);
 extern "C" void func_ov015_02143750(void);
@@ -533,8 +533,8 @@ extern "C" void func_0209bcbc(u8 *arg0)
     arg0[0x67] = 0;
     arg0[0x66] = 0;
     *(u8 *)data_020fc748 = 0;
-    ((s32 (*)(...))func_02008580)(arg0 + 4);
-    ((s32 (*)(...))func_02008564)(arg0 + 0x2B8);
+    ((s32 (*)(...))OS_GetOwnerInfo)(arg0 + 4);
+    ((s32 (*)(...))OS_GetMacAddress)(arg0 + 0x2B8);
     ((s32 (*)(...))MI_CpuCopy8)(*(s32 *)((u8 *)data_020aff1c + 0x10), arg0 + 0x2E0, 0x10);
     ((s32 (*)(...))sprintf)(arg0 + 0x2BE, data_020aff58);
     ((s32 (*)(...))MIi_CpuClearFast)(0, data_020c5120, 0x1E4);
@@ -560,7 +560,7 @@ extern "C" asm void func_0209bd88(void)
     ldr r8, =data_020cb980
     mov r6, r1
     add r3, r0, #4
-    ldr r1, =data_020c47b4
+    ldr r1, =gAllocator
     mov r0, r8
     mov r5, r2
     strb r12, [r7, #0x65]
@@ -1360,15 +1360,15 @@ extern "C" void func_0209c934(s32 arg0, u8 *arg1)
     if (arg1 != 0) {
         u8 *b = (u8 *)data_020c53b4;
         if (arg0 == 0) {
-            u8 *p = (u8 *)data_020c5320;
+            u8 *p = (u8 *)gWirelessUtil;
             *(u16 *)(p + 0x68) = arg1[0];
             if (arg1[1] != 0 && arg1[2] != 0) {
                 ((s32 (*)(...))func_0209c420)(p, arg1[1] << 2, arg1[2] << 2);
                 ((s32 (*)(...))MI_CpuCopy8)(arg1 + 4, b, *(s32 *)(p + 0x8C));
             }
         } else {
-            s32 n = *(s32 *)((u8 *)data_020c5320 + 0x78);
-            s32 o = ((s32 (*)(...))func_0209c4bc)(data_020c5320, arg0);
+            s32 n = *(s32 *)((u8 *)gWirelessUtil + 0x78);
+            s32 o = ((s32 (*)(...))func_0209c4bc)(gWirelessUtil, arg0);
             ((s32 (*)(...))MI_CpuCopy8)(arg1, b + o, n);
         }
         ((u8 *)data_020c53b0)[arg0] = 1;
@@ -1438,7 +1438,7 @@ extern "C" asm void func_0209c9e0(void)
     bl _ZN8Wireless13func_0203c9ecEi
     cmp r0, #0
     beq @L_0209cb7c
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf9c
     ldr r1, =data_020c4844
     mov r9, r0
@@ -1529,7 +1529,7 @@ extern "C" asm void func_0209cba8(void)
     bl _ZN8Wireless13func_0203c9ecEi
     cmp r0, #0
     beq @L_0209cce8
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf9c
     ldr r1, =data_020c4844
     mov r9, r0

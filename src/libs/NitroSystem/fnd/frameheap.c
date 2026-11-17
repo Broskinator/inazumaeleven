@@ -1,19 +1,19 @@
 // (asm for now)
 
-void func_02033080(void);
-void func_020330dc(void);
-void func_02033134(void);
+void AllocFromHead(void);
+void AllocFromTail(void);
+void FreeHead(void);
 void FreeTail(void);
 void NNS_FndCreateFrmHeapEx(void);
-void func_020331ac(void);
+void NNS_FndDestroyFrmHeap(void);
 void NNS_FndAllocFromFrmHeapEx(void);
 void NNS_FndFreeToFrmHeap(void);
 
-void func_0200919c(void);
-void func_02033038(void);
-void func_020329e0(void);
+void MIi_CpuClear32(void);
+void InitFrameHeap(void);
+void NNSi_FndFinalizeHeap(void);
 
-asm void func_02033080(void)
+asm void AllocFromHead(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
@@ -34,14 +34,14 @@ asm void func_02033080(void)
     beq @L_020330d0
     mov r1, r3
     mov r0, #0
-    bl func_0200919c
+    bl MIi_CpuClear32
 @L_020330d0:
     mov r0, r5
     str r6, [r4]
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020330dc(void)
+asm void AllocFromTail(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
@@ -61,14 +61,14 @@ asm void func_020330dc(void)
     beq @L_02033128
     mov r1, r5
     mov r0, #0
-    bl func_0200919c
+    bl MIi_CpuClear32
 @L_02033128:
     mov r0, r5
     str r5, [r4, #4]
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02033134(void)
+asm void FreeHead(void)
 {
     ldr r2, [r0, #0x18]
     mov r1, #0
@@ -110,13 +110,13 @@ asm void NNS_FndCreateFrmHeapEx(void)
     mov r0, #0
     ldmia sp!, {r3, pc}
 @L_020331a4:
-    bl func_02033038
+    bl InitFrameHeap
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020331ac(void)
+asm void NNS_FndDestroyFrmHeap(void)
 {
-    ldr r12, =func_020329e0
+    ldr r12, =NNSi_FndFinalizeHeap
     bx r12
 }
 
@@ -130,11 +130,11 @@ asm void NNS_FndAllocFromFrmHeapEx(void)
     bic r1, r1, #3
     add r0, r0, #0x24
     blt @L_020331e0
-    bl func_02033080
+    bl AllocFromHead
     ldmia sp!, {r3, pc}
 @L_020331e0:
     rsb r2, r2, #0
-    bl func_020330dc
+    bl AllocFromTail
     ldmia sp!, {r3, pc}
 }
 
@@ -145,7 +145,7 @@ asm void NNS_FndFreeToFrmHeap(void)
     mov r5, r0
     tst r4, #1
     beq @L_02033204
-    bl func_02033134
+    bl FreeHead
 @L_02033204:
     tst r4, #2
     ldmeqia sp!, {r3, r4, r5, pc}

@@ -2,7 +2,7 @@
 
 void WmGetSharedDataAddress(void);
 
-void func_02015aa0(void);
+void MATH_CountPopulation(void);
 
 asm void WmGetSharedDataAddress(void)
 {
@@ -13,7 +13,7 @@ asm void WmGetSharedDataAddress(void)
     mov r5, r0
     and r0, r1, r3
     mov r4, r2
-    bl func_02015aa0
+    bl MATH_CountPopulation
     add r1, r5, #0x800
     ldrh r1, [r1, #0x10]
     mla r0, r1, r0, r4

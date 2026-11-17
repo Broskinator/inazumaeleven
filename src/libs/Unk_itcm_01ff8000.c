@@ -1,13 +1,13 @@
 // (asm for now)
 
 void OS_IrqHandler(void);
-void func_01ff8058(void);
-void func_01ff81b8(void);
-void func_01ff81e4(void);
-void func_01ff82b4(void);
-void func_01ff82c8(void);
-void func_01ff8388(void);
-void func_01ff845c(void);
+void OS_IrqHandler_ThreadSwitch(void);
+void OSi_DoResetSystem(void);
+void OSi_DoBoot(void);
+void OSi_CpuClear32(void);
+void OSi_ReloadRomData(void);
+void OSi_ReadCardRom32(void);
+void MIi_DmaSetParameters(void);
 void func_01ff852c(void);
 void func_01ff85cc(void);
 void func_01ff876c(void);
@@ -106,9 +106,9 @@ void func_01fff308(void);
 void func_01fff37c(void);
 void func_01fff3cc(void);
 
-extern char data_027e0000[];
+extern char OS_IRQTable[];
 extern char data_027e0060[];
-extern char data_020bb120[];
+extern char OSi_ThreadInfo[];
 void CP_SaveContext(void);
 void CPi_RestoreContext(void);
 void func_0200552c(void);
@@ -173,7 +173,7 @@ void func_ov015_02143548(void);
 void _ZN11MatchEngine13func_0207903cEP11MatchPlayer(void);
 void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
 void func_ov087_021748a4(void);
-extern char data_020c4648[];
+extern char g3DFieldSprite[];
 void func_ov015_0213a75c(void);
 void _ZN11MatchEngine13func_02078fa4EP11MatchPlayer(void);
 void _ZN11MatchEngine13func_0206a54cEP11MatchPlayer(void);
@@ -200,7 +200,7 @@ void func_ov015_02142de8(void);
 void func_ov015_02142e24(void);
 extern char data_020c4ebc[];
 void MI_CpuFill8(void);
-extern char data_020c46e4[];
+extern char gConfig[];
 extern char data_020aee4c[];
 void _ZN10ConfigFile6GetIntEPKc(void);
 extern char data_020aee5c[];
@@ -215,12 +215,12 @@ extern char data_020aee80[];
 extern char data_020aee90[];
 extern char data_020aeea4[];
 extern char data_020aeec0[];
-extern char data_020c47b4[];
+extern char gAllocator[];
 void _ZN8GameHeap5AllocEiii(void);
 void _Znwm(void);
 void _ZN15DistanceTable3213func_02061fe4Ev(void);
-void _ZN15DistanceTable3213func_0206204cEv(void);
-void _ZN15DistanceTable3213func_02062060Ev(void);
+void _ZN15DistanceTable324InitEv(void);
+void _ZN15DistanceTable3212CalcDistanceEv(void);
 extern char data_020caae0[];
 void _ZN11MatchEngine13func_0206ce6cEt(void);
 void _ZN11MatchEngine13func_0206cca4Ehh(void);
@@ -239,19 +239,19 @@ void _ZN11MatchEngine13func_0206deecEv(void);
 void _ZN11MatchEngine13func_02078aacEv(void);
 void func_ov015_02130b14(void);
 void func_0208130c(void);
-void func_0200878c(void);
+void OS_Terminate(void);
 void _ZN11MatchEngine13func_0207d6b0EPh(void);
 void func_020808c4(void);
 void _ZN11MatchEngine13func_020739ccEi(void);
 void _ZN11MatchEngine13func_02078f14Ei(void);
 void _ZN11MatchEngine13func_0207d6a8Ev(void);
-void _ZN11MatchEngine13func_0206a964Ei(void);
+void _ZN11MatchEngine11GetTeamInfoEi(void);
 void func_ov087_02174240(void);
 void _ZN11MatchEngine13func_0206ad1cEv(void);
 void _ZN15DistanceTable3213func_02062178Ev(void);
 void _ZN11MatchEngine13func_020705f8Eh(void);
 void func_0208f628(void);
-void func_0200919c(void);
+void MIi_CpuClear32(void);
 void func_0209e020(void);
 void func_ov015_02140fa4(void);
 void _ZN11MatchEngine13func_020630a8Ev(void);
@@ -262,7 +262,7 @@ void _ZN11MatchEngine13func_0206c37cEv(void);
 void _ZN11MatchEngine13func_0207c6b4Ev(void);
 void _ZN11MatchEngine13func_0207ac90Ev(void);
 void _ZN10MatchRules13func_0206eef8Ev(void);
-void func_ov015_021309a4(void);
+void Random_RandA(void);
 void _ZN11MatchEngine13func_02070678Ei(void);
 extern char data_020c475c[];
 extern char data_020c4ab4[];
@@ -284,7 +284,7 @@ extern char data_020cb918[];
 void _ZN11TreasureBox13func_02051bd4Ev(void);
 void func_0201a6f4(void);
 void rand(void);
-void func_02008564(void);
+void OS_GetMacAddress(void);
 extern char data_020cacc8[];
 void func_02081740(void);
 void _ZN10MatchRules13func_0206f014Ev(void);
@@ -303,7 +303,7 @@ void func_ov015_02134040(void);
 extern char data_020aef70[];
 extern char data_020aef8c[];
 extern char data_020aefa8[];
-void func_ov015_02134300(void);
+void Archive_PackHeaderGetOffsetAndSize(void);
 extern char data_020aefc0[];
 void _ZN11MatchEngine13func_0207e334Eiiii(void);
 void func_ov087_02181cbc(void);
@@ -344,7 +344,7 @@ void memset(void);
 void func_02080328(void);
 extern char data_020d3d20[];
 void func_0209b5fc(void);
-void func_ov015_021309f8(void);
+void Random_RandB(void);
 void _ZN11MatchEngine13func_0206cd08Ev(void);
 void _ZN11MatchEngine13func_0206d970Ev(void);
 void _s32_div_f(void);
@@ -357,7 +357,7 @@ void _ZN11MatchEngine13func_0207f5d0Ev(void);
 void func_ov015_02130b94(void);
 void STD_GetStringLength(void);
 void func_02017278(void);
-void func_02016d0c(void);
+void STD_CopyLString(void);
 extern char data_020af008[];
 extern char data_020af024[];
 extern char data_020af03c[];
@@ -403,10 +403,10 @@ void _ZN11MatchEngine13func_02074ac8Ev(void);
 void _ZN11MatchEngine13func_02074ad0Ev(void);
 void _ZN11MatchEngine13func_02074b00Ev(void);
 void STD_CompareString(void);
-void _ZN15DistanceTable3213func_02062148EP7VecFx32S1_(void);
-void _ZN15DistanceTable3213func_020621a0EP11MatchPlayerS1_(void);
-void _ZN15DistanceTable3213func_02062084Ell(void);
-void func_02001d80(void);
+void _ZN15DistanceTable3215DistanceBetweenEP7VecFx32S1_(void);
+void _ZN15DistanceTable3222DistanceBetweenPlayersEP11MatchPlayerS1_(void);
+void _ZN15DistanceTable3214ApproxDistanceEll(void);
+void FX_Sqrt(void);
 void _ZN11MatchEngine13func_02080288EP11MatchPlayer(void);
 void func_02080b00(void);
 void _ZN11MatchEngine13func_0207a394Ev(void);
@@ -435,13 +435,13 @@ asm void OS_IrqHandler(void)
     mov r1, r3, lsr r0
     str r1, [r12, #4]
     rsbs r0, r0, #0x1f
-    ldr r1, =data_027e0000
+    ldr r1, =OS_IRQTable
     ldr r0, [r1, r0, lsl #2]
-    ldr lr, =func_01ff8058
+    ldr lr, =OS_IrqHandler_ThreadSwitch
     bx r0
 }
 
-asm void func_01ff8058(void)
+asm void OS_IrqHandler_ThreadSwitch(void)
 {
     ldr r12, =data_027e0060
     mov r3, #0
@@ -461,11 +461,11 @@ asm void func_01ff8058(void)
     ldr r12, =data_027e0060
     str r3, [r12]
     str r3, [r12, #4]
-    ldr r12, =data_020bb120
+    ldr r12, =OSi_ThreadInfo
     mov r1, #1
     strh r1, [r12]
 @L_01ff80a8:
-    ldr r12, =data_020bb120
+    ldr r12, =OSi_ThreadInfo
     ldrh r1, [r12]
     cmp r1, #0
     ldreq pc, [sp], #4
@@ -535,7 +535,7 @@ asm void func_01ff8058(void)
     ldmia sp!, {pc}
 }
 
-asm void func_01ff81b8(void)
+asm void OSi_DoResetSystem(void)
 {
     stmdb sp!, {r3, lr}
 @L_01ff81bc:
@@ -545,16 +545,16 @@ asm void func_01ff81b8(void)
     ldr r1, =0x4000208
     mov r0, #0
     strh r0, [r1]
-    bl func_01ff82c8
-    bl func_01ff81e4
+    bl OSi_ReloadRomData
+    bl OSi_DoBoot
     ldmia sp!, {r3, pc}
 }
 
-asm void func_01ff81e4(void)
+asm void OSi_DoBoot(void)
 {
     mov r12, #0x4000000
     str r12, [r12, #0x208]
-    ldr r1, =data_027e0000
+    ldr r1, =OS_IRQTable
     add r1, r1, #0x3fc0
     add r1, r1, #0x3c
     mov r0, #0
@@ -572,17 +572,17 @@ asm void func_01ff81e4(void)
     ldr r4, [r3]
     ldr r1, =0x2fffd80
     mov r2, #0x80
-    bl func_01ff82b4
+    bl OSi_CpuClear32
     ldr r3, =0x2fffd9c
     str r4, [r3]
     ldr r1, =0x2ffff80
     mov r2, #0x18
-    bl func_01ff82b4
+    bl OSi_CpuClear32
     ldr r1, =0x2ffff98
     strh r0, [r1]
     ldr r1, =0x2ffff9c
     mov r2, #0x64
-    bl func_01ff82b4
+    bl OSi_CpuClear32
     ldr r1, =0x4000180
 @L_01ff8260:
     ldrh r0, [r1]
@@ -600,7 +600,7 @@ asm void func_01ff81e4(void)
     bx r12
 }
 
-asm void func_01ff82b4(void)
+asm void OSi_CpuClear32(void)
 {
     add r12, r1, r2
 @L_01ff82b8:
@@ -610,7 +610,7 @@ asm void func_01ff82b4(void)
     bx lr
 }
 
-asm void func_01ff82c8(void)
+asm void OSi_ReloadRomData(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -622,7 +622,7 @@ asm void func_01ff82c8(void)
     cmp r0, #0x8000
     ldrhs r1, =0x2fffe00
     movhs r2, #0x160
-    blhs func_01ff8388
+    blhs OSi_ReadCardRom32
     ldr r12, =0x2fffe00
     ldr r0, [r12, #0x20]
     ldr r1, [r12, #0x28]
@@ -634,7 +634,7 @@ asm void func_01ff82c8(void)
     sublt r1, r1, r3
     addlt r2, r2, r3
     cmp r2, #0
-    blgt func_01ff8388
+    blgt OSi_ReadCardRom32
     ldr r12, =0x2fffe00
     ldr r0, [r12, #0x30]
     ldr r1, [r12, #0x38]
@@ -642,7 +642,7 @@ asm void func_01ff82c8(void)
     ldr r3, [sp]
     add r0, r0, r3
     cmp r2, #0
-    blgt func_01ff8388
+    blgt OSi_ReadCardRom32
     ldmia sp!, {r0}
     mov r1, #0
 @L_01ff834c:
@@ -662,7 +662,7 @@ asm void func_01ff82c8(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_01ff8388(void)
+asm void OSi_ReadCardRom32(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r4, =0x2fffe60
@@ -719,7 +719,7 @@ asm void func_01ff8388(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_01ff845c(void)
+asm void MIi_DmaSetParameters(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldr r7, [sp, #0x20]
@@ -1743,7 +1743,7 @@ asm void func_01ff8ca4(void)
     ldr r0, [r6, #0xe8]
     mov r1, r6
     ldrb r3, [r0, #0x1a]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r2, [sp]
     ldr r0, [r0]
     mov r2, #8
@@ -1828,7 +1828,7 @@ asm void func_01ff8ca4(void)
     ldr r0, [r0, #0xd4]
     mov r3, #2
     cmp r1, r0
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r5, [sp]
     ldr r0, [r0]
     movge r3, #6
@@ -1940,7 +1940,7 @@ asm void func_01ff9490(void)
     mov r2, #0
     str r2, [r0, #0x10]
     ldr r1, [r6, #0xec]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r2, [r1, #0x14]
     ldr r3, [r6, #0xec]
     mov r1, r6
@@ -2542,10 +2542,10 @@ asm void func_01ff9ea4(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aee4c
     mov r4, #1
-    ldr r6, =data_020c46e4
+    ldr r6, =gConfig
     mov r5, #0
     bl _ZN10ConfigFile6GetIntEPKc
     add r1, r7, #0xb00
@@ -2605,7 +2605,7 @@ asm void func_01ff9ea4(void)
     bl _ffix
     add r1, r7, #0x11000
     str r0, [r1, #0x91c]
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aee80
     bl _ZN10ConfigFile6GetIntEPKc
     mov r6, r0
@@ -2651,12 +2651,12 @@ asm void func_01ff9ea4(void)
     bl _ffix
     add r1, r7, #0x11000
     str r0, [r1, #0x920]
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aee90
     bl _ZN10ConfigFile6GetIntEPKc
     mov r6, r0
     cmp r6, #0
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aeea4
     movle r6, #0x1000
     add r2, r7, #0x11000
@@ -2664,7 +2664,7 @@ asm void func_01ff9ea4(void)
     bl _ZN10ConfigFile6GetIntEPKc
     mov r6, r0
     cmp r6, #0
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aeec0
     movle r6, #0
     add r2, r7, #0x11000
@@ -2679,7 +2679,7 @@ asm void func_01ff9ea4(void)
     cmp r1, #0
     bne @L_01ffa0d4
     mov r6, #0x1900
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r6
     mov r2, r5
     mov r3, #1
@@ -2737,15 +2737,15 @@ asm void func_01ff9ea4(void)
 @L_01ffa184:
     add r0, r7, #0x11000
     ldr r0, [r0, #0x7bc]
-    bl _ZN15DistanceTable3213func_0206204cEv
+    bl _ZN15DistanceTable324InitEv
     add r0, r7, #0x11000
     ldr r0, [r0, #0x7bc]
-    bl _ZN15DistanceTable3213func_02062060Ev
+    bl _ZN15DistanceTable3212CalcDistanceEv
     ldr r0, [r7, #0xbcc]
     cmp r0, #0
     bne @L_01ffa1ec
     mov r6, #0
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, r6
     mov r1, #0x400
     mov r3, #1
@@ -2777,7 +2777,7 @@ asm void func_01ff9ea4(void)
     strb r4, [r3, #0x4f0]
     bl _ZN11MatchEngine13func_0206cca4Ehh
     add r2, r7, #0x11000
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aeedc
     strb r5, [r2, #0x897]
     strb r5, [r2, #0x89c]
@@ -2788,7 +2788,7 @@ asm void func_01ff9ea4(void)
     movgt r0, #0x64
     add r1, r7, #0x11000
     strb r0, [r1, #0x896]
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aeef4
     bl _ZN10ConfigFile6GetIntEPKc
     add r1, r7, #0x11800
@@ -2798,7 +2798,7 @@ asm void func_01ff9ea4(void)
     mov r6, #0
     cmp r0, #0
     strlth r5, [r1]
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020aef08
     strb r6, [r2, #0x8b8]
     bl _ZN10ConfigFile6GetIntEPKc
@@ -2811,7 +2811,7 @@ asm void func_01ff9ea4(void)
     strb r3, [r0, #0x89d]
     cmp r1, #0
     bne @L_01ffa2bc
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, #0x2100
     mov r2, #0
     bl _ZN8GameHeap5AllocEiii
@@ -2911,7 +2911,7 @@ asm void func_01ffa3c4(void)
     blt @L_01ffa408
     cmp r7, #0xb
     ble @L_01ffa460
-    bl func_0200878c
+    bl OS_Terminate
 @L_01ffa460:
     cmp r7, #0xb
     addlt r1, sp, #0x10
@@ -3182,12 +3182,12 @@ asm void func_01ffa838(void)
     mov r1, r9
     mov r4, r0
     ldr r5, [pc, #0x7b4]
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     mov r6, #1
     str r0, [sp, #0xc]
     mov r0, r4
     mov r1, r6
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     add r1, r4, #0x11000
     add r2, r4, #0x11800
     ldrb r3, [r4, #0x208]
@@ -3516,7 +3516,7 @@ asm void func_01ffa838(void)
     ldr r1, [r4, #0xbe8]
     mov r0, r6
     mov r2, #0x200
-    bl func_0200919c
+    bl MIi_CpuClear32
     add r1, r4, #0x11000
     sub r2, r6, #1
     add r0, r4, #0x11800
@@ -3657,27 +3657,27 @@ asm void func_01ffa838(void)
     beq @L_01ffafbc
     mov r6, #0xe10
     mov r0, r6
-    bl func_ov015_021309a4
+    bl Random_RandA
     add r1, r4, #0x200
     ldrh r1, [r1, #0x34]
     mov r7, #0x1e
     mla r2, r1, r7, r0
     mov r0, r6
     str r2, [r5, #8]
-    bl func_ov015_021309a4
+    bl Random_RandA
     add r1, r4, #0x200
     ldrh r1, [r1, #0x34]
     mov r6, r6, lsr #1
     mla r2, r1, r7, r0
     mov r0, r6
     str r2, [r5, #0xc]
-    bl func_ov015_021309a4
+    bl Random_RandA
     add r1, r4, #0x200
     ldrh r1, [r1, #0x36]
     mla r2, r1, r7, r0
     mov r0, r6
     str r2, [r5, #0x10]
-    bl func_ov015_021309a4
+    bl Random_RandA
     add r1, r4, #0x200
     ldrh r1, [r1, #0x36]
     mla r0, r1, r7, r0
@@ -3709,7 +3709,7 @@ asm void func_01ffa838(void)
     dcd data_020c49e0
     dcd data_020c4ab4
     dcd data_020c4980
-    dcd data_020c47b4
+    dcd gAllocator
     dcd data_020c4920
     dcd 0x000117fc
     dcd data_020c4824
@@ -3728,11 +3728,11 @@ asm void func_01ffb040(void)
     mov r8, r0
     mov r1, r5
     mov r4, #1
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     str r0, [sp]
     mov r0, r8
     mov r1, r4
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     str r0, [sp, #4]
     add r1, r8, #0x11000
     mov r0, r8
@@ -3856,7 +3856,7 @@ asm void func_01ffb040(void)
     ldr r1, [r8, #0xbe8]
     cmp r1, #0
     beq @L_01ffb23c
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     str r5, [r8, #0xbe8]
 @L_01ffb23c:
@@ -3957,7 +3957,7 @@ asm void func_01ffb37c(void)
     bl rand
     str r0, [sp, #0xc]
     add r0, sp, #0
-    bl func_02008564
+    bl OS_GetMacAddress
     ldrb r1, [sp, #3]
     ldrb r0, [sp, #4]
     smulbb r0, r1, r0
@@ -4090,7 +4090,7 @@ asm void func_01ffb428(void)
     ldr r7, =data_020e88a0
     mov r1, r6
     mov r0, r7
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     mov r4, r0
     mov r0, r6
     bl func_ov015_0213192c
@@ -4249,7 +4249,7 @@ asm void func_01ffb7b8(void)
     ldreq r0, [r4, #0xbfc]
     cmpeq r0, #0
     bne @L_01ffb860
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020aef1c
     ldr r0, [r3]
     cmp r0, #0
@@ -4296,7 +4296,7 @@ asm void func_01ffb874(void)
     addeq sp, sp, #0x18
     moveq r0, #1
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020aef38
     ldr r0, [r3]
     cmp r0, #0
@@ -4367,7 +4367,7 @@ asm void func_01ffb994(void)
     addeq sp, sp, #0x18
     moveq r0, #0
     ldmeqia sp!, {r3, pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr lr, =data_020aef70
     ldr r0, [r3]
     cmp r0, #0
@@ -4437,7 +4437,7 @@ asm void func_01ffba7c(void)
     mov r4, r0
     addeq sp, sp, #0x24
     ldmeqia sp!, {r4, r5, pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020aefa8
     ldr lr, [r3]
     cmp lr, #0
@@ -4461,17 +4461,17 @@ asm void func_01ffba7c(void)
     add r2, sp, #0x1c
     add r3, sp, #0x20
     mov r1, r5
-    bl func_ov015_02134300
+    bl Archive_PackHeaderGetOffsetAndSize
     cmp r0, #0
     bne @L_01ffbb24
     ldr r1, [sp, #0x14]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     add sp, sp, #0x24
     mov r0, #0
     ldmia sp!, {r4, r5, pc}
 @L_01ffbb24:
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r12, [sp, #0x1c]
     ldr r0, [r3]
     ldr r1, =data_020aefc0
@@ -4492,14 +4492,14 @@ asm void func_01ffba7c(void)
     cmp r0, r1
     beq @L_01ffbb88
     ldr r1, [sp, #0x14]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     add sp, sp, #0x24
     mov r0, #0
     ldmia sp!, {r4, r5, pc}
 @L_01ffbb88:
     ldr r1, [sp, #0x14]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, #1
     add sp, sp, #0x24
@@ -5032,7 +5032,7 @@ asm void func_01ffc2e8(void)
     cmpne r8, #0
     ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r5, #0
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, r5
     mov r1, r8, lsl #2
     mov r3, #1
@@ -5048,7 +5048,7 @@ asm void func_01ffc2e8(void)
     ldrh r1, [r9, r0]
     mov r0, r4
     strh r1, [r7]
-    bl func_ov015_021309a4
+    bl Random_RandA
     strh r0, [r7, #2]
     mov r0, r5, lsl #1
     ldrh r1, [r9, r0]
@@ -5114,7 +5114,7 @@ asm void func_01ffc2e8(void)
     cmp r3, r8
     blt @L_01ffc410
 @L_01ffc428:
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r6
     bl _ZN8GameHeap4FreeEPv
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -5127,7 +5127,7 @@ asm void func_01ffc440(void)
     mov r4, r1
     mov r1, #1
     mov r10, r0
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     add r11, sp, #8
     mov r8, #0
     mov r0, r11
@@ -5540,7 +5540,7 @@ asm void func_01ffca10(void)
     mov r1, r5
     mov r2, #0x140
     bl MI_CpuFill8
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020aefd8
     ldr r0, [r3]
     cmp r0, #0
@@ -5564,17 +5564,17 @@ asm void func_01ffca10(void)
     add r2, sp, #0x1c
     add r3, sp, #0x20
     mov r1, r6
-    bl func_ov015_02134300
+    bl Archive_PackHeaderGetOffsetAndSize
     cmp r0, #0
     bne @L_01ffcacc
     ldr r1, [sp, #0x14]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     add sp, sp, #0x24
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_01ffcacc:
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r12, [sp, #0x20]
     ldr r0, [r3]
     ldr r2, [sp, #0x1c]
@@ -5594,14 +5594,14 @@ asm void func_01ffca10(void)
     cmp r0, #0
     bne @L_01ffcb2c
     ldr r1, [sp, #0x14]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     add sp, sp, #0x24
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, pc}
 @L_01ffcb2c:
     ldr r1, [sp, #0x14]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, #1
     add sp, sp, #0x24
@@ -5646,7 +5646,7 @@ asm void func_01ffcb50(void)
     bl func_01ffc178
     ldr r1, [sp, #4]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     str r0, [sp, #0x34]
     ldr r0, [sp, #0xc]
     cmp r0, #0
@@ -5796,7 +5796,7 @@ asm void func_01ffcb50(void)
     blt @L_01ffcdd0
     cmp r0, #0
     beq @L_01ffce40
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r8, r7
     b @L_01ffce1c
 @L_01ffce00:
@@ -6081,7 +6081,7 @@ asm void func_01ffcb50(void)
     cmp r0, #0
     beq @L_01ffd220
     mov r0, #0xf0
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r0, r0, #0xf
     mov r1, r0, lsl #0x10
     mov r0, #6
@@ -6404,7 +6404,7 @@ asm void func_01ffcb50(void)
     mov r4, r0
     ldr r1, [sp, #4]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     mov r2, r4
     add r3, r5, #0x20
     mov r1, #0x1f
@@ -6423,7 +6423,7 @@ asm void func_01ffcb50(void)
     mov r1, r0
     ldr r0, [sp, #0x34]
     mov r2, #0x1f
-    bl func_02016d0c
+    bl STD_CopyLString
 @L_01ffd6e4:
     ldr r1, [sp, #4]
     mov r0, r10
@@ -6546,7 +6546,7 @@ asm void func_01ffd8a8(void)
     ldr r0, [r2, #0xbb4]
     cmp r0, #0
     bne @L_01ffd910
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af008
     ldr r0, [r3]
     cmp r0, #0
@@ -6581,7 +6581,7 @@ asm void func_01ffd924(void)
     ldr r0, [r2, #0xbbc]
     cmp r0, #0
     bne @L_01ffd98c
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af024
     ldr r0, [r3]
     cmp r0, #0
@@ -6616,7 +6616,7 @@ asm void func_01ffd9a0(void)
     ldr r0, [r2, #0xbec]
     cmp r0, #0
     bne @L_01ffda14
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af03c
     ldr r0, [r3]
     cmp r0, #0
@@ -6654,7 +6654,7 @@ asm void func_01ffda2c(void)
     ldr r0, [r2, #0xbb8]
     cmp r0, #0
     bne @L_01ffda94
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af058
     ldr r0, [r3]
     cmp r0, #0
@@ -6689,7 +6689,7 @@ asm void func_01ffdaa8(void)
     ldr r1, [r4, #0xc2c]
     cmp r1, #0
     bne @L_01ffdb10
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af074
     ldr r0, [r3]
     cmp r0, #0
@@ -6728,7 +6728,7 @@ asm void func_01ffdb38(void)
     ldr r0, [lr, #0xc30]
     cmp r0, #0
     bne @L_01ffdb9c
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af094
     ldr r0, [r3]
     cmp r0, #0
@@ -6762,7 +6762,7 @@ asm void func_01ffdbb0(void)
     ldr r0, [r2, #0xbe4]
     cmp r0, #0
     bne @L_01ffdc18
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af0b0
     ldr r0, [r3]
     cmp r0, #0
@@ -6798,7 +6798,7 @@ asm void func_01ffdc2c(void)
     cmp r0, #0
     movne r0, #1
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r7, =data_020c47b4
+    ldr r7, =gAllocator
     mov r6, #0x300
     mov r5, #0
     mov r4, #1
@@ -6837,7 +6837,7 @@ asm void func_01ffdcc4(void)
     cmp r1, #0
     moveq r0, #1
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, #0
     str r0, [r4, #0xbe4]
@@ -6854,7 +6854,7 @@ asm void func_01ffdcf8(void)
     mov r4, #0
     cmp r0, #0
     bne @L_01ffdd60
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af0e8
     ldr r0, [r3]
     cmp r0, #0
@@ -6878,7 +6878,7 @@ asm void func_01ffdcf8(void)
     ldr r0, [r5, #0xbc8]
     cmp r0, #0
     bne @L_01ffddb8
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af104
     ldr r0, [r3]
     cmp r0, #0
@@ -6912,7 +6912,7 @@ asm void func_01ffddd0(void)
     ldr r0, [lr, #0xbd0]
     cmp r0, #0
     bne @L_01ffde34
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af120
     ldr r0, [r3]
     cmp r0, #0
@@ -7096,7 +7096,7 @@ asm void func_01ffdee0(void)
     ldrh r6, [r8, #0x42]
     mov r0, r7
     mov r1, r4
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     mov r9, r0
     mov r0, r7
     mov r1, r6
@@ -8043,7 +8043,7 @@ asm void func_01ffed6c(void)
     addne sp, sp, #0x14
     movne r0, #1
     ldmneia sp!, {pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af140
     ldr r0, [r3]
     cmp r0, #0
@@ -8075,7 +8075,7 @@ asm void func_01ffede8(void)
     cmp r1, #0
     moveq r0, #1
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, #0
     str r0, [r4, #0xbd8]
@@ -8109,7 +8109,7 @@ asm void func_01ffee1c(void)
     addne sp, sp, #0x18
     mlane r0, r4, r0, r1
     ldmneia sp!, {r3, r4, r5, pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af15c
     ldr r0, [r3]
     cmp r0, #0
@@ -8342,7 +8342,7 @@ asm void func_01fff15c(void)
 {
     add r0, r0, #0x11000
     ldr r0, [r0, #0x7bc]
-    ldr r12, =_ZN15DistanceTable3213func_02062148EP7VecFx32S1_
+    ldr r12, =_ZN15DistanceTable3215DistanceBetweenEP7VecFx32S1_
     bx r12
 }
 
@@ -8350,7 +8350,7 @@ asm void func_01fff170(void)
 {
     add r0, r0, #0x11000
     ldr r0, [r0, #0x7bc]
-    ldr r12, =_ZN15DistanceTable3213func_020621a0EP11MatchPlayerS1_
+    ldr r12, =_ZN15DistanceTable3222DistanceBetweenPlayersEP11MatchPlayerS1_
     bx r12
 }
 
@@ -8358,7 +8358,7 @@ asm void func_01fff184(void)
 {
     add r0, r0, #0x11000
     ldr r0, [r0, #0x7bc]
-    ldr r12, =_ZN15DistanceTable3213func_02062084Ell
+    ldr r12, =_ZN15DistanceTable3214ApproxDistanceEll
     bx r12
 }
 
@@ -8384,7 +8384,7 @@ asm void func_01fff198(void)
     orr r3, r3, r2, lsl #20
     mov r0, r1, asr #4
     add r0, r0, r3, asr #4
-    bl func_02001d80
+    bl FX_Sqrt
     mov r0, r0, lsl #3
     ldmia sp!, {r3, pc}
 }

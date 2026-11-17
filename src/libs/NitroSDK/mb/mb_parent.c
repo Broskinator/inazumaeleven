@@ -1,66 +1,66 @@
 // (asm for now)
 
 void MB_CommSetParentStateCallback(void);
-void func_ov089_02174268(void);
-void func_ov089_021742e4(void);
-void func_ov089_02174334(void);
+void MB_CommGetChildUser(void);
+void MB_CommIsBootable(void);
+void MB_CommResponseRequest(void);
 void MBi_CommChangeParentState(void);
 void MBi_CommChangeParentStateCallbackOnly(void);
-void func_ov089_02174484(void);
-void func_ov089_02174904(void);
+void MBi_CommParentCallback(void);
+void MBi_CommParentRecvDataPerChild(void);
 void MBi_CommParentRecvData(void);
-void func_ov089_02174e70(void);
-void func_ov089_02174eac(void);
-void func_ov089_0217503c(void);
-void func_ov089_021750d8(void);
-void func_ov089_02175350(void);
+void MBi_CommParentSendMsg(void);
+void MBi_CommParentSendDLFileInfo(void);
+void MBi_ReloadCache(void);
+void MBi_CommParentSendBlock(void);
+void MBi_CommParentSendData(void);
 void MBi_calc_sendblock(void);
-void func_ov089_02175568(void);
+void MBi_calc_nextsendblock(void);
 void IsChildAidValid(void);
 void MBi_CommCallParentError(void);
-void func_ov089_021755b0(void);
-void func_ov089_02175634(void);
+void MB_GetSegmentLength(void);
+void MB_ReadSegment(void);
 
 void OS_DisableInterrupts(void);
-extern char data_ov089_021792e0[];
+extern char mbc[];
 void OS_RestoreInterrupts(void);
 void MI_CpuCopy8(void);
 void MI_CpuFill8(void);
-void func_ov089_02178eec(void);
-void func_ov089_02176538(void);
-void func_ov089_02178928(void);
-void func_ov089_0217893c(void);
-void func_ov089_02178950(void);
+void MBi_ClearParentPieceBuffer(void);
+void MB_UpdateGameInfoMember(void);
+void MBi_GetGgid(void);
+void MBi_GetTgid(void);
+void MBi_GetAttribute(void);
 void MB_SendGameInfoBeacon(void);
 void MIi_CpuClearFast(void);
-void func_ov089_02178fa4(void);
-extern char data_ov089_02179220[];
-void func_020130d0(void);
-void func_ov089_02178f2c(void);
+void MBi_SetRecvBufferFromChild(void);
+extern char any_recv_bitmap[];
+void WM_ReadMPData(void);
+void MBi_MakeParentSendBuffer(void);
 void MBi_BlockHeaderEnd(void);
 extern char data_ov089_021791e0[];
 void FS_FindArchive(void);
 void FS_InitFile(void);
-void func_0200c68c(void);
+void FS_OpenFileDirect(void);
 void FS_ReadFile(void);
 void FS_CloseFile(void);
 void MBi_get_blockinfo(void);
 void MBi_ReadFromCache(void);
 void MBi_IsTaskBusy(void);
-void func_0200878c(void);
-void func_ov089_02178cf4(void);
+void OS_Terminate(void);
+void MBi_SetTask(void);
 void MIi_CpuClear16(void);
-void func_0200c814(void);
+void FS_GetFilePosition(void);
 void FS_SeekFile(void);
 void func_02010d8c(void);
 extern char data_ov089_021791a0[];
 extern char data_ov089_021791e4[];
 extern char data_ov089_021791b8[];
 extern char data_ov089_021791e8[];
-void func_02012234(void);
-void func_ov089_02178a08(void);
+void CARDi_GetOwnSignature(void);
+void MBi_InitCache(void);
 void MBi_AttachCacheBuffer(void);
-void func_0200e4f8(void);
+void FS_GetFileImageTop(void);
 void MBi_ReadSegmentHeader(void);
 void AutoloadCallback(void);
 void DC_FlushRange(void);
@@ -70,7 +70,7 @@ asm void MB_CommSetParentStateCallback(void)
     stmdb sp!, {r4, lr}
     mov r4, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_ov089_021792e0
+    ldr r1, =mbc
     ldr r1, [r1]
     add r1, r1, #0x1000
     str r4, [r1, #0x4e4]
@@ -78,12 +78,12 @@ asm void MB_CommSetParentStateCallback(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_ov089_02174268(void)
+asm void MB_CommGetChildUser(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     bl OS_DisableInterrupts
-    ldr r4, =data_ov089_021792e0
+    ldr r4, =mbc
     mov r5, r0
     ldr r0, [r4]
     cmp r0, #0
@@ -113,10 +113,10 @@ asm void func_ov089_02174268(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_ov089_021742e4(void)
+asm void MB_CommIsBootable(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_ov089_021792e0
+    ldr r4, =mbc
     mov r5, r0
     ldr r1, [r4]
     cmp r1, #0
@@ -137,7 +137,7 @@ asm void func_ov089_021742e4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_ov089_02174334(void)
+asm void MB_CommResponseRequest(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r4, r1
@@ -194,7 +194,7 @@ asm void func_ov089_02174334(void)
     dcd 0xebfa4ff8
     dcd 0xe3a00000
     dcd 0xe8bd81f0
-    dcd data_ov089_021792e0
+    dcd mbc
 }
 
 asm void MBi_CommChangeParentState(void)
@@ -206,7 +206,7 @@ asm void MBi_CommChangeParentState(void)
     bl IsChildAidValid
     cmp r0, #0
     beq @L_02174444
-    ldr r0, =data_ov089_021792e0
+    ldr r0, =mbc
     sub r1, r6, #1
     ldr r0, [r0]
     add r0, r0, r1, lsl #2
@@ -223,7 +223,7 @@ asm void MBi_CommChangeParentState(void)
 asm void MBi_CommChangeParentStateCallbackOnly(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_ov089_021792e0
+    ldr r3, =mbc
     ldr r3, [r3]
     add r3, r3, #0x1000
     ldr r3, [r3, #0x4e4]
@@ -233,7 +233,7 @@ asm void MBi_CommChangeParentStateCallbackOnly(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_ov089_02174484(void)
+asm void MBi_CommParentCallback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r0
@@ -319,7 +319,7 @@ asm void func_ov089_02174484(void)
     mov r2, r9
     bl MI_CpuFill8
     ldrh r0, [r6, #0x10]
-    bl func_ov089_02178eec
+    bl MBi_ClearParentPieceBuffer
     ldrh r0, [r6, #0x10]
     ldr r2, [r8]
     sub r1, r9, #0x17
@@ -415,7 +415,7 @@ asm void func_ov089_02174484(void)
     bl MBi_CommParentRecvData
     b @L_021748b4
 @L_02174724:
-    bl func_ov089_02175350
+    bl MBi_CommParentSendData
     b @L_021748b4
 @L_0217472c:
     ldr r4, [pc, #0x1cc]
@@ -436,7 +436,7 @@ asm void func_ov089_02174484(void)
     ldrh r2, [r2, #0x4e]
     add r0, r0, r9
     add r1, r1, #0x1340
-    bl func_ov089_02176538
+    bl MB_UpdateGameInfoMember
     ldr r0, [r8]
     add r0, r0, r9
     add r0, r0, #0x1d00
@@ -446,11 +446,11 @@ asm void func_ov089_02174484(void)
     and r6, r0, #0xff
     cmp r6, #0x10
     blo @L_02174734
-    bl func_ov089_02178928
+    bl MBi_GetGgid
     mov r5, r0
-    bl func_ov089_0217893c
+    bl MBi_GetTgid
     mov r4, r0
-    bl func_ov089_02178950
+    bl MBi_GetAttribute
     mov r2, r0
     mov r0, r5
     mov r1, r4
@@ -541,11 +541,11 @@ asm void func_ov089_02174484(void)
     mov r1, #0xc
     blx r6
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    dcd data_ov089_021792e0
+    dcd mbc
     dcd 0x000005d4
 }
 
-asm void func_ov089_02174904(void)
+asm void MBi_CommParentRecvDataPerChild(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x34
@@ -560,7 +560,7 @@ asm void func_ov089_02174904(void)
     add r1, sp, #0x20
     mov r2, r6
     add r0, r0, #0xa
-    bl func_ov089_02178fa4
+    bl MBi_SetRecvBufferFromChild
     ldrb r8, [sp, #0x20]
     ldr r1, [r9]
     sub r3, r6, #1
@@ -853,16 +853,16 @@ asm void func_ov089_02174904(void)
 @L_02174db0:
     add sp, sp, #0x34
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    dcd data_ov089_021792e0
+    dcd mbc
     dcd 0x000005d4
-    dcd data_ov089_02179220
+    dcd any_recv_bitmap
 }
 
 asm void MBi_CommParentRecvData(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r12, #0
-    ldr r2, =data_ov089_021792e0
+    ldr r2, =mbc
     ldr r1, =0x5d4
     mov r4, r0
     mov r3, r12
@@ -879,7 +879,7 @@ asm void MBi_CommParentRecvData(void)
     mov r12, r0, lsr #0x10
     cmp r12, #0x10
     blo @L_02174ddc
-    ldr r0, =data_ov089_02179220
+    ldr r0, =any_recv_bitmap
     mov r1, #0
     ldr r5, =0xffff
     str r1, [r0]
@@ -887,14 +887,14 @@ asm void MBi_CommParentRecvData(void)
 @L_02174e20:
     mov r0, r4
     mov r1, r6
-    bl func_020130d0
+    bl WM_ReadMPData
     cmp r0, #0
     ldrneh r1, [r0]
     cmpne r1, r5
     cmpne r1, #0
     beq @L_02174e48
     mov r1, r6
-    bl func_ov089_02174904
+    bl MBi_CommParentRecvDataPerChild
 @L_02174e48:
     add r0, r6, #1
     mov r0, r0, lsl #0x10
@@ -904,16 +904,16 @@ asm void MBi_CommParentRecvData(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_ov089_02174e70(void)
+asm void MBi_CommParentSendMsg(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #8
-    ldr r4, =data_ov089_021792e0
+    ldr r4, =mbc
     mov r5, r1
     ldr r1, [r4]
     strb r0, [sp]
     add r0, sp, #0
-    bl func_ov089_02178f2c
+    bl MBi_MakeParentSendBuffer
     ldr r2, [r4]
     mov r1, r5
     mov r0, #6
@@ -922,7 +922,7 @@ asm void func_ov089_02174e70(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_ov089_02174eac(void)
+asm void MBi_CommParentSendDLFileInfo(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #0x18
@@ -933,7 +933,7 @@ asm void func_ov089_02174eac(void)
     mov r2, #0x10
     mvn r5, #0
     bl MI_CpuFill8
-    ldr r1, =data_ov089_021792e0
+    ldr r1, =mbc
     mov r0, #1
     ldr r1, [r1]
 @L_02174edc:
@@ -1008,10 +1008,10 @@ asm void func_ov089_02174eac(void)
     add r0, sp, #0
     strb r2, [sp]
     strh r5, [sp, #2]
-    bl func_ov089_02178f2c
+    bl MBi_MakeParentSendBuffer
     movs r1, r0
     beq @L_02175014
-    ldr r0, =data_ov089_021792e0
+    ldr r0, =mbc
     ldr r3, =0x5d4
     ldr r0, [r0]
     mov r2, #0xe4
@@ -1020,7 +1020,7 @@ asm void func_ov089_02174eac(void)
     mla r0, r5, r3, r0
     bl MI_CpuCopy8
 @L_02175014:
-    ldr r0, =data_ov089_021792e0
+    ldr r0, =mbc
     mov r1, r6
     ldr r2, [r0]
     mov r0, #0xea
@@ -1029,7 +1029,7 @@ asm void func_ov089_02174eac(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_ov089_0217503c(void)
+asm void MBi_ReloadCache(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0x4c
@@ -1050,7 +1050,7 @@ asm void func_ov089_0217503c(void)
     mov r1, r6
     add r3, r2, r7
     str r12, [sp]
-    bl func_0200c68c
+    bl FS_OpenFileDirect
     cmp r0, #0
     beq @L_021750b8
     ldr r1, [r5, #8]
@@ -1073,11 +1073,11 @@ asm void func_ov089_0217503c(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-asm void func_ov089_021750d8(void)
+asm void MBi_CommParentSendBlock(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x18
-    ldr r5, =data_ov089_021792e0
+    ldr r5, =mbc
     ldr r0, [r5]
     add r0, r0, #0x1000
     ldrb r0, [r0, #0x524]
@@ -1117,7 +1117,7 @@ asm void func_ov089_021750d8(void)
     moveq r0, #0x15
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     bl MBi_calc_sendblock
-    ldr r5, =data_ov089_021792e0
+    ldr r5, =mbc
     ldr r4, =0x5d4
     ldr r7, [r5]
     add r0, sp, #8
@@ -1150,7 +1150,7 @@ asm void func_ov089_021750d8(void)
     add r2, r2, #0x1d00
     ldrh r2, [r2, #0x48]
     strh r2, [sp, #4]
-    bl func_ov089_02178f2c
+    bl MBi_MakeParentSendBuffer
     ldr r6, [r5]
     ldrb r1, [sp, #0x14]
     add r2, r6, #0x1000
@@ -1207,7 +1207,7 @@ asm void func_ov089_021750d8(void)
     blt @L_02175294
     cmp r5, #0
     bne @L_021752d8
-    bl func_0200878c
+    bl OS_Terminate
 @L_021752d8:
     mov r0, #2
     str r0, [r7]
@@ -1216,12 +1216,12 @@ asm void func_ov089_021750d8(void)
     bic r0, r6, #0x1f
     str r0, [r5]
     str r5, [r4, #0x10]
-    ldr r1, =func_ov089_0217503c
+    ldr r1, =MBi_ReloadCache
     mov r0, r4
     mov r2, #0
     mov r3, #4
     str r7, [r4, #0x14]
-    bl func_ov089_02178cf4
+    bl MBi_SetTask
 @L_0217530c:
     add sp, sp, #0x18
     mov r0, #0x15
@@ -1240,7 +1240,7 @@ asm void func_ov089_021750d8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_ov089_02175350(void)
+asm void MBi_CommParentSendData(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0xc
@@ -1315,7 +1315,7 @@ asm void func_ov089_02175350(void)
     beq @L_02175470
     mov r0, #5
 @L_02175468:
-    bl func_ov089_02174e70
+    bl MBi_CommParentSendMsg
     b @L_021754c4
 @L_02175470:
     ldrh r1, [sp]
@@ -1339,31 +1339,31 @@ asm void func_ov089_02175350(void)
     ldrh r0, [sp, #2]
     cmp r0, #0
     beq @L_021754c0
-    bl func_ov089_02174eac
+    bl MBi_CommParentSendDLFileInfo
     b @L_021754c4
 @L_021754c0:
-    bl func_ov089_021750d8
+    bl MBi_CommParentSendBlock
 @L_021754c4:
     cmp r0, #0x15
     addne sp, sp, #0xc
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, pc}
     ldr r1, [pc, #0x10]
     mov r0, #0
-    bl func_ov089_02174e70
+    bl MBi_CommParentSendMsg
     add sp, sp, #0xc
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    dcd data_ov089_021792e0
+    dcd mbc
     dcd 0x0000ffff
 }
 
 asm void MBi_calc_sendblock(void)
 {
-    ldr r1, =data_ov089_02179220
+    ldr r1, =any_recv_bitmap
     mov r2, #1
     ldr r1, [r1]
     tst r1, r2, lsl r0
     bxeq lr
-    ldr r2, =data_ov089_021792e0
+    ldr r2, =mbc
     ldr r1, =0x5d4
     ldr r2, [r2]
     mla r12, r0, r1, r2
@@ -1389,7 +1389,7 @@ asm void MBi_calc_sendblock(void)
     bx lr
 }
 
-asm void func_ov089_02175568(void)
+asm void MBi_calc_nextsendblock(void)
 {
     cmp r1, r0
     movls r1, r0
@@ -1420,7 +1420,7 @@ asm void MBi_CommCallParentError(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_ov089_021755b0(void)
+asm void MB_GetSegmentLength(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x60
@@ -1428,7 +1428,7 @@ asm void func_ov089_021755b0(void)
     movs r8, r0
     mov r6, r5
     beq @L_02175600
-    bl func_0200c814
+    bl FS_GetFilePosition
     add r4, sp, #0
     mov r7, r0
     mov r0, r8
@@ -1459,7 +1459,7 @@ asm void func_ov089_021755b0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_ov089_02175634(void)
+asm void MB_ReadSegment(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x6c
@@ -1490,7 +1490,7 @@ asm void func_ov089_02175634(void)
     sub r4, r0, #0x160
     beq @L_021756d4
     mov r0, r10
-    bl func_0200c814
+    bl FS_GetFilePosition
     str r0, [sp, #8]
     mov r0, r10
     mov r1, r9
@@ -1522,13 +1522,13 @@ asm void func_ov089_02175634(void)
     mov r0, r10
     mov r2, #0
     add r3, r7, #0x88
-    bl func_0200c68c
+    bl FS_OpenFileDirect
     cmp r0, #0
     addeq sp, sp, #0x6c
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
-    bl func_0200c814
+    bl FS_GetFilePosition
     str r0, [sp, #8]
     ldr r0, =0x2fffe00
     mov r1, r9
@@ -1544,7 +1544,7 @@ asm void func_ov089_02175634(void)
     ldr r0, [sp, #0xc]
     cmp r0, #0
     beq @L_02175788
-    bl func_02012234
+    bl CARDi_GetOwnSignature
     mov r1, r5
     mov r2, #0x88
     bl MI_CpuCopy8
@@ -1570,7 +1570,7 @@ asm void func_ov089_02175634(void)
     blo @L_02175834
     mov r0, r5
     mov r6, r5
-    bl func_ov089_02178a08
+    bl MBi_InitCache
     mov r0, #3
     mov r7, #0
     str r0, [sp]
@@ -1609,14 +1609,14 @@ asm void func_ov089_02175634(void)
     mov r0, r10
     str r1, [r5]
     mov r11, r5
-    bl func_0200e4f8
+    bl FS_GetFileImageTop
     ldr r1, [sp, #8]
     ldr r2, [r9, #0x20]
     add r1, r1, r0
     add r1, r2, r1
     mov r0, r10
     str r1, [r5, #4]
-    bl func_0200e4f8
+    bl FS_GetFileImageTop
     ldr r1, [sp, #8]
     ldr r2, [r9, #0x30]
     add r0, r1, r0
@@ -1631,7 +1631,7 @@ asm void func_ov089_02175634(void)
     cmp r4, r0
     blo @L_02175958
     mov r0, r10
-    bl func_0200e4f8
+    bl FS_GetFileImageTop
     mov r4, r0
     ldr r1, [r11, #4]
     ldr r0, [sp, #0xc]
@@ -1680,7 +1680,7 @@ asm void func_ov089_02175634(void)
     cmp r4, #0xcc00
     blo @L_02175a5c
     mov r0, r10
-    bl func_0200e4f8
+    bl FS_GetFileImageTop
     ldr r8, [r11, #4]
     mov r4, r0
     ldr r0, [sp, #0xc]

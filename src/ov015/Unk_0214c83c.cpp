@@ -44,10 +44,10 @@ extern "C" void func_ov015_0214f2f8(void);
 extern "C" void func_ov015_0214f6d8(void);
 extern "C" void func_ov015_0214f7b4(void);
 
-extern "C" char data_020c4648[];
-extern "C" char data_020c46a8[];
-extern "C" char data_020c46cc[];
-extern "C" char data_020c5e40[];
+extern "C" char g3DFieldSprite[];
+extern "C" char gFont12Manager[];
+extern "C" char g2DAdventureLogic[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020d3d20[];
 extern "C" char data_020e88a0[];
 extern "C" char data_ov015_02165ac4[];
@@ -94,7 +94,7 @@ extern "C" void _ZN17UnkClass_0205480013func_02056c2cEl(void);
 extern "C" void _ZN17UnkClass_0205480013func_02056c38Ei(void);
 extern "C" void _ZN17UnkClass_0205480013func_02056c50Ei(void);
 extern "C" void _ZN17UnkClass_0205480013func_02056c64Ev(void);
-extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);
+extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206f058Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207a950EP11MatchPlayer(void);
@@ -852,7 +852,7 @@ extern "C" asm void func_ov015_0214d1c4(void)
     ldr r1, [r6, #0x14]
     cmp r1, #0
     beq @L_0214d314
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r2, #0x1f4
     bl _ZN12SoundManager13func_0203bcb0EPKci
 @L_0214d314:
@@ -1361,7 +1361,7 @@ extern "C" asm void func_ov015_0214da7c(void)
     mov r1, r5
     mov r2, r6
     bl func_ov015_02149920
-    ldr r6, =data_020c4648
+    ldr r6, =g3DFieldSprite
     str r0, [r5, #4]
     ldr r0, [r6]
     bl func_ov015_02136680
@@ -1372,7 +1372,7 @@ extern "C" asm void func_ov015_0214da7c(void)
     add r0, r0, #1
     strb r0, [r5, #0xb]
 @L_0214daf8:
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     ldr r0, [r0]
     bl func_ov015_0213a8b8
     cmp r0, #0
@@ -1401,7 +1401,7 @@ extern "C" s32 func_ov015_0214db44(s32 *arg0, u8 *arg1, s32 *arg2)
     switch (*(s8 *)(arg1 + 0xB)) {
     case 0:
         *(s32 *)(arg1 + 4) = ((s32 (*)(...))func_ov015_02149920)(arg0, arg1, b, a);
-        ((s32 (*)(...))func_ov015_02136680)(*(s32 *)data_020c4648);
+        ((s32 (*)(...))func_ov015_02136680)(*(s32 *)g3DFieldSprite);
         (*(s8 *)(arg1 + 0xB))++;
     case 1:
         *(s8 *)(arg1 + 0xA) = 1;
@@ -1564,7 +1564,7 @@ extern "C" asm void func_ov015_0214dd4c(void)
     str r1, [r5, #0x2c]
     b @L_0214de44
 @L_0214de08:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r7
     bl _ZN12SoundManager13func_0203bba8Ei
     cmp r0, #0
@@ -2217,7 +2217,7 @@ extern "C" asm void func_ov015_0214e71c(void)
     bl func_0209ac50
     cmp r4, r8
     mov r2, r0
-    ldr r4, =data_020c46cc
+    ldr r4, =g2DAdventureLogic
     movne r2, r5
     ldr r0, [r4]
     mov r1, r8
@@ -2236,7 +2236,7 @@ extern "C" asm void func_ov015_0214e71c(void)
     bl func_ov015_021319b0
     mov r1, r0
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     ldrh r6, [r0, #0x28]
     cmp r6, #0
     ldreqh r6, [r0, #0x26]
@@ -3067,7 +3067,7 @@ extern "C" asm void func_ov015_0214f2f8(void)
 @L_0214f52c:
     cmp r5, #0
     beq @L_0214f66c
-    ldr r0, =data_020c46a8
+    ldr r0, =gFont12Manager
     add r5, sp, #0x20
     ldr r0, [r0]
     mov r1, r5
@@ -3128,7 +3128,7 @@ extern "C" asm void func_ov015_0214f2f8(void)
     cmp r0, #0xa
     cmpne r0, #0xc
     beq @L_0214f61c
-    ldr r0, =data_020c46a8
+    ldr r0, =gFont12Manager
     mov r1, r6
     ldr r0, [r0]
     bl _ZN8TextFont12GetCharWidthEPKc

@@ -11,25 +11,25 @@ struct S02099b64 { s32 a, b, c, d, e; };
 struct V3_02099a94 { s32 x, y, z; };
 
 extern "C" void func_0209a9f0(void);
-extern "C" u16 func_0200226c(fx32 y, fx32 x);
+extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);
 extern "C" u8 *NNS_G3dGetTex(void *obj);
 extern "C" void OS_LockMutex(OSMutex *mutex);
 extern "C" void OS_UnlockMutex(OSMutex *mutex);
 
-extern "C" void func_02098f14(void);
-extern "C" s32 func_02098fac(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
+extern "C" void C3DVramMan_QueueUpload(void);
+extern "C" s32 C3DVramMan_UploadResNow(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
 extern "C" s32 func_02099058(s32 arg0, s32 arg1);
 extern "C" s32 func_02099088(s32 arg0, s32 arg1);
 extern "C" s32 func_020990b4(s32 arg0, s32 arg1);
-extern "C" s32 func_020990e8(s32 arg0, u8 *arg1, u8 *arg2);
+extern "C" s32 C3DVramMan_GetResKeyAddr(s32 arg0, u8 *arg1, u8 *arg2);
 extern "C" s32 func_02099140(u8 *arg0);
 extern "C" void func_020991ac(u8 *arg0);
 extern "C" void func_020991d8(u8 *arg0);
 extern "C" void func_0209920c(u8 *arg0);
 extern "C" void func_02099238(u8 *arg0);
-extern "C" s32 func_0209926c(s32 arg0, u8 *arg1);
-extern "C" s32 func_020992ec(s32 arg0, u8 *arg1);
-extern "C" void func_02099370(u8 *obj);
+extern "C" s32 C3DVramMan_EvictRes(s32 arg0, u8 *arg1);
+extern "C" s32 C3DVramMan_RestoreRes(s32 arg0, u8 *arg1);
+extern "C" void C3DVramMan_ResetUploadQueue(u8 *obj);
 extern "C" s32 func_02099390(...);
 extern "C" s32 func_020995c4(s32 arg0, u8 *arg1);
 extern "C" s32 func_02099618(s32 arg0, u8 *arg1);
@@ -55,9 +55,9 @@ extern "C" void func_02099bbc(s8 *obj, s8 flags);
 extern "C" void func_02099bcc(s8 *obj, int flags);
 extern "C" void func_02099be4(void);
 extern "C" void func_02099c48(u8 *arg0, u8 *arg1);
-extern "C" int func_02099c94(u8 *obj, int a);
-extern "C" s32 func_02099cc8(u8 *arg0, s32 arg1);
-extern "C" u8 *func_02099cfc(u8 *obj, int a);
+extern "C" int PAC_GetOffset(u8 *obj, int a);
+extern "C" s32 PAC_GetSize(u8 *arg0, s32 arg1);
+extern "C" u8 *PAC_GetPtr(u8 *obj, int a);
 extern "C" s32 func_02099d18(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3, u8 *arg4);
 extern "C" int func_02099d90(int i);
 extern "C" void func_02099da0(void);
@@ -72,13 +72,13 @@ extern "C" void func_0209a22c(void);
 extern "C" s32 func_0209a2ac(s32 arg0);
 extern "C" s32 func_0209a300(s32 arg0, s32 arg1, u8 *arg2, u8 *arg3);
 
-extern "C" char data_020a4478[];
-extern "C" char data_020abaa0[];
-extern "C" char data_020abaa4[];
-extern "C" char data_020abaa8[];
-extern "C" char data_020abaac[];
+extern "C" char __upper_mapC[];
+extern "C" char NNS_GfdDefaultFuncAllocTexVram[];
+extern "C" char NNS_GfdDefaultFuncFreeTexVram[];
+extern "C" char NNS_GfdDefaultFuncAllocPlttVram[];
+extern "C" char NNS_GfdDefaultFuncFreePlttVram[];
 extern "C" char data_020afde4[];
-extern "C" char data_020c46e4[];
+extern "C" char gConfig[];
 extern "C" s32 GX_BeginLoadTex(...);
 extern "C" s32 GX_BeginLoadTexPltt(...);
 extern "C" void MTX_Identity43_(void);
@@ -90,35 +90,35 @@ extern "C" s32 NNS_GfdFreeLnkPlttVram(...);
 extern "C" void VEC_DotProduct(void);
 extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
-extern "C" void func_020011fc(void);
-extern "C" void func_02001d60(void);
-extern "C" void func_02001f08(void);
-extern "C" void func_02001f38(void);
-extern "C" void func_02001fa4(void);
-extern "C" void func_02002084(void);
-extern "C" void func_020021f0(void);
-extern "C" s32 func_02003eec(...);
-extern "C" s32 func_02004038(...);
-extern "C" s32 func_020040b0(...);
-extern "C" s32 func_02004120(...);
-extern "C" s32 func_02004fd8(...);
-extern "C" s32 func_02008450(...);
-extern "C" void func_02018328(void);
+extern "C" void MTX_Concat43(void);
+extern "C" void FX_Div(void);
+extern "C" void VEC_Add(void);
+extern "C" void VEC_Subtract(void);
+extern "C" void VEC_CrossProduct(void);
+extern "C" void VEC_Normalize(void);
+extern "C" void VEC_Distance(void);
+extern "C" s32 GX_LoadTex(...);
+extern "C" s32 GX_EndLoadTex(...);
+extern "C" s32 GX_LoadTexPltt(...);
+extern "C" s32 GX_EndLoadTexPltt(...);
+extern "C" s32 GX_GetBankForTex(...);
+extern "C" s32 OS_SpinWaitSysCycles(...);
+extern "C" void memcpy(void);
 extern "C" s32 _ffltu(...);
 extern "C" s32 _ffix(...);
 extern "C" s32 _fadd(...);
 extern "C" s32 _fsub(...);
-extern "C" void func_02027ccc(void);
-extern "C" void func_02027ce0(void);
-extern "C" void func_02027cf4(void);
-extern "C" s32 func_02027e10(...);
-extern "C" void func_02027e24(void);
-extern "C" s32 func_02029094(...);
-extern "C" s32 func_0202b798(...);
-extern "C" s32 func_0202b9d8(...);
-extern "C" void func_0202bfb8(void);
-extern "C" void func_0202c11c(void);
-extern "C" s32 func_0203020c(...);
+extern "C" void NNS_G3dTexGetRequiredSize(void);
+extern "C" void NNS_G3dTex4x4GetRequiredSize(void);
+extern "C" void NNS_G3dTexSetTexKey(void);
+extern "C" s32 NNS_G3dPlttGetRequiredSize(...);
+extern "C" void NNS_G3dPlttSetPlttKey(void);
+extern "C" s32 NNS_G3dDraw(...);
+extern "C" s32 NNS_G3dResDefaultSetup(...);
+extern "C" s32 NNS_G3dResDefaultRelease(...);
+extern "C" void NNS_G3dGetResDictIdxByName(void);
+extern "C" void NNS_G3dGetMdlSet(void);
+extern "C" s32 NNS_GfdFreeLnkTexVram(...);
 extern "C" s32 func_02098a8c(...);
 extern "C" s32 func_02098ab8(...);
 extern "C" s32 func_02098cdc(...);
@@ -129,7 +129,7 @@ extern "C" void strlen(void);
 extern "C" void strncpy(void);
 extern "C" void strrchr(void);
 
-extern "C" asm void func_02098f14(void)
+extern "C" asm void C3DVramMan_QueueUpload(void)
 {
     stmdb sp!, {r4, lr}
     sub sp, sp, #8
@@ -174,7 +174,7 @@ extern "C" asm void func_02098f14(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_02098fac(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
+extern "C" s32 C3DVramMan_UploadResNow(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
 {
     s32 r0;
     s32 r4;
@@ -191,13 +191,13 @@ extern "C" s32 func_02098fac(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
         case 1:
             t1 = (arg2 + ((u32)(*(s32 *)(arg1 + 0x4) << 0x10) >> 0xD));
             func_020991ac((u8 *)arg0);
-            func_02003eec(arg3, t1, r4);
+            GX_LoadTex(arg3, t1, r4);
             func_020991d8((u8 *)arg0);
             break;
         case 2:
             t3 = (arg2 + ((u32)(*(s32 *)(arg1 + 0x4) << 0x10) >> 0xD));
             func_0209920c((u8 *)arg0);
-            func_020040b0(arg3, t3, r4);
+            GX_LoadTexPltt(arg3, t3, r4);
             func_02099238((u8 *)arg0);
             break;
         default:
@@ -209,7 +209,7 @@ extern "C" s32 func_02098fac(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
 extern "C" s32 func_02099058(s32 arg0, s32 arg1)
 {
     OS_LockMutex((OSMutex *)(arg0 + 8));
-    s32 v1 = func_0202b798(arg1);
+    s32 v1 = NNS_G3dResDefaultSetup(arg1);
     OS_UnlockMutex((OSMutex *)(arg0 + 8));
     return v1;
 }
@@ -217,7 +217,7 @@ extern "C" s32 func_02099058(s32 arg0, s32 arg1)
 extern "C" s32 func_02099088(s32 arg0, s32 arg1)
 {
     OS_LockMutex((OSMutex *)(arg0 + 8));
-    func_0202b9d8(arg1);
+    NNS_G3dResDefaultRelease(arg1);
     OS_UnlockMutex((OSMutex *)(arg0 + 8));
     return 1;
 }
@@ -230,7 +230,7 @@ extern "C" s32 func_020990b4(s32 arg0, s32 arg1)
     return v1;
 }
 
-extern "C" s32 func_020990e8(s32 arg0, u8 *arg1, u8 *arg2)
+extern "C" s32 C3DVramMan_GetResKeyAddr(s32 arg0, u8 *arg1, u8 *arg2)
 {
     s32 r3;
     r3 = *(s32 *)(arg1 + 0x4);
@@ -257,11 +257,11 @@ static inline s32 vcount02099140(void)
 }
 extern "C" s32 func_02099140(u8 *arg0)
 {
-    s32 r = func_02004fd8(arg0);
+    s32 r = GX_GetBankForTex(arg0);
     if (r == 0)
         return r;
     if (vcount02099140() <= 0xC1)
-        func_02008450(0x188);
+        OS_SpinWaitSysCycles(0x188);
     if ((r = *(volatile s32 *)0x4000600) & 0x8000000)
         return r;
     if ((r = *(s32 *)(arg0 + 0x38)) == 0)
@@ -291,7 +291,7 @@ extern "C" void func_020991d8(u8 *arg0)
     if ((s32)arg0 > 0) {
         *(s32 *)(r4 + 0x30) = (s32)(arg0 - 1);
         if ((s32)(arg0 - 1) <= 0) {
-            func_02004038();
+            GX_EndLoadTex();
         }
     }
     OS_UnlockMutex((OSMutex *)(r4 + 8));
@@ -317,14 +317,14 @@ extern "C" void func_02099238(u8 *arg0)
     if ((s32)arg0 > 0) {
         *(s32 *)(r4 + 0x34) = (s32)(arg0 - 1);
         if ((s32)(arg0 - 1) <= 0) {
-            func_02004120();
+            GX_EndLoadTexPltt();
         }
     }
     OS_UnlockMutex((OSMutex *)(r4 + 8));
     return;
 }
 
-extern "C" s32 func_0209926c(s32 arg0, u8 *arg1)
+extern "C" s32 C3DVramMan_EvictRes(s32 arg0, u8 *arg1)
 {
     u8 *r4;
     s32 r5;
@@ -340,7 +340,7 @@ extern "C" s32 func_0209926c(s32 arg0, u8 *arg1)
             arg1 = (u8 *)*(u8 *)(r4 + 0x8);
             switch ((s32)arg1) {
                 case 1:
-                    func_0203020c(arg0, (s32)arg1);
+                    NNS_GfdFreeLnkTexVram(arg0, (s32)arg1);
                     break;
                 case 2:
                     NNS_GfdFreeLnkPlttVram(arg0, (s32)arg1);
@@ -356,7 +356,7 @@ extern "C" s32 func_0209926c(s32 arg0, u8 *arg1)
     }
 }
 
-extern "C" s32 func_020992ec(s32 arg0, u8 *arg1)
+extern "C" s32 C3DVramMan_RestoreRes(s32 arg0, u8 *arg1)
 {
     u8 *r4;
     s32 r5;
@@ -388,7 +388,7 @@ extern "C" s32 func_020992ec(s32 arg0, u8 *arg1)
     }
 }
 
-extern "C" void func_02099370(u8 *obj)
+extern "C" void C3DVramMan_ResetUploadQueue(u8 *obj)
 {
     OS_LockMutex((OSMutex *)(obj + 8));
     func_0209a9f0();
@@ -440,17 +440,17 @@ extern "C" asm s32 func_02099390(...)
     bl NNS_G3dGetTex
     movs r6, r0
     beq @L_02099568
-    bl func_02027ccc
+    bl NNS_G3dTexGetRequiredSize
     mov r5, r0
     mov r0, r6
-    bl func_02027ce0
+    bl NNS_G3dTex4x4GetRequiredSize
     mov r7, r0
     mov r0, r6
-    bl func_02027e10
+    bl NNS_G3dPlttGetRequiredSize
     mov r8, r0
     cmp r5, #0
     beq @L_0209947c
-    ldr r0, =data_020abaa0
+    ldr r0, =NNS_GfdDefaultFuncAllocTexVram
     mov r1, #0
     ldr r3, [r0]
     mov r0, r5
@@ -465,7 +465,7 @@ extern "C" asm s32 func_02099390(...)
 @L_02099480:
     cmp r7, #0
     beq @L_020994ac
-    ldr r0, =data_020abaa0
+    ldr r0, =NNS_GfdDefaultFuncAllocTexVram
     mov r2, #0
     ldr r3, [r0]
     mov r0, r7
@@ -480,7 +480,7 @@ extern "C" asm s32 func_02099390(...)
     cmp r8, #0
     beq @L_020994e0
     ldrh r1, [r6, #0x20]
-    ldr r0, =data_020abaa8
+    ldr r0, =NNS_GfdDefaultFuncAllocPlttVram
     mov r2, #0
     ldr r3, [r0]
     mov r0, r8
@@ -497,11 +497,11 @@ extern "C" asm s32 func_02099390(...)
     cmpne r9, #0
     cmpne r10, #0
     bne @L_0209952c
-    ldr r1, =data_020abaac
+    ldr r1, =NNS_GfdDefaultFuncFreePlttVram
     mov r0, r8
     ldr r1, [r1]
     blx r1
-    ldr r4, =data_020abaa4
+    ldr r4, =NNS_GfdDefaultFuncFreeTexVram
     mov r0, r7
     ldr r1, [r4]
     blx r1
@@ -514,10 +514,10 @@ extern "C" asm s32 func_02099390(...)
     mov r0, r6
     mov r1, r5
     mov r2, r7
-    bl func_02027cf4
+    bl NNS_G3dTexSetTexKey
     mov r0, r6
     mov r1, r8
-    bl func_02027e24
+    bl NNS_G3dPlttSetPlttKey
     mov r0, r11
     mov r1, r6
     mov r2, #1
@@ -532,7 +532,7 @@ extern "C" asm s32 func_02099390(...)
     cmp r1, r0
     bne @L_02099590
     mov r0, r4
-    bl func_0202c11c
+    bl NNS_G3dGetMdlSet
     cmp r6, #0
     beq @L_02099590
     mov r1, r6
@@ -589,8 +589,8 @@ extern "C" s32 func_02099664(s32 arg0, s32 arg1, s32 arg2)
     ((s32 (*)(...))func_020996ec)(arg0, arg1, arg2, &a);
     if (a.x == 0 && a.y == 0 && a.z == 0)
         return 0;
-    ((s32 (*)(...))func_02002084)(&a, &a);
-    ((s32 (*)(...))func_02001f38)(arg0, arg2, &b);
+    ((s32 (*)(...))VEC_Normalize)(&a, &a);
+    ((s32 (*)(...))VEC_Subtract)(arg0, arg2, &b);
     return ((s32 (*)(...))VEC_DotProduct)(&a, &b);
 }
 
@@ -600,10 +600,10 @@ extern "C" void func_020996ec(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     V020996ec b;
     if (arg0 == 0 || arg1 == 0 || arg2 == 0 || arg3 == 0)
         return;
-    ((s32 (*)(...))func_02001f38)(arg1, arg0, &a);
-    ((s32 (*)(...))func_02001f38)(arg2, arg0, &b);
-    ((s32 (*)(...))func_02001fa4)(&a, &b, &b);
-    ((s32 (*)(...))func_02001fa4)(&a, &b, arg3);
+    ((s32 (*)(...))VEC_Subtract)(arg1, arg0, &a);
+    ((s32 (*)(...))VEC_Subtract)(arg2, arg0, &b);
+    ((s32 (*)(...))VEC_CrossProduct)(&a, &b, &b);
+    ((s32 (*)(...))VEC_CrossProduct)(&a, &b, arg3);
 }
 
 extern "C" asm int func_02099764(void *a)
@@ -648,12 +648,12 @@ extern "C" asm void func_020997fc(void)
     mov r2, r9
     mov r4, r3
     ldr r6, [sp, #0x40]
-    bl func_02001f38
+    bl VEC_Subtract
     add r8, sp, #0xc
     mov r0, r4
     mov r1, r5
     mov r2, r8
-    bl func_02001f38
+    bl VEC_Subtract
     mov r0, r9
     mov r1, r8
     bl func_020997e4
@@ -665,7 +665,7 @@ extern "C" asm void func_020997fc(void)
     mov r0, r5
     mov r1, r7
     mov r2, r4
-    bl func_02001f38
+    bl VEC_Subtract
     mov r0, r8
     mov r1, r4
     bl func_02099764
@@ -682,7 +682,7 @@ extern "C" asm void func_020997fc(void)
     mov r1, r4
     orr r0, r0, r2, lsl #20
     mov r8, #0
-    bl func_02001d60
+    bl FX_Div
     ldr r2, [r7]
     mov r1, r4
     add r0, r2, r0
@@ -693,7 +693,7 @@ extern "C" asm void func_020997fc(void)
     adc r2, r2, #0
     mov r0, r0, lsr #0xc
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldr r1, [r7, #4]
     add r0, r1, r0
     stmib r6, {r0, r8}
@@ -723,10 +723,10 @@ extern "C" s32 func_02099924(V02099924 *arg0, V02099924 *arg1, V02099924 *arg2)
     V02099924 b;
     V02099924 c;
     V02099924 d;
-    ((s32 (*)(...))func_02001f38)(arg1, arg0, &a);
-    ((s32 (*)(...))func_02001f38)(arg2, arg0, &b);
-    ((s32 (*)(...))func_02001f38)(arg0, arg1, &c);
-    ((s32 (*)(...))func_02001f38)(arg2, arg1, &d);
+    ((s32 (*)(...))VEC_Subtract)(arg1, arg0, &a);
+    ((s32 (*)(...))VEC_Subtract)(arg2, arg0, &b);
+    ((s32 (*)(...))VEC_Subtract)(arg0, arg1, &c);
+    ((s32 (*)(...))VEC_Subtract)(arg2, arg1, &d);
     if (((s32 (*)(...))func_02099764)(&a, &b) == 0 && ((s32 (*)(...))func_020997a4)(&a, &b) > 0 && ((s32 (*)(...))func_020997a4)(&c, &d) > 0)
         return 1;
     return 0;
@@ -734,7 +734,7 @@ extern "C" s32 func_02099924(V02099924 *arg0, V02099924 *arg1, V02099924 *arg2)
 
 extern "C" void func_020999d8(fx32 *a, fx32 *b, u16 *direction)
 {
-    *direction = func_0200226c(*b, *a);
+    *direction = FX_Atan2Idx(*b, *a);
 }
 
 extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2)
@@ -747,7 +747,7 @@ extern "C" void func_020999f8(s32 arg0, fx32 *arg1, fx32 *arg2)
 extern "C" s32 func_02099a2c(s32 arg0, s32 arg1, s32 arg2)
 {
     V02099a2c v = {0, 0, 0};
-    ((s32 (*)(...))func_02001f38)(arg1, arg0, &v);
+    ((s32 (*)(...))VEC_Subtract)(arg1, arg0, &v);
     if (v.x == 0 && v.z == 0)
         return 0;
     ((s32 (*)(...))func_020999d8)(&v.x, &v.z, arg2);
@@ -766,7 +766,7 @@ extern "C" void func_02099a94(V3_02099a94 *arg0, V3_02099a94 *arg1)
     b.x = arg1->x;
     b.y = 0;
     b.z = z;
-    ((void (*)(V3_02099a94 *, V3_02099a94 *))func_020021f0)(&a, &b);
+    ((void (*)(V3_02099a94 *, V3_02099a94 *))VEC_Distance)(&a, &b);
 }
 
 extern "C" int func_02099adc(int x0, int y0, int x1, int y1)
@@ -893,7 +893,7 @@ extern "C" void func_02099c48(u8 *arg0, u8 *arg1)
             r2 = *(s8 *)(arg1 + r12);
             if ((r2 >= 0 && (r12 = r12, r2 < 0x80))) {
                 r12 = r12;
-                r2 = *(u8 *)(((u8 *)&data_020a4478) + r2);
+                r2 = *(u8 *)(((u8 *)&__upper_mapC) + r2);
             }
             *(u8 *)(arg0 + r12) = r2;
             r12 = (r12 + 1);
@@ -903,7 +903,7 @@ extern "C" void func_02099c48(u8 *arg0, u8 *arg1)
     return;
 }
 
-extern "C" asm int func_02099c94(u8 *obj, int a)
+extern "C" asm int PAC_GetOffset(u8 *obj, int a)
 {
     cmp r0, #0
     moveq r0, #0
@@ -922,7 +922,7 @@ extern "C" asm int func_02099c94(u8 *obj, int a)
     bx lr
 }
 
-extern "C" s32 func_02099cc8(u8 *arg0, s32 arg1)
+extern "C" s32 PAC_GetSize(u8 *arg0, s32 arg1)
 {
     if ((s32)arg0 == 0)
         return 0;
@@ -932,9 +932,9 @@ extern "C" s32 func_02099cc8(u8 *arg0, s32 arg1)
     return *(s32 *)(((u8 *)(arg0 + (arg1 << 3))) + 0x8);
 }
 
-extern "C" u8 *func_02099cfc(u8 *obj, int a)
+extern "C" u8 *PAC_GetPtr(u8 *obj, int a)
 {
-    int offset = func_02099c94(obj, a);
+    int offset = PAC_GetOffset(obj, a);
 
     if (offset == 0) {
         return NULL;
@@ -949,20 +949,20 @@ extern "C" s32 func_02099d18(s32 arg0, u8 *arg1, u8 *arg2, u8 *arg3, u8 *arg4)
     s32 v2;
     u8 *v3;
     if ((s32)arg1 != 0) {
-        v0 = func_02099cc8((u8 *)arg0, 0);
+        v0 = PAC_GetSize((u8 *)arg0, 0);
         *(s32 *)(arg1) = v0;
     }
     if ((s32)arg2 != 0) {
-        v1 = func_02099cfc((u8 *)arg0, 0);
+        v1 = PAC_GetPtr((u8 *)arg0, 0);
         *(s32 *)(arg2) = (s32)v1;
     }
     if ((s32)arg3 != 0) {
-        v2 = func_02099cc8((u8 *)arg0, 1);
+        v2 = PAC_GetSize((u8 *)arg0, 1);
         *(s32 *)(arg3) = v2;
     }
     if ((s32)arg4 == 0)
         return (s32)arg4;
-    v3 = func_02099cfc((u8 *)arg0, 1);
+    v3 = PAC_GetPtr((u8 *)arg0, 1);
     *(s32 *)(arg4) = (s32)v3;
     return (s32)v3;
 }
@@ -1000,7 +1000,7 @@ extern "C" asm void func_02099da0(void)
     mov r0, r9
     mov r1, r5
     mov r2, r9
-    bl func_020011fc
+    bl MTX_Concat43
     add r2, r7, #1
     mov r1, r7, lsl #1
     mov r2, r2, lsl #1
@@ -1011,7 +1011,7 @@ extern "C" asm void func_02099da0(void)
     mov r0, r9
     mov r1, r5
     mov r2, r9
-    bl func_020011fc
+    bl MTX_Concat43
     add r2, r6, #1
     mov r1, r6, lsl #1
     mov r2, r2, lsl #1
@@ -1022,7 +1022,7 @@ extern "C" asm void func_02099da0(void)
     mov r1, r5
     mov r0, r9
     mov r2, r9
-    bl func_020011fc
+    bl MTX_Concat43
     add sp, sp, #0x30
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     add sp, sp, #0x10
@@ -1057,7 +1057,7 @@ extern "C" asm void func_02099e78(void)
     mov r0, r9
     mov r1, r5
     mov r2, r9
-    bl func_020011fc
+    bl MTX_Concat43
     add r2, r7, #1
     mov r1, r7, lsl #1
     mov r2, r2, lsl #1
@@ -1068,7 +1068,7 @@ extern "C" asm void func_02099e78(void)
     mov r0, r9
     mov r1, r5
     mov r2, r9
-    bl func_020011fc
+    bl MTX_Concat43
     add r2, r8, #1
     mov r1, r8, lsl #1
     mov r2, r2, lsl #1
@@ -1079,7 +1079,7 @@ extern "C" asm void func_02099e78(void)
     mov r1, r5
     mov r0, r9
     mov r2, r9
-    bl func_020011fc
+    bl MTX_Concat43
     add sp, sp, #0x30
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     add sp, sp, #0x10
@@ -1107,7 +1107,7 @@ extern "C" asm void func_02099f50(void)
     mov r2, r0
     mov r0, r4
     mov r1, r6
-    bl func_02018328
+    bl memcpy
     cmp r7, #0
     addne r5, r7, #0x40
     cmp r5, #0
@@ -1116,7 +1116,7 @@ extern "C" asm void func_02099f50(void)
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     add r1, sp, #0
     mov r0, r5
-    bl func_0202bfb8
+    bl NNS_G3dGetResDictIdxByName
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -1148,7 +1148,7 @@ extern "C" s32 func_02099ffc(s32 arg0)
         if (v0 == 0) {
             return 0;
         } else {
-            v1 = func_02027e10();
+            v1 = NNS_G3dPlttGetRequiredSize();
             return v1;
         }
     }
@@ -1176,7 +1176,7 @@ extern "C" asm void func_0209a024(void)
     ldrsh r5, [r6, r5]
     mov r2, r4
     ldrsh r6, [r6, r3]
-    bl func_02001f38
+    bl VEC_Subtract
     ldr lr, [sp, #0x14]
     ldr r12, [sp, #0xc]
     mov r1, r8
@@ -1206,7 +1206,7 @@ extern "C" asm void func_0209a024(void)
     add r3, r4, r3
     add r0, sp, #0
     str r3, [sp, #8]
-    bl func_02001f08
+    bl VEC_Add
     ldr r1, [r9, #4]
     ldr r0, [sp, #0xc]
     str r1, [sp, #0x10]
@@ -1321,7 +1321,7 @@ extern "C" asm void func_0209a22c(void)
     str r2, [sp, #0xc]
     str r4, [sp, #0x10]
     str r3, [sp, #0x14]
-    bl func_020021f0
+    bl VEC_Distance
     ldr r1, [sp, #0x28]
     add r1, r5, r1
     cmp r0, r1
@@ -1337,7 +1337,7 @@ extern "C" s32 func_0209a2ac(s32 arg0)
     s32 r4;
     s32 v0;
     s32 v1;
-    v0 = _ZN10ConfigFile6GetIntEPKc((s32)((u8 *)&data_020c46e4), (s32)((u8 *)&data_020afde4));
+    v0 = _ZN10ConfigFile6GetIntEPKc((s32)((u8 *)&gConfig), (s32)((u8 *)&data_020afde4));
     r4 = arg0;
     arg0 = v0;
     r1 = *(u16 *)(((u8 *)0x4000320));
@@ -1347,7 +1347,7 @@ extern "C" s32 func_0209a2ac(s32 arg0)
         if ((*(u16 *)(((u8 *)(0x4000320 - 0x2C0))) & 0x1000) != 0)
             return *(u16 *)(((u8 *)(0x4000320 - 0x2C0)));
     }
-    v1 = func_02029094(r4);
+    v1 = NNS_G3dDraw(r4);
     return v1;
 }
 

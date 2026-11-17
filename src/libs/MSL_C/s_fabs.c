@@ -1,19 +1,19 @@
 // (asm for now)
 
 void fabs(void);
-void func_02020610(void);
-void func_020207d4(void);
-void func_02020894(void);
+void floor(void);
+void frexp(void);
+void ldexp(void);
 void func_02020af4(void);
 void func_02020c6c(void);
 void func_02020c78(void);
-void func_02020c84(void);
-void func_02020cfc(void);
-void func_02020d24(void);
-void func_02020d34(void);
+void _ZNSt3tr110shared_ptrIcEC1IcNSt6detail14default_deleteIA0_cEEEEPT_T0_(void);
+void _ZNKSt3tr16detail18shared_ptr_deleterIcNSt6detail14default_deleteIA0_cEEE11get_deleterERKSt9type_info(void);
+void _ZNSt3tr16detail18shared_ptr_deleterIcNSt6detail14default_deleteIA0_cEEE7disposeEv(void);
+void _ZNSt3tr110shared_ptrIcED1Ev(void);
 void func_02020d60(void);
 void func_02020d6c(void);
-void func_02020d74(void);
+void _ZN10Metrowerks8move_ptrIcRNSt6detail14default_deleteIA0_cEEED1Ev(void);
 void func_02020d94(void);
 void func_02020da8(void);
 void func_02020dac(void);
@@ -26,10 +26,10 @@ void _deq(void);
 void copysign(void);
 void __kernel_sin(void);
 void _dsub(void);
-void func_0201eda4(void);
-void func_0201f484(void);
-void func_0201d4ec(void);
-void func_0201dc1c(void);
+void __ieee754_rem_pio2(void);
+void __kernel_cos(void);
+void __ieee754_log(void);
+void __ieee754_pow(void);
 void _Znwm(void);
 extern char data_020ab48c[];
 extern char data_020ab470[];
@@ -51,7 +51,7 @@ asm void fabs(void)
     bx lr
 }
 
-asm void func_02020610(void)
+asm void floor(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
@@ -168,7 +168,7 @@ asm void func_02020610(void)
     bx lr
 }
 
-asm void func_020207d4(void)
+asm void frexp(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, lr}
@@ -219,7 +219,7 @@ asm void func_020207d4(void)
     bx lr
 }
 
-asm void func_02020894(void)
+asm void ldexp(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, r5, r6, lr}
@@ -410,7 +410,7 @@ asm void func_02020af4(void)
     ldr r0, [sp, #0x20]
     ldr r1, [sp, #0x24]
     add r2, sp, #4
-    bl func_0201eda4
+    bl __ieee754_rem_pio2
     ands r0, r0, #3
     beq @L_02020b9c
     cmp r0, #1
@@ -435,7 +435,7 @@ asm void func_02020af4(void)
     ldr r1, [sp, #8]
     ldr r2, [sp, #0xc]
     ldr r3, [sp, #0x10]
-    bl func_0201f484
+    bl __kernel_cos
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, lr}
     add sp, sp, #0x10
@@ -462,7 +462,7 @@ asm void func_02020af4(void)
     ldr r1, [sp, #8]
     ldr r2, [sp, #0xc]
     ldr r3, [sp, #0x10]
-    bl func_0201f484
+    bl __kernel_cos
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -476,17 +476,17 @@ asm void func_02020af4(void)
 
 asm void func_02020c6c(void)
 {
-    ldr r12, =func_0201d4ec
+    ldr r12, =__ieee754_log
     bx r12
 }
 
 asm void func_02020c78(void)
 {
-    ldr r12, =func_0201dc1c
+    ldr r12, =__ieee754_pow
     bx r12
 }
 
-asm void func_02020c84(void)
+asm void _ZNSt3tr110shared_ptrIcEC1IcNSt6detail14default_deleteIA0_cEEEEPT_T0_(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, lr}
@@ -512,7 +512,7 @@ asm void func_02020c84(void)
     mov r1, #0
     add r0, sp, #0
     str r1, [sp]
-    bl func_02020d74
+    bl _ZN10Metrowerks8move_ptrIcRNSt6detail14default_deleteIA0_cEEED1Ev
     mov r0, r5
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, lr}
@@ -520,7 +520,7 @@ asm void func_02020c84(void)
     bx lr
 }
 
-asm void func_02020cfc(void)
+asm void _ZNKSt3tr16detail18shared_ptr_deleterIcNSt6detail14default_deleteIA0_cEEE11get_deleterERKSt9type_info(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -533,14 +533,14 @@ asm void func_02020cfc(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02020d24(void)
+asm void _ZNSt3tr16detail18shared_ptr_deleterIcNSt6detail14default_deleteIA0_cEEE7disposeEv(void)
 {
     ldr r0, [r0, #0xc]
     ldr r12, =func_020255e4
     bx r12
 }
 
-asm void func_02020d34(void)
+asm void _ZNSt3tr110shared_ptrIcED1Ev(void)
 {
     stmdb sp!, {r3, r4, r11, lr}
     sub sp, sp, #0x18
@@ -570,7 +570,7 @@ asm void func_02020d6c(void)
     ldmia sp!, {r3, r4, r11, pc}
 }
 
-asm void func_02020d74(void)
+asm void _ZN10Metrowerks8move_ptrIcRNSt6detail14default_deleteIA0_cEEED1Ev(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0

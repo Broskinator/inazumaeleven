@@ -1,7 +1,7 @@
 // (asm for now)
 
 void MTX_Identity33_(void);
-void func_02000cd8(void);
+void MTX_ScaleApply33(void);
 
 asm void MTX_Identity33_(void)
 {
@@ -16,7 +16,7 @@ asm void MTX_Identity33_(void)
     bx lr
 }
 
-asm void func_02000cd8(void)
+asm void MTX_ScaleApply33(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r6, [r0]

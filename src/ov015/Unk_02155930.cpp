@@ -74,11 +74,11 @@ extern "C" void func_ov015_0215871c(void);
 extern "C" s32 func_ov015_021587e0(u8 *arg0, u8 *arg1, s32 *arg2);
 extern "C" void func_ov015_02158868(void);
 
-extern "C" char data_020c46cc[];
-extern "C" char data_020c46d0[];
-extern "C" char data_020c46e4[];
+extern "C" char g2DAdventureLogic[];
+extern "C" char gCameraCtrl[];
+extern "C" char gConfig[];
 extern "C" char data_020c4c70[];
-extern "C" char data_020c5e40[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020c6364[];
 extern "C" char data_020cabd8[];
 extern "C" char data_020cabe0[];
@@ -120,11 +120,11 @@ extern "C" void _ZN17UnkClass_0205480013func_020569d8Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205d758Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205d7c4Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205dac4Ev(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060938Eiiii(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060b48Ei(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060b70Ev(void);
-extern "C" void _ZN17UnkClass_0206029413func_02060be8Ev(void);
-extern "C" void _ZN17UnkClass_0206029413func_0206146cEi(void);
+extern "C" void _ZN13ScriptManager11RequestLoadEiiii(void);
+extern "C" void _ZN13ScriptManager11GetFileCodeEi(void);
+extern "C" void _ZN13ScriptManager17RequestUnloadSlotEv(void);
+extern "C" void _ZN13ScriptManager13func_02060be8Ev(void);
+extern "C" void _ZN13ScriptManager13func_0206146cEi(void);
 extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206e1e4Eh(void);
 extern "C" void _ZN11MatchEngine13func_0206f9e0Ev(void);
@@ -374,7 +374,7 @@ extern "C" asm void func_ov015_02155d14(void)
     mov r2, r8
     bl func_ov015_02149920
     str r0, [r6, #4]
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     ldr r2, =data_ov015_02165b84
     ldr r3, =data_ov015_02165b90
     mov r1, #1
@@ -385,7 +385,7 @@ extern "C" asm void func_ov015_02155d14(void)
     strb r0, [r6, #0xb]
     b @L_02155ee0
 @L_02155d9c:
-    ldr r8, =data_020c5e40
+    ldr r8, =gAudioPlayer
     mov r0, r8
     bl _ZN12SoundManager13AreBanksReadyEv
     cmp r0, #0
@@ -570,8 +570,8 @@ extern "C" s32 func_ov015_0215614c(u8 *arg0, u8 *arg1, s32 *arg2)
     arg1[0xA] = k;
     ((s32 (*)(...))_ZN11TreasureBox13func_02052378El)(data_020d9978, ((s32 *)a)[0]);
     if (((s32 *)a)[1] != 0) {
-        ((s32 (*)(...))_ZN17UnkClass_0206029413func_02060b70Ev)(*(s32 *)(arg0 + 4), 2);
-        ((s32 (*)(...))_ZN17UnkClass_0206029413func_02060938Eiiii)(*(s32 *)(arg0 + 4), 2, k, ((s32 *)a)[1], z);
+        ((s32 (*)(...))_ZN13ScriptManager17RequestUnloadSlotEv)(*(s32 *)(arg0 + 4), 2);
+        ((s32 (*)(...))_ZN13ScriptManager11RequestLoadEiiii)(*(s32 *)(arg0 + 4), 2, k, ((s32 *)a)[1], z);
     }
     if (arg2 != 0)
         *arg2 = 1;
@@ -619,7 +619,7 @@ extern "C" asm void func_ov015_02156200(void)
     b @L_021562b4
 @L_02156294:
     ldr r0, [r7, #4]
-    bl _ZN17UnkClass_0206029413func_02060b70Ev
+    bl _ZN13ScriptManager17RequestUnloadSlotEv
     str r4, [sp]
     ldr r0, [r7, #4]
     ldr r1, [sp, #0x84]
@@ -629,7 +629,7 @@ extern "C" asm void func_ov015_02156200(void)
 @L_021562b4:
     ldr r0, [r7, #4]
     mov r1, r2
-    bl _ZN17UnkClass_0206029413func_02060b70Ev
+    bl _ZN13ScriptManager17RequestUnloadSlotEv
     mov r1, r4
 @L_021562c4:
     str r1, [sp]
@@ -638,7 +638,7 @@ extern "C" asm void func_ov015_02156200(void)
     ldr r3, [sp, #0x88]
     mov r2, #1
 @L_021562d8:
-    bl _ZN17UnkClass_0206029413func_02060938Eiiii
+    bl _ZN13ScriptManager11RequestLoadEiiii
 @L_021562dc:
     cmp r5, #0
     movne r0, #1
@@ -657,7 +657,7 @@ extern "C" s32 func_ov015_021562f4(u8 *arg0, u8 *arg1, s32 *arg2)
     ((s8 *)arg1)[0xB]++;
     arg1[0xA] = 1;
     {
-        s32 r = ((s32 (*)(s32, s32))_ZN17UnkClass_0206029413func_02060b48Ei)(*(s32 *)(arg0 + 4), *(s32 *)a);
+        s32 r = ((s32 (*)(s32, s32))_ZN13ScriptManager11GetFileCodeEi)(*(s32 *)(arg0 + 4), *(s32 *)a);
         if (arg2 != 0)
             *arg2 = r;
     }
@@ -674,7 +674,7 @@ extern "C" s32 func_ov015_02156368(u8 *arg0, u8 *arg1, s32 *arg2)
     k = 1;
     arg1[0xA] = k;
     ((s8 *)arg1)[0xB]++;
-    ((void (*)(s32, s32, s32))_ZN17UnkClass_0206029413func_02060be8Ev)(*(s32 *)((u8 *)arg0 + 4), k, ((s32 *)a)[0]);
+    ((void (*)(s32, s32, s32))_ZN13ScriptManager13func_02060be8Ev)(*(s32 *)((u8 *)arg0 + 4), k, ((s32 *)a)[0]);
     if (arg2 != 0)
         *arg2 = k;
     return 1;
@@ -787,7 +787,7 @@ extern "C" s32 func_ov015_021565fc(u8 *arg0, u8 *arg1, s32 *arg2)
     k = 1;
     arg1[0xA] = k;
     ((s8 *)arg1)[0xB]++;
-    ((void (*)(s32, s32))_ZN17UnkClass_0206029413func_0206146cEi)(*(s32 *)((u8 *)arg0 + 4), ((s32 *)a)[0] - 0x10);
+    ((void (*)(s32, s32))_ZN13ScriptManager13func_0206146cEi)(*(s32 *)((u8 *)arg0 + 4), ((s32 *)a)[0] - 0x10);
     if (arg2 != 0)
         *arg2 = k;
     return 1;
@@ -829,7 +829,7 @@ extern "C" asm void func_ov015_021566f0(void)
     bl func_ov015_02149920
     ldrsb r3, [r5, #0xb]
     mov r2, #1
-    ldr r1, =data_020c46d0
+    ldr r1, =gCameraCtrl
     add r3, r3, #1
     strb r3, [r5, #0xb]
     strb r2, [r5, #0xa]
@@ -877,7 +877,7 @@ extern "C" asm void func_ov015_021567a4(void)
     bl func_ov015_02149920
     ldrsb r3, [r5, #0xb]
     mov r2, #1
-    ldr r1, =data_020c46d0
+    ldr r1, =gCameraCtrl
     add r3, r3, #1
     strb r3, [r5, #0xb]
     strb r2, [r5, #0xa]
@@ -989,7 +989,7 @@ extern "C" s32 func_ov015_02156a5c(s32 arg0, u8 *arg1, s32 *arg2)
     k = 1;
     arg1[0xA] = k;
     ((s8 *)arg1)[0xB]++;
-    ((void (*)(void *, u16))_ZN12SoundManager9SetVolumeEi)(data_020c5e40, *(s32 *)a);
+    ((void (*)(void *, u16))_ZN12SoundManager9SetVolumeEi)(gAudioPlayer, *(s32 *)a);
     if (arg2 != 0)
         *arg2 = k;
     return 1;
@@ -1005,7 +1005,7 @@ extern "C" s32 func_ov015_02156adc(s32 arg0, u8 *arg1, s32 *arg2)
     k = 1;
     arg1[0xA] = k;
     ((s8 *)arg1)[0xB]++;
-    ((void (*)(void *, u16))_ZN12SoundManager9SetUnk518Ei)(data_020c5e40, *(s32 *)a);
+    ((void (*)(void *, u16))_ZN12SoundManager9SetUnk518Ei)(gAudioPlayer, *(s32 *)a);
     if (arg2 != 0)
         *arg2 = k;
     return 1;
@@ -1020,7 +1020,7 @@ extern "C" s32 func_ov015_02156b5c(u8 *arg0, u8 *arg1, s32 *arg2)
     ((s8 *)arg1)[0xB]++;
     arg1[0xA] = 1;
     {
-        s32 r = ((s32 (*)(void *, void *))_ZN10ConfigFile6GetIntEPKc)(data_020c46e4, data_ov015_02165bbc);
+        s32 r = ((s32 (*)(void *, void *))_ZN10ConfigFile6GetIntEPKc)(gConfig, data_ov015_02165bbc);
         if (arg2 != 0)
             *arg2 = r;
     }
@@ -2091,7 +2091,7 @@ extern "C" asm void func_ov015_02157cbc(void)
     mov r2, r4
     str r0, [sp, #0x80]
     mov r0, r0, lsl #0x10
-    ldr r4, =data_020c46cc
+    ldr r4, =g2DAdventureLogic
     mov r1, r0, lsr #0x10
     ldr r0, [r4]
     bl func_02085d88
@@ -2364,9 +2364,9 @@ extern "C" s32 func_ov015_02158304(u8 *arg0, u8 *arg1, s32 *arg2)
     s32 p;
     s32 r;
     if (((s32 *)a)[0] != 4)
-        p = ((s32 (*)(...))func_02085bb4)(*(s32 *)data_020c46cc, ((s32 *)a)[0]);
+        p = ((s32 (*)(...))func_02085bb4)(*(s32 *)g2DAdventureLogic, ((s32 *)a)[0]);
     else
-        p = ((s32 (*)(...))func_02085be8)(*(s32 *)data_020c46cc);
+        p = ((s32 (*)(...))func_02085be8)(*(s32 *)g2DAdventureLogic);
     r = 0;
     if (p != 0)
         r = ((s32 (*)(...))func_02084c94)(p);

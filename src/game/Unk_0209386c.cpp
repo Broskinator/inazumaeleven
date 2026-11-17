@@ -1,26 +1,26 @@
 #include "game/Unk_0209386c.hpp"
 #include "nitro/mi.h"
 
-extern "C" void func_020985fc(void);     // (for the asm functions)
-extern "C" void func_0209860c(void);     // (for the asm functions)
-extern "C" void func_02098710(void);     // (for the asm functions)
-extern "C" void func_02098930(void);     // (for the asm functions)
-extern "C" void func_02098b48(void);     // (for the asm functions)
+extern "C" void C3DSprFile_GetSpriteSheet(void);     // (for the asm functions)
+extern "C" void C3DSprFile_GetTextureData(void);     // (for the asm functions)
+extern "C" void C3DSprFile_GetPaletteData(void);     // (for the asm functions)
+extern "C" void C3DSprFile_GetResKeyAddresses_2(void);     // (for the asm functions)
+extern "C" void C3DVramMan_GetPlttSize(void);     // (for the asm functions)
 extern "C" s32 func_020960ac(...);     // (for the asm functions)
-extern "C" void func_0209386c(void);
-extern "C" void func_02093928(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_020939c8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
+extern "C" void C3DPlaneCtrl_SetFlag(void);
+extern "C" void C3DPlaneCtrl_ClearFlag(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void C3DPlaneCtrl_SetGraphicIdx(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4);
 extern "C" void func_02093a48(void);
 extern "C" void func_02093afc(void);
-extern "C" s32 func_02093bb0(u8 *arg0, s32 arg1, u16 arg2);
-extern "C" s32 func_02093bf4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_02093ca8(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3);
-extern "C" s32 func_02093d1c(...);
-extern "C" u8 *func_02093d80(u8 *arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_02093df0(u8 *arg0, s32 arg1);
-extern "C" void func_02093e2c(void);
+extern "C" s32 C3DPlaneCtrl_SetColorMask(u8 *arg0, s32 arg1, u16 arg2);
+extern "C" s32 C3DPlaneCtrl_SetPos_2(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 C3DPlaneCtrl_SetFlag_2(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3);
+extern "C" s32 C3DPlaneCtrl_ClearFlag_2(...);
+extern "C" u8 *C3DPlaneCtrl_GetPartExt(u8 *arg0, s32 arg1, s32 arg2);
+extern "C" s32 C3DPlaneCtrl_GetSetExt(u8 *arg0, s32 arg1);
+extern "C" void C3DPlaneCtrl_GetDimensions(void);
 extern "C" void func_02093edc(void);
-extern "C" void func_02094154(void);
+extern "C" void C3DPlaneCtrl_ConvertTilesToTex(void);
 extern "C" BOOL func_0209443c(u8 *obj);
 extern "C" s32 func_02094450(s32 arg0, u8 *arg1, s32 arg2);
 extern "C" void func_02094484(void);
@@ -34,10 +34,10 @@ extern "C" void func_020946d8(void);
 extern "C" void func_0209489c(void);
 
 extern "C" char data_020a2cf8[];
-extern "C" char data_020bf464[];
-extern "C" char data_020c4668[];
-extern "C" char data_020c46d0[];
-extern "C" char data_020c47b4[];
+extern "C" char NNS_G3dGlb_cameraMtx[];
+extern "C" char g3DVramMan[];
+extern "C" char gCameraCtrl[];
+extern "C" char gAllocator[];
 extern "C" void DC_FlushRange(void);
 extern "C" void FX_SinCosTable_(void);
 extern "C" void MTX_RotX43_(void);
@@ -45,29 +45,29 @@ extern "C" void MTX_RotY43_(void);
 extern "C" void MTX_RotZ43_(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
-extern "C" void func_02000e88(void);
-extern "C" void func_02017ce8(void);
+extern "C" void MTX_Inverse43(void);
+extern "C" void labs(void);
 extern "C" s32 _fflt(...);
 extern "C" void _s32_div_f(void);
 extern "C" void _u32_div_f(void);
 extern "C" s32 _ffix(...);
 extern "C" s32 _fadd(...);
 extern "C" s32 _fsub(...);
-extern "C" void func_0202b608(void);
+extern "C" void NNS_G3dGeBufferOP_N(void);
 extern "C" void func_020917c0(void);
 extern "C" void func_02091fc0(void);
-extern "C" void func_020990e8(void);
+extern "C" void C3DVramMan_GetResKeyAddr(void);
 extern "C" void func_02099d90(void);
-extern "C" void func_ov015_02130fd4(void);
+extern "C" void WorldToMatchCamera(void);
 extern "C" void func_ov015_0213d4d8(void);
 
-extern "C" asm void func_0209386c(void)
+extern "C" asm void C3DPlaneCtrl_SetFlag(void)
 {
     stmdb sp!, {r3, lr}
     ldrb r12, [sp, #8]
     cmp r12, #0
     bne @L_02093884
-    bl func_02093928
+    bl C3DPlaneCtrl_ClearFlag
     ldmia sp!, {r3, pc}
 @L_02093884:
     ldr lr, [r0, #0x1c]
@@ -118,7 +118,7 @@ extern "C" asm void func_0209386c(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_02093928(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" void C3DPlaneCtrl_ClearFlag(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     u8 *t = *(u8 **)(arg0 + 0x1C);
     s32 c;
@@ -142,7 +142,7 @@ extern "C" void func_02093928(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     ((s32 (*)(...))func_020917c0)(arg0, r, 2);
 }
 
-extern "C" void func_020939c8(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
+extern "C" void C3DPlaneCtrl_SetGraphicIdx(u8 *arg0, s32 arg1, s32 arg2, s32 arg3, u8 arg4)
 {
     u8 *t = *(u8 **)(arg0 + 0x1C);
     s32 c;
@@ -271,7 +271,7 @@ extern "C" asm void func_02093afc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_02093bb0(u8 *arg0, s32 arg1, u16 arg2)
+extern "C" s32 C3DPlaneCtrl_SetColorMask(u8 *arg0, s32 arg1, u16 arg2)
 {
     s32 r3;
     r3 = *(s32 *)(arg0 + 0x1C);
@@ -290,7 +290,7 @@ extern "C" s32 func_02093bb0(u8 *arg0, s32 arg1, u16 arg2)
     return (s32)arg0;
 }
 
-extern "C" s32 func_02093bf4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 C3DPlaneCtrl_SetPos_2(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     u8 *r4;
     s32 r12;
@@ -334,12 +334,12 @@ extern "C" s32 func_02093bf4(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     return v9;
 }
 
-extern "C" s32 func_02093ca8(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3)
+extern "C" s32 C3DPlaneCtrl_SetFlag_2(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3)
 {
     s32 v0;
     s32 t0;
     if ((s32)arg3 == 0) {
-        v0 = func_02093d1c();
+        v0 = C3DPlaneCtrl_ClearFlag_2();
         return v0;
     } else {
         arg3 = (u8 *)*(s32 *)(arg0 + 0x1C);
@@ -361,7 +361,7 @@ extern "C" s32 func_02093ca8(u8 *arg0, s32 arg1, s32 arg2, u8 *arg3)
     }
 }
 
-extern "C" asm s32 func_02093d1c(...)
+extern "C" asm s32 C3DPlaneCtrl_ClearFlag_2(...)
 {
     ldr r3, [r0, #0x1c]
     cmp r3, #0
@@ -402,7 +402,7 @@ static inline u8 *get02093d80(u8 *p, s32 i)
         return 0;
     return b + ((i - 1) << 5);
 }
-extern "C" u8 *func_02093d80(u8 *arg0, s32 arg1, s32 arg2)
+extern "C" u8 *C3DPlaneCtrl_GetPartExt(u8 *arg0, s32 arg1, s32 arg2)
 {
     u8 *e = get02093d80(arg0, arg1);
     u8 *b;
@@ -411,7 +411,7 @@ extern "C" u8 *func_02093d80(u8 *arg0, s32 arg1, s32 arg2)
     return b + (arg2 - 1) * 0x60;
 }
 
-extern "C" s32 func_02093df0(u8 *arg0, s32 arg1)
+extern "C" s32 C3DPlaneCtrl_GetSetExt(u8 *arg0, s32 arg1)
 {
     s32 r2;
     r2 = *(s32 *)(arg0 + 0x1C);
@@ -426,7 +426,7 @@ extern "C" s32 func_02093df0(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_02093e2c(void)
+extern "C" asm void C3DPlaneCtrl_GetDimensions(void)
 {
     stmdb sp!, {r4, lr}
     ldr r4, [r0, #0x1c]
@@ -485,7 +485,7 @@ extern "C" asm void func_02093edc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x28
-    bl func_020985fc
+    bl C3DSprFile_GetSpriteSheet
     str r0, [sp, #0xc]
     cmp r0, #0
     ldrne r0, [r0, #0x20]
@@ -531,7 +531,7 @@ extern "C" asm void func_02093edc(void)
     ldr r7, [r1, #0x20]
     ldr r3, [r1, #8]
     ldr r1, [sp, #4]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     add r1, r1, r3
     mov r2, r8
     add r1, r7, r1
@@ -638,7 +638,7 @@ extern "C" asm void func_02093edc(void)
     bl DC_FlushRange
     ldr r0, [sp, #0xc]
     ldr r1, [r0, #0x20]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     ldr r1, [sp]
     ldr r0, [sp, #0xc]
@@ -647,13 +647,13 @@ extern "C" asm void func_02093edc(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_02094154(void)
+extern "C" asm void C3DPlaneCtrl_ConvertTilesToTex(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x3c
     mov r11, r2
     str r3, [sp]
-    bl func_020985fc
+    bl C3DSprFile_GetSpriteSheet
     str r0, [sp, #0x10]
     cmp r0, #0
     ldrne r0, [r0, #0x20]
@@ -730,7 +730,7 @@ extern "C" asm void func_02094154(void)
     ldr r0, [sp, #0x30]
     add r2, r4, #0x30
     ldr r1, [r0, #8]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     add r1, r2, r1
     mov r7, #0
     mov r2, r7
@@ -834,7 +834,7 @@ extern "C" asm void func_02094154(void)
     bl DC_FlushRange
     ldr r0, [sp, #0x10]
     ldr r1, [r0, #0x20]
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     ldr r1, [sp, #4]
     ldr r0, [sp, #0x10]
@@ -929,9 +929,9 @@ extern "C" void func_020945ac(void)
     s32 a;
     s32 b;
     a = 0;
-    ((void (*)(s32, s32 *, s32))func_0202b608)(0x30, &a, 1);
+    ((void (*)(s32, s32 *, s32))NNS_G3dGeBufferOP_N)(0x30, &a, 1);
     b = 0;
-    ((void (*)(s32, s32 *, s32))func_0202b608)(0x31, &b, 1);
+    ((void (*)(s32, s32 *, s32))NNS_G3dGeBufferOP_N)(0x31, &b, 1);
 }
 
 extern "C" asm void func_020945ec(void)
@@ -948,7 +948,7 @@ extern "C" asm void func_020945ec(void)
     str r6, [sp, #0xc]
     mov r0, #0x20
     mov r2, #1
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [r7, #0x44]
     mov r1, r6
     and r3, r0, #0xff
@@ -979,7 +979,7 @@ extern "C" asm void func_020945ec(void)
     str r3, [sp, #4]
     mov r6, #0
 @L_02094688:
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldrb r0, [r4, #0xc]
     ldrb r3, [r5, #7]
     ldrb r2, [r4, #0xd]
@@ -997,7 +997,7 @@ extern "C" asm void func_020945ec(void)
     mov r0, #0x29
     mov r2, #1
     str r3, [sp]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -1017,11 +1017,11 @@ extern "C" asm void func_020946d8(void)
     str r4, [sp, #0x10]
     ldr r7, [sp, #0x3c]
     ldr r6, [sp, #0x40]
-    bl func_0209860c
+    bl C3DSprFile_GetTextureData
     ldr r1, [sp, #0x38]
     add r2, sp, #0xc
     add r0, r9, #4
-    bl func_02098710
+    bl C3DSprFile_GetPaletteData
     ldr r0, [sp, #0xc]
     cmp r0, #0x20
     blt @L_02094748
@@ -1029,7 +1029,7 @@ extern "C" asm void func_020946d8(void)
     add r3, sp, #0x10
     mov r2, r4
     add r0, r9, #4
-    bl func_02098930
+    bl C3DSprFile_GetResKeyAddresses_2
     cmp r0, #0
     bne @L_02094754
 @L_02094748:
@@ -1045,11 +1045,11 @@ extern "C" asm void func_020946d8(void)
     ldrh r0, [r5, #0x30]
     tst r0, #0x10
     beq @L_020947a0
-    ldr r0, =data_020c4668
+    ldr r0, =g3DVramMan
     add r2, sp, #0x14
     ldr r0, [r0]
     add r1, r5, #0x44
-    bl func_020990e8
+    bl C3DVramMan_GetResKeyAddr
     ldr r1, [sp, #0x14]
     ldr r0, [r7, #0xc]
     add r0, r1, r0
@@ -1067,7 +1067,7 @@ extern "C" asm void func_020946d8(void)
     ldrb r0, [r6, #2]
     movne r5, #0
     moveq r5, #1
-    bl func_02098b48
+    bl C3DVramMan_GetPlttSize
     mov r4, r0
     ldr r0, [sp, #0xc]
     mov r1, r4
@@ -1089,7 +1089,7 @@ extern "C" asm void func_020946d8(void)
     str r0, [sp, #8]
     add r1, sp, #8
     mov r0, #0x2b
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldrh r0, [r8, #0xa]
     tst r0, #0x200
     ldrb r0, [r6, #2]
@@ -1118,7 +1118,7 @@ extern "C" asm void func_020946d8(void)
     mov r0, #0x2a
     str r3, [sp]
 @L_02094888:
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, #1
     add sp, sp, #0x18
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -1199,7 +1199,7 @@ extern "C" asm void func_0209489c(void)
     str r9, [r0, #0x38]
     str r1, [r0, #0x30]
     str r9, [r0, #0x3c]
-    ldrne r0, =data_020c46d0
+    ldrne r0, =gCameraCtrl
     mov r2, r9
     ldrne r0, [r0]
     cmpne r0, #0
@@ -1208,7 +1208,7 @@ extern "C" asm void func_0209489c(void)
     ldr r0, [r0, #4]
     rsb r0, r0, #0x8000
     str r0, [sp, #4]
-    bl func_02017ce8
+    bl labs
     rsb r12, r0, #0x8000
     mov lr, #0x60
     umull r3, r2, r12, lr
@@ -1305,7 +1305,7 @@ extern "C" asm void func_0209489c(void)
     add r3, sp, #0x18
     mov r0, r0, asr #0xc
     mov r1, r1, asr #0xc
-    bl func_ov015_02130fd4
+    bl WorldToMatchCamera
     ldr r0, [sp, #0x1c]
     cmp r0, #0
     mov r0, r0, lsl #0xc
@@ -1350,7 +1350,7 @@ extern "C" asm void func_0209489c(void)
     strne r0, [sp, #0x120]
     mov r0, #0x1c
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [sp, #0x15c]
     cmp r0, #0
     ldreq r0, [sp, #0x10]
@@ -1414,7 +1414,7 @@ extern "C" asm void func_0209489c(void)
     mov r0, #0x1c
     add r1, sp, #0x44
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [sp, #0x15c]
     cmp r0, #0
     beq @L_02094d60
@@ -1442,20 +1442,20 @@ extern "C" asm void func_0209489c(void)
     add r1, sp, #0xb0
     mov r0, #0x19
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r1, sp, #0x50
     mov r0, #0x19
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, #0x19
     add r1, sp, #0x80
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     b @L_02094dfc
 @L_02094d60:
     cmp r11, #0
     bne @L_02094db8
-    ldr r12, =data_020bf464
+    ldr r12, =NNS_G3dGlb_cameraMtx
     add lr, sp, #0xe0
     ldmia r12!, {r0, r1, r2, r3}
     str lr, [sp, #0x14]
@@ -1470,11 +1470,11 @@ extern "C" asm void func_0209489c(void)
     str r0, [sp, #0x104]
     ldr r0, [sp, #0x14]
     mov r1, r0
-    bl func_02000e88
+    bl MTX_Inverse43
     ldr r1, [sp, #0x14]
     mov r0, #0x19
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_02094db8:
     ldr r0, [sp, #0x10]
     cmp r0, #0
@@ -1492,7 +1492,7 @@ extern "C" asm void func_0209489c(void)
     add r1, sp, #0xe0
     mov r0, #0x19
     mov r2, #0xc
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_02094dfc:
     mov r3, #0
     add r1, sp, #0x38
@@ -1501,12 +1501,12 @@ extern "C" asm void func_0209489c(void)
     str r9, [sp, #0x38]
     str r10, [sp, #0x3c]
     str r3, [sp, #0x40]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
 @L_02094e1c:
     add r1, sp, #0x110
     mov r0, #0x1b
     mov r2, #3
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [sp, #0x154]
     ldr r0, [r0, #4]
     tst r0, #0x10000000
@@ -1712,7 +1712,7 @@ extern "C" asm void func_0209489c(void)
     str r3, [sp, #0x2c]
     str r4, [sp, #0x30]
     str r9, [sp, #0x34]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r3, [sp, #0xc]
     mov r4, #0x1000
     str r3, [sp, #0x20]
@@ -1722,7 +1722,7 @@ extern "C" asm void func_0209489c(void)
     mov r0, #0x1b
     str r3, [sp, #0x24]
     str r4, [sp, #0x28]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     mov r0, #1
     add sp, sp, #0x128
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}

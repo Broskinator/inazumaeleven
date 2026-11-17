@@ -2,14 +2,14 @@
 
 void FindContainHeap(void);
 void FindListContainHeap(void);
-void func_02032964(void);
-void func_020329e0(void);
+void NNSi_FndInitHeapHead(void);
+void NNSi_FndFinalizeHeap(void);
 
 void NNS_FndGetNextListObject(void);
-extern char data_020c454c[];
+extern char sRootList[];
 void NNS_FndInitList(void);
 extern char data_020c4548[];
-void func_020326f8(void);
+void NNS_FndAppendListObject(void);
 void NNS_FndRemoveListObject(void);
 
 asm void FindContainHeap(void)
@@ -48,7 +48,7 @@ asm void FindContainHeap(void)
 asm void FindListContainHeap(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r4, =data_020c454c
+    ldr r4, =sRootList
     mov r1, r0
     mov r0, r4
     bl FindContainHeap
@@ -58,7 +58,7 @@ asm void FindListContainHeap(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02032964(void)
+asm void NNSi_FndInitHeapHead(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldrh r5, [sp, #0x10]
@@ -79,7 +79,7 @@ asm void func_02032964(void)
     ldr r0, [r5]
     cmp r0, #0
     bne @L_020329c4
-    ldr r0, =data_020c454c
+    ldr r0, =sRootList
     mov r1, r6
     bl NNS_FndInitList
     mov r0, #1
@@ -88,11 +88,11 @@ asm void func_02032964(void)
     mov r0, r4
     bl FindListContainHeap
     mov r1, r4
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020329e0(void)
+asm void NNSi_FndFinalizeHeap(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0

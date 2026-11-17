@@ -2,8 +2,8 @@
 
 void WM_StartMPEx(void);
 
-void func_0200919c(void);
-void func_02013ce4(void);
+void MIi_CpuClear32(void);
+void WMi_StartMP(void);
 
 asm void WM_StartMPEx(void)
 {
@@ -17,7 +17,7 @@ asm void WM_StartMPEx(void)
     mov r2, #0x10
     mov r5, r3
     ldr r4, [sp, #0x34]
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r1, [sp, #0x48]
     ldrh r12, [sp, #0x38]
     ldr r0, [sp, #0x44]
@@ -44,7 +44,7 @@ asm void WM_StartMPEx(void)
     mov r2, r6
     mov r3, r5
     str r4, [sp, #4]
-    bl func_02013ce4
+    bl WMi_StartMP
     add sp, sp, #0x18
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }

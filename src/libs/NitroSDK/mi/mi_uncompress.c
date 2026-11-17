@@ -2,11 +2,11 @@
 
 void MI_UncompressLZ8(void);
 void MI_UncompressHuffman(void);
-void func_02009d98(void);
+void MIi_CardDmaCopy32(void);
 
-void func_02008da0(void);
+void MIi_CheckAnotherAutoDMA(void);
 void MIi_CheckDma0SourceAddress(void);
-void func_01ff845c(void);
+void MIi_DmaSetParameters(void);
 
 asm void MI_UncompressLZ8(void)
 {
@@ -138,7 +138,7 @@ asm void MI_UncompressHuffman(void)
     bx lr
 }
 
-asm void func_02009d98(void)
+asm void MIi_CardDmaCopy32(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -146,7 +146,7 @@ asm void func_02009d98(void)
     mov r7, r3
     mvn r1, #0
     mov r4, r2
-    bl func_02008da0
+    bl MIi_CheckAnotherAutoDMA
     mov r0, r6
     mov r1, r5
     mov r2, r7
@@ -169,6 +169,6 @@ asm void func_02009d98(void)
     mov r1, r5
     mov r2, r4
     str r12, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }

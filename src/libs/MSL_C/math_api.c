@@ -1,10 +1,10 @@
 // (asm for now)
 
 void __msl_generic_count_bits64(void);
-void func_020181bc(void);
+void __signbitd(void);
 void __fpclassifyd(void);
-void func_02018248(void);
-void func_02018280(void);
+void __mbtowc_noconv(void);
+void __wctomb_noconv(void);
 
 asm void __msl_generic_count_bits64(void)
 {
@@ -44,7 +44,7 @@ asm void __msl_generic_count_bits64(void)
     bx lr
 }
 
-asm void func_020181bc(void)
+asm void __signbitd(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     ldr r0, [sp, #4]
@@ -87,7 +87,7 @@ asm void __fpclassifyd(void)
     bx lr
 }
 
-asm void func_02018248(void)
+asm void __mbtowc_noconv(void)
 {
     cmp r1, #0
     moveq r0, #0
@@ -105,7 +105,7 @@ asm void func_02018248(void)
     bx lr
 }
 
-asm void func_02018280(void)
+asm void __wctomb_noconv(void)
 {
     cmp r0, #0
     moveq r0, #0

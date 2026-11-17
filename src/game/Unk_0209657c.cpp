@@ -3,12 +3,12 @@
 extern "C" void func_02097c24(void *obj);
 extern "C" void *data_020afd7c[];     // (a vtable)
 
-extern "C" s32 func_02097ac0(...);     // (for the asm functions)
-extern "C" void func_02098ae4(void);     // (for the asm functions)
-extern "C" void func_02098b48(void);     // (for the asm functions)
+extern "C" s32 C3DSprFile_TryFinalize_2(...);     // (for the asm functions)
+extern "C" void C3DVramMan_GetTexSize(void);     // (for the asm functions)
+extern "C" void C3DVramMan_GetPlttSize(void);     // (for the asm functions)
 extern "C" void func_02098cdc(void);     // (for the asm functions)
 extern "C" void func_02098d30(void);     // (for the asm functions)
-extern "C" void func_02098d88(void);     // (for the asm functions)
+extern "C" void C3DVramMan_FreeRes(void);     // (for the asm functions)
 extern "C" s32 func_02098dd8(...);     // (for the asm functions)
 extern "C" void func_0209657c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_020965e0(s32 arg0, s32 arg1, s32 arg2);
@@ -42,7 +42,7 @@ extern "C" s32 func_02096d8c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" void func_02096db8(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02096e0c(s32 arg0, s32 arg1, u8 arg2);
 extern "C" void func_02096e60(s32 arg0, s32 arg1, s32 arg2);
-extern "C" BOOL func_02096eb4(u8 *obj);
+extern "C" BOOL C3DSprSheet_IsIdle(u8 *obj);
 extern "C" void func_02096ed0(u8 *obj, int delta);
 extern "C" s32 func_02096ef4(...);
 extern "C" void func_02096f70(void *obj);
@@ -62,11 +62,11 @@ extern "C" s32 func_020977d0(u8 *arg0);
 extern "C" void **func_02097810(void **obj);
 extern "C" void **func_02097830(void **obj);
 extern "C" s32 func_02097858(s32 arg0);
-extern "C" void func_02097880(void *obj);
-extern "C" void func_02097898(void);
+extern "C" void C3DSprFile_Clear(void *obj);
+extern "C" void C3DSprFile_LoadFromPath(void);
 
-extern "C" char data_020c4668[];
-extern "C" char data_020c47b4[];
+extern "C" char g3DVramMan[];
+extern "C" char gAllocator[];
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih(void);
@@ -83,8 +83,8 @@ extern "C" u8 *func_020960ac(void *self, int a);
 extern "C" u8 *func_020960ec(void *self, int a, int b);
 extern "C" void func_02096110(void);
 extern "C" s32 func_02096160(...);
-extern "C" void func_02099cc8(void);
-extern "C" void func_02099cfc(void);
+extern "C" void PAC_GetSize(void);
+extern "C" void PAC_GetPtr(void);
 extern "C" s32 strcmp(...);
 extern "C" void strncpy(void);
 extern "C" void strrchr(void);
@@ -221,11 +221,11 @@ extern "C" asm void func_02096848(void)
     cmpne r4, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
     mov r0, r5
-    bl func_02096eb4
+    bl C3DSprSheet_IsIdle
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
     mov r0, r4
-    bl func_02096eb4
+    bl C3DSprSheet_IsIdle
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
     mov r0, r10
@@ -251,7 +251,7 @@ extern "C" s32 func_020968e8(u8 *arg0, s32 arg1, s32 arg2, u16 arg3)
     v0 = func_02096160((s32)arg0, arg3, arg2, arg3);
     if (v0 == 0)
         return v0;
-    v1 = func_02096eb4((u8 *)v0);
+    v1 = C3DSprSheet_IsIdle((u8 *)v0);
     if (v1 != 0)
         return v1;
     v2 = func_020960ec((void *)arg0, arg1, arg2);
@@ -620,7 +620,7 @@ extern "C" void func_02096e60(s32 arg0, s32 arg1, s32 arg2)
     }
 }
 
-extern "C" BOOL func_02096eb4(u8 *obj)
+extern "C" BOOL C3DSprSheet_IsIdle(u8 *obj)
 {
     return *(u16 *)(obj + 0x30) == 0 && obj[0x33] == 0;
 }
@@ -647,7 +647,7 @@ extern "C" asm s32 func_02096ef4(...)
     bic r9, r0, #3
     mov r8, #0
     mov r7, #1
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r1, r9
     mov r2, r8
     mov r3, r7
@@ -674,7 +674,7 @@ extern "C" asm void func_02096f70(void *obj)
     ldr r1, [r4]
     cmp r1, #0
     beq @L_02096f8c
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
 @L_02096f8c:
     mov r0, #0
@@ -697,7 +697,7 @@ extern "C" s32 func_02096f9c(u8 *arg0, u8 *arg1)
         r5 = 0;
         if (*(s16 *)(arg0 + 0x4) > 0) {
             do {
-                v0 = func_02096eb4((u8 *)r4);
+                v0 = C3DSprSheet_IsIdle((u8 *)r4);
                 if (v0 != 0) {
                     if ((s32)arg1 != 0) {
                         *(s32 *)(arg1) = r4;
@@ -738,7 +738,7 @@ extern "C" s32 func_0209700c(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
         r5 = 0;
         if (*(s16 *)(r10 + 0x4) > 0) {
             do {
-                v0 = func_02096eb4(r4);
+                v0 = C3DSprSheet_IsIdle(r4);
                 if ((((v0 == 0 && (v1 = strcmp((s32)r4, r9), v1 == 0)) && r7 == *(s32 *)(r4 + 0x24)) && r8 == *(s32 *)(r4 + 0x28))) {
                     if ((s32)r6 != 0) {
                         *(s32 *)(r6) = (s32)r4;
@@ -822,7 +822,7 @@ extern "C" asm void func_020971c8(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r1
     mov r5, #0
-    bl func_02097ac0
+    bl C3DSprFile_TryFinalize_2
     cmp r0, #0
     movne r0, r5
     ldmneia sp!, {r4, r5, r6, pc}
@@ -851,11 +851,11 @@ extern "C" asm void func_020971c8(void)
     ldr r0, [r4, #0x20]
     bne @L_02097280
     mov r1, r5
-    bl func_02099cc8
+    bl PAC_GetSize
     mov r6, r0
     ldr r0, [r4, #0x20]
     mov r1, #2
-    bl func_02099cfc
+    bl PAC_GetPtr
     cmp r0, #0
     moveq r0, r5
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -868,7 +868,7 @@ extern "C" asm void func_020971c8(void)
     b @L_020972ac
 @L_02097280:
     mov r1, #1
-    bl func_02099cc8
+    bl PAC_GetSize
 @L_02097288:
     mov r6, r0
     b @L_020972ac
@@ -876,7 +876,7 @@ extern "C" asm void func_020971c8(void)
     ldrb r0, [r4, #0x40]
     ldrb r1, [r4, #0x41]
     ldrb r2, [r4, #0x42]
-    bl func_02098ae4
+    bl C3DVramMan_GetTexSize
     b @L_02097288
 @L_020972a4:
     mov r0, #0
@@ -885,7 +885,7 @@ extern "C" asm void func_020971c8(void)
     cmp r6, #0
     movle r0, #0
     ldmleia sp!, {r4, r5, r6, pc}
-    ldr r5, =data_020c4668
+    ldr r5, =g3DVramMan
     mov r2, r6
     ldr r0, [r5]
     add r1, r4, #0x44
@@ -898,7 +898,7 @@ extern "C" asm void func_020971c8(void)
     ldmneia sp!, {r4, r5, r6, pc}
     ldr r0, [r5]
     add r1, r4, #0x44
-    bl func_02098d88
+    bl C3DVramMan_FreeRes
     mov r0, #0
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -907,7 +907,7 @@ extern "C" asm void func_020972fc(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r1
-    bl func_02097ac0
+    bl C3DSprFile_TryFinalize_2
     cmp r0, #0
     movne r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
@@ -939,11 +939,11 @@ extern "C" asm void func_020972fc(void)
     ldr r0, [r4, #0x20]
     bne @L_020973b8
     mov r1, #1
-    bl func_02099cc8
+    bl PAC_GetSize
     mov r6, r0
     ldr r0, [r4, #0x20]
     mov r1, #2
-    bl func_02099cfc
+    bl PAC_GetPtr
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -956,7 +956,7 @@ extern "C" asm void func_020972fc(void)
     b @L_020973e4
 @L_020973b8:
     mov r1, #2
-    bl func_02099cc8
+    bl PAC_GetSize
 @L_020973c0:
     mov r6, r0
     b @L_020973e4
@@ -965,7 +965,7 @@ extern "C" asm void func_020972fc(void)
     ldmia sp!, {r4, r5, r6, pc}
 @L_020973d0:
     ldrb r0, [r4, #0x42]
-    bl func_02098b48
+    bl C3DVramMan_GetPlttSize
     b @L_020973c0
 @L_020973dc:
     mov r0, #0
@@ -974,7 +974,7 @@ extern "C" asm void func_020972fc(void)
     cmp r6, #0
     movle r0, #0
     ldmleia sp!, {r4, r5, r6, pc}
-    ldr r5, =data_020c4668
+    ldr r5, =g3DVramMan
     mov r2, r6
     ldr r0, [r5]
     add r1, r4, #0x50
@@ -987,7 +987,7 @@ extern "C" asm void func_020972fc(void)
     ldmneia sp!, {r4, r5, r6, pc}
     ldr r0, [r5]
     add r1, r4, #0x50
-    bl func_02098d88
+    bl C3DVramMan_FreeRes
     mov r0, #0
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -1001,7 +1001,7 @@ extern "C" asm s32 func_02097434(...)
     mov r5, r2
     mov r4, r3
     mov r9, #0
-    bl func_02097ac0
+    bl C3DSprFile_TryFinalize_2
     cmp r0, #0
     bne @L_02097468
     ldrh r1, [r6, #0x30]
@@ -1033,11 +1033,11 @@ extern "C" asm s32 func_02097434(...)
     mov r10, #1
     ldr r0, [r6, #0x20]
     mov r1, r10
-    bl func_02099cfc
+    bl PAC_GetPtr
     mov r8, r0
     ldr r0, [r6, #0x20]
     mov r1, r10
-    bl func_02099cc8
+    bl PAC_GetSize
     str r5, [sp]
     mov r3, r0
     mov r0, r7
@@ -1054,11 +1054,11 @@ extern "C" asm s32 func_02097434(...)
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
     ldr r0, [r6, #0x20]
     mov r1, r9
-    bl func_02099cfc
+    bl PAC_GetPtr
     mov r8, r0
     ldr r0, [r6, #0x20]
     mov r1, r9
-    bl func_02099cc8
+    bl PAC_GetSize
     str r5, [sp]
     mov r3, r0
     mov r0, r7
@@ -1083,11 +1083,11 @@ extern "C" s32 func_02097564(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, u8 arg4, s3
     s32 v0;
     s32 v1;
     s32 t0;
-    v0 = func_02097ac0(arg0, (s32)arg1, arg2, arg3);
+    v0 = C3DSprFile_TryFinalize_2(arg0, (s32)arg1, arg2, arg3);
     if ((v0 != 0 || (*(u16 *)(arg1 + 0x30) & 0x10) == 0)) {
         return 0;
     } else {
-        t0 = *(s32 *)(((u8 *)&data_020c4668));
+        t0 = *(s32 *)(((u8 *)&g3DVramMan));
         v1 = func_02098dd8(t0, (s32)(arg1 + 0x44), arg6, arg2, arg3, arg4, arg5, (s32)(arg1 + 0x5C));
         return (v1 & 0xFF);
     }
@@ -1102,7 +1102,7 @@ extern "C" asm s32 func_020975e0(...)
     mov r6, r2
     mov r5, r3
     mov r4, #0
-    bl func_02097ac0
+    bl C3DSprFile_TryFinalize_2
     cmp r0, #0
     bne @L_02097614
     ldrh r1, [r7, #0x30]
@@ -1134,11 +1134,11 @@ extern "C" asm s32 func_020975e0(...)
     mov r10, #2
     ldr r0, [r7, #0x20]
     mov r1, r10
-    bl func_02099cfc
+    bl PAC_GetPtr
     mov r9, r0
     ldr r0, [r7, #0x20]
     mov r1, r10
-    bl func_02099cc8
+    bl PAC_GetSize
     str r6, [sp]
     mov r3, r0
     str r5, [sp, #4]
@@ -1157,11 +1157,11 @@ extern "C" asm s32 func_020975e0(...)
     mov r10, #1
     ldr r0, [r7, #0x20]
     mov r1, r10
-    bl func_02099cfc
+    bl PAC_GetPtr
     mov r9, r0
     ldr r0, [r7, #0x20]
     mov r1, r10
-    bl func_02099cc8
+    bl PAC_GetSize
     str r6, [sp]
     mov r3, r0
     str r5, [sp, #4]
@@ -1202,11 +1202,11 @@ extern "C" s32 func_02097754(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, u8 arg4, s3
     s32 v0;
     s32 v1;
     s32 t0;
-    v0 = func_02097ac0(arg0, (s32)arg1, arg2, arg3);
+    v0 = C3DSprFile_TryFinalize_2(arg0, (s32)arg1, arg2, arg3);
     if ((v0 != 0 || (*(u16 *)(arg1 + 0x30) & 0x20) == 0)) {
         return 0;
     } else {
-        t0 = *(s32 *)(((u8 *)&data_020c4668));
+        t0 = *(s32 *)(((u8 *)&g3DVramMan));
         v1 = func_02098dd8(t0, (s32)(arg1 + 0x50), arg6, arg2, arg3, arg4, arg5, (s32)(arg1 + 0x5D));
         return (v1 & 0xFF);
     }
@@ -1223,14 +1223,14 @@ extern "C" s32 func_020977d0(u8 *arg0)
 extern "C" void **func_02097810(void **obj)
 {
     obj[0] = data_020afd7c;
-    func_02097880(obj);
+    C3DSprFile_Clear(obj);
     return obj;
 }
 
 extern "C" void **func_02097830(void **obj)
 {
     obj[0] = data_020afd7c;
-    func_02097880(obj);
+    C3DSprFile_Clear(obj);
     operator delete(obj);
     return obj;
 }
@@ -1251,13 +1251,13 @@ extern "C" s32 func_02097858(s32 arg0)
     return arg0;
 }
 
-extern "C" void func_02097880(void *obj)
+extern "C" void C3DSprFile_Clear(void *obj)
 {
     func_02097c24(obj);
     func_02096f70((u8 *)obj + 4);
 }
 
-extern "C" asm void func_02097898(void)
+extern "C" asm void C3DSprFile_LoadFromPath(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
@@ -1320,7 +1320,7 @@ extern "C" asm void func_02097898(void)
     bl MIi_CpuClearFast
     cmp r7, #0
     beq @L_020979b8
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r0, [r3]
     cmp r0, #0
     beq @L_020979f4
@@ -1335,7 +1335,7 @@ extern "C" asm void func_02097898(void)
     bl _ZN11FileManager9LoadAsyncEPKcPPvP8GameHeapiiih
     b @L_020979f0
 @L_020979b8:
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r0, [r3]
     cmp r0, #0
     beq @L_020979f4

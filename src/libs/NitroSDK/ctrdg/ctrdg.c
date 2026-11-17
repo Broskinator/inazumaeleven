@@ -1,75 +1,75 @@
 // (asm for now)
 
 void CTRDGi_InitCommon(void);
-void func_020152f0(void);
+void CTRDG_IsExisting(void);
 void CTRDGi_ChangeLatestAccessCycle(void);
 void CTRDGi_RestoreAccessCycle(void);
-void func_02015470(void);
+void CTRDGi_LockByProcessor(void);
 void CTRDGi_UnlockByProcessor(void);
 void CTRDGi_SendtoPxi(void);
-void func_02015540(void);
-void func_020155d0(void);
-void func_02015680(void);
-void func_02015864(void);
+void CTRDG_Enable(void);
+void CTRDG_Init(void);
+void CTRDGi_InitModuleInfo(void);
+void CTRDGi_CallbackForInitModuleInfo(void);
 
-extern char data_020be8a4[];
+extern char CTRDGi_Work[];
 void CpuSet(void);
 void OS_GetLockID(void);
-extern char data_020be8a0[];
-void func_02015294(void);
+extern char CTRDGi_EnableFlag[];
+void CTRDG_IsExistedAtInit(void);
 void OS_DisableInterrupts(void);
-void func_020058a8(void);
-void func_020057f0(void);
+void OS_ReadOwnerOfLockWord(void);
+void OS_TryLockCartridge(void);
 void OS_RestoreInterrupts(void);
 void WaitByLoop(void);
-void func_020057e4(void);
-void func_0200b138(void);
-void func_0200763c(void);
+void OS_UnlockCartridge(void);
+void PXI_SendWordByFifo(void);
+void OS_SetDPermissionsForProtectionRegion(void);
 void DC_FlushAll(void);
-void func_02006d84(void);
-void func_0200760c(void);
-void func_0200762c(void);
-void func_02007660(void);
-void func_020075fc(void);
-void func_0200761c(void);
-void func_02007650(void);
-extern char data_020be8a8[];
-void func_0200afc0(void);
-void func_0200b114(void);
-void func_0200b0c8(void);
+void DC_WaitWriteBufferEmpty(void);
+void OS_DisableICacheForProtectionRegion(void);
+void OS_DisableDCacheForProtectionRegion(void);
+void OS_DisableWriteBufferForProtectionRegion(void);
+void OS_EnableICacheForProtectionRegion(void);
+void OS_EnableDCacheForProtectionRegion(void);
+void OS_EnableWriteBufferForProtectionRegion(void);
+extern char isInfoInitialized[];
+void PXI_Init(void);
+void PXI_IsCallbackReady(void);
+void PXI_SetFifoRecvCallback(void);
 void CTRDGi_PulledOutCallback(void);
 extern char data_020be9a0[];
 void CTRDGi_InitTaskThread(void);
-void func_020158fc(void);
+void CTRDGi_CallbackForSetPhi(void);
 void OS_SetIrqMask(void);
 extern char data_020be8e0[];
 void DC_InvalidateRange(void);
-void func_02008a08(void);
+void MIi_DmaCopy16(void);
 extern char data_020be8e4[];
 void MIi_CpuCopy32(void);
-void func_0200878c(void);
+void OS_Terminate(void);
 
 asm void CTRDGi_InitCommon(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020be8a4
+    ldr r1, =CTRDGi_Work
     mov r3, #0
     ldr r2, =0x5000001
     add r0, sp, #0
     str r3, [sp]
     bl CpuSet
     bl OS_GetLockID
-    ldr r1, =data_020be8a0
+    ldr r1, =CTRDGi_EnableFlag
     strh r0, [r1, #6]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020152f0(void)
+asm void CTRDG_IsExisting(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x10
     mov r4, #1
-    bl func_02015294
+    bl CTRDG_IsExistedAtInit
     cmp r0, #0
     addeq sp, sp, #0x10
     moveq r0, #0
@@ -82,10 +82,10 @@ asm void func_020152f0(void)
     addeq sp, sp, #0x10
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =data_020be8a0
+    ldr r0, =CTRDGi_EnableFlag
     add r1, sp, #8
     ldrh r0, [r0, #6]
-    bl func_02015470
+    bl CTRDGi_LockByProcessor
     add r0, sp, #0
     bl CTRDGi_ChangeLatestAccessCycle
     mov r0, #0x8000000
@@ -125,7 +125,7 @@ asm void func_020152f0(void)
 @L_020153c4:
     add r0, sp, #0
     bl CTRDGi_RestoreAccessCycle
-    ldr r0, =data_020be8a0
+    ldr r0, =CTRDGi_EnableFlag
     add r1, sp, #8
     ldrh r0, [r0, #6]
     bl CTRDGi_UnlockByProcessor
@@ -171,7 +171,7 @@ asm void CTRDGi_RestoreAccessCycle(void)
     bx lr
 }
 
-asm void func_02015470(void)
+asm void CTRDGi_LockByProcessor(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r5, =0x2ffffe8
@@ -182,12 +182,12 @@ asm void func_02015470(void)
     bl OS_DisableInterrupts
     str r0, [r6, #4]
     mov r0, r5
-    bl func_020058a8
+    bl OS_ReadOwnerOfLockWord
     ands r0, r0, #0x40
     str r0, [r6]
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
     mov r0, r7
-    bl func_020057f0
+    bl OS_TryLockCartridge
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r0, [r6, #4]
@@ -205,7 +205,7 @@ asm void CTRDGi_UnlockByProcessor(void)
     ldr r1, [r4]
     cmp r1, #0
     bne @L_020154e4
-    bl func_020057e4
+    bl OS_UnlockCartridge
 @L_020154e4:
     ldr r0, [r4, #4]
     bl OS_RestoreInterrupts
@@ -219,7 +219,7 @@ asm void CTRDGi_SendtoPxi(void)
     mov r1, r7
     mov r0, #0xd
     mov r2, #0
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     mov r6, #1
@@ -231,57 +231,57 @@ asm void CTRDGi_SendtoPxi(void)
     mov r0, r5
     mov r1, r7
     mov r2, r4
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     bne @L_0201551c
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02015540(void)
+asm void CTRDG_Enable(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020be8a0
+    ldr r1, =CTRDGi_EnableFlag
     mov r5, r0
     str r4, [r1]
-    bl func_02015294
+    bl CTRDG_IsExistedAtInit
     cmp r0, #0
     beq @L_020155c0
     mov r1, #0x1000
     cmp r4, #0
     moveq r1, #0x5000
     mov r0, #0xf000
-    bl func_0200763c
+    bl OS_SetDPermissionsForProtectionRegion
     cmp r4, #0
     mov r4, #8
     beq @L_020155a8
     bl DC_FlushAll
-    bl func_02006d84
+    bl DC_WaitWriteBufferEmpty
     mov r0, r4
-    bl func_0200760c
+    bl OS_DisableICacheForProtectionRegion
     mov r0, r4
-    bl func_0200762c
+    bl OS_DisableDCacheForProtectionRegion
     mov r0, r4
-    bl func_02007660
+    bl OS_DisableWriteBufferForProtectionRegion
     b @L_020155c0
 @L_020155a8:
     mov r0, r4
-    bl func_020075fc
+    bl OS_EnableICacheForProtectionRegion
     mov r0, r4
-    bl func_0200761c
+    bl OS_EnableDCacheForProtectionRegion
     mov r0, r4
-    bl func_02007650
+    bl OS_EnableWriteBufferForProtectionRegion
 @L_020155c0:
     mov r0, r5
     bl OS_RestoreInterrupts
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020155d0(void)
+asm void CTRDG_Init(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020be8a8
+    ldr r4, =isInfoInitialized
     ldr r0, [r4, #8]
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
@@ -290,43 +290,43 @@ asm void func_020155d0(void)
     bl CTRDGi_InitCommon
     mov r0, #0
     str r0, [r4, #0xc]
-    bl func_0200afc0
+    bl PXI_Init
     mov r5, #0xd
     mov r4, #1
 @L_02015604:
     mov r0, r5
     mov r1, r4
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     beq @L_02015604
-    ldr r1, =func_02015864
+    ldr r1, =CTRDGi_CallbackForInitModuleInfo
     mov r0, r5
-    bl func_0200b0c8
-    bl func_02015680
+    bl PXI_SetFifoRecvCallback
+    bl CTRDGi_InitModuleInfo
     mov r4, #0
     mov r0, r5
     mov r1, r4
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     ldr r1, =CTRDGi_PulledOutCallback
     mov r0, r5
-    bl func_0200b0c8
-    ldr r1, =data_020be8a8
+    bl PXI_SetFifoRecvCallback
+    ldr r1, =isInfoInitialized
     ldr r0, =data_020be9a0
     str r4, [r1, #0x18]
     bl CTRDGi_InitTaskThread
-    ldr r1, =func_020158fc
+    ldr r1, =CTRDGi_CallbackForSetPhi
     mov r0, #0x11
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     mov r0, r4
-    bl func_02015540
+    bl CTRDG_Enable
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02015680(void)
+asm void CTRDGi_InitModuleInfo(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
-    ldr r0, =data_020be8a8
+    ldr r0, =isInfoInitialized
     ldr r1, [r0]
     cmp r1, #0
     addne sp, sp, #0x14
@@ -342,13 +342,13 @@ asm void func_02015680(void)
     bl OS_SetIrqMask
     sub r1, r5, #0xf8
     ldrh r9, [r1]
-    ldr r4, =data_020be8a4
+    ldr r4, =CTRDGi_Work
     mov r8, r0
     strh r7, [r1]
     add r11, sp, #0xc
     ldrh r0, [r4, #2]
     mov r1, r11
-    bl func_02015470
+    bl CTRDGi_LockByProcessor
     sub r6, r5, #0xfc
     ldrh r0, [r6]
     and r0, r0, #0x8000
@@ -367,7 +367,7 @@ asm void func_02015680(void)
     mov r3, #0x40
     str r7, [sp]
     mov r0, r7
-    bl func_02008a08
+    bl MIi_DmaCopy16
     ldrh r1, [r6]
     add r0, sp, #4
     bic r1, r1, #0x8000
@@ -404,7 +404,7 @@ asm void func_02015680(void)
     strh r0, [r4, #6]
     ldr r0, [r3, #0xac]
     str r0, [r4, #8]
-    bl func_020152f0
+    bl CTRDG_IsExisting
     cmp r0, #0
     mov r2, #1
     ldr r1, =0x2ffff9b
@@ -425,7 +425,7 @@ asm void func_02015680(void)
     orr r0, r0, #1
     bl CTRDGi_SendtoPxi
     mov r5, #1
-    ldr r4, =data_020be8a4
+    ldr r4, =CTRDGi_Work
     b @L_02015814
 @L_0201580c:
     mov r0, r5
@@ -443,15 +443,15 @@ asm void func_02015680(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02015864(void)
+asm void CTRDGi_CallbackForInitModuleInfo(void)
 {
     stmdb sp!, {r3, lr}
     and r0, r1, #0x3f
     cmp r0, #1
-    ldreq r0, =data_020be8a4
+    ldreq r0, =CTRDGi_Work
     moveq r1, #1
     streqh r1, [r0]
     ldmeqia sp!, {r3, pc}
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, pc}
 }

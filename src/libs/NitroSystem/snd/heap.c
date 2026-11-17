@@ -3,20 +3,20 @@
 void NNS_SndHeapDestroy(void);
 void NNS_SndHeapClear(void);
 void NNS_SndHeapAlloc(void);
-void func_02031948(void);
+void InitHeapSection(void);
 void InitHeap(void);
 void NewSection(void);
 void EraseSync(void);
 
-void func_020331ac(void);
-void func_02032878(void);
+void NNS_FndDestroyFrmHeap(void);
+void NNS_FndGetPrevListObject(void);
 void NNS_FndRemoveListObject(void);
 void NNS_FndFreeToFrmHeap(void);
 void NNS_FndAllocFromFrmHeapEx(void);
-void func_020326f8(void);
+void NNS_FndAppendListObject(void);
 void NNS_FndInitList(void);
 void SND_GetCurrentCommandTag(void);
-void func_0200a550(void);
+void SND_FlushCommand(void);
 void SND_WaitForCommandProc(void);
 
 asm void NNS_SndHeapDestroy(void)
@@ -25,7 +25,7 @@ asm void NNS_SndHeapDestroy(void)
     mov r4, r0
     bl NNS_SndHeapClear
     ldr r0, [r4]
-    bl func_020331ac
+    bl NNS_FndDestroyFrmHeap
     ldmia sp!, {r4, pc}
 }
 
@@ -36,7 +36,7 @@ asm void NNS_SndHeapClear(void)
     mov r6, #0
     mov r1, r6
     add r0, r8, #4
-    bl func_02032878
+    bl NNS_FndGetPrevListObject
     movs r5, r0
     beq @L_020318bc
     mov r10, #1
@@ -45,7 +45,7 @@ asm void NNS_SndHeapClear(void)
 @L_02031850:
     mov r0, r5
     mov r1, r4
-    bl func_02032878
+    bl NNS_FndGetPrevListObject
     movs r7, r0
     beq @L_0203189c
 @L_02031864:
@@ -61,7 +61,7 @@ asm void NNS_SndHeapClear(void)
 @L_02031888:
     mov r0, r5
     mov r1, r7
-    bl func_02032878
+    bl NNS_FndGetPrevListObject
     movs r7, r0
     bne @L_02031864
 @L_0203189c:
@@ -70,7 +70,7 @@ asm void NNS_SndHeapClear(void)
     bl NNS_FndRemoveListObject
     mov r1, r9
     add r0, r8, #4
-    bl func_02032878
+    bl NNS_FndGetPrevListObject
     movs r5, r0
     bne @L_02031850
 @L_020318bc:
@@ -104,19 +104,19 @@ asm void NNS_SndHeapAlloc(void)
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     add r0, r8, #4
     mov r1, #0
-    bl func_02032878
+    bl NNS_FndGetPrevListObject
     str r7, [r4, #8]
     str r6, [r4, #0xc]
     ldr r2, [sp, #0x18]
     str r5, [r4, #0x10]
     mov r1, r4
     str r2, [r4, #0x14]
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     add r0, r4, #0x20
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02031948(void)
+asm void InitHeapSection(void)
 {
     ldr r12, =NNS_FndInitList
     mov r1, #0
@@ -151,10 +151,10 @@ asm void NewSection(void)
     movs r4, r0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02031948
+    bl InitHeapSection
     mov r1, r4
     add r0, r5, #4
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     mov r0, #1
     ldmia sp!, {r3, r4, r5, pc}
 }
@@ -165,7 +165,7 @@ asm void EraseSync(void)
     bl SND_GetCurrentCommandTag
     mov r4, r0
     mov r0, #1
-    bl func_0200a550
+    bl SND_FlushCommand
     mov r0, r4
     bl SND_WaitForCommandProc
     ldmia sp!, {r4, pc}

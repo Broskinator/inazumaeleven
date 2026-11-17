@@ -156,7 +156,7 @@ public:
     u8 *func_0206a890(int n, BOOL convert);
     u8 *func_0206a8d8(int player, int n, BOOL convert);
     s32 func_0206a93c();
-    u8 *func_0206a964(int i);
+    u8 *GetTeamInfo(int i);
     MatchState *func_0206a970();
     u8 *func_0206a9a4(int a, int b);
     u8 *func_0206a9d0(int team, BOOL convert);

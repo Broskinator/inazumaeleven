@@ -3,7 +3,7 @@
 
 #include "nitro/types.h"
 
-// Code between the treasure box's two components, not identified yet (helpers around data_020c4670 and other globals; may be several files)
+// Code between the treasure box's two components, not identified yet (helpers around g3DMagicCamera and other globals; may be several files)
 class Unk_0205dee0 {
 public:
     int func_0205dee0(int a);
@@ -37,7 +37,7 @@ public:
     void func_0205f994(s32 value);
     void func_0205f9a8();
     void func_0205fed0();
-    void func_0205ff20();
+    void CompareTypeAndCode();
     void func_0205ff3c();
     void func_0205ff58();
     void func_02060030();

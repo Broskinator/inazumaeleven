@@ -1,113 +1,113 @@
 // (asm for now)
 
-void func_02010e5c(void);
-void func_02010ed4(void);
-void func_02010f54(void);
-void func_02010f6c(void);
-void func_02010f8c(void);
-void func_02010fa8(void);
-void func_02010fd0(void);
-void func_0201101c(void);
-void func_0201108c(void);
-void func_02011100(void);
-void func_0201114c(void);
-void func_020111c4(void);
-void func_02011210(void);
-void func_0201124c(void);
-void func_02011268(void);
-void func_020112c4(void);
-void func_020112f8(void);
-void func_02011448(void);
-void func_020115e0(void);
-void func_02011928(void);
-void func_02011978(void);
+void CARDi_LockResource(void);
+void CARDi_UnlockResource(void);
+void CARDi_GetAccessLevel(void);
+void CARDi_WaitAsync(void);
+void CARDi_TryWaitAsync(void);
+void CARDi_InitResourceLock(void);
+void CARDi_InitCommand(void);
+void CARDi_NotifyEvent(void);
+void CARDi_ExecuteOldTypeTask(void);
+void CARDi_OldTypeTaskThread(void);
+void CARDi_WaitForTask(void);
+void CARDi_EndTask(void);
+void CARDi_GetDmaInterface(void);
+void CARDi_ICInvalidateSmart(void);
+void CARDi_DCInvalidateSmart(void);
+void CARDi_OnFifoRecv(void);
+void CARDi_Request(void);
+void CARDi_RequestStreamCommandCore(void);
+void CARDi_IdentifyBackupCore2(void);
+void CARDi_IdentifyBackupCore(void);
+void CARDi_BeginBackupCommand(void);
 void CARDi_RequestStreamCommand(void);
 void CARD_IdentifyBackup(void);
-void func_02011a74(void);
+void CARD_GetBackupSectorSize(void);
 void CARD_WaitBackupAsync(void);
 void CARD_TryWaitBackupAsync(void);
-void func_02011aa0(void);
-void func_02011b20(void);
-void func_02011b54(void);
-void func_02011bac(void);
-void func_02011c14(void);
-void func_02011c74(void);
-void func_02011cc0(void);
-void func_02011ddc(void);
-void func_02011e7c(void);
-void func_02011ef8(void);
-void func_02011f28(void);
-void func_02011fdc(void);
-void func_02012028(void);
-void func_020121b0(void);
-void func_02012228(void);
-void func_02012234(void);
-void func_02012240(void);
-void func_02012274(void);
-void func_02012304(void);
-void func_02012314(void);
-void func_0201234c(void);
+void CARDi_SetRomOp(void);
+void CARDi_StartRomPageTransfer(void);
+void CARDi_ReadRomIDCore(void);
+void CARDi_ReadRomStatusCore(void);
+void CARDi_RefreshRom(void);
+void CARDi_RefreshRomCore(void);
+void CARDi_ReadRomWithCPU(void);
+void CARDi_DmaReadPageCallback(void);
+void CARDi_ReadRomWithDMA(void);
+void CARDi_DmaReadDone(void);
+void CARDi_IsRomDmaAvailable(void);
+void CARDi_ReadRomSyncCore(void);
+void CARDi_ReadRom(void);
+void CARDi_InitRom(void);
+void CARD_WaitRomAsync(void);
+void CARDi_GetOwnSignature(void);
+void CARD_InitPulledOutCallback(void);
+void CARDi_PulledOutCallback(void);
+void CARD_IsPulledOut(void);
+void CARD_TerminateForPulledOut(void);
+void CARDi_CheckPulledOutCore(void);
 
-extern char data_020bd460[];
+extern char cardi_common[];
 void OS_DisableInterrupts(void);
-void func_0200878c(void);
+void OS_Terminate(void);
 void OS_SleepThread(void);
 void OS_RestoreInterrupts(void);
 void OS_WakeupThread(void);
-void func_0200848c(void);
+void OS_GetBootType(void);
 extern char data_020bd400[];
 void MIi_CpuClearFast(void);
 void DC_FlushRange(void);
-void func_0200b0c8(void);
-extern char data_020bd980[];
+void PXI_SetFifoRecvCallback(void);
+extern char CARDiHookChain[];
 extern char data_020bd980_b[];
-void func_0200628c(void);
+void OS_SetThreadPriority(void);
 void OS_WakeupThreadDirect(void);
 extern char data_020a43c8[];
-void func_02006d90(void);
+void IC_InvalidateAll(void);
 void IC_InvalidateRange(void);
 void DC_FlushAll(void);
 void DC_StoreRange(void);
 void DC_InvalidateRange(void);
-void func_02006d84(void);
-void func_0200b114(void);
-void func_02008450(void);
-extern char data_020bb120[];
-void func_0200b138(void);
-void func_02000b64(void);
-extern char data_020bd9a0[];
+void DC_WaitWriteBufferEmpty(void);
+void PXI_IsCallbackReady(void);
+void OS_SpinWaitSysCycles(void);
+extern char OSi_ThreadInfo[];
+void PXI_SendWordByFifo(void);
+void OSi_ReferSymbol(void);
+extern char CARDi_backup_cache_page_buf[];
 void MI_CpuCopy8(void);
 void MI_CpuFill8(void);
 void CARD_CheckEnabled(void);
 extern char data_020bb110[];
-void func_02007c20(void);
+void OS_IsAlarmAvailable(void);
 void OS_Sleep(void);
-extern char data_020aae0c[];
+extern char cache_page[];
 extern char data_020bdb60[];
-extern char data_020bdaa0[];
+extern char cardi_rom_base[];
 void OS_DisableIrqMask(void);
 void OS_ResetRequestIrqMask(void);
 void OS_SetIrqFunction(void);
 void OS_EnableIrqMask(void);
 void OS_IrqHandler(void);
-void func_020075c8(void);
+void OS_GetDTCMAddress(void);
 extern char data_020bdab0[];
 void func_02010d8c(void);
 void OS_GetLockID(void);
-void func_02010d98(void);
-extern char data_020bdacc[];
+void CARD_LockRom(void);
+extern char CARDiOwnSignature[];
 void CARD_UnlockRom(void);
-void func_02005908(void);
-void func_0200afc0(void);
-extern char data_020bdd60[];
-void func_0200f8b0(void);
+void OS_ReleaseLockID(void);
+void PXI_Init(void);
+extern char CARDiSlotResetCount[];
+void PM_ForceToPowerOff(void);
 void CARDi_SendtoPxi(void);
-void func_02008d78(void);
+void MI_StopAllDma(void);
 
-asm void func_02010e5c(void)
+asm void CARDi_LockResource(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r5, =data_020bd460
+    ldr r5, =cardi_common
     mov r8, r0
     mov r7, r1
     bl OS_DisableInterrupts
@@ -118,7 +118,7 @@ asm void func_02010e5c(void)
     ldr r0, [r5, #0x24]
     cmp r0, r7
     beq @L_02010eb8
-    bl func_0200878c
+    bl OS_Terminate
     b @L_02010eb8
 @L_02010e94:
     mvn r4, #2
@@ -141,10 +141,10 @@ asm void func_02010e5c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02010ed4(void)
+asm void CARDi_UnlockResource(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r4, =data_020bd460
+    ldr r4, =cardi_common
     mov r7, r0
     mov r6, r1
     bl OS_DisableInterrupts
@@ -156,13 +156,13 @@ asm void func_02010ed4(void)
     cmp r0, #0
     bne @L_02010f0c
 @L_02010f04:
-    bl func_0200878c
+    bl OS_Terminate
     b @L_02010f44
 @L_02010f0c:
     ldr r0, [r4, #0x24]
     cmp r0, r6
     beq @L_02010f1c
-    bl func_0200878c
+    bl OS_Terminate
 @L_02010f1c:
     ldr r0, [r4, #0x18]
     subs r0, r0, #1
@@ -180,29 +180,29 @@ asm void func_02010ed4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02010f54(void)
+asm void CARDi_GetAccessLevel(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_0200848c
+    bl OS_GetBootType
     cmp r0, #1
     moveq r0, #7
     movne r0, #3
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02010f6c(void)
+asm void CARDi_WaitAsync(void)
 {
     mov r1, #0
-    ldr r0, =data_020bd460
-    ldr r12, =func_0201114c
+    ldr r0, =cardi_common
+    ldr r12, =CARDi_WaitForTask
     mov r2, r1
     mov r3, r1
     bx r12
 }
 
-asm void func_02010f8c(void)
+asm void CARDi_TryWaitAsync(void)
 {
-    ldr r0, =data_020bd460
+    ldr r0, =cardi_common
     ldr r0, [r0, #4]
     tst r0, #4
     moveq r0, #1
@@ -210,9 +210,9 @@ asm void func_02010f8c(void)
     bx lr
 }
 
-asm void func_02010fa8(void)
+asm void CARDi_InitResourceLock(void)
 {
-    ldr r2, =data_020bd460
+    ldr r2, =cardi_common
     mov r0, #0
     mvn r1, #2
     str r1, [r2, #0x14]
@@ -223,11 +223,11 @@ asm void func_02010fa8(void)
     bx lr
 }
 
-asm void func_02010fd0(void)
+asm void CARDi_InitCommand(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r5, =data_020bd400
-    ldr r3, =data_020bd460
+    ldr r3, =cardi_common
     mov r4, #0x60
     mov r1, r5
     mov r2, r4
@@ -237,19 +237,19 @@ asm void func_02010fd0(void)
     mov r0, r5
     mov r1, r4
     bl DC_FlushRange
-    ldr r1, =func_020112c4
+    ldr r1, =CARDi_OnFifoRecv
     mov r0, #0xb
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0201101c(void)
+asm void CARDi_NotifyEvent(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r5, r0
     mov r4, r1
     bl OS_DisableInterrupts
-    ldr r1, =data_020bd980
+    ldr r1, =CARDiHookChain
     mov r6, r0
     ldr r8, [r1]
     ldr r7, =data_020bd980_b
@@ -276,16 +276,16 @@ asm void func_0201101c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0201108c(void)
+asm void CARDi_ExecuteOldTypeTask(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     movs r5, r1
     mov r6, r0
-    ldr r4, =data_020bd460
+    ldr r4, =cardi_common
     beq @L_020110c8
     ldr r1, [r4, #8]
     add r0, r4, #0x28
-    bl func_0200628c
+    bl OS_SetThreadPriority
     ldr r1, [r4, #4]
     add r0, r4, #0x28
     orr r1, r1, #8
@@ -297,7 +297,7 @@ asm void func_0201108c(void)
     mov r0, r4
     blx r6
     mov r0, r4
-    bl func_020111c4
+    bl CARDi_EndTask
 @L_020110d8:
     cmp r5, #0
     movne r0, #1
@@ -310,11 +310,11 @@ asm void func_0201108c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02011100(void)
+asm void CARDi_OldTypeTaskThread(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, #0
-    ldr r6, =data_020bd460
+    ldr r6, =cardi_common
     mov r4, r5
 @L_02011110:
     bl OS_DisableInterrupts
@@ -331,11 +331,11 @@ asm void func_02011100(void)
     bl OS_RestoreInterrupts
     ldr r0, [r6, #0x4e8]
     mov r1, r4
-    bl func_0201108c
+    bl CARDi_ExecuteOldTypeTask
     b @L_02011110
 }
 
-asm void func_0201114c(void)
+asm void CARDi_WaitForTask(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r8, r0
@@ -371,7 +371,7 @@ asm void func_0201114c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_020111c4(void)
+asm void CARDi_EndTask(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -394,7 +394,7 @@ asm void func_020111c4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02011210(void)
+asm void CARDi_GetDmaInterface(void)
 {
     stmdb sp!, {r4, lr}
     tst r0, #0x10
@@ -407,25 +407,25 @@ asm void func_02011210(void)
     cmp r1, #0
     ldreq r4, =data_020a43c8
     beq @L_02011240
-    bl func_0200878c
+    bl OS_Terminate
 @L_02011240:
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0201124c(void)
+asm void CARDi_ICInvalidateSmart(void)
 {
     stmdb sp!, {r3, lr}
     cmp r1, r2
     blo @L_02011260
-    bl func_02006d90
+    bl IC_InvalidateAll
     ldmia sp!, {r3, pc}
 @L_02011260:
     bl IC_InvalidateRange
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02011268(void)
+asm void CARDi_DCInvalidateSmart(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r1
@@ -450,18 +450,18 @@ asm void func_02011268(void)
     mov r0, r6
     mov r1, r5
     bl DC_InvalidateRange
-    bl func_02006d84
+    bl DC_WaitWriteBufferEmpty
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020112c4(void)
+asm void CARDi_OnFifoRecv(void)
 {
     stmdb sp!, {r3, lr}
     cmp r0, #0xb
     ldmneia sp!, {r3, pc}
     cmp r2, #0
     ldmeqia sp!, {r3, pc}
-    ldr r0, =data_020bd460
+    ldr r0, =cardi_common
     ldr r1, [r0, #4]
     bic r1, r1, #0x20
     str r1, [r0, #4]
@@ -470,7 +470,7 @@ asm void func_020112c4(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020112f8(void)
+asm void CARDi_Request(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -485,30 +485,30 @@ asm void func_020112f8(void)
     orr r2, r1, #2
     mov r1, r7
     str r2, [r10, #4]
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     bne @L_0201135c
     mov r5, #0x32
     mov r4, #0xb
 @L_02011340:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r4
     mov r1, r7
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     beq @L_02011340
 @L_0201135c:
     mov r0, r10
     mov r1, #0
     mov r2, #1
-    bl func_020112f8
+    bl CARDi_Request
 @L_0201136c:
     ldr r0, [r10]
     mov r1, #0x60
     bl DC_FlushRange
-    bl func_02006d84
-    ldr r0, =data_020bb120
+    bl DC_WaitWriteBufferEmpty
+    ldr r0, =OSi_ThreadInfo
     mov r6, #0xb
     ldr r0, [r0, #4]
     mov r5, r6
@@ -522,7 +522,7 @@ asm void func_020112f8(void)
     mov r0, r6
     mov r1, r9
     mov r2, r7
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     blt @L_020113a0
     cmp r9, #0
@@ -532,7 +532,7 @@ asm void func_020112f8(void)
     mov r0, r5
     mov r1, r8
     mov r2, r7
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     blt @L_020113c4
 @L_020113dc:
@@ -567,7 +567,7 @@ asm void func_020112f8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02011448(void)
+asm void CARDi_RequestStreamCommandCore(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r0
@@ -576,19 +576,19 @@ asm void func_02011448(void)
     ldr r6, [r9, #0x518]
     ldr r10, [r9, #0x514]
     mov r7, #0x100
-    bl func_02000b64
+    bl OSi_ReferSymbol
     cmp r5, #0xb
     bne @L_0201147c
-    bl func_02011a74
+    bl CARD_GetBackupSectorSize
     mov r7, r0
     b @L_0201148c
 @L_0201147c:
     cmp r5, #0xf
-    ldreq r0, =data_020bd460
+    ldreq r0, =cardi_common
     ldreq r0, [r0]
     ldreq r7, [r0, #0x20]
 @L_0201148c:
-    ldr r4, =data_020bd9a0
+    ldr r4, =CARDi_backup_cache_page_buf
     mov r11, #9
 @L_02011494:
     ldr r8, [r9, #0x504]
@@ -632,7 +632,7 @@ asm void func_02011448(void)
     mov r0, r4
     mov r1, r8
     bl DC_FlushRange
-    bl func_02006d84
+    bl DC_WaitWriteBufferEmpty
     ldr r0, [r9]
     str r4, [r0, #0xc]
     b @L_02011548
@@ -648,7 +648,7 @@ asm void func_02011448(void)
     mov r0, r9
     mov r1, r5
     mov r2, r10
-    bl func_020112f8
+    bl CARDi_Request
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     cmp r6, #2
@@ -656,7 +656,7 @@ asm void func_02011448(void)
     mov r0, r9
     mov r1, r11
     mov r2, #1
-    bl func_020112f8
+    bl CARDi_Request
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     b @L_020115a8
@@ -681,10 +681,10 @@ asm void func_02011448(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020115e0(void)
+asm void CARDi_IdentifyBackupCore2(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r1, =data_020bd460
+    ldr r1, =cardi_common
     mov r4, #0x48
     ldr r6, [r1]
     mov r5, #0
@@ -903,56 +903,56 @@ asm void func_020115e0(void)
     mov r1, #0
     str r1, [r6, #4]
     str r1, [r6, #0x18]
-    ldr r0, =data_020bd460
+    ldr r0, =cardi_common
     mov r1, #3
     ldr r0, [r0]
     str r1, [r0]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02011928(void)
+asm void CARDi_IdentifyBackupCore(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, #1
     mov r5, r0
     mov r2, r4
     mov r1, #2
-    bl func_020112f8
+    bl CARDi_Request
     ldr r0, [r5]
     mov r1, #0
     str r1, [r0, #0xc]
     ldr r1, [r5]
-    ldr r2, =data_020bd9a0
+    ldr r2, =CARDi_backup_cache_page_buf
     mov r0, r5
     str r2, [r1, #0x10]
     ldr r3, [r5]
     mov r2, r4
     mov r1, #6
     str r4, [r3, #0x14]
-    bl func_020112f8
+    bl CARDi_Request
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02011978(void)
+asm void CARDi_BeginBackupCommand(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     ldr r0, =0x2000bac
     mov r5, r1
     mov r4, r2
-    bl func_02000b64
+    bl OSi_ReferSymbol
     bl CARD_CheckEnabled
-    bl func_02010f54
+    bl CARDi_GetAccessLevel
     and r0, r6, r0
     cmp r6, r0
     beq @L_020119a8
-    bl func_0200878c
+    bl OS_Terminate
 @L_020119a8:
-    ldr r0, =data_020bd460
+    ldr r0, =cardi_common
     mov r2, r5
     mov r3, r4
     mov r1, #1
-    bl func_0201114c
+    bl CARDi_WaitForTask
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -968,8 +968,8 @@ asm void CARDi_RequestStreamCommand(void)
     ldr r2, [sp, #0x10]
     movne r0, #2
     mov r1, r3
-    bl func_02011978
-    ldr r2, =data_020bd460
+    bl CARDi_BeginBackupCommand
+    ldr r2, =cardi_common
     ldr r1, [sp, #0x18]
     str r6, [r2, #0x4fc]
     str r5, [r2, #0x500]
@@ -979,9 +979,9 @@ asm void CARDi_RequestStreamCommand(void)
     ldr r3, [sp, #0x20]
     str r0, [r2, #0x514]
     ldr r1, [sp, #0x14]
-    ldr r0, =func_02011448
+    ldr r0, =CARDi_RequestStreamCommandCore
     str r3, [r2, #0x518]
-    bl func_0201108c
+    bl CARDi_ExecuteOldTypeTask
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -990,24 +990,24 @@ asm void CARD_IdentifyBackup(void)
     stmdb sp!, {r3, r4, r5, lr}
     movs r5, r0
     bne @L_02011a44
-    bl func_0200878c
+    bl OS_Terminate
 @L_02011a44:
     mov r4, #0
     mov r0, r4
     mov r1, r4
     mov r2, r4
-    bl func_02011978
+    bl CARDi_BeginBackupCommand
     mov r0, r5
-    bl func_020115e0
-    ldr r0, =func_02011928
+    bl CARDi_IdentifyBackupCore2
+    ldr r0, =CARDi_IdentifyBackupCore
     mov r1, r4
-    bl func_0201108c
+    bl CARDi_ExecuteOldTypeTask
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02011a74(void)
+asm void CARD_GetBackupSectorSize(void)
 {
-    ldr r0, =data_020bd460
+    ldr r0, =cardi_common
     ldr r0, [r0]
     ldr r0, [r0, #0x1c]
     bx lr
@@ -1015,17 +1015,17 @@ asm void func_02011a74(void)
 
 asm void CARD_WaitBackupAsync(void)
 {
-    ldr r12, =func_02010f6c
+    ldr r12, =CARDi_WaitAsync
     bx r12
 }
 
 asm void CARD_TryWaitBackupAsync(void)
 {
-    ldr r12, =func_02010f8c
+    ldr r12, =CARDi_TryWaitAsync
     bx r12
 }
 
-asm void func_02011aa0(void)
+asm void CARDi_SetRomOp(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r0, r0, lsl #0x18
@@ -1060,12 +1060,12 @@ asm void func_02011aa0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02011b20(void)
+asm void CARDi_StartRomPageTransfer(void)
 {
     stmdb sp!, {r3, lr}
     mov r1, r0
     mov r0, #0xb7
-    bl func_02011aa0
+    bl CARDi_SetRomOp
     ldr r1, =0x2fffae0
     ldr r0, =0x40001a4
     ldr r1, [r1]
@@ -1075,13 +1075,13 @@ asm void func_02011b20(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02011b54(void)
+asm void CARDi_ReadRomIDCore(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, #0
     mov r1, r4
     mov r0, #0xb8
-    bl func_02011aa0
+    bl CARDi_SetRomOp
     ldr r1, =0x2fffae0
     sub r0, r4, #0x2000
     ldr r2, [r1]
@@ -1099,7 +1099,7 @@ asm void func_02011b54(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02011bac(void)
+asm void CARDi_ReadRomStatusCore(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r5, =0x2fffc00
@@ -1110,7 +1110,7 @@ asm void func_02011bac(void)
     mov r4, #0
     mov r1, r4
     mov r0, #0xd6
-    bl func_02011aa0
+    bl CARDi_SetRomOp
     ldr r1, [r5, #-0x120]
     sub r0, r4, #0x2000
     bic r1, r1, #0x7000000
@@ -1127,15 +1127,15 @@ asm void func_02011bac(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02011c14(void)
+asm void CARDi_RefreshRom(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r0
-    bl func_02011bac
+    bl CARDi_ReadRomStatusCore
     tst r4, r0
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02011c74
-    bl func_02011bac
+    bl CARDi_RefreshRomCore
+    bl CARDi_ReadRomStatusCore
     tst r0, #0x20
     ldmneia sp!, {r3, r4, r5, pc}
     ldr r4, =data_020bb110
@@ -1144,25 +1144,25 @@ asm void func_02011c14(void)
     ldr r0, [r4]
     cmp r0, #0
     beq @L_02011c60
-    bl func_02007c20
+    bl OS_IsAlarmAvailable
     cmp r0, #0
     beq @L_02011c60
     mov r0, r5
     bl OS_Sleep
 @L_02011c60:
-    bl func_02011bac
+    bl CARDi_ReadRomStatusCore
     tst r0, #0x20
     beq @L_02011c40
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02011c74(void)
+asm void CARDi_RefreshRomCore(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, #0
     mov r1, r4
     mov r0, #0xb5
-    bl func_02011aa0
+    bl CARDi_SetRomOp
     ldr r1, =0x2fffae0
     sub r0, r4, #0x2000
     ldr r2, [r1]
@@ -1178,11 +1178,11 @@ asm void func_02011c74(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02011cc0(void)
+asm void CARDi_ReadRomWithCPU(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
-    ldr r0, =data_020aae0c
+    ldr r0, =cache_page
     mov r8, r3
     ldr r0, [r0]
     mov r10, r1
@@ -1214,7 +1214,7 @@ asm void func_02011cc0(void)
     str r6, [sp]
 @L_02011d38:
     mov r0, r6
-    bl func_02011b20
+    bl CARDi_StartRomPageTransfer
     mov r3, #0
 @L_02011d44:
     ldr r2, [r4]
@@ -1247,9 +1247,9 @@ asm void func_02011cc0(void)
 @L_02011da4:
     cmp r8, #0
     bne @L_02011cf0
-    bl func_02011b54
-    bl func_0201234c
-    ldr r2, =data_020aae0c
+    bl CARDi_ReadRomIDCore
+    bl CARDi_CheckPulledOutCore
+    ldr r2, =cache_page
     ldr r1, [sp]
     ldr r0, [sp, #4]
     str r1, [r2]
@@ -1257,10 +1257,10 @@ asm void func_02011cc0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02011ddc(void)
+asm void CARDi_DmaReadPageCallback(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    ldr r5, =data_020bdaa0
+    ldr r5, =cardi_rom_base
     ldr r4, [r5, #8]
     cmp r4, #0
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -1275,10 +1275,10 @@ asm void func_02011ddc(void)
     str r0, [r4, #0x14]
     beq @L_02011e24
     ldr r0, [r4, #0xc]
-    bl func_02011b20
+    bl CARDi_StartRomPageTransfer
     ldmia sp!, {r4, r5, r6, pc}
 @L_02011e24:
-    ldr r0, =data_020bd460
+    ldr r0, =cardi_common
     ldr r1, [r0, #0x50c]
     ldr r0, [r0, #0x508]
     ldr r1, [r1, #4]
@@ -1290,8 +1290,8 @@ asm void func_02011ddc(void)
     bl OS_ResetRequestIrqMask
     mov r0, #0
     str r0, [r5, #8]
-    bl func_02011b54
-    bl func_0201234c
+    bl CARDi_ReadRomIDCore
+    bl CARDi_CheckPulledOutCore
     ldr r1, [r4, #4]
     cmp r1, #0
     ldmeqia sp!, {r4, r5, r6, pc}
@@ -1300,15 +1300,15 @@ asm void func_02011ddc(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02011e7c(void)
+asm void CARDi_ReadRomWithDMA(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
     bl OS_DisableInterrupts
-    ldr r2, =data_020bdaa0
+    ldr r2, =cardi_rom_base
     mov r4, #0x80000
     mov r5, r0
-    ldr r1, =func_02011ddc
+    ldr r1, =CARDi_DmaReadPageCallback
     mov r0, r4
     str r6, [r2, #8]
     bl OS_SetIrqFunction
@@ -1318,7 +1318,7 @@ asm void func_02011e7c(void)
     bl OS_EnableIrqMask
     mov r0, r5
     bl OS_RestoreInterrupts
-    ldr r2, =data_020bd460
+    ldr r2, =cardi_common
     ldr r1, =0x4100010
     ldr r0, [r2, #0x508]
     ldr r3, [r2, #0x50c]
@@ -1327,26 +1327,26 @@ asm void func_02011e7c(void)
     mov r3, #0x200
     blx r12
     ldr r0, [r6, #0xc]
-    bl func_02011b20
+    bl CARDi_StartRomPageTransfer
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02011ef8(void)
+asm void CARDi_DmaReadDone(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02011b54
-    bl func_0201234c
+    bl CARDi_ReadRomIDCore
+    bl CARDi_CheckPulledOutCore
     mov r0, #8
-    bl func_02011c14
-    ldr r0, =data_020bd460
+    bl CARDi_RefreshRom
+    ldr r0, =cardi_common
     mov r2, #0
     ldr r1, [r0]
     str r2, [r1]
-    bl func_020111c4
+    bl CARDi_EndTask
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02011f28(void)
+asm void CARDi_IsRomDmaAvailable(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r4, #0
@@ -1375,11 +1375,11 @@ asm void func_02011f28(void)
     cmp r2, #0
     beq @L_02011fb4
     mov r6, #1
-    bl func_020075c8
+    bl OS_GetDTCMAddress
     add r1, r9, r7
     cmp r1, r0
     bls @L_02011fac
-    bl func_020075c8
+    bl OS_GetDTCMAddress
     add r0, r0, #0x4000
     cmp r9, r0
     movlo r6, #0
@@ -1398,10 +1398,10 @@ asm void func_02011f28(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02011fdc(void)
+asm void CARDi_ReadRomSyncCore(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r12, =data_020bdaa0
+    ldr r12, =cardi_rom_base
     mov r4, #0
     ldr r1, [r0, #0x500]
     ldr r2, [r0, #0x4fc]
@@ -1409,38 +1409,38 @@ asm void func_02011fdc(void)
     ldr r12, [r12, #0xc]
     mov r0, r4
     blx r12
-    bl func_02011b54
-    bl func_0201234c
+    bl CARDi_ReadRomIDCore
+    bl CARDi_CheckPulledOutCore
     mov r0, #8
-    bl func_02011c14
-    ldr r0, =data_020bd460
+    bl CARDi_RefreshRom
+    ldr r0, =cardi_common
     ldr r0, [r0]
     str r4, [r0]
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02012028(void)
+asm void CARDi_ReadRom(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r0
     mov r7, r1
     mov r6, r2
     mov r5, r3
-    ldr r4, =data_020bd460
+    ldr r4, =cardi_common
     bl CARD_CheckEnabled
-    bl func_02010f54
+    bl CARDi_GetAccessLevel
     tst r0, #4
     bne @L_02012054
-    bl func_0200878c
+    bl OS_Terminate
 @L_02012054:
     mov r8, #1
     ldr r2, [sp, #0x20]
     ldr r3, [sp, #0x24]
     mov r0, r4
     mov r1, r8
-    bl func_0201114c
+    bl CARDi_WaitForTask
     mov r0, r9
-    bl func_02011210
+    bl CARDi_GetDmaInterface
     str r0, [r4, #0x50c]
     cmp r0, #0
     andne r0, r9, #3
@@ -1452,8 +1452,8 @@ asm void func_02012028(void)
     ldr r1, [r1, #4]
     blx r1
 @L_0201209c:
-    ldr r8, =data_020bdaa0
-    ldr r0, =func_02011ef8
+    ldr r8, =cardi_rom_base
+    ldr r0, =CARDi_DmaReadDone
     ldr r1, [r8]
     str r6, [r4, #0x500]
     add r2, r7, r1
@@ -1467,13 +1467,13 @@ asm void func_02012028(void)
     str r5, [r8, #0x24]
     str r0, [r8, #0x28]
     ldr r1, [r8, #0xc]
-    ldr r0, =func_02011cc0
+    ldr r0, =CARDi_ReadRomWithCPU
     cmp r1, r0
     bne @L_02012164
     ldr r0, [r4, #0x508]
     mov r1, r6
     mov r3, r5
-    bl func_02011f28
+    bl CARDi_IsRomDmaAvailable
     cmp r0, #0
     beq @L_02012164
     bl OS_DisableInterrupts
@@ -1484,49 +1484,49 @@ asm void func_02012028(void)
     ldr r0, [r4, #0x500]
     ldr r1, [r4, #0x504]
     ldr r2, [r4, #0xc]
-    bl func_0201124c
+    bl CARDi_ICInvalidateSmart
 @L_02012120:
-    ldr r0, =data_020aae0c
+    ldr r0, =cache_page
     ldr r0, [r0, #4]
     cmp r0, #0
     beq @L_02012140
     ldr r0, [r4, #0x500]
     ldr r1, [r4, #0x504]
     ldr r2, [r4, #0x10]
-    bl func_02011268
+    bl CARDi_DCInvalidateSmart
 @L_02012140:
     mov r0, r5
     bl OS_RestoreInterrupts
     ldr r0, =data_020bdab0
-    bl func_02011e7c
+    bl CARDi_ReadRomWithDMA
     ldr r0, [sp, #0x28]
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    bl func_02012228
+    bl CARD_WaitRomAsync
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02012164:
-    ldr r0, =data_020bdaa0
+    ldr r0, =cardi_rom_base
     ldr r0, [r0, #4]
     cmp r0, #0
     beq @L_02012184
     ldr r0, [r4, #0x500]
     ldr r1, [r4, #0x504]
     ldr r2, [r4, #0xc]
-    bl func_0201124c
+    bl CARDi_ICInvalidateSmart
 @L_02012184:
     ldr r1, [sp, #0x28]
-    ldr r0, =func_02011fdc
-    bl func_0201108c
+    ldr r0, =CARDi_ReadRomSyncCore
+    bl CARDi_ExecuteOldTypeTask
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_020121b0(void)
+asm void CARDi_InitRom(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r1, =func_02011cc0
-    ldr r0, =data_020bdaa0
+    ldr r1, =CARDi_ReadRomWithCPU
+    ldr r0, =cardi_rom_base
     str r1, [r0, #0xc]
-    bl func_0200848c
+    bl OS_GetBootType
     cmp r0, #1
     ldmneia sp!, {r4, pc}
     bl func_02010d8c
@@ -1537,54 +1537,54 @@ asm void func_020121b0(void)
     mov r0, r0, lsl #0x10
     mov r4, r0, lsr #0x10
     mov r0, r4
-    bl func_02010d98
+    bl CARD_LockRom
     bl func_02010d8c
     ldr r2, [r0, #0x80]
-    ldr r1, =data_020bdacc
+    ldr r1, =CARDiOwnSignature
     mov r0, #0
     mov r3, #0x88
-    bl func_02011cc0
+    bl CARDi_ReadRomWithCPU
     mov r0, r4
     bl CARD_UnlockRom
     mov r0, r4
-    bl func_02005908
+    bl OS_ReleaseLockID
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02012228(void)
+asm void CARD_WaitRomAsync(void)
 {
-    ldr r12, =func_02010f6c
+    ldr r12, =CARDi_WaitAsync
     bx r12
 }
 
-asm void func_02012234(void)
+asm void CARDi_GetOwnSignature(void)
 {
-    ldr r0, =data_020bdacc
+    ldr r0, =CARDiOwnSignature
     bx lr
 }
 
-asm void func_02012240(void)
+asm void CARD_InitPulledOutCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    bl func_0200afc0
-    ldr r4, =data_020bdd60
+    bl PXI_Init
+    ldr r4, =CARDiSlotResetCount
     mov r5, #0
     str r5, [r4]
-    ldr r1, =func_02012274
+    ldr r1, =CARDi_PulledOutCallback
     mov r0, #0xe
     str r5, [r4, #4]
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     str r5, [r4, #8]
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02012274(void)
+asm void CARDi_PulledOutCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     and r0, r1, #0x3f
     cmp r0, #0x11
     bne @L_020122cc
-    ldr r4, =data_020bdd60
+    ldr r4, =CARDiSlotResetCount
     ldr r0, [r4, #4]
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
@@ -1592,7 +1592,7 @@ asm void func_02012274(void)
     mov r0, r5
     str r5, [r4, #4]
     mov r1, #0
-    bl func_0201101c
+    bl CARDi_NotifyEvent
     ldr r0, [r4, #8]
     cmp r0, #0
     beq @L_020122bc
@@ -1601,33 +1601,33 @@ asm void func_02012274(void)
 @L_020122bc:
     cmp r5, #0
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02012314
+    bl CARD_TerminateForPulledOut
     ldmia sp!, {r3, r4, r5, pc}
 @L_020122cc:
     cmp r0, #2
     bne @L_020122f8
-    ldr r2, =data_020bdd60
+    ldr r2, =CARDiSlotResetCount
     mov r1, #0
     ldr r3, [r2]
     mov r0, #2
     add r3, r3, #1
     str r3, [r2]
     str r1, [r2, #4]
-    bl func_0201101c
+    bl CARDi_NotifyEvent
     ldmia sp!, {r3, r4, r5, pc}
 @L_020122f8:
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02012304(void)
+asm void CARD_IsPulledOut(void)
 {
-    ldr r0, =data_020bdd60
+    ldr r0, =CARDiSlotResetCount
     ldr r0, [r0, #4]
     bx lr
 }
 
-asm void func_02012314(void)
+asm void CARD_TerminateForPulledOut(void)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =0x2ffffa8
@@ -1635,17 +1635,17 @@ asm void func_02012314(void)
     and r0, r0, #0x8000
     movs r0, r0, asr #0xf
     beq @L_02012330
-    bl func_0200f8b0
+    bl PM_ForceToPowerOff
 @L_02012330:
     mov r0, #1
     mov r1, r0
     bl CARDi_SendtoPxi
-    bl func_02008d78
-    bl func_0200878c
+    bl MI_StopAllDma
+    bl OS_Terminate
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0201234c(void)
+asm void CARDi_CheckPulledOutCore(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -1661,7 +1661,7 @@ asm void func_0201234c(void)
     mov r0, #0xe
     mov r1, #0x11
     mov r2, #0
-    bl func_02012274
+    bl CARDi_PulledOutCallback
     mov r0, r4
     bl OS_RestoreInterrupts
     add sp, sp, #4

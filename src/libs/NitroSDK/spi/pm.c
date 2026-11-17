@@ -1,97 +1,97 @@
 // (asm for now)
 
 void PM_SendUtilityCommand(void);
-void func_0200f788(void);
+void PM_SetBackLightAsync(void);
 void PMi_ReadRegister(void);
-void func_0200f838(void);
-void func_0200f864(void);
-void func_0200f8b0(void);
-void func_0200f8ec(void);
-void func_0200f91c(void);
+void PM_ForceToPowerOffAsync(void);
+void PMi_ForceToPowerOff(void);
+void PM_ForceToPowerOff(void);
+void PMi_SetAmp(void);
+void PM_GetBackLight(void);
 void PMi_SendPxiData(void);
-void func_0200f9a8(void);
-void func_0200fa3c(void);
-void func_0200fd28(void);
-void func_0200ff28(void);
+void PMi_PreSleepForDma(void);
+void PM_GoSleepMode(void);
+void PMi_SetLCDPower(void);
+void PM_SetLCDPower(void);
 void PM_GetLCDPower(void);
-void func_0200ff80(void);
-void func_0200ff9c(void);
-void func_0200ffd8(void);
-void func_02010064(void);
-void func_020100bc(void);
-void func_020100e4(void);
-void func_02010104(void);
-void func_02010124(void);
-void func_02010144(void);
-void func_02010168(void);
-void func_02010180(void);
-void func_02010198(void);
-void func_02010240(void);
-void func_0201025c(void);
-void func_020102c8(void);
-void func_02010338(void);
-void func_02010370(void);
-void func_020103e0(void);
-void func_02010418(void);
-void func_02010494(void);
-void func_020104cc(void);
-void func_0201090c(void);
-void func_02010974(void);
-void func_02010984(void);
-void func_0201099c(void);
-void func_020109ac(void);
-void func_020109bc(void);
-void func_020109cc(void);
-void func_020109dc(void);
+void PMi_SendLEDPatternCommand(void);
+void PM_GetLEDPattern(void);
+void PMi_InsertList(void);
+void PMi_DeleteList(void);
+void PMi_ExecuteList(void);
+void PM_AppendPreSleepCallback(void);
+void PM_PrependPreSleepCallback(void);
+void PM_AppendPostSleepCallback(void);
+void PMi_InsertPostSleepCallbackEx(void);
+void PM_DeletePreSleepCallback(void);
+void PM_DeletePostSleepCallback(void);
+void PMi_LCDOnAvoidReset(void);
+void PMi_SetDispOffCount(void);
+void RTC_Init(void);
+void RTC_GetDateAsync(void);
+void RTC_GetDate(void);
+void RTC_GetTimeAsync(void);
+void RTC_GetTime(void);
+void RTC_GetDateTimeAsync(void);
+void RTC_GetDateTime(void);
+void RtcCommonCallback(void);
+void RtcHEX2BCD(void);
+void RtcGetResultCallback(void);
+void RtcWaitBusy(void);
+void RTCi_ReadRawDateTimeAsync(void);
+void RTCi_ReadRawDateAsync(void);
+void RTCi_ReadRawTimeAsync(void);
+void RTCi_WriteRawStatus2Async(void);
+void RtcSendPxiCommand(void);
 
-void func_0200f31c(void);
-void func_0200f6fc(void);
-void func_0200f298(void);
-void func_0200f67c(void);
-extern char data_020aadd8[];
-void func_02008450(void);
+void PMi_DummyCallback(void);
+void PMi_SetLEDAsync(void);
+void PMi_WaitBusy(void);
+void PM_SendUtilityCommandAsync(void);
+extern char PMi_WaitBusyMethod[];
+void OS_SpinWaitSysCycles(void);
 void OS_DisableInterrupts(void);
-void func_02008d78(void);
-void func_020087cc(void);
+void MI_StopAllDma(void);
+void OS_Halt(void);
 void func_0200f6c4(void);
-void func_0200b138(void);
+void PXI_SendWordByFifo(void);
 extern char data_020bd398[];
-void func_02008cb4(void);
-void func_02008d10(void);
+void MI_WaitDma(void);
+void MI_StopDma(void);
 extern char data_020bd37c[];
 void OS_DisableIrqMask(void);
-void func_020079c4(void);
+void OS_IsTickAvailable(void);
 void OS_SetIrqMask(void);
 void OS_RestoreInterrupts(void);
-void func_0200848c(void);
-void func_020152f0(void);
-void func_0200f358(void);
-void func_0200f5f0(void);
-void func_020025a8(void);
-void func_020025b8(void);
-extern char data_020bd38c[];
-extern char data_020bd394[];
-extern char data_020bd3b8[];
-void func_0200afc0(void);
-void func_0200b114(void);
-void func_0200b0c8(void);
+void OS_GetBootType(void);
+void CTRDG_IsExisting(void);
+void PMi_WaitVBlank(void);
+void PMi_SendSleepStart(void);
+void GX_IsDispOn(void);
+void GX_DispOff(void);
+extern char PMi_PreSleepCallbackList[];
+extern char PMi_PostSleepCallbackList[];
+extern char rtcInitialized[];
+void PXI_Init(void);
+void PXI_IsCallbackReady(void);
+void PXI_SetFifoRecvCallback(void);
 void RTC_GetDayOfWeek(void);
 extern char data_020bd3bc[];
 
 asm void PM_SendUtilityCommand(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =func_0200f31c
+    ldr r1, =PMi_DummyCallback
     add r2, sp, #0
-    bl func_0200f6fc
+    bl PMi_SetLEDAsync
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_0200f298
+    bl PMi_WaitBusy
     ldr r0, [sp]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200f788(void)
+asm void PM_SetBackLightAsync(void)
 {
     stmdb sp!, {r3, lr}
     mov r12, r2
@@ -127,52 +127,52 @@ asm void func_0200f788(void)
     mov r0, r2
     mov r2, r1
     mov r3, r12
-    bl func_0200f67c
+    bl PM_SendUtilityCommandAsync
     ldmia sp!, {r3, pc}
 }
 
 asm void PMi_ReadRegister(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =func_0200f31c
+    ldr r2, =PMi_DummyCallback
     add r3, sp, #0
-    bl func_0200f788
+    bl PM_SetBackLightAsync
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_0200f298
+    bl PMi_WaitBusy
     ldr r0, [sp]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200f838(void)
+asm void PM_ForceToPowerOffAsync(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r4, r1
-    bl func_02010198
+    bl PMi_LCDOnAvoidReset
     mov r1, #0
     mov r2, r1
     mov r3, r5
     mov r0, #0xe
     str r4, [sp]
-    bl func_0200f67c
+    bl PM_SendUtilityCommandAsync
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200f864(void)
+asm void PMi_ForceToPowerOff(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
-    ldr r0, =func_0200f31c
+    ldr r0, =PMi_DummyCallback
     add r1, sp, #0
-    bl func_0200f838
+    bl PM_ForceToPowerOffAsync
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, pc}
-    ldr r4, =data_020aadd8
+    ldr r4, =PMi_WaitBusyMethod
     mov r0, #0xc
     str r0, [r4]
-    bl func_0200f298
+    bl PMi_WaitBusy
     mov r0, #2
     str r0, [r4]
     ldr r0, [sp]
@@ -180,28 +180,28 @@ asm void func_0200f864(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_0200f8b0(void)
+asm void PM_ForceToPowerOff(void)
 {
     stmdb sp!, {r4, lr}
-    bl func_0200f864
+    bl PMi_ForceToPowerOff
     cmp r0, #0
     beq @L_0200f8d8
     ldr r4, =0x51d23
 @L_0200f8c4:
     mov r0, r4
-    bl func_02008450
-    bl func_0200f864
+    bl OS_SpinWaitSysCycles
+    bl PMi_ForceToPowerOff
     cmp r0, #0
     bne @L_0200f8c4
 @L_0200f8d8:
     bl OS_DisableInterrupts
-    bl func_02008d78
+    bl MI_StopAllDma
 @L_0200f8e0:
-    bl func_020087cc
+    bl OS_Halt
     b @L_0200f8e0
 }
 
-asm void func_0200f8ec(void)
+asm void PMi_SetAmp(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -217,7 +217,7 @@ asm void func_0200f8ec(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200f91c(void)
+asm void PM_GetBackLight(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -256,13 +256,13 @@ asm void PMi_SendPxiData(void)
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     bne @L_0200f98c
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200f9a8(void)
+asm void PMi_PreSleepForDma(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, =0x40001a4
@@ -291,7 +291,7 @@ asm void func_0200f9a8(void)
 @L_0200fa00:
     mov r0, r6
 @L_0200fa04:
-    bl func_02008cb4
+    bl MI_WaitDma
     b @L_0200fa24
 @L_0200fa0c:
     ldr r0, [r2]
@@ -300,7 +300,7 @@ asm void func_0200f9a8(void)
     bne @L_0200fa20
     b @L_0200fa04
 @L_0200fa20:
-    bl func_02008d10
+    bl MI_StopDma
 @L_0200fa24:
     add r6, r6, #1
     cmp r6, #3
@@ -308,7 +308,7 @@ asm void func_0200f9a8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200fa3c(void)
+asm void PM_GoSleepMode(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
@@ -319,7 +319,7 @@ asm void func_0200fa3c(void)
     str r2, [sp, #4]
     mov r5, #1
     mov r4, #0
-    bl func_020100bc
+    bl PMi_ExecuteList
     ldr r0, =0x4000208
     ldrh r6, [r0]
     strh r4, [r0]
@@ -328,7 +328,7 @@ asm void func_0200fa3c(void)
     ldr r0, =0x3fffff
     bl OS_DisableIrqMask
     str r0, [sp, #0xc]
-    bl func_020079c4
+    bl OS_IsTickAvailable
     cmp r0, #0
     movne r0, #8
     moveq r0, r4
@@ -341,7 +341,7 @@ asm void func_0200fa3c(void)
     ldrh r0, [r1]
     strh r5, [r1]
     beq @L_0200fad4
-    bl func_0200848c
+    bl OS_GetBootType
     add r0, r0, #0xfe
     add r0, r0, #0xff00
     mov r0, r0, lsl #0x10
@@ -351,7 +351,7 @@ asm void func_0200fa3c(void)
 @L_0200fad4:
     tst r7, #0x10
     beq @L_0200fae8
-    bl func_020152f0
+    bl CTRDG_IsExisting
     cmp r0, #0
     biceq r7, r7, #0x10
 @L_0200fae8:
@@ -365,16 +365,16 @@ asm void func_0200fa3c(void)
     str r0, [sp, #8]
     mov r0, r10
     mov r1, r9
-    bl func_0200f91c
+    bl PM_GetBackLight
     cmp r0, #0
     beq @L_0200fb3c
     ldr r8, =0x51d23
 @L_0200fb20:
     mov r0, r8
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r10
     mov r1, r9
-    bl func_0200f91c
+    bl PM_GetBackLight
     cmp r0, #0
     bne @L_0200fb20
 @L_0200fb3c:
@@ -388,14 +388,14 @@ asm void func_0200fa3c(void)
     mov r8, #0
 @L_0200fb5c:
     mov r0, r10
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r9
     mov r1, r8
     bl PMi_ReadRegister
     cmp r0, #0
     bne @L_0200fb5c
 @L_0200fb78:
-    bl func_0200f358
+    bl PMi_WaitVBlank
     mov r2, #0x4000000
     ldr r0, [r2]
     add r1, r2, #0x1000
@@ -404,9 +404,9 @@ asm void func_0200fa3c(void)
     ldr r0, [r1]
     bic r0, r0, #0x10000
     str r0, [r1]
-    bl func_0200f358
-    bl func_0200f358
-    bl func_0200f9a8
+    bl PMi_WaitVBlank
+    bl PMi_WaitVBlank
+    bl PMi_PreSleepForDma
     ldr r1, [sp, #0x14]
     ldr r0, =data_020bd37c
     mov r8, #0
@@ -428,19 +428,19 @@ asm void func_0200fa3c(void)
     mov r1, r1, lsl #0x10
     mov r0, r0, lsr #0x10
     mov r1, r1, lsr #0x10
-    bl func_0200f5f0
+    bl PMi_SendSleepStart
     ldr r8, =data_020bd37c
     ldr r0, [r8, #0xc]
     cmp r0, #0
     bne @L_0200fc20
 @L_0200fc10:
-    bl func_020087cc
+    bl OS_Halt
     ldr r0, [r8, #0xc]
     cmp r0, #0
     beq @L_0200fc10
 @L_0200fc20:
     mov r8, #0
-    bl func_020079c4
+    bl OS_IsTickAvailable
     cmp r0, #0
     movne r0, #8
     moveq r0, r8
@@ -464,7 +464,7 @@ asm void func_0200fa3c(void)
     mov r1, r7
     mov r2, r7
     mov r3, r7
-    bl func_0200fd28
+    bl PMi_SetLCDPower
     cmp r0, #1
     bne @L_0200fc6c
     b @L_0200fcb8
@@ -476,7 +476,7 @@ asm void func_0200fa3c(void)
     ldr r9, =0x51d23
 @L_0200fca0:
     mov r0, r9
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r7
     bl PM_SendUtilityCommand
     cmp r0, #0
@@ -488,7 +488,7 @@ asm void func_0200fa3c(void)
     str r5, [r0]
 @L_0200fcc8:
     mov r0, #0x360000
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     ldr r5, =0x4000208
     ldrh r0, [r5]
     ldr r0, [sp, #0xc]
@@ -500,16 +500,16 @@ asm void func_0200fa3c(void)
     cmp r4, #0
     strh r6, [r5]
     beq @L_0200fd00
-    bl func_0200f8b0
+    bl PM_ForceToPowerOff
 @L_0200fd00:
     ldr r0, =data_020bd37c
     ldr r0, [r0, #0x18]
-    bl func_020100bc
+    bl PMi_ExecuteList
     add sp, sp, #0x1c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0200fd28(void)
+asm void PMi_SetLCDPower(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r1
@@ -541,7 +541,7 @@ asm void func_0200fd28(void)
     beq @L_0200fde8
 @L_0200fd94:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r7
     bl PM_SendUtilityCommand
     cmp r0, #0
@@ -551,16 +551,16 @@ asm void func_0200fd28(void)
     mov r1, #0
     mov r0, r7
     mov r2, r1
-    bl func_0200f6fc
+    bl PMi_SetLEDAsync
     cmp r0, #0
     beq @L_0200fde8
 @L_0200fdc8:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r7
     mov r1, r4
     mov r2, r4
-    bl func_0200f6fc
+    bl PMi_SetLEDAsync
     cmp r0, #0
     bne @L_0200fdc8
 @L_0200fde8:
@@ -570,27 +570,27 @@ asm void func_0200fd28(void)
     orr r0, r0, #1
     strh r0, [r1]
     ldr r0, [r4, #0x14]
-    bl func_0200f8ec
+    bl PMi_SetAmp
     cmp r0, #0
     beq @L_0200ff0c
 @L_0200fe0c:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     ldr r0, [r4, #0x14]
-    bl func_0200f8ec
+    bl PMi_SetAmp
     cmp r0, #0
     bne @L_0200fe0c
     b @L_0200ff0c
 @L_0200fe28:
     mov r0, r4
-    bl func_0200f8ec
+    bl PMi_SetAmp
     cmp r0, #0
     beq @L_0200fe50
 @L_0200fe38:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r4
-    bl func_0200f8ec
+    bl PMi_SetAmp
     cmp r0, #0
     bne @L_0200fe38
 @L_0200fe50:
@@ -601,8 +601,8 @@ asm void func_0200fd28(void)
     sub r0, r1, r0
     cmp r0, #2
     bhi @L_0200fe74
-    bl func_0200f358
-    bl func_0200f358
+    bl PMi_WaitVBlank
+    bl PMi_WaitVBlank
 @L_0200fe74:
     ldr r12, =0x4000304
     ldr r0, =0xfffe
@@ -623,7 +623,7 @@ asm void func_0200fd28(void)
     beq @L_0200ff0c
 @L_0200feb8:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r7
     bl PM_SendUtilityCommand
     cmp r0, #0
@@ -633,16 +633,16 @@ asm void func_0200fd28(void)
     mov r1, #0
     mov r0, r7
     mov r2, r1
-    bl func_0200f6fc
+    bl PMi_SetLEDAsync
     cmp r0, #0
     beq @L_0200ff0c
 @L_0200feec:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r7
     mov r1, r4
     mov r2, r4
-    bl func_0200f6fc
+    bl PMi_SetLEDAsync
     cmp r0, #0
     bne @L_0200feec
 @L_0200ff0c:
@@ -650,23 +650,23 @@ asm void func_0200fd28(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200ff28(void)
+asm void PM_SetLCDPower(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     cmp r4, #1
     beq @L_0200ff4c
     mov r4, #0
-    bl func_020025a8
+    bl GX_IsDispOn
     cmp r0, #0
     beq @L_0200ff4c
-    bl func_020025b8
+    bl GX_DispOff
 @L_0200ff4c:
     mov r1, #0
     mov r0, r4
     mov r2, r1
     mov r3, #1
-    bl func_0200fd28
+    bl PMi_SetLCDPower
     ldmia sp!, {r4, pc}
 }
 
@@ -680,7 +680,7 @@ asm void PM_GetLCDPower(void)
     bx lr
 }
 
-asm void func_0200ff80(void)
+asm void PMi_SendLEDPatternCommand(void)
 {
     mov r0, r0, lsl #0x10
     mov r1, r0, lsr #0x10
@@ -690,7 +690,7 @@ asm void func_0200ff80(void)
     bx r12
 }
 
-asm void func_0200ff9c(void)
+asm void PM_GetLEDPattern(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -709,7 +709,7 @@ asm void func_0200ff9c(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_0200ffd8(void)
+asm void PMi_InsertList(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     movs r7, r0
@@ -752,7 +752,7 @@ asm void func_0200ffd8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02010064(void)
+asm void PMi_DeleteList(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r5, r0
@@ -781,7 +781,7 @@ asm void func_02010064(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020100bc(void)
+asm void PMi_ExecuteList(void)
 {
     stmdb sp!, {r4, lr}
     movs r4, r0
@@ -796,69 +796,69 @@ asm void func_020100bc(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020100e4(void)
+asm void PM_AppendPreSleepCallback(void)
 {
     mov r1, r0
-    ldr r0, =data_020bd38c
-    ldr r12, =func_0200ffd8
+    ldr r0, =PMi_PreSleepCallbackList
+    ldr r12, =PMi_InsertList
     mov r2, #0xff
     mov r3, #0
     bx r12
 }
 
-asm void func_02010104(void)
+asm void PM_PrependPreSleepCallback(void)
 {
     mov r1, r0
-    ldr r0, =data_020bd38c
-    ldr r12, =func_0200ffd8
+    ldr r0, =PMi_PreSleepCallbackList
+    ldr r12, =PMi_InsertList
     mvn r2, #0xfe
     mov r3, #1
     bx r12
 }
 
-asm void func_02010124(void)
+asm void PM_AppendPostSleepCallback(void)
 {
     mov r1, r0
-    ldr r0, =data_020bd394
-    ldr r12, =func_0200ffd8
+    ldr r0, =PMi_PostSleepCallbackList
+    ldr r12, =PMi_InsertList
     mov r2, #0xff
     mov r3, #0
     bx r12
 }
 
-asm void func_02010144(void)
+asm void PMi_InsertPostSleepCallbackEx(void)
 {
     mov r3, r0
     mov r2, r1
     mov r1, r3
-    ldr r0, =data_020bd38c
-    ldr r12, =func_0200ffd8
+    ldr r0, =PMi_PreSleepCallbackList
+    ldr r12, =PMi_InsertList
     mov r3, #0
     bx r12
 }
 
-asm void func_02010168(void)
+asm void PM_DeletePreSleepCallback(void)
 {
     mov r1, r0
-    ldr r0, =data_020bd38c
-    ldr r12, =func_02010064
+    ldr r0, =PMi_PreSleepCallbackList
+    ldr r12, =PMi_DeleteList
     bx r12
 }
 
-asm void func_02010180(void)
+asm void PM_DeletePostSleepCallback(void)
 {
     mov r1, r0
-    ldr r0, =data_020bd394
-    ldr r12, =func_02010064
+    ldr r0, =PMi_PostSleepCallbackList
+    ldr r12, =PMi_DeleteList
     bx r12
 }
 
-asm void func_02010198(void)
+asm void PMi_LCDOnAvoidReset(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r0, #0x360000
-    bl func_02008450
-    ldr r0, =data_020aadd8
+    bl OS_SpinWaitSysCycles
+    ldr r0, =PMi_WaitBusyMethod
     mov r1, #0xe
     ldr r4, [r0]
     str r1, [r0]
@@ -875,7 +875,7 @@ asm void func_02010198(void)
     mov r5, #0
 @L_020101e0:
     mov r0, r7
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r6
     mov r1, r5
     bl PMi_ReadRegister
@@ -883,25 +883,25 @@ asm void func_02010198(void)
     bne @L_020101e0
 @L_020101fc:
     mov r0, #1
-    bl func_0200ff28
+    bl PM_SetLCDPower
     cmp r0, #0
     bne @L_0201022c
     mov r6, #5
     mov r5, #1
 @L_02010214:
     mov r0, r6
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r5
-    bl func_0200ff28
+    bl PM_SetLCDPower
     cmp r0, #0
     beq @L_02010214
 @L_0201022c:
-    ldr r0, =data_020aadd8
+    ldr r0, =PMi_WaitBusyMethod
     str r4, [r0]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02010240(void)
+asm void PMi_SetDispOffCount(void)
 {
     ldr r1, =0x2fffc3c
     ldr r0, =data_020bd37c
@@ -910,10 +910,10 @@ asm void func_02010240(void)
     bx lr
 }
 
-asm void func_0201025c(void)
+asm void RTC_Init(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r0, =data_020bd3b8
+    ldr r0, =rtcInitialized
     ldrh r1, [r0]
     cmp r1, #0
     ldmneia sp!, {r3, r4, r5, pc}
@@ -925,29 +925,29 @@ asm void func_0201025c(void)
     str r1, [r0, #0x20]
     str r1, [r0, #0xc]
     str r1, [r0, #0x10]
-    bl func_0200afc0
+    bl PXI_Init
     mov r5, #5
     mov r4, #1
 @L_0201029c:
     mov r0, r5
     mov r1, r4
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     beq @L_0201029c
-    ldr r1, =func_020104cc
+    ldr r1, =RtcCommonCallback
     mov r0, r5
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020102c8(void)
+asm void RTC_GetDateAsync(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
     mov r7, r1
     mov r6, r2
     bl OS_DisableInterrupts
-    ldr r4, =data_020bd3b8
+    ldr r4, =rtcInitialized
     ldr r1, [r4, #4]
     cmp r1, #0
     beq @L_020102f8
@@ -964,7 +964,7 @@ asm void func_020102c8(void)
     str r8, [r4, #0xc]
     str r7, [r4, #8]
     str r6, [r4, #0x14]
-    bl func_020109ac
+    bl RTCi_ReadRawDateAsync
     cmp r0, #0
     movne r0, r5
     streq r5, [r4, #4]
@@ -972,31 +972,31 @@ asm void func_020102c8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02010338(void)
+asm void RTC_GetDate(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =func_02010974
+    ldr r1, =RtcGetResultCallback
     mov r2, #0
-    bl func_020102c8
-    ldr r1, =data_020bd3b8
+    bl RTC_GetDateAsync
+    ldr r1, =rtcInitialized
     cmp r0, #0
     str r0, [r1, #0x24]
     bne @L_0201035c
-    bl func_02010984
+    bl RtcWaitBusy
 @L_0201035c:
-    ldr r0, =data_020bd3b8
+    ldr r0, =rtcInitialized
     ldr r0, [r0, #0x24]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02010370(void)
+asm void RTC_GetTimeAsync(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
     mov r7, r1
     mov r6, r2
     bl OS_DisableInterrupts
-    ldr r4, =data_020bd3b8
+    ldr r4, =rtcInitialized
     ldr r1, [r4, #4]
     cmp r1, #0
     beq @L_020103a0
@@ -1013,7 +1013,7 @@ asm void func_02010370(void)
     str r8, [r4, #0xc]
     str r7, [r4, #8]
     str r6, [r4, #0x14]
-    bl func_020109bc
+    bl RTCi_ReadRawTimeAsync
     cmp r0, #0
     movne r0, r5
     streq r5, [r4, #4]
@@ -1021,24 +1021,24 @@ asm void func_02010370(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_020103e0(void)
+asm void RTC_GetTime(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =func_02010974
+    ldr r1, =RtcGetResultCallback
     mov r2, #0
-    bl func_02010370
-    ldr r1, =data_020bd3b8
+    bl RTC_GetTimeAsync
+    ldr r1, =rtcInitialized
     cmp r0, #0
     str r0, [r1, #0x24]
     bne @L_02010404
-    bl func_02010984
+    bl RtcWaitBusy
 @L_02010404:
-    ldr r0, =data_020bd3b8
+    ldr r0, =rtcInitialized
     ldr r0, [r0, #0x24]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02010418(void)
+asm void RTC_GetDateTimeAsync(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r0
@@ -1046,7 +1046,7 @@ asm void func_02010418(void)
     mov r5, r2
     mov r4, r3
     bl OS_DisableInterrupts
-    ldr r8, =data_020bd3b8
+    ldr r8, =rtcInitialized
     ldr r1, [r8, #4]
     cmp r1, #0
     beq @L_0201044c
@@ -1065,7 +1065,7 @@ asm void func_02010418(void)
     str r6, [r8, #0x10]
     str r5, [r8, #8]
     str r4, [r8, #0x14]
-    bl func_0201099c
+    bl RTCi_ReadRawDateTimeAsync
     cmp r0, #0
     movne r0, r9
     streq r9, [r8, #4]
@@ -1073,30 +1073,30 @@ asm void func_02010418(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02010494(void)
+asm void RTC_GetDateTime(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =func_02010974
+    ldr r2, =RtcGetResultCallback
     mov r3, #0
-    bl func_02010418
-    ldr r1, =data_020bd3b8
+    bl RTC_GetDateTimeAsync
+    ldr r1, =rtcInitialized
     cmp r0, #0
     str r0, [r1, #0x24]
     bne @L_020104b8
-    bl func_02010984
+    bl RtcWaitBusy
 @L_020104b8:
-    ldr r0, =data_020bd3b8
+    ldr r0, =rtcInitialized
     ldr r0, [r0, #0x24]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020104cc(void)
+asm void RtcCommonCallback(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     cmp r2, #0
     ldr r0, =0x2fffdea
     mov r4, #0
-    ldr r6, =data_020bd3b8
+    ldr r6, =rtcInitialized
     beq @L_0201051c
     ldr r0, [r6, #0x1c]
     cmp r0, #0
@@ -1154,17 +1154,17 @@ asm void func_020104cc(void)
     ldr r0, [r7]
     mov r0, r0, lsl #0x18
     mov r0, r0, lsr #0x18
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8]
     ldr r0, [r7]
     mov r0, r0, lsl #0x13
     mov r0, r0, lsr #0x1b
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #4]
     ldr r0, [r7]
     mov r0, r0, lsl #0xa
     mov r0, r0, lsr #0x1a
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #8]
     mov r0, r8
     bl RTC_GetDayOfWeek
@@ -1176,18 +1176,18 @@ asm void func_020104cc(void)
     ldr r0, [r7]
     mov r0, r0, lsl #0x1a
     mov r0, r0, lsr #0x1a
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8]
     ldr r0, [r7]
     mov r0, r0, lsl #0x11
     mov r0, r0, lsr #0x19
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #4]
     ldr r0, [r7]
 @L_0201062c:
     mov r0, r0, lsl #9
     mov r0, r0, lsr #0x19
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #8]
     b @L_020108c4
 @L_02010640:
@@ -1195,17 +1195,17 @@ asm void func_020104cc(void)
     ldr r8, [r6, #0xc]
     ldr r0, [r7]
     and r0, r0, #0xff
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8]
     ldr r0, [r7]
     mov r0, r0, lsl #0x13
     mov r0, r0, lsr #0x1b
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #4]
     ldr r0, [r7]
     mov r0, r0, lsl #0xa
     mov r0, r0, lsr #0x1a
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #8]
     mov r0, r8
     bl RTC_GetDayOfWeek
@@ -1214,12 +1214,12 @@ asm void func_020104cc(void)
     ldr r8, [r6, #0x10]
     mov r0, r0, lsl #0x1a
     mov r0, r0, lsr #0x1a
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8]
     ldr r0, [r7, #4]
     mov r0, r0, lsl #0x11
     mov r0, r0, lsr #0x19
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #4]
     ldr r0, [r7, #4]
     b @L_0201062c
@@ -1252,12 +1252,12 @@ asm void func_020104cc(void)
     ldr r0, [r7]
     mov r0, r0, lsl #0x12
     mov r0, r0, lsr #0x1a
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #4]
     ldr r0, [r7]
     mov r0, r0, lsl #9
     mov r0, r0, lsr #0x19
-    bl func_0201090c
+    bl RtcHEX2BCD
     str r0, [r8, #8]
     str r5, [r8, #0xc]
     ldr r0, [r7]
@@ -1337,7 +1337,7 @@ asm void func_020104cc(void)
     bic r1, r1, #0x40
 @L_02010860:
     strh r1, [r0]
-    bl func_020109cc
+    bl RTCi_WriteRawStatus2Async
     cmp r0, #0
     streq r5, [r6, #0x1c]
     moveq r5, #3
@@ -1386,7 +1386,7 @@ asm void func_020104cc(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0201090c(void)
+asm void RtcHEX2BCD(void)
 {
     stmdb sp!, {r4, lr}
     mov r12, #0
@@ -1418,14 +1418,14 @@ asm void func_0201090c(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02010974(void)
+asm void RtcGetResultCallback(void)
 {
-    ldr r1, =data_020bd3b8
+    ldr r1, =rtcInitialized
     str r0, [r1, #0x24]
     bx lr
 }
 
-asm void func_02010984(void)
+asm void RtcWaitBusy(void)
 {
     ldr r12, =data_020bd3bc
 @L_02010988:
@@ -1435,35 +1435,35 @@ asm void func_02010984(void)
     bx lr
 }
 
-asm void func_0201099c(void)
+asm void RTCi_ReadRawDateTimeAsync(void)
 {
-    ldr r12, =func_020109dc
+    ldr r12, =RtcSendPxiCommand
     mov r0, #0x10
     bx r12
 }
 
-asm void func_020109ac(void)
+asm void RTCi_ReadRawDateAsync(void)
 {
-    ldr r12, =func_020109dc
+    ldr r12, =RtcSendPxiCommand
     mov r0, #0x11
     bx r12
 }
 
-asm void func_020109bc(void)
+asm void RTCi_ReadRawTimeAsync(void)
 {
-    ldr r12, =func_020109dc
+    ldr r12, =RtcSendPxiCommand
     mov r0, #0x12
     bx r12
 }
 
-asm void func_020109cc(void)
+asm void RTCi_WriteRawStatus2Async(void)
 {
-    ldr r12, =func_020109dc
+    ldr r12, =RtcSendPxiCommand
     mov r0, #0x27
     bx r12
 }
 
-asm void func_020109dc(void)
+asm void RtcSendPxiCommand(void)
 {
     stmdb sp!, {r4, lr}
     mov r0, r0, lsl #8
@@ -1471,7 +1471,7 @@ asm void func_020109dc(void)
     and r1, r0, #0x7f00
     mov r2, r4
     mov r0, #5
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     movge r4, #1
     mov r0, r4

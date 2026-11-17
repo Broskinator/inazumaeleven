@@ -3,29 +3,29 @@
 void OSi_InsertVAlarm(void);
 void OSi_AppendVAlarm(void);
 void OSi_DetachVAlarm(void);
-void func_020080f0(void);
-void func_02008104(void);
-void func_02008190(void);
-void func_020081d0(void);
+void OS_CreateVAlarm(void);
+void OS_SetVAlarm(void);
+void OSi_SetNextVAlarm(void);
+void OSi_VAlarmHandler(void);
 void OSi_CompareVCount(void);
-void func_02008384(void);
-void func_020083c0(void);
+void OSi_GetVFrame(void);
+void OS_EnableInterrupts(void);
 void OS_DisableInterrupts(void);
 
-extern char data_020bb47c[];
-void func_0200878c(void);
+extern char OSi_UseVAlarm[];
+void OS_Terminate(void);
 void OS_RestoreInterrupts(void);
 void OS_SetIrqFunction(void);
 void GX_SetVCountEqVal(void);
 void OS_EnableIrqMask(void);
 void OS_DisableIrqMask(void);
-extern char data_027e0000[];
+extern char OS_IRQTable[];
 void OS_ResetRequestIrqMask(void);
 
 asm void OSi_InsertVAlarm(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb47c
+    ldr r1, =OSi_UseVAlarm
     ldr r3, [r1, #0xc]
     cmp r3, #0
     beq @L_02008074
@@ -47,9 +47,9 @@ asm void OSi_InsertVAlarm(void)
     cmp r1, #0
     strne r0, [r1, #0x18]
     ldmneia sp!, {r3, pc}
-    ldr r1, =data_020bb47c
+    ldr r1, =OSi_UseVAlarm
     str r0, [r1, #0xc]
-    bl func_02008190
+    bl OSi_SetNextVAlarm
     ldmia sp!, {r3, pc}
 @L_02008068:
     ldr r3, [r3, #0x18]
@@ -63,7 +63,7 @@ asm void OSi_InsertVAlarm(void)
 asm void OSi_AppendVAlarm(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r1, =data_020bb47c
+    ldr r1, =OSi_UseVAlarm
     mov r2, #0
     ldr r3, [r1, #0x10]
     str r3, [r0, #0x14]
@@ -73,7 +73,7 @@ asm void OSi_AppendVAlarm(void)
     strne r0, [r3, #0x18]
     ldmneia sp!, {r3, pc}
     str r0, [r1, #0xc]
-    bl func_02008190
+    bl OSi_SetNextVAlarm
     ldmia sp!, {r3, pc}
 }
 
@@ -84,17 +84,17 @@ asm void OSi_DetachVAlarm(void)
     ldr r2, [r0, #0x18]
     ldr r1, [r0, #0x14]
     cmp r2, #0
-    ldreq r0, =data_020bb47c
+    ldreq r0, =OSi_UseVAlarm
     strne r1, [r2, #0x14]
     streq r1, [r0, #0x10]
     cmp r1, #0
-    ldreq r0, =data_020bb47c
+    ldreq r0, =OSi_UseVAlarm
     strne r2, [r1, #0x18]
     streq r2, [r0, #0xc]
     bx lr
 }
 
-asm void func_020080f0(void)
+asm void OS_CreateVAlarm(void)
 {
     mov r1, #0
     str r1, [r0]
@@ -103,7 +103,7 @@ asm void func_020080f0(void)
     bx lr
 }
 
-asm void func_02008104(void)
+asm void OS_SetVAlarm(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r8, r0
@@ -118,12 +118,12 @@ asm void func_02008104(void)
     cmp r0, #0
     beq @L_02008138
 @L_02008134:
-    bl func_0200878c
+    bl OS_Terminate
 @L_02008138:
     ldr r0, =0x4000006
     ldrh r9, [r0]
     mov r0, r9
-    bl func_02008384
+    bl OSi_GetVFrame
     mov r1, #0
     cmp r7, r9
     addle r0, r0, #1
@@ -143,12 +143,12 @@ asm void func_02008104(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02008190(void)
+asm void OSi_SetNextVAlarm(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, #4
     mov r5, r0
-    ldr r1, =func_020081d0
+    ldr r1, =OSi_VAlarmHandler
     mov r0, r4
     bl OS_SetIrqFunction
     ldrsh r0, [r5, #0x10]
@@ -162,14 +162,14 @@ asm void func_02008190(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020081d0(void)
+asm void OSi_VAlarmHandler(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r4, #4
     mov r0, r4
     bl OS_DisableIrqMask
     sub r9, r4, #0xfc000000
-    ldr r0, =data_027e0000
+    ldr r0, =OS_IRQTable
     ldrh r1, [r9]
     ldr r11, =0xffdf
     add r0, r0, #0x3000
@@ -185,8 +185,8 @@ asm void func_020081d0(void)
     and r0, r0, #0x100
     orr r0, r1, r0
     sub r0, r0, #1
-    bl func_02008384
-    ldr r4, =data_020bb47c
+    bl OSi_GetVFrame
+    ldr r4, =OSi_UseVAlarm
     ldr r10, [r4, #0xc]
     cmp r10, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -195,7 +195,7 @@ asm void func_020081d0(void)
 @L_02008240:
     ldrh r7, [r8]
     mov r0, r7
-    bl func_02008384
+    bl OSi_GetVFrame
     mov r6, r0
     mov r0, r10
     mov r1, r6
@@ -210,7 +210,7 @@ asm void func_020081d0(void)
     b @L_02008318
 @L_0200827c:
     mov r0, r10
-    bl func_02008190
+    bl OSi_SetNextVAlarm
     ldrh r1, [r8]
     ldrsh r0, [r10, #0x10]
     cmp r0, r1
@@ -284,13 +284,13 @@ asm void OSi_CompareVCount(void)
     bx lr
 }
 
-asm void func_02008384(void)
+asm void OSi_GetVFrame(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb47c
-    ldr r4, =data_020bb47c
+    ldr r1, =OSi_UseVAlarm
+    ldr r4, =OSi_UseVAlarm
     ldr r2, [r1, #4]
     cmp r5, r2
     ldrlt r2, [r1, #8]
@@ -302,7 +302,7 @@ asm void func_02008384(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020083c0(void)
+asm void OS_EnableInterrupts(void)
 {
     mrs r0, CPSR
     bic r1, r0, #0x80

@@ -1,33 +1,33 @@
 // (asm for now)
 
 void SND_Init(void);
-void func_0200a298(void);
-void func_0200a2ac(void);
-void func_0200a2c0(void);
-void func_0200a390(void);
+void SNDi_LockMutex(void);
+void SNDi_UnlockMutex(void);
+void SND_CommandInit(void);
+void SND_RecvCommandReply(void);
 
 extern char data_020bb4d4[];
-extern char data_020bb4d8[];
+extern char sSndMutex[];
 void OS_InitMutex(void);
-void func_0200a9a0(void);
+void SND_AlarmInit(void);
 void OS_LockMutex(void);
 void OS_UnlockMutex(void);
-void func_0200a88c(void);
-extern char data_020bb7c0[];
-extern char data_020bb4f0[];
+void InitPXI(void);
+extern char sCommandArray[];
+extern char sFreeList[];
 extern char data_020bc7c0[];
 extern char data_020bcfa8[];
 extern char data_020bb540[];
-extern char data_020bd020[];
-void func_0200aae0(void);
+extern char SNDi_SharedWork[];
+void SNDi_InitSharedWork(void);
 void SND_AllocCommand(void);
 void SND_PushCommand(void);
-void func_0200a550(void);
+void SND_FlushCommand(void);
 void OS_DisableInterrupts(void);
-void func_0200aabc(void);
+void SNDi_GetFinishedCommandTag(void);
 void OS_RestoreInterrupts(void);
-void func_02008450(void);
-extern char data_020bb514[];
+void OS_SpinWaitSysCycles(void);
+extern char sWaitingCommandListQueue[];
 
 asm void SND_Init(void)
 {
@@ -36,35 +36,35 @@ asm void SND_Init(void)
     ldr r0, [r1]
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    ldr r0, =data_020bb4d8
+    ldr r0, =sSndMutex
     mov r2, #1
     str r2, [r1]
     bl OS_InitMutex
-    bl func_0200a2c0
-    bl func_0200a9a0
+    bl SND_CommandInit
+    bl SND_AlarmInit
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200a298(void)
+asm void SNDi_LockMutex(void)
 {
-    ldr r0, =data_020bb4d8
+    ldr r0, =sSndMutex
     ldr r12, =OS_LockMutex
     bx r12
 }
 
-asm void func_0200a2ac(void)
+asm void SNDi_UnlockMutex(void)
 {
-    ldr r0, =data_020bb4d8
+    ldr r0, =sSndMutex
     ldr r12, =OS_UnlockMutex
     bx r12
 }
 
-asm void func_0200a2c0(void)
+asm void SND_CommandInit(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    bl func_0200a88c
-    ldr r5, =data_020bb7c0
-    ldr r0, =data_020bb4f0
+    bl InitPXI
+    ldr r5, =sCommandArray
+    ldr r0, =sFreeList
     mov r12, #0
     str r5, [r0]
     mov r0, #0x18
@@ -83,7 +83,7 @@ asm void func_0200a2c0(void)
     mov r3, #0
     str r3, [r0, #0x7e8]
     ldr r2, =data_020bcfa8
-    ldr r1, =data_020bb4f0
+    ldr r1, =sFreeList
     mov r5, #1
     str r2, [r1, #0x10]
     str r3, [r1, #8]
@@ -93,10 +93,10 @@ asm void func_0200a2c0(void)
     str r3, [r1, #0x18]
     str r5, [r1, #0x20]
     ldr r0, =data_020bb540
-    ldr r4, =data_020bd020
+    ldr r4, =SNDi_SharedWork
     str r3, [r1, #4]
     str r0, [r4]
-    bl func_0200aae0
+    bl SNDi_InitSharedWork
     mov r0, r5
     bl SND_AllocCommand
     cmp r0, #0
@@ -107,20 +107,20 @@ asm void func_0200a2c0(void)
     str r1, [r0, #8]
     bl SND_PushCommand
     mov r0, r5
-    bl func_0200a550
+    bl SND_FlushCommand
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200a390(void)
+asm void SND_RecvCommandReply(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
-    ldr r6, =data_020bb4f0
+    ldr r6, =sFreeList
     bl OS_DisableInterrupts
     mov r4, r0
     tst r5, #1
     beq @L_0200a3ec
-    bl func_0200aabc
+    bl SNDi_GetFinishedCommandTag
     ldr r1, [r6, #4]
     cmp r1, r0
     bne @L_0200a40c
@@ -129,16 +129,16 @@ asm void func_0200a390(void)
     mov r0, r4
     bl OS_RestoreInterrupts
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     bl OS_DisableInterrupts
     mov r4, r0
-    bl func_0200aabc
+    bl SNDi_GetFinishedCommandTag
     ldr r1, [r6, #4]
     cmp r1, r0
     beq @L_0200a3c0
     b @L_0200a40c
 @L_0200a3ec:
-    bl func_0200aabc
+    bl SNDi_GetFinishedCommandTag
     ldr r1, [r6, #4]
     cmp r1, r0
     bne @L_0200a40c
@@ -148,7 +148,7 @@ asm void func_0200a390(void)
     ldmia sp!, {r4, r5, r6, pc}
 @L_0200a40c:
     ldr r2, [r6, #0x14]
-    ldr r1, =data_020bb514
+    ldr r1, =sWaitingCommandListQueue
     add r0, r2, #1
     ldr r5, [r1, r2, lsl #2]
     cmp r0, #8

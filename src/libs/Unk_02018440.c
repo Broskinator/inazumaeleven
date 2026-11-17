@@ -1,19 +1,19 @@
 // (asm for now)
 
 void __fill_mem(void);
-void func_020184ec(void);
-void func_020189f8(void);
-void func_02018c48(void);
-void func_02018f1c(void);
-void func_020193c8(void);
-void func_020194dc(void);
-void func_02019bec(void);
+void parse_format(void);
+void long2str(void);
+void longlong2str(void);
+void double2hex(void);
+void round_decimal(void);
+void float2str(void);
+void __pformatter(void);
 
-extern char data_020a44f8[];
+extern char __ctype_mapC[];
 void _u32_div_f(void);
 void func_020226e0(void);
 void _ll_udiv(void);
-void func_0201ce20(void);
+void __num2dec(void);
 extern char data_020ab2f0[];
 extern char data_020ab2f8[];
 extern char data_020ab300[];
@@ -27,7 +27,7 @@ void _dneq(void);
 void _dls(void);
 void strchr(void);
 void strlen(void);
-void func_0201a77c(void);
+void __msl_runtime_constraint_violation_s(void);
 extern char data_020ab320[];
 void wcstombs(void);
 extern char data_020ab324[];
@@ -88,7 +88,7 @@ asm void __fill_mem(void)
     bx lr
 }
 
-asm void func_020184ec(void)
+asm void parse_format(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x10
@@ -179,7 +179,7 @@ asm void func_020184ec(void)
     strlt r2, [sp, #8]
     b @L_02018660
 @L_02018624:
-    ldr r6, =data_020a44f8
+    ldr r6, =__ctype_mapC
     mov r2, #0xa
     b @L_02018644
 @L_02018630:
@@ -227,7 +227,7 @@ asm void func_020184ec(void)
     strltb r0, [sp, #2]
     b @L_0201870c
 @L_020186d0:
-    ldr r6, =data_020a44f8
+    ldr r6, =__ctype_mapC
     mov r1, #0xa
     b @L_020186f0
 @L_020186dc:
@@ -462,7 +462,7 @@ asm void func_020184ec(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_020189f8(void)
+asm void long2str(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -630,7 +630,7 @@ asm void func_020189f8(void)
     bx lr
 }
 
-asm void func_02018c48(void)
+asm void longlong2str(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -831,7 +831,7 @@ asm void func_02018c48(void)
     bx lr
 }
 
-asm void func_02018f1c(void)
+asm void double2hex(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -860,7 +860,7 @@ asm void func_02018f1c(void)
     add r3, sp, #0x14
     strb r7, [sp, #0x10]
     strh r9, [sp, #0x12]
-    bl func_0201ce20
+    bl __num2dec
     ldrb r0, [sp, #0x19]
     cmp r0, #0x30
     beq @L_02018fac
@@ -1048,7 +1048,7 @@ asm void func_02018f1c(void)
     mov r0, r9
     mov r1, r8
     ldmia r7, {r2, r3}
-    bl func_020189f8
+    bl long2str
     cmp r5, #0x61
     sub r7, r0, #1
     moveq r0, #0x70
@@ -1140,7 +1140,7 @@ asm void func_02018f1c(void)
     bx lr
 }
 
-asm void func_020193c8(void)
+asm void round_decimal(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r1, #0
@@ -1225,7 +1225,7 @@ asm void func_020193c8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020194dc(void)
+asm void float2str(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -1252,7 +1252,7 @@ asm void func_020194dc(void)
     mov r2, r11
     strb r12, [sp]
     strh r10, [sp, #2]
-    bl func_0201ce20
+    bl __num2dec
     ldrb r0, [sp, #8]
     add r1, sp, #9
     add r1, r1, r0
@@ -1294,7 +1294,7 @@ asm void func_020194dc(void)
     bhs @L_02019668
     cmp r6, #0x80
     movhs r1, #0
-    ldrlo r1, =data_020a44f8
+    ldrlo r1, =__ctype_mapC
     movlo r2, r6, lsl #1
     ldrloh r1, [r1, r2]
     sub r0, r9, #5
@@ -1335,7 +1335,7 @@ asm void func_020194dc(void)
 @L_02019668:
     cmp r6, #0x80
     movhs r1, #0
-    ldrlo r1, =data_020a44f8
+    ldrlo r1, =__ctype_mapC
     movlo r2, r6, lsl #1
     ldrloh r1, [r1, r2]
     sub r0, r9, #4
@@ -1375,7 +1375,7 @@ asm void func_020194dc(void)
     beq @L_0201979c
     cmp r6, #0x80
     movhs r1, #0
-    ldrlo r1, =data_020a44f8
+    ldrlo r1, =__ctype_mapC
     movlo r2, r6, lsl #1
     ldrloh r1, [r1, r2]
     sub r0, r9, #5
@@ -1416,7 +1416,7 @@ asm void func_020194dc(void)
 @L_0201979c:
     cmp r6, #0x80
     movhs r1, #0
-    ldrlo r1, =data_020a44f8
+    ldrlo r1, =__ctype_mapC
     movlo r2, r6, lsl #1
     ldrloh r1, [r1, r2]
     sub r0, r9, #4
@@ -1486,7 +1486,7 @@ asm void func_020194dc(void)
     ble @L_020198ac
     add r0, sp, #4
     mov r1, r7
-    bl func_020193c8
+    bl round_decimal
 @L_020198ac:
     ldrsh r0, [sp, #6]
     cmn r0, #4
@@ -1518,7 +1518,7 @@ asm void func_020194dc(void)
     cmp r0, r1
     ble @L_0201991c
     add r0, sp, #4
-    bl func_020193c8
+    bl round_decimal
 @L_0201991c:
     ldrsh lr, [sp, #6]
     mov r11, #0x2b
@@ -1610,7 +1610,7 @@ asm void func_020194dc(void)
     sub r1, r1, r7
     add r0, sp, #4
     sub r1, r2, r1
-    bl func_020193c8
+    bl round_decimal
     ldrsh r3, [sp, #6]
     ldrb r2, [sp, #8]
     sub r0, r2, r3
@@ -1713,7 +1713,7 @@ asm void func_020194dc(void)
     bx lr
 }
 
-asm void func_02019bec(void)
+asm void __pformatter(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -1768,7 +1768,7 @@ asm void func_02019bec(void)
     ldr r0, [sp, #0xc]
     add r1, sp, #0x25c
     add r2, sp, #0x1c
-    bl func_020184ec
+    bl parse_format
     ldrb r1, [sp, #0x21]
     mov r11, r0
     cmp r1, #0x61
@@ -1886,7 +1886,7 @@ asm void func_02019bec(void)
     ldr r0, [sp, #0x10]
     ldr r1, [sp, #0x14]
     add r2, sp, #0x22c
-    bl func_02018c48
+    bl longlong2str
     movs r7, r0
     beq @L_0201a274
     b @L_02019e98
@@ -1898,7 +1898,7 @@ asm void func_02019bec(void)
     mov r0, r10
     add r1, sp, #0x22c
     ldmia r5, {r2, r3}
-    bl func_020189f8
+    bl long2str
     movs r7, r0
     beq @L_0201a274
 @L_02019e98:
@@ -1964,7 +1964,7 @@ asm void func_02019bec(void)
     ldr r0, [sp, #0x10]
     ldr r1, [sp, #0x14]
     add r2, sp, #0x22c
-    bl func_02018c48
+    bl longlong2str
     movs r7, r0
     beq @L_0201a274
     b @L_02019fb0
@@ -1976,7 +1976,7 @@ asm void func_02019bec(void)
     mov r0, r10
     add r1, sp, #0x22c
     ldmia r5, {r2, r3}
-    bl func_020189f8
+    bl long2str
     movs r7, r0
     beq @L_0201a274
 @L_02019fb0:
@@ -2000,7 +2000,7 @@ asm void func_02019bec(void)
     mov r0, r6
     mov r1, r7
     add r2, sp, #0x22c
-    bl func_020194dc
+    bl float2str
     movs r7, r0
     beq @L_0201a274
     b @L_02019e98
@@ -2023,7 +2023,7 @@ asm void func_02019bec(void)
     mov r0, r6
     mov r1, r7
     add r2, sp, #0x22c
-    bl func_02018f1c
+    bl double2hex
     movs r7, r0
     beq @L_0201a274
     b @L_02019e98
@@ -2044,7 +2044,7 @@ asm void func_02019bec(void)
     mvn r4, #0
     mov r1, r0
     mov r2, r4
-    bl func_0201a77c
+    bl __msl_runtime_constraint_violation_s
     add sp, sp, #0x22c
     mov r0, r4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -2075,7 +2075,7 @@ asm void func_02019bec(void)
     mvn r4, #0
     mov r1, r0
     mov r2, r4
-    bl func_0201a77c
+    bl __msl_runtime_constraint_violation_s
     add sp, sp, #0x22c
     mov r0, r4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -2123,7 +2123,7 @@ asm void func_02019bec(void)
     mvn r4, #0
     mov r1, r0
     mov r2, r4
-    bl func_0201a77c
+    bl __msl_runtime_constraint_violation_s
     add sp, sp, #0x22c
     mov r0, r4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}

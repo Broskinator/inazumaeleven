@@ -1,50 +1,50 @@
 // (asm for now)
 
 void NNSi_SndArcLoadBank(void);
-void func_02031b28(void);
-void func_02031bac(void);
+void NNSi_SndArcLoadWaveArc(void);
+void NNSi_SndArcLoadFile(void);
 void func_02031c50(void);
-void func_02031cbc(void);
-void func_02031d28(void);
+void LoadWaveArc(void);
+void LoadWaveArcTable(void);
 void DisposeCallback(void);
-void func_02031ea8(void);
-void func_02031ed8(void);
+void BankDisposeCallback(void);
+void WaveArcDisposeCallback(void);
 void WaveArcTableDisposeCallback(void);
 void SingleWaveDisposeCallback(void);
 void LoadSingleWave(void);
-void func_02032038(void);
-void func_020320f8(void);
+void LoadSingleWaves(void);
+void NNS_SndArcPlayerSetup(void);
 
-void func_02031538(void);
-void func_02031754(void);
+void NNS_SndArcGetBankInfo(void);
+void NNS_SndArcGetFileAddress(void);
 void func_0203159c(void);
-void func_0200abcc(void);
+void SND_AssignWaveArc(void);
 void func_02031664(void);
 void NNS_SndHeapAlloc(void);
-void func_0203168c(void);
+void NNS_SndArcReadFile(void);
 void DC_StoreRange(void);
-void func_020314c4(void);
-void func_0203177c(void);
-extern char data_020c2e00[];
+void NNS_SndArcGetCurrent(void);
+void NNS_SndArcSetFileAddress(void);
+extern char waveArcHeader[];
 extern char data_020c2e00_b[];
 void MI_CpuCopy8(void);
 void MI_CpuFill8(void);
 void OS_DisableInterrupts(void);
-void func_020314ac(void);
+void NNS_SndArcSetCurrent(void);
 void OS_RestoreInterrupts(void);
 void SND_InvalidateBankData(void);
-void func_0200ac9c(void);
+void SND_DestroyBank(void);
 void SND_InvalidateWaveData(void);
 void SND_DestroyWaveArc(void);
 void SND_GetWaveDataAddress(void);
 void SND_SetWaveDataAddress(void);
-void func_0200af48(void);
-void func_0200ad7c(void);
-void func_0200ad9c(void);
-void func_02031600(void);
+void SND_GetWaveDataCount(void);
+void SND_GetFirstInstDataPos(void);
+void SND_GetNextInstData(void);
+void NNS_SndArcGetPlayerInfo(void);
 void NNS_SndPlayerSetPlayableSeqCount(void);
 void NNS_SndPlayerSetAllocatableChannel(void);
-void func_02030828(void);
+void NNS_SndPlayerCreateHeap(void);
 
 asm void NNSi_SndArcLoadBank(void)
 {
@@ -53,7 +53,7 @@ asm void NNSi_SndArcLoadBank(void)
     mov r10, r1
     mov r9, r2
     mov r11, r3
-    bl func_02031538
+    bl NNS_SndArcGetBankInfo
     movs r5, r0
     addeq sp, sp, #8
     moveq r0, #4
@@ -70,7 +70,7 @@ asm void NNSi_SndArcLoadBank(void)
     mov r0, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02031a3c:
-    bl func_02031754
+    bl NNS_SndArcGetFileAddress
     mov r6, r0
 @L_02031a44:
     and r8, r10, #4
@@ -93,7 +93,7 @@ asm void NNSi_SndArcLoadBank(void)
     mov r1, r10
     mov r2, r9
     mov r3, r11
-    bl func_02031b28
+    bl NNSi_SndArcLoadWaveArc
     cmp r0, #0
     addne sp, sp, #8
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -109,7 +109,7 @@ asm void NNSi_SndArcLoadBank(void)
     mov r1, r6
     mov r2, r7
     mov r3, r3, lsr #8
-    bl func_02032038
+    bl LoadSingleWaves
     cmp r0, #0
     addeq sp, sp, #8
     moveq r0, #9
@@ -121,7 +121,7 @@ asm void NNSi_SndArcLoadBank(void)
     beq @L_02031b00
     mov r0, r6
     mov r1, r7
-    bl func_0200abcc
+    bl SND_AssignWaveArc
 @L_02031b00:
     add r7, r7, #1
     cmp r7, #4
@@ -134,7 +134,7 @@ asm void NNSi_SndArcLoadBank(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02031b28(void)
+asm void NNSi_SndArcLoadWaveArc(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r1
@@ -154,10 +154,10 @@ asm void func_02031b28(void)
     mov r2, r4
     mov r0, r0, lsr #8
     beq @L_02031b78
-    bl func_02031d28
+    bl LoadWaveArcTable
     b @L_02031b7c
 @L_02031b78:
-    bl func_02031cbc
+    bl LoadWaveArc
 @L_02031b7c:
     cmp r0, #0
     bne @L_02031b98
@@ -166,7 +166,7 @@ asm void func_02031b28(void)
 @L_02031b8c:
     mov r0, r0, lsl #8
     mov r0, r0, lsr #8
-    bl func_02031754
+    bl NNS_SndArcGetFileAddress
 @L_02031b98:
     ldr r1, [sp, #0x10]
     cmp r1, #0
@@ -175,7 +175,7 @@ asm void func_02031b28(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02031bac(void)
+asm void NNSi_SndArcLoadFile(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #4
@@ -207,7 +207,7 @@ asm void func_02031bac(void)
     mov r1, r5
     mov r2, r6
     mov r3, r4
-    bl func_0203168c
+    bl NNS_SndArcReadFile
     cmp r6, r0
     addne sp, sp, #4
     movne r0, r4
@@ -226,80 +226,80 @@ asm void func_02031c50(void)
     mov r7, r0
     mov r6, r1
     mov r5, r2
-    bl func_02031754
+    bl NNS_SndArcGetFileAddress
     movs r4, r0
     bne @L_02031cb0
     cmp r5, #0
     moveq r2, #0
     beq @L_02031c80
-    bl func_020314c4
+    bl NNS_SndArcGetCurrent
     mov r2, r0
 @L_02031c80:
-    ldr r1, =func_02031ea8
+    ldr r1, =BankDisposeCallback
     mov r0, r7
     mov r3, r7
     str r6, [sp]
-    bl func_02031bac
+    bl NNSi_SndArcLoadFile
     mov r4, r0
     cmp r5, #0
     cmpne r4, #0
     beq @L_02031cb0
     mov r0, r7
     mov r1, r4
-    bl func_0203177c
+    bl NNS_SndArcSetFileAddress
 @L_02031cb0:
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02031cbc(void)
+asm void LoadWaveArc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
     mov r6, r1
     mov r5, r2
-    bl func_02031754
+    bl NNS_SndArcGetFileAddress
     movs r4, r0
     bne @L_02031d1c
     cmp r5, #0
     moveq r2, #0
     beq @L_02031cec
-    bl func_020314c4
+    bl NNS_SndArcGetCurrent
     mov r2, r0
 @L_02031cec:
-    ldr r1, =func_02031ed8
+    ldr r1, =WaveArcDisposeCallback
     mov r0, r7
     mov r3, r7
     str r6, [sp]
-    bl func_02031bac
+    bl NNSi_SndArcLoadFile
     mov r4, r0
     cmp r5, #0
     cmpne r4, #0
     beq @L_02031d1c
     mov r0, r7
     mov r1, r4
-    bl func_0203177c
+    bl NNS_SndArcSetFileAddress
 @L_02031d1c:
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02031d28(void)
+asm void LoadWaveArcTable(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
     mov r4, r0
     mov r10, r1
     mov r9, r2
-    bl func_02031754
+    bl NNS_SndArcGetFileAddress
     movs r7, r0
     bne @L_02031e38
     mov r5, #0
-    ldr r1, =data_020c2e00
+    ldr r1, =waveArcHeader
     mov r0, r4
     mov r3, r5
     mov r2, #0x3c
-    bl func_0203168c
+    bl NNS_SndArcReadFile
     cmp r0, #0x3c
     addne sp, sp, #4
     movne r0, r5
@@ -314,7 +314,7 @@ asm void func_02031d28(void)
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
     cmp r9, #0
     beq @L_02031da0
-    bl func_020314c4
+    bl NNS_SndArcGetCurrent
     mov r5, r0
 @L_02031da0:
     ldr r2, =WaveArcTableDisposeCallback
@@ -332,7 +332,7 @@ asm void func_02031d28(void)
     mov r1, r7
     mov r3, r5
     add r2, r8, #0x3c
-    bl func_0203168c
+    bl NNS_SndArcReadFile
     add r1, r8, #0x3c
     cmp r0, r1
     addne sp, sp, #4
@@ -354,7 +354,7 @@ asm void func_02031d28(void)
     beq @L_02031e38
     mov r0, r4
     mov r1, r7
-    bl func_0203177c
+    bl NNS_SndArcSetFileAddress
 @L_02031e38:
     mov r0, r7
     add sp, sp, #4
@@ -371,24 +371,24 @@ asm void DisposeCallback(void)
     bl OS_DisableInterrupts
     mov r5, r0
     mov r0, r4
-    bl func_020314ac
+    bl NNS_SndArcSetCurrent
     mov r4, r0
     mov r0, r6
-    bl func_02031754
+    bl NNS_SndArcGetFileAddress
     cmp r7, r0
     bne @L_02031e94
     mov r0, r6
     mov r1, #0
-    bl func_0203177c
+    bl NNS_SndArcSetFileAddress
 @L_02031e94:
     mov r0, r4
-    bl func_020314ac
+    bl NNS_SndArcSetCurrent
     mov r0, r5
     bl OS_RestoreInterrupts
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02031ea8(void)
+asm void BankDisposeCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r1
@@ -400,11 +400,11 @@ asm void func_02031ea8(void)
     add r1, r5, r4
     bl SND_InvalidateBankData
     mov r0, r5
-    bl func_0200ac9c
+    bl SND_DestroyBank
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02031ed8(void)
+asm void WaveArcDisposeCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r1
@@ -467,7 +467,7 @@ asm void LoadSingleWave(void)
     movne r0, #1
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     mov r0, r8
-    bl func_0200af48
+    bl SND_GetWaveDataCount
     ldr r1, [r8, #0x38]
     sub r0, r0, #1
     add r1, r1, r7
@@ -493,7 +493,7 @@ asm void LoadSingleWave(void)
     mov r1, r5
     mov r2, r9
     mov r3, r4
-    bl func_0203168c
+    bl NNS_SndArcReadFile
     cmp r9, r0
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -508,7 +508,7 @@ asm void LoadSingleWave(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02032038(void)
+asm void LoadSingleWaves(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x1c
@@ -518,7 +518,7 @@ asm void func_02032038(void)
     mov r8, r2
     mov r7, r3
     ldr r6, [sp, #0x40]
-    bl func_0200ad7c
+    bl SND_GetFirstInstDataPos
     ldr r1, [sp]
     ldr r0, [sp, #4]
     str r1, [sp, #8]
@@ -532,7 +532,7 @@ asm void func_02032038(void)
     mov r0, r9
     mov r1, r4
     mov r2, r5
-    bl func_0200ad9c
+    bl SND_GetNextInstData
     cmp r0, #0
     beq @L_020320ec
 @L_0203209c:
@@ -554,7 +554,7 @@ asm void func_02032038(void)
     mov r0, r9
     mov r1, r4
     mov r2, r5
-    bl func_0200ad9c
+    bl SND_GetNextInstData
     cmp r0, #0
     bne @L_0203209c
 @L_020320ec:
@@ -563,16 +563,16 @@ asm void func_02032038(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_020320f8(void)
+asm void NNS_SndArcPlayerSetup(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r4, r0
-    bl func_020314c4
+    bl NNS_SndArcGetCurrent
     mov r6, #0
     mov r5, r6
 @L_0203210c:
     mov r0, r6
-    bl func_02031600
+    bl NNS_SndArcGetPlayerInfo
     movs r7, r0
     beq @L_0203217c
     ldrb r1, [r7]
@@ -592,7 +592,7 @@ asm void func_020320f8(void)
     ldr r2, [r7, #4]
     mov r0, r6
     mov r1, r4
-    bl func_02030828
+    bl NNS_SndPlayerCreateHeap
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}

@@ -4,61 +4,61 @@ void func_ov016_021306e0(void);
 void func_ov016_021306f0(void);
 void func_ov016_02130700(void);
 void func_ov016_021307f0(void);
-void func_ov016_02131208(void);
+void aoss_IP_sta(void);
 void func_ov016_02131220(void);
 void func_ov016_0213124c(void);
 void func_ov016_021312a4(void);
 void func_ov016_021312b0(void);
 void func_ov016_021312bc(void);
-void func_ov016_021314b4(void);
+void aoss_check_str(void);
 void func_ov016_021314d8(void);
 void func_ov016_02131554(void);
-void func_ov016_02131598(void);
+void MakeSendSeqID(void);
 void func_ov016_021315c8(void);
-void func_ov016_021315f4(void);
+void RecvMessage(void);
 void func_ov016_02131694(void);
 void func_ov016_02131770(void);
-void func_ov016_02131848(void);
+void AstsRestartRes(void);
 void func_ov016_021318ec(void);
 void func_ov016_021319e0(void);
 void func_ov016_02131a24(void);
 void func_ov016_02131a70(void);
-void func_ov016_02131b2c(void);
-void func_ov016_02131b50(void);
-void func_ov016_02131ca4(void);
-void func_ov016_02131d5c(void);
+void aoss_get_bin(void);
+void GetWEPData(void);
+void GetWPAData(void);
+void GetBssidData(void);
 void func_ov016_02131d8c(void);
 void func_ov016_02131e9c(void);
-void func_ov016_02131eac(void);
+void SendMessage(void);
 void func_ov016_02131f00(void);
 void func_ov016_02132044(void);
 void func_ov016_02132120(void);
 void func_ov016_0213218c(void);
 void func_ov016_02132218(void);
-void func_ov016_0213226c(void);
+void SetPacketHeader(void);
 void func_ov016_021322c4(void);
 void func_ov016_0213232c(void);
 void func_ov016_021323a8(void);
-void func_ov016_02132430(void);
-void func_ov016_02132494(void);
-void func_ov016_021324c0(void);
+void RC4init(void);
+void RC4encrypt(void);
+void arcfour_byte(void);
 void func_ov016_02132500(void);
-void func_ov016_02132528(void);
-void func_ov016_02132560(void);
-void func_ov016_02132598(void);
-void func_ov016_02132614(void);
-void func_ov016_02132648(void);
-void func_ov016_0213266c(void);
+void update_crc(void);
+void make_crc_table(void);
+void CryptSeqNo(void);
+void MakeKey(void);
+void AddKey(void);
+void Rotate(void);
 void func_ov016_0213269c(void);
 void func_ov016_021326b4(void);
 void func_ov016_021326c4(void);
-void func_ov016_0213271c(void);
-void func_ov016_02132740(void);
+void AOSS_Disconnect(void);
+void AOSS_Memcmp(void);
 void func_ov016_02132760(void);
 void func_ov016_02132770(void);
-void func_ov016_0213277c(void);
-void func_ov016_02132790(void);
-void func_ov016_021327e4(void);
+void AOSS_Recvfrom(void);
+void AOSS_Select(void);
+void AOSS_Sendto(void);
 void func_ov016_021327f4(void);
 void func_ov016_021327f8(void);
 void func_ov016_02132800(void);
@@ -67,13 +67,13 @@ void func_ov016_02132814(void);
 void func_ov016_0213283c(void);
 void func_ov016_02132854(void);
 void func_ov016_0213287c(void);
-void func_ov016_02132894(void);
+void AOSS_Strlen(void);
 void func_ov016_021328a8(void);
 void func_ov016_02132918(void);
 void func_ov016_02132924(void);
 void func_ov016_0213292c(void);
-void func_ov016_021329b8(void);
-void func_ov016_021329dc(void);
+void Get_WLLA_SSID_PARAM(void);
+void Set_WLLA_LINK_STAT(void);
 void func_ov016_021329ec(void);
 void func_ov016_02132a00(void);
 void func_ov016_02132a14(void);
@@ -82,7 +82,7 @@ void func_ov016_02132b70(void);
 void func_ov016_02132ba8(void);
 void func_ov016_02132d20(void);
 void func_ov016_02132ef0(void);
-void func_ov016_02132ef8(void);
+void AOSSi_Status(void);
 void func_ov016_02132f0c(void);
 void func_ov016_021331c4(void);
 void func_ov016_0213322c(void);
@@ -113,53 +113,53 @@ void func_ov016_02133dd4(void);
 void func_ov016_02133ef8(void);
 void func_ov016_02133f5c(void);
 void func_ov016_02134128(void);
-void func_ov016_021343bc(void);
-void func_ov016_021343d4(void);
+void SendFrameViaInterface(void);
+void SendBroadcast(void);
 void func_ov016_02134410(void);
-void func_ov016_0213441c(void);
-void func_ov016_0213448c(void);
-void func_ov016_021344dc(void);
-void func_ov016_02134510(void);
-void func_ov016_021345d4(void);
-void func_ov016_02134634(void);
-void func_ov016_0213465c(void);
-void func_ov016_02134730(void);
+void GetFrameData(void);
+void GetElementData(void);
+void GetFirstElement(void);
+void SetFrameData(void);
+void SetElementData(void);
+void SetSingleElement(void);
+void IsSearchCommand(void);
+void GetCommandElement(void);
 void func_ov016_02134780(void);
 void func_ov016_0213481c(void);
 void func_ov016_02134828(void);
 void func_ov016_02134924(void);
-void func_ov016_02134af8(void);
+void AsciiToHex(void);
 void func_ov016_02134bac(void);
 void func_ov016_02134d34(void);
 void func_ov016_02135118(void);
-void func_ov016_02135150(void);
-void func_ov016_02135308(void);
-void func_ov016_021354c0(void);
+void keywrap_encrypt(void);
+void keywrap_decrypt(void);
+void aeskw_xor64(void);
 void func_ov016_02135508(void);
 void func_ov016_021357c0(void);
 void func_ov016_02135950(void);
 void func_ov016_02135d0c(void);
-void func_ov016_021360c8(void);
-void func_ov016_021360f0(void);
+void MY_MD5Init(void);
+void MY_MD5Update(void);
 void func_ov016_02136168(void);
-void func_ov016_021361bc(void);
-void func_ov016_02136a04(void);
-void func_ov016_02136a30(void);
-void func_ov016_02136a5c(void);
-void func_ov016_02136a74(void);
-void func_ov016_02136a8c(void);
-void func_ov016_02136ab4(void);
+void MD5Transform(void);
+void Encode(void);
+void Decode(void);
+void MD5_memcpy(void);
+void MD5_memset(void);
+void MD5Encode(void);
+void GetTickCount(void);
 void func_ov016_02136ad0(void);
 void func_ov016_02136af4(void);
-void func_ov016_02136b04(void);
-void func_ov016_02136b38(void);
+void PutHex(void);
+void PutMac(void);
 void func_ov016_02136b6c(void);
 void func_ov016_02136c54(void);
 void func_ov016_02136ce8(void);
 void func_ov016_02136d20(void);
 void func_ov016_02136d34(void);
 
-extern char data_ov016_02157300[];
+extern char AOSSi_Alloc[];
 extern char data_ov016_0215730c[];
 extern char data_ov016_02156520[];
 extern char data_ov016_02154fa4[];
@@ -181,12 +181,12 @@ extern char data_ov016_02157288[];
 extern char data_ov016_0215728a[];
 extern char data_ov016_021567e0[];
 extern char data_ov016_02154fac[];
-extern char data_ov014_02126b18[];
+extern char CPSMyIp[];
 void MI_CpuCopy8(void);
 void MI_CpuFill8(void);
-void func_ov014_0211b738(void);
-void func_ov014_0211b764(void);
-void func_ov014_0211b954(void);
+void SOC_Socket(void);
+void SOC_Bind(void);
+void SOC_Close(void);
 extern char data_ov016_02155018[];
 void OS_SendMessage(void);
 extern char data_ov016_02157320[];
@@ -196,9 +196,9 @@ extern char data_ov016_02157340[];
 void OS_Sleep(void);
 extern char data_ov016_02157460[];
 extern char data_ov016_02157488[];
-extern char data_ov014_021240a8[];
+extern char WCM_Bssid_Any[];
 extern char data_ov016_02157490[];
-extern char data_ov014_021240b0[];
+extern char WCM_Essid_Any[];
 extern char data_ov016_021574b0[];
 extern char data_ov016_02157530[];
 extern char data_ov016_02157968[];
@@ -243,7 +243,7 @@ asm void func_ov016_021306e0(void)
     pop {r3, pc} // 0x021306e8
     dcb 0xc0
     dcb 0x46
-    dcd data_ov016_02157300
+    dcd AOSSi_Alloc
 }
 #pragma thumb off
 
@@ -372,7 +372,7 @@ asm void func_ov016_02130700(void)
     dcb 0xc0
     dcb 0x46
     dcd 0x00000106
-    dcd data_ov016_02157300
+    dcd AOSSi_Alloc
     dcd data_ov016_0215730c
     dcd 0x00000116
     dcd 0x000005f8
@@ -682,7 +682,7 @@ asm void func_ov016_021307f0(void)
     mov r0, #3 // 0x02130a4c
     add r1, sp, #0xb0 // 0x02130a4e
     add r2, r2, r3 // 0x02130a50
-    bl func_ov016_02131598 // 0x02130a52
+    bl MakeSendSeqID // 0x02130a52
     mov r0, #2 // 0x02130a56
     add r1, r0, #0 // 0x02130a58
     mov r2, #0 // 0x02130a5a
@@ -826,7 +826,7 @@ asm void func_ov016_021307f0(void)
     ldr r0, [pc, #0x32c] // 0x02130b84
     mvn r1, r1 // 0x02130b86
     str r1, [r0] // 0x02130b88
-    bl func_ov016_0213271c // 0x02130b8a
+    bl AOSS_Disconnect // 0x02130b8a
     cmp r0, #0 // 0x02130b8e
     beq @L_02130ba6 // 0x02130b90
     ldr r1, [pc, #0x324] // 0x02130b92
@@ -997,7 +997,7 @@ asm void func_ov016_021307f0(void)
 @L_02130ce6:
     ldr r0, [r5, #0x34] // 0x02130ce6
     ldr r1, [r5, #0x38] // 0x02130ce8
-    bl func_ov016_02131208 // 0x02130cea
+    bl aoss_IP_sta // 0x02130cea
     ldr r1, [r5, #0x38] // 0x02130cee
     add r2, r0, #0 // 0x02130cf0
     str r0, [sp, #0x1c] // 0x02130cf2
@@ -1094,7 +1094,7 @@ asm void func_ov016_021307f0(void)
     ldr r3, [r3] // 0x02130dbc
     add r1, sp, #0x60 // 0x02130dbe
     add r2, sp, #0xb0 // 0x02130dc0
-    bl func_ov016_02131eac // 0x02130dc2
+    bl SendMessage // 0x02130dc2
     mov r1, #0 // 0x02130dc6
     mvn r1, r1 // 0x02130dc8
     cmp r0, r1 // 0x02130dca
@@ -1136,7 +1136,7 @@ asm void func_ov016_021307f0(void)
     add r3, r2, #0 // 0x02130e1a
     ldr r0, [r0] // 0x02130e1c
     add r0, r0, #1 // 0x02130e1e
-    bl func_ov016_02132790 // 0x02130e20
+    bl AOSS_Select // 0x02130e20
     cmp r0, #0 // 0x02130e24
     bgt @L_02130e68 // 0x02130e26
     ldr r0, [sp, #0x50] // 0x02130e28
@@ -1184,7 +1184,7 @@ asm void func_ov016_021307f0(void)
     ldr r2, [pc, #0x54] // 0x02130e7a
     add r1, #0xc // 0x02130e7c
     mov r3, #0 // 0x02130e7e
-    bl func_ov016_0213277c // 0x02130e80
+    bl AOSS_Recvfrom // 0x02130e80
     ldr r1, [pc, #0x2c] // 0x02130e84
     lsl r0, r0, #0x10 // 0x02130e86
     ldr r2, [r1] // 0x02130e88
@@ -1200,7 +1200,7 @@ asm void func_ov016_021307f0(void)
     ldr r0, [r0] // 0x02130e9e
     str r0, [sp] // 0x02130ea0
     ldr r0, [sp, #0x24] // 0x02130ea2
-    bl func_ov016_021315f4 // 0x02130ea4
+    bl RecvMessage // 0x02130ea4
     str r0, [sp, #0x20] // 0x02130ea8
     cmp r0, #0x64 // 0x02130eaa
     bne @L_02130ed4 // 0x02130eac
@@ -1242,7 +1242,7 @@ asm void func_ov016_021307f0(void)
     ldr r0, [pc, #0x2f4] // 0x02130efa
     mvn r1, r1 // 0x02130efc
     str r1, [r0] // 0x02130efe
-    bl func_ov016_0213271c // 0x02130f00
+    bl AOSS_Disconnect // 0x02130f00
     cmp r0, #0 // 0x02130f04
     beq @L_02130f1c // 0x02130f06
     ldr r1, [pc, #0x2e8] // 0x02130f08
@@ -1533,7 +1533,7 @@ asm void func_ov016_021307f0(void)
     ldr r0, [pc, #0x94] // 0x02131158
     mvn r1, r1 // 0x0213115a
     str r1, [r0] // 0x0213115c
-    bl func_ov016_0213271c // 0x0213115e
+    bl AOSS_Disconnect // 0x0213115e
     cmp r0, #0 // 0x02131162
     beq @L_0213117a // 0x02131164
     ldr r1, [pc, #0x8c] // 0x02131166
@@ -1631,7 +1631,7 @@ asm void func_ov016_021307f0(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131208(void)
+asm void aoss_IP_sta(void)
 {
     add r2, r0, #0 // 0x02131208
     and r2, r1 // 0x0213120a
@@ -1801,18 +1801,18 @@ asm void func_ov016_021312bc(void)
     bl func_ov016_02132760 // 0x02131328
     add r0, r6, #0 // 0x0213132c
     add r0, #8 // 0x0213132e
-    bl func_ov016_02132894 // 0x02131330
+    bl AOSS_Strlen // 0x02131330
     add r1, r0, #0 // 0x02131334
     add r0, r6, #0 // 0x02131336
     add r0, #8 // 0x02131338
-    bl func_ov016_021314b4 // 0x0213133a
+    bl aoss_check_str // 0x0213133a
     cmp r0, #0 // 0x0213133e
     beq @L_02131344 // 0x02131340
     b @L_02131480 // 0x02131342
 @L_02131344:
     add r0, r6, #0 // 0x02131344
     add r0, #8 // 0x02131346
-    bl func_ov016_02132894 // 0x02131348
+    bl AOSS_Strlen // 0x02131348
     add r2, r0, #0 // 0x0213134c
     add r0, r4, #0 // 0x0213134e
     add r6, #8 // 0x02131350
@@ -1850,16 +1850,16 @@ asm void func_ov016_021312bc(void)
     bl func_ov016_02132760 // 0x02131396
     add r0, r5, #0 // 0x0213139a
     add r0, #8 // 0x0213139c
-    bl func_ov016_02132894 // 0x0213139e
+    bl AOSS_Strlen // 0x0213139e
     add r1, r0, #0 // 0x021313a2
     add r0, r5, #0 // 0x021313a4
     add r0, #8 // 0x021313a6
-    bl func_ov016_021314b4 // 0x021313a8
+    bl aoss_check_str // 0x021313a8
     cmp r0, #0 // 0x021313ac
     bne @L_02131480 // 0x021313ae
     add r0, r5, #0 // 0x021313b0
     add r0, #8 // 0x021313b2
-    bl func_ov016_02132894 // 0x021313b4
+    bl AOSS_Strlen // 0x021313b4
     add r2, r0, #0 // 0x021313b8
     add r0, r4, #0 // 0x021313ba
     add r5, #8 // 0x021313bc
@@ -1876,7 +1876,7 @@ asm void func_ov016_021312bc(void)
     ldr r1, [r1, #4] // 0x021313d2
     add r0, #0x30 // 0x021313d4
     sub r1, r1, #1 // 0x021313d6
-    bl func_ov016_021314b4 // 0x021313d8
+    bl aoss_check_str // 0x021313d8
     cmp r0, #0 // 0x021313dc
     bne @L_02131480 // 0x021313de
     ldr r2, [sp, #4] // 0x021313e0
@@ -1888,16 +1888,16 @@ asm void func_ov016_021312bc(void)
     bl func_ov016_02132760 // 0x021313ec
     ldr r0, [sp, #4] // 0x021313f0
     add r0, #8 // 0x021313f2
-    bl func_ov016_02132894 // 0x021313f4
+    bl AOSS_Strlen // 0x021313f4
     add r1, r0, #0 // 0x021313f8
     ldr r0, [sp, #4] // 0x021313fa
     add r0, #8 // 0x021313fc
-    bl func_ov016_021314b4 // 0x021313fe
+    bl aoss_check_str // 0x021313fe
     cmp r0, #0 // 0x02131402
     bne @L_02131480 // 0x02131404
     ldr r0, [sp, #4] // 0x02131406
     add r0, #8 // 0x02131408
-    bl func_ov016_02132894 // 0x0213140a
+    bl AOSS_Strlen // 0x0213140a
     ldr r1, [sp, #4] // 0x0213140e
     add r2, r0, #0 // 0x02131410
     add r0, r4, #0 // 0x02131412
@@ -1915,7 +1915,7 @@ asm void func_ov016_021312bc(void)
     ldr r1, [r1, #4] // 0x0213142a
     add r0, #0x30 // 0x0213142c
     sub r1, r1, #1 // 0x0213142e
-    bl func_ov016_021314b4 // 0x02131430
+    bl aoss_check_str // 0x02131430
     cmp r0, #0 // 0x02131434
     bne @L_02131480 // 0x02131436
     ldr r2, [sp] // 0x02131438
@@ -1927,16 +1927,16 @@ asm void func_ov016_021312bc(void)
     bl func_ov016_02132760 // 0x02131444
     ldr r0, [sp] // 0x02131448
     add r0, #8 // 0x0213144a
-    bl func_ov016_02132894 // 0x0213144c
+    bl AOSS_Strlen // 0x0213144c
     add r1, r0, #0 // 0x02131450
     ldr r0, [sp] // 0x02131452
     add r0, #8 // 0x02131454
-    bl func_ov016_021314b4 // 0x02131456
+    bl aoss_check_str // 0x02131456
     cmp r0, #0 // 0x0213145a
     bne @L_02131480 // 0x0213145c
     ldr r0, [sp] // 0x0213145e
     add r0, #8 // 0x02131460
-    bl func_ov016_02132894 // 0x02131462
+    bl AOSS_Strlen // 0x02131462
     add r2, r0, #0 // 0x02131466
     ldr r0, [pc, #0x40] // 0x02131468
     ldr r1, [sp] // 0x0213146a
@@ -1972,7 +1972,7 @@ asm void func_ov016_021312bc(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021314b4(void)
+asm void aoss_check_str(void)
 {
     mov r3, #0 // 0x021314b4
     cmp r1, #0 // 0x021314b6
@@ -2033,16 +2033,16 @@ asm void func_ov016_021314d8(void)
     tst r0, r1 // 0x02131508
     beq @L_0213152e // 0x0213150a
     ldr r0, [pc, #0x40] // 0x0213150c
-    bl func_ov016_02132894 // 0x0213150e
+    bl AOSS_Strlen // 0x0213150e
     ldr r1, [r5, #4] // 0x02131512
     cmp r1, r0 // 0x02131514
     bne @L_0213152e // 0x02131516
     ldr r0, [pc, #0x34] // 0x02131518
-    bl func_ov016_02132894 // 0x0213151a
+    bl AOSS_Strlen // 0x0213151a
     add r2, r0, #0 // 0x0213151e
     ldr r1, [pc, #0x2c] // 0x02131520
     add r0, r6, #0 // 0x02131522
-    bl func_ov016_02132740 // 0x02131524
+    bl AOSS_Memcmp // 0x02131524
     cmp r0, #0 // 0x02131528
     bne @L_0213152e // 0x0213152a
     add r4, r4, #1 // 0x0213152c
@@ -2077,7 +2077,7 @@ asm void func_ov016_02131554(void)
     push {r4, lr} // 0x02131554
     add r4, r0, #0 // 0x02131556
     ldr r0, [pc, #0x34] // 0x02131558
-    bl func_ov016_02132894 // 0x0213155a
+    bl AOSS_Strlen // 0x0213155a
     str r0, [r4] // 0x0213155e
     ldr r1, [pc, #0x2c] // 0x02131560
     ldr r2, [r4] // 0x02131562
@@ -2086,7 +2086,7 @@ asm void func_ov016_02131554(void)
     mov r0, #1 // 0x0213156a
     str r0, [r4, #0x24] // 0x0213156c
     ldr r0, [pc, #0x24] // 0x0213156e
-    bl func_ov016_02132894 // 0x02131570
+    bl AOSS_Strlen // 0x02131570
     add r2, r0, #0 // 0x02131574
     str r0, [r4, #0x28] // 0x02131576
     cmp r2, #0xd // 0x02131578
@@ -2107,7 +2107,7 @@ asm void func_ov016_02131554(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131598(void)
+asm void MakeSendSeqID(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02131598
     add r6, r0, #0 // 0x0213159a
@@ -2153,7 +2153,7 @@ asm void func_ov016_021315c8(void)
     cmp r2, r0 // 0x021315de
     beq @L_021315ea // 0x021315e0
     str r0, [r1, #4] // 0x021315e2
-    bl func_ov016_02132ef8 // 0x021315e4
+    bl AOSSi_Status // 0x021315e4
     pop {r3, pc} // 0x021315e8
 @L_021315ea:
     mov r0, #0 // 0x021315ea
@@ -2165,7 +2165,7 @@ asm void func_ov016_021315c8(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021315f4(void)
+asm void RecvMessage(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x021315f4
     add r6, r1, #0 // 0x021315f6
@@ -2237,7 +2237,7 @@ asm void func_ov016_021315f4(void)
     add r0, r5, #0 // 0x02131678
     add r1, r6, #0 // 0x0213167a
     add r2, r4, #0 // 0x0213167c
-    bl func_ov016_02131848 // 0x0213167e
+    bl AstsRestartRes // 0x0213167e
     add r5, r0, #0 // 0x02131682
 @L_02131684:
     add r0, r5, #0 // 0x02131684
@@ -2473,7 +2473,7 @@ asm void func_ov016_02131770(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131848(void)
+asm void AstsRestartRes(void)
 {
     push {r4, r5, r6, lr} // 0x02131848
     add r6, r0, #0 // 0x0213184a
@@ -2574,12 +2574,12 @@ asm void func_ov016_021318ec(void)
     add r4, #0x18 // 0x021318fc
     bl func_ov016_02132760 // 0x021318fe
     ldr r0, [pc, #0xd4] // 0x02131902
-    bl func_ov016_02132894 // 0x02131904
+    bl AOSS_Strlen // 0x02131904
     add r3, r0, #0 // 0x02131908
     ldr r2, [pc, #0xcc] // 0x0213190a
     add r0, sp, #0xc // 0x0213190c
     mov r1, #8 // 0x0213190e
-    bl func_ov016_02132598 // 0x02131910
+    bl CryptSeqNo // 0x02131910
     mov r1, #0 // 0x02131914
     mvn r1, r1 // 0x02131916
     cmp r0, r1 // 0x02131918
@@ -2700,7 +2700,7 @@ asm void func_ov016_021319e0(void)
     beq @L_02131a10 // 0x021319fe
     ldr r0, [pc, #0x1c] // 0x02131a00
     mov r2, #6 // 0x02131a02
-    bl func_ov016_02132740 // 0x02131a04
+    bl AOSS_Memcmp // 0x02131a04
     cmp r0, #0 // 0x02131a08
     beq @L_02131a1a // 0x02131a0a
     mov r4, #1 // 0x02131a0c
@@ -2728,16 +2728,16 @@ asm void func_ov016_02131a24(void)
     ldr r0, [pc, #0x40] // 0x02131a28
     add r5, r1, #0 // 0x02131a2a
     mov r4, #0 // 0x02131a2c
-    bl func_ov016_02132894 // 0x02131a2e
+    bl AOSS_Strlen // 0x02131a2e
     add r3, r0, #0 // 0x02131a32
     ldr r2, [pc, #0x34] // 0x02131a34
     add r0, r5, #0 // 0x02131a36
     mov r1, #8 // 0x02131a38
-    bl func_ov016_02132598 // 0x02131a3a
+    bl CryptSeqNo // 0x02131a3a
     add r0, r6, #0 // 0x02131a3e
     add r1, r5, #0 // 0x02131a40
     mov r2, #6 // 0x02131a42
-    bl func_ov016_02132740 // 0x02131a44
+    bl AOSS_Memcmp // 0x02131a44
     cmp r0, #0 // 0x02131a48
     beq @L_02131a50 // 0x02131a4a
     sub r4, r4, #1 // 0x02131a4c
@@ -2909,7 +2909,7 @@ asm void func_ov016_02131a70(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131b2c(void)
+asm void aoss_get_bin(void)
 {
     push {r4, r5} // 0x02131b2c
     mov r3, #0 // 0x02131b2e
@@ -2936,7 +2936,7 @@ asm void func_ov016_02131b2c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131b50(void)
+asm void GetWEPData(void)
 {
     push {r4, r5, r6, r7, lr} // 0x02131b50
     sub sp, #0x14 // 0x02131b52
@@ -3139,7 +3139,7 @@ asm void func_ov016_02131b50(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131ca4(void)
+asm void GetWPAData(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02131ca4
     sub sp, #8 // 0x02131ca6
@@ -3247,7 +3247,7 @@ asm void func_ov016_02131ca4(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131d5c(void)
+asm void GetBssidData(void)
 {
     push {r3, r4, r5, lr} // 0x02131d5c
     add r4, r0, #6 // 0x02131d5e
@@ -3358,7 +3358,7 @@ asm void func_ov016_02131d8c(void)
     lsl r0, r3, #1 // 0x02131e1a
     ldr r1, [sp, #0x10] // 0x02131e1c
     add r0, r4, #0 // 0x02131e1e
-    bl func_ov016_02131b50 // 0x02131e20
+    bl GetWEPData // 0x02131e20
     mov r1, #1 // 0x02131e24
     orr r5, r1 // 0x02131e26
     b @L_02131e72 // 0x02131e28
@@ -3473,7 +3473,7 @@ asm void func_ov016_02131e9c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02131eac(void)
+asm void SendMessage(void)
 {
     push {r4, r5, r6, lr} // 0x02131eac
     add r5, r1, #0 // 0x02131eae
@@ -3614,7 +3614,7 @@ asm void func_ov016_02131f00(void)
     ldr r2, [pc, #0x7c] // 0x02131fc2
     add r0, #2 // 0x02131fc4
     mov r1, #8 // 0x02131fc6
-    bl func_ov016_02132598 // 0x02131fc8
+    bl CryptSeqNo // 0x02131fc8
     cmp r0, #0 // 0x02131fcc
     beq @L_02131fe8 // 0x02131fce
     mov r0, #2 // 0x02131fd0
@@ -3645,7 +3645,7 @@ asm void func_ov016_02131f00(void)
     ldrsh r3, [r3, r6] // 0x02132002
     add r0, r5, #0 // 0x02132004
     lsl r1, r1, #0xc // 0x02132006
-    bl func_ov016_0213226c // 0x02132008
+    bl SetPacketHeader // 0x02132008
     add r2, sp, #0x10 // 0x0213200c
     mov r1, #4 // 0x0213200e
     ldrsh r0, [r2, r1] // 0x02132010
@@ -3732,7 +3732,7 @@ asm void func_ov016_02132044(void)
     add r0, sp, #0x1c // 0x021320ba
     mov r1, #8 // 0x021320bc
     mov r3, #6 // 0x021320be
-    bl func_ov016_02132598 // 0x021320c0
+    bl CryptSeqNo // 0x021320c0
     cmp r0, #0 // 0x021320c4
     beq @L_021320d6 // 0x021320c6
     mov r0, #2 // 0x021320c8
@@ -3757,7 +3757,7 @@ asm void func_ov016_02132044(void)
     ldrsh r3, [r3, r5] // 0x021320ee
     add r0, r4, #0 // 0x021320f0
     lsl r1, r1, #0xc // 0x021320f2
-    bl func_ov016_0213226c // 0x021320f4
+    bl SetPacketHeader // 0x021320f4
     add r2, sp, #0xc // 0x021320f8
     mov r1, #4 // 0x021320fa
     ldrsh r0, [r2, r1] // 0x021320fc
@@ -3796,12 +3796,12 @@ asm void func_ov016_02132120(void)
     mov r2, #8 // 0x0213213c
     bl func_ov016_02132760 // 0x0213213e
     ldr r0, [pc, #0x44] // 0x02132142
-    bl func_ov016_02132894 // 0x02132144
+    bl AOSS_Strlen // 0x02132144
     add r3, r0, #0 // 0x02132148
     ldr r2, [pc, #0x3c] // 0x0213214a
     add r0, sp, #0xc // 0x0213214c
     mov r1, #8 // 0x0213214e
-    bl func_ov016_02132598 // 0x02132150
+    bl CryptSeqNo // 0x02132150
     mov r2, #0 // 0x02132154
     mov r1, #3 // 0x02132156
     str r2, [sp] // 0x02132158
@@ -3812,7 +3812,7 @@ asm void func_ov016_02132120(void)
     add r0, r4, #0 // 0x02132162
     lsl r1, r1, #0xc // 0x02132164
     add r3, r2, #0 // 0x02132166
-    bl func_ov016_0213226c // 0x02132168
+    bl SetPacketHeader // 0x02132168
     add r0, r4, #0 // 0x0213216c
     mov r1, #0x18 // 0x0213216e
     mov r2, #0 // 0x02132170
@@ -3943,7 +3943,7 @@ asm void func_ov016_02132218(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_0213226c(void)
+asm void SetPacketHeader(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x0213226c
     add r5, r0, #0 // 0x0213226e
@@ -4032,7 +4032,7 @@ asm void func_ov016_021322c4(void)
     add r1, r5, #0 // 0x02132312
     add r2, r6, #0 // 0x02132314
     mov r3, #0 // 0x02132316
-    bl func_ov016_021327e4 // 0x02132318
+    bl AOSS_Sendto // 0x02132318
     add sp, #0x10 // 0x0213231c
     pop {r3, r4, r5, r6, r7, pc} // 0x0213231e
     dcd 0x00005790
@@ -4083,12 +4083,12 @@ asm void func_ov016_0213232c(void)
     add r0, sp, #4 // 0x0213237e
     add r2, r2, #2 // 0x02132380
     add r3, r5, #0 // 0x02132382
-    bl func_ov016_02132430 // 0x02132384
+    bl RC4init // 0x02132384
     add r0, sp, #4 // 0x02132388
     add r1, r7, #0 // 0x0213238a
     add r2, r6, #0 // 0x0213238c
     add r3, r5, #0 // 0x0213238e
-    bl func_ov016_02132494 // 0x02132390
+    bl RC4encrypt // 0x02132390
     ldr r0, [sp, #0xc] // 0x02132394
     bl func_ov016_021306f0 // 0x02132396
     mov r0, #0 // 0x0213239a
@@ -4133,12 +4133,12 @@ asm void func_ov016_021323a8(void)
     add r0, sp, #0 // 0x021323e6
     add r2, r2, #2 // 0x021323e8
     add r3, r4, #0 // 0x021323ea
-    bl func_ov016_02132430 // 0x021323ec
+    bl RC4init // 0x021323ec
     add r0, sp, #0 // 0x021323f0
     add r1, r5, #0 // 0x021323f2
     add r2, r7, #0 // 0x021323f4
     add r3, r4, #0 // 0x021323f6
-    bl func_ov016_02132494 // 0x021323f8
+    bl RC4encrypt // 0x021323f8
     add r0, r5, #0 // 0x021323fc
     add r1, r4, #0 // 0x021323fe
     bl func_ov016_02132500 // 0x02132400
@@ -4164,7 +4164,7 @@ asm void func_ov016_021323a8(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132430(void)
+asm void RC4init(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02132430
     sub sp, #0x10 // 0x02132432
@@ -4228,7 +4228,7 @@ asm void func_ov016_02132430(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132494(void)
+asm void RC4encrypt(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02132494
     str r0, [sp] // 0x02132496
@@ -4239,7 +4239,7 @@ asm void func_ov016_02132494(void)
     beq @L_021324b8 // 0x021324a0
 @L_021324a2:
     ldr r0, [sp] // 0x021324a2
-    bl func_ov016_021324c0 // 0x021324a4
+    bl arcfour_byte // 0x021324a4
     lsl r0, r0, #0x18 // 0x021324a8
     lsr r1, r0, #0x18 // 0x021324aa
     ldrb r0, [r6, r4] // 0x021324ac
@@ -4257,7 +4257,7 @@ asm void func_ov016_02132494(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021324c0(void)
+asm void arcfour_byte(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x021324c0
     add r5, r0, #0 // 0x021324c2
@@ -4313,7 +4313,7 @@ asm void func_ov016_02132500(void)
     add r1, r3, #0 // 0x0213250c
     mvn r0, r0 // 0x0213250e
     mov r3, #0 // 0x02132510
-    bl func_ov016_02132528 // 0x02132512
+    bl update_crc // 0x02132512
     mov r1, #0 // 0x02132516
     mvn r1, r1 // 0x02132518
     eor r0, r1 // 0x0213251a
@@ -4327,7 +4327,7 @@ asm void func_ov016_02132500(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132528(void)
+asm void update_crc(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02132528
     add r5, r0, #0 // 0x0213252a
@@ -4338,7 +4338,7 @@ asm void func_ov016_02132528(void)
     bne @L_0213253e // 0x02132534
     add r0, r3, #0 // 0x02132536
     add r1, r6, #0 // 0x02132538
-    bl func_ov016_02132560 // 0x0213253a
+    bl make_crc_table // 0x0213253a
 @L_0213253e:
     mov r1, #0 // 0x0213253e
     cmp r4, #0 // 0x02132540
@@ -4364,7 +4364,7 @@ asm void func_ov016_02132528(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132560(void)
+asm void make_crc_table(void)
 {
     push {r4, r5, r6, r7} // 0x02132560
     mov r5, #1 // 0x02132562
@@ -4402,7 +4402,7 @@ asm void func_ov016_02132560(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132598(void)
+asm void CryptSeqNo(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02132598
     sub sp, #0x10 // 0x0213259a
@@ -4441,15 +4441,15 @@ asm void func_ov016_02132598(void)
     add r0, r4, #0 // 0x021325dc
     add r1, r6, #0 // 0x021325de
     add r2, r5, #0 // 0x021325e0
-    bl func_ov016_02132614 // 0x021325e2
+    bl MakeKey // 0x021325e2
     add r0, r6, #0 // 0x021325e6
     add r1, r7, #0 // 0x021325e8
     add r2, r5, #0 // 0x021325ea
-    bl func_ov016_02132648 // 0x021325ec
+    bl AddKey // 0x021325ec
     ldr r2, [sp, #0xc] // 0x021325f0
     add r0, r7, #0 // 0x021325f2
     add r1, r5, #0 // 0x021325f4
-    bl func_ov016_0213266c // 0x021325f6
+    bl Rotate // 0x021325f6
     add r4, r4, #1 // 0x021325fa
     cmp r4, #2 // 0x021325fc
     blt @L_021325d6 // 0x021325fe
@@ -4466,7 +4466,7 @@ asm void func_ov016_02132598(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132614(void)
+asm void MakeKey(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02132614
     add r5, r1, #0 // 0x02132616
@@ -4503,7 +4503,7 @@ asm void func_ov016_02132614(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132648(void)
+asm void AddKey(void)
 {
     push {r4, r5} // 0x02132648
     lsr r3, r2, #0x1f // 0x0213264a
@@ -4529,7 +4529,7 @@ asm void func_ov016_02132648(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_0213266c(void)
+asm void Rotate(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x0213266c
     add r6, r1, #0 // 0x0213266e
@@ -4570,7 +4570,7 @@ asm void func_ov016_0213269c(void)
 @L_021326ac:
     mov r0, #0 // 0x021326ac
     pop {r3, pc} // 0x021326ae
-    dcd data_ov016_02157300
+    dcd AOSSi_Alloc
 }
 #pragma thumb off
 
@@ -4634,12 +4634,12 @@ asm void func_ov016_021326c4(void)
     pop {r3, r4, r5, pc} // 0x0213270e
     dcd data_ov016_02154fa4
     dcd data_ov016_02154fac
-    dcd data_ov014_02126b18
+    dcd CPSMyIp
 }
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_0213271c(void)
+asm void AOSS_Disconnect(void)
 {
     push {r3, lr} // 0x0213271c
     dcb 0xe9
@@ -4668,7 +4668,7 @@ asm void func_ov016_0213271c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132740(void)
+asm void AOSS_Memcmp(void)
 {
     push {r3, r4} // 0x02132740
     mov r3, #0 // 0x02132742
@@ -4718,7 +4718,7 @@ asm void func_ov016_02132770(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_0213277c(void)
+asm void AOSS_Recvfrom(void)
 {
     push {r3, r4, r5, lr} // 0x0213277c
     ldr r4, [sp, #0x14] // 0x0213277e
@@ -4737,7 +4737,7 @@ asm void func_ov016_0213277c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132790(void)
+asm void AOSS_Select(void)
 {
     push {r4, r5, r6, lr} // 0x02132790
     sub sp, #8 // 0x02132792
@@ -4791,7 +4791,7 @@ asm void func_ov016_02132790(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021327e4(void)
+asm void AOSS_Sendto(void)
 {
     push {r3, r4, r5, lr} // 0x021327e4
     ldr r5, [sp, #0x14] // 0x021327e6
@@ -4820,7 +4820,7 @@ asm void func_ov016_021327f8(void)
 {
     ldr r3, [pc, #0] // 0x021327f8
     bx r3 // 0x021327fa
-    dcd func_ov014_0211b738
+    dcd SOC_Socket
 }
 #pragma thumb off
 
@@ -4832,7 +4832,7 @@ asm void func_ov016_02132800(void)
     bx r3 // 0x02132804
     dcb 0xc0
     dcb 0x46
-    dcd func_ov014_0211b764
+    dcd SOC_Bind
 }
 #pragma thumb off
 
@@ -4841,7 +4841,7 @@ asm void func_ov016_0213280c(void)
 {
     ldr r3, [pc, #0] // 0x0213280c
     bx r3 // 0x0213280e
-    dcd func_ov014_0211b954
+    dcd SOC_Close
 }
 #pragma thumb off
 
@@ -4936,7 +4936,7 @@ asm void func_ov016_0213287c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132894(void)
+asm void AOSS_Strlen(void)
 {
     mov r2, #0 // 0x02132894
     ldrsb r1, [r0, r2] // 0x02132896
@@ -5123,7 +5123,7 @@ asm void func_ov016_0213292c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021329b8(void)
+asm void Get_WLLA_SSID_PARAM(void)
 {
     push {r3, r4, r5, lr} // 0x021329b8
     add r5, r0, #0 // 0x021329ba
@@ -5152,7 +5152,7 @@ asm void func_ov016_021329b8(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021329dc(void)
+asm void Set_WLLA_LINK_STAT(void)
 {
     add r3, r0, #0 // 0x021329dc
     add r0, r1, #0 // 0x021329de
@@ -5318,7 +5318,7 @@ asm void func_ov016_02132a14(void)
     dcb 0x46
     dcd data_ov016_02157320
     dcd data_ov016_02157310
-    dcd data_ov016_02157300
+    dcd AOSSi_Alloc
     dcd 0x00005890
     dcd func_ov016_021329ec
 }
@@ -5431,7 +5431,7 @@ asm void func_ov016_02132ad8(void)
     pop {r3, r4, r5, r6, r7, pc} // 0x02132b64
     dcb 0xc0
     dcb 0x46
-    dcd data_ov016_02157300
+    dcd AOSSi_Alloc
     dcd data_ov016_02157320
 }
 #pragma thumb off
@@ -5696,7 +5696,7 @@ asm void func_ov016_02132ba8(void)
     pop {r4, r5, r6, r7, pc} // 0x02132d08
     dcb 0xc0
     dcb 0x46
-    dcd data_ov016_02157300
+    dcd AOSSi_Alloc
     dcd 0x0030bffe
     dcd 0x003fec42
     dcd func_ov016_02132a00
@@ -6006,7 +6006,7 @@ asm void func_ov016_02132d20(void)
 @L_02132ec6:
     ldr r0, [sp, #4] // 0x02132ec6
     ldr r1, [pc, #0x1c] // 0x02132ec8
-    bl func_ov016_021329dc // 0x02132eca
+    bl Set_WLLA_LINK_STAT // 0x02132eca
     ldr r0, [sp, #0xc] // 0x02132ece
     add sp, #0x40 // 0x02132ed0
     pop {r3, r4, r5, r6, r7, pc} // 0x02132ed2
@@ -6033,7 +6033,7 @@ asm void func_ov016_02132ef0(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02132ef8(void)
+asm void AOSSi_Status(void)
 {
     push {r3, lr} // 0x02132ef8
     ldr r1, [pc, #0xc] // 0x02132efa
@@ -6044,7 +6044,7 @@ asm void func_ov016_02132ef8(void)
 @L_02132f04:
     mov r0, #0 // 0x02132f04
     pop {r3, pc} // 0x02132f06
-    dcd data_ov016_02157300
+    dcd AOSSi_Alloc
 }
 #pragma thumb off
 
@@ -6946,9 +6946,9 @@ asm void func_ov016_02133270(void)
     dcb 0x46
     dcd data_ov016_02157460
     dcd data_ov016_02157488
-    dcd data_ov014_021240a8
+    dcd WCM_Bssid_Any
     dcd data_ov016_02157490
-    dcd data_ov014_021240b0
+    dcd WCM_Essid_Any
 }
 #pragma thumb off
 
@@ -8273,9 +8273,9 @@ asm void func_ov016_02133920(void)
     dcb 0x46
     dcd data_ov016_021574b0
     dcd data_ov016_02157968
-    dcd data_ov014_021240a8
+    dcd WCM_Bssid_Any
     dcd data_ov016_021579a0
-    dcd data_ov014_021240b0
+    dcd WCM_Essid_Any
 }
 #pragma thumb off
 
@@ -8963,7 +8963,7 @@ asm void func_ov016_02133dd4(void)
     dcb 0xef
     mov r7, #0 // 0x02133e1c
 @L_02133e1e:
-    bl func_ov016_02136ab4 // 0x02133e1e
+    bl GetTickCount // 0x02133e1e
     ldr r1, [pc, #0xcc] // 0x02133e22
     ldr r1, [r1, #0xc] // 0x02133e24
     cmp r0, r1 // 0x02133e26
@@ -9462,7 +9462,7 @@ asm void func_ov016_02134128(void)
     str r0, [sp, #0x1c] // 0x02134164
     b @L_0213434e // 0x02134166
 @L_02134168:
-    bl func_ov016_02136ab4 // 0x02134168
+    bl GetTickCount // 0x02134168
     ldr r1, [pc, #0x234] // 0x0213416c
     ldr r1, [r1, #0xc] // 0x0213416e
     cmp r0, r1 // 0x02134170
@@ -9503,7 +9503,7 @@ asm void func_ov016_02134128(void)
     dcb 0xf6
     dcb 0xc8
     dcb 0xe8
-    bl func_ov016_02136ab4 // 0x021341ae
+    bl GetTickCount // 0x021341ae
     ldr r1, [pc, #0x1f0] // 0x021341b2
     ldr r1, [r1, #0xc] // 0x021341b4
     cmp r0, r1 // 0x021341b6
@@ -9732,7 +9732,7 @@ asm void func_ov016_02134128(void)
     ldrb r0, [r0, #5] // 0x02134328
     strb r0, [r1, #5] // 0x0213432a
     add r0, sp, #0x50 // 0x0213432c
-    bl func_ov016_02136b38 // 0x0213432e
+    bl PutMac // 0x0213432e
     b @L_0213435e // 0x02134332
 @L_02134334:
     ldr r0, [sp, #8] // 0x02134334
@@ -9762,7 +9762,7 @@ asm void func_ov016_02134128(void)
     ldr r0, [sp, #0x1c] // 0x0213435e
     cmp r0, #0x1e // 0x02134360
     bge @L_02134370 // 0x02134362
-    bl func_ov016_02136ab4 // 0x02134364
+    bl GetTickCount // 0x02134364
     ldr r1, [pc, #0x38] // 0x02134368
     ldr r1, [r1, #0xc] // 0x0213436a
     cmp r0, r1 // 0x0213436c
@@ -9806,7 +9806,7 @@ asm void func_ov016_02134128(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021343bc(void)
+asm void SendFrameViaInterface(void)
 {
     push {r3, lr} // 0x021343bc
     ldr r2, [sp, #8] // 0x021343be
@@ -9827,7 +9827,7 @@ asm void func_ov016_021343bc(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021343d4(void)
+asm void SendBroadcast(void)
 {
     push {r4, r5, r6, lr} // 0x021343d4
     sub sp, #0x10 // 0x021343d6
@@ -9857,7 +9857,7 @@ asm void func_ov016_021343d4(void)
     add r2, sp, #4 // 0x021343fe
     add r3, r6, #0 // 0x02134400
     str r4, [sp] // 0x02134402
-    bl func_ov016_021343bc // 0x02134404
+    bl SendFrameViaInterface // 0x02134404
     add sp, #0x10 // 0x02134408
     pop {r4, r5, r6, pc} // 0x0213440a
     dcd 0x000001e6
@@ -9871,12 +9871,12 @@ asm void func_ov016_02134410(void)
     add r2, r3, #0 // 0x02134412
     ldr r3, [pc, #0] // 0x02134414
     bx r3 // 0x02134416
-    dcd func_ov016_021343d4
+    dcd SendBroadcast
 }
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_0213441c(void)
+asm void GetFrameData(void)
 {
     push {r3, r4, r5, r6} // 0x0213441c
     ldrh r5, [r0] // 0x0213441e
@@ -9942,7 +9942,7 @@ asm void func_ov016_0213441c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_0213448c(void)
+asm void GetElementData(void)
 {
     push {r3, r4, r5, r6} // 0x0213448c
     add r4, r0, #0 // 0x0213448e
@@ -9990,7 +9990,7 @@ asm void func_ov016_0213448c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021344dc(void)
+asm void GetFirstElement(void)
 {
     push {r3, r4, r5, r6, lr} // 0x021344dc
     sub sp, #4 // 0x021344de
@@ -10013,7 +10013,7 @@ asm void func_ov016_021344dc(void)
     lsr r1, r1, #0x10 // 0x02134500
     add r1, r5, r1 // 0x02134502
     add r2, r4, #0 // 0x02134504
-    bl func_ov016_0213448c // 0x02134506
+    bl GetElementData // 0x02134506
     add sp, #4 // 0x0213450a
     pop {r3, r4, r5, r6, pc} // 0x0213450c
     dcb 0x00
@@ -10022,7 +10022,7 @@ asm void func_ov016_021344dc(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02134510(void)
+asm void SetFrameData(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02134510
     sub sp, #8 // 0x02134512
@@ -10060,7 +10060,7 @@ asm void func_ov016_02134510(void)
     str r0, [sp] // 0x02134552
     add r0, r6, #6 // 0x02134554
     add r2, r7, #0 // 0x02134556
-    bl func_ov016_02135150 // 0x02134558
+    bl keywrap_encrypt // 0x02134558
     add r7, #8 // 0x0213455c
     b @L_02134568 // 0x0213455e
 @L_02134560:
@@ -10132,7 +10132,7 @@ asm void func_ov016_02134510(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021345d4(void)
+asm void SetElementData(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x021345d4
     add r5, r0, #0 // 0x021345d6
@@ -10191,7 +10191,7 @@ asm void func_ov016_021345d4(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02134634(void)
+asm void SetSingleElement(void)
 {
     push {r4, lr} // 0x02134634
     add r4, r0, #0 // 0x02134636
@@ -10206,7 +10206,7 @@ asm void func_ov016_02134634(void)
     strb r0, [r4, #7] // 0x02134648
     add r0, r4, #0 // 0x0213464a
     add r0, #8 // 0x0213464c
-    bl func_ov016_021345d4 // 0x0213464e
+    bl SetElementData // 0x0213464e
     sub r0, r0, r4 // 0x02134652
     add r1, r0, #0 // 0x02134654
     sub r1, #8 // 0x02134656
@@ -10216,14 +10216,14 @@ asm void func_ov016_02134634(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_0213465c(void)
+asm void IsSearchCommand(void)
 {
     push {r4, r5, r6, r7, lr} // 0x0213465c
     sub sp, #0x1c // 0x0213465e
     str r1, [sp] // 0x02134660
     add r1, sp, #0x18 // 0x02134662
     add r2, sp, #0x14 // 0x02134664
-    bl func_ov016_0213441c // 0x02134666
+    bl GetFrameData // 0x02134666
     mov r6, #0 // 0x0213466a
     add r5, r0, #0 // 0x0213466c
     add r7, r6, #0 // 0x0213466e
@@ -10250,7 +10250,7 @@ asm void func_ov016_0213465c(void)
     add r1, r5, r4 // 0x02134694
     add r2, sp, #0x10 // 0x02134696
     add r3, sp, #0xc // 0x02134698
-    bl func_ov016_0213448c // 0x0213469a
+    bl GetElementData // 0x0213469a
     cmp r0, #0 // 0x0213469e
     beq @L_0213470a // 0x021346a0
 @L_021346a2:
@@ -10306,7 +10306,7 @@ asm void func_ov016_0213465c(void)
     add r1, r5, r4 // 0x021346fc
     add r2, sp, #0x10 // 0x021346fe
     add r3, sp, #0xc // 0x02134700
-    bl func_ov016_0213448c // 0x02134702
+    bl GetElementData // 0x02134702
     cmp r0, #0 // 0x02134706
     bne @L_021346a2 // 0x02134708
 @L_0213470a:
@@ -10337,7 +10337,7 @@ asm void func_ov016_0213465c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02134730(void)
+asm void GetCommandElement(void)
 {
     push {r3, r4, r5, r6, lr} // 0x02134730
     sub sp, #0xc // 0x02134732
@@ -10346,7 +10346,7 @@ asm void func_ov016_02134730(void)
     add r1, sp, #8 // 0x02134738
     add r2, sp, #4 // 0x0213473a
     add r4, r3, #0 // 0x0213473c
-    bl func_ov016_0213441c // 0x0213473e
+    bl GetFrameData // 0x0213473e
     add r1, r0, #0 // 0x02134742
     bne @L_0213474c // 0x02134744
     add sp, #0xc // 0x02134746
@@ -10367,7 +10367,7 @@ asm void func_ov016_02134730(void)
     ldr r2, [sp, #4] // 0x02134760
     add r0, r6, #0 // 0x02134762
     add r3, r4, #0 // 0x02134764
-    bl func_ov016_02135308 // 0x02134766
+    bl keywrap_decrypt // 0x02134766
     ldr r0, [sp, #4] // 0x0213476a
     sub r0, #8 // 0x0213476c
     str r0, [sp, #4] // 0x0213476e
@@ -10412,11 +10412,11 @@ asm void func_ov016_02134780(void)
     ldr r0, [r0] // 0x021347a6
     add r2, sp, #4 // 0x021347a8
     mov r3, #2 // 0x021347aa
-    bl func_ov016_021345d4 // 0x021347ac
+    bl SetElementData // 0x021347ac
     mov r1, #2 // 0x021347b0
     add r2, sp, #4 // 0x021347b2
     add r3, r1, #0 // 0x021347b4
-    bl func_ov016_021345d4 // 0x021347b6
+    bl SetElementData // 0x021347b6
     ldr r1, [pc, #0x54] // 0x021347ba
     ldr r1, [r1, #0x50] // 0x021347bc
     cmp r1, #0 // 0x021347be
@@ -10424,13 +10424,13 @@ asm void func_ov016_02134780(void)
     mov r1, #5 // 0x021347c2
     add r2, sp, #4 // 0x021347c4
     mov r3, #2 // 0x021347c6
-    bl func_ov016_021345d4 // 0x021347c8
+    bl SetElementData // 0x021347c8
 @L_021347cc:
     add r2, sp, #4 // 0x021347cc
     mov r1, #3 // 0x021347ce
     add r2, #2 // 0x021347d0
     mov r3, #7 // 0x021347d2
-    bl func_ov016_021345d4 // 0x021347d4
+    bl SetElementData // 0x021347d4
     ldr r1, [pc, #0x34] // 0x021347d8
     add r3, r0, #0 // 0x021347da
     ldr r1, [r1, #0x50] // 0x021347dc
@@ -10439,7 +10439,7 @@ asm void func_ov016_02134780(void)
     ldr r2, [pc, #0x30] // 0x021347e2
     mov r1, #4 // 0x021347e4
     mov r3, #6 // 0x021347e6
-    bl func_ov016_021345d4 // 0x021347e8
+    bl SetElementData // 0x021347e8
     add r3, r0, #0 // 0x021347ec
 @L_021347ee:
     mov r0, #0 // 0x021347ee
@@ -10451,7 +10451,7 @@ asm void func_ov016_02134780(void)
     mov r1, #2 // 0x021347fa
     sub r3, r3, r4 // 0x021347fc
     add r3, #8 // 0x021347fe
-    bl func_ov016_02134510 // 0x02134800
+    bl SetFrameData // 0x02134800
     add sp, #0x10 // 0x02134804
     pop {r4, pc} // 0x02134806
     dcd data_ov016_02151cc4
@@ -10590,11 +10590,11 @@ asm void func_ov016_02134828(void)
     beq @L_0213490c // 0x021348f8
     add r0, sp, #0x2c // 0x021348fa
     add r1, sp, #0 // 0x021348fc
-    bl func_ov016_02136b38 // 0x021348fe
+    bl PutMac // 0x021348fe
     add r1, sp, #4 // 0x02134902
     add r0, sp, #0xc // 0x02134904
     add r1, #2 // 0x02134906
-    bl func_ov016_02136b38 // 0x02134908
+    bl PutMac // 0x02134908
 @L_0213490c:
     mov r0, #1 // 0x0213490c
     add sp, #0x4c // 0x0213490e
@@ -10638,7 +10638,7 @@ asm void func_ov016_02134924(void)
     add r0, sp, #0x14 // 0x02134954
     add r1, r2, r1 // 0x02134956
     add r2, sp, #0x10 // 0x02134958
-    bl func_ov016_0213448c // 0x0213495a
+    bl GetElementData // 0x0213495a
     add r5, r0, #0 // 0x0213495e
     bne @L_02134964 // 0x02134960
     b @L_02134ad4 // 0x02134962
@@ -10871,7 +10871,7 @@ asm void func_ov016_02134924(void)
     ldrsb r1, [r5, r7] // 0x02134a6e
     add r0, r4, #0 // 0x02134a70
     add r5, r5, #1 // 0x02134a72
-    bl func_ov016_02136b04 // 0x02134a74
+    bl PutHex // 0x02134a74
     add r4, r4, r0 // 0x02134a78
     ldr r0, [sp, #0xc] // 0x02134a7a
     add r6, r6, #1 // 0x02134a7c
@@ -10943,7 +10943,7 @@ asm void func_ov016_02134924(void)
     add r1, r2, r1 // 0x02134ac4
     add r2, sp, #0x10 // 0x02134ac6
     add r3, sp, #0xc // 0x02134ac8
-    bl func_ov016_0213448c // 0x02134aca
+    bl GetElementData // 0x02134aca
     add r5, r0, #0 // 0x02134ace
     beq @L_02134ad4 // 0x02134ad0
     b @L_02134964 // 0x02134ad2
@@ -10979,7 +10979,7 @@ asm void func_ov016_02134924(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02134af8(void)
+asm void AsciiToHex(void)
 {
     push {r4, r5, r6, r7} // 0x02134af8
     add r4, r2, #0 // 0x02134afa
@@ -11217,7 +11217,7 @@ asm void func_ov016_02134bac(void)
     add r0, r5, #0 // 0x02134c64
     add r1, r4, #0 // 0x02134c66
     mov r2, #0xa // 0x02134c68
-    bl func_ov016_02134af8 // 0x02134c6a
+    bl AsciiToHex // 0x02134c6a
     b @L_02134cce // 0x02134c6e
 @L_02134c70:
     ldr r0, [pc, #0xac] // 0x02134c70
@@ -11241,7 +11241,7 @@ asm void func_ov016_02134bac(void)
     add r0, r5, #0 // 0x02134c90
     add r1, r4, #0 // 0x02134c92
     mov r2, #0x1a // 0x02134c94
-    bl func_ov016_02134af8 // 0x02134c96
+    bl AsciiToHex // 0x02134c96
     b @L_02134cce // 0x02134c9a
 @L_02134c9c:
     ldr r0, [pc, #0x80] // 0x02134c9c
@@ -11265,7 +11265,7 @@ asm void func_ov016_02134bac(void)
     add r0, r5, #0 // 0x02134cbc
     add r1, r4, #0 // 0x02134cbe
     mov r2, #0x20 // 0x02134cc0
-    bl func_ov016_02134af8 // 0x02134cc2
+    bl AsciiToHex // 0x02134cc2
     b @L_02134cce // 0x02134cc6
 @L_02134cc8:
     mov r0, #6 // 0x02134cc8
@@ -11755,7 +11755,7 @@ asm void func_ov016_02134d34(void)
     ldr r0, [pc, #0x1a4] // 0x02134efc
     add r1, sp, #0x10 // 0x02134efe
     mov r2, #4 // 0x02134f00
-    bl func_ov016_02136a8c // 0x02134f02
+    bl MD5Encode // 0x02134f02
     mov r0, #0 // 0x02134f06
     str r0, [sp, #4] // 0x02134f08
     ldr r0, [pc, #0x170] // 0x02134f0a
@@ -12269,7 +12269,7 @@ asm void func_ov016_02135118(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02135150(void)
+asm void keywrap_encrypt(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02135150
     sub sp, #0x1a8 // 0x02135152
@@ -12465,7 +12465,7 @@ asm void func_ov016_02135150(void)
     add r0, sp, #0x58 // 0x021352ba
     add r1, sp, #0x50 // 0x021352bc
     add r2, r0, #0 // 0x021352be
-    bl func_ov016_021354c0 // 0x021352c0
+    bl aeskw_xor64 // 0x021352c0
     add r2, sp, #0x60 // 0x021352c4
     mov r1, #8 // 0x021352c6
 @L_021352c8:
@@ -12508,7 +12508,7 @@ asm void func_ov016_02135150(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02135308(void)
+asm void keywrap_decrypt(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02135308
     sub sp, #0x1a8 // 0x0213530a
@@ -12688,7 +12688,7 @@ asm void func_ov016_02135308(void)
     add r0, sp, #0x58 // 0x02135452
     add r1, sp, #0x50 // 0x02135454
     add r2, r0, #0 // 0x02135456
-    bl func_ov016_021354c0 // 0x02135458
+    bl aeskw_xor64 // 0x02135458
     sub r0, r4, #1 // 0x0213545c
     lsl r1, r0, #3 // 0x0213545e
     ldr r0, [sp] // 0x02135460
@@ -12749,7 +12749,7 @@ asm void func_ov016_02135308(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021354c0(void)
+asm void aeskw_xor64(void)
 {
     push {r3, r4} // 0x021354c0
     ldrb r4, [r0] // 0x021354c2
@@ -14322,7 +14322,7 @@ asm void func_ov016_02135d0c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021360c8(void)
+asm void MY_MD5Init(void)
 {
     mov r1, #0 // 0x021360c8
     str r1, [r0, #0x14] // 0x021360ca
@@ -14345,7 +14345,7 @@ asm void func_ov016_021360c8(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021360f0(void)
+asm void MY_MD5Update(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x021360f0
     add r5, r0, #0 // 0x021360f2
@@ -14377,11 +14377,11 @@ asm void func_ov016_021360f0(void)
     add r0, r1, r0 // 0x02136124
     add r1, r7, #0 // 0x02136126
     add r2, r4, #0 // 0x02136128
-    bl func_ov016_02136a5c // 0x0213612a
+    bl MD5_memcpy // 0x0213612a
     add r1, r5, #0 // 0x0213612e
     add r0, r5, #0 // 0x02136130
     add r1, #0x18 // 0x02136132
-    bl func_ov016_021361bc // 0x02136134
+    bl MD5Transform // 0x02136134
     add r0, r4, #0 // 0x02136138
     add r0, #0x3f // 0x0213613a
     cmp r0, r6 // 0x0213613c
@@ -14389,7 +14389,7 @@ asm void func_ov016_021360f0(void)
 @L_02136140:
     add r0, r5, #0 // 0x02136140
     add r1, r7, r4 // 0x02136142
-    bl func_ov016_021361bc // 0x02136144
+    bl MD5Transform // 0x02136144
     add r4, #0x40 // 0x02136148
     add r0, r4, #0 // 0x0213614a
     add r0, #0x3f // 0x0213614c
@@ -14405,7 +14405,7 @@ asm void func_ov016_021360f0(void)
     add r0, r5, r0 // 0x0213615a
     add r1, r7, r4 // 0x0213615c
     sub r2, r6, r4 // 0x0213615e
-    bl func_ov016_02136a5c // 0x02136160
+    bl MD5_memcpy // 0x02136160
     pop {r3, r4, r5, r6, r7, pc} // 0x02136164
     dcb 0x00
     dcb 0x00
@@ -14422,7 +14422,7 @@ asm void func_ov016_02136168(void)
     add r0, sp, #0 // 0x02136170
     add r1, #0x10 // 0x02136172
     mov r2, #8 // 0x02136174
-    bl func_ov016_02136a04 // 0x02136176
+    bl Encode // 0x02136176
     ldr r0, [r4, #0x10] // 0x0213617a
     lsr r1, r0, #3 // 0x0213617c
     mov r0, #0x3f // 0x0213617e
@@ -14437,19 +14437,19 @@ asm void func_ov016_02136168(void)
     sub r2, r0, r1 // 0x0213618c
     ldr r1, [pc, #0x28] // 0x0213618e
     add r0, r4, #0 // 0x02136190
-    bl func_ov016_021360f0 // 0x02136192
+    bl MY_MD5Update // 0x02136192
     add r0, r4, #0 // 0x02136196
     add r1, sp, #0 // 0x02136198
     mov r2, #8 // 0x0213619a
-    bl func_ov016_021360f0 // 0x0213619c
+    bl MY_MD5Update // 0x0213619c
     add r0, r5, #0 // 0x021361a0
     add r1, r4, #0 // 0x021361a2
     mov r2, #0x10 // 0x021361a4
-    bl func_ov016_02136a04 // 0x021361a6
+    bl Encode // 0x021361a6
     add r0, r4, #0 // 0x021361aa
     mov r1, #0 // 0x021361ac
     mov r2, #0x58 // 0x021361ae
-    bl func_ov016_02136a74 // 0x021361b0
+    bl MD5_memset // 0x021361b0
     add sp, #8 // 0x021361b4
     pop {r3, r4, r5, pc} // 0x021361b6
     dcd data_ov016_021550c8
@@ -14457,7 +14457,7 @@ asm void func_ov016_02136168(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_021361bc(void)
+asm void MD5Transform(void)
 {
     push {r4, r5, r6, r7, lr} // 0x021361bc
     sub sp, #0x84 // 0x021361be
@@ -14469,7 +14469,7 @@ asm void func_ov016_021361bc(void)
     ldr r4, [r7, #4] // 0x021361ca
     ldr r5, [r7, #8] // 0x021361cc
     ldr r6, [r7, #0xc] // 0x021361ce
-    bl func_ov016_02136a30 // 0x021361d0
+    bl Decode // 0x021361d0
     ldr r0, [sp, #0x44] // 0x021361d4
     add r1, r4, #0 // 0x021361d6
     str r0, [sp, #4] // 0x021361d8
@@ -15420,7 +15420,7 @@ asm void func_ov016_021361bc(void)
     add r0, r0, r5 // 0x02136976
     str r0, [r7, #0xc] // 0x02136978
     add r0, sp, #0x44 // 0x0213697a
-    bl func_ov016_02136a74 // 0x0213697c
+    bl MD5_memset // 0x0213697c
     add sp, #0x84 // 0x02136980
     pop {r4, r5, r6, r7, pc} // 0x02136982
     dcd 0x0005c6be
@@ -15459,7 +15459,7 @@ asm void func_ov016_021361bc(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136a04(void)
+asm void Encode(void)
 {
     push {r4, r5} // 0x02136a04
     mov r4, #0 // 0x02136a06
@@ -15489,7 +15489,7 @@ asm void func_ov016_02136a04(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136a30(void)
+asm void Decode(void)
 {
     push {r4, r5, r6, r7} // 0x02136a30
     mov r7, #0 // 0x02136a32
@@ -15520,7 +15520,7 @@ asm void func_ov016_02136a30(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136a5c(void)
+asm void MD5_memcpy(void)
 {
     push {r3, r4} // 0x02136a5c
     mov r4, #0 // 0x02136a5e
@@ -15541,7 +15541,7 @@ asm void func_ov016_02136a5c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136a74(void)
+asm void MD5_memset(void)
 {
     mov r3, #0 // 0x02136a74
     cmp r2, #0 // 0x02136a76
@@ -15562,7 +15562,7 @@ asm void func_ov016_02136a74(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136a8c(void)
+asm void MD5Encode(void)
 {
     push {r4, r5, r6, lr} // 0x02136a8c
     sub sp, #0x58 // 0x02136a8e
@@ -15570,11 +15570,11 @@ asm void func_ov016_02136a8c(void)
     add r4, r1, #0 // 0x02136a92
     add r6, r2, #0 // 0x02136a94
     add r0, sp, #0 // 0x02136a96
-    bl func_ov016_021360c8 // 0x02136a98
+    bl MY_MD5Init // 0x02136a98
     add r0, sp, #0 // 0x02136a9c
     add r1, r4, #0 // 0x02136a9e
     add r2, r6, #0 // 0x02136aa0
-    bl func_ov016_021360f0 // 0x02136aa2
+    bl MY_MD5Update // 0x02136aa2
     add r0, r5, #0 // 0x02136aa6
     add r1, sp, #0 // 0x02136aa8
     bl func_ov016_02136168 // 0x02136aaa
@@ -15586,7 +15586,7 @@ asm void func_ov016_02136a8c(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136ab4(void)
+asm void GetTickCount(void)
 {
     push {r3, lr} // 0x02136ab4
     dcb 0xd0
@@ -15650,7 +15650,7 @@ asm void func_ov016_02136af4(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136b04(void)
+asm void PutHex(void)
 {
     push {r4, r5} // 0x02136b04
     lsl r1, r1, #0x18 // 0x02136b06
@@ -15685,7 +15685,7 @@ asm void func_ov016_02136b04(void)
 #pragma thumb off
 
 #pragma thumb on
-asm void func_ov016_02136b38(void)
+asm void PutMac(void)
 {
     push {r3, r4, r5, r6, r7, lr} // 0x02136b38
     str r0, [sp] // 0x02136b3a
@@ -15698,7 +15698,7 @@ asm void func_ov016_02136b38(void)
     ldrsb r1, [r6, r1] // 0x02136b46
     add r0, r4, #0 // 0x02136b48
     add r6, r6, #1 // 0x02136b4a
-    bl func_ov016_02136b04 // 0x02136b4c
+    bl PutHex // 0x02136b4c
     add r0, r4, r0 // 0x02136b50
     add r4, r0, #0 // 0x02136b52
     cmp r5, #5 // 0x02136b54
@@ -15802,7 +15802,7 @@ asm void func_ov016_02136b6c(void)
     ldr r0, [pc, #0x3c] // 0x02136bfc
     mov r1, #1 // 0x02136bfe
     str r1, [r0, #0x38] // 0x02136c00
-    bl func_ov016_02136ab4 // 0x02136c02
+    bl GetTickCount // 0x02136c02
     ldr r1, [pc, #0x44] // 0x02136c06
     ldr r5, [pc, #0x44] // 0x02136c08
     add r1, r0, r1 // 0x02136c0a
@@ -15954,7 +15954,7 @@ asm void func_ov016_02136ce8(void)
     bne @L_02136d00 // 0x02136cfc
     b @L_02136d0a // 0x02136cfe
 @L_02136d00:
-    bl func_ov016_02136ab4 // 0x02136d00
+    bl GetTickCount // 0x02136d00
     ldr r1, [pc, #0x14] // 0x02136d04
     ldr r1, [r1, #0xc] // 0x02136d06
     sub r0, r1, r0 // 0x02136d08

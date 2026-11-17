@@ -2,49 +2,49 @@
 
 void TP_GetCalibratedResult(void);
 void TP_WaitCalibratedResult(void);
-void func_0200edac(void);
-void func_0200eeb4(void);
-void func_0200ef54(void);
-void func_0200ef64(void);
-void func_0200f150(void);
+void TP_RequestAutoSamplingStartAsync(void);
+void TP_RequestAutoSamplingStopAsync(void);
+void TP_GetLatestIndexInAuto(void);
+void TP_CalcCalibrateParam(void);
+void TP_GetCalibratedPoint(void);
 void TP_WaitBusy(void);
-void func_0200f284(void);
-void func_0200f298(void);
-void func_0200f31c(void);
-void func_0200f328(void);
-void func_0200f358(void);
-void func_0200f38c(void);
-void func_0200f420(void);
-void func_0200f4a8(void);
-void func_0200f52c(void);
-void func_0200f5f0(void);
-void func_0200f67c(void);
+void TP_CheckError(void);
+void PMi_WaitBusy(void);
+void PMi_DummyCallback(void);
+void PMi_CallCallbackAndUnlock(void);
+void PMi_WaitVBlank(void);
+void PM_Init(void);
+void PMi_CommonCallback(void);
+void PMi_TryToSendPxiData(void);
+void PMi_TryToSendPxiDataTillSuccess(void);
+void PMi_SendSleepStart(void);
+void PM_SendUtilityCommandAsync(void);
 void func_0200f6c4(void);
-void func_0200f6fc(void);
+void PMi_SetLEDAsync(void);
 
-extern char data_020bd340[];
+extern char initial_020976e4[];
 void OS_DisableInterrupts(void);
-void func_0200b138(void);
+void PXI_SendWordByFifo(void);
 void OS_RestoreInterrupts(void);
 extern char data_020bd35c[];
 extern char data_020bd3a8[];
-extern char data_020aadd8[];
-void func_02008438(void);
-void func_0200842c(void);
-void func_0200b1b0(void);
+extern char PMi_WaitBusyMethod[];
+void OS_GetProcMode(void);
+void OS_GetCpsrIrq(void);
+void PXIi_HandlerRecvFifoNotEmpty(void);
 extern char data_020bd37c[];
-void func_0200afc0(void);
-void func_0200b114(void);
+void PXI_Init(void);
+void PXI_IsCallbackReady(void);
 void WaitByLoop(void);
-void func_0200b0c8(void);
+void PXI_SetFifoRecvCallback(void);
 void PMi_SendPxiData(void);
-void func_02008450(void);
-void func_0200fd28(void);
+void OS_SpinWaitSysCycles(void);
+void PMi_SetLCDPower(void);
 
 asm void TP_GetCalibratedResult(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r2, =data_020bd340
+    ldr r2, =initial_020976e4
     ldrh r1, [r2, #0x38]
     tst r1, #1
     movne r0, #1
@@ -58,7 +58,7 @@ asm void TP_GetCalibratedResult(void)
     ldrh r2, [r2, #0xe]
     strh r3, [r0, #4]
     strh r2, [r0, #6]
-    bl func_0200f150
+    bl TP_GetCalibratedPoint
     mov r0, #0
     ldmia sp!, {r3, pc}
 }
@@ -74,10 +74,10 @@ asm void TP_WaitCalibratedResult(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200edac(void)
+asm void TP_RequestAutoSamplingStartAsync(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r12, =data_020bd340
+    ldr r12, =initial_020976e4
     mov r5, #0
     str r2, [r12, #0x14]
     mov r6, r1
@@ -105,14 +105,14 @@ asm void func_0200edac(void)
     mov r0, r5
     mov r2, r7
     orr r1, r1, #0x2000000
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     blt @L_0200ee40
     orr r1, r4, #0x10000
     mov r0, r5
     mov r2, r7
     orr r1, r1, #0x1000000
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     movge r7, #1
 @L_0200ee40:
@@ -120,7 +120,7 @@ asm void func_0200edac(void)
     bne @L_0200ee80
     mov r0, r6
     bl OS_RestoreInterrupts
-    ldr r0, =data_020bd340
+    ldr r0, =initial_020976e4
     ldrh r1, [r0, #0x38]
     orr r1, r1, #2
     strh r1, [r0, #0x38]
@@ -133,7 +133,7 @@ asm void func_0200edac(void)
     blx r3
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0200ee80:
-    ldr r2, =data_020bd340
+    ldr r2, =initial_020976e4
     ldr r1, =0xfffd
     ldrh r3, [r2, #0x3a]
     mov r0, r6
@@ -146,7 +146,7 @@ asm void func_0200edac(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200eeb4(void)
+asm void TP_RequestAutoSamplingStopAsync(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     bl OS_DisableInterrupts
@@ -155,14 +155,14 @@ asm void func_0200eeb4(void)
     ldr r1, =0x3000200
     mov r2, r5
     mov r0, #6
-    bl func_0200b138
+    bl PXI_SendWordByFifo
     cmp r0, #0
     movge r5, #1
     cmp r5, #0
     bne @L_0200ef1c
     mov r0, r4
     bl OS_RestoreInterrupts
-    ldr r0, =data_020bd340
+    ldr r0, =initial_020976e4
     ldrh r1, [r0, #0x38]
     orr r1, r1, #4
     strh r1, [r0, #0x38]
@@ -175,7 +175,7 @@ asm void func_0200eeb4(void)
     blx r3
     ldmia sp!, {r3, r4, r5, pc}
 @L_0200ef1c:
-    ldr r2, =data_020bd340
+    ldr r2, =initial_020976e4
     ldr r1, =0xfffb
     ldrh r3, [r2, #0x3a]
     mov r0, r4
@@ -188,14 +188,14 @@ asm void func_0200eeb4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0200ef54(void)
+asm void TP_GetLatestIndexInAuto(void)
 {
-    ldr r0, =data_020bd340
+    ldr r0, =initial_020976e4
     ldrh r0, [r0, #0x10]
     bx lr
 }
 
-asm void func_0200ef64(void)
+asm void TP_CalcCalibrateParam(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r9, r1
@@ -330,10 +330,10 @@ asm void func_0200ef64(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0200f150(void)
+asm void TP_GetCalibratedPoint(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    ldr r2, =data_020bd340
+    ldr r2, =initial_020976e4
     ldrh r2, [r2, #0x34]
     cmp r2, #0
     bne @L_0200f188
@@ -407,7 +407,7 @@ asm void func_0200f150(void)
 
 asm void TP_WaitBusy(void)
 {
-    ldr r1, =data_020bd340
+    ldr r1, =initial_020976e4
 @L_0200f270:
     ldrh r2, [r1, #0x3a]
     tst r2, r0
@@ -415,15 +415,15 @@ asm void TP_WaitBusy(void)
     bx lr
 }
 
-asm void func_0200f284(void)
+asm void TP_CheckError(void)
 {
-    ldr r1, =data_020bd340
+    ldr r1, =initial_020976e4
     ldrh r1, [r1, #0x38]
     and r0, r1, r0
     bx lr
 }
 
-asm void func_0200f298(void)
+asm void PMi_WaitBusy(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, =data_020bd3a8
@@ -431,19 +431,19 @@ asm void func_0200f298(void)
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
     ldr r6, =0x4000208
-    ldr r5, =data_020aadd8
+    ldr r5, =PMi_WaitBusyMethod
 @L_0200f2b4:
     ldr r0, [r5]
     tst r0, #2
     beq @L_0200f2cc
-    bl func_02008438
+    bl OS_GetProcMode
     cmp r0, #0x12
     beq @L_0200f2fc
 @L_0200f2cc:
     ldr r0, [r5]
     tst r0, #4
     beq @L_0200f2e4
-    bl func_0200842c
+    bl OS_GetCpsrIrq
     cmp r0, #0x80
     beq @L_0200f2fc
 @L_0200f2e4:
@@ -454,7 +454,7 @@ asm void func_0200f298(void)
     cmp r0, #0
     bne @L_0200f300
 @L_0200f2fc:
-    bl func_0200b1b0
+    bl PXIi_HandlerRecvFifoNotEmpty
 @L_0200f300:
     ldr r0, [r4]
     cmp r0, #0
@@ -462,14 +462,14 @@ asm void func_0200f298(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200f31c(void)
+asm void PMi_DummyCallback(void)
 {
     cmp r1, #0
     strne r0, [r1]
     bx lr
 }
 
-asm void func_0200f328(void)
+asm void PMi_CallCallbackAndUnlock(void)
 {
     stmdb sp!, {r3, lr}
     ldr r2, =data_020bd37c
@@ -484,7 +484,7 @@ asm void func_0200f328(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200f358(void)
+asm void PMi_WaitVBlank(void)
 {
     stmdb sp!, {r3}
     sub sp, sp, #4
@@ -501,7 +501,7 @@ asm void func_0200f358(void)
     bx lr
 }
 
-asm void func_0200f38c(void)
+asm void PM_Init(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r0, =data_020bd37c
@@ -513,10 +513,10 @@ asm void func_0200f38c(void)
     mov r1, #0
     str r1, [r0, #0x2c]
     str r1, [r0, #0x30]
-    bl func_0200afc0
+    bl PXI_Init
     mov r1, r4
     mov r0, #8
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     bne @L_0200f3f0
     mov r6, #0x64
@@ -526,13 +526,13 @@ asm void func_0200f38c(void)
     bl WaitByLoop
     mov r0, r5
     mov r1, r4
-    bl func_0200b114
+    bl PXI_IsCallbackReady
     cmp r0, #0
     beq @L_0200f3d4
 @L_0200f3f0:
-    ldr r1, =func_0200f420
+    ldr r1, =PMi_CommonCallback
     mov r0, #8
-    bl func_0200b0c8
+    bl PXI_SetFifoRecvCallback
     ldr r1, =0x2fffc3c
     ldr r0, =data_020bd37c
     ldr r1, [r1]
@@ -541,7 +541,7 @@ asm void func_0200f38c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200f420(void)
+asm void PMi_CommonCallback(void)
 {
     stmdb sp!, {r3, lr}
     and r0, r1, #0x7f00
@@ -554,7 +554,7 @@ asm void func_0200f420(void)
     cmpne r1, #0x62
     moveq r0, #1
     movne r0, #2
-    bl func_0200f328
+    bl PMi_CallCallbackAndUnlock
     ldmia sp!, {r3, pc}
 @L_0200f454:
     sub r1, r1, #0x60
@@ -580,11 +580,11 @@ asm void func_0200f420(void)
     mov r2, #1
     str r2, [r1, #0xc]
 @L_0200f49c:
-    bl func_0200f328
+    bl PMi_CallCallbackAndUnlock
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200f4a8(void)
+asm void PMi_TryToSendPxiData(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
@@ -623,14 +623,14 @@ asm void func_0200f4a8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0200f52c(void)
+asm void PMi_TryToSendPxiDataTillSuccess(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
     mov r8, #0x10000
     mov r4, #0
     ldr r5, =0x51d23
-    ldr r6, =func_0200f31c
+    ldr r6, =PMi_DummyCallback
     mov r10, r0
     mov r9, r1
     rsb r8, r8, #0
@@ -643,18 +643,18 @@ asm void func_0200f52c(void)
     mov r2, r11
     mov r3, r6
     str r7, [sp]
-    bl func_0200f4a8
+    bl PMi_TryToSendPxiData
     cmp r0, #0
     beq @L_0200f5a4
 @L_0200f57c:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     mov r0, r10
     mov r1, r9
     str r7, [sp]
     mov r2, r4
     mov r3, r6
-    bl func_0200f4a8
+    bl PMi_TryToSendPxiData
     cmp r0, #0
     bne @L_0200f57c
 @L_0200f5a4:
@@ -663,7 +663,7 @@ asm void func_0200f52c(void)
     bne @L_0200f5c4
 @L_0200f5b0:
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     ldr r0, [sp, #4]
     cmp r0, r8
     beq @L_0200f5b0
@@ -673,13 +673,13 @@ asm void func_0200f52c(void)
     addeq sp, sp, #8
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r5
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
     b @L_0200f558
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0200f5f0(void)
+asm void PMi_SendSleepStart(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #8
@@ -689,7 +689,7 @@ asm void func_0200f5f0(void)
     add r0, sp, #0
     mov r1, #1
     str r2, [sp]
-    bl func_0200f52c
+    bl PMi_TryToSendPxiDataTillSuccess
     mov r5, #0
     mov r4, #2
     mov r7, #1
@@ -698,7 +698,7 @@ asm void func_0200f5f0(void)
     mov r1, r4
     mov r2, r5
     mov r3, r7
-    bl func_0200fd28
+    bl PMi_SetLCDPower
     cmp r0, #1
     bne @L_0200f620
     and r0, r8, #0xff
@@ -711,13 +711,13 @@ asm void func_0200f5f0(void)
     mov r1, r4
     str r3, [sp]
     str r2, [sp, #4]
-    bl func_0200f52c
+    bl PMi_TryToSendPxiDataTillSuccess
     mov r0, r5
     add sp, sp, #8
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0200f67c(void)
+asm void PM_SendUtilityCommandAsync(void)
 {
     stmdb sp!, {lr}
     sub sp, sp, #0xc
@@ -733,7 +733,7 @@ asm void func_0200f67c(void)
     add r0, sp, #4
     mov r1, #2
     str r12, [sp]
-    bl func_0200f4a8
+    bl PMi_TryToSendPxiData
     add sp, sp, #0xc
     ldmia sp!, {pc}
 }
@@ -742,20 +742,20 @@ asm void func_0200f6c4(void)
 {
     stmdb sp!, {r3, lr}
     sub sp, sp, #8
-    ldr r3, =func_0200f31c
+    ldr r3, =PMi_DummyCallback
     add r12, sp, #4
     str r12, [sp]
-    bl func_0200f67c
+    bl PM_SendUtilityCommandAsync
     cmp r0, #0
     addne sp, sp, #8
     ldmneia sp!, {r3, pc}
-    bl func_0200f298
+    bl PMi_WaitBusy
     ldr r0, [sp, #4]
     add sp, sp, #8
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200f6fc(void)
+asm void PMi_SetLEDAsync(void)
 {
     stmdb sp!, {r3, lr}
     mov r3, r1
@@ -784,6 +784,6 @@ asm void func_0200f6fc(void)
     mov r1, #0
     str r2, [sp]
     mov r2, r1
-    bl func_0200f67c
+    bl PM_SendUtilityCommandAsync
     ldmia sp!, {r3, pc}
 }

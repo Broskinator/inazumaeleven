@@ -1,45 +1,45 @@
 // (asm for now)
 
 void OSi_InitVramExclusive(void);
-void func_0200863c(void);
-void func_020086c0(void);
-void func_0200878c(void);
-void func_020087bc(void);
-void func_020087cc(void);
-void func_020087d8(void);
-void func_020087ec(void);
-void func_02008894(void);
-void func_020088d0(void);
-void func_020088e0(void);
-void func_02008964(void);
-void func_02008a08(void);
-void func_02008ab0(void);
-void func_02008bb8(void);
-void func_02008cb4(void);
-void func_02008d10(void);
-void func_02008d78(void);
-void func_02008da0(void);
+void OSi_UnlockVram(void);
+void OS_GetLowEntropyData(void);
+void OS_Terminate(void);
+void OSi_TerminateCore(void);
+void OS_Halt(void);
+void OS_InitEvent(void);
+void OS_WaitEventEx(void);
+void OS_SignalEvent(void);
+void MI_SetWramBank(void);
+void MIi_DmaFill32(void);
+void MIi_DmaCopy32(void);
+void MIi_DmaCopy16(void);
+void MIi_DmaFill32Async(void);
+void MIi_DmaCopy32Async(void);
+void MI_WaitDma(void);
+void MI_StopDma(void);
+void MI_StopAllDma(void);
+void MIi_CheckAnotherAutoDMA(void);
 
-extern char data_020bb494[];
-extern char data_020bb498[];
+extern char OSi_vramExclusive[];
+extern char OSi_vramLockId[];
 void OS_DisableInterrupts(void);
-void func_02008600(void);
+void OsCountZeroBits(void);
 void OS_RestoreInterrupts(void);
-void func_02007adc(void);
+void OS_GetTickLo(void);
 extern char data_020bb468[];
 extern char data_020bb4ac[];
 void OS_SleepThread(void);
 void OS_WakeupThread(void);
-void func_01ff845c(void);
+void MIi_DmaSetParameters(void);
 void MIi_CheckDma0SourceAddress(void);
 void OSi_EnterDmaCallback(void);
 
 asm void OSi_InitVramExclusive(void)
 {
-    ldr r0, =data_020bb494
+    ldr r0, =OSi_vramExclusive
     mov r3, #0
     str r3, [r0]
-    ldr r0, =data_020bb498
+    ldr r0, =OSi_vramLockId
     mov r2, r3
 @L_0200861c:
     mov r1, r3, lsl #1
@@ -50,24 +50,24 @@ asm void OSi_InitVramExclusive(void)
     bx lr
 }
 
-asm void func_0200863c(void)
+asm void OSi_UnlockVram(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r5, r0
     mov r10, r1
     bl OS_DisableInterrupts
-    ldr r4, =data_020bb494
+    ldr r4, =OSi_vramExclusive
     ldr r1, =0x1ff
     ldr r2, [r4]
     mov r9, r0
     and r0, r5, r2
-    ldr r6, =data_020bb498
+    ldr r6, =OSi_vramLockId
     and r8, r0, r1
     mov r7, #1
     mov r5, #0
 @L_02008670:
     mov r0, r8
-    bl func_02008600
+    bl OsCountZeroBits
     rsbs r2, r0, #0x1f
     bmi @L_020086a8
     mov r1, r2, lsl #1
@@ -86,14 +86,14 @@ asm void func_0200863c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_020086c0(void)
+asm void OS_GetLowEntropyData(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r1, =0x4000006
     mov r5, r0
     ldrh r6, [r1]
     ldr r4, =0x2fffc00
-    bl func_02007adc
+    bl OS_GetTickLo
     orr r0, r0, r6, lsl #16
     str r0, [r5]
     ldr r0, =data_020bb468
@@ -137,7 +137,7 @@ asm void func_020086c0(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200878c(void)
+asm void OS_Terminate(void)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_020bb4ac
@@ -149,27 +149,27 @@ asm void func_0200878c(void)
     ldr r0, [r0, #4]
     blx r2
 @L_020087b0:
-    bl func_020087bc
+    bl OSi_TerminateCore
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020087bc(void)
+asm void OSi_TerminateCore(void)
 {
     stmdb sp!, {r3, lr}
     bl OS_DisableInterrupts
 @L_020087c4:
-    bl func_020087cc
+    bl OS_Halt
     b @L_020087c4
 }
 
-asm void func_020087cc(void)
+asm void OS_Halt(void)
 {
     mov r0, #0
     mcr p15, 0, r0, c7, c0, 4
     bx lr
 }
 
-asm void func_020087d8(void)
+asm void OS_InitEvent(void)
 {
     mov r1, #0
     str r1, [r0, #8]
@@ -178,7 +178,7 @@ asm void func_020087d8(void)
     bx lr
 }
 
-asm void func_020087ec(void)
+asm void OS_WaitEventEx(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r2
@@ -231,7 +231,7 @@ asm void func_020087ec(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02008894(void)
+asm void OS_SignalEvent(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r1
@@ -251,14 +251,14 @@ asm void func_02008894(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020088d0(void)
+asm void MI_SetWramBank(void)
 {
     ldr r1, =0x4000247
     strb r0, [r1]
     bx lr
 }
 
-asm void func_020088e0(void)
+asm void MIi_DmaFill32(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -290,7 +290,7 @@ asm void func_020088e0(void)
     orr r3, r3, #0x5000000
 @L_02008948:
     str lr, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
 @L_02008950:
     ldr r0, [r4]
     tst r0, #0x80000000
@@ -299,7 +299,7 @@ asm void func_020088e0(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02008964(void)
+asm void MIi_DmaCopy32(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #4
@@ -339,7 +339,7 @@ asm void func_02008964(void)
     orr r3, r3, #0x4000000
 @L_020089ec:
     str r5, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
 @L_020089f4:
     ldr r0, [r4]
     tst r0, #0x80000000
@@ -348,7 +348,7 @@ asm void func_02008964(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02008a08(void)
+asm void MIi_DmaCopy16(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #4
@@ -389,7 +389,7 @@ asm void func_02008a08(void)
     mov r3, r5, lsr #1
     str r12, [sp]
 @L_02008a98:
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
 @L_02008a9c:
     ldr r0, [r4]
     tst r0, #0x80000000
@@ -398,7 +398,7 @@ asm void func_02008a08(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02008ab0(void)
+asm void MIi_DmaFill32Async(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #4
@@ -416,7 +416,7 @@ asm void func_02008ab0(void)
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02008aec:
-    bl func_02008cb4
+    bl MI_WaitDma
     cmp r7, #0
     beq @L_02008b60
     ldr r2, [sp, #0x24]
@@ -433,7 +433,7 @@ asm void func_02008ab0(void)
     mov r2, r5
     orr r3, r3, #0xc5000000
     str r12, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02008b3c:
@@ -443,7 +443,7 @@ asm void func_02008ab0(void)
     mov r2, r5
     orr r3, r3, #0x45000000
     str r12, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02008b60:
@@ -457,7 +457,7 @@ asm void func_02008ab0(void)
     mov r2, r5
     orr r3, r3, #0x85000000
     str r12, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02008b94:
@@ -467,12 +467,12 @@ asm void func_02008ab0(void)
     mov r2, r5
     orr r3, r3, #0x5000000
     str r12, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02008bb8(void)
+asm void MIi_DmaCopy32Async(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r5, r3
@@ -493,7 +493,7 @@ asm void func_02008bb8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02008bfc:
     mov r0, r8
-    bl func_02008cb4
+    bl MI_WaitDma
     cmp r9, #0
     beq @L_02008c68
     ldr r2, [sp, #0x24]
@@ -509,7 +509,7 @@ asm void func_02008bb8(void)
     mov r2, r6
     orr r3, r3, #0xc4000000
     str r4, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02008c48:
     mov r4, #4
@@ -518,7 +518,7 @@ asm void func_02008bb8(void)
     mov r2, r6
     orr r3, r3, #0x44000000
     str r4, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02008c68:
     ldr r0, [sp, #0x28]
@@ -530,7 +530,7 @@ asm void func_02008bb8(void)
     mov r2, r6
     orr r3, r3, #0x84000000
     str r4, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02008c94:
     mov r4, #4
@@ -539,11 +539,11 @@ asm void func_02008bb8(void)
     mov r2, r6
     orr r3, r3, #0x4000000
     str r4, [sp]
-    bl func_01ff845c
+    bl MIi_DmaSetParameters
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02008cb4(void)
+asm void MI_WaitDma(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -571,7 +571,7 @@ asm void func_02008cb4(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02008d10(void)
+asm void MI_StopDma(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -601,21 +601,21 @@ asm void func_02008d10(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02008d78(void)
+asm void MI_StopAllDma(void)
 {
     stmdb sp!, {r3, lr}
     mov r0, #0
-    bl func_02008d10
+    bl MI_StopDma
     mov r0, #1
-    bl func_02008d10
+    bl MI_StopDma
     mov r0, #2
-    bl func_02008d10
+    bl MI_StopDma
     mov r0, #3
-    bl func_02008d10
+    bl MI_StopDma
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02008da0(void)
+asm void MIi_CheckAnotherAutoDMA(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r0
@@ -650,7 +650,7 @@ asm void func_02008da0(void)
     cmpne r0, #0x8000000
     cmpne r0, #0x10000000
     bne @L_02008e1c
-    bl func_0200878c
+    bl OS_Terminate
 @L_02008e1c:
     add r7, r7, #1
     cmp r7, #3

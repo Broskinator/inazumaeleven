@@ -2,72 +2,72 @@
 struct E02103ad8 { s32 a; s32 b; u32 c; };
 struct P02103ad8 { u8 pad[0x70]; E02103ad8 arr[3]; };
 
-extern "C" void func_ov014_02102900(void);
-extern "C" void func_ov014_02102da4(u8 *arg0);
-extern "C" void func_ov014_02102e54(void);
-extern "C" void func_ov014_02102f9c(void);
-extern "C" void func_ov014_02103070(void);
-extern "C" s32 func_ov014_02103170(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov014_021031d0(void);
-extern "C" void func_ov014_021032a8(void);
-extern "C" s32 func_ov014_0210337c(u8 *arg0, u16 *arg1, u8 *arg2);
-extern "C" s32 func_ov014_02103430(...);
-extern "C" void func_ov014_02103494(void);
-extern "C" s32 func_ov014_02103578(void);
-extern "C" s32 func_ov014_02103594(...);
-extern "C" s32 func_ov014_021035f0(...);
-extern "C" void func_ov014_02103680(s32 arg0);
-extern "C" s32 func_ov014_02103690(...);
-extern "C" s32 func_ov014_021037ac(...);
-extern "C" s32 func_ov014_02103894(s32 arg0, s32 arg1, u8 *arg2);
-extern "C" void func_ov014_0210390c(void);
-extern "C" void func_ov014_021039e4(void);
-extern "C" void func_ov014_02103ad8(P02103ad8 *arg0, s32 arg1);
-extern "C" void func_ov014_02103b28(void);
-extern "C" void func_ov014_02103bd8(void);
-extern "C" void func_ov014_02103c1c(void);
-extern "C" void func_ov014_02103c6c(void);
-extern "C" s32 func_ov014_0210418c(s32 arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_ov014_02104270(void);
-extern "C" void func_ov014_021042ac(void);
-extern "C" void func_ov014_021043e0(void);
-extern "C" void func_ov014_021045f4(void);
-extern "C" void func_ov014_021048c0(void);
-extern "C" void func_ov014_02104aa4(void);
-extern "C" s32 func_ov014_02104b14(...);
-extern "C" void func_ov014_02104bbc(void);
-extern "C" void func_ov014_02104c00(s32 arg0);
-extern "C" s32 func_ov014_02104c14(void);
-extern "C" s32 func_ov014_02104c2c(void);
-extern "C" void func_ov014_02104c54(u16 arg0, u16 arg1, s32 arg2);
-extern "C" void func_ov014_02104cb4(void);
-extern "C" void func_ov014_02104d00(void);
-extern "C" void func_ov014_02104d20(u8 *arg0);
-extern "C" void func_ov014_02104d38(s32 arg0);
-extern "C" s32 func_ov014_02104d54(...);
-extern "C" s32 func_ov014_02104e04(void);
-extern "C" s32 func_ov014_02104e44(...);
-extern "C" s32 func_ov014_02104ea4(void);
-extern "C" void func_ov014_02104ee0(void);
-extern "C" s32 func_ov014_02104f68(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_02104fbc(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_02105054(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov014_021050b8(...);
-extern "C" void func_ov014_02105208(s32 arg0);
-extern "C" s32 func_ov014_02105240(...);
-extern "C" s32 func_ov014_02105300(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern "C" void func_ov014_0210533c(void);
-extern "C" s32 func_ov014_02105544(...);
-extern "C" s32 func_ov014_02105614(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_021056a8(void);
-extern "C" s32 func_ov014_02105728(void);
-extern "C" s32 func_ov014_02105768(...);
-extern "C" s32 func_ov014_021057e8(void);
-extern "C" void func_ov014_02105820(void);
+extern "C" void _send_tcp(void);
+extern "C" void reply_arp(u8 *arg0);
+extern "C" void dispatch_arp(void);
+extern "C" void reply_icmp(void);
+extern "C" void process_icmp_reply(void);
+extern "C" s32 valid_IP(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void dispatch_icmp(void);
+extern "C" void check_listener(void);
+extern "C" s32 check_socket(u8 *arg0, u16 *arg1, u8 *arg2);
+extern "C" s32 find_socket(...);
+extern "C" void parse_mss(void);
+extern "C" s32 no_need_inq(void);
+extern "C" s32 _tcp_send_handshake(...);
+extern "C" s32 _tcp_send_ack(...);
+extern "C" void _tcp_send_finack(s32 arg0);
+extern "C" s32 _tcp_send_rst(...);
+extern "C" s32 dt_syn_LISTEN(...);
+extern "C" s32 find_specific_socket(s32 arg0, s32 arg1, u8 *arg2);
+extern "C" void dt_syn(void);
+extern "C" void dt_synack(void);
+extern "C" void mark_rwin_chunk(P02103ad8 *arg0, s32 arg1);
+extern "C" void merge_rwin_chunks(void);
+extern "C" void pull_rwin_chunks(void);
+extern "C" void push_rwin_chunks(void);
+extern "C" void dt_ack(void);
+extern "C" s32 dt_fin(s32 arg0, s32 arg1, s32 arg2);
+extern "C" s32 dt_rst(void);
+extern "C" void dispatch_tcp(void);
+extern "C" void dispatch_udp(void);
+extern "C" void check_frag(void);
+extern "C" void dispatch_ip(void);
+extern "C" void tcpip(void);
+extern "C" s32 CPS_SocGetEport(...);
+extern "C" void get_seqno(void);
+extern "C" void CPS_SocRegister(s32 arg0);
+extern "C" s32 CPS_SocUnRegister(void);
+extern "C" s32 CPS_SocDatagramMode(void);
+extern "C" void CPS_SocBind(u16 arg0, u16 arg1, s32 arg2);
+extern "C" void CPS_SocUse(void);
+extern "C" void CPS_SocRelease(void);
+extern "C" void CPS_SocDup(u8 *arg0);
+extern "C" void CPS_SetUdpCallback(s32 arg0);
+extern "C" s32 CPSi_TcpConnectRaw(...);
+extern "C" s32 CPS_TcpConnect(void);
+extern "C" s32 CPSi_TcpShutdownRaw(...);
+extern "C" s32 CPS_TcpShutdown(void);
+extern "C" void CPS_TcpClose(void);
+extern "C" s32 udp_read_raw(s32 arg0, u8 *arg1, s32 arg2, s32 arg3);
+extern "C" s32 CPSi_TcpReadRaw(s32 arg0, s32 arg1);
+extern "C" s32 CPS_SocRead(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3);
+extern "C" s32 CPSi_SocConsumeRaw(...);
+extern "C" void CPS_SocConsume(s32 arg0);
+extern "C" s32 tcp_write_do(...);
+extern "C" s32 tcp_write_do2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
+extern "C" void CPSi_TcpWrite2Raw(void);
+extern "C" s32 CPSi_SocWrite2(...);
+extern "C" s32 CPS_SocWrite(s32 arg0, s32 arg1);
+extern "C" s32 CPS_SocGetLength(void);
+extern "C" s32 CPS_SocFlush(void);
+extern "C" s32 garprequest(...);
+extern "C" s32 set_fixed_ip(void);
+extern "C" void scavenger(void);
 
-extern "C" char data_020bb120[];
+extern "C" char OSi_ThreadInfo[];
 extern "C" char data_ov014_02126ac8[];
-extern "C" char data_ov014_02126b30[];
+extern "C" char CPSMyMac[];
 extern "C" char data_ov014_02126ba6[];
 extern "C" char data_ov014_02126be0[];
 extern "C" char data_ov014_02126c40[];
@@ -83,44 +83,44 @@ extern "C" s32 OS_RestoreInterrupts(...);
 extern "C" void OS_Sleep(void);
 extern "C" s32 OS_SleepThread(...);
 extern "C" s32 OS_WakeupThreadDirect(...);
-extern "C" s32 func_020061c0(...);
-extern "C" void func_0200878c(void);
-extern "C" void func_020095c4(void);
-extern "C" s32 func_020098b4(...);
-extern "C" s32 func_ov014_0210147c(...);
-extern "C" void func_ov014_0210157c(void);
-extern "C" void func_ov014_021018ec(void);
-extern "C" void func_ov014_021019f4(void);
-extern "C" void func_ov014_02101a08(void);
-extern "C" void func_ov014_02101a24(void);
-extern "C" s32 func_ov014_02101ab4(...);
-extern "C" s32 func_ov014_02101ad8(...);
-extern "C" s32 func_ov014_02101b14(...);
-extern "C" void func_ov014_02101b28(void);
-extern "C" void func_ov014_02101ba8(void);
-extern "C" void func_ov014_02101bd4(void);
-extern "C" void func_ov014_02101e68(void);
-extern "C" void func_ov014_02101f34(void);
-extern "C" s32 func_ov014_02101f78(...);
-extern "C" void func_ov014_02102040(void);
-extern "C" void func_ov014_021021e4(void);
-extern "C" void func_ov014_02102518(void);
-extern "C" void func_ov014_02102710(void);
-extern "C" void func_ov014_021027c4(void);
-extern "C" void func_ov014_02105c64(void);
-extern "C" void func_ov014_021065e4(void);
-extern "C" s32 func_ov014_0211ead4(...);
-extern "C" s32 func_ov014_0211eb28(...);
-extern "C" s32 func_ov014_0211ec00(...);
-extern "C" s32 func_ov014_0211ed94(...);
-extern "C" void func_ov014_0211ee0c(void);
-extern "C" s32 func_ov014_0211ef44(...);
-extern "C" void func_ov014_0211efc8(void);
-extern "C" void func_ov014_0211f030(void);
+extern "C" s32 OS_YieldThread(...);
+extern "C" void OS_Terminate(void);
+extern "C" void MI_CpuCopy(void);
+extern "C" s32 MI_CpuMove(...);
+extern "C" s32 reset_network_vars(...);
+extern "C" void OS_YieldThread__(void);
+extern "C" void calc_checksum_do(void);
+extern "C" void invert_checksum(void);
+extern "C" void calc_checksum(void);
+extern "C" void check_tcpudpsum(void);
+extern "C" s32 get_targetip(...);
+extern "C" s32 is_broadcast(...);
+extern "C" s32 is_multicast(...);
+extern "C" void ip_isme(void);
+extern "C" void maccmp(void);
+extern "C" void send_packet(void);
+extern "C" void receive_packet(void);
+extern "C" void throw_packet(void);
+extern "C" s32 inq_arpcache(...);
+extern "C" void send_arprequest(void);
+extern "C" void reg_arpcache(void);
+extern "C" void send_ip(void);
+extern "C" void send_ping(void);
+extern "C" void send_udp(void);
+extern "C" void dacktimer_reschedule(void);
+extern "C" void dhcp_release_server(void);
+extern "C" s32 CPSi_SslConnect(...);
+extern "C" s32 CPSi_SslRead(...);
+extern "C" s32 CPSi_SslConsume(...);
+extern "C" s32 CPSi_SslGetLength(...);
+extern "C" void CPSi_SslWrite2(void);
+extern "C" s32 CPSi_SslShutdown(...);
+extern "C" void CPSi_SslClose(void);
+extern "C" void CPSi_SslPeriodical(void);
 
-extern "C" void func_ov014_02106490(void);
-extern "C" void func_ov014_021064e8(void);
-extern "C" asm void func_ov014_02102900(void)
+extern "C" void dhcp_discover_server(void);
+extern "C" void dhcp_request_server(void);
+extern "C" asm void _send_tcp(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -134,7 +134,7 @@ extern "C" asm void func_ov014_02102900(void)
     addeq sp, sp, #0x14
     moveq r0, r1
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, =data_020bb120
+    ldr r0, =OSi_ThreadInfo
     ldr r1, =data_ov014_02126f00
     ldr r0, [r0, #4]
     cmp r0, r1
@@ -395,14 +395,14 @@ extern "C" asm void func_ov014_02102900(void)
     sub r0, r7, #0xc
     add r1, r4, #0xc
     mov r2, #0
-    bl func_ov014_021018ec
+    bl calc_checksum_do
     mov r2, r0
     ldr r0, [sp, #8]
     ldr r1, [sp, #0xc]
-    bl func_ov014_021018ec
+    bl calc_checksum_do
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
-    bl func_ov014_021019f4
+    bl invert_checksum
     mov r1, r0, lsl #8
     orr r0, r1, r0, asr #8
     strh r0, [r7, #0x10]
@@ -421,34 +421,34 @@ extern "C" asm void func_ov014_02102900(void)
     str r5, [sp]
     mov r4, #6
     str r4, [sp, #4]
-    bl func_ov014_02102518
+    bl send_ip
     ldr r0, [sp, #0xc]
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
 static inline u16 sw02102da4(u16 v) { return (v >> 8) | (v << 8); }
-extern "C" void func_ov014_02102da4(u8 *arg0)
+extern "C" void reply_arp(u8 *arg0)
 {
     *(u16 *)(arg0 + 6) = 0x200;
-    ((s32 (*)(...))func_020095c4)(arg0 + 8, arg0 + 0x12, 0xA);
-    ((s32 (*)(...))func_020095c4)(data_ov014_02126b30, arg0 + 8, 6);
+    ((s32 (*)(...))MI_CpuCopy)(arg0 + 8, arg0 + 0x12, 0xA);
+    ((s32 (*)(...))MI_CpuCopy)(CPSMyMac, arg0 + 8, 6);
     *(u16 *)(arg0 + 0xE) = sw02102da4((u16)(*(u32 *)((u8 *)data_ov014_02126ac8 + 0x50) >> 16));
     *(u16 *)(arg0 + 0x10) = sw02102da4((u16)*(u32 *)((u8 *)data_ov014_02126ac8 + 0x50));
-    ((s32 (*)(...))func_020095c4)(arg0 + 0x12, arg0 - 0xE, 6);
-    ((s32 (*)(...))func_020095c4)(data_ov014_02126b30, arg0 - 8, 6);
-    ((s32 (*)(...))func_ov014_02101bd4)(arg0 - 0xE, 0x2A, 0, 0);
+    ((s32 (*)(...))MI_CpuCopy)(arg0 + 0x12, arg0 - 0xE, 6);
+    ((s32 (*)(...))MI_CpuCopy)(CPSMyMac, arg0 - 8, 6);
+    ((s32 (*)(...))send_packet)(arg0 - 0xE, 0x2A, 0, 0);
 }
 
-extern "C" asm void func_ov014_02102e54(void)
+extern "C" asm void dispatch_arp(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r6, r0
     cmp r1, #0x1c
     ldmloia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r1, =data_ov014_02126b30
+    ldr r1, =CPSMyMac
     add r0, r6, #8
-    bl func_ov014_02101ba8
+    bl maccmp
     cmp r0, #0
     ldrne r0, =data_ov014_02126ac8
     ldrne r0, [r0, #0x50]
@@ -506,14 +506,14 @@ extern "C" asm void func_ov014_02102e54(void)
     bne @L_02102f54
     mov r2, r7
     add r0, r6, #8
-    bl func_ov014_021021e4
+    bl reg_arpcache
 @L_02102f54:
     cmp r4, #1
     bne @L_02102f70
     cmp r7, #0
     beq @L_02102f70
     mov r0, r6
-    bl func_ov014_02102da4
+    bl reply_arp
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02102f70:
     cmp r4, #2
@@ -526,7 +526,7 @@ extern "C" asm void func_ov014_02102e54(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02102f9c(void)
+extern "C" asm void reply_icmp(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #8
@@ -544,15 +544,15 @@ extern "C" asm void func_ov014_02102f9c(void)
     mov r0, r1, lsr #0x10
     orr r0, r0, r3, lsl #16
     mov r4, r2
-    bl func_ov014_02101ab4
+    bl get_targetip
     movs r7, r0
     addeq sp, sp, #8
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    bl func_ov014_02101f78
+    bl inq_arpcache
     cmp r0, #0
     bne @L_02103008
     mov r0, r7
-    bl func_ov014_02102040
+    bl send_arprequest
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02103008:
@@ -579,19 +579,19 @@ extern "C" asm void func_ov014_02102f9c(void)
     str r5, [sp]
     mov r4, #1
     str r4, [sp, #4]
-    bl func_ov014_02102518
+    bl send_ip
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02103070(void)
+extern "C" asm void process_icmp_reply(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r8, r0
     mov r7, r1
     mov r6, r2
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb120
+    ldr r1, =OSi_ThreadInfo
     mov r5, r0
     ldr r1, [r1, #8]
     cmp r1, #0
@@ -635,7 +635,7 @@ extern "C" asm void func_ov014_02103070(void)
     ldr r1, [r4, #0x4c]
     ldr r2, [r4, #0x50]
     add r0, r7, #8
-    bl func_020095c4
+    bl MI_CpuCopy
     ldr r0, [r4, #4]
     cmp r0, #3
     bne @L_02103160
@@ -654,21 +654,21 @@ extern "C" asm void func_ov014_02103070(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" s32 func_ov014_02103170(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 valid_IP(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     s32 r5;
     r4 = arg1;
     r5 = arg0;
     if (r5 != 0) {
-        s32 v0 = func_ov014_02101ad8();
+        s32 v0 = is_broadcast();
         if (v0 == 0) {
-            s32 v1 = func_ov014_02101b14(r5);
+            s32 v1 = is_multicast(r5);
             if (v1 == 0) {
                 if (r4 != 0) {
-                    s32 v2 = func_ov014_02101ad8(r4);
+                    s32 v2 = is_broadcast(r4);
                     if (v2 == 0) {
-                        s32 v3 = func_ov014_02101b14(r4);
+                        s32 v3 = is_multicast(r4);
                         if (v3 == 0)
                             return 1;
                     }
@@ -679,7 +679,7 @@ extern "C" s32 func_ov014_02103170(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     return 0;
 }
 
-extern "C" asm void func_ov014_021031d0(void)
+extern "C" asm void dispatch_icmp(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r4, r2
@@ -689,7 +689,7 @@ extern "C" asm void func_ov014_021031d0(void)
     ldmloia sp!, {r4, r5, r6, r7, r8, pc}
     mov r0, r5
     mov r1, r4
-    bl func_ov014_02101a08
+    bl calc_checksum
     ldr r1, =0xffff
     cmp r0, r1
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
@@ -715,7 +715,7 @@ extern "C" asm void func_ov014_021031d0(void)
     mov r1, r3, lsr #0x10
     orr r0, r0, r12, lsl #16
     orr r1, r1, r2, lsl #16
-    bl func_ov014_02103170
+    bl valid_IP
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     ldrb r0, [r5]
@@ -728,20 +728,20 @@ extern "C" asm void func_ov014_021031d0(void)
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_02103070
+    bl process_icmp_reply
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02103290:
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_02102f9c
+    bl reply_icmp
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_021032a8(void)
+extern "C" asm void check_listener(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    ldr r2, =data_020bb120
+    ldr r2, =OSi_ThreadInfo
     ldr r12, [r2, #8]
     cmp r12, #0
     beq @L_02103370
@@ -800,7 +800,7 @@ extern "C" asm void func_ov014_021032a8(void)
 }
 
 static inline u16 s0210337c(u16 x) { return (u16)((x >> 8) | (x << 8)); }
-extern "C" s32 func_ov014_0210337c(u8 *arg0, u16 *arg1, u8 *arg2)
+extern "C" s32 check_socket(u8 *arg0, u16 *arg1, u8 *arg2)
 {
     s32 r = 0;
     s32 a = 0;
@@ -823,10 +823,10 @@ extern "C" s32 func_ov014_0210337c(u8 *arg0, u16 *arg1, u8 *arg2)
     return r;
 }
 
-extern "C" asm s32 func_ov014_02103430(...)
+extern "C" asm s32 find_socket(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r2, =data_020bb120
+    ldr r2, =OSi_ThreadInfo
     mov r7, r0
     ldr r5, [r2, #8]
     mov r6, r1
@@ -841,7 +841,7 @@ extern "C" asm s32 func_ov014_02103430(...)
     mov r0, r7
     mov r1, r6
     mov r2, r4
-    bl func_ov014_0210337c
+    bl check_socket
     cmp r0, #0
     movne r0, r4
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
@@ -854,7 +854,7 @@ extern "C" asm s32 func_ov014_02103430(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02103494(void)
+extern "C" asm void parse_mss(void)
 {
     stmdb sp!, {r3, lr}
     mov r2, #0x218
@@ -921,26 +921,26 @@ extern "C" asm void func_ov014_02103494(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" s32 func_ov014_02103578(void)
+extern "C" s32 no_need_inq(void)
 {
     s32 v0;
     s32 v1;
-    v0 = func_ov014_02101ab4();
+    v0 = get_targetip();
     if (v0 == 0)
         return 1;
-    v1 = func_ov014_02101f78(v0);
+    v1 = inq_arpcache(v0);
     return v1;
 }
 
-extern "C" asm s32 func_ov014_02103594(...)
+extern "C" asm s32 _tcp_send_handshake(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     ldr r0, [r5, #0x1c]
     mov r4, r1
-    bl func_ov014_02103578
+    bl no_need_inq
     cmp r0, #0
-    ldreq r0, =data_020bb120
+    ldreq r0, =OSi_ThreadInfo
     ldreq r1, =data_ov014_02126f00
     ldreq r0, [r0, #4]
     cmpeq r0, r1
@@ -949,16 +949,16 @@ extern "C" asm s32 func_ov014_02103594(...)
     mov r1, r0
     mov r2, r5
     mov r3, r4
-    bl func_ov014_02102900
+    bl _send_tcp
     ldmia sp!, {r3, r4, r5, pc}
 @L_021035d8:
     ldr r0, [r5, #0x1c]
-    bl func_ov014_02101ab4
-    bl func_ov014_02102040
+    bl get_targetip
+    bl send_arprequest
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm s32 func_ov014_021035f0(...)
+extern "C" asm s32 _tcp_send_ack(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -990,21 +990,21 @@ extern "C" asm s32 func_ov014_021035f0(...)
     sub r0, r0, r2
     cmp r0, r1
     bhs @L_0210366c
-    bl func_ov014_02105c64
+    bl dacktimer_reschedule
     ldmia sp!, {r4, pc}
 @L_0210366c:
     mov r0, r4
     mov r1, #0x10
-    bl func_ov014_02103594
+    bl _tcp_send_handshake
     ldmia sp!, {r4, pc}
 }
 
-extern "C" void func_ov014_02103680(s32 arg0)
+extern "C" void _tcp_send_finack(s32 arg0)
 {
-    func_ov014_02103594(arg0, 0x11);
+    _tcp_send_handshake(arg0, 0x11);
 }
 
-extern "C" asm s32 func_ov014_02103690(...)
+extern "C" asm s32 _tcp_send_rst(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r5, =data_ov014_02126ce0
@@ -1053,7 +1053,7 @@ extern "C" asm s32 func_ov014_02103690(...)
     orr r2, r1, r3, lsl #16
     mov r1, #4
     str r2, [r5, #0x34]
-    bl func_ov014_02103594
+    bl _tcp_send_handshake
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_02103754:
     str r4, [r5, #0x34]
@@ -1075,11 +1075,11 @@ extern "C" asm s32 func_ov014_02103690(...)
     strne r0, [r5, #0x24]
     mov r0, r5
     mov r1, #0x14
-    bl func_ov014_02103594
+    bl _tcp_send_handshake
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm s32 func_ov014_021037ac(...)
+extern "C" asm s32 dt_syn_LISTEN(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r2
@@ -1134,21 +1134,21 @@ extern "C" asm s32 func_ov014_021037ac(...)
     orr r2, r2, r5, lsl #16
     add r2, r2, #1
     str r2, [r4, #0x24]
-    bl func_ov014_02103494
+    bl parse_mss
     mov r0, r4
     mov r1, #0x12
-    bl func_ov014_02103594
+    bl _tcp_send_handshake
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov014_02103894(s32 arg0, s32 arg1, u8 *arg2)
+extern "C" s32 find_specific_socket(s32 arg0, s32 arg1, u8 *arg2)
 {
     s32 r4;
     s32 r5;
     s32 r6;
     s32 v0;
     s32 t0;
-    v0 = func_ov014_02103430(arg0, arg1, (s32)arg2);
+    v0 = find_socket(arg0, arg1, (s32)arg2);
     r6 = arg0;
     r5 = arg1;
     r4 = (s32)arg2;
@@ -1158,16 +1158,16 @@ extern "C" s32 func_ov014_02103894(s32 arg0, s32 arg1, u8 *arg2)
         if (arg0 == 1) {
             arg0 = r6;
             arg1 = r5;
-            func_ov014_021037ac(arg0, arg1, (s32)arg2);
+            dt_syn_LISTEN(arg0, arg1, (s32)arg2);
         } else {
             if (arg0 == 3) {
                 t0 = (*(s32 *)(arg2 + 0x34) - 1);
                 *(s32 *)(arg2 + 0x34) = t0;
                 arg0 = r6;
                 arg1 = r5;
-                func_ov014_021037ac(arg0, arg1, (s32)arg2);
+                dt_syn_LISTEN(arg0, arg1, (s32)arg2);
             } else {
-                func_ov014_02103690(r6, r5, r4);
+                _tcp_send_rst(r6, r5, r4);
             }
         }
         return 1;
@@ -1176,7 +1176,7 @@ extern "C" s32 func_ov014_02103894(s32 arg0, s32 arg1, u8 *arg2)
     }
 }
 
-extern "C" asm void func_ov014_0210390c(void)
+extern "C" asm void dt_syn(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r4, r0
@@ -1204,44 +1204,44 @@ extern "C" asm void func_ov014_0210390c(void)
     mov r6, r1
     orr r1, r3, r12, lsl #16
     mov r5, r2
-    bl func_ov014_02103170
+    bl valid_IP
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     mov r0, r4
     mov r1, r6
     mov r2, r5
-    bl func_ov014_02103894
+    bl find_specific_socket
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
     mov r0, r4
     mov r1, r6
-    bl func_ov014_021032a8
+    bl check_listener
     movs r2, r0
     beq @L_021039bc
     mov r0, r4
     mov r1, r6
-    bl func_ov014_021037ac
+    bl dt_syn_LISTEN
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_021039bc:
-    bl func_020061c0
+    bl OS_YieldThread
     mov r0, r4
     mov r1, r6
-    bl func_ov014_021032a8
+    bl check_listener
     movs r2, r0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     mov r0, r4
     mov r1, r6
-    bl func_ov014_021037ac
+    bl dt_syn_LISTEN
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_021039e4(void)
+extern "C" asm void dt_synack(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
     mov r5, r1
     mov r6, r2
-    bl func_ov014_02103430
+    bl find_socket
     movs r4, r0
     beq @L_02103a0c
     ldrb r0, [r4, #8]
@@ -1251,10 +1251,10 @@ extern "C" asm void func_ov014_021039e4(void)
     mov r0, r7
     mov r1, r5
     mov r2, r6
-    bl func_ov014_02103690
+    bl _tcp_send_rst
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02103a20:
-    bl func_020061c0
+    bl OS_YieldThread
     ldrh r12, [r5, #6]
     ldrh r3, [r5, #4]
     mov r0, r5
@@ -1286,10 +1286,10 @@ extern "C" asm void func_ov014_021039e4(void)
     mov r2, r3, lsl #8
     orr r2, r2, r3, asr #8
     strh r2, [r4, #0x38]
-    bl func_ov014_02103494
+    bl parse_mss
     mov r0, r4
     mov r1, #2
-    bl func_ov014_021035f0
+    bl _tcp_send_ack
     mov r0, #4
     strb r0, [r4, #8]
     ldr r0, [r4, #4]
@@ -1302,7 +1302,7 @@ extern "C" asm void func_ov014_021039e4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_ov014_02103ad8(P02103ad8 *arg0, s32 arg1)
+extern "C" void mark_rwin_chunk(P02103ad8 *arg0, s32 arg1)
 {
     s32 i;
     u32 max;
@@ -1316,7 +1316,7 @@ extern "C" void func_ov014_02103ad8(P02103ad8 *arg0, s32 arg1)
     arg0->arr[arg1].c = max + 1;
 }
 
-extern "C" asm void func_ov014_02103b28(void)
+extern "C" asm void merge_rwin_chunks(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -1337,7 +1337,7 @@ extern "C" asm void func_ov014_02103b28(void)
     str r3, [r4, #0x24]
     str r2, [r4, #0x50]
     str r1, [r4, #0x70]
-    bl func_ov014_02103bd8
+    bl pull_rwin_chunks
 @L_02103b74:
     mov lr, #0
     mov r0, #0xc
@@ -1359,7 +1359,7 @@ extern "C" asm void func_ov014_02103b28(void)
     str r1, [r12, #0x74]
     mov r1, #0
     str r1, [r12, #0x7c]
-    bl func_ov014_02103bd8
+    bl pull_rwin_chunks
     b @L_02103b30
 @L_02103bc8:
     add lr, lr, #1
@@ -1368,7 +1368,7 @@ extern "C" asm void func_ov014_02103b28(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm void func_ov014_02103bd8(void)
+extern "C" asm void pull_rwin_chunks(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, #0
@@ -1390,7 +1390,7 @@ extern "C" asm void func_ov014_02103bd8(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_02103c1c(void)
+extern "C" asm void push_rwin_chunks(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r1
@@ -1416,20 +1416,20 @@ extern "C" asm void func_ov014_02103c1c(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov014_02103c6c(void)
+extern "C" asm void dt_ack(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
     mov r5, r1
     mov r4, r2
     mov r7, #0
-    bl func_ov014_02103430
+    bl find_socket
     movs r6, r0
     bne @L_02103ca0
     mov r0, r10
     mov r1, r5
     mov r2, r4
-    bl func_ov014_02103690
+    bl _tcp_send_rst
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02103ca0:
     ldrh r8, [r5, #0xa]
@@ -1495,16 +1495,16 @@ extern "C" asm void func_ov014_02103c6c(void)
     and r0, r0, #0xf0
     add r0, r5, r0, lsr #2
     add r1, r1, r7
-    bl func_020095c4
+    bl MI_CpuCopy
     add r2, r6, r11
     str r7, [r2, #0x70]
     mov r0, r6
     mov r1, r8
     str r4, [r2, #0x74]
 @L_02103dac:
-    bl func_ov014_02103ad8
+    bl mark_rwin_chunk
     mov r0, r6
-    bl func_ov014_02103b28
+    bl merge_rwin_chunks
     b @L_02103eb4
 @L_02103dbc:
     ldr r0, [r10, #0x74]
@@ -1521,7 +1521,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     add r0, r5, r0, lsr #2
     add r1, r1, r7
     sub r2, r2, r7
-    bl func_020095c4
+    bl MI_CpuCopy
     add r2, r6, #0x74
     ldr r0, [r4, r11]
     ldr r1, [r2, r11]
@@ -1546,16 +1546,16 @@ extern "C" asm void func_ov014_02103c6c(void)
     mov r2, r4
     sub r0, r0, r7
     add r1, r3, r1
-    bl func_020095c4
+    bl MI_CpuCopy
     add r2, r6, #0x74
     ldr r1, [r2, r11]
     mov r0, r6
     add r1, r1, r4
     str r1, [r2, r11]
-    bl func_ov014_02103b28
+    bl merge_rwin_chunks
     mov r0, r6
     mov r1, r8
-    bl func_ov014_02103ad8
+    bl mark_rwin_chunk
     b @L_02103eb4
 @L_02103e80:
     cmp r2, r7
@@ -1567,7 +1567,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     bhs @L_02103ea8
     mov r0, r6
     mov r1, r8
-    bl func_ov014_02103c1c
+    bl push_rwin_chunks
     b @L_02103d70
 @L_02103ea8:
     add r8, r8, #1
@@ -1578,7 +1578,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     bl OS_RestoreInterrupts
     mov r0, r6
     mov r1, #2
-    bl func_ov014_021035f0
+    bl _tcp_send_ack
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02103ecc:
     ldrh r1, [r5, #0xe]
@@ -1605,7 +1605,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     mov r0, r10
     mov r1, r5
     mov r2, r4
-    bl func_ov014_02103690
+    bl _tcp_send_rst
     b @L_02104184
 @L_02103f30:
     mov r0, #4
@@ -1649,7 +1649,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     sub r2, r2, r1
     add r0, r5, r0, lsr #2
     add r1, r3, r1
-    bl func_020095c4
+    bl MI_CpuCopy
     ldr r2, [r6, #0x70]
     ldr r1, [r6, #0x74]
     ldr r0, [r6, #0x50]
@@ -1661,11 +1661,11 @@ extern "C" asm void func_ov014_02103c6c(void)
     mov r2, r4
     add r0, r5, r0, lsr #2
     add r1, r3, r1
-    bl func_020095c4
+    bl MI_CpuCopy
 @L_02103ffc:
     mov r0, r6
     str r7, [r6, #0x70]
-    bl func_ov014_02103bd8
+    bl pull_rwin_chunks
     b @L_02104028
 @L_0210400c:
     ldrb r0, [r5, #0xc]
@@ -1674,7 +1674,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     and r0, r0, #0xf0
     add r0, r5, r0, lsr #2
     add r1, r3, r1
-    bl func_020095c4
+    bl MI_CpuCopy
 @L_02104028:
     ldr r1, [r6, #0x50]
     mov r0, r6
@@ -1684,7 +1684,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     mov r5, #0
     add r1, r1, r4
     str r1, [r6, #0x24]
-    bl func_ov014_02103b28
+    bl merge_rwin_chunks
     ldr r0, [r6, #4]
     cmp r0, #2
     bne @L_02104064
@@ -1704,7 +1704,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     strb r1, [r6, #8]
     bl OS_RestoreInterrupts
     mov r0, r6
-    bl func_ov014_02103680
+    bl _tcp_send_finack
     cmp r4, #0
     ldreq r0, [r6, #4]
     cmpeq r0, #2
@@ -1733,7 +1733,7 @@ extern "C" asm void func_ov014_02103c6c(void)
     bl OS_RestoreInterrupts
     mov r0, r6
     mov r1, #2
-    bl func_ov014_021035f0
+    bl _tcp_send_ack
     strb r7, [r6, #8]
     ldr r0, [r6, #4]
     cmp r0, #2
@@ -1770,13 +1770,13 @@ extern "C" asm void func_ov014_02103c6c(void)
     strne r0, [r6, #0x24]
     mov r0, r6
 @L_02104180:
-    bl func_ov014_021035f0
+    bl _tcp_send_ack
 @L_02104184:
-    bl func_020061c0
+    bl OS_YieldThread
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_0210418c(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 dt_fin(s32 arg0, s32 arg1, s32 arg2)
 {
     u8 *r4;
     s32 r6;
@@ -1791,7 +1791,7 @@ extern "C" s32 func_ov014_0210418c(s32 arg0, s32 arg1, s32 arg2)
     s32 t1;
     s32 t3;
     s32 t4;
-    v0 = func_ov014_02103430(arg0, arg1, arg2);
+    v0 = find_socket(arg0, arg1, arg2);
     if (v0 == 0)
         return v0;
     v1 = OS_DisableInterrupts();
@@ -1806,13 +1806,13 @@ extern "C" s32 func_ov014_0210418c(s32 arg0, s32 arg1, s32 arg2)
             *(s32 *)(r4 + 0x24) = t0;
             *(u8 *)(r4 + 0x8) = 9;
             OS_RestoreInterrupts(arg0, 9, t0);
-            v3 = func_ov014_021035f0((s32)r4, 2);
+            v3 = _tcp_send_ack((s32)r4, 2);
             return v3;
         case 8:
             t1 = (*(s32 *)(r4 + 0x24) + 1);
             *(s32 *)(r4 + 0x24) = t1;
             OS_RestoreInterrupts(arg0, t1);
-            func_ov014_021035f0((s32)r4, 2);
+            _tcp_send_ack((s32)r4, 2);
             *(u8 *)(r4 + 0x8) = 0;
             if (*(s32 *)(r4 + 0x4) != 2)
                 return *(s32 *)(r4 + 0x4);
@@ -1825,24 +1825,24 @@ extern "C" s32 func_ov014_0210418c(s32 arg0, s32 arg1, s32 arg2)
             *(s32 *)(r4 + 0x24) = t4;
             *(u8 *)(r4 + 0x8) = 6;
             OS_RestoreInterrupts(arg0, 6, t4);
-            v8 = ((s32 (*)(...))func_ov014_02103680)((s32)r4);
+            v8 = ((s32 (*)(...))_tcp_send_finack)((s32)r4);
             return v8;
         default:
             OS_RestoreInterrupts(arg0, arg1);
-            v10 = func_ov014_02103690(r7, r6, arg2);
+            v10 = _tcp_send_rst(r7, r6, arg2);
             return v10;
     }
 }
 
-extern "C" s32 func_ov014_02104270(void)
+extern "C" s32 dt_rst(void)
 {
     s32 v0;
     s32 v2;
     s32 t1;
-    v0 = func_ov014_02103430();
+    v0 = find_socket();
     if (v0 == 0)
         return v0;
-    func_020061c0();
+    OS_YieldThread();
     *(u8 *)(((u8 *)v0) + 0x8) = 0;
     if ((u32)(*(s32 *)(((u8 *)v0) + 0x4) - 1) > (u32)1)
         return (*(s32 *)(((u8 *)v0) + 0x4) - 1);
@@ -1852,7 +1852,7 @@ extern "C" s32 func_ov014_02104270(void)
     return v2;
 }
 
-extern "C" asm void func_ov014_021042ac(void)
+extern "C" asm void dispatch_tcp(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r2
@@ -1870,7 +1870,7 @@ extern "C" asm void func_ov014_021042ac(void)
     mov r1, r4
     mov r2, r6
     mov r3, #6
-    bl func_ov014_02101a24
+    bl check_tcpudpsum
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     ldrb r0, [r5, #0xc]
@@ -1905,7 +1905,7 @@ extern "C" asm void func_ov014_021042ac(void)
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_0210390c
+    bl dt_syn
     ldmia sp!, {r4, r5, r6, pc}
 @L_02104378:
     tst r2, #0x28
@@ -1913,34 +1913,34 @@ extern "C" asm void func_ov014_021042ac(void)
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_021039e4
+    bl dt_synack
     ldmia sp!, {r4, r5, r6, pc}
 @L_02104394:
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_02103c6c
+    bl dt_ack
     ldmia sp!, {r4, r5, r6, pc}
 @L_021043a8:
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_0210418c
+    bl dt_fin
     ldmia sp!, {r4, r5, r6, pc}
 @L_021043bc:
     tst r2, #4
     mov r0, r6
     mov r1, r5
     beq @L_021043d4
-    bl func_ov014_02104270
+    bl dt_rst
     ldmia sp!, {r4, r5, r6, pc}
 @L_021043d4:
     mov r2, r4
-    bl func_ov014_02103690
+    bl _tcp_send_rst
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_021043e0(void)
+extern "C" asm void dispatch_udp(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r6, r2
@@ -1955,12 +1955,12 @@ extern "C" asm void func_ov014_021043e0(void)
     mov r1, r6
     mov r2, r8
     mov r3, #0x11
-    bl func_ov014_02101a24
+    bl check_tcpudpsum
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02104420:
     bl OS_DisableInterrupts
-    ldr r1, =data_020bb120
+    ldr r1, =OSi_ThreadInfo
     mov r5, r0
     ldr r1, [r1, #8]
     cmp r1, #0
@@ -2053,7 +2053,7 @@ extern "C" asm void func_ov014_021043e0(void)
     ldr r1, [r4, #0x4c]
     ldr r2, [r4, #0x50]
     add r0, r7, #8
-    bl func_020095c4
+    bl MI_CpuCopy
     ldr r0, [r4, #4]
     cmp r0, #3
     bne @L_021045ac
@@ -2084,7 +2084,7 @@ extern "C" asm void func_ov014_021043e0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov014_021045f4(void)
+extern "C" asm void check_frag(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -2186,7 +2186,7 @@ extern "C" asm void func_ov014_021045f4(void)
     ldr r1, [r6, #0x34]
     mov r2, r5
     add r1, r1, #0xe
-    bl func_020095c4
+    bl MI_CpuCopy
 @L_02104774:
     ldrh r0, [r7, #4]
     mov r6, #0
@@ -2225,7 +2225,7 @@ extern "C" asm void func_ov014_021045f4(void)
     strh r1, [r7, #4]
     ldr r1, [r7, #0x30]
     add r1, r1, r11, lsl #3
-    bl func_020095c4
+    bl MI_CpuCopy
     ldrh r3, [r7, #8]
     cmp r3, #0
     addeq sp, sp, #0xc
@@ -2275,7 +2275,7 @@ extern "C" asm void func_ov014_021045f4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_021048c0(void)
+extern "C" asm void dispatch_ip(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, r0
@@ -2318,14 +2318,14 @@ extern "C" asm void func_ov014_021048c0(void)
     ldmltia sp!, {r3, r4, r5, r6, r7, pc}
     cmp r1, r2
     ldmloia sp!, {r3, r4, r5, r6, r7, pc}
-    bl func_ov014_02101b28
+    bl ip_isme
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldrb r1, [r4]
     mov r0, r4
     mov r1, r1, lsl #0x1c
     mov r1, r1, lsr #0x1a
-    bl func_ov014_02101a08
+    bl calc_checksum
     ldr r1, =0xffff
     cmp r0, r1
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
@@ -2357,11 +2357,11 @@ extern "C" asm void func_ov014_021048c0(void)
     mov r1, r2, lsr #0x10
     orr r1, r1, r3, lsl #16
     mov r2, #1
-    bl func_ov014_021021e4
+    bl reg_arpcache
 @L_02104a04:
     add r1, sp, #0
     mov r0, r4
-    bl func_ov014_021045f4
+    bl check_frag
     movs r4, r0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldrh r2, [r4, #2]
@@ -2376,7 +2376,7 @@ extern "C" asm void func_ov014_021048c0(void)
     add r1, r4, r3, lsr #26
     sub r2, r2, r3, lsr #26
     bne @L_02104a50
-    bl func_ov014_021043e0
+    bl dispatch_udp
     b @L_02104a7c
 @L_02104a50:
     ldr r3, =data_ov014_02126ac8
@@ -2385,12 +2385,12 @@ extern "C" asm void func_ov014_021048c0(void)
     beq @L_02104a7c
     cmp r12, #1
     bne @L_02104a70
-    bl func_ov014_021031d0
+    bl dispatch_icmp
     b @L_02104a7c
 @L_02104a70:
     cmp r12, #6
     bne @L_02104a7c
-    bl func_ov014_021042ac
+    bl dispatch_tcp
 @L_02104a7c:
     ldr r0, [sp]
     cmp r0, #0
@@ -2402,14 +2402,14 @@ extern "C" asm void func_ov014_021048c0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" asm void func_ov014_02104aa4(void)
+extern "C" asm void tcpip(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r5, =0x806
     add r4, sp, #0
 @L_02104ab0:
     mov r0, r4
-    bl func_ov014_02101e68
+    bl receive_packet
     ldr r3, [sp]
     cmp r3, #0x22
     bls @L_02104b08
@@ -2426,21 +2426,21 @@ extern "C" asm void func_ov014_02104aa4(void)
 @L_02104aec:
     add r0, r0, #0xe
     sub r1, r3, #0xe
-    bl func_ov014_021048c0
+    bl dispatch_ip
     b @L_02104b08
 @L_02104afc:
     add r0, r0, #0xe
     sub r1, r3, #0xe
-    bl func_ov014_02102e54
+    bl dispatch_arp
 @L_02104b08:
-    bl func_ov014_02101f34
+    bl throw_packet
     b @L_02104ab0
 }
 
-extern "C" asm s32 func_ov014_02104b14(...)
+extern "C" asm s32 CPS_SocGetEport(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r0, =data_020bb120
+    ldr r0, =OSi_ThreadInfo
     ldr r2, =data_ov014_02126ac8
     ldr r0, [r0, #8]
     ldr r1, =0x1388
@@ -2486,7 +2486,7 @@ extern "C" asm s32 func_ov014_02104b14(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_02104bbc(void)
+extern "C" asm void get_seqno(void)
 {
     stmdb sp!, {r3, lr}
     ldr r1, =data_ov014_02126ac8
@@ -2506,24 +2506,24 @@ extern "C" asm void func_ov014_02104bbc(void)
     ldmia sp!, {r3, pc}
 }
 
-extern "C" void func_ov014_02104c00(s32 arg0)
+extern "C" void CPS_SocRegister(s32 arg0)
 {
-    *(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) = arg0;
+    *(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) = arg0;
 }
 
-extern "C" s32 func_ov014_02104c14(void)
+extern "C" s32 CPS_SocUnRegister(void)
 {
-    u8 *t0 = (u8 *)*(s32 *)(data_020bb120 + 0x4);
+    u8 *t0 = (u8 *)*(s32 *)(OSi_ThreadInfo + 0x4);
     *(s32 *)(t0 + 0xA4) = 0;
     return (s32)t0;
 }
 
-extern "C" s32 func_ov014_02104c2c(void)
+extern "C" s32 CPS_SocDatagramMode(void)
 {
     s32 r0;
     u8 *r1;
-    r0 = (s32)*(u8 * *)(data_020bb120 + 0x4);
-    r1 = (u8 *)*(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4);
+    r0 = (s32)*(u8 * *)(OSi_ThreadInfo + 0x4);
+    r1 = (u8 *)*(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4);
     if ((s32)r1 != 0) {
         *(u8 *)(r1 + 0x8) = 10;
         *(s32 *)(r1 + 0x50) = 0;
@@ -2532,14 +2532,14 @@ extern "C" s32 func_ov014_02104c2c(void)
     return r0;
 }
 
-extern "C" void func_ov014_02104c54(u16 arg0, u16 arg1, s32 arg2)
+extern "C" void CPS_SocBind(u16 arg0, u16 arg1, s32 arg2)
 {
     u8 *r4;
     s32 v0;
     u16 t0;
-    if (*(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) == 0)
+    if (*(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) == 0)
         return;
-    r4 = (u8 *)*(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4);
+    r4 = (u8 *)*(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4);
     if (arg2 == 0x7F000001) {
         arg2 = *(s32 *)(data_ov014_02126ac8 + 0x50);
     }
@@ -2552,15 +2552,15 @@ extern "C" void func_ov014_02104c54(u16 arg0, u16 arg1, s32 arg2)
         *(u16 *)(r4 + 0xA) = arg0;
         return;
     } else {
-        v0 = func_ov014_02104b14();
+        v0 = CPS_SocGetEport();
         *(u16 *)(r4 + 0xA) = v0;
         return;
     }
 }
 
-extern "C" void func_ov014_02104cb4(void)
+extern "C" void CPS_SocUse(void)
 {
-    u8 *g = *(u8 **)((u8 *)data_020bb120 + 4);
+    u8 *g = *(u8 **)((u8 *)OSi_ThreadInfo + 4);
     u8 *p = *(u8 **)(g + 0xA4);
     if (p == 0)
         return;
@@ -2573,30 +2573,30 @@ extern "C" void func_ov014_02104cb4(void)
     p[0x33] = 0;
 }
 
-extern "C" void func_ov014_02104d00(void)
+extern "C" void CPS_SocRelease(void)
 {
-    if ((s32)*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) != 0)
-        *(s32 *)(*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4)) = 0;
+    if ((s32)*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) != 0)
+        *(s32 *)(*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4)) = 0;
     return;
 }
 
-extern "C" void func_ov014_02104d20(u8 *arg0)
+extern "C" void CPS_SocDup(u8 *arg0)
 {
-    *(s32 *)(arg0 + 0xA4) = *(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4);
+    *(s32 *)(arg0 + 0xA4) = *(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4);
 }
 
-extern "C" void func_ov014_02104d38(s32 arg0)
+extern "C" void CPS_SetUdpCallback(s32 arg0)
 {
-    if ((s32)*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) != 0)
-        *(s32 *)(*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) + 0x44) = arg0;
+    if ((s32)*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) != 0)
+        *(s32 *)(*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) + 0x44) = arg0;
     return;
 }
 
-extern "C" asm s32 func_ov014_02104d54(...)
+extern "C" asm s32 CPSi_TcpConnectRaw(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
-    bl func_ov014_02104bbc
+    bl get_seqno
     mov r7, #0
     ldr r4, =data_ov014_02126ac8
     mov r8, r0
@@ -2612,7 +2612,7 @@ extern "C" asm s32 func_ov014_02104d54(...)
     mov r0, r10
     mov r1, r6
     str r2, [r10, #0x10]
-    bl func_ov014_02103594
+    bl _tcp_send_handshake
     bl OS_DisableInterrupts
     ldrb r1, [r10, #8]
     mov r9, r0
@@ -2642,20 +2642,20 @@ extern "C" asm s32 func_ov014_02104d54(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02104e04(void)
+extern "C" s32 CPS_TcpConnect(void)
 {
     u8 *r0;
     s32 r1;
     s32 v0;
     s32 v1;
-    r0 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)&data_020bb120) + 0x4) + 0xA4);
+    r0 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)&OSi_ThreadInfo) + 0x4) + 0xA4);
     if ((s32)r0 != 0) {
         r1 = *(u8 *)(r0 + 0x9);
         if (r1 != 0) {
-            v0 = func_ov014_0211ead4((s32)r0, r1);
+            v0 = CPSi_SslConnect((s32)r0, r1);
             return v0;
         } else {
-            v1 = func_ov014_02104d54((s32)r0, r1);
+            v1 = CPSi_TcpConnectRaw((s32)r0, r1);
             return v1;
         }
     } else {
@@ -2663,11 +2663,11 @@ extern "C" s32 func_ov014_02104e04(void)
     }
 }
 
-extern "C" asm s32 func_ov014_02104e44(...)
+extern "C" asm s32 CPSi_TcpShutdownRaw(...)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
-    bl func_020061c0
+    bl OS_YieldThread
     bl OS_DisableInterrupts
     ldrb r2, [r4, #8]
     add r1, r2, #0xfd
@@ -2678,7 +2678,7 @@ extern "C" asm s32 func_ov014_02104e44(...)
     strb r1, [r4, #8]
     bl OS_RestoreInterrupts
     mov r0, r4
-    bl func_ov014_02103680
+    bl _tcp_send_finack
     ldmia sp!, {r4, pc}
 @L_02104e80:
     cmp r2, #0
@@ -2686,44 +2686,44 @@ extern "C" asm s32 func_ov014_02104e44(...)
     bl OS_RestoreInterrupts
     mov r0, r4
     mov r1, #2
-    bl func_ov014_021035f0
+    bl _tcp_send_ack
     ldmia sp!, {r4, pc}
 @L_02104e9c:
     bl OS_RestoreInterrupts
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov014_02104ea4(void)
+extern "C" s32 CPS_TcpShutdown(void)
 {
     u8 *r4;
     s32 v1;
-    if (*(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) == 0)
-        return (s32)*(u8 * *)(data_020bb120 + 0x4);
-    r4 = (u8 *)*(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4);
+    if (*(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) == 0)
+        return (s32)*(u8 * *)(OSi_ThreadInfo + 0x4);
+    r4 = (u8 *)*(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4);
     if (*(u8 *)(r4 + 0x9) != 0) {
-        func_ov014_0211ef44((s32)r4);
+        CPSi_SslShutdown((s32)r4);
     }
-    v1 = func_ov014_02104e44((s32)r4);
+    v1 = CPSi_TcpShutdownRaw((s32)r4);
     return v1;
 }
 
-extern "C" void func_ov014_02104ee0(void)
+extern "C" void CPS_TcpClose(void)
 {
-    u8 *p = *(u8 **)(*(u8 **)((u8 *)data_020bb120 + 4) + 0xA4);
+    u8 *p = *(u8 **)(*(u8 **)((u8 *)OSi_ThreadInfo + 4) + 0xA4);
     u8 *d;
     s32 t;
     if (p == 0)
         return;
     if (p[9] != 0)
-        ((s32 (*)(...))func_ov014_0211efc8)(p);
+        ((s32 (*)(...))CPSi_SslClose)(p);
     t = (s32)(((u64 (*)(void))OS_GetTick)() >> 16);
     d = (u8 *)data_ov014_02126ac8;
     while ((*(s32 (**)(void))(d + 0x18))() != 0 && p[8] != 0 && (s32)(((u64 (*)(void))OS_GetTick)() >> 16) - t < 0x27)
-        ((s32 (*)(...))func_ov014_0210157c)();
+        ((s32 (*)(...))OS_YieldThread__)();
     p[8] = 0;
 }
 
-extern "C" s32 func_ov014_02104f68(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
+extern "C" s32 udp_read_raw(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
     s32 r4;
     s32 r5;
@@ -2750,7 +2750,7 @@ extern "C" s32 func_ov014_02104f68(s32 arg0, u8 *arg1, s32 arg2, s32 arg3)
     return *(s32 *)(r8 + 0x4C);
 }
 
-extern "C" s32 func_ov014_02104fbc(s32 arg0, s32 arg1)
+extern "C" s32 CPSi_TcpReadRaw(s32 arg0, s32 arg1)
 {
     u8 *r4;
     u8 *r5;
@@ -2762,7 +2762,7 @@ extern "C" s32 func_ov014_02104fbc(s32 arg0, s32 arg1)
     r4 = (u8 *)arg1;
     r5 = (u8 *)arg0;
     if (*(u8 *)(r4 + 0x8) == 4) {
-        func_ov014_021035f0((s32)r4, 1);
+        _tcp_send_ack((s32)r4, 1);
     }
     if ((*(s32 *)(r4 + 0x50) == 0 && *(u8 *)(r4 + 0x8) == 4)) {
         v1 = OS_DisableInterrupts();
@@ -2775,7 +2775,7 @@ extern "C" s32 func_ov014_02104fbc(s32 arg0, s32 arg1)
         }
         OS_RestoreInterrupts(r8);
     } else {
-        func_020061c0();
+        OS_YieldThread();
     }
     t0 = *(s32 *)(r4 + 0x50);
     *(s32 *)(r5) = t0;
@@ -2787,23 +2787,23 @@ extern "C" s32 func_ov014_02104fbc(s32 arg0, s32 arg1)
     return arg0;
 }
 
-extern "C" s32 func_ov014_02105054(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
+extern "C" s32 CPS_SocRead(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
 {
     s32 v0;
     s32 v1;
     s32 v2;
-    arg1 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)&data_020bb120) + 0x4) + 0xA4);
+    arg1 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)&OSi_ThreadInfo) + 0x4) + 0xA4);
     if ((s32)arg1 != 0) {
         arg2 = ((*(u8 *)(arg1 + 0x8) + 0xF6) & 0xFF);
         if ((u32)arg2 <= (u32)1) {
-            v0 = func_ov014_02104f68((s32)arg0, arg1, arg2, arg3);
+            v0 = udp_read_raw((s32)arg0, arg1, arg2, arg3);
             return v0;
         } else {
             if (*(u8 *)(arg1 + 0x9) != 0) {
-                v1 = func_ov014_0211eb28();
+                v1 = CPSi_SslRead();
                 return v1;
             } else {
-                v2 = func_ov014_02104fbc((s32)arg0, (s32)arg1);
+                v2 = CPSi_TcpReadRaw((s32)arg0, (s32)arg1);
                 return v2;
             }
         }
@@ -2813,7 +2813,7 @@ extern "C" s32 func_ov014_02105054(u8 *arg0, u8 *arg1, s32 arg2, s32 arg3)
     }
 }
 
-extern "C" asm s32 func_ov014_021050b8(...)
+extern "C" asm s32 CPSi_SocConsumeRaw(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r1
@@ -2836,7 +2836,7 @@ extern "C" asm s32 func_ov014_021050b8(...)
     sub r2, r6, r9
     add r0, r1, r9
     str r2, [r7, #0x50]
-    bl func_020098b4
+    bl MI_CpuMove
 @L_0210510c:
     ldr r2, [r7, #0x70]
     cmp r2, #0
@@ -2869,7 +2869,7 @@ extern "C" asm s32 func_ov014_021050b8(...)
     add r3, r3, r1
     sub r1, r0, r6
     sub r2, r3, r2
-    bl func_020098b4
+    bl MI_CpuMove
     mov r3, #0
     mov r0, #0xc
     b @L_0210519c
@@ -2891,7 +2891,7 @@ extern "C" asm s32 func_ov014_021050b8(...)
     mov r1, #0
     mov r2, #0x30
     bl MI_CpuFill8
-    bl func_0200878c
+    bl OS_Terminate
 @L_021051cc:
     mov r0, r4
     bl OS_RestoreInterrupts
@@ -2907,28 +2907,28 @@ extern "C" asm s32 func_ov014_021050b8(...)
 @L_021051f8:
     mov r0, r7
     mov r1, #0
-    bl func_ov014_021035f0
+    bl _tcp_send_ack
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" void func_ov014_02105208(s32 arg0)
+extern "C" void CPS_SocConsume(s32 arg0)
 {
     s32 r1;
     s32 r2;
-    if ((s32)*(u8 * *)(*(u8 * *)(((u8 *)&data_020bb120) + 0x4) + 0xA4) == 0)
+    if ((s32)*(u8 * *)(*(u8 * *)(((u8 *)&OSi_ThreadInfo) + 0x4) + 0xA4) == 0)
         return;
-    r1 = (s32)*(u8 * *)(*(u8 * *)(((u8 *)&data_020bb120) + 0x4) + 0xA4);
-    r2 = *(u8 *)(*(u8 * *)(*(u8 * *)(((u8 *)&data_020bb120) + 0x4) + 0xA4) + 0x9);
+    r1 = (s32)*(u8 * *)(*(u8 * *)(((u8 *)&OSi_ThreadInfo) + 0x4) + 0xA4);
+    r2 = *(u8 *)(*(u8 * *)(*(u8 * *)(((u8 *)&OSi_ThreadInfo) + 0x4) + 0xA4) + 0x9);
     if (r2 != 0) {
-        func_ov014_0211ec00(arg0, r1, r2);
+        CPSi_SslConsume(arg0, r1, r2);
         return;
     } else {
-        func_ov014_021050b8(arg0, r1, r2);
+        CPSi_SocConsumeRaw(arg0, r1, r2);
         return;
     }
 }
 
-extern "C" asm s32 func_ov014_02105240(...)
+extern "C" asm s32 tcp_write_do(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r8, r2
@@ -2965,9 +2965,9 @@ extern "C" asm s32 func_ov014_02105240(...)
     mov r1, r4
     mov r2, r8
     mov r3, #0x18
-    bl func_ov014_02102900
+    bl _send_tcp
     mov r4, r0
-    bl func_020061c0
+    bl OS_YieldThread
     sub r5, r5, r4
     add r10, r10, r4
     sub r9, r9, r4
@@ -2982,18 +2982,18 @@ extern "C" asm s32 func_ov014_02105240(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02105300(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+extern "C" s32 tcp_write_do2(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
     s32 v0;
     s32 v1;
-    v0 = func_ov014_02105240(arg0, arg1, arg4, arg5);
+    v0 = tcp_write_do(arg0, arg1, arg4, arg5);
     if ((v0 == 0 || arg3 == 0))
         return v0;
-    v1 = func_ov014_02105240(arg2, arg3, arg4, 0);
+    v1 = tcp_write_do(arg2, arg3, arg4, 0);
     return v1;
 }
 
-extern "C" asm void func_ov014_0210533c(void)
+extern "C" asm void CPSi_TcpWrite2Raw(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -3020,13 +3020,13 @@ extern "C" asm void func_ov014_0210533c(void)
     mov r1, r10
     mov r2, r9
     str r6, [sp, #4]
-    bl func_ov014_02105300
+    bl tcp_write_do2
     bl OS_GetTick
     mov r5, r0, lsr #0x10
     ldr r4, =data_ov014_02126ac8
     orr r5, r5, r1, lsl #16
 @L_021053b0:
-    bl func_ov014_0210157c
+    bl OS_YieldThread__
     ldr r0, [r4, #0x18]
     blx r0
     cmp r0, #0
@@ -3081,7 +3081,7 @@ extern "C" asm void func_ov014_0210533c(void)
     ldr r4, =data_ov014_02126ac8
     b @L_02105490
 @L_02105480:
-    bl func_ov014_0210157c
+    bl OS_YieldThread__
     ldrh r0, [r8, #0x38]
     cmp r0, #0
     bne @L_021054b8
@@ -3137,10 +3137,10 @@ extern "C" asm void func_ov014_0210533c(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm s32 func_ov014_02105544(...)
+extern "C" asm s32 CPSi_SocWrite2(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r12, =data_020bb120
+    ldr r12, =OSi_ThreadInfo
     mov r7, r1
     ldr r12, [r12, #4]
     mov r6, r2
@@ -3154,14 +3154,14 @@ extern "C" asm s32 func_ov014_02105544(...)
     cmp r7, #0
     beq @L_02105584
     mov r2, r4
-    bl func_ov014_021027c4
+    bl send_udp
 @L_02105584:
     cmp r5, #0
     beq @L_0210559c
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_021027c4
+    bl send_udp
 @L_0210559c:
     add r0, r7, r5
     b @L_021055f4
@@ -3171,14 +3171,14 @@ extern "C" asm s32 func_ov014_02105544(...)
     cmp r7, #0
     beq @L_021055bc
     mov r2, r4
-    bl func_ov014_02102710
+    bl send_ping
 @L_021055bc:
     cmp r5, #0
     beq @L_021055d4
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl func_ov014_02102710
+    bl send_ping
 @L_021055d4:
     b @L_0210559c
 @L_021055d8:
@@ -3186,10 +3186,10 @@ extern "C" asm s32 func_ov014_02105544(...)
     cmp r12, #0
     str r4, [sp]
     beq @L_021055f0
-    bl func_ov014_0211ee0c
+    bl CPSi_SslWrite2
     b @L_021055f4
 @L_021055f0:
-    bl func_ov014_0210533c
+    bl CPSi_TcpWrite2Raw
 @L_021055f4:
     ldr r1, =data_ov014_02126ac8
     ldrb r1, [r1]
@@ -3200,7 +3200,7 @@ extern "C" asm s32 func_ov014_02105544(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov014_02105614(s32 arg0, s32 arg1)
+extern "C" s32 CPS_SocWrite(s32 arg0, s32 arg1)
 {
     s32 r2;
     s32 r4;
@@ -3211,18 +3211,18 @@ extern "C" s32 func_ov014_02105614(s32 arg0, s32 arg1)
     s32 t1;
     s32 t2;
     s32 t3;
-    r5 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)&data_020bb120) + 0x4) + 0xA4);
+    r5 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)&OSi_ThreadInfo) + 0x4) + 0xA4);
     if ((s32)r5 != 0) {
         r4 = *(s32 *)(r5 + 0x6C);
         if (r4 != 0) {
             t0 = *(s32 *)(r5 + 0x68);
-            v0 = func_ov014_02105544(t0, r4, arg0, arg1);
+            v0 = CPSi_SocWrite2(t0, r4, arg0, arg1);
             r2 = *(s32 *)(r5 + 0x6C);
             r4 = v0;
             if ((u32)r4 < (u32)r2) {
                 t1 = (*(s32 *)(r5 + 0x68) + r4);
                 t2 = *(s32 *)(r5 + 0x68);
-                func_020098b4(t1, t2, (r2 - r4));
+                MI_CpuMove(t1, t2, (r2 - r4));
                 t3 = (*(s32 *)(r5 + 0x6C) - r4);
                 *(s32 *)(r5 + 0x6C) = t3;
                 return 0;
@@ -3231,7 +3231,7 @@ extern "C" s32 func_ov014_02105614(s32 arg0, s32 arg1)
                 return (r4 - r2);
             }
         } else {
-            v2 = func_ov014_02105544(arg0, arg1, 0, 0);
+            v2 = CPSi_SocWrite2(arg0, arg1, 0, 0);
             return v2;
         }
     } else {
@@ -3239,17 +3239,17 @@ extern "C" s32 func_ov014_02105614(s32 arg0, s32 arg1)
     }
 }
 
-extern "C" s32 func_ov014_021056a8(void)
+extern "C" s32 CPS_SocGetLength(void)
 {
     u8 *r4;
     s32 v1;
-    r4 = (u8 *)*(s32 *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4);
+    r4 = (u8 *)*(s32 *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4);
     if ((s32)r4 != 0) {
         if (*(u8 *)(r4 + 0x8) == 4) {
-            func_ov014_021035f0((s32)r4, 1);
+            _tcp_send_ack((s32)r4, 1);
         }
         if (*(u8 *)(r4 + 0x9) != 0) {
-            v1 = func_ov014_0211ed94((s32)r4);
+            v1 = CPSi_SslGetLength((s32)r4);
             return v1;
         } else {
             if (*(s32 *)(r4 + 0x50) != 0)
@@ -3263,34 +3263,34 @@ extern "C" s32 func_ov014_021056a8(void)
     }
 }
 
-extern "C" s32 func_ov014_02105728(void)
+extern "C" s32 CPS_SocFlush(void)
 {
     s32 v0;
     s32 t0;
     s32 t1;
     u8 *t2;
-    if ((s32)*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) == 0)
-        return (s32)*(u8 * *)(data_020bb120 + 0x4);
-    if (*(s32 *)(*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) + 0x6C) == 0)
-        return (s32)*(u8 * *)(data_020bb120 + 0x4);
-    t0 = *(s32 *)(*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) + 0x68);
-    t1 = *(s32 *)(*(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4) + 0x6C);
-    t2 = *(u8 * *)(*(u8 * *)(data_020bb120 + 0x4) + 0xA4);
-    v0 = func_ov014_02105544(t0, t1, 0, 0);
+    if ((s32)*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) == 0)
+        return (s32)*(u8 * *)(OSi_ThreadInfo + 0x4);
+    if (*(s32 *)(*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) + 0x6C) == 0)
+        return (s32)*(u8 * *)(OSi_ThreadInfo + 0x4);
+    t0 = *(s32 *)(*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) + 0x68);
+    t1 = *(s32 *)(*(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4) + 0x6C);
+    t2 = *(u8 * *)(*(u8 * *)(OSi_ThreadInfo + 0x4) + 0xA4);
+    v0 = CPSi_SocWrite2(t0, t1, 0, 0);
     *(s32 *)(t2 + 0x6C) = 0;
     return v0;
 }
 
-extern "C" asm s32 func_ov014_02105768(...)
+extern "C" asm s32 garprequest(...)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r4, =data_ov014_02126ac8
     ldr r0, [r4, #0x50]
-    bl func_ov014_02102040
+    bl send_arprequest
     mov r0, #0x64
     bl OS_Sleep
     ldr r0, [r4, #0x50]
-    bl func_ov014_02102040
+    bl send_arprequest
     bl OS_GetTick
     mov r6, r0, lsr #0x10
     orr r6, r6, r1, lsl #16
@@ -3319,7 +3319,7 @@ extern "C" asm s32 func_ov014_02105768(...)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov014_021057e8(void)
+extern "C" s32 set_fixed_ip(void)
 {
     s32 v1;
     s32 v2;
@@ -3330,14 +3330,14 @@ extern "C" s32 func_ov014_021057e8(void)
     if (*(s32 *)(data_ov014_02126ac8 + 0x50) == 0)
         return *(s32 *)(data_ov014_02126ac8 + 0x50);
     t1 = *(s32 *)(data_ov014_02126ac8 + 0x50);
-    v1 = func_ov014_02105768(t1);
+    v1 = garprequest(t1);
     if (v1 != 0)
         return v1;
-    v2 = func_ov014_0210147c(4);
+    v2 = reset_network_vars(4);
     return v2;
 }
 
-extern "C" asm void func_ov014_02105820(void)
+extern "C" asm void scavenger(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -3357,7 +3357,7 @@ extern "C" asm void func_ov014_02105820(void)
     str r2, [r4, #0x54]
     mov r0, r4
     str r1, [r4, #0x58]
-    bl func_ov014_02104c00
+    bl CPS_SocRegister
     mov r6, #1
     ldr r0, =data_ov014_02126ac8
     str r6, [sp, #4]
@@ -3388,7 +3388,7 @@ extern "C" asm void func_ov014_02105820(void)
     beq @L_021058ec
     cmp r5, #0
     bne @L_02105a94
-    bl func_ov014_021057e8
+    bl set_fixed_ip
     mov r5, #1
     b @L_02105a94
 @L_021058ec:
@@ -3407,13 +3407,13 @@ extern "C" asm void func_ov014_02105820(void)
     strne r1, [r0, #0x4c]
     movne r0, #0
     strne r0, [sp]
-    bl func_ov014_02106490
+    bl dhcp_discover_server
     cmp r0, #0
     beq @L_02105948
     mov r4, #0
     add r0, sp, #4
     mov r1, r4
-    bl func_ov014_021064e8
+    bl dhcp_request_server
     cmp r0, #0
     bne @L_0210594c
 @L_02105948:
@@ -3431,25 +3431,25 @@ extern "C" asm void func_ov014_02105820(void)
     beq @L_02105984
 @L_02105970:
     mov r0, #5
-    bl func_ov014_0210147c
+    bl reset_network_vars
 @L_02105978:
-    bl func_ov014_021057e8
+    bl set_fixed_ip
 @L_0210597c:
     mov r5, #3
     b @L_02105a94
 @L_02105984:
     mov r5, #1
-    bl func_ov014_02105768
+    bl garprequest
     cmp r0, #0
     bne @L_02105a94
 @L_02105994:
     mov r0, #4
-    bl func_ov014_0210147c
+    bl reset_network_vars
     b @L_0210597c
 @L_021059a0:
     add r0, sp, #4
     mov r1, #1
-    bl func_ov014_021064e8
+    bl dhcp_request_server
     cmp r0, #0
     bne @L_021059c4
     ldr r0, [sp, #4]
@@ -3473,14 +3473,14 @@ extern "C" asm void func_ov014_02105820(void)
     beq @L_021059f8
     b @L_02105970
 @L_021059f8:
-    bl func_ov014_02105768
+    bl garprequest
     cmp r0, #0
     bne @L_02105a94
     b @L_02105994
 @L_02105a08:
     add r0, sp, #4
     mov r1, #2
-    bl func_ov014_021064e8
+    bl dhcp_request_server
     cmp r0, #0
     beq @L_02105a64
     ldr r0, =data_ov014_02126ac8
@@ -3500,7 +3500,7 @@ extern "C" asm void func_ov014_02105820(void)
     b @L_02105970
 @L_02105a50:
     mov r5, #1
-    bl func_ov014_02105768
+    bl garprequest
     cmp r0, #0
     bne @L_02105a94
     b @L_02105994
@@ -3509,13 +3509,13 @@ extern "C" asm void func_ov014_02105820(void)
     cmp r0, #0x3c
     bhs @L_02105a94
     mov r0, #3
-    bl func_ov014_0210147c
+    bl reset_network_vars
     mov r6, #1
     b @L_02105a8c
 @L_02105a80:
     mov r6, #1
     mov r0, r6
-    bl func_ov014_0210147c
+    bl reset_network_vars
 @L_02105a8c:
     str r6, [sp, #4]
     mov r5, #0
@@ -3546,10 +3546,10 @@ extern "C" asm void func_ov014_02105820(void)
     beq @L_02105b00
     subs r6, r6, #1
     bne @L_02105b00
-    bl func_ov014_02102040
+    bl send_arprequest
     mov r6, #0x69
 @L_02105b00:
-    ldr r0, =data_020bb120
+    ldr r0, =OSi_ThreadInfo
     ldr r4, [r0, #8]
     cmp r4, #0
     beq @L_02105bb0
@@ -3621,7 +3621,7 @@ extern "C" asm void func_ov014_02105820(void)
     cmp r9, #8
     blt @L_02105bc0
     mov r0, r7
-    bl func_ov014_0211f030
+    bl CPSi_SslPeriodical
     ldr r0, =data_ov014_02126ac8
     ldr r0, [r0, #0x34]
     cmp r0, #0
@@ -3635,9 +3635,9 @@ extern "C" asm void func_ov014_02105820(void)
     bne @L_02105c38
     cmp r5, #3
     beq @L_02105c38
-    bl func_ov014_021065e4
+    bl dhcp_release_server
 @L_02105c38:
-    bl func_ov014_02104c14
+    bl CPS_SocUnRegister
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }

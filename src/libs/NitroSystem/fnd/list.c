@@ -1,13 +1,13 @@
 // (asm for now)
 
 void NNS_FndInitList(void);
-void func_020326cc(void);
-void func_020326f8(void);
-void func_0203274c(void);
+void SetFirstObject(void);
+void NNS_FndAppendListObject(void);
+void NNS_FndPrependListObject(void);
 void NNS_FndInsertListObject(void);
 void NNS_FndRemoveListObject(void);
 void NNS_FndGetNextListObject(void);
-void func_02032878(void);
+void NNS_FndGetPrevListObject(void);
 void NNS_FndGetNthListObject(void);
 
 asm void NNS_FndInitList(void)
@@ -20,7 +20,7 @@ asm void NNS_FndInitList(void)
     bx lr
 }
 
-asm void func_020326cc(void)
+asm void SetFirstObject(void)
 {
     ldrh r3, [r0, #0xa]
     mov r2, #0
@@ -35,13 +35,13 @@ asm void func_020326cc(void)
     bx lr
 }
 
-asm void func_020326f8(void)
+asm void NNS_FndAppendListObject(void)
 {
     stmdb sp!, {r3, lr}
     ldr r2, [r0]
     cmp r2, #0
     bne @L_02032710
-    bl func_020326cc
+    bl SetFirstObject
     ldmia sp!, {r3, pc}
 @L_02032710:
     ldrh r12, [r0, #0xa]
@@ -61,13 +61,13 @@ asm void func_020326f8(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0203274c(void)
+asm void NNS_FndPrependListObject(void)
 {
     stmdb sp!, {r3, lr}
     ldr r2, [r0]
     cmp r2, #0
     bne @L_02032764
-    bl func_020326cc
+    bl SetFirstObject
     ldmia sp!, {r3, pc}
 @L_02032764:
     ldrh r3, [r0, #0xa]
@@ -92,14 +92,14 @@ asm void NNS_FndInsertListObject(void)
     cmp r1, #0
     bne @L_020327b4
     mov r1, r2
-    bl func_020326f8
+    bl NNS_FndAppendListObject
     ldmia sp!, {r3, pc}
 @L_020327b4:
     ldr r3, [r0]
     cmp r1, r3
     bne @L_020327cc
     mov r1, r2
-    bl func_0203274c
+    bl NNS_FndPrependListObject
     ldmia sp!, {r3, pc}
 @L_020327cc:
     ldrh lr, [r0, #0xa]
@@ -155,7 +155,7 @@ asm void NNS_FndGetNextListObject(void)
     bx lr
 }
 
-asm void func_02032878(void)
+asm void NNS_FndGetPrevListObject(void)
 {
     cmp r1, #0
     ldreq r0, [r0, #4]

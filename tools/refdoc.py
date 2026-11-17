@@ -79,6 +79,16 @@ def c_name(name):
     return "_".join(d)
 
 
+def no_name(n):
+    return not n or bool(re.search(r"(?:func|data)_(?:ov\d{3}_)?[0-9a-f]{8}", n))
+
+
+def same_name(r):
+    """this game calls the symbol what the reference calls it (as a free function: Class_Method)"""
+    o, c = r.get("new") or r["ours"], c_name(r["theirs"])
+    return o == r["theirs"] or (c is not None and re.fullmatch(re.escape(c) + r"(_\d+)?", o) is not None)
+
+
 def area(r):
     text = shown(r["theirs"]) + " " + r["obj"]
     if r["obj"].startswith("lib/"):
@@ -232,8 +242,8 @@ def main():
         rs = [r for r in R if r["how"] == how]
         L.append(f"| {label} | {len(rs):,} | " + " | ".join(f"{sum(1 for r in rs if r['conf'] == c):,}" for c in ("high", "medium", "low")) + " |")
     L.append("")
-    L.append("| Part of Inazuma Eleven 3 | Functions paired | Named there | Unnamed here until now |")
-    L.append("|---|---:|---:|---:|")
+    L.append("| Part of Inazuma Eleven 3 | Functions paired | Named there | Same name here | Still unnamed here |")
+    L.append("|---|---:|---:|---:|---:|")
     part = collections.defaultdict(list)
     for r in funcs:
         o = r["obj"]
@@ -241,9 +251,10 @@ def main():
     for k in sorted(part, key=lambda k: (k.startswith("lib/"), k)):
         rs = part[k]
         named = [r for r in rs if not UNNAMED_T.match(r["theirs"]) and not (demangle(r["theirs"]) and any(UNNAMED_T.match(p) for p in demangle(r["theirs"])))]
-        L.append(f"| {k} | {len(rs):,} | {len(named):,} | {sum(1 for r in named if 'new' in r or 'func_' in r['ours']):,} |")
+        L.append(f"| {k} | {len(rs):,} | {len(named):,} | {sum(1 for r in named if same_name(r)):,} | {sum(1 for r in rs if no_name(r['ours']) and 'new' not in r):,} |")
     L.append("")
-    L.append(f"`{os.path.basename(renp)}` holds {len(renames):,} renames of symbols that had no name ({', '.join(f'{v:,} left out: {k}' for k, v in skipped.items()) or 'none left out'}).")
+    L.append(f"Renames still to apply (`{os.path.basename(renp)}`): {len(renames):,}"
+             + (f"; left out: {', '.join(f'{v:,} ({k})' for k, v in skipped.items())}." if skipped else "."))
     L.append("")
 
     L.append("### Game functions Inazuma Eleven 3 has a name for")
@@ -288,7 +299,7 @@ def main():
 
     L.append("### Libraries")
     L.append("")
-    L.append("| Library file | Pairs | Here | Renamed now |")
+    L.append("| Library file | Pairs | Here | Same name here |")
     L.append("|---|---:|---|---:|")
     bylib = collections.defaultdict(list)
     for r in funcs:
@@ -301,7 +312,7 @@ def main():
         for m, n in mods.most_common(2):
             ad = sorted(r["addr"] for r in rs if r["module"] == m)
             where.append(f"{m} 0x{ad[0]:08x}-0x{ad[-1]:08x} ({n})")
-        L.append(f"| `{o.replace('.o', '.s')}` | {len(rs)} | {'; '.join(where)} | {sum(1 for r in rs if 'new' in r)} |")
+        L.append(f"| `{o.replace('.o', '.s')}` | {len(rs)} | {'; '.join(where)} | {sum(1 for r in rs if same_name(r))} |")
     L.append("")
 
     L.append("### Data")

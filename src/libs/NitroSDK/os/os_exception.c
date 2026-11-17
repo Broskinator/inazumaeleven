@@ -1,51 +1,51 @@
 // (asm for now)
 
 void OSi_ExceptionHandler(void);
-void func_02007820(void);
-void func_02007834(void);
-void func_020078b4(void);
-void func_02007930(void);
+void OSi_GetAndDisplayContext(void);
+void OSi_SetExContext(void);
+void OSi_DisplayExContext(void);
+void OSi_SetTimerReserved(void);
 void OS_InitTick(void);
-void func_020079c4(void);
-void func_020079d4(void);
+void OS_IsTickAvailable(void);
+void OSi_CountUpTick(void);
 void OS_GetTick(void);
-void func_02007adc(void);
-void func_02007aec(void);
-void func_02007b5c(void);
-void func_02007be4(void);
-void func_02007c20(void);
+void OS_GetTickLo(void);
+void OS_SetTick(void);
+void OSi_SetTimer(void);
+void OS_InitAlarm(void);
+void OS_IsAlarmAvailable(void);
 void OS_CreateAlarm(void);
-void func_02007c40(void);
-void func_02007d68(void);
+void OSi_InsertAlarm(void);
+void OS_SetAlarm(void);
 void OS_SetPeriodicAlarm(void);
 void OS_CancelAlarm(void);
-void func_02007ec8(void);
-void func_02007ed8(void);
-void func_02007fc4(void);
+void OSi_AlarmHandler(void);
+void OSi_ArrangeTimer(void);
+void OS_InitVAlarm(void);
 
-extern char data_020bb3bc[];
-extern char data_020bb3ec[];
-void func_020075dc(void);
+extern char OSi_DebuggerHandler[];
+extern char OSi_ExContext[];
+void OS_EnableProtectionUnit(void);
 extern char data_020bb3c0[];
 extern char data_020bb3c8[];
-void func_020075ec(void);
+void OS_DisableProtectionUnit(void);
 extern char data_020bb45c[];
-extern char data_020bb460[];
+extern char OSi_UseTick[];
 void OS_SetIrqFunction(void);
 void OS_EnableIrqMask(void);
-void func_020053fc(void);
+void OSi_EnterTimerCallback(void);
 void OS_DisableInterrupts(void);
 void OS_RestoreInterrupts(void);
-extern char data_020bb470[];
+extern char OSi_UseAlarm[];
 void OS_DisableIrqMask(void);
 void _ll_udiv(void);
-void func_0200878c(void);
-extern char data_027e0000[];
-extern char data_020bb47c[];
+void OS_Terminate(void);
+extern char OS_IRQTable[];
+extern char OSi_UseVAlarm[];
 
 asm void OSi_ExceptionHandler(void)
 {
-    ldr r12, =data_020bb3bc
+    ldr r12, =OSi_DebuggerHandler
     ldr r12, [r12]
     cmp r12, #0
     movne lr, pc
@@ -58,14 +58,14 @@ asm void OSi_ExceptionHandler(void)
     and r1, r1, #0x1f
     teq r1, #0x17
     bne @L_020077e8
-    bl func_02007820
+    bl OSi_GetAndDisplayContext
     b @L_020077f4
 @L_020077e8:
     teq r1, #0x1b
     bne @L_020077f4
-    bl func_02007820
+    bl OSi_GetAndDisplayContext
 @L_020077f4:
-    ldr r12, =data_020bb3bc
+    ldr r12, =OSi_DebuggerHandler
     ldr r12, [r12]
     cmp r12, #0
 @L_02007800:
@@ -78,18 +78,18 @@ asm void OSi_ExceptionHandler(void)
     bx lr
 }
 
-asm void func_02007820(void)
+asm void OSi_GetAndDisplayContext(void)
 {
     stmdb sp!, {r0, lr}
-    bl func_02007834
-    bl func_020078b4
+    bl OSi_SetExContext
+    bl OSi_DisplayExContext
     ldmia sp!, {r0, lr}
     bx lr
 }
 
-asm void func_02007834(void)
+asm void OSi_SetExContext(void)
 {
-    ldr r1, =data_020bb3ec
+    ldr r1, =OSi_ExContext
     str r0, [r1, #0x6c]
     ldr r0, [r12]
     str r0, [r1, #4]
@@ -122,10 +122,10 @@ asm void func_02007834(void)
     bx lr
 }
 
-asm void func_020078b4(void)
+asm void OSi_DisplayExContext(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020bb3bc
+    ldr r0, =OSi_DebuggerHandler
     ldr r0, [r0, #0xc]
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
@@ -136,22 +136,22 @@ asm void func_020078b4(void)
     mov r1, sp
     mov sp, r0
     stmdb sp!, {r1, r2}
-    bl func_020075dc
-    ldr r0, =data_020bb3ec
+    bl OS_EnableProtectionUnit
+    ldr r0, =OSi_ExContext
     ldr r1, =data_020bb3c0
     ldr r1, [r1]
     ldr r12, =data_020bb3c8
     ldr r12, [r12]
     ldr lr, =0x2007904
     bx r12
-    bl func_020075ec
+    bl OS_DisableProtectionUnit
     ldmia sp!, {r1, r2}
     mov sp, r1
     msr cpsr_fsxc, r2
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02007930(void)
+asm void OSi_SetTimerReserved(void)
 {
     ldr r1, =data_020bb45c
     mov r2, #1
@@ -166,7 +166,7 @@ asm void func_02007930(void)
 asm void OS_InitTick(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    ldr r4, =data_020bb460
+    ldr r4, =OSi_UseTick
     ldrh r0, [r4]
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
@@ -174,13 +174,13 @@ asm void OS_InitTick(void)
     mov r6, #0
     mov r0, r6
     strh r1, [r4]
-    bl func_02007930
+    bl OSi_SetTimerReserved
     str r6, [r4, #8]
     mov r5, #8
     ldr r3, =0x4000102
     str r6, [r4, #0xc]
     strh r6, [r3]
-    ldr r1, =func_020079d4
+    ldr r1, =OSi_CountUpTick
     mov r0, r5
     strh r6, [r3, #-2]
     mov r2, #0xc1
@@ -192,17 +192,17 @@ asm void OS_InitTick(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020079c4(void)
+asm void OS_IsTickAvailable(void)
 {
-    ldr r0, =data_020bb460
+    ldr r0, =OSi_UseTick
     ldrh r0, [r0]
     bx lr
 }
 
-asm void func_020079d4(void)
+asm void OSi_CountUpTick(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020bb460
+    ldr r0, =OSi_UseTick
     mov r3, #0
     ldr r2, [r0, #8]
     ldr r12, [r0, #0xc]
@@ -221,9 +221,9 @@ asm void func_020079d4(void)
     str r3, [r0, #4]
 @L_02007a1c:
     mov r0, #0
-    ldr r1, =func_020079d4
+    ldr r1, =OSi_CountUpTick
     mov r2, r0
-    bl func_020053fc
+    bl OSi_EnterTimerCallback
     ldmia sp!, {r3, pc}
 }
 
@@ -235,7 +235,7 @@ asm void OS_GetTick(void)
     ldr r4, =0x4000100
     ldr r2, =0xffff
     ldrh r12, [r4]
-    ldr r3, =data_020bb460
+    ldr r3, =OSi_UseTick
     sub r1, r2, #0x10000
     strh r12, [sp]
     ldr r12, [r3, #8]
@@ -269,14 +269,14 @@ asm void OS_GetTick(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02007adc(void)
+asm void OS_GetTickLo(void)
 {
     ldr r0, =0x4000100
     ldrh r0, [r0]
     bx lr
 }
 
-asm void func_02007aec(void)
+asm void OS_SetTick(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -287,7 +287,7 @@ asm void func_02007aec(void)
     rsb r1, r3, #0x10000
     ldr lr, =0x4000214
     mov r6, #8
-    ldr r2, =data_020bb460
+    ldr r2, =OSi_UseTick
     str r6, [lr]
     str r3, [r2, #4]
     orr r12, r12, r4, lsl #16
@@ -305,7 +305,7 @@ asm void func_02007aec(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02007b5c(void)
+asm void OSi_SetTimer(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
@@ -318,9 +318,9 @@ asm void func_02007b5c(void)
     ldr lr, [r5, #0x10]
     subs r6, r12, r0
     sbc r5, lr, r1
-    ldr r1, =func_02007ec8
+    ldr r1, =OSi_AlarmHandler
     mov r0, #1
-    bl func_020053fc
+    bl OSi_EnterTimerCallback
     subs r0, r6, #0
     sbcs r0, r5, #0
     ldrlt r4, =0xfffe
@@ -340,16 +340,16 @@ asm void func_02007b5c(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02007be4(void)
+asm void OS_InitAlarm(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r4, =data_020bb470
+    ldr r4, =OSi_UseAlarm
     ldrh r0, [r4]
     cmp r0, #0
     ldmneia sp!, {r4, pc}
     mov r0, #1
     strh r0, [r4]
-    bl func_02007930
+    bl OSi_SetTimerReserved
     mov r1, #0
     str r1, [r4, #4]
     mov r0, #0x10
@@ -358,9 +358,9 @@ asm void func_02007be4(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02007c20(void)
+asm void OS_IsAlarmAvailable(void)
 {
-    ldr r0, =data_020bb470
+    ldr r0, =OSi_UseAlarm
     ldrh r0, [r0]
     bx lr
 }
@@ -373,7 +373,7 @@ asm void OS_CreateAlarm(void)
     bx lr
 }
 
-asm void func_02007c40(void)
+asm void OSi_InsertAlarm(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r8, r0
@@ -406,7 +406,7 @@ asm void func_02007c40(void)
     adds r6, r6, r3
     adc r7, r7, r1
 @L_02007cb8:
-    ldr r0, =data_020bb470
+    ldr r0, =OSi_UseAlarm
     str r6, [r8, #0xc]
     str r7, [r8, #0x10]
     ldr r2, [r0, #4]
@@ -428,17 +428,17 @@ asm void func_02007c40(void)
     cmp r0, #0
     strne r8, [r0, #0x18]
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r1, =data_020bb470
+    ldr r1, =OSi_UseAlarm
     mov r0, r8
     str r8, [r1, #4]
-    bl func_02007b5c
+    bl OSi_SetTimer
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_02007d20:
     ldr r2, [r2, #0x18]
     cmp r2, #0
     bne @L_02007cd0
 @L_02007d2c:
-    ldr r1, =data_020bb470
+    ldr r1, =OSi_UseAlarm
     mov r0, #0
     str r0, [r8, #0x18]
     ldr r0, [r1, #8]
@@ -450,11 +450,11 @@ asm void func_02007c40(void)
     str r8, [r1, #8]
     mov r0, r8
     str r8, [r1, #4]
-    bl func_02007b5c
+    bl OSi_SetTimer
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02007d68(void)
+asm void OS_SetAlarm(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     movs r8, r0
@@ -466,7 +466,7 @@ asm void func_02007d68(void)
     cmp r0, #0
     beq @L_02007d90
 @L_02007d8c:
-    bl func_0200878c
+    bl OS_Terminate
 @L_02007d90:
     bl OS_DisableInterrupts
     mov r2, #0
@@ -481,7 +481,7 @@ asm void func_02007d68(void)
     adc r2, r6, r1
     mov r0, r8
     mov r1, r3
-    bl func_02007c40
+    bl OSi_InsertAlarm
     mov r0, r4
     bl OS_RestoreInterrupts
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
@@ -500,7 +500,7 @@ asm void OS_SetPeriodicAlarm(void)
     cmp r0, #0
     beq @L_02007e00
 @L_02007dfc:
-    bl func_0200878c
+    bl OS_Terminate
 @L_02007e00:
     bl OS_DisableInterrupts
     ldr r12, [sp, #0x24]
@@ -515,7 +515,7 @@ asm void OS_SetPeriodicAlarm(void)
     str r8, [r9, #0x28]
     str r12, [r9]
     str r3, [r9, #4]
-    bl func_02007c40
+    bl OSi_InsertAlarm
     mov r0, r4
     bl OS_RestoreInterrupts
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -536,7 +536,7 @@ asm void OS_CancelAlarm(void)
     ldr r0, [r5, #0x18]
     cmp r0, #0
     ldreq r2, [r5, #0x14]
-    ldreq r1, =data_020bb470
+    ldreq r1, =OSi_UseAlarm
     streq r2, [r1, #8]
     ldrne r1, [r5, #0x14]
     strne r1, [r0, #0x14]
@@ -544,11 +544,11 @@ asm void OS_CancelAlarm(void)
     cmp r1, #0
     strne r0, [r1, #0x18]
     bne @L_02007ea8
-    ldr r1, =data_020bb470
+    ldr r1, =OSi_UseAlarm
     cmp r0, #0
     str r0, [r1, #4]
     beq @L_02007ea8
-    bl func_02007b5c
+    bl OSi_SetTimer
 @L_02007ea8:
     mov r2, #0
     mov r0, r4
@@ -559,15 +559,15 @@ asm void OS_CancelAlarm(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02007ec8(void)
+asm void OSi_AlarmHandler(void)
 {
     stmdb sp!, {r0, lr}
-    bl func_02007ed8
+    bl OSi_ArrangeTimer
     ldmia sp!, {r0, lr}
     bx lr
 }
 
-asm void func_02007ed8(void)
+asm void OSi_ArrangeTimer(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r1, =0x4000106
@@ -575,13 +575,13 @@ asm void func_02007ed8(void)
     mov r0, #0x10
     strh r4, [r1]
     bl OS_DisableIrqMask
-    ldr r0, =data_027e0000
+    ldr r0, =OS_IRQTable
     add r0, r0, #0x3000
     ldr r1, [r0, #0xff8]
     orr r1, r1, #0x10
     str r1, [r0, #0xff8]
     bl OS_GetTick
-    ldr r2, =data_020bb470
+    ldr r2, =OSi_UseAlarm
     ldr r5, [r2, #4]
     cmp r5, #0
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -591,7 +591,7 @@ asm void func_02007ed8(void)
     cmpeq r0, r12
     bhs @L_02007f38
     mov r0, r5
-    bl func_02007b5c
+    bl OSi_SetTimer
     ldmia sp!, {r3, r4, r5, pc}
 @L_02007f38:
     ldr r0, [r5, #0x18]
@@ -620,20 +620,20 @@ asm void func_02007ed8(void)
     mov r0, r5
     mov r2, r1
     str r4, [r5]
-    bl func_02007c40
+    bl OSi_InsertAlarm
 @L_02007fa0:
-    ldr r0, =data_020bb470
+    ldr r0, =OSi_UseAlarm
     ldr r0, [r0, #4]
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02007b5c
+    bl OSi_SetTimer
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02007fc4(void)
+asm void OS_InitVAlarm(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020bb47c
+    ldr r4, =OSi_UseVAlarm
     ldrh r0, [r4]
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}

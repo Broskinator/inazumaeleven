@@ -1,26 +1,26 @@
 // (asm for now)
 
-void func_0202c61c(void);
-void func_0202c970(void);
-void func_0202cac0(void);
-void func_0202cc14(void);
-void func_0202cde8(void);
-void func_0202cf68(void);
-void func_0202d36c(void);
-void func_0202d6a4(void);
-void func_0202d80c(void);
+void getJntSRTAnmResult_(void);
+void getTransData_(void);
+void getTransDataEx_(void);
+void getScaleData_(void);
+void getScaleDataEx_(void);
+void getRotData_(void);
+void getRotDataEx_(void);
+void getRotDataByIdx_(void);
+void GetMatColAnmValue_(void);
 
-void func_0202c378(void);
+void getMdlTrans_(void);
 void getMdlRot_(void);
 void getMdlScale_(void);
-extern char data_020bf67c[];
-void func_02002084(void);
+extern char NNS_G3dRS[];
+void VEC_Normalize(void);
 extern char data_020a48f1[];
 extern char data_020a48f0[];
 extern char data_020a48f2[];
 extern char data_020a48f3[];
 
-asm void func_0202c61c(void)
+asm void getJntSRTAnmResult_(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
@@ -58,10 +58,10 @@ asm void func_0202c61c(void)
     mov r3, r9
     add r0, r7, #0x4c
     beq @L_0202c6ac
-    bl func_0202cac0
+    bl getTransDataEx_
     b @L_0202c6b0
 @L_0202c6ac:
-    bl func_0202c970
+    bl getTransData_
 @L_0202c6b0:
     add r5, r5, #8
     b @L_0202c6c0
@@ -77,10 +77,10 @@ asm void func_0202c61c(void)
     mov r3, r9
     add r0, r7, #0x50
     beq @L_0202c6e8
-    bl func_0202cac0
+    bl getTransDataEx_
     b @L_0202c6ec
 @L_0202c6e8:
-    bl func_0202c970
+    bl getTransData_
 @L_0202c6ec:
     add r5, r5, #8
     b @L_0202c6fc
@@ -96,10 +96,10 @@ asm void func_0202c61c(void)
     mov r3, r9
     add r0, r7, #0x54
     beq @L_0202c724
-    bl func_0202cac0
+    bl getTransDataEx_
     b @L_0202c728
 @L_0202c724:
-    bl func_0202c970
+    bl getTransData_
 @L_0202c728:
     add r5, r5, #8
     b @L_0202c754
@@ -113,7 +113,7 @@ asm void func_0202c61c(void)
     strne r0, [r7]
     bne @L_0202c754
     mov r0, r7
-    bl func_0202c378
+    bl getMdlTrans_
 @L_0202c754:
     tst r4, #0xc0
     bne @L_0202c810
@@ -125,10 +125,10 @@ asm void func_0202c61c(void)
     mov r3, r9
     add r0, r7, #0x28
     beq @L_0202c784
-    bl func_0202d36c
+    bl getRotDataEx_
     b @L_0202c788
 @L_0202c784:
-    bl func_0202cf68
+    bl getRotData_
 @L_0202c788:
     add r5, r5, #8
     b @L_0202c82c
@@ -139,7 +139,7 @@ asm void func_0202c61c(void)
     add r0, r7, #0x28
     add r1, r9, r1
     add r2, r9, r2
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     cmp r0, #0
     beq @L_0202c808
     ldr r12, [r7, #0x3c]
@@ -185,10 +185,10 @@ asm void func_0202c61c(void)
     mov r2, r5
     mov r3, r9
     beq @L_0202c85c
-    bl func_0202cde8
+    bl getScaleDataEx_
     b @L_0202c860
 @L_0202c85c:
-    bl func_0202cc14
+    bl getScaleData_
 @L_0202c860:
     ldr r1, [sp, #0x10]
     ldr r0, [sp, #0x14]
@@ -207,10 +207,10 @@ asm void func_0202c61c(void)
     mov r3, r9
     add r2, r5, #8
     beq @L_0202c8a4
-    bl func_0202cde8
+    bl getScaleDataEx_
     b @L_0202c8a8
 @L_0202c8a4:
-    bl func_0202cc14
+    bl getScaleData_
 @L_0202c8a8:
     ldr r1, [sp, #8]
     ldr r0, [sp, #0xc]
@@ -229,10 +229,10 @@ asm void func_0202c61c(void)
     mov r3, r9
     add r2, r5, #0x10
     beq @L_0202c8ec
-    bl func_0202cde8
+    bl getScaleDataEx_
     b @L_0202c8f0
 @L_0202c8ec:
-    bl func_0202cc14
+    bl getScaleData_
 @L_0202c8f0:
     ldr r1, [sp]
     ldr r0, [sp, #4]
@@ -258,7 +258,7 @@ asm void func_0202c61c(void)
     ldr r0, [r7]
     add r1, sp, #0x18
     tst r0, #1
-    ldr r0, =data_020bf67c
+    ldr r0, =NNS_G3dRS
     movne r3, #4
     ldr r4, [r0]
     moveq r3, #0
@@ -270,7 +270,7 @@ asm void func_0202c61c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202c970(void)
+asm void getTransData_(void)
 {
     stmdb sp!, {r4, lr}
     ldr r12, [r2, #4]
@@ -365,7 +365,7 @@ asm void func_0202c970(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0202cac0(void)
+asm void getTransDataEx_(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldrh r4, [r3, #4]
@@ -457,7 +457,7 @@ asm void func_0202cac0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0202cc14(void)
+asm void getScaleData_(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r4, [r2, #4]
@@ -585,7 +585,7 @@ asm void func_0202cc14(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0202cde8(void)
+asm void getScaleDataEx_(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldrh r4, [r3, #4]
@@ -689,7 +689,7 @@ asm void func_0202cde8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0202cf68(void)
+asm void getRotData_(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x48
@@ -737,14 +737,14 @@ asm void func_0202cf68(void)
     mov r0, r5
     add r1, r4, r7
     add r2, r4, r6
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     mov r1, r9, lsl #1
     ldrh r3, [r8, r1]
     orr r9, r0, #0
     add r0, sp, #0x24
     add r1, r4, r7
     add r2, r4, r6
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     ldr r2, [r5]
     ldmib r5, {r1, r4}
     orr r9, r9, r0
@@ -777,10 +777,10 @@ asm void func_0202cf68(void)
     mov r0, r5
     mov r1, r5
     str r2, [r5, #0x14]
-    bl func_02002084
+    bl VEC_Normalize
     add r0, r5, #0xc
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
     cmp r9, #0
     bne @L_0202d120
     ldr r0, [r5, #0x18]
@@ -800,7 +800,7 @@ asm void func_0202cf68(void)
     add r0, r5, #0x18
     mov r1, r0
     str r2, [r5, #0x20]
-    bl func_02002084
+    bl VEC_Normalize
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_0202d120:
@@ -838,14 +838,14 @@ asm void func_0202cf68(void)
     mov r0, r5
     add r1, r4, r7
     add r2, r4, r6
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     add r1, r8, r9, lsl #1
     ldrh r3, [r1, #2]
     orr r8, r0, #0
     add r0, sp, #0
     add r1, r4, r7
     add r2, r4, r6
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     ldr r3, [r5]
     ldr r1, [sp]
     ldr r2, [r5, #4]
@@ -873,10 +873,10 @@ asm void func_0202cf68(void)
     add r2, r2, r1
     mov r1, r5
     str r2, [r5, #0x14]
-    bl func_02002084
+    bl VEC_Normalize
     add r0, r5, #0xc
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
     cmp r8, #0
     bne @L_0202d284
     ldr r2, [r5, #0x18]
@@ -893,7 +893,7 @@ asm void func_0202cf68(void)
     add r2, r2, r1
     mov r1, r0
     str r2, [r5, #0x20]
-    bl func_02002084
+    bl VEC_Normalize
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_0202d284:
@@ -925,7 +925,7 @@ asm void func_0202cf68(void)
     mov r0, r5
     add r1, r4, r7
     add r2, r4, r6
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     cmp r0, #0
     beq @L_0202d354
     ldr r9, [r5, #0x14]
@@ -953,12 +953,12 @@ asm void func_0202cf68(void)
 @L_0202d354:
     add r0, r5, #0x18
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_0202d36c(void)
+asm void getRotDataEx_(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x48
@@ -991,7 +991,7 @@ asm void func_0202d36c(void)
     mov r0, r10
     add r1, r9, r4
     add r2, r9, r11
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     cmp r0, #0
     beq @L_0202d448
     ldr r8, [r10, #0x14]
@@ -1019,7 +1019,7 @@ asm void func_0202d36c(void)
 @L_0202d448:
     add r0, r10, #0x18
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0202d45c:
@@ -1063,14 +1063,14 @@ asm void func_0202d36c(void)
     add r0, sp, #0x24
     add r1, r9, r4
     add r2, r9, r11
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     mov r1, r5, lsl #1
     ldrh r3, [r8, r1]
     orr r5, r0, #0
     add r0, sp, #0
     add r1, r9, r4
     add r2, r9, r11
-    bl func_0202d6a4
+    bl getRotDataByIdx_
     ldr r3, [sp, #0x24]
     ldr r1, [sp]
     mul r2, r3, r7
@@ -1116,10 +1116,10 @@ asm void func_0202d36c(void)
     mov r0, r10
     mov r1, r10
     str r2, [r10, #0x14]
-    bl func_02002084
+    bl VEC_Normalize
     add r0, r10, #0xc
     mov r1, r0
-    bl func_02002084
+    bl VEC_Normalize
     cmp r5, #0
     bne @L_0202d640
     ldr r2, [sp, #0x3c]
@@ -1145,7 +1145,7 @@ asm void func_0202d36c(void)
     add r0, r10, #0x18
     mov r1, r0
     str r2, [r10, #0x20]
-    bl func_02002084
+    bl VEC_Normalize
     add sp, sp, #0x48
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0202d640:
@@ -1173,7 +1173,7 @@ asm void func_0202d36c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_0202d6a4(void)
+asm void getRotDataByIdx_(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     tst r3, #0x8000
@@ -1263,7 +1263,7 @@ asm void func_0202d6a4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0202d80c(void)
+asm void GetMatColAnmValue_(void)
 {
     tst r1, #0x20000000
     movne r0, r1, lsl #0x10

@@ -11,7 +11,7 @@ extern "C" void func_ov003_0211c0c4(void);
 extern "C" s32 func_ov003_0211c200(u8 *arg0);
 
 extern "C" char data_020c5120[];
-extern "C" char data_020c5320[];
+extern "C" char gWirelessUtil[];
 extern "C" char data_020c5598[];
 extern "C" char data_020c8760[];
 extern "C" char data_020cb6e0[];
@@ -41,7 +41,7 @@ extern "C" asm void func_ov003_0211b8dc(void)
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x80
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209c7f4
     mov r1, #0
     b @L_0211ba64
@@ -137,7 +137,7 @@ extern "C" asm void func_ov003_0211b8dc(void)
 @L_0211ba3c:
     cmp r2, #0
     bne @L_0211ba60
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209c6a8
     add r0, r4, #0x2000
     mov r1, #6
@@ -165,7 +165,7 @@ extern "C" s32 func_ov003_0211baa4(s32 arg0)
     s32 r4;
     s32 v0;
     s32 v1;
-    v0 = func_0209c7f4((s32)((u8 *)&data_020c5320));
+    v0 = func_0209c7f4((s32)((u8 *)&gWirelessUtil));
     r4 = arg0;
     arg0 = v0;
     if (arg0 == 1) {
@@ -189,7 +189,7 @@ extern "C" asm void func_ov003_0211bae0(void)
     mov r5, #1
     bl func_ov015_02131754
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     mov r1, r4
     add r2, r4, #0xf0
     mov r3, #0x78
@@ -300,7 +300,7 @@ extern "C" asm void func_ov003_0211bae0(void)
     str lr, [r3, #0x978]
     bl MI_CpuCopy8
     add r1, r7, #0x104
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     mov r2, r4
     add r1, r1, #0x2800
     bl func_0209c24c
@@ -360,7 +360,7 @@ extern "C" asm s32 func_ov003_0211bd8c(...)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0xc
-    ldr r5, =data_020c5320
+    ldr r5, =gWirelessUtil
     mov r6, r0
     ldr r0, [r5, #0x5c]
     cmp r0, #1

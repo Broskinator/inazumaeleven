@@ -2,23 +2,23 @@
 
 void MIi_CpuClear16(void);
 void MIi_CpuCopy16(void);
-void func_0200919c(void);
+void MIi_CpuClear32(void);
 void MIi_CpuCopy32(void);
 void MIi_CpuSend32(void);
 void MIi_CpuClearFast(void);
 void MIi_CpuCopyFast(void);
 void MI_Copy32B(void);
-void func_02009280(void);
+void MI_Copy36B(void);
 void MI_Copy48B(void);
 void MI_Copy64B(void);
 void MI_CpuFill8(void);
-void func_02009380(void);
+void MI_CpuFill(void);
 void MI_CpuCopy8(void);
-void func_02009594(void);
-void func_020095c4(void);
-void func_020098b4(void);
+void MI_CpuComp8(void);
+void MI_CpuCopy(void);
+void MI_CpuMove(void);
 void func_02009bc8(void);
-void func_02009bd8(void);
+void MI_SwapWord(void);
 
 void func_02009668(void);
 void func_020096a4(void);
@@ -52,7 +52,7 @@ asm void MIi_CpuCopy16(void)
     bx lr
 }
 
-asm void func_0200919c(void)
+asm void MIi_CpuClear32(void)
 {
     add r12, r1, r2
 @L_020091a0:
@@ -140,7 +140,7 @@ asm void MI_Copy32B(void)
     bx lr
 }
 
-asm void func_02009280(void)
+asm void MI_Copy36B(void)
 {
     ldmia r0!, {r2, r3, r12}
     stmia r1!, {r2, r3, r12}
@@ -225,7 +225,7 @@ asm void MI_CpuFill8(void)
     bx lr
 }
 
-asm void func_02009380(void)
+asm void MI_CpuFill(void)
 {
     cmp r2, #0
     bxeq lr
@@ -381,7 +381,7 @@ asm void MI_CpuCopy8(void)
     bx lr
 }
 
-asm void func_02009594(void)
+asm void MI_CpuComp8(void)
 {
     add r12, r0, r2
     cmp r0, r12
@@ -399,7 +399,7 @@ asm void func_02009594(void)
     bx lr
 }
 
-asm void func_020095c4(void)
+asm void MI_CpuCopy(void)
 {
     cmp r2, #8
     bgt @L_0200961c
@@ -592,12 +592,12 @@ asm void func_020095c4(void)
     dcd 0xe12fff1e
 }
 
-asm void func_020098b4(void)
+asm void MI_CpuMove(void)
 {
     cmp r2, #0
     subnes r3, r0, r1
     bxeq lr
-    bgt func_020095c4
+    bgt MI_CpuCopy
     add r1, r1, r2
     add r0, r0, r2
     cmp r2, #8
@@ -809,7 +809,7 @@ asm void func_02009bc8(void)
 }
 #pragma thumb off
 
-asm void func_02009bd8(void)
+asm void MI_SwapWord(void)
 {
     swp r0, r0, [r1]
     bx lr

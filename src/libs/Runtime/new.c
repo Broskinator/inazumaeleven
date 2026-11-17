@@ -16,7 +16,7 @@ extern char data_020ab760[];
 extern char data_020ab76c[];
 void func_02025b10(void);
 extern char data_020bf414[];
-void func_02017c4c(void);
+void malloc(void);
 void func_02024de8(void);
 void func_02017c64(void);
 extern char data_020ab730[];
@@ -52,7 +52,7 @@ asm void _Znwm(void)
     moveq r6, #4
 @L_02025558:
     mov r0, r6
-    bl func_02017c4c
+    bl malloc
     movs r5, r0
     bne @L_02025580
     ldr r0, [r4]

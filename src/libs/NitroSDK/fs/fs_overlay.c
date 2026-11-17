@@ -2,18 +2,18 @@
 
 void FSi_GetOverlayBinarySize(void);
 void FS_ClearOverlayImage(void);
-void func_0200ca60(void);
-void func_0200ca8c(void);
+void FS_GetOverlayFileID(void);
+void FS_LoadOverlayInfo(void);
 void func_0200cbec(void);
-void func_0200cc70(void);
-void func_0200ccf0(void);
-void func_0200cdb0(void);
+void FS_LoadOverlayImage(void);
+void FSi_CompareDigest(void);
+void FS_StartOverlay(void);
 void FS_EndOverlay(void);
 
 void IC_InvalidateRange(void);
 void DC_InvalidateRange(void);
 void MI_CpuFill8(void);
-extern char data_020bd2bc[];
+extern char FSiOverlayContext[];
 extern char data_020bd2c0[];
 extern char data_020bd2c8[];
 void FS_InitFile(void);
@@ -23,19 +23,19 @@ void func_02010d8c(void);
 void FS_CreateFileFromRom(void);
 void FS_ReadFile(void);
 void FS_CloseFile(void);
-void func_0200e4f8(void);
+void FS_GetFileImageTop(void);
 void FS_GetFileLength(void);
 void FS_ReadFileAsync(void);
 void DGT_SetOverlayTableMode(void);
-void func_02016434(void);
-void func_0200848c(void);
+void MATH_CalcHMACSHA1(void);
+void OS_GetBootType(void);
 extern char data_020bb02c[];
 extern char data_020bb02c_b[];
-void func_0200878c(void);
+void OS_Terminate(void);
 void MIi_UncompressBackward(void);
 void DC_FlushRange(void);
 void OS_DisableInterrupts(void);
-extern char data_020bf410[];
+extern char __global_destructor_chain[];
 void OS_RestoreInterrupts(void);
 
 asm void FSi_GetOverlayBinarySize(void)
@@ -68,10 +68,10 @@ asm void FS_ClearOverlayImage(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0200ca60(void)
+asm void FS_GetOverlayFileID(void)
 {
     sub sp, sp, #8
-    ldr r2, =data_020bd2bc
+    ldr r2, =FSiOverlayContext
     ldr r1, [r1, #0x18]
     ldr r2, [r2]
     str r1, [sp, #4]
@@ -82,7 +82,7 @@ asm void func_0200ca60(void)
     bx lr
 }
 
-asm void func_0200ca8c(void)
+asm void FS_LoadOverlayInfo(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0xa0
@@ -110,7 +110,7 @@ asm void func_0200ca8c(void)
     mov r1, r5
     mov r0, r8
     str r4, [r5, #0x20]
-    bl func_0200ca60
+    bl FS_GetOverlayFileID
     mov r0, r6
     ldmia r8, {r1, r2}
     bl FS_OpenFileFast
@@ -156,7 +156,7 @@ asm void func_0200ca8c(void)
     mov r1, r5
     mov r0, r8
     str r4, [r5, #0x20]
-    bl func_0200ca60
+    bl FS_GetOverlayFileID
     mov r0, r6
     ldmia r8, {r1, r2}
     bl FS_OpenFileFast
@@ -164,7 +164,7 @@ asm void func_0200ca8c(void)
     beq @L_0200cbd8
 @L_0200cbb4:
     mov r0, r6
-    bl func_0200e4f8
+    bl FS_GetFileImageTop
     str r0, [r5, #0x24]
     mov r0, r6
     bl FS_GetFileLength
@@ -190,7 +190,7 @@ asm void func_0200cbec(void)
     add r4, sp, #0
     mov r1, r7
     mov r0, r4
-    bl func_0200ca60
+    bl FS_GetOverlayFileID
     mov r0, r6
     ldmia r4, {r1, r2}
     bl FS_OpenFileFast
@@ -216,7 +216,7 @@ asm void func_0200cbec(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200cc70(void)
+asm void FS_LoadOverlayImage(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x50
@@ -228,7 +228,7 @@ asm void func_0200cc70(void)
     add r4, sp, #0
     mov r1, r7
     mov r0, r4
-    bl func_0200ca60
+    bl FS_GetOverlayFileID
     mov r0, r5
     ldmia r4, {r1, r2}
     bl FS_OpenFileFast
@@ -253,7 +253,7 @@ asm void func_0200cc70(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200ccf0(void)
+asm void FSi_CompareDigest(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x58
@@ -266,7 +266,7 @@ asm void func_0200ccf0(void)
     mov r2, #0x14
     mov r5, r3
     bl MI_CpuFill8
-    ldr r2, =data_020bd2bc
+    ldr r2, =FSiOverlayContext
     add r1, sp, #4
     ldr r0, [r2, #0x14]
     ldr r2, [r2, #0x18]
@@ -277,14 +277,14 @@ asm void func_0200ccf0(void)
     bl DGT_SetOverlayTableMode
     mov r4, r0
 @L_0200cd44:
-    ldr r1, =data_020bd2bc
+    ldr r1, =FSiOverlayContext
     add r0, sp, #0x44
     ldr r12, [r1, #0x18]
     add r3, sp, #4
     mov r1, r7
     mov r2, r6
     str r12, [sp]
-    bl func_02016434
+    bl MATH_CalcHMACSHA1
     cmp r5, #0
     beq @L_0200cd74
     mov r0, r4
@@ -308,13 +308,13 @@ asm void func_0200ccf0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0200cdb0(void)
+asm void FS_StartOverlay(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     bl FSi_GetOverlayBinarySize
     mov r4, r0
-    bl func_0200848c
+    bl OS_GetBootType
     cmp r0, #1
     beq @L_0200ce40
     ldr r0, [r5, #0x1c]
@@ -336,7 +336,7 @@ asm void func_0200cdb0(void)
     mla r0, r1, r0, r2
     ldr r1, [r5, #4]
     mov r2, r4
-    bl func_0200ccf0
+    bl FSi_CompareDigest
     mov r3, r0
 @L_0200ce20:
     cmp r3, #0
@@ -345,7 +345,7 @@ asm void func_0200cdb0(void)
     mov r2, r4
     mov r1, #0
     bl MI_CpuFill8
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, r4, r5, pc}
 @L_0200ce40:
     ldr r0, [r5, #0x1c]
@@ -387,7 +387,7 @@ asm void FS_EndOverlay(void)
     mov r5, r4
     add r7, r6, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bf410
+    ldr r1, =__global_destructor_chain
     mov r12, r4
     ldr lr, [r1]
     mov r8, lr

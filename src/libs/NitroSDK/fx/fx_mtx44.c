@@ -3,17 +3,17 @@
 void MTX_Identity44_(void);
 void MTX_Copy44To43_(void);
 void MTX_RotY44_(void);
-void func_02001644(void);
-void func_02001a00(void);
-void func_02001b4c(void);
-void func_02001d60(void);
+void MTX_Concat44(void);
+void MTX_PerspectiveW(void);
+void MTX_OrthoW(void);
+void FX_Div(void);
 void func_02001d70(void);
-void func_02001d80(void);
+void FX_Sqrt(void);
 
 void FX_GetDivResultFx64c(void);
 void func_02022524(void);
-void func_02001dd8(void);
-void func_02001e0c(void);
+void FX_GetDivResult(void);
+void FX_InvAsync(void);
 void FX_DivAsync(void);
 void FX_GetSqrtResult(void);
 
@@ -73,7 +73,7 @@ asm void MTX_RotY44_(void)
 }
 #pragma thumb off
 
-asm void func_02001644(void)
+asm void MTX_Concat44(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x74
@@ -316,7 +316,7 @@ asm void func_02001644(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02001a00(void)
+asm void MTX_PerspectiveW(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r4, r0
@@ -326,7 +326,7 @@ asm void func_02001a00(void)
     mov r8, r3
     ldr r7, [sp, #0x24]
     ldr r6, [sp, #0x28]
-    bl func_02001d60
+    bl FX_Div
     ldr r3, =0x4000290
     mov r2, #0
     str r2, [r3]
@@ -398,12 +398,12 @@ asm void func_02001a00(void)
     str r7, [r6, #0x28]
     adc r0, r4, #0
     str r0, [r6, #0x38]
-    bl func_02001dd8
+    bl FX_GetDivResult
     str r0, [r6]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02001b4c(void)
+asm void MTX_OrthoW(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -416,7 +416,7 @@ asm void func_02001b4c(void)
     str r3, [sp, #4]
     mov r11, r1
     ldr r9, [sp, #0x40]
-    bl func_02001e0c
+    bl FX_InvAsync
     mov r5, #0
     str r5, [r8, #4]
     str r5, [r8, #8]
@@ -542,23 +542,23 @@ asm void func_02001b4c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02001d60(void)
+asm void FX_Div(void)
 {
     stmdb sp!, {r3, lr}
     bl FX_DivAsync
-    bl func_02001dd8
+    bl FX_GetDivResult
     ldmia sp!, {r3, pc}
 }
 
 asm void func_02001d70(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_02001e0c
-    bl func_02001dd8
+    bl FX_InvAsync
+    bl FX_GetDivResult
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02001d80(void)
+asm void FX_Sqrt(void)
 {
     stmdb sp!, {r3, lr}
     cmp r0, #0

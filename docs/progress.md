@@ -11,15 +11,18 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 2,251,302 | 592,108 | 26.30% | 11,724 | 7,001 | 59.72% | 4,723 |
+| **Game code** | 1,948,264 | 495,704 | 25.44% | 9,634 | 5,720 | 59.37% | 3,914 |
 | Game, main program | 369,260 | 107,184 | 29.03% | 2,601 | 1,661 | 63.86% | 940 |
-| Game, overlays | 1,882,042 | 484,924 | 25.77% | 9,123 | 5,340 | 58.53% | 3,783 |
-| Libraries (SDK, runtime) | 321,786 | 0 | 0.00% | 2,039 | 0 | 0.00% | 2,039 |
+| Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
+| Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
+| Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
 | **Everything** | 2,594,024 | 592,108 | 22.83% | 14,002 | 7,001 | 50.00% | 7,001 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
-and the Metrowerks runtime: much of them is assembly in the original as well.
+and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
+89 are libraries too (the Wi-Fi libraries and their connection settings, download play): they
+were counted as game code until 2026-11-17, when [ie3_mapping.md](ie3_mapping.md) showed what they are.
 
 ## Match engine
 
@@ -53,9 +56,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 | ov003 | 129,636 | 27,248 | 21.02% | 490 | 283 | 57.76% | 207 |
 | ov004 | 2,380 | 1,336 | 56.13% | 38 | 31 | 81.58% | 7 |
 | ov005 | 4,376 | 1,512 | 34.55% | 38 | 28 | 73.68% | 10 |
-| ov014 | 160,932 | 47,928 | 29.78% | 973 | 596 | 61.25% | 377 |
 | ov015 | 213,136 | 71,432 | 33.51% | 1,282 | 813 | 63.42% | 469 |
-| ov016 | 136,606 | 48,020 | 35.15% | 1,108 | 680 | 61.37% | 428 |
 | ov017 | 6,040 | 480 | 7.95% | 18 | 10 | 55.56% | 8 |
 | ov018 | 4,836 | 1,772 | 36.64% | 38 | 24 | 63.16% | 14 |
 | ov019 | 17,700 | 2,960 | 16.72% | 64 | 33 | 51.56% | 31 |
@@ -128,4 +129,3 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 | ov086 | 4,292 | 856 | 19.94% | 17 | 9 | 52.94% | 8 |
 | ov087 | 57,468 | 6,064 | 10.55% | 167 | 62 | 37.13% | 105 |
 | ov088 | 6,844 | 1,084 | 15.84% | 39 | 26 | 66.67% | 13 |
-| ov089 | 5,500 | 456 | 8.29% | 9 | 5 | 55.56% | 4 |

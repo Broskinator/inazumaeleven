@@ -2,7 +2,7 @@
 #define GAME_SCENEMANAGER_HPP
 
 #include "nitro/types.h"
-#include "game/UnkClass_0203dc7c.hpp"
+#include "game/ScreenManager.hpp"
 #include "nitro/tp.h"
 
 // What a scene is made from
@@ -34,10 +34,10 @@ struct PMSleepCallbackInfo {
 // A part of a scene with its own vtable and a pointer back to the scene
 struct ScenePart {
     void *vtable;
-    UnkClass_0203dc7c *owner;
+    ScreenManager *owner;
 };
 
-struct Scene4 : public UnkClass_0203dc7c {
+struct Scene4 : public ScreenManager {
     ScenePart part0;
     u8 unk_94[0x34];
     ScenePart part1;
@@ -46,27 +46,27 @@ struct Scene4 : public UnkClass_0203dc7c {
     u8 unk_118[0xC];
 };
 
-struct Scene5 : public UnkClass_0203dc7c {
+struct Scene5 : public ScreenManager {
     ScenePart part0;
     u8 unk_94[0x44];
 };
 
-struct Scene6 : public UnkClass_0203dc7c {
+struct Scene6 : public ScreenManager {
     void *part0Vtable;          // (a part of 0x1B4 bytes, its owner at the end)
     u8 unk_90[0x1AC];
-    UnkClass_0203dc7c *part0Owner;
+    ScreenManager *part0Owner;
     u8 unk_240[0xC];
     ScenePart part1;
     u8 unk_254[0x17C];
 };
 
-struct Scene8 : public UnkClass_0203dc7c {
+struct Scene8 : public ScreenManager {
     u8 unk_8c[0x1A8];
     ScenePart part0;
     u8 unk_23c[0x3F8];
     void *part1Vtable;
     u8 unk_638[4];
-    UnkClass_0203dc7c *part1Owner;
+    ScreenManager *part1Owner;
     u8 unk_640[0x3C];
     ScenePart part2;
     u8 unk_684[0x7C];
@@ -123,28 +123,28 @@ struct SceneStartInfo {
     u8 unk_c8;
 };
 
-// Creates the game's scenes (each a subclass of UnkClass_0203dc7c, its code in an overlay) and switches between them; its state is in data_020c45a0
+// Creates the game's scenes (each a subclass of ScreenManager, its code in an overlay) and switches between them; its state is in data_020c45a0
 class SceneManager {
 public:
-    static void func_0203e2fc(s32 value);
+    static void SetNextMode(s32 value);
     static s32 func_0203e30c();
     static SceneDesc *func_0203e31c(s32 id);
-    static UnkClass_0203dc7c *func_0203e348(SceneDesc *desc);
-    static UnkClass_0203dc7c *func_0203e3d0(FSOverlayID overlay);
+    static ScreenManager *func_0203e348(SceneDesc *desc);
+    static ScreenManager *func_0203e3d0(FSOverlayID overlay);
     void func_0203e450();
     void func_0203e454();
     void func_0203e458();
-    static UnkClass_0203dc7c *func_0203e45c(FSOverlayID overlay);
-    static UnkClass_0203dc7c *func_0203e498(FSOverlayID overlay);
+    static ScreenManager *func_0203e45c(FSOverlayID overlay);
+    static ScreenManager *func_0203e498(FSOverlayID overlay);
     void func_0203e4f4();
     void func_0203e4f8();
-    static UnkClass_0203dc7c *func_0203e4fc(FSOverlayID overlay);
+    static ScreenManager *func_0203e4fc(FSOverlayID overlay);
     void func_0203e548();
-    static UnkClass_0203dc7c *func_0203e54c(FSOverlayID overlay);
+    static ScreenManager *func_0203e54c(FSOverlayID overlay);
     void func_0203e5b8();
     void func_0203e5bc();
     void func_0203e5c0();
-    static UnkClass_0203dc7c *func_0203e5c4(FSOverlayID overlay);
+    static ScreenManager *func_0203e5c4(FSOverlayID overlay);
     void func_0203e778();
     void func_0203e77c();
     void func_0203e780();
@@ -159,7 +159,7 @@ public:
     void func_0203e7a4();
     void func_0203e7a8();
     void func_0203e7ac();
-    static UnkClass_0203dc7c *func_0203e7b0(FSOverlayID overlay);
+    static ScreenManager *func_0203e7b0(FSOverlayID overlay);
     void func_0203e980();
     void func_0203e984();
     void func_0203e988();
@@ -177,7 +177,7 @@ public:
     void func_0203e9b8();
     void func_0203e9bc();
     void func_0203e9c0();
-    static UnkClass_0203dc7c *func_0203e9c4(FSOverlayID overlay);
+    static ScreenManager *func_0203e9c4(FSOverlayID overlay);
     void func_0203ea8c();
     void func_0203ea90();
     void func_0203ea94();

@@ -1,53 +1,53 @@
 #include "ov014/Unk_ov014_02114d2c.hpp"
 
-extern "C" s32 func_ov014_02114d2c(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov014_02114d9c(void);
-extern "C" s32 func_ov014_02114e80(...);
-extern "C" s32 func_ov014_02114f6c(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_02114f80(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
-extern "C" s32 func_ov014_02114fb4(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
-extern "C" void func_ov014_02115030(u8 *arg0);
-extern "C" void func_ov014_0211503c(void);
-extern "C" s32 func_ov014_02115524(u8 *arg0, u8 *arg1);
-extern "C" s32 func_ov014_02115560(u8 *arg0);
-extern "C" s32 func_ov014_021155a4(u8 *arg0, u8 *arg1);
-extern "C" s32 func_ov014_021155ec(s32 arg0, u8 *arg1);
-extern "C" s32 func_ov014_02115684(s32 arg0, s32 arg1);
-extern "C" s32 func_ov014_0211571c(s32 arg0);
-extern "C" void func_ov014_02115798(s32 arg0, u8 *arg1);
-extern "C" s32 func_ov014_02115838(...);
-extern "C" s32 func_ov014_02115960(u8 *arg0, s32 arg1, u8 *arg2);
-extern "C" void func_ov014_02115a6c(s32 arg0);
-extern "C" void func_ov014_02115a78(u8 *arg0);
-extern "C" void func_ov014_02115a84(u8 *arg0);
-extern "C" s32 func_ov014_02115a90(u8 *arg0);
-extern "C" s32 func_ov014_02115a98(u8 *arg0, s32 arg1);
-extern "C" void func_ov014_02115b1c(void);
-extern "C" void func_ov014_02115be4(void);
-extern "C" void func_ov014_02115c70(void);
-extern "C" void func_ov014_02115d38(void);
-extern "C" void func_ov014_02115ed4(void);
-extern "C" s32 func_ov014_02115f5c(...);
-extern "C" s32 func_ov014_02115fe4(s32 arg0);
-extern "C" s32 func_ov014_02116060(s32 arg0);
-extern "C" s32 func_ov014_021160dc(u8 *arg0);
-extern "C" void func_ov014_02116318(void);
-extern "C" s32 func_ov014_021164fc(s32 arg0);
-extern "C" void func_ov014_021165c8(void);
-extern "C" void func_ov014_0211674c(void);
-extern "C" void func_ov014_02116afc(void);
-extern "C" s32 func_ov014_02116df8(u8 *arg0);
-extern "C" void func_ov014_02116e48(void);
-extern "C" s32 func_ov014_02116f90(u8 *arg0);
-extern "C" void func_ov014_02117008(void);
-extern "C" void func_ov014_02117120(void);
-extern "C" void func_ov014_021172b4(void);
-extern "C" void func_ov014_021173c0(void);
-extern "C" void func_ov014_02117740(void);
-extern "C" void func_ov014_0211790c(void);
-extern "C" void func_ov014_02117bd0(void);
+extern "C" s32 NHTTPi_skipSpaceHdrRecvBuf(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void NHTTPi_compareTokenN_HdrRecvBuf(void);
+extern "C" s32 NHTTPi_loadFromHdrRecvBuf(...);
+extern "C" s32 NHTTPi_isRecvBufFull(u8 *arg0, s32 arg1);
+extern "C" void NHTTPi_RecvBuf(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4);
+extern "C" s32 NHTTPi_RecvBufN(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5);
+extern "C" void NHTTPi_InitRequestInfo(u8 *arg0);
+extern "C" void NHTTPi_CreateRequest(void);
+extern "C" s32 NHTTPi_DestroyRequest(u8 *arg0, u8 *arg1);
+extern "C" s32 deleteStrList(u8 *arg0);
+extern "C" s32 NHTTPi_destroyRequestObject(u8 *arg0, u8 *arg1);
+extern "C" s32 NHTTPi_SendRequestAsync(s32 arg0, u8 *arg1);
+extern "C" s32 NHTTPi_CancelRequestAsync(s32 arg0, s32 arg1);
+extern "C" s32 NHTTPi_cancelAllRequests(s32 arg0);
+extern "C" void NHTTPi_DestroyResponse(s32 arg0, u8 *arg1);
+extern "C" s32 NHTTPi_getHeaderValue(...);
+extern "C" s32 NHTTP_GetResponseHeaderField(u8 *arg0, s32 arg1, u8 *arg2);
+extern "C" void NHTTPi_InitThreadInfo(s32 arg0);
+extern "C" void NHTTPi_IsCreateCommThreadMessageQueueOn(u8 *arg0);
+extern "C" void NHTTPi_IsCreateCommThreadMessageQueueOff(u8 *arg0);
+extern "C" s32 NHTTPi_IsCreateCommThreadMessageQueue(u8 *arg0);
+extern "C" s32 NHTTPi_CheckHeaderEnd(u8 *arg0, s32 arg1);
+extern "C" void NHTTPi_SaveBuf(void);
+extern "C" void NHTTPi_SkipLineBuf(void);
+extern "C" void NHTTPi_GetPostContentlength(void);
+extern "C" void NHTTPi_SendPostData(void);
+extern "C" void NHTTPi_BufFull(void);
+extern "C" s32 NHTTPi_SendData(...);
+extern "C" s32 NHTTPi_SendProxyAuthorization(s32 arg0);
+extern "C" s32 NHTTPi_SendBasicAuthorization(s32 arg0);
+extern "C" s32 NHTTPi_SendProxyConnectMethod(u8 *arg0);
+extern "C" void NHTTPi_RecvProxyConnectHeader(void);
+extern "C" s32 NHTTPi_SendHeaderList(s32 arg0);
+extern "C" void NHTTPi_SendProcPostDataRaw(void);
+extern "C" void NHTTPi_SendProcPostDataBinary(void);
+extern "C" void NHTTPi_SendProcPostDataAscii(void);
+extern "C" s32 NHTTPi_ThreadInit(u8 *arg0);
+extern "C" void NHTTPi_ThreadReqEnd(void);
+extern "C" s32 NHTTPi_ThreadExecReqQueue(u8 *arg0);
+extern "C" void NHTTPi_ThreadHostAddrProc(void);
+extern "C" void NHTTPi_ThreadConnectProc(void);
+extern "C" void NHTTPi_ThreadProxyProc(void);
+extern "C" void NHTTPi_ThreadSendProc(void);
+extern "C" void NHTTPi_ThreadRecvHeaderProc(void);
+extern "C" void NHTTPi_ThreadParseHeaderProc(void);
+extern "C" void NHTTPi_ThreadRecvBodyProc(void);
 
-extern "C" char data_ov014_02123fb4[];
+extern "C" char NHTTPi_strMultipartBound[];
 extern "C" char data_ov014_02123fcc[];
 extern "C" char data_ov014_02123ff3[];
 extern "C" char data_ov014_02124020[];
@@ -79,75 +79,75 @@ extern "C" char data_ov014_02125e08[];
 extern "C" char data_ov014_02125e14[];
 extern "C" char data_ov014_02125e20[];
 extern "C" char data_ov014_02125e34[];
-extern "C" s32 func_ov014_02113934(...);
-extern "C" s32 func_ov014_02113948(...);
-extern "C" void func_ov014_021139e4(void);
-extern "C" void func_ov014_02113a24(void);
-extern "C" void func_ov014_02113a3c(void);
-extern "C" void func_ov014_02113acc(void);
-extern "C" void func_ov014_02113b7c(void);
-extern "C" s32 func_ov014_02113cd4(...);
-extern "C" s32 func_ov014_02113d60(...);
-extern "C" s32 func_ov014_02113da8(...);
-extern "C" void func_ov014_02113dd8(void);
-extern "C" void func_ov014_02113e40(void);
-extern "C" s32 func_ov014_02113e58(...);
-extern "C" void func_ov014_02113e64(void);
-extern "C" s32 func_ov014_02113e70(...);
-extern "C" s32 func_ov014_02113e7c(...);
-extern "C" void func_ov014_02113e90(void);
-extern "C" void func_ov014_02113f34(void);
-extern "C" void func_ov014_02113f9c(void);
-extern "C" void func_ov014_02114010(void);
-extern "C" void func_ov014_0211409c(void);
-extern "C" void func_ov014_02114188(void);
-extern "C" s32 func_ov014_02114224(...);
-extern "C" void func_ov014_02114360(void);
-extern "C" s32 func_ov014_02114498(...);
-extern "C" s32 func_ov014_021144c8(...);
-extern "C" s32 func_ov014_021144ec(...);
-extern "C" void func_ov014_021144fc(void);
-extern "C" s32 func_ov014_02114864(...);
-extern "C" s32 func_ov014_0211496c(...);
-extern "C" s32 func_ov014_02114a50(...);
-extern "C" s32 func_ov014_02114b00(...);
-extern "C" s32 func_ov014_02114b38(...);
-extern "C" void func_ov014_02114b44(void);
-extern "C" void func_ov014_02114b9c(void);
-extern "C" void func_ov014_02114c10(void);
-extern "C" void func_ov014_0211848c(void);
-extern "C" s32 func_ov014_021185d4(...);
-extern "C" void func_ov014_021185e4(void);
-extern "C" void func_ov014_02118668(void);
-extern "C" void func_ov014_021186f8(void);
-extern "C" void func_ov014_02118784(void);
-extern "C" void func_ov014_02118810(void);
-extern "C" s32 func_ov014_021188fc(...);
-extern "C" s32 func_ov014_02118930(...);
-extern "C" s32 func_ov014_02118934(...);
-extern "C" s32 func_ov014_0211893c(...);
-extern "C" s32 func_ov014_02118944(...);
-extern "C" s32 func_ov014_0211894c(...);
-extern "C" void func_ov014_02118954(void);
-extern "C" s32 func_ov014_021189c0(...);
-extern "C" s32 func_ov014_021189cc(...);
-extern "C" void func_ov014_02118ba4(void);
+extern "C" s32 NHTTPi_idleCommThread(...);
+extern "C" s32 NHTTPi_kickCommThread(...);
+extern "C" void NHTTPi_checkKeepAlive(void);
+extern "C" void NHTTPi_SocOpen(void);
+extern "C" void NHTTPi_SocClose(void);
+extern "C" void NHTTPi_SocConnect(void);
+extern "C" void NHTTPi_SocSSLConnect(void);
+extern "C" s32 NHTTPi_SocRecv(...);
+extern "C" s32 NHTTPi_SocSend(...);
+extern "C" s32 NHTTPi_SocCancel(...);
+extern "C" void NHTTPi_resolveHostname(void);
+extern "C" void NHTTPi_memcpy(void);
+extern "C" s32 NHTTPi_strlen(...);
+extern "C" void NHTTPi_strnlen(void);
+extern "C" s32 NHTTPi_strcmp(...);
+extern "C" s32 NHTTPi_memclr(...);
+extern "C" void NHTTPi_strnicmp(void);
+extern "C" void NHTTPi_getUrlEncodedSize(void);
+extern "C" void NHTTPi_getUrlEncodedSize2(void);
+extern "C" void NHTTPi_encodeUrlChar(void);
+extern "C" void NHTTPi_strToHex(void);
+extern "C" void NHTTPi_strToInt(void);
+extern "C" s32 NHTTPi_intToStr(...);
+extern "C" void NHTTPi_strtonum(void);
+extern "C" s32 NHTTPi_alloc(...);
+extern "C" s32 NHTTPi_free(...);
+extern "C" s32 NHTTPi_SetError(...);
+extern "C" void NHTTPi_GetSSLError(void);
+extern "C" s32 NHTTPi_getHdrFromList(...);
+extern "C" s32 NHTTPi_setReqQueue(...);
+extern "C" s32 NHTTPi_freeReqQueue(...);
+extern "C" s32 NHTTPi_allFreeReqQueue(...);
+extern "C" s32 NHTTPi_getReqFromReqQueue(...);
+extern "C" void setupGetcharFromHdrRecvBuf(void);
+extern "C" void getcharFromHdrRecvBuf(void);
+extern "C" void NHTTPi_findNextLineHdrRecvBuf(void);
+extern "C" void NHTTPi_NotifyCompletion(void);
+extern "C" s32 NHTTPi_Request2Connection(...);
+extern "C" void NHTTPi_Response2Connection(void);
+extern "C" void NHTTPi_PostSendCallback(void);
+extern "C" void NHTTPi_BufferFullCallback(void);
+extern "C" void NHTTPi_ReceivedCallback(void);
+extern "C" void NHTTPi_CompleteCallback(void);
+extern "C" s32 NHTTPi_GetSystemInfoP(...);
+extern "C" s32 NHTTPi_GetBgnEndInfoP(...);
+extern "C" s32 NHTTPi_GetListInfoP(...);
+extern "C" s32 NHTTPi_GetReqInfoP(...);
+extern "C" s32 NHTTPi_GetThreadInfoP(...);
+extern "C" s32 NHTTPi_GetMutexInfoP(...);
+extern "C" void NHTTPi_SetVirtualContentLength(void);
+extern "C" s32 NHTTPi_lockReqList(...);
+extern "C" s32 NHTTPi_unlockReqList(...);
+extern "C" void NHTTPi_DeleteConnection(void);
 
-extern "C" s32 func_ov014_02114d2c(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 NHTTPi_skipSpaceHdrRecvBuf(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 a;
     s32 b;
     if (arg1 < arg2) {
-        ((s32 (*)(...))func_ov014_02114b44)(arg0, arg1, &a, &b);
+        ((s32 (*)(...))setupGetcharFromHdrRecvBuf)(arg0, arg1, &a, &b);
         for (; arg1 < arg2; arg1++) {
-            if (((s32 (*)(...))func_ov014_02114b9c)(arg0, &a, &b) != 0x20)
+            if (((s32 (*)(...))getcharFromHdrRecvBuf)(arg0, &a, &b) != 0x20)
                 return arg1;
         }
     }
     return -1;
 }
 
-extern "C" asm void func_ov014_02114d9c(void)
+extern "C" asm void NHTTPi_compareTokenN_HdrRecvBuf(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -160,11 +160,11 @@ extern "C" asm void func_ov014_02114d9c(void)
     bge @L_02114e74
     add r2, sp, #4
     add r3, sp, #0
-    bl func_ov014_02114b44
+    bl setupGetcharFromHdrRecvBuf
     mov r0, r10
     add r1, sp, #4
     add r2, sp, #0
-    bl func_ov014_02114b9c
+    bl getcharFromHdrRecvBuf
     mov r5, #1
     sub r6, r4, #1
     mov r4, #0
@@ -181,7 +181,7 @@ extern "C" asm void func_ov014_02114d9c(void)
     mov r0, r10
     add r1, sp, #4
     add r2, sp, #0
-    bl func_ov014_02114b9c
+    bl getcharFromHdrRecvBuf
     add r9, r9, #1
     add r8, r8, #1
 @L_02114e24:
@@ -211,7 +211,7 @@ extern "C" asm void func_ov014_02114d9c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm s32 func_ov014_02114e80(...)
+extern "C" asm s32 NHTTPi_loadFromHdrRecvBuf(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r4, r0
@@ -233,7 +233,7 @@ extern "C" asm s32 func_ov014_02114e80(...)
     mov r0, r8
     mov r2, r5
     add r1, r1, r7
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     add r7, r7, r5
     sub r6, r6, r5
     add r8, r8, r5
@@ -264,7 +264,7 @@ extern "C" asm s32 func_ov014_02114e80(...)
     mov r0, r8
     mov r2, r5
     add r1, r1, r7
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     add r0, r7, r5
     and r7, r0, r9
     subs r6, r6, r5
@@ -279,20 +279,20 @@ extern "C" asm s32 func_ov014_02114e80(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" s32 func_ov014_02114f6c(u8 *arg0, s32 arg1)
+extern "C" s32 NHTTPi_isRecvBufFull(u8 *arg0, s32 arg1)
 {
     return ((u32)*(s32 *)(arg0 + 0x1C) <= (u32)arg1 ? 1 : 0);
 }
 
-extern "C" void func_ov014_02114f80(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
+extern "C" void NHTTPi_RecvBuf(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4)
 {
     s32 t0;
     t0 = (*(s32 *)(*(u8 * *)(arg1 + 0x2C) + 0x28) + arg3);
-    func_ov014_02113cd4(arg0, (s32)arg1, arg2, t0, (*(s32 *)(*(u8 * *)(arg1 + 0x2C) + 0x1C) - arg3), arg4);
+    NHTTPi_SocRecv(arg0, (s32)arg1, arg2, t0, (*(s32 *)(*(u8 * *)(arg1 + 0x2C) + 0x1C) - arg3), arg4);
     return;
 }
 
-extern "C" s32 func_ov014_02114fb4(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+extern "C" s32 NHTTPi_RecvBufN(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
     s32 r1;
     u8 *r4;
@@ -301,7 +301,7 @@ extern "C" s32 func_ov014_02114fb4(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 a
     s32 t0;
     s32 t1;
     t0 = *(s32 *)(arg1 + 0x2C);
-    v0 = func_ov014_02114f6c((u8 *)t0, arg3);
+    v0 = NHTTPi_isRecvBufFull((u8 *)t0, arg3);
     r4 = (u8 *)t0;
     if (v0 != 0) {
         return -0x3EB;
@@ -311,17 +311,17 @@ extern "C" s32 func_ov014_02114fb4(s32 arg0, u8 *arg1, s32 arg2, s32 arg3, s32 a
             r1 = arg4;
         }
         t1 = (*(s32 *)(r4 + 0x28) + arg3);
-        v1 = func_ov014_02113cd4(arg0, (s32)arg1, arg2, t1, r1, arg5);
+        v1 = NHTTPi_SocRecv(arg0, (s32)arg1, arg2, t1, r1, arg5);
         return v1;
     }
 }
 
-extern "C" void func_ov014_02115030(u8 *arg0)
+extern "C" void NHTTPi_InitRequestInfo(u8 *arg0)
 {
     *(s32 *)(arg0) = 0;
 }
 
-extern "C" asm void func_ov014_0211503c(void)
+extern "C" asm void NHTTPi_CreateRequest(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x208
@@ -342,29 +342,29 @@ extern "C" asm void func_ov014_0211503c(void)
     mov r5, #0x258
     mov r0, r5
     mov r1, r4
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     movs r7, r0
     bne @L_0211509c
 @L_0211508c:
     ldr r0, [sp]
     mov r1, #1
 @L_02115094:
-    bl func_ov014_021144ec
+    bl NHTTPi_SetError
     b @L_021154c8
 @L_0211509c:
     mov r1, r5
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     rsb r9, r4, #0x440
     mov r0, r9
     mov r1, r4
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     str r0, [r7, #0x2c]
     cmp r0, #0
     bne @L_021150c4
     b @L_0211508c
 @L_021150c4:
     mov r1, r9
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     ldr r0, [r7, #0x2c]
     ldr r2, [sp, #0x230]
     str r6, [r0, #0x28]
@@ -378,7 +378,7 @@ extern "C" asm void func_ov014_0211503c(void)
     mov r0, r8
     sub r1, r5, #0x59
     str r3, [r2, #0x30]
-    bl func_ov014_02113e64
+    bl NHTTPi_strnlen
     mov r5, r0
     cmp r5, #7
     bgt @L_02115114
@@ -387,18 +387,18 @@ extern "C" asm void func_ov014_0211503c(void)
     add r6, sp, #8
     mov r1, #0x200
     mov r0, r6
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     mov r0, r6
     mov r1, r8
     mov r2, r5
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     mov r8, #7
     mov r0, #0x50
     str r0, [r7, #0x20]
     ldr r1, =data_ov014_02125d00
     mov r0, r6
     mov r2, r8
-    bl func_ov014_02113e90
+    bl NHTTPi_strnicmp
     cmp r0, #0
     beq @L_02115190
     mov r8, #8
@@ -406,7 +406,7 @@ extern "C" asm void func_ov014_0211503c(void)
     mov r0, r6
     mov r2, r8
     mov r6, #1
-    bl func_ov014_02113e90
+    bl NHTTPi_strnicmp
     cmp r0, #0
     beq @L_02115184
 @L_02115178:
@@ -442,7 +442,7 @@ extern "C" asm void func_ov014_0211503c(void)
     sub r0, r5, #1
     mov r1, r11
     add r0, r6, r0
-    bl func_ov014_0211409c
+    bl NHTTPi_strToHex
     mov r0, r0, lsl #0x18
     movs r0, r0, asr #0x18
     sub r10, r10, #1
@@ -475,18 +475,18 @@ extern "C" asm void func_ov014_0211503c(void)
     add r0, r8, r4
     sub r5, r0, r9, lsl #1
     add r0, r5, #1
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     str r0, [r7, #0x24]
     cmp r0, #0
     bne @L_02115264
     b @L_0211508c
 @L_02115264:
     add r1, r5, #1
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     ldr r0, [r7, #0x24]
     add r1, sp, #8
     mov r2, r8
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     mov r9, #0
     mov r5, r9
     mov r10, r9
@@ -502,7 +502,7 @@ extern "C" asm void func_ov014_0211503c(void)
     sub r0, r9, #1
     add r0, r6, r0
     mov r1, #2
-    bl func_ov014_0211409c
+    bl NHTTPi_strToHex
     mov r0, r0, lsl #0x18
     mov r1, r0, asr #0x18
     ldr r0, [r7, #0x24]
@@ -583,7 +583,7 @@ extern "C" asm void func_ov014_0211503c(void)
     ldr r1, [r7, #0x18]
     add r0, r0, r2
     sub r1, r1, r2
-    bl func_ov014_02114360
+    bl NHTTPi_strtonum
     cmp r0, #0
     ldrlt r0, [r7, #0x20]
     blt @L_021153fc
@@ -604,14 +604,14 @@ extern "C" asm void func_ov014_0211503c(void)
     sub r5, r0, r2
     mov r1, #4
     add r0, r5, #1
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     str r0, [r7, #0x28]
     cmp r0, #0
     bne @L_0211543c
     b @L_0211508c
 @L_0211543c:
     add r1, r5, #1
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     ldr r0, [r7, #8]
     mov r3, #8
     cmp r0, #0
@@ -620,11 +620,11 @@ extern "C" asm void func_ov014_0211503c(void)
     ldr r0, [r7, #0x28]
     mov r2, r5
     add r1, r1, r3
-    bl func_ov014_02113e40
-    ldr r1, =data_ov014_02123fb4
+    bl NHTTPi_memcpy
+    ldr r1, =NHTTPi_strMultipartBound
     add r0, r7, #0x38
     mov r2, #0x14
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     ldr r0, [sp, #4]
     ldr r2, [sp, #0x234]
     str r0, [r7, #0x1c]
@@ -651,47 +651,47 @@ extern "C" asm void func_ov014_0211503c(void)
     ldr r0, [r7, #0x24]
     cmp r0, #0
     beq @L_021154e0
-    bl func_ov014_021144c8
+    bl NHTTPi_free
 @L_021154e0:
     ldr r0, [r7, #0x28]
     cmp r0, #0
     beq @L_021154f0
-    bl func_ov014_021144c8
+    bl NHTTPi_free
 @L_021154f0:
     ldr r0, [r7, #0x2c]
     cmp r0, #0
     beq @L_02115500
-    bl func_ov014_021144c8
+    bl NHTTPi_free
 @L_02115500:
     mov r0, r7
-    bl func_ov014_021144c8
+    bl NHTTPi_free
 @L_02115508:
     mov r0, #0
     add sp, sp, #0x208
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02115524(u8 *arg0, u8 *arg1)
+extern "C" s32 NHTTPi_DestroyRequest(u8 *arg0, u8 *arg1)
 {
     s32 r4;
     s32 v0;
     s32 v1;
     s32 v3;
     s32 t0;
-    v0 = func_ov014_0211894c((s32)arg0, arg1);
-    v1 = func_ov014_021185d4(v0, arg1);
+    v0 = NHTTPi_GetMutexInfoP((s32)arg0, arg1);
+    v1 = NHTTPi_Request2Connection(v0, arg1);
     arg0 = (u8 *)v1;
     r4 = v0;
     if ((s32)arg0 != 0) {
         *(s32 *)(arg0 + 0x14) = 0;
     }
     t0 = *(s32 *)(arg1 + 0x2C);
-    func_ov014_021144c8(t0);
-    v3 = func_ov014_021155a4((u8 *)r4, arg1);
+    NHTTPi_free(t0);
+    v3 = NHTTPi_destroyRequestObject((u8 *)r4, arg1);
     return v3;
 }
 
-extern "C" s32 func_ov014_02115560(u8 *arg0)
+extern "C" s32 deleteStrList(u8 *arg0)
 {
     s32 r4;
     u8 *r6;
@@ -706,11 +706,11 @@ extern "C" s32 func_ov014_02115560(u8 *arg0)
         arg0 = (u8 *)*(s32 *)(r6);
         if ((s32)r6 != (s32)arg0) {
             t0 = *(s32 *)(arg0);
-            v0 = func_ov014_021144c8();
+            v0 = NHTTPi_free();
             *(s32 *)(r6) = t0;
             arg0 = (u8 *)v0;
         } else {
-            v1 = func_ov014_021144c8((s32)r6);
+            v1 = NHTTPi_free((s32)r6);
             arg0 = (u8 *)v1;
             r6 = (u8 *)r4;
         }
@@ -718,31 +718,31 @@ extern "C" s32 func_ov014_02115560(u8 *arg0)
     return (s32)arg0;
 }
 
-extern "C" s32 func_ov014_021155a4(u8 *arg0, u8 *arg1)
+extern "C" s32 NHTTPi_destroyRequestObject(u8 *arg0, u8 *arg1)
 {
     s32 v0;
     s32 t0;
     s32 t1;
     s32 t2;
     s32 t3;
-    v0 = func_ov014_021185d4((s32)arg0, arg1);
+    v0 = NHTTPi_Request2Connection((s32)arg0, arg1);
     arg0 = (u8 *)v0;
     if ((s32)arg0 != 0) {
         *(s32 *)(arg0 + 0x10) = 0;
     }
     t0 = *(s32 *)(arg1 + 0x30);
-    func_ov014_02115560((u8 *)t0);
+    deleteStrList((u8 *)t0);
     t1 = *(s32 *)(arg1 + 0x34);
-    func_ov014_02115560((u8 *)t1);
+    deleteStrList((u8 *)t1);
     t2 = *(s32 *)(arg1 + 0x24);
-    func_ov014_021144c8(t2);
+    NHTTPi_free(t2);
     t3 = *(s32 *)(arg1 + 0x28);
-    func_ov014_021144c8(t3);
-    func_ov014_021144c8((s32)arg1);
+    NHTTPi_free(t3);
+    NHTTPi_free((s32)arg1);
     return 1;
 }
 
-extern "C" s32 func_ov014_021155ec(s32 arg0, u8 *arg1)
+extern "C" s32 NHTTPi_SendRequestAsync(s32 arg0, u8 *arg1)
 {
     s32 r4;
     s32 r5;
@@ -754,9 +754,9 @@ extern "C" s32 func_ov014_021155ec(s32 arg0, u8 *arg1)
     s32 v2;
     s32 v5;
     s32 v6;
-    v0 = func_ov014_02118930(arg0, (s32)arg1);
-    v1 = func_ov014_02118944(arg0);
-    v2 = func_ov014_0211894c(arg0);
+    v0 = NHTTPi_GetBgnEndInfoP(arg0, (s32)arg1);
+    v1 = NHTTPi_GetThreadInfoP(arg0);
+    v2 = NHTTPi_GetMutexInfoP(arg0);
     r7 = arg0;
     r8 = arg1;
     r5 = v0;
@@ -765,25 +765,25 @@ extern "C" s32 func_ov014_021155ec(s32 arg0, u8 *arg1)
     arg1 = (u8 *)*(s32 *)(arg1 + 0x4);
     r6 = v2;
     if ((s32)arg1 != 0) {
-        func_ov014_021144ec(r5, 0xB);
+        NHTTPi_SetError(r5, 0xB);
         return (0xB - 0xC);
     } else {
-        func_ov014_021189c0(arg0, (s32)arg1);
-        v5 = func_ov014_02118934(r7);
-        v6 = func_ov014_0211496c(v5, (s32)r8);
+        NHTTPi_lockReqList(arg0, (s32)arg1);
+        v5 = NHTTPi_GetListInfoP(r7);
+        v6 = NHTTPi_setReqQueue(v5, (s32)r8);
         r7 = v6;
         if (r7 >= 0) {
             *(s32 *)(r8 + 0x4) = 1;
-            func_ov014_02113948(r4, 1);
+            NHTTPi_kickCommThread(r4, 1);
         } else {
-            func_ov014_021144ec(r5, 1);
+            NHTTPi_SetError(r5, 1);
         }
-        func_ov014_021189cc(r6);
+        NHTTPi_unlockReqList(r6);
         return r7;
     }
 }
 
-extern "C" s32 func_ov014_02115684(s32 arg0, s32 arg1)
+extern "C" s32 NHTTPi_CancelRequestAsync(s32 arg0, s32 arg1)
 {
     s32 r4;
     s32 r5;
@@ -797,10 +797,10 @@ extern "C" s32 func_ov014_02115684(s32 arg0, s32 arg1)
     s32 t2;
     s32 t3;
     r4 = 0;
-    v0 = func_ov014_0211893c(arg0, arg1);
-    v1 = func_ov014_0211894c(arg0);
+    v0 = NHTTPi_GetReqInfoP(arg0, arg1);
+    v1 = NHTTPi_GetMutexInfoP(arg0);
     t0 = *(s32 *)(((u8 *)v0));
-    func_ov014_021189c0();
+    NHTTPi_lockReqList();
     r6 = (u8 *)t0;
     r5 = v1;
     if ((((s32)r6 != 0 && *(s32 *)(r6 + 0x8) == arg1) && *(s32 *)(*(u8 * *)(r6 + 0xC)) == 0)) {
@@ -809,18 +809,18 @@ extern "C" s32 func_ov014_02115684(s32 arg0, s32 arg1)
         t2 = *(s32 *)(r6 + 0xC);
         t3 = *(s32 *)(r6 + 0x10);
         r4 = 1;
-        func_ov014_02113da8(r5, t2, t3);
+        NHTTPi_SocCancel(r5, t2, t3);
     }
     if (r4 == 0) {
-        v4 = func_ov014_02118934(arg0);
-        v5 = func_ov014_02114a50(v4, r5, arg1);
+        v4 = NHTTPi_GetListInfoP(arg0);
+        v5 = NHTTPi_freeReqQueue(v4, r5, arg1);
         r4 = v5;
     }
-    func_ov014_021189cc(r5);
+    NHTTPi_unlockReqList(r5);
     return r4;
 }
 
-extern "C" s32 func_ov014_0211571c(s32 arg0)
+extern "C" s32 NHTTPi_cancelAllRequests(s32 arg0)
 {
     s32 r4;
     s32 r5;
@@ -833,11 +833,11 @@ extern "C" s32 func_ov014_0211571c(s32 arg0)
     u8 *t1;
     s32 t2;
     s32 t3;
-    v0 = func_ov014_0211893c(arg0);
-    v1 = func_ov014_02118934(arg0);
-    v2 = func_ov014_0211894c(arg0);
+    v0 = NHTTPi_GetReqInfoP(arg0);
+    v1 = NHTTPi_GetListInfoP(arg0);
+    v2 = NHTTPi_GetMutexInfoP(arg0);
     t0 = *(s32 *)(((u8 *)v0));
-    func_ov014_021189c0();
+    NHTTPi_lockReqList();
     r4 = v2;
     r5 = v1;
     r6 = (u8 *)t0;
@@ -846,39 +846,39 @@ extern "C" s32 func_ov014_0211571c(s32 arg0)
         *(s32 *)(t1) = 1;
         t2 = *(s32 *)(r6 + 0xC);
         t3 = *(s32 *)(r6 + 0x10);
-        func_ov014_02113da8(r4, t2, t3);
+        NHTTPi_SocCancel(r4, t2, t3);
     }
-    func_ov014_02114b00(r5, r4);
-    v6 = func_ov014_021189cc(r4);
+    NHTTPi_allFreeReqQueue(r5, r4);
+    v6 = NHTTPi_unlockReqList(r4);
     return v6;
 }
 
-extern "C" void func_ov014_02115798(s32 arg0, u8 *arg1)
+extern "C" void NHTTPi_DestroyResponse(s32 arg0, u8 *arg1)
 {
     u8 *p = *(u8 **)(arg1 + 0x34);
     u8 *q;
     while (p != 0) {
         u8 *n = *(u8 **)p;
-        ((s32 (*)(...))func_ov014_021144c8)(p);
+        ((s32 (*)(...))NHTTPi_free)(p);
         p = n;
         *(u8 **)(arg1 + 0x34) = n;
     }
     if (*(s32 *)(arg1 + 0x20) != 0)
-        ((s32 (*)(...))func_ov014_021144c8)(*(s32 *)(arg1 + 0x20));
+        ((s32 (*)(...))NHTTPi_free)(*(s32 *)(arg1 + 0x20));
     if (*(s32 *)(arg1 + 0x24) != 0)
-        ((s32 (*)(...))func_ov014_021144c8)(*(s32 *)(arg1 + 0x24));
+        ((s32 (*)(...))NHTTPi_free)(*(s32 *)(arg1 + 0x24));
     if (*(s32 *)(arg1 + 0x30) != 0) {
-        ((s32 (*)(...))*(s32 *)(arg1 + 0x30))(*(s32 *)(arg1 + 0x28), func_ov014_021144c8, *(s32 *)(arg1 + 0x438));
+        ((s32 (*)(...))*(s32 *)(arg1 + 0x30))(*(s32 *)(arg1 + 0x28), NHTTPi_free, *(s32 *)(arg1 + 0x438));
         *(s32 *)(arg1 + 0x28) = 0;
         *(s32 *)(arg1 + 0x1C) = 0;
     }
-    q = (u8 *)((s32 (*)(...))func_ov014_021185e4)(arg0, arg1);
+    q = (u8 *)((s32 (*)(...))NHTTPi_Response2Connection)(arg0, arg1);
     if (q != 0)
         *(s32 *)(q + 0x14) = 0;
-    ((s32 (*)(...))func_ov014_021144c8)(arg1);
+    ((s32 (*)(...))NHTTPi_free)(arg1);
 }
 
-extern "C" asm s32 func_ov014_02115838(...)
+extern "C" asm s32 NHTTPi_getHeaderValue(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -893,7 +893,7 @@ extern "C" asm s32 func_ov014_02115838(...)
     mov r3, r5
     mov r1, #0xc
     str r6, [sp]
-    bl func_ov014_02114c10
+    bl NHTTPi_findNextLineHdrRecvBuf
     mov r7, r0
     cmp r7, #0
     ble @L_02115954
@@ -904,7 +904,7 @@ extern "C" asm s32 func_ov014_02115838(...)
     mov r1, r7
     mov r3, r5
     str r6, [sp]
-    bl func_ov014_02114c10
+    bl NHTTPi_findNextLineHdrRecvBuf
     ldr r2, [sp, #8]
     mov r8, r0
     cmp r2, #0
@@ -913,7 +913,7 @@ extern "C" asm s32 func_ov014_02115838(...)
     mov r1, r7
     mov r3, r9
     str r4, [sp]
-    bl func_ov014_02114d9c
+    bl NHTTPi_compareTokenN_HdrRecvBuf
     cmp r0, #0
     bne @L_02115948
     ldr r1, [sp, #8]
@@ -925,7 +925,7 @@ extern "C" asm s32 func_ov014_02115838(...)
     mov r0, r10
     mov r3, r4
     str r6, [sp]
-    bl func_ov014_02114c10
+    bl NHTTPi_findNextLineHdrRecvBuf
     cmp r0, #0
     ldrle r4, [r10]
     ble @L_02115910
@@ -940,7 +940,7 @@ extern "C" asm s32 func_ov014_02115838(...)
     mov r0, r10
     mov r2, r4
     add r1, r1, #1
-    bl func_ov014_02114d2c
+    bl NHTTPi_skipSpaceHdrRecvBuf
     cmp r0, #0
     movlt r0, r4
     str r0, [r11]
@@ -961,7 +961,7 @@ extern "C" asm s32 func_ov014_02115838(...)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02115960(u8 *arg0, s32 arg1, u8 *arg2)
+extern "C" s32 NHTTP_GetResponseHeaderField(u8 *arg0, s32 arg1, u8 *arg2)
 {
     s32 local[1];
     u8 *r5;
@@ -981,14 +981,14 @@ extern "C" s32 func_ov014_02115960(u8 *arg0, s32 arg1, u8 *arg2)
         return -1;
     } else {
         if (*(s32 *)(r5 + 0x24) != 0) {
-            func_ov014_021144c8();
+            NHTTPi_free();
             *(s32 *)(r5 + 0x24) = 0;
         }
-        v1 = func_ov014_02115838((s32)r5, arg1, (s32)((u8 *)local));
+        v1 = NHTTPi_getHeaderValue((s32)r5, arg1, (s32)((u8 *)local));
         r7 = v1;
         if (r7 >= 0) {
             r6 = 4;
-            v2 = func_ov014_02114498((r7 + 1), 4);
+            v2 = NHTTPi_alloc((r7 + 1), 4);
             *(s32 *)(r5 + 0x24) = v2;
             arg0 = (u8 *)v2;
             if ((s32)arg0 == 0) {
@@ -997,16 +997,16 @@ extern "C" s32 func_ov014_02115960(u8 *arg0, s32 arg1, u8 *arg2)
                 *(u8 *)(arg0 + r7) = 0;
                 t0 = *(s32 *)(r5 + 0x24);
                 t1 = *(s32 *)(((u8 *)local));
-                func_ov014_02114e80((s32)r5, t0, t1, r7);
+                NHTTPi_loadFromHdrRecvBuf((s32)r5, t0, t1, r7);
                 t2 = *(s32 *)(r5 + 0x24);
                 *(s32 *)(arg2) = t2;
                 return r7;
             }
         } else {
-            v4 = func_ov014_02113e70((s32)((u8 *)&data_ov014_02125d14), arg1);
+            v4 = NHTTPi_strcmp((s32)((u8 *)&data_ov014_02125d14), arg1);
             if (v4 == 0) {
                 r6 = 4;
-                v5 = func_ov014_02114498(4, 4);
+                v5 = NHTTPi_alloc(4, 4);
                 *(s32 *)(r5 + 0x24) = v5;
                 arg0 = (u8 *)v5;
                 if ((s32)arg0 == 0) {
@@ -1014,7 +1014,7 @@ extern "C" s32 func_ov014_02115960(u8 *arg0, s32 arg1, u8 *arg2)
                 } else {
                     *(u8 *)(arg0 + 0x3) = 0;
                     t3 = *(s32 *)(r5 + 0x24);
-                    func_ov014_02114e80((s32)r5, t3, 9, 3);
+                    NHTTPi_loadFromHdrRecvBuf((s32)r5, t3, 9, 3);
                     t4 = *(s32 *)(r5 + 0x24);
                     *(s32 *)(arg2) = t4;
                     return 3;
@@ -1026,27 +1026,27 @@ extern "C" s32 func_ov014_02115960(u8 *arg0, s32 arg1, u8 *arg2)
     }
 }
 
-extern "C" void func_ov014_02115a6c(s32 arg0)
+extern "C" void NHTTPi_InitThreadInfo(s32 arg0)
 {
-    func_ov014_02115a84((u8 *)arg0);
+    NHTTPi_IsCreateCommThreadMessageQueueOff((u8 *)arg0);
 }
 
-extern "C" void func_ov014_02115a78(u8 *arg0)
+extern "C" void NHTTPi_IsCreateCommThreadMessageQueueOn(u8 *arg0)
 {
     *(s32 *)(arg0 + 0xEC) = 1;
 }
 
-extern "C" void func_ov014_02115a84(u8 *arg0)
+extern "C" void NHTTPi_IsCreateCommThreadMessageQueueOff(u8 *arg0)
 {
     *(s32 *)(arg0 + 0xEC) = 0;
 }
 
-extern "C" s32 func_ov014_02115a90(u8 *arg0)
+extern "C" s32 NHTTPi_IsCreateCommThreadMessageQueue(u8 *arg0)
 {
     return *(s32 *)(arg0 + 0xEC);
 }
 
-extern "C" s32 func_ov014_02115a98(u8 *arg0, s32 arg1)
+extern "C" s32 NHTTPi_CheckHeaderEnd(u8 *arg0, s32 arg1)
 {
     s32 r2;
     r2 = *(s8 *)(arg0 + ((arg1 - 2) & 3));
@@ -1066,7 +1066,7 @@ extern "C" s32 func_ov014_02115a98(u8 *arg0, s32 arg1)
     }
 }
 
-extern "C" asm void func_ov014_02115b1c(void)
+extern "C" asm void NHTTPi_SaveBuf(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -1094,7 +1094,7 @@ extern "C" asm void func_ov014_02115b1c(void)
     movle r5, r4
     mov r2, r5
     add r0, r9, r0
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     ldr r0, [r7]
     add r6, r6, r5
     add r0, r0, r5
@@ -1107,7 +1107,7 @@ extern "C" asm void func_ov014_02115b1c(void)
     mov r2, r9
     mov r3, #0x4000
     str r11, [sp]
-    bl func_ov014_02113d60
+    bl NHTTPi_SocSend
     cmp r0, #0
     addle sp, sp, #8
     ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1123,7 +1123,7 @@ extern "C" asm void func_ov014_02115b1c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02115be4(void)
+extern "C" asm void NHTTPi_SkipLineBuf(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0xc
@@ -1144,7 +1144,7 @@ extern "C" asm void func_ov014_02115be4(void)
     mov r2, r8
     add r3, r4, r3
     stmia sp, {r5, r11}
-    bl func_ov014_02113cd4
+    bl NHTTPi_SocRecv
     cmp r0, #0
     addle sp, sp, #0xc
     ldmleia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1164,7 +1164,7 @@ extern "C" asm void func_ov014_02115be4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02115c70(void)
+extern "C" asm void NHTTPi_GetPostContentlength(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r6, [sp, #0x28]
@@ -1173,7 +1173,7 @@ extern "C" asm void func_ov014_02115c70(void)
     mov r8, r2
     mov r7, r3
     mov r4, #0
-    bl func_ov014_021185d4
+    bl NHTTPi_Request2Connection
     movs r5, r0
     moveq r0, r4
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1189,7 +1189,7 @@ extern "C" asm void func_ov014_02115c70(void)
     mov r2, r8
     mov r3, r4
     str r11, [r5, #0x28]
-    bl func_ov014_02118668
+    bl NHTTPi_PostSendCallback
     cmp r0, #0
     movlt r0, r11
     ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1212,7 +1212,7 @@ extern "C" asm void func_ov014_02115c70(void)
     add r0, r0, r1
     b @L_02115d28
 @L_02115d1c:
-    bl func_ov014_02113f9c
+    bl NHTTPi_getUrlEncodedSize2
     ldr r1, [r7]
     add r0, r1, r0
 @L_02115d28:
@@ -1223,7 +1223,7 @@ extern "C" asm void func_ov014_02115c70(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02115d38(void)
+extern "C" asm void NHTTPi_SendPostData(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
@@ -1237,7 +1237,7 @@ extern "C" asm void func_ov014_02115d38(void)
     mov r10, r1
     str r3, [sp, #0xc]
     str r2, [sp, #0x14]
-    bl func_ov014_021185d4
+    bl NHTTPi_Request2Connection
     str r0, [sp, #0x10]
     cmp r0, #0
     addeq sp, sp, #0x1c
@@ -1259,7 +1259,7 @@ extern "C" asm void func_ov014_02115d38(void)
     ldr r0, [sp, #8]
     ldr r2, [sp, #0xc]
     ldr r3, [sp, #0x14]
-    bl func_ov014_02118668
+    bl NHTTPi_PostSendCallback
     cmp r0, #0
     addlt sp, sp, #0x1c
     movlt r0, #3
@@ -1291,7 +1291,7 @@ extern "C" asm void func_ov014_02115d38(void)
     mov r2, r9
     mov r3, r8
     str r5, [sp, #4]
-    bl func_ov014_02115b1c
+    bl NHTTPi_SaveBuf
     cmp r0, #0
     addlt sp, sp, #0x1c
     movlt r0, #1
@@ -1307,17 +1307,17 @@ extern "C" asm void func_ov014_02115d38(void)
 @L_02115e68:
     mov r0, r4
     mov r1, #3
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     ldrsb r1, [r6, r7]
     mov r0, r4
-    bl func_ov014_02114010
+    bl NHTTPi_encodeUrlChar
     str r4, [sp]
     str r0, [sp, #4]
     mov r0, r10
     mov r1, r11
     mov r2, r9
     mov r3, r8
-    bl func_ov014_02115b1c
+    bl NHTTPi_SaveBuf
     cmp r0, #0
     addlt sp, sp, #0x1c
     movlt r0, #1
@@ -1335,7 +1335,7 @@ extern "C" asm void func_ov014_02115d38(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02115ed4(void)
+extern "C" asm void NHTTPi_BufFull(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r1
@@ -1343,7 +1343,7 @@ extern "C" asm void func_ov014_02115ed4(void)
     mov r6, r0
     mov r0, r5
     mov r4, #0
-    bl func_ov014_02114f6c
+    bl NHTTPi_isRecvBufFull
     ldr r1, [r5, #0x1c]
     cmp r1, #0
     ldrne r1, [r5, #0x28]
@@ -1354,11 +1354,11 @@ extern "C" asm void func_ov014_02115ed4(void)
 @L_02115f0c:
     mov r0, r6
     mov r1, r5
-    bl func_ov014_021185e4
+    bl NHTTPi_Response2Connection
     movs r1, r0
     beq @L_02115f54
     mov r0, r6
-    bl func_ov014_021186f8
+    bl NHTTPi_BufferFullCallback
     ldr r0, [r5, #0x28]
     cmp r0, #0
     ldrne r0, [r5, #0x1c]
@@ -1366,7 +1366,7 @@ extern "C" asm void func_ov014_02115ed4(void)
     beq @L_02115f54
     ldr r1, [r5, #4]
     mov r0, r5
-    bl func_ov014_02114f6c
+    bl NHTTPi_isRecvBufFull
     cmp r0, #0
     b @L_02115f50
 @L_02115f50:
@@ -1376,22 +1376,22 @@ extern "C" asm void func_ov014_02115ed4(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm s32 func_ov014_02115f5c(...)
+extern "C" asm s32 NHTTPi_SendData(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #8
     mov r9, r0
     mov r8, r1
     mov r7, r2
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r6, r0
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r5, r0
     mov r0, r6
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     mov r4, r0
     mov r0, r6
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r0, [r0]
     cmp r7, #0
     ldr r0, [r0, #0xc]
@@ -1403,7 +1403,7 @@ extern "C" asm s32 func_ov014_02115f5c(...)
     ldr r2, [r5, #0xc]
     add r1, r4, #0x100
     add r3, r9, #0x324
-    bl func_ov014_02115b1c
+    bl NHTTPi_SaveBuf
     cmp r0, #0
     addlt sp, sp, #8
     movlt r0, #1
@@ -1414,7 +1414,7 @@ extern "C" asm s32 func_ov014_02115f5c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" s32 func_ov014_02115fe4(s32 arg0)
+extern "C" s32 NHTTPi_SendProxyAuthorization(s32 arg0)
 {
     s32 v1;
     s32 v2;
@@ -1422,23 +1422,23 @@ extern "C" s32 func_ov014_02115fe4(s32 arg0)
     s32 v4;
     u8 *t0;
     s32 t1;
-    func_ov014_021188fc(arg0);
-    v1 = func_ov014_0211893c();
+    NHTTPi_GetSystemInfoP(arg0);
+    v1 = NHTTPi_GetReqInfoP();
     if (*(s32 *)(*(u8 * *)(*(u8 * *)(((u8 *)v1)) + 0xC) + 0x244) == 0)
         return 0;
     t0 = *(u8 * *)(*(u8 * *)(((u8 *)v1)) + 0xC);
-    v2 = func_ov014_02115f5c(arg0, (s32)data_ov014_02125d24, 0x1B);
+    v2 = NHTTPi_SendData(arg0, (s32)data_ov014_02125d24, 0x1B);
     if (v2 != 0)
         return v2;
     t1 = *(s32 *)(t0 + 0x244);
-    v3 = func_ov014_02115f5c(arg0, (t0 + 0x1E8), t1);
+    v3 = NHTTPi_SendData(arg0, (t0 + 0x1E8), t1);
     if (v3 != 0)
         return v3;
-    v4 = func_ov014_02115f5c(arg0, (s32)data_ov014_02125d40, 2);
+    v4 = NHTTPi_SendData(arg0, (s32)data_ov014_02125d40, 2);
     return (v4 == 0 ? 0 : v4);
 }
 
-extern "C" s32 func_ov014_02116060(s32 arg0)
+extern "C" s32 NHTTPi_SendBasicAuthorization(s32 arg0)
 {
     s32 v1;
     s32 v2;
@@ -1446,23 +1446,23 @@ extern "C" s32 func_ov014_02116060(s32 arg0)
     s32 v4;
     u8 *t0;
     s32 t1;
-    func_ov014_021188fc(arg0);
-    v1 = func_ov014_0211893c();
+    NHTTPi_GetSystemInfoP(arg0);
+    v1 = NHTTPi_GetReqInfoP();
     if (*(s32 *)(*(u8 * *)(*(u8 * *)(((u8 *)v1)) + 0xC) + 0xA8) == 0)
         return 0;
     t0 = *(u8 * *)(*(u8 * *)(((u8 *)v1)) + 0xC);
-    v2 = func_ov014_02115f5c(arg0, (s32)data_ov014_02125d44, 0x15);
+    v2 = NHTTPi_SendData(arg0, (s32)data_ov014_02125d44, 0x15);
     if (v2 != 0)
         return v2;
     t1 = *(s32 *)(t0 + 0xA8);
-    v3 = func_ov014_02115f5c(arg0, (t0 + 0x4C), t1);
+    v3 = NHTTPi_SendData(arg0, (t0 + 0x4C), t1);
     if (v3 != 0)
         return v3;
-    v4 = func_ov014_02115f5c(arg0, (s32)data_ov014_02125d40, 2);
+    v4 = NHTTPi_SendData(arg0, (s32)data_ov014_02125d40, 2);
     return (v4 == 0 ? 0 : v4);
 }
 
-extern "C" s32 func_ov014_021160dc(u8 *arg0)
+extern "C" s32 NHTTPi_SendProxyConnectMethod(u8 *arg0)
 {
     s32 local[2];
     s32 r3;
@@ -1497,64 +1497,64 @@ extern "C" s32 func_ov014_021160dc(u8 *arg0)
     s32 t5;
     s32 t6;
     s32 t7;
-    v0 = func_ov014_021188fc((s32)arg0);
-    v1 = func_ov014_0211893c();
+    v0 = NHTTPi_GetSystemInfoP((s32)arg0);
+    v1 = NHTTPi_GetReqInfoP();
     t0 = (u8 *)*(s32 *)(*(u8 * *)(((u8 *)v1)) + 0xC);
     t1 = *(u8 * *)(((u8 *)v1));
-    v2 = func_ov014_02118944(v0, t1);
-    v3 = func_ov014_02118930(v0);
+    v2 = NHTTPi_GetThreadInfoP(v0, t1);
+    v3 = NHTTPi_GetBgnEndInfoP(v0);
     t2 = *(s32 *)(t0 + 0x20);
-    v4 = func_ov014_02114224((s32)((u8 *)local), t2);
-    v5 = func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d5c), 8);
+    v4 = NHTTPi_intToStr((s32)((u8 *)local), t2);
+    v5 = NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d5c), 8);
     if (v5 != 0)
         return v5;
     t3 = (*(s32 *)(t0 + 0x24) + 8);
     t4 = (*(s32 *)(t0 + 0x14) - 8);
-    v6 = func_ov014_02115f5c((s32)arg0, t3, t4);
+    v6 = NHTTPi_SendData((s32)arg0, t3, t4);
     if (v6 != 0)
         return v6;
     r11 = 1;
-    v7 = func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d68), 1);
+    v7 = NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d68), 1);
     if (v7 != 0)
         return v7;
-    v8 = func_ov014_02115f5c((s32)arg0, (s32)((u8 *)local), v4);
+    v8 = NHTTPi_SendData((s32)arg0, (s32)((u8 *)local), v4);
     if (v8 != 0)
         return v8;
-    v9 = func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d6c), 0xB);
+    v9 = NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d6c), 0xB);
     if (v9 != 0)
         return v9;
-    v10 = func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d78), 6);
+    v10 = NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d78), 6);
     if (v10 != 0)
         return v10;
     t5 = (*(s32 *)(t0 + 0x24) + 8);
     t6 = (*(s32 *)(t0 + 0x14) - 8);
-    v11 = func_ov014_02115f5c((s32)arg0, t5, t6);
+    v11 = NHTTPi_SendData((s32)arg0, t5, t6);
     if (v11 != 0)
         return v11;
-    v12 = func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d68), 1);
+    v12 = NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d68), 1);
     if (v12 != 0)
         return v12;
-    v13 = func_ov014_02115f5c((s32)arg0, (s32)((u8 *)local), v4);
+    v13 = NHTTPi_SendData((s32)arg0, (s32)((u8 *)local), v4);
     if (v13 != 0)
         return v13;
     r4 = 2;
-    v14 = func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d40), 2);
+    v14 = NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d40), 2);
     if (v14 != 0)
         return v14;
-    v15 = func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d80), 0x25);
+    v15 = NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d80), 0x25);
     if (v15 != 0)
         return v15;
-    v16 = func_ov014_02115fe4((s32)arg0);
+    v16 = NHTTPi_SendProxyAuthorization((s32)arg0);
     if (v16 != 0)
         return v16;
-    func_ov014_02115f5c((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d40), 2);
+    NHTTPi_SendData((s32)arg0, (u8 *)((u8 *)&data_ov014_02125d40), 2);
     r9 = (s32)t0;
     r8 = v2;
     r7 = (u8 *)v3;
     r3 = *(s32 *)(arg0 + 0x324);
     if (r3 > 0) {
         t7 = *(s32 *)(r7 + 0xC);
-        v18 = func_ov014_02113d60(r9, t7, (r8 + 0x100), r3, 0);
+        v18 = NHTTPi_SocSend(r9, t7, (r8 + 0x100), r3, 0);
         if (v18 < 0) {
             return r11;
         } else {
@@ -1564,26 +1564,26 @@ extern "C" s32 func_ov014_021160dc(u8 *arg0)
         }
     }
     *(s32 *)(arg0 + 0x324) = 0;
-    func_ov014_02113e7c((r8 + 0x100), 0x4000);
+    NHTTPi_memclr((r8 + 0x100), 0x4000);
     return 0;
 }
 
-extern "C" asm void func_ov014_02116318(void)
+extern "C" asm void NHTTPi_RecvProxyConnectHeader(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x210
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r6, r0
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     mov r5, r0
     mov r0, r6
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     str r0, [sp, #0xc]
     mov r0, r6
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r4, r0
     mov r0, r6
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     ldr r2, [r5]
     mov r1, #0
     ldr r6, [r2, #0xc]
@@ -1601,17 +1601,17 @@ extern "C" asm void func_ov014_02116318(void)
     mov r0, r5
     mov r1, r6
     add r3, r9, r8
-    bl func_ov014_02113cd4
+    bl NHTTPi_SocRecv
     mov r11, r0
     add r0, sp, #0x19
     mov r1, #3
     add r8, r8, r11
-    bl func_ov014_02114188
+    bl NHTTPi_strToInt
     str r0, [r7, #0x18]
     ldr r1, =data_ov014_02125da8
     mov r0, r9
     mov r2, #5
-    bl func_ov014_02113e90
+    bl NHTTPi_strnicmp
     cmp r0, #0
     ldreqsb r0, [sp, #0x18]
     mov r12, #0
@@ -1688,7 +1688,7 @@ extern "C" asm void func_ov014_02116318(void)
     mov r0, r5
     mov r1, r6
     add r3, r3, #0x100
-    bl func_ov014_02113cd4
+    bl NHTTPi_SocRecv
     cmp r0, #0
     addlt sp, sp, #0x210
     movlt r0, r9
@@ -1699,7 +1699,7 @@ extern "C" asm void func_ov014_02116318(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_021164fc(s32 arg0)
+extern "C" s32 NHTTPi_SendHeaderList(s32 arg0)
 {
     s32 r7;
     u8 *r8;
@@ -1718,59 +1718,59 @@ extern "C" s32 func_ov014_021164fc(s32 arg0)
     s32 t3;
     s32 t4;
     s32 t5;
-    func_ov014_021188fc(arg0);
-    v1 = func_ov014_0211893c();
+    NHTTPi_GetSystemInfoP(arg0);
+    v1 = NHTTPi_GetReqInfoP();
     t0 = (*(s32 *)(*(u8 * *)(((u8 *)v1)) + 0xC) + 0x30);
     t1 = *(s32 *)(*(u8 * *)(((u8 *)v1)) + 0xC);
-    v2 = func_ov014_02114864(t0);
+    v2 = NHTTPi_getHdrFromList(t0);
     r7 = t1;
     r8 = (u8 *)v2;
     if ((s32)r8 != 0) {
         do {
             t2 = *(s32 *)(r8 + 0x8);
-            v3 = func_ov014_02113e58(t2);
+            v3 = NHTTPi_strlen(t2);
             t3 = *(s32 *)(r8 + 0x8);
-            v4 = func_ov014_02115f5c(arg0, t3, v3);
+            v4 = NHTTPi_SendData(arg0, t3, v3);
             if (v4 != 0)
                 return v4;
-            v5 = func_ov014_02115f5c(arg0, (u8 *)((u8 *)&data_ov014_02125db0), 2);
+            v5 = NHTTPi_SendData(arg0, (u8 *)((u8 *)&data_ov014_02125db0), 2);
             if (v5 != 0)
                 return v5;
             t4 = *(s32 *)(r8 + 0xC);
-            v6 = func_ov014_02113e58(t4);
+            v6 = NHTTPi_strlen(t4);
             t5 = *(s32 *)(r8 + 0xC);
-            v7 = func_ov014_02115f5c(arg0, t5, v6);
+            v7 = NHTTPi_SendData(arg0, t5, v6);
             if (v7 != 0)
                 return v7;
-            v8 = func_ov014_02115f5c(arg0, (u8 *)((u8 *)&data_ov014_02125d40), 2);
+            v8 = NHTTPi_SendData(arg0, (u8 *)((u8 *)&data_ov014_02125d40), 2);
             if (v8 != 0)
                 return v8;
-            func_ov014_021144c8((s32)r8);
-            v10 = func_ov014_02114864((r7 + 0x30));
+            NHTTPi_free((s32)r8);
+            v10 = NHTTPi_getHdrFromList((r7 + 0x30));
             r8 = (u8 *)v10;
         } while ((s32)r8 != 0);
     }
     return 0;
 }
 
-extern "C" asm void func_ov014_021165c8(void)
+extern "C" asm void NHTTPi_SendProcPostDataRaw(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x1c
     mov r8, r0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r7, r0
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r5, r0
     mov r0, r7
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r1, [r0]
     mov r0, r7
     ldr r6, [r1, #0xc]
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     mov r4, r0
     mov r0, r7
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r7, r0
     mov r2, #0
     str r2, [sp, #0xc]
@@ -1781,7 +1781,7 @@ extern "C" asm void func_ov014_021165c8(void)
     mov r0, r5
     mov r1, r6
     str r2, [sp]
-    bl func_ov014_02115c70
+    bl NHTTPi_GetPostContentlength
     cmp r0, #0
     bne @L_02116650
     add sp, sp, #0x1c
@@ -1794,19 +1794,19 @@ extern "C" asm void func_ov014_021165c8(void)
     add r10, sp, #0x10
     ldr r1, [sp, #0xc]
     mov r0, r10
-    bl func_ov014_02114224
+    bl NHTTPi_intToStr
     mov r9, r0
     ldr r1, =data_ov014_02125db4
     mov r0, r8
     mov r2, #0x10
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
     mov r0, r8
     mov r1, r10
     mov r2, r9
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -1815,14 +1815,14 @@ extern "C" asm void func_ov014_021165c8(void)
     mov r0, r8
     mov r1, r10
     mov r2, r9
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
     mov r0, r8
     mov r1, r10
     mov r2, r9
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -1838,7 +1838,7 @@ extern "C" asm void func_ov014_021165c8(void)
     mov r3, #0
     add r2, r4, #0x100
     str r3, [sp, #8]
-    bl func_ov014_02115d38
+    bl NHTTPi_SendPostData
     cmp r0, #0
     beq @L_02116738
     add sp, sp, #0x1c
@@ -1846,7 +1846,7 @@ extern "C" asm void func_ov014_021165c8(void)
 @L_02116720:
     ldr r2, [r6, #0x250]
     mov r0, r8
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -1856,24 +1856,24 @@ extern "C" asm void func_ov014_021165c8(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_0211674c(void)
+extern "C" asm void NHTTPi_SendProcPostDataBinary(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
     mov r10, r0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r4, r0
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r6, r0
     mov r0, r4
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r1, [r0]
     mov r0, r4
     ldr r7, [r1, #0xc]
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     mov r11, r0
     mov r0, r4
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r1, #0
     str r1, [sp, #0xc]
     ldr r5, [r7, #0x34]
@@ -1886,7 +1886,7 @@ extern "C" asm void func_ov014_0211674c(void)
     add r1, r1, #0x16
     str r1, [sp, #0xc]
     ldr r0, [r5, #8]
-    bl func_ov014_02113e58
+    bl NHTTPi_strlen
     ldr r1, [sp, #0xc]
     add r0, r0, #0x29
     add r1, r1, r0
@@ -1904,7 +1904,7 @@ extern "C" asm void func_ov014_0211674c(void)
     mov r0, r6
     mov r1, r7
     mov r3, r9
-    bl func_ov014_02115c70
+    bl NHTTPi_GetPostContentlength
     cmp r0, #0
     bne @L_02116824
     add sp, sp, #0x1c
@@ -1930,19 +1930,19 @@ extern "C" asm void func_ov014_0211674c(void)
     add r1, r1, #0x18
     mov r0, r9
     str r1, [sp, #0xc]
-    bl func_ov014_02114224
+    bl NHTTPi_intToStr
     mov r4, r0
     ldr r1, =data_ov014_02123ff3
     mov r0, r10
     mov r2, #0x2c
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     add r1, r7, #0x3a
     mov r2, #0x12
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1950,35 +1950,35 @@ extern "C" asm void func_ov014_0211674c(void)
     mov r0, r10
     mov r1, r5
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r1, =data_ov014_02125db4
     mov r0, r10
     mov r2, #0x10
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     mov r1, r9
     mov r2, r4
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     mov r1, r5
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     mov r1, r5
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1990,37 +1990,37 @@ extern "C" asm void func_ov014_0211674c(void)
     mov r0, r10
     add r1, r7, #0x38
     mov r2, #0x14
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     mov r1, r5
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r1, =data_ov014_02123fcc
     mov r0, r10
     mov r2, #0x26
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r0, [r9, #8]
-    bl func_ov014_02113e58
+    bl NHTTPi_strlen
     mov r2, r0
     ldr r1, [r9, #8]
     mov r0, r10
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r1, =data_ov014_02125dc8
     mov r0, r10
     mov r2, #3
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2030,7 +2030,7 @@ extern "C" asm void func_ov014_0211674c(void)
     ldr r1, =data_ov014_02124054
     mov r0, r10
     mov r2, #0x4b
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2038,7 +2038,7 @@ extern "C" asm void func_ov014_0211674c(void)
     mov r0, r10
     mov r1, r5
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2053,7 +2053,7 @@ extern "C" asm void func_ov014_0211674c(void)
     ldr r3, [r9, #8]
     mov r1, r7
     add r2, r11, #0x100
-    bl func_ov014_02115d38
+    bl NHTTPi_SendPostData
     cmp r0, #0
     beq @L_02116a6c
     add sp, sp, #0x1c
@@ -2061,7 +2061,7 @@ extern "C" asm void func_ov014_0211674c(void)
 @L_02116a54:
     ldr r2, [r9, #0x10]
     mov r0, r10
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2069,7 +2069,7 @@ extern "C" asm void func_ov014_0211674c(void)
     mov r0, r10
     mov r1, r5
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2084,38 +2084,38 @@ extern "C" asm void func_ov014_0211674c(void)
     mov r0, r10
     add r1, r7, #0x38
     mov r2, #0x14
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r1, =data_ov014_02125dcc
     mov r0, r10
     mov r2, #4
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     moveq r0, #0
     add sp, sp, #0x1c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_02116afc(void)
+extern "C" asm void NHTTPi_SendProcPostDataAscii(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
     mov r5, r0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r4, r0
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r7, r0
     mov r0, r4
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r1, [r0]
     mov r0, r4
     ldr r8, [r1, #0xc]
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     mov r11, r0
     mov r0, r4
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r1, #0
     str r1, [sp, #0xc]
     ldr r6, [r8, #0x34]
@@ -2126,7 +2126,7 @@ extern "C" asm void func_ov014_02116afc(void)
     add r10, sp, #0xc
 @L_02116b5c:
     ldr r0, [r6, #8]
-    bl func_ov014_02113f34
+    bl NHTTPi_getUrlEncodedSize
     ldr r1, [sp, #0xc]
     add r0, r1, r0
     add r0, r0, #1
@@ -2139,14 +2139,14 @@ extern "C" asm void func_ov014_02116afc(void)
     mov r0, r7
     mov r1, r8
     mov r3, r10
-    bl func_ov014_02115c70
+    bl NHTTPi_GetPostContentlength
     cmp r0, #0
     bne @L_02116bbc
     add sp, sp, #0x1c
     mov r0, #3
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02116bac:
-    bl func_ov014_02113f34
+    bl NHTTPi_getUrlEncodedSize
     ldr r1, [sp, #0xc]
     add r0, r1, r0
     str r0, [sp, #0xc]
@@ -2165,26 +2165,26 @@ extern "C" asm void func_ov014_02116afc(void)
     add r6, sp, #0x10
     ldr r1, [sp, #0xc]
     mov r0, r6
-    bl func_ov014_02114224
+    bl NHTTPi_intToStr
     mov r4, r0
     ldr r1, =data_ov014_02124020
     mov r0, r5
     mov r2, #0x31
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r1, =data_ov014_02125db4
     mov r0, r5
     mov r2, #0x10
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2193,14 +2193,14 @@ extern "C" asm void func_ov014_02116afc(void)
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r5
     mov r1, r6
     mov r2, r4
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2217,11 +2217,11 @@ extern "C" asm void func_ov014_02116afc(void)
 @L_02116cb0:
     ldrsb r1, [r1, r10]
     mov r0, r6
-    bl func_ov014_02114010
+    bl NHTTPi_encodeUrlChar
     mov r2, r0
     mov r0, r5
     mov r1, r6
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2234,7 +2234,7 @@ extern "C" asm void func_ov014_02116afc(void)
     ldr r1, =data_ov014_02125dd4
     mov r0, r5
     mov r2, #1
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2251,7 +2251,7 @@ extern "C" asm void func_ov014_02116afc(void)
     mov r0, r7
     mov r1, r8
     add r2, r11, #0x100
-    bl func_ov014_02115d38
+    bl NHTTPi_SendPostData
     cmp r0, #0
     beq @L_02116da0
     add sp, sp, #0x1c
@@ -2265,11 +2265,11 @@ extern "C" asm void func_ov014_02116afc(void)
 @L_02116d64:
     ldrsb r1, [r1, r10]
     mov r0, r6
-    bl func_ov014_02114010
+    bl NHTTPi_encodeUrlChar
     mov r2, r0
     mov r0, r5
     mov r1, r6
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2286,7 +2286,7 @@ extern "C" asm void func_ov014_02116afc(void)
     ldr r1, =data_ov014_02125dd8
     mov r0, r5
     mov r2, #1
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #0x1c
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2299,11 +2299,11 @@ extern "C" asm void func_ov014_02116afc(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02116df8(u8 *arg0)
+extern "C" s32 NHTTPi_ThreadInit(u8 *arg0)
 {
     *(s32 *)(arg0) = -1;
-    func_ov014_02113e7c((arg0 + 4), 0x100);
-    func_ov014_02113e7c((arg0 + 0x104), 0x200);
+    NHTTPi_memclr((arg0 + 4), 0x100);
+    NHTTPi_memclr((arg0 + 0x104), 0x200);
     *(s32 *)(arg0 + 0x314) = -1;
     *(s32 *)(arg0 + 0x318) = -1;
     *(s32 *)(arg0 + 0x324) = 0;
@@ -2315,25 +2315,25 @@ extern "C" s32 func_ov014_02116df8(u8 *arg0)
     return 0;
 }
 
-extern "C" asm void func_ov014_02116e48(void)
+extern "C" asm void NHTTPi_ThreadReqEnd(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r6, r0
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r4, r0
     mov r0, r6
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     mov r5, r0
     mov r0, r6
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     ldr r1, [r5]
     mov r6, r0
     ldr r7, [r1, #0xc]
     mov r1, r7
     ldr r8, [r7, #0x2c]
-    bl func_ov014_021185d4
+    bl NHTTPi_Request2Connection
     mov r9, r0
     ldr r0, [r7]
     cmp r0, #0
@@ -2349,7 +2349,7 @@ extern "C" asm void func_ov014_02116e48(void)
     blt @L_02116ee0
     mov r0, r6
     mov r1, r7
-    bl func_ov014_02113a3c
+    bl NHTTPi_SocClose
     cmp r0, #0
     movlt r0, #0xa
     strlt r0, [r10, #0x330]
@@ -2365,7 +2365,7 @@ extern "C" asm void func_ov014_02116e48(void)
     str r11, [r8, #0x10]
     ldr r1, [r10, #0x330]
     mov r0, r4
-    bl func_ov014_021144ec
+    bl NHTTPi_SetError
     ldr r1, [r8, #0x28]
     add r0, r10, #0x104
     cmp r1, r0
@@ -2376,16 +2376,16 @@ extern "C" asm void func_ov014_02116e48(void)
     ldrne r0, [r10, #0x330]
     strne r0, [r9, #4]
     mov r0, r6
-    bl func_ov014_021189c0
+    bl NHTTPi_lockReqList
     ldr r0, [r5]
-    bl func_ov014_021144c8
+    bl NHTTPi_free
     mov r1, #0
     mov r0, r6
     str r1, [r5]
-    bl func_ov014_021189cc
+    bl NHTTPi_unlockReqList
     mov r0, r6
     mov r1, r7
-    bl func_ov014_021155a4
+    bl NHTTPi_destroyRequestObject
     cmp r9, #0
     ldrne r0, [r8, #0x10]
     mov r1, r9
@@ -2393,18 +2393,18 @@ extern "C" asm void func_ov014_02116e48(void)
     movne r0, #5
     strne r0, [r9]
     mov r0, r6
-    bl func_ov014_02118810
+    bl NHTTPi_CompleteCallback
     cmp r9, #0
     beq @L_02116f84
     mov r0, r9
-    bl func_ov014_0211848c
+    bl NHTTPi_NotifyCompletion
 @L_02116f84:
     mov r0, r9
-    bl func_ov014_02118ba4
+    bl NHTTPi_DeleteConnection
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" s32 func_ov014_02116f90(u8 *arg0)
+extern "C" s32 NHTTPi_ThreadExecReqQueue(u8 *arg0)
 {
     u8 *r4;
     s32 r5;
@@ -2414,38 +2414,38 @@ extern "C" s32 func_ov014_02116f90(u8 *arg0)
     s32 v4;
     s32 v5;
     s32 t0;
-    v0 = func_ov014_021188fc((s32)arg0);
-    v1 = func_ov014_0211894c();
-    func_ov014_021189c0();
-    func_ov014_02118934(v0);
-    v4 = func_ov014_02114b38();
+    v0 = NHTTPi_GetSystemInfoP((s32)arg0);
+    v1 = NHTTPi_GetMutexInfoP();
+    NHTTPi_lockReqList();
+    NHTTPi_GetListInfoP(v0);
+    v4 = NHTTPi_getReqFromReqQueue();
     r4 = (u8 *)v4;
     r5 = v0;
     r6 = v1;
     if ((s32)r4 == 0) {
         *(s32 *)(arg0) = -1;
     } else {
-        v5 = func_ov014_0211893c(r5);
+        v5 = NHTTPi_GetReqInfoP(r5);
         t0 = *(s32 *)(r4 + 0x8);
         *(s32 *)(arg0) = t0;
         *(s32 *)(((u8 *)v5)) = (s32)r4;
     }
-    func_ov014_021189cc(r6);
+    NHTTPi_unlockReqList(r6);
     if (*(s32 *)(arg0) >= 0) {
         return 1;
     } else {
-        func_ov014_02118944(r5);
-        func_ov014_02113934();
+        NHTTPi_GetThreadInfoP(r5);
+        NHTTPi_idleCommThread();
         return 0;
     }
 }
 
-extern "C" asm void func_ov014_02117008(void)
+extern "C" asm void NHTTPi_ThreadHostAddrProc(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, r0
-    bl func_ov014_021188fc
-    bl func_ov014_0211893c
+    bl NHTTPi_GetSystemInfoP
+    bl NHTTPi_GetReqInfoP
     ldr r0, [r0]
     ldr r4, [r0, #0xc]
     ldr r0, [r4, #0xc]
@@ -2453,18 +2453,18 @@ extern "C" asm void func_ov014_02117008(void)
     cmp r0, #0
     addne r6, r4, #0xe4
     mov r0, r6
-    bl func_ov014_02113e58
+    bl NHTTPi_strlen
     cmp r0, #0
     beq @L_02117054
     mov r0, r6
     add r1, r5, #4
-    bl func_ov014_02113e70
+    bl NHTTPi_strcmp
     cmp r0, #0
     beq @L_02117090
 @L_02117054:
     mov r0, r4
     mov r1, r6
-    bl func_ov014_02113dd8
+    bl NHTTPi_resolveHostname
     str r0, [r5, #0x314]
     cmp r0, #0
     bne @L_02117098
@@ -2483,14 +2483,14 @@ extern "C" asm void func_ov014_02117008(void)
 @L_02117098:
     add r0, r5, #4
     mov r1, #0x100
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     mov r0, r6
     mov r1, #0xff
-    bl func_ov014_02113e64
+    bl NHTTPi_strnlen
     mov r2, r0
     mov r1, r6
     add r0, r5, #4
-    bl func_ov014_02113e40
+    bl NHTTPi_memcpy
     ldr r0, [r4, #0x20]
     ldr r1, [r5, #0x314]
     str r0, [r5, #0x31c]
@@ -2519,29 +2519,29 @@ extern "C" asm void func_ov014_02117008(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" asm void func_ov014_02117120(void)
+extern "C" asm void NHTTPi_ThreadConnectProc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #8
     mov r8, r0
     mov r9, #0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r6, r0
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r4, r0
     mov r0, r6
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     mov r5, r0
     ldr r1, [r5]
     mov r0, r6
     ldr r6, [r1, #0xc]
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     ldr r1, [r8, #0x338]
     mov r7, r0
     cmp r1, #1
     bne @L_0211717c
     ldr r0, [r4, #0xc]
-    bl func_ov014_021139e4
+    bl NHTTPi_checkKeepAlive
     cmn r0, #1
     streq r9, [r8, #0x338]
 @L_0211717c:
@@ -2553,7 +2553,7 @@ extern "C" asm void func_ov014_02117120(void)
     blt @L_021171c4
     mov r0, r7
     mov r1, r6
-    bl func_ov014_02113a3c
+    bl NHTTPi_SocClose
     cmp r0, #0
     bge @L_021171c4
     mvn r0, #0
@@ -2565,7 +2565,7 @@ extern "C" asm void func_ov014_02117120(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_021171c4:
     mov r0, r6
-    bl func_ov014_02113a24
+    bl NHTTPi_SocOpen
     cmp r0, #0
     str r0, [r4, #0xc]
     movlt r0, #3
@@ -2574,12 +2574,12 @@ extern "C" asm void func_ov014_02117120(void)
     movlt r0, #0
     ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     mov r0, r7
-    bl func_ov014_021189c0
+    bl NHTTPi_lockReqList
     ldr r2, [r4, #0xc]
     ldr r1, [r5]
     mov r0, r7
     str r2, [r1, #0x10]
-    bl func_ov014_021189cc
+    bl NHTTPi_unlockReqList
     ldr r0, [r6]
     cmp r0, #0
     addne sp, sp, #8
@@ -2593,7 +2593,7 @@ extern "C" asm void func_ov014_02117120(void)
     str r2, [sp, #4]
     ldr r3, [r4, #0xc]
     mov r2, r6
-    bl func_ov014_02113acc
+    bl NHTTPi_SocConnect
     cmp r0, #0
     bge @L_021172a8
     ldr r0, [r6, #0xc]
@@ -2604,7 +2604,7 @@ extern "C" asm void func_ov014_02117120(void)
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     mov r0, r4
-    bl func_ov014_021144fc
+    bl NHTTPi_GetSSLError
     cmp r0, #0
     movne r0, #0xe
     strne r0, [r8, #0x330]
@@ -2616,31 +2616,31 @@ extern "C" asm void func_ov014_02117120(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_0211728c:
     mov r0, r7
-    bl func_ov014_021189c0
+    bl NHTTPi_lockReqList
     ldr r2, [r4, #0xc]
     ldr r1, [r5]
     mov r0, r7
     str r2, [r1, #0x10]
-    bl func_ov014_021189cc
+    bl NHTTPi_unlockReqList
 @L_021172a8:
     mov r0, #1
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov014_021172b4(void)
+extern "C" asm void NHTTPi_ThreadProxyProc(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r6, r0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r7, r0
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r4, r0
     mov r0, r7
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     mov r5, r0
     mov r0, r7
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     ldr r2, [r5]
     mov r7, #0
     ldr r5, [r2, #0xc]
@@ -2654,11 +2654,11 @@ extern "C" asm void func_ov014_021172b4(void)
     cmpne r0, #0
     beq @L_021173b8
     mov r0, r6
-    bl func_ov014_021160dc
+    bl NHTTPi_SendProxyConnectMethod
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
     mov r0, r6
-    bl func_ov014_02116318
+    bl NHTTPi_RecvProxyConnectHeader
     cmp r0, #0
     moveq r0, #1
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
@@ -2666,14 +2666,14 @@ extern "C" asm void func_ov014_021172b4(void)
     mov r0, r4
     mov r1, r8
     mov r2, r5
-    bl func_ov014_02113b7c
+    bl NHTTPi_SocSSLConnect
     cmp r0, #0
     beq @L_021173b8
     sub r1, r7, #0x3ec
     cmp r0, r1
     bne @L_02117378
     mov r0, r4
-    bl func_ov014_021144fc
+    bl NHTTPi_GetSSLError
     cmp r0, #0
     movne r0, #0x10
     strne r0, [r6, #0x330]
@@ -2684,14 +2684,14 @@ extern "C" asm void func_ov014_021172b4(void)
     cmp r0, r1
     mov r0, r4
     bne @L_021173a0
-    bl func_ov014_021144fc
+    bl NHTTPi_GetSSLError
     cmp r0, #0
     movne r0, #0x11
     strne r0, [r6, #0x330]
     mov r0, #1
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_021173a0:
-    bl func_ov014_021144fc
+    bl NHTTPi_GetSSLError
     cmp r0, #0
     movne r0, #0xe
     strne r0, [r6, #0x330]
@@ -2702,32 +2702,32 @@ extern "C" asm void func_ov014_021172b4(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" asm void func_ov014_021173c0(void)
+extern "C" asm void NHTTPi_ThreadSendProc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #4
     mov r4, r0
     mov r5, #0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r6, r0
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r1, [r0]
     mov r0, r6
     ldr r8, [r1, #0xc]
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r7, r0
     mov r0, r6
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r9, r0
     mov r0, r7
     mov r1, r8
-    bl func_ov014_021185d4
+    bl NHTTPi_Request2Connection
     mov r7, r0
     mov r0, r6
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     mov r6, r0
     ldr r0, [r8, #0x24]
-    bl func_ov014_02113e58
+    bl NHTTPi_strlen
     mov r1, #0xa
     mov r10, r0
     cmp r7, #0
@@ -2758,7 +2758,7 @@ extern "C" asm void func_ov014_021173c0(void)
     mov r0, r4
     mov r2, #5
 @L_02117484:
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
 @L_02117488:
     cmp r0, #0
     addne sp, sp, #4
@@ -2772,7 +2772,7 @@ extern "C" asm void func_ov014_021173c0(void)
     ldr r1, [r8, #0x24]
     mov r0, r4
     mov r2, r10
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     beq @L_02117518
     add sp, sp, #4
@@ -2785,7 +2785,7 @@ extern "C" asm void func_ov014_021173c0(void)
     mov r0, r4
     add r1, r1, r2
     sub r2, r10, r2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     beq @L_02117518
     add sp, sp, #4
@@ -2794,7 +2794,7 @@ extern "C" asm void func_ov014_021173c0(void)
     ldr r1, =data_ov014_02125df4
     mov r0, r4
     mov r2, #1
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -2802,7 +2802,7 @@ extern "C" asm void func_ov014_021173c0(void)
     ldr r1, =data_ov014_02125d6c
     mov r0, r4
     mov r2, #0xb
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -2813,7 +2813,7 @@ extern "C" asm void func_ov014_021173c0(void)
     mov r0, r4
     mov r2, #6
     moveq r7, #7
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -2822,14 +2822,14 @@ extern "C" asm void func_ov014_021173c0(void)
     mov r0, r4
     add r1, r1, r7
     sub r2, r2, r7
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
     ldr r1, =data_ov014_02125d40
     mov r0, r4
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -2840,18 +2840,18 @@ extern "C" asm void func_ov014_021173c0(void)
     cmp r0, #0
     bne @L_021175cc
     mov r0, r4
-    bl func_ov014_02115fe4
+    bl NHTTPi_SendProxyAuthorization
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 @L_021175cc:
     mov r0, r4
-    bl func_ov014_02116060
+    bl NHTTPi_SendBasicAuthorization
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
     mov r0, r4
-    bl func_ov014_021164fc
+    bl NHTTPi_SendHeaderList
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -2862,7 +2862,7 @@ extern "C" asm void func_ov014_021173c0(void)
     cmp r0, #0
     beq @L_02117618
     mov r0, r4
-    bl func_ov014_021165c8
+    bl NHTTPi_SendProcPostDataRaw
     b @L_02117688
 @L_02117618:
     ldr r0, [r8, #0xd4]
@@ -2893,10 +2893,10 @@ extern "C" asm void func_ov014_021173c0(void)
     cmp r1, #0
     mov r0, r4
     beq @L_02117684
-    bl func_ov014_0211674c
+    bl NHTTPi_SendProcPostDataBinary
     b @L_02117688
 @L_02117684:
-    bl func_ov014_02116afc
+    bl NHTTPi_SendProcPostDataAscii
 @L_02117688:
     cmp r0, #0
     beq @L_021176c0
@@ -2909,7 +2909,7 @@ extern "C" asm void func_ov014_021173c0(void)
     ldr r1, =data_ov014_02125d40
     mov r0, r4
     mov r2, #2
-    bl func_ov014_02115f5c
+    bl NHTTPi_SendData
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -2922,12 +2922,12 @@ extern "C" asm void func_ov014_021173c0(void)
     ldr r1, [r9, #0xc]
     mov r0, r8
     add r2, r6, #0x100
-    bl func_ov014_02113d60
+    bl NHTTPi_SocSend
     mov r7, r0
     add r0, r6, #0x100
     mov r1, #0x4000
     str r10, [r4, #0x324]
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     cmp r7, #0
     movlt r10, #1
     cmp r7, #0
@@ -2936,31 +2936,31 @@ extern "C" asm void func_ov014_021173c0(void)
     add r0, r6, #0x100
     mov r1, #0x4000
     str r5, [r4, #0x324]
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     mov r0, r10
     add sp, sp, #4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_02117740(void)
+extern "C" asm void NHTTPi_ThreadRecvHeaderProc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
     mov r10, r0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r7, r0
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r1, [r0]
     mov r0, r7
     ldr r4, [r1, #0xc]
     ldr r5, [r4, #0x2c]
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r1, r4
     mov r6, r0
-    bl func_ov014_021185d4
+    bl NHTTPi_Request2Connection
     mov r8, r0
     mov r0, r7
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     add r1, sp, #0xc
     mov r11, #0
     mov r7, r0
@@ -2974,7 +2974,7 @@ extern "C" asm void func_ov014_02117740(void)
     str r11, [r5]
     add r0, r10, #0x304
     mov r1, #0xe
-    bl func_ov014_02113e7c
+    bl NHTTPi_memclr
     ldr r8, [r5, #0x34]
     add r0, r5, #0x38
     str r11, [r10, #0x328]
@@ -2995,7 +2995,7 @@ extern "C" asm void func_ov014_02117740(void)
     ldr r2, [r7, #0xc]
     mov r0, r6
     mov r1, r4
-    bl func_ov014_02113cd4
+    bl NHTTPi_SocRecv
     ldr r2, [r10, #0x328]
     add r1, r5, r2
     ldrsb r3, [r1, #0x38]
@@ -3009,12 +3009,12 @@ extern "C" asm void func_ov014_02117740(void)
     mov r0, #0x204
     mov r1, #4
     beq @L_0211784c
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     str r0, [r8]
     mov r8, r0
     b @L_02117858
 @L_0211784c:
-    bl func_ov014_02114498
+    bl NHTTPi_alloc
     mov r8, r0
     str r8, [r5, #0x34]
 @L_02117858:
@@ -3033,7 +3033,7 @@ extern "C" asm void func_ov014_02117740(void)
     mov r0, r6
     mov r1, r4
     add r3, r3, r9
-    bl func_ov014_02113cd4
+    bl NHTTPi_SocRecv
     add r1, r8, r9
     ldrsb r3, [r1, #4]
     ldr r1, [r10, #0x328]
@@ -3051,7 +3051,7 @@ extern "C" asm void func_ov014_02117740(void)
     add r1, r1, r0
     add r0, sp, #0xc
     str r1, [r10, #0x328]
-    bl func_ov014_02115a98
+    bl NHTTPi_CheckHeaderEnd
     cmp r0, #0
     beq @L_021177cc
     ldr r0, [r10, #0x328]
@@ -3066,27 +3066,27 @@ extern "C" asm void func_ov014_02117740(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" asm void func_ov014_0211790c(void)
+extern "C" asm void NHTTPi_ThreadParseHeaderProc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0xc
     mov r8, r0
     mov r9, #7
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r4, r0
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r1, [r0]
     mov r0, r4
     ldr r6, [r1, #0xc]
     ldr r7, [r6, #0x2c]
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     mov r4, #0
     mov r5, r0
     mov r0, r7
     add r1, r8, #0x304
     mov r2, r4
     mov r3, #0xe
-    bl func_ov014_02114e80
+    bl NHTTPi_loadFromHdrRecvBuf
     cmp r0, #0
     moveq r1, r9
     addeq sp, sp, #0xc
@@ -3096,7 +3096,7 @@ extern "C" asm void func_ov014_0211790c(void)
     ldr r1, =data_ov014_02125da8
     add r0, r8, #0x304
     mov r2, #5
-    bl func_ov014_02113e90
+    bl NHTTPi_strnicmp
     cmp r0, #0
     addne sp, sp, #0xc
     movne r0, r4
@@ -3112,7 +3112,7 @@ extern "C" asm void func_ov014_0211790c(void)
     add r0, r8, #0xd
     add r0, r0, #0x300
     mov r1, #3
-    bl func_ov014_02114188
+    bl NHTTPi_strToInt
     cmp r0, #0
     str r0, [r7, #0x18]
     addlt sp, sp, #0xc
@@ -3125,7 +3125,7 @@ extern "C" asm void func_ov014_0211790c(void)
     add r3, sp, #8
     mov r0, r7
     mov r1, r10
-    bl func_ov014_02114c10
+    bl NHTTPi_findNextLineHdrRecvBuf
     cmp r0, #0
     movlt r1, r9
     addlt sp, sp, #0xc
@@ -3136,7 +3136,7 @@ extern "C" asm void func_ov014_0211790c(void)
     add r2, sp, #4
     mov r0, r7
     mov r9, r4
-    bl func_ov014_02115838
+    bl NHTTPi_getHeaderValue
     movs r3, r0
     addeq sp, sp, #0xc
     str r3, [r8, #0x32c]
@@ -3154,7 +3154,7 @@ extern "C" asm void func_ov014_0211790c(void)
     ldr r2, [sp, #4]
     mov r0, r7
     add r1, r5, #0x100
-    bl func_ov014_02114e80
+    bl NHTTPi_loadFromHdrRecvBuf
     cmp r0, #0
     moveq r1, #7
     addeq sp, sp, #0xc
@@ -3164,7 +3164,7 @@ extern "C" asm void func_ov014_0211790c(void)
     ldr r1, [r8, #0x32c]
     add r0, r5, #0x100
     mov r5, #7
-    bl func_ov014_02114188
+    bl NHTTPi_strToInt
     cmp r0, #0
     str r0, [r8, #0x32c]
     addlt sp, sp, #0xc
@@ -3184,7 +3184,7 @@ extern "C" asm void func_ov014_0211790c(void)
     ldr r1, =data_ov014_02125e08
     add r2, sp, #4
     mov r0, r7
-    bl func_ov014_02115838
+    bl NHTTPi_getHeaderValue
     movs r2, r0
     moveq r0, #0
     addeq sp, sp, #0xc
@@ -3201,7 +3201,7 @@ extern "C" asm void func_ov014_0211790c(void)
     mov r0, r7
     add r2, r1, r2
     str r9, [sp]
-    bl func_ov014_02114d9c
+    bl NHTTPi_compareTokenN_HdrRecvBuf
     cmp r0, #0
     moveq r0, #1
     streq r0, [r8, #0x338]
@@ -3213,7 +3213,7 @@ extern "C" asm void func_ov014_0211790c(void)
     ldr r1, =data_ov014_02125e20
     add r2, sp, #4
     mov r0, r7
-    bl func_ov014_02115838
+    bl NHTTPi_getHeaderValue
     movs r2, r0
     addeq sp, sp, #0xc
     str r2, [r8, #0x33c]
@@ -3231,7 +3231,7 @@ extern "C" asm void func_ov014_0211790c(void)
     mov r0, r7
     add r2, r1, r2
     str r4, [sp]
-    bl func_ov014_02114d9c
+    bl NHTTPi_compareTokenN_HdrRecvBuf
     cmp r0, #0
     moveq r0, #1
     movne r0, #0
@@ -3248,29 +3248,29 @@ extern "C" asm void func_ov014_0211790c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-extern "C" asm void func_ov014_02117bd0(void)
+extern "C" asm void NHTTPi_ThreadRecvBodyProc(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
     mov r10, r0
     mov r9, #0
-    bl func_ov014_021188fc
+    bl NHTTPi_GetSystemInfoP
     mov r8, r0
-    bl func_ov014_0211893c
+    bl NHTTPi_GetReqInfoP
     ldr r1, [r0]
     mov r0, r8
     ldr r4, [r1, #0xc]
     ldr r5, [r4, #0x2c]
-    bl func_ov014_02118930
+    bl NHTTPi_GetBgnEndInfoP
     mov r6, r0
     mov r0, r8
-    bl func_ov014_0211894c
+    bl NHTTPi_GetMutexInfoP
     mov r1, r4
     mov r7, r0
-    bl func_ov014_021185d4
+    bl NHTTPi_Request2Connection
     str r0, [sp, #8]
     mov r0, r8
-    bl func_ov014_02118944
+    bl NHTTPi_GetThreadInfoP
     add r8, r0, #0x100
     ldr r0, [r4, #0x1c]
     cmp r0, #2
@@ -3289,7 +3289,7 @@ extern "C" asm void func_ov014_02117bd0(void)
 @L_02117c5c:
     ldr r0, [sp, #8]
     mov r1, #0
-    bl func_ov014_02118954
+    bl NHTTPi_SetVirtualContentLength
     ldr r0, [sp, #8]
     cmp r0, #0
     movne r1, #4
@@ -3298,7 +3298,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     cmp r1, #0
     blt @L_02117d8c
     ldr r0, [sp, #8]
-    bl func_ov014_02118954
+    bl NHTTPi_SetVirtualContentLength
     ldr r0, [r10, #0x32c]
     cmp r0, #0
     ble @L_02117d4c
@@ -3310,7 +3310,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     beq @L_02117ccc
     mov r0, r7
     mov r1, r5
-    bl func_ov014_02115ed4
+    bl NHTTPi_BufFull
     cmp r0, #0
     streq r11, [r10, #0x330]
     streq r8, [r5, #0x28]
@@ -3331,7 +3331,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     ldr r3, [r5, #4]
     mov r1, r4
 @L_02117cfc:
-    bl func_ov014_02114fb4
+    bl NHTTPi_RecvBufN
     cmp r0, #0
     addlt sp, sp, #0x10
     movlt r0, #0
@@ -3361,7 +3361,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     beq @L_02117d84
     ldr r1, [r5, #4]
     mov r0, r5
-    bl func_ov014_02114f6c
+    bl NHTTPi_isRecvBufFull
     cmp r0, #0
     movne r0, #6
     moveq r0, #0xa
@@ -3393,7 +3393,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     ldr r2, [r6, #0xc]
     mov r0, r7
     mov r1, r4
-    bl func_ov014_02113cd4
+    bl NHTTPi_SocRecv
     cmp r0, #0
     addlt sp, sp, #0x10
     movlt r0, #0
@@ -3419,7 +3419,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     ldr r2, [r6, #0xc]
     mov r0, r7
     mov r1, r4
-    bl func_ov014_02115be4
+    bl NHTTPi_SkipLineBuf
     cmp r0, #0
     addle sp, sp, #0x10
     movle r0, #0
@@ -3431,7 +3431,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r8
     mov r1, r11
-    bl func_ov014_0211409c
+    bl NHTTPi_strToHex
     movs r9, r0
     bpl @L_02117e98
     add sp, sp, #0x10
@@ -3456,7 +3456,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     ble @L_02117fb0
     ldr r0, [sp, #8]
     mov r1, r9
-    bl func_ov014_02118954
+    bl NHTTPi_SetVirtualContentLength
     cmp r9, #0
     ble @L_02117da4
     add r11, r10, #0x104
@@ -3466,7 +3466,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     beq @L_02117f08
     mov r0, r7
     mov r1, r5
-    bl func_ov014_02115ed4
+    bl NHTTPi_BufFull
     cmp r0, #0
     moveq r0, #6
     streq r0, [r10, #0x330]
@@ -3489,7 +3489,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     ldr r2, [r6, #0xc]
     ldr r3, [r5, #4]
 @L_02117f3c:
-    bl func_ov014_02114fb4
+    bl NHTTPi_RecvBufN
     cmp r0, #0
     addle sp, sp, #0x10
     movle r0, #0
@@ -3510,7 +3510,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     mov r0, r7
     mov r1, r4
     mov r3, r8
-    bl func_ov014_02113cd4
+    bl NHTTPi_SocRecv
     cmp r0, #0
     addle sp, sp, #0x10
     movle r0, #0
@@ -3523,7 +3523,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     ldr r2, [r6, #0xc]
     mov r0, r7
     mov r1, r4
-    bl func_ov014_02115be4
+    bl NHTTPi_SkipLineBuf
     str r11, [r10, #0x330]
     b @L_02118074
 @L_02117fc8:
@@ -3532,7 +3532,7 @@ extern "C" asm void func_ov014_02117bd0(void)
 @L_02117fd0:
     mov r0, r7
     mov r1, r5
-    bl func_ov014_02115ed4
+    bl NHTTPi_BufFull
     cmp r0, #0
     streq r11, [r10, #0x330]
     streq r8, [r5, #0x28]
@@ -3555,7 +3555,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     mov r0, r7
     mov r1, r4
 @L_0211802c:
-    bl func_ov014_02114f80
+    bl NHTTPi_RecvBuf
     cmp r0, #0
     addlt sp, sp, #0x10
     movlt r0, #0
@@ -3577,7 +3577,7 @@ extern "C" asm void func_ov014_02117bd0(void)
 @L_02118074:
     mov r0, r7
     mov r1, r5
-    bl func_ov014_021185e4
+    bl NHTTPi_Response2Connection
     ldr r2, [r10, #0x330]
     mov r1, r0
     cmp r2, #0
@@ -3585,7 +3585,7 @@ extern "C" asm void func_ov014_02117bd0(void)
     cmp r1, #0
     beq @L_021180a0
     mov r0, r7
-    bl func_ov014_02118784
+    bl NHTTPi_ReceivedCallback
 @L_021180a0:
     mov r0, #1
     add sp, sp, #0x10

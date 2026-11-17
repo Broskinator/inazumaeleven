@@ -1,14 +1,14 @@
 // (asm for now)
 
-void func_0201d4ec(void);
-void func_0201dc1c(void);
-void func_0201eda4(void);
-void func_0201f484(void);
-void func_0201f79c(void);
+void __ieee754_log(void);
+void __ieee754_pow(void);
+void __ieee754_rem_pio2(void);
+void __kernel_cos(void);
+void __kernel_rem_pio2(void);
 
 extern char data_020bf408[];
 void func_02023890(void);
-extern char data_020bf3e4[];
+extern char errno[];
 void _dsub(void);
 void func_02021adc(void);
 void _dadd(void);
@@ -27,12 +27,12 @@ void scalbn(void);
 void _dfix(void);
 extern char data_020a463c[];
 extern char data_020a46bc[];
-void func_02020610(void);
+void floor(void);
 void _dgeq(void);
 extern char data_020a47c4[];
 extern char data_020a47d4[];
 
-asm void func_0201d4ec(void)
+asm void __ieee754_log(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -60,7 +60,7 @@ asm void func_0201d4ec(void)
     bge @L_0201d584
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
-    ldr r4, =data_020bf3e4
+    ldr r4, =errno
     mov r5, #0x21
     mov r2, r0
     mov r3, r1
@@ -478,7 +478,7 @@ asm void func_0201d4ec(void)
     bx lr
 }
 
-asm void func_0201dc1c(void)
+asm void __ieee754_pow(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -868,7 +868,7 @@ asm void func_0201dc1c(void)
     dcd 0xfffffc01
     dcd 0x3fe00000
     dcd data_020ab0c8
-    dcd data_020bf3e4
+    dcd errno
     dcd 0x41e00000
     dcd 0x3fefffff
     dcd 0x3fd00000
@@ -1637,7 +1637,7 @@ asm void func_0201dc1c(void)
     bx lr
 }
 
-asm void func_0201eda4(void)
+asm void __ieee754_rem_pio2(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -2052,7 +2052,7 @@ asm void func_0201eda4(void)
     mov r2, r8
     str r5, [sp, #4]
     mov r4, #0
-    bl func_0201f79c
+    bl __kernel_rem_pio2
     cmp r7, #0
     mov r5, r0
     addge sp, sp, #0x70
@@ -2078,7 +2078,7 @@ asm void func_0201eda4(void)
     bx lr
 }
 
-asm void func_0201f484(void)
+asm void __kernel_cos(void)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -2266,7 +2266,7 @@ asm void func_0201f484(void)
     bx lr
 }
 
-asm void func_0201f79c(void)
+asm void __kernel_rem_pio2(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x264
@@ -2432,7 +2432,7 @@ asm void func_0201f79c(void)
     mov r2, r6
     mov r3, r7
     bl func_02021adc
-    bl func_02020610
+    bl floor
     mov r2, r0
     mov r3, r1
     mov r0, r10

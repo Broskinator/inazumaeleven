@@ -588,7 +588,7 @@ src/wireless/Wireless.cpp:
     complete
     .text start:0x0203c0ec end:0x0203dc7c
 
-src/game/UnkClass_0203dc7c.cpp:
+src/game/ScreenManager.cpp:
     complete
     .text start:0x0203dc7c end:0x0203e2fc
 
@@ -616,7 +616,7 @@ src/game/UnkClass_02054800.cpp:
     complete
     .text start:0x02054800 end:0x0205dee0
 
-src/game/UnkClass_02060294.cpp:
+src/game/ScriptManager.cpp:
     complete
     .text start:0x02060294 end:0x02061498
 

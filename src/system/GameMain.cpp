@@ -2,9 +2,9 @@
 #include "system/System.hpp"
 #include "game/SceneManager.hpp"
 #include "game/UnkClass_02054800.hpp"
-#include "game/UnkClass_02060294.hpp"
+#include "game/ScriptManager.hpp"
 
-extern "C" u8 data_020c5320[];
+extern "C" u8 gWirelessUtil[];
 extern "C" char data_020ac084[];
 extern "C" void func_0209bcbc(void *);
 extern "C" void func_0209bebc(void *);
@@ -16,12 +16,12 @@ extern "C" void OS_FreeToHeap(int arena, int heap, void *ptr);
 
 void Main::func_0204054c()
 {
-    func_0209bcbc(data_020c5320);
+    func_0209bcbc(gWirelessUtil);
 }
 
 void Main::func_02040560()
 {
-    func_0209bebc(data_020c5320);
+    func_0209bebc(gWirelessUtil);
 }
 
 void Main::func_02040574()
@@ -107,7 +107,7 @@ Main *Main::func_02040664()
 Main *Main::func_02040678()
 {
     ((UnkClass_02054800 *)((u8 *)this + 0x2B58))->func_02054854();
-    ((UnkClass_02060294 *)((u8 *)this + 0x8C))->func_020602ec();
+    ((ScriptManager *)((u8 *)this + 0x8C))->func_020602ec();
     return this;
 }
 

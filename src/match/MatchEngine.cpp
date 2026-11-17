@@ -181,7 +181,7 @@ extern "C" void _ZN11MatchEngine13func_0206a7f0Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_0206a890Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a8d8Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a93cEv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206a964Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a970Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a9a4Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);     // (for the asm functions)
@@ -267,7 +267,7 @@ extern "C" void _ZN11MatchEngine13func_020640b4Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_02064500Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020646d4Ev(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
-extern "C" void *data_020c4648;
+extern "C" void *g3DFieldSprite;
 extern "C" u8 data_020c4eec[][0x10];
 extern "C" u8 data_020c4f0c[][0x10];
 extern "C" int func_02080be4(MatchPlayer *player);
@@ -277,7 +277,7 @@ extern "C" fx32 func_01fff15c(MatchEngine *self, MatchPlayerBody *body, MatchPoi
 extern "C" BOOL func_020842b0(u16 a, u16 b, int angle);     // (are the directions at most angle apart?)
 extern "C" BOOL func_ov015_021429b0(MatchEngine *self, MatchBall *ball);
 extern "C" UnkPair_020621b4 *func_ov015_02143664(MatchEngine *self, MatchPlayer *player);
-extern "C" fx32 func_02001d60(fx32 a, fx32 b);     // (a / b)
+extern "C" fx32 FX_Div(fx32 a, fx32 b);     // (a / b)
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" int func_02084470(void *obj, int a);
 extern "C" void func_ov015_021319b0(MatchPlayer *player);
@@ -306,7 +306,7 @@ extern "C" char data_020c4940[];
 extern "C" void _ZdlPv(void);
 extern "C" void func_01fff13c(void);
 extern "C" s32 func_01fff184(MatchEngine *self, fx32 x, fx32 y);     // (the length of (x, y))
-extern "C" u16 func_0200226c(fx32 y, fx32 x);     // (the direction of (x, y))
+extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" void _s32_div_f(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
 extern "C" void func_ov001_02127dcc(void);
@@ -391,13 +391,13 @@ void MatchEngine::func_020622b0()
 }
 extern "C" char data_020c4efc[];
 extern "C" void func_01fff198(void);
-extern "C" void func_02001d80(void);
+extern "C" void FX_Sqrt(void);
 extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
 extern "C" void func_01ffec94(void);
 extern "C" void func_01ffed20(void);
-extern "C" void func_ov015_021309f8(void);
+extern "C" void Random_RandB(void);
 extern "C" void func_ov015_02140f2c(void);
 extern "C" void func_ov015_02142824(void);
 extern "C" void func_ov087_0217cf1c(void);
@@ -423,11 +423,11 @@ extern "C" void func_ov015_02142850(void);
 extern "C" void func_ov087_02179c8c(void);
 extern "C" char data_020aedc8[];
 extern "C" char data_020af178[];
-extern "C" char data_020c46e4[];
+extern "C" char gConfig[];
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void func_01fff06c(void);
-extern "C" void func_02018328(void);
-extern "C" void func_ov015_021309a4(void);
+extern "C" void memcpy(void);
+extern "C" void Random_RandA(void);
 extern "C" void func_ov015_02130e80(void);
 extern "C" void func_ov015_0213178c(void);
 extern "C" void func_ov015_02131994(void);
@@ -437,7 +437,7 @@ extern "C" void func_ov015_021422d0(void);
 extern "C" void func_ov087_02179c3c(void);
 extern "C" void func_ov087_0217aba0(void);
 extern "C" char data_020af184[];
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 extern "C" char data_020d9978[];
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
@@ -459,7 +459,7 @@ extern "C" void STD_GetStringLength(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN9EntryPool9RemoveAllEv(void);
 extern "C" void func_01ffde48(void);
-extern "C" void func_0200878c(void);
+extern "C" void OS_Terminate(void);
 extern "C" void func_02021adc(void);
 extern "C" void _dflt(void);
 extern "C" void _f2d(void);
@@ -989,7 +989,7 @@ asm void MatchEngine::func_020622b4()
     mov r6, #0
     ldrb r3, [r0, #0x1a]
     ldrb r2, [r0, #0x1d]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     mov r1, r4
     str r6, [sp]
     ldr r0, [r0]
@@ -1310,7 +1310,7 @@ asm void MatchEngine::func_02062d74()
     blt @L_02062f60
     ldr r1, =data_020c4920
     ldr r1, [r1, #0x38]
-    bl func_02001d60
+    bl FX_Div
     ldr r1, =data_020c4920
     smull r12, r10, r0, r0
     ldr r3, [r1, #0x3c]
@@ -1690,7 +1690,7 @@ MatchEngine::func_02063430()
 
     for (i = 0; i < 0x16; i++) {
         if (func_ov015_02130ae8(i) != NULL) {
-            func_ov015_0213a69c(data_020c4648, n, 0);
+            func_ov015_0213a69c(g3DFieldSprite, n, 0);
             n++;
         }
     }
@@ -1702,7 +1702,7 @@ asm MatchEngine::func_02063430()
     mov r7, #0
     mov r6, r7
     mov r5, r7
-    ldr r4, =data_020c4648
+    ldr r4, =g3DFieldSprite
     b @L_02063470
 @L_02063448:
     mov r0, r6
@@ -2269,7 +2269,7 @@ asm void MatchEngine::func_02063c14()
     mov r1, r9
     ldrb r3, [r0, #0x1a]
     ldrb r2, [r0, #0x1d]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r5, [sp]
     ldr r0, [r0]
     bl func_ov015_0213a75c
@@ -2290,7 +2290,7 @@ asm void MatchEngine::func_02063c14()
     mov r1, r9
     ldrb r3, [r0, #0x1a]
     ldrb r2, [r0, #0x1d]
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r5, [sp]
     ldr r0, [r0]
     bl func_ov015_0213a75c
@@ -2368,7 +2368,7 @@ asm void MatchEngine::func_02063c14()
 
 u16 MatchEngine::func_02063e4c(fx32 x, fx32 y)
 {
-    return func_0200226c(data_020c4920.pos.y - y, data_020c4920.pos.x - x);
+    return FX_Atan2Idx(data_020c4920.pos.y - y, data_020c4920.pos.x - x);
 }
 
 void MatchEngine::func_02063e6c(fx32 x, fx32 y)
@@ -2392,7 +2392,7 @@ void MatchEngine::func_02063ec8(MatchPlayer *player)
 {
     fx32 x = player->body->pos.x;
     fx32 y = func_02067044(func_02083e34(player), 0);
-    u16 direction = func_0200226c(y - player->body->pos.y, x - player->body->pos.x);
+    u16 direction = FX_Atan2Idx(y - player->body->pos.y, x - player->body->pos.x);
 
     player->body->direction = direction;
     player->body->unk_1a = func_ov015_02130e28(direction);
@@ -2412,7 +2412,7 @@ asm void MatchEngine::func_02063f24()
     sub r1, r5, r4
     mov r9, r2
     mov r8, r3
-    bl func_0200226c
+    bl FX_Atan2Idx
     str r0, [sp, #4]
     mov r0, r11
     mov r1, r10
@@ -2564,7 +2564,7 @@ asm void MatchEngine::func_020640b4()
     beq @L_02064194
     sub r0, r5, r7
     sub r1, r4, r6
-    bl func_0200226c
+    bl FX_Atan2Idx
     str r0, [sp, #0x18]
 @L_02064194:
     ldr r0, [sp, #4]
@@ -2909,7 +2909,7 @@ asm void MatchEngine::func_02064500()
     cmp r9, r1
     mov r2, #0
     bge @L_020646bc
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r2, [sp]
     ldr r0, [r0]
     ldr r3, [r4]
@@ -3117,7 +3117,7 @@ asm void MatchEngine::func_020646d4()
     mov r3, r0
     ldr r0, [sp, #0x38]
     str r4, [sp]
-    ldr r1, =data_020c4648
+    ldr r1, =g3DFieldSprite
     ldrb r2, [r0, #0xa]
     ldr r0, [r1]
     mov r1, r9
@@ -3310,7 +3310,7 @@ asm void MatchEngine::func_020646d4()
     sub r1, r11, r1
     str r2, [sp, #0x20]
     mov r5, #0
-    bl func_0200226c
+    bl FX_Atan2Idx
     str r0, [sp, #0x1c]
     mov r2, r5
     mov r0, r10
@@ -3412,7 +3412,7 @@ asm void MatchEngine::func_020646d4()
     add r6, r1, r2
     mov r0, r6
     mov r1, r5
-    bl func_0200226c
+    bl FX_Atan2Idx
     cmp r5, #0
     rsblt r5, r5, #0
     cmp r6, #0
@@ -3430,7 +3430,7 @@ asm void MatchEngine::func_020646d4()
     orr r1, r1, r0, lsl #20
     mov r0, r3, asr #4
     add r0, r0, r1, asr #4
-    bl func_02001d80
+    bl FX_Sqrt
     mov r5, r0, lsl #2
 @L_02064e6c:
     ldr r0, [sp, #0x18]
@@ -3643,7 +3643,7 @@ asm void MatchEngine::func_02065178()
     mov r9, r0
     ldrh r0, [r1, #0x16]
     mov r4, #0
-    ldr r10, =data_020c4648
+    ldr r10, =g3DFieldSprite
     tst r0, #8
     movne r0, #1
     moveq r0, r4
@@ -4787,7 +4787,7 @@ asm void MatchEngine::func_020663b0()
     ldmia r1, {r2, r3}
     sub r1, r0, r2
     sub r0, r6, r3
-    bl func_0200226c
+    bl FX_Atan2Idx
     ldr r1, =data_020c4920
     ldr r3, [r4, #0xc]
     ldr r2, [r1]
@@ -4798,7 +4798,7 @@ asm void MatchEngine::func_020663b0()
     ldmia r1, {r2, r3}
     sub r1, r0, r2
     sub r0, r6, r3
-    bl func_0200226c
+    bl FX_Atan2Idx
     ldr r1, =data_020c4920
     ldr r3, [r4, #4]
     ldr r2, [r1]
@@ -4807,7 +4807,7 @@ asm void MatchEngine::func_020663b0()
     mov r11, r0
     sub r0, r3, r1
     sub r1, r5, r2
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r7, r0
     mov r5, #0
     add r4, r10, #0x11800
@@ -5011,7 +5011,7 @@ asm void MatchEngine::func_02066768()
     mov r9, r1
     mov r0, #0x64
     mov r4, #0
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r5, r0
     mov r0, r10
     mov r1, r9
@@ -5214,7 +5214,7 @@ asm void MatchEngine::func_02066768()
     str r11, [sp, #8]
     bl _ZN11MatchEngine13func_020654ccEP11MatchPlayeriiP10MatchPointS3_i
     mov r0, #5
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r1, r0
     mov r0, r10
     add r1, r1, #3
@@ -5334,7 +5334,7 @@ asm void MatchEngine::func_02066768()
     mov r2, #0x1a
     bl _ZN11MatchEngine13func_020654ccEP11MatchPlayeriiP10MatchPointS3_i
     mov r0, #5
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r1, r0
     mov r0, r10
     add r1, r1, #2
@@ -5372,7 +5372,7 @@ asm void MatchEngine::func_02066768()
     str r4, [sp, #8]
     bl _ZN11MatchEngine13func_020654ccEP11MatchPlayeriiP10MatchPointS3_i
     mov r0, #3
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r1, r0
     mov r0, r10
     add r1, r1, #2
@@ -5631,7 +5631,7 @@ BOOL MatchEngine::func_02067104(fx32 x, fx32 y, fx32 targetX, fx32 targetY, fx32
 {
     fx32 dy = targetY - y;
     fx32 dx = targetX - x;
-    u16 direction = func_0200226c(dy, dx);
+    u16 direction = FX_Atan2Idx(dy, dx);
 
     if (dy < 0) {
         dy = -dy;
@@ -5807,7 +5807,7 @@ asm void MatchEngine::func_02067448()
     mov r0, #0x10
     mov r6, r2
     mov r5, r3
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r1, r0, lsl #0x1c
     mov r0, r4
     ldr r8, =data_020c4ecc
@@ -6246,7 +6246,7 @@ asm void MatchEngine::func_020678d0()
     subne r5, r5, r9
 @L_02067ad8:
     mov r0, #3
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r0, r5, r0
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -6350,7 +6350,7 @@ asm BOOL MatchEngine::func_02067aec(MatchPlayer *player, int a, int b, void *c, 
     cmp r0, #0
     beq @L_02067c68
     mov r0, #0x64
-    bl func_ov015_021309f8
+    bl Random_RandB
     b @L_02067c8c
 @L_02067c68:
     add r0, sp, #0x38
@@ -7148,7 +7148,7 @@ asm void MatchEngine::func_02068844()
     adc r1, r0, #0
     mov r0, r2, lsr #0xc
     orr r0, r0, r1, lsl #20
-    bl func_02001d80
+    bl FX_Sqrt
     ldr r2, =data_020aeb64
     mov r1, r0
     ldr r0, [r2, #0x10]
@@ -7157,7 +7157,7 @@ asm void MatchEngine::func_02068844()
     adc r2, r2, #0
     mov r0, r0, lsr #0xc
     orr r0, r0, r2, lsl #20
-    bl func_02001d60
+    bl FX_Div
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
@@ -7165,7 +7165,7 @@ fx32 // (nonmatching: the stack argument is stored at a different time)
 #ifdef NONMATCHING
 MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
 {
-    fx32 time = func_02001d60(ball->unk_3c, 0x9CCD);
+    fx32 time = FX_Div(ball->unk_3c, 0x9CCD);
 
     func_020681d8(&ball->unk_20, ball->unk_52, FX_Mul(ball->unk_38, time), pos);
     return time;
@@ -7179,7 +7179,7 @@ asm MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
     ldr r0, [r5, #0x3c]
     ldr r1, =0x9ccd
     mov r7, r2
-    bl func_02001d60
+    bl FX_Div
     mov r4, r0
     ldr r0, [r5, #0x38]
     ldrh r2, [r5, #0x52]
@@ -7306,7 +7306,7 @@ asm void MatchEngine::func_02068b5c()
     addeq sp, sp, #0xc
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, pc}
-    bl func_ov015_021309f8
+    bl Random_RandB
     ldr r2, [r6, #0xec]
     mov r1, r4
     ldrsh r2, [r2, #0x24]
@@ -7536,7 +7536,7 @@ MatchEngine::func_02068edc(MatchPlayer *player, int angle)
     if (func_ov015_021429b0(this, &data_020c4920)) {
         target = &data_020c4920.unk_18;
     }
-    direction = func_0200226c(target->y - player->body->pos.y, target->x - player->body->pos.x);
+    direction = FX_Atan2Idx(target->y - player->body->pos.y, target->x - player->body->pos.x);
     if (!func_020842b0(player->body->direction, direction, angle)) {
         return FALSE;
     }
@@ -7561,7 +7561,7 @@ asm MatchEngine::func_02068edc(MatchPlayer *player, int angle)
     ldr r1, [r4]
     sub r0, r0, r2
     sub r1, r1, r3
-    bl func_0200226c
+    bl FX_Atan2Idx
     ldr r2, [r6, #0xe8]
     mov r1, r0
     ldrh r0, [r2, #0x18]
@@ -7853,7 +7853,7 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     add r4, r1, r7, lsl #5
     mov r1, r4
     mov r2, #0x20
-    bl func_02018328
+    bl memcpy
     mov r0, r8
     bl func_02080b90
     mov r1, r0
@@ -8099,7 +8099,7 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     ldr r1, [sp, #0xf4]
     cmp r1, #0
     bne @L_02069768
-    bl func_ov015_021309f8
+    bl Random_RandB
     b @L_02069780
 @L_02069768:
     cmp r1, #1
@@ -8107,7 +8107,7 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     beq @L_02069784
     cmp r1, #2
     bne @L_02069784
-    bl func_ov015_021309a4
+    bl Random_RandA
 @L_02069780:
     add r5, r5, r0
 @L_02069784:
@@ -8235,7 +8235,7 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     bl func_02080b90
     mov r1, r0
     mov r0, r9
-    bl _ZN11MatchEngine13func_0206a964Ei
+    bl _ZN11MatchEngine11GetTeamInfoEi
     ldrb r0, [r0, #0x3c]
     cmp r0, #2
     bne @L_02069980
@@ -8423,10 +8423,10 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     cmp r0, #0
     mov r0, #0x64
     bne @L_02069c2c
-    bl func_ov015_021309f8
+    bl Random_RandB
     b @L_02069c30
 @L_02069c2c:
-    bl func_ov015_021309a4
+    bl Random_RandA
 @L_02069c30:
     cmp r0, #0xa
     ldrlob r0, [r6, #6]
@@ -8449,10 +8449,10 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     rsbmi r0, r0, #0
     cmp r1, #0
     bne @L_02069c88
-    bl func_ov015_021309f8
+    bl Random_RandB
     b @L_02069c8c
 @L_02069c88:
-    bl func_ov015_021309a4
+    bl Random_RandA
 @L_02069c8c:
     mul r1, r5, r0
     smull r0, r2, r4, r1
@@ -8474,10 +8474,10 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     rsbmi r0, r0, #0
     cmp r1, #0
     bne @L_02069ce0
-    bl func_ov015_021309f8
+    bl Random_RandB
     b @L_02069ce4
 @L_02069ce0:
-    bl func_ov015_021309a4
+    bl Random_RandA
 @L_02069ce4:
     mul r1, r5, r0
     smull r0, r2, r4, r1
@@ -9335,7 +9335,7 @@ s32 MatchEngine::func_0206a93c()
     return unk_c78 < 0 ? 0 : unk_c78;
 }
 
-u8 *MatchEngine::func_0206a964(int i)
+u8 *MatchEngine::GetTeamInfo(int i)
 {
     return unk_17c[i];
 }
@@ -9386,7 +9386,7 @@ asm void MatchEngine::func_0206aa6c()
     mov r7, #0
     mov r10, r0
     mov r6, r1
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020af178
     mov r5, r2
     mov r4, r3
@@ -10414,7 +10414,7 @@ asm void MatchEngine::func_0206b89c()
     mov r0, r9
     mov r1, r8
     str r11, [sp, #0xc]
-    bl func_0200226c
+    bl FX_Atan2Idx
     mov r2, r0
     ldr r0, [sp]
     ldr r1, [sp, #8]
@@ -10440,7 +10440,7 @@ asm void MatchEngine::func_0206b89c()
     orr r0, r0, r3, lsl #20
     mov r1, r2, asr #4
     add r0, r1, r0, asr #4
-    bl func_02001d80
+    bl FX_Sqrt
     ldr r2, [r10, #0xec]
     add r4, r4, r0, lsl #2
     ldrsh r2, [r2, #0x86]
@@ -10570,7 +10570,7 @@ asm void MatchEngine::func_0206ba84()
     cmp r7, #0x30000
     cmple r8, #0x30000
     bgt @L_0206bc58
-    bl func_0200226c
+    bl FX_Atan2Idx
     ldr r1, [sp, #0x14]
     mov r2, #0x6000
     str r0, [sp, #0x24]
@@ -10729,7 +10729,7 @@ asm void MatchEngine::func_0206bc70()
     cmp r6, #0
     ble @L_0206bddc
     add r0, r6, r0
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, r6
     movlo r0, #1
     subhs r0, r4, #8
@@ -10769,14 +10769,14 @@ asm void MatchEngine::func_0206bc70()
     ldr r0, [r7, #0xe8]
     ldrb r3, [r0, #0x1a]
     bge @L_0206be70
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r5, [sp]
     mov r1, r7
     ldr r0, [r0]
     mov r2, #3
     b @L_0206be84
 @L_0206be70:
-    ldr r0, =data_020c4648
+    ldr r0, =g3DFieldSprite
     str r5, [sp]
     ldr r0, [r0]
     mov r1, r7
@@ -11245,7 +11245,7 @@ asm void MatchEngine::func_0206c42c()
     cmp r4, #0xc
     mov r0, #0x64
     movgt r4, #0xc
-    bl func_ov015_021309f8
+    bl Random_RandB
     cmp r0, r4
     movlt r0, #1
     movge r0, #0
@@ -11329,7 +11329,7 @@ asm void MatchEngine::func_0206c694()
     mov r7, #1
     mov r6, r9
     mvn r5, #0
-    ldr r4, =data_020c4648
+    ldr r4, =g3DFieldSprite
     b @L_0206c734
 @L_0206c6cc:
     mov r0, r9
@@ -11799,7 +11799,7 @@ asm void MatchEngine::func_0206cd08()
 {
     stmdb sp!, {r3, lr}
     sub sp, sp, #0x18
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     str r2, [sp, #0x14]
     ldr r0, [r3]
     ldr lr, =data_020af184
@@ -12580,7 +12580,7 @@ asm void MatchEngine::func_0206d6b4()
     ldr r0, [sp, #0xc]
     cmp r0, #0
     beq @L_0206d814
-    bl func_ov015_021309f8
+    bl Random_RandB
     add r4, sp, #0x10
     ldr r1, [sp, #8]
     ldr r2, [r4, #4]
@@ -12733,7 +12733,7 @@ asm void MatchEngine::func_0206d9d0()
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r4, r1
     mov r0, #0x29
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r7, r0
     mov r0, r4
     bl _dflt
@@ -12777,7 +12777,7 @@ asm void MatchEngine::func_0206da44()
     cmp r4, #0x1e
     movhi r4, #0x1e
     mov r0, #0x29
-    bl func_ov015_021309f8
+    bl Random_RandB
     mov r5, r0
     mov r0, r4
     bl _ffltu
@@ -13423,7 +13423,7 @@ asm void MatchEngine::func_0206e330()
     addne sp, sp, #0x14
     movne r0, #1
     ldmneia sp!, {pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af1a0
     ldr r0, [r3]
     cmp r0, #0
@@ -13453,7 +13453,7 @@ asm void MatchEngine::func_0206e3a8()
     ldr r1, [r4, #0xc00]
     cmp r1, #0
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, #0
     str r0, [r4, #0xc00]
@@ -13585,7 +13585,7 @@ asm void MatchEngine::func_0206e50c()
     add sp, sp, #0x10
     bx lr
 @L_0206e580:
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr lr, =data_020af1bc
     ldr r0, [r3]
     cmp r0, #0
@@ -13645,7 +13645,7 @@ asm void MatchEngine::func_0206e5e4()
     ldmeqia sp!, {r4, r5, lr}
     addeq sp, sp, #0x10
     bxeq lr
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldrh r2, [sp, #0x32]
     ldr r0, [r3]
     ldr r1, =data_020af1d8
@@ -13680,7 +13680,7 @@ asm void MatchEngine::func_0206e6bc()
     addne sp, sp, #0x14
     movne r0, #1
     ldmneia sp!, {pc}
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020af1f4
     ldr r0, [r3]
     cmp r0, #0
@@ -13712,7 +13712,7 @@ asm void MatchEngine::func_0206e738()
     cmp r1, #0
     moveq r0, #1
     ldmeqia sp!, {r4, pc}
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     bl _ZN8GameHeap4FreeEPv
     mov r0, #0
     str r0, [r4, #0xc04]
@@ -13997,7 +13997,7 @@ asm void MatchEngine::func_0206ea68()
     cmp r0, #0x7a
     movle r0, #7
     ldmleia sp!, {r4, pc}
-    bl func_0200878c
+    bl OS_Terminate
     mvn r0, #0
     ldmia sp!, {r4, pc}
 }

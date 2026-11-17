@@ -2,12 +2,12 @@
 
 void MIi_DMAFastCallback(void);
 
-extern char data_020bb4b4[];
+extern char MIi_GXDmaParams[];
 
 asm void MIi_DMAFastCallback(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =data_020bb4b4
+    ldr r0, =MIi_GXDmaParams
     mov r1, #0
     str r1, [r0]
     ldr r1, [r0, #0x10]

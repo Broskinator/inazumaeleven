@@ -26,8 +26,8 @@ int TextFont2bpp::DrawGlyphTile4(const u8 *image, u8 *canvas, int width, u8 colo
     colors[0] = 0;
     color &= 0xF;
     colors[1] = color & 0xF;
-    colors[2] = unk_1C & 0xF;
-    colors[3] = unk_1D & 0xF;
+    colors[2] = edgeColor & 0xF;
+    colors[3] = shadowColor & 0xF;
 
     if (!useGlyphWidth) {
         x += widths->left;
@@ -94,8 +94,8 @@ int TextFont2bpp::DrawGlyphTile8(const u8 *image, u8 *canvas, int width, u8 colo
 
     colors[0] = 0;
     colors[1] = color;
-    colors[2] = unk_1C;
-    colors[3] = unk_1D;
+    colors[2] = edgeColor;
+    colors[3] = shadowColor;
 
     for (row = 0; row < lineHeight; row++) {
         int py = row + y;
@@ -151,8 +151,8 @@ int TextFont2bpp::DrawGlyph4(const u8 *image, u8 *canvas, int pitch, u8 color,
 
     colors[0] = 0;
     colors[1] = color & 0xF;
-    colors[2] = unk_1C & 0xF;
-    colors[3] = unk_1D & 0xF;
+    colors[2] = edgeColor & 0xF;
+    colors[3] = shadowColor & 0xF;
 
     if (!useGlyphWidth) {
         x += widths->left;
@@ -217,8 +217,8 @@ int TextFont2bpp::DrawGlyph8(const u8 *image, u8 *canvas, int pitch, u8 color,
 
     colors[0] = 0;
     colors[1] = color;
-    colors[2] = unk_1C;
-    colors[3] = unk_1D;
+    colors[2] = edgeColor;
+    colors[3] = shadowColor;
 
     x += widths->left;
 

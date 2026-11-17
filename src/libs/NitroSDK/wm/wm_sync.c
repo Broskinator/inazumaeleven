@@ -1,47 +1,47 @@
 // (asm for now)
 
 void WM_SetIndCallback(void);
-void func_02012e6c(void);
-void func_02012f44(void);
-void func_02012f94(void);
-void func_02013004(void);
-void func_020130d0(void);
+void WM_SetPortCallback(void);
+void WM_ReadStatus(void);
+void WM_GetMPSendBufferSize(void);
+void WM_GetMPReceiveBufferSize(void);
+void WM_ReadMPData(void);
 void func_020131c0(void);
-void func_020131e0(void);
-void func_02013274(void);
-void func_02013308(void);
-void func_020133a0(void);
-void func_020134f8(void);
-void func_02013568(void);
-void func_02013578(void);
-void func_020135e4(void);
-void func_02013628(void);
-void func_0201366c(void);
+void WM_GetLinkLevel(void);
+void WM_GetDispersionBeaconPeriod(void);
+void WM_GetDispersionScanPeriod(void);
+void WM_GetOtherElements(void);
+void WM_GetNextTgid(void);
+void WM_Enable(void);
+void WMi_EnableEx(void);
+void WM_Disable(void);
+void WM_PowerOn(void);
+void WM_PowerOff(void);
 void func_020136b4(void);
-void func_020136c4(void);
-void func_0201372c(void);
-void func_02013768(void);
-void func_020137ac(void);
+void WMi_InitializeEx(void);
+void WM_Reset(void);
+void WM_End(void);
+void WM_SetParentParameter(void);
 
 void OS_DisableInterrupts(void);
 void WMi_CheckInitialized(void);
 void OS_RestoreInterrupts(void);
-void func_02012844(void);
+void WMi_GetSystemWork(void);
 void MI_CpuFill8(void);
-void func_02008564(void);
+void OS_GetMacAddress(void);
 void WM_GetConnectedAIDs(void);
 void WM_GetAID(void);
 void DC_InvalidateRange(void);
 void MIi_CpuCopyFast(void);
-void func_020128b4(void);
+void WMi_CheckStateEx(void);
 extern char data_020aae14[];
-void func_0201025c(void);
-void func_020103e0(void);
+void RTC_Init(void);
+void RTC_GetTime(void);
 void WMi_SetCallbackTable(void);
-void func_02012dd4(void);
-void func_02012728(void);
-void func_020123ec(void);
-void func_02012870(void);
+void WMi_RegisterSleepCallback(void);
+void WMi_SendCommand(void);
+void WM_Init(void);
+void WMi_CheckIdle(void);
 void WmCheckParentParameter(void);
 void DC_StoreRange(void);
 
@@ -59,7 +59,7 @@ asm void WM_SetIndCallback(void)
     mov r0, r4
     ldmia sp!, {r4, r5, r6, pc}
 @L_02012e54:
-    bl func_02012844
+    bl WMi_GetSystemWork
     str r6, [r0, #0xc8]
     mov r0, r5
     bl OS_RestoreInterrupts
@@ -67,7 +67,7 @@ asm void WM_SetIndCallback(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02012e6c(void)
+asm void WM_SetPortCallback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x44
@@ -94,7 +94,7 @@ asm void func_02012e6c(void)
     strh r1, [sp, #0x1a]
     str r4, [sp, #0x1c]
     strh r7, [sp, #0x12]
-    bl func_02008564
+    bl OS_GetMacAddress
 @L_02012ed4:
     bl OS_DisableInterrupts
     mov r8, r0
@@ -107,7 +107,7 @@ asm void func_02012e6c(void)
     mov r0, r7
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02012efc:
-    bl func_02012844
+    bl WMi_GetSystemWork
     add r0, r0, r6, lsl #2
     str r5, [r0, #0xcc]
     str r4, [r0, #0x10c]
@@ -127,11 +127,11 @@ asm void func_02012e6c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02012f44(void)
+asm void WM_ReadStatus(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r5, r0
     bl WMi_CheckInitialized
     cmp r0, #0
@@ -151,15 +151,15 @@ asm void func_02012f44(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02012f94(void)
+asm void WM_GetMPSendBufferSize(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r5, r0
     mov r0, #2
     mov r1, #7
     mov r2, #8
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
@@ -183,16 +183,16 @@ asm void func_02012f94(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02013004(void)
+asm void WM_GetMPReceiveBufferSize(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r5, #2
     mov r4, r0
     mov r0, r5
     mov r1, #7
     mov r2, #8
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     movne r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
@@ -238,13 +238,13 @@ asm void func_02013004(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020130d0(void)
+asm void WM_ReadMPData(void)
 {
     stmdb sp!, {r3, r4, r5, r6, lr}
     sub sp, sp, #0x3c
     mov r5, r0
     mov r4, r1
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r6, r0
     bl WMi_CheckInitialized
     cmp r0, #0
@@ -318,10 +318,10 @@ asm void func_020131c0(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020131e0(void)
+asm void WM_GetLinkLevel(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    bl func_02012844
+    bl WMi_GetSystemWork
     mov r5, r0
     bl WMi_CheckInitialized
     cmp r0, #0
@@ -362,13 +362,13 @@ asm void func_020131e0(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02013274(void)
+asm void WM_GetDispersionBeaconPeriod(void)
 {
     stmdb sp!, {r4, lr}
     sub sp, sp, #8
     add r4, sp, #0
     mov r0, r4
-    bl func_02008564
+    bl OS_GetMacAddress
     mov r2, #0
     mov r1, r2
 @L_02013290:
@@ -402,13 +402,13 @@ asm void func_02013274(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02013308(void)
+asm void WM_GetDispersionScanPeriod(void)
 {
     stmdb sp!, {r4, lr}
     sub sp, sp, #8
     add r4, sp, #0
     mov r0, r4
-    bl func_02008564
+    bl OS_GetMacAddress
     mov r1, #0
     mov r2, r1
 @L_02013324:
@@ -443,7 +443,7 @@ asm void func_02013308(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020133a0(void)
+asm void WM_GetOtherElements(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0x84
@@ -542,7 +542,7 @@ asm void func_020133a0(void)
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-asm void func_020134f8(void)
+asm void WM_GetNextTgid(void)
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #0xc
@@ -550,9 +550,9 @@ asm void func_020134f8(void)
     ldr r0, [r4]
     cmp r0, #0x10000
     bne @L_0201353c
-    bl func_0201025c
+    bl RTC_Init
     add r0, sp, #0
-    bl func_020103e0
+    bl RTC_GetTime
     cmp r0, #0
     bne @L_0201353c
     ldr r1, [sp, #8]
@@ -574,14 +574,14 @@ asm void func_020134f8(void)
     ldmia sp!, {r3, r4, pc}
 }
 
-asm void func_02013568(void)
+asm void WM_Enable(void)
 {
-    ldr r12, =func_02013578
+    ldr r12, =WMi_EnableEx
     mov r1, #0
     bx r12
 }
 
-asm void func_02013578(void)
+asm void WMi_EnableEx(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #8
@@ -589,7 +589,7 @@ asm void func_02013578(void)
     mov r5, r1
     mov r0, #1
     mov r1, #0
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     addne sp, sp, #8
     ldmneia sp!, {r4, r5, r6, pc}
@@ -597,28 +597,28 @@ asm void func_02013578(void)
     mov r0, r4
     mov r1, r6
     bl WMi_SetCallbackTable
-    bl func_02012dd4
-    bl func_02012844
+    bl WMi_RegisterSleepCallback
+    bl WMi_GetSystemWork
     mov r3, r0
     ldr r2, [r3, #0x10]
     mov r0, r4
     stmia sp, {r2, r5}
     mov r1, #4
     ldmia r3, {r2, r3}
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     add sp, sp, #8
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020135e4(void)
+asm void WM_Disable(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r0, #1
     mov r1, r0
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r4, #4
@@ -627,19 +627,19 @@ asm void func_020135e4(void)
     bl WMi_SetCallbackTable
     mov r0, r4
     mov r1, #0
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02013628(void)
+asm void WM_PowerOn(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r0, #1
     mov r1, r0
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r4, #5
@@ -648,20 +648,20 @@ asm void func_02013628(void)
     bl WMi_SetCallbackTable
     mov r0, r4
     mov r1, #0
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0201366c(void)
+asm void WM_PowerOff(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r5, #2
     mov r6, r0
     mov r1, r5
     mov r0, #1
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     mov r4, #6
@@ -670,7 +670,7 @@ asm void func_0201366c(void)
     bl WMi_SetCallbackTable
     mov r0, r4
     mov r1, #0
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, r5
     ldmia sp!, {r4, r5, r6, pc}
@@ -678,19 +678,19 @@ asm void func_0201366c(void)
 
 asm void func_020136b4(void)
 {
-    ldr r12, =func_020136c4
+    ldr r12, =WMi_InitializeEx
     mov r3, #0
     bx r12
 }
 
-asm void func_020136c4(void)
+asm void WMi_InitializeEx(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     sub sp, sp, #8
     mov r6, r1
     mov r1, r2
     mov r5, r3
-    bl func_020123ec
+    bl WM_Init
     cmp r0, #0
     addne sp, sp, #8
     ldmneia sp!, {r4, r5, r6, pc}
@@ -698,26 +698,26 @@ asm void func_020136c4(void)
     mov r0, r4
     mov r1, r6
     bl WMi_SetCallbackTable
-    bl func_02012dd4
-    bl func_02012844
+    bl WMi_RegisterSleepCallback
+    bl WMi_GetSystemWork
     mov r3, r0
     ldr r2, [r3, #0x10]
     mov r0, r4
     stmia sp, {r2, r5}
     mov r1, #4
     ldmia r3, {r2, r3}
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     add sp, sp, #8
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_0201372c(void)
+asm void WM_Reset(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
-    bl func_02012870
+    bl WMi_CheckIdle
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r4, #1
@@ -726,20 +726,20 @@ asm void func_0201372c(void)
     bl WMi_SetCallbackTable
     mov r0, r4
     mov r1, #0
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02013768(void)
+asm void WM_End(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, #2
     mov r5, r0
     mov r1, r4
     mov r0, #1
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, r4
@@ -747,20 +747,20 @@ asm void func_02013768(void)
     bl WMi_SetCallbackTable
     mov r0, r4
     mov r1, #0
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020137ac(void)
+asm void WM_SetParentParameter(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
     mov r4, r1
     mov r0, #1
     mov r1, #2
-    bl func_020128b4
+    bl WMi_CheckStateEx
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, pc}
     cmp r4, #0
@@ -810,7 +810,7 @@ asm void func_020137ac(void)
     mov r2, r4
     mov r0, #7
     mov r1, #1
-    bl func_02012728
+    bl WMi_SendCommand
     cmp r0, #0
     moveq r0, #2
     ldmia sp!, {r3, r4, r5, pc}

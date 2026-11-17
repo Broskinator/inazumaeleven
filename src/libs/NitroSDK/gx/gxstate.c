@@ -2,11 +2,11 @@
 
 void GX_InitGXState(void);
 
-extern char data_020bb080[];
+extern char gGXState[];
 
 asm void GX_InitGXState(void)
 {
-    ldr r0, =data_020bb080
+    ldr r0, =gGXState
     mov r2, #0
     strh r2, [r0]
     strh r2, [r0, #2]

@@ -1,36 +1,36 @@
 // (asm for now)
 
 void STD_CompareString(void);
-void func_020170b8(void);
-void func_020171a0(void);
-void func_020171cc(void);
-void func_02017220(void);
+void STD_CompareNString(void);
+void string_put_char(void);
+void string_fill_char(void);
+void string_put_string(void);
 void func_02017278(void);
-void func_020172a0(void);
-void func_02017a7c(void);
-void func_02017aa4(void);
-void func_02017ae8(void);
+void STD_TVSNPrintf(void);
+void abort(void);
+void exit(void);
+void __exit(void);
 void func_02017c04(void);
-void func_02017c1c(void);
-void func_02017c34(void);
-void func_02017c4c(void);
+void __sys_alloc(void);
+void __sys_free(void);
+void malloc(void);
 void func_02017c64(void);
-void func_02017c78(void);
+void __flush_all(void);
 void func_02017cdc(void);
-void func_02017ce8(void);
-void func_02017cf4(void);
-void func_02017cf8(void);
-void func_02017d20(void);
-void func_02017da4(void);
-void func_02018044(void);
+void labs(void);
+void __convert_from_newlines(void);
+void __prep_buffer(void);
+void __flush_buffer(void);
+void __fwrite(void);
+void fflush(void);
 
 void _ll_udiv(void);
-void func_0201a7a8(void);
-extern char data_020beeb4[];
+void raise(void);
+extern char __console_exit[];
 void func_0202529c(void);
 extern char data_020bf00c[];
 void OS_TryLockMutex(void);
-extern char data_020bb120[];
+extern char OSi_ThreadInfo[];
 extern char data_020befc4[];
 extern char data_020befe8[];
 void OS_LockMutex(void);
@@ -42,9 +42,9 @@ void _f2d(void);
 void OS_AllocFromHeap(void);
 void OS_FreeToHeap(void);
 extern char data_020aafe0[];
-void func_0201c058(void);
+void fwide(void);
 void __memrchr(void);
-void func_02018328(void);
+void memcpy(void);
 void _u32_div_f(void);
 
 asm void STD_CompareString(void)
@@ -104,7 +104,7 @@ asm void STD_CompareString(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020170b8(void)
+asm void STD_CompareNString(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r2, #0
@@ -176,7 +176,7 @@ asm void func_020170b8(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020171a0(void)
+asm void string_put_char(void)
 {
     ldr r2, [r0]
     cmp r2, #0
@@ -191,7 +191,7 @@ asm void func_020171a0(void)
     bx lr
 }
 
-asm void func_020171cc(void)
+asm void string_fill_char(void)
 {
     stmdb sp!, {r3, lr}
     cmp r2, #0
@@ -218,7 +218,7 @@ asm void func_020171cc(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02017220(void)
+asm void string_put_string(void)
 {
     stmdb sp!, {r4, lr}
     cmp r2, #0
@@ -254,13 +254,13 @@ asm void func_02017278(void)
     bic r3, r3, #3
     ldr r2, [sp, #0x10]
     add r3, r3, #4
-    bl func_020172a0
+    bl STD_TVSNPrintf
     ldmia sp!, {r3, lr}
     add sp, sp, #0x10
     bx lr
 }
 
-asm void func_020172a0(void)
+asm void STD_TVSNPrintf(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
@@ -281,14 +281,14 @@ asm void func_020172a0(void)
     cmp r0, #0x3c
     bhs @L_02017308
     add r0, sp, #0xc
-    bl func_020171a0
+    bl string_put_char
     ldrsb r1, [r10, #1]!
     cmp r1, #0
     beq @L_02017a2c
 @L_020172f8:
     add r0, sp, #0xc
     add r10, r10, #1
-    bl func_020171a0
+    bl string_put_char
     b @L_02017a2c
 @L_02017308:
     cmp r1, #0x25
@@ -466,11 +466,11 @@ asm void func_020172a0(void)
     mov r1, r7, lsl #0x18
     mov r0, r4
     mov r1, r1, asr #0x18
-    bl func_020171a0
+    bl string_put_char
     mov r0, r4
     sub r2, r6, #1
     mov r1, #0x20
-    bl func_020171cc
+    bl string_fill_char
     b @L_0201759c
 @L_0201756c:
     tst r5, #0x10
@@ -480,11 +480,11 @@ asm void func_020172a0(void)
     mov r0, r4
     mov r1, r1, asr #0x18
     sub r2, r6, #1
-    bl func_020171cc
+    bl string_fill_char
     mov r1, r7, lsl #0x18
     mov r0, r4
     mov r1, r1, asr #0x18
-    bl func_020171a0
+    bl string_put_char
 @L_0201759c:
     b @L_02017a28
 @L_020175a0:
@@ -518,11 +518,11 @@ asm void func_020172a0(void)
     mov r0, r9
     mov r1, r8
     mov r2, r4
-    bl func_02017220
+    bl string_put_string
     mov r0, r9
     mov r2, r6
     mov r1, #0x20
-    bl func_020171cc
+    bl string_fill_char
     b @L_02017650
 @L_02017620:
     tst r5, #0x10
@@ -532,11 +532,11 @@ asm void func_020172a0(void)
     mov r0, r9
     mov r2, r6
     mov r1, r1, asr #0x18
-    bl func_020171cc
+    bl string_fill_char
     mov r0, r9
     mov r1, r8
     mov r2, r4
-    bl func_02017220
+    bl string_put_string
 @L_02017650:
     b @L_02017a28
 @L_02017654:
@@ -548,7 +548,7 @@ asm void func_020172a0(void)
     mov r1, r2
     add r0, sp, #0xc
     sub r2, r10, r2
-    bl func_02017220
+    bl string_put_string
     b @L_02017a2c
 @L_02017678:
     orr r5, r5, #0x1000
@@ -778,7 +778,7 @@ asm void func_020172a0(void)
     add r0, sp, #0xc
     mov r2, r6
     mov r1, #0x20
-    bl func_020171cc
+    bl string_fill_char
 @L_020179b0:
     cmp r4, #0
     ble @L_020179d4
@@ -787,7 +787,7 @@ asm void func_020172a0(void)
     sub r4, r4, #1
     ldrsb r1, [r5, r4]
     mov r0, r8
-    bl func_020171a0
+    bl string_put_char
     cmp r4, #0
     bgt @L_020179bc
 @L_020179d4:
@@ -795,7 +795,7 @@ asm void func_020172a0(void)
     mov r2, r7
     mov r0, r5
     mov r1, #0x30
-    bl func_020171cc
+    bl string_fill_char
     cmp r9, #0
     ble @L_02017a0c
     add r4, sp, #0x18
@@ -803,7 +803,7 @@ asm void func_020172a0(void)
     sub r9, r9, #1
     ldrsb r1, [r4, r9]
     mov r0, r5
-    bl func_020171a0
+    bl string_put_char
     cmp r9, #0
     bgt @L_020179f4
 @L_02017a0c:
@@ -813,7 +813,7 @@ asm void func_020172a0(void)
     add r0, sp, #0xc
     mov r2, r6
     mov r1, #0x20
-    bl func_020171cc
+    bl string_fill_char
 @L_02017a28:
     add r10, r10, #1
 @L_02017a2c:
@@ -840,23 +840,23 @@ asm void func_020172a0(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02017a7c(void)
+asm void abort(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, #1
     mov r0, r4
-    bl func_0201a7a8
-    ldr r1, =data_020beeb4
+    bl raise
+    ldr r1, =__console_exit
     mov r0, r4
     str r4, [r1, #0xc]
-    bl func_02017aa4
+    bl exit
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02017aa4(void)
+asm void exit(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
-    ldr r4, =data_020beeb4
+    ldr r4, =__console_exit
     mov r5, r0
     ldr r0, [r4, #0xc]
     cmp r0, #0
@@ -870,11 +870,11 @@ asm void func_02017aa4(void)
     str r0, [r4, #4]
 @L_02017ad8:
     mov r0, r5
-    bl func_02017ae8
+    bl __exit
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02017ae8(void)
+asm void __exit(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr r6, =data_020bf00c
@@ -882,7 +882,7 @@ asm void func_02017ae8(void)
     bl OS_TryLockMutex
     cmp r0, #0
     bne @L_02017b24
-    ldr r0, =data_020bb120
+    ldr r0, =OSi_ThreadInfo
     ldr r1, =data_020befc4
     ldr r2, [r0, #4]
     ldr r0, =data_020befe8
@@ -892,7 +892,7 @@ asm void func_02017ae8(void)
     str r2, [r0]
     b @L_02017b70
 @L_02017b24:
-    ldr r4, =data_020bb120
+    ldr r4, =OSi_ThreadInfo
     ldr r5, =data_020befc4
     ldr r0, [r4, #4]
     ldr r1, [r5]
@@ -912,7 +912,7 @@ asm void func_02017ae8(void)
     str r2, [r5]
     str r1, [r0]
 @L_02017b70:
-    ldr r4, =data_020beeb4
+    ldr r4, =__console_exit
     ldr r0, [r4, #8]
     cmp r0, #0
     ble @L_02017ba4
@@ -935,7 +935,7 @@ asm void func_02017ae8(void)
     ldr r0, =data_020bf00c
     bl OS_UnlockMutex
 @L_02017bc0:
-    ldr r4, =data_020beeb4
+    ldr r4, =__console_exit
     ldr r0, [r4]
     cmp r0, #0
     beq @L_02017bdc
@@ -944,7 +944,7 @@ asm void func_02017ae8(void)
     str r0, [r4]
 @L_02017bdc:
     mov r0, #0
-    bl func_02018044
+    bl fflush
     bl func_02023dd8
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -957,7 +957,7 @@ asm void func_02017c04(void)
     bx r12
 }
 
-asm void func_02017c1c(void)
+asm void __sys_alloc(void)
 {
     mov r2, r0
     mov r0, #0
@@ -966,7 +966,7 @@ asm void func_02017c1c(void)
     bx r12
 }
 
-asm void func_02017c34(void)
+asm void __sys_free(void)
 {
     mov r2, r0
     mov r0, #0
@@ -975,13 +975,13 @@ asm void func_02017c34(void)
     bx r12
 }
 
-asm void func_02017c4c(void)
+asm void malloc(void)
 {
     stmdb sp!, {r3, lr}
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, pc}
-    bl func_02017c1c
+    bl __sys_alloc
     ldmia sp!, {r3, pc}
 }
 
@@ -990,11 +990,11 @@ asm void func_02017c64(void)
     stmdb sp!, {r3, lr}
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
-    bl func_02017c34
+    bl __sys_free
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02017c78(void)
+asm void __flush_all(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldr r0, =data_020aafe0
@@ -1009,7 +1009,7 @@ asm void func_02017c78(void)
     mov r1, r1, lsl #0x16
     movs r1, r1, lsr #0x1d
     beq @L_02017cb4
-    bl func_02018044
+    bl fflush
     cmp r0, #0
     movne r4, r9
 @L_02017cb4:
@@ -1031,19 +1031,19 @@ asm void func_02017cdc(void)
     bx lr
 }
 
-asm void func_02017ce8(void)
+asm void labs(void)
 {
     cmp r0, #0
     rsblt r0, r0, #0
     bx lr
 }
 
-asm void func_02017cf4(void)
+asm void __convert_from_newlines(void)
 {
     bx lr
 }
 
-asm void func_02017cf8(void)
+asm void __prep_buffer(void)
 {
     ldr r2, [r0, #0x18]
     ldr r1, [r0, #0x2c]
@@ -1057,7 +1057,7 @@ asm void func_02017cf8(void)
     bx lr
 }
 
-asm void func_02017d20(void)
+asm void __flush_buffer(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r5, r0
@@ -1072,7 +1072,7 @@ asm void func_02017d20(void)
     movs r1, r1, lsr #0x1f
     bne @L_02017d58
     add r1, r5, #0x28
-    bl func_02017cf4
+    bl __convert_from_newlines
 @L_02017d58:
     ldr r0, [r5]
     ldr r1, [r5, #0x1c]
@@ -1091,12 +1091,12 @@ asm void func_02017d20(void)
     str r0, [r5, #0x18]
 @L_02017d94:
     mov r0, r5
-    bl func_02017cf8
+    bl __prep_buffer
     mov r0, #0
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02017da4(void)
+asm void __fwrite(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -1107,12 +1107,12 @@ asm void func_02017da4(void)
     mov r0, r9
     mov r5, r2
     mov r4, r1
-    bl func_0201c058
+    bl fwide
     cmp r0, #0
     bne @L_02017de0
     mov r0, r9
     mvn r1, #0
-    bl func_0201c058
+    bl fwide
 @L_02017de0:
     ldr r0, [sp]
     muls r5, r0, r5
@@ -1150,7 +1150,7 @@ asm void func_02017da4(void)
     orr r1, r0, #1
     mov r0, r9
     str r1, [r9, #8]
-    bl func_02017cf8
+    bl __prep_buffer
 @L_02017e6c:
     ldr r0, [r9, #8]
     mov r0, r0, lsl #0x1d
@@ -1204,7 +1204,7 @@ asm void func_02017da4(void)
     beq @L_02017f5c
     ldr r0, [r9, #0x24]
     mov r1, r10
-    bl func_02018328
+    bl memcpy
     ldr r0, [sp, #4]
     ldr r1, [r9, #0x24]
     ldr r2, [r9, #0x28]
@@ -1228,7 +1228,7 @@ asm void func_02017da4(void)
 @L_02017f80:
     mov r0, r9
     mov r1, r11
-    bl func_02017d20
+    bl __flush_buffer
     cmp r0, #0
     movne r0, #1
     movne r5, r11
@@ -1255,7 +1255,7 @@ asm void func_02017da4(void)
     str r10, [r9, #0x1c]
     str r5, [r9, #0x20]
     str r2, [r9, #0x24]
-    bl func_02017d20
+    bl __flush_buffer
     cmp r0, #0
     movne r0, #1
     strne r4, [r9, #0x28]
@@ -1265,7 +1265,7 @@ asm void func_02017da4(void)
     mov r0, r9
     str r7, [r9, #0x1c]
     str r8, [r9, #0x20]
-    bl func_02017cf8
+    bl __prep_buffer
     str r4, [r9, #0x28]
 @L_0201801c:
     ldr r0, [r9, #4]
@@ -1280,12 +1280,12 @@ asm void func_02017da4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02018044(void)
+asm void fflush(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     movs r4, r0
     bne @L_02018058
-    bl func_02017c78
+    bl __flush_all
     ldmia sp!, {r3, r4, r5, pc}
 @L_02018058:
     ldrb r0, [r4, #0xd]
@@ -1328,7 +1328,7 @@ asm void func_02018044(void)
     mov r5, #0
     mov r0, r4
     mov r1, r5
-    bl func_02017d20
+    bl __flush_buffer
     cmp r0, #0
     movne r0, #1
     strneb r0, [r4, #0xd]

@@ -1,47 +1,47 @@
 // (asm for now)
 
 void NNS_GfdInitLnkTexVramManager(void);
-void func_02030188(void);
-void func_0203020c(void);
-void func_02030278(void);
+void NNS_GfdAllocLnkTexVram(void);
+void NNS_GfdFreeLnkTexVram(void);
+void NNS_GfdResetLnkTexVramState(void);
 void func_02030490(void);
 
-extern char data_020c238c[];
-extern char data_020abaa0[];
-extern char data_020abaa4[];
+extern char mgr_0209776C[];
+extern char NNS_GfdDefaultFuncAllocTexVram[];
+extern char NNS_GfdDefaultFuncFreeTexVram[];
 extern char data_020c2390[];
 extern char data_020c2394[];
-void func_0202fec8(void);
+void NNSi_GfdAllocLnkVram(void);
 void NNSi_GfdFreeLnkVram(void);
 extern char data_020a4914[];
 extern char data_020c238c_b[];
-void func_0202fe1c(void);
-void func_0202fe28(void);
+void NNSi_GfdInitLnkVramMan(void);
+void NNSi_GfdInitLnkVramBlockPool(void);
 void NNSi_GfdAddNewFreeBlock(void);
 void NNSi_GfdMergeAllFreeBlocks(void);
 
 asm void NNS_GfdInitLnkTexVramManager(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r12, =data_020c238c
+    ldr r12, =mgr_0209776C
     str r0, [r12, #0xc]
     str r1, [r12, #0x10]
     str r2, [r12, #0x14]
     str r3, [r12, #0x18]
-    bl func_02030278
+    bl NNS_GfdResetLnkTexVramState
     ldr r0, [sp, #8]
     cmp r0, #0
     ldmeqia sp!, {r3, pc}
-    ldr r3, =func_02030188
-    ldr r1, =data_020abaa0
-    ldr r2, =func_0203020c
-    ldr r0, =data_020abaa4
+    ldr r3, =NNS_GfdAllocLnkTexVram
+    ldr r1, =NNS_GfdDefaultFuncAllocTexVram
+    ldr r2, =NNS_GfdFreeLnkTexVram
+    ldr r0, =NNS_GfdDefaultFuncFreeTexVram
     str r3, [r1]
     str r2, [r0]
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02030188(void)
+asm void NNS_GfdAllocLnkTexVram(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r0, #0
@@ -59,11 +59,11 @@ asm void func_02030188(void)
     ldr r0, =data_020c2390
     b @L_020301c8
 @L_020301c4:
-    ldr r0, =data_020c238c
+    ldr r0, =mgr_0209776C
 @L_020301c8:
     ldr r1, =data_020c2394
     mov r3, r5
-    bl func_0202fec8
+    bl NNSi_GfdAllocLnkVram
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, pc}
@@ -76,7 +76,7 @@ asm void func_02030188(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0203020c(void)
+asm void NNS_GfdFreeLnkTexVram(void)
 {
     stmdb sp!, {r3, lr}
     ldr r1, =0x7fff0000
@@ -93,7 +93,7 @@ asm void func_0203020c(void)
     ldr r0, =data_020c2390
     b @L_02030248
 @L_02030244:
-    ldr r0, =data_020c238c
+    ldr r0, =mgr_0209776C
 @L_02030248:
     ldr r1, =data_020c2394
     bl NNSi_GfdFreeLnkVram
@@ -106,7 +106,7 @@ asm void func_0203020c(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02030278(void)
+asm void NNS_GfdResetLnkTexVramState(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x30
@@ -119,7 +119,7 @@ asm void func_02030278(void)
     stmia r4!, {r0, r1, r2, r3}
     ldmia r5, {r0, r1, r2, r3}
     stmia r4, {r0, r1, r2, r3}
-    ldr r0, =data_020c238c
+    ldr r0, =mgr_0209776C
     ldr r4, =data_020c2394
     ldr r1, [r0, #0x10]
     ldr r2, [r0, #0xc]
@@ -180,15 +180,15 @@ asm void func_02030278(void)
     cmp r7, #4
     blo @L_02030338
     ldr r0, =data_020c238c_b
-    bl func_0202fe1c
+    bl NNSi_GfdInitLnkVramMan
     ldr r7, =data_020c2390
     mov r0, r7
-    bl func_0202fe1c
-    ldr r6, =data_020c238c
+    bl NNSi_GfdInitLnkVramMan
+    ldr r6, =mgr_0209776C
     ldr r1, [r6, #0x18]
     ldr r0, [r6, #0x14]
     mov r1, r1, lsr #4
-    bl func_0202fe28
+    bl NNSi_GfdInitLnkVramBlockPool
     str r0, [r6, #8]
     ldr r6, [sp, #8]
     cmp r6, #0

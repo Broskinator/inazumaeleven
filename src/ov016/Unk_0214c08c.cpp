@@ -1,99 +1,99 @@
 #include "ov016/Unk_0214c08c.hpp"
 
-extern "C" void func_ov016_0214c08c(void *arg0);
-extern "C" void func_ov016_0214c118(s32 arg0);
-extern "C" void func_ov016_0214c170(s32 arg0);
-extern "C" s32 func_ov016_0214c218(s32 arg0);
-extern "C" s32 func_ov016_0214c254(...);
-extern "C" void func_ov016_0214c368(s32 arg0, s32 arg1);
-extern "C" s32 func_ov016_0214c3b0(...);
-extern "C" void func_ov016_0214c480(s32 arg0);
-extern "C" void func_ov016_0214c520(void);
-extern "C" void func_ov016_0214c5fc(void);
-extern "C" s32 func_ov016_0214c6e0(...);
-extern "C" s32 func_ov016_0214c7c0(void);
-extern "C" void func_ov016_0214c828(void);
-extern "C" void func_ov016_0214c920(void);
-extern "C" void func_ov016_0214c934(void);
-extern "C" void func_ov016_0214c964(void);
-extern "C" void func_ov016_0214cc80(u16 arg0);
-extern "C" u16 func_ov016_0214cc94(void);
-extern "C" void func_ov016_0214cca8(void);
-extern "C" s32 func_ov016_0214cd00(s32 arg0);
-extern "C" s32 func_ov016_0214cdc8(...);
-extern "C" s32 func_ov016_0214cdf8(...);
-extern "C" s32 func_ov016_0214cea0(u8 *arg0);
-extern "C" s32 func_ov016_0214cedc(...);
-extern "C" s32 func_ov016_0214cf58(...);
-extern "C" s32 func_ov016_0214cf78(...);
-extern "C" s32 func_ov016_0214cfbc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov016_0214d028(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov016_0214d088(u8 *arg0);
-extern "C" s32 func_ov016_0214d0c0(void);
-extern "C" void func_ov016_0214d120(void);
-extern "C" s32 func_ov016_0214d280(void);
-extern "C" s32 func_ov016_0214d314(u8 *arg0);
-extern "C" s32 func_ov016_0214d464(void);
-extern "C" s32 func_ov016_0214d4a0(void);
-extern "C" s32 func_ov016_0214d4d0(void);
-extern "C" void func_ov016_0214d500(u8 *arg0);
-extern "C" s32 func_ov016_0214d554(...);
-extern "C" s32 func_ov016_0214d57c(u8 *arg0);
-extern "C" s32 func_ov016_0214d5a0(void);
-extern "C" s32 func_ov016_0214d5ec(void);
-extern "C" s32 func_ov016_0214d61c(u8 *arg0);
-extern "C" s32 func_ov016_0214d650(...);
-extern "C" s32 func_ov016_0214d68c(u8 *arg0);
-extern "C" s32 func_ov016_0214d6b0(...);
-extern "C" s32 func_ov016_0214d6e0(s32 arg0);
-extern "C" s32 func_ov016_0214d714(u8 *arg0);
-extern "C" void func_ov016_0214d73c(s32 arg0);
-extern "C" u16 func_ov016_0214d750(void);
-extern "C" s32 func_ov016_0214d764(void);
-extern "C" void func_ov016_0214d778(void);
-extern "C" s32 func_ov016_0214d854(s32 arg0);
-extern "C" void func_ov016_0214d8f4(void);
-extern "C" void func_ov016_0214d9d4(s32 arg0, s32 arg1);
-extern "C" s32 func_ov016_0214d9f4(void);
-extern "C" s32 func_ov016_0214da68(...);
-extern "C" s32 func_ov016_0214db4c(...);
-extern "C" void func_ov016_0214dbc4(u8 *arg0);
-extern "C" s32 func_ov016_0214dbe4(void);
-extern "C" s32 func_ov016_0214dc30(u8 *arg0);
-extern "C" s32 func_ov016_0214dc80(s32 arg0, s32 arg1, s32 arg2);
-extern "C" void func_ov016_0214dddc(s32 arg0);
-extern "C" void func_ov016_0214ddf0(s32 arg0);
-extern "C" s32 func_ov016_0214de18(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov016_0214deb8(void);
-extern "C" s32 func_ov016_0214ded4(...);
-extern "C" s32 func_ov016_0214dfdc(void);
-extern "C" void func_ov016_0214e02c(s32 arg0, u8 *arg1);
-extern "C" s32 func_ov016_0214e10c(void);
-extern "C" s32 func_ov016_0214e1e4(...);
-extern "C" s32 func_ov016_0214e258(void);
-extern "C" s32 func_ov016_0214e2a0(void);
-extern "C" void func_ov016_0214e2d4(void);
-extern "C" void func_ov016_0214e608(void);
-extern "C" void func_ov016_0214e64c(void);
-extern "C" void func_ov016_0214e65c(void);
-extern "C" void func_ov016_0214e704(void);
-extern "C" void func_ov016_0214e728(void);
-extern "C" s32 func_ov016_0214e8b0(void);
-extern "C" void func_ov016_0214e8dc(void);
-extern "C" s32 func_ov016_0214ea70(void);
-extern "C" s32 func_ov016_0214ea88(void);
-extern "C" s32 func_ov016_0214eab8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" s32 func_ov016_0214eaf4(void);
-extern "C" void func_ov016_0214eb38(void);
-extern "C" void func_ov016_0214ec84(void);
-extern "C" u16 func_ov016_0214ed68(void);
+extern "C" void taskEnd1_5(void *arg0);
+extern "C" void taskEnd2_4(s32 arg0);
+extern "C" void taskEnd3_4(s32 arg0);
+extern "C" s32 DWCi_MOV_MBP_MemInit(s32 arg0);
+extern "C" s32 DWCi_MOV_MBP_Init(...);
+extern "C" void DWCi_MOV_MBP_Start(s32 arg0, s32 arg1);
+extern "C" s32 DWCi_MOV_MBP_RegistFile(...);
+extern "C" void DWCi_MOV_MBP_AcceptChild(s32 arg0);
+extern "C" void DWCi_MOV_MBP_KickChild(void);
+extern "C" void DWCi_MOV_MBP_StartDownload(void);
+extern "C" s32 DWCi_MOV_MBP_StartDownloadAll(...);
+extern "C" s32 DWCi_MOV_MBP_IsBootableAll(void);
+extern "C" void DWCi_MOV_MBP_StartRebootAll(void);
+extern "C" void DWCi_MOV_MBP_Cancel(void);
+extern "C" void MBPi_CheckAllReboot(void);
+extern "C" void ParentStateCallback(void);
+extern "C" void DWCi_MOV_MBP_ChangeState(u16 arg0);
+extern "C" u16 DWCi_MOV_MBP_GetState(void);
+extern "C" void DWCi_MOV_MBP_GetChildBmp(void);
+extern "C" s32 DWCi_MOV_MBP_GetChildState(s32 arg0);
+extern "C" s32 DWCi_MOV_MBP_GetChildInfo(...);
+extern "C" s32 DWCi_MOV_MBP_GetPlayerNo(...);
+extern "C" s32 DWCi_MOV_WH_MemInit(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_ChangeSysState(...);
+extern "C" s32 DWCi_MOV_WH_SetError(...);
+extern "C" s32 DWCi_MOV_WH_StateInSetParentParam(...);
+extern "C" s32 DWCi_MOV_WH_StateOutSetParentParam(u8 *arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 WCi_MOV_WH_StateInSetParentWEPKey(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 DWCi_MOV_WH_StateOutSetParentWEPKey(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_StateInStartParent(void);
+extern "C" void DWCi_MOV_WH_StateOutStartParent(void);
+extern "C" s32 DWCi_MOV_WH_StateInStartParentMP(void);
+extern "C" s32 DWCi_MOV_WH_StateOutStartParentMP(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_StateInStartParentKeyShare(void);
+extern "C" s32 DWCi_MOV_WH_StateInEndParentKeyShare(void);
+extern "C" s32 DWCi_MOV_WH_StateInEndParentMP(void);
+extern "C" void DWCi_MOV_WH_StateOutEndParentMP(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_StateInEndParent(...);
+extern "C" s32 DWCi_MOV_WH_StateOutEndParent(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_StateInEndChildKeyShare(void);
+extern "C" s32 DWCi_MOV_WH_StateInEndChildMP(void);
+extern "C" s32 DWCi_MOV_WH_StateOutEndChildMP(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_StateInEndChild(...);
+extern "C" s32 DWCi_MOV_WH_StateOutEndChild(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_StateInReset(...);
+extern "C" s32 DWCi_MOV_WH_StateOutReset(s32 arg0);
+extern "C" s32 DWCi_MOV_WH_StateOutEnd(u8 *arg0);
+extern "C" void DWCi_MOV_WH_SetGgid(s32 arg0);
+extern "C" u16 DWCi_MOV_WH_GetBitmap(void);
+extern "C" s32 DWCi_MOV_WH_GetSystemState(void);
+extern "C" void DWCi_MOV_WH_StartMeasureChannel(void);
+extern "C" s32 DWCi_MOV_WH_StateInMeasureChannel(s32 arg0);
+extern "C" void DWCi_MOV_WH_StateOutMeasureChannel(void);
+extern "C" void WHi_MeasureChannel(s32 arg0, s32 arg1);
+extern "C" s32 DWCi_MOV_WH_GetMeasureChannel(void);
+extern "C" s32 SelectChannel(...);
+extern "C" s32 DWCi_MOV_WH_Initialize(...);
+extern "C" void DWCi_MOV_WH_IndicateHandler(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_StateInInitialize(void);
+extern "C" s32 DWCi_MOV_WH_StateOutInitialize(u8 *arg0);
+extern "C" s32 DWCi_MOV_WH_ParentConnect(s32 arg0, s32 arg1, s32 arg2);
+extern "C" void DWCi_MOV_WH_SetJudgeAcceptFunc(s32 arg0);
+extern "C" void DWCi_MOV_WH_GetSharedDataAdr(s32 arg0);
+extern "C" s32 DWCi_MOV_WH_StepDS(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void DWCi_MOV_WH_Reset(void);
+extern "C" s32 DWCi_MOV_WH_Finalize(...);
+extern "C" s32 DWCi_MOV_WH_End(void);
+extern "C" void DWCi_MOVInit(s32 arg0, u8 *arg1);
+extern "C" s32 DWCi_MOVFinalize(void);
+extern "C" s32 _DWCi_MOVPrepare(...);
+extern "C" s32 DWCi_MOVStartAdmitChild(void);
+extern "C" s32 DWCi_MOVStartDownloadandBootChild(void);
+extern "C" void DWCi_MOVFramework(void);
+extern "C" void DWCi_MOVGetStatus(void);
+extern "C" void DWCi_GetChildInfo(void);
+extern "C" void _DWCi_MOVSearchChannel(void);
+extern "C" void _DWCi_MOVStartWaitChild(void);
+extern "C" void _DWCi_MOV_WaitandDownloadandBoot_Child(void);
+extern "C" s32 _DWCi_MOV_ReadyMovUserID(void);
+extern "C" void _DWCi_MOV_MovUserID(void);
+extern "C" s32 _DWCi_MOV_EraseFlashData(void);
+extern "C" s32 _DWCi_MOVEnd(void);
+extern "C" s32 JudgeConnectableChild(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" s32 Parent_InitDataShare(void);
+extern "C" void Parent_StepDataShare(void);
+extern "C" void Parent_data_receive_progress(void);
+extern "C" u16 Parent_get_child_data_kind(void);
 extern "C" void func_ov016_0214ed80(void);
-extern "C" void func_ov016_0214ef34(void);
+extern "C" void DWCi_ARClEnd(void);
 extern "C" s32 func_ov016_0214efa8(s32 arg0, s32 arg1);
-extern "C" s32 func_ov016_0214f010(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
-extern "C" void func_ov016_0214f064(s32 arg0);
+extern "C" s32 cbRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
+extern "C" void cbReadRom(s32 arg0);
 extern "C" s32 func_ov016_0214f074(void);
-extern "C" void func_ov016_0214f07c(void);
+extern "C" void DWCi_ARClReadEx(void);
 
 extern "C" char data_ov016_02154ea2[];
 extern "C" char data_ov016_02154f5c[];
@@ -143,84 +143,84 @@ extern "C" s32 OS_GetTick(...);
 extern "C" s32 OS_RestoreInterrupts(...);
 extern "C" s32 WM_SetIndCallback(...);
 extern "C" s32 WM_StartKeySharing(...);
-extern "C" s32 func_02005908(...);
-extern "C" void func_02005938(void);
-extern "C" void func_02008564(void);
-extern "C" s32 func_0200878c(...);
-extern "C" void func_0200bfe8(void);
-extern "C" void func_0200c00c(void);
-extern "C" s32 func_0200c10c(...);
-extern "C" s32 func_0200c3bc(...);
-extern "C" void func_0200c964(void);
-extern "C" void func_0200c974(void);
-extern "C" s32 func_0200c98c(...);
-extern "C" void func_0200e1ec(void);
-extern "C" s32 func_0200e258(...);
-extern "C" void func_0200e304(void);
-extern "C" s32 func_0200e4c8(...);
-extern "C" void func_0200e4f8(void);
-extern "C" s32 func_02010d98(...);
-extern "C" s32 func_02012028(...);
+extern "C" s32 OS_ReleaseLockID(...);
+extern "C" void OS_SPrintf(void);
+extern "C" void OS_GetMacAddress(void);
+extern "C" s32 OS_Terminate(...);
+extern "C" void FS_InitArchive(void);
+extern "C" void FS_RegisterArchiveName(void);
+extern "C" s32 FS_ReleaseArchiveName(...);
+extern "C" s32 FS_NotifyArchiveAsyncEnd(...);
+extern "C" void FS_OpenFile(void);
+extern "C" void FS_GetLength(void);
+extern "C" s32 FS_ChangeDir(...);
+extern "C" void FS_LoadArchive(void);
+extern "C" s32 FS_UnloadArchive(...);
+extern "C" void FS_LoadArchiveTables(void);
+extern "C" s32 FS_GetArchiveBase(...);
+extern "C" void FS_GetFileImageTop(void);
+extern "C" s32 CARD_LockRom(...);
+extern "C" s32 CARDi_ReadRom(...);
 extern "C" s32 func_020131c0(...);
-extern "C" s32 func_02013274(...);
-extern "C" void func_020134f8(void);
+extern "C" s32 WM_GetDispersionBeaconPeriod(...);
+extern "C" void WM_GetNextTgid(void);
 extern "C" s32 func_020136b4(...);
-extern "C" void func_0201372c(void);
-extern "C" s32 func_02013768(...);
-extern "C" void func_020137ac(void);
-extern "C" s32 func_02013940(...);
-extern "C" void func_02013950(void);
-extern "C" void func_02013bf4(void);
-extern "C" s32 func_02013f08(...);
-extern "C" s32 func_020141b4(...);
-extern "C" s32 func_02014414(...);
-extern "C" s32 func_020146a0(...);
-extern "C" s32 func_02014ee0(...);
-extern "C" s32 func_02014f80(...);
-extern "C" s32 func_02014f8c(...);
-extern "C" s32 func_02015218(...);
-extern "C" s32 func_ov014_0210f430(...);
-extern "C" s32 func_ov016_0214a0e8(...);
-extern "C" void func_ov016_0214bd7c(void);
-extern "C" void func_ov016_0214f1b0(void);
-extern "C" void func_ov016_0214f474(void);
-extern "C" void func_ov016_0214f764(void);
-extern "C" void func_ov016_0214f924(void);
-extern "C" void func_ov016_0214f9d8(void);
-extern "C" void func_ov016_0214ff40(void);
-extern "C" void func_ov016_02150928(void);
-extern "C" s32 func_ov016_0215094c(...);
-extern "C" s32 func_ov016_02151c30(...);
-extern "C" void func_ov016_02151c38(void);
+extern "C" void WM_Reset(void);
+extern "C" s32 WM_End(...);
+extern "C" void WM_SetParentParameter(void);
+extern "C" s32 WM_StartParent(...);
+extern "C" void WM_EndParent(void);
+extern "C" void WM_Disconnect(void);
+extern "C" s32 WM_StartMP(...);
+extern "C" s32 WM_EndMP(...);
+extern "C" s32 WM_StartDataSharing(...);
+extern "C" s32 WM_StepDataSharing(...);
+extern "C" s32 WM_GetSharedDataAddress(...);
+extern "C" s32 WM_EndKeySharing(...);
+extern "C" s32 WM_SetWEPKey(...);
+extern "C" s32 WM_MeasureChannel(...);
+extern "C" s32 DWCi_BACKUPlRead(...);
+extern "C" s32 DWCi_SETTINGlGetMemMap(...);
+extern "C" void disp_5(void);
+extern "C" void cmpBack(void);
+extern "C" void DWCi_CELLlDelete(void);
+extern "C" void DWCi_CELLlGetPosition(void);
+extern "C" void DWCi_QUElFormEx(void);
+extern "C" void DWCi_QUElPopBack(void);
+extern "C" void DWCi_FNTlDelete(void);
+extern "C" void DWCi_HEAPlAllocEx(void);
+extern "C" s32 DWCi_HEAPlFree_(...);
+extern "C" s32 DWCi_TSKlChangeFunc(...);
+extern "C" void DWCi_TSKlDelete(void);
 extern "C" void func_ov087_02174240(void);
-extern "C" s32 func_ov089_02174268(...);
-extern "C" s32 func_ov089_021742e4(...);
-extern "C" void func_ov089_02174334(void);
-extern "C" void func_ov089_021755b0(void);
-extern "C" void func_ov089_02175634(void);
-extern "C" void func_ov089_02175bd8(void);
-extern "C" void func_ov089_02177fa0(void);
-extern "C" void func_ov089_021781e8(void);
-extern "C" s32 func_ov089_02178518(...);
-extern "C" s32 func_ov089_02178610(...);
-extern "C" void func_ov089_0217864c(void);
+extern "C" s32 MB_CommGetChildUser(...);
+extern "C" s32 MB_CommIsBootable(...);
+extern "C" void MB_CommResponseRequest(void);
+extern "C" void MB_GetSegmentLength(void);
+extern "C" void MB_ReadSegment(void);
+extern "C" void MB_RegisterFile(void);
+extern "C" void MB_Init(void);
+extern "C" void MB_SetParentCommParam(void);
+extern "C" s32 MB_StartParentFromIdle(...);
+extern "C" s32 MB_EndToIdle(...);
+extern "C" void MB_DisconnectChild(void);
 
-extern "C" void func_ov016_0214c08c(void *arg0)
+extern "C" void taskEnd1_5(void *arg0)
 {
     s32 x;
     s32 y;
-    ((s32 (*)(...))func_ov016_0214f764)(**(s32 **)data_ov016_02158b38, 0, &x, &y);
+    ((s32 (*)(...))DWCi_CELLlGetPosition)(**(s32 **)data_ov016_02158b38, 0, &x, &y);
     y += 0xC;
-    ((s32 (*)(...))func_ov016_0214bd7c)(y);
+    ((s32 (*)(...))disp_5)(y);
     if (y < 0xC0)
         return;
     if ((*(u8 **)data_ov016_02158b38)[0x1E] != 0)
-        ((s32 (*)(...))func_ov016_02151c30)(arg0, func_ov016_0214c118);
+        ((s32 (*)(...))DWCi_TSKlChangeFunc)(arg0, taskEnd2_4);
     else
-        ((s32 (*)(...))func_ov016_02151c30)(arg0, func_ov016_0214c170);
+        ((s32 (*)(...))DWCi_TSKlChangeFunc)(arg0, taskEnd3_4);
 }
 
-extern "C" void func_ov016_0214c118(s32 arg0)
+extern "C" void taskEnd2_4(s32 arg0)
 {
     s32 t0 = (*(s8 *)(*(u8 * *)(((u8 *)&data_ov016_02158b38)) + 0x1A) + 1);
     u8 *t1 = *(u8 * *)(((u8 *)&data_ov016_02158b38));
@@ -229,31 +229,31 @@ extern "C" void func_ov016_0214c118(s32 arg0)
     G2x_ChangeBlendBrightness_(0x4000050, t2);
     if (*(s8 *)(*(u8 * *)(((u8 *)&data_ov016_02158b38)) + 0x1A) < 0)
         return;
-    func_ov016_02151c30(arg0, (s32)((u8 *)&func_ov016_0214c170));
+    DWCi_TSKlChangeFunc(arg0, (s32)((u8 *)&taskEnd3_4));
 }
 
-extern "C" void func_ov016_0214c170(s32 arg0)
+extern "C" void taskEnd3_4(s32 arg0)
 {
     u8 *p;
     s32 i;
     *(volatile u32 *)0x4000000 &= ~0xE000;
-    ((s32 (*)(...))func_ov016_0214f474)(**(s32 **)data_ov016_02158b38);
-    ((s32 (*)(...))func_ov016_0214f474)((*(s32 **)data_ov016_02158b38)[1]);
+    ((s32 (*)(...))DWCi_CELLlDelete)(**(s32 **)data_ov016_02158b38);
+    ((s32 (*)(...))DWCi_CELLlDelete)((*(s32 **)data_ov016_02158b38)[1]);
     p = *(u8 **)data_ov016_02158b38;
     for (i = 0; i < ((u8 *)data_ov016_02154ea2)[p[0x1C]]; i++) {
         if (*(s32 *)(p + (i << 2) + 8) != 0)
-            ((s32 (*)(...))func_ov016_0214f474)(*(s32 *)(p + (i << 2) + 8));
+            ((s32 (*)(...))DWCi_CELLlDelete)(*(s32 *)(p + (i << 2) + 8));
         p = *(u8 **)data_ov016_02158b38;
     }
-    ((s32 (*)(...))func_ov016_0214ff40)(*(s32 *)(p + 0x10));
-    ((s32 (*)(...))func_ov016_02151c38)(1, arg0);
-    ((s32 (*)(...))func_ov016_0215094c)(data_ov016_02158b38_b);
+    ((s32 (*)(...))DWCi_FNTlDelete)(*(s32 *)(p + 0x10));
+    ((s32 (*)(...))DWCi_TSKlDelete)(1, arg0);
+    ((s32 (*)(...))DWCi_HEAPlFree_)(data_ov016_02158b38_b);
 }
 
-extern "C" s32 func_ov016_0214c218(s32 arg0)
+extern "C" s32 DWCi_MOV_MBP_MemInit(s32 arg0)
 {
     *(s32 *)(data_ov016_02158b3c) = arg0;
-    func_ov016_0214cea0((u8 *)((arg0 + 0x160) + 0x1B000));
+    DWCi_MOV_WH_MemInit((u8 *)((arg0 + 0x160) + 0x1B000));
     u8 *t0 = (u8 *)(*(s32 *)(data_ov016_02158b3c) + 0x1B000);
     *(s32 *)(t0 + 0x140) = 0;
     u8 *t1 = (u8 *)(*(s32 *)(data_ov016_02158b3c) + 0x1B000);
@@ -261,7 +261,7 @@ extern "C" s32 func_ov016_0214c218(s32 arg0)
     return (s32)t1;
 }
 
-extern "C" asm s32 func_ov016_0214c254(...)
+extern "C" asm s32 DWCi_MOV_MBP_Init(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #0x28
@@ -316,44 +316,44 @@ extern "C" asm s32 func_ov016_0214c254(...)
     add r0, r0, #0x1b000
     ldr r0, [r0, #0x140]
     mov r3, r4
-    bl func_ov089_02177fa0
+    bl MB_Init
     cmp r0, #0
     beq @L_0214c334
-    bl func_0200878c
+    bl OS_Terminate
 @L_0214c334:
     mov r4, #1
     mov r1, r4
     mov r0, #0x100
-    bl func_ov089_021781e8
-    ldr r0, =func_ov016_0214c964
+    bl MB_SetParentCommParam
+    ldr r0, =ParentStateCallback
     bl func_ov087_02174240
     mov r0, r4
-    bl func_ov016_0214cc80
+    bl DWCi_MOV_MBP_ChangeState
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" void func_ov016_0214c368(s32 arg0, s32 arg1)
+extern "C" void DWCi_MOV_MBP_Start(s32 arg0, s32 arg1)
 {
     s32 r5;
     s32 v1;
     s32 v3;
-    func_ov016_0214cc80(2);
-    v1 = func_ov089_02178518(arg1);
+    DWCi_MOV_MBP_ChangeState(2);
+    v1 = MB_StartParentFromIdle(arg1);
     r5 = arg0;
     if (v1 != 0) {
-        func_ov016_0214cc80(7);
+        DWCi_MOV_MBP_ChangeState(7);
         return;
     } else {
-        v3 = func_ov016_0214c3b0(r5);
+        v3 = DWCi_MOV_MBP_RegistFile(r5);
         if (v3 != 0)
             return;
-        func_0200878c();
+        OS_Terminate();
         return;
     }
 }
 
-extern "C" asm s32 func_ov016_0214c3b0(...)
+extern "C" asm s32 DWCi_MOV_MBP_RegistFile(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x48
@@ -368,14 +368,14 @@ extern "C" asm s32 func_ov016_0214c3b0(...)
     bl FS_InitFile
     ldr r1, [r6]
     mov r0, r4
-    bl func_0200c964
+    bl FS_OpenFile
     cmp r0, #0
     addeq sp, sp, #0x48
     moveq r0, r5
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
 @L_0214c3f8:
     mov r0, r4
-    bl func_ov089_021755b0
+    bl MB_GetSegmentLength
     cmp r0, #0
     beq @L_0214c460
     ldr r7, =data_ov016_02158b3c
@@ -390,14 +390,14 @@ extern "C" asm s32 func_ov016_0214c3b0(...)
     beq @L_0214c460
     mov r0, r4
     mov r2, #0x10000
-    bl func_ov089_02175634
+    bl MB_ReadSegment
     cmp r0, #0
     beq @L_0214c460
     ldr r1, [r7]
     mov r0, r6
     add r1, r1, #0x1b000
     ldr r1, [r1, #0x144]
-    bl func_ov089_02175bd8
+    bl MB_RegisterFile
     cmp r0, #0
     movne r5, #1
 @L_0214c460:
@@ -411,12 +411,12 @@ extern "C" asm s32 func_ov016_0214c3b0(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_ov016_0214c480(s32 arg0)
+extern "C" void DWCi_MOV_MBP_AcceptChild(s32 arg0)
 {
     s32 k = 1;
     u16 m;
     s32 e;
-    if (((s32 (*)(...))func_ov089_02174334)(arg0, k) != 0)
+    if (((s32 (*)(...))MB_CommResponseRequest)(arg0, k) != 0)
         return;
     m = ~(k << arg0);
     e = ((s32 (*)(...))OS_DisableInterrupts)();
@@ -427,15 +427,15 @@ extern "C" void func_ov016_0214c480(s32 arg0)
     (*(u16 **)data_ov016_02158b3c)[5] &= m;
     (*(u16 **)data_ov016_02158b3c)[6] &= m;
     ((s32 (*)(...))OS_RestoreInterrupts)(e);
-    ((s32 (*)(...))func_ov089_0217864c)(arg0);
+    ((s32 (*)(...))MB_DisconnectChild)(arg0);
 }
 
-extern "C" asm void func_ov016_0214c520(void)
+extern "C" asm void DWCi_MOV_MBP_KickChild(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r1, #0
     mov r4, r0
-    bl func_ov089_02174334
+    bl MB_CommResponseRequest
     cmp r0, #0
     bne @L_0214c5bc
     mov r0, #1
@@ -469,7 +469,7 @@ extern "C" asm void func_ov016_0214c520(void)
     strh r1, [r2, #0xc]
     bl OS_RestoreInterrupts
     mov r0, r4
-    bl func_ov089_0217864c
+    bl MB_DisconnectChild
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214c5bc:
     bl OS_DisableInterrupts
@@ -489,12 +489,12 @@ extern "C" asm void func_ov016_0214c520(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov016_0214c5fc(void)
+extern "C" asm void DWCi_MOV_MBP_StartDownload(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r1, #2
     mov r4, r0
-    bl func_ov089_02174334
+    bl MB_CommResponseRequest
     cmp r0, #0
     bne @L_0214c698
     mov r0, #1
@@ -528,7 +528,7 @@ extern "C" asm void func_ov016_0214c5fc(void)
     strh r1, [r2, #0xc]
     bl OS_RestoreInterrupts
     mov r0, r4
-    bl func_ov089_0217864c
+    bl MB_DisconnectChild
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214c698:
     bl OS_DisableInterrupts
@@ -550,11 +550,11 @@ extern "C" asm void func_ov016_0214c5fc(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm s32 func_ov016_0214c6e0(...)
+extern "C" asm s32 DWCi_MOV_MBP_StartDownloadAll(...)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r0, #3
-    bl func_ov016_0214cc80
+    bl DWCi_MOV_MBP_ChangeState
     mov r5, #1
     ldr r7, =data_ov016_02158b3c
     mov r4, r5
@@ -598,11 +598,11 @@ extern "C" asm s32 func_ov016_0214c6e0(...)
     strh r1, [r2, #0xc]
     bl OS_RestoreInterrupts
     mov r0, r5
-    bl func_ov089_0217864c
+    bl MB_DisconnectChild
     b @L_0214c7a4
 @L_0214c79c:
     mov r0, r5
-    bl func_ov016_0214c5fc
+    bl DWCi_MOV_MBP_StartDownload
 @L_0214c7a4:
     add r0, r5, #1
     mov r0, r0, lsl #0x10
@@ -612,7 +612,7 @@ extern "C" asm s32 func_ov016_0214c6e0(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov016_0214c7c0(void)
+extern "C" s32 DWCi_MOV_MBP_IsBootableAll(void)
 {
     u8 *r4;
     s32 r5;
@@ -625,7 +625,7 @@ extern "C" s32 func_ov016_0214c7c0(void)
     r6 = 1;
     do {
         if ((*(u16 *)(*(u8 * *)(r4) + 0x2) & (r5 << r6)) != 0) {
-            v0 = func_ov089_021742e4(r6);
+            v0 = MB_CommIsBootable(r6);
             if (v0 == 0)
                 return 0;
         }
@@ -634,7 +634,7 @@ extern "C" s32 func_ov016_0214c7c0(void)
     return 1;
 }
 
-extern "C" asm void func_ov016_0214c828(void)
+extern "C" asm void DWCi_MOV_MBP_StartRebootAll(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, #1
@@ -650,7 +650,7 @@ extern "C" asm void func_ov016_0214c828(void)
     beq @L_0214c8e8
     mov r0, r7
     mov r1, r5
-    bl func_ov089_02174334
+    bl MB_CommResponseRequest
     cmp r0, #0
     movne r0, r9, lsl #0x10
     orrne r8, r8, r0, lsr #16
@@ -684,7 +684,7 @@ extern "C" asm void func_ov016_0214c828(void)
     strh r1, [r2, #0xc]
     bl OS_RestoreInterrupts
     mov r0, r7
-    bl func_ov089_0217864c
+    bl MB_DisconnectChild
 @L_0214c8e8:
     add r0, r7, #1
     mov r0, r0, lsl #0x10
@@ -694,28 +694,28 @@ extern "C" asm void func_ov016_0214c828(void)
     cmp r8, #0
     bne @L_0214c910
     mov r0, #7
-    bl func_ov016_0214cc80
+    bl DWCi_MOV_MBP_ChangeState
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 @L_0214c910:
     mov r0, #4
-    bl func_ov016_0214cc80
+    bl DWCi_MOV_MBP_ChangeState
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" void func_ov016_0214c920(void)
+extern "C" void DWCi_MOV_MBP_Cancel(void)
 {
-    func_ov016_0214cc80(6);
-    func_ov089_02178610();
+    DWCi_MOV_MBP_ChangeState(6);
+    MB_EndToIdle();
 }
 
-extern "C" void func_ov016_0214c934(void)
+extern "C" void MBPi_CheckAllReboot(void)
 {
     u16 *p = *(u16 **)data_ov016_02158b3c;
     if (p[0] == 4 && p[1] == p[6])
-        ((void (*)(void))func_ov089_02178610)();
+        ((void (*)(void))MB_EndToIdle)();
 }
 
-extern "C" asm void func_ov016_0214c964(void)
+extern "C" asm void ParentStateCallback(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r4, =data_ov016_02158b3c
@@ -741,7 +741,7 @@ extern "C" asm void func_ov016_0214c964(void)
     b @L_0214cc34
     b @L_0214cb30
 @L_0214c9c0:
-    bl func_ov016_0214cc94
+    bl DWCi_MOV_MBP_GetState
     cmp r0, #2
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
     ldr r6, [r4]
@@ -775,7 +775,7 @@ extern "C" asm void func_ov016_0214c964(void)
     strh r8, [r0, #0x2a]
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0214ca44:
-    bl func_ov016_0214cd00
+    bl DWCi_MOV_MBP_GetChildState
     cmp r0, #6
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     mvn r0, r5, lsl r8
@@ -806,14 +806,14 @@ extern "C" asm void func_ov016_0214c964(void)
     and r1, r1, r5, lsr #16
     strh r1, [r2, #0xc]
     bl OS_RestoreInterrupts
-    bl func_ov016_0214c934
+    bl MBPi_CheckAllReboot
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0214cac8:
-    bl func_ov016_0214cc94
+    bl DWCi_MOV_MBP_GetState
     cmp r0, #2
     beq @L_0214cae0
     mov r0, r8
-    bl func_ov016_0214c520
+    bl DWCi_MOV_MBP_KickChild
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0214cae0:
     ldr r3, [r4]
@@ -823,9 +823,9 @@ extern "C" asm void func_ov016_0214c964(void)
     mov r0, r8
     orr r1, r2, r1, lsr #16
     strh r1, [r3, #4]
-    bl func_ov016_0214c480
+    bl DWCi_MOV_MBP_AcceptChild
     mov r0, r8
-    bl func_ov089_02174268
+    bl MB_CommGetChildUser
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     ldr r1, [r4]
@@ -849,11 +849,11 @@ extern "C" asm void func_ov016_0214c964(void)
     ldrh r1, [r2, #6]
     orr r0, r1, r0, lsr #16
     strh r0, [r2, #6]
-    bl func_ov016_0214cc94
+    bl DWCi_MOV_MBP_GetState
     cmp r0, #3
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
     mov r0, r8
-    bl func_ov016_0214c5fc
+    bl DWCi_MOV_MBP_StartDownload
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0214cb78:
     ldr r2, [r4]
@@ -882,10 +882,10 @@ extern "C" asm void func_ov016_0214c964(void)
     ldrh r1, [r2, #0xc]
     orr r0, r1, r0, lsr #16
     strh r0, [r2, #0xc]
-    bl func_ov016_0214c934
+    bl MBPi_CheckAllReboot
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0214cbe4:
-    bl func_ov016_0214cc94
+    bl DWCi_MOV_MBP_GetState
     cmp r0, #4
     bne @L_0214cbf8
     mov r0, #5
@@ -893,7 +893,7 @@ extern "C" asm void func_ov016_0214c964(void)
 @L_0214cbf8:
     mov r0, #0
 @L_0214cbfc:
-    bl func_ov016_0214cc80
+    bl DWCi_MOV_MBP_ChangeState
     ldr r0, [r4]
     add r0, r0, #0x1b000
     ldr r1, [r0, #0x144]
@@ -924,24 +924,24 @@ extern "C" asm void func_ov016_0214c964(void)
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0214cc68:
     mov r0, #7
-    bl func_ov016_0214cc80
+    bl DWCi_MOV_MBP_ChangeState
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 @L_0214cc74:
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" void func_ov016_0214cc80(u16 arg0)
+extern "C" void DWCi_MOV_MBP_ChangeState(u16 arg0)
 {
     *(u16 *)(*(u8 * *)(data_ov016_02158b3c)) = arg0;
 }
 
-extern "C" u16 func_ov016_0214cc94(void)
+extern "C" u16 DWCi_MOV_MBP_GetState(void)
 {
     return *(u16 *)(*(u8 * *)(data_ov016_02158b3c));
 }
 
-extern "C" asm void func_ov016_0214cca8(void)
+extern "C" asm void DWCi_MOV_MBP_GetChildBmp(void)
 {
     ldr r2, =data_ov016_02158b3c
     ldr r1, =data_ov016_02155ec4
@@ -964,7 +964,7 @@ extern "C" asm void func_ov016_0214cca8(void)
     bx lr
 }
 
-extern "C" s32 func_ov016_0214cd00(s32 arg0)
+extern "C" s32 DWCi_MOV_MBP_GetChildState(s32 arg0)
 {
     s32 local[4];
     s32 r0;
@@ -1012,7 +1012,7 @@ extern "C" s32 func_ov016_0214cd00(s32 arg0)
     }
 }
 
-extern "C" asm s32 func_ov016_0214cdc8(...)
+extern "C" asm s32 DWCi_MOV_MBP_GetChildInfo(...)
 {
     ldr r1, =data_ov016_02158b3c
     mov r2, #1
@@ -1027,7 +1027,7 @@ extern "C" asm s32 func_ov016_0214cdc8(...)
     bx lr
 }
 
-extern "C" asm s32 func_ov016_0214cdf8(...)
+extern "C" asm s32 DWCi_MOV_MBP_GetPlayerNo(...)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r1, =data_ov016_02158b3c
@@ -1074,7 +1074,7 @@ extern "C" asm s32 func_ov016_0214cdf8(...)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" s32 func_ov016_0214cea0(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_MemInit(u8 *arg0)
 {
     *(s32 *)(data_ov016_02158b40 + 0x4) = (s32)arg0;
     *(s32 *)(arg0 + 0x40) = 0;
@@ -1087,7 +1087,7 @@ extern "C" s32 func_ov016_0214cea0(u8 *arg0)
     return (s32)t2;
 }
 
-extern "C" asm s32 func_ov016_0214cedc(...)
+extern "C" asm s32 DWCi_MOV_WH_ChangeSysState(...)
 {
     stmdb sp!, {r4, lr}
     ldr r1, =data_ov016_02158b40
@@ -1119,7 +1119,7 @@ extern "C" asm s32 func_ov016_0214cedc(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm s32 func_ov016_0214cf58(...)
+extern "C" asm s32 DWCi_MOV_WH_SetError(...)
 {
     ldr r1, =data_ov016_02158b40
     ldr r2, [r1, #4]
@@ -1130,26 +1130,26 @@ extern "C" asm s32 func_ov016_0214cf58(...)
     bx lr
 }
 
-extern "C" asm s32 func_ov016_0214cf78(...)
+extern "C" asm s32 DWCi_MOV_WH_StateInSetParentParam(...)
 {
     stmdb sp!, {r3, lr}
     mov r0, #3
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldr r1, =data_ov016_02158b40
-    ldr r0, =func_ov016_0214cfbc
+    ldr r0, =DWCi_MOV_WH_StateOutSetParentParam
     ldr r1, [r1, #4]
-    bl func_020137ac
+    bl WM_SetParentParameter
     cmp r0, #2
     moveq r0, #1
     ldmeqia sp!, {r3, pc}
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     mov r0, #0
     ldmia sp!, {r3, pc}
 }
 
-extern "C" s32 func_ov016_0214cfbc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 DWCi_MOV_WH_StateOutSetParentParam(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 v1;
     s32 v2;
@@ -1157,60 +1157,60 @@ extern "C" s32 func_ov016_0214cfbc(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     s32 v4;
     s32 v5;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        func_ov016_0214cf58();
-        v1 = func_ov016_0214cedc(9);
+        DWCi_MOV_WH_SetError();
+        v1 = DWCi_MOV_WH_ChangeSysState(9);
         return v1;
     } else {
         arg0 = (u8 *)*(s32 *)(((u8 *)(*(s32 *)(((u8 *)&data_ov016_02158b40) + 0x4) + 0x1000)) + 0x3AC);
         if ((s32)arg0 != 0) {
-            v2 = func_ov016_0214d028((s32)arg0, arg1, arg2, arg3);
+            v2 = WCi_MOV_WH_StateInSetParentWEPKey((s32)arg0, arg1, arg2, arg3);
             if (v2 != 0)
                 return v2;
-            v3 = func_ov016_0214cedc(9);
+            v3 = DWCi_MOV_WH_ChangeSysState(9);
             return v3;
         } else {
-            v4 = func_ov016_0214d0c0();
+            v4 = DWCi_MOV_WH_StateInStartParent();
             if (v4 != 0)
                 return v4;
-            v5 = func_ov016_0214cedc(9);
+            v5 = DWCi_MOV_WH_ChangeSysState(9);
             return v5;
         }
     }
 }
 
-extern "C" s32 func_ov016_0214d028(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 WCi_MOV_WH_StateInSetParentWEPKey(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 v1;
     s32 v2;
-    func_ov016_0214cedc(3, arg1, arg2, arg3);
+    DWCi_MOV_WH_ChangeSysState(3, arg1, arg2, arg3);
     v1 = ((s32 (*)(...))*(s32 *)(((u8 *)(*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1000)) + 0x3AC))((*(s32 *)(data_ov016_02158b40 + 0x4) + 0x13C0), *(s32 *)(data_ov016_02158b40 + 0x4), *(s32 *)(((u8 *)(*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1000)) + 0x3AC));
-    v2 = func_02014f8c((s32)func_ov016_0214d088, v1, (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x13C0));
+    v2 = WM_SetWEPKey((s32)DWCi_MOV_WH_StateOutSetParentWEPKey, v1, (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x13C0));
     if (v2 == 2)
         return 1;
-    func_ov016_0214cf58(v2);
-    func_ov016_0214cedc(9);
+    DWCi_MOV_WH_SetError(v2);
+    DWCi_MOV_WH_ChangeSysState(9);
     return 0;
 }
 
-extern "C" s32 func_ov016_0214d088(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutSetParentWEPKey(u8 *arg0)
 {
     s32 v1;
     s32 v2;
     s32 v3;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        func_ov016_0214cf58();
-        v1 = func_ov016_0214cedc(9);
+        DWCi_MOV_WH_SetError();
+        v1 = DWCi_MOV_WH_ChangeSysState(9);
         return v1;
     } else {
-        v2 = func_ov016_0214d0c0();
+        v2 = DWCi_MOV_WH_StateInStartParent();
         if (v2 != 0)
             return v2;
-        v3 = func_ov016_0214cedc(9);
+        v3 = DWCi_MOV_WH_ChangeSysState(9);
         return v3;
     }
 }
 
-extern "C" s32 func_ov016_0214d0c0(void)
+extern "C" s32 DWCi_MOV_WH_StateInStartParent(void)
 {
     u8 *r4;
     s32 v0;
@@ -1218,10 +1218,10 @@ extern "C" s32 func_ov016_0214d0c0(void)
     u8 *t1;
     if ((u32)(*(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x40) - 4) <= (u32)2)
         return 1;
-    v0 = func_02013940((s32)func_ov016_0214d120);
+    v0 = WM_StartParent((s32)DWCi_MOV_WH_StateOutStartParent);
     r4 = (u8 *)data_ov016_02158b40;
     if (v0 != 2) {
-        func_ov016_0214cf58();
+        DWCi_MOV_WH_SetError();
         return 0;
     } else {
         t0 = (u8 *)*(s32 *)(r4 + 0x4);
@@ -1232,7 +1232,7 @@ extern "C" s32 func_ov016_0214d0c0(void)
     }
 }
 
-extern "C" asm void func_ov016_0214d120(void)
+extern "C" asm void DWCi_MOV_WH_StateOutStartParent(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r4, r0
@@ -1244,9 +1244,9 @@ extern "C" asm void func_ov016_0214d120(void)
     mov r5, r1, lsl #0x10
     ldr r6, =data_ov016_02158b40
     beq @L_0214d158
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldmia sp!, {r4, r5, r6, pc}
 @L_0214d158:
     ldrh r0, [r4, #8]
@@ -1283,12 +1283,12 @@ extern "C" asm void func_ov016_0214d120(void)
     bne @L_0214d1f0
     ldrh r1, [r4, #0x10]
     mov r0, #0
-    bl func_02013bf4
+    bl WM_Disconnect
     cmp r0, #2
     ldmeqia sp!, {r4, r5, r6, pc}
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldmia sp!, {r4, r5, r6, pc}
 @L_0214d1f0:
     ldr r1, [r6, #4]
@@ -1312,11 +1312,11 @@ extern "C" asm void func_ov016_0214d120(void)
     strh r0, [r2, #0x52]
     ldmia sp!, {r4, r5, r6, pc}
 @L_0214d238:
-    bl func_ov016_0214d280
+    bl DWCi_MOV_WH_StateInStartParentMP
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, pc}
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldmia sp!, {r4, r5, r6, pc}
 @L_0214d250:
     ldr r3, [r6]
@@ -1329,7 +1329,7 @@ extern "C" asm void func_ov016_0214d120(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-extern "C" s32 func_ov016_0214d280(void)
+extern "C" s32 DWCi_MOV_WH_StateInStartParentMP(void)
 {
     s32 v1;
     s32 t0;
@@ -1338,21 +1338,21 @@ extern "C" s32 func_ov016_0214d280(void)
     if ((u32)(*(s32 *)(*(u8 * *)(((u8 *)&data_ov016_02158b40) + 0x4) + 0x40) - 4) <= (u32)2) {
         return 1;
     } else {
-        func_ov016_0214cedc(4);
+        DWCi_MOV_WH_ChangeSysState(4);
         t0 = (*(s32 *)(((u8 *)&data_ov016_02158b40) + 0x4) + 0xF80);
         t1 = ((u16)*(s32 *)(((u8 *)(*(s32 *)(((u8 *)&data_ov016_02158b40) + 0x4) + 0x1000)) + 0x2A4));
         t2 = ((*(s32 *)(((u8 *)&data_ov016_02158b40) + 0x4) + 0x60) + 0x1000);
-        v1 = func_02013f08((s32)((u8 *)&func_ov016_0214d314), t2, t1, t0, ((u16)*(s32 *)(((u8 *)(*(s32 *)(((u8 *)&data_ov016_02158b40) + 0x4) + 0x1000)) + 0x2A0)), 1);
+        v1 = WM_StartMP((s32)((u8 *)&DWCi_MOV_WH_StateOutStartParentMP), t2, t1, t0, ((u16)*(s32 *)(((u8 *)(*(s32 *)(((u8 *)&data_ov016_02158b40) + 0x4) + 0x1000)) + 0x2A0)), 1);
         if (v1 == 2) {
             return 1;
         } else {
-            func_ov016_0214cf58();
+            DWCi_MOV_WH_SetError();
             return 0;
         }
     }
 }
 
-extern "C" s32 func_ov016_0214d314(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutStartParentMP(u8 *arg0)
 {
     u8 *r1;
     s32 r2;
@@ -1366,8 +1366,8 @@ extern "C" s32 func_ov016_0214d314(u8 *arg0)
     s32 v10;
     r1 = (u8 *)*(u16 *)(arg0 + 0x2);
     if ((s32)r1 != 0) {
-        func_ov016_0214cf58((s32)r1, (s32)r1);
-        v1 = func_ov016_0214cedc(9);
+        DWCi_MOV_WH_SetError((s32)r1, (s32)r1);
+        v1 = DWCi_MOV_WH_ChangeSysState(9);
         return v1;
     } else {
         r2 = *(u16 *)(arg0 + 0x4);
@@ -1379,14 +1379,14 @@ extern "C" s32 func_ov016_0214d314(u8 *arg0)
                 if ((s32)arg0 == 2) {
                     arg0 = (u8 *)*(s32 *)(r1 + 0x40);
                     if ((s32)arg0 == 4) {
-                        v2 = ((s32 (*)(...))func_ov016_0214d464)((s32)arg0, (s32)r1, r2);
+                        v2 = ((s32 (*)(...))DWCi_MOV_WH_StateInStartParentKeyShare)((s32)arg0, (s32)r1, r2);
                         if (v2 != 0)
                             return v2;
                         r2 = *(s32 *)(((u8 *)&data_ov016_02158b40));
                         if (r2 != 0) {
                             ((s32 (*)(...))r2)(0x8000000, (u8 *)((u8 *)&data_ov016_02156328));
                         }
-                        v4 = func_ov016_0214cedc(9);
+                        v4 = DWCi_MOV_WH_ChangeSysState(9);
                         return v4;
                     } else {
                         if ((s32)arg0 == 6) {
@@ -1395,18 +1395,18 @@ extern "C" s32 func_ov016_0214d314(u8 *arg0)
                     }
                 } else {
                     if ((s32)arg0 == 4) {
-                        v5 = func_02014414((s32)((r1 + 0x3E0) + 0x1000), 0xD, 7, 0x44, 1);
+                        v5 = WM_StartDataSharing((s32)((r1 + 0x3E0) + 0x1000), 0xD, 7, 0x44, 1);
                         if (v5 != 0) {
-                            func_ov016_0214cf58();
-                            v7 = func_ov016_0214cedc(9);
+                            DWCi_MOV_WH_SetError();
+                            v7 = DWCi_MOV_WH_ChangeSysState(9);
                             return v7;
                         } else {
-                            v8 = func_ov016_0214cedc(5);
+                            v8 = DWCi_MOV_WH_ChangeSysState(5);
                             return v8;
                         }
                     }
                 }
-                v9 = func_ov016_0214cedc(4, (s32)r1, r2);
+                v9 = DWCi_MOV_WH_ChangeSysState(4, (s32)r1, r2);
                 return v9;
             case 2:
             case 3:
@@ -1421,180 +1421,180 @@ extern "C" s32 func_ov016_0214d314(u8 *arg0)
     }
 }
 
-extern "C" s32 func_ov016_0214d464(void)
+extern "C" s32 DWCi_MOV_WH_StateInStartParentKeyShare(void)
 {
     s32 v1;
     s32 t0;
-    func_ov016_0214cedc(6);
+    DWCi_MOV_WH_ChangeSysState(6);
     t0 = (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1E00);
     v1 = WM_StartKeySharing(t0, 0xD);
     if (v1 == 2)
         return 1;
-    func_ov016_0214cf58(v1);
+    DWCi_MOV_WH_SetError(v1);
     return 0;
 }
 
-extern "C" s32 func_ov016_0214d4a0(void)
+extern "C" s32 DWCi_MOV_WH_StateInEndParentKeyShare(void)
 {
     s32 v0;
     s32 t0;
     t0 = (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1E00);
-    v0 = func_02014f80(t0);
+    v0 = WM_EndKeySharing(t0);
     if (v0 == 2)
         return 1;
-    func_ov016_0214cf58(v0);
+    DWCi_MOV_WH_SetError(v0);
     return 0;
 }
 
-extern "C" s32 func_ov016_0214d4d0(void)
+extern "C" s32 DWCi_MOV_WH_StateInEndParentMP(void)
 {
     s32 v1;
-    func_ov016_0214cedc(3);
-    v1 = func_020141b4((s32)func_ov016_0214d500);
+    DWCi_MOV_WH_ChangeSysState(3);
+    v1 = WM_EndMP((s32)DWCi_MOV_WH_StateOutEndParentMP);
     if (v1 == 2)
         return 1;
-    func_ov016_0214cf58(v1);
+    DWCi_MOV_WH_SetError(v1);
     return 0;
 }
 
-extern "C" void func_ov016_0214d500(u8 *arg0)
+extern "C" void DWCi_MOV_WH_StateOutEndParentMP(u8 *arg0)
 {
     s32 r2;
     s32 v2;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        func_ov016_0214cf58();
-        func_ov016_0214deb8();
+        DWCi_MOV_WH_SetError();
+        DWCi_MOV_WH_Reset();
         return;
     } else {
-        v2 = func_ov016_0214d554();
+        v2 = DWCi_MOV_WH_StateInEndParent();
         if (v2 != 0)
             return;
         r2 = *(s32 *)(data_ov016_02158b40);
         if (r2 != 0) {
             ((s32 (*)(...))r2)(0x8000000, (s32)data_ov016_02156358);
         }
-        func_ov016_0214deb8();
+        DWCi_MOV_WH_Reset();
         return;
     }
 }
 
-extern "C" asm s32 func_ov016_0214d554(...)
+extern "C" asm s32 DWCi_MOV_WH_StateInEndParent(...)
 {
     stmdb sp!, {r3, lr}
-    ldr r0, =func_ov016_0214d57c
-    bl func_02013950
+    ldr r0, =DWCi_MOV_WH_StateOutEndParent
+    bl WM_EndParent
     cmp r0, #2
     moveq r0, #1
     ldmeqia sp!, {r3, pc}
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #0
     ldmia sp!, {r3, pc}
 }
 
-extern "C" s32 func_ov016_0214d57c(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutEndParent(u8 *arg0)
 {
     s32 v0;
     s32 v1;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        v0 = func_ov016_0214cf58();
+        v0 = DWCi_MOV_WH_SetError();
         return v0;
     } else {
-        v1 = func_ov016_0214cedc(1);
+        v1 = DWCi_MOV_WH_ChangeSysState(1);
         return v1;
     }
 }
 
-extern "C" s32 func_ov016_0214d5a0(void)
+extern "C" s32 DWCi_MOV_WH_StateInEndChildKeyShare(void)
 {
     s32 v1;
     s32 t0;
     if (*(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x40) != 6)
         return 0;
-    func_ov016_0214cedc(3);
+    DWCi_MOV_WH_ChangeSysState(3);
     t0 = (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1E00);
-    v1 = func_02014f80(t0);
+    v1 = WM_EndKeySharing(t0);
     if (v1 == 2)
         return 1;
-    func_ov016_0214cf58(v1);
+    DWCi_MOV_WH_SetError(v1);
     return 0;
 }
 
-extern "C" s32 func_ov016_0214d5ec(void)
+extern "C" s32 DWCi_MOV_WH_StateInEndChildMP(void)
 {
     s32 v1;
-    func_ov016_0214cedc(3);
-    v1 = func_020141b4((s32)func_ov016_0214d61c);
+    DWCi_MOV_WH_ChangeSysState(3);
+    v1 = WM_EndMP((s32)DWCi_MOV_WH_StateOutEndChildMP);
     if (v1 == 2)
         return 1;
-    func_ov016_0214cf58(v1);
+    DWCi_MOV_WH_SetError(v1);
     return 0;
 }
 
-extern "C" s32 func_ov016_0214d61c(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutEndChildMP(u8 *arg0)
 {
     s32 v1;
     s32 v2;
     s32 v3;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        func_ov016_0214cf58();
-        v1 = func_ov016_0214ded4();
+        DWCi_MOV_WH_SetError();
+        v1 = DWCi_MOV_WH_Finalize();
         return v1;
     } else {
-        v2 = func_ov016_0214d650();
+        v2 = DWCi_MOV_WH_StateInEndChild();
         if (v2 != 0)
             return v2;
-        v3 = func_ov016_0214cedc(9);
+        v3 = DWCi_MOV_WH_ChangeSysState(9);
         return v3;
     }
 }
 
-extern "C" asm s32 func_ov016_0214d650(...)
+extern "C" asm s32 DWCi_MOV_WH_StateInEndChild(...)
 {
     stmdb sp!, {r4, lr}
     mov r0, #3
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     mov r4, #0
-    ldr r0, =func_ov016_0214d68c
+    ldr r0, =DWCi_MOV_WH_StateOutEndChild
     mov r1, r4
-    bl func_02013bf4
+    bl WM_Disconnect
     cmp r0, #2
     moveq r0, #1
     ldmeqia sp!, {r4, pc}
-    bl func_ov016_0214cf58
-    bl func_ov016_0214deb8
+    bl DWCi_MOV_WH_SetError
+    bl DWCi_MOV_WH_Reset
     mov r0, r4
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov016_0214d68c(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutEndChild(u8 *arg0)
 {
     s32 v0;
     s32 v1;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        v0 = func_ov016_0214cf58();
+        v0 = DWCi_MOV_WH_SetError();
         return v0;
     } else {
-        v1 = func_ov016_0214cedc(1);
+        v1 = DWCi_MOV_WH_ChangeSysState(1);
         return v1;
     }
 }
 
-extern "C" asm s32 func_ov016_0214d6b0(...)
+extern "C" asm s32 DWCi_MOV_WH_StateInReset(...)
 {
     stmdb sp!, {r3, lr}
     mov r0, #3
-    bl func_ov016_0214cedc
-    ldr r0, =func_ov016_0214d6e0
-    bl func_0201372c
+    bl DWCi_MOV_WH_ChangeSysState
+    ldr r0, =DWCi_MOV_WH_StateOutReset
+    bl WM_Reset
     cmp r0, #2
     moveq r0, #1
     ldmeqia sp!, {r3, pc}
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #0
     ldmia sp!, {r3, pc}
 }
 
-extern "C" s32 func_ov016_0214d6e0(s32 arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutReset(s32 arg0)
 {
     u8 *r4;
     s32 v1;
@@ -1602,50 +1602,50 @@ extern "C" s32 func_ov016_0214d6e0(s32 arg0)
     u16 t0;
     r4 = (u8 *)arg0;
     if (*(u16 *)(r4 + 0x2) != 0) {
-        func_ov016_0214cedc(9);
+        DWCi_MOV_WH_ChangeSysState(9);
         t0 = *(u16 *)(r4 + 0x2);
-        v1 = func_ov016_0214cf58(t0);
+        v1 = DWCi_MOV_WH_SetError(t0);
         return v1;
     } else {
-        v2 = func_ov016_0214cedc(1);
+        v2 = DWCi_MOV_WH_ChangeSysState(1);
         return v2;
     }
 }
 
-extern "C" s32 func_ov016_0214d714(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutEnd(u8 *arg0)
 {
     s32 v0;
     s32 v1;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        v0 = func_ov016_0214cedc(10);
+        v0 = DWCi_MOV_WH_ChangeSysState(10);
         return v0;
     } else {
-        v1 = func_ov016_0214cedc(0);
+        v1 = DWCi_MOV_WH_ChangeSysState(0);
         return v1;
     }
 }
 
-extern "C" void func_ov016_0214d73c(s32 arg0)
+extern "C" void DWCi_MOV_WH_SetGgid(s32 arg0)
 {
     *(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x8) = arg0;
 }
 
-extern "C" u16 func_ov016_0214d750(void)
+extern "C" u16 DWCi_MOV_WH_GetBitmap(void)
 {
     return *(u16 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x52);
 }
 
-extern "C" s32 func_ov016_0214d764(void)
+extern "C" s32 DWCi_MOV_WH_GetSystemState(void)
 {
     return *(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x40);
 }
 
-extern "C" asm void func_ov016_0214d778(void)
+extern "C" asm void DWCi_MOV_WH_StartMeasureChannel(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     sub sp, sp, #8
     add r0, sp, #0
-    bl func_02008564
+    bl OS_GetMacAddress
     ldr r2, =0x2fffc3c
     ldrh r0, [sp]
     ldr r3, [r2]
@@ -1671,16 +1671,16 @@ extern "C" asm void func_ov016_0214d778(void)
     ldr r1, [r1, #4]
     mov r0, #3
     strh r2, [r1, #0x5e]
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     mov r5, #1
     mov r0, r5
-    bl func_ov016_0214d854
+    bl DWCi_MOV_WH_StateInMeasureChannel
     cmp r0, #0x18
     bne @L_0214d820
     mov r0, #0x18
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     add sp, sp, #8
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
@@ -1689,15 +1689,15 @@ extern "C" asm void func_ov016_0214d778(void)
     addeq sp, sp, #8
     moveq r0, r5
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     mov r0, r4
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov016_0214d854(s32 arg0)
+extern "C" s32 DWCi_MOV_WH_StateInMeasureChannel(s32 arg0)
 {
     s32 r2;
     s32 r4;
@@ -1707,13 +1707,13 @@ extern "C" s32 func_ov016_0214d854(s32 arg0)
     r4 = arg0;
     arg0 = v0;
     if (arg0 == 0x8000) {
-        func_ov016_0214cf58(3);
-        func_ov016_0214cedc(9);
+        DWCi_MOV_WH_SetError(3);
+        DWCi_MOV_WH_ChangeSysState(9);
         return 3;
     } else {
         if (arg0 == 0) {
-            func_ov016_0214cf58(0x16);
-            func_ov016_0214cedc(9);
+            DWCi_MOV_WH_SetError(0x16);
+            DWCi_MOV_WH_ChangeSysState(9);
             return 0x18;
         } else {
             if ((arg0 & (1 << (r4 - 1))) == 0) {
@@ -1725,22 +1725,22 @@ extern "C" s32 func_ov016_0214d854(s32 arg0)
                     }
                 } while ((arg0 & (r2 << (r4 - 1))) == 0);
             }
-            v5 = ((s32 (*)(...))func_ov016_0214d9d4)((s32)((u8 *)&func_ov016_0214d8f4), r4);
+            v5 = ((s32 (*)(...))WHi_MeasureChannel)((s32)((u8 *)&DWCi_MOV_WH_StateOutMeasureChannel), r4);
             return ((u16)v5);
         }
     }
 }
 
-extern "C" asm void func_ov016_0214d8f4(void)
+extern "C" asm void DWCi_MOV_WH_StateOutMeasureChannel(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
     ldrh r0, [r4, #2]
     cmp r0, #0
     beq @L_0214d918
-    bl func_ov016_0214cf58
+    bl DWCi_MOV_WH_SetError
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldmia sp!, {r4, pc}
 @L_0214d918:
     ldr r0, =data_ov016_02158b40
@@ -1780,26 +1780,26 @@ extern "C" asm void func_ov016_0214d8f4(void)
     add r0, r0, #1
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
-    bl func_ov016_0214d854
+    bl DWCi_MOV_WH_StateInMeasureChannel
     cmp r0, #0x18
     bne @L_0214d9b8
     mov r0, #7
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldmia sp!, {r4, pc}
 @L_0214d9b8:
     cmp r0, #2
     ldmeqia sp!, {r4, pc}
     mov r0, #9
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldmia sp!, {r4, pc}
 }
 
-extern "C" void func_ov016_0214d9d4(s32 arg0, s32 arg1)
+extern "C" void WHi_MeasureChannel(s32 arg0, s32 arg1)
 {
-    func_02015218(arg0, 3, 0x11, arg1, 0x1E);
+    WM_MeasureChannel(arg0, 3, 0x11, arg1, 0x1E);
 }
 
-extern "C" s32 func_ov016_0214d9f4(void)
+extern "C" s32 DWCi_MOV_WH_GetMeasureChannel(void)
 {
     s32 r3;
     s32 r4;
@@ -1808,11 +1808,11 @@ extern "C" s32 func_ov016_0214d9f4(void)
     u8 *t1;
     u16 t2;
     if (*(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x40) != 7) {
-        func_0200878c();
+        OS_Terminate();
     }
-    func_ov016_0214cedc(1);
+    DWCi_MOV_WH_ChangeSysState(1);
     t0 = *(u16 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x60);
-    v2 = func_ov016_0214da68(t0);
+    v2 = SelectChannel(t0);
     t1 = (u8 *)*(s32 *)(data_ov016_02158b40 + 0x4);
     *(u16 *)(t1 + 0x5C) = v2;
     r3 = *(s32 *)(data_ov016_02158b40);
@@ -1824,7 +1824,7 @@ extern "C" s32 func_ov016_0214d9f4(void)
     return *(u16 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x5C);
 }
 
-extern "C" asm s32 func_ov016_0214da68(...)
+extern "C" asm s32 SelectChannel(...)
 {
     stmdb sp!, {r4, lr}
     mov r3, #0
@@ -1887,7 +1887,7 @@ extern "C" asm s32 func_ov016_0214da68(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm s32 func_ov016_0214db4c(...)
+extern "C" asm s32 DWCi_MOV_WH_Initialize(...)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r1, =data_ov016_02158b40
@@ -1913,59 +1913,59 @@ extern "C" asm s32 func_ov016_0214db4c(...)
     strh r5, [r0, #4]
     ldr r0, [r1, #4]
     str r5, [r0, #0x4c]
-    bl func_ov016_0214dbe4
+    bl DWCi_MOV_WH_StateInInitialize
     cmp r0, #0
     moveq r0, r5
     movne r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" void func_ov016_0214dbc4(u8 *arg0)
+extern "C" void DWCi_MOV_WH_IndicateHandler(u8 *arg0)
 {
     if (*(u16 *)(arg0 + 0x2) != 8)
         return;
-    func_ov016_0214cedc(9);
-    func_0200878c();
+    DWCi_MOV_WH_ChangeSysState(9);
+    OS_Terminate();
 }
 
-extern "C" s32 func_ov016_0214dbe4(void)
+extern "C" s32 DWCi_MOV_WH_StateInInitialize(void)
 {
     s32 v1;
     s32 t0;
-    func_ov016_0214cedc(3);
+    DWCi_MOV_WH_ChangeSysState(3);
     t0 = (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x80);
-    v1 = func_020136b4(t0, (s32)func_ov016_0214dc30, 2);
+    v1 = func_020136b4(t0, (s32)DWCi_MOV_WH_StateOutInitialize, 2);
     if (v1 == 2)
         return 1;
-    func_ov016_0214cf58(v1);
-    func_ov016_0214cedc(10);
+    DWCi_MOV_WH_SetError(v1);
+    DWCi_MOV_WH_ChangeSysState(10);
     return 0;
 }
 
-extern "C" s32 func_ov016_0214dc30(u8 *arg0)
+extern "C" s32 DWCi_MOV_WH_StateOutInitialize(u8 *arg0)
 {
     s32 v1;
     s32 v2;
     s32 v4;
     s32 v5;
     if (*(u16 *)(arg0 + 0x2) != 0) {
-        func_ov016_0214cf58();
-        v1 = func_ov016_0214cedc(10);
+        DWCi_MOV_WH_SetError();
+        v1 = DWCi_MOV_WH_ChangeSysState(10);
         return v1;
     } else {
-        v2 = WM_SetIndCallback((s32)func_ov016_0214dbc4);
+        v2 = WM_SetIndCallback((s32)DWCi_MOV_WH_IndicateHandler);
         if (v2 != 0) {
-            func_ov016_0214cf58();
-            v4 = func_ov016_0214cedc(10);
+            DWCi_MOV_WH_SetError();
+            v4 = DWCi_MOV_WH_ChangeSysState(10);
             return v4;
         } else {
-            v5 = func_ov016_0214cedc(1);
+            v5 = DWCi_MOV_WH_ChangeSysState(1);
             return v5;
         }
     }
 }
 
-extern "C" s32 func_ov016_0214dc80(s32 arg0, s32 arg1, s32 arg2)
+extern "C" s32 DWCi_MOV_WH_ParentConnect(s32 arg0, s32 arg1, s32 arg2)
 {
     s32 r3;
     u8 *r4;
@@ -1994,7 +1994,7 @@ extern "C" s32 func_ov016_0214dc80(s32 arg0, s32 arg1, s32 arg2)
     r6 = arg1;
     r7 = arg0;
     if (*(s32 *)(*(u8 * *)(r4 + 0x4) + 0x40) != 1) {
-        func_0200878c();
+        OS_Terminate();
     }
     t0 = (u8 *)(*(s32 *)(r4 + 0x4) + 0x1000);
     *(s32 *)(t0 + 0x2A4) = 0x180;
@@ -2012,12 +2012,12 @@ extern "C" s32 func_ov016_0214dc80(s32 arg0, s32 arg1, s32 arg2)
     }
     t4 = (u8 *)*(s32 *)(r4 + 0x4);
     *(s32 *)(t4 + 0x44) = r7;
-    func_ov016_0214cedc(3, (s32)t4);
+    DWCi_MOV_WH_ChangeSysState(3, (s32)t4);
     t5 = (u8 *)*(s32 *)(r4 + 0x4);
     *(u16 *)(t5 + 0xC) = r6;
     t6 = (u8 *)*(s32 *)(r4 + 0x4);
     *(u16 *)(t6 + 0x32) = r5;
-    v4 = func_02013274((s32)t6);
+    v4 = WM_GetDispersionBeaconPeriod((s32)t6);
     t7 = (u8 *)*(s32 *)(r4 + 0x4);
     *(u16 *)(t7 + 0x18) = v4;
     t8 = (u8 *)*(s32 *)(r4 + 0x4);
@@ -2035,7 +2035,7 @@ extern "C" s32 func_ov016_0214dc80(s32 arg0, s32 arg1, s32 arg2)
     t14 = (u8 *)*(s32 *)(r4 + 0x4);
     *(u16 *)(t14 + 0x14) = (r7 != 2 ? 0 : 1);
     if (((r7 == 0 || r7 == 2) || r7 == 4)) {
-        v5 = func_ov016_0214cf78();
+        v5 = DWCi_MOV_WH_StateInSetParentParam();
         return v5;
     } else {
         r3 = *(s32 *)(r4);
@@ -2046,22 +2046,22 @@ extern "C" s32 func_ov016_0214dc80(s32 arg0, s32 arg1, s32 arg2)
     }
 }
 
-extern "C" void func_ov016_0214dddc(s32 arg0)
+extern "C" void DWCi_MOV_WH_SetJudgeAcceptFunc(s32 arg0)
 {
     *(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x4C) = arg0;
 }
 
-extern "C" void func_ov016_0214ddf0(s32 arg0)
+extern "C" void DWCi_MOV_WH_GetSharedDataAdr(s32 arg0)
 {
-    func_02014ee0(((*(s32 *)(data_ov016_02158b40 + 0x4) + 0x3E0) + 0x1000), (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1C00), arg0);
+    WM_GetSharedDataAddress(((*(s32 *)(data_ov016_02158b40 + 0x4) + 0x3E0) + 0x1000), (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1C00), arg0);
 }
 
-extern "C" s32 func_ov016_0214de18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 DWCi_MOV_WH_StepDS(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     u8 *r4;
     s32 r5;
     s32 v0;
-    v0 = func_020146a0(((*(s32 *)(data_ov016_02158b40 + 0x4) + 0x3E0) + 0x1000), arg0, (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1C00), arg3);
+    v0 = WM_StepDataSharing(((*(s32 *)(data_ov016_02158b40 + 0x4) + 0x3E0) + 0x1000), arg0, (*(s32 *)(data_ov016_02158b40 + 0x4) + 0x1C00), arg3);
     arg0 = v0;
     r4 = (u8 *)data_ov016_02158b40;
     r5 = v0;
@@ -2077,24 +2077,24 @@ extern "C" s32 func_ov016_0214de18(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
         if (arg2 != 0) {
             ((s32 (*)(...))arg2)(0x8000000, (s32)data_ov016_0215642c);
         }
-        func_ov016_0214cf58(r5);
+        DWCi_MOV_WH_SetError(r5);
         return 0;
     }
     if (r5 == 0)
         return 1;
-    func_ov016_0214cf58(arg0);
+    DWCi_MOV_WH_SetError(arg0);
     return 0;
 }
 
-extern "C" void func_ov016_0214deb8(void)
+extern "C" void DWCi_MOV_WH_Reset(void)
 {
-    s32 v0 = func_ov016_0214d6b0();
+    s32 v0 = DWCi_MOV_WH_StateInReset();
     if (v0 != 0)
         return;
-    func_ov016_0214cedc(10);
+    DWCi_MOV_WH_ChangeSysState(10);
 }
 
-extern "C" asm s32 func_ov016_0214ded4(...)
+extern "C" asm s32 DWCi_MOV_WH_Finalize(...)
 {
     stmdb sp!, {r3, lr}
     ldr r0, =data_ov016_02158b40
@@ -2125,11 +2125,11 @@ extern "C" asm s32 func_ov016_0214ded4(...)
     cmpne r0, #4
     mov r0, #3
     beq @L_0214df4c
-    bl func_ov016_0214cedc
-    bl func_ov016_0214deb8
+    bl DWCi_MOV_WH_ChangeSysState
+    bl DWCi_MOV_WH_Reset
     ldmia sp!, {r3, pc}
 @L_0214df4c:
-    bl func_ov016_0214cedc
+    bl DWCi_MOV_WH_ChangeSysState
     ldr r0, =data_ov016_02158b40
     ldr r0, [r0, #4]
     ldr r0, [r0, #0x44]
@@ -2143,49 +2143,49 @@ extern "C" asm s32 func_ov016_0214ded4(...)
     b @L_0214dfbc
     b @L_0214df94
 @L_0214df80:
-    bl func_ov016_0214d5a0
+    bl DWCi_MOV_WH_StateInEndChildKeyShare
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_ov016_0214deb8
+    bl DWCi_MOV_WH_Reset
     ldmia sp!, {r3, pc}
 @L_0214df94:
-    bl func_ov016_0214d5ec
+    bl DWCi_MOV_WH_StateInEndChildMP
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_ov016_0214deb8
+    bl DWCi_MOV_WH_Reset
     ldmia sp!, {r3, pc}
 @L_0214dfa8:
-    bl func_ov016_0214d4a0
+    bl DWCi_MOV_WH_StateInEndParentKeyShare
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_ov016_0214deb8
+    bl DWCi_MOV_WH_Reset
     ldmia sp!, {r3, pc}
 @L_0214dfbc:
-    bl func_ov016_0214d4d0
+    bl DWCi_MOV_WH_StateInEndParentMP
     cmp r0, #0
     ldmneia sp!, {r3, pc}
-    bl func_ov016_0214deb8
+    bl DWCi_MOV_WH_Reset
     ldmia sp!, {r3, pc}
 }
 
-extern "C" s32 func_ov016_0214dfdc(void)
+extern "C" s32 DWCi_MOV_WH_End(void)
 {
     s32 v2;
     if (*(s32 *)(*(u8 * *)(data_ov016_02158b40 + 0x4) + 0x40) != 1) {
-        func_0200878c();
+        OS_Terminate();
     }
-    func_ov016_0214cedc(3);
-    v2 = func_02013768((s32)func_ov016_0214d714);
+    DWCi_MOV_WH_ChangeSysState(3);
+    v2 = WM_End((s32)DWCi_MOV_WH_StateOutEnd);
     if (v2 == 2)
         return 1;
-    func_ov016_0214cedc(9);
+    DWCi_MOV_WH_ChangeSysState(9);
     return 0;
 }
 
-extern "C" void func_ov016_0214e02c(s32 arg0, u8 *arg1)
+extern "C" void DWCi_MOVInit(s32 arg0, u8 *arg1)
 {
     *(s32 *)(data_ov016_02158b48) = arg0;
-    func_ov016_0214c218((arg0 + 0xB00));
+    DWCi_MOV_MBP_MemInit((arg0 + 0xB00));
     u8 *t0 = (u8 *)(*(s32 *)(data_ov016_02158b48) + 0x600);
     *(u16 *)(t0 + 0x48) = 0;
     u8 *t1 = (u8 *)(*(s32 *)(data_ov016_02158b48) + 0x600);
@@ -2196,7 +2196,7 @@ extern "C" void func_ov016_0214e02c(s32 arg0, u8 *arg1)
     *(u8 *)(t3 + 0xA91) = 1;
     u8 *t4 = (u8 *)*(s32 *)(data_ov016_02158b48);
     *(s32 *)(t4 + 0xA9C) = 0;
-    func_ov016_0214eaf4();
+    Parent_InitDataShare();
     u8 *t5 = (u8 *)*(s32 *)(data_ov016_02158b48);
     s32 t6 = *(s32 *)(arg1);
     *(s32 *)(t5 + 0xAB4) = t6;
@@ -2222,14 +2222,14 @@ extern "C" void func_ov016_0214e02c(s32 arg0, u8 *arg1)
     *(u8 *)(t19 + 0xACC) = 2;
     OS_GetTick((s32)t19, 2, t18);
     s32 t20 = ((*(s32 *)(data_ov016_02158b48) + 0x24C) + 0x400);
-    func_ov014_0210f430(t20);
+    DWCi_BACKUPlRead(t20);
     OS_GetTick();
-    s32 v5 = func_ov016_0214a0e8();
+    s32 v5 = DWCi_SETTINGlGetMemMap();
     u8 *t21 = (u8 *)*(s32 *)(data_ov016_02158b48);
     *(s32 *)(t21 + 0xAA4) = v5;
 }
 
-extern "C" s32 func_ov016_0214e10c(void)
+extern "C" s32 DWCi_MOVFinalize(void)
 {
     s32 r0;
     s32 r1;
@@ -2249,7 +2249,7 @@ extern "C" s32 func_ov016_0214e10c(void)
             if ((r1 == 4 && (u32)*(s32 *)(r2 + 0xA98) < (u32)6)) {
                 return 0;
             } else {
-                func_ov089_02178610();
+                MB_EndToIdle();
                 t1 = (u8 *)*(s32 *)(((u8 *)&data_ov016_02158b48));
                 *(u8 *)(t1 + 0xA90) = 0x10;
                 t2 = (u8 *)*(s32 *)(((u8 *)&data_ov016_02158b48));
@@ -2273,17 +2273,17 @@ extern "C" s32 func_ov016_0214e10c(void)
     }
 }
 
-extern "C" asm s32 func_ov016_0214e1e4(...)
+extern "C" asm s32 _DWCi_MOVPrepare(...)
 {
     stmdb sp!, {r4, lr}
     ldr r4, =data_ov016_02158b48
     ldr r0, [r4]
     ldr r0, [r0, #0xac8]
-    bl func_ov016_0214d73c
+    bl DWCi_MOV_WH_SetGgid
     ldr r0, [r4]
     mov r1, #1
     strb r1, [r0, #0xa90]
-    bl func_020134f8
+    bl WM_GetNextTgid
     ldr r1, [r4]
     mov r2, #0x40
     add r1, r1, #0x600
@@ -2305,21 +2305,21 @@ extern "C" asm s32 func_ov016_0214e1e4(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov016_0214e258(void)
+extern "C" s32 DWCi_MOVStartAdmitChild(void)
 {
     u8 t0;
     u8 *t1;
     if (((*(u8 *)(*(u8 * *)(data_ov016_02158b48) + 0xA90) != 1 && *(u8 *)(*(u8 * *)(data_ov016_02158b48) + 0xA90) != 0x1A) && *(u8 *)(*(u8 * *)(data_ov016_02158b48) + 0xA90) != 0x1D))
         return 0;
     t0 = *(u8 *)(*(u8 * *)(data_ov016_02158b48) + 0xA90);
-    func_ov016_0214e1e4(t0);
-    func_ov016_0214db4c();
+    _DWCi_MOVPrepare(t0);
+    DWCi_MOV_WH_Initialize();
     t1 = (u8 *)*(s32 *)(data_ov016_02158b48);
     *(u8 *)(t1 + 0xA90) = 2;
     return 1;
 }
 
-extern "C" s32 func_ov016_0214e2a0(void)
+extern "C" s32 DWCi_MOVStartDownloadandBootChild(void)
 {
     u8 *r1;
     r1 = (u8 *)*(s32 *)(data_ov016_02158b48);
@@ -2327,12 +2327,12 @@ extern "C" s32 func_ov016_0214e2a0(void)
         return 0;
     } else {
         *(u8 *)(r1 + 0xA90) = 6;
-        func_ov016_0214c6e0(6);
+        DWCi_MOV_MBP_StartDownloadAll(6);
         return 1;
     }
 }
 
-extern "C" asm void func_ov016_0214e2d4(void)
+extern "C" asm void DWCi_MOVFramework(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r5, =data_ov016_02158b48
@@ -2382,7 +2382,7 @@ extern "C" asm void func_ov016_0214e2d4(void)
     cmp r1, #1
     bne @L_0214e398
     strb r4, [r0, #0xaac]
-    bl func_ov016_0214e258
+    bl DWCi_MOVStartAdmitChild
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e398:
     cmp r1, #2
@@ -2392,10 +2392,10 @@ extern "C" asm void func_ov016_0214e2d4(void)
     streqb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e3b0:
-    bl func_ov016_0214e65c
+    bl _DWCi_MOVSearchChannel
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e3b8:
-    bl func_ov016_0214e704
+    bl _DWCi_MOVStartWaitChild
     ldr r0, [r5]
     mov r1, #4
     strb r1, [r0, #0xa90]
@@ -2404,19 +2404,19 @@ extern "C" asm void func_ov016_0214e2d4(void)
     ldr r1, [r0, #0xa98]
     add r1, r1, #1
     str r1, [r0, #0xa98]
-    bl func_ov016_0214e728
+    bl _DWCi_MOV_WaitandDownloadandBoot_Child
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e3e0:
-    bl func_ov016_0214e728
+    bl _DWCi_MOV_WaitandDownloadandBoot_Child
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e3e8:
-    bl func_ov016_0214e8b0
+    bl _DWCi_MOV_ReadyMovUserID
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e3f0:
-    bl func_ov016_0214e8dc
+    bl _DWCi_MOV_MovUserID
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e3f8:
-    bl func_ov016_0214ea70
+    bl _DWCi_MOV_EraseFlashData
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e400:
     str r4, [r0, #0xa9c]
@@ -2430,10 +2430,10 @@ extern "C" asm void func_ov016_0214e2d4(void)
     str r1, [r0, #0xa9c]
     cmp r2, #0x1e
     ldmlsia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214ea88
+    bl _DWCi_MOVEnd
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e430:
-    bl func_ov089_02178610
+    bl MB_EndToIdle
     ldr r0, [r5]
     mov r1, #0x16
     str r4, [r0, #0xa9c]
@@ -2446,16 +2446,16 @@ extern "C" asm void func_ov016_0214e2d4(void)
     str r1, [r0, #0xa9c]
     cmp r2, #0x1e
     ldmlsia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #1
     ldmneia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214dfdc
+    bl DWCi_MOV_WH_End
     ldr r0, [r5]
     mov r1, #0x14
     strb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e480:
-    bl func_ov016_0214ded4
+    bl DWCi_MOV_WH_Finalize
     ldr r0, [r5]
     mov r1, #0x16
     str r4, [r0, #0xa9c]
@@ -2468,16 +2468,16 @@ extern "C" asm void func_ov016_0214e2d4(void)
     str r1, [r0, #0xa9c]
     cmp r2, #0x1e
     ldmlsia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #1
     ldmneia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214dfdc
+    bl DWCi_MOV_WH_End
     ldr r0, [r5]
     mov r1, #0x17
     strb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e4d0:
-    bl func_ov016_0214ded4
+    bl DWCi_MOV_WH_Finalize
     ldr r0, [r5]
     mov r1, #0x19
     str r4, [r0, #0xa9c]
@@ -2490,16 +2490,16 @@ extern "C" asm void func_ov016_0214e2d4(void)
     str r1, [r0, #0xa9c]
     cmp r2, #0x1e
     ldmlsia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #1
     ldmneia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214dfdc
+    bl DWCi_MOV_WH_End
     ldr r0, [r5]
     mov r1, #0x1a
     strb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e520:
-    bl func_ov016_0214ded4
+    bl DWCi_MOV_WH_Finalize
     ldr r0, [r5]
     mov r1, #0x1c
     str r4, [r0, #0xa9c]
@@ -2512,10 +2512,10 @@ extern "C" asm void func_ov016_0214e2d4(void)
     str r1, [r0, #0xa9c]
     cmp r2, #0x1e
     ldmlsia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #1
     bne @L_0214e570
-    bl func_ov016_0214dfdc
+    bl DWCi_MOV_WH_End
     ldr r0, [r5]
     mov r1, #0x1d
     strb r1, [r0, #0xa90]
@@ -2533,10 +2533,10 @@ extern "C" asm void func_ov016_0214e2d4(void)
     ldmneia sp!, {r3, r4, r5, pc}
     cmp r3, #0x37
     ldmlsia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214ded4
+    bl DWCi_MOV_WH_Finalize
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e5a8:
-    bl func_ov016_0214ded4
+    bl DWCi_MOV_WH_Finalize
     ldr r0, [r5]
     mov r1, #0x21
     str r4, [r0, #0xa9c]
@@ -2549,20 +2549,20 @@ extern "C" asm void func_ov016_0214e2d4(void)
     str r1, [r0, #0xa9c]
     cmp r2, #0x1e
     ldmlsia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #1
     ldmneia sp!, {r3, r4, r5, pc}
-    bl func_ov016_0214dfdc
+    bl DWCi_MOV_WH_End
     ldr r0, [r5]
     mov r1, #0x22
     strb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e5f8:
-    bl func_ov016_0214ded4
+    bl DWCi_MOV_WH_Finalize
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" asm void func_ov016_0214e608(void)
+extern "C" asm void DWCi_MOVGetStatus(void)
 {
     ldr r2, =data_ov016_02158b48
     ldr r3, [r2]
@@ -2582,19 +2582,19 @@ extern "C" asm void func_ov016_0214e608(void)
     bx lr
 }
 
-extern "C" void func_ov016_0214e64c(void)
+extern "C" void DWCi_GetChildInfo(void)
 {
-    func_ov089_02174268(1);
+    MB_CommGetChildUser(1);
 }
 
-extern "C" void func_ov016_0214e65c(void)
+extern "C" void _DWCi_MOVSearchChannel(void)
 {
-    switch (((s32 (*)(...))func_ov016_0214d764)()) {
+    switch (((s32 (*)(...))DWCi_MOV_WH_GetSystemState)()) {
     case 1:
-        ((s32 (*)(...))func_ov016_0214d778)();
+        ((s32 (*)(...))DWCi_MOV_WH_StartMeasureChannel)();
         break;
     case 7:
-        *(u16 *)(*(u8 **)data_ov016_02158b48 + 0x64A) = ((s32 (*)(...))func_ov016_0214d9f4)();
+        *(u16 *)(*(u8 **)data_ov016_02158b48 + 0x64A) = ((s32 (*)(...))DWCi_MOV_WH_GetMeasureChannel)();
         *(s32 *)(*(u8 **)data_ov016_02158b48 + 0xA98) = 0;
         (*(u8 **)data_ov016_02158b48)[0xA90] = 3;
         break;
@@ -2603,26 +2603,26 @@ extern "C" void func_ov016_0214e65c(void)
         (*(u8 **)data_ov016_02158b48)[0xA90] = 3;
         break;
     case 9:
-        ((s32 (*)(...))func_ov016_0214deb8)();
+        ((s32 (*)(...))DWCi_MOV_WH_Reset)();
         break;
     case 3:
         break;
     default:
-        ((s32 (*)(...))func_0200878c)();
+        ((s32 (*)(...))OS_Terminate)();
         break;
     }
 }
 
-extern "C" void func_ov016_0214e704(void)
+extern "C" void _DWCi_MOVStartWaitChild(void)
 {
-    func_ov016_0214c254(*(s32 *)(*(u8 * *)(data_ov016_02158b48) + 0xAC8), *(u16 *)(((u8 *)(*(u8 * *)(data_ov016_02158b48) + 0x600)) + 0x48), (s32)*(u8 * *)(data_ov016_02158b48));
+    DWCi_MOV_MBP_Init(*(s32 *)(*(u8 * *)(data_ov016_02158b48) + 0xAC8), *(u16 *)(((u8 *)(*(u8 * *)(data_ov016_02158b48) + 0x600)) + 0x48), (s32)*(u8 * *)(data_ov016_02158b48));
 }
 
-extern "C" asm void func_ov016_0214e728(void)
+extern "C" asm void _DWCi_MOV_WaitandDownloadandBoot_Child(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r4, =data_ov016_02158b48
-    bl func_ov016_0214cc94
+    bl DWCi_MOV_MBP_GetState
     cmp r0, #7
     addls pc, pc, r0, lsl #2
     ldmia sp!, {r3, r4, r5, pc}
@@ -2640,23 +2640,23 @@ extern "C" asm void func_ov016_0214e728(void)
     ldrh r1, [r0, #0x4a]
     add r0, r2, #0x2b4
     add r0, r0, #0x800
-    bl func_ov016_0214c368
+    bl DWCi_MOV_MBP_Start
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e77c:
     mov r5, #2
     mov r0, r5
-    bl func_ov016_0214cca8
+    bl DWCi_MOV_MBP_GetChildBmp
     cmp r0, #0
     ldrne r0, [r4]
     movne r1, #5
     strneb r1, [r0, #0xa90]
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, #3
-    bl func_ov016_0214cca8
+    bl DWCi_MOV_MBP_GetChildBmp
     cmp r0, #0
     bne @L_0214e7bc
     mov r0, #4
-    bl func_ov016_0214cca8
+    bl DWCi_MOV_MBP_GetChildBmp
     cmp r0, #0
     beq @L_0214e7cc
 @L_0214e7bc:
@@ -2670,17 +2670,17 @@ extern "C" asm void func_ov016_0214e728(void)
     cmp r0, #5
     ldmneia sp!, {r3, r4, r5, pc}
     mov r0, r5
-    bl func_ov016_0214cca8
+    bl DWCi_MOV_MBP_GetChildBmp
     cmp r0, #0
     ldreq r0, [r4]
     moveq r1, #0xd
     streqb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e7f8:
-    bl func_ov016_0214c7c0
+    bl DWCi_MOV_MBP_IsBootableAll
     cmp r0, #0
     beq @L_0214e80c
-    bl func_ov016_0214c828
+    bl DWCi_MOV_MBP_StartRebootAll
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e80c:
     ldr r0, [r4]
@@ -2690,7 +2690,7 @@ extern "C" asm void func_ov016_0214e728(void)
     cmp r0, #1
     ldmhiia sp!, {r3, r4, r5, pc}
     mov r0, #3
-    bl func_ov016_0214cca8
+    bl DWCi_MOV_MBP_GetChildBmp
     cmp r0, #0
     ldreq r0, [r4]
     moveq r1, #0x12
@@ -2702,13 +2702,13 @@ extern "C" asm void func_ov016_0214e728(void)
     strb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e850:
-    bl func_ov016_0214c920
+    bl DWCi_MOV_MBP_Cancel
     ldr r0, [r4]
     mov r1, #1
     strb r1, [r0, #0xa90]
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e864:
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #0
     beq @L_0214e88c
     cmp r0, #1
@@ -2717,7 +2717,7 @@ extern "C" asm void func_ov016_0214e728(void)
     ldmeqia sp!, {r3, r4, r5, pc}
     b @L_0214e89c
 @L_0214e884:
-    bl func_ov016_0214dfdc
+    bl DWCi_MOV_WH_End
     ldmia sp!, {r3, r4, r5, pc}
 @L_0214e88c:
     ldr r0, [r4]
@@ -2731,19 +2731,19 @@ extern "C" asm void func_ov016_0214e728(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-extern "C" s32 func_ov016_0214e8b0(void)
+extern "C" s32 _DWCi_MOV_ReadyMovUserID(void)
 {
-    func_ov016_0214eaf4();
-    func_ov016_0214dddc((s32)func_ov016_0214eab8);
+    Parent_InitDataShare();
+    DWCi_MOV_WH_SetJudgeAcceptFunc((s32)JudgeConnectableChild);
     u8 *t0 = (u8 *)*(s32 *)(data_ov016_02158b48);
     *(u8 *)(t0 + 0xA90) = 8;
     return (s32)t0;
 }
 
-extern "C" asm void func_ov016_0214e8dc(void)
+extern "C" asm void _DWCi_MOV_MovUserID(void)
 {
     stmdb sp!, {r4, lr}
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #6
     addls pc, pc, r0, lsl #2
     ldmia sp!, {r4, pc}
@@ -2764,7 +2764,7 @@ extern "C" asm void func_ov016_0214e8dc(void)
     add r1, r3, #1
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
-    bl func_ov016_0214dc80
+    bl DWCi_MOV_WH_ParentConnect
     ldmia sp!, {r4, pc}
 @L_0214e938:
     ldr r4, =data_ov016_02158b48
@@ -2777,8 +2777,8 @@ extern "C" asm void func_ov016_0214e8dc(void)
     rsb r2, r3, r1, lsl #28
     add r2, r3, r2, ror #28
     add r2, r12, r2, lsl #6
-    bl func_ov016_0214eb38
-    bl func_ov016_0214ec84
+    bl Parent_StepDataShare
+    bl Parent_data_receive_progress
     ldr r1, [r4]
     ldrb r0, [r1, #0xa90]
     cmp r0, #0x1b
@@ -2788,57 +2788,57 @@ extern "C" asm void func_ov016_0214e8dc(void)
     movhi r0, #0x1b
     strhib r0, [r1, #0xa90]
     ldmhiia sp!, {r4, pc}
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0x10
     beq @L_0214e9a4
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0x20
     bne @L_0214e9bc
 @L_0214e9a4:
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     ldr r0, =data_ov016_02158b48
     mov r1, #0xa
     ldr r0, [r0]
     strb r1, [r0, #0xa90]
     ldmia sp!, {r4, pc}
 @L_0214e9bc:
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0x40
     ldreq r0, [r4]
     moveq r1, #0xb
     streqb r1, [r0, #0xa90]
     ldmeqia sp!, {r4, pc}
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0xff
     ldreq r0, [r4]
     moveq r1, #0x1b
     streqb r1, [r0, #0xa90]
     ldmeqia sp!, {r4, pc}
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0x50
     ldreq r0, [r4]
     moveq r1, #0x15
     streqb r1, [r0, #0xa90]
     ldmeqia sp!, {r4, pc}
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0x60
     ldreq r0, [r4]
     moveq r1, #0x18
     streqb r1, [r0, #0xa90]
     ldmeqia sp!, {r4, pc}
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0x70
     ldreq r0, [r4]
     moveq r1, #0x1b
     streqb r1, [r0, #0xa90]
     ldmeqia sp!, {r4, pc}
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0
     ldreq r0, [r4]
     moveq r1, #8
     streqb r1, [r0, #0xa90]
     ldmeqia sp!, {r4, pc}
-    bl func_ov016_0214ed68
+    bl Parent_get_child_data_kind
     cmp r0, #0xbd
     ldr r0, [r4]
     moveq r1, #9
@@ -2848,39 +2848,39 @@ extern "C" asm void func_ov016_0214e8dc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov016_0214ea70(void)
+extern "C" s32 _DWCi_MOV_EraseFlashData(void)
 {
     u8 *t0 = (u8 *)*(s32 *)(data_ov016_02158b48);
     *(u8 *)(t0 + 0xA90) = 0xC;
     return (s32)t0;
 }
 
-extern "C" s32 func_ov016_0214ea88(void)
+extern "C" s32 _DWCi_MOVEnd(void)
 {
     s32 v0;
     u8 *t0;
-    v0 = func_ov016_0214d764();
+    v0 = DWCi_MOV_WH_GetSystemState();
     if (v0 != 1)
         return 0;
-    func_ov016_0214dfdc();
+    DWCi_MOV_WH_End();
     t0 = (u8 *)*(s32 *)(data_ov016_02158b48);
     *(u8 *)(t0 + 0xA90) = 1;
     return 1;
 }
 
-extern "C" s32 func_ov016_0214eab8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 JudgeConnectableChild(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 v0;
     s32 v1;
-    v0 = func_ov016_0214cdf8((arg0 + 10), arg1, arg2, arg3);
+    v0 = DWCi_MOV_MBP_GetPlayerNo((arg0 + 10), arg1, arg2, arg3);
     if (v0 == 0)
         return 0;
-    v1 = func_ov016_0214cdc8(v0);
+    v1 = DWCi_MOV_MBP_GetChildInfo(v0);
     *(s32 *)(((u8 *)(*(s32 *)(data_ov016_02158b48) + ((v0 - 1) << 2))) + 0xAA0) = v1;
     return 1;
 }
 
-extern "C" s32 func_ov016_0214eaf4(void)
+extern "C" s32 Parent_InitDataShare(void)
 {
     s32 t0 = (*(s32 *)(data_ov016_02158b48) + 0x100);
     MI_CpuFill8(t0, 0, 0x100);
@@ -2891,7 +2891,7 @@ extern "C" s32 func_ov016_0214eaf4(void)
     return (s32)t2;
 }
 
-extern "C" asm void func_ov016_0214eb38(void)
+extern "C" asm void Parent_StepDataShare(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldr r3, =data_ov016_02158b48
@@ -2924,12 +2924,12 @@ extern "C" asm void func_ov016_0214eb38(void)
     ldr r0, [r0, #0xab0]
     strb r1, [r0, #4]
 @L_0214ebac:
-    bl func_ov016_0214d764
+    bl DWCi_MOV_WH_GetSystemState
     cmp r0, #5
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     ldr r4, =data_ov016_02158b48
     ldr r0, [r4]
-    bl func_ov016_0214de18
+    bl DWCi_MOV_WH_StepDS
     ldr r1, [r4]
     cmp r0, #0
     ldreq r0, [r1, #0x204]
@@ -2944,7 +2944,7 @@ extern "C" asm void func_ov016_0214eb38(void)
     beq @L_0214ec14
     mov r0, #0
     str r0, [r1, #0x204]
-    bl func_ov016_0214d750
+    bl DWCi_MOV_WH_GetBitmap
     cmp r0, #3
     ldrne r0, [r4]
     movne r1, #0x1b
@@ -2959,7 +2959,7 @@ extern "C" asm void func_ov016_0214eb38(void)
     mov r8, r6
 @L_0214ec2c:
     mov r0, r7
-    bl func_ov016_0214ddf0
+    bl DWCi_MOV_WH_GetSharedDataAdr
     cmp r0, #0
     ldreq r0, [r9]
     addeq r0, r0, r7, lsl #2
@@ -2982,7 +2982,7 @@ extern "C" asm void func_ov016_0214eb38(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-extern "C" asm void func_ov016_0214ec84(void)
+extern "C" asm void Parent_data_receive_progress(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r12, #0
@@ -3045,7 +3045,7 @@ extern "C" asm void func_ov016_0214ec84(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" u16 func_ov016_0214ed68(void)
+extern "C" u16 Parent_get_child_data_kind(void)
 {
     return *(u16 *)(((u8 *)(*(s32 *)(data_ov016_02158b48) + 0x100)) + 0x44);
 }
@@ -3056,7 +3056,7 @@ extern "C" asm void func_ov016_0214ed80(void)
     sub sp, sp, #0xe8
     mov r0, #0xe8
     mov r1, #4
-    bl func_ov016_02150928
+    bl DWCi_HEAPlAllocEx
     ldr r1, =data_ov016_02158b4c
     add r4, sp, #0xa0
     str r0, [r1]
@@ -3064,10 +3064,10 @@ extern "C" asm void func_ov016_0214ed80(void)
     bl FS_InitFile
     ldr r1, =data_ov016_021564a8
     mov r0, r4
-    bl func_0200c964
+    bl FS_OpenFile
     cmp r0, #0
     bne @L_0214edc0
-    bl func_0200878c
+    bl OS_Terminate
 @L_0214edc0:
     bl OS_GetLockID
     ldr r5, =data_ov016_02158b4c
@@ -3075,7 +3075,7 @@ extern "C" asm void func_ov016_0214ed80(void)
     ldr r1, [r5]
     strh r0, [r1, #0xe4]
     mov r0, r7
-    bl func_0200e4f8
+    bl FS_GetFileImageTop
     mov r6, #8
     mov r4, r0
     add r1, sp, #0x18
@@ -3090,15 +3090,15 @@ extern "C" asm void func_ov016_0214ed80(void)
     bl FS_CloseFile
     ldr r0, [r5]
     add r0, r0, #0x88
-    bl func_0200bfe8
+    bl FS_InitArchive
     ldr r0, [r5]
     ldr r1, =data_ov016_02154f5c
     add r0, r0, #0x88
     mov r2, #3
-    bl func_0200c00c
+    bl FS_RegisterArchiveName
     cmp r0, #0
     bne @L_0214ee38
-    bl func_0200878c
+    bl OS_Terminate
 @L_0214ee38:
     ldr r5, =data_ov016_02158b4c
     ldr r1, =func_ov016_0214efa8
@@ -3107,7 +3107,7 @@ extern "C" asm void func_ov016_0214ed80(void)
     add r0, r0, #0x88
     bl FS_SetArchiveProc
     ldr r0, [sp, #0x18]
-    ldr r1, =func_ov016_0214f010
+    ldr r1, =cbRead
     str r0, [sp]
     ldr r2, [sp, #0x1c]
     ldr r0, =func_ov016_0214f074
@@ -3119,63 +3119,63 @@ extern "C" asm void func_ov016_0214ed80(void)
     ldr r3, [sp, #0x14]
     mov r1, r4
     add r0, r0, #0x88
-    bl func_0200e1ec
+    bl FS_LoadArchive
     cmp r0, #0
     bne @L_0214ee94
-    bl func_0200878c
+    bl OS_Terminate
 @L_0214ee94:
     ldr r4, =data_ov016_02158b4c
     mov r1, #0
     ldr r0, [r4]
     mov r2, r1
     add r0, r0, #0x88
-    bl func_0200e304
+    bl FS_LoadArchiveTables
     mov r5, #4
     mov r1, r5
     mov r6, r0
-    bl func_ov016_02150928
+    bl DWCi_HEAPlAllocEx
     ldr r1, [r4]
     mov r2, r6
     str r0, [r1]
     ldr r0, [r4]
     ldr r1, [r0], #0x88
-    bl func_0200e304
+    bl FS_LoadArchiveTables
     ldr r0, [r4]
     mov r2, r5
     add r1, r0, #4
     mov r0, #0x20
-    bl func_ov016_0214f924
+    bl DWCi_QUElFormEx
     ldr r1, [r4]
     add r4, sp, #0x20
     str r0, [r1, #0x84]
     ldr r1, =data_ov016_021564c0
     ldr r2, =data_ov016_02154f5c
     mov r0, r4
-    bl func_02005938
+    bl OS_SPrintf
     mov r0, r4
-    bl func_0200c98c
+    bl FS_ChangeDir
     add sp, sp, #0xe8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" void func_ov016_0214ef34(void)
+extern "C" void DWCi_ARClEnd(void)
 {
-    func_0200c98c((s32)data_ov016_021564c8);
+    FS_ChangeDir((s32)data_ov016_021564c8);
     s32 t0 = (*(s32 *)(data_ov016_02158b4c) + 0x88);
     FS_UnloadArchiveTables(t0);
     s32 t1 = (*(s32 *)(data_ov016_02158b4c) + 0x88);
-    func_0200e258(t1);
+    FS_UnloadArchive(t1);
     s32 t2 = (*(s32 *)(data_ov016_02158b4c) + 0x88);
-    func_0200c10c(t2);
+    FS_ReleaseArchiveName(t2);
     u16 t3 = *(u16 *)(*(u8 * *)(data_ov016_02158b4c) + 0xE4);
-    func_02005908(t3);
+    OS_ReleaseLockID(t3);
     u8 *t4 = (u8 *)*(s32 *)(data_ov016_02158b4c);
     *(u16 *)(t4 + 0xE4) = 0;
     s32 t5 = *(s32 *)(data_ov016_02158b4c);
-    func_ov016_0215094c(t5);
+    DWCi_HEAPlFree_(t5);
     u8 *t6 = (u8 *)*(s32 *)(data_ov016_02158b4c);
     *(s32 *)(t6) = 0;
-    func_ov016_0215094c((s32)data_ov016_02158b4c_b, (s32)t6);
+    DWCi_HEAPlFree_((s32)data_ov016_02158b4c_b, (s32)t6);
 }
 
 extern "C" s32 func_ov016_0214efa8(s32 arg0, s32 arg1)
@@ -3185,7 +3185,7 @@ extern "C" s32 func_ov016_0214efa8(s32 arg0, s32 arg1)
     switch (arg1) {
         case 9:
             t0 = *(u16 *)(*(u8 * *)(((u8 *)&data_ov016_02158b4c)) + 0xE4);
-            func_02010d98(t0);
+            CARD_LockRom(t0);
             return 0;
         case 10:
             t1 = *(u16 *)(*(u8 * *)(((u8 *)&data_ov016_02158b4c)) + 0xE4);
@@ -3198,17 +3198,17 @@ extern "C" s32 func_ov016_0214efa8(s32 arg0, s32 arg1)
     }
 }
 
-extern "C" s32 func_ov016_0214f010(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
+extern "C" s32 cbRead(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
 {
     s32 v0;
-    v0 = func_0200e4c8(arg0, arg1, arg2, arg3);
-    func_02012028((1 - 2), (arg2 + v0), arg1, arg3, (s32)((u8 *)&func_ov016_0214f064), arg0, 1);
+    v0 = FS_GetArchiveBase(arg0, arg1, arg2, arg3);
+    CARDi_ReadRom((1 - 2), (arg2 + v0), arg1, arg3, (s32)((u8 *)&cbReadRom), arg0, 1);
     return 0x100;
 }
 
-extern "C" void func_ov016_0214f064(s32 arg0)
+extern "C" void cbReadRom(s32 arg0)
 {
-    func_0200c3bc(arg0, 0);
+    FS_NotifyArchiveAsyncEnd(arg0, 0);
 }
 
 extern "C" s32 func_ov016_0214f074(void)
@@ -3216,7 +3216,7 @@ extern "C" s32 func_ov016_0214f074(void)
     return 1;
 }
 
-extern "C" asm void func_ov016_0214f07c(void)
+extern "C" asm void DWCi_ARClReadEx(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x4c
@@ -3226,19 +3226,19 @@ extern "C" asm void func_ov016_0214f07c(void)
     mov r5, r1
     ldr r0, [r0, #0x84]
     mov r4, r2
-    bl func_ov016_0214f9d8
+    bl DWCi_QUElPopBack
     add r7, sp, #4
     mov r0, r7
     bl FS_InitFile
     mov r0, r7
     mov r1, r6
-    bl func_0200c964
+    bl FS_OpenFile
     cmp r0, #0
     bne @L_0214f0c4
-    bl func_0200878c
+    bl OS_Terminate
 @L_0214f0c4:
     add r0, sp, #4
-    bl func_0200c974
+    bl FS_GetLength
     mov r7, #2
     mov r8, r0
     cmp r5, #0
@@ -3246,13 +3246,13 @@ extern "C" asm void func_ov016_0214f07c(void)
     mov r0, r6
     mov r2, r7
     strne r8, [r5]
-    bl func_ov016_0214f1b0
+    bl cmpBack
     cmp r0, #0
     sub r7, r7, #6
     moveq r7, r4
     mov r0, r8
     mov r1, r7
-    bl func_ov016_02150928
+    bl DWCi_HEAPlAllocEx
     mov r1, r0
     add r6, sp, #4
     mov r2, r8
@@ -3271,13 +3271,13 @@ extern "C" asm void func_ov016_0214f07c(void)
     mov r1, r4
     mov r0, r0, lsr #8
     strne r0, [r5]
-    bl func_ov016_02150928
+    bl DWCi_HEAPlAllocEx
     mov r4, r0
     ldr r0, [sp]
     mov r1, r4
     bl MI_UncompressLZ8
     add r0, sp, #0
-    bl func_ov016_0215094c
+    bl DWCi_HEAPlFree_
     mov r0, r4
     add sp, sp, #0x4c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}

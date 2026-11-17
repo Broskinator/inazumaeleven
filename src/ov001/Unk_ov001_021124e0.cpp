@@ -15,7 +15,7 @@ extern "C" void func_ov001_02113f08(void);
 extern "C" void func_ov001_0211490c(void);
 extern "C" void func_ov001_0211506c(void);
 
-extern "C" char data_020c4648[];
+extern "C" char g3DFieldSprite[];
 extern "C" char data_020c4920[];
 extern "C" char data_020c492c[];
 extern "C" char data_020c4938[];
@@ -23,7 +23,7 @@ extern "C" char data_020c4940[];
 extern "C" char data_020c4948[];
 extern "C" char data_020c4b80[];
 extern "C" char data_020c4b84[];
-extern "C" char data_020c5320[];
+extern "C" char gWirelessUtil[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020fa060[];
 extern "C" char data_020fa1a5[];
@@ -348,7 +348,7 @@ extern "C" asm void func_ov001_021124e0(void)
     strb r1, [r4, #0x5a]
     bl func_ov015_021319fc
     mov r5, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r5, r0
@@ -717,7 +717,7 @@ extern "C" asm void func_ov001_02112a80(void)
     strb r1, [r6, #0x5a]
     bl func_ov015_021319fc
     mov r9, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r9, r0
@@ -787,7 +787,7 @@ extern "C" asm void func_ov001_02112a80(void)
     mov r0, r5
     bl func_ov015_021319fc
     mov r5, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r5, r0
@@ -867,7 +867,7 @@ extern "C" asm void func_ov001_02112a80(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -987,7 +987,7 @@ extern "C" s32 func_ov001_021131d0(u8 *arg0, u8 *arg1)
 {
     u8 t0 = *(u8 *)(arg1);
     *(u16 *)(arg0 + 0x4E) = t0;
-    s32 v0 = func_0209bf8c((s32)data_020c5320, t0);
+    s32 v0 = func_0209bf8c((s32)gWirelessUtil, t0);
     s32 t1 = (*(u8 *)(arg1) == v0 ? 1 : 0);
     *(u8 *)(arg0 + 0x4C) = t1;
     return t1;
@@ -1200,7 +1200,7 @@ extern "C" asm void func_ov001_02113208(void)
     strb r1, [r4, #0x5a]
     bl func_ov015_021319fc
     mov r6, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r6, r0
@@ -1666,7 +1666,7 @@ extern "C" asm void func_ov001_02113830(void)
     ldr r0, [r6, #8]
     cmp r0, #0xd
     bne @L_02113c10
-    ldr r5, =data_020c4648
+    ldr r5, =g3DFieldSprite
     ldr r0, [r5]
     bl func_ov015_0213a894
     ldr r0, [r5]
@@ -1708,7 +1708,7 @@ extern "C" asm void func_ov001_02113830(void)
 extern "C" asm void func_ov001_02113c94(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    ldr r5, =data_020c5320
+    ldr r5, =gWirelessUtil
     mov r7, r0
     mov r0, r5
     mov r4, #0
@@ -1757,7 +1757,7 @@ extern "C" asm void func_ov001_02113c94(void)
     cmp r10, #4
     blt @L_02113cd4
     cmp r9, #0
-    ldrne r0, =data_020c5320
+    ldrne r0, =gWirelessUtil
     mov r7, #0
     ldrneb r0, [r0, #0x64]
     cmpne r0, #0
@@ -1816,7 +1816,7 @@ extern "C" asm void func_ov001_02113e04(void)
     ldrb r0, [r1, #0x1b]
     mov r4, #1
     cmp r0, #0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     movne r4, #3
     bl func_0209bf9c
     add r1, r5, #0x400
@@ -2581,7 +2581,7 @@ extern "C" asm void func_ov001_0211490c(void)
     mov r9, r0
     mov r0, r5
     mov r1, r7
-    ldr r4, =data_020c5320
+    ldr r4, =gWirelessUtil
     bl func_ov015_02131754
     add r6, r0, #4
     bl func_ov015_021319bc
@@ -2655,7 +2655,7 @@ extern "C" asm void func_ov001_0211490c(void)
 @L_02114a34:
     cmp r2, r8
     blt @L_02114a24
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     add r1, r9, #0x208
     add r0, r1, r0, lsl #7
@@ -2792,7 +2792,7 @@ extern "C" asm void func_ov001_0211490c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -2855,7 +2855,7 @@ extern "C" asm void func_ov001_0211490c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -2920,7 +2920,7 @@ extern "C" asm void func_ov001_0211490c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -2980,7 +2980,7 @@ extern "C" asm void func_ov001_0211490c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -3097,7 +3097,7 @@ extern "C" asm void func_ov001_0211506c(void)
     mov r9, r0
     mov r4, r1
     mov r1, #3
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     str r1, [sp, #8]
     bl func_0209bf9c
     str r0, [sp, #0x10]
@@ -3122,7 +3122,7 @@ extern "C" asm void func_ov001_0211506c(void)
     mov r1, #1
     tst r2, r1, lsl r0
     beq @L_0211556c
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     ldr r1, [sp, #8]
     cmp r1, r0
@@ -3326,7 +3326,7 @@ extern "C" asm void func_ov001_0211506c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -3395,7 +3395,7 @@ extern "C" asm void func_ov001_0211506c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -3609,7 +3609,7 @@ extern "C" asm void func_ov001_0211506c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r4, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r4, r0
@@ -3694,7 +3694,7 @@ extern "C" asm void func_ov001_0211506c(void)
     mov r0, #0
     bl func_ov015_021319fc
     mov r5, r0
-    ldr r0, =data_020c5320
+    ldr r0, =gWirelessUtil
     bl func_0209bf8c
     bl func_ov015_021319fc
     cmp r5, r0

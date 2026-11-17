@@ -1,20 +1,20 @@
 // (asm for now)
 
 void DGT_SetOverlayTableMode(void);
-void func_02016154(void);
-void func_020161a8(void);
-void func_0201623c(void);
-void func_02016434(void);
-void func_020164c8(void);
+void MATH_SHA1Init(void);
+void MATH_SHA1Update(void);
+void MATH_SHA1GetHash(void);
+void MATH_CalcHMACSHA1(void);
+void MATHi_CalcHMAC(void);
 
 extern char data_020beeb0[];
-void func_0201605c(void);
-extern char data_020aafdc[];
-void func_020169bc(void);
+void MATHi_SHA1ProcessBlockForOverlay(void);
+extern char MATHi_SHA1ProcessMessageBlockFunc[];
+void MATHi_SHA1ProcessBlock(void);
 void MI_CpuCopy8(void);
 extern char data_020a43d0[];
 extern char data_020a43d1[];
-void func_02016088(void);
+void MATHi_SHA1Fill(void);
 extern char data_020a43dc[];
 
 asm void DGT_SetOverlayTableMode(void)
@@ -23,16 +23,16 @@ asm void DGT_SetOverlayTableMode(void)
     cmp r0, #0
     ldr r2, [r1]
     str r0, [r1]
-    ldrne r1, =func_0201605c
-    ldrne r0, =data_020aafdc
-    ldreq r1, =func_020169bc
-    ldreq r0, =data_020aafdc
+    ldrne r1, =MATHi_SHA1ProcessBlockForOverlay
+    ldrne r0, =MATHi_SHA1ProcessMessageBlockFunc
+    ldreq r1, =MATHi_SHA1ProcessBlock
+    ldreq r0, =MATHi_SHA1ProcessMessageBlockFunc
     str r1, [r0]
     mov r0, r2
     bx lr
 }
 
-asm void func_02016154(void)
+asm void MATH_SHA1Init(void)
 {
     stmdb sp!, {r4, lr}
     ldr lr, =0x67452301
@@ -52,14 +52,14 @@ asm void func_02016154(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_020161a8(void)
+asm void MATH_SHA1Update(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     movs r7, r2
     mov r9, r0
     mov r8, r1
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r10, =data_020aafdc
+    ldr r10, =MATHi_SHA1ProcessMessageBlockFunc
     add r5, r9, #0x14
     mov r4, #0
 @L_020161c8:
@@ -94,7 +94,7 @@ asm void func_020161a8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_0201623c(void)
+asm void MATH_SHA1GetHash(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #8
@@ -133,24 +133,24 @@ asm void func_0201623c(void)
     ldr r1, =data_020a43d0
     str r2, [sp]
     mov r2, #1
-    bl func_020161a8
+    bl MATH_SHA1Update
     ldr r0, [r4, #0x54]
     rsb r2, r0, #0x40
     cmp r2, #8
     bhs @L_020162f0
     ldr r1, =data_020a43d1
     mov r0, r4
-    bl func_020161a8
+    bl MATH_SHA1Update
 @L_020162f0:
     ldr r1, [r4, #0x54]
     mov r0, r4
     rsb r2, r1, #0x38
     mov r1, #0
-    bl func_02016088
+    bl MATHi_SHA1Fill
     add r1, sp, #0
     mov r0, r4
     mov r2, #8
-    bl func_020161a8
+    bl MATH_SHA1Update
     ldmia r4, {r5, r12}
     mov r1, r5, lsr #0x18
     and r7, r1, #0xff
@@ -223,7 +223,7 @@ asm void func_0201623c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02016434(void)
+asm void MATH_CalcHMACSHA1(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x98
@@ -241,11 +241,11 @@ asm void func_02016434(void)
     add lr, sp, #0x38
     add r12, sp, #0x24
     str lr, [sp, #0x10]
-    ldr lr, =func_02016154
+    ldr lr, =MATH_SHA1Init
     str r12, [sp, #0x14]
-    ldr r12, =func_020161a8
+    ldr r12, =MATH_SHA1Update
     str lr, [sp, #0x18]
-    ldr lr, =func_0201623c
+    ldr lr, =MATH_SHA1GetHash
     str r12, [sp, #0x1c]
     ldr r12, [sp, #0xb0]
     str lr, [sp, #0x20]
@@ -255,12 +255,12 @@ asm void func_02016434(void)
     mov r1, r7
     mov r2, r6
     str r4, [sp, #4]
-    bl func_020164c8
+    bl MATHi_CalcHMAC
     add sp, sp, #0x98
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_020164c8(void)
+asm void MATHi_CalcHMAC(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0xc0

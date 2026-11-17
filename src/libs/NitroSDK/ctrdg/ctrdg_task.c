@@ -1,18 +1,18 @@
 // (asm for now)
 
 void CTRDGi_InitTaskThread(void);
-void func_0201599c(void);
-void func_020159b0(void);
-void func_02015aa0(void);
-void func_02015ae4(void);
-void func_02015e9c(void);
-void func_02015ee0(void);
-void func_02015fa8(void);
-void func_0201605c(void);
-void func_02016088(void);
+void CTRDGi_InitTaskInfo(void);
+void CTRDGi_TaskThread(void);
+void MATH_CountPopulation(void);
+void ProcessBlock(void);
+void MATH_MD5Init(void);
+void MATH_MD5Update(void);
+void MATH_MD5GetHash(void);
+void MATHi_SHA1ProcessBlockForOverlay(void);
+void MATHi_SHA1Fill(void);
 
 void OS_DisableInterrupts(void);
-extern char data_020bea88[];
+extern char ctrdgi_task_work[];
 extern char data_020bea8c[];
 extern char data_020beeb0[];
 void OS_CreateThread(void);
@@ -20,13 +20,13 @@ void OS_WakeupThreadDirect(void);
 void OS_RestoreInterrupts(void);
 void MI_CpuFill8(void);
 void OS_SleepThread(void);
-void func_02005ea8(void);
+void OS_ExitThread(void);
 extern char data_020aaedc[];
 extern char data_020aae1c[];
 void MI_CpuCopy8(void);
 extern char data_020aae18[];
-void func_020169bc(void);
-extern char data_020aafdc[];
+void MATHi_SHA1ProcessBlock(void);
+extern char MATHi_SHA1ProcessMessageBlockFunc[];
 
 asm void CTRDGi_InitTaskThread(void)
 {
@@ -34,20 +34,20 @@ asm void CTRDGi_InitTaskThread(void)
     sub sp, sp, #8
     mov r5, r0
     bl OS_DisableInterrupts
-    ldr r1, =data_020bea88
+    ldr r1, =ctrdgi_task_work
     mov r4, r0
     ldr r0, [r1]
     cmp r0, #0
     bne @L_0201597c
     add r0, r5, #0xc4
     str r5, [r1]
-    bl func_0201599c
+    bl CTRDGi_InitTaskInfo
     ldr r0, =data_020bea8c
-    bl func_0201599c
+    bl CTRDGi_InitTaskInfo
     mov r0, #0
     str r0, [r5, #0xc0]
     mov r2, #0x400
-    ldr r1, =func_020159b0
+    ldr r1, =CTRDGi_TaskThread
     ldr r3, =data_020beeb0
     mov r0, r5
     str r2, [sp]
@@ -64,7 +64,7 @@ asm void CTRDGi_InitTaskThread(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_0201599c(void)
+asm void CTRDGi_InitTaskInfo(void)
 {
     ldr r12, =MI_CpuFill8
     mov r1, #0
@@ -72,7 +72,7 @@ asm void func_0201599c(void)
     bx r12
 }
 
-asm void func_020159b0(void)
+asm void CTRDGi_TaskThread(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x24
@@ -119,7 +119,7 @@ asm void func_020159b0(void)
 @L_02015a4c:
     bl OS_DisableInterrupts
     ldr r2, [sp, #4]
-    ldr r1, =data_020bea88
+    ldr r1, =ctrdgi_task_work
     mov r6, r0
     strb r9, [r1, #0x26]
     cmp r2, #0
@@ -127,7 +127,7 @@ asm void func_020159b0(void)
     mov r0, r5
     blx r2
 @L_02015a70:
-    ldr r0, =data_020bea88
+    ldr r0, =ctrdgi_task_work
     ldr r0, [r0]
     cmp r0, #0
     beq @L_02015a90
@@ -136,12 +136,12 @@ asm void func_020159b0(void)
     bl OS_RestoreInterrupts
     b @L_020159d0
 @L_02015a90:
-    bl func_02005ea8
+    bl OS_ExitThread
     add sp, sp, #0x24
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02015aa0(void)
+asm void MATH_CountPopulation(void)
 {
     ldr r1, =0x55555555
     ldr r2, =0x33333333
@@ -159,7 +159,7 @@ asm void func_02015aa0(void)
     bx lr
 }
 
-asm void func_02015ae4(void)
+asm void ProcessBlock(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldmia r0, {r2, r3, r12}
@@ -403,7 +403,7 @@ asm void func_02015ae4(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_02015e9c(void)
+asm void MATH_MD5Init(void)
 {
     stmdb sp!, {r3, lr}
     ldr lr, =0x67452301
@@ -420,7 +420,7 @@ asm void func_02015e9c(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02015ee0(void)
+asm void MATH_MD5Update(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r7, r0
@@ -450,7 +450,7 @@ asm void func_02015ee0(void)
     add r1, r1, r3
     bl MI_CpuCopy8
     mov r0, r7
-    bl func_02015ae4
+    bl ProcessBlock
     sub r5, r5, r4
     mov r8, r5, lsr #6
     cmp r8, #0
@@ -464,7 +464,7 @@ asm void func_02015ee0(void)
     bl MI_CpuCopy8
     mov r0, r7
     add r6, r6, #0x40
-    bl func_02015ae4
+    bl ProcessBlock
     sub r8, r8, #1
     cmp r8, #0
     bgt @L_02015f68
@@ -477,7 +477,7 @@ asm void func_02015ee0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_02015fa8(void)
+asm void MATH_MD5GetHash(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r5, r0
@@ -489,7 +489,7 @@ asm void func_02015fa8(void)
     mov r2, #1
     orr r7, r7, r12, lsr #29
     mov r6, r12, lsl #3
-    bl func_02015ee0
+    bl MATH_MD5Update
     ldr r0, [r5, #0x10]
     mov r1, #0
     and r8, r0, #0x3f
@@ -501,7 +501,7 @@ asm void func_02015fa8(void)
     mov r8, r1
     bl MI_CpuFill8
     mov r0, r5
-    bl func_02015ae4
+    bl ProcessBlock
     mov r2, #0x40
 @L_02016008:
     cmp r2, #8
@@ -515,7 +515,7 @@ asm void func_02015fa8(void)
     mov r0, r5
     str r6, [r5, #0x50]
     str r7, [r5, #0x54]
-    bl func_02015ae4
+    bl ProcessBlock
     mov r0, r5
     mov r1, r4
     mov r2, #0x10
@@ -527,7 +527,7 @@ asm void func_02015fa8(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_0201605c(void)
+asm void MATHi_SHA1ProcessBlockForOverlay(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -536,20 +536,20 @@ asm void func_0201605c(void)
     ldr r5, [r6, #0x4c]
     str r1, [r6, #0x2c]
     str r1, [r6, #0x4c]
-    bl func_020169bc
+    bl MATHi_SHA1ProcessBlock
     str r4, [r6, #0x2c]
     str r5, [r6, #0x4c]
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_02016088(void)
+asm void MATHi_SHA1Fill(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     movs r7, r2
     mov r9, r0
     mov r8, r1
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r10, =data_020aafdc
+    ldr r10, =MATHi_SHA1ProcessMessageBlockFunc
     add r5, r9, #0x14
     mov r4, #0
 @L_020160a8:

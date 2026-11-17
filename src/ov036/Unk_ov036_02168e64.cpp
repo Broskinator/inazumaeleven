@@ -13,34 +13,34 @@ extern "C" void func_ov036_02169f6c(void);
 extern "C" s32 func_ov036_02169fe8(s32 arg0);
 extern "C" void func_ov036_02169ffc(void);
 
-extern "C" char data_020c46b8[];
-extern "C" char data_020c46c4[];
-extern "C" char data_020c46d4[];
-extern "C" char data_020c4814[];
-extern "C" char data_020c484c[];
+extern "C" char gSprAnimCtrl[];
+extern "C" char gSprButtonCtrl[];
+extern "C" char g3DPlaneCtrl[];
+extern "C" char gKeysRepeated[];
+extern "C" char gDeltaTime[];
 extern "C" char data_020c4ab4[];
 extern "C" char data_020c4ac0[];
 extern "C" char data_020c4ac8[];
 extern "C" char data_020c4ae1[];
-extern "C" char data_020c5e40[];
+extern "C" char gAudioPlayer[];
 extern "C" char data_020d3d20[];
 extern "C" char data_ov036_0216a260[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e04cEii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e090Eii(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e0ccEi(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1ecEv(void);
+extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
+extern "C" void _ZN13ScreenManager13func_0203e090Eii(void);
+extern "C" void _ZN13ScreenManager8PopSceneEi(void);
+extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" s32 _ZdlPv(...);
-extern "C" void func_02016d0c(void);
+extern "C" void STD_CopyLString(void);
 extern "C" void _s32_div_f(void);
-extern "C" void func_02091d54(void);
-extern "C" void func_02091d64(void);
+extern "C" void C3DPlaneCtrl_Acquire(void);
+extern "C" void C3DPlaneCtrl_Release(void);
 extern "C" void func_0209b7b0(void);
-extern "C" void func_ov015_02132628(void);
+extern "C" void Graphics_FadeScreensBlack(void);
 extern "C" void func_ov015_02132c08(void);
-extern "C" void func_ov015_02134118(void);
+extern "C" void Archive_TryFinalize(void);
 extern "C" void func_ov015_02135f24(void);
 extern "C" void func_ov015_02135fe0(void);
 extern "C" void func_ov015_02136018(void);
@@ -82,8 +82,8 @@ extern "C" void func_ov036_02168cf4(void);
 
 extern "C" void func_ov036_02168e64(s32 arg0)
 {
-    func_ov015_021624f0(*(s32 *)(data_020c46c4), 0xB);
-    _ZN12SoundManager9PlaySoundEi((s32)data_020c5e40, 4);
+    func_ov015_021624f0(*(s32 *)(gSprButtonCtrl), 0xB);
+    _ZN12SoundManager9PlaySoundEi((s32)gAudioPlayer, 4);
     func_ov036_021681d0(arg0, 0);
 }
 
@@ -95,7 +95,7 @@ extern "C" asm void func_ov036_02168ea0(void)
     mov r7, #0xa8
     cmp r4, #0
     ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r8, =data_020c46c4
+    ldr r8, =gSprButtonCtrl
     mov r1, r4, lsl #0x10
     ldr r0, [r8]
     mov r1, r1, lsr #0x10
@@ -136,7 +136,7 @@ extern "C" asm void func_ov036_02168ea0(void)
     mov r1, r4
     mov r2, r8
     bl func_ov036_02168af8
-    ldr r0, =data_020c46c4
+    ldr r0, =gSprButtonCtrl
     str r8, [r6, #0x3dc]
     ldr r0, [r0]
     add r0, r0, #0xf00
@@ -165,7 +165,7 @@ extern "C" asm void func_ov036_02168ea0(void)
     mov r2, r4
     mov r1, #0
     bl func_ov036_02168af8
-    ldr r0, =data_020c46c4
+    ldr r0, =gSprButtonCtrl
     str r4, [r6, #0x3dc]
     ldr r0, [r0]
     mov r1, #2
@@ -175,7 +175,7 @@ extern "C" asm void func_ov036_02168ea0(void)
 @L_02168fe0:
     cmp r4, #0xc
     bne @L_02169000
-    ldr r0, =data_020c46c4
+    ldr r0, =gSprButtonCtrl
     mov r1, #2
     ldr r0, [r0]
     add r0, r0, #0xf00
@@ -190,7 +190,7 @@ extern "C" asm void func_ov036_02168ea0(void)
     bl func_ov015_0213606c
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     add r0, r6, #0x13c
@@ -208,7 +208,7 @@ extern "C" asm void func_ov036_02168ea0(void)
     bl func_ov015_0213606c
     cmp r0, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     add r0, r6, #0x13c
@@ -237,7 +237,7 @@ extern "C" asm void func_ov036_02169090(void)
     add r2, r6, #0x13c
     mov r1, #0xa8
     mla r4, r0, r1, r2
-    ldr r0, =data_020c46c4
+    ldr r0, =gSprButtonCtrl
     add r1, sp, #4
     ldr r0, [r0]
     bl func_ov015_021629d0
@@ -324,15 +324,15 @@ extern "C" void func_ov036_021691f4(u8 *arg0, s32 arg1)
 extern "C" asm void func_ov036_02169208(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    ldr r3, =data_020c4814
-    ldr r2, =data_020c46b8
+    ldr r3, =gKeysRepeated
+    ldr r2, =gSprAnimCtrl
     ldrh r3, [r3]
     mov r8, r1
     mov r9, r0
     orr r0, r3, r8
     mov r1, r0, lsl #0x10
     ldr r0, [r2]
-    ldr r4, =data_020c46c4
+    ldr r4, =gSprButtonCtrl
     mov r7, r1, lsr #0x10
     mov r5, #8
     mov r10, #1
@@ -381,7 +381,7 @@ extern "C" asm void func_ov036_02169208(void)
     b @L_0216931c
     b @L_02169350
 @L_021692e4:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -389,7 +389,7 @@ extern "C" asm void func_ov036_02169208(void)
     bl func_ov036_021681e0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02169300:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r10
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -397,11 +397,11 @@ extern "C" asm void func_ov036_02169208(void)
     bl func_ov036_021681e0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_0216931c:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, #6
-    bl func_ov015_02132628
+    bl Graphics_FadeScreensBlack
     ldr r0, =data_020d3d20
     mov r1, #0x3d
     mov r2, #0
@@ -411,7 +411,7 @@ extern "C" asm void func_ov036_02169208(void)
     bl func_ov036_021681d0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_02169350:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, =data_020d3d20
@@ -424,7 +424,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169378:
     tst r8, #2
     beq @L_021693a8
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, =data_020d3d20
@@ -437,7 +437,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_021693a8:
     tst r7, #0x40
     beq @L_021693f4
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r5
     bl _ZN12SoundManager9PlaySoundEi
     ldr r4, [r9, #0x13c]
@@ -458,7 +458,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_021693f4:
     tst r7, #0x80
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r4, [r9, #0x13c]
@@ -493,7 +493,7 @@ extern "C" asm void func_ov036_02169208(void)
     mov r1, #0x3d
     mov r2, #0
     bl func_0209b7b0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -508,12 +508,12 @@ extern "C" asm void func_ov036_02169208(void)
     bl STD_GetStringLength
     cmp r0, #0
     bgt @L_021694c4
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #9
     bl _ZN12SoundManager9PlaySoundEi
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_021694c4:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r4]
@@ -523,7 +523,7 @@ extern "C" asm void func_ov036_02169208(void)
     bl func_ov036_02168cf4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_021694e8:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r4]
@@ -536,7 +536,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169510:
     tst r8, #2
     beq @L_02169534
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -546,7 +546,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169534:
     tst r7, #0x40
     beq @L_021695b8
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r5
     bl _ZN12SoundManager9PlaySoundEi
     ldr r4, [r9, #0x1e4]
@@ -583,7 +583,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_021695b8:
     tst r7, #0x80
     beq @L_0216963c
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r4, [r9, #0x1e4]
@@ -626,7 +626,7 @@ extern "C" asm void func_ov036_02169208(void)
     ldr r0, [r9, #0x1e4]
     cmp r0, #1
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r9, #0x3dc]
@@ -664,7 +664,7 @@ extern "C" asm void func_ov036_02169208(void)
     mov r1, #0x37
     mov r2, #0
     bl func_0209b7b0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -676,7 +676,7 @@ extern "C" asm void func_ov036_02169208(void)
     mov r1, #0x38
     mov r2, #0
     bl func_0209b7b0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -688,7 +688,7 @@ extern "C" asm void func_ov036_02169208(void)
     mov r1, #0x39
     mov r2, #0
     bl func_0209b7b0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -700,7 +700,7 @@ extern "C" asm void func_ov036_02169208(void)
     mov r1, #0x3b
     mov r2, #0
     bl func_0209b7b0
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -711,7 +711,7 @@ extern "C" asm void func_ov036_02169208(void)
     ldr r0, [r9, #0x3dc]
     cmp r0, #0
     bne @L_021697b4
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #6
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r4]
@@ -721,7 +721,7 @@ extern "C" asm void func_ov036_02169208(void)
     bl func_ov036_02168cf4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 @L_021697b4:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r4]
@@ -734,7 +734,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_021697dc:
     tst r8, #2
     beq @L_02169800
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -744,7 +744,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169800:
     tst r7, #0x40
     beq @L_02169884
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r5
     bl _ZN12SoundManager9PlaySoundEi
     ldr r4, [r9, #0x28c]
@@ -781,7 +781,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169884:
     tst r7, #0x80
     beq @L_02169908
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r4, [r9, #0x28c]
@@ -824,7 +824,7 @@ extern "C" asm void func_ov036_02169208(void)
     ldr r0, [r9, #0x28c]
     cmp r0, #4
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     ldr r0, [r9, #0x3dc]
@@ -890,11 +890,11 @@ extern "C" asm void func_ov036_02169208(void)
     sub r0, r0, #1
     cmp r1, r0
     bne @L_02169a1c
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     b @L_02169a24
 @L_02169a1c:
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #1
 @L_02169a24:
     bl _ZN12SoundManager9PlaySoundEi
@@ -905,7 +905,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169a38:
     tst r8, #2
     beq @L_02169a5c
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #4
     bl _ZN12SoundManager9PlaySoundEi
     mov r0, r9
@@ -915,7 +915,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169a5c:
     tst r7, #0x40
     beq @L_02169a90
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, r5
     bl _ZN12SoundManager9PlaySoundEi
     add r0, r9, #0x334
@@ -929,7 +929,7 @@ extern "C" asm void func_ov036_02169208(void)
 @L_02169a90:
     tst r7, #0x80
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, =data_020c5e40
+    ldr r0, =gAudioPlayer
     mov r1, #8
     bl _ZN12SoundManager9PlaySoundEi
     add r0, r9, #0x334
@@ -947,22 +947,22 @@ extern "C" void func_ov036_02169ad8(u8 *arg0, s32 arg1)
     s32 *zp;
     s32 z = 0;
     zp = &z;
-    if (((s32 (*)(s32))func_ov015_02161760)(*(s32 *)data_020c46b8) != 0 || *(s32 *)(arg0 + 0x14) != 5)
+    if (((s32 (*)(s32))func_ov015_02161760)(*(s32 *)gSprAnimCtrl) != 0 || *(s32 *)(arg0 + 0x14) != 5)
         return;
-    switch (((s32 (*)(s32, s32, s32))func_ov015_02162750)(*(s32 *)data_020c46c4, arg1, *zp)) {
+    switch (((s32 (*)(s32, s32, s32))func_ov015_02162750)(*(s32 *)gSprButtonCtrl, arg1, *zp)) {
     case 0:
         break;
     case 1:
-        ((void (*)(u8 *, s32))func_ov036_02168b5c)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4));
+        ((void (*)(u8 *, s32))func_ov036_02168b5c)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)gSprButtonCtrl));
         break;
     case 2:
-        ((void (*)(u8 *, s32))func_ov036_02168ea0)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4));
+        ((void (*)(u8 *, s32))func_ov036_02168ea0)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)gSprButtonCtrl));
         break;
     case 3:
-        ((void (*)(u8 *, s32, s32))func_ov036_02169090)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4), *zp);
+        ((void (*)(u8 *, s32, s32))func_ov036_02169090)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)gSprButtonCtrl), *zp);
         break;
     case 4:
-        ((void (*)(u8 *, s32, s32))func_ov036_02169090)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)data_020c46c4), 1);
+        ((void (*)(u8 *, s32, s32))func_ov036_02169090)(arg0, ((s32 (*)(s32))func_ov015_021629c8)(*(s32 *)gSprButtonCtrl), 1);
         break;
     }
 }
@@ -975,11 +975,11 @@ extern "C" asm void func_ov036_02169ba8(void)
     mov r4, r0
     and r0, r1, #0x1f00
     mov r1, r0, lsr #8
-    ldr r0, =data_020c46c4
+    ldr r0, =gSprButtonCtrl
     str r1, [r4, #0x3e0]
     ldr r0, [r0]
     bl func_ov015_02161f84
-    ldr r0, =data_020c46b8
+    ldr r0, =gSprAnimCtrl
     ldr r0, [r0]
     bl func_ov015_021616a4
     mov r0, r4
@@ -987,7 +987,7 @@ extern "C" asm void func_ov036_02169ba8(void)
     ldr r1, [r1, #0x44]
     blx r1
     ldr r0, [r4, #8]
-    bl _ZN17UnkClass_0203dc7c13func_0203e1ecEv
+    bl _ZN13ScreenManager18GetLoadedSceneMainEv
     str r0, [r4, #0xc]
     mov r7, #0
     str r7, [r4, #0x10]
@@ -1037,10 +1037,10 @@ extern "C" asm void func_ov036_02169ba8(void)
     mov r1, r7
     mov r2, #0x2a0
     bl MI_CpuFill8
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     str r7, [r4, #0x3dc]
     ldr r0, [r0]
-    bl func_02091d54
+    bl C3DPlaneCtrl_Acquire
     ldr r0, =data_020d3d20
     mov r2, r7
     mov r1, #0x32
@@ -1074,13 +1074,13 @@ extern "C" asm void func_ov036_02169cec(void)
 @L_02169d3c:
     add r0, r5, #0x1c
     mov r1, #1
-    bl func_ov015_02134118
+    bl Archive_TryFinalize
     cmp r0, #0
     beq @L_02169f34
     mov r6, #2
     mov r1, r6
     add r0, r5, #0x3e8
-    bl func_ov015_02134118
+    bl Archive_TryFinalize
     cmp r0, #0
     beq @L_02169f34
     mov r0, r5
@@ -1106,7 +1106,7 @@ extern "C" asm void func_ov036_02169cec(void)
     mov r0, r5
     bl func_ov036_02166d28
 @L_02169db8:
-    ldr r0, =data_020c46b8
+    ldr r0, =gSprAnimCtrl
     ldr r0, [r0]
     bl func_ov015_02161760
     cmp r0, #0
@@ -1124,7 +1124,7 @@ extern "C" asm void func_ov036_02169cec(void)
     str r0, [r5, #0x14]
     b @L_02169f34
 @L_02169dfc:
-    ldr r0, =data_020c46b8
+    ldr r0, =gSprAnimCtrl
     ldr r0, [r0]
     bl func_ov015_02161760
     cmp r0, #0
@@ -1179,7 +1179,7 @@ extern "C" asm void func_ov036_02169cec(void)
     add r1, r5, #0x120
     mov r2, #0x19
     strb r4, [r6, #0x63]
-    bl func_02016d0c
+    bl STD_CopyLString
     mov r0, r7
     bl STD_GetStringLength
     str r0, [r6, #8]
@@ -1188,7 +1188,7 @@ extern "C" asm void func_ov036_02169cec(void)
     strb r0, [r6, #0x62]
     ldr r0, [r5, #8]
     mov r2, #0x5f
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     b @L_02169f34
 @L_02169ef8:
     cmp r0, #0x87
@@ -1197,19 +1197,19 @@ extern "C" asm void func_ov036_02169cec(void)
     ldr r0, [r5, #8]
     mov r2, r4
     mov r1, #1
-    bl _ZN17UnkClass_0203dc7c13func_0203e090Eii
+    bl _ZN13ScreenManager13func_0203e090Eii
     ldr r0, [r5, #8]
     mov r2, r4
     mov r1, #0
-    bl _ZN17UnkClass_0203dc7c13func_0203e04cEii
+    bl _ZN13ScreenManager12SetNextSceneEii
     b @L_02169f34
 @L_02169f28:
     ldr r0, [r5, #8]
     mov r1, #0
-    bl _ZN17UnkClass_0203dc7c13func_0203e0ccEi
+    bl _ZN13ScreenManager8PopSceneEi
 @L_02169f34:
-    ldr r0, =data_020c484c
-    ldr r1, =data_020c46b8
+    ldr r0, =gDeltaTime
+    ldr r1, =gSprAnimCtrl
     ldr r2, [r0]
     ldr r0, [r1]
     mov r1, r2, lsl #1
@@ -1238,17 +1238,17 @@ extern "C" asm void func_ov036_02169f6c(void)
     mov r1, #0x35
     mov r2, #0
     bl func_0209b7b0
-    ldr r0, =data_020c46c4
+    ldr r0, =gSprButtonCtrl
     ldr r0, [r0]
     bl func_ov015_02161fdc
-    ldr r0, =data_020c46b8
+    ldr r0, =gSprAnimCtrl
     ldr r0, [r0]
     bl func_ov015_021616dc
     mov r0, r4
     bl func_ov036_02165f28
-    ldr r0, =data_020c46d4
+    ldr r0, =g3DPlaneCtrl
     ldr r0, [r0]
-    bl func_02091d64
+    bl C3DPlaneCtrl_Release
     ldmia sp!, {r4, pc}
 }
 

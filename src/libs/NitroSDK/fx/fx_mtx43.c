@@ -2,21 +2,21 @@
 
 void MTX_Identity43_(void);
 void MTX_Copy43To44_(void);
-void func_02000dfc(void);
+void MTX_ScaleApply43(void);
 void MTX_RotX43_(void);
 void MTX_RotY43_(void);
 void MTX_RotZ43_(void);
-void func_02000e88(void);
-void func_020011fc(void);
-void func_02001414(void);
-void func_020014ac(void);
+void MTX_Inverse43(void);
+void MTX_Concat43(void);
+void MTX_MultVec43(void);
+void MTX_LookAt(void);
 
-void func_02000cd8(void);
-void func_02001e0c(void);
-void func_02001dd8(void);
+void MTX_ScaleApply33(void);
+void FX_InvAsync(void);
+void FX_GetDivResult(void);
 void MI_Copy48B(void);
-void func_02002084(void);
-void func_02001fa4(void);
+void VEC_Normalize(void);
+void VEC_CrossProduct(void);
 void VEC_DotProduct(void);
 
 asm void MTX_Identity43_(void)
@@ -50,14 +50,14 @@ asm void MTX_Copy43To44_(void)
     bx lr
 }
 
-asm void func_02000dfc(void)
+asm void MTX_ScaleApply43(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r12, [sp, #0x10]
     mov r5, r0
     mov r4, r1
     str r12, [sp]
-    bl func_02000cd8
+    bl MTX_ScaleApply33
     ldr r2, [r5, #0x24]
     ldr r1, [r5, #0x28]
     ldr r0, [r5, #0x2c]
@@ -132,7 +132,7 @@ asm void MTX_RotZ43_(void)
 }
 #pragma thumb off
 
-asm void func_02000e88(void)
+asm void MTX_Inverse43(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x68
@@ -193,7 +193,7 @@ asm void func_02000e88(void)
     addeq sp, sp, #0x68
     subeq r0, r1, #1
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    bl func_02001e0c
+    bl FX_InvAsync
     ldr r1, [r10, #8]
     ldr r2, [r10, #0x1c]
     ldr r11, [r10, #0x10]
@@ -240,7 +240,7 @@ asm void func_02000e88(void)
     mov r0, r1, lsr #0xc
     orr r0, r0, r3, lsl #20
     str r0, [sp, #0x24]
-    bl func_02001dd8
+    bl FX_GetDivResult
     smull r2, r1, r0, r5
     mov r2, r2, lsr #0xc
     orr r2, r2, r1, lsl #20
@@ -358,7 +358,7 @@ asm void func_02000e88(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void func_020011fc(void)
+asm void MTX_Concat43(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x30
@@ -496,7 +496,7 @@ asm void func_020011fc(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_02001414(void)
+asm void MTX_MultVec43(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldr r7, [r0, #4]
@@ -538,7 +538,7 @@ asm void func_02001414(void)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void func_020014ac(void)
+asm void MTX_LookAt(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x24
@@ -560,20 +560,20 @@ asm void func_020014ac(void)
     str r4, [sp, #0x18]
     str r9, [sp, #0x1c]
     str r2, [sp, #0x20]
-    bl func_02002084
+    bl VEC_Normalize
     add r9, sp, #0xc
     mov r0, r7
     mov r1, r5
     mov r2, r9
-    bl func_02001fa4
+    bl VEC_CrossProduct
     mov r0, r9
     mov r1, r9
-    bl func_02002084
+    bl VEC_Normalize
     add r4, sp, #0
     mov r0, r5
     mov r1, r9
     mov r2, r4
-    bl func_02001fa4
+    bl VEC_CrossProduct
     ldr r2, [sp, #0xc]
     mov r1, r9
     str r2, [r6]

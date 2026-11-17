@@ -4,25 +4,25 @@ void OS_InitIrqTable(void);
 void OS_SetIrqFunction(void);
 void OS_GetIrqFunction(void);
 void OSi_EnterDmaCallback(void);
-void func_020053fc(void);
+void OSi_EnterTimerCallback(void);
 void OS_SetIrqMask(void);
 void OS_EnableIrqMask(void);
 void OS_DisableIrqMask(void);
 void OS_ResetRequestIrqMask(void);
 void OS_SetIrqStackChecker(void);
 void func_0200552c(void);
-void func_0200553c(void);
+void OSi_CommonCallback(void);
 
 extern char data_027e0060[];
-extern char data_027e0000[];
-extern char data_020bb09c[];
+extern char OS_IRQTable[];
+extern char OSi_IrqCallbackInfo[];
 extern char data_020bb0a4[];
 extern char data_020bb0a0[];
 extern char data_020bb0cc[];
 extern char data_020bb0d4[];
 extern char data_020bb0d0[];
 extern char data_020bb0fc[];
-void func_0200878c(void);
+void OS_Terminate(void);
 
 asm void OS_InitIrqTable(void)
 {
@@ -38,8 +38,8 @@ asm void OS_SetIrqFunction(void)
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r8, #0
     mov r2, #0xc
-    ldr r4, =data_027e0000
-    ldr r6, =data_020bb09c
+    ldr r4, =OS_IRQTable
+    ldr r6, =OSi_IrqCallbackInfo
     mov r7, r8
     mov lr, r8
     mov r12, #1
@@ -76,7 +76,7 @@ asm void OS_SetIrqFunction(void)
 
 asm void OS_GetIrqFunction(void)
 {
-    ldr r2, =data_027e0000
+    ldr r2, =OS_IRQTable
     mov r1, #0
 @L_02005330:
     tst r0, #1
@@ -88,7 +88,7 @@ asm void OS_GetIrqFunction(void)
     sub r1, r1, #8
     mov r0, #0xc
     mul r2, r1, r0
-    ldr r0, =data_020bb09c
+    ldr r0, =OSi_IrqCallbackInfo
     ldr r0, [r0, r2]
     bx lr
 @L_02005360:
@@ -99,7 +99,7 @@ asm void OS_GetIrqFunction(void)
     add r1, r1, #1
     mov r0, #0xc
     mul r2, r1, r0
-    ldr r0, =data_020bb09c
+    ldr r0, =OSi_IrqCallbackInfo
     ldr r0, [r0, r2]
     bx lr
 @L_02005388:
@@ -120,7 +120,7 @@ asm void OSi_EnterDmaCallback(void)
     stmdb sp!, {r4, r5, r6, lr}
     mov r3, #0xc
     mul r6, r0, r3
-    ldr r12, =data_020bb09c
+    ldr r12, =OSi_IrqCallbackInfo
     add r4, r0, #8
     mov r5, #1
     mov r0, r5, lsl r4
@@ -134,7 +134,7 @@ asm void OSi_EnterDmaCallback(void)
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void func_020053fc(void)
+asm void OSi_EnterTimerCallback(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r3, #0xc
@@ -212,7 +212,7 @@ asm void OS_ResetRequestIrqMask(void)
 
 asm void OS_SetIrqStackChecker(void)
 {
-    ldr r12, =data_027e0000
+    ldr r12, =OS_IRQTable
     ldr r3, =0xfddb597d
     add r0, r12, #0x3000
     ldr r2, =0x7bf9dd5b
@@ -230,7 +230,7 @@ asm void func_0200552c(void)
     bx lr
 }
 
-asm void func_0200553c(void)
+asm void OSi_CommonCallback(void)
 {
     stmdb sp!, {r3, lr}
     and r0, r1, #0x7f00
@@ -241,6 +241,6 @@ asm void func_0200553c(void)
     moveq r1, #1
     streqh r1, [r0]
     ldmeqia sp!, {r3, pc}
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, pc}
 }

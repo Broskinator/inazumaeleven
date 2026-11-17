@@ -2,13 +2,13 @@
 
 void MBi_BlockHeaderEnd(void);
 void MBi_calc_cksum(void);
-void func_ov089_021763a0(void);
-void func_ov089_02176490(void);
-void func_ov089_02176538(void);
+void MBi_MakeGameInfo(void);
+void MBi_ReadIconInfo(void);
+void MB_UpdateGameInfoMember(void);
 
 void DC_FlushRange(void);
-void func_02006d84(void);
-void func_ov089_02178840(void);
+void DC_WaitWriteBufferEmpty(void);
+void MBi_SendMP(void);
 void MIi_CpuClear16(void);
 void MIi_CpuClearFast(void);
 void MIi_CpuCopy16(void);
@@ -29,11 +29,11 @@ asm void MBi_BlockHeaderEnd(void)
     mov r0, r4
     bic r1, r2, #0x1f
     bl DC_FlushRange
-    bl func_02006d84
+    bl DC_WaitWriteBufferEmpty
     mov r0, r4
     mov r1, r6
     mov r2, r5
-    bl func_ov089_02178840
+    bl MBi_SendMP
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -61,7 +61,7 @@ asm void MBi_calc_cksum(void)
     bx lr
 }
 
-asm void func_ov089_021763a0(void)
+asm void MBi_MakeGameInfo(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     mov r6, r0
@@ -77,14 +77,14 @@ asm void func_ov089_021763a0(void)
     mov r1, r6
     mov r2, r8
     strb r7, [r6, #0x4b2]
-    bl func_ov089_02176490
+    bl MBi_ReadIconInfo
     cmp r0, #0
     movne r8, r7
     mov r7, #0
     ldr r0, [r5, #0x10]
     mov r1, r6
     mov r2, r7
-    bl func_ov089_02176490
+    bl MBi_ReadIconInfo
     cmp r0, #0
     moveq r7, #1
     orrs r0, r8, r7
@@ -127,7 +127,7 @@ asm void func_ov089_021763a0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_ov089_02176490(void)
+asm void MBi_ReadIconInfo(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x48
@@ -174,7 +174,7 @@ asm void func_ov089_02176490(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_ov089_02176538(void)
+asm void MB_UpdateGameInfoMember(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0

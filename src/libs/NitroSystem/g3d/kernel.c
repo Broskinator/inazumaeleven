@@ -2,53 +2,53 @@
 
 void NNS_G3dRenderObjInit(void);
 void addLink_(void);
-void func_02027b04(void);
+void Kernel_updateHintVec_(void);
 void NNS_G3dRenderObjAddAnmObj(void);
 void removeLink_(void);
 void NNS_G3dRenderObjRemoveAnmObj(void);
-void func_02027cb0(void);
-void func_02027cc4(void);
-void func_02027ccc(void);
-void func_02027ce0(void);
-void func_02027cf4(void);
+void NNS_G3dRenderObjResetCallBack(void);
+void NNS_G3dRenderObjSetInitFunc(void);
+void NNS_G3dTexGetRequiredSize(void);
+void NNS_G3dTex4x4GetRequiredSize(void);
+void NNS_G3dTexSetTexKey(void);
 void NNS_G3dTexLoad(void);
-void func_02027dc0(void);
-void func_02027e10(void);
-void func_02027e24(void);
+void NNS_G3dTexReleaseTexKey(void);
+void NNS_G3dPlttGetRequiredSize(void);
+void NNS_G3dPlttSetPlttKey(void);
 void NNS_G3dPlttLoad(void);
-void func_02027e7c(void);
+void NNS_G3dPlttReleasePlttKey(void);
 void bindMdlTex_Internal_(void);
 void releaseMdlTex_Internal_(void);
-void func_02028084(void);
+void NNS_G3dBindMdlTex(void);
 void NNS_G3dReleaseMdlTex(void);
-void func_02028204(void);
-void func_020282e0(void);
+void bindMdlPltt_Internal_(void);
+void NNS_G3dBindMdlPltt(void);
 void NNS_G3dReleaseMdlPltt(void);
 void NNS_G3dBindMdlSet(void);
 void NNS_G3dReleaseMdlSet(void);
-void func_020285a4(void);
-void func_020286e4(void);
+void NNS_G3dGlbInit(void);
+void NNS_G3dGlbFlushP(void);
 
-void func_0200919c(void);
+void MIi_CpuClear32(void);
 extern char data_020ab844[];
 extern char data_020ab840[];
 extern char data_020ab83c[];
 void GX_BeginLoadTex(void);
-void func_02003eec(void);
-void func_02004038(void);
+void GX_LoadTex(void);
+void GX_EndLoadTex(void);
 void GX_BeginLoadTexPltt(void);
-void func_020040b0(void);
-void func_02004120(void);
-void func_02001d60(void);
-void func_0202bdfc(void);
-extern char data_020bf418[];
-extern char data_020bf464[];
+void GX_LoadTexPltt(void);
+void GX_EndLoadTexPltt(void);
+void FX_Div(void);
+void NNS_G3dGetResDataByName(void);
+extern char NNS_G3dGlb[];
+extern char NNS_G3dGlb_cameraMtx[];
 void MTX_Identity43_(void);
-extern char data_020bf420[];
+extern char NNS_G3dGlb_projMtx[];
 void MTX_Identity44_(void);
-extern char data_020bf4d4[];
+extern char NNS_G3dGlb_prmBaseRot[];
 void MTX_Identity33_(void);
-void func_0202b608(void);
+void NNS_G3dGeBufferOP_N(void);
 
 asm void NNS_G3dRenderObjInit(void)
 {
@@ -58,7 +58,7 @@ asm void NNS_G3dRenderObjInit(void)
     mov r1, r5
     mov r0, #0
     mov r2, #0x54
-    bl func_0200919c
+    bl MIi_CpuClear32
     ldr r0, =data_020ab844
     ldr r1, =data_020ab840
     ldr r2, [r0]
@@ -131,7 +131,7 @@ asm void addLink_(void)
     bx lr
 }
 
-asm void func_02027b04(void)
+asm void Kernel_updateHintVec_(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     cmp r1, #0
@@ -181,21 +181,21 @@ asm void NNS_G3dRenderObjAddAnmObj(void)
     ldmia sp!, {r3, r4, r5, pc}
 @L_02027ba0:
     add r0, r5, #0x3c
-    bl func_02027b04
+    bl Kernel_updateHintVec_
     mov r1, r4
     add r0, r5, #8
     bl addLink_
     ldmia sp!, {r3, r4, r5, pc}
 @L_02027bb8:
     add r0, r5, #0x44
-    bl func_02027b04
+    bl Kernel_updateHintVec_
     mov r1, r4
     add r0, r5, #0x10
     bl addLink_
     ldmia sp!, {r3, r4, r5, pc}
 @L_02027bd0:
     add r0, r5, #0x4c
-    bl func_02027b04
+    bl Kernel_updateHintVec_
     mov r1, r4
     add r0, r5, #0x18
     bl addLink_
@@ -265,7 +265,7 @@ asm void NNS_G3dRenderObjRemoveAnmObj(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02027cb0(void)
+asm void NNS_G3dRenderObjResetCallBack(void)
 {
     mov r1, #0
     str r1, [r0, #0x20]
@@ -274,13 +274,13 @@ asm void func_02027cb0(void)
     bx lr
 }
 
-asm void func_02027cc4(void)
+asm void NNS_G3dRenderObjSetInitFunc(void)
 {
     str r1, [r0, #0x28]
     bx lr
 }
 
-asm void func_02027ccc(void)
+asm void NNS_G3dTexGetRequiredSize(void)
 {
     cmp r0, #0
     ldrneh r0, [r0, #0xc]
@@ -289,7 +289,7 @@ asm void func_02027ccc(void)
     bx lr
 }
 
-asm void func_02027ce0(void)
+asm void NNS_G3dTex4x4GetRequiredSize(void)
 {
     cmp r0, #0
     ldrneh r0, [r0, #0x1c]
@@ -298,7 +298,7 @@ asm void func_02027ce0(void)
     bx lr
 }
 
-asm void func_02027cf4(void)
+asm void NNS_G3dTexSetTexKey(void)
 {
     cmp r1, #0
     strne r1, [r0, #8]
@@ -323,7 +323,7 @@ asm void NNS_G3dTexLoad(void)
     mov r1, r0, lsl #0x10
     add r0, r9, r3
     mov r1, r1, lsr #0xd
-    bl func_02003eec
+    bl GX_LoadTex
     ldrh r0, [r9, #0x10]
     orr r0, r0, #1
     strh r0, [r9, #0x10]
@@ -339,7 +339,7 @@ asm void NNS_G3dTexLoad(void)
     mov r2, r6
     add r0, r9, r0
     ldr r5, [r9, #0x28]
-    bl func_02003eec
+    bl GX_LoadTex
     ldr r0, =0x1ffff
     and r1, r7, #0x40000
     and r0, r0, r4, lsr #13
@@ -348,18 +348,18 @@ asm void NNS_G3dTexLoad(void)
     add r0, r9, r5
     add r1, r2, r1, lsr #2
     mov r2, r6, lsr #1
-    bl func_02003eec
+    bl GX_LoadTex
     ldrh r0, [r9, #0x20]
     orr r0, r0, #1
     strh r0, [r9, #0x20]
 @L_02027dac:
     cmp r8, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    bl func_02004038
+    bl GX_EndLoadTex
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02027dc0(void)
+asm void NNS_G3dTexReleaseTexKey(void)
 {
     stmdb sp!, {r3, lr}
     cmp r1, #0
@@ -384,7 +384,7 @@ asm void func_02027dc0(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02027e10(void)
+asm void NNS_G3dPlttGetRequiredSize(void)
 {
     cmp r0, #0
     ldrneh r0, [r0, #0x30]
@@ -393,7 +393,7 @@ asm void func_02027e10(void)
     bx lr
 }
 
-asm void func_02027e24(void)
+asm void NNS_G3dPlttSetPlttKey(void)
 {
     str r1, [r0, #0x2c]
     bx lr
@@ -414,17 +414,17 @@ asm void NNS_G3dPlttLoad(void)
     mov r1, r1, lsr #0xd
     add r0, r4, r3
     mov r2, r2, lsl #3
-    bl func_020040b0
+    bl GX_LoadTexPltt
     ldrh r0, [r4, #0x32]
     cmp r5, #0
     orr r0, r0, #1
     strh r0, [r4, #0x32]
     ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02004120
+    bl GX_EndLoadTexPltt
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02027e7c(void)
+asm void NNS_G3dPlttReleasePlttKey(void)
 {
     ldrh r3, [r0, #0x32]
     ldr r2, [r0, #0x2c]
@@ -500,7 +500,7 @@ asm void bindMdlTex_Internal_(void)
     beq @L_02027f84
     mov r0, r2, lsl #0xc
     mov r1, r1, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
 @L_02027f84:
     str r0, [r7, #0x24]
     ldrh r1, [r7, #0x22]
@@ -509,7 +509,7 @@ asm void bindMdlTex_Internal_(void)
     beq @L_02027fa4
     mov r0, r6, lsl #0xc
     mov r1, r1, lsl #0xc
-    bl func_02001d60
+    bl FX_Div
 @L_02027fa4:
     str r0, [r7, #0x28]
     ldrb r0, [r9, #2]
@@ -578,7 +578,7 @@ asm void releaseMdlTex_Internal_(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_02028084(void)
+asm void NNS_G3dBindMdlTex(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r1
@@ -614,7 +614,7 @@ asm void func_02028084(void)
     moveq r3, r4
     beq @L_02028108
     add r0, r9, #0x3c
-    bl func_0202bdfc
+    bl NNS_G3dGetResDataByName
     mov r3, r0
 @L_02028108:
     cmp r3, #0
@@ -695,7 +695,7 @@ asm void NNS_G3dReleaseMdlTex(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_02028204(void)
+asm void bindMdlPltt_Internal_(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r2, [r2, #0x2c]
@@ -760,7 +760,7 @@ asm void func_02028204(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_020282e0(void)
+asm void NNS_G3dBindMdlPltt(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r9, r1
@@ -798,7 +798,7 @@ asm void func_020282e0(void)
     moveq r3, r4
     beq @L_0202836c
     add r0, r9, r0
-    bl func_0202bdfc
+    bl NNS_G3dGetResDataByName
     mov r3, r0
 @L_0202836c:
     cmp r3, #0
@@ -822,7 +822,7 @@ asm void func_020282e0(void)
     bne @L_020283c4
     mov r0, r8
     mov r2, r9
-    bl func_02028204
+    bl bindMdlPltt_Internal_
     b @L_020283c4
 @L_020283c0:
     mov r7, r4
@@ -915,11 +915,11 @@ asm void NNS_G3dBindMdlSet(void)
 @L_020284d8:
     mov r0, r8
     mov r1, r9
-    bl func_02028084
+    bl NNS_G3dBindMdlTex
     and r7, r7, r0
     mov r0, r8
     mov r1, r9
-    bl func_020282e0
+    bl NNS_G3dBindMdlPltt
     ldrb r1, [r10, #9]
     add r6, r6, #1
     and r7, r7, r0
@@ -976,11 +976,11 @@ asm void NNS_G3dReleaseMdlSet(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void func_020285a4(void)
+asm void NNS_G3dGlbInit(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r0, =0x17101610
-    ldr r5, =data_020bf418
+    ldr r5, =NNS_G3dGlb
     mov r4, #0
     stmia r5, {r0, r4}
     mov r1, #2
@@ -992,10 +992,10 @@ asm void func_020285a4(void)
     ldr r0, =0x33333333
     ldr r1, =0x2a1b19
     str r0, [r5, #0xa4]
-    ldr r0, =data_020bf464
+    ldr r0, =NNS_G3dGlb_cameraMtx
     str r1, [r5, #0xb8]
     bl MTX_Identity43_
-    ldr r0, =data_020bf420
+    ldr r0, =NNS_G3dGlb_projMtx
     bl MTX_Identity44_
     ldr r0, =0x2d8b62d8
     ldr r3, =0x40000200
@@ -1022,7 +1022,7 @@ asm void func_020285a4(void)
     str r0, [r5, #0xb4]
     str r4, [r5, #0xe0]
     str r4, [r5, #0xe4]
-    ldr r0, =data_020bf4d4
+    ldr r0, =NNS_G3dGlb_prmBaseRot
     str r4, [r5, #0xe8]
     bl MTX_Identity33_
     mov r0, #0x1000
@@ -1044,14 +1044,14 @@ asm void func_020285a4(void)
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_020286e4(void)
+asm void NNS_G3dGlbFlushP(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r4, =data_020bf418
+    ldr r4, =NNS_G3dGlb
     mov r2, #0x3e
     ldr r0, [r4]
     add r1, r4, #4
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r0, [r4, #0xfc]
     bic r0, r0, #1
     bic r0, r0, #2

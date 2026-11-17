@@ -57,7 +57,7 @@ public:
     BOOL SetFont(void *nftrFile, u32 unk_10, u8 isWide);
     void ClearRect4(u8 *canvas, int pitch, int height, int x, int y, int width, int rectHeight);
     void ClearRectTile4(u8 *canvas, int width, int height, int x, int y, int rectWidth, int rectHeight);
-    void SetUnk1C(u8 unk_1C, u8 unk_1D);
+    void SetSubColors(u8 edgeColor, u8 shadowColor);
     void SetUseGlyphWidth(u8 useGlyphWidth);
 
     NNSG2dFont font;
@@ -65,8 +65,8 @@ public:
     u32 unk_10;
     int charSpace;      // added between two characters
     int lineSpace;      // added between two lines
-    u8 unk_1C;
-    u8 unk_1D;
+    u8 edgeColor;
+    u8 shadowColor;
     u8 unk_1E;
     u8 unk_1F;
     u8 isWide;

@@ -3,19 +3,19 @@
 void SNDi_IncAlarmId(void);
 void SNDi_SetAlarmHandler(void);
 void SNDi_CallAlarmHandler(void);
-void func_0200aa6c(void);
-void func_0200aa94(void);
-void func_0200aabc(void);
-void func_0200aae0(void);
+void SND_GetPlayerStatus(void);
+void SND_GetChannelStatus(void);
+void SNDi_GetFinishedCommandTag(void);
+void SNDi_InitSharedWork(void);
 
-extern char data_020bcfc0[];
-extern char data_020bd020[];
+extern char sCallbackTable[];
+extern char SNDi_SharedWork[];
 void DC_InvalidateRange(void);
 void DC_FlushRange(void);
 
 asm void SNDi_IncAlarmId(void)
 {
-    ldr r2, =data_020bcfc0
+    ldr r2, =sCallbackTable
     mov r1, #0xc
     mla r1, r0, r1, r2
     ldrb r0, [r1, #8]
@@ -28,7 +28,7 @@ asm void SNDi_SetAlarmHandler(void)
 {
     mov r3, #0xc
     mul r3, r0, r3
-    ldr r0, =data_020bcfc0
+    ldr r0, =sCallbackTable
     str r1, [r0, r3]
     add r1, r0, r3
     str r2, [r1, #4]
@@ -42,7 +42,7 @@ asm void SNDi_SetAlarmHandler(void)
 asm void SNDi_CallAlarmHandler(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020bcfc0
+    ldr r3, =sCallbackTable
     and r2, r0, #0xff
     mov r1, #0xc
     mla r3, r2, r1, r3
@@ -59,10 +59,10 @@ asm void SNDi_CallAlarmHandler(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200aa6c(void)
+asm void SND_GetPlayerStatus(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r4, =data_020bd020
+    ldr r4, =SNDi_SharedWork
     mov r1, #4
     ldr r0, [r4]
     add r0, r0, #4
@@ -72,10 +72,10 @@ asm void func_0200aa6c(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200aa94(void)
+asm void SND_GetChannelStatus(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r4, =data_020bd020
+    ldr r4, =SNDi_SharedWork
     mov r1, #2
     ldr r0, [r4]
     add r0, r0, #8
@@ -85,10 +85,10 @@ asm void func_0200aa94(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200aabc(void)
+asm void SNDi_GetFinishedCommandTag(void)
 {
     stmdb sp!, {r4, lr}
-    ldr r4, =data_020bd020
+    ldr r4, =SNDi_SharedWork
     mov r1, #4
     ldr r0, [r4]
     bl DC_InvalidateRange
@@ -97,7 +97,7 @@ asm void func_0200aabc(void)
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200aae0(void)
+asm void SNDi_InitSharedWork(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov lr, #0

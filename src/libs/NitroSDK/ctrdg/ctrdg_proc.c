@@ -1,11 +1,11 @@
 // (asm for now)
 
 void CTRDGi_PulledOutCallback(void);
-void func_020158e8(void);
-void func_020158fc(void);
+void CTRDG_TerminateForPulledOut(void);
+void CTRDGi_CallbackForSetPhi(void);
 
-extern char data_020be8a8[];
-void func_0200878c(void);
+extern char isInfoInitialized[];
+void OS_Terminate(void);
 void CTRDGi_SendtoPxi(void);
 
 asm void CTRDGi_PulledOutCallback(void)
@@ -14,7 +14,7 @@ asm void CTRDGi_PulledOutCallback(void)
     and r0, r1, #0x3f
     cmp r0, #0x11
     bne @L_020158dc
-    ldr r0, =data_020be8a8
+    ldr r0, =isInfoInitialized
     ldr r1, [r0, #0xc]
     cmp r1, #0
     ldmneia sp!, {r3, pc}
@@ -26,29 +26,29 @@ asm void CTRDGi_PulledOutCallback(void)
 @L_020158c0:
     cmp r0, #0
     beq @L_020158cc
-    bl func_020158e8
+    bl CTRDG_TerminateForPulledOut
 @L_020158cc:
-    ldr r0, =data_020be8a8
+    ldr r0, =isInfoInitialized
     mov r1, #1
     str r1, [r0, #0xc]
     ldmia sp!, {r3, pc}
 @L_020158dc:
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020158e8(void)
+asm void CTRDG_TerminateForPulledOut(void)
 {
     stmdb sp!, {r3, lr}
     mov r0, #2
     bl CTRDGi_SendtoPxi
-    bl func_0200878c
+    bl OS_Terminate
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020158fc(void)
+asm void CTRDGi_CallbackForSetPhi(void)
 {
-    ldr r0, =data_020be8a8
+    ldr r0, =isInfoInitialized
     mov r1, #0
     str r1, [r0, #4]
     bx lr

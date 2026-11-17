@@ -60,8 +60,8 @@ extern "C" s32 func_02085e78(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02085ec0(void);
 extern "C" s32 func_02085ff8(s32 arg0, s32 arg1, s32 arg2);
 
-extern "C" char data_020c4660[];
-extern "C" char data_020c4678[];
+extern "C" char g3DGameMap[];
+extern "C" char g3DGameMapObject[];
 extern "C" char data_020e88a0[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void MIi_CpuClearFast(void);
@@ -437,7 +437,7 @@ extern "C" asm s32 func_020854d8(...)
     mov r1, #0x20
     beq @L_02085594
     bl func_02099bcc
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     add r1, sp, #0
     ldr r0, [r0]
     mov r2, r4
@@ -453,7 +453,7 @@ extern "C" asm s32 func_020854d8(...)
 @L_02085594:
     bl func_02099bbc
 @L_02085598:
-    ldr r0, =data_020c4660
+    ldr r0, =g3DGameMap
     add r1, sp, #0
     ldr r0, [r0]
     add r2, r5, #0xac
@@ -478,7 +478,7 @@ extern "C" asm s32 func_020854d8(...)
     bne @L_02085614
     cmp r9, #0
     beq @L_02085614
-    ldr r0, =data_020c4678
+    ldr r0, =g3DGameMapObject
     add r1, sp, #0
     ldr r0, [r0]
     mov r2, r4

@@ -16,19 +16,19 @@ extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bffcEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060a48Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060a98Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060b58Ei(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060b70Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060c80Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060d14Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060e80Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060efcEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02060f54Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02061210Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02061258Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_02061274Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0206029413func_020612b8Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02060a48Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02060a98Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager12UnloadScriptEi(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager17RequestUnloadSlotEv(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02060c80Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02060d14Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02060e80Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02060efcEv(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02060f54Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager16StopActiveThreadEv(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02061258Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_02061274Ev(void);     // (for the asm functions)
+extern "C" void _ZN13ScriptManager13func_020612b8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkClass_0205480013func_02054cd0Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_02054d4cEv(void);
 extern "C" void _ZN17UnkClass_0205480013func_02054db4Ev(void);
@@ -41,43 +41,43 @@ extern "C" void _ZN17UnkClass_0205480013func_0205d7e0Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205dac4Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205dafcEv(void);
 extern "C" char data_020a6fb8[];
-extern "C" char data_020c48a0[];
-extern "C" char data_020c4f60[];
+extern "C" char gScreenFades[];
+extern "C" char gMoviePlayer[];
 extern "C" char data_020d3d20[];
 extern "C" void _ZN11MoviePlayer4StopEv(void);
-extern "C" void _ZN12SceneManager13func_0203e2fcEl(void);
+extern "C" void _ZN12SceneManager11SetNextModeEl(void);
 extern "C" void _ZN12SceneManager13func_0203e30cEv(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203df08Ev(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203df24Ev(void);
+extern "C" void _ZN13ScreenManager13func_0203df08Ev(void);
+extern "C" void _ZN13ScreenManager13FadeMainBlackEv(void);
 extern "C" void func_02017cdc(void);
 extern "C" void _s32_div_f(void);
 extern "C" void func_0209ac40(void);
 extern "C" void func_ov000_020fdde4(void);
 extern "C" void func_ov015_0213257c(void);
-extern "C" void func_ov015_02132628(void);
-extern "C" void func_ov015_02132794(void);
+extern "C" void Graphics_FadeScreensBlack(void);
+extern "C" void Graphics_IsAnyScreenFading(void);
 extern "C" void func_ov015_0213290c(void);
 extern "C" void func_ov015_021334b8(void);
-extern GameHeap data_020c47b4;
+extern GameHeap gAllocator;
 extern "C" char data_020ae37c[];            // the vtable
 extern "C" char data_020ae3cc[];            // "/data_iz/script/treasurebox.dat"
 extern "C" char data_020ae3ec[];
 
 
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e18cEv(void);     // (for the asm functions)
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1bcEv(void);
-extern "C" void _ZN17UnkClass_0203dc7c13func_0203e1f4Ev(void);
+extern "C" void _ZN13ScreenManager15GetCurSceneMainEv(void);     // (for the asm functions)
+extern "C" void _ZN13ScreenManager16GetNextSceneMainEv(void);
+extern "C" void _ZN13ScreenManager14GetCurSceneSubEv(void);
 
 // (4 bytes of a file, through the heap's file manager)
 static inline int LoadFile(const char *name, void **dest)
 {
-    FileManager *fileManager = data_020c47b4.fileManager;
+    FileManager *fileManager = gAllocator.fileManager;
     const char *path = name;
 
     if (fileManager == NULL) {
         return 0;
     }
-    return fileManager->Load(path, dest, &data_020c47b4, 0, 4, FALSE, 1, TRUE);
+    return fileManager->Load(path, dest, &gAllocator, 0, 4, FALSE, 1, TRUE);
 }
 
 TreasureBox *TreasureBox::func_02051ba0()
@@ -113,7 +113,7 @@ void TreasureBox::func_02051c54()
     writeIndex = 0;
     readIndex = writeIndex;
     unk_8c.func_02060310();
-    unk_8c.func_02060864(0, 2, 0, 0);
+    unk_8c.LoadScript(0, 2, 0, 0);
     dest = &unk_6a80;
     LoadFile(data_020ae3ec, &dest);
 }
@@ -129,9 +129,9 @@ extern "C" char data_020ae454[];
 extern "C" char data_020ae474[];
 extern "C" char data_020ae47c[];
 extern "C" char data_020ae484[];
-extern "C" char data_020c4678[];
-extern "C" char data_020c4688[];
-extern "C" char data_020c46e4[];
+extern "C" char g3DGameMapObject[];
+extern "C" char gDungeonManager[];
+extern "C" char gConfig[];
 extern "C" char data_020e88a0[];
 extern "C" void STD_ConcatenateString(void);
 extern "C" void STD_CopyString(void);
@@ -214,7 +214,7 @@ asm void TreasureBox::func_02051d20()
     cmp r0, #9
     bne @L_02051e8c
     ldr r0, =data_020a6fb8
-    ldr r4, =data_020c48a0
+    ldr r4, =gScreenFades
     add r3, sp, #4
     ldmia r0, {r0, r1, r2}
     stmia r3, {r0, r1, r2}
@@ -243,7 +243,7 @@ asm void TreasureBox::func_02051d20()
 @L_02051e74:
     mov r1, r4
     add r0, r8, #0x8c
-    bl _ZN17UnkClass_0206029413func_020612b8Ev
+    bl _ZN13ScriptManager13func_020612b8Ev
     add r4, r4, #1
 @L_02051e84:
     cmp r4, #1
@@ -253,7 +253,7 @@ asm void TreasureBox::func_02051d20()
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054db4Ev
     add r0, r8, #0x8c
-    bl _ZN17UnkClass_0206029413func_02060f54Ev
+    bl _ZN13ScriptManager13func_02060f54Ev
     add sp, sp, #0x10
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -275,7 +275,7 @@ asm void TreasureBox::func_02051d20()
     ldr r3, [r6]
     add r0, r8, #0x8c
     add r1, r1, #0x2800
-    bl _ZN17UnkClass_0206029413func_02060efcEv
+    bl _ZN13ScriptManager13func_02060efcEv
     ldrsb r0, [r6, #5]
     add r1, r8, #0x6000
     mov r2, #1
@@ -307,7 +307,7 @@ asm void TreasureBox::func_02051d20()
     strne r5, [r0, #0xa74]
     add r0, r8, #0x6000
     ldr r0, [r0, #0xa3c]
-    bl _ZN17UnkClass_0203dc7c13func_0203df24Ev
+    bl _ZN13ScreenManager13FadeMainBlackEv
     add r0, r8, #0x6000
     mov r1, #6
 @L_02051f74:
@@ -321,7 +321,7 @@ asm void TreasureBox::func_02051d20()
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054db4Ev
     add r0, r8, #0x8c
-    bl _ZN17UnkClass_0206029413func_02060f54Ev
+    bl _ZN13ScriptManager13func_02060f54Ev
     cmp r0, #0
     addeq r0, r8, #0x6000
     ldreq r1, [r0, #0xa78]
@@ -329,7 +329,7 @@ asm void TreasureBox::func_02051d20()
     b @L_02052278
 @L_02051fb0:
     add r0, r8, #0x8c
-    bl _ZN17UnkClass_0206029413func_02061210Ev
+    bl _ZN13ScriptManager16StopActiveThreadEv
     add r0, r8, #0x358
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054d4cEv
@@ -349,7 +349,7 @@ asm void TreasureBox::func_02051d20()
     cmp r1, #0xb
     blt @L_02052004
     add r0, r8, #0x8c
-    bl _ZN17UnkClass_0206029413func_02060b58Ei
+    bl _ZN13ScriptManager12UnloadScriptEi
 @L_02052004:
     add r0, r8, #0x6a00
     ldrsb r1, [r0, #0x38]
@@ -397,7 +397,7 @@ asm void TreasureBox::func_02051d20()
     mov r6, r5
     mov r1, r6
     add r0, r8, #0x8c
-    bl _ZN17UnkClass_0206029413func_02060c80Ev
+    bl _ZN13ScriptManager13func_02060c80Ev
     cmp r0, #0
     beq @L_0205228c
     add r0, r8, #0x6000
@@ -405,7 +405,7 @@ asm void TreasureBox::func_02051d20()
     cmp r0, #0
     add r0, r8, #0x8c
     bne @L_020520f0
-    bl _ZN17UnkClass_0206029413func_02060d14Ev
+    bl _ZN13ScriptManager13func_02060d14Ev
     add r1, r8, #0x6000
     str r0, [r1, #0xa54]
     cmp r0, #0
@@ -414,7 +414,7 @@ asm void TreasureBox::func_02051d20()
     b @L_02052148
 @L_020520f0:
     sub r1, r6, #1
-    bl _ZN17UnkClass_0206029413func_02060a48Ev
+    bl _ZN13ScriptManager13func_02060a48Ev
     cmp r0, #0
     beq @L_0205228c
     add r7, r8, #0x6000
@@ -458,10 +458,10 @@ asm void TreasureBox::func_02051d20()
     bl func_ov015_021334b8
 @L_02052188:
     mov r0, #6
-    bl func_ov015_02132628
+    bl Graphics_FadeScreensBlack
     add r0, r8, #0x6000
     ldr r0, [r0, #0xa4c]
-    bl _ZN12SceneManager13func_0203e2fcEl
+    bl _ZN12SceneManager11SetNextModeEl
     add r0, r8, #0x6000
     str r5, [r0, #0xa4c]
     b @L_020521f0
@@ -473,7 +473,7 @@ asm void TreasureBox::func_02051d20()
     cmp r1, #0
     beq @L_020521e0
     ldr r0, [r0, #0xa3c]
-    bl _ZN17UnkClass_0203dc7c13func_0203df08Ev
+    bl _ZN13ScreenManager13func_0203df08Ev
     b @L_020521e0
 @L_020521cc:
     ldr r0, [r0, #0xa74]
@@ -498,7 +498,7 @@ asm void TreasureBox::func_02051d20()
     str r4, [r0, #0xa78]
     b @L_0205228c
 @L_02052214:
-    bl func_ov015_02132794
+    bl Graphics_IsAnyScreenFading
     cmp r0, #0
     bne @L_0205228c
     add r0, r8, #0x6000
@@ -506,12 +506,12 @@ asm void TreasureBox::func_02051d20()
     cmp r0, #0
     add r0, r8, #0x8c
     beq @L_0205223c
-    bl _ZN17UnkClass_0206029413func_02061274Ev
+    bl _ZN13ScriptManager13func_02061274Ev
     b @L_02052240
 @L_0205223c:
-    bl _ZN17UnkClass_0206029413func_02061258Ev
+    bl _ZN13ScriptManager13func_02061258Ev
 @L_02052240:
-    ldr r0, =data_020c4f60
+    ldr r0, =gMoviePlayer
     bl _ZN11MoviePlayer4StopEv
     add r0, r8, #0x6000
     ldr r1, [r0, #0xa78]
@@ -522,7 +522,7 @@ asm void TreasureBox::func_02051d20()
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_02054db4Ev
     add r0, r8, #0x8c
-    bl _ZN17UnkClass_0206029413func_02060f54Ev
+    bl _ZN13ScriptManager13func_02060f54Ev
     cmp r0, #0
     addeq r0, r8, #0x6000
     moveq r1, #3
@@ -602,7 +602,7 @@ void TreasureBox::func_020523a8()
 void TreasureBox::func_020523bc()
 {
     if (unk_6a64 != 0 && unk_6a78 != 0) {
-        unk_8c.func_02061210();
+        unk_8c.StopActiveThread();
         unk_2b58.func_02054d4c();
     }
     unk_6a68 = 0;
@@ -615,7 +615,7 @@ void TreasureBox::func_020523bc()
     readIndex = writeIndex;
 }
 
-void TreasureBox::func_02052438(UnkClass_0203dc7c *scene)
+void TreasureBox::func_02052438(ScreenManager *scene)
 {
     this->scene = scene;
 }
@@ -647,9 +647,9 @@ void TreasureBox::func_020524b0(void *src)
 
 void TreasureBox::func_020524f0(s32 value)
 {
-    UnkClass_0203dc7c *scene = this->scene;
+    ScreenManager *scene = this->scene;
 
-    if (scene != NULL && scene->func_0203e18c() != scene->func_0203e1bc()) {
+    if (scene != NULL && scene->GetCurSceneMain() != scene->GetNextSceneMain()) {
         return;
     }
     unk_6a60 = value;
@@ -693,27 +693,27 @@ s16 TreasureBox::func_02052600()
 
 void TreasureBox::func_02052618(int i)
 {
-    unk_8c.func_02060624(i);
+    unk_8c.GetGlobalVariable(i);
 }
 
 void TreasureBox::func_02052628(int a, int b, int c, int d)
 {
     if (unk_6a64 == 0) {
         if (d == 0) {
-            unk_8c.func_02060b58(a);
+            unk_8c.UnloadScript(a);
         }
         if (c == 0) {
             return;
         }
-        unk_8c.func_02060864(a, b, c, d);
+        unk_8c.LoadScript(a, b, c, d);
     } else {
         if (d == 0) {
-            unk_8c.func_02060b70();
+            unk_8c.RequestUnloadSlot();
         }
         if (c == 0) {
             return;
         }
-        unk_8c.func_02060938(a, b, c, d);
+        unk_8c.RequestLoad(a, b, c, d);
     }
 }
 
@@ -727,9 +727,9 @@ void TreasureBox::func_020526cc(int c)
 void TreasureBox::func_020526ec(int arg, int keep)
 {
     if (unk_6a64 == 0 || keep != 0) {
-        unk_8c.func_02060b58();
+        unk_8c.UnloadScript();
     } else {
-        unk_8c.func_02060b70();
+        unk_8c.RequestUnloadSlot();
     }
 }
 #else
@@ -744,11 +744,11 @@ asm void TreasureBox::func_020526ec(int arg, int keep)
     beq @L_02052714
 @L_02052708:
     add r0, r0, #0x8c
-    bl _ZN17UnkClass_0206029413func_02060b58Ei
+    bl _ZN13ScriptManager12UnloadScriptEi
     ldmia sp!, {r3, pc}
 @L_02052714:
     add r0, r0, #0x8c
-    bl _ZN17UnkClass_0206029413func_02060b70Ev
+    bl _ZN13ScriptManager17RequestUnloadSlotEv
     ldmia sp!, {r3, pc}
 }
 #endif
@@ -1097,11 +1097,11 @@ asm void TreasureBox::func_02052720()
     add r1, r9, #0x6000
     mov r0, r7
     str r7, [r1, #0xa3c]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     add r1, r9, #0x6000
     str r0, [r1, #0xa40]
     mov r0, r7
-    bl _ZN17UnkClass_0203dc7c13func_0203e1f4Ev
+    bl _ZN13ScreenManager14GetCurSceneSubEv
     add r1, r9, #0x6000
     mov r3, #0
     mov r2, #1
@@ -1148,7 +1148,7 @@ asm void TreasureBox::func_02052c68()
     mov r3, r8
     add r0, r10, #0x8c
     str r12, [sp]
-    bl _ZN17UnkClass_0206029413func_02060e80Ev
+    bl _ZN13ScriptManager13func_02060e80Ev
     movs r1, r0
     beq @L_02052d3c
     ldrsb r0, [r4, #0x39]
@@ -1178,14 +1178,14 @@ asm void TreasureBox::func_02052c68()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-BOOL TreasureBox::func_02052d48(UnkClass_0203dc7c *scene)
+BOOL TreasureBox::func_02052d48(ScreenManager *scene)
 {
     if (entries[readIndex].unk_06 == 0) {
         return FALSE;
     }
     this->scene = scene;
-    unk_6a40 = scene->func_0203e18c();
-    unk_6a44 = scene->func_0203e1f4();
+    unk_6a40 = scene->GetCurSceneMain();
+    unk_6a44 = scene->GetCurSceneSub();
     unk_6a64 = TRUE;
     return TRUE;
 }
@@ -1196,13 +1196,13 @@ void TreasureBox::func_02052da8(s32 top, s32 bottom)
     unk_6a44 = bottom;
 }
 
-void TreasureBox::func_02052db8(UnkClass_0203dc7c *scene)
+void TreasureBox::func_02052db8(ScreenManager *scene)
 {
     if (unk_6a40 >= 0) {
-        scene->func_0203e04c(0, unk_6a40);
+        scene->SetNextScene(0, unk_6a40);
     }
     if (unk_6a44 >= 0) {
-        scene->func_0203e04c(1, unk_6a44);
+        scene->SetNextScene(1, unk_6a44);
     }
 }
 
@@ -1224,7 +1224,7 @@ asm void TreasureBox::func_02052e0c()
     mov r9, r2
     add r5, r1, #0x20
     mov r4, #0
-    ldr r0, =data_020c47b4
+    ldr r0, =gAllocator
     mov r2, r4
     add r1, r5, r9
     mov r3, #1
@@ -1305,7 +1305,7 @@ asm void TreasureBox::func_02052eec()
     mov r3, r4
     add r0, r8, #0x8c
     mov r1, #0xb
-    bl _ZN17UnkClass_0206029413func_02060a98Ev
+    bl _ZN13ScriptManager13func_02060a98Ev
     add r2, r8, #0x6a00
     ldrsb r1, [r2, #0x39]
     rsb r4, r4, #0x2000
@@ -1404,7 +1404,7 @@ asm void TreasureBox::func_02053098()
     ldr r1, =data_020ae420
     mov r0, r4
     bl STD_ConcatenateString
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     mov r1, #0
     add r0, r6, #0x6000
     str r1, [r0, #0xa7c]
@@ -1922,7 +1922,7 @@ BOOL TreasureBox::func_02053824()
         return TRUE;
     }
     unk_2b58.func_0205d874();
-    data_020c47b4.Free(unk_6a7c);
+    gAllocator.Free(unk_6a7c);
     unk_6a7c = NULL;
     return TRUE;
 }
@@ -2090,7 +2090,7 @@ asm void TreasureBox::func_02053ae0()
     bxne lr
     cmp r4, #0
     beq @L_02053b60
-    ldr r3, =data_020c47b4
+    ldr r3, =gAllocator
     ldr r1, =data_020ae454
     ldr r0, [r3]
     cmp r0, #0
@@ -2110,7 +2110,7 @@ asm void TreasureBox::func_02053ae0()
     bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
     b @L_02053b9c
 @L_02053b60:
-    ldr r0, =data_020c4688
+    ldr r0, =gDungeonManager
     ldr r0, [r0]
     bl func_ov015_0213e11c
     ldr lr, [sp, #0x28]
@@ -2155,7 +2155,7 @@ asm void TreasureBox::func_02053bbc()
     mov r1, r4
     add r0, r0, #0x2800
     bl _ZN17UnkClass_0205480013func_0205d7e0Ev
-    ldr r1, =data_020c4678
+    ldr r1, =g3DGameMapObject
     mov r2, r0
     ldr r1, [r1]
     add r0, sp, #0x20
@@ -2210,7 +2210,7 @@ asm void TreasureBox::func_02053bbc()
     orr r1, r3, r1
     strb r1, [r5, r0, asr #3]
 @L_02053cd8:
-    ldr r0, =data_020c46e4
+    ldr r0, =gConfig
     ldr r1, =data_020ae47c
     bl _ZN10ConfigFile6GetIntEPKc
     cmp r0, #0
@@ -2843,7 +2843,7 @@ asm void TreasureBox::func_02054620()
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
     add r0, r9, #0x6000
     ldr r0, [r0, #0xa3c]
-    bl _ZN17UnkClass_0203dc7c13func_0203e18cEv
+    bl _ZN13ScreenManager15GetCurSceneMainEv
     cmp r0, #0x36
     movne r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
@@ -2915,7 +2915,7 @@ asm void TreasureBox::func_02054620()
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    bl func_ov015_02132794
+    bl Graphics_IsAnyScreenFading
     cmp r0, #0
     bne @L_02054784
     bl func_ov015_0213290c

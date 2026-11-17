@@ -1,46 +1,46 @@
 // (asm for now)
 
 void FS_SetArchiveProc(void);
-void func_0200e304(void);
+void FS_LoadArchiveTables(void);
 void FS_UnloadArchiveTables(void);
-void func_0200e4c8(void);
-void func_0200e4d4(void);
-void func_0200e4e4(void);
-void func_0200e4f8(void);
-void func_0200e500(void);
-void func_0200e508(void);
-void func_0200e52c(void);
-void func_0200e574(void);
-void func_0200e5e4(void);
-void func_0200e5f8(void);
-void func_0200e600(void);
-void func_0200e608(void);
-void func_0200e610(void);
+void FS_GetArchiveBase(void);
+void FS_GetArchiveOffset(void);
+void FS_IsArchiveTableLoaded(void);
+void FS_GetFileImageTop(void);
+void FSi_IsUnreadableRomOffset(void);
+void FSi_OnRomReadDone(void);
+void FSi_ReadRomCallback(void);
+void FSi_RomArchiveProc(void);
+void FSi_EmptyArchiveProc(void);
+void FSi_ReadDummyCallback(void);
+void FSi_WriteDummyCallback(void);
+void FSi_OverrideRomArchive(void);
+void FSi_InitRomArchive(void);
 
 void FS_InitFile(void);
-void func_0200c68c(void);
+void FS_OpenFileDirect(void);
 void FS_ReadFile(void);
 void MI_CpuFill8(void);
 void FS_CloseFile(void);
-void func_0200c2d0(void);
-void func_0200c360(void);
-void func_02012304(void);
-void func_0200c3bc(void);
-extern char data_020bd2d8[];
-void func_02012028(void);
-void func_02010d98(void);
+void FS_SuspendArchive(void);
+void FS_ResumeArchive(void);
+void CARD_IsPulledOut(void);
+void FS_NotifyArchiveAsyncEnd(void);
+extern char fsi_default_dma_no[];
+void CARDi_ReadRom(void);
+void CARD_LockRom(void);
 void CARD_UnlockRom(void);
 void CARD_Init(void);
 void OS_GetLockID(void);
-extern char data_020bd2e0[];
-void func_0200bfe8(void);
+extern char fsi_arc_rom[];
+void FS_InitArchive(void);
 extern char data_020aadcc[];
-void func_0200c00c(void);
-void func_0200848c(void);
+void FS_RegisterArchiveName(void);
+void OS_GetBootType(void);
 void func_02010d8c(void);
-void func_0200e1ec(void);
+void FS_LoadArchive(void);
 extern char data_020aadd0[];
-void func_0200bbcc(void);
+void FS_SetCurrentDirectory(void);
 
 asm void FS_SetArchiveProc(void)
 {
@@ -55,7 +55,7 @@ asm void FS_SetArchiveProc(void)
     bx lr
 }
 
-asm void func_0200e304(void)
+asm void FS_LoadArchiveTables(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x4c
@@ -63,7 +63,7 @@ asm void func_0200e304(void)
     mov r9, r0
     mov r4, r2
     beq @L_0200e330
-    bl func_0200e4e4
+    bl FS_IsArchiveTableLoaded
     cmp r0, #0
     beq @L_0200e330
     mov r0, r9
@@ -89,7 +89,7 @@ asm void func_0200e304(void)
     mov r0, r4
     mov r1, r9
     add r3, r2, r3
-    bl func_0200c68c
+    bl FS_OpenFileDirect
     cmp r0, #0
     beq @L_0200e3bc
     ldr r2, [r5, #8]
@@ -117,7 +117,7 @@ asm void func_0200e304(void)
     mov r0, r4
     add r3, r2, r3
     add r7, r7, r12
-    bl func_0200c68c
+    bl FS_OpenFileDirect
     cmp r0, #0
     beq @L_0200e424
     ldr r2, [r5, #0x10]
@@ -158,10 +158,10 @@ asm void FS_UnloadArchiveTables(void)
     beq @L_0200e4c0
     mov r0, r7
     ldr r5, [r7, #0x20]
-    bl func_0200c2d0
+    bl FS_SuspendArchive
     mov r6, r0
     mov r0, r7
-    bl func_0200e4e4
+    bl FS_IsArchiveTableLoaded
     cmp r0, #0
     beq @L_0200e4b0
     ldr r1, [r7, #0x14]
@@ -178,20 +178,20 @@ asm void FS_UnloadArchiveTables(void)
     cmp r6, #0
     beq @L_0200e4c0
     mov r0, r7
-    bl func_0200c360
+    bl FS_ResumeArchive
 @L_0200e4c0:
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void func_0200e4c8(void)
+asm void FS_GetArchiveBase(void)
 {
     ldr r0, [r0, #0x20]
     ldr r0, [r0]
     bx lr
 }
 
-asm void func_0200e4d4(void)
+asm void FS_GetArchiveOffset(void)
 {
     ldr r0, [r0, #0x20]
     ldr r0, [r0]
@@ -199,7 +199,7 @@ asm void func_0200e4d4(void)
     bx lr
 }
 
-asm void func_0200e4e4(void)
+asm void FS_IsArchiveTableLoaded(void)
 {
     ldr r0, [r0, #0x14]
     tst r0, #4
@@ -208,52 +208,52 @@ asm void func_0200e4e4(void)
     bx lr
 }
 
-asm void func_0200e4f8(void)
+asm void FS_GetFileImageTop(void)
 {
     ldr r0, [r0, #0x24]
     bx lr
 }
 
-asm void func_0200e500(void)
+asm void FSi_IsUnreadableRomOffset(void)
 {
     mov r0, #0
     bx lr
 }
 
-asm void func_0200e508(void)
+asm void FSi_OnRomReadDone(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
-    bl func_02012304
+    bl CARD_IsPulledOut
     cmp r0, #0
     mov r1, #5
     moveq r1, #0
     mov r0, r4
-    bl func_0200c3bc
+    bl FS_NotifyArchiveAsyncEnd
     ldmia sp!, {r4, pc}
 }
 
-asm void func_0200e52c(void)
+asm void FSi_ReadRomCallback(void)
 {
     stmdb sp!, {lr}
     sub sp, sp, #0xc
-    ldr r12, =func_0200e508
+    ldr r12, =FSi_OnRomReadDone
     mov lr, r1
     str r12, [sp]
     str r0, [sp, #4]
     mov r1, #1
-    ldr r0, =data_020bd2d8
+    ldr r0, =fsi_default_dma_no
     str r1, [sp, #8]
     mov r1, r2
     ldr r0, [r0]
     mov r2, lr
-    bl func_02012028
+    bl CARDi_ReadRom
     mov r0, #0x100
     add sp, sp, #0xc
     ldmia sp!, {pc}
 }
 
-asm void func_0200e574(void)
+asm void FSi_RomArchiveProc(void)
 {
     stmdb sp!, {r3, lr}
     cmp r1, #1
@@ -264,15 +264,15 @@ asm void func_0200e574(void)
     beq @L_0200e5b0
     b @L_0200e5d4
 @L_0200e594:
-    ldr r0, =data_020bd2d8
+    ldr r0, =fsi_default_dma_no
     ldr r0, [r0, #4]
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
-    bl func_02010d98
+    bl CARD_LockRom
     mov r0, #0
     ldmia sp!, {r3, pc}
 @L_0200e5b0:
-    ldr r0, =data_020bd2d8
+    ldr r0, =fsi_default_dma_no
     ldr r0, [r0, #4]
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10
@@ -287,7 +287,7 @@ asm void func_0200e574(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200e5e4(void)
+asm void FSi_EmptyArchiveProc(void)
 {
     mov r0, #4
     cmp r1, #1
@@ -295,50 +295,50 @@ asm void func_0200e5e4(void)
     bx lr
 }
 
-asm void func_0200e5f8(void)
+asm void FSi_ReadDummyCallback(void)
 {
     mov r0, #4
     bx lr
 }
 
-asm void func_0200e600(void)
+asm void FSi_WriteDummyCallback(void)
 {
     mov r0, #4
     bx lr
 }
 
-asm void func_0200e608(void)
+asm void FSi_OverrideRomArchive(void)
 {
     mov r0, #0
     bx lr
 }
 
-asm void func_0200e610(void)
+asm void FSi_InitRomArchive(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x10
     mov r4, r0
     bl CARD_Init
-    ldr r5, =data_020bd2d8
+    ldr r5, =fsi_default_dma_no
     str r4, [r5]
     bl OS_GetLockID
-    ldr r4, =data_020bd2e0
+    ldr r4, =fsi_arc_rom
     str r0, [r5, #4]
     mov r0, r4
-    bl func_0200bfe8
+    bl FS_InitArchive
     mov r7, #3
     ldr r1, =data_020aadcc
     mov r0, r4
     mov r2, r7
-    bl func_0200c00c
-    bl func_0200848c
+    bl FS_RegisterArchiveName
+    bl OS_GetBootType
     cmp r0, #1
     bne @L_0200e6c8
     bl func_02010d8c
     mov r6, r0
     bl func_02010d8c
     mov r5, r0
-    ldr r1, =func_0200e574
+    ldr r1, =FSi_RomArchiveProc
     ldr r2, =0x682
     mov r0, r4
     bl FS_SetArchiveProc
@@ -352,45 +352,45 @@ asm void func_0200e610(void)
     beq @L_0200e6d0
     str r1, [sp]
     ldr r1, [r6, #0x44]
-    ldr r0, =func_0200e52c
+    ldr r0, =FSi_ReadRomCallback
     str r1, [sp, #4]
     str r0, [sp, #8]
     mov r1, #0
     str r1, [sp, #0xc]
     ldr r3, [r5, #0x4c]
     mov r0, r4
-    bl func_0200e1ec
+    bl FS_LoadArchive
     b @L_0200e6d0
 @L_0200e6c8:
     mov r0, r4
-    bl func_0200e608
+    bl FSi_OverrideRomArchive
 @L_0200e6d0:
-    ldr r0, =data_020bd2e0
+    ldr r0, =fsi_arc_rom
     ldr r0, [r0, #0x14]
     tst r0, #2
     movne r0, #1
     moveq r0, #0
     cmp r0, #0
     bne @L_0200e72c
-    ldr r5, =data_020bd2e0
-    ldr r1, =func_0200e5e4
+    ldr r5, =fsi_arc_rom
+    ldr r1, =FSi_EmptyArchiveProc
     mov r0, r5
     mvn r2, #0
     bl FS_SetArchiveProc
     mov r1, #0
     str r1, [sp]
-    ldr r0, =func_0200e5f8
+    ldr r0, =FSi_ReadDummyCallback
     str r1, [sp, #4]
-    ldr r4, =func_0200e600
+    ldr r4, =FSi_WriteDummyCallback
     str r0, [sp, #8]
     mov r0, r5
     mov r2, r1
     mov r3, r1
     str r4, [sp, #0xc]
-    bl func_0200e1ec
+    bl FS_LoadArchive
 @L_0200e72c:
     ldr r0, =data_020aadd0
-    bl func_0200bbcc
+    bl FS_SetCurrentDirectory
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }

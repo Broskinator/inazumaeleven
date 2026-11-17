@@ -1,7 +1,7 @@
 // (asm for now)
 
 void NNSi_SndFaderInit(void);
-void func_02032628(void);
+void NNSi_SndFaderSet(void);
 void NNSi_SndFaderGet(void);
 void NNSi_SndFaderUpdate(void);
 void NNSi_SndFaderIsFinished(void);
@@ -18,7 +18,7 @@ asm void NNSi_SndFaderInit(void)
     bx lr
 }
 
-asm void func_02032628(void)
+asm void NNSi_SndFaderSet(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0

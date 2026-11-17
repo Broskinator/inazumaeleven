@@ -1,11 +1,11 @@
 #include "ov015/Unk_021306e0.hpp"
 
 extern "C" void func_ov015_021306e0(void);
-extern "C" void func_ov015_021307e4(s32 arg0, s32 arg1);
+extern "C" void Shadow_Draw(s32 arg0, s32 arg1);
 extern "C" void func_ov015_02130878(void);
 extern "C" void func_ov015_02130920(void);
-extern "C" s32 func_ov015_021309a4(...);
-extern "C" s32 func_ov015_021309f8(...);
+extern "C" s32 Random_RandA(...);
+extern "C" s32 Random_RandB(...);
 extern "C" s32 func_ov015_02130a4c(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02130a84(s32 arg0);
 extern "C" void func_ov015_02130ab8(void);
@@ -22,9 +22,9 @@ extern "C" s32 func_ov015_02130e40(s32 arg0);
 extern "C" s32 func_ov015_02130e54(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" void func_ov015_02130e80(void);
 extern "C" void func_ov015_02130f1c(void);
-extern "C" s32 func_ov015_02130fd4(s32 arg0, s32 arg1, u8 *arg2, u8 *arg3);
+extern "C" s32 WorldToMatchCamera(s32 arg0, s32 arg1, u8 *arg2, u8 *arg3);
 
-extern "C" char data_020c47b4[];
+extern "C" char gAllocator[];
 extern "C" char data_020c4838[];
 extern "C" char data_020c483c[];
 extern "C" char data_020c485c[];
@@ -42,7 +42,7 @@ extern "C" void _s32_div_f(void);
 extern "C" void _ffix(void);
 extern "C" void _fadd(void);
 extern "C" void _fsub(void);
-extern "C" void func_0202b608(void);
+extern "C" void NNS_G3dGeBufferOP_N(void);
 extern "C" void func_02080b90(void);
 extern "C" void func_0208130c(void);
 extern "C" s32 func_02082604(...);
@@ -55,7 +55,7 @@ extern "C" asm void func_ov015_021306e0(void)
     mov r0, #6
     mul r1, r8, r0
     ldr r4, =data_ov015_02165d40
-    ldr r7, =data_020c47b4
+    ldr r7, =gAllocator
     str r8, [r4, #4]
     mov r6, #0
     mov r5, #1
@@ -116,7 +116,7 @@ extern "C" asm void func_ov015_021306e0(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" void func_ov015_021307e4(s32 arg0, s32 arg1)
+extern "C" void Shadow_Draw(s32 arg0, s32 arg1)
 {
     s32 a;
     s32 b;
@@ -126,15 +126,15 @@ extern "C" void func_ov015_021307e4(s32 arg0, s32 arg1)
     s32 k = 1;
     s32 z = 0;
     a = z;
-    ((s32 (*)(...))func_0202b608)(0x30, &a, k);
+    ((s32 (*)(...))NNS_G3dGeBufferOP_N)(0x30, &a, k);
     b = z;
-    ((s32 (*)(...))func_0202b608)(0x31, &b, k);
+    ((s32 (*)(...))NNS_G3dGeBufferOP_N)(0x31, &b, k);
     c = z;
-    ((s32 (*)(...))func_0202b608)(0x2A, &c, k);
+    ((s32 (*)(...))NNS_G3dGeBufferOP_N)(0x2A, &c, k);
     d = arg1 << 24 | 0xC1 | arg0 << 16;
-    ((s32 (*)(...))func_0202b608)(0x29, &d, k);
+    ((s32 (*)(...))NNS_G3dGeBufferOP_N)(0x29, &d, k);
     e = z;
-    ((s32 (*)(...))func_0202b608)(0x20, &e, k);
+    ((s32 (*)(...))NNS_G3dGeBufferOP_N)(0x20, &e, k);
     ((s32 (*)(...))func_ov015_02130878)();
 }
 
@@ -150,7 +150,7 @@ extern "C" asm void func_ov015_02130878(void)
     mov r0, #0x40
     mov r2, #1
     ldr r4, [r6, #8]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     ldr r6, [r6, #0xc]
     mov r7, #0
     cmp r6, #0
@@ -172,7 +172,7 @@ extern "C" asm void func_ov015_02130878(void)
     orr r3, r12, r3, lsl #16
     str r3, [sp]
     str lr, [sp, #4]
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add r7, r7, #1
     cmp r7, r6
     blt @L_021308c4
@@ -180,7 +180,7 @@ extern "C" asm void func_ov015_02130878(void)
     mov r1, #0
     mov r2, r1
     mov r0, #0x41
-    bl func_0202b608
+    bl NNS_G3dGeBufferOP_N
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -196,7 +196,7 @@ extern "C" void func_ov015_02130920(void)
     init02130920((R02130920 *)data_020c485c, *(volatile u32 *)0x2FFFC3C + c);
 }
 
-extern "C" asm s32 func_ov015_021309a4(...)
+extern "C" asm s32 Random_RandA(...)
 {
     stmdb sp!, {r4, lr}
     cmp r0, #0
@@ -220,7 +220,7 @@ extern "C" asm s32 func_ov015_021309a4(...)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" asm s32 func_ov015_021309f8(...)
+extern "C" asm s32 Random_RandB(...)
 {
     stmdb sp!, {r4, lr}
     cmp r0, #0
@@ -265,8 +265,8 @@ extern "C" void func_ov015_02130a84(s32 arg0)
 
 extern "C" void func_ov015_02130ab8(void)
 {
-    func_ov015_021309a4(1);
-    func_ov015_021309f8(1);
+    Random_RandA(1);
+    Random_RandB(1);
 }
 
 extern "C" void func_ov015_02130ad4(void)
@@ -593,7 +593,7 @@ extern "C" asm void func_ov015_02130f1c(void)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-extern "C" s32 func_ov015_02130fd4(s32 arg0, s32 arg1, u8 *arg2, u8 *arg3)
+extern "C" s32 WorldToMatchCamera(s32 arg0, s32 arg1, u8 *arg2, u8 *arg3)
 {
     s32 t0;
     s32 t2;

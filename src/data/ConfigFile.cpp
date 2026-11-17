@@ -4,7 +4,7 @@
 #include "msl/stdlib.h"
 #include "msl/string.h"
 
-extern GameHeap data_020c47b4;
+extern GameHeap gAllocator;
 
 ConfigFile::ConfigFile()
 {
@@ -15,10 +15,10 @@ ConfigFile::~ConfigFile()
 {
     Clear();
     if (entries != NULL) {
-        data_020c47b4.Free(entries);
+        gAllocator.Free(entries);
     }
     if (unk_08 != NULL) {
-        data_020c47b4.Free(unk_08);
+        gAllocator.Free(unk_08);
     }
     entries = NULL;
     unk_08 = NULL;
@@ -37,8 +37,8 @@ BOOL ConfigFile::Load(const char *name)
     char *line;
     char *p;
 
-    if (data_020c47b4.fileManager != NULL) {
-        size = data_020c47b4.fileManager->Load(name, (void **)&data, &data_020c47b4, 0, 0, FALSE, 1, TRUE);
+    if (gAllocator.fileManager != NULL) {
+        size = gAllocator.fileManager->Load(name, (void **)&data, &gAllocator, 0, 0, FALSE, 1, TRUE);
     }
     if (size <= 0) {
         return FALSE;
@@ -60,7 +60,7 @@ BOOL ConfigFile::Load(const char *name)
         }
     }
 
-    data_020c47b4.Free(data);
+    gAllocator.Free(data);
     return TRUE;
 }
 
@@ -127,10 +127,10 @@ float ConfigFile::GetFloat(const char *key)
 void ConfigFile::Clear()
 {
     if (entries == NULL) {
-        entries = (ConfigEntry *)data_020c47b4.Alloc(CONFIG_MAX_ENTRIES * sizeof(ConfigEntry), 0, TRUE);
+        entries = (ConfigEntry *)gAllocator.Alloc(CONFIG_MAX_ENTRIES * sizeof(ConfigEntry), 0, TRUE);
     }
     if (unk_08 == NULL) {
-        unk_08 = (ConfigEntry *)data_020c47b4.Alloc(CONFIG_MAX_ENTRIES * sizeof(ConfigEntry), 0, TRUE);
+        unk_08 = (ConfigEntry *)gAllocator.Alloc(CONFIG_MAX_ENTRIES * sizeof(ConfigEntry), 0, TRUE);
     }
     if (unk_08 != NULL) {
         memset(unk_08, 0, CONFIG_MAX_ENTRIES * sizeof(ConfigEntry));

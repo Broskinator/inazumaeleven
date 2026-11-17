@@ -3,32 +3,32 @@
 void OSi_WaitVCount0(void);
 void func_02006dd8(void);
 void func_02006de4(void);
-void func_02006e2c(void);
-void func_02006f48(void);
-void func_02006f90(void);
-void func_02006fa4(void);
-void func_02006fb8(void);
-void func_02007098(void);
-void func_0200713c(void);
-void func_02007150(void);
+void OS_InitArena(void);
+void OS_InitArenaEx(void);
+void OS_GetArenaHi(void);
+void OS_GetArenaLo(void);
+void OS_GetInitArenaHi(void);
+void OS_GetInitArenaLo(void);
+void OS_SetArenaHi(void);
+void OS_SetArenaLo(void);
 
-void func_0200afc0(void);
-void func_02005598(void);
+void PXI_Init(void);
+void OS_InitLock(void);
 void OS_InitIrqTable(void);
 void OS_SetIrqStackChecker(void);
-void func_02007734(void);
+void OS_InitException(void);
 void MI_Init(void);
-void func_02007fc4(void);
+void OS_InitVAlarm(void);
 void OSi_InitVramExclusive(void);
-void func_02005c5c(void);
-void func_020084a8(void);
-void func_020155d0(void);
+void OS_InitThread(void);
+void OS_InitReset(void);
+void CTRDG_Init(void);
 void CARD_Init(void);
-void func_0200f38c(void);
+void PM_Init(void);
 extern char data_020bb390[];
-void func_0200659c(void);
-void func_0200770c(void);
-extern char data_027e0000[];
+void OS_GetConsoleType(void);
+void OS_SetProtectionRegionEx(void);
+extern char OS_IRQTable[];
 
 asm void OSi_WaitVCount0(void)
 {
@@ -52,26 +52,26 @@ asm void func_02006dd8(void)
 asm void func_02006de4(void)
 {
     stmdb sp!, {r3, lr}
-    bl func_0200afc0
-    bl func_02006e2c
-    bl func_02005598
-    bl func_02006f48
+    bl PXI_Init
+    bl OS_InitArena
+    bl OS_InitLock
+    bl OS_InitArenaEx
     bl OS_InitIrqTable
     bl OS_SetIrqStackChecker
-    bl func_02007734
+    bl OS_InitException
     bl MI_Init
-    bl func_02007fc4
+    bl OS_InitVAlarm
     bl OSi_InitVramExclusive
-    bl func_02005c5c
-    bl func_020084a8
-    bl func_020155d0
+    bl OS_InitThread
+    bl OS_InitReset
+    bl CTRDG_Init
     bl CARD_Init
-    bl func_0200f38c
+    bl PM_Init
     bl OSi_WaitVCount0
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02006e2c(void)
+asm void OS_InitArena(void)
 {
     stmdb sp!, {r3, r4, r5, lr}
     ldr r1, =data_020bb390
@@ -82,92 +82,92 @@ asm void func_02006e2c(void)
     mov r2, #1
     mov r0, r5
     str r2, [r1]
-    bl func_02006fb8
+    bl OS_GetInitArenaHi
     mov r1, r0
     mov r0, r5
-    bl func_0200713c
+    bl OS_SetArenaHi
     mov r0, r5
-    bl func_02007098
+    bl OS_GetInitArenaLo
     mov r1, r0
     mov r0, r5
-    bl func_02007150
+    bl OS_SetArenaLo
     mov r4, #2
     mov r0, r4
     mov r1, r5
-    bl func_02007150
+    bl OS_SetArenaLo
     mov r0, r4
     mov r1, r5
-    bl func_0200713c
+    bl OS_SetArenaHi
     mov r4, #3
     mov r0, r4
-    bl func_02006fb8
+    bl OS_GetInitArenaHi
     mov r1, r0
     mov r0, r4
-    bl func_0200713c
+    bl OS_SetArenaHi
     mov r0, r4
-    bl func_02007098
+    bl OS_GetInitArenaLo
     mov r1, r0
     mov r0, r4
-    bl func_02007150
+    bl OS_SetArenaLo
     mov r4, #4
     mov r0, r4
-    bl func_02006fb8
+    bl OS_GetInitArenaHi
     mov r1, r0
     mov r0, r4
-    bl func_0200713c
+    bl OS_SetArenaHi
     mov r0, r4
-    bl func_02007098
+    bl OS_GetInitArenaLo
     mov r1, r0
     mov r0, r4
-    bl func_02007150
+    bl OS_SetArenaLo
     mov r4, #5
     mov r0, r4
-    bl func_02006fb8
+    bl OS_GetInitArenaHi
     mov r1, r0
     mov r0, r4
-    bl func_0200713c
+    bl OS_SetArenaHi
     mov r0, r4
-    bl func_02007098
+    bl OS_GetInitArenaLo
     mov r1, r0
     mov r0, r4
-    bl func_02007150
+    bl OS_SetArenaLo
     mov r4, #6
     mov r0, r4
-    bl func_02006fb8
+    bl OS_GetInitArenaHi
     mov r1, r0
     mov r0, r4
-    bl func_0200713c
+    bl OS_SetArenaHi
     mov r0, r4
-    bl func_02007098
+    bl OS_GetInitArenaLo
     mov r1, r0
     mov r0, r4
-    bl func_02007150
+    bl OS_SetArenaLo
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void func_02006f48(void)
+asm void OS_InitArenaEx(void)
 {
     stmdb sp!, {r4, lr}
-    bl func_0200659c
+    bl OS_GetConsoleType
     mov r4, #2
     mov r0, r4
-    bl func_02006fb8
+    bl OS_GetInitArenaHi
     mov r1, r0
     mov r0, r4
-    bl func_0200713c
+    bl OS_SetArenaHi
     mov r0, r4
-    bl func_02007098
+    bl OS_GetInitArenaLo
     mov r1, r0
     mov r0, r4
-    bl func_02007150
+    bl OS_SetArenaLo
     mov r0, #1
     mov r1, #0x2000000
     mov r2, #0x2a
-    bl func_0200770c
+    bl OS_SetProtectionRegionEx
     ldmia sp!, {r4, pc}
 }
 
-asm void func_02006f90(void)
+asm void OS_GetArenaHi(void)
 {
     mov r0, r0, lsl #2
     add r0, r0, #0x2f00000
@@ -176,7 +176,7 @@ asm void func_02006f90(void)
     bx lr
 }
 
-asm void func_02006fa4(void)
+asm void OS_GetArenaLo(void)
 {
     mov r0, r0, lsl #2
     add r0, r0, #0x2f00000
@@ -185,7 +185,7 @@ asm void func_02006fa4(void)
     bx lr
 }
 
-asm void func_02006fb8(void)
+asm void OS_GetInitArenaHi(void)
 {
     stmdb sp!, {r3, lr}
     cmp r0, #6
@@ -207,7 +207,7 @@ asm void func_02006fb8(void)
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, pc}
-    bl func_0200659c
+    bl OS_GetConsoleType
     and r0, r0, #0xf
     cmp r0, #1
     moveq r0, #0
@@ -217,7 +217,7 @@ asm void func_02006fb8(void)
     mov r0, #0x2000000
     ldmia sp!, {r3, pc}
 @L_02007020:
-    ldr r0, =data_027e0000
+    ldr r0, =OS_IRQTable
     ldr r1, =0x0
     ldr r2, =0x400
     add r3, r0, #0x3f80
@@ -245,7 +245,7 @@ asm void func_02006fb8(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_02007098(void)
+asm void OS_GetInitArenaLo(void)
 {
     stmdb sp!, {r3, lr}
     cmp r0, #6
@@ -267,7 +267,7 @@ asm void func_02007098(void)
     cmp r0, #0
     moveq r0, #0
     ldmeqia sp!, {r3, pc}
-    bl func_0200659c
+    bl OS_GetConsoleType
     and r0, r0, #0xf
     cmp r0, #1
     moveq r0, #0
@@ -290,7 +290,7 @@ asm void func_02007098(void)
     ldmia sp!, {r3, pc}
 }
 
-asm void func_0200713c(void)
+asm void OS_SetArenaHi(void)
 {
     mov r0, r0, lsl #2
     add r0, r0, #0x2f00000
@@ -299,7 +299,7 @@ asm void func_0200713c(void)
     bx lr
 }
 
-asm void func_02007150(void)
+asm void OS_SetArenaLo(void)
 {
     mov r0, r0, lsl #2
     add r0, r0, #0x2f00000

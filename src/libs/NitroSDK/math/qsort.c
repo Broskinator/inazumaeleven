@@ -1,7 +1,7 @@
 // (asm for now)
 
 void MATH_QSort(void);
-void func_020169bc(void);
+void MATHi_SHA1ProcessBlock(void);
 
 asm void MATH_QSort(void)
 {
@@ -193,7 +193,7 @@ asm void MATH_QSort(void)
     dcd 0xca62c1d6
 }
 
-asm void func_020169bc(void)
+asm void MATHi_SHA1ProcessBlock(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, r12, lr}
     mov r11, r0

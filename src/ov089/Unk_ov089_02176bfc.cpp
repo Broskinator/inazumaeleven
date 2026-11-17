@@ -1,18 +1,18 @@
 #include "ov089/Unk_ov089_02176bfc.hpp"
 
-extern "C" void func_ov089_02176bfc(void);
-extern "C" s32 func_ov089_02176c64(void);
-extern "C" void func_ov089_02176cc4(void);
-extern "C" s32 func_ov089_02176d20(s32 arg0);
-extern "C" void func_ov089_02176d64(void);
-extern "C" void func_ov089_02177538(u16 *arg0);
-extern "C" void func_ov089_02177598(void);
-extern "C" u32 func_ov089_02177f38(void);
-extern "C" void func_ov089_02177fa0(void);
+extern "C" void mbwmbase_changeScanChannel(void);
+extern "C" s32 MBi_IsSendEnabled(void);
+extern "C" void MBi_OnInitializeDone(void);
+extern "C" s32 MBi_EndCommon(s32 arg0);
+extern "C" void MBi_ParentCallback(void);
+extern "C" void MBi_ChildPortCallback(u16 *arg0);
+extern "C" void MBi_ChildCallback(void);
+extern "C" u32 MBi_GetBeaconPeriodDispersion(void);
+extern "C" void MB_Init(void);
 
-extern "C" char data_ov089_021791ec[];
-extern "C" char data_ov089_021792d0[];
-extern "C" char data_ov089_02179300[];
+extern "C" char mbi_life_mp[];
+extern "C" char WM_DMA_NO[];
+extern "C" char mbiScanParam[];
 extern "C" void DC_InvalidateRange(void);
 extern "C" void MBi_CheckMBParent(void);
 extern "C" void MI_CpuCopy8(void);
@@ -22,25 +22,25 @@ extern "C" void OS_DisableInterrupts(void);
 extern "C" void OS_RestoreInterrupts(void);
 extern "C" s32 WM_SetIndCallback(...);
 extern "C" void WM_StartMPEx(void);
-extern "C" void func_02008450(void);
-extern "C" void func_02008564(void);
-extern "C" void func_0200878c(void);
-extern "C" void func_02008a08(void);
-extern "C" void func_0200919c(void);
-extern "C" void func_02012e6c(void);
+extern "C" void OS_SpinWaitSysCycles(void);
+extern "C" void OS_GetMacAddress(void);
+extern "C" void OS_Terminate(void);
+extern "C" void MIi_DmaCopy16(void);
+extern "C" void MIi_CpuClear32(void);
+extern "C" void WM_SetPortCallback(void);
 extern "C" void func_020131c0(void);
-extern "C" void func_020134f8(void);
-extern "C" void func_02013768(void);
-extern "C" void func_020137ac(void);
-extern "C" void func_020138d8(void);
-extern "C" void func_02013994(void);
-extern "C" void func_02013b28(void);
-extern "C" void func_02015160(void);
-extern "C" s32 func_020151b4(...);
-extern "C" void func_ov089_02178580(void);
-extern "C" s32 func_ov089_021789d0(...);
+extern "C" void WM_GetNextTgid(void);
+extern "C" void WM_End(void);
+extern "C" void WM_SetParentParameter(void);
+extern "C" void WMi_StartParentEx(void);
+extern "C" void WM_StartScanEx(void);
+extern "C" void WM_StartConnectEx(void);
+extern "C" void WM_SetBeaconIndication(void);
+extern "C" s32 WM_SetLifeTime(...);
+extern "C" void MBi_CommEnd(void);
+extern "C" s32 MBi_CheckWmErrcode(...);
 
-extern "C" asm void func_ov089_02176bfc(void)
+extern "C" asm void mbwmbase_changeScanChannel(void)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -72,7 +72,7 @@ extern "C" asm void func_ov089_02176bfc(void)
     ldmia sp!, {r4, pc}
 }
 
-extern "C" s32 func_ov089_02176c64(void)
+extern "C" s32 MBi_IsSendEnabled(void)
 {
     s32 r0;
     s32 r2;
@@ -81,7 +81,7 @@ extern "C" s32 func_ov089_02176c64(void)
     r0 = 0;
     r2 = 0;
     r3 = 0;
-    r12 = (u8 *)*(s32 *)(data_ov089_021792d0 + 0xC);
+    r12 = (u8 *)*(s32 *)(WM_DMA_NO + 0xC);
     if ((*(u16 *)(((u8 *)(r12 + 0x500)) + 0x28) == 1 && *(u8 *)(r12 + 0x50C) == 0)) {
         r3 = 1;
     }
@@ -96,32 +96,32 @@ extern "C" s32 func_ov089_02176c64(void)
     return r0;
 }
 
-extern "C" void func_ov089_02176cc4(void)
+extern "C" void MBi_OnInitializeDone(void)
 {
-    s32 v0 = WM_SetIndCallback((s32)func_ov089_02176d64);
-    func_ov089_021789d0(0x80, v0);
-    s32 v2 = func_020151b4((s32)func_ov089_02176d64, *(u16 *)(data_ov089_021791ec + 0x4), *(u16 *)(data_ov089_021791ec + 0x2), *(u16 *)(data_ov089_021791ec + 0x6), *(u16 *)(data_ov089_021791ec));
-    func_ov089_021789d0(0x1D, v2);
+    s32 v0 = WM_SetIndCallback((s32)MBi_ParentCallback);
+    MBi_CheckWmErrcode(0x80, v0);
+    s32 v2 = WM_SetLifeTime((s32)MBi_ParentCallback, *(u16 *)(mbi_life_mp + 0x4), *(u16 *)(mbi_life_mp + 0x2), *(u16 *)(mbi_life_mp + 0x6), *(u16 *)(mbi_life_mp));
+    MBi_CheckWmErrcode(0x1D, v2);
 }
 
-extern "C" s32 func_ov089_02176d20(s32 arg0)
+extern "C" s32 MBi_EndCommon(s32 arg0)
 {
     s32 v0;
     u8 *t0;
     u8 *t1;
     s32 t2;
-    t0 = (u8 *)*(s32 *)(data_ov089_021792d0 + 0xC);
+    t0 = (u8 *)*(s32 *)(WM_DMA_NO + 0xC);
     *(u8 *)(t0 + 0x50D) = 0;
-    t1 = (u8 *)(*(s32 *)(data_ov089_021792d0 + 0x10) + 0x1300);
+    t1 = (u8 *)(*(s32 *)(WM_DMA_NO + 0x10) + 0x1300);
     *(u16 *)(t1 + 0x16) = 0;
-    if (*(s32 *)(*(u8 * *)(data_ov089_021792d0 + 0xC) + 0x51C) == 0)
-        return (s32)*(u8 * *)(data_ov089_021792d0 + 0xC);
-    t2 = *(s32 *)(*(u8 * *)(data_ov089_021792d0 + 0xC) + 0x51C);
-    v0 = ((s32 (*)(...))*(s32 *)(*(u8 * *)(data_ov089_021792d0 + 0xC) + 0x51C))(0x11, arg0, t2, (s32)t0);
+    if (*(s32 *)(*(u8 * *)(WM_DMA_NO + 0xC) + 0x51C) == 0)
+        return (s32)*(u8 * *)(WM_DMA_NO + 0xC);
+    t2 = *(s32 *)(*(u8 * *)(WM_DMA_NO + 0xC) + 0x51C);
+    v0 = ((s32 (*)(...))*(s32 *)(*(u8 * *)(WM_DMA_NO + 0xC) + 0x51C))(0x11, arg0, t2, (s32)t0);
     return v0;
 }
 
-extern "C" asm void func_ov089_02176d64(void)
+extern "C" asm void MBi_ParentCallback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x1c
@@ -130,7 +130,7 @@ extern "C" asm void func_ov089_02176d64(void)
     mov r5, #1
     mov r6, #0
     cmp r1, #0x19
-    ldr r4, =data_ov089_021792d0
+    ldr r4, =WM_DMA_NO
     bgt @L_02176ddc
     cmp r1, #0x19
     bge @L_02176ea8
@@ -174,7 +174,7 @@ extern "C" asm void func_ov089_02176d64(void)
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176e20:
-    bl func_ov089_02176cc4
+    bl MBi_OnInitializeDone
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176e2c:
@@ -190,11 +190,11 @@ extern "C" asm void func_ov089_02176d64(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176e54:
     ldr r1, [r4, #0xc]
-    ldr r0, =func_ov089_02176d64
-    bl func_020137ac
+    ldr r0, =MBi_ParentCallback
+    bl WM_SetParentParameter
     mov r1, r0
     mov r0, #7
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176e74:
@@ -203,12 +203,12 @@ extern "C" asm void func_ov089_02176d64(void)
     ldr r2, [r0, #0x51c]
     mov r0, #0x15
     blx r2
-    ldr r0, =func_ov089_02176d64
+    ldr r0, =MBi_ParentCallback
     mov r1, r5
-    bl func_02015160
+    bl WM_SetBeaconIndication
     mov r1, r0
     mov r0, #0x19
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176ea8:
@@ -227,13 +227,13 @@ extern "C" asm void func_ov089_02176d64(void)
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176ee0:
-    ldr r1, =data_ov089_021791ec
-    ldr r0, =func_ov089_02176d64
+    ldr r1, =mbi_life_mp
+    ldr r0, =MBi_ParentCallback
     ldr r1, [r1, #8]
-    bl func_020138d8
+    bl WMi_StartParentEx
     mov r1, r0
     mov r0, #8
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176f04:
@@ -249,7 +249,7 @@ extern "C" asm void func_ov089_02176d64(void)
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176f30:
-    bl func_ov089_02176d20
+    bl MBi_EndCommon
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02176f3c:
@@ -342,16 +342,16 @@ extern "C" asm void func_ov089_02176d64(void)
     str r5, [sp, #0x18]
     ldrh r2, [r1, #0x1a]
     ldr r1, [r3, #0x504]
-    ldr r0, =func_ov089_02176d64
+    ldr r0, =MBi_ParentCallback
     add r3, r3, #0x40
     bl WM_StartMPEx
     mov r1, r0
     mov r0, #0xe
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_021770ac:
-    bl func_ov089_02176c64
+    bl MBi_IsSendEnabled
     cmp r0, #0
     addeq sp, sp, #0x1c
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
@@ -466,7 +466,7 @@ extern "C" asm void func_ov089_02176d64(void)
     cmp r2, #1
     bne @L_02177250
     ldr r0, =0x1964
-    bl func_02008450
+    bl OS_SpinWaitSysCycles
 @L_02177250:
     ldr r0, [r4, #0xc]
     strb r6, [r0, #0x50c]
@@ -537,20 +537,20 @@ extern "C" asm void func_ov089_02176d64(void)
 @L_0217734c:
     strh r6, [r0, #0x2a]
     ldr r1, [r4, #0xc]
-    ldr r0, =func_ov089_02176d64
+    ldr r0, =MBi_ParentCallback
     add r1, r1, #0x500
     strh r6, [r1, #0x28]
-    bl func_02013768
+    bl WM_End
     mov r1, r0
     mov r0, #2
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02177378:
     mov r1, r6
     mov r2, r6
     mov r0, r5
-    bl func_02012e6c
+    bl WM_SetPortCallback
     mov r0, r6
     bl WM_SetIndCallback
     ldrh r0, [r8, #2]
@@ -567,12 +567,12 @@ extern "C" asm void func_ov089_02176d64(void)
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_021773c4:
-    ldr r0, =func_ov089_02176d64
+    ldr r0, =MBi_ParentCallback
     mov r1, r6
-    bl func_02015160
+    bl WM_SetBeaconIndication
     mov r1, r0
     mov r0, #0x19
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_021773e4:
@@ -590,7 +590,7 @@ extern "C" asm void func_ov089_02176d64(void)
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02177418:
-    bl func_ov089_02176d20
+    bl MBi_EndCommon
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02177424:
@@ -655,7 +655,7 @@ extern "C" asm void func_ov089_02176d64(void)
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_02177500:
-    bl func_0200878c
+    bl OS_Terminate
     add sp, sp, #0x1c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 @L_0217750c:
@@ -669,7 +669,7 @@ extern "C" asm void func_ov089_02176d64(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
 
-extern "C" void func_ov089_02177538(u16 *arg0)
+extern "C" void MBi_ChildPortCallback(u16 *arg0)
 {
     if (arg0[1] != 0)
         return;
@@ -680,19 +680,19 @@ extern "C" void func_ov089_02177538(u16 *arg0)
     case 0x1A:
         break;
     case 0x15:
-        (*(void (**)(s32, u16 *))(*(u8 **)((u8 *)data_ov089_021792d0 + 0xC) + 0x51C))(9, arg0);
+        (*(void (**)(s32, u16 *))(*(u8 **)((u8 *)WM_DMA_NO + 0xC) + 0x51C))(9, arg0);
         break;
     }
 }
 
-extern "C" asm void func_ov089_02177598(void)
+extern "C" asm void MBi_ChildCallback(void)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x28
     ldrh r2, [r0]
-    ldr r4, =data_ov089_021792d0
+    ldr r4, =WM_DMA_NO
     str r0, [sp, #0x1c]
-    ldr r1, =data_ov089_02179300
+    ldr r1, =mbiScanParam
     cmp r2, #0x15
     ldr r11, [r4, #0xc]
     mov r5, #0
@@ -749,17 +749,17 @@ extern "C" asm void func_ov089_02177598(void)
     ldr r1, [sp, #0x1c]
     mov r0, #0x15
     blx r2
-    ldr r3, =data_ov089_021791ec
-    ldr r0, =func_ov089_02177598
+    ldr r3, =mbi_life_mp
+    ldr r0, =MBi_ChildCallback
     ldrh r1, [r3]
     str r1, [sp]
     ldrh r1, [r3, #4]
     ldrh r2, [r3, #2]
     ldrh r3, [r3, #6]
-    bl func_020151b4
+    bl WM_SetLifeTime
     mov r1, r0
     mov r0, #0x1d
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_021776ac:
@@ -780,7 +780,7 @@ extern "C" asm void func_ov089_02177598(void)
     cmp r0, #0
     moveq r0, #0xc8
     streqh r0, [r1, #8]
-    ldr r1, =data_ov089_02179300
+    ldr r1, =mbiScanParam
     mov r0, #0xff
     strb r0, [r1, #0xa]
     strb r0, [r1, #0xb]
@@ -791,12 +791,12 @@ extern "C" asm void func_ov089_02177598(void)
     strh r6, [r1, #0x10]
     strh r5, [r1, #0x12]
     str r6, [r11, #0x5e4]
-    ldr r0, =func_ov089_02177598
+    ldr r0, =MBi_ChildCallback
     str r6, [r11, #0x5e8]
-    bl func_02013994
+    bl WM_StartScanEx
     mov r1, r0
     mov r0, #0x26
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177738:
@@ -873,11 +873,11 @@ extern "C" asm void func_ov089_02177598(void)
     str r0, [sp, #0x20]
     b @L_02177a94
 @L_0217783c:
-    ldr r0, =data_ov089_021792d0
+    ldr r0, =WM_DMA_NO
     ldr r0, [r0, #8]
     cmp r0, #1
     bne @L_0217787c
-    ldr r0, =data_ov089_021791ec
+    ldr r0, =mbi_life_mp
     ldr r2, [r4, #0x44]
     ldr r1, [r0, #0x14]
     ldr r0, [r0, #0x10]
@@ -966,13 +966,13 @@ extern "C" asm void func_ov089_02177598(void)
     bl DC_InvalidateRange
     add r1, r11, #0x600
     mla r2, r6, r7, r1
-    ldr r0, =data_ov089_021792d0
+    ldr r0, =WM_DMA_NO
     mov r7, #1
     ldrh r0, [r0]
     mov r1, r4
     mov r3, r5
     str r7, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     ldr r0, [sp, #0x1c]
     str r6, [r11, #0x5ec]
     add r1, r0, #0x50
@@ -988,7 +988,7 @@ extern "C" asm void func_ov089_02177598(void)
     cmp r6, r1
     blt @L_02177888
     cmp r6, #0x10
-    ldr r8, =data_ov089_021792d0
+    ldr r8, =WM_DMA_NO
     mov r7, #0x180
     mov r9, #1
     bge @L_02177a94
@@ -1023,7 +1023,7 @@ extern "C" asm void func_ov089_02177598(void)
     mov r1, r4
     mov r3, r5
     str r9, [sp]
-    bl func_02008a08
+    bl MIi_DmaCopy16
     ldr r0, [sp, #0x1c]
     str r6, [r11, #0x5ec]
     add r1, r0, #0x50
@@ -1059,18 +1059,18 @@ extern "C" asm void func_ov089_02177598(void)
     ldr r0, [r11, #0x5e8]
     cmp r0, #0
     beq @L_02177b04
-    ldr r0, =data_ov089_02179300
-    bl func_ov089_02176bfc
+    ldr r0, =mbiScanParam
+    bl mbwmbase_changeScanChannel
     cmp r0, #0
     bne @L_02177b04
-    bl func_ov089_02178580
+    bl MBi_CommEnd
 @L_02177b04:
-    ldr r0, =func_ov089_02177598
-    ldr r1, =data_ov089_02179300
-    bl func_02013994
+    ldr r0, =MBi_ChildCallback
+    ldr r1, =mbiScanParam
+    bl WM_StartScanEx
     mov r1, r0
     mov r0, #0x26
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177b24:
@@ -1085,18 +1085,18 @@ extern "C" asm void func_ov089_02177598(void)
     ldr r0, [r11, #0x5e8]
     cmp r0, #0
     beq @L_02177b64
-    ldr r0, =data_ov089_02179300
-    bl func_ov089_02176bfc
+    ldr r0, =mbiScanParam
+    bl mbwmbase_changeScanChannel
     cmp r0, #0
     bne @L_02177b64
-    bl func_ov089_02178580
+    bl MBi_CommEnd
 @L_02177b64:
-    ldr r0, =func_ov089_02177598
-    ldr r1, =data_ov089_02179300
-    bl func_02013994
+    ldr r0, =MBi_ChildCallback
+    ldr r1, =mbiScanParam
+    bl WM_StartScanEx
     mov r1, r0
     mov r0, #0x26
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177b84:
@@ -1119,13 +1119,13 @@ extern "C" asm void func_ov089_02177598(void)
 @L_02177bc0:
     ldr r1, [r11, #0x520]
     mov r2, r5
-    ldr r0, =func_ov089_02177598
+    ldr r0, =MBi_ChildCallback
     mov r3, r6
     str r2, [sp]
-    bl func_02013b28
+    bl WM_StartConnectEx
     mov r1, r0
     mov r0, #0xc
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177bec:
@@ -1175,11 +1175,11 @@ extern "C" asm void func_ov089_02177598(void)
     blx r2
     mov r4, r5
     add r3, r11, #0x500
-    ldr r1, =func_ov089_02177538
+    ldr r1, =MBi_ChildPortCallback
     mov r0, r6
     mov r2, r4
     strh r6, [r3, #0x2a]
-    bl func_02012e6c
+    bl WM_SetPortCallback
     cmp r0, #0
     addne sp, sp, #0x28
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1199,12 +1199,12 @@ extern "C" asm void func_ov089_02177598(void)
     str r6, [sp, #0x18]
     ldrh r2, [r1, #0x1a]
     ldr r1, [r11, #0x504]
-    ldr r0, =func_ov089_02177598
+    ldr r0, =MBi_ChildCallback
     add r3, r11, #0x40
     bl WM_StartMPEx
     mov r1, r0
     mov r0, #0xe
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177d14:
@@ -1236,7 +1236,7 @@ extern "C" asm void func_ov089_02177598(void)
 @L_02177d70:
     add r0, r11, #0x500
     strh r6, [r0, #0x28]
-    bl func_ov089_02176c64
+    bl MBi_IsSendEnabled
     cmp r0, #0
     addeq sp, sp, #0x28
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1303,13 +1303,13 @@ extern "C" asm void func_ov089_02177598(void)
     add r0, r0, #0x500
     strh r5, [r0, #0x2a]
     ldr r1, [r4, #0xc]
-    ldr r0, =func_ov089_02177598
+    ldr r0, =MBi_ChildCallback
     add r1, r1, #0x500
     strh r5, [r1, #0x28]
-    bl func_02013768
+    bl WM_End
     mov r1, r0
     mov r0, #2
-    bl func_ov089_021789d0
+    bl MBi_CheckWmErrcode
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177e8c:
@@ -1326,11 +1326,11 @@ extern "C" asm void func_ov089_02177598(void)
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177ebc:
-    bl func_ov089_02176d20
+    bl MBi_EndCommon
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177ec8:
-    bl func_ov089_02176c64
+    bl MBi_IsSendEnabled
     cmp r0, #0
     addeq sp, sp, #0x28
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -1345,7 +1345,7 @@ extern "C" asm void func_ov089_02177598(void)
     cmp r0, #0x16
     addne sp, sp, #0x28
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    bl func_0200878c
+    bl OS_Terminate
     add sp, sp, #0x28
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02177f0c:
@@ -1357,12 +1357,12 @@ extern "C" asm void func_ov089_02177598(void)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-extern "C" u32 func_ov089_02177f38(void)
+extern "C" u32 MBi_GetBeaconPeriodDispersion(void)
 {
     u8 mac[8];
     s32 i;
     u32 s;
-    ((s32 (*)(...))func_02008564)(mac);
+    ((s32 (*)(...))OS_GetMacAddress)(mac);
     i = 0;
     s = i;
     do {
@@ -1372,10 +1372,10 @@ extern "C" u32 func_ov089_02177f38(void)
     return ((s + *(volatile u32 *)0x2FFFC3C) * 7) % 20;
 }
 
-extern "C" asm void func_ov089_02177fa0(void)
+extern "C" asm void MB_Init(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    ldr r4, =data_ov089_021792d0
+    ldr r4, =WM_DMA_NO
     mov r7, r1
     ldr r1, [r4, #0x10]
     mov r5, r2
@@ -1393,12 +1393,12 @@ extern "C" asm void func_ov089_02177fa0(void)
     cmp r4, #0x10000
     bic r9, r0, #0x1f
     bne @L_02177ff4
-    bl func_020134f8
+    bl WM_GetNextTgid
     mov r4, r0
 @L_02177ff4:
     bl OS_DisableInterrupts
     ldr r3, =0xffff
-    ldr r1, =data_ov089_021791ec
+    ldr r1, =mbi_life_mp
     mov r2, #5
     strh r3, [r1, #4]
     strh r2, [r1, #6]
@@ -1407,7 +1407,7 @@ extern "C" asm void func_ov089_02177fa0(void)
     strh r2, [r1]
     mov r6, #1
     ldr r2, [sp, #0x20]
-    ldr r3, =data_ov089_021792d0
+    ldr r3, =WM_DMA_NO
     str r6, [r1, #8]
     strh r2, [r3]
     str r8, [r3, #0xc]
@@ -1417,7 +1417,7 @@ extern "C" asm void func_ov089_02177fa0(void)
     mov r1, r8
     mov r2, #0x1e00
     str r9, [r3, #0x10]
-    bl func_0200919c
+    bl MIi_CpuClear32
     mov r0, r6
     mov r1, r9
     mov r2, #0x1340
@@ -1437,7 +1437,7 @@ extern "C" asm void func_ov089_02177fa0(void)
 @L_02178088:
     add r0, r8, #0x138
     add r3, r0, #0x400
-    ldr r0, =data_ov089_021791ec
+    ldr r0, =mbi_life_mp
     mov r6, #0
     ldr r1, [r0, #0xc]
 @L_0217809c:
@@ -1479,7 +1479,7 @@ extern "C" asm void func_ov089_02177fa0(void)
     strh r7, [r8, #0x14]
     str r5, [r8, #8]
     strh r4, [r8, #0xc]
-    bl func_ov089_02177f38
+    bl MBi_GetBeaconPeriodDispersion
     add r0, r0, #0xc8
     strh r0, [r8, #0x18]
     mov r0, #0xf

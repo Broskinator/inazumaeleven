@@ -1,20 +1,20 @@
 // (asm for now)
 
 void GX_SetVCountEqVal(void);
-void func_02002570(void);
-void func_020025a8(void);
-void func_020025b8(void);
-void func_020025f8(void);
+void GX_VBlankIntr(void);
+void GX_IsDispOn(void);
+void GX_DispOff(void);
+void GX_DispOn(void);
 void GX_SetGraphicsMode(void);
 void GXS_SetGraphicsMode(void);
 void GXx_SetMasterBrightness_(void);
 void func_020026e8(void);
-void func_02002728(void);
-void func_020027c8(void);
+void G2x_SetBGyAffine_(void);
+void G2x_SetBlendBrightness_(void);
 
-extern char data_020aad60[];
-extern char data_020bb040[];
-void func_02010240(void);
+extern char sIsDispOn[];
+extern char sDispMode[];
+void PMi_SetDispOffCount(void);
 
 asm void GX_SetVCountEqVal(void)
 {
@@ -29,7 +29,7 @@ asm void GX_SetVCountEqVal(void)
     bx lr
 }
 
-asm void func_02002570(void)
+asm void GX_VBlankIntr(void)
 {
     ldr r3, =0x4000004
     cmp r0, #0
@@ -45,35 +45,35 @@ asm void func_02002570(void)
     bx lr
 }
 
-asm void func_020025a8(void)
+asm void GX_IsDispOn(void)
 {
-    ldr r0, =data_020aad60
+    ldr r0, =sIsDispOn
     ldrh r0, [r0]
     bx lr
 }
 
-asm void func_020025b8(void)
+asm void GX_DispOff(void)
 {
     stmdb sp!, {r3, lr}
     mov lr, #0x4000000
     ldr r12, [lr]
-    ldr r1, =data_020aad60
+    ldr r1, =sIsDispOn
     and r2, r12, #0x30000
     mov r3, #0
-    ldr r0, =data_020bb040
+    ldr r0, =sDispMode
     mov r2, r2, lsr #0x10
     strh r3, [r1]
     strh r2, [r0]
     bic r0, r12, #0x30000
     str r0, [lr]
-    bl func_02010240
+    bl PMi_SetDispOffCount
     ldmia sp!, {r3, pc}
 }
 
-asm void func_020025f8(void)
+asm void GX_DispOn(void)
 {
-    ldr r0, =data_020bb040
-    ldr r1, =data_020aad60
+    ldr r0, =sDispMode
+    ldr r1, =sIsDispOn
     ldrh r2, [r0]
     mov r0, #1
     strh r0, [r1]
@@ -92,11 +92,11 @@ asm void func_020025f8(void)
 asm void GX_SetGraphicsMode(void)
 {
     stmdb sp!, {r3, lr}
-    ldr r3, =data_020aad60
+    ldr r3, =sIsDispOn
     mov lr, #0x4000000
     ldrh r12, [r3]
     ldr lr, [lr]
-    ldr r3, =data_020bb040
+    ldr r3, =sDispMode
     cmp r12, #0
     strh r0, [r3]
     ldr r3, =0xfff0fff0
@@ -106,11 +106,11 @@ asm void GX_SetGraphicsMode(void)
     orr r0, r1, r0
     orr r1, r0, r2, lsl #3
     mov r12, #0x4000000
-    ldr r0, =data_020bb040
+    ldr r0, =sDispMode
     str r1, [r12]
     ldrh r0, [r0]
     cmp r0, #0
-    ldreq r0, =data_020aad60
+    ldreq r0, =sIsDispOn
     moveq r1, #0
     streqh r1, [r0]
     ldmia sp!, {r3, pc}
@@ -160,7 +160,7 @@ asm void func_020026e8(void)
     bx lr
 }
 
-asm void func_02002728(void)
+asm void G2x_SetBGyAffine_(void)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r4, [sp, #0x1c]
@@ -204,7 +204,7 @@ asm void func_02002728(void)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void func_020027c8(void)
+asm void G2x_SetBlendBrightness_(void)
 {
     cmp r2, #0
     orrlt r1, r1, #0xc0

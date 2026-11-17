@@ -87,9 +87,19 @@ def is_asm(name, src):
     return False
 
 
+# Overlays that are Nintendo libraries, not game code: found by pairing their functions with the
+# libraries of Inazuma Eleven 3 (docs/ie3_mapping.md)
+LIB_OVERLAYS = {"ov014": "Wi-Fi (DWC, TwlWiFi)", "ov016": "Wi-Fi connection settings (DWC utility)",
+                "ov089": "download play (the MB library of the SDK)"}
+LIB_OV_AREA = "Libraries in overlays (Wi-Fi, download play)"
+LOG_MARK = "## Log"
+
+
 def area(module, src):
     if src is None:
         return "Not in a source file yet"
+    if module in LIB_OVERLAYS:
+        return LIB_OV_AREA
     if src.replace("\\", "/").startswith("src/libs/"):
         return "Libraries (SDK, runtime)"
     return "Game, overlays" if module.startswith("ov") else "Game, main program"
@@ -154,14 +164,16 @@ def main():
              "repository matches the original either way.", "",
              "This file is written by `python tools/cprogress.py`.", "",
              "## Totals", "", head]
-    order = ["Game, main program", "Game, overlays", "Libraries (SDK, runtime)", "Not in a source file yet"]
+    order = ["Game, main program", "Game, overlays", "Libraries (SDK, runtime)", LIB_OV_AREA, "Not in a source file yet"]
     lines.append(game.row("**Game code**"))
     for a in order:
         if a in areas:
             lines.append(areas[a].row(a))
     lines.append(total.row("**Everything**"))
     lines += ["", "The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem",
-              "and the Metrowerks runtime: much of them is assembly in the original as well.", "",
+              "and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and",
+              "89 are libraries too (the Wi-Fi libraries and their connection settings, download play): they",
+              "were counted as game code until 2026-11-17, when [ie3_mapping.md](ie3_mapping.md) showed what they are.", "",
               "## Match engine", "",
               "The football match itself: the engine in `src/match/` (the match object, the ball's physics, the",
               "rules, the players' lists, field geometry), the match logic overlay (ov087) and the match scene",
@@ -174,9 +186,15 @@ def main():
     for mod in sorted(mods, key=lambda m: (m != "main", m)):
         lines.append(mods[mod].row("main program" if mod == "main" else mod))
     text = "\n".join(lines) + "\n"
+    # (the log at the end of the file is written by hand, one entry per session: it is kept)
+    path = os.path.join(ROOT, "docs", "progress.md")
+    if os.path.exists(path):
+        old = open(path, encoding="utf-8").read()
+        if LOG_MARK in old:
+            text += "\n" + old[old.index(LOG_MARK):]
     if "--check" not in sys.argv:
         os.makedirs(os.path.join(ROOT, "docs"), exist_ok=True)
-        open(os.path.join(ROOT, "docs", "progress.md"), "w", newline="\n").write(text)
+        open(path, "w", newline="\n", encoding="utf-8").write(text)
     pct = 100 * game.cbytes / game.bytes if game.bytes else 0
     print(f"Game code in C/C++: {game.cbytes:,} / {game.bytes:,} bytes ({pct:.2f}%), "
           f"{game.cfuncs:,} / {game.funcs:,} functions; {game.funcs - game.cfuncs:,} still asm")
