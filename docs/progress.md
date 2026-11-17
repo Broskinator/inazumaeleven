@@ -143,7 +143,8 @@ bytes of game code (26.30%), 7,001 / 11,724 functions.
 
 - Matched: `TextFont::SetFont` (the original checks the file pointer twice: the second check,
   on a local copy, is what keeps r0 for the 0) and `TreasureBox::func_020526ec` (the attempt
-  lacked `UnloadScript`'s argument).
+  lacked `UnloadScript`'s argument) and `MatchEngine::func_020747e4` (found by the first permuter
+  batch: the same second null check as SetFont).
 - Compiler: dsi/1.1p1, 1.2p1, 1.2p2 and 1.3 give the same code as dsi/1.2 on the two known near
   misses, so the version was not their cause; the pin stays dsi/1.2.
 - Inazuma Eleven 3 (an unlicensed decompilation, used as a reference only, outside the repo):
@@ -151,8 +152,8 @@ bytes of game code (26.30%), 7,001 / 11,724 functions.
   order; 3,199 symbols renamed from it (2,809 library, 199 game functions, 191 data), plus
   `ScreenManager`, `ScriptManager` and 38 members by hand. See [ie3_mapping.md](ie3_mapping.md).
 - Overlays 14, 16 and 89 turned out to be Nintendo's Wi-Fi and download-play libraries: they are
-  no longer counted as game code. Game code is now 1,948,264 bytes, of which 495,756 are C/C++
-  (25.45%; 5,721 / 9,634 functions). The match engine: 15.17% (911 / 1,742 functions).
+  no longer counted as game code. Game code is now 1,948,264 bytes, of which 495,816 are C/C++
+  (25.45%; 5,722 / 9,634 functions). The match engine: 15.19% (912 / 1,742 functions).
 - Tooling: `make todo` (what to do next, easiest first), an incremental build (header
   dependencies; a no-change `make` takes ~2 s), `make modules` (quick check without the ROM),
   a pre-commit hook that runs the full SHA-1 check, a CI workflow (needs a secret, see

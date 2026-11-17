@@ -142,8 +142,9 @@ the includes.
    `void *unk_bc0/unk_c00/unk_c04`, `s32 unk_c24`, `MatchPlayer::unk_78/unk_7a` as `s16`), then
    convert the small members (func_0207903c, 0207455c-like setters, ...). IE3 names: `CLogicThink`,
    `CUnitMan`, `CCalcMap` (see the `match` rows of `docs/ie3_mapping.csv`).
-2. **Permuter queue**: 15 near misses in `permuter/queue.txt`; check `permuter/results/` after
-   a batch and apply what matched.
+2. **Permuter queue**: 14 near misses in `permuter/queue.txt` (a batch was started on
+   2026-11-17, 20 min each); check `permuter/results/` and apply what matched, reduced to
+   the parts that matter (see the null-check pattern in docs/matching.md).
 3. **Bigger non-matching attempts** (16-165 words): `SceneManager` (6), `SaveManager` (4),
    `System::func_020401bc`, `Wireless` (3), `MatchBallPhysics::func_02061ab8`, MatchEngine (7).
 4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, ~10 variants tried, queued);
