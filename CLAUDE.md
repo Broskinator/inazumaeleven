@@ -138,7 +138,7 @@ the includes.
 ## Current priorities
 
 1. **Match engine** (`src/match/`, ov087, ov001; [docs/match_engine.md](docs/match_engine.md)):
-   367 functions still asm in `src/match` (`make todo ARGS="--file src/match"`). Next: an
+   364 functions still asm in `src/match` (`make todo ARGS="--file src/match"`). Next: an
    iterator class for `UnkDeque_0207076c` (its members func_020720e4, 020724f4, 02071df8,
    020720b0, 02072128, 02072538 are MSL deque iterator methods: `this` is {cur, begin, start,
    end}); the members that need their callees' signatures first (func_02077eb8, 02077e78,
