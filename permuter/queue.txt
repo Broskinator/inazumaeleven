@@ -3,7 +3,6 @@
 # FUNCTION is Class::Name or a free function's name; the attempt is the #ifdef NONMATCHING
 # block of SOURCE. The batch removes a line when its function matches.
 # Words: how many words of the attempt differ from the ROM (tools/fncmp.py).
-MatchEngine::func_020747e4  src/match/MatchEngine_2.cpp  1 word: movhs r0, r4 where the ROM has movhs r0, #0 (the literal 0 kept in a register)
 MatchEngine::func_020658ec  src/match/MatchEngine.cpp  2 words: cmp r1, r0 where the ROM has cmp r0, r1 (comparison operands swapped, twice)
 MatchEngine::func_0207455c  src/match/MatchEngine_2.cpp  2 words: mov r0, #3 and cmp r2, #0 in the other order
 MatchEngine::func_02074584  src/match/MatchEngine_2.cpp  2 words: mov r0, #0xa and cmp r2, #0 in the other order

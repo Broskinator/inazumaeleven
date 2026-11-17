@@ -6749,41 +6749,24 @@ BOOL MatchEngine::func_020747b4(int i, int value)
     return TRUE;
 }
 
-BOOL // (nonmatching: the order of two instructions differs)
-#ifdef NONMATCHING
-MatchEngine::func_020747e4(int index, u32 value)
+BOOL MatchEngine::func_020747e4(int index, u32 value)
 {
     MatchPlayer *player = func_ov015_02130b14(index, 0);
+    MatchPlayer *p = player;
 
     if (player == NULL) {
         return FALSE;
     }
+    // (checked a second time, as in TextFont::SetFont: the copy keeps the 0 out of a register)
+    if (player != NULL) {
+        p = player;
+    }
     if (value >= 0x200) {
         return FALSE;
     }
-    player->state->unk_32 = value;
+    p->state->unk_32 = value;
     return TRUE;
 }
-#else
-asm MatchEngine::func_020747e4(int index, u32 value)
-{
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, #0
-    mov r0, r1
-    mov r1, r4
-    mov r5, r2
-    bl func_ov015_02130b14
-    cmp r0, #0
-    moveq r0, r4
-    ldmeqia sp!, {r3, r4, r5, pc}
-    cmp r5, #0x200
-    movhs r0, #0
-    ldrlo r1, [r0, #0xec]
-    movlo r0, #1
-    strloh r5, [r1, #0x32]
-    ldmia sp!, {r3, r4, r5, pc}
-}
-#endif
 
 asm void MatchEngine::func_02074820()
 {

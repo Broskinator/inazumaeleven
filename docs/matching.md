@@ -98,6 +98,12 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   tell which of the two is assigned first (`ConfigFile::Load`).
 - **Clamps.** `if (n >= 8) n = 8;` gives `movge`, `if (n > 8)` gives `movgt`
   (`ConfigFile::GetInt`).
+- **A constant the compiler reuses from a register.** When the original has
+  `movhs r0, #0` (or `movhs r2, #0`) where our C++ reuses a register that holds 0
+  (`movhs r0, r4`), the source checked a pointer twice: a copy of it is kept,
+  `T *p = ptr; if (ptr == NULL) return FALSE; if (ptr != NULL) p = ptr;`, and the
+  rest uses the copy (`TextFont::SetFont`, `MatchEngine::func_020747e4`, found by
+  decomp-permuter through `tools/permprep.py`).
 
 ## Library calls
 
