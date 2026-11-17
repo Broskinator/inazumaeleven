@@ -51,7 +51,7 @@ extern "C" void DC_FlushRange(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN11MatchEngine13func_0206dedcEv(...);
 extern "C" s32 _ZN11MatchEngine13func_0206f058Ev(...);
-extern "C" void _ZN11MatchEngine13func_0206faa0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_02073094Eiii(...);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" s32 _ZN11MatchEngine13func_020739e4EPvi(...);
@@ -61,7 +61,7 @@ extern "C" void _ZN11MatchEngine13func_020740ccEv(void);
 extern "C" void _ZN11MatchEngine13func_020749c8Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02076ba0Ev(...);
 extern "C" void _ZN11MatchEngine13func_02078d84Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207d244Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -2130,7 +2130,7 @@ extern "C" asm s32 func_ov048_0216b004(...)
     mov r0, r6
     mov r1, r5
     add r2, r8, #1
-    bl _ZN11MatchEngine13func_0207d244Ev
+    bl _ZN11MatchEngine13func_0207d244Eii
     mov r1, r7
     bl func_ov015_02130b14
     cmp r0, #0
@@ -2347,7 +2347,7 @@ extern "C" asm void func_ov048_0216b2b8(void)
     beq @L_0216b3b4
     ldrh r1, [r9, #0x1c]
     mov r0, r4
-    bl _ZN11MatchEngine13func_0206faa0Ev
+    bl _ZN11MatchEngine13func_0206faa0Ei
     cmp r0, #0
     addeq r0, r9, #0x2000
     ldreqh r1, [r0, #0x22]

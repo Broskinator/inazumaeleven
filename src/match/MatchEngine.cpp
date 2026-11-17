@@ -11,6 +11,7 @@ extern "C" u8 data_020cabf8[];
 #include "game/GameState.hpp"
 #include "nitro/mi.h"
 #include "match/MatchBallPhysics.hpp"
+#include "system/GameHeap.hpp"
 
 extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
@@ -52,7 +53,7 @@ extern "C" void func_02081600(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02080288EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f07cEv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207f38cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f3b8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);     // (for the asm functions)
@@ -341,8 +342,8 @@ MatchEngine *MatchEngine::func_020621b4()
     unk_bb4 = NULL;
     unk_bb8 = NULL;
     unk_bbc = NULL;
-    unk_bc0[0] = 0;
-    unk_bc0[1] = 0;
+    unk_bc0 = NULL;
+    unk_bc4 = 0;
     unk_bc8 = NULL;
     unk_bcc = NULL;
     unk_bd0 = 0;
@@ -357,8 +358,8 @@ MatchEngine *MatchEngine::func_020621b4()
     unk_bf4 = NULL;
     unk_bf8[0] = 0;
     unk_bf8[1] = 0;
-    unk_bf8[2] = 0;
-    unk_bf8[3] = 0;
+    unk_c00 = NULL;
+    unk_c04 = NULL;
     unk_c28 = 0;
     unk_c2c = 0;
     unk_117d4 = 0;
@@ -437,7 +438,7 @@ extern "C" void func_ov015_021422d0(void);
 extern "C" void func_ov087_02179c3c(void);
 extern "C" void func_ov087_0217aba0(void);
 extern "C" char data_020af184[];
-extern "C" char gAllocator[];
+extern GameHeap gAllocator;
 extern "C" char data_020d9978[];
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
@@ -884,7 +885,7 @@ asm void MatchEngine::func_020622b4()
     mov r2, r6
     mov r1, #4
 @L_020628a4:
-    bl _ZN11MatchEngine13func_0207f38cEv
+    bl _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi
     b @L_02062a04
 @L_020628ac:
     cmp r6, #0
@@ -980,7 +981,7 @@ asm void MatchEngine::func_020622b4()
     mov r2, r6
     mov r1, #4
 @L_02062a00:
-    bl _ZN11MatchEngine13func_0207f38cEv
+    bl _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi
 @L_02062a04:
     mov r0, #1
     strb r0, [r5, #0xe]
@@ -3685,7 +3686,7 @@ asm void MatchEngine::func_02065178()
     mov r0, r8
     and r1, r1, #7
     mov r2, #0
-    bl _ZN11MatchEngine13func_0207f38cEv
+    bl _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi
 @L_02065240:
     ldr r1, [sp, #4]
     ldr r0, [r8, #0xec]
@@ -5265,7 +5266,7 @@ asm void MatchEngine::func_02066768()
 @L_02066b3c:
     mov r0, r10
     mov r1, r9
-    bl isunordered
+    bl func_02078ff4
     cmp r0, #0
     cmpne r4, #0
     beq @L_02066ba8
@@ -12676,20 +12677,12 @@ BOOL MatchEngine::func_0206d8f8()
     return ((*(u16 *)((u8 *)this + 0x20C)) & 0x40) ? FALSE : TRUE;
 }
 
-asm void MatchEngine::func_0206d910()
+BOOL MatchEngine::func_0206d910()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZN11MatchEngine13func_0206c644Ev
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, pc}
-    add r0, r4, #0x200
-    ldrh r0, [r0, #0xc]
-    tst r0, #0x100
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r4, pc}
+    if (func_0206c644()) {
+        return FALSE;
+    }
+    return !(unk_20c & 0x100);
 }
 
 BOOL MatchEngine::func_0206d940()
@@ -12712,20 +12705,12 @@ BOOL MatchEngine::func_0206d988()
     return ((*(u16 *)((u8 *)this + 0x21A)) & 0x10) ? TRUE : FALSE;
 }
 
-asm void MatchEngine::func_0206d9a0()
+BOOL MatchEngine::func_0206d9a0()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    bl _ZN11MatchEngine13func_02070760Ev
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    add r0, r4, #0x200
-    ldrh r0, [r0, #0x1a]
-    tst r0, #8
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
+    if (func_02070760() == 0) {
+        return FALSE;
+    }
+    return (unk_21a & 8) != 0;
 }
 
 asm void MatchEngine::func_0206d9d0()
@@ -13446,18 +13431,12 @@ asm void MatchEngine::func_0206e330()
     ldmia sp!, {pc}
 }
 
-asm void MatchEngine::func_0206e3a8()
+void MatchEngine::func_0206e3a8()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0xc00]
-    cmp r1, #0
-    ldmeqia sp!, {r4, pc}
-    ldr r0, =gAllocator
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r4, #0xc00]
-    ldmia sp!, {r4, pc}
+    if (unk_c00 != NULL) {
+        gAllocator.Free(unk_c00);
+        unk_c00 = NULL;
+    }
 }
 
 asm void MatchEngine::func_0206e3d4()
@@ -13704,20 +13683,14 @@ asm void MatchEngine::func_0206e6bc()
     ldmia sp!, {pc}
 }
 
-asm void MatchEngine::func_0206e738()
+BOOL MatchEngine::func_0206e738()
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    ldr r1, [r4, #0xc04]
-    cmp r1, #0
-    moveq r0, #1
-    ldmeqia sp!, {r4, pc}
-    ldr r0, =gAllocator
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, #0
-    str r0, [r4, #0xc04]
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    if (unk_c04 == NULL) {
+        return TRUE;
+    }
+    gAllocator.Free(unk_c04);
+    unk_c04 = NULL;
+    return TRUE;
 }
 
 asm void MatchEngine::func_0206e76c()

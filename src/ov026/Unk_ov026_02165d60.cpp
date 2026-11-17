@@ -106,7 +106,7 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
-extern "C" void _ZN11MatchEngine13func_0207d244Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -1912,7 +1912,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mov r0, r7
     ldr r2, [r2, r9, lsl #2]
     mov r1, #2
-    bl _ZN11MatchEngine13func_0207d244Ev
+    bl _ZN11MatchEngine13func_0207d244Eii
     mov r1, #0
     bl func_ov015_02130b14
     movs r8, r0

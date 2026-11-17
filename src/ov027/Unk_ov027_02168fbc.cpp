@@ -74,7 +74,7 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN11MatchEngine13func_0207b28cEv(...);
 extern "C" void _ZN11MatchEngine13func_0207bee8Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207d244Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" s32 _ZN11MatchEngine13func_02082f3cEv(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -2847,7 +2847,7 @@ extern "C" asm s32 func_ov027_0216b9f4(...)
     ldr r2, [r7, r8, lsl #2]
     mov r0, r6
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207d244Ev
+    bl _ZN11MatchEngine13func_0207d244Eii
     movs r2, r0
     beq @L_0216ba60
     mov r0, r6

@@ -102,10 +102,9 @@ asm void UnkClass_0208351c::func_020835e0()
     ldmia sp!, {r4, pc}
 }
 
-asm void UnkClass_0208351c::func_02083634()
+int UnkClass_0208351c::func_02083634()
 {
-    mov r0, #0
-    bx lr
+    return 0;
 }
 
 asm void UnkClass_0208351c::func_0208363c()
@@ -183,19 +182,22 @@ asm void UnkClass_0208351c::func_020836b4()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkClass_0208351c::func_02083750()
+int UnkClass_0208351c::func_02083750(int a, int b)
 {
-    cmp r0, r1
-    blt @L_02083768
-    subs r0, r0, r1
-    rsbmi r0, r0, #0
-    add r0, r1, r0, asr #1
-    bx lr
-@L_02083768:
-    subs r1, r1, r0
-    rsbmi r1, r1, #0
-    add r0, r0, r1, asr #1
-    bx lr
+    int d;
+
+    if (a >= b) {
+        d = a - b;
+        if (d < 0) {
+            d = -d;
+        }
+        return b + (d >> 1);
+    }
+    d = b - a;
+    if (d < 0) {
+        d = -d;
+    }
+    return a + (d >> 1);
 }
 
 asm void UnkClass_0208351c::func_02083778()

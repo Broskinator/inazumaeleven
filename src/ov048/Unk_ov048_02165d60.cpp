@@ -76,7 +76,7 @@ extern "C" void MIi_CpuClear16(void);
 extern "C" s32 _ZN10ConfigFile6GetIntEPKc(...);
 extern "C" s32 _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(...);
 extern "C" s32 _ZN11MatchEngine13func_0206f058Ev(...);
-extern "C" void _ZN11MatchEngine13func_0206faa0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_020739ccEi(...);
 extern "C" s32 _ZN11MatchEngine13func_02073df8EPviih(...);
 extern "C" void _ZN11MatchEngine13func_020767a4Em(void);
@@ -1067,7 +1067,7 @@ extern "C" asm void func_ov048_02166f88(void)
     beq @L_02167050
     ldrh r1, [r6, #0x1c]
     mov r0, r7
-    bl _ZN11MatchEngine13func_0206faa0Ev
+    bl _ZN11MatchEngine13func_0206faa0Ei
     cmp r0, #0
     bne @L_02167050
     ldr r0, [r5]

@@ -38,7 +38,7 @@ extern "C" char data_020f98a0[];
 extern "C" void FX_SinCosTable_(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MIi_CpuCopy32(void);
-extern "C" void _ZN11MatchEngine11isunorderedEv(void);
+extern "C" void _ZN11MatchEngine13func_02078ff4Ei(void);
 extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
 extern "C" void _ZN11MatchEngine13func_02067014EP11MatchPlayerii(void);
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);
@@ -91,7 +91,7 @@ extern "C" void _ZN11MatchEngine13func_02079d1cEi(void);
 extern "C" void _ZN11MatchEngine13func_0207c478Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);
 extern "C" void _ZN17UnkClass_0208351c13func_020836b4Ev(void);
-extern "C" void _ZN17UnkClass_0208351c13func_02083750Ev(void);
+extern "C" void _ZN17UnkClass_0208351c13func_02083750Eii(void);
 extern "C" void _ZN17UnkClass_0208351c13func_020838d0Ev(void);
 extern "C" void func_01ff852c(void);
 extern "C" void func_01ff85cc(void);
@@ -2622,7 +2622,7 @@ extern "C" asm s32 func_ov087_02176590(...)
     mov r0, r7
     str r2, [sp, #0xc]
     mov r4, #0x8000
-    bl _ZN11MatchEngine11isunorderedEv
+    bl _ZN11MatchEngine13func_02078ff4Ei
     cmp r0, #0
     ldr r0, [r6, #0xe8]
     mov r1, r8
@@ -2956,13 +2956,13 @@ extern "C" asm void func_ov087_021769f8(void)
     ldr r1, [sp, #0x28]
     ldr r0, [r0]
     ldr r1, [r1, #8]
-    bl _ZN17UnkClass_0208351c13func_02083750Ev
+    bl _ZN17UnkClass_0208351c13func_02083750Eii
     mov r4, r0
     ldr r0, [sp, #0x28]
     ldr r1, [sp, #0x28]
     ldr r0, [r0, #4]
     ldr r1, [r1, #0xc]
-    bl _ZN17UnkClass_0208351c13func_02083750Ev
+    bl _ZN17UnkClass_0208351c13func_02083750Eii
     ldr r1, [sp, #0x1c]
     sub r0, r0, r1
     ldr r1, [sp, #0x20]

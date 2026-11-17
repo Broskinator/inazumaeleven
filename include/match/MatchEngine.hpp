@@ -277,12 +277,12 @@ public:
     void func_0206d840();
     BOOL func_0206d8e0();
     BOOL func_0206d8f8();
-    void func_0206d910();
+    BOOL func_0206d910();
     BOOL func_0206d940();
     BOOL func_0206d958();
     BOOL func_0206d970();
     BOOL func_0206d988();
-    void func_0206d9a0();
+    BOOL func_0206d9a0();
     void func_0206d9d0();
     void func_0206da44();
     BOOL func_0206dad4(int id);
@@ -323,7 +323,7 @@ public:
     void func_0206e50c();
     void func_0206e5e4();
     void func_0206e6bc();
-    void func_0206e738();
+    BOOL func_0206e738();
     void func_0206e76c();
     void func_0206e828(int value);
     void func_0206e840(u16 value);
@@ -359,7 +359,7 @@ public:
     void func_0206f8c8();
     void func_0206f98c();
     void func_0206f9e0();
-    void func_0206faa0();
+    BOOL func_0206faa0(int index);
     void func_0206facc();
     void func_0206fad0();
     void func_0206fbb4(int i);
@@ -500,7 +500,7 @@ public:
     void func_02077ba0();
     void func_02077bd4();
     void func_02077c4c();
-    void func_02077ce4();
+    BOOL func_02077ce4();
     void func_02077d18();
     void func_02077da8();
     void func_02077e14();
@@ -537,13 +537,13 @@ public:
     BOOL func_02078f74(int a);
     BOOL func_02078f8c(int a);
     BOOL func_02078fa4(MatchPlayer *player);
-    void isunordered();
+    BOOL func_02078ff4(int a);
     BOOL func_0207900c(int a);
     BOOL func_02079024(int a);
     BOOL func_0207903c(MatchPlayer *player);
     void func_02079064();
     u8 func_020790cc(int a);
-    void func_020790e8();
+    u16 func_020790e8(MatchPlayerBody *body, int angle);
     u16 func_02079114(int a);
     void func_02079148();
     int func_0207918c(int a);
@@ -626,8 +626,8 @@ public:
     void func_0207c8e0();
     void func_0207cbd8();
     void func_0207d118();
-    void func_0207d214();
-    void func_0207d244();
+    BOOL func_0207d214(int team, int i);
+    BOOL func_0207d244(int team, int i);
     void func_0207d274();
     int func_0207d308(u8 *data);
     void func_0207d330();
@@ -679,7 +679,7 @@ public:
     void func_0207f1d0();
     void func_0207f260();
     void func_0207f2f8();
-    void func_0207f38c();
+    static void func_0207f38c(MatchPlayer *player, u8 dir, BOOL update);
     void func_0207f3b8(int value);
     u16 func_0207f3cc(u32 i);
     s8 func_0207f3e0();
@@ -706,7 +706,11 @@ public:
     u8 unk_ac[0x15C - 0xAC];
     u8 unk_15c[2][0x10];
     u8 unk_17c[2][0x40];
-    u8 unk_1fc[0x34C - 0x1FC];
+    u8 unk_1fc[0x20C - 0x1FC];
+    u16 unk_20c;        // (flags)
+    u8 unk_20e[0x21A - 0x20E];
+    u16 unk_21a;        // (flags)
+    u8 unk_21c[0x34C - 0x21C];
     u8 unk_34c[2][0x20];     // (per team)
     u8 unk_38c[0x3AC - 0x38C];
     u8 unk_3ac[2][0x10];     // (per team)
@@ -730,7 +734,8 @@ public:
     MatchPlayerInfo *unk_bb4;     // (indexed by MatchPlayerState::unk_1c)
     u8 (*unk_bb8)[0x1C];
     u8 (*unk_bbc)[0x30];
-    s32 unk_bc0[2];
+    void *unk_bc0;      // (on the heap)
+    s32 unk_bc4;
     s16 *unk_bc8;
     u8 (*unk_bcc)[0x10];
     s32 unk_bd0;
@@ -742,7 +747,9 @@ public:
     s8 *unk_be8;
     s32 unk_bec[2];
     MatchAction *unk_bf4;     // (per player, indexed by MatchPlayer::unk_f4)
-    s32 unk_bf8[4];
+    s32 unk_bf8[2];
+    void *unk_c00;      // (on the heap)
+    void *unk_c04;      // (on the heap)
     u8 unk_c08[8];
     s32 unk_c10[2];
     s32 unk_c18[2];

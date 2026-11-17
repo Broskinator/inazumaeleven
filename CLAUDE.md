@@ -148,7 +148,7 @@ the includes.
 3. **Bigger non-matching attempts** (16-165 words): `SceneManager` (6), `SaveManager` (4),
    `System::func_020401bc`, `Wireless` (3), `MatchBallPhysics::func_02061ab8`, MatchEngine (7).
 4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, ~10 variants tried, queued);
-   `MatchEngine::isunordered` at 0x02078ff4 is a wrong name (rename to `func_02078ff4`); 19 IE3
+   `MatchEngine::func_02078ff4` at 0x02078ff4 is a wrong name (rename to `func_02078ff4`); 19 IE3
    names not applied (name clashes, see ie3_mapping.md); ov088 (Mobiclip) still counted as game code.
 
 At the end of every session, update the 'Current priorities' section in CLAUDE.md and append a short dated entry to docs/progress.md (what was matched, progress % from make progress, new findings, blockers). Commit both.

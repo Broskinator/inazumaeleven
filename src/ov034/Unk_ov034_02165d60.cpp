@@ -70,7 +70,7 @@ extern "C" s32 _ZN11MatchEngine13func_0206cd78Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206e84cEv(...);
 extern "C" void _ZN11MatchEngine13func_0206e858Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_020795b4Ev(...);
-extern "C" void _ZN11MatchEngine13func_0207d244Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" s32 C3DPlaneCtrl_Acquire(...);
 extern "C" void C3DPlaneCtrl_Release(void);
@@ -1721,7 +1721,7 @@ extern "C" asm void func_ov034_02167820(void)
     ldr r2, [r4, r9, lsl #2]
     mov r0, r5
     mov r1, r11
-    bl _ZN11MatchEngine13func_0207d244Ev
+    bl _ZN11MatchEngine13func_0207d244Eii
     mov r1, r6
     bl func_ov015_02130b14
 @L_021678ac:

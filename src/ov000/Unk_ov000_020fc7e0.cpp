@@ -165,7 +165,7 @@ extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02078990Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_02078aacEv(...);
 extern "C" s32 _ZN11MatchEngine13func_0207aa58Ei(...);
-extern "C" s32 _ZN11MatchEngine13func_0207d214Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207d214Eii(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
@@ -1853,7 +1853,7 @@ extern "C" s32 func_ov000_020fe410(u8 *arg0)
         return v0;
     r7 = arg0;
     do {
-        v1 = _ZN11MatchEngine13func_0207d214Ev((u8 *)((u8 *)&data_020e88a0), 0, (r6 + 1));
+        v1 = _ZN11MatchEngine13func_0207d214Eii((u8 *)((u8 *)&data_020e88a0), 0, (r6 + 1));
         *(u16 *)(((u8 *)(r7 + (r6 << 1))) + 0x2C) = v1;
         arg0 = (u8 *)*(s32 *)(r7 + 0x11C);
         r6 = (r6 + 1);

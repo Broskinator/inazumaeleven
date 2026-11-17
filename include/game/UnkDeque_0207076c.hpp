@@ -11,11 +11,11 @@ public:
     void func_020707e4();
     void func_02070854();
     void func_02070d64();
-    void func_02070e34();
+    static void func_02070e34(const char *message);
     void func_02070e44();
     void func_02070f6c();
     void func_020710f0();
-    void func_020711fc();
+    static void func_020711fc();
     void func_02071214();
     void func_020717ac();
     void func_02071978();

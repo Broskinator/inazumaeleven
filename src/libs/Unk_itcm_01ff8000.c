@@ -185,7 +185,7 @@ void _ZN11MatchEngine13func_02068590Eii(void);
 void func_020840b4(void);
 void func_020840e0(void);
 void func_ov015_02130e28(void);
-void _ZN11MatchEngine13func_0207f38cEv(void);
+void _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi(void);
 void func_ov087_0217b90c(void);
 void _ZN11MatchEngine13func_0206d4ecEv(void);
 extern char data_020d9978[];
@@ -1934,7 +1934,7 @@ asm void func_01ff9490(void)
     mov r1, r0
     mov r0, r6
     mov r2, #0
-    bl _ZN11MatchEngine13func_0207f38cEv
+    bl _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi
 @L_01ff95ec:
     ldr r0, [r6, #0xec]
     mov r2, #0

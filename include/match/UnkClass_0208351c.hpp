@@ -13,10 +13,10 @@ public:
     void func_0208356c();
     void func_02083578();
     void func_020835e0();
-    void func_02083634();
+    int func_02083634();
     void func_0208363c();
     void func_020836b4();
-    void func_02083750();
+    static int func_02083750(int a, int b);
     void func_02083778();
     void func_020838d0();
 };

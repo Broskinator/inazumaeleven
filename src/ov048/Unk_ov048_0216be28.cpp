@@ -60,7 +60,7 @@ extern "C" void MI_CpuFill8(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
-extern "C" void _ZN11MatchEngine13func_0206faa0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
 extern "C" void _ZN11MatchEngine13func_020731c4Ev(void);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
@@ -1536,7 +1536,7 @@ extern "C" asm void func_ov048_0216d02c(void)
     beq @L_0216d388
     mov r0, r5
     mov r1, r6
-    bl _ZN11MatchEngine13func_0206faa0Ev
+    bl _ZN11MatchEngine13func_0206faa0Ei
     cmp r0, #0
     bne @L_0216d37c
     ldr r0, =gGameState

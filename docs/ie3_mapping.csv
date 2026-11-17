@@ -1826,7 +1826,7 @@ main,0x02078aac,_ZN11MatchEngine13func_02078aacEv,src/match/MatchEngine_2.cpp,FU
 main,0x02078f74,_ZN11MatchEngine13func_02078f74Ei,src/match/MatchEngine_2.cpp,FUN_ov126_0213a310,asm/overlay126/overlay126.s,function,calls,1,medium,Other game code,
 main,0x02078f8c,_ZN11MatchEngine13func_02078f8cEi,src/match/MatchEngine_2.cpp,FUN_ov126_0213a2cc,asm/overlay126/overlay126.s,function,calls,2,high,Other game code,
 main,0x02078fa4,_ZN11MatchEngine13func_02078fa4EP11MatchPlayer,src/match/MatchEngine_2.cpp,FUN_ov126_02138e80,asm/overlay126/overlay126.s,function,calls,2,high,Other game code,
-main,0x02078ff4,_ZN11MatchEngine11isunorderedEv,src/match/MatchEngine_2.cpp,FUN_ov126_0213a354,asm/overlay126/overlay126.s,function,calls,1,medium,Other game code,
+main,0x02078ff4,_ZN11MatchEngine13func_02078ff4Ev,src/match/MatchEngine_2.cpp,FUN_ov126_0213a354,asm/overlay126/overlay126.s,function,calls,1,medium,Other game code,
 main,0x020790cc,_ZN11MatchEngine13func_020790ccEi,src/match/MatchEngine_2.cpp,FUN_ov126_02138f50,asm/overlay126/overlay126.s,function,bytes,0,high,Other game code,
 main,0x020790e8,_ZN11MatchEngine13func_020790e8Ev,src/match/MatchEngine_2.cpp,FUN_ov126_02138f6c,asm/overlay126/overlay126.s,function,bytes,2,high,Other game code,
 main,0x02079114,_ZN11MatchEngine13func_02079114Ei,src/match/MatchEngine_2.cpp,FUN_ov126_02138f98,asm/overlay126/overlay126.s,function,bytes,1,high,Other game code,
