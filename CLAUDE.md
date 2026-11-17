@@ -87,6 +87,7 @@ the asm once the C++ matches.
 | `todo.py` | lists what is still asm, easiest first, with its IE3 counterpart | `python tools/todo.py --file src/match -n 30` |
 | `romasm.py` | a ROM function as MWCC inline asm | `python tools/romasm.py --ov 87 0x02180000 MatchEngine` |
 | `asmconv.py` | the same, by name or address, with current callee names | `python tools/asmconv.py 0x02036354 FileManager > f.s` |
+| `hand.py` | checks hand-written functions (one per file, or `#### name` sections with variants) in place of their asm; `--write` puts the matches in (headers, fixsyms), `--nonmatching REASON` the rest under NONMATCHING | `python tools/hand.py batch.txt`, then `--write` |
 | `asmwrap.py` | turns a function into asm + its C++ under NONMATCHING | `python tools/asmwrap.py src/f.cpp "int C::F(" f.s "reason"` |
 | `asmunwrap.py` | removes the asm of a function that now matches | `python tools/asmunwrap.py src/f.cpp "int C::F("` |
 | `permdecl.py` | tries every order of a function's local declarations | `python tools/permdecl.py src/f.cpp "int C::F(" _ZN1C1FEv` |
