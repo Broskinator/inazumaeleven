@@ -137,18 +137,22 @@ the includes.
 ## Current priorities
 
 1. **Match engine** (`src/match/`, ov087, ov001; [docs/match_engine.md](docs/match_engine.md)):
-   441 functions still asm in `src/match` (`make todo ARGS="--file src/match"`). First type the
-   `MatchEngine` fields the next members need (`MatchPoint unk_ac[22]`, `u16 unk_20c/unk_21a`,
-   `void *unk_bc0/unk_c00/unk_c04`, `s32 unk_c24`, `MatchPlayer::unk_78/unk_7a` as `s16`), then
-   convert the small members (func_0207903c, 0207455c-like setters, ...). IE3 names: `CLogicThink`,
-   `CUnitMan`, `CCalcMap` (see the `match` rows of `docs/ie3_mapping.csv`).
-2. **Permuter queue**: 14 near misses in `permuter/queue.txt` (a batch was started on
-   2026-11-17, 20 min each); check `permuter/results/` and apply what matched, reduced to
-   the parts that matter (see the null-check pattern in docs/matching.md).
+   367 functions still asm in `src/match` (`make todo ARGS="--file src/match"`). Next: an
+   iterator class for `UnkDeque_0207076c` (its members func_020720e4, 020724f4, 02071df8,
+   020720b0, 02072128, 02072538 are MSL deque iterator methods: `this` is {cur, begin, start,
+   end}); the members that need their callees' signatures first (func_02077eb8, 02077e78,
+   02077ba0, 02077eec, 02076318, 0207d330); then the todo order. Before typing a C caller,
+   check whether it passes r2/r3 through to its callee (see docs/progress.md, 2026-11-17).
+   IE3 names: `CLogicThink`, `CUnitMan`, `CCalcMap` (the `match` rows of `docs/ie3_mapping.csv`).
+2. **Permuter queue**: 19 near misses in `permuter/queue.txt`. The 2026-11-17 batch covers the
+   first 14; run `tools/permuter_batch.sh` for the 5 added after it (func_020765d4, 0206ccb8,
+   0206f500, 0207070c, 0207add4). Results reached only through fake code (an uninitialised
+   variable, a self-assignment: 0207455c, 02074584, SoundManager::func_0203bd04) don't count.
 3. **Bigger non-matching attempts** (16-165 words): `SceneManager` (6), `SaveManager` (4),
-   `System::func_020401bc`, `Wireless` (3), `MatchBallPhysics::func_02061ab8`, MatchEngine (7).
-4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, ~10 variants tried, queued);
-   `MatchEngine::func_02078ff4` at 0x02078ff4 is a wrong name (rename to `func_02078ff4`); 19 IE3
-   names not applied (name clashes, see ie3_mapping.md); ov088 (Mobiclip) still counted as game code.
+   `System::func_020401bc`, `Wireless` (3), `MatchBallPhysics::func_02061ab8`, MatchEngine
+   (func_02077f20, func_02084350 and older ones).
+4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, ~10 variants tried, queued); MWCC's
+   loop rotation (func_0207070c, func_0207add4); 19 IE3 names not applied (name clashes, see
+   ie3_mapping.md); ov088 (Mobiclip) still counted as game code.
 
 At the end of every session, update the 'Current priorities' section in CLAUDE.md and append a short dated entry to docs/progress.md (what was matched, progress % from make progress, new findings, blockers). Commit both.

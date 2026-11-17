@@ -104,6 +104,16 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   `T *p = ptr; if (ptr == NULL) return FALSE; if (ptr != NULL) p = ptr;`, and the
   rest uses the copy (`TextFont::SetFont`, `MatchEngine::func_020747e4`, found by
   decomp-permuter through `tools/permprep.py`).
+- **Arguments that pass through.** A C caller can match with too few arguments when the
+  others stay in r2/r3 untouched until its own call (`return f(a);` where `f` reads r2):
+  look at what the callee does with r1-r3 before trusting the caller's signature
+  (`MatchEngine::func_020670ec`, `func_0207aeac`, `func_020790cc`, `func_0207922c`).
+- **Narrowing twice.** Three `lsl #16; lsr #16` pairs around one `+ 0x8000` came from
+  `(u16)(int)back` with `back` a `u16` (`MatchEngine::func_02079148`); a plain cast or an
+  inline function gave two.
+- **Branches merged by case.** `case 5: case 7:` on one line gives one target for both;
+  separate cases with the same body give two (`MatchEngine::func_0206c180`). A
+  `switch` whose cases each return a field offset puts the blocks in source order.
 
 ## Library calls
 

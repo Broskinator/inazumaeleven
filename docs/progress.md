@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 496,528 | 25.49% | 9,634 | 5,735 | 59.53% | 3,899 |
-| Game, main program | 369,260 | 108,008 | 29.25% | 2,601 | 1,676 | 64.44% | 925 |
+| **Game code** | 1,948,264 | 500,384 | 25.68% | 9,634 | 5,795 | 60.15% | 3,839 |
+| Game, main program | 369,260 | 111,864 | 30.29% | 2,601 | 1,736 | 66.74% | 865 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 592,932 | 22.86% | 14,002 | 7,016 | 50.11% | 6,986 |
+| **Everything** | 2,594,024 | 596,788 | 23.01% | 14,002 | 7,076 | 50.54% | 6,926 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -32,16 +32,16 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Match engine, all** | 376,800 | 57,940 | 15.38% | 1,742 | 925 | 53.10% | 817 |
+| **Match engine, all** | 376,800 | 61,796 | 16.40% | 1,742 | 985 | 56.54% | 757 |
 | `src/match/MatchBallPhysics.cpp` | 3,356 | 1,224 | 36.47% | 33 | 28 | 84.85% | 5 |
-| `src/match/MatchEngine.cpp` | 52,352 | 7,700 | 14.71% | 294 | 171 | 58.16% | 123 |
-| `src/match/MatchEngine_2.cpp` | 70,264 | 4,052 | 5.77% | 391 | 121 | 30.95% | 270 |
+| `src/match/MatchEngine.cpp` | 52,352 | 8,296 | 15.85% | 294 | 180 | 61.22% | 114 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 6,980 | 9.93% | 391 | 166 | 42.46% | 225 |
 | `src/match/MatchEngine_3.cpp` | 772 | 88 | 11.40% | 6 | 4 | 66.67% | 2 |
-| `src/match/MatchGeometry.cpp` | 5,368 | 2,944 | 54.84% | 70 | 61 | 87.14% | 9 |
+| `src/match/MatchGeometry.cpp` | 5,368 | 3,032 | 56.48% | 70 | 62 | 88.57% | 8 |
 | `src/match/MatchPlayerList.cpp` | 1,212 | 280 | 23.10% | 21 | 16 | 76.19% | 5 |
 | `src/match/MatchRules.cpp` | 500 | 500 | 100.00% | 21 | 21 | 100.00% | 0 |
-| `src/match/MatchUtil.cpp` | 5,280 | 4,708 | 89.17% | 99 | 94 | 94.95% | 5 |
-| `src/match/UnkClass_0208351c.cpp` | 1,504 | 92 | 6.12% | 12 | 4 | 33.33% | 8 |
+| `src/match/MatchUtil.cpp` | 5,280 | 4,904 | 92.88% | 99 | 97 | 97.98% | 2 |
+| `src/match/UnkClass_0208351c.cpp` | 1,504 | 140 | 9.31% | 12 | 6 | 50.00% | 6 |
 | ov001 (match scene) | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov087 (match logic) | 57,468 | 6,064 | 10.55% | 167 | 62 | 37.13% | 105 |
 
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 108,008 | 29.25% | 2,601 | 1,676 | 64.44% | 925 |
+| main program | 369,260 | 111,864 | 30.29% | 2,601 | 1,736 | 66.74% | 865 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
@@ -162,3 +162,30 @@ bytes of game code (26.30%), 7,001 / 11,724 functions.
 - At the end: `make progress` 98.950% (unchanged: it counts asm as matched), 13,579 / 14,048.
 - Blockers: `FileManager::LoadAsync` (registers r9/r11 swapped; queued for the permuter); the
   larger attempts of SceneManager, SaveManager, System and Wireless (16 to 165 words).
+
+### 2026-11-17 (second session)
+
+Following CLAUDE.md's priorities: the match engine's small members, field types first.
+
+- Matched: 73 functions of the match engine, in eight batches (`MatchEngine` members, the
+  free helpers of MatchUtil and MatchGeometry, `UnkClass_0208351c`, the two error helpers of
+  `UnkDeque_0207076c`). The match engine is now 985 / 1,742 functions in C/C++ (16.40% of its
+  bytes, from 15.19%); game code 25.68%. `make progress`: 98.950%, 13,579 / 14,048 functions
+  (unchanged: it counts asm as matched).
+- Types: `MatchEngine` got its areas (`MatchSegment unk_4[6]`), `MatchPoint unk_ac[22]`, the
+  heap buffers, the flag words, the pair table `unk_be0`/`unk_c24`, per-team bytes and the
+  records at 0x116a8; `MatchPlayer`, `MatchPlayerBody`, `MatchPlayerState`, `MatchPlayerInfo` and
+  `SaveProfile` a few fields each. The wrong name `isunordered` is `func_02078ff4` again.
+- Found: C callers written with too few arguments matched because the rest passed through in
+  r2/r3; the callees' use of those registers gave the real signatures (`func_020670ec` takes a
+  margin, `func_0207aeac`/`func_0207aec4` a team and an id, `func_020790cc`/`func_0207922c` a
+  point). `func_02084900` is a clamp that returns nothing. `func_0201a508` is MSL `printf`.
+  The six small `UnkDeque_0207076c` members left are MSL deque *iterator* methods (`this` is
+  {cur, begin, start, end}), so they need an iterator class first.
+- Permuter: `func_020747e4` matched; `func_0207455c`, `func_02074584` and
+  `SoundManager::func_0203bd04` reach 1 word only through an uninitialised variable or a
+  self-assignment, so they stay queued. `func_020658ec`: no progress.
+- Under NONMATCHING (effort cap): `func_020765d4`, `func_0206ccb8`, `func_0206f500`,
+  `func_0207070c`, `func_0207add4`, `func_0207ae40` (queued), `func_02084350`, `func_02077f20`.
+- Blockers: MWCC's loop rotation (it enters some loops through the test and not others, for
+  reasons not found yet: `func_0207070c`, `func_0207add4`); `FileManager::LoadAsync` as before.
