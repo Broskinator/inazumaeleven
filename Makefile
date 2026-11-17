@@ -1,6 +1,8 @@
 # Inazuma Eleven (Europe) decompilation
 #
-#   make            build the ROM and check that it matches the original
+#   make            build the ROM and check that it matches the original (add -j8)
+#   make modules    quick check: compile, link and compare the code, without writing the ROM
+#   make hooks      install the pre-commit check (no commit unless the ROM matches)
 #   make progress   show how much has been decompiled
 #   make report     write docs/progress.md: the share of the code that is C/C++, by bytes
 #   make todo       list the functions that are still assembly, the easiest first
@@ -48,7 +50,7 @@ C_OBJS   := $(patsubst %.cpp,$(BUILD)/%.o,$(C_SRCS:%.c=$(BUILD)/%.o))
 
 LDFLAGS  := -proc arm946e -nostdlib -interworking -m Entry -map closure,unused
 
-.PHONY: all setup check progress report todo clean distclean
+.PHONY: all setup check modules hooks progress report todo clean distclean
 all: check
 
 setup: $(DSD) $(WIBO) $(MW)/mwldarm.exe $(OBJDIFF)
@@ -66,14 +68,26 @@ $(BUILD)/arm9.lcf: $(EXTRACT)/config.yaml $(shell find config/$(VERSION) -name '
 	$(DSD) lcf -c $(CONFIG)
 	$(PYTHON) tools/lcfextra.py $@ config/$(VERSION)/arm9/lcf_symbols.txt
 
-# 3. compile the decompiled code
+# 3. compile the decompiled code. An object is compiled again when its source changes, when a
+#    header it includes changes (tools/deps.py lists them in deps.mk), or when the compiler or
+#    its flags change (cflags.txt is rewritten only then): not when another file or this one does.
 HEADERS  := $(shell find include -name '*.h' -o -name '*.hpp')
-$(BUILD)/src/%.o: src/%.c $(HEADERS) Makefile
+FLAGS    := $(BUILD)/cflags.txt
+DEPS     := $(BUILD)/deps.mk
+$(shell mkdir -p $(BUILD); echo '$(CC_VER) $(CFLAGS)' | cmp -s - $(FLAGS) || echo '$(CC_VER) $(CFLAGS)' > $(FLAGS))
+
+$(BUILD)/src/%.o: src/%.c $(FLAGS)
 	@mkdir -p $(dir $@)
 	$(MWCC) -lang c99 $(CFLAGS) -c $< -o $@
-$(BUILD)/src/%.o: src/%.cpp $(HEADERS) Makefile
+$(BUILD)/src/%.o: src/%.cpp $(FLAGS)
 	@mkdir -p $(dir $@)
 	$(MWCC) -lang c++ $(CFLAGS) -c $< -o $@
+
+$(DEPS): $(C_SRCS) $(HEADERS) tools/deps.py
+	@$(PYTHON) tools/deps.py $(BUILD) $@
+ifeq ($(filter clean distclean setup,$(MAKECMDGOALS)),)
+-include $(DEPS)
+endif
 
 # 4. link everything with the original linker
 $(ELF): $(BUILD)/arm9.lcf $(C_OBJS)
@@ -88,6 +102,17 @@ $(ROM): $(ELF)
 
 check: $(ROM)
 	@echo "$(SHA1)  $(ROM)" | sha1sum -c
+
+# the quick check while working: compile, link and compare the code of every module (the main
+# program and each overlay) with the original, without writing the ROM. `make` is the full check.
+modules: $(ELF)
+	@$(DSD) check modules -f -c $(CONFIG) > $(BUILD)/modules.log 2>&1 && echo "modules: OK" \
+	    || (grep -v ': OK$$' $(BUILD)/modules.log | head -n 6; echo "modules: NOT MATCHING ($(BUILD)/modules.log)"; exit 1)
+
+# git runs tools/hooks/pre-commit before every commit: no commit unless the ROM matches
+hooks:
+	git config core.hooksPath tools/hooks
+	@echo "pre-commit check installed (tools/hooks/pre-commit)"
 
 # decompilation progress (objdiff); objdiff.json can also be opened in the objdiff GUI
 progress: $(ELF)

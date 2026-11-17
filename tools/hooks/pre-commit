@@ -1,0 +1,25 @@
+#!/bin/sh
+# Run by git before every commit (install it once with `make hooks`): builds the ROM from the
+# working tree and refuses the commit unless it is the original, byte for byte.
+# The build is incremental, so this takes a couple of seconds when no code changed.
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+if git diff --cached --name-only | grep -Eiq '\.(nds|sav)$|^baserom'; then
+    echo "pre-commit: a ROM or a save file is staged. Never commit the game." >&2
+    exit 1
+fi
+if [ ! -f baserom_yeep.nds ]; then
+    echo "pre-commit: baserom_yeep.nds is not here, so the ROM check is skipped." >&2
+    exit 0
+fi
+if ! command -v make >/dev/null; then
+    echo "pre-commit: make is not on the PATH, so the ROM can't be checked. Commit from the" >&2
+    echo "shell you build in (or use git commit --no-verify after running make yourself)." >&2
+    exit 1
+fi
+if ! make -j"${JOBS:-8}" > build/pre-commit.log 2>&1; then
+    tail -n 15 build/pre-commit.log >&2
+    echo "pre-commit: the ROM does not build or does not match (build/pre-commit.log)." >&2
+    exit 1
+fi
+tail -n 1 build/pre-commit.log
