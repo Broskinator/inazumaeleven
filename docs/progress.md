@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 495,704 | 25.44% | 9,634 | 5,720 | 59.37% | 3,914 |
-| Game, main program | 369,260 | 107,184 | 29.03% | 2,601 | 1,661 | 63.86% | 940 |
+| **Game code** | 1,948,264 | 495,756 | 25.45% | 9,634 | 5,721 | 59.38% | 3,913 |
+| Game, main program | 369,260 | 107,236 | 29.04% | 2,601 | 1,662 | 63.90% | 939 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 592,108 | 22.83% | 14,002 | 7,001 | 50.00% | 7,001 |
+| **Everything** | 2,594,024 | 592,160 | 22.83% | 14,002 | 7,002 | 50.01% | 7,000 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 107,184 | 29.03% | 2,601 | 1,661 | 63.86% | 940 |
+| main program | 369,260 | 107,236 | 29.04% | 2,601 | 1,662 | 63.90% | 939 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
@@ -129,3 +129,35 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 | ov086 | 4,292 | 856 | 19.94% | 17 | 9 | 52.94% | 8 |
 | ov087 | 57,468 | 6,064 | 10.55% | 167 | 62 | 37.13% | 105 |
 | ov088 | 6,844 | 1,084 | 15.84% | 39 | 26 | 66.67% | 13 |
+
+## Log
+
+One entry per working session, newest last: what was matched, the numbers, what was found, what
+blocks. `make report` rewrites everything above this section and keeps this one.
+
+### 2026-11-17
+
+At the start: `make progress` 2,573,592 / 2,600,908 bytes (98.950%, asm fallbacks count as
+matched), 13,579 / 14,048 functions, 382 / 470 files complete. C/C++ share: 592,108 / 2,251,302
+bytes of game code (26.30%), 7,001 / 11,724 functions.
+
+- Matched: `TextFont::SetFont` (the original checks the file pointer twice: the second check,
+  on a local copy, is what keeps r0 for the 0) and `TreasureBox::func_020526ec` (the attempt
+  lacked `UnloadScript`'s argument).
+- Compiler: dsi/1.1p1, 1.2p1, 1.2p2 and 1.3 give the same code as dsi/1.2 on the two known near
+  misses, so the version was not their cause; the pin stays dsi/1.2.
+- Inazuma Eleven 3 (an unlicensed decompilation, used as a reference only, outside the repo):
+  7,199 of our symbols paired with it (6,438 functions, 761 data) by masked bytes, calls and
+  order; 3,199 symbols renamed from it (2,809 library, 199 game functions, 191 data), plus
+  `ScreenManager`, `ScriptManager` and 38 members by hand. See [ie3_mapping.md](ie3_mapping.md).
+- Overlays 14, 16 and 89 turned out to be Nintendo's Wi-Fi and download-play libraries: they are
+  no longer counted as game code. Game code is now 1,948,264 bytes, of which 495,756 are C/C++
+  (25.45%; 5,721 / 9,634 functions). The match engine: 15.17% (911 / 1,742 functions).
+- Tooling: `make todo` (what to do next, easiest first), an incremental build (header
+  dependencies; a no-change `make` takes ~2 s), `make modules` (quick check without the ROM),
+  a pre-commit hook that runs the full SHA-1 check, a CI workflow (needs a secret, see
+  CLAUDE.md), decomp-permuter on C++ through `tools/permprep.py` with a queue of 15 near misses
+  and `tools/permuter_batch.sh`, and CLAUDE.md.
+- At the end: `make progress` 98.950% (unchanged: it counts asm as matched), 13,579 / 14,048.
+- Blockers: `FileManager::LoadAsync` (registers r9/r11 swapped; queued for the permuter); the
+  larger attempts of SceneManager, SaveManager, System and Wireless (16 to 165 words).

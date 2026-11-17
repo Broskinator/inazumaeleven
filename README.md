@@ -60,6 +60,12 @@ The result is `build/inazumaeleven_yeep.nds`, and the build ends with its SHA-1 
 which [objdiff](https://github.com/encounter/objdiff) opens to compare each
 function of the C code with the original, side by side.
 
+The build is incremental (`make -j8`; a change recompiles only the files it affects).
+`make modules` checks the code without writing the ROM, `make todo` lists what to
+decompile next, and `make hooks` makes git check the ROM before every commit.
+[CLAUDE.md](CLAUDE.md) has the working rules, every tool with an example, and the
+current priorities.
+
 ## Decompiling
 
 The game is written in C++. A function is decompiled when its source compiles to
@@ -72,8 +78,8 @@ Compiler: Metrowerks CodeWarrior for DSi (`mwccarm`, `dsi/1.2` in the `Makefile`
 with `-O4,p -RTTI off -proc arm946e -enum int -Cpp_exceptions off -char signed -str noreuse`.
 The game was linked with dead code stripping: functions nothing calls (such as the
 base-object constructor of a class nothing derives from) are not in the ROM. The 2.0
-(DS) compilers produce different code for some functions; every DSi 1.x version
-matched so far, so the exact one is not pinned yet.
+(DS) compilers produce different code for some functions; the DSi versions 1.1p1 to
+1.3 give the same code for everything tried so far, and the build uses dsi/1.2.
 
 Functions that compile almost but not exactly to the original are kept as the
 original instructions (an `asm` function) with the C++ attempt next to it under
