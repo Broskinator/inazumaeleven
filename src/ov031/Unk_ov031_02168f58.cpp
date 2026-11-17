@@ -55,7 +55,7 @@ extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
-extern "C" void _ZN11MatchEngine13func_02076868Ev(void);
+extern "C" void _ZN11MatchEngine13func_02076868El(void);
 extern "C" void _ZN11MatchEngine13func_02078ea8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207a78cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207a820Ev(void);
@@ -2299,7 +2299,7 @@ extern "C" asm void func_ov031_0216b15c(void)
     ldr r1, [r6, #0x50c]
     mov r0, r4
     sub r1, r2, r1
-    bl _ZN11MatchEngine13func_02076868Ev
+    bl _ZN11MatchEngine13func_02076868El
     ldr r0, =gSprButtonCtrl
     mov r5, #6
     ldr r0, [r0]

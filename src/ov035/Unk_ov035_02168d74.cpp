@@ -47,7 +47,7 @@ extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
-extern "C" void _ZN11MatchEngine13func_02076868Ev(void);
+extern "C" void _ZN11MatchEngine13func_02076868El(void);
 extern "C" void _ZN11MatchEngine13func_020777e4Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078ea8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
@@ -839,7 +839,7 @@ extern "C" asm void func_ov035_02169414(void)
     bhi @L_02169938
     mov r0, r5
     sub r1, r3, r1
-    bl _ZN11MatchEngine13func_02076868Ev
+    bl _ZN11MatchEngine13func_02076868El
     ldr r0, =gAudioPlayer
     mov r1, #6
     bl _ZN12SoundManager9PlaySoundEi

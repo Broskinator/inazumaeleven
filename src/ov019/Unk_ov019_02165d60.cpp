@@ -97,7 +97,7 @@ extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207e5a4EPhii(void);
 extern "C" void _ZN11MatchEngine13func_0207ef30Ei(void);
-extern "C" void _ZN11MatchEngine13func_0207f3ecEv(void);
+extern "C" void func_0207f3ec(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -2982,7 +2982,7 @@ extern "C" asm void func_ov019_021688c4(void)
     cmp r0, #0x14
     bge @L_021689b8
     mov r0, r6
-    bl _ZN11MatchEngine13func_0207f3ecEv
+    bl func_0207f3ec
     cmp r0, #1
     beq @L_02168988
     cmp r0, #2

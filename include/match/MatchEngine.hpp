@@ -432,8 +432,6 @@ public:
     int func_02074aac();
     int func_02074abc();
     u8 func_02074ac8();
-    void func_02074ad0();
-    void func_02074b00();
     void func_02074b30();
     void func_02074f90();
     void func_020751b8();
@@ -455,23 +453,19 @@ public:
     static int func_020764b4(u8 *data);     // (on another struct)
     static int func_020764cc(u8 *data);     // (on another struct)
     static int func_020764e4(u8 *data);     // (on another struct)
-    void func_020764f8();
-    void func_02076530();
-    void func_02076568();
-    void func_020765a0();
     void func_020765d4();
     void func_02076620();
     void func_020766e8();
     u8 func_020767a4(u32 i);
     u32 func_020767bc();
-    void func_020767cc();
+    s32 func_020767cc(s32 amount);
     void func_02076808(u8 value);
     u8 func_02076818();
     void func_02076828(u32 value);
     u8 func_02076848();
     u32 func_02076858();
-    void func_02076868();
-    void func_020768a8();
+    s32 func_02076868(s32 value);
+    s32 func_020768a8(s32 amount);
     u8 *func_020768e4(u8 *team, int i);
     u8 *func_020768fc(u32 i);
     u8 *func_02076914(u8 *team);
@@ -640,10 +634,10 @@ public:
     int func_0207d378(u8 *data, int level);
     void func_0207d394();
     void func_0207d3f8();
-    void func_0207d468();
+    u8 *func_0207d468(u8 *data, int kind);
     void func_0207d494();
-    void func_0207d500();
-    void func_0207d538();
+    s16 func_0207d500(MatchPlayer *player, int kind);
+    void func_0207d538(MatchPlayer *player, int kind, s16 value);
     void func_0207d568();
     void func_0207d60c();
     void func_0207d6a8();
@@ -689,7 +683,6 @@ public:
     void func_0207f3b8(int value);
     u16 func_0207f3cc(u32 i);
     s8 func_0207f3e0();
-    void func_0207f3ec();
     void func_0207f42c();
     void func_0207f4bc();
     void func_0207f5d0();

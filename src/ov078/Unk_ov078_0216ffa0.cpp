@@ -69,7 +69,7 @@ extern "C" void G2S_GetBG2CharPtr(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" void _ZN11MatchEngine13func_0207f3ecEv(void);
+extern "C" void func_0207f3ec(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZNSsD1Ev(void);
@@ -604,7 +604,7 @@ extern "C" asm s32 func_ov078_02170710(...)
     mov r2, #0x20
     bl MI_CpuFill8
     mov r0, r10
-    bl _ZN11MatchEngine13func_0207f3ecEv
+    bl func_0207f3ec
     cmp r0, #1
     beq @L_021707fc
     cmp r0, #2

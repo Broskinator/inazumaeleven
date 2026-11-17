@@ -400,8 +400,8 @@ void _ZN11MatchEngine13func_02068248Ev(void);
 extern char data_020af140[];
 extern char data_020af15c[];
 void _ZN11MatchEngine13func_02074ac8Ev(void);
-void _ZN11MatchEngine13func_02074ad0Ev(void);
-void _ZN11MatchEngine13func_02074b00Ev(void);
+void func_02074ad0(void);
+void func_02074b00(void);
 void STD_CompareString(void);
 void _ZN15DistanceTable3215DistanceBetweenEP7VecFx32S1_(void);
 void _ZN15DistanceTable3222DistanceBetweenPlayersEP11MatchPlayerS1_(void);
@@ -8208,7 +8208,7 @@ asm void func_01ffef7c(void)
     add r1, r7, #2
     mov r0, r6
     and r1, r1, #0xff
-    bl _ZN11MatchEngine13func_02074ad0Ev
+    bl func_02074ad0
     cmp r0, #0xff
     beq @L_01ffefdc
     cmp r4, r0
@@ -8276,7 +8276,7 @@ asm void func_01fff06c(void)
     moveq r0, #0
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r1, r4
-    bl _ZN11MatchEngine13func_02074b00Ev
+    bl func_02074b00
     ldmia sp!, {r4, r5, r6, pc}
 }
 

@@ -8,8 +8,8 @@ extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm f
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020765d4Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020767a4Em(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020767ccEv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020768a8Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020767ccEl(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020768a8El(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);     // (for the asm functions)
@@ -2284,7 +2284,7 @@ asm void TreasureBox::func_02053bbc()
     bl func_02017278
     ldrh r1, [sp, #0x1a]
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_020767ccEv
+    bl _ZN11MatchEngine13func_020767ccEl
     b @L_02053e94
 @L_02053e30:
     ldrh r0, [sp, #0x1a]
@@ -2305,7 +2305,7 @@ asm void TreasureBox::func_02053bbc()
     bl func_02017278
     ldrh r1, [sp, #0x1a]
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_020768a8Ev
+    bl _ZN11MatchEngine13func_020768a8El
     b @L_02053e94
 @L_02053e78:
     b @L_02053e7c
@@ -2584,11 +2584,11 @@ asm void TreasureBox::func_020541d0()
     ldr r4, =data_020e88a0
     mov r0, r4
     rsb r1, r1, #0
-    bl _ZN11MatchEngine13func_020767ccEv
+    bl _ZN11MatchEngine13func_020767ccEl
     ldrh r1, [r7, #0x8a]
     mov r0, r4
     rsb r1, r1, #0
-    bl _ZN11MatchEngine13func_020768a8Ev
+    bl _ZN11MatchEngine13func_020768a8El
     mov r1, #0
     strb r1, [r7, #0x89]
     strh r1, [r7, #0x8c]

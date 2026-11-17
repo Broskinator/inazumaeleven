@@ -108,7 +108,7 @@ extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" void _ZN11MatchEngine13func_0206ea50Et(void);
 extern "C" void _ZN11MatchEngine13func_0206f70cEv(void);
 extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
-extern "C" void _ZN11MatchEngine13func_020767ccEv(void);
+extern "C" void _ZN11MatchEngine13func_020767ccEl(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
 extern "C" void _ZN11MatchEngine13func_0207c6b4Ev(void);
@@ -2450,7 +2450,7 @@ extern "C" asm s32 func_ov050_02167f14(...)
     ldr r5, =data_020e88a0
     rsb r1, r0, #0
     mov r0, r5
-    bl _ZN11MatchEngine13func_020767ccEv
+    bl _ZN11MatchEngine13func_020767ccEl
     ldrh r2, [r9, #0x4a]
     ldr r0, =data_020d3d20
     ldr r1, =0x192

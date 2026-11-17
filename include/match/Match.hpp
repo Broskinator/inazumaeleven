@@ -94,7 +94,9 @@ struct MatchPlayer {
     u8 unk_55;          // (bits 5-7 and 0-4)
     u8 unk_56[0x5A - 0x56];
     u8 unk_5a;
-    u8 unk_5b[0x7C - 0x5B];
+    u8 unk_5b[0x78 - 0x5B];
+    s16 unk_78;         // (MatchEngine::func_0207d500/func_0207d538: kinds 20 and 21)
+    s16 unk_7a;         // (kinds 22 and 23)
     u16 unk_7c[12];     // (pairs)
     s16 unk_94;         // (at most unk_d0)
     s16 unk_96;         // (at most unk_d2)

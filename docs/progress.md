@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 495,816 | 25.45% | 9,634 | 5,722 | 59.39% | 3,912 |
-| Game, main program | 369,260 | 107,296 | 29.06% | 2,601 | 1,663 | 63.94% | 938 |
+| **Game code** | 1,948,264 | 496,528 | 25.49% | 9,634 | 5,735 | 59.53% | 3,899 |
+| Game, main program | 369,260 | 108,008 | 29.25% | 2,601 | 1,676 | 64.44% | 925 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 592,220 | 22.83% | 14,002 | 7,003 | 50.01% | 6,999 |
+| **Everything** | 2,594,024 | 592,932 | 22.86% | 14,002 | 7,016 | 50.11% | 6,986 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -32,10 +32,10 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Match engine, all** | 376,800 | 57,228 | 15.19% | 1,742 | 912 | 52.35% | 830 |
+| **Match engine, all** | 376,800 | 57,940 | 15.38% | 1,742 | 925 | 53.10% | 817 |
 | `src/match/MatchBallPhysics.cpp` | 3,356 | 1,224 | 36.47% | 33 | 28 | 84.85% | 5 |
 | `src/match/MatchEngine.cpp` | 52,352 | 7,700 | 14.71% | 294 | 171 | 58.16% | 123 |
-| `src/match/MatchEngine_2.cpp` | 70,264 | 3,340 | 4.75% | 391 | 108 | 27.62% | 283 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 4,052 | 5.77% | 391 | 121 | 30.95% | 270 |
 | `src/match/MatchEngine_3.cpp` | 772 | 88 | 11.40% | 6 | 4 | 66.67% | 2 |
 | `src/match/MatchGeometry.cpp` | 5,368 | 2,944 | 54.84% | 70 | 61 | 87.14% | 9 |
 | `src/match/MatchPlayerList.cpp` | 1,212 | 280 | 23.10% | 21 | 16 | 76.19% | 5 |
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 107,296 | 29.06% | 2,601 | 1,663 | 63.94% | 938 |
+| main program | 369,260 | 108,008 | 29.25% | 2,601 | 1,676 | 64.44% | 925 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
