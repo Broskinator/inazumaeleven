@@ -1,8 +1,8 @@
-// Wireless::func_0203d37c from src\wireless\Wireless.cpp: permuter score 180 (base 205)
+// Wireless::func_0203d37c from src\wireless\Wireless.cpp: permuter score 60 (base 205), 2 words differ
 BOOL Wireless::func_0203d37c()
 {
-  int new_var;
   u16 allowed = func_020131c0();
+  u8 (*new_var)[32];
   u16 channel;
   if (allowed == 0x8000)
   {
@@ -16,9 +16,6 @@ BOOL Wireless::func_0203d37c()
   if (channel == 0)
   {
     channel++;
-    if (((!channel) && (!channel)) && (!channel))
-    {
-    }
   }
   for (;;)
   {
@@ -28,22 +25,29 @@ BOOL Wireless::func_0203d37c()
     }
     if (allowed & (1 << (channel - 1)))
     {
-      break;
+      if (this || allowed)
+      {
+        break;
+      }
+      else
+      {
+        break;
+      }
     }
     channel++;
   }
 
-  new_var = 1 << (channel - 1);
   this->scanChannel = channel;
-  this->scanParam.channelList = new_var;
+  this->scanParam.channelList = 1 << (channel - 1);
   this->scanParam.scanType = 1;
   this->scanParam.ssidLength = 0;
-  MI_CpuFill8(this->scanParam.ssid, 0xFF, sizeof(this->scanParam.ssid));
+  new_var = &this->scanParam.ssid;
+  MI_CpuFill8(*new_var, 0xFF, sizeof(this->scanParam.ssid));
   this->scanParam.maxChannelTime = WM_GetDispersionScanPeriod();
   this->flags |= 1;
   if (WM_StartScanEx(this->func_0203d44c, &this->scanParam) == 2)
   {
-    return 0;
     return 1;
   }
+  return 0;
 }
