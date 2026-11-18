@@ -57,7 +57,7 @@ extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" void _ZN11MatchEngine13func_0206e5e4Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_0207aba0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207aba0Ei(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void G2x_SetBlendBrightness_(void);
 extern "C" void C3DPlaneCtrl_Acquire(void);
@@ -2490,7 +2490,7 @@ extern "C" s32 func_ov056_0216b04c(void)
     s32 v2;
     r4 = 0;
     v0 = _ZN11MatchEngine11GetTeamInfoEi((u8 *)((u8 *)&data_020e88a0), 0);
-    v1 = _ZN11MatchEngine13func_0207aba0Ev((u8 *)((u8 *)&data_020e88a0), 2);
+    v1 = _ZN11MatchEngine13func_0207aba0Ei((u8 *)((u8 *)&data_020e88a0), 2);
     r6 = (u8 *)v0;
     r0 = v0;
     if (v1 < 0xB) {

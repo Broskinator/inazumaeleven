@@ -121,7 +121,7 @@ extern "C" s32 _ZN13ScreenManager13func_0203e090Eii(...);
 extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
-extern "C" s32 _ZN11MatchEngine13func_0207aba0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207aba0Ei(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_01ffb2e0(void);
@@ -1689,7 +1689,7 @@ extern "C" void func_ov003_02104040(u8 *arg0, s32 arg1)
 
 extern "C" s32 func_ov003_02104094(void)
 {
-    s32 v0 = _ZN11MatchEngine13func_0207aba0Ev((s32)data_020e88a0, 2);
+    s32 v0 = _ZN11MatchEngine13func_0207aba0Ei((s32)data_020e88a0, 2);
     return (v0 >= 0xB ? 1 : 0);
 }
 

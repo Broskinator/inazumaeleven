@@ -593,7 +593,7 @@ public:
     int func_0207aa94(int team);
     void func_0207aaf4();
     int func_0207ab64(int team);
-    void func_0207aba0();
+    int func_0207aba0(int team);
     void func_0207ac0c();
     int func_0207ac90(int team);
     void func_0207acf0();
@@ -614,7 +614,7 @@ public:
     void func_0207bee8();
     void func_0207bfd0();
     void func_0207c064();
-    void func_0207c110();
+    int func_0207c110(int team, u32 id);
     BOOL func_0207c178(int a, int index);
     void func_0207c1b0();
     void func_0207c3d8();
@@ -638,8 +638,8 @@ public:
     u8 *func_0207d494(u8 *data, int kind);
     s16 func_0207d500(MatchPlayer *player, int kind);
     void func_0207d538(MatchPlayer *player, int kind, s16 value);
-    void func_0207d568();
-    void func_0207d60c();
+    int func_0207d568(MatchPlayer *player, int kind);
+    void func_0207d60c(MatchPlayer *player, int kind, int value);
     void func_0207d6a8();
     void func_0207d6ac();
     void func_0207d6b0(u8 *data);

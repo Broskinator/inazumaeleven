@@ -106,7 +106,8 @@ struct MatchPlayer {
     s16 unk_94;         // (at most unk_d0)
     s16 unk_96;         // (at most unk_d2)
     u16 unk_98[7];
-    u8 unk_a6[0xB6 - 0xA6];
+    u8 unk_a6[0xAF - 0xA6];
+    s8 unk_af[7];       // (MatchEngine::func_0207d568/func_0207d60c: kinds 30 to 36)
     u8 unk_b6;          // (the team)
     u8 unk_b7;
     u8 unk_b8[2];
