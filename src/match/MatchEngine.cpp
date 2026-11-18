@@ -177,8 +177,8 @@ extern "C" void _ZN11MatchEngine13func_0206a3b8Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206a494Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a720Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a748Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206a774Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206a77cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206a774Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206a77cEP10MatchState(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a7f0Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a890Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a8d8Eiii(void);     // (for the asm functions)
@@ -9231,45 +9231,27 @@ MatchState *MatchEngine::func_0206a748(int n)
     return &unk_c7c[i];
 }
 
-BOOL MatchEngine::func_0206a774()
+BOOL MatchEngine::func_0206a774(int a)
 {
     return TRUE;
 }
 
-asm void MatchEngine::func_0206a77c()
+BOOL MatchEngine::func_0206a77c(MatchState *state)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_ov015_021317c8
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206ace8Ev
-    cmp r0, #0
-    ldreqb r0, [r4]
-    beq @L_0206a7b8
-    mov r0, r5
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0206abfcEP10MatchState
-@L_0206a7b8:
-    ldrb r1, [r4, #4]
-    tst r1, #3
-    bne @L_0206a7e0
-    cmp r0, #6
-    bne @L_0206a7e8
-    ldrb r1, [r4, #1]
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206a774Ev
-    cmp r0, #0
-    beq @L_0206a7e8
-@L_0206a7e0:
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0206a7e8:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    int phase;
+
+    if (func_ov015_021317c8()) {
+        return FALSE;
+    }
+    if (!func_0206ace8()) {
+        phase = state->unk_0;
+    } else {
+        phase = func_0206abfc(state);
+    }
+    if ((state->flags & 3) || (phase == 6 && func_0206a774(state->unk_1))) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 asm int MatchEngine::func_0206a7f0(int n, BOOL convert)
@@ -9296,7 +9278,7 @@ asm int MatchEngine::func_0206a7f0(int n, BOOL convert)
     moveq r0, r5
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r0, r6
-    bl _ZN11MatchEngine13func_0206a77cEv
+    bl _ZN11MatchEngine13func_0206a77cEP10MatchState
     cmp r0, #0
     beq @L_0206a888
 @L_0206a850:
@@ -9311,7 +9293,7 @@ asm int MatchEngine::func_0206a7f0(int n, BOOL convert)
     subeq r0, r5, #1
     ldmeqia sp!, {r4, r5, r6, pc}
     mov r0, r6
-    bl _ZN11MatchEngine13func_0206a77cEv
+    bl _ZN11MatchEngine13func_0206a77cEP10MatchState
     cmp r0, #0
     bne @L_0206a850
 @L_0206a888:
@@ -9506,7 +9488,7 @@ asm void MatchEngine::func_0206aa6c()
     movs r1, r0
     beq @L_0206abcc
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206a77cEv
+    bl _ZN11MatchEngine13func_0206a77cEP10MatchState
     cmp r0, #0
     beq @L_0206abe0
 @L_0206abcc:

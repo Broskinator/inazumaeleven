@@ -179,8 +179,8 @@ public:
     BOOL func_0206a700(int value);
     BOOL func_0206a720(int value);
     MatchState *func_0206a748(int n);
-    BOOL func_0206a774();
-    void func_0206a77c();
+    BOOL func_0206a774(int a);     // (a stub: TRUE)
+    BOOL func_0206a77c(MatchState *state);
     int func_0206a7f0(int n, BOOL convert);
     u8 *func_0206a890(int n, BOOL convert);
     u8 *func_0206a8d8(int player, int n, BOOL convert);
@@ -384,8 +384,8 @@ public:
     u16 func_0206f70c(u16 id);
     u16 func_0206f750(u16 id);
     BOOL func_0206f7a4();
-    void func_0206f824();
-    void func_0206f8c8();
+    void func_0206f824(u32 id, BOOL second);
+    void func_0206f8c8(u32 id);
     u16 func_0206f98c(u16 id);
     void func_0206f9e0();
     BOOL func_0206faa0(int index);
@@ -623,7 +623,7 @@ public:
     int func_0207aaf4(int team, int kind);
     int func_0207ab64(int team);
     int func_0207aba0(int team);
-    void func_0207ac0c();
+    int func_0207ac0c(int team, int kind);
     int func_0207ac90(int team);
     int func_0207acf0(int team);
     int func_0207ad74(int team);
@@ -675,7 +675,7 @@ public:
     int func_0207d6bc(int value);
     void func_0207d728();
     void func_0207d830();
-    void func_0207da34();
+    int func_0207da34(MatchPlayer *player, int kind);
     void func_0207dac0();
     int func_0207dbf4(int a, int b);
     void func_0207dc10(u8 *data, int a);
