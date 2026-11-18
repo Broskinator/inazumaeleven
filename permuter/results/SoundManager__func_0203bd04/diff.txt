@@ -1,0 +1,10 @@
+--- before
++++ after
+@@ -637,6 +637,7 @@
+         }
+         DSE_SsdSetMonoToStereo((this->streams[i].unk_21 != 0) ? (1) : (0));
+         this->streams[i].unk_21 = 0;
++        this->streams[i].state = this->streams[i].state;
+         opened = func_020487c4(path, 0x6000, 1);
+         if (opened < 0)
+         {

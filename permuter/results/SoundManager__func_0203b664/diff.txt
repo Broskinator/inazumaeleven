@@ -1,0 +1,18 @@
+--- before
++++ after
+@@ -578,12 +578,13 @@
+   for (i = 0; i < 2; i++)
+   {
+     sequence = this->banks[this->tracks[i].sequence].handle;
+-    if (this->tracks[i].flags & 4)
++    if (((((((((((((this->tracks[i].flags & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 0xFF) & 4)
+     {
+       if (DSE_SsdIsPlaySequence(sequence) > 0)
+       {
+         func_02041e70(sequence, this->tracks[i].unk_28);
+-        this->tracks[i].state = (this->tracks[i].state | 4) & ((u16) (~2));
++        this->tracks[i].state = this->tracks[i].state | 4;
++        this->tracks[i].state = this->tracks[i].state & ((u16) (~2));
+       }
+       this->tracks[i].unk_28 = 0;
+       this->tracks[i].flags &= ~4;

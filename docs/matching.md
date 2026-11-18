@@ -83,8 +83,9 @@ for values that live in the same register, the order of the statements that
 set them). `tools/permdecl.py` tries every order of a function's declarations.
 
 - **16-bit masks.** `flags = (flags | 4) & ~2` on a `u16` gives `bic`; the
-  original's `and` with `0xFFFD` kept in a register is `& (u16)~2`
-  (`SoundManager::func_0203b664`).
+  original's `and` with `0xFFFD` kept in a register is `& (u16)~2`. Two statements,
+  `flags |= 4; flags &= (u16)~2;`, also load the arguments of the call before them in another order than
+  the one expression (`SoundManager::func_0203b664`, found by the permuter).
 - **A value tested before it is stored.** `cmp r0, #0; blt ...; str r0, [...];
   mov r6, r0` is `x = f(); if (x < 0) ...; local = member = x;`, while
   `local = f()` with the test on `local` gives `movs r6, r0`

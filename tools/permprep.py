@@ -26,8 +26,10 @@ decomp-permuter (https://github.com/simonlindholm/decomp-permuter, cloned outsid
 on J processes (default: PERM_JOBS, or the number of CPUs), and keeps the best candidate in
 permuter/results/NAME/: function.cpp (the function as C++, to put in place of the attempt in
 SOURCE), diff.txt (what the permuter changed, in the C view) and score.txt. A better earlier
-result is not overwritten. It exits with 0 when the function matches (score 0), 1 when it does
-not, 2 when it could not be prepared.
+result is not overwritten. The permuter's score leaves out branch targets, so each candidate that
+scores 0 is checked word by word against the ROM (tools/fncmp.py's comparison): the run stops
+only at a real match, and the result kept is the one with the fewest words that differ. It exits
+with 0 when the function matches, 1 when it does not, 2 when it could not be prepared.
 
 Needs a C preprocessor (cpp, or devkitARM's arm-none-eabi-cpp) and arm-none-eabi-objdump.
 """
@@ -724,30 +726,55 @@ def run(func, source, minutes, jobs):
         print(f"{func}: matches already")
         return 0
     log = os.path.join(d, "permuter.log")
-    cmd = [sys.executable, os.path.abspath(__file__), "permuter-main", d, "--best-only", "--stop-on-zero", "-j", str(jobs)]
+    # (no --stop-on-zero: the permuter's score leaves out branch targets, so a candidate can score 0
+    # and still differ; each one that scores 0 is checked word by word, and only a real match stops it)
+    cmd = [sys.executable, os.path.abspath(__file__), "permuter-main", d, "--best-only", "-j", str(jobs)]
+    checked = {}
+
+    def words_of(out):
+        if out not in checked:
+            o = os.path.join(d, "check.o")
+            checked[out] = (words_differ(o, func)
+                            if compile_one(d, os.path.join(out, "source.c"), o) == "" else None)
+        return checked[out]
+
+    def outputs():
+        found = []
+        for sc in glob.glob(os.path.join(d, "output-*", "score.txt")):
+            try:
+                found.append((int(open(sc).read().split()[0]), os.path.dirname(sc)))
+            except (ValueError, IndexError, OSError):
+                pass
+        return sorted(found)
+
     start = time.time()
     with open(log, "w") as f:
         kw = {} if os.name == "nt" else {"start_new_session": True}
         p = subprocess.Popen(cmd, stdout=f, stderr=subprocess.STDOUT, cwd=ROOT, **kw)
-        try:
-            p.wait(minutes * 60)
-        except subprocess.TimeoutExpired:
-            kill_tree(p)
+        while True:
+            try:
+                p.wait(min(30, max(1, start + minutes * 60 - time.time())))
+                break
+            except subprocess.TimeoutExpired:
+                pass
+            if any(s == 0 and words_of(o) == 0 for s, o in outputs()) or time.time() >= start + minutes * 60:
+                kill_tree(p)
+                break
     spent = (time.time() - start) / 60
     text = open(log, encoding="utf-8", errors="replace").read()
     m = re.search(r"base score = (\d+)", text)
     base_score = int(m[1]) if m else None
-    outs = []
-    for sc in glob.glob(os.path.join(d, "output-*", "score.txt")):
-        try:
-            outs.append((int(open(sc).read().split()[0]), os.path.dirname(sc)))
-        except (ValueError, IndexError):
-            pass
-    outs.sort()
-    old = None
+    # the best candidate: fewest words that really differ, then the permuter's score (of the
+    # twenty that score best: compiling each takes a second)
+    outs = outputs()[:20]
+    outs.sort(key=lambda so: (999999 if words_of(so[1]) is None else words_of(so[1]), so[0]))
+    old = old_words = None
     if os.path.exists(os.path.join(res, "score.txt")):
-        m = re.match(r"best (\d+)", open(os.path.join(res, "score.txt")).read())
+        t = open(os.path.join(res, "score.txt")).read()
+        m = re.match(r"best (\d+)", t)
         old = int(m[1]) if m else None
+        m = re.search(r"; (\d+) words differ", t)
+        old_words = int(m[1]) if m else None
     stamp = time.strftime("%Y-%m-%d %H:%M")
     if base_score is None:
         print(f"{func}: the permuter did not start, see {log}")
@@ -761,18 +788,16 @@ def run(func, source, minutes, jobs):
                 f"no improvement (base score {base_score}, {before_text(d)}), {spent:.0f} min on {jobs} processes, {stamp}\n")
         return 1
     score, out = outs[0]
-    if old is not None and old <= score:
-        print(f"{func}: best {score}, not better than the earlier result ({old})")
-        return 0 if old == 0 else 1
+    words = words_of(out)
+    if old is not None and ((old_words, old) <= (words, score) if None not in (old_words, words) else old <= score):
+        print(f"{func}: best {score} ({words} words differ), not better than the earlier result ({old}, {old_words} words)")
+        return 0 if old == 0 and old_words == 0 else 1
     os.makedirs(res, exist_ok=True)
     bridge = json.load(open(os.path.join(d, "bridge.json")))
     open(os.path.join(res, "function.cpp"), "w", newline="\n").write(
-        f"// {func} from {os.path.relpath(source, ROOT)}: permuter score {score} (base {base_score})\n"
+        f"// {func} from {os.path.relpath(source, ROOT)}: permuter score {score} (base {base_score}), {words} words differ\n"
         + from_c(open(os.path.join(out, "source.c"), encoding="utf-8").read(), bridge))
     shutil.copy(os.path.join(out, "diff.txt"), os.path.join(res, "diff.txt"))
-    words = None
-    if compile_one(d, os.path.join(out, "source.c"), os.path.join(d, "best.o")) == "":
-        words = words_differ(os.path.join(d, "best.o"), func)
     open(os.path.join(res, "score.txt"), "w").write(
         f"best {score} (base score {base_score}; {words} words differ, {before_text(d)}), "
         f"{spent:.0f} min on {jobs} processes, {stamp}\n")

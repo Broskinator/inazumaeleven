@@ -7,7 +7,6 @@ MatchEngine::func_020658ec  src/match/MatchEngine.cpp  2 words: cmp r1, r0 where
 MatchEngine::func_0207455c  src/match/MatchEngine_2.cpp  2 words: mov r0, #3 and cmp r2, #0 in the other order
 MatchEngine::func_02074584  src/match/MatchEngine_2.cpp  2 words: mov r0, #0xa and cmp r2, #0 in the other order
 SoundManager::func_0203bd04  src/sound/SoundManager.cpp  2 words: r8 where the ROM has sb (one register of two swapped)
-SoundManager::func_0203b664  src/sound/SoundManager.cpp  2 words: mov r0, r8 and ldr r1, [r4, #0x2d0] in the other order
 Wireless::func_0203d37c  src/wireless/Wireless.cpp  2 words: movne r5, r4 / mov r0, r5 where the ROM has movne r0, r4 / moveq r0, r5
 Main::func_0204069c  src/system/GameMain.cpp  3 words: the literal-pool load scheduled after the two moves instead of first
 SoundManager::SetFade  src/sound/SoundManager.cpp  4 words: r1 and r2 swapped between the two values stored

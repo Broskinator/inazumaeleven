@@ -33,7 +33,7 @@ grep -v '^[[:space:]]*\(#\|$\)' "$QUEUE" | while read -r func source rest; do
     echo "-- $(date '+%H:%M') $func ($source): $rest" | tee -a "$LOG"
     "$PYTHON" tools/permprep.py run "$func" "$source" --minutes "$MINUTES" 2>&1 | tee -a "$LOG"
     # (tee hides the exit status: the result line says whether it matched)
-    if tail -n 3 "$LOG" | grep -q "^$func: \(best score 0 (.*), 0 words differ\|matches already\)"; then
+    if tail -n 3 "$LOG" | grep -q "^$func: \(best score [0-9]* (.*), 0 words differ\|matches already\)"; then
         tmp=$(mktemp)
         awk -v f="$func" '$1 != f' "$QUEUE" > "$tmp" && cat "$tmp" > "$QUEUE"
         rm -f "$tmp"
