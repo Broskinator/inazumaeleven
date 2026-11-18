@@ -22,6 +22,12 @@ struct UnkPair_020621b4 {
 // A state of the match (the current one is at 0xB84, the past ones in a ring at 0xC7C)
 // A record of 0x18 bytes, ten of them at MatchEngine::unk_116a4 (func_02076168 gives the next one
 // and clears it, func_02076318 fills it)
+// (0x18 bytes, two of them at 0x554: one value per team first)
+struct UnkRecord_0206b3fc {
+    s32 unk_0[2];
+    u8 unk_8[0x10];
+};
+
 struct UnkRecord_02076168 {
     u8 unk_0[4];
     s8 unk_4[3];
@@ -188,7 +194,7 @@ public:
     void func_0206b1a0(MatchState *state, u8 value);
     s32 func_0206b1c4(int i);
     s32 func_0206b1d0(int i);
-    void func_0206b1dc();
+    int func_0206b1dc(int side);
     BOOL func_0206b274(int team, int value);
     u8 *func_0206b2c8(int team);
     void func_0206b308();
@@ -278,7 +284,7 @@ public:
     BOOL func_0206cec0();
     int func_0206cf6c();
     void func_0206cfc8();
-    void func_0206d094();
+    BOOL func_0206d094(int team);
     void func_0206d114();
     BOOL func_0206d188(int team, BOOL flag);
     void func_0206d358();
@@ -562,14 +568,14 @@ public:
     u16 func_0207918c(MatchPlayer *player, fx32 x, fx32 y);
     int func_020791cc(int a, int b);
     int func_0207922c(MatchPlayer *player, fx32 x, fx32 y);
-    void func_0207924c();
-    void func_020792cc();
+    void func_0207924c(int team, BOOL on);
+    void func_020792cc(int team, BOOL on);
     void func_0207934c();
     void func_020793bc();
     void func_020795b4();
     void func_020797d4();
     void func_02079838(int level);
-    void func_020798c0();
+    void func_020798c0(int team, int level);
     void func_02079940(int team, int level);
     void func_020799b4();
     void func_02079ae4();
@@ -728,7 +734,10 @@ public:
     u8 unk_34c[2][0x20];     // (per team)
     u8 unk_38c[0x3AC - 0x38C];
     u8 unk_3ac[2][0x10];     // (per team)
-    u8 unk_3cc[0xB7C - 0x3CC];
+    u8 unk_3cc[0x554 - 0x3CC];
+    UnkRecord_0206b3fc unk_554;
+    UnkRecord_0206b3fc unk_56c;     // (unk_554 as it was, see func_0206b3fc)
+    u8 unk_584[0xB7C - 0x584];
     s32 unk_b7c;
     MatchPlayerList *unk_b80;     // (an object with a vtable)
     MatchState unk_b84;   // (unk_0: the phase)

@@ -214,14 +214,14 @@ extern "C" s32 _ZN11MatchEngine13func_0206ce9cEv(...);
 extern "C" void _ZN11MatchEngine13func_0206e3d4Ev(void);
 extern "C" void _ZN11MatchEngine13func_02077bd4Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02077ce4Ev(...);
-extern "C" void _ZN11MatchEngine13func_0207924cEv(void);
-extern "C" void _ZN11MatchEngine13func_020792ccEv(void);
+extern "C" void _ZN11MatchEngine13func_0207924cEii(void);
+extern "C" void _ZN11MatchEngine13func_020792ccEii(void);
 extern "C" void _ZN11MatchEngine13func_0207934cEv(void);
 extern "C" void _ZN11MatchEngine13func_020793bcEv(void);
 extern "C" void _ZN11MatchEngine13func_020795b4Ev(void);
 extern "C" void _ZN11MatchEngine13func_020797d4Ev(void);
 extern "C" void _ZN11MatchEngine13func_02079838Ei(void);
-extern "C" void _ZN11MatchEngine13func_020798c0Ev(void);
+extern "C" void _ZN11MatchEngine13func_020798c0Eii(void);
 extern "C" void _ZN11MatchEngine13func_02079940Eii(void);
 extern "C" s32 _ZN11MatchEngine13func_020799b4Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_02079ae4Ev(...);
@@ -679,14 +679,14 @@ extern "C" asm void func_ov001_02115e54(void)
     ldr r0, =data_020e88a0
     moveq r2, #0
     mov r1, r5
-    bl _ZN11MatchEngine13func_020792ccEv
+    bl _ZN11MatchEngine13func_020792ccEii
     cmp r7, #0
     movne r5, #1
     mov r6, #0
     ldr r0, =data_020e88a0
     mov r1, r6
     mov r2, r5
-    bl _ZN11MatchEngine13func_0207924cEv
+    bl _ZN11MatchEngine13func_0207924cEii
     ldrb r0, [r4, #0x85]
     mov r7, #1
     mov r2, #1
@@ -700,14 +700,14 @@ extern "C" asm void func_ov001_02115e54(void)
     ldr r0, =data_020e88a0
     moveq r2, #0
     mov r1, r6
-    bl _ZN11MatchEngine13func_020792ccEv
+    bl _ZN11MatchEngine13func_020792ccEii
     ldr r5, =data_020e88a0
     cmp r7, #0
     moveq r6, #0
     mov r2, r6
     mov r0, r5
     mov r1, #1
-    bl _ZN11MatchEngine13func_0207924cEv
+    bl _ZN11MatchEngine13func_0207924cEii
     ldrb r0, [r4, #0x1b]
     cmp r0, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
@@ -813,7 +813,7 @@ extern "C" asm s32 func_ov001_02116080(...)
     mov r0, r6
     mov r1, r5
     mov r2, r4
-    bl _ZN11MatchEngine13func_020798c0Ev
+    bl _ZN11MatchEngine13func_020798c0Eii
     mov r0, r6
     mov r1, r5
     mov r2, r4

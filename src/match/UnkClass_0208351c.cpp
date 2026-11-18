@@ -1,11 +1,12 @@
 #include "match/UnkClass_0208351c.hpp"
 
-extern "C" void func_02084094(void);     // (for the asm functions)
+#include "nitro/fx.h"
+
+extern "C" u16 func_02084094(fx32 *segment);
 extern "C" void func_020841d8(void);     // (for the asm functions)
 extern "C" void func_0208488c(void);     // (for the asm functions)
 extern "C" void *data_020af44c[];     // (the vtable)
 
-extern "C" void FX_SinCosTable_(void);
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN15MatchPlayerList13func_02083060Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_020830a8Ev(void);
@@ -15,8 +16,8 @@ extern "C" void _ZdlPv(void);
 extern "C" void FX_Div(void);
 extern "C" void FX_Atan2Idx(void);
 extern "C" void func_ov015_021319b0(void);
-extern "C" void func_ov015_02131bb4(void);
-extern "C" void func_ov015_021335c0(void);
+extern "C" BOOL func_ov015_02131bb4(MatchPlayer *player);
+extern "C" int func_ov015_021335c0(void);
 
 UnkClass_0208351c *UnkClass_0208351c::func_0208351c()
 {
@@ -75,31 +76,17 @@ asm void UnkClass_0208351c::func_02083578()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void UnkClass_0208351c::func_020835e0()
+BOOL UnkClass_0208351c::func_020835e0(MatchPlayer *player)
 {
-    stmdb sp!, {r4, lr}
-    mov r4, r1
-    bl func_ov015_021335c0
-    cmp r0, #0xa
-    bne @L_0208360c
-    mov r0, r4
-    bl func_ov015_02131bb4
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r4, pc}
-@L_0208360c:
-    cmp r0, #0xb
-    bne @L_0208362c
-    mov r0, r4
-    bl func_ov015_02131bb4
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r4, pc}
-@L_0208362c:
-    mov r0, #1
-    ldmia sp!, {r4, pc}
+    int mode = func_ov015_021335c0();
+
+    if (mode == 10) {
+        return func_ov015_02131bb4(player) ? TRUE : FALSE;
+    }
+    if (mode == 11) {
+        return func_ov015_02131bb4(player) ? FALSE : TRUE;
+    }
+    return TRUE;
 }
 
 int UnkClass_0208351c::func_02083634()
@@ -107,37 +94,13 @@ int UnkClass_0208351c::func_02083634()
     return 0;
 }
 
-asm void UnkClass_0208351c::func_0208363c()
+// (puts the segment's end at length from its start, keeping its direction)
+extern "C" void func_0208363c(fx32 *segment, fx32 length)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_02084094
-    mov r0, r0, asr #4
-    mov r3, r0, lsl #1
-    add r0, r3, #1
-    ldr r2, =FX_SinCosTable_
-    mov r1, r0, lsl #1
-    mov r0, r3, lsl #1
-    ldrsh r1, [r2, r1]
-    ldrsh r0, [r2, r0]
-    ldr r12, [r5]
-    smull r1, r2, r4, r1
-    adds r3, r1, #0x800
-    smull r1, r0, r4, r0
-    adc r2, r2, #0
-    adds r1, r1, #0x800
-    mov r3, r3, lsr #0xc
-    orr r3, r3, r2, lsl #20
-    add r3, r12, r3
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    ldr r2, [r5, #4]
-    orr r1, r1, r0, lsl #20
-    add r0, r2, r1
-    str r3, [r5, #8]
-    str r0, [r5, #0xc]
-    ldmia sp!, {r3, r4, r5, pc}
+    int idx = func_02084094(segment) >> 4;
+
+    segment[2] = segment[0] + FX_Mul(length, FX_CosIdx(idx));
+    segment[3] = segment[1] + FX_Mul(length, FX_SinIdx(idx));
 }
 
 asm void UnkClass_0208351c::func_020836b4()

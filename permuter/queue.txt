@@ -30,3 +30,4 @@ MatchEngine::func_0207a534  src/match/MatchEngine_2.cpp  4 words: the key (ip) a
 MatchEngine::func_0207c110  src/match/MatchEngine_2.cpp  6 words: ldr r3, =0xfff scheduled first, the ROM loads it into r0 after the entry's address
 MatchEngine::func_0207e810  src/match/MatchEngine_2.cpp  16 words: rect[2] loaded after rect[0]; division result through r4 to a shared return
 MatchEngine::func_0207e884  src/match/MatchEngine_2.cpp  16 words: same as func_0207e810 (the y axis)
+MatchEngine::func_0206b1dc  src/match/MatchEngine.cpp  10 words: the start index and the count in each other's registers (r8/r5)
