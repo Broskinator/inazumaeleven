@@ -13548,38 +13548,15 @@ asm void MatchEngine::func_0206e5e4()
     bx lr
 }
 
-asm void MatchEngine::func_0206e6bc()
+BOOL MatchEngine::func_0206e6bc()
 {
-    stmdb sp!, {lr}
-    sub sp, sp, #0x14
-    mov r2, r0
-    ldr r0, [r2, #0xc04]
-    cmp r0, #0
-    addne sp, sp, #0x14
-    movne r0, #1
-    ldmneia sp!, {pc}
-    ldr r3, =gAllocator
-    ldr r1, =data_020af1f4
-    ldr r0, [r3]
-    cmp r0, #0
-    moveq r0, #0
-    beq @L_0206e71c
-    mov r12, #0
-    str r12, [sp]
-    str r12, [sp, #4]
-    add r2, r2, #4
-    str r12, [sp, #8]
-    mov r12, #1
-    str r12, [sp, #0xc]
-    add r2, r2, #0xc00
-    str r12, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_0206e71c:
-    cmp r0, #0
-    moveq r0, #0
-    movne r0, #1
-    add sp, sp, #0x14
-    ldmia sp!, {pc}
+    if (unk_c04 != NULL) {
+        return TRUE;
+    }
+    if (MatchLoadFile(data_020af1f4, &unk_c04, 0, 0) == 0) {
+        return FALSE;
+    }
+    return TRUE;
 }
 
 BOOL MatchEngine::func_0206e738()

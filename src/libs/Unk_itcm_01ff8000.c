@@ -260,7 +260,7 @@ void _ZN11MatchEngine13func_020630d8Ev(void);
 void func_ov087_0217cd3c(void);
 void _ZN11MatchEngine13func_0206c37cEv(void);
 void _ZN11MatchEngine13func_0207c6b4Ev(void);
-void _ZN11MatchEngine13func_0207ac90Ev(void);
+void _ZN11MatchEngine13func_0207ac90Ei(void);
 void _ZN10MatchRules13func_0206eef8Ev(void);
 void Random_RandA(void);
 void _ZN11MatchEngine13func_02070678Ei(void);
@@ -3638,12 +3638,12 @@ asm void func_01ffa838(void)
     bl _ZN11MatchEngine13func_0207c6b4Ev
     mov r0, r4
     mov r1, r9
-    bl _ZN11MatchEngine13func_0207ac90Ev
+    bl _ZN11MatchEngine13func_0207ac90Ei
     mov r1, r7
     strb r0, [r1, #0x892]
     mov r0, r4
     mov r1, r6
-    bl _ZN11MatchEngine13func_0207ac90Ev
+    bl _ZN11MatchEngine13func_0207ac90Ei
     mov r1, r7
     ldr r2, [pc, #0x110]
     str r9, [r4, #0xbac]

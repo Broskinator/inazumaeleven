@@ -67,7 +67,9 @@ struct MatchPlayerBody {
 };
 
 struct MatchPlayerState {
-    u8 unk_0[0x10];
+    fx32 unk_0;         // (a position: x, 0x80000000 when there is none)
+    fx32 unk_4;
+    u8 unk_8[0x10 - 0x8];
     s32 unk_10;
     s32 unk_14;
     u8 unk_18[0x1C - 0x18];

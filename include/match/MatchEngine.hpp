@@ -322,7 +322,7 @@ public:
     void func_0206e3d4();
     void func_0206e50c();
     void func_0206e5e4();
-    void func_0206e6bc();
+    BOOL func_0206e6bc();
     BOOL func_0206e738();
     void func_0206e76c();
     void func_0206e828(int value);
@@ -354,7 +354,7 @@ public:
     void func_0206f6b0();
     u16 func_0206f70c(u16 id);
     u16 func_0206f750(u16 id);
-    void func_0206f7a4();
+    BOOL func_0206f7a4();
     void func_0206f824();
     void func_0206f8c8();
     u16 func_0206f98c(u16 id);
@@ -474,7 +474,7 @@ public:
     void func_020769f0();
     BOOL func_02076a64(u8 a, u8 b);
     void func_02076a7c();
-    void func_02076ba0();
+    int func_02076ba0(u32 id, int cost, BOOL force);
     void func_02076c08();
     void func_02076c98();
     void func_02076ddc();
@@ -541,7 +541,7 @@ public:
     BOOL func_0207900c(MatchPlayer *player);
     BOOL func_02079024(MatchPlayer *player);
     BOOL func_0207903c(MatchPlayer *player);
-    void func_02079064();
+    BOOL func_02079064(MatchPlayer *player);
     u8 func_020790cc(MatchPlayerBody *body, fx32 x, fx32 y);
     u16 func_020790e8(MatchPlayerBody *body, u16 dir);
     u16 func_02079114(MatchPlayerBody *body, fx32 x, fx32 y);     // (the direction to (x, y), from the body's)
@@ -564,7 +564,7 @@ public:
     void func_02079cec();
     int func_02079d1c(int a);
     MatchPlayer *func_02079d2c(int index);
-    void func_02079d3c();
+    int func_02079d3c(int team);
     int func_02079d9c(MatchPlayer *player);
     void func_02079dd8();
     MatchPlayer *func_02079e90(int team, int i);
@@ -595,9 +595,9 @@ public:
     int func_0207ab64(int team);
     void func_0207aba0();
     void func_0207ac0c();
-    void func_0207ac90();
+    int func_0207ac90(int team);
     void func_0207acf0();
-    void func_0207ad74();
+    int func_0207ad74(int team);
     int func_0207add4(int team, u32 id);     // (1 + where id is in the team's unk_3ac, or 0)
     int func_0207ae40(int team, u32 id);     // (the same in unk_34c)
     BOOL func_0207aeac(int team, u32 id);
