@@ -387,7 +387,7 @@ public:
     void func_0206f824(u32 id, BOOL second);
     void func_0206f8c8(u32 id);
     u16 func_0206f98c(u16 id);
-    void func_0206f9e0();
+    u32 func_0206f9e0(u32 id);
     BOOL func_0206faa0(int index);
     void func_0206facc();
     void func_0206fad0();
@@ -631,7 +631,7 @@ public:
     int func_0207ae40(int team, u32 id);     // (the same in unk_34c)
     BOOL func_0207aeac(int team, u32 id);
     BOOL func_0207aec4(int team, u32 id);
-    void func_0207aedc();
+    BOOL func_0207aedc(int team, int id);
     BOOL func_0207af84(int team, int id);
     void func_0207b00c();
     void func_0207b160();
@@ -707,12 +707,12 @@ public:
     int func_0207f140(u16 *out, int max);
     int func_0207f1d0(u16 *out, int max);
     int func_0207f260(u16 *out, int max);
-    void func_0207f2f8();
+    BOOL func_0207f2f8(int id);
     static void func_0207f38c(MatchPlayer *player, u8 dir, BOOL update);
     void func_0207f3b8(int value);
     u16 func_0207f3cc(u32 i);
     s8 func_0207f3e0();
-    void func_0207f42c();
+    BOOL func_0207f42c(MatchPlayer *player);
     void func_0207f4bc();
     BOOL func_0207f5d0(char *dst, const char *src);
     void func_0207f634(void *buffer, int n, int a, int b);

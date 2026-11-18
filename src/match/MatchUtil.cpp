@@ -59,7 +59,7 @@ extern "C" char data_020cb6e0[];
 extern "C" char data_020e88a0[];
 extern "C" s32 _ZN11MatchEngine13func_0206deecEv(...);
 extern "C" s32 _ZN11MatchEngine13func_0206df08Ev(...);
-extern "C" s32 _ZN11MatchEngine13func_0206f9e0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206f9e0Em(...);
 extern "C" s32 _ZN11MatchEngine13func_020744d4Ei(...);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0207c1b0Ev(...);
@@ -892,7 +892,7 @@ extern "C" void func_02080eb4(void)
 {
     s32 v0;
     s32 v1;
-    v0 = _ZN11MatchEngine13func_0206f9e0Ev((s32)data_020e88a0);
+    v0 = _ZN11MatchEngine13func_0206f9e0Em((s32)data_020e88a0);
     v1 = func_ov015_02130b14(((u16)v0), 0);
     if (v1 == 0)
         return;

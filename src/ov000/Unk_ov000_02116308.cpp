@@ -35,7 +35,7 @@ extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" s32 _ZN11MatchEngine13func_0207a534Em(...);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
-extern "C" void _ZN11MatchEngine13func_0207aedcEv(void);
+extern "C" void _ZN11MatchEngine13func_0207aedcEii(void);
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207e5fcEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0207efd8Ev(...);
@@ -310,7 +310,7 @@ extern "C" asm void func_ov000_02116530(void)
     ldrh r2, [r4, #0x2a]
     mov r0, r10
     mov r1, #0
-    bl _ZN11MatchEngine13func_0207aedcEv
+    bl _ZN11MatchEngine13func_0207aedcEii
     cmp r0, #0
     bne @L_021166d8
     ldrh r2, [r4, #0x2a]

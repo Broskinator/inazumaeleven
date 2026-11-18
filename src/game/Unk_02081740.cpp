@@ -22,7 +22,7 @@ extern "C" char data_020e88a0[];
 extern "C" void _ZN11MatchEngine13func_0206ea68Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207a534Em(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
-extern "C" void _ZN11MatchEngine13func_0207f2f8Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207f2f8Ei(void);
 
 extern "C" asm void func_02081740(void)
 {
@@ -163,7 +163,7 @@ extern "C" asm void func_020818c8(void)
     cmp r0, #1
     mov r0, r5
     bne @L_02081978
-    bl _ZN11MatchEngine13func_0207f2f8Ev
+    bl _ZN11MatchEngine13func_0207f2f8Ei
     cmp r0, #0
     beq @L_02081990
     add r1, sp, #0x20
@@ -174,7 +174,7 @@ extern "C" asm void func_020818c8(void)
     bl func_02081aa0
     b @L_02081990
 @L_02081978:
-    bl _ZN11MatchEngine13func_0207f2f8Ev
+    bl _ZN11MatchEngine13func_0207f2f8Ei
     cmp r0, #0
     beq @L_02081990
     ldrb r1, [sp, #0x41]

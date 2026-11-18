@@ -328,7 +328,7 @@ void _ZN11MatchEngine13func_0206b4ccEi(void);
 void func_ov087_02180ae0(void);
 void _ZN11MatchEngine13func_0207a78cEv(void);
 void _ZN11MatchEngine13func_0207af84Eii(void);
-void _ZN11MatchEngine13func_0206f9e0Ev(void);
+void _ZN11MatchEngine13func_0206f9e0Em(void);
 void func_ov015_02131bd0(void);
 void func_02080780(void);
 void _ZN11MatchEngine13func_0207b780Ev(void);
@@ -5414,7 +5414,7 @@ asm void func_01ffc784(void)
     mov r0, r10
     mov r1, r6, lsl #3
     ldrh r1, [r5, r1]
-    bl _ZN11MatchEngine13func_0206f9e0Ev
+    bl _ZN11MatchEngine13func_0206f9e0Em
     mov r0, r0, lsl #0x10
     mov r2, r0, lsr #0x10
     mov r0, r10
@@ -5935,7 +5935,7 @@ asm void func_01ffcb50(void)
     mov r0, #0
     strh r0, [r2, #2]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206f9e0Ev
+    bl _ZN11MatchEngine13func_0206f9e0Em
     mov r0, r0, lsl #0x10
     mov r11, r0, lsr #0x10
     mov r2, r11, lsl #0x10
