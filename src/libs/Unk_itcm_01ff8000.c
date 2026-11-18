@@ -259,7 +259,7 @@ void _ZN11MatchEngine13func_020630fcEv(void);
 void _ZN11MatchEngine13func_020630d8Ev(void);
 void func_ov087_0217cd3c(void);
 void _ZN11MatchEngine13func_0206c37cEv(void);
-void _ZN11MatchEngine13func_0207c6b4Ev(void);
+void _ZN11MatchEngine13func_0207c6b4Eiii(void);
 void _ZN11MatchEngine13func_0207ac90Ei(void);
 void _ZN10MatchRules13func_0206eef8Ev(void);
 void Random_RandA(void);
@@ -3630,12 +3630,12 @@ asm void func_01ffa838(void)
     mov r2, r6
     mov r3, r6
     strb r8, [r7, #0x8d6]
-    bl _ZN11MatchEngine13func_0207c6b4Ev
+    bl _ZN11MatchEngine13func_0207c6b4Eiii
     mov r0, r4
     mov r1, r6
     mov r2, r6
     mov r3, r6
-    bl _ZN11MatchEngine13func_0207c6b4Ev
+    bl _ZN11MatchEngine13func_0207c6b4Eiii
     mov r0, r4
     mov r1, r9
     bl _ZN11MatchEngine13func_0207ac90Ei
@@ -4108,7 +4108,7 @@ asm void func_01ffb428(void)
     mov r1, r8
     mov r2, r5
     mov r3, r5
-    bl _ZN11MatchEngine13func_0207c6b4Ev
+    bl _ZN11MatchEngine13func_0207c6b4Eiii
     ldr r10, =0xfdff
     ldr r4, =gEntryPool
     add r7, r10, #0x100

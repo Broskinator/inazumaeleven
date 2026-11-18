@@ -216,8 +216,8 @@ extern "C" void _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii(void);     // 
 extern "C" void _ZN11MatchEngine13func_0207c65cEmiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c720Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c7f4Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207c8e0Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207cbd8Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207c8e0Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207cbd8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207d214Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207d378EPhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206dfa4Eii(void);     // (for the asm functions)
@@ -567,7 +567,8 @@ extern "C" void func_01ffe1e4(void);
 extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
-extern "C" char data_020c4ab4[];
+#include "game/SceneManager.hpp"
+extern SceneStartInfo data_020c4ab4;
 extern "C" void _Z22EntryPool_CompactFrontv(void);
 extern "C" void _ZN10MatchRules13func_0206f014Ev(void);
 extern "C" void func_01ffbc80(void);
@@ -14985,35 +14986,20 @@ void MatchEngine::func_0207c65c(u32 id, int a, int b, int c)
     func_0207c478(func_ov015_02130b14(id, 0), a, b, c);
 }
 
-asm void MatchEngine::func_0207c6b4()
+void MatchEngine::func_0207c6b4(int a, BOOL update, BOOL force)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, r1
-    mov r4, r3
-    cmp r2, #0
-    beq @L_0207c6ec
-    bl _ZN11MatchEngine13func_0206dedcEv
-    cmp r0, #0
-    ldrne r0, =data_020c4ab4
-    movne r1, #1
-    strneb r1, [r0, #0x70]
-    ldreq r0, =data_020c4ab4
-    moveq r1, #0
-    streqb r1, [r0, #0x70]
-@L_0207c6ec:
-    add r0, r6, #0x11000
-    ldrb r0, [r0, #0x8ba]
-    cmp r0, #0
-    cmpeq r4, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0207cbd8Ev
-    mov r0, r6
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0207c8e0Ev
-    ldmia sp!, {r4, r5, r6, pc}
+    if (update) {
+        if (func_0206dedc()) {
+            data_020c4ab4.unk_70 = 1;
+        } else {
+            data_020c4ab4.unk_70 = 0;
+        }
+    }
+    if (unk_118ba == 0 && force == FALSE) {
+        return;
+    }
+    func_0207cbd8(a);
+    func_0207c8e0(a);
 }
 
 asm void MatchEngine::func_0207c720()
@@ -15135,7 +15121,7 @@ asm void MatchEngine::func_0207c7f4()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0207c8e0()
+asm void MatchEngine::func_0207c8e0(int a)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -15344,7 +15330,7 @@ asm void MatchEngine::func_0207c8e0()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0207cbd8()
+asm void MatchEngine::func_0207cbd8(int a)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x4c
@@ -17770,37 +17756,17 @@ void MatchEngine::func_0207ef30(int index)
     func_0207ef0c(func_ov015_02130b14(index, 0));
 }
 
-asm void MatchEngine::func_0207ef54()
+void MatchEngine::func_0207ef54(int team)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r9, #0
-    mov r5, r0
-    mov r4, r1
-    mov r6, r9
-    mov r7, #1
-@L_0207ef6c:
-    mov r0, r9
-    bl func_ov015_02130ae8
-    movs r8, r0
-    beq @L_0207efb0
-    ldrh r0, [r8, #0xf0]
-    tst r0, #1
-    movne r0, r7
-    moveq r0, r6
-    cmp r0, #0
-    beq @L_0207efb0
-    mov r0, r8
-    bl func_02080b90
-    cmp r4, r0
-    bne @L_0207efb0
-    mov r0, r5
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207ef0cEP11MatchPlayer
-@L_0207efb0:
-    add r9, r9, #1
-    cmp r9, #0x84
-    blt @L_0207ef6c
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    MatchPlayer *player;
+    int i;
+
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player != NULL && MatchPlayer_HasFlag(player, 1) && team == func_02080b90(player)) {
+            func_0207ef0c(player);
+        }
+    }
 }
 
 u8 MatchEngine::func_0207efc0()

@@ -50,7 +50,7 @@ extern "C" void func_020814d0(void);     // (for the asm functions)
 extern "C" void func_0208151c(void);     // (for the asm functions)
 extern "C" void func_02081568(void);     // (for the asm functions)
 extern "C" void func_020815b4(void);     // (for the asm functions)
-extern "C" void func_02081600(void);     // (for the asm functions)
+extern "C" s32 func_02081600(MatchPlayer *player);
 extern "C" void _ZN11MatchEngine13func_02080288EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f07cEv(void);     // (for the asm functions)
@@ -171,7 +171,7 @@ extern "C" void _ZN11MatchEngine13func_020690a8Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_02069110EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02069184Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02069394Eiiiihi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206a078Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206a078EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a100EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a3b8Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a494Ev(void);     // (for the asm functions)
@@ -7440,7 +7440,7 @@ asm void MatchEngine::func_02068d74()
     mov r4, r0
     mov r0, r6
     mov r1, r5
-    bl _ZN11MatchEngine13func_0206a078Ev
+    bl _ZN11MatchEngine13func_0206a078EP11MatchPlayer
     ldrb r2, [r4, #0xe]
     ldr r1, =0x19a
     ldr r3, [r5, #0xec]
@@ -8733,7 +8733,25 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0206a078()
+// (nonmatching: the sine is loaded with ldrsh, the ROM has ldrh (and still multiplies it signed: smull); a u16 load gives umull)
+#ifdef NONMATCHING
+fx32 MatchEngine::func_0206a078(MatchPlayer *player)
+{
+    s32 v;
+
+    if (player == NULL) {
+        return 0;
+    }
+    v = func_02081600(player);
+    if (v < unk_11928) {
+        v = unk_11928;
+    } else if (v > unk_1192c) {
+        v = unk_1192c;
+    }
+    return unk_1191c + FX_Mul(unk_11924, FX_SinIdx(((v << 14) / unk_1192c) >> 4));
+}
+#else
+asm fx32 MatchEngine::func_0206a078(MatchPlayer *player)
 {
     stmdb sp!, {r4, lr}
     mov r4, r0
@@ -8770,6 +8788,7 @@ asm void MatchEngine::func_0206a078()
     add r0, r3, r1
     ldmia sp!, {r4, pc}
 }
+#endif
 
 asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
 {
@@ -8778,7 +8797,7 @@ asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
     mov r9, r1
     mov r8, r2
     mov r4, #0
-    bl _ZN11MatchEngine13func_0206a078Ev
+    bl _ZN11MatchEngine13func_0206a078EP11MatchPlayer
     mov r5, r0
     mov r0, r10
     mov r1, r9
@@ -9991,44 +10010,30 @@ u8 *MatchEngine::func_0206b2c8(int team)
     return func_0206b3a4(team, unk_c10[team]);
 }
 
-asm void MatchEngine::func_0206b308()
+u8 *MatchEngine::func_0206b308()
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, #0
-    mov r6, r0
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0206b390Ei
-    mov r5, r0
-    mov r0, r6
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206b390Ei
-    cmp r5, #0
-    cmpeq r0, #0
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, r6, pc}
-    cmp r5, #0
-    beq @L_0206b350
-    cmp r0, #0
-    moveq r0, r5
-    ldmeqia sp!, {r4, r5, r6, pc}
-@L_0206b350:
-    cmp r5, #0
-    bne @L_0206b360
-    cmp r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-@L_0206b360:
-    ldrb r2, [r0, #8]
-    ldrb r1, [r5, #8]
-    cmp r1, r2
-    movhi r0, r5
-    ldmhiia sp!, {r4, r5, r6, pc}
-    ldmloia sp!, {r4, r5, r6, pc}
-    ldr r2, [r5]
-    ldr r1, [r0]
-    cmp r2, r1
-    movls r5, r0
-    mov r0, r5
-    ldmia sp!, {r4, r5, r6, pc}
+    u8 *a = func_0206b390(0);
+    u8 *b = func_0206b390(1);
+
+    if (a == NULL && b == NULL) {
+        return NULL;
+    }
+    if (a != NULL && b == NULL) {
+        return a;
+    }
+    if (a == NULL && b != NULL) {
+        return b;
+    }
+    if (a[8] > b[8]) {
+        return a;
+    }
+    if (a[8] < b[8]) {
+        return b;
+    }
+    if (*(u32 *)a > *(u32 *)b) {
+        return a;
+    }
+    return b;
 }
 
 u8 *MatchEngine::func_0206b390(int side)

@@ -31,3 +31,4 @@ MatchEngine::func_0207e810  src/match/MatchEngine_2.cpp  16 words: rect[2] loade
 MatchEngine::func_0207e884  src/match/MatchEngine_2.cpp  16 words: same as func_0207e810 (the y axis)
 MatchEngine::func_0206b1dc  src/match/MatchEngine.cpp  10 words: the start index and the count in each other's registers (r8/r5)
 func_020843b0  src/match/MatchGeometry.cpp  17 words: y, the rectangle and the flag in other registers; *x loaded before rect[0]
+MatchEngine::func_0206a078  src/match/MatchEngine.cpp  1 word: ldrsh of the sine where the ROM has ldrh (then smull; a u16 read gives umull)

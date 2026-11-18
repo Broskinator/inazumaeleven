@@ -159,7 +159,7 @@ public:
     void func_02069184();
     int func_02069344(int a, int b, int c, int d, u8 e, int f);
     int func_02069394(int a, int b, int c, int d, u8 e, int f);
-    void func_0206a078();
+    fx32 func_0206a078(MatchPlayer *player);
     int func_0206a100(MatchPlayer *player, int a);
     void func_0206a3b8();
     void func_0206a494();
@@ -197,7 +197,7 @@ public:
     int func_0206b1dc(int side);
     BOOL func_0206b274(int team, int value);
     u8 *func_0206b2c8(int team);
-    void func_0206b308();
+    u8 *func_0206b308();
     u8 *func_0206b390(int side);
     u8 *func_0206b3a4(int side, u32 index);
     void func_0206b3c4(int a, int b);
@@ -639,11 +639,11 @@ public:
     void func_0207c3d8();
     void func_0207c478(MatchPlayer *player, int a, int b, int c);
     void func_0207c65c(u32 id, int a, int b, int c);
-    void func_0207c6b4();
+    void func_0207c6b4(int a, BOOL update, BOOL force);
     void func_0207c720();
     void func_0207c7f4();
-    void func_0207c8e0();
-    void func_0207cbd8();
+    void func_0207c8e0(int a);
+    void func_0207cbd8(int a);
     void func_0207d118();
     BOOL func_0207d214(int team, int i);
     BOOL func_0207d244(int team, int i);
@@ -688,7 +688,7 @@ public:
     void func_0207ee3c();
     void func_0207ef0c(MatchPlayer *player);
     void func_0207ef30(int index);
-    void func_0207ef54();
+    void func_0207ef54(int team);
     u8 func_0207efc0();
     void func_0207efcc(u8 value);
     void func_0207efd8();
@@ -821,7 +821,9 @@ public:
     s32 unk_118ac;
     s32 unk_118b0;
     s32 unk_118b4;
-    u8 unk_118b8[0x118CA - 0x118B8];
+    u8 unk_118b8[2];
+    u8 unk_118ba;
+    u8 unk_118bb[0x118CA - 0x118BB];
     u8 unk_118ca[2][6];     // (per team)
     u8 unk_118d6[0x118DD - 0x118D6];
     u8 unk_118dd;
@@ -843,6 +845,11 @@ public:
     u8 unk_11914;
     u8 unk_11915[0x11918 - 0x11915];
     s32 unk_11918;
+    fx32 unk_1191c;
+    u8 unk_11920[4];
+    fx32 unk_11924;
+    s32 unk_11928;      // (the range of func_0206a078's value)
+    s32 unk_1192c;
 };
 
 extern MatchEngine data_020e88a0;

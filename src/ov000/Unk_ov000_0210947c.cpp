@@ -91,7 +91,7 @@ extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207aa94Ei(void);
-extern "C" s32 _ZN11MatchEngine13func_0207c6b4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207c6b4Eiii(...);
 extern "C" void _ZN11MatchEngine13func_0207d308EPh(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void VEC_Add(void);
@@ -1879,7 +1879,7 @@ extern "C" s32 func_ov000_0210ae34(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
         *(u8 *)(((u8 *)&data_020c4ab4) + 0x70) = 0;
         *(u8 *)(((u8 *)&data_020c4ab4) + 0x71) = 0;
         v3 = func_ov015_021319bc((s32)((u8 *)&data_020c4ab4));
-        _ZN11MatchEngine13func_0207c6b4Ev((s32)((u8 *)&data_020e88a0), v3, 0, 0);
+        _ZN11MatchEngine13func_0207c6b4Eiii((s32)((u8 *)&data_020e88a0), v3, 0, 0);
         *(s32 *)(arg0 + 0x8) = 0;
         CBgMenuManager_Init((s32)((u8 *)&gBgMenuManager), 1);
         MI_CpuFill8((s32)(arg0 + 0xB8), 0, 0x138);

@@ -64,7 +64,7 @@ extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
 extern "C" void _ZN11MatchEngine13func_02077bd4Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02077ce4Ev(...);
 extern "C" void _ZN11MatchEngine13func_020785a0Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_0207c6b4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207c6b4Eiii(...);
 extern "C" s32 _ZN11MatchEngine13func_0207c720Ev(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -1494,7 +1494,7 @@ extern "C" asm void func_ov042_0216cd7c(void)
     mov r0, r9
     mov r2, r7
     mov r3, r7
-    bl _ZN11MatchEngine13func_0207c6b4Ev
+    bl _ZN11MatchEngine13func_0207c6b4Eiii
     ldrb r0, [r4, #0x68]
     mov r2, #1
     ldr r4, =data_020c4ab4
@@ -2164,7 +2164,7 @@ extern "C" s32 func_ov042_0216da1c(u8 *arg0)
     r4 = 0;
     func_ov087_02181b10((u8 *)((u8 *)&data_020e88a0), r1, r7);
     t11 = *(u8 *)(((u8 *)&data_020c4ab4) + 0x68);
-    _ZN11MatchEngine13func_0207c6b4Ev((u8 *)((u8 *)&data_020e88a0), t11, 0, 0);
+    _ZN11MatchEngine13func_0207c6b4Eiii((u8 *)((u8 *)&data_020e88a0), t11, 0, 0);
     if ((*(u8 *)(((u8 *)&data_020c4ab4) + 0x70) != 0 && (v14 = _ZN11MatchEngine13func_0206f058Ev((u8 *)((u8 *)&data_020e88a0)), v14 == 0))) {
         t12 = *(u8 *)(((u8 *)&data_020c4ab4) + 0x68);
         v15 = _ZN11MatchEngine11GetTeamInfoEi((u8 *)((u8 *)&data_020e88a0), t12);

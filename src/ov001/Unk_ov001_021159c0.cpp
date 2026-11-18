@@ -229,10 +229,10 @@ extern "C" s32 _ZN11MatchEngine13func_02079c08Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_02079cecEv(...);
 extern "C" void _ZN11MatchEngine13func_0207b28cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_0207c6b4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207c6b4Eiii(...);
 extern "C" void _ZN11MatchEngine13func_0207c720Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207d118Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_0207ef54Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207ef54Ei(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" s32 _ZdlPv(...);
@@ -801,7 +801,7 @@ extern "C" asm s32 func_ov001_02116080(...)
     mov r1, r5
     mov r2, r5
     mov r3, r5
-    bl _ZN11MatchEngine13func_0207c6b4Ev
+    bl _ZN11MatchEngine13func_0207c6b4Eiii
     bl func_ov015_021317f8
     cmp r0, #0
     bne @L_021160d8
@@ -841,7 +841,7 @@ extern "C" asm s32 func_ov001_02116080(...)
     strb r1, [r0, #0x2c]
     ldr r0, =data_020e88a0
     mov r1, #1
-    bl _ZN11MatchEngine13func_0207ef54Ev
+    bl _ZN11MatchEngine13func_0207ef54Ei
     ldmia sp!, {r4, r5, r6, pc}
 }
 
@@ -971,7 +971,7 @@ extern "C" void func_ov001_02116318(u8 *arg0)
     func_01ff9afc((s32)((u8 *)&data_020e88a0));
     func_01ff995c((s32)((u8 *)&data_020e88a0));
     if (*(u8 *)(((u8 *)&gGameState) + 0x1B) == 0) {
-        _ZN11MatchEngine13func_0207c6b4Ev((s32)((u8 *)&data_020e88a0), 0, 1, 1);
+        _ZN11MatchEngine13func_0207c6b4Eiii((s32)((u8 *)&data_020e88a0), 0, 1, 1);
     }
     ((VCall *)arg0)->f31(1);
     ((VCall *)arg0)->f33(1);
@@ -1661,7 +1661,7 @@ extern "C" s32 func_ov001_02116d68(void)
         if (v8 == 0)
             return v8;
     }
-    v9 = _ZN11MatchEngine13func_0207ef54Ev((u8 *)((u8 *)&data_020e88a0), 0);
+    v9 = _ZN11MatchEngine13func_0207ef54Ei((u8 *)((u8 *)&data_020e88a0), 0);
     return v9;
 }
 
