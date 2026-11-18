@@ -56,7 +56,7 @@ extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_02076868El(void);
-extern "C" void _ZN11MatchEngine13func_02078ea8Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078ea8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207a78cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207a820Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
@@ -1654,7 +1654,7 @@ extern "C" asm void func_ov031_0216a5b4(void)
     cmp r1, #0
     ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_02078ea8Ev
+    bl _ZN11MatchEngine13func_02078ea8Ei
     cmp r0, #0
     ldmneia sp!, {r3, r4, r5, r6, r7, pc}
     ldr r1, [r6, #0x4bc]
@@ -2476,7 +2476,7 @@ extern "C" asm void func_ov031_0216b2f4(void)
     cmp r1, #0
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_02078ea8Ev
+    bl _ZN11MatchEngine13func_02078ea8Ei
     cmp r0, #0
     ldmneia sp!, {r4, r5, r6, r7, r8, pc}
     ldrb r3, [r6, #0x39b]

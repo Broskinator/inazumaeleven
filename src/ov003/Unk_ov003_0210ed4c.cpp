@@ -165,7 +165,7 @@ extern "C" void func_ov003_02112ec4(void);
 extern "C" void func_ov003_021135d4(void);
 extern "C" void func_ov003_02113634(void);
 extern "C" void func_ov003_02113694(void);
-extern "C" void _ZN11MatchEngine13func_02078d84Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078d84EiPtih(void);
 extern "C" void _ZN13ScreenManager12FadeSubBlackEv(void);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void func_ov003_021146bc(void);
@@ -1686,7 +1686,7 @@ extern "C" asm void func_ov003_0210feac(void)
     mov r2, r7
     mov r3, r5
     str r9, [sp]
-    bl _ZN11MatchEngine13func_02078d84Ev
+    bl _ZN11MatchEngine13func_02078d84EiPtih
     add r1, sp, #0x400
     add r1, r1, #0x48
     mov r0, r7
@@ -1784,7 +1784,7 @@ extern "C" asm void func_ov003_0210feac(void)
     mov r2, r7
     mov r3, r5
     str r9, [sp]
-    bl _ZN11MatchEngine13func_02078d84Ev
+    bl _ZN11MatchEngine13func_02078d84EiPtih
     add r1, sp, #0x400
     add r0, sp, #0x310
     add r1, r1, #0x48

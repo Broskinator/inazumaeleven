@@ -52,7 +52,7 @@ struct UnkRecord_02076168 {
 struct MatchState {
     u8 unk_0;
     u8 unk_1;
-    u8 unk_2;
+    s8 unk_2;           // (the current record of MatchEngine::unk_116a4)
     u8 unk_3;
     u8 flags;
     u8 unk_5[3];
@@ -469,13 +469,13 @@ public:
     void func_0207597c();
     void func_02075f7c();
     BOOL func_020760e4(int a, int b);
-    void func_02076168();
+    UnkRecord_02076168 *func_02076168();
     UnkRecord_02076168 *func_0207620c();
     s8 func_02076268();
     s8 func_020762c0();
-    void func_02076318();
+    void func_02076318(int a, int b, int mode);
     BOOL func_0207635c();
-    void func_02076370();
+    static void func_02076370(u8 *rec, int mode);
     static s8 func_02076424(u8 *data);
     static s8 func_02076460(u8 *data);
     static int func_0207649c(u8 *data);     // (on another struct)
@@ -534,7 +534,7 @@ public:
     int func_02077da8(void *buffer, int index);
     BOOL func_02077e14(u8 *team, int value);
     u16 func_02077e58(u8 *team, u32 i);
-    void func_02077e78();
+    int func_02077e78(u8 *entry, void *buffer);
     int func_02077eb8(u8 *data, void *buffer);
     int func_02077eec(int index, u32 id, int a);
     BOOL func_02077f20(u8 *data);
@@ -542,10 +542,12 @@ public:
     void func_02078148();
     void func_020782f0();
     BOOL func_02078394(u32 id);
-    int func_02078428();
-    int func_02078434();
-    int func_02078450();
-    int func_02078474();
+    // (on an entry of unk_bbc: its u16 at 0x22 packs a kind in bits 14-15, a sign in bit 10
+    // and a value in bits 0-9)
+    static int func_02078428(u8 *entry);
+    static int func_02078434(u8 *entry);
+    static int func_02078450(u8 *entry);
+    static int func_02078474(u8 *entry);
     void func_02078498();
     void func_020784b8(int team);
     BOOL func_020784ec(MatchPlayer *player, fx32 x, fx32 y);
@@ -560,8 +562,8 @@ public:
     void func_02078aac();
     int func_02078bc0(MatchPlayer *player, void *buffer, int a, int b, int c);
     void func_02078c70();
-    void func_02078d84();
-    void func_02078ea8();
+    int func_02078d84(int team, u16 *out, int max, u8 flag);
+    BOOL func_02078ea8(int id);
     u8 func_02078f14(MatchPlayer *player);
     BOOL func_02078f74(MatchPlayer *player);
     BOOL func_02078f8c(MatchPlayer *player);

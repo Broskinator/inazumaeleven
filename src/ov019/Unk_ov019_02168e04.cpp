@@ -45,7 +45,7 @@ extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_02076868El(void);
 extern "C" void _ZN11MatchEngine13func_020777e4EPhsmh(void);
-extern "C" void _ZN11MatchEngine13func_02078ea8Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078ea8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207bfd0Ev(void);
 extern "C" s32 _ZdlPv(...);
@@ -514,7 +514,7 @@ extern "C" asm void func_ov019_021693bc(void)
     and r1, r2, r1
     mov r1, r1, lsl #0x10
     mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_02078ea8Ev
+    bl _ZN11MatchEngine13func_02078ea8Ei
     cmp r0, #0
     beq @L_021694d8
     ldr r0, =data_020d3d20

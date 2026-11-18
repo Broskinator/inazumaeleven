@@ -98,8 +98,8 @@ extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
-extern "C" void _ZN11MatchEngine13func_02078d84Ev(void);
-extern "C" void _ZN11MatchEngine13func_02078ea8Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078d84EiPtih(void);
+extern "C" void _ZN11MatchEngine13func_02078ea8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207a534Em(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -1701,7 +1701,7 @@ extern "C" s32 func_ov031_021675a4(s32 arg0, s32 arg1, s32 arg2)
 {
     u16 b[0x64];
     s32 c = 0;
-    s32 n = ((s32 (*)(...))_ZN11MatchEngine13func_02078d84Ev)(data_020e88a0, ((s32 (*)(...))func_ov015_021319bc)(), b, 0x64, c);
+    s32 n = ((s32 (*)(...))_ZN11MatchEngine13func_02078d84EiPtih)(data_020e88a0, ((s32 (*)(...))func_ov015_021319bc)(), b, 0x64, c);
     s32 i;
     s32 z = c;
     s32 r;
@@ -1738,7 +1738,7 @@ extern "C" asm void func_ov031_0216763c(void)
     ldr r0, =data_020e88a0
     mla r1, r4, r8, r1
     ldrh r1, [r1, #0xa]
-    bl _ZN11MatchEngine13func_02078ea8Ev
+    bl _ZN11MatchEngine13func_02078ea8Ei
     cmp r0, #0
     moveq r0, #1
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
@@ -2386,7 +2386,7 @@ extern "C" asm void func_ov031_02167da8(void)
     ldr r0, =data_020e88a0
     mla r1, r2, r4, r1
     ldrh r1, [r1, #0xa]
-    bl _ZN11MatchEngine13func_02078ea8Ev
+    bl _ZN11MatchEngine13func_02078ea8Ei
     cmp r0, #0
     beq @L_02167fe0
     mov r0, #0x37
@@ -2960,7 +2960,7 @@ extern "C" asm void func_ov031_02168648(void)
     mla r1, r2, r9, r1
     ldrh r1, [r1, #0xa]
     mov r0, r4
-    bl _ZN11MatchEngine13func_02078ea8Ev
+    bl _ZN11MatchEngine13func_02078ea8Ei
     str r5, [sp]
     cmp r0, #0
     ldr r0, [r10]
@@ -3065,7 +3065,7 @@ extern "C" asm void func_ov031_02168648(void)
     mla r1, r2, r9, r1
     ldrh r1, [r1, #0xa]
     mov r0, r4
-    bl _ZN11MatchEngine13func_02078ea8Ev
+    bl _ZN11MatchEngine13func_02078ea8Ei
     str r5, [sp]
     cmp r0, #0
     ldr r0, [r10]

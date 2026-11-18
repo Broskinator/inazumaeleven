@@ -60,10 +60,10 @@ extern "C" void STD_ConcatenateString(void);
 extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
 extern "C" void _ZN11MatchEngine13func_02076c08Ev(void);
 extern "C" void _ZN11MatchEngine13func_020777e4EPhsmh(void);
-extern "C" void _ZN11MatchEngine13func_02077e78Ev(void);
-extern "C" void _ZN11MatchEngine13func_02078450Ev(void);
-extern "C" void _ZN11MatchEngine13func_02078474Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_02078d84Ev(...);
+extern "C" void _ZN11MatchEngine13func_02077e78EPhPv(void);
+extern "C" void _ZN11MatchEngine13func_02078450EPh(void);
+extern "C" void _ZN11MatchEngine13func_02078474EPh(void);
+extern "C" s32 _ZN11MatchEngine13func_02078d84EiPtih(...);
 extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
@@ -357,13 +357,13 @@ extern "C" asm s32 func_ov080_02170374(...)
     bl _ZN11MatchEngine13func_020768fcEm
     movs r4, r0
     beq @L_02170450
-    bl _ZN11MatchEngine13func_02078450Ev
+    bl _ZN11MatchEngine13func_02078450EPh
     cmp r0, #0
     beq @L_02170450
     add r2, sp, #0x1c
     mov r0, r6
     mov r1, r4
-    bl _ZN11MatchEngine13func_02077e78Ev
+    bl _ZN11MatchEngine13func_02077e78EPhPv
     cmp r0, #0
     bne @L_02170450
     ldrsb r0, [sp, #0x20]
@@ -1230,7 +1230,7 @@ extern "C" asm s32 func_ov080_0217109c(...)
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 @L_02171108:
     mov r0, r5
-    bl _ZN11MatchEngine13func_02078474Ev
+    bl _ZN11MatchEngine13func_02078474EPh
     mov r1, r0
     mov r0, r7
     bl func_ov080_02170e80
@@ -1510,7 +1510,7 @@ extern "C" s32 func_ov080_02171550(u8 *arg0)
     MIi_CpuClearFast(0, v4, 0xFC0);
     MIi_CpuClearFast(0, (s32)(arg0 + 0x24), 0xC8);
     v7 = func_ov015_021319bc();
-    v8 = _ZN11MatchEngine13func_02078d84Ev((s32)data_020e88a0, v7, (s32)(arg0 + 0x24), 0x64, 0);
+    v8 = _ZN11MatchEngine13func_02078d84EiPtih((s32)data_020e88a0, v7, (s32)(arg0 + 0x24), 0x64, 0);
     *(s32 *)(arg0 + 0x10C) = v8;
     *(s32 *)(arg0 + 0x110) = 0;
     *(u8 *)(arg0 + 0x11) = 0;
