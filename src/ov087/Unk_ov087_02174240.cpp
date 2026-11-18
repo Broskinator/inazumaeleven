@@ -71,7 +71,7 @@ extern "C" void _ZN11MatchEngine13func_0206c644Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206c688Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206c834Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206de34Ei(void);
-extern "C" void _ZN11MatchEngine13func_0206de54Eii(void);
+extern "C" void _ZN11MatchEngine13func_0206de54Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
 extern "C" void _ZN11MatchEngine13func_0206deecEv(void);
 extern "C" void _ZN11MatchEngine13func_0206df08Ev(void);
@@ -2090,7 +2090,7 @@ extern "C" asm void func_ov087_02175e28(void)
     bl func_02083e34
     mov r1, r0
     mov r0, r9
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     beq @L_02176068
     mov r0, r9
@@ -2144,7 +2144,7 @@ extern "C" asm void func_ov087_02175e28(void)
     bl func_ov015_02131970
     mov r1, r0
     mov r0, r9
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     beq @L_02176068
     cmp r4, #0
@@ -2256,7 +2256,7 @@ extern "C" asm s32 func_ov087_02176074(...)
     bl func_02083e34
     mov r1, r0
     mov r0, r8
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     mov r4, r0
     mov r0, r8
     mov r1, r7
@@ -2714,7 +2714,7 @@ extern "C" asm void func_ov087_02176714(void)
     mov r7, r0
     mov r0, r10
     mov r1, r6
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     bne @L_021767a0
     mov r4, #0x10000
@@ -2902,7 +2902,7 @@ extern "C" asm void func_ov087_021769f8(void)
     bl func_02083e34
     mov r1, r0
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     bne @L_02176a80
     mov r5, #0x10000
@@ -3299,7 +3299,7 @@ extern "C" asm void func_ov087_02176efc(void)
     bge @L_021770bc
     mov r0, r10
     mov r1, #1
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     beq @L_021770bc
     ldr lr, [r4, #0xc]
@@ -3344,7 +3344,7 @@ extern "C" asm void func_ov087_02176efc(void)
     ble @L_02177168
     mov r0, r10
     mov r1, r11
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     beq @L_02177168
     ldr r10, [r4, #8]

@@ -83,7 +83,7 @@ extern "C" void _ZN11MatchEngine13func_0206c80cEi(void);
 extern "C" void _ZN11MatchEngine13func_0206cd08EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0206cfc8Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206de34Ei(...);
-extern "C" void _ZN11MatchEngine13func_0206de54Eii(void);
+extern "C" void _ZN11MatchEngine13func_0206de54Ei(void);
 extern "C" void _ZN11MatchEngine13func_020704b0Ei(void);
 extern "C" void _ZN11MatchEngine13func_02070604Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0207903cEP11MatchPlayer(...);
@@ -2897,7 +2897,7 @@ extern "C" asm void func_ov015_0213f908(void)
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
     ldr r1, [sp, #0x60]
     mov r0, r11
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     addeq sp, sp, #0x2c
     moveq r0, #0
@@ -3105,7 +3105,7 @@ extern "C" asm void func_ov015_0213fc58(void)
     mov r0, r10
     mov r1, r8
     strneb r11, [r6]
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     addeq sp, sp, #0x1c
     moveq r0, #0

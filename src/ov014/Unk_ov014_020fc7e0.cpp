@@ -134,7 +134,7 @@ extern "C" void _ZN13ScreenManager15GetCurSceneMainEv(void);
 extern "C" void _ZN13ScreenManager16GetNextSceneMainEv(void);
 extern "C" void _ZN13ScreenManager14GetCurSceneSubEv(void);
 extern "C" void _ZN13ScreenManager13func_0203e224Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207f1d0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207f1d0EPti(void);
 extern "C" void _ZN4Main13func_02040574Ev(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
@@ -984,7 +984,7 @@ extern "C" asm void func_ov014_020fd2a8(void)
     ldr r0, =data_020e88a0
     mov r1, r7
     mov r2, #0x34
-    bl _ZN11MatchEngine13func_0207f1d0Ev
+    bl _ZN11MatchEngine13func_0207f1d0EPti
     mov r9, #0
     ldr r4, =data_020d3d20
     mov r11, #7

@@ -145,7 +145,7 @@ extern "C" void _ZN13ScreenManager16GetNextSceneMainEv(void);
 extern "C" void _ZN13ScreenManager14GetCurSceneSubEv(void);
 extern "C" void _ZN13ScreenManager13func_0203e224Ev(void);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
-extern "C" void _ZN11MatchEngine13func_0207f140Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207f140EPti(void);
 extern "C" s32 _ZN11MatchEngine13func_02083054Ei(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -1429,7 +1429,7 @@ extern "C" asm void func_ov003_02100c8c(void)
     ldr r0, =data_020e88a0
     mov r1, r8
     mov r2, #8
-    bl _ZN11MatchEngine13func_0207f140Ev
+    bl _ZN11MatchEngine13func_0207f140EPti
     mov r10, #0
     ldr r7, =data_020d3d20
     mov r6, #9

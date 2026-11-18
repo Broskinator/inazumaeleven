@@ -124,7 +124,7 @@ extern "C" void _ZN11MatchEngine13func_0206d690Eh(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206d9a0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206de18Eit(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206de34Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206de54Eii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206de54Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206deecEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206df08Ev(void);     // (for the asm functions)
@@ -5622,7 +5622,7 @@ fx32 MatchEngine::func_02067044(int a, int b)
 
 fx32 MatchEngine::func_0206707c(int a, int b)
 {
-    if (!func_0206de54(a, b)) {
+    if (!func_0206de54(a)) {
         return func_02067044(a, b);
     }
     if (a == 0) {
@@ -6713,7 +6713,7 @@ asm void MatchEngine::func_02068248()
     bl func_02083e34
     mov r1, r0
     mov r0, r8
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     addeq sp, sp, #0x2c
     moveq r0, r4
@@ -6951,7 +6951,7 @@ asm void MatchEngine::func_02068614()
     bl func_02083e34
     mov r1, r0
     mov r0, r9
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     addeq sp, sp, #0x84
     moveq r0, r10
@@ -8995,7 +8995,7 @@ asm void MatchEngine::func_0206a3b8()
     bl func_ov015_02131970
     mov r1, r0
     mov r0, r5
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     addeq sp, sp, #0x10
     moveq r0, #0
@@ -11027,7 +11027,7 @@ asm void MatchEngine::func_0206c23c()
     cmp r1, #0
     beq @L_0206c2a4
     mov r1, #1
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     bne @L_0206c2b0
 @L_0206c2a4:
@@ -11042,7 +11042,7 @@ asm void MatchEngine::func_0206c23c()
     beq @L_0206c2d8
     mov r0, r8
     mov r1, #0
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     cmp r0, #0
     bne @L_0206c2e4
 @L_0206c2d8:
@@ -12950,54 +12950,34 @@ u8 *MatchEngine::func_0206de44()
 
 MatchRules *MatchEngine::func_0206de4c()
 {
-    return ((MatchRules *)((u8 *)this + 0x22C));
+    return &rules;
 }
 
-BOOL MatchEngine::func_0206de54(int a, int b)
+BOOL MatchEngine::func_0206de54(int side)
 {
-    return ((MatchRules *)((u8 *)this + 0x22C))->func_0206ef20(a);
+    return rules.func_0206ef20(side);
 }
 
-asm void MatchEngine::func_0206de64()
+int MatchEngine::func_0206de64()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206de54Eii
-    mov r4, r0
-    mov r0, r5
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206de54Eii
-    cmp r4, #0
-    cmpeq r0, #0
-    bne @L_0206deac
-    ldrb r1, [r5, #0x230]
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206b4a8Ei
-    cmp r0, #1
-    moveq r0, #0xa
-    movne r0, #0xb
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0206deac:
-    cmp r4, #0
-    beq @L_0206dec0
-    cmp r0, #0
-    moveq r0, #0xa
-    ldmeqia sp!, {r3, r4, r5, pc}
-@L_0206dec0:
-    cmp r4, #0
-    bne @L_0206ded4
-    cmp r0, #0
-    movne r0, #0xb
-    ldmneia sp!, {r3, r4, r5, pc}
-@L_0206ded4:
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
+    BOOL a = func_0206de54(1);
+    BOOL b = func_0206de54(0);
+
+    if (!a && !b) {
+        return func_0206b4a8(rules.unk_0[2].unk_0) == 1 ? 10 : 11;
+    }
+    if (a && !b) {
+        return 10;
+    }
+    if (!a && b) {
+        return 11;
+    }
+    return 1;
 }
 
 BOOL MatchEngine::func_0206dedc()
 {
-    return ((MatchRules *)((u8 *)this + 0x22C))->func_0206ef88();
+    return rules.func_0206ef88();
 }
 
 BOOL MatchEngine::func_0206deec()
@@ -13015,7 +12995,7 @@ BOOL MatchEngine::func_0206df08()
 
 BOOL MatchEngine::func_0206df34()
 {
-    return ((MatchRules *)((u8 *)this + 0x22C))->func_0206ef9c();
+    return rules.func_0206ef9c();
 }
 
 int MatchEngine::func_0206df44()

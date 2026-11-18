@@ -97,7 +97,7 @@ extern "C" char gAllocator[];
 extern "C" char data_020e88a0[];
 extern "C" char data_020f98a0[];
 extern "C" s32 MIi_CpuCopyFast(...);
-extern "C" s32 _ZN11MatchEngine13func_0206de54Eii(...);
+extern "C" s32 _ZN11MatchEngine13func_0206de54Ei(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void FX_Div(void);
@@ -846,7 +846,7 @@ extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2)
     r6 = arg1;
     r7 = (s32)arg0;
     do {
-        v0 = _ZN11MatchEngine13func_0206de54Eii(r4, r5);
+        v0 = _ZN11MatchEngine13func_0206de54Ei(r4, r5);
         if (v0 != 0) {
             v1 = func_02083e7c(r5);
             arg0 = (u8 *)v1;

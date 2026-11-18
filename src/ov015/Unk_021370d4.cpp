@@ -61,7 +61,7 @@ extern "C" s32 _ZN11MatchEngine13func_0206ace8Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206b628Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206d9a0Ev(...);
-extern "C" void _ZN11MatchEngine13func_0206de54Eii(void);
+extern "C" void _ZN11MatchEngine13func_0206de54Ei(void);
 extern "C" void _fflt(void);
 extern "C" void _ffltu(void);
 extern "C" void _ffix(void);
@@ -2315,7 +2315,7 @@ extern "C" asm void func_ov015_021390a4(void)
     mov r5, r0
     mov r0, r9
     mov r1, r8
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     str r0, [sp]
     ldr r4, =g3DPlaneCtrl
     mov r7, #2
@@ -2326,7 +2326,7 @@ extern "C" asm void func_ov015_021390a4(void)
     bl C3DPlaneCtrl_SetFlag
     mov r0, r9
     mov r1, r8
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     str r0, [sp]
     ldr r0, [r4]
     ldr r1, [r5, #0x90]
@@ -2336,7 +2336,7 @@ extern "C" asm void func_ov015_021390a4(void)
     mov r6, #0
     mov r0, r9
     mov r1, r6
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     str r0, [sp]
     ldr r0, [r4]
     ldr r1, [r5, #0x90]
@@ -2345,7 +2345,7 @@ extern "C" asm void func_ov015_021390a4(void)
     bl C3DPlaneCtrl_SetFlag
     mov r0, r9
     mov r1, r6
-    bl _ZN11MatchEngine13func_0206de54Eii
+    bl _ZN11MatchEngine13func_0206de54Ei
     str r0, [sp]
     ldr r0, [r4]
     ldr r1, [r5, #0x90]

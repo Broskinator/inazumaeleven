@@ -22,6 +22,15 @@ struct UnkPair_020621b4 {
 // A state of the match (the current one is at 0xB84, the past ones in a ring at 0xC7C)
 // A record of 0x18 bytes, ten of them at MatchEngine::unk_116a4 (func_02076168 gives the next one
 // and clears it, func_02076318 fills it)
+// (0x38 bytes, the entries of the file func_0207efd8 loads)
+struct UnkEntry_0207efd8 {
+    u8 unk_0[0x2A];
+    u16 unk_2a;         // (an id)
+    u8 unk_2c[0x31 - 0x2C];
+    u8 unk_31;          // (flags)
+    u8 unk_32[0x38 - 0x32];
+};
+
 // (0x18 bytes, two of them at 0x554: one value per team first)
 struct UnkRecord_0206b3fc {
     s32 unk_0[2];
@@ -315,8 +324,8 @@ public:
     BOOL func_0206de34(int i);
     u8 *func_0206de44();
     MatchRules *func_0206de4c();
-    BOOL func_0206de54(int a, int b);
-    void func_0206de64();
+    BOOL func_0206de54(int side);
+    int func_0206de64();
     BOOL func_0206dedc();
     BOOL func_0206deec();
     BOOL func_0206df08();
@@ -691,11 +700,11 @@ public:
     void func_0207ef54(int team);
     u8 func_0207efc0();
     void func_0207efcc(u8 value);
-    void func_0207efd8();
+    BOOL func_0207efd8();
     BOOL func_0207f07c();
-    void func_0207f0b0();
-    void func_0207f140();
-    void func_0207f1d0();
+    int func_0207f0b0(u16 *out, int max);
+    int func_0207f140(u16 *out, int max);
+    int func_0207f1d0(u16 *out, int max);
     void func_0207f260();
     void func_0207f2f8();
     static void func_0207f38c(MatchPlayer *player, u8 dir, BOOL update);
@@ -730,7 +739,9 @@ public:
     u16 unk_20c;        // (flags)
     u8 unk_20e[0x21A - 0x20E];
     u16 unk_21a;        // (flags)
-    u8 unk_21c[0x34C - 0x21C];
+    u8 unk_21c[0x22C - 0x21C];
+    MatchRules rules;   // 0x22C
+    u8 unk_2b8[0x34C - 0x2B8];
     u8 unk_34c[2][0x20];     // (per team)
     u8 unk_38c[0x3AC - 0x38C];
     u8 unk_3ac[2][0x10];     // (per team)
@@ -762,7 +773,7 @@ public:
     s16 *unk_bc8;
     u8 (*unk_bcc)[0x10];
     u8 (*unk_bd0)[0x68];
-    void *unk_bd4;      // (on the heap)
+    UnkEntry_0207efd8 *unk_bd4;     // (a file's entries, on the heap; see func_0207efd8)
     s32 unk_bd8;
     void *unk_bdc;      // (on the heap)
     u16 (*unk_be0)[2];     // (unk_c24 pairs: [1] looked up, [0] returned)
@@ -804,7 +815,9 @@ public:
     u8 unk_117ec[0x117FC - 0x117EC];
     u16 unk_117fc;
     u16 unk_117fe;
-    u8 unk_11800[0x1188C - 0x11800];
+    u8 unk_11800[0x11842 - 0x11800];
+    u16 unk_11842;      // (the number of unk_bd4's entries)
+    u8 unk_11844[0x1188C - 0x11844];
     u8 unk_1188c[2];
     u8 unk_1188e[2];
     u8 unk_11890[0x11895 - 0x11890];
