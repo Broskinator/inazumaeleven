@@ -278,7 +278,7 @@ void _ZN11MatchEngine13func_0206daecEi(void);
 void _ZN11MatchEngine13func_0207f07cEv(void);
 void _ZN8GameHeap4FreeEPv(void);
 void _ZN11MatchEngine13func_0207070cEv(void);
-void _ZN11MatchEngine13func_0206d188Ev(void);
+void _ZN11MatchEngine13func_0206d188Eii(void);
 extern char data_020ca78c[];
 extern char data_020cb918[];
 void _ZN11TreasureBox13func_02051bd4Ev(void);
@@ -3889,11 +3889,11 @@ asm void func_01ffb040(void)
     mov r0, r8
     mov r1, r5
     mov r2, r4
-    bl _ZN11MatchEngine13func_0206d188Ev
+    bl _ZN11MatchEngine13func_0206d188Eii
     mov r0, r8
     mov r1, r4
     mov r2, r4
-    bl _ZN11MatchEngine13func_0206d188Ev
+    bl _ZN11MatchEngine13func_0206d188Eii
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }

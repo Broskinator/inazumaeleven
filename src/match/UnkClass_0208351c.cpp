@@ -10,7 +10,7 @@ extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN15MatchPlayerList13func_02083060Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_020830a8Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_020832c8Ev(void);
-extern "C" void _ZN15MatchPlayerList13func_0208331cEv(void);
+extern "C" void _ZN15MatchPlayerList13func_0208331cEP11MatchPlayer(void);
 extern "C" void _ZdlPv(void);
 extern "C" void FX_Div(void);
 extern "C" void FX_Atan2Idx(void);
@@ -71,7 +71,7 @@ asm void UnkClass_0208351c::func_02083578()
 @L_020835d0:
     mov r0, r5
     mov r1, r4
-    bl _ZN15MatchPlayerList13func_0208331cEv
+    bl _ZN15MatchPlayerList13func_0208331cEP11MatchPlayer
     ldmia sp!, {r3, r4, r5, pc}
 }
 

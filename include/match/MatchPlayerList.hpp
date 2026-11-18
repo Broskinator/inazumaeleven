@@ -22,7 +22,7 @@ public:
     BOOL func_020832e0();
     BOOL func_020832f4();
     int func_02083308();
-    void func_0208331c();
+    BOOL func_0208331c(MatchPlayer *player);
     int func_02083378(int a, int b);
     void func_02083394();
     void func_02083448();

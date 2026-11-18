@@ -12,13 +12,13 @@ extern "C" int func_02084470(void *obj, int a);
 extern "C" char data_020ca6e8[];
 extern "C" void _ZN11MatchEngine13func_0206c644Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206cec0Ev(void);
-extern "C" void _ZN11MatchEngine13func_0206d188Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206d188Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206de4cEv(void);
 extern "C" void _ZN10MatchRules13func_0206ef60Ev(void);
 extern "C" void _ZN10MatchRules13func_0206ef74Ev(void);
 extern "C" void _ZdlPv(void);
 extern "C" void FX_Sqrt(void);
-extern "C" void func_ov015_02131854(void);
+extern "C" s32 func_ov015_02131854(s32 arg0, s32 arg1);
 extern "C" void func_ov015_021319b0(void);
 extern "C" void gGameState(void);
 
@@ -122,13 +122,13 @@ asm void MatchPlayerList::func_020830ac()
     ldr r0, [r5, #4]
     mov r1, r6
     mov r2, r7
-    bl _ZN11MatchEngine13func_0206d188Ev
+    bl _ZN11MatchEngine13func_0206d188Eii
     cmp r0, #0
     bne @L_020831cc
     ldr r0, [r5, #4]
     mov r2, r7
     mov r1, #1
-    bl _ZN11MatchEngine13func_0206d188Ev
+    bl _ZN11MatchEngine13func_0206d188Eii
     cmp r0, #0
     beq @L_020831d4
 @L_020831cc:
@@ -223,32 +223,15 @@ int MatchPlayerList::func_02083308()
     return ((int (*)(MatchPlayerList *))vtable[4])(this);
 }
 
-asm void MatchPlayerList::func_0208331c()
+BOOL MatchPlayerList::func_0208331c(MatchPlayer *player)
 {
-    stmdb sp!, {r3, lr}
-    ldr r2, =data_020c4920
-    ldr r0, [r2, #0x48]
-    cmp r0, #0
-    blt @L_02083348
-    ldrsh r1, [r1, #0xf4]
-    bl func_ov015_02131854
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
-@L_02083348:
-    ldr r0, [r2, #0x4c]
-    cmp r0, #0
-    blt @L_0208336c
-    ldrsh r1, [r1, #0xf4]
-    bl func_ov015_02131854
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
-@L_0208336c:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    if (data_020c4920.unk_48 >= 0) {
+        return func_ov015_02131854(data_020c4920.unk_48, player->unk_f4) ? TRUE : FALSE;
+    }
+    if (data_020c4920.unk_4c >= 0) {
+        return func_ov015_02131854(data_020c4920.unk_4c, player->unk_f4) ? TRUE : FALSE;
+    }
+    return FALSE;
 }
 
 int MatchPlayerList::func_02083378(int a, int b)
