@@ -458,7 +458,7 @@ public:
     void func_0207577c(UnkRecord_02076168 *record);
     void func_0207597c();
     void func_02075f7c();
-    void func_020760e4();
+    BOOL func_020760e4(int a, int b);
     void func_02076168();
     UnkRecord_02076168 *func_0207620c();
     s8 func_02076268();
@@ -597,7 +597,7 @@ public:
     void func_0207a304(MatchPlayer *player);
     BOOL func_0207a350(MatchPlayer *player);
     BOOL func_0207a394(MatchPlayer *player);
-    void func_0207a3e8();
+    s32 func_0207a3e8(MatchPlayer *player);
     BOOL func_0207a46c(MatchPlayer *player);
     void func_0207a4a0(MatchPlayer *player);
     BOOL func_0207a510(MatchPlayer *a, MatchPlayer *b);
@@ -615,7 +615,7 @@ public:
     int func_0207aba0(int team);
     void func_0207ac0c();
     int func_0207ac90(int team);
-    void func_0207acf0();
+    int func_0207acf0(int team);
     int func_0207ad74(int team);
     int func_0207add4(int team, u32 id);     // (1 + where id is in the team's unk_3ac, or 0)
     int func_0207ae40(int team, u32 id);     // (the same in unk_34c)

@@ -1,6 +1,7 @@
 #include "match/MatchGeometry.hpp"
 #include "match/Match.hpp"
 #include "nitro/mi.h"
+// (brings (x, y) back onto the field; FALSE when it was outside)
 struct S02084be8 { u8 pad[0x14]; s32 x14; s32 x18; s32 x1c; s32 x20; s32 x24; s32 x28; s32 x2c; };
 struct V02084f84 { s32 x, y, z; };
 struct S02084f84 { V02084f84 a; V02084f84 b[0x60]; s32 c; s32 pad[2]; V02084f84 d[4]; };
@@ -47,7 +48,7 @@ extern "C" s32 func_020842b0(s32 arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_020842f8(fx32 value);
 extern "C" BOOL func_02084324(fx32 value);
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
-extern "C" void func_020843b0(void);
+extern "C" BOOL func_020843b0(fx32 *x, fx32 *y);
 extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_02084470(s32 *arg0, s32 *arg1);
 extern "C" BOOL func_020844dc(fx32 x, fx32 y, fx32 marginX, fx32 marginY);
@@ -691,7 +692,25 @@ extern "C" asm BOOL func_02084350(fx32 x, fx32 y)
 }
 #endif
 
-extern "C" asm void func_020843b0(void)
+// (nonmatching: y, the rectangle and the flag get other registers (r6/r4/r5 for r4/r5/r6), and the ROM loads *x before rect[0])
+#ifdef NONMATCHING
+extern "C" BOOL func_020843b0(fx32 *x, fx32 *y)
+{
+    fx32 *rect = data_020c4ebc;
+    BOOL out = FALSE;
+
+    if (!func_020842f8(*x)) {
+        out = TRUE;
+        *x = *x < rect[0] ? rect[0] : rect[2];
+    }
+    if (!func_02084324(*y)) {
+        out = TRUE;
+        *y = *y < rect[1] ? rect[1] : rect[3];
+    }
+    return out ? FALSE : TRUE;
+}
+#else
+extern "C" asm BOOL func_020843b0(fx32 *x, fx32 *y)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r0
@@ -725,6 +744,7 @@ extern "C" asm void func_020843b0(void)
     movne r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2)
 {
