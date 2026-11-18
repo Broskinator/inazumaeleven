@@ -278,7 +278,7 @@ extern "C" char data_020c4938[];     // (data_020c4920.unk_18, for the asm)
 extern "C" fx32 func_01fff15c(MatchEngine *self, MatchPlayerBody *body, MatchPoint *point);
 extern "C" BOOL func_020842b0(u16 a, u16 b, int angle);     // (are the directions at most angle apart?)
 extern "C" BOOL func_ov015_021429b0(MatchEngine *self, MatchBall *ball);
-extern "C" UnkPair_020621b4 *func_ov015_02143664(MatchEngine *self, MatchPlayer *player);
+extern "C" UnkPair_020621b4 *func_ov015_02143664(MatchEngine *self);
 extern "C" fx32 FX_Div(fx32 a, fx32 b);     // (a / b)
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" int func_02084470(void *obj, int a);
@@ -483,8 +483,8 @@ extern "C" void func_ov000_02116e8c(void);
 extern "C" void func_ov000_02116f2c(void);
 extern "C" void func_ov001_02122de8(void);
 extern "C" MatchPlayer *func_ov015_02130ce0(int team, int number, int a, int mode);
-extern "C" void func_ov015_021443f4(void);
-extern "C" void func_ov015_0214440c(void);
+extern "C" int func_ov015_021443f4(UnkPair_020621b4 *pair);
+extern "C" int func_ov015_0214440c(UnkPair_020621b4 *pair);
 extern "C" void func_ov087_0217e70c(void);
 extern "C" void gEntryPool(void);
 
@@ -7690,7 +7690,7 @@ BOOL MatchEngine::func_020690a8(int a, int b)
 
 BOOL MatchEngine::func_02069110(MatchPlayer *player)
 {
-    UnkPair_020621b4 *pair = func_ov015_02143664(this, player);
+    UnkPair_020621b4 *pair = func_ov015_02143664(this);
 
     if (pair == NULL) {
         return FALSE;
@@ -13202,52 +13202,40 @@ asm void MatchEngine::func_0206e1fc()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void MatchEngine::func_0206e298()
+int MatchEngine::func_0206e298(int team)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r1
-    bl _ZN11MatchEngine13func_0207620cEv
-    movs r4, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrsb r0, [r4, #4]
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02080b90
-    cmp r5, r0
-    mov r0, r4
-    bne @L_0206e2dc
-    bl _ZN11MatchEngine13func_020764ccEPh
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0206e2dc:
-    bl _ZN11MatchEngine13func_020764e4EPh
-    ldmia sp!, {r3, r4, r5, pc}
+    UnkRecord_02076168 *record = func_0207620c();
+    MatchPlayer *player;
+
+    if (record == NULL) {
+        return 0;
+    }
+    player = func_ov015_02130ae8(record->unk_4[0]);
+    if (player == NULL) {
+        return 0;
+    }
+    if (team == func_02080b90(player)) {
+        return func_020764cc((u8 *)record);
+    }
+    return func_020764e4((u8 *)record);
 }
 
-asm void MatchEngine::func_0206e2e4()
+int MatchEngine::func_0206e2e4(int team)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r1
-    bl func_ov015_02143664
-    movs r4, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldrsb r0, [r4, #0xc]
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    bl func_02080b90
-    cmp r5, r0
-    mov r0, r4
-    bne @L_0206e328
-    bl func_ov015_021443f4
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0206e328:
-    bl func_ov015_0214440c
-    ldmia sp!, {r3, r4, r5, pc}
+    UnkPair_020621b4 *pair = func_ov015_02143664(this);
+    MatchPlayer *player;
+
+    if (pair == NULL) {
+        return 0;
+    }
+    player = func_ov015_02130ae8(pair->unk_c);
+    if (player == NULL) {
+        return 0;
+    }
+    if (team == func_02080b90(player)) {
+        return func_ov015_021443f4(pair);
+    }
+    return func_ov015_0214440c(pair);
 }
 
 BOOL MatchEngine::func_0206e330()
