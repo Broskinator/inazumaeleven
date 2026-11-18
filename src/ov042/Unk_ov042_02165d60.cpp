@@ -108,7 +108,7 @@ extern "C" void _ZN12SceneManager13func_0203e30cEv(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
-extern "C" s32 _ZN11MatchEngine13func_0207697cEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0207697cEiPti(...);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02078aacEv(...);
 extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
@@ -2097,7 +2097,7 @@ extern "C" s32 func_ov042_02167a98(u8 *arg0)
     if (*(u8 *)(((u8 *)&data_020c4ab4) + 0x70) == 0) {
         r1 = 0xE;
     }
-    v0 = _ZN11MatchEngine13func_0207697cEv((s32)((u8 *)&data_020e88a0), r1, (s32)(arg0 + 0x650), 0x400);
+    v0 = _ZN11MatchEngine13func_0207697cEiPti((s32)((u8 *)&data_020e88a0), r1, (s32)(arg0 + 0x650), 0x400);
     *(s32 *)(arg0 + 0xE50) = v0;
     return v0;
 }

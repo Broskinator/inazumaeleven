@@ -11580,16 +11580,16 @@ asm void MatchEngine::func_0206c9b0()
 
 void MatchEngine::func_0206caa4()
 {
-    int n;
+    UnkRecord_02076168 *record;
 
     if (func_0206ace8()) {
         return;
     }
-    n = func_0207620c();
-    if (n == 0) {
+    record = func_0207620c();
+    if (record == NULL) {
         return;
     }
-    func_0207577c(n);
+    func_0207577c(record);
 }
 
 asm void MatchEngine::func_0206cad4()

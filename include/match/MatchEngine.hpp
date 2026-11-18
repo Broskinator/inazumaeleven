@@ -20,6 +20,19 @@ struct UnkPair_020621b4 {
 };
 
 // A state of the match (the current one is at 0xB84, the past ones in a ring at 0xC7C)
+// A record of 0x18 bytes, ten of them at MatchEngine::unk_116a4 (func_02076168 gives the next one
+// and clears it, func_02076318 fills it)
+struct UnkRecord_02076168 {
+    u8 unk_0[4];
+    s8 unk_4[3];
+    s8 unk_7[3];
+    u8 unk_a[0x10 - 0xA];
+    u8 unk_10;
+    u8 unk_11;
+    u8 unk_12;          // (bit 7: empty?)
+    u8 unk_13[0x18 - 0x13];
+};
+
 struct MatchState {
     u8 unk_0;
     u8 unk_1;
@@ -436,12 +449,12 @@ public:
     void func_02074f90();
     void func_020751b8();
     void func_02075428();
-    void func_0207577c(int n);
+    void func_0207577c(UnkRecord_02076168 *record);
     void func_0207597c();
     void func_02075f7c();
     void func_020760e4();
     void func_02076168();
-    int func_0207620c();
+    UnkRecord_02076168 *func_0207620c();
     s8 func_02076268();
     s8 func_020762c0();
     void func_02076318();
@@ -470,8 +483,8 @@ public:
     u8 *func_020768fc(u32 i);
     u8 *func_02076914(u8 *team);
     int func_02076924(u16 *out, int max);
-    void func_0207697c();
-    void func_020769f0();
+    int func_0207697c(int kind, u16 *out, int max);
+    int func_020769f0(u16 *out, int max);
     BOOL func_02076a64(u8 a, u8 b);
     void func_02076a7c();
     int func_02076ba0(u32 id, int cost, BOOL force);
@@ -484,7 +497,7 @@ public:
     u8 *func_02076f34(int i);
     void func_02076f50();
     BOOL func_02077064(u32 item, int n);
-    void func_020770a8();
+    BOOL func_020770a8(u32 id, int count);
     BOOL func_02077104(u32 item, int n);
     BOOL func_02077148(u8 *data, int *error);
     BOOL func_020771d4(u32 id, int *error);
@@ -766,8 +779,9 @@ public:
     MatchState unk_c7c[90];     // (rings of 90: the past states)
     u8 unk_f4c[90][0x2C];
     u8 unk_1ec4[90 * 22][0x20];    // (per player)
-    u8 unk_11644[0x116A8 - 0x11644];
-    u8 unk_116a8[10][0x18];     // ([0], [3]: s8; [0xE] bit 7: empty?)
+    u8 unk_11644[0x116A4 - 0x11644];
+    UnkRecord_02076168 unk_116a4[10];
+    u8 unk_11794[4];
     u8 unk_11798[0x117A4 - 0x11798];
     u8 unk_117a4[2][11];     // (per team and position)
     u8 unk_117ba[0x117D4 - 0x117BA];

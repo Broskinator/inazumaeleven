@@ -102,7 +102,7 @@ extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
-extern "C" void _ZN11MatchEngine13func_0207697cEv(void);
+extern "C" void _ZN11MatchEngine13func_0207697cEiPti(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -974,7 +974,7 @@ extern "C" asm void func_ov052_02166978(void)
     mov r1, #0x15
     mov r3, #0x400
     mov r6, #0
-    bl _ZN11MatchEngine13func_0207697cEv
+    bl _ZN11MatchEngine13func_0207697cEiPti
     add r7, sp, #0
     mov r9, r6
     mov r4, r0
