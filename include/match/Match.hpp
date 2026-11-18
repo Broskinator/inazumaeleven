@@ -133,6 +133,8 @@ struct MatchPlayer {
     u16 unk_f0;                 // flags
     u8 unk_f2[2];
     s16 unk_f4;                 // the team
+    u8 unk_f6[2];
+    u32 unk_f8;                 // flags
 };
 
 static inline BOOL MatchPlayer_HasFlag(MatchPlayer *player, u16 flag)

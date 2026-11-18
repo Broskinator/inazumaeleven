@@ -420,7 +420,7 @@ public:
     void func_02072914();
     void func_02072a5c();
     void func_02072bb8();
-    void func_02072fe8();
+    int func_02072fe8(MatchPlayer *player, int id, BOOL first);
     int func_02073094(int index, int a, int b);
     int func_020730dc(MatchPlayer *player, int a, int b, int c);
     void func_020731c4();
@@ -457,7 +457,7 @@ public:
     void func_02074820();
     void func_020748fc();
     static u16 func_020749c8(s16 *values, BOOL reduce, int percent);
-    void func_02074a18();
+    static u16 func_02074a18(s16 *values, MatchPlayer *player);
     int func_02074aac();
     int func_02074abc();
     u8 func_02074ac8();
@@ -636,7 +636,7 @@ public:
     void func_0207b00c();
     void func_0207b160();
     void func_0207b28c();
-    void func_0207b708();
+    int func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int c);
     void func_0207b780();
     void func_0207bb9c();
     void func_0207bdf8();
@@ -647,7 +647,7 @@ public:
     BOOL func_0207c178(int a, int index);
     void func_0207c1b0();
     void func_0207c3d8();
-    void func_0207c478(MatchPlayer *player, int a, int b, int c);
+    int func_0207c478(MatchPlayer *player, int a, int b, int c);
     void func_0207c65c(u32 id, int a, int b, int c);
     void func_0207c6b4(int a, BOOL update, BOOL force);
     void func_0207c720();
@@ -657,7 +657,7 @@ public:
     void func_0207d118();
     BOOL func_0207d214(int team, int i);
     BOOL func_0207d244(int team, int i);
-    void func_0207d274();
+    u16 func_0207d274(int team, int value);
     int func_0207d308(u8 *data);
     void func_0207d330(u8 *data, int add, int value, u8 quiet);
     int func_0207d378(u8 *data, int level);
