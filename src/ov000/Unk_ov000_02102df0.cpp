@@ -85,7 +85,7 @@ extern "C" void _ZN11TreasureBox13func_02053888Ev(void);
 extern "C" void _ZN13ScreenManager16GetNextSceneMainEv(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205d7e0Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205dafcEv(void);
-extern "C" void _ZN11MatchEngine13func_0206cd08Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206cd08EiPv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206cd78Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_02078844Ev(...);
 extern "C" void _ZN11MatchEngine13func_0207af84Ev(void);
@@ -893,7 +893,7 @@ extern "C" asm void func_ov000_021037fc(void)
     add r0, r8, r9, lsl #2
     ldrh r1, [r0, #4]
     mov r0, r7
-    bl _ZN11MatchEngine13func_0206cd08Ev
+    bl _ZN11MatchEngine13func_0206cd08EiPv
     add r9, r9, #1
     cmp r9, #8
     blt @L_02103834

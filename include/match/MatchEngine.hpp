@@ -252,7 +252,7 @@ public:
     void func_0206cbbc();
     void func_0206cca4(u8 a, u8 b);
     int func_0206ccb8();
-    void func_0206cd08();
+    BOOL func_0206cd08(int index, void *buffer);
     void func_0206cd78();
     void func_0206ce4c(u16 value);
     u16 func_0206ce5c();
@@ -383,7 +383,7 @@ public:
     u8 func_0207066c();
     void func_02070678(BOOL value);
     u8 func_020706a8();
-    void func_020706b4();
+    void func_020706b4(int index, int frame);
     void func_0207070c();
     s32 func_02070760();
     void func_020725ac();
@@ -486,7 +486,7 @@ public:
     BOOL func_02077064(u32 item, int n);
     void func_020770a8();
     BOOL func_02077104(u32 item, int n);
-    void func_02077148();
+    BOOL func_02077148(u8 *data, int *error);
     void func_020771d4();
     void func_02077224();
     int func_02077448(MatchPlayer *player, u32 id, int a);
@@ -618,8 +618,8 @@ public:
     BOOL func_0207c178(int a, int index);
     void func_0207c1b0();
     void func_0207c3d8();
-    void func_0207c478();
-    void func_0207c65c();
+    void func_0207c478(MatchPlayer *player, int a, int b, int c);
+    void func_0207c65c(u32 id, int a, int b, int c);
     void func_0207c6b4();
     void func_0207c720();
     void func_0207c7f4();
@@ -633,7 +633,7 @@ public:
     void func_0207d330(u8 *data, int add, int value, u8 quiet);
     int func_0207d378(u8 *data, int level);
     u8 func_0207d394(u8 *range, int level);
-    void func_0207d3f8();
+    u16 func_0207d3f8(u16 *range, int level);
     u8 *func_0207d468(u8 *data, int kind);
     u8 *func_0207d494(u8 *data, int kind);
     s16 func_0207d500(MatchPlayer *player, int kind);

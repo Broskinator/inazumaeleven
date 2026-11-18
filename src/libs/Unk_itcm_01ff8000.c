@@ -323,7 +323,7 @@ void _ZN11MatchEngine13func_0206dfa4Ev(void);
 void func_020813a8(void);
 void func_02084aec(void);
 void func_020812f4(void);
-void _ZN11MatchEngine13func_0207c478Ev(void);
+void _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii(void);
 void _ZN11MatchEngine13func_0206b4ccEi(void);
 void func_ov087_02180ae0(void);
 void _ZN11MatchEngine13func_0207a78cEv(void);
@@ -345,7 +345,7 @@ void func_02080328(void);
 extern char data_020d3d20[];
 void func_0209b5fc(void);
 void Random_RandB(void);
-void _ZN11MatchEngine13func_0206cd08Ev(void);
+void _ZN11MatchEngine13func_0206cd08EiPv(void);
 void _ZN11MatchEngine13func_0206d970Ev(void);
 void _s32_div_f(void);
 void func_0209bb34(void);
@@ -5301,7 +5301,7 @@ asm void func_01ffc440(void)
     mov r3, r7
     mov r0, r10
     str r7, [sp]
-    bl _ZN11MatchEngine13func_0207c478Ev
+    bl _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii
     add r9, r9, #1
     add r5, r5, #1
     cmp r9, r6
@@ -5329,7 +5329,7 @@ asm void func_01ffc440(void)
     mov r2, r6
     mov r3, r6
     str r6, [sp]
-    bl _ZN11MatchEngine13func_0207c478Ev
+    bl _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii
 @L_01ffc74c:
     add r9, r9, #1
     cmp r9, r4
@@ -5831,7 +5831,7 @@ asm void func_01ffcb50(void)
     add r1, r4, r3, lsl #2
     ldrh r1, [r1, #4]
     mla r2, r3, r7, r8
-    bl _ZN11MatchEngine13func_0206cd08Ev
+    bl _ZN11MatchEngine13func_0206cd08EiPv
     add r6, r6, #1
 @L_01ffce70:
     cmp r6, #8

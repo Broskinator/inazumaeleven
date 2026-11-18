@@ -12,6 +12,7 @@ extern "C" u8 data_020cabf8[];
 #include "nitro/mi.h"
 #include "match/MatchBallPhysics.hpp"
 #include "system/GameHeap.hpp"
+#include "match/MatchFile.hpp"
 
 extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
@@ -154,7 +155,7 @@ extern "C" void _ZN11MatchEngine13func_0206c644Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206c80cEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c834Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206cca4Ehh(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206cd08Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206cd08EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ce4cEt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ce6cEt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ce8cEh(void);     // (for the asm functions)
@@ -11774,35 +11775,14 @@ asm int MatchEngine::func_0206ccb8()
 }
 #endif
 
-asm void MatchEngine::func_0206cd08()
+BOOL MatchEngine::func_0206cd08(int index, void *buffer)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #0x18
-    ldr r3, =gAllocator
-    str r2, [sp, #0x14]
-    ldr r0, [r3]
-    ldr lr, =data_020af184
-    cmp r0, #0
-    moveq r0, #0
-    beq @L_0206cd5c
-    mov r2, #0x30
-    mul r12, r1, r2
-    str r12, [sp]
-    str r2, [sp, #4]
-    mov r1, #0
-    str r1, [sp, #8]
-    mov r12, #1
-    str r12, [sp, #0xc]
-    add r2, sp, #0x14
-    mov r1, lr
-    str r12, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_0206cd5c:
-    cmp r0, #0
-    moveq r0, #0
-    movne r0, #1
-    add sp, sp, #0x18
-    ldmia sp!, {r3, pc}
+    void *p = buffer;
+
+    if (MatchLoadFile(data_020af184, &p, index * 0x30, 0x30) == 0) {
+        return FALSE;
+    }
+    return TRUE;
 }
 
 asm void MatchEngine::func_0206cd78()
@@ -11812,7 +11792,7 @@ asm void MatchEngine::func_0206cd78()
     add r4, sp, #4
     mov r2, r4
     mov r5, r0
-    bl _ZN11MatchEngine13func_0206cd08Ev
+    bl _ZN11MatchEngine13func_0206cd08EiPv
     cmp r0, #0
     addeq sp, sp, #0x34
     moveq r0, #0
@@ -11987,7 +11967,7 @@ asm void MatchEngine::func_0206cfc8()
     add r2, sp, #0
     mov r7, r0
     mov r9, #0
-    bl _ZN11MatchEngine13func_0206cd08Ev
+    bl _ZN11MatchEngine13func_0206cd08EiPv
     cmp r0, #0
     addeq sp, sp, #0x290
     moveq r0, r9
