@@ -7,12 +7,25 @@ Compiles the file and, for every function whose name contains func_XXXXXXXX (an
 address), gives the symbol at that address in config/yeep/arm9/symbols.txt the
 compiled (mangled) name. Prints the renamed symbols.
 """
-import os, re, subprocess, sys
+import os, re, subprocess, sys, time
 
 from elftools.elf.elffile import ELFFile
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from fncmp import CC_VER, CFLAGS, ROOT  # noqa: E402
+
+
+def save(p, text, encoding=None):
+    """writes text to p; retries while Windows holds the file (a compile reading it)"""
+    for i in range(40):
+        try:
+            with open(p, "w", newline="\n", encoding=encoding) as f:
+                f.write(text)
+            return
+        except PermissionError:
+            if i == 39:
+                raise
+            time.sleep(0.25)
 
 src = sys.argv[1]
 os.makedirs(f"{ROOT}/build/tmp", exist_ok=True)
@@ -42,7 +55,7 @@ for name in names:
         if mm.group(1).startswith("_Z"):
             renamed[mm.group(1)] = name
         text = text[:mm.start(1)] + name + text[mm.end(1):]
-open(path, "w", newline="\n").write(text)
+save(path, text)
 
 # (asm that calls the renamed functions by their old mangled names uses the new ones)
 if renamed:
@@ -54,4 +67,4 @@ if renamed:
                 t = open(p).read()
                 nt = pat.sub(lambda m: renamed[m.group(1)], t)
                 if nt != t:
-                    open(p, "w", newline="\n").write(nt)
+                    save(p, nt)

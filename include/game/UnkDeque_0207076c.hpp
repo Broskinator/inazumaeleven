@@ -31,13 +31,23 @@ public:
     int func_02072538(const UnkDequeIterator_0207076c &other) const;
 };
 
+// A position in the deque: the block (an iterator of the ring buffer) and the entry in it
+struct UnkDequePos_0207076c {
+    UnkDequeIterator_0207076c block;
+    u32 *entry;
+};
+
 // A container of blocks of 0x100 entries (template code, in the match data's file;
-// the match data has one, see func_0206d6b4)
+// the match data has one, see func_0206d6b4): an MSL deque of 4-byte values
 class UnkDeque_0207076c {
 public:
-    void func_0207076c();
+    u32 start;                       // the first entry's index in the first block
+    u32 count;
+    UnkDequeBuffer_0207076c blocks;  // the blocks
+
+    void func_0207076c(const u32 &value);
     void func_020707e4();
-    void func_02070854();
+    void func_02070854(u32 n);
     void func_02070d64();
     static void func_02070e34(const char *message);
     void func_02070e44();
@@ -49,7 +59,7 @@ public:
     void func_02071978();
     void func_02071b00();
     void func_02071c68();
-    void func_02071d38();
+    UnkDequePos_0207076c func_02071d38(u32 index);
     void func_02071e2c();
     void func_02071ea8();
     void func_02071fb0();

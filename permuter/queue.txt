@@ -28,3 +28,5 @@ func_02084350  src/match/MatchGeometry.cpp  2 words: the two flags zeroed in the
 func_020844dc  src/match/MatchGeometry.cpp  2 words: the two flags zeroed in the other order (mov r6, r4 / mov r5, r4)
 MatchEngine::func_0207a534  src/match/MatchEngine_2.cpp  4 words: the key (ip) and the table's address (lr) in each other's registers
 MatchEngine::func_0207c110  src/match/MatchEngine_2.cpp  6 words: ldr r3, =0xfff scheduled first, the ROM loads it into r0 after the entry's address
+MatchEngine::func_0207e810  src/match/MatchEngine_2.cpp  16 words: rect[2] loaded after rect[0]; division result through r4 to a shared return
+MatchEngine::func_0207e884  src/match/MatchEngine_2.cpp  16 words: same as func_0207e810 (the y axis)

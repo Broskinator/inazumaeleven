@@ -319,7 +319,7 @@ void func_020804bc(void);
 void func_020807d0(void);
 void func_020812fc(void);
 void _ZN11MatchEngine13func_0206e018Ev(void);
-void _ZN11MatchEngine13func_0206dfa4Ev(void);
+void _ZN11MatchEngine13func_0206dfa4Eii(void);
 void func_020813a8(void);
 void func_02084aec(void);
 void func_020812f4(void);
@@ -353,7 +353,7 @@ extern char data_020ca760[];
 void func_ov015_02131bb4(void);
 void _ZN11MatchEngine13func_020765d4Eii(void);
 void func_0209d8b8(void);
-void _ZN11MatchEngine13func_0207f5d0Ev(void);
+void _ZN11MatchEngine13func_0207f5d0EPcPKc(void);
 void func_ov015_02130b94(void);
 void STD_GetStringLength(void);
 void func_02017278(void);
@@ -5188,7 +5188,7 @@ asm void func_01ffc440(void)
     mov r0, r10
     mov r1, #0
     mov r2, #2
-    bl _ZN11MatchEngine13func_0206dfa4Ev
+    bl _ZN11MatchEngine13func_0206dfa4Eii
     str r0, [sp, #4]
 @L_01ffc548:
     mov r0, r7
@@ -6372,7 +6372,7 @@ asm void func_01ffcb50(void)
     mov r2, r0
     mov r1, r7
     mov r0, r10
-    bl _ZN11MatchEngine13func_0207f5d0Ev
+    bl _ZN11MatchEngine13func_0207f5d0EPcPKc
     str r4, [sp, #0x28]
 @L_01ffd62c:
     add r8, r8, #1
@@ -6467,7 +6467,7 @@ asm void func_01ffcb50(void)
     mov r2, r0
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0207f5d0Ev
+    bl _ZN11MatchEngine13func_0207f5d0EPcPKc
 @L_01ffd78c:
     add r8, r8, #1
 @L_01ffd790:

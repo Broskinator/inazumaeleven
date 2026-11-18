@@ -98,7 +98,7 @@ extern "C" void _ZN11MatchEngine13func_0206ddc8Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206dde8Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206df58Eih(void);
 extern "C" void _ZN11MatchEngine13func_0206df9cEl(void);
-extern "C" void _ZN11MatchEngine13func_0206dfa4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206dfa4Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206eb34Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206ecbcEv(void);
 extern "C" void _ZN11MatchEngine13func_0206f9e0Ev(void);
@@ -108,7 +108,7 @@ extern "C" void _ZN11MatchEngine13func_02073094Eiii(void);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" void _ZN11MatchEngine13func_02073a20EPvii(void);
 extern "C" void _ZN11MatchEngine13func_02073fa0Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207436cEv(void);
+extern "C" void _ZN11MatchEngine13func_0207436cEP11MatchPlayeriiii(void);
 extern "C" void _ZN11MatchEngine13func_020747b4Eii(void);
 extern "C" void _ZN11MatchEngine13func_020747e4Eim(void);
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);
@@ -121,8 +121,8 @@ extern "C" void _ZN11MatchEngine13func_0207d214Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207d274Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207e62cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207e738Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207e810Ev(void);
-extern "C" void _ZN11MatchEngine13func_0207e884Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207e810Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207e884Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207ec28Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207ee3cEv(void);
 extern "C" void func_01fff00c(void);
@@ -221,7 +221,7 @@ extern "C" asm void func_ov015_02158998(void)
     mov r1, r0
     ldr r0, =data_020e88a0
     mov r2, #2
-    bl _ZN11MatchEngine13func_0206dfa4Ev
+    bl _ZN11MatchEngine13func_0206dfa4Eii
     mov r1, r0
     mov r0, r5
     bl func_02081398
@@ -644,7 +644,7 @@ extern "C" asm void func_ov015_021591c4(void)
     mov r3, r2
 @L_021592d0:
     str r6, [sp, #4]
-    bl _ZN11MatchEngine13func_0207436cEv
+    bl _ZN11MatchEngine13func_0207436cEP11MatchPlayeriiii
     mov r5, r0
 @L_021592dc:
     cmp r7, #0
@@ -2047,7 +2047,7 @@ extern "C" s32 func_ov015_0215acb8(u8 *arg0, u8 *arg1, s32 *arg2)
     arg1[0xA] = 1;
     *(s32 *)a = ((s32 (*)(s32))func_ov015_021600f0)(*(s32 *)a);
     {
-        s32 r = ((s32 (*)(void *, s32))_ZN11MatchEngine13func_0207e810Ev)(data_020e88a0, *(s32 *)a);
+        s32 r = ((s32 (*)(void *, s32))_ZN11MatchEngine13func_0207e810Ei)(data_020e88a0, *(s32 *)a);
         if (arg2 != 0)
             *arg2 = r;
     }
@@ -2064,7 +2064,7 @@ extern "C" s32 func_ov015_0215ad3c(u8 *arg0, u8 *arg1, s32 *arg2)
     arg1[0xA] = 1;
     *(s32 *)a = ((s32 (*)(s32))func_ov015_021600f0)(*(s32 *)a);
     {
-        s32 r = ((s32 (*)(void *, s32))_ZN11MatchEngine13func_0207e884Ev)(data_020e88a0, *(s32 *)a);
+        s32 r = ((s32 (*)(void *, s32))_ZN11MatchEngine13func_0207e884Ei)(data_020e88a0, *(s32 *)a);
         if (arg2 != 0)
             *arg2 = r;
     }

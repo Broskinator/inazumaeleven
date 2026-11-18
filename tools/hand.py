@@ -26,7 +26,7 @@ an inline helper), or where the asm was after a line '//@local'. Directives, on 
 
 Example: python tools/hand.py batch.txt, then python tools/hand.py --write batch.txt and make.
 """
-import glob, os, re, subprocess, sys
+import glob, os, re, subprocess, sys, time
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__))).replace("\\", "/")
 SIZES = {}
 NL = chr(10)
@@ -57,6 +57,19 @@ def sources():
 
 def read(p):
     return open(p, encoding="utf-8", errors="replace").read()
+
+
+def save(p, text, encoding="utf-8"):
+    """writes text to p; retries while Windows holds the file (a compile reading it)"""
+    for i in range(40):
+        try:
+            with open(p, "w", newline="\n", encoding=encoding) as f:
+                f.write(text)
+            return
+        except PermissionError:
+            if i == 39:
+                raise
+            time.sleep(0.25)
 
 
 def find_src(fn):
@@ -217,7 +230,7 @@ def check(code, fn, write=False, tag="hand", src=None, nm=None):
     # which builds every .cpp under src/, never sees it; src/ holds no headers, all come from include/)
     os.makedirs(f"{ROOT}/build/tmp", exist_ok=True)
     tmp = f"{ROOT}/build/tmp/" + os.path.basename(src).replace(".cpp", f"_diff{tag}_{os.getpid()}.cpp")
-    open(tmp, "w", newline="\n", encoding="utf-8").write(tt)
+    save(tmp, tt)
     r = subprocess.run([sys.executable, "tools/fncmp.py", tmp, fn, "-d"], cwd=ROOT, capture_output=True, text=True)
     os.remove(tmp)
     m = re.search(r"^\S*%s\S*: (?:OK|(\d+) words differ) \((\d+) bytes\)" % fn, r.stdout, re.M)
@@ -226,11 +239,11 @@ def check(code, fn, write=False, tag="hand", src=None, nm=None):
     k = int(m[1] or 0) + abs((size(fn) or int(m[2])) - int(m[2])) // 4
     out = r.stdout[-4000:]
     if write and (k == 0 or nm):
-        open(src, "w", newline="\n", encoding="utf-8").write(t if k == 0 else t_nm)
+        save(src, t if k == 0 else t_nm)
         for f, ft in others.items():
-            open(f, "w", newline="\n", encoding="utf-8").write(ft)
+            save(f, ft)
         if ht is not None and ht != ht0:
-            open(hdr, "w", newline="\n", encoding="utf-8").write(ht)
+            save(hdr, ht)
             for f in [src] + list(others):
                 env = dict(os.environ)
                 ov = re.search(r"/src/ov(\d{3})/", f)

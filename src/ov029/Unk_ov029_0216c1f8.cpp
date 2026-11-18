@@ -31,7 +31,7 @@ extern "C" char data_ov029_0216d18c[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN11MatchEngine13func_0206dfa4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206dfa4Eii(void);
 extern "C" void _ZN11MatchEngine13func_02076848Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207b28cEv(void);
@@ -288,7 +288,7 @@ extern "C" asm s32 func_ov029_0216c4a8(...)
     mov r1, r0
     mov r0, r7
     mov r2, r11
-    bl _ZN11MatchEngine13func_0206dfa4Ev
+    bl _ZN11MatchEngine13func_0206dfa4Eii
     mov r3, r0
 @L_0216c508:
     mov r0, r7
@@ -352,7 +352,7 @@ extern "C" asm s32 func_ov029_0216c534(...)
     mov r1, r0
     mov r0, r4
     mov r2, #2
-    bl _ZN11MatchEngine13func_0206dfa4Ev
+    bl _ZN11MatchEngine13func_0206dfa4Eii
     mov r6, r0
 @L_0216c5e4:
     str r11, [sp]
