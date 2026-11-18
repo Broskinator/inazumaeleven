@@ -108,10 +108,10 @@ extern "C" void _ZN11MatchEngine13func_020784ecEP11MatchPlayerll(void);
 extern "C" void _ZN11MatchEngine13func_02078520EiPh(void);
 extern "C" void _ZN11MatchEngine13func_02078664Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_020787e8EP11MatchPlayer(...);
-extern "C" void _ZN11MatchEngine13func_02078f8cEi(void);
+extern "C" void _ZN11MatchEngine13func_02078f8cEP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02078fa4EP11MatchPlayer(void);
-extern "C" void _ZN11MatchEngine13func_0207900cEi(void);
-extern "C" void _ZN11MatchEngine13func_02079024Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207900cEP11MatchPlayer(void);
+extern "C" void _ZN11MatchEngine13func_02079024EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207903cEP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_020791ccEii(void);
 extern "C" s32 _ZN11MatchEngine13func_02079d2cEi(...);
@@ -670,7 +670,7 @@ extern "C" asm void func_ov087_0217a858(void)
     beq @L_0217aae8
     mov r0, r10
     mov r1, r5
-    bl _ZN11MatchEngine13func_02078f8cEi
+    bl _ZN11MatchEngine13func_02078f8cEP11MatchPlayer
     cmp r0, #0
     beq @L_0217aac8
     mov r0, r5
@@ -720,12 +720,12 @@ extern "C" asm void func_ov087_0217a858(void)
 @L_0217aac8:
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0207900cEi
+    bl _ZN11MatchEngine13func_0207900cEP11MatchPlayer
     cmp r0, #0
     beq @L_0217aae8
     mov r1, r5
     mov r0, r10
-    bl _ZN11MatchEngine13func_02079024Ei
+    bl _ZN11MatchEngine13func_02079024EP11MatchPlayer
 @L_0217aae8:
     add r7, r7, #1
 @L_0217aaec:
@@ -2282,7 +2282,7 @@ extern "C" asm s32 func_ov087_0217c2a8(...)
     movs r1, r0
     beq @L_0217c320
     mov r0, r10
-    bl _ZN11MatchEngine13func_02078f8cEi
+    bl _ZN11MatchEngine13func_02078f8cEP11MatchPlayer
     cmp r0, #0
     addne r5, r5, #1
 @L_0217c320:
@@ -2313,7 +2313,7 @@ extern "C" asm s32 func_ov087_0217c2a8(...)
     beq @L_0217c3d8
     mov r0, r10
     mov r1, r5
-    bl _ZN11MatchEngine13func_02078f8cEi
+    bl _ZN11MatchEngine13func_02078f8cEP11MatchPlayer
     cmp r0, #0
     beq @L_0217c3d8
     cmp r11, r7

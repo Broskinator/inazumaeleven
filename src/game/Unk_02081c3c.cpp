@@ -29,7 +29,7 @@ typedef struct {
 extern "C" UnkEntry_020cb288 data_020cb288[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MI_CpuFill8(void);
-extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207a534Em(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207a78cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207a820Ev(void);
@@ -381,7 +381,7 @@ extern "C" asm void func_02081f7c(void)
     bl _ZN11MatchEngine13func_0207e5a4EPhii
     mov r1, r8
     mov r0, r10
-    bl _ZN11MatchEngine13func_0207a534Ei
+    bl _ZN11MatchEngine13func_0207a534Em
     cmp r0, #0
     blt @L_02082128
     ldr r2, [r10, #0xbdc]

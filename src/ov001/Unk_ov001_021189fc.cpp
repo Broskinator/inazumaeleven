@@ -115,7 +115,7 @@ extern "C" s32 _ZN11MatchEngine13func_0206ce5cEv(...);
 extern "C" s32 _ZN11MatchEngine13func_0206e840Et(...);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
-extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
+extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -987,7 +987,7 @@ extern "C" asm void func_ov001_02119598(void)
     mov r1, r5
     and r3, r3, r4
     strh r3, [r2, #0x2a]
-    bl _ZN11MatchEngine13func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
     add r1, r8, #0x700
     strh r0, [r1, #0x2c]
     mov r0, r5

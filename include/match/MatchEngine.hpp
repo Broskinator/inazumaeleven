@@ -317,7 +317,7 @@ public:
     void func_0206e1fc();
     void func_0206e298();
     void func_0206e2e4();
-    void func_0206e330();
+    BOOL func_0206e330();
     void func_0206e3a8();
     void func_0206e3d4();
     void func_0206e50c();
@@ -498,7 +498,7 @@ public:
     void func_02077a80();
     int func_02077b00(MatchPlayer *player, u32 slot, BOOL flag);
     int func_02077ba0(int index, u32 slot, BOOL flag);
-    void func_02077bd4();
+    BOOL func_02077bd4();
     void func_02077c4c();
     BOOL func_02077ce4();
     int func_02077d18(void *buffer, int index);
@@ -533,13 +533,13 @@ public:
     void func_02078c70();
     void func_02078d84();
     void func_02078ea8();
-    int func_02078f14(int a);
-    BOOL func_02078f74(int a);
-    BOOL func_02078f8c(int a);
+    u8 func_02078f14(MatchPlayer *player);
+    BOOL func_02078f74(MatchPlayer *player);
+    BOOL func_02078f8c(MatchPlayer *player);
     BOOL func_02078fa4(MatchPlayer *player);
-    BOOL func_02078ff4(int a);
-    BOOL func_0207900c(int a);
-    BOOL func_02079024(int a);
+    BOOL func_02078ff4(MatchPlayer *player);
+    BOOL func_0207900c(MatchPlayer *player);
+    BOOL func_02079024(MatchPlayer *player);
     BOOL func_0207903c(MatchPlayer *player);
     void func_02079064();
     u8 func_020790cc(MatchPlayerBody *body, fx32 x, fx32 y);
@@ -582,7 +582,7 @@ public:
     BOOL func_0207a46c(MatchPlayer *player);
     void func_0207a4a0();
     BOOL func_0207a510(MatchPlayer *a, MatchPlayer *b);
-    int func_0207a534(int id);
+    int func_0207a534(u32 id);
     int func_0207a5c0(int id, void *out);
     void func_0207a78c();
     BOOL func_0207a820();
@@ -746,7 +746,8 @@ public:
     u16 (*unk_be0)[2];     // (unk_c24 pairs: [1] looked up, [0] returned)
     u8 (*unk_be4)[0xC];
     s8 *unk_be8;
-    s32 unk_bec[2];
+    s16 *unk_bec;       // (sorted ids, data_020c4828 of them; see func_0207a534)
+    s32 unk_bf0;
     MatchAction *unk_bf4;     // (per player, indexed by MatchPlayer::unk_f4)
     s32 unk_bf8[2];
     void *unk_c00;      // (on the heap)

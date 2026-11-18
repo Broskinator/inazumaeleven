@@ -82,7 +82,7 @@ extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
-extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
+extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207aeacEim(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
@@ -562,7 +562,7 @@ extern "C" asm void func_ov045_0216611c(void)
     ldr r2, =0xfff
     and r2, r3, r2
     strh r2, [r10, #0x66]
-    bl _ZN11MatchEngine13func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
     strh r0, [r10, #0x68]
     mov r0, r4
     bl func_020802a0
@@ -2286,7 +2286,7 @@ extern "C" asm void func_ov045_02167d6c(void)
     mov r1, r5
     and r2, r12, r2
     strh r2, [r3, #0x5e]
-    bl _ZN11MatchEngine13func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
     add r1, r8, #0x3e00
     strh r0, [r1, #0x60]
     mov r0, r5

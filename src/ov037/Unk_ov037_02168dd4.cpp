@@ -95,7 +95,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" void _ZN13ScreenManager17GetLoadedSceneSubEv(void);
-extern "C" void _ZN11MatchEngine13func_0207a534Ei(void);
+extern "C" void _ZN11MatchEngine13func_0207a534Em(void);
 extern "C" void _ZN11MatchEngine13func_0207a78cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207a820Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);
@@ -3051,7 +3051,7 @@ extern "C" asm void func_ov037_0216bb48(void)
     stmdb sp!, {r4, lr}
     ldr r4, =data_020cadf4
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_0207a534Ei
+    bl _ZN11MatchEngine13func_0207a534Em
     mov r1, r0
     mov r0, r4
     bl func_02081894
@@ -3066,7 +3066,7 @@ extern "C" asm void func_ov037_0216bb7c(void)
     stmdb sp!, {r4, lr}
     ldr r4, =data_020cacc8
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_0207a534Ei
+    bl _ZN11MatchEngine13func_0207a534Em
     mov r1, r0
     mov r0, r4
     bl func_020817bc

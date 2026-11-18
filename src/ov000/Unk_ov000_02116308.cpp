@@ -33,7 +33,7 @@ extern "C" void MI_CpuFill8(void);
 extern "C" void STD_CompareString(void);
 extern "C" void STD_CopyString(void);
 extern "C" void STD_GetStringLength(void);
-extern "C" s32 _ZN11MatchEngine13func_0207a534Ei(...);
+extern "C" s32 _ZN11MatchEngine13func_0207a534Em(...);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207aedcEv(void);
 extern "C" void _ZN11MatchEngine13func_0207af84Ev(void);
@@ -335,7 +335,7 @@ extern "C" asm void func_ov000_02116530(void)
 @L_02116704:
     ldrh r1, [r4, #0x2a]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0207a534Ei
+    bl _ZN11MatchEngine13func_0207a534Em
     mov r1, r0
     ldr r0, [sp, #0xc]
     add r0, r0, #0x400
@@ -423,7 +423,7 @@ extern "C" asm void func_ov000_02116530(void)
     mla r0, r7, r4, r9
     ldrh r1, [r0, #4]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0207a534Ei
+    bl _ZN11MatchEngine13func_0207a534Em
     mov r1, r0
     add r0, r6, #0x400
     bl func_020816b0
@@ -503,7 +503,7 @@ extern "C" asm s32 func_ov000_02116958(...)
     bne @L_021169b8
     ldrh r1, [r4, #0x2a]
     mov r0, r7
-    bl _ZN11MatchEngine13func_0207a534Ei
+    bl _ZN11MatchEngine13func_0207a534Em
     mov r1, r0
     add r0, r8, #0x400
     bl func_020816dc
@@ -533,7 +533,7 @@ extern "C" void func_ov000_021169e0(u8 *arg0)
     e = *(u8 **)(arg0 + 0xBD4);
     for (i = 0; i < *(u16 *)(arg0 + 0x11842); i++) {
         if (*(u8 *)(e + 0x30) != 1)
-            func_020816dc((s32)(arg0 + 0x584), _ZN11MatchEngine13func_0207a534Ei((s32)arg0, *(u16 *)(e + 0x2A)));
+            func_020816dc((s32)(arg0 + 0x584), _ZN11MatchEngine13func_0207a534Em((s32)arg0, *(u16 *)(e + 0x2A)));
         e += 0x38;
     }
     if (!made)
@@ -790,7 +790,7 @@ extern "C" asm void func_ov000_02116d18(void)
     bhi @L_02116e0c
     ldrh r1, [r7, #0x2a]
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_0207a534Ei
+    bl _ZN11MatchEngine13func_0207a534Em
     mov r1, r0
     ldr r0, =data_020cacc8
     bl func_020817bc

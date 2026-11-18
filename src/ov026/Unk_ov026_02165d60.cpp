@@ -105,7 +105,7 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
-extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
+extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -1950,7 +1950,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mla r12, r2, r4, r10
     add r2, r12, #0x300
     strh r3, [r2, #0xaa]
-    bl _ZN11MatchEngine13func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
     ldrb r2, [r10, #0xa14]
     mla r1, r2, r4, r10
     add r1, r1, #0x300
@@ -2010,7 +2010,7 @@ extern "C" asm void func_ov026_0216765c(void)
     and r12, r12, r2
     mla r2, r3, r4, r10
     strh r12, [r2, #0x6a]
-    bl _ZN11MatchEngine13func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
     ldrb r2, [r10, #0xa14]
     mla r1, r2, r4, r10
     strh r0, [r1, #0x6c]

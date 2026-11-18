@@ -89,7 +89,7 @@ extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);
 extern "C" void _ZN11MatchEngine13func_02076818Ev(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
-extern "C" void _ZN11MatchEngine13func_02078f14Ei(void);
+extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -1474,7 +1474,7 @@ extern "C" asm s32 func_ov027_02166eac(...)
     mov r1, r5
     and r2, r11, r2
     strh r2, [r3, #0xd2]
-    bl _ZN11MatchEngine13func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
     add r1, r9, #0x500
     strh r0, [r1, #0xd4]
     mov r0, r5
@@ -1555,7 +1555,7 @@ extern "C" asm s32 func_ov027_02166eac(...)
     mov r1, r4
     and r2, r11, r2
     strh r2, [r3, #0x52]
-    bl _ZN11MatchEngine13func_02078f14Ei
+    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
     add r1, r7, #0xb00
     strh r0, [r1, #0x54]
     mov r0, r4
