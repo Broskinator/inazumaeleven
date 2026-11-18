@@ -56,7 +56,9 @@ static inline BOOL MatchBall_IsHeld(MatchBall *ball)
 // A player's position and state, pointed to by MatchPlayer::body
 struct MatchPlayerBody {
     VecFx32 pos;
-    u8 unk_c[0x16 - 0xC];
+    u8 unk_c[0x12 - 0xC];
+    u16 unk_12;
+    u16 unk_14;
     u16 unk_16;         // flags
     u16 direction;      // 0x18
     u8 unk_1a;          // (the direction as one of 8)
@@ -93,7 +95,8 @@ struct MatchPlayerState {
 
 // A player of the match (one of 0x20, see func_ov015_02130ae8)
 struct MatchPlayer {
-    u8 unk_0[0x42];
+    u8 unk_0[0x41];
+    u8 unk_41;
     u16 unk_42;
     u8 unk_44[0x55 - 0x44];
     u8 unk_55;          // (bits 5-7 and 0-4)

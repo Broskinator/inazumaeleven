@@ -91,7 +91,7 @@ extern "C" void _ZN11MatchEngine13func_0206b3a4Eim(void);
 extern "C" void _ZN11MatchEngine13func_0206bfa0Eh(void);
 extern "C" void _ZN11MatchEngine13func_0206bfb4Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_0206d828Ev(...);
-extern "C" s32 _ZN11MatchEngine13func_0206d840Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206d840Ei(...);
 extern "C" s32 _ZN11MatchEngine13func_0206d8e0Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206d8f8Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206d910Ev(...);
@@ -1049,7 +1049,7 @@ extern "C" s32 func_ov001_02122c84(void)
         return v0;
     } else {
         t0 = *(u8 *)(((u8 *)&gGameState) + 0x7E);
-        v1 = _ZN11MatchEngine13func_0206d840Ev((s32)((u8 *)&data_020e88a0), t0);
+        v1 = _ZN11MatchEngine13func_0206d840Ei((s32)((u8 *)&data_020e88a0), t0);
         return v1;
     }
 }

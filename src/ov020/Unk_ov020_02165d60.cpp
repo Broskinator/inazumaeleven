@@ -85,7 +85,7 @@ extern "C" void _ZN11TreasureBox13func_020526ecEii(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
-extern "C" void _ZN11MatchEngine13func_0207aaf4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207aaf4Eii(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void GX_LoadBG1Scr(void);
@@ -2146,7 +2146,7 @@ extern "C" asm void func_ov020_02167ec0(void)
     mov r1, #0
     and r2, r3, #0xff
     strb r3, [r7, #0x2b4]
-    bl _ZN11MatchEngine13func_0207aaf4Ev
+    bl _ZN11MatchEngine13func_0207aaf4Eii
     cmp r0, #5
     bge @L_02167fc8
     ldrb r1, [r7, #0x2b4]

@@ -116,7 +116,7 @@ extern "C" void _ZN11MatchEngine13func_02078fa4EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02079064EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02079d2cEi(void);
 extern "C" void _ZN11MatchEngine13func_0207a2a8Ei(void);
-extern "C" void _ZN11MatchEngine13func_0207a4a0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207a4a0EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);
 extern "C" void func_01ff876c(void);
 extern "C" void func_01ff8990(void);
@@ -451,7 +451,7 @@ extern "C" asm void func_ov015_02140b64(void)
     mov r8, r0
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0207a4a0Ev
+    bl _ZN11MatchEngine13func_0207a4a0EP11MatchPlayer
     mov r1, r4
     mov r0, r10
     ldrsh r2, [r9, #0xf4]
@@ -2332,7 +2332,7 @@ extern "C" asm void func_ov015_02142664(void)
     ldr r1, [sp, #0x1c]
     mov r0, r10
     mov r7, #9
-    bl _ZN11MatchEngine13func_0207a4a0Ev
+    bl _ZN11MatchEngine13func_0207a4a0EP11MatchPlayer
 @L_021427ac:
     stmia r9, {r4, r5}
     ldr r0, =0x38e

@@ -12575,54 +12575,23 @@ BOOL MatchEngine::func_0206d828()
     return ((*(u16 *)((u8 *)this + 0x20C)) & 0x1) ? FALSE : TRUE;
 }
 
-asm void MatchEngine::func_0206d840()
+BOOL MatchEngine::func_0206d840(int kind)
 {
-    add r0, r0, #0x200
-    ldrh r0, [r0, #0xc]
-    cmp r1, #0xe
-    addls pc, pc, r1, lsl #2
-    b @L_0206d8d8
-    b @L_0206d890
-    b @L_0206d890
-    b @L_0206d890
-    b @L_0206d8a0
-    b @L_0206d8a0
-    b @L_0206d8a0
-    b @L_0206d8b0
-    b @L_0206d8b0
-    b @L_0206d8b0
-    b @L_0206d8c0
-    b @L_0206d8c0
-    b @L_0206d8c0
-    b @L_0206d8d0
-    b @L_0206d8d0
-    b @L_0206d8d0
-@L_0206d890:
-    tst r0, #2
-    moveq r0, #1
-    movne r0, #0
-    bx lr
-@L_0206d8a0:
-    tst r0, #4
-    moveq r0, #1
-    movne r0, #0
-    bx lr
-@L_0206d8b0:
-    tst r0, #8
-    moveq r0, #1
-    movne r0, #0
-    bx lr
-@L_0206d8c0:
-    tst r0, #0x10
-    moveq r0, #1
-    movne r0, #0
-    bx lr
-@L_0206d8d0:
-    mov r0, #0
-    bx lr
-@L_0206d8d8:
-    mov r0, #1
-    bx lr
+    u16 flags = unk_20c;
+
+    switch (kind) {
+    case 0: case 1: case 2:
+        return !(flags & 2);
+    case 3: case 4: case 5:
+        return !(flags & 4);
+    case 6: case 7: case 8:
+        return !(flags & 8);
+    case 9: case 10: case 11:
+        return !(flags & 0x10);
+    case 12: case 13: case 14:
+        return FALSE;
+    }
+    return TRUE;
 }
 
 BOOL MatchEngine::func_0206d8e0()
