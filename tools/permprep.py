@@ -320,7 +320,9 @@ def preprocess(text, source):
 
 
 def fix_params(t):
-    """a parameter list as C: no default values, references as pointers"""
+    """a parameter list as C: no default values, references as pointers, (...) as ()"""
+    if t.strip() == "...":
+        return ""
     out = []
     for p in split_top(t):
         k = next((i for i, c in enumerate(p) if c == "=" and split_top(p[:i]) == [p[:i].strip()]), -1)
@@ -334,7 +336,7 @@ def fix_decl(s):
     """a declaration as C"""
     s = re.sub(r"\bclass\s+(?=\w)", "struct ", s)
     s = re.sub(r"\b(inline|__inline|explicit|virtual|mutable|asm)\b\s*", "", s)
-    s = re.sub(r"(\w|\*)\s*&\s*(\w+)\s*(?=[,)=;\[])", r"\1 *\2", s)
+    s = re.sub(r"(\w|\*)\s*&\s*(\w+)\s*(?=[,)=;\[]|$)", r"\1 *\2", s)
     s = re.sub(r"\)\s*const\b", ")", s)
 
     def params(m):
@@ -551,7 +553,10 @@ def to_c(ftext, func, ctx):
                           r"this->\1", body)
     else:
         cname = func
-        head = re.sub(r"\b(asm|inline)\b\s*", "", head)
+        bridge["externc"] = bool(re.match(r'extern\s*"C"', head))
+        head = re.sub(r'\b(asm|inline)\b\s*|^extern\s*"C"\s*', "", head)
+        k = head.index("(")
+        head = head[:k] + "(" + fix_params(head[k + 1:matching(head, k)]) + ")"
     pairs = set(re.findall(r"\b(\w+)\s*::\s*(~?\w+)", body))
     body = re.sub(r"\b(\w+)\s*::\s*(~?\w+)", r"\1__\2", body)
     body = re.sub(r"\b(?:static|reinterpret|const)_cast\s*<([^<>]+)>\s*\(", r"((\1))(", body)
@@ -582,6 +587,8 @@ def from_c(text, bridge):
         head = f"{m[1].strip()} {cls}::{name}({', '.join(params)})"
     else:
         head = f"{m[1].strip()} {cname}({', '.join(params) or 'void'})"
+        if bridge.get("externc"):
+            head = 'extern "C" ' + head
     if bridge["classes"]:
         body = re.sub(r"\b(%s)__(~?\w+)" % "|".join(map(re.escape, bridge["classes"])), r"\1::\2", body)
     return head + "\n" + body + "\n"

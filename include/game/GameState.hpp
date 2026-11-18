@@ -48,7 +48,9 @@ public:
     void LoadExtra(void *src);
     void SaveExtra(void *dst);
 
-    u8 unk_000[0xAC];
+    u8 unk_000[0x78];
+    u32 unk_078;                // (a bit per match player, see MatchEngine::func_020740cc)
+    u8 unk_07c[0xAC - 0x7C];
     SaveBlock0 block0;          // 0x0AC
     SaveProfile profile;        // 0x4AC
     SaveBlock2 block2;          // 0x5BC

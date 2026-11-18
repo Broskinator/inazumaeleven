@@ -327,7 +327,7 @@ void _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii(void);
 void _ZN11MatchEngine13func_0206b4ccEi(void);
 void func_ov087_02180ae0(void);
 void _ZN11MatchEngine13func_0207a78cEv(void);
-void _ZN11MatchEngine13func_0207af84Ev(void);
+void _ZN11MatchEngine13func_0207af84Eii(void);
 void _ZN11MatchEngine13func_0206f9e0Ev(void);
 void func_ov015_02131bd0(void);
 void func_02080780(void);
@@ -5407,7 +5407,7 @@ asm void func_01ffc784(void)
     ldr r2, =0x922
     mov r0, r10
     mov r1, r4
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     bne @L_01ffc9c0
 @L_01ffc870:
@@ -5419,7 +5419,7 @@ asm void func_01ffc784(void)
     mov r2, r0, lsr #0x10
     mov r0, r10
     mov r1, r4
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     bne @L_01ffc9c0
 @L_01ffc89c:
@@ -5492,7 +5492,7 @@ asm void func_01ffc784(void)
     mov r0, r10
     mov r1, r4
     mov r2, r7
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     bne @L_01ffc9c0
     mov r1, r7
@@ -5942,7 +5942,7 @@ asm void func_01ffcb50(void)
     mov r0, r10
     mov r1, #0
     mov r2, r2, lsr #0x10
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     beq @L_01ffd01c
     ldr r0, [sp, #0x2c]
@@ -5971,7 +5971,7 @@ asm void func_01ffcb50(void)
     ldr r2, =0x922
     mov r0, r10
     mov r1, #0
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     beq @L_01ffd09c
     mov r0, #6
@@ -6364,7 +6364,7 @@ asm void func_01ffcb50(void)
     ldrh r2, [r7, #0x42]
     mov r0, r10
     mov r1, r6
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     beq @L_01ffd62c
     mov r0, r5

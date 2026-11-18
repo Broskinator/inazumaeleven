@@ -158,7 +158,7 @@ extern "C" void gGameState(void);
 
 extern "C" void _ZN13ScreenManager15GetCurSceneMainEv(void);
 extern "C" void _ZN11TreasureBox13func_02052da8Ell(void);
-extern "C" void _ZN11MatchEngine13func_0206c758Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206c758EP11MatchPlayer(void);
 extern "C" void func_ov001_02102ab0(void);
 extern "C" void func_ov001_021029a4(void);
 extern "C" void _ZN11MatchEngine13func_0206bffcEv(void);
@@ -462,7 +462,7 @@ extern "C" asm void func_ov001_02102d88(void)
     cmp r8, #0
     beq @L_02103030
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_0206c758Ev
+    bl _ZN11MatchEngine13func_0206c758EP11MatchPlayer
 @L_02103030:
     bl func_ov015_0213179c
     cmp r0, #0

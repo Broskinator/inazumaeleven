@@ -20,8 +20,6 @@ MatchEngine::func_0206ccb8  src/match/MatchEngine.cpp  3 words: the ROM loads un
 MatchEngine::func_0206f500  src/match/MatchEngine_2.cpp  5 words: the pool and the id in r4/r5 swapped
 MatchEngine::func_0207070c  src/match/MatchEngine_2.cpp  15 words: the attempt jumps to the loop test first, the ROM enters the body directly (s16 counter)
 MatchEngine::func_0207add4  src/match/MatchEngine_2.cpp  15 words: the ROM enters the loop through its test (b), the attempt's loop is rotated (func_0207ae40 is the same)
-UnkDequeBuffer_0207076c::func_02071df8  src/match/MatchEngine_2.cpp  12 words: the ROM keeps 4 unused stack bytes (push r3, sub sp, #4), the body is the same
-UnkDequeBuffer_0207076c::func_020720b0  src/match/MatchEngine_2.cpp  12 words: the same function as func_02071df8 (another instance of the template)
 MatchEngine::func_0207d330  src/match/MatchEngine_2.cpp  1 word: add r3, r1, r5 where the ROM has add r3, r5, r1 (the += operands)
 func_02084350  src/match/MatchGeometry.cpp  2 words: the two flags zeroed in the other order (mov r4, ip / mov lr, ip)
 func_020844dc  src/match/MatchGeometry.cpp  2 words: the two flags zeroed in the other order (mov r6, r4 / mov r5, r4)
@@ -32,3 +30,4 @@ MatchEngine::func_0207e884  src/match/MatchEngine_2.cpp  16 words: same as func_
 MatchEngine::func_0206b1dc  src/match/MatchEngine.cpp  10 words: the start index and the count in each other's registers (r8/r5)
 func_020843b0  src/match/MatchGeometry.cpp  17 words: y, the rectangle and the flag in other registers; *x loaded before rect[0]
 MatchEngine::func_0206a078  src/match/MatchEngine.cpp  1 word: ldrsh of the sine where the ROM has ldrh (then smull; a u16 read gives umull)
+MatchEngine::func_0207af84  src/match/MatchEngine_2.cpp  6 words: the key (r4 in the ROM) and the 0/1 of MatchPlayer_HasFlag in other registers

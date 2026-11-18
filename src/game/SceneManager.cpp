@@ -843,7 +843,7 @@ void SceneManager::func_0203eba4()
         data_020c45a0.nextScene = 5;
     } else {
         mode = *(u32 *)0x02FFFC20;
-        gGameState.unk_000[0x7C] = 0;
+        gGameState.unk_07c[0x0] = 0;
         if (mode == 0) {
             data_020c45a0.nextScene = 4;
         } else if (mode == 0x16 || mode == 0x15) {
@@ -853,7 +853,7 @@ void SceneManager::func_0203eba4()
         } else if (mode >= 0x17 && mode <= 0x19) {
             data_020c4ab4.unk_be = 0;
             data_020c4ab4.unk_c1_0 = mode - 0x16;
-            gGameState.unk_000[0x7C] = 1;
+            gGameState.unk_07c[0x0] = 1;
             data_020c45a0.nextScene = 1;
         } else if (mode >= 0x1A && mode <= 0x1C) {
             data_020c4ab4.unk_be = 0;
@@ -989,7 +989,7 @@ void SceneManager::func_0203ed88()
         return;
     }
     noSleep = FALSE;
-    if (func_ov015_02131828() != 0 || gGameState.unk_000[0x9A] != 0 || gGameState.unk_000[0x99] != 0) {
+    if (func_ov015_02131828() != 0 || gGameState.unk_07c[0x1E] != 0 || gGameState.unk_07c[0x1D] != 0) {
         noSleep = TRUE;
     } else if (!(gWirelessUtil.unk_58 == 0 || noSleep)) {
         switch (gWirelessUtil.unk_5c) {

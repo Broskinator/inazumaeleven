@@ -1,0 +1,21 @@
+--- before
++++ after
+@@ -1946,7 +1946,8 @@
+     return 0;
+   }
+   index = this->unk_c08[side];
+-  n = (last + 0x20) - index;
++  i = index;
++  n = (last + 0x20) - i;
+   n = (n + 1) % 0x20;
+   if (n == 0)
+   {
+@@ -1955,7 +1956,7 @@
+   count = 0;
+   for (i = 0; i < n; i++)
+   {
+-    if (index >= 0x20)
++    if (i >= 0x20)
+     {
+       index = 0;
+     }

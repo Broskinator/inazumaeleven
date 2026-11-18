@@ -36,7 +36,7 @@ extern "C" void STD_GetStringLength(void);
 extern "C" s32 _ZN11MatchEngine13func_0207a534Em(...);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207aedcEv(void);
-extern "C" void _ZN11MatchEngine13func_0207af84Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207e5fcEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0207efd8Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0207f07cEv(...);
@@ -270,7 +270,7 @@ extern "C" asm void func_ov000_02116530(void)
     bne @L_02116638
     mov r0, r10
     mov r1, #0
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     movne r0, #1
     strne r0, [sp]
@@ -316,7 +316,7 @@ extern "C" asm void func_ov000_02116530(void)
     ldrh r2, [r4, #0x2a]
     mov r0, r10
     mov r1, #0
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     beq @L_021166ec
 @L_021166d8:
@@ -774,7 +774,7 @@ extern "C" asm void func_ov000_02116d18(void)
     ldrh r2, [r7, #0x2a]
     mov r0, r10
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     bne @L_02116e20
     ldrb r0, [r7, #0x31]

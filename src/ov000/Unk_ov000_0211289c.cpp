@@ -42,7 +42,7 @@ extern "C" void VEC_DotProduct(void);
 extern "C" void _ZN11MatchEngine13func_0206e1fcEv(void);
 extern "C" void _ZN11MatchEngine13func_0206ea68Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207a534Em(void);
-extern "C" void _ZN11MatchEngine13func_0207af84Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207e5fcEv(void);
 extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207f07cEv(void);
@@ -2804,7 +2804,7 @@ extern "C" asm s32 func_ov000_02114df8(...)
     mov r8, #0
     ldr r0, [sp]
     mov r1, r8
-    bl _ZN11MatchEngine13func_0207af84Ev
+    bl _ZN11MatchEngine13func_0207af84Eii
     cmp r0, #0
     bne @L_021160f4
     ldrb r1, [r6, #0x2c]
