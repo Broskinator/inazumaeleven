@@ -610,10 +610,9 @@ void SoundManager::SaveState(SoundState *state)
     }
 }
 
-// (nonmatching: the loop counter and its offset swap registers)
-#ifdef NONMATCHING
 void SoundManager::RestoreState(SoundState *state)
 {
+    char *name;
     char wave[0x20];
     int i;
     char *ext;
@@ -625,8 +624,9 @@ void SoundManager::RestoreState(SoundState *state)
             if (ext != NULL) {
                 *ext = '\0';
             }
+            name = state->effects[i];
             STD_ConcatenateString(wave, data_020abda4);
-            LoadPair(i, wave, state->effects[i]);
+            LoadPair(i, wave, name);
         }
     }
 
@@ -634,74 +634,6 @@ void SoundManager::RestoreState(SoundState *state)
         unk_470[i] = state->tracks[i];
     }
 }
-#else
-asm void SoundManager::RestoreState(SoundState *state)
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x20
-    mov r7, #0
-    ldr r11, =data_020abda4
-    mov r10, r0
-    mov r9, r1
-    mov r4, r7
-    add r6, sp, #0
-    mov r5, #0x2e
-@L_0203a2f8:
-    mov r8, r7, lsl #5
-    ldrsb r0, [r9, r8]
-    cmp r0, #0
-    beq @L_0203a348
-    mov r0, r6
-    add r1, r9, r8
-    bl STD_CopyString
-    mov r0, r6
-    mov r1, r5
-    bl strrchr
-    cmp r0, #0
-    strneb r4, [r0]
-    mov r0, r6
-    mov r1, r11
-    bl STD_ConcatenateString
-    mov r0, r10
-    mov r1, r7
-    add r3, r9, r8
-    mov r2, r6
-    bl LoadPair
-@L_0203a348:
-    add r7, r7, #1
-    cmp r7, #4
-    blt @L_0203a2f8
-    mov r2, #0
-    mov r4, #0x28
-@L_0203a35c:
-    mul r1, r2, r4
-    add r0, r9, r1
-    add r1, r10, r1
-    add r8, r0, #0x80
-    add r7, r1, #0x470
-    mov r6, #0x10
-@L_0203a374:
-    ldrb r5, [r8]
-    ldrb r3, [r8, #1]
-    add r8, r8, #2
-    subs r6, r6, #1
-    strb r3, [r7, #1]
-    strb r5, [r7], #2
-    bne @L_0203a374
-    ldrsh r5, [r0, #0xa0]
-    add r3, r1, #0x400
-    add r2, r2, #1
-    strh r5, [r3, #0x90]
-    ldrsh r5, [r0, #0xa2]
-    cmp r2, #2
-    strh r5, [r3, #0x92]
-    ldr r0, [r0, #0xa4]
-    str r0, [r1, #0x494]
-    blt @L_0203a35c
-    add sp, sp, #0x20
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-}
-#endif
 
 void SoundManager::func_0203a3c4(int index, int id)
 {

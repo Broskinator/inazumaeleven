@@ -1,0 +1,16 @@
+--- before
++++ after
+@@ -405,12 +405,12 @@
+   this->parentParam.tgid = this->tgid;
+   this->parentParam.channel = this->channel;
+   this->parentParam.beaconPeriod = WM_GetDispersionBeaconPeriod();
+-  this->parentParam.maxEntry = this->maxEntry - 1;
+   this->parentParam.entryFlag = 1;
+   this->parentParam.parentMaxSize = this->parentMaxSize;
+   this->parentParam.childMaxSize = this->childMaxSize;
+   this->parentParam.CS_Flag = 0;
+   this->parentParam.multiBootFlag = 0;
++  this->parentParam.maxEntry = this->maxEntry - 1;
+   this->parentParam.KS_Flag = (this->connectMode & 1) ? (1) : (0);
+   this->connectedMask = 0;
+   this->mpParam0 = mpParam0;

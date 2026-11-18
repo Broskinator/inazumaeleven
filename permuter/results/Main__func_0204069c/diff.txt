@@ -1,0 +1,12 @@
+--- before
++++ after
+@@ -1025,6 +1025,8 @@
+ extern void OS_FreeToHeap(int arena, int heap, void *ptr);
+ void *Main__func_0204069c(void *arg, u32 size)
+ {
+-  return OS_AllocFromHeap(0, -1, size);
++  int new_var;
++  return OS_AllocFromHeap(0, new_var, size);
++  new_var = -1;
+ }
+ 

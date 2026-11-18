@@ -1,0 +1,32 @@
+--- before
++++ after
+@@ -1935,6 +1935,7 @@
+ extern void gEntryPool(void);
+ int MatchEngine__func_0206ccb8(MatchEngine *this)
+ {
++  s8 *new_var;
+   int level;
+   switch (gGameState.profile.unk_45)
+   {
+@@ -1942,8 +1943,9 @@
+       level = this->func_0206b4b8(0) + gGameState.profile.unk_46;
+       break;
+ 
++    new_var = &gGameState.profile.unk_46;
+     case 1:
+-      level = gGameState.profile.unk_46;
++      level = *new_var;
+       break;
+ 
+   }
+@@ -1954,7 +1956,10 @@
+   }
+   if (level > 99)
+   {
++    if (1)
++    {
+     level = 99;
++    }
+   }
+   return level;
+ }

@@ -1,0 +1,29 @@
+--- before
++++ after
+@@ -395,19 +395,24 @@
+ extern int WM_MeasureChannel(WMCallbackFunc callback, u16 ccaMode, u16 edThreshold, u16 channel, u16 measureTime);
+ BOOL Wireless__func_0203c9ec(Wireless *this, int arg)
+ {
++  u8 *new_var;
+   int result;
++  new_var = this->unk_004;
+   if (this->state != WIRELESS_STATE_DATA_SHARING)
+   {
+     return 0;
+   }
+-  result = WM_StepDataSharing(this->dataSharing, arg, this->unk_004);
++  result = WM_StepDataSharing(this->dataSharing, arg, new_var);
+   switch (result)
+   {
+     case 5:
++      if (((!this->dataSharing) && (!this->dataSharing)) && (!this->dataSharing))
++    {
++    }
+       break;
+ 
+     case 0:
+-      return 1;
++      return (unsigned long) 1;
+ 
+   }
+ 

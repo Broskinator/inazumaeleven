@@ -1,0 +1,13 @@
+--- before
++++ after
+@@ -1921,8 +1921,9 @@
+   fx32 cos = FX_CosIdx(angle >> 4);
+   fx32 sin = FX_SinIdx(angle >> 4);
+   fx32 x = from->x;
+-  fx32 y = from->y;
++  fx32 y;
+   pos->x = x + FX_Mul(distance, cos);
+   pos->y = y + FX_Mul(distance, sin);
++  y = from->y;
+ }
+ 

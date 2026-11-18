@@ -1,0 +1,13 @@
+--- before
++++ after
+@@ -575,7 +575,9 @@
+   {
+     time = 0;
+   }
+-  this->param.value = volume + (((u16) time) << 16);
++  this->param.value = volume;
++  this->param.flags = 4;
++  this->param.value = this->param.value + (((u16) time) << 16);
+   this->param.flags = 4;
+ }
+ 

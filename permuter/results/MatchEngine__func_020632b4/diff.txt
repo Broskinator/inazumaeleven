@@ -1,0 +1,19 @@
+--- before
++++ after
+@@ -1910,12 +1910,14 @@
+   }
+   bodyB = b->body;
+   bodyA = a->body;
+-  dx = bodyA->pos.x - bodyB->pos.x;
++  dx = bodyB->pos.x;
++  dx = bodyA->pos.x - dx;
+   if (dx < 0)
+   {
+     dx = -dx;
+   }
+-  dy = bodyA->pos.y - bodyB->pos.y;
++  dy = bodyB->pos.y;
++  dy = bodyA->pos.y - dy;
+   if (dy < 0)
+   {
+     dy = -dy;

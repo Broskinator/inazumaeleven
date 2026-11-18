@@ -1,0 +1,21 @@
+--- before
++++ after
+@@ -571,6 +571,7 @@
+ BOOL GetSoundFilePath(const char *name, char *path, u32 length);
+ void SoundManager__RestoreState(SoundManager *this, SoundState *state)
+ {
++  char *new_var;
+   char wave[0x20];
+   int i;
+   char *ext;
+@@ -584,8 +585,9 @@
+       {
+         *ext = '\0';
+       }
++      new_var = state->effects[i];
+       STD_ConcatenateString(wave, data_020abda4);
+-      this->LoadPair(i, wave, state->effects[i]);
++      this->LoadPair(i, wave, new_var);
+     }
+   }
+ 
