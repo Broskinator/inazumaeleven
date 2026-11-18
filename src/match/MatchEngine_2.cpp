@@ -6444,9 +6444,9 @@ asm void MatchEngine::func_020744d4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-int // (nonmatching: the order of two instructions differs)
+// (nonmatching: the order of two instructions differs)
 #ifdef NONMATCHING
-MatchEngine::func_0207455c(int a, BOOL b, u32 flags)
+int MatchEngine::func_0207455c(int a, BOOL b, u32 flags)
 {
     int result;
 
@@ -6464,7 +6464,7 @@ MatchEngine::func_0207455c(int a, BOOL b, u32 flags)
     return result;
 }
 #else
-asm MatchEngine::func_0207455c(int a, BOOL b, u32 flags)
+asm int MatchEngine::func_0207455c(int a, BOOL b, u32 flags)
 {
     tst r3, #1
     beq @L_02074574
@@ -6480,9 +6480,9 @@ asm MatchEngine::func_0207455c(int a, BOOL b, u32 flags)
 }
 #endif
 
-int // (nonmatching: the order of two instructions differs)
+// (nonmatching: the order of two instructions differs)
 #ifdef NONMATCHING
-MatchEngine::func_02074584(int a, BOOL b, u32 flags)
+int MatchEngine::func_02074584(int a, BOOL b, u32 flags)
 {
     int result;
 
@@ -6500,7 +6500,7 @@ MatchEngine::func_02074584(int a, BOOL b, u32 flags)
     return result;
 }
 #else
-asm MatchEngine::func_02074584(int a, BOOL b, u32 flags)
+asm int MatchEngine::func_02074584(int a, BOOL b, u32 flags)
 {
     tst r3, #1
     beq @L_0207459c

@@ -4,13 +4,27 @@
 usage: tools/permdecl.py src/file.cpp "Class::Function(" MANGLED_NAME
 
 The declarations are the lines right after the function's opening brace (one per line,
-indented by 4 spaces). The best order found is written back to the file.
+indented by 4 spaces). The best order found is written back to the file. A function under
+#ifdef NONMATCHING (its attempt, with the asm after #else) is compiled with -DNONMATCHING.
 """
-import itertools, re, subprocess, sys
+import itertools, os, re, subprocess, sys
 
 src, marker, name = sys.argv[1:4]
 text = open(src).read()
-start = text.index(marker)
+# (the definition: an occurrence of the marker whose line doesn't end in ';' (a prototype) and
+# isn't the asm; under #ifdef NONMATCHING when the function has an attempt and its asm)
+starts = []
+for m in re.finditer(re.escape(marker), text):
+    line_start = text.rfind("\n", 0, m.start()) + 1
+    line_end = text.find("\n", m.start())
+    line = text[line_start:line_end]
+    if not line.rstrip().endswith(";") and not re.search(r"\basm\b", line):
+        starts.append(m.start())
+if not starts:
+    sys.exit(f"no definition of {marker} in {src}")
+start = starts[0]
+before = text[:start]
+nonmatching = before.rfind("#ifdef NONMATCHING") > max(before.rfind("#endif"), before.rfind("#else"))
 brace = text.index("{\n", start) + 2
 lines = text[brace:].split("\n")
 n = 0
@@ -23,7 +37,11 @@ print(f"{len(decls)} declarations")
 
 def score(order):
     open(src, "w", newline="\n").write(text[:brace] + "\n".join(order) + "\n" + rest)
-    r = subprocess.run([sys.executable, "tools/fncmp.py", src, name], capture_output=True, text=True).stdout
+    env = dict(os.environ)
+    if nonmatching:
+        env["EXTRA_CFLAGS"] = (env.get("EXTRA_CFLAGS", "") + " -DNONMATCHING").strip()
+    r = subprocess.run([sys.executable, "tools/fncmp.py", src, name], capture_output=True, text=True,
+                       env=env).stdout
     m = re.search(r"(\d+) words differ", r)
     return 0 if "OK" in r else int(m.group(1)) if m else 9999
 

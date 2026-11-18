@@ -50,7 +50,7 @@ extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" void func_020843b0(void);
 extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_02084470(s32 *arg0, s32 *arg1);
-extern "C" void func_020844dc(void);
+extern "C" BOOL func_020844dc(fx32 x, fx32 y, fx32 marginX, fx32 marginY);
 extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_020845e0(...);
 extern "C" s32 func_020846dc(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
@@ -637,23 +637,24 @@ extern "C" BOOL func_02084324(fx32 value)
     return result;
 }
 
-// (nonmatching: the ROM keeps the three results in registers and the rectangle's address in
-// r3; the attempts either reload the address or merge the tests into branches. 10 forms tried)
+// (nonmatching: the two flags are zeroed in the other order (mov r4, ip / mov lr, ip); the source
+// orders that zero inY1 first merge the tests into branches, see func_020844dc)
 #ifdef NONMATCHING
 // (is (x, y) on the field?)
 extern "C" BOOL func_02084350(fx32 x, fx32 y)
 {
-    BOOL in = FALSE;
-    BOOL inY1 = FALSE;
-    BOOL inX = FALSE;
+    fx32 *rect = data_020c4ebc;
+    BOOL in, inY1, inX;
 
-    if (x >= data_020c4ebc[0] && x <= data_020c4ebc[2]) {
+    inY1 = inX = in = FALSE;
+
+    if (x >= rect[0] && x <= rect[2]) {
         inX = TRUE;
     }
-    if (inX && y >= data_020c4ebc[1]) {
+    if (inX && y >= rect[1]) {
         inY1 = TRUE;
     }
-    if (inY1 && y <= data_020c4ebc[3]) {
+    if (inY1 && y <= rect[3]) {
         in = TRUE;
     }
     return in;
@@ -754,7 +755,28 @@ extern "C" BOOL func_02084470(s32 *arg0, s32 *arg1)
     return c ? TRUE : FALSE;
 }
 
-extern "C" asm void func_020844dc(void)
+// (nonmatching: the flags are zeroed in the other order (mov r6, r4 / mov r5, r4); every source order that zeroes inY1 before inX merges the tests into branches)
+#ifdef NONMATCHING
+extern "C" BOOL func_020844dc(fx32 x, fx32 y, fx32 marginX, fx32 marginY)
+{
+    fx32 *rect = data_020c4ebc;
+    BOOL in, inY1, inX;
+
+    inY1 = inX = in = FALSE;
+
+    if (x >= rect[0] - marginX && x <= rect[2] + marginX) {
+        inX = TRUE;
+    }
+    if (inX && y >= rect[1] - marginY) {
+        inY1 = TRUE;
+    }
+    if (inY1 && y <= rect[3] + marginY) {
+        in = TRUE;
+    }
+    return in;
+}
+#else
+extern "C" asm BOOL func_020844dc(fx32 x, fx32 y, fx32 marginX, fx32 marginY)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr lr, =data_020c4ebc
@@ -787,6 +809,7 @@ extern "C" asm void func_020844dc(void)
     mov r0, r4
     ldmia sp!, {r4, r5, r6, pc}
 }
+#endif
 
 extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2)
 {

@@ -460,9 +460,9 @@ void MatchBallPhysics::func_02061aa4(MatchBall *ball)
 
 // applies the vertical speed to the height; inside either rectangle of the area, the
 // height can't cross the line (data_020f98a0 + 0x7EC)
-void // (nonmatching: register allocation differs)
+// (nonmatching: register allocation differs)
 #ifdef NONMATCHING
-MatchBallPhysics::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
+void MatchBallPhysics::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
 {
     fx32 speed = ball->unk_44;
     fx32 line = *(fx32 *)(data_020f98a0 + 0x7EC);
@@ -481,7 +481,7 @@ MatchBallPhysics::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
     }
 }
 #else
-asm MatchBallPhysics::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
+asm void MatchBallPhysics::func_02061ab8(MatchBall *ball, fx32 x, fx32 y)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     mov r7, r1

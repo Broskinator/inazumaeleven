@@ -1074,9 +1074,9 @@ asm void MatchEngine::func_020622b4()
 
 // does the segment cross the player's path (from the player through the points from
 // unk_84 to unk_85)? gives the index of the first point it crosses the path before
-BOOL // (nonmatching: the copies are scheduled differently)
+// (nonmatching: the copies are scheduled differently)
 #ifdef NONMATCHING
-MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
+BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
 {
     MatchPlayerState *state = player->state;
     int i = state->unk_84;
@@ -1100,7 +1100,7 @@ MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index
     return FALSE;
 }
 #else
-asm MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
+asm BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x10
@@ -1148,9 +1148,9 @@ asm MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *i
 }
 #endif
 
-void // (nonmatching: the products are scheduled differently)
+// (nonmatching: the products are scheduled differently)
 #ifdef NONMATCHING
-MatchEngine::func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, fx32 from, fx32 to)
+void MatchEngine::func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, fx32 from, fx32 to)
 {
     fx32 sin = FX_SinIdx(angle >> 4);
     fx32 cos = FX_CosIdx(angle >> 4);
@@ -1161,7 +1161,7 @@ MatchEngine::func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, fx32 from, 
     segment[3] = y + FX_Mul(to, sin);
 }
 #else
-asm MatchEngine::func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, fx32 from, fx32 to)
+asm void MatchEngine::func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, fx32 from, fx32 to)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     ldrh r0, [sp, #0x20]
@@ -1559,9 +1559,9 @@ asm void MatchEngine::func_0206313c()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-BOOL // (nonmatching: register allocation differs)
+// (nonmatching: register allocation differs)
 #ifdef NONMATCHING
-MatchEngine::func_020632b4(MatchPlayer *a, MatchPlayer *b, s32 *distance)
+BOOL MatchEngine::func_020632b4(MatchPlayer *a, MatchPlayer *b, s32 *distance)
 {
     MatchPlayerBody *bodyB;
     MatchPlayerBody *bodyA;
@@ -1595,7 +1595,7 @@ MatchEngine::func_020632b4(MatchPlayer *a, MatchPlayer *b, s32 *distance)
     return TRUE;
 }
 #else
-asm MatchEngine::func_020632b4(MatchPlayer *a, MatchPlayer *b, s32 *distance)
+asm BOOL MatchEngine::func_020632b4(MatchPlayer *a, MatchPlayer *b, s32 *distance)
 {
     stmdb sp!, {r4, lr}
     ldrsh lr, [r1, #0xf4]
@@ -1682,9 +1682,9 @@ BOOL MatchEngine::func_0206340c(int value)
     return result;
 }
 
-void // (nonmatching: the loop starts with its test)
+// (nonmatching: the loop starts with its test)
 #ifdef NONMATCHING
-MatchEngine::func_02063430()
+void MatchEngine::func_02063430()
 {
     int i;
     int n = 0;
@@ -1697,7 +1697,7 @@ MatchEngine::func_02063430()
     }
 }
 #else
-asm MatchEngine::func_02063430()
+asm void MatchEngine::func_02063430()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, #0
@@ -4048,9 +4048,9 @@ void MatchEngine::func_020657a8(MatchPlayer *player)
     }
 }
 
-void // (nonmatching: the compares' operands are swapped)
+// (nonmatching: the compares' operands are swapped)
 #ifdef NONMATCHING
-MatchEngine::func_020658ec(MatchPlayer *player)
+void MatchEngine::func_020658ec(MatchPlayer *player)
 {
     MatchPlayer *holder = func_ov015_02130ae8(data_020c4920.unk_48);
     MatchPlayer *other;
@@ -4072,7 +4072,7 @@ MatchEngine::func_020658ec(MatchPlayer *player)
     func_020654cc(player, 45, -1, NULL, NULL, 0);
 }
 #else
-asm MatchEngine::func_020658ec(MatchPlayer *player)
+asm void MatchEngine::func_020658ec(MatchPlayer *player)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0xc
@@ -6646,9 +6646,9 @@ void MatchEngine::func_0206815c(MatchPoint *pos, MatchPoint *a, MatchPoint *b, f
     pos->y = ay + FX_Mul(by - ay, percent) / 100;
 }
 
-void // (nonmatching: the loads are scheduled differently)
+// (nonmatching: the loads are scheduled differently)
 #ifdef NONMATCHING
-MatchEngine::func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
+void MatchEngine::func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
 {
     fx32 cos = FX_CosIdx(angle >> 4);
     fx32 sin = FX_SinIdx(angle >> 4);
@@ -6659,7 +6659,7 @@ MatchEngine::func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoin
     pos->y = y + FX_Mul(distance, sin);
 }
 #else
-asm MatchEngine::func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
+asm void MatchEngine::func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
 {
     stmdb sp!, {r4, lr}
     mov r0, r2, asr #4
@@ -7036,9 +7036,9 @@ asm void MatchEngine::func_02068614()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-BOOL // (nonmatching: the loads are scheduled differently)
+// (nonmatching: the loads are scheduled differently)
 #ifdef NONMATCHING
-MatchEngine::func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
+BOOL MatchEngine::func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
 {
     fx32 cos = FX_CosIdx(angle >> 4);
     fx32 sin = FX_SinIdx(angle >> 4);
@@ -7048,7 +7048,7 @@ MatchEngine::func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoin
     return func_02084350(pos->x, pos->y);
 }
 #else
-asm MatchEngine::func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
+asm BOOL MatchEngine::func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos)
 {
     stmdb sp!, {r4, lr}
     mov r0, r2, asr #4
@@ -7162,9 +7162,9 @@ asm void MatchEngine::func_02068844()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-fx32 // (nonmatching: the stack argument is stored at a different time)
+// (nonmatching: the stack argument is stored at a different time)
 #ifdef NONMATCHING
-MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
+fx32 MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
 {
     fx32 time = FX_Div(ball->unk_3c, 0x9CCD);
 
@@ -7172,7 +7172,7 @@ MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
     return time;
 }
 #else
-asm MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
+asm fx32 MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r5, r1
@@ -7527,9 +7527,9 @@ int MatchEngine::func_02068ed4(int value)
     return 0;
 }
 
-BOOL // (nonmatching: the loads are in a different order)
+// (nonmatching: the loads are in a different order)
 #ifdef NONMATCHING
-MatchEngine::func_02068edc(MatchPlayer *player, int angle)
+BOOL MatchEngine::func_02068edc(MatchPlayer *player, int angle)
 {
     MatchPoint *target = (MatchPoint *)&data_020c4920.pos;
     u16 direction;
@@ -7544,7 +7544,7 @@ MatchEngine::func_02068edc(MatchPlayer *player, int angle)
     return func_01fff15c(this, player->body, target) < 3 * 0x10000;
 }
 #else
-asm MatchEngine::func_02068edc(MatchPlayer *player, int angle)
+asm BOOL MatchEngine::func_02068edc(MatchPlayer *player, int angle)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r4, =data_020c4920

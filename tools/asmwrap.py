@@ -8,7 +8,8 @@ import sys
 
 src, marker, asmfile, reason = sys.argv[1:5]
 t = open(src).read()
-a = t.index(marker)
+# (from the start of the marker's line: a marker without the return type keeps it with the function)
+a = t.rfind("\n", 0, t.index(marker)) + 1
 # the function's comment lines right before it stay in front
 brace = t.index("\n{\n", a)
 end = t.index("\n}\n", brace) + 3
