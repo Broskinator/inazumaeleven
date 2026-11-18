@@ -2,6 +2,7 @@
 #define MATCH_MATCHPLAYERLIST_HPP
 
 #include "nitro/types.h"
+#include "match/Match.hpp"
 
 struct MatchPlayer;
 class MatchEngine;
@@ -25,7 +26,7 @@ public:
     BOOL func_0208331c(MatchPlayer *player);
     int func_02083378(int a, int b);
     void func_02083394();
-    void func_02083448();
+    BOOL func_02083448(int side, MatchPoint *point, int distance);
     int func_020834e0(BOOL side, int b);
     BOOL func_02083504();
     void func_0208350c(MatchEngine *match);

@@ -26,7 +26,8 @@ struct UnkPair_020621b4 {
 struct UnkEntry_0207efd8 {
     u8 unk_0[0x2A];
     u16 unk_2a;         // (an id)
-    u8 unk_2c[0x31 - 0x2C];
+    u8 unk_2c[0x30 - 0x2C];
+    u8 unk_30;          // (a kind)
     u8 unk_31;          // (flags)
     u8 unk_32[0x38 - 0x32];
 };
@@ -523,7 +524,7 @@ public:
     int func_020777e4(u8 *team, s16 value, u32 i, u8 update);
     void func_02077830();
     void func_0207793c();
-    void func_02077a80();
+    int func_02077a80(int index, BOOL update);
     int func_02077b00(MatchPlayer *player, u32 slot, BOOL flag);
     int func_02077ba0(int index, u32 slot, BOOL flag);
     BOOL func_02077bd4();
@@ -596,7 +597,7 @@ public:
     int func_02079d9c(MatchPlayer *player);
     void func_02079dd8();
     MatchPlayer *func_02079e90(int team, int i);
-    void func_02079ea0();
+    MatchPlayer *func_02079ea0(int team, int value, int kind);
     int func_02079f20(int a, int flags, int b);
     int func_02079f30(int a, int flags, int b);
     int func_02079f40(int a, int flags, int b);
@@ -705,7 +706,7 @@ public:
     int func_0207f0b0(u16 *out, int max);
     int func_0207f140(u16 *out, int max);
     int func_0207f1d0(u16 *out, int max);
-    void func_0207f260();
+    int func_0207f260(u16 *out, int max);
     void func_0207f2f8();
     static void func_0207f38c(MatchPlayer *player, u8 dir, BOOL update);
     void func_0207f3b8(int value);

@@ -2,7 +2,8 @@
 #include "match/MatchEngine.hpp"
 #include "nitro/mi.h"
 
-extern "C" void func_02083eac(void);     // (for the asm functions)
+extern "C" s32 FX_Sqrt(s32 x);
+extern "C" MatchPoint *func_02083eac(int side);
 extern "C" void *data_020af3f0[];     // (the vtable)
 extern "C" u8 data_020c4eec[];
 extern "C" u8 data_020c4efc[];
@@ -17,7 +18,6 @@ extern "C" void _ZN11MatchEngine13func_0206de4cEv(void);
 extern "C" void _ZN10MatchRules13func_0206ef60Ev(void);
 extern "C" void _ZN10MatchRules13func_0206ef74Ev(void);
 extern "C" void _ZdlPv(void);
-extern "C" void FX_Sqrt(void);
 extern "C" s32 func_ov015_02131854(s32 arg0, s32 arg1);
 extern "C" void func_ov015_021319b0(void);
 extern "C" void gGameState(void);
@@ -290,7 +290,28 @@ asm void MatchPlayerList::func_02083394()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void MatchPlayerList::func_02083448()
+// (the distance between two points; the differences lose 4 bits so that their squares fit)
+static inline fx32 MatchDistance(const MatchPoint *a, const MatchPoint *b)
+{
+    fx32 dx = (a->x - b->x) >> 4;
+    fx32 dy = (a->y - b->y) >> 4;
+
+    return FX_Sqrt(FX_Mul(dx, dx) + FX_Mul(dy, dy)) << 4;
+}
+
+// (nonmatching: the point's two words come with ldm and the goal's y first, and the flag gets r4 before the call (the ROM reuses the point's register for dy and the flag))
+#ifdef NONMATCHING
+BOOL MatchPlayerList::func_02083448(int side, MatchPoint *point, int distance)
+{
+    BOOL near = FALSE;
+
+    if (distance * 0x36E66 / 100 > MatchDistance(point, func_02083eac(side))) {
+        near = TRUE;
+    }
+    return near;
+}
+#else
+asm BOOL MatchPlayerList::func_02083448(int side, MatchPoint *point, int distance)
 {
     stmdb sp!, {r3, r4, r5, lr}
     mov r4, r2
@@ -329,6 +350,7 @@ asm void MatchPlayerList::func_02083448()
     mov r0, r4
     ldmia sp!, {r3, r4, r5, pc}
 }
+#endif
 
 int MatchPlayerList::func_020834e0(BOOL side, int b)
 {

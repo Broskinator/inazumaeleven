@@ -313,7 +313,7 @@ void func_ov087_021820a8(void);
 void MI_CpuCopy8(void);
 void _ZN11MatchEngine13func_0206707cEii(void);
 void _ZN11MatchEngine13func_02067044Eii(void);
-void _ZN11MatchEngine13func_02079ea0Ev(void);
+void _ZN11MatchEngine13func_02079ea0Eiii(void);
 void _ZN11MatchEngine13func_020685a8Eiii(void);
 void func_020804bc(void);
 void func_020807d0(void);
@@ -4865,7 +4865,7 @@ asm void func_01ffbe34(void)
     mov r0, r10
     mov r3, r5
     add r2, r2, #1
-    bl _ZN11MatchEngine13func_02079ea0Ev
+    bl _ZN11MatchEngine13func_02079ea0Eiii
     movs r6, r0
     beq @L_01ffc144
     ldr r0, [sp, #0x14]
