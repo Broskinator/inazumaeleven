@@ -3,6 +3,34 @@
 
 #include "nitro/types.h"
 
+// The ring buffer that holds the pointers to the deque's blocks (MSL's __cdeque): its data,
+// and the number of entries at 8
+class UnkDequeBuffer_0207076c {
+public:
+    void **data;
+    u32 unk_4;
+    u32 size;
+    u32 unk_c;
+
+    UnkDequeBuffer_0207076c *func_02071df8();
+    UnkDequeBuffer_0207076c *func_020720b0();
+};
+
+// An iterator of that ring buffer: the entry, the buffer, its first entry and the buffer's end
+// (two instances of the same template, the second one at 0x020724f4)
+class UnkDequeIterator_0207076c {
+public:
+    void **cur;
+    void **begin;
+    void **start;
+    void **end;
+
+    void func_020720e4(int n);
+    int func_02072128(const UnkDequeIterator_0207076c &other) const;
+    void func_020724f4(int n);
+    int func_02072538(const UnkDequeIterator_0207076c &other) const;
+};
+
 // A container of blocks of 0x100 entries (template code, in the match data's file;
 // the match data has one, see func_0206d6b4)
 class UnkDeque_0207076c {
@@ -22,19 +50,13 @@ public:
     void func_02071b00();
     void func_02071c68();
     void func_02071d38();
-    void func_02071df8();
     void func_02071e2c();
     void func_02071ea8();
     void func_02071fb0();
-    void func_020720b0();
-    void func_020720e4();
-    void func_02072128();
     void func_0207219c();
     void func_02072230();
     void func_020723a8();
     void func_02072478();
-    void func_020724f4();
-    void func_02072538();
 
 };
 

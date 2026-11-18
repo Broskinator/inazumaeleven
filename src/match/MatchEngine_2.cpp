@@ -364,19 +364,19 @@ extern "C" void _ZN17UnkDeque_0207076c13func_02071978Ev(void);     // (for the a
 extern "C" void _ZN17UnkDeque_0207076c13func_02071b00Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02071c68Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02071d38Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkDeque_0207076c13func_02071df8Ev(void);     // (for the asm functions)
+extern "C" void _ZN23UnkDequeBuffer_0207076c13func_02071df8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02071e2cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02071ea8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02071fb0Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkDeque_0207076c13func_020720b0Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkDeque_0207076c13func_020720e4Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkDeque_0207076c13func_02072128Ev(void);     // (for the asm functions)
+extern "C" void _ZN23UnkDequeBuffer_0207076c13func_020720b0Ev(void);     // (for the asm functions)
+extern "C" void _ZN25UnkDequeIterator_0207076c13func_020720e4Ei(void);     // (for the asm functions)
+extern "C" void _ZNK25UnkDequeIterator_0207076c13func_02072128ERKS_(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_0207219cEv(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02072230Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_020723a8Ev(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02072478Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkDeque_0207076c13func_020724f4Ev(void);     // (for the asm functions)
-extern "C" void _ZN17UnkDeque_0207076c13func_02072538Ev(void);     // (for the asm functions)
+extern "C" void _ZN25UnkDequeIterator_0207076c13func_020724f4Ei(void);     // (for the asm functions)
+extern "C" void _ZNK25UnkDequeIterator_0207076c13func_02072538ERKS_(void);     // (for the asm functions)
 extern "C" UnkSlot_020621b4 *func_ov015_02143750(MatchEngine *self, int id);
 extern "C" char data_020af210[];
 extern "C" void func_ov015_02143664(void);
@@ -2385,7 +2385,7 @@ asm void UnkDeque_0207076c::func_02070854()
     ldmia r5, {r1, r2, r3}
     bl _ZN17UnkDeque_0207076c13func_0207219cEv
     add r0, sp, #0xb4
-    bl _ZN17UnkDeque_0207076c13func_020720b0Ev
+    bl _ZN23UnkDequeBuffer_0207076c13func_020720b0Ev
     ldr r0, [r10, #0x10]
     mov r2, #0
     add r0, r7, r0
@@ -2465,7 +2465,7 @@ asm void UnkDeque_0207076c::func_02070854()
     str r6, [sp, #0xe8]
     str r4, [sp, #0xec]
     str r3, [sp, #0xf0]
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
     ldr r1, [r10, #8]
     ldr r7, [sp, #0xa8]
     ldr r6, [sp, #0xac]
@@ -2607,7 +2607,7 @@ asm void UnkDeque_0207076c::func_02070d64()
     bne @L_02070de4
 @L_02070e20:
     add r0, r5, #8
-    bl _ZN17UnkDeque_0207076c13func_020720b0Ev
+    bl _ZN23UnkDequeBuffer_0207076c13func_020720b0Ev
     mov r0, r5
     add sp, sp, #0x24
     ldmia sp!, {r4, r5, pc}
@@ -2693,7 +2693,7 @@ asm void UnkDeque_0207076c::func_02070e44()
     ldr r1, [r3]
     str r1, [r6, #0xc]
     str r2, [r3]
-    bl _ZN17UnkDeque_0207076c13func_02071df8Ev
+    bl _ZN23UnkDequeBuffer_0207076c13func_02071df8Ev
     add sp, sp, #0x38
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -2796,7 +2796,7 @@ asm void UnkDeque_0207076c::func_02070f6c()
     ldr r1, [r3]
     str r1, [r6, #0xc]
     str r2, [r3]
-    bl _ZN17UnkDeque_0207076c13func_02071df8Ev
+    bl _ZN23UnkDequeBuffer_0207076c13func_02071df8Ev
     add sp, sp, #0x38
     ldmia sp!, {r4, r5, r6, pc}
 }
@@ -2917,7 +2917,7 @@ asm void UnkDeque_0207076c::func_02071214()
     str r4, [sp, #0x60]
     str r3, [sp, #0x64]
     strb r2, [sp, #0x68]
-    bl _ZN17UnkDeque_0207076c13func_02072128Ev
+    bl _ZNK25UnkDequeIterator_0207076c13func_02072128ERKS_
     movs r4, r0
     addeq sp, sp, #0x1b4
     ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2960,7 +2960,7 @@ asm void UnkDeque_0207076c::func_02071214()
     bhs @L_02071434
     add r0, sp, #0x1a4
     rsb r1, r4, #0
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
     ldr r0, [r10, #8]
     ldr r3, [sp, #0x1a4]
     ldr r2, [r10]
@@ -2987,7 +2987,7 @@ asm void UnkDeque_0207076c::func_02071214()
     str r6, [sp, #0x4c]
     str r2, [sp, #0x50]
     str r11, [sp, #0x54]
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
     ldr r2, [r0]
     add r1, sp, #0x148
     str r2, [sp, #0x138]
@@ -3047,7 +3047,7 @@ asm void UnkDeque_0207076c::func_02071214()
     str r3, [sp, #0x30]
     str r2, [sp, #0x34]
     rsb r1, r4, #0
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
     ldr r2, [r0]
     ldr r1, [sp, #8]
     str r2, [sp, #0xf8]
@@ -3068,7 +3068,7 @@ asm void UnkDeque_0207076c::func_02071214()
     str r3, [sp, #0x40]
     str r2, [sp, #0x44]
     rsb r1, r1, #0
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
     ldr r2, [r0]
     add r1, sp, #0x108
     str r2, [sp, #0x108]
@@ -3093,7 +3093,7 @@ asm void UnkDeque_0207076c::func_02071214()
 @L_02071558:
     add r0, sp, #0x1a4
     rsb r1, r4, #0
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
 @L_02071564:
     ldrb r0, [r8, #0x10]
     ldr r10, [sp, #0x1a4]
@@ -3242,7 +3242,7 @@ asm void UnkDeque_0207076c::func_02071214()
     ldr r1, [r3]
     str r1, [r10, #0xc]
     str r2, [r3]
-    bl _ZN17UnkDeque_0207076c13func_02071df8Ev
+    bl _ZN23UnkDequeBuffer_0207076c13func_02071df8Ev
     add sp, sp, #0x1b4
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
@@ -3259,7 +3259,7 @@ asm void UnkDeque_0207076c::func_020717ac()
     cmp r7, r4
     beq @L_02071950
     mov r0, r2
-    bl _ZN17UnkDeque_0207076c13func_02072128Ev
+    bl _ZNK25UnkDequeIterator_0207076c13func_02072128ERKS_
     str r0, [sp, #0xc]
 @L_020717dc:
     ldr r2, [r5, #0xc]
@@ -3286,7 +3286,7 @@ asm void UnkDeque_0207076c::func_020717ac()
     str r2, [sp, #0x2c]
     ldrb r2, [r6, #0x10]
     strb r2, [sp, #0x30]
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
     ldrb r12, [sp, #0x30]
     ldr r9, [sp, #0x20]
     ldr r8, [sp, #0x24]
@@ -3628,7 +3628,7 @@ asm void UnkDeque_0207076c::func_02071c68()
     bne @L_02071ce8
 @L_02071d24:
     add r0, r5, #8
-    bl _ZN17UnkDeque_0207076c13func_020720b0Ev
+    bl _ZN23UnkDequeBuffer_0207076c13func_020720b0Ev
     mov r0, r5
     add sp, sp, #0x24
     ldmia sp!, {r4, r5, pc}
@@ -3658,7 +3658,7 @@ asm void UnkDeque_0207076c::func_02071d38()
     str lr, [sp, #0x14]
     str r12, [sp, #0x18]
     str r3, [sp, #0x1c]
-    bl _ZN17UnkDeque_0207076c13func_020720e4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020720e4Ei
     ldr r0, [r5, #0x10]
     ldr r12, [sp]
     ldr r3, [sp, #4]
@@ -3686,7 +3686,21 @@ asm void UnkDeque_0207076c::func_02071d38()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void UnkDeque_0207076c::func_02071df8()
+// (clears the buffer: the count goes through a reference, which keeps the subtraction)
+static inline void UnkDeque_Erase(UnkDequeBuffer_0207076c *b, const int &n) { b->size -= n; }
+
+// (nonmatching: the original keeps 4 unused stack bytes (push r3, sub sp); the body is the same)
+#ifdef NONMATCHING
+UnkDequeBuffer_0207076c *UnkDequeBuffer_0207076c::func_02071df8()
+{
+    if (data != NULL) {
+        UnkDeque_Erase(this, size);
+        ::operator delete(data);
+    }
+    return this;
+}
+#else
+asm UnkDequeBuffer_0207076c *UnkDequeBuffer_0207076c::func_02071df8()
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -3703,6 +3717,7 @@ asm void UnkDeque_0207076c::func_02071df8()
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
+#endif
 
 asm void UnkDeque_0207076c::func_02071e2c()
 {
@@ -3878,7 +3893,18 @@ asm void UnkDeque_0207076c::func_02071fb0()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void UnkDeque_0207076c::func_020720b0()
+// (nonmatching: the original keeps 4 unused stack bytes (push r3, sub sp); the body is the same)
+#ifdef NONMATCHING
+UnkDequeBuffer_0207076c *UnkDequeBuffer_0207076c::func_020720b0()
+{
+    if (data != NULL) {
+        UnkDeque_Erase(this, size);
+        ::operator delete(data);
+    }
+    return this;
+}
+#else
+asm UnkDequeBuffer_0207076c *UnkDequeBuffer_0207076c::func_020720b0()
 {
     stmdb sp!, {r3, r4, lr}
     sub sp, sp, #4
@@ -3895,62 +3921,35 @@ asm void UnkDeque_0207076c::func_020720b0()
     add sp, sp, #4
     ldmia sp!, {r3, r4, pc}
 }
+#endif
 
-asm void UnkDeque_0207076c::func_020720e4()
+void UnkDequeIterator_0207076c::func_020720e4(int n)
 {
-    stmdb sp!, {r4, lr}
-    ldr r3, [r0, #0xc]
-    ldmia r0, {r2, r4}
-    sub r12, r2, r4
-    sub lr, r3, r4
-    mov r3, r12, asr #1
-    mov r2, lr, asr #1
-    add r3, r12, r3, lsr #30
-    add r2, lr, r2, lsr #30
-    adds r1, r1, r3, asr #2
-    addmi r1, r1, r2, asr #2
-    bmi @L_0207211c
-    cmp r1, r2, asr #2
-    subge r1, r1, r2, asr #2
-@L_0207211c:
-    add r1, r4, r1, lsl #2
-    str r1, [r0]
-    ldmia sp!, {r4, pc}
+    int size = end - begin;
+
+    n += cur - begin;
+    if (n < 0) {
+        n += size;
+    } else if (n >= size) {
+        n -= size;
+    }
+    cur = begin + n;
 }
 
-asm void UnkDeque_0207076c::func_02072128()
+int UnkDequeIterator_0207076c::func_02072128(const UnkDequeIterator_0207076c &other) const
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [r1]
-    ldr r3, [r0]
-    ldr lr, [r0, #8]
-    sub r2, r3, r12
-    mov r1, r2, asr #1
-    add r1, r2, r1, lsr #30
-    cmp r3, lr
-    mov r2, r1, asr #2
-    blo @L_02072174
-    cmp r12, lr
-    bhs @L_02072194
-    ldr r1, [r0, #0xc]
-    ldr r0, [r0, #4]
-    sub r1, r1, r0
-    mov r0, r1, asr #1
-    add r0, r1, r0, lsr #30
-    sub r2, r2, r0, asr #2
-    b @L_02072194
-@L_02072174:
-    cmp r12, lr
-    blo @L_02072194
-    ldr r1, [r0, #0xc]
-    ldr r0, [r0, #4]
-    sub r1, r1, r0
-    mov r0, r1, asr #1
-    add r0, r1, r0, lsr #30
-    add r2, r2, r0, asr #2
-@L_02072194:
-    mov r0, r2
-    ldmia sp!, {r3, pc}
+    int n;
+    void **s = start;
+
+    n = cur - other.cur;
+    if (cur >= s) {
+        if (other.cur < s) {
+            n -= end - begin;
+        }
+    } else if (other.cur >= s) {
+        n += end - begin;
+    }
+    return n;
 }
 
 asm void UnkDeque_0207076c::func_0207219c()
@@ -3969,7 +3968,7 @@ asm void UnkDeque_0207076c::func_0207219c()
     stmia r5, {r0, r1, r2, r3}
     mov r0, r12
     mov r1, r5
-    bl _ZN17UnkDeque_0207076c13func_02072538Ev
+    bl _ZNK25UnkDequeIterator_0207076c13func_02072538ERKS_
     movs r1, r0
     addeq sp, sp, #0x24
     ldmeqia sp!, {r3, r4, r5, r6, lr}
@@ -4013,7 +4012,7 @@ asm void UnkDeque_0207076c::func_02072230()
     add r4, r4, r1, lsl #2
     mov r0, r5
     mov r1, r6
-    bl _ZN17UnkDeque_0207076c13func_02072538Ev
+    bl _ZNK25UnkDequeIterator_0207076c13func_02072538ERKS_
     str r0, [sp, #0x18]
     ldr r2, [r7]
     ldr r1, [r7, #0xc]
@@ -4041,7 +4040,7 @@ asm void UnkDeque_0207076c::func_02072230()
     str r3, [sp, #0x34]
     str r2, [sp, #0x38]
     str r8, [sp, #0x30]
-    bl _ZN17UnkDeque_0207076c13func_020724f4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020724f4Ei
     ldr r8, [r0]
     ldr r3, [r0, #4]
     ldr r2, [r0, #8]
@@ -4072,7 +4071,7 @@ asm void UnkDeque_0207076c::func_02072230()
     str r4, [sp, #0x20]
     str r3, [sp, #0x24]
     str r2, [sp, #0x28]
-    bl _ZN17UnkDeque_0207076c13func_020724f4Ev
+    bl _ZN25UnkDequeIterator_0207076c13func_020724f4Ei
     ldmia r0, {r8, lr}
     ldr r12, [r0, #8]
     ldr r6, [r0, #0xc]
@@ -4184,61 +4183,33 @@ asm void UnkDeque_0207076c::func_02072478()
     ldmia sp!, {r4, r5, r6, pc}
 }
 
-asm void UnkDeque_0207076c::func_020724f4()
+void UnkDequeIterator_0207076c::func_020724f4(int n)
 {
-    stmdb sp!, {r4, lr}
-    ldr r3, [r0, #0xc]
-    ldmia r0, {r2, r4}
-    sub r12, r2, r4
-    sub lr, r3, r4
-    mov r3, r12, asr #1
-    mov r2, lr, asr #1
-    add r3, r12, r3, lsr #30
-    add r2, lr, r2, lsr #30
-    adds r1, r1, r3, asr #2
-    addmi r1, r1, r2, asr #2
-    bmi @L_0207252c
-    cmp r1, r2, asr #2
-    subge r1, r1, r2, asr #2
-@L_0207252c:
-    add r1, r4, r1, lsl #2
-    str r1, [r0]
-    ldmia sp!, {r4, pc}
+    int size = end - begin;
+
+    n += cur - begin;
+    if (n < 0) {
+        n += size;
+    } else if (n >= size) {
+        n -= size;
+    }
+    cur = begin + n;
 }
 
-asm void UnkDeque_0207076c::func_02072538()
+int UnkDequeIterator_0207076c::func_02072538(const UnkDequeIterator_0207076c &other) const
 {
-    stmdb sp!, {r3, lr}
-    ldr r12, [r1]
-    ldr r3, [r0]
-    ldr lr, [r0, #8]
-    sub r2, r3, r12
-    mov r1, r2, asr #1
-    add r1, r2, r1, lsr #30
-    cmp r3, lr
-    mov r2, r1, asr #2
-    blo @L_02072584
-    cmp r12, lr
-    bhs @L_020725a4
-    ldr r1, [r0, #0xc]
-    ldr r0, [r0, #4]
-    sub r1, r1, r0
-    mov r0, r1, asr #1
-    add r0, r1, r0, lsr #30
-    sub r2, r2, r0, asr #2
-    b @L_020725a4
-@L_02072584:
-    cmp r12, lr
-    blo @L_020725a4
-    ldr r1, [r0, #0xc]
-    ldr r0, [r0, #4]
-    sub r1, r1, r0
-    mov r0, r1, asr #1
-    add r0, r1, r0, lsr #30
-    add r2, r2, r0, asr #2
-@L_020725a4:
-    mov r0, r2
-    ldmia sp!, {r3, pc}
+    int n;
+    void **s = start;
+
+    n = cur - other.cur;
+    if (cur >= s) {
+        if (other.cur < s) {
+            n -= end - begin;
+        }
+    } else if (other.cur >= s) {
+        n += end - begin;
+    }
+    return n;
 }
 
 asm void MatchEngine::func_020725ac()
