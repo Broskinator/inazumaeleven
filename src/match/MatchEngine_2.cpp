@@ -16086,8 +16086,6 @@ void MatchEngine::func_0207e6dc(MatchPlayer *player, fx32 x, fx32 y)
     ball->pos.y += y - oldY;
 }
 
-// (nonmatching: the y half reuses y's register for rect[1], the ROM loads rect[1] again (ldr r0, [r4, #4]))
-#ifdef NONMATCHING
 void MatchEngine::func_0207e738(int index, int px, int py)
 {
     fx32 *rect = (fx32 *)data_020c4ebc;
@@ -16098,8 +16096,8 @@ void MatchEngine::func_0207e738(int index, int px, int py)
     if (player == NULL) {
         return;
     }
-    x = rect[0];
-    y = rect[1];
+    x = ((fx32 *)data_020c4ebc)[0];   // (read through the table again: rect[1] is not reused for y)
+    y = ((fx32 *)data_020c4ebc)[1];
     if (px >= 0) {
         x += px * (rect[2] - rect[0]) / 100;
     } else {
@@ -16112,67 +16110,6 @@ void MatchEngine::func_0207e738(int index, int px, int py)
     }
     func_0207e6dc(player, x, y);
 }
-#else
-asm void MatchEngine::func_0207e738(int index, int px, int py)
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldr r4, =data_020c4ebc
-    mov r7, r0
-    mov r0, r1
-    mov r1, #0
-    mov r6, r2
-    mov r5, r3
-    bl func_ov015_02130b14
-    movs r1, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r6, #0
-    ldmia r4, {r0, r3}
-    ldr r2, [r4, #8]
-    ldr r12, =0x51eb851f
-    blt @L_0207e790
-    sub r2, r2, r0
-    mul lr, r6, r2
-    smull r2, r6, r12, lr
-    mov r2, lr, lsr #0x1f
-    add r6, r2, r6, asr #5
-    add r2, r0, r6
-    b @L_0207e7ac
-@L_0207e790:
-    rsb r6, r6, #0
-    sub r2, r2, r0
-    mul lr, r6, r2
-    mov r2, lr, lsr #0x1f
-    smull r6, lr, r12, lr
-    add lr, r2, lr, asr #5
-    sub r2, r0, lr
-@L_0207e7ac:
-    cmp r5, #0
-    ldr r6, [r4, #0xc]
-    ldr r0, [r4, #4]
-    blt @L_0207e7dc
-    sub r0, r6, r0
-    mul r6, r5, r0
-    ldr r4, =0x51eb851f
-    smull r0, r5, r4, r6
-    mov r0, r6, lsr #0x1f
-    add r5, r0, r5, asr #5
-    add r3, r3, r5
-    b @L_0207e7fc
-@L_0207e7dc:
-    rsb r4, r5, #0
-    sub r0, r6, r0
-    mul r6, r4, r0
-    ldr r5, =0x51eb851f
-    mov r0, r6, lsr #0x1f
-    smull r4, r6, r5, r6
-    add r6, r0, r6, asr #5
-    sub r3, r3, r6
-@L_0207e7fc:
-    mov r0, r7
-    bl _ZN11MatchEngine13func_0207e6dcEP11MatchPlayerll
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-}
-#endif
 
 // (nonmatching: the field's width is loaded after its left edge (ldr r3, [r5] first), and the division's result goes through r4 to a shared return)
 #ifdef NONMATCHING

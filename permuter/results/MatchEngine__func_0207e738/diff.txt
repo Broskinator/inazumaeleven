@@ -1,0 +1,22 @@
+--- before
++++ after
+@@ -2776,7 +2776,7 @@
+     return;
+   }
+   x = rect[0];
+-  y = rect[1];
++  y = rect[1 & 0xFFFFFFFFFFFFFFFF];
+   if (px >= 0)
+   {
+     x += (px * (rect[2] - rect[0])) / 100;
+@@ -2787,7 +2787,10 @@
+   }
+   if (py >= 0)
+   {
++    if (1)
++    {
+     y += (py * (rect[3] - rect[1])) / 100;
++    }
+   }
+   else
+   {

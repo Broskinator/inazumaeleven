@@ -11,8 +11,8 @@ public:
     UnkClass_0208351c *func_0208353c();
     UnkClass_0208351c *func_02083550();
     void func_0208356c();
-    void func_02083578();
-    BOOL func_020835e0(MatchPlayer *player);
+    BOOL func_02083578(MatchPlayer *player);
+    BOOL func_020835e0(int team);
     int func_02083634();
     static int func_02083750(int a, int b);
     void func_02083778();

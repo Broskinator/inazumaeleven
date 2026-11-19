@@ -15,8 +15,8 @@ extern "C" void _ZN15MatchPlayerList13func_0208331cEP11MatchPlayer(void);
 extern "C" void _ZdlPv(void);
 extern "C" void FX_Div(void);
 extern "C" void FX_Atan2Idx(void);
-extern "C" void func_ov015_021319b0(void);
-extern "C" BOOL func_ov015_02131bb4(MatchPlayer *player);
+extern "C" int func_ov015_021319b0(MatchPlayer *player);
+extern "C" BOOL func_ov015_02131bb4(int team);
 extern "C" int func_ov015_021335c0(void);
 
 UnkClass_0208351c *UnkClass_0208351c::func_0208351c()
@@ -44,47 +44,28 @@ void UnkClass_0208351c::func_0208356c()
     func_020832c8();
 }
 
-asm void UnkClass_0208351c::func_02083578()
-{
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_ov015_021335c0
-    cmp r0, #0xa
-    bne @L_020835ac
-    mov r0, r4
-    bl func_ov015_021319b0
-    bl func_ov015_02131bb4
-    cmp r0, #0
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_020835ac:
-    cmp r0, #0xb
-    bne @L_020835d0
-    mov r0, r4
-    bl func_ov015_021319b0
-    bl func_ov015_02131bb4
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_020835d0:
-    mov r0, r5
-    mov r1, r4
-    bl _ZN15MatchPlayerList13func_0208331cEP11MatchPlayer
-    ldmia sp!, {r3, r4, r5, pc}
-}
-
-BOOL UnkClass_0208351c::func_020835e0(MatchPlayer *player)
+BOOL UnkClass_0208351c::func_02083578(MatchPlayer *player)
 {
     int mode = func_ov015_021335c0();
 
     if (mode == 10) {
-        return func_ov015_02131bb4(player) ? TRUE : FALSE;
+        return func_ov015_02131bb4(func_ov015_021319b0(player)) ? TRUE : FALSE;
     }
     if (mode == 11) {
-        return func_ov015_02131bb4(player) ? FALSE : TRUE;
+        return func_ov015_02131bb4(func_ov015_021319b0(player)) ? FALSE : TRUE;
+    }
+    return func_0208331c(player);
+}
+
+BOOL UnkClass_0208351c::func_020835e0(int team)
+{
+    int mode = func_ov015_021335c0();
+
+    if (mode == 10) {
+        return func_ov015_02131bb4(team) ? TRUE : FALSE;
+    }
+    if (mode == 11) {
+        return func_ov015_02131bb4(team) ? FALSE : TRUE;
     }
     return TRUE;
 }

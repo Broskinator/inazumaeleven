@@ -309,7 +309,7 @@ public:
     int func_0206cf6c();
     BOOL func_0206cfc8(int index);
     BOOL func_0206d094(int team);
-    void func_0206d114();
+    BOOL func_0206d114(int team);
     BOOL func_0206d188(int team, BOOL flag);
     int func_0206d358(int kind);
     void func_0206d4ec();
