@@ -82,7 +82,7 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 MIi_CpuClearFast(...);
 extern "C" s32 _ZN13ScreenManager15GetCurSceneMainEv(...);
 extern "C" s32 _ZN11MatchEngine13func_020739ccEi(...);
-extern "C" void _ZN11MatchEngine13func_02074154Ev(void);
+extern "C" void _ZN11MatchEngine13func_02074154EP11MatchPlayerPiiS2_i(void);
 extern "C" void _ZN11MatchEngine13func_020768e4EPhi(void);
 extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
 extern "C" void _ZN11MatchEngine13func_02076914EPh(void);
@@ -471,7 +471,7 @@ extern "C" asm s32 func_ov070_02170430(...)
     add r2, r10, #0x2c
     mov r3, #4
     str r4, [sp, #4]
-    bl _ZN11MatchEngine13func_02074154Ev
+    bl _ZN11MatchEngine13func_02074154EP11MatchPlayerPiiS2_i
     mov r9, #0
     add r5, r10, #0x80
     mov r6, r9

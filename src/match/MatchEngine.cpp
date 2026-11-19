@@ -13,6 +13,7 @@ extern "C" u8 data_020cabf8[];
 #include "match/MatchBallPhysics.hpp"
 #include "system/GameHeap.hpp"
 #include "match/MatchFile.hpp"
+// (how many steps the ball takes to cover distance; -1 if it stops first)
 // (turns direction toward target, 0x18E3 of angle for each data_020aeb64[5] of amount; gives the
 // direction reached, and amount what is left)
 
@@ -204,7 +205,7 @@ extern "C" void _ZN11MatchEngine13func_0206b47cEi(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206b4a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b4ccEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b89cEv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206b9c4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206b9c4EP9MatchBalll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ba84Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bf2cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bf98Ev(void);     // (for the asm functions)
@@ -436,8 +437,8 @@ extern "C" void func_ov015_02130e80(void);
 extern "C" void func_ov015_0213178c(void);
 extern "C" void func_ov015_02131994(void);
 extern "C" void func_ov015_021319bc(void);
-extern "C" void func_ov015_021422a0(void);
-extern "C" void func_ov015_021422d0(void);
+extern "C" void func_ov015_021422a0(MatchEngine *self, MatchBall *ball, fx32 x, fx32 y);
+extern "C" void func_ov015_021422d0(MatchEngine *self, MatchBall *ball, fx32 x, fx32 y, int a, int b);
 extern "C" void func_ov087_02179c3c(void);
 extern "C" void func_ov087_0217aba0(void);
 extern "C" char data_020af184[];
@@ -1410,7 +1411,7 @@ asm void MatchEngine::func_02062d74()
     mov r2, r0
     mov r0, r9
     mov r1, r5
-    bl _ZN11MatchEngine13func_0206b9c4Ev
+    bl _ZN11MatchEngine13func_0206b9c4EP9MatchBalll
     ldr r1, [r4, #0xec]
     strh r0, [r1, #0x28]
 @L_0206301c:
@@ -10415,59 +10416,21 @@ asm void MatchEngine::func_0206b89c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0206b9c4()
+int MatchEngine::func_0206b9c4(MatchBall *ball, fx32 distance)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x68
-    add r7, sp, #8
-    mov r6, r0
-    mov r8, r1
-    mov r5, r2
-    mov r4, #6
-@L_0206b9e0:
-    ldmia r8!, {r0, r1, r2, r3}
-    stmia r7!, {r0, r1, r2, r3}
-    subs r4, r4, #1
-    bne @L_0206b9e0
-    cmp r5, #0
-    mov r4, #0
-    ble @L_0206ba78
-    add r7, r6, #0x11000
-    add r10, sp, #8
-    mov r9, r4
-    mov r8, #1
-@L_0206ba0c:
-    ldr r3, [sp, #0x40]
-    cmp r3, #0
-    addle sp, sp, #0x68
-    mvnle r0, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, [r7, #0x920]
-    ldr r2, [sp, #8]
-    smull r1, r0, r3, r0
-    adds r1, r1, #0x800
-    adc r0, r0, #0
-    mov r12, r1, lsr #0xc
-    orr r12, r12, r0, lsl #20
-    ldr r3, [sp, #0xc]
-    mov r0, r6
-    mov r1, r10
-    sub r5, r5, r12
-    bl func_ov015_021422a0
-    str r9, [sp]
-    str r8, [sp, #4]
-    ldr r2, [sp, #8]
-    mov r0, r6
-    mov r1, r10
-    ldr r3, [sp, #0xc]
-    bl func_ov015_021422d0
-    cmp r5, #0
-    add r4, r4, #1
-    bgt @L_0206ba0c
-@L_0206ba78:
-    mov r0, r4
-    add sp, sp, #0x68
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    MatchBall copy = *ball;
+    int n = 0;
+
+    while (distance > 0) {
+        if (copy.unk_38 <= 0) {
+            return -1;
+        }
+        distance -= FX_Mul(copy.unk_38, unk_11920);
+        func_ov015_021422a0(this, &copy, copy.pos.x, copy.pos.y);
+        func_ov015_021422d0(this, &copy, copy.pos.x, copy.pos.y, 0, 1);
+        n++;
+    }
+    return n;
 }
 
 asm void MatchEngine::func_0206ba84()

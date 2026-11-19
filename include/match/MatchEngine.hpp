@@ -225,7 +225,7 @@ public:
     void func_0206b5a0();
     void func_0206b628();
     void func_0206b89c();
-    void func_0206b9c4();
+    int func_0206b9c4(MatchBall *ball, fx32 distance);
     void func_0206ba84();
     void func_0206bc70();
     void func_0206befc(MatchPoint *a, MatchPoint *b);
@@ -436,7 +436,7 @@ public:
     int func_02073e3c(void *team, int id, int a, u8 b);
     void func_02073fa0(MatchPlayer *player, int id, int a, int b);
     BOOL func_020740cc(MatchPlayer *player, int i, int a, int b);
-    void func_02074154();
+    int func_02074154(MatchPlayer *player, int *first, int nfirst, int *second, int nsecond);
     void func_02074210();
     BOOL func_020742f0(MatchPlayer *player, int a, int b);
     BOOL func_0207436c(MatchPlayer *player, int a, int b, int i, BOOL flag);
@@ -540,7 +540,7 @@ public:
     BOOL func_02077f20(u8 *data);
     void func_02077fa0();
     void func_02078148();
-    void func_020782f0();
+    BOOL func_020782f0(u32 id, BOOL last);
     BOOL func_02078394(u32 id);
     // (on an entry of unk_bbc: its u16 at 0x22 packs a kind in bits 14-15, a sign in bit 10
     // and a value in bits 0-9)
@@ -862,7 +862,7 @@ public:
     u8 unk_11915[0x11918 - 0x11915];
     s32 unk_11918;
     fx32 unk_1191c;
-    u8 unk_11920[4];
+    fx32 unk_11920;     // (the ball's distance per step of speed)
     fx32 unk_11924;
     s32 unk_11928;      // (the range of func_0206a078's value)
     s32 unk_1192c;
