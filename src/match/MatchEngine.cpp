@@ -15,6 +15,12 @@ extern "C" u8 data_020cabf8[];
 #include "match/MatchFile.hpp"
 #include "nitro/std.h"
 
+// an entry of the file read by func_0206e50c
+struct UnkEntry_0206e50c {
+    u8 unk_0[0x1E];
+    u16 unk_1e;     // (the entry's block in the second file, in 0x20-byte units)
+};
+
 extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
 extern "C" void func_02083e24(void);     // (for the asm functions)
@@ -134,7 +140,7 @@ extern "C" void _ZN11MatchEngine13func_0206e100Eiii(void);     // (for the asm f
 extern "C" void _ZN11MatchEngine13func_0206e1c4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206e330Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206e3a8Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206e50cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206e50cEmPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020654ccEP11MatchPlayeriiP10MatchPointS3_i(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068548Eii(void);     // (for the asm functions)
@@ -13203,7 +13209,27 @@ asm void MatchEngine::func_0206e3d4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0206e50c()
+// (nonmatching: the second FALSE: the ROM returns an immediate 0 (movhs r0, #0), this reuses the 0 in r2)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_0206e50c(u32 index, void *buffer)
+{
+    if (buffer == NULL) {
+        return FALSE;
+    }
+    if (index >= 0x30) {
+        return FALSE;
+    }
+    if (unk_c00 != NULL) {
+        MI_CpuCopy8((u8 *)unk_c00 + index * 0x20, buffer, 0x20);
+        return TRUE;
+    }
+    if (MatchLoadFile(data_020af1bc, &buffer, index * 0x20, 0x20) == 0) {
+        return FALSE;
+    }
+    return TRUE;
+}
+#else
+asm BOOL MatchEngine::func_0206e50c(u32 index, void *buffer)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {lr}
@@ -13260,8 +13286,31 @@ asm void MatchEngine::func_0206e50c()
     add sp, sp, #0x10
     bx lr
 }
+#endif
 
-asm void MatchEngine::func_0206e5e4()
+// (nonmatching: the index check's FALSE: the ROM returns an immediate 0 (movhs r0, #0), this reuses r4, the 0 stored to *out)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_0206e5e4(u32 index, void *out, int size)
+{
+    UnkEntry_0206e50c entry;
+
+    if (out == NULL || size < 0x13) {
+        return FALSE;
+    }
+    *(u8 *)out = 0;
+    if (index >= 0x30) {
+        return FALSE;
+    }
+    if (!func_0206e50c(index, &entry)) {
+        return FALSE;
+    }
+    if (MatchLoadFile(data_020af1d8, &out, entry.unk_1e * 0x20, size) == 0) {
+        return FALSE;
+    }
+    return TRUE;
+}
+#else
+asm BOOL MatchEngine::func_0206e5e4(u32 index, void *out, int size)
 {
     stmdb sp!, {r0, r1, r2, r3}
     stmdb sp!, {r4, r5, lr}
@@ -13288,7 +13337,7 @@ asm void MatchEngine::func_0206e5e4()
     addhs sp, sp, #0x10
     bxhs lr
     add r2, sp, #0x14
-    bl _ZN11MatchEngine13func_0206e50cEv
+    bl _ZN11MatchEngine13func_0206e50cEmPv
     cmp r0, #0
     addeq sp, sp, #0x34
     moveq r0, r4
@@ -13319,6 +13368,7 @@ asm void MatchEngine::func_0206e5e4()
     add sp, sp, #0x10
     bx lr
 }
+#endif
 
 BOOL MatchEngine::func_0206e6bc()
 {

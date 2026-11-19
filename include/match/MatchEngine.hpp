@@ -363,8 +363,8 @@ public:
     BOOL func_0206e330();
     void func_0206e3a8();
     void func_0206e3d4();
-    void func_0206e50c();
-    void func_0206e5e4();
+    BOOL func_0206e50c(u32 index, void *buffer);
+    BOOL func_0206e5e4(u32 index, void *out, int size);
     BOOL func_0206e6bc();
     BOOL func_0206e738();
     void func_0206e76c();
@@ -704,7 +704,7 @@ public:
     void func_0207e60c(int value);
     BOOL func_0207e62c(int index);
     void func_0207e6dc(MatchPlayer *player, fx32 x, fx32 y);
-    void func_0207e738();
+    void func_0207e738(int index, int px, int py);
     int func_0207e810(int index);
     int func_0207e884(int index);
     void func_0207e8f8();

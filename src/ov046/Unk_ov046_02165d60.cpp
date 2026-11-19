@@ -88,7 +88,7 @@ extern "C" void _ZN11SaveManager9IsLoadingEv(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
-extern "C" s32 _ZN11MatchEngine13func_0206e5e4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206e5e4EmPvi(...);
 extern "C" s32 _ZN11MatchEngine13func_0206f70cEt(...);
 extern "C" void GX_LoadBG1Char(void);
 extern "C" void func_02017278(void);
@@ -1533,7 +1533,7 @@ extern "C" void func_ov046_021671a4(u8 *arg0)
 
 extern "C" void func_ov046_021671f0(u8 *arg0)
 {
-    _ZN11MatchEngine13func_0206e5e4Ev((s32)data_020e88a0, *(s8 *)(*(u8 * *)(arg0 + 0x54) + 0x45), ((arg0 + 0x7A) + 0x200), 0x19);
+    _ZN11MatchEngine13func_0206e5e4EmPvi((s32)data_020e88a0, *(s8 *)(*(u8 * *)(arg0 + 0x54) + 0x45), ((arg0 + 0x7A) + 0x200), 0x19);
 }
 
 extern "C" asm s32 func_ov046_02167218(...)

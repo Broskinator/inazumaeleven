@@ -56,7 +56,7 @@ extern "C" void _ZN11TreasureBox13func_020526ecEii(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
-extern "C" void _ZN11MatchEngine13func_0206e5e4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206e5e4EmPvi(void);
 extern "C" s32 _ZN11MatchEngine13func_0207aba0Ei(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void G2x_SetBlendBrightness_(void);
@@ -2233,7 +2233,7 @@ extern "C" asm void func_ov056_0216ac08(void)
     mov r3, #0x18
     strh r1, [r5, #0x52]
     ldrsb r1, [r4, #3]
-    bl _ZN11MatchEngine13func_0206e5e4Ev
+    bl _ZN11MatchEngine13func_0206e5e4EmPvi
     ldmia sp!, {r3, r4, r5, pc}
 }
 

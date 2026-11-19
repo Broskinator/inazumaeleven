@@ -16500,7 +16500,34 @@ void MatchEngine::func_0207e6dc(MatchPlayer *player, fx32 x, fx32 y)
     ball->pos.y += y - oldY;
 }
 
-asm void MatchEngine::func_0207e738()
+// (nonmatching: the y half reuses y's register for rect[1], the ROM loads rect[1] again (ldr r0, [r4, #4]))
+#ifdef NONMATCHING
+void MatchEngine::func_0207e738(int index, int px, int py)
+{
+    fx32 *rect = (fx32 *)data_020c4ebc;
+    MatchPlayer *player = func_ov015_02130b14(index, 0);
+    fx32 x;
+    fx32 y;
+
+    if (player == NULL) {
+        return;
+    }
+    x = rect[0];
+    y = rect[1];
+    if (px >= 0) {
+        x += px * (rect[2] - rect[0]) / 100;
+    } else {
+        x -= -px * (rect[2] - rect[0]) / 100;
+    }
+    if (py >= 0) {
+        y += py * (rect[3] - rect[1]) / 100;
+    } else {
+        y -= -py * (rect[3] - rect[1]) / 100;
+    }
+    func_0207e6dc(player, x, y);
+}
+#else
+asm void MatchEngine::func_0207e738(int index, int px, int py)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r4, =data_020c4ebc
@@ -16559,6 +16586,7 @@ asm void MatchEngine::func_0207e738()
     bl _ZN11MatchEngine13func_0207e6dcEP11MatchPlayerll
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 // (nonmatching: the field's width is loaded after its left edge (ldr r3, [r5] first), and the division's result goes through r4 to a shared return)
 #ifdef NONMATCHING

@@ -117,7 +117,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" void _ZN13ScreenManager13func_0203e090Eii(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" void _ZN11MatchEngine13func_0206e5e4Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206e5e4EmPvi(void);
 extern "C" void _ZN11MatchEngine13func_0207aba0Ei(void);
 extern "C" void _ZN11MatchEngine13func_02082d9cEv(void);
 extern "C" s32 _ZN9EntryPool6RemoveEi(...);
@@ -2307,7 +2307,7 @@ extern "C" asm void func_ov057_02167e24(void)
     mov r3, #0x18
     strh r1, [r5, #0x52]
     ldrsb r1, [r4, #3]
-    bl _ZN11MatchEngine13func_0206e5e4Ev
+    bl _ZN11MatchEngine13func_0206e5e4EmPvi
     ldmia sp!, {r3, r4, r5, pc}
 }
 
