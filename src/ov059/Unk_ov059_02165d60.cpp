@@ -126,7 +126,7 @@ extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN11MatchEngine13func_02077064Emi(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
-extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
+extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);
 extern "C" void _ZN11MatchEngine13func_0207a78cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207a820Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207d308EPh(void);
@@ -1143,7 +1143,7 @@ extern "C" asm void func_ov059_02166aa4(void)
     add r2, sp, #8
     mov r3, #4
     str r6, [sp, #4]
-    bl _ZN11MatchEngine13func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEiPtihi
     mov r8, r5
 @L_02166ae4:
     add r0, sp, #8
@@ -1278,7 +1278,7 @@ extern "C" asm void func_ov059_02166ca0(void)
     mov r4, #0x80
     mov r3, #0x10
     str r4, [sp, #4]
-    bl _ZN11MatchEngine13func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEiPtihi
     mov r1, #0x32
     mul r2, r9, r1
     ldr r3, =0x51eb851f
@@ -1477,7 +1477,7 @@ extern "C" asm s32 func_ov059_02166f70(...)
     add r2, sp, #8
     mov r3, #4
     str r4, [sp, #4]
-    bl _ZN11MatchEngine13func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEiPtihi
     mov r6, #0
 @L_02166fa8:
     add r0, sp, #8

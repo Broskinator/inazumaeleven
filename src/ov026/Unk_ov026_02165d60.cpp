@@ -107,7 +107,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
-extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
+extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -1932,7 +1932,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mov r1, r8
     mov r2, #0x25
     mov r3, r6
-    bl _ZN11MatchEngine13func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
     ldrb r3, [r10, #0xa14]
     mov r1, r8
     mla r2, r3, r4, r10
@@ -1994,7 +1994,7 @@ extern "C" asm void func_ov026_0216765c(void)
     mov r1, r8
     mov r2, #0x25
     mov r3, r6
-    bl _ZN11MatchEngine13func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
     ldrb r3, [r10, #0xa14]
     mov r1, r8
     mla r2, r3, r4, r10

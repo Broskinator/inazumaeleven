@@ -103,7 +103,7 @@ extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
 extern "C" void _ZN11MatchEngine13func_0207697cEiPti(void);
-extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
+extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -1159,7 +1159,7 @@ extern "C" asm void func_ov052_02166b94(void)
 @L_02166c0c:
     mov r3, #0x10
     str r4, [sp, #4]
-    bl _ZN11MatchEngine13func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEiPtihi
     mov r9, r0
     cmp r9, #0
     addle sp, sp, #0x28
@@ -1250,7 +1250,7 @@ extern "C" asm s32 func_ov052_02166cd4(...)
 @L_02166d50:
     mov r3, #0x10
     str r6, [sp, #4]
-    bl _ZN11MatchEngine13func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEiPtihi
     mov r6, r0
     cmp r6, #0
     mov r1, #0
@@ -1377,7 +1377,7 @@ extern "C" asm void func_ov052_02166ea8(void)
     mov r1, #2
     mov r3, #0x10
     str r4, [sp, #4]
-    bl _ZN11MatchEngine13func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEiPtihi
     mov r7, r0
     mov r8, r6
     cmp r7, #0

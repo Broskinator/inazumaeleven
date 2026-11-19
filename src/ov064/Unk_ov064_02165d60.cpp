@@ -103,7 +103,7 @@ extern "C" void _ZN13ScreenManager13func_0203e2b0Ei(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206e1f0Ev(...);
-extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
+extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" s32 _ZdlPv(...);
@@ -2016,7 +2016,7 @@ extern "C" asm void func_ov064_021676e4(void)
     ldr r1, [sp, #0x14]
     mov r3, r4
     mov r2, #0xf
-    bl _ZN11MatchEngine13func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
     cmp r0, #4
     addls pc, pc, r0, lsl #2
     b @L_02167920

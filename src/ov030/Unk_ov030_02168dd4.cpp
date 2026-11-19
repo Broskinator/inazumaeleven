@@ -28,7 +28,7 @@ extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" s32 _ZN13ScreenManager17GetLoadedSceneSubEv(...);
 extern "C" void _ZN11MatchEngine13func_0206f750Et(void);
-extern "C" s32 _ZN11MatchEngine13func_02078aacEv(...);
+extern "C" s32 _ZN11MatchEngine13func_02078aacEiPtihi(...);
 extern "C" void _ZN11MatchEngine13func_0207d830Ev(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_02081438(void);
@@ -636,7 +636,7 @@ extern "C" s32 func_ov030_021695d4(u8 *arg0)
     *(s32 *)(arg0 + 0x29C) = 0;
     MI_CpuFill8((s32)(arg0 + 0x28), 0, 0x20);
     *(s32 *)(arg0 + 0x48) = 0;
-    v17 = _ZN11MatchEngine13func_02078aacEv((s32)((u8 *)&data_020e88a0), 0, (s32)(arg0 + 0x28), 0x10, 1, 0x80);
+    v17 = _ZN11MatchEngine13func_02078aacEiPtihi((s32)((u8 *)&data_020e88a0), 0, (s32)(arg0 + 0x28), 0x10, 1, 0x80);
     *(s32 *)(arg0 + 0x48) = v17;
     func_ov030_02168ed4((s32)arg0);
     func_ov015_02135ea0((s32)(arg0 + 0x18C), 0x10);

@@ -105,11 +105,11 @@ extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
-extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
+extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);
 extern "C" void _ZN11MatchEngine13func_0207bfd0Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0207c064Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207c110Eim(void);
-extern "C" void _ZN11MatchEngine13func_0207f7ccEv(void);
+extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -1291,7 +1291,7 @@ extern "C" asm s32 func_ov038_02166be8(...)
     mov r1, r4
     mov r2, #0x25
     mov r3, r8
-    bl _ZN11MatchEngine13func_0207f7ccEv
+    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
     str r0, [r10, #0x60]
     mov r0, r5, lsl #1
     ldrh r1, [r11, r0]
@@ -1448,7 +1448,7 @@ extern "C" asm void func_ov038_02166f70(void)
     mov r1, r4
     mov r3, #0x10
     str r4, [sp, #4]
-    bl _ZN11MatchEngine13func_02078aacEv
+    bl _ZN11MatchEngine13func_02078aacEiPtihi
     cmp r0, #0
     mov r2, r8
     ble @L_02167080

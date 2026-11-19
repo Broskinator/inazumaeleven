@@ -64,7 +64,7 @@ extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206db10EP8SaveBody(void);
 extern "C" void _ZN11MatchEngine13func_0206dcdcEP8SaveBody(void);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
-extern "C" void _ZN11MatchEngine13func_02078aacEv(void);
+extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);
@@ -193,7 +193,7 @@ extern "C" s32 func_ov003_0210ed4c(void *arg0, s32 arg1, s32 arg2, s32 arg3)
 extern "C" void func_ov003_0210edbc(u8 *arg0)
 {
     u16 ids[16];
-    s32 n = ((s32 (*)(...))_ZN11MatchEngine13func_02078aacEv)(data_020e88a0, *(s32 *)(arg0 + 0x638), ids, 0x10, 1, 0x80);
+    s32 n = ((s32 (*)(...))_ZN11MatchEngine13func_02078aacEiPtihi)(data_020e88a0, *(s32 *)(arg0 + 0x638), ids, 0x10, 1, 0x80);
     s32 i;
     ((s32 (*)(...))MI_CpuFill8)(arg0 + 0x83C, 0, 0x40);
     *(s32 *)(arg0 + 0x87C) = 0;

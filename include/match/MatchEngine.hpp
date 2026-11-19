@@ -232,7 +232,7 @@ public:
     u8 func_0206b470();
     int func_0206b47c(BOOL invert);
     int func_0206b4a8(int a);
-    u8 func_0206b4b8(int a);
+    int func_0206b4b8(int a);
     u8 *func_0206b4cc(int i);
     void func_0206b4d8();
     BOOL func_0206b508(MatchPoint *out, BOOL force);
@@ -573,7 +573,7 @@ public:
     int func_02078800(int a, BOOL b, int c);
     void func_02078844();
     void func_02078990();
-    void func_02078aac();
+    int func_02078aac(int team, u16 *out, int max, u8 flag, int key);
     int func_02078bc0(MatchPlayer *player, void *buffer, int max, int flags, BOOL mask);
     void func_02078c70();
     int func_02078d84(int team, u16 *out, int max, u8 flag);
@@ -733,8 +733,8 @@ public:
     BOOL func_0207f5d0(char *dst, const char *src);
     void func_0207f634(void *buffer, int n, int a, int b);
     BOOL func_0207f730(int kind);
-    void func_0207f7cc();
-    u8 func_0207ff44(int a, int b, int c);
+    int func_0207f7cc(MatchPlayer *player, int kind, int c);
+    int func_0207ff44(int team, int kind, int c);
     void func_0207fff0();
     MatchAction *func_02080288(MatchPlayer *player);
     int func_02082d5c(int id);
