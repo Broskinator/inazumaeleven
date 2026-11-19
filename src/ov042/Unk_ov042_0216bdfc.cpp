@@ -58,14 +58,14 @@ extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" void _ZN13ScreenManager14GetCurSceneSubEv(void);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
-extern "C" void _ZN11MatchEngine13func_0206e100Eiii(void);
+extern "C" void _ZN11MatchEngine13func_0206e100Eiiii(void);
 extern "C" s32 _ZN11MatchEngine13func_0206f058Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
 extern "C" void _ZN11MatchEngine13func_02077bd4Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02077ce4Ev(...);
 extern "C" void _ZN11MatchEngine13func_020785a0Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0207c6b4Eiii(...);
-extern "C" s32 _ZN11MatchEngine13func_0207c720Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207c720EP11MatchPlayer(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -255,7 +255,7 @@ extern "C" void func_ov042_0216bdfc(s32 arg0)
 
 extern "C" s32 func_ov042_0216be18(s32 arg0, s32 arg1)
 {
-    return ((s32 (*)(u8 *, u8, s32, s32, s32))_ZN11MatchEngine13func_0206e100Eiii)((u8 *)data_020e88a0, ((u8 *)data_020c4ab4)[0x68], arg1, ((u8 *)data_020c4ab4)[0x70] == 0, 0);
+    return ((s32 (*)(u8 *, u8, s32, s32, s32))_ZN11MatchEngine13func_0206e100Eiiii)((u8 *)data_020e88a0, ((u8 *)data_020c4ab4)[0x68], arg1, ((u8 *)data_020c4ab4)[0x70] == 0, 0);
 }
 
 extern "C" void func_ov042_0216be58(u8 *arg0, s32 arg1)
@@ -2178,7 +2178,7 @@ extern "C" s32 func_ov042_0216da1c(u8 *arg0)
         v18 = func_ov015_02130b14(t15, 0);
         r1 = v18;
         if (r1 != 0) {
-            _ZN11MatchEngine13func_0207c720Ev((u8 *)((u8 *)&data_020e88a0), r1);
+            _ZN11MatchEngine13func_0207c720EP11MatchPlayer((u8 *)((u8 *)&data_020e88a0), r1);
         }
     }
     _ZN11MatchEngine13func_02077ce4Ev((u8 *)((u8 *)&data_020e88a0));

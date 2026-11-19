@@ -145,7 +145,7 @@ extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206deecEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206df08Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206df68Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206e100Eiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206e100Eiiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206e1c4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206e330Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206e3a8Ev(void);     // (for the asm functions)
@@ -12801,74 +12801,33 @@ int MatchEngine::func_0206dfa4(int team, int mode)
     return 0;
 }
 
-asm void MatchEngine::func_0206e018()
+// the first free number of the team for a starting position (1 to 11, func_0206e100), else with
+// bench a free bench number (12 to 16; never for kind 2, nor for kind 0 when func_0206deec); 0
+// when there is none
+int MatchEngine::func_0206e018(int team, BOOL bench, int kind)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #4
-    mov r8, r3
-    mov r10, r0
-    mov r4, r1
-    mov r9, r2
-    cmp r8, #2
-    beq @L_0206e04c
-    cmp r8, #0
-    bne @L_0206e050
-    bl _ZN11MatchEngine13func_0206deecEv
-    cmp r0, #0
-    beq @L_0206e050
-@L_0206e04c:
-    mov r9, #0
-@L_0206e050:
-    mov r7, #1
-    mov r5, #0
-    mov r6, r7
-@L_0206e05c:
-    mov r0, r4
-    mov r1, r7
-    mov r2, r6
-    mov r3, r8
-    bl func_ov015_02130ce0
-    cmp r0, #0
-    bne @L_0206e0a0
-    mov r0, r10
-    mov r1, r4
-    mov r2, r7
-    mov r3, r5
-    str r8, [sp]
-    bl _ZN11MatchEngine13func_0206e100Eiii
-    cmp r0, #0
-    addne sp, sp, #4
-    movne r0, r7
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0206e0a0:
-    add r7, r7, #1
-    cmp r7, #0xb
-    ble @L_0206e05c
-    cmp r9, #0
-    addeq sp, sp, #4
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r6, #0xc
-    mov r5, #1
-@L_0206e0c4:
-    mov r0, r4
-    mov r1, r6
-    mov r2, r5
-    mov r3, r8
-    bl func_ov015_02130ce0
-    cmp r0, #0
-    addeq sp, sp, #4
-    moveq r0, r6
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    add r6, r6, #1
-    cmp r6, #0x10
-    ble @L_0206e0c4
-    mov r0, #0
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    int n;
+
+    if (kind == 2 || (kind == 0 && func_0206deec())) {
+        bench = FALSE;
+    }
+    for (n = 1; n <= 11; n++) {
+        if (func_ov015_02130ce0(team, n, 1, kind) == NULL && func_0206e100(team, n, FALSE, kind)) {
+            return n;
+        }
+    }
+    if (!bench) {
+        return 0;
+    }
+    for (n = 12; n <= 16; n++) {
+        if (func_ov015_02130ce0(team, n, 1, kind) == NULL) {
+            return n;
+        }
+    }
+    return 0;
 }
 
-BOOL MatchEngine::func_0206e100(int team, int pos, BOOL bench)
+BOOL MatchEngine::func_0206e100(int team, int pos, BOOL bench, int mode)
 {
     u32 i = team * 11 + (pos - 1);
 

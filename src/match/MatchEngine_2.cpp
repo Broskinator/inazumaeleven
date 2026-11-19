@@ -199,8 +199,8 @@ extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);     // (for the asm funct
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206deecEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206df08Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206e018Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206e100Eiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206e018Eiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206e100Eiiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206f9e0Em(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);     // (for the asm functions)
@@ -211,7 +211,7 @@ extern "C" void _ZN11MatchEngine13func_0207c178Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_0207c3d8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c65cEmiii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207c720Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207c720EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c7f4EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c8e0Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207cbd8Ei(void);     // (for the asm functions)
@@ -14064,7 +14064,7 @@ asm int MatchEngine::func_0207c478(MatchPlayer *player, int a, int b, int c)
     mov r2, r4
     mov r3, r5
     str r11, [sp]
-    bl _ZN11MatchEngine13func_0206e100Eiii
+    bl _ZN11MatchEngine13func_0206e100Eiiii
     cmp r0, #0
     beq @L_0207c564
     str r5, [sp, #8]
@@ -14168,61 +14168,32 @@ void MatchEngine::func_0207c6b4(int a, BOOL update, BOOL force)
     func_0207c8e0(a);
 }
 
-asm void MatchEngine::func_0207c720()
+// makes the player (with state flag 1, func_02080cb8 aside) the team's captain: flag 0x400, and
+// its id in the team's info (0x2e)
+void MatchEngine::func_0207c720(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    movs r10, r1
-    mov r11, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrh r0, [r10, #0xf0]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r10
-    bl func_02080cb8
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r10
-    bl func_02080b90
-    mov r8, #0
-    ldr r4, =0xfbff
-    mov r9, r0
-    mov r5, r8
-    mov r6, #1
-@L_0207c774:
-    mov r0, r8
-    bl func_ov015_02130ae8
-    movs r7, r0
-    beq @L_0207c7b4
-    ldrh r0, [r7, #0xf0]
-    tst r0, #1
-    movne r0, r6
-    moveq r0, r5
-    cmp r0, #0
-    beq @L_0207c7b4
-    mov r0, r7
-    bl func_02080b90
-    cmp r9, r0
-    ldreqh r0, [r7, #0xf0]
-    andeq r0, r0, r4
-    streqh r0, [r7, #0xf0]
-@L_0207c7b4:
-    add r8, r8, #1
-    cmp r8, #0x84
-    blt @L_0207c774
-    ldrh r2, [r10, #0xf0]
-    mov r0, r11
-    mov r1, r9
-    orr r2, r2, #0x400
-    strh r2, [r10, #0xf0]
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    ldrh r2, [r10, #0x42]
-    ldr r1, =0xfff
-    and r1, r2, r1
-    strh r1, [r0, #0x2e]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *other;
+    int i;
+    int team;
+
+    if (player == NULL) {
+        return;
+    }
+    if (!MatchPlayer_HasFlag(player, 1)) {
+        return;
+    }
+    if (func_02080cb8(player)) {
+        return;
+    }
+    team = func_02080b90(player);
+    for (i = 0; i < 0x84; i++) {
+        other = func_ov015_02130ae8(i);
+        if (other != NULL && MatchPlayer_HasFlag(other, 1) && team == func_02080b90(other)) {
+            other->unk_f0 &= ~0x400;
+        }
+    }
+    player->unk_f0 |= 0x400;
+    *(u16 *)(GetTeamInfo(team) + 0x2E) = player->unk_42 & 0xFFF;
 }
 
 // marks, for the player's team, the kind (of data_020a722c) with the player's best
@@ -14425,7 +14396,7 @@ asm void MatchEngine::func_0207c8e0(int a)
 @L_0207cb30:
     mov r0, r10
     mov r1, r7
-    bl _ZN11MatchEngine13func_0207c720Ev
+    bl _ZN11MatchEngine13func_0207c720EP11MatchPlayer
     mov r8, #1
 @L_0207cb40:
     add r6, r6, #1
@@ -14438,7 +14409,7 @@ asm void MatchEngine::func_0207c8e0(int a)
     beq @L_0207cb74
     mov r0, r10
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207c720Ev
+    bl _ZN11MatchEngine13func_0207c720EP11MatchPlayer
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0207cb74:
@@ -14459,7 +14430,7 @@ asm void MatchEngine::func_0207c8e0(int a)
     beq @L_0207cbc0
     mov r0, r10
     mov r1, r5
-    bl _ZN11MatchEngine13func_0207c720Ev
+    bl _ZN11MatchEngine13func_0207c720EP11MatchPlayer
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0207cbc0:
@@ -14653,7 +14624,7 @@ asm void MatchEngine::func_0207cbd8(int a)
     mov r1, r9
     mov r2, #1
     mov r3, #0
-    bl _ZN11MatchEngine13func_0206e018Ev
+    bl _ZN11MatchEngine13func_0206e018Eiii
     movs r8, r0
     beq @L_0207cf04
 @L_0207ce80:
@@ -14784,7 +14755,7 @@ asm void MatchEngine::func_0207cbd8(int a)
     mov r1, r9
     mov r2, #0
     mov r3, #2
-    bl _ZN11MatchEngine13func_0206e018Ev
+    bl _ZN11MatchEngine13func_0206e018Eiii
     mov r8, r0
     mov r0, r7
     bl func_02081304
@@ -14869,7 +14840,7 @@ asm void MatchEngine::func_0207d118()
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     mov r1, r4
-    bl _ZN11MatchEngine13func_0207c720Ev
+    bl _ZN11MatchEngine13func_0207c720EP11MatchPlayer
     mov r0, r10
     mov r1, r4
     bl _ZN11MatchEngine13func_0207c7f4EP11MatchPlayer

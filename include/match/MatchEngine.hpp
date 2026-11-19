@@ -350,8 +350,8 @@ public:
     u8 func_0206df68(int team);
     void func_0206df9c(s32 value);
     int func_0206dfa4(int team, int mode);
-    void func_0206e018();
-    BOOL func_0206e100(int team, int pos, BOOL bench);
+    int func_0206e018(int team, BOOL bench, int kind);
+    BOOL func_0206e100(int team, int pos, BOOL bench, int mode);     // (mode unused)
     BOOL func_0206e174(int team, u8 *out, int n);
     u8 func_0206e1c4(int i);
     void func_0206e1d4(int i, u8 value);
@@ -666,7 +666,7 @@ public:
     int func_0207c478(MatchPlayer *player, int a, int b, int c);
     void func_0207c65c(u32 id, int a, int b, int c);
     void func_0207c6b4(int a, BOOL update, BOOL force);
-    void func_0207c720();
+    void func_0207c720(MatchPlayer *player);
     void func_0207c7f4(MatchPlayer *player);
     void func_0207c8e0(int a);
     void func_0207cbd8(int a);
