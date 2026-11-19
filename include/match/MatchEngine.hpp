@@ -401,7 +401,7 @@ public:
     void func_0206fed0();
     void func_0206ffe0();
     void func_020704b0(BOOL a);
-    void func_02070548();
+    void func_02070548(int id);
     void func_020705b4(int id);
     void func_020705dc(int id);
     void func_020705f8(u8 value);
@@ -519,8 +519,8 @@ public:
     BOOL func_020771d4(u32 id, int *error);
     void func_02077224();
     int func_02077448(MatchPlayer *player, u32 id, int a);
-    void func_0207765c();
-    void func_020776f8();
+    BOOL func_0207765c(MatchPlayer *player, u32 id, int mode, int *error);
+    BOOL func_020776f8(MatchPlayer *player, u32 id, int *error);
     int func_020777e4(u8 *team, s16 value, u32 i, u8 update);
     void func_02077830();
     void func_0207793c();
@@ -528,7 +528,7 @@ public:
     int func_02077b00(MatchPlayer *player, u32 slot, BOOL flag);
     int func_02077ba0(int index, u32 slot, BOOL flag);
     BOOL func_02077bd4();
-    void func_02077c4c();
+    BOOL func_02077c4c(void **file);
     BOOL func_02077ce4();
     int func_02077d18(void *buffer, int index);
     int func_02077da8(void *buffer, int index);
@@ -688,7 +688,7 @@ public:
     void func_0207e5a4(u8 *data, int level, int a);
     u8 func_0207e5fc();
     void func_0207e60c(int value);
-    void func_0207e62c();
+    BOOL func_0207e62c(int index);
     void func_0207e6dc(MatchPlayer *player, fx32 x, fx32 y);
     void func_0207e738();
     int func_0207e810(int index);

@@ -93,7 +93,7 @@ extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206cd78Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206ce6cEt(...);
 extern "C" void _ZN11MatchEngine13func_0206ce7cEv(void);
-extern "C" s32 _ZN11MatchEngine13func_02077c4cEv(...);
+extern "C" s32 _ZN11MatchEngine13func_02077c4cEPPv(...);
 extern "C" s32 _ZN11MatchEngine13func_02077ce4Ev(...);
 extern "C" void _ZN11MatchEngine13func_020795b4Ev(void);
 extern "C" s32 _ZdlPv(...);
@@ -519,7 +519,7 @@ extern "C" void func_ov065_0216628c(s32 arg0)
     func_ov065_02166250(arg0, (s32)data_ov065_02168520, (arg0 + 0x210));
     func_ov065_02166250(arg0, (s32)data_ov065_02168530, (arg0 + 0x21C));
     Archive_RequestNewRead((s32)data_ov065_02168544, (arg0 + 0x258));
-    _ZN11MatchEngine13func_02077c4cEv((s32)data_020e88a0, (arg0 + 0x264));
+    _ZN11MatchEngine13func_02077c4cEPPv((s32)data_020e88a0, (arg0 + 0x264));
     func_ov065_02165d60(arg0, 1);
 }
 
