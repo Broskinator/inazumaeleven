@@ -19,7 +19,6 @@ MatchEngine::func_020765d4  src/match/MatchEngine_2.cpp  7 words: the ROM loads 
 MatchEngine::func_0206ccb8  src/match/MatchEngine.cpp  3 words: the ROM loads unk_46 before comparing the mode with 1 (both cases give it), the attempt only when it is 1
 MatchEngine::func_0207070c  src/match/MatchEngine_2.cpp  15 words: the attempt jumps to the loop test first, the ROM enters the body directly (s16 counter)
 MatchEngine::func_0207add4  src/match/MatchEngine_2.cpp  15 words: the ROM enters the loop through its test (b), the attempt's loop is rotated (func_0207ae40 is the same)
-MatchEngine::func_0207d330  src/match/MatchEngine_2.cpp  1 word: add r3, r1, r5 where the ROM has add r3, r5, r1 (the += operands)
 func_02084350  src/match/MatchGeometry.cpp  2 words: the two flags zeroed in the other order (mov r4, ip / mov lr, ip)
 func_020844dc  src/match/MatchGeometry.cpp  2 words: the two flags zeroed in the other order (mov r6, r4 / mov r5, r4)
 MatchEngine::func_0207a534  src/match/MatchEngine_2.cpp  4 words: the key (ip) and the table's address (lr) in each other's registers

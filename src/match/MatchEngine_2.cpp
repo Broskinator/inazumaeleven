@@ -15448,40 +15448,18 @@ int MatchEngine::func_0207d308(u8 *data)
     return func_0207d378(data, data[0xAA] + 1) - base;
 }
 
-// (nonmatching: the ROM adds the total's operands the other way round (add r3, r5, r1))
-#ifdef NONMATCHING
 void MatchEngine::func_0207d330(u8 *data, int add, int value, u8 quiet)
 {
+    s32 total;
+
     if (quiet == 0) {
         func_02082150(this, *(u16 *)(data + 0x42), add);
     }
-    *(s32 *)(data + 0x60) += add;
+    total = add;
+    total += *(s32 *)(data + 0x60);
+    *(s32 *)(data + 0x60) = total;
     func_0207dc10(data, value);
 }
-#else
-asm void MatchEngine::func_0207d330(u8 *data, int add, int value, u8 quiet)
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    ldrb r12, [sp, #0x18]
-    mov r7, r0
-    mov r6, r1
-    mov r5, r2
-    mov r4, r3
-    cmp r12, #0
-    bne @L_0207d358
-    ldrh r1, [r6, #0x42]
-    bl func_02082150
-@L_0207d358:
-    ldr r1, [r6, #0x60]
-    mov r0, r7
-    add r3, r5, r1
-    mov r1, r6
-    mov r2, r4
-    str r3, [r6, #0x60]
-    bl _ZN11MatchEngine13func_0207dc10EPhi
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-}
-#endif
 
 int MatchEngine::func_0207d378(u8 *data, int level)
 {

@@ -1,0 +1,27 @@
+--- before
++++ after
+@@ -2745,6 +2745,7 @@
+ int MatchEngine__func_0207add4(MatchEngine *this, int team, u32 id)
+ {
+   int i;
++  int new_var;
+   if (gGameState.unk_000[0x1B] == 0)
+   {
+     id &= 0xFFF;
+@@ -2753,12 +2754,15 @@
+       id |= 0x8000;
+     }
+   }
+-  for (i = 0; i < 4; i++)
++  new_var = 4;
++  for (i = (team == 1) * 0; i < new_var; i++)
+   {
+     if (id == func_0208076c(this->unk_3ac[team], i))
+     {
+       return i + 1;
+     }
++    team++;
++    team--;
+   }
+ 
+   return 0;
