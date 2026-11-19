@@ -40,7 +40,7 @@ extern "C" s32 func_0208413c(s32 arg0, s32 arg1);
 extern "C" s32 func_02084188(s32 arg0, s32 arg1, s32 arg2);
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
-extern "C" void func_020841e8(fx32 arg0, fx32 arg1, s32 arg2, fx32 *arg3);
+extern "C" BOOL func_020841e8(fx32 x, fx32 y, u16 angle, fx32 *segment);
 extern "C" s32 func_02084248(s32 arg0);
 extern "C" BOOL func_02084284(int value, int a, int b);
 extern "C" s32 func_020842b0(s32 arg0, s32 arg1, s32 arg2);
@@ -52,7 +52,7 @@ extern "C" s32 func_02084428(u8 *arg0, s32 arg1, s32 arg2);
 extern "C" BOOL func_02084470(s32 *arg0, s32 *arg1);
 extern "C" BOOL func_020844dc(fx32 x, fx32 y, fx32 marginX, fx32 marginY);
 extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2);
-extern "C" s32 func_020845e0(...);
+extern "C" BOOL func_020845e0(u16 angle, u16 from, u16 to, BOOL inside, u8 edges);
 extern "C" s32 func_020846dc(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" BOOL func_02084788(MatchPoint *point);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
@@ -552,11 +552,14 @@ extern "C" void func_020841d8(MatchPoint *point)
     point->y = 0x80000000;
 }
 
-extern "C" void func_020841e8(fx32 arg0, fx32 arg1, s32 arg2, fx32 *arg3)
+// (whether angle lies between the directions from (x, y) to the segment's two ends, the ends
+// included)
+extern "C" BOOL func_020841e8(fx32 x, fx32 y, u16 angle, fx32 *segment)
 {
-    u16 a = FX_Atan2Idx(arg3[1] - arg1, arg3[0] - arg0);
-    u16 b = FX_Atan2Idx(arg3[3] - arg1, arg3[2] - arg0);
-    func_020845e0(arg2, a, b, 1, 1);
+    u16 a = FX_Atan2Idx(segment[1] - y, segment[0] - x);
+    u16 b = FX_Atan2Idx(segment[3] - y, segment[2] - x);
+
+    return func_020845e0(angle, a, b, TRUE, TRUE);
 }
 
 extern "C" s32 func_02084248(s32 arg0)
@@ -860,80 +863,42 @@ extern "C" s32 func_0208454c(u8 *arg0, s32 arg1, s32 arg2)
     return 0;
 }
 
-extern "C" asm s32 func_020845e0(...)
+// (whether angle is between from and to, the short way round; inside FALSE: outside; edges: the
+// ends count)
+extern "C" BOOL func_020845e0(u16 angle, u16 from, u16 to, BOOL inside, u8 edges)
 {
-    stmdb sp!, {r3, lr}
-    cmp r1, r2
-    bne @L_0208462c
-    cmp r3, #0
-    beq @L_02084614
-    ldrb r2, [sp, #8]
-    cmp r2, #0
-    beq @L_0208460c
-    cmp r0, r1
-    moveq r0, #1
-    ldmeqia sp!, {r3, pc}
-@L_0208460c:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
-@L_02084614:
-    ldrb r2, [sp, #8]
-    cmp r2, #0
-    cmpeq r0, r1
-    movne r0, #1
-    moveq r0, #0
-    ldmia sp!, {r3, pc}
-@L_0208462c:
-    ldr r12, =0x7fff
-    and lr, r1, r12
-    and r12, r2, r12
-    cmp lr, r12
-    moveq r0, #1
-    ldmeqia sp!, {r3, pc}
-    cmp r1, r2
-    movhi r12, r2
-    movhi r2, r1
-    movhi r1, r12
-    sub r12, r2, r1
-    cmp r12, #0x8000
-    bgt @L_02084678
-    cmp r0, r1
-    bls @L_02084674
-    cmp r0, r2
-    movlo lr, #1
-    blo @L_02084694
-@L_02084674:
-    b @L_02084690
-@L_02084678:
-    cmp r0, r1
-    blo @L_02084688
-    cmp r0, r2
-    bls @L_02084690
-@L_02084688:
-    mov lr, #1
-    b @L_02084694
-@L_02084690:
-    mov lr, #0
-@L_02084694:
-    ldrb r12, [sp, #8]
-    cmp r12, #0
-    beq @L_020846bc
-    cmp r0, r1
-    cmpne r0, r2
-    moveq r0, #1
-    movne r0, #0
-    orrs r0, lr, r0
-    movne lr, #1
-    moveq lr, #0
-@L_020846bc:
-    cmp r3, #0
-    bne @L_020846d0
-    cmp lr, #0
-    moveq lr, #1
-    movne lr, #0
-@L_020846d0:
-    mov r0, lr
-    ldmia sp!, {r3, pc}
+    BOOL in;
+    u16 t;
+
+    if (from == to) {
+        if (inside) {
+            if (edges && angle == from) {
+                return TRUE;
+            }
+            return FALSE;
+        }
+        return (edges == 0 && angle == from) ? FALSE : TRUE;
+    }
+    if ((from & 0x7FFF) == (to & 0x7FFF)) {
+        return TRUE;
+    }
+    if (from > to) {
+        t = to;
+        to = from;
+        from = t;
+    }
+    if (to - from <= 0x8000) {
+        in = (angle > from && angle < to) ? TRUE : FALSE;
+    } else {
+        in = (angle < from || angle > to) ? TRUE : FALSE;
+    }
+    if (edges) {
+        in = (in | (angle == from || angle == to)) ? TRUE : FALSE;
+    }
+    if (!inside) {
+        in = !in;
+    }
+    return in;
 }
 
 extern "C" s32 func_020846dc(s32 arg0, s32 arg1, s32 arg2, s32 arg3)

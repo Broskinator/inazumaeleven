@@ -469,7 +469,7 @@ public:
     BOOL func_020747b4(int i, int value);
     BOOL func_020747e4(int index, u32 value);
     void func_02074820();
-    void func_020748fc();
+    int func_020748fc(int id);
     static u16 func_020749c8(s16 *values, BOOL reduce, int percent);
     static u16 func_02074a18(s16 *values, MatchPlayer *player);
     int func_02074aac();

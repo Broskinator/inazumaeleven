@@ -565,6 +565,11 @@ extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+static inline BOOL UnkEntry_020739cc_HasFlag(u8 *entry, u8 flag)
+{
+    return (entry[0xF] & flag) ? TRUE : FALSE;
+}
+
 extern SceneStartInfo data_020c4ab4;
 extern "C" void _Z22EntryPool_CompactFrontv(void);
 extern "C" void _ZN10MatchRules13func_0206f014Ev(void);
@@ -6365,62 +6370,35 @@ asm void MatchEngine::func_02074820()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void MatchEngine::func_020748fc()
+// (for an entry with flag 2 or 4: the first entry from 0x1C2 whose value at 0x18 is in the same
+// ten as its own)
+int MatchEngine::func_020748fc(int id)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r7, r0
-    bl _ZN11MatchEngine13func_020739ccEi
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    ldrb r1, [r0, #0xf]
-    tst r1, #2
-    movne r2, #1
-    moveq r2, #0
-    cmp r2, #0
-    beq @L_02074950
-@L_0207492c:
-    ldr r3, [r0, #0x18]
-    ldr r0, =0xcccccccd
-    mov r2, #0xa
-    umull r0, r1, r3, r0
-    mov r1, r1, lsr #3
-    umull r0, r1, r2, r1
-    sub r1, r3, r0
-    sub r5, r3, r1
-    b @L_02074970
-@L_02074950:
-    tst r1, #4
-    movne r1, #1
-    moveq r1, #0
-    cmp r1, #0
-    beq @L_02074968
-    b @L_0207492c
-@L_02074968:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
-@L_02074970:
-    ldr r6, =0x1c2
-    ldr r4, =0xcccccccd
-    mov r8, #0xa
-@L_0207497c:
-    mov r0, r7
-    mov r1, r6
-    bl _ZN11MatchEngine13func_020739ccEi
-    ldr r2, [r0, #0x18]
-    umull r0, r1, r2, r4
-    mov r1, r1, lsr #3
-    umull r0, r1, r8, r1
-    sub r1, r2, r0
-    sub r0, r2, r1
-    cmp r5, r0
-    moveq r0, r6
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    add r6, r6, #1
-    cmp r6, #0x200
-    blt @L_0207497c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *entry = func_020739cc(id);
+    u32 base;
+    u32 value;
+    int i;
+
+    if (entry == NULL) {
+        return 0;
+    }
+    if (UnkEntry_020739cc_HasFlag(entry, 2)) {
+        value = *(u32 *)(entry + 0x18);
+        base = value - value % 10;
+    } else if (UnkEntry_020739cc_HasFlag(entry, 4)) {
+        value = *(u32 *)(entry + 0x18);
+        base = value - value % 10;
+    } else {
+        return 0;
+    }
+    for (i = 0x1C2; i < 0x200; i++) {
+        entry = func_020739cc(i);
+        value = *(u32 *)(entry + 0x18);
+        if (base == value - value % 10) {
+            return i;
+        }
+    }
+    return 0;
 }
 
 u16 MatchEngine::func_020749c8(s16 *values, BOOL reduce, int percent)
