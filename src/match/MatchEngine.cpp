@@ -14,6 +14,15 @@ extern "C" u8 data_020cabf8[];
 #include "system/GameHeap.hpp"
 #include "match/MatchFile.hpp"
 #include "nitro/std.h"
+// a team as func_01ffca10 reads it
+struct UnkTeam_01ffca10 {
+    u8 unk_0[0x40];
+    struct {
+        u16 id;         // (the low 12 bits)
+        u8 unk_2[6];
+    } members[32];
+};
+
 
 // an entry of the file read by func_0206e50c
 struct UnkEntry_0206e50c {
@@ -450,8 +459,8 @@ extern GameHeap gAllocator;
 extern "C" char data_020d9978[];
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
-extern "C" void func_01ffb994(void);
-extern "C" void func_01ffca10(void);
+extern "C" BOOL func_01ffb994(MatchEngine *self, int id, void *buffer);
+extern "C" BOOL func_01ffca10(MatchEngine *self, int id, void *buffer);
 extern "C" BOOL func_0209e220(u8 *obj);
 // (the penalty shoot-out's state, as func_ov001_02128144 fills it: the goals, the round and
 // whether each team has kicked in it)
@@ -11823,60 +11832,34 @@ int MatchEngine::func_0206cf6c()
     return r;
 }
 
-asm void MatchEngine::func_0206cfc8()
+// whether entry index's team has at least the number of available players (func_0207af84) its
+// record asks for
+BOOL MatchEngine::func_0206cfc8(int index)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x290
-    add r2, sp, #0
-    mov r7, r0
-    mov r9, #0
-    bl _ZN11MatchEngine13func_0206cd08EiPv
-    cmp r0, #0
-    addeq sp, sp, #0x290
-    moveq r0, r9
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldrb r1, [sp, #0xa]
-    add r2, sp, #0x170
-    mov r0, r7
-    bl func_01ffb994
-    cmp r0, #0
-    addeq sp, sp, #0x290
-    moveq r0, r9
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldrh r1, [sp]
-    add r4, sp, #0x30
-    mov r0, r7
-    mov r2, r4
-    bl func_01ffca10
-    cmp r0, #0
-    addeq sp, sp, #0x290
-    moveq r0, r9
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r6, r9
-    ldr r8, =0xfff
-    mov r5, r6
-@L_0206d040:
-    add r0, r4, r5, lsl #3
-    ldrh r0, [r0, #0x40]
-    and r0, r0, r8
-    mov r0, r0, lsl #0x10
-    movs r2, r0, lsr #0x10
-    beq @L_0206d06c
-    mov r0, r7
-    mov r1, r9
-    bl _ZN11MatchEngine13func_0207af84Eii
-    cmp r0, #0
-    addeq r6, r6, #1
-@L_0206d06c:
-    add r5, r5, #1
-    cmp r5, #0x20
-    blt @L_0206d040
-    ldrb r0, [sp, #0x17d]
-    cmp r6, r0
-    movge r0, #1
-    movlt r0, #0
-    add sp, sp, #0x290
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    u8 info[0x30];
+    u8 rec[0x120];
+    UnkTeam_01ffca10 team;
+    int i;
+    int count;
+    u16 id;
+
+    if (!func_0206cd08(index, info)) {
+        return FALSE;
+    }
+    if (!func_01ffb994(this, info[0xA], rec)) {
+        return FALSE;
+    }
+    if (!func_01ffca10(this, *(u16 *)info, &team)) {
+        return FALSE;
+    }
+    count = 0;
+    for (i = 0; i < 32; i++) {
+        id = team.members[i].id & 0xFFF;
+        if (id != 0 && !func_0207af84(0, id)) {
+            count++;
+        }
+    }
+    return count >= rec[0xD];
 }
 
 BOOL MatchEngine::func_0206d094(int team)

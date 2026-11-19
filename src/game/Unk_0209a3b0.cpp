@@ -83,7 +83,7 @@ extern "C" s32 STD_CopyString(...);
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN12SoundManager13func_0203a4d4EiPKci(void);
-extern "C" void _ZN11MatchEngine13func_0206cfc8Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206cfc8Ei(void);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void GX_LoadTex(void);
 extern "C" void GX_EndLoadTex(void);
@@ -1474,7 +1474,7 @@ extern "C" asm void func_0209b608(void)
     beq @L_0209b75c
     mov r0, r9
     mov r1, r8
-    bl _ZN11MatchEngine13func_0206cfc8Ev
+    bl _ZN11MatchEngine13func_0206cfc8Ei
     cmp r0, #0
     bne @L_0209b768
     mov r8, r5

@@ -307,7 +307,7 @@ public:
     u8 func_0206ceb4();
     BOOL func_0206cec0();
     int func_0206cf6c();
-    void func_0206cfc8();
+    BOOL func_0206cfc8(int index);
     BOOL func_0206d094(int team);
     void func_0206d114();
     BOOL func_0206d188(int team, BOOL flag);
@@ -633,7 +633,7 @@ public:
     BOOL func_0207a820();
     BOOL func_0207a854(u16 id, s8 *data);
     BOOL func_0207a950(MatchPlayer *player);
-    void func_0207a990();
+    BOOL func_0207a990(int team, int n, int kind);
     int func_0207aa58(int team);
     int func_0207aa94(int team);
     int func_0207aaf4(int team, int kind);

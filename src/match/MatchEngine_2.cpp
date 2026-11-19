@@ -221,7 +221,7 @@ extern "C" void _ZN11MatchEngine13func_0206dfa4Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_0206f98cEt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02077a80Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207a990Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207a990Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207aa94Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207aeacEim(void);     // (for the asm functions)
@@ -12316,64 +12316,30 @@ BOOL MatchEngine::func_0207a950(MatchPlayer *player)
     return TRUE;
 }
 
-asm void MatchEngine::func_0207a990()
+// whether no player of the team (without state flag 1) has n (1 to 16; at most 4 for kind 2,
+// and for kind 0 when func_0206deec) as its func_0208130c(kind)
+BOOL MatchEngine::func_0207a990(int team, int n, int kind)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r7, r2
-    mov r8, r1
-    mov r6, r3
-    cmp r7, #0
-    mov r9, #0
-    ble @L_0207a9b4
-    cmp r7, #0x10
-    ble @L_0207a9bc
-@L_0207a9b4:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0207a9bc:
-    cmp r6, #2
-    beq @L_0207a9d8
-    cmp r6, #0
-    bne @L_0207a9e4
-    bl _ZN11MatchEngine13func_0206deecEv
-    cmp r0, #0
-    beq @L_0207a9e4
-@L_0207a9d8:
-    cmp r7, #4
-    movgt r0, #0
-    ldmgtia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0207a9e4:
-    mov r4, #0
-    mov r10, #1
-@L_0207a9ec:
-    mov r0, r4
-    bl func_ov015_02130ae8
-    movs r5, r0
-    beq @L_0207aa44
-    ldrh r0, [r5, #0xf0]
-    tst r0, #1
-    movne r0, r10
-    moveq r0, r9
-    cmp r0, #0
-    bne @L_0207aa44
-    mov r0, r5
-    bl func_02080b90
-    cmp r8, r0
-    bne @L_0207aa44
-    cmp r5, #0
-    beq @L_0207aa44
-    mov r0, r5
-    mov r1, r6
-    bl func_0208130c
-    cmp r7, r0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0207aa44:
-    add r4, r4, #1
-    cmp r4, #0x84
-    blt @L_0207a9ec
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    int i;
+    MatchPlayer *player;
+
+    if (n <= 0 || n > 16) {
+        return FALSE;
+    }
+    if (kind == 2 || (kind == 0 && func_0206deec())) {
+        if (n > 4) {
+            return FALSE;
+        }
+    }
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        // (player is tested twice in the ROM too)
+        if (player != NULL && !MatchPlayer_HasFlag(player, 1) && team == func_02080b90(player)
+            && player != NULL && n == func_0208130c(player, kind)) {
+            return FALSE;
+        }
+    }
+    return TRUE;
 }
 
 int MatchEngine::func_0207aa58(int team)
@@ -13307,7 +13273,7 @@ asm void MatchEngine::func_0207b780()
     mov r1, r8
     mov r2, r5
     mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Ev
+    bl _ZN11MatchEngine13func_0207a990Eiii
     cmp r0, #0
     bne @L_0207b8f8
     mov r0, r9
@@ -13391,7 +13357,7 @@ asm void MatchEngine::func_0207b780()
     mov r1, r8
     mov r2, r5
     mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Ev
+    bl _ZN11MatchEngine13func_0207a990Eiii
     cmp r0, #0
     bne @L_0207ba34
     mov r0, r9
@@ -13430,7 +13396,7 @@ asm void MatchEngine::func_0207b780()
     mov r1, r8
     mov r2, r5
     mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Ev
+    bl _ZN11MatchEngine13func_0207a990Eiii
     cmp r0, #0
     bne @L_0207bac0
     mov r0, r9
@@ -13478,7 +13444,7 @@ asm void MatchEngine::func_0207b780()
     mov r1, r8
     mov r2, r5
     mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Ev
+    bl _ZN11MatchEngine13func_0207a990Eiii
     cmp r0, #0
     bne @L_0207bb70
     mov r0, r9
