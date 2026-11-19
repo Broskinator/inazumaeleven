@@ -154,7 +154,7 @@ extern "C" void _ZN11MatchEngine13func_0207ef0cEP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f07cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207f3ccEm(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f42cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f4bcEv(void);     // (for the asm functions)
@@ -8182,59 +8182,32 @@ int MatchEngine::func_02076620(u32 id, int n)
     return 0;
 }
 
-asm int MatchEngine::func_020766e8(u32 i)
+// how many of item i there are: the stock, the team's (GetTeamInfo, 0x34) and the ones in the
+// slots of the players with state flags 1 and 0x20
+int MatchEngine::func_020766e8(u32 i)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r4, r0
-    mov r10, r1
-    bl _ZN11MatchEngine13func_020767a4Em
-    mov r7, r0
-    bl func_ov015_021319bc
-    mov r1, r0
-    mov r0, r4
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    cmp r0, #0
-    beq @L_02076720
-    ldrh r0, [r0, #0x34]
-    cmp r0, r10
-    addeq r7, r7, #1
-@L_02076720:
-    mov r6, #0
-    mov r5, #1
-    mov r4, r6
-    mov r11, r5
-@L_02076730:
-    mov r0, r6
-    bl func_ov015_02130ae8
-    movs r9, r0
-    beq @L_02076790
-    ldrh r0, [r9, #0xf0]
-    tst r0, #1
-    movne r1, r5
-    moveq r1, r4
-    cmp r1, #0
-    beq @L_02076790
-    tst r0, #0x20
-    movne r0, r11
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02076790
-    mov r8, #0
-@L_02076770:
-    mov r0, r9
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207f3ccEm
-    cmp r10, r0
-    add r8, r8, #1
-    addeq r7, r7, #1
-    cmp r8, #4
-    blt @L_02076770
-@L_02076790:
-    add r6, r6, #1
-    cmp r6, #0x84
-    blt @L_02076730
-    mov r0, r7
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *info;
+    int n;
+    int count;
+    int slot;
+    MatchPlayer *player;
+
+    count = func_020767a4(i);
+    info = GetTeamInfo(func_ov015_021319bc());
+    if (info != NULL && *(u16 *)(info + 0x34) == i) {
+        count++;
+    }
+    for (n = 0; n < 0x84; n++) {
+        player = func_ov015_02130ae8(n);
+        if (player != NULL && MatchPlayer_HasFlag(player, 1) && MatchPlayer_HasFlag(player, 0x20)) {
+            for (slot = 0; slot < 4; slot++) {
+                if (i == func_0207f3cc(player, slot)) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
 }
 
 u8 MatchEngine::func_020767a4(u32 i)
@@ -16117,7 +16090,7 @@ asm int MatchEngine::func_0207e334(int a, int b, int c, int d)
 @L_0207e438:
     mov r0, r9
     mov r1, r8
-    bl _ZN11MatchEngine13func_0207f3ccEm
+    bl _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm
     movs r1, r0
     beq @L_0207e48c
     mov r0, r10
@@ -17111,12 +17084,12 @@ void MatchEngine::func_0207f3b8(int value)
     ((MatchPlayer *)this)->state->unk_22 = value;
 }
 
-u16 MatchEngine::func_0207f3cc(u32 i)
+u16 MatchEngine::func_0207f3cc(MatchPlayer *player, u32 i)
 {
     if (i >= 4) {
         return 0;
     }
-    return ((u16 *)(((u8 *)this) + 0x70))[i];
+    return player->unk_70[i];
 }
 
 s8 MatchEngine::func_0207f3e0()

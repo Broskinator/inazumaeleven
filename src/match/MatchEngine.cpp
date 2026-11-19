@@ -486,13 +486,13 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN9EntryPool9RemoveAllEv(void);
 extern "C" void func_01ffde48(void);
 extern "C" void OS_Terminate(void);
-extern "C" void func_02021adc(void);
+extern "C" void _dmul(void);
 extern "C" void _dflt(void);
 extern "C" void _f2d(void);
 extern "C" void _ffltu(void);
 extern "C" void _u32_div_f(void);
 extern "C" void _dfixu(void);
-extern "C" void func_02023890(void);
+extern "C" void _ddiv(void);
 extern "C" void func_0209e174(void);
 extern "C" void func_0209e1c8(void);
 extern "C" void func_ov000_02116e8c(void);
@@ -12470,37 +12470,12 @@ BOOL MatchEngine::func_0206d9a0()
     return (unk_21a & 8) != 0;
 }
 
-asm void MatchEngine::func_0206d9d0()
+// twice value, times a random 80% to 120%
+u32 MatchEngine::func_0206d9d0(int value)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r4, r1
-    mov r0, #0x29
-    bl Random_RandB
-    mov r7, r0
-    mov r0, r4
-    bl _dflt
-    mov r6, #0
-    mov r2, r0
-    mov r5, #0x40000000
-    mov r3, r1
-    mov r0, r6
-    mov r1, r5
-    bl func_02021adc
-    mov r4, r0
-    add r0, r7, #0x50
-    mov r7, r1
-    bl _ffltu
-    bl _f2d
-    mov r2, r6
-    add r3, r5, #0x590000
-    bl func_02023890
-    mov r2, r0
-    mov r0, r4
-    mov r3, r1
-    mov r1, r7
-    bl func_02021adc
-    bl _dfixu
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u32 r = Random_RandB(41);
+
+    return 2.0 * value * ((float)(r + 80) / 100.0);
 }
 
 asm void MatchEngine::func_0206da44()
@@ -12512,7 +12487,7 @@ asm void MatchEngine::func_0206da44()
     mov r2, r0
     ldr r1, =0x3fe00000
     mov r0, #0
-    bl func_02021adc
+    bl _dmul
     bl _dfixu
     mov r0, r0, lsl #0x10
     mov r4, r0, lsr #0x10
@@ -12531,12 +12506,12 @@ asm void MatchEngine::func_0206da44()
     bl _f2d
     ldr r3, =0x40590000
     mov r2, #0
-    bl func_02023890
+    bl _ddiv
     mov r2, r0
     mov r3, r1
     mov r0, r4
     mov r1, r5
-    bl func_02021adc
+    bl _dmul
     bl _dfixu
     ldmia sp!, {r3, r4, r5, pc}
 }

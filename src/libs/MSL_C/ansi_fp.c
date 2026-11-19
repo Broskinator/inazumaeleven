@@ -52,11 +52,11 @@ void _f2d(void);
 extern char data_020ab440[];
 void _dfltu(void);
 extern char data_020ab32c[];
-void func_02021adc(void);
+void _dmul(void);
 void _dadd(void);
 void _dflt(void);
 void func_02020c78(void);
-void func_02023890(void);
+void _ddiv(void);
 
 asm void __must_round(void)
 {
@@ -1228,7 +1228,7 @@ asm void func_0201cecc(void)
     ldr r2, [r3, #-8]
     ldr r0, [sp, #8]
     ldr r3, [r3, #-4]
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r9, r1
     mov r0, r6
@@ -1270,7 +1270,7 @@ asm void func_0201cecc(void)
     mov r3, r1
     ldr r0, [sp, #8]
     ldr r1, [sp, #0xc]
-    bl func_02023890
+    bl _ddiv
     b @L_0201d1dc
 @L_0201d1ac:
     mov r0, r11
@@ -1284,7 +1284,7 @@ asm void func_0201cecc(void)
     mov r3, r1
     ldr r0, [sp, #8]
     ldr r1, [sp, #0xc]
-    bl func_02021adc
+    bl _dmul
 @L_0201d1dc:
     str r0, [sp, #8]
     str r1, [sp, #0xc]

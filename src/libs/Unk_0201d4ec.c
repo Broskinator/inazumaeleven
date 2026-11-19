@@ -7,10 +7,10 @@ void __kernel_cos(void);
 void __kernel_rem_pio2(void);
 
 extern char data_020bf408[];
-void func_02023890(void);
+void _ddiv(void);
 extern char errno[];
 void _dsub(void);
-void func_02021adc(void);
+void _dmul(void);
 void _dadd(void);
 void _deq(void);
 void _dflt(void);
@@ -50,7 +50,7 @@ asm void __ieee754_log(void)
     mov r0, r2
     ldmia r1, {r2, r3}
     ldr r1, =0xc3500000
-    bl func_02023890
+    bl _ddiv
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -68,7 +68,7 @@ asm void __ieee754_log(void)
     bl _dsub
     ldr r3, =data_020bf408
     ldmia r3, {r2, r3}
-    bl func_02023890
+    bl _ddiv
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -78,7 +78,7 @@ asm void __ieee754_log(void)
     ldr r1, [sp, #0x54]
     ldr r3, =0x43500000
     sub r6, r2, #0x36
-    bl func_02021adc
+    bl _dmul
     mov r8, r1
     str r0, [sp, #0x50]
     str r8, [sp, #0x54]
@@ -137,14 +137,14 @@ asm void __ieee754_log(void)
     mov r2, r5
     mov r3, r6
     sub r0, r0, #0x1200000
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r7, r1
     ldr r0, =0x35793c76
     ldr r1, =0x3dea39ef
     mov r2, r5
     mov r3, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -159,7 +159,7 @@ asm void __ieee754_log(void)
     mov r2, r5
     mov r3, r9
     sub r1, r0, #0x15800000
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     ldr r7, =0x3fe00000
     mov r3, r1
@@ -172,12 +172,12 @@ asm void __ieee754_log(void)
     mov r1, r9
     mov r2, r5
     mov r3, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
     mov r1, r8
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r8, r1
     cmp r6, #0
@@ -200,14 +200,14 @@ asm void __ieee754_log(void)
     mov r2, r6
     mov r3, r10
     sub r0, r7, #0x41000000
-    bl func_02021adc
+    bl _dmul
     mov r2, r6
     mov r6, r0
     mov r7, r1
     ldr r0, =0x35793c76
     ldr r1, =0x3dea39ef
     mov r3, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -235,7 +235,7 @@ asm void __ieee754_log(void)
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_02023890
+    bl _ddiv
     str r0, [sp, #0x18]
     str r1, [sp, #0x14]
     mov r0, r6
@@ -246,21 +246,21 @@ asm void __ieee754_log(void)
     ldr r1, [sp, #0x14]
     mov r2, r0
     mov r3, r1
-    bl func_02021adc
+    bl _dmul
     ldr r3, =0xfff9eb86
     mov r2, r0
     add r7, r8, r3
     mov r3, r1
     str r0, [sp, #0x20]
     str r1, [sp, #0xc]
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     ldr r0, =0xd078c69f
     ldr r1, =0x3fc39a09
     mov r2, r4
     mov r3, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x1d8e78af
@@ -270,7 +270,7 @@ asm void __ieee754_log(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x9997fa04
@@ -280,14 +280,14 @@ asm void __ieee754_log(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     str r0, [sp, #0x24]
     str r1, [sp, #4]
     ldr r0, =0xdf3e5244
     ldr r1, =0x3fc2f112
     mov r2, r4
     mov r3, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x96cb03de
@@ -297,7 +297,7 @@ asm void __ieee754_log(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x94229359
@@ -307,7 +307,7 @@ asm void __ieee754_log(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x55555593
@@ -317,7 +317,7 @@ asm void __ieee754_log(void)
     mov r3, r1
     ldr r0, [sp, #0x20]
     ldr r1, [sp, #0xc]
-    bl func_02021adc
+    bl _dmul
     ldr r4, =0x6b851
     ldr r2, [sp, #0x24]
     sub r4, r4, r8
@@ -333,10 +333,10 @@ asm void __ieee754_log(void)
     mov r2, r5
     mov r3, r9
     sub r1, r1, #0x200000
-    bl func_02021adc
+    bl _dmul
     mov r2, r5
     mov r3, r9
-    bl func_02021adc
+    bl _dmul
     cmp r6, #0
     mov r6, r0
     mov r8, r1
@@ -348,7 +348,7 @@ asm void __ieee754_log(void)
     mov r3, r1
     ldr r0, [sp, #0x18]
     ldr r1, [sp, #0x14]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r6
@@ -369,7 +369,7 @@ asm void __ieee754_log(void)
     ldr r2, [sp, #0x1c]
     mov r3, r11
     sub r0, r0, #0x1200000
-    bl func_02021adc
+    bl _dmul
     mov r3, r7
     str r0, [sp, #0x28]
     mov r7, r1
@@ -381,14 +381,14 @@ asm void __ieee754_log(void)
     mov r3, r1
     ldr r0, [sp, #0x18]
     ldr r1, [sp, #0x14]
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     ldr r2, [sp, #0x1c]
     ldr r0, =0x35793c76
     ldr r1, =0x3dea39ef
     mov r3, r11
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -423,7 +423,7 @@ asm void __ieee754_log(void)
     mov r3, r1
     ldr r0, [sp, #0x18]
     ldr r1, [sp, #0x14]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -439,7 +439,7 @@ asm void __ieee754_log(void)
     ldr r2, [sp, #0x1c]
     mov r3, r11
     sub r0, r0, #0x1200000
-    bl func_02021adc
+    bl _dmul
     mov r6, r0
     mov r8, r1
     mov r2, r4
@@ -451,14 +451,14 @@ asm void __ieee754_log(void)
     mov r3, r1
     ldr r0, [sp, #0x18]
     ldr r1, [sp, #0x14]
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r7, r1
     ldr r2, [sp, #0x1c]
     ldr r0, =0x35793c76
     ldr r1, =0x3dea39ef
     mov r3, r11
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -609,7 +609,7 @@ asm void __ieee754_pow(void)
     ldr r3, [sp, #0xa4]
     sub r1, r1, #0x40000000
     mov r0, #0
-    bl func_02023890
+    bl _ddiv
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -621,7 +621,7 @@ asm void __ieee754_pow(void)
     ldr r1, [sp, #0xa4]
     mov r2, r0
     mov r3, r1
-    bl func_02021adc
+    bl _dmul
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -663,7 +663,7 @@ asm void __ieee754_pow(void)
     bge @L_0201ded0
     ldr r1, [pc, #0x2f4]
     mov r0, #0
-    bl func_02023890
+    bl _ddiv
     str r0, [sp, #0x70]
     str r1, [sp, #0x74]
 @L_0201ded0:
@@ -689,7 +689,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     mov r0, r4
     mov r1, r5
-    bl func_02023890
+    bl _ddiv
     b @L_0201df4c
 @L_0201df30:
     cmp r5, #1
@@ -788,7 +788,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     str r0, [sp, #0x48]
     str r1, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r6, r0
     ldr r4, [pc, #0x13c]
     mov r8, r1
@@ -796,7 +796,7 @@ asm void __ieee754_pow(void)
     ldr r3, [sp, #0x4c]
     mov r0, #0
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     ldr r0, [pc, #0x120]
     mov r3, r1
@@ -806,7 +806,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x48]
     ldr r1, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     add r1, r4, #0x100000
@@ -816,7 +816,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     mov r0, r6
     mov r1, r8
-    bl func_02021adc
+    bl _dmul
     mov r6, r0
     ldr r9, [pc, #0xd4]
     mov r10, r1
@@ -824,21 +824,21 @@ asm void __ieee754_pow(void)
     ldr r3, [sp, #0x4c]
     mov r0, #0x60000000
     mov r1, r9
-    bl func_02021adc
+    bl _dmul
     mov r8, r0
     mov r4, r1
     ldr r0, [pc, #0xb4]
     ldr r1, [pc, #0xb4]
     ldr r2, [sp, #0x48]
     ldr r3, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r6
     mov r6, r0
     mov r3, r10
     mov r10, r1
     ldr r0, [pc, #0x98]
     mov r1, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r6
@@ -927,7 +927,7 @@ asm void __ieee754_pow(void)
     ldr r1, [sp, #0x6c]
     mov r2, r6
     add r3, r3, #0x1600000
-    bl func_02021adc
+    bl _dmul
     mov r4, r1
     str r0, [sp, #0x68]
     str r4, [sp, #0x6c]
@@ -969,14 +969,14 @@ asm void __ieee754_pow(void)
     mov r2, r0
     ldr r1, [pc, #-0x1a0]
     mov r0, #0
-    bl func_02023890
+    bl _ddiv
     str r0, [sp, #0x20]
     str r1, [sp, #0x1c]
     ldr r2, [sp, #0x20]
     ldr r3, [sp, #0x1c]
     mov r0, r11
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     mov r2, r9, asr #1
     orr r2, r2, #0x20000000
     add r3, r2, #0x80000
@@ -1003,7 +1003,7 @@ asm void __ieee754_pow(void)
     ldr r2, [sp, #0x38]
     ldr r3, [sp, #0x3c]
     mov r1, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r11
@@ -1015,7 +1015,7 @@ asm void __ieee754_pow(void)
     ldr r2, [sp, #0x28]
     ldr r0, [sp, #0x40]
     mov r1, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -1025,26 +1025,26 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x20]
     ldr r1, [sp, #0x1c]
-    bl func_02021adc
+    bl _dmul
     str r0, [sp, #0x2c]
     ldr r0, [sp, #0x24]
     str r1, [sp, #0x14]
     mov r1, r9
     mov r2, r0
     mov r3, r9
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     mov r2, r4
     mov r3, r10
-    bl func_02021adc
+    bl _dmul
     str r0, [sp, #0x30]
     mov r11, r1
     ldr r0, [pc, #-0x27c]
     ldr r1, [pc, #-0x27c]
     mov r2, r4
     mov r3, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x290]
@@ -1054,7 +1054,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x2b0]
@@ -1064,7 +1064,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x2d0]
@@ -1074,7 +1074,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x2f0]
@@ -1084,7 +1084,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x310]
@@ -1094,7 +1094,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x30]
     mov r1, r11
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     ldr r0, [sp, #0x40]
@@ -1106,7 +1106,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x2c]
     ldr r1, [sp, #0x14]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -1118,7 +1118,7 @@ asm void __ieee754_pow(void)
     mov r1, r9
     mov r2, r0
     mov r3, r1
-    bl func_02021adc
+    bl _dmul
     str r1, [sp, #0xc]
     mov r11, r0
     ldr r1, [pc, #-0x408]
@@ -1151,21 +1151,21 @@ asm void __ieee754_pow(void)
     ldr r2, [sp, #0x38]
     ldr r3, [sp, #0x3c]
     mov r1, r9
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     ldr r0, [sp, #0x2c]
     ldr r1, [sp, #0x14]
     ldr r2, [sp, #0x38]
     ldr r3, [sp, #0x3c]
-    bl func_02021adc
+    bl _dmul
     mov r3, r9
     mov r11, r0
     mov r9, r1
     ldr r2, [sp, #0x24]
     ldr r0, [sp, #0x34]
     ldr r1, [sp, #4]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r11
@@ -1195,21 +1195,21 @@ asm void __ieee754_pow(void)
     ldr r1, [pc, #-0x4ac]
     ldr r3, [sp, #0x64]
     mov r0, #0xe0000000
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     ldr r0, [pc, #-0x4c0]
     ldr r1, [pc, #-0x4c0]
     ldr r2, [sp, #0x60]
     ldr r3, [sp, #0x64]
-    bl func_02021adc
+    bl _dmul
     mov r2, r11
     mov r3, r9
     mov r11, r0
     mov r9, r1
     ldr r1, [pc, #-0x4e8]
     ldr r0, [pc, #-0x4e0]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r11
@@ -1278,14 +1278,14 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x50]
     ldr r1, [sp, #0x54]
-    bl func_02021adc
+    bl _dmul
     mov r5, r0
     mov r9, r1
     ldr r0, [sp, #0xa8]
     ldr r1, [sp, #0xac]
     mov r2, r4
     mov r3, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -1297,7 +1297,7 @@ asm void __ieee754_pow(void)
     ldr r1, [sp, #0x5c]
     ldr r2, [sp, #0x50]
     ldr r3, [sp, #0x54]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -1321,12 +1321,12 @@ asm void __ieee754_pow(void)
     mov r1, r4
     mov r2, r8
     mov r3, r7
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -1356,12 +1356,12 @@ asm void __ieee754_pow(void)
     mov r1, r4
     mov r2, r8
     mov r3, r7
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -1381,12 +1381,12 @@ asm void __ieee754_pow(void)
     mov r1, r4
     mov r2, r8
     mov r3, r7
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -1407,12 +1407,12 @@ asm void __ieee754_pow(void)
     mov r1, r4
     mov r2, r8
     mov r3, r7
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -1462,7 +1462,7 @@ asm void __ieee754_pow(void)
     mov r1, r11
     str r3, [sp, #0x4c]
     str r2, [sp, #0x48]
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     ldr r0, [sp, #0x48]
@@ -1479,14 +1479,14 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [pc, #-0x8d0]
     sub r1, r11, #1
-    bl func_02021adc
+    bl _dmul
     mov r5, r0
     mov r9, r1
     ldr r0, [pc, #-0x8e0]
     ldr r1, [pc, #-0x8e0]
     ldr r2, [sp, #0x48]
     ldr r3, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -1515,14 +1515,14 @@ asm void __ieee754_pow(void)
     ldr r1, [sp, #0x74]
     mov r2, r0
     mov r3, r1
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x968]
     ldr r1, [pc, #-0x968]
     str r2, [sp, #0x48]
     str r3, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x97c]
@@ -1532,7 +1532,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x48]
     ldr r1, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x99c]
@@ -1542,7 +1542,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x48]
     ldr r1, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x9bc]
@@ -1552,7 +1552,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x48]
     ldr r1, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [pc, #-0x9dc]
@@ -1562,7 +1562,7 @@ asm void __ieee754_pow(void)
     mov r3, r1
     ldr r0, [sp, #0x48]
     ldr r1, [sp, #0x4c]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, [sp, #0x70]
@@ -1574,7 +1574,7 @@ asm void __ieee754_pow(void)
     ldr r1, [sp, #0x74]
     str r2, [sp, #0x50]
     str r3, [sp, #0x54]
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r10, r1
     mov r11, #0x40000000
@@ -1587,14 +1587,14 @@ asm void __ieee754_pow(void)
     mov r3, r1
     mov r0, r4
     mov r1, r10
-    bl func_02023890
+    bl _ddiv
     mov r4, r0
     mov r10, r1
     ldr r0, [sp, #0x70]
     ldr r1, [sp, #0x74]
     mov r2, r5
     mov r3, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -1630,7 +1630,7 @@ asm void __ieee754_pow(void)
     ldr r3, [sp, #0x74]
     mov r0, r8
     mov r1, r7
-    bl func_02021adc
+    bl _dmul
     add sp, sp, #0x78
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     add sp, sp, #0x10
@@ -1792,7 +1792,7 @@ asm void __ieee754_rem_pio2(void)
     ldr r1, =0x3fe45f30
     ldr r3, [sp, #0x24]
     mov r2, r9
-    bl func_02021adc
+    bl _dmul
     mov r3, r1
     mov r2, r0
     ldr r1, =0x3fe00000
@@ -1807,7 +1807,7 @@ asm void __ieee754_rem_pio2(void)
     add r1, r4, #0x100000
     mov r2, r11
     mov r3, r8
-    bl func_02021adc
+    bl _dmul
     mov r3, r1
     mov r2, r0
     ldr r1, [sp, #0x24]
@@ -1819,7 +1819,7 @@ asm void __ieee754_rem_pio2(void)
     ldr r1, =0x3dd0b461
     mov r2, r11
     mov r3, r8
-    bl func_02021adc
+    bl _dmul
     str r0, [sp, #0x28]
     str r1, [sp, #0xc]
     cmp r5, #0x20
@@ -1849,7 +1849,7 @@ asm void __ieee754_rem_pio2(void)
     mov r3, r8
     str r4, [sp, #0x30]
     str r9, [sp, #0x34]
-    bl func_02021adc
+    bl _dmul
     str r0, [sp, #0x40]
     str r1, [sp, #0x1c]
     ldr r2, [sp, #0x40]
@@ -1864,7 +1864,7 @@ asm void __ieee754_rem_pio2(void)
     ldr r1, =0x3ba3198a
     mov r2, r11
     mov r3, r8
-    bl func_02021adc
+    bl _dmul
     str r0, [sp, #0x48]
     str r1, [sp, #0x14]
     ldr r0, [sp, #0x30]
@@ -1899,7 +1899,7 @@ asm void __ieee754_rem_pio2(void)
     mov r3, r8
     mov r0, #0x2e000000
     str r9, [sp, #0x3c]
-    bl func_02021adc
+    bl _dmul
     str r0, [sp, #0x4c]
     mov r6, r1
     ldr r0, [sp, #0x44]
@@ -1913,7 +1913,7 @@ asm void __ieee754_rem_pio2(void)
     ldr r1, =0x397b839a
     mov r2, r11
     mov r3, r8
-    bl func_02021adc
+    bl _dmul
     mov r11, r0
     mov r8, r1
     ldr r0, [sp, #0x44]
@@ -2016,7 +2016,7 @@ asm void __ieee754_rem_pio2(void)
     mov r3, r1
     mov r0, r5
     mov r1, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     add r6, r6, #1
@@ -2105,14 +2105,14 @@ asm void __kernel_cos(void)
     ldr r1, [sp, #0x34]
     mov r2, r0
     mov r3, r1
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r6, r1
     ldr r0, =0xbe8838d4
     ldr r1, =0xbda8fae9
     mov r2, r4
     mov r3, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0xbdb4b1c4
@@ -2122,7 +2122,7 @@ asm void __kernel_cos(void)
     mov r3, r1
     mov r0, r4
     mov r1, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x809c52ad
@@ -2132,7 +2132,7 @@ asm void __kernel_cos(void)
     mov r3, r1
     mov r0, r4
     mov r1, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x19cb1590
@@ -2142,7 +2142,7 @@ asm void __kernel_cos(void)
     mov r3, r1
     mov r0, r4
     mov r1, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x16c15177
@@ -2152,7 +2152,7 @@ asm void __kernel_cos(void)
     mov r3, r1
     mov r0, r4
     mov r1, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     ldr r0, =0x5555554c
@@ -2162,7 +2162,7 @@ asm void __kernel_cos(void)
     mov r3, r1
     mov r0, r4
     mov r1, r6
-    bl func_02021adc
+    bl _dmul
     mov r5, r0
     ldr r0, =0x3fd33333
     mov r7, r1
@@ -2172,21 +2172,21 @@ asm void __kernel_cos(void)
     mov r0, #0
     mov r2, r4
     mov r3, r6
-    bl func_02021adc
+    bl _dmul
     mov r11, r0
     mov r8, r1
     mov r0, r4
     mov r1, r6
     mov r2, r5
     mov r3, r7
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r5, r1
     ldr r0, [sp, #0x30]
     ldr r1, [sp, #0x34]
     mov r2, r10
     mov r3, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2219,7 +2219,7 @@ asm void __kernel_cos(void)
     strle r11, [sp, #4]
     mov r0, r11
     mov r3, r6
-    bl func_02021adc
+    bl _dmul
     ldr r2, [sp, #4]
     ldr r3, [sp, #8]
     bl _dsub
@@ -2237,14 +2237,14 @@ asm void __kernel_cos(void)
     mov r7, r1
     mov r0, r4
     mov r1, r6
-    bl func_02021adc
+    bl _dmul
     mov r4, r0
     mov r6, r1
     ldr r0, [sp, #0x30]
     ldr r1, [sp, #0x34]
     mov r2, r10
     mov r3, r9
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2341,7 +2341,7 @@ asm void __kernel_rem_pio2(void)
     add r3, r11, r2, lsl #3
     ldr r0, [r9, r7, lsl #3]
     ldmia r3, {r2, r3}
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2387,7 +2387,7 @@ asm void __kernel_rem_pio2(void)
     mov r0, #0
     mov r2, r4
     mov r3, r8
-    bl func_02021adc
+    bl _dmul
     bl _dfix
     bl _dflt
     mov r10, r0
@@ -2396,7 +2396,7 @@ asm void __kernel_rem_pio2(void)
     mov r0, #0
     mov r2, r10
     mov r3, r11
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r4
@@ -2431,13 +2431,13 @@ asm void __kernel_rem_pio2(void)
     mov r1, r4
     mov r2, r6
     mov r3, r7
-    bl func_02021adc
+    bl _dmul
     bl floor
     mov r2, r0
     mov r3, r1
     mov r0, r10
     add r1, r4, #0x600000
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r6
@@ -2643,7 +2643,7 @@ asm void __kernel_rem_pio2(void)
     add r3, r11, r2, lsl #3
     ldr r0, [r9, r6, lsl #3]
     ldmia r3, {r2, r3}
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r7
@@ -2714,7 +2714,7 @@ asm void __kernel_rem_pio2(void)
     mov r2, r7
     mov r3, r8
     sub r1, r6, #0x3000000
-    bl func_02021adc
+    bl _dmul
     bl _dfix
     bl _dflt
     mov r5, r0
@@ -2723,7 +2723,7 @@ asm void __kernel_rem_pio2(void)
     mov r1, r6
     mov r2, r5
     mov r3, r4
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r7
@@ -2773,7 +2773,7 @@ asm void __kernel_rem_pio2(void)
     mov r3, r1
     mov r0, r7
     mov r1, r8
-    bl func_02021adc
+    bl _dmul
     str r0, [r5, r6, lsl #3]
     add r0, r5, r6, lsl #3
     str r1, [r0, #4]
@@ -2781,7 +2781,7 @@ asm void __kernel_rem_pio2(void)
     mov r1, r8
     mov r2, r11
     mov r3, r4
-    bl func_02021adc
+    bl _dmul
     mov r7, r0
     mov r8, r1
     subs r6, r6, #1
@@ -2807,7 +2807,7 @@ asm void __kernel_rem_pio2(void)
     add r2, r4, r7, lsl #3
     ldr r3, [r2, #4]
     ldr r2, [r4, r7, lsl #3]
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r8

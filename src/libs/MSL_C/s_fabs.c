@@ -20,7 +20,7 @@ void func_02020dac(void);
 
 void _dadd(void);
 void _dgr(void);
-void func_02021adc(void);
+void _dmul(void);
 void __fpclassifyd(void);
 void _deq(void);
 void copysign(void);
@@ -196,7 +196,7 @@ asm void frexp(void)
     ldr r1, [sp, #0x14]
     ldr r3, =0x43500000
     mov r2, r5
-    bl func_02021adc
+    bl _dmul
     sub r2, r5, #0x36
     str r0, [sp, #0x10]
     str r1, [sp, #0x14]
@@ -260,7 +260,7 @@ asm void ldexp(void)
     ldr r1, [sp, #0x14]
     ldr r3, =0x43500000
     mov r2, r6
-    bl func_02021adc
+    bl _dmul
     mov r3, r1
     and r5, r3, r5
     ldr r1, =0xffff3cb0
@@ -273,7 +273,7 @@ asm void ldexp(void)
     bge @L_0202096c
     ldr r0, =0xc2f8f359
     ldr r1, =0x1a56e1f
-    bl func_02021adc
+    bl _dmul
     ldmia sp!, {r4, r5, r6, lr}
     add sp, sp, #0x10
     bx lr
@@ -305,7 +305,7 @@ asm void ldexp(void)
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     ldmia sp!, {r4, r5, r6, lr}
     add sp, sp, #0x10
     bx lr
@@ -337,7 +337,7 @@ asm void ldexp(void)
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     ldmia sp!, {r4, r5, r6, lr}
     add sp, sp, #0x10
     bx lr
@@ -353,7 +353,7 @@ asm void ldexp(void)
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     ldmia sp!, {r4, r5, r6, lr}
     add sp, sp, #0x10
     bx lr
@@ -366,7 +366,7 @@ asm void ldexp(void)
     ldr r1, =0x3c900000
     mov r0, #0
     str r3, [sp, #0x14]
-    bl func_02021adc
+    bl _dmul
     ldmia sp!, {r4, r5, r6, lr}
     add sp, sp, #0x10
     bx lr

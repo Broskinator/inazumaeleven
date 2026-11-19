@@ -480,8 +480,8 @@ extern char data_020fc27c[];
 extern char data_020fc270[];
 void func_02022524(void);
 void _dflt(void);
-void func_02023890(void);
-void func_02021adc(void);
+void _ddiv(void);
+void _dmul(void);
 void func_02020af4(void);
 void _dsub(void);
 void _dadd(void);
@@ -11557,17 +11557,17 @@ asm void func_02049b04(void)
     mov r3, r1
     mov r0, r5
     mov r1, r7
-    bl func_02023890
+    bl _ddiv
     mov r2, r0
     mov r3, r1
     mov r0, #0
     mov r1, #0x40000000
-    bl func_02021adc
+    bl _dmul
     mov r3, r1
     mov r2, r0
     ldr r1, =0x400921fb
     mov r0, #0x60000000
-    bl func_02021adc
+    bl _dmul
     mov r7, r0
     mov r0, r4
     mov r10, r1
@@ -11578,7 +11578,7 @@ asm void func_02049b04(void)
     mov r2, r0
     ldr r1, =0x3ff00000
     mov r0, #0
-    bl func_02023890
+    bl _ddiv
     cmp r9, #0
     mov r8, #0
     ble @L_02049ce8
@@ -11600,7 +11600,7 @@ asm void func_02049b04(void)
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     bl func_02020af4
     mov r7, r0
     mov r0, r10
@@ -11610,12 +11610,12 @@ asm void func_02049b04(void)
     mov r2, r0
     ldr r1, =0x400921fb
     mov r0, #0x60000000
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r7
     mov r1, r10
-    bl func_02023890
+    bl _ddiv
     mov r7, r0
     mov r10, r1
     b @L_02049cbc
@@ -11627,7 +11627,7 @@ asm void func_02049b04(void)
     mov r3, r1
     mov r0, r5
     mov r1, r4
-    bl func_02021adc
+    bl _dmul
     bl func_02020af4
     mov r2, r0
     mov r0, #0
@@ -11642,12 +11642,12 @@ asm void func_02049b04(void)
     mov r2, r0
     ldr r1, =0x400921fb
     mov r0, #0x60000000
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r7
     mov r1, r10
-    bl func_02023890
+    bl _ddiv
     mov r7, r0
     mov r10, r1
 @L_02049cbc:
@@ -11667,7 +11667,7 @@ asm void func_02049b04(void)
     mov r0, r5
     mov r1, r4
     mov r2, #0x60000000
-    bl func_02023890
+    bl _ddiv
     add r8, sp, #8
     ldr r2, [sp]
     str r0, [r8, r9, lsl #3]
@@ -11686,7 +11686,7 @@ asm void func_02049b04(void)
     ldmia r0, {r2, r3}
     mov r0, r7
     mov r1, r6
-    bl func_02021adc
+    bl _dmul
     mov r2, r0
     mov r3, r1
     mov r0, r5
@@ -18138,7 +18138,7 @@ asm void func_0204f6b0(void)
     mov r3, r1
     mov r0, r4
     mov r1, r8
-    bl func_02023890
+    bl _ddiv
     bl _d2f
     mov r4, r0
     mov r1, #0x3f800000

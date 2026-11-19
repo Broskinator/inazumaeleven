@@ -89,7 +89,7 @@ extern "C" void labs(void);
 extern "C" void func_02020c78(void);
 extern "C" void _dadd(void);
 extern "C" void _dsub(void);
-extern "C" void func_02021adc(void);
+extern "C" void _dmul(void);
 extern "C" void _dflt(void);
 extern "C" void _fflt(void);
 extern "C" void _s32_div_f(void);
@@ -98,7 +98,7 @@ extern "C" void _dfix(void);
 extern "C" void func_02022c90(void);
 extern "C" void _fadd(void);
 extern "C" void _fsub(void);
-extern "C" void func_02023890(void);
+extern "C" void _ddiv(void);
 extern "C" s32 func_02084c8c(...);
 extern "C" void func_02084cf0(void);
 extern "C" s32 func_02084d7c(...);
@@ -1800,7 +1800,7 @@ extern "C" asm void func_ov000_02101060(void)
     bl func_02022c90
     ldr r2, [sp, #0x34]
     ldr r3, [sp, #0x14]
-    bl func_02023890
+    bl _ddiv
     mov r2, r0
     mov r3, r1
     mov r0, r11
@@ -1818,7 +1818,7 @@ extern "C" asm void func_ov000_02101060(void)
     bl _dflt
     mov r2, r4
     mov r3, r8
-    bl func_02021adc
+    bl _dmul
     bl _dfix
     mov r0, r0, lsl #0x10
     mov r0, r0, lsr #0x10

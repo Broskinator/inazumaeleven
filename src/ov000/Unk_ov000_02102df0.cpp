@@ -91,7 +91,7 @@ extern "C" s32 _ZN11MatchEngine13func_02078844Ev(...);
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207efc0Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207efccEh(void);
-extern "C" s32 _ZN11MatchEngine13func_0207f3ccEm(...);
+extern "C" s32 _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm(...);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN9ChunkFile12GetNextBlockEP10ChunkBlock(void);
 extern "C" void _ZN9ChunkFile4InitEPvPKc(void);
@@ -1081,12 +1081,12 @@ extern "C" asm void func_ov000_02103ab8(void)
     bl func_ov015_02130b14
     mov r1, r5
     mov r6, r0
-    bl _ZN11MatchEngine13func_0207f3ccEm
+    bl _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm
     cmp r0, r4
     beq @L_02103b40
     mov r0, r6
     mov r1, r11
-    bl _ZN11MatchEngine13func_0207f3ccEm
+    bl _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm
     cmp r0, r4
     bne @L_02103b4c
 @L_02103b40:
@@ -1131,9 +1131,9 @@ extern "C" s32 func_ov000_02103b6c(void)
             r4 = 2;
             r5 = 1;
             v1 = func_ov015_02130b14(t0, r7);
-            v2 = _ZN11MatchEngine13func_0207f3ccEm(v1, 1);
+            v2 = _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm(v1, 1);
             r6 = v1;
-            if ((v2 == 0x104 || (v3 = _ZN11MatchEngine13func_0207f3ccEm(r6, r4), v3 == 0x104))) {
+            if ((v2 == 0x104 || (v3 = _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm(r6, r4), v3 == 0x104))) {
                 r11 = 1;
                 break;
             }
@@ -1172,12 +1172,12 @@ extern "C" asm void func_ov000_02103c0c(void)
     bl func_ov015_02130b14
     mov r1, r5
     mov r6, r0
-    bl _ZN11MatchEngine13func_0207f3ccEm
+    bl _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm
     cmp r0, r4
     beq @L_02103c94
     mov r0, r6
     mov r1, r11
-    bl _ZN11MatchEngine13func_0207f3ccEm
+    bl _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm
     cmp r0, r4
     bne @L_02103ca0
 @L_02103c94:

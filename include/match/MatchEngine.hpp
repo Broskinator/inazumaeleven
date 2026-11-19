@@ -326,7 +326,7 @@ public:
     BOOL func_0206d970();
     BOOL func_0206d988();
     BOOL func_0206d9a0();
-    void func_0206d9d0();
+    u32 func_0206d9d0(int value);
     void func_0206da44();
     BOOL func_0206dad4(int id);
     BOOL func_0206daec(int id);
@@ -726,7 +726,7 @@ public:
     BOOL func_0207f2f8(int id);
     static void func_0207f38c(MatchPlayer *player, u8 dir, BOOL update);
     void func_0207f3b8(int value);
-    u16 func_0207f3cc(u32 i);
+    static u16 func_0207f3cc(MatchPlayer *player, u32 i);     // (the item in the player's slot i)
     s8 func_0207f3e0();
     BOOL func_0207f42c(MatchPlayer *player);
     void func_0207f4bc();

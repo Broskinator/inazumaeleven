@@ -2,7 +2,7 @@
 
 void _dadd(void);
 void _dsub(void);
-void func_02021adc(void);
+void _dmul(void);
 void _d2f(void);
 void _dflt(void);
 void _dfltu(void);
@@ -34,7 +34,7 @@ void _fadd(void);
 void func_02023228(void);
 void _fsub(void);
 void _fdiv(void);
-void func_02023890(void);
+void _ddiv(void);
 void func_02023dd4(void);
 void func_02023dd8(void);
 void func_02023de4(void);
@@ -585,7 +585,7 @@ asm void _dsub(void)
     bx lr
 }
 
-asm void func_02021adc(void)
+asm void _dmul(void)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     eor lr, r1, r3
@@ -2786,7 +2786,7 @@ asm void _fdiv(void)
     dcd 0xe0200002
 }
 
-asm void func_02023890(void)
+asm void _ddiv(void)
 {
     stmdb sp!, {r4, r5, r6, lr}
     ldr lr, [pc, #0x534]
