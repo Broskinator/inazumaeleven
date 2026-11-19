@@ -186,9 +186,9 @@ public:
     fx32 func_0206a078(MatchPlayer *player);
     int func_0206a100(MatchPlayer *player, int a);
     void func_0206a3b8();
-    void func_0206a494();
+    BOOL func_0206a494(MatchPlayer *player, MatchPoint *point);
     BOOL func_0206a54c(MatchPlayer *player);
-    void func_0206a590();
+    int func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a);
     void func_0206a648();
     BOOL func_0206a700(int value);
     BOOL func_0206a720(int value);

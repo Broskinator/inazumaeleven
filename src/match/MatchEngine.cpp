@@ -181,7 +181,7 @@ extern "C" void _ZN11MatchEngine13func_02069394Eiiiihi(void);     // (for the as
 extern "C" void _ZN11MatchEngine13func_0206a078EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a100EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a3b8Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206a494Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206a494EP11MatchPlayerP10MatchPoint(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a720Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a748Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a774Ei(void);     // (for the asm functions)
@@ -289,7 +289,7 @@ extern "C" UnkPair_020621b4 *func_ov015_02143664(MatchEngine *self);
 extern "C" fx32 FX_Div(fx32 a, fx32 b);     // (a / b)
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" int func_02084470(void *obj, int a);
-extern "C" void func_ov015_021319b0(MatchPlayer *player);
+extern "C" int func_ov015_021319b0(MatchPlayer *player);
 extern "C" void func_02084958(fx32 *pos, fx32 *rect, fx32 margin);     // (clamps the position into the rectangle)
 extern "C" fx32 func_01ffe4b4(MatchEngine *self, int a, int b);
 extern "C" MatchArea data_020c4de0;     // (the field)
@@ -3122,7 +3122,7 @@ asm void MatchEngine::func_020646d4()
     mov r0, r10
     mov r1, r9
     mov r2, r8
-    bl _ZN11MatchEngine13func_0206a494Ev
+    bl _ZN11MatchEngine13func_0206a494EP11MatchPlayerP10MatchPoint
     cmp r0, #0
     beq @L_020649d8
     ldr r1, [r9, #0xe8]
@@ -9012,53 +9012,40 @@ asm void MatchEngine::func_0206a3b8()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm void MatchEngine::func_0206a494()
+// whether the player covers the ball's way to point before the ball gets there (FALSE while
+// ball flag 1 is set)
+BOOL MatchEngine::func_0206a494(MatchPlayer *player, MatchPoint *point)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r3, =data_020c4920
-    mov r5, r0
-    ldrb r0, [r3, #0x59]
-    mov r4, r1
-    mov r8, r2
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    ldr r6, =data_020c4920
-    mov r0, r5
-    mov r1, r6
-    mov r2, r8
-    bl func_01fff15c
-    ldr r1, [r6, #0x38]
-    cmp r0, #0
-    cmpgt r1, #0
-    movle r0, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    bl _s32_div_f
-    sub r7, r0, #1
-    cmp r7, #0
-    movle r0, #0
-    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r0, r5
-    mov r1, r6
-    mov r2, r8
-    bl func_01fff15c
-    mov r8, #0
-    mov r6, r0
-    mov r0, r5
-    mov r1, r4
-    mov r2, r8
-    bl _ZN11MatchEngine13func_0206a100EP11MatchPlayeri
-    cmp r0, #0
-    movle r0, r8
-    ldmleia sp!, {r4, r5, r6, r7, r8, pc}
-    mul r1, r0, r7
-    cmp r1, r6
-    movgt r8, #1
-    mov r0, r8
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    MatchBall *ball;
+    fx32 dist;
+    fx32 speed;
+    int steps;
+    int reach;
+    BOOL result;
+
+    if (MatchBall_HasFlag(&data_020c4920, 1)) {
+        return FALSE;
+    }
+    ball = &data_020c4920;
+    dist = func_01fff15c(this, (MatchPlayerBody *)ball, point);
+    speed = ball->unk_38;
+    if (dist <= 0 || speed <= 0) {
+        return FALSE;
+    }
+    steps = dist / speed - 1;
+    if (steps <= 0) {
+        return FALSE;
+    }
+    dist = func_01fff15c(this, (MatchPlayerBody *)ball, point);
+    result = FALSE;
+    reach = func_0206a100(player, 0);
+    if (reach <= 0) {
+        return result;
+    }
+    if (reach * steps > dist) {
+        result = TRUE;
+    }
+    return result;
 }
 
 BOOL MatchEngine::func_0206a54c(MatchPlayer *player)
@@ -9072,7 +9059,39 @@ BOOL MatchEngine::func_0206a54c(MatchPlayer *player)
     return (player->body->unk_16 & 0x10) ? TRUE : FALSE;
 }
 
-asm void MatchEngine::func_0206a590()
+// how many players of player's team (func_02079f98 aside) are within radius of (x, y)
+// (nonmatching: register allocation: the ROM keeps player in r7 and leaves a in its stack slot, this spills player and keeps a in r11)
+#ifdef NONMATCHING
+int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
+{
+    int team = func_ov015_021319b0(player);
+    int count = 0;
+    int i;
+
+    for (i = 0; i < 11; i++) {
+        MatchPlayer *other = func_02079e90(team, i);
+        if (other != NULL && !func_02079f98(other, a, (int)player)) {
+            fx32 dy = other->body->pos.y - y;
+            fx32 dx;
+
+            if (dy < 0) {
+                dy = -dy;
+            }
+            if (dy <= radius) {
+                dx = other->body->pos.x - x;
+                if (dx < 0) {
+                    dx = -dx;
+                }
+                if (dx <= radius && func_01fff184(this, dx, dy) <= radius) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}
+#else
+asm int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r7, [sp, #0x28]
@@ -9123,6 +9142,7 @@ asm void MatchEngine::func_0206a590()
     mov r0, r6
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 asm void MatchEngine::func_0206a648()
 {
@@ -9234,51 +9254,32 @@ BOOL MatchEngine::func_0206a77c(MatchState *state)
     return FALSE;
 }
 
-asm int MatchEngine::func_0206a7f0(int n, BOOL convert)
+// with convert, moves n on (at most to 89) past the states that func_0206a77c accepts
+int MatchEngine::func_0206a7f0(int n, BOOL convert)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r0
-    mov r5, r1
-    mov r4, r2
-    bl func_ov015_021317c8
-    cmp r0, #0
-    beq @L_0206a81c
-    mov r0, #1
-    cmp r4, #0
-    moveq r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
-@L_0206a81c:
-    cmp r4, #0
-    moveq r0, r5
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0206a748Ei
-    movs r1, r0
-    moveq r0, r5
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    bl _ZN11MatchEngine13func_0206a77cEP10MatchState
-    cmp r0, #0
-    beq @L_0206a888
-@L_0206a850:
-    add r1, r5, #1
-    cmp r1, #0x5a
-    movge r0, r5
-    ldmgeia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    mov r5, r1
-    bl _ZN11MatchEngine13func_0206a748Ei
-    movs r1, r0
-    subeq r0, r5, #1
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r6
-    bl _ZN11MatchEngine13func_0206a77cEP10MatchState
-    cmp r0, #0
-    bne @L_0206a850
-@L_0206a888:
-    mov r0, r5
-    ldmia sp!, {r4, r5, r6, pc}
+    MatchState *state;
+
+    if (func_ov015_021317c8()) {
+        return convert ? 1 : 0;
+    }
+    if (!convert) {
+        return n;
+    }
+    state = func_0206a748(n);
+    if (state == NULL) {
+        return n;
+    }
+    while (func_0206a77c(state)) {
+        if (n + 1 >= 90) {
+            return n;
+        }
+        n++;
+        state = func_0206a748(n);
+        if (state == NULL) {
+            return n - 1;
+        }
+    }
+    return n;
 }
 
 u8 *MatchEngine::func_0206a890(int n, BOOL convert)
