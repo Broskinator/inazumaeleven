@@ -13,6 +13,8 @@ extern "C" u8 data_020cabf8[];
 #include "match/MatchBallPhysics.hpp"
 #include "system/GameHeap.hpp"
 #include "match/MatchFile.hpp"
+// (turns direction toward target, 0x18E3 of angle for each data_020aeb64[5] of amount; gives the
+// direction reached, and amount what is left)
 
 extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
@@ -165,7 +167,7 @@ extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);     //
 extern "C" void _ZN11MatchEngine13func_02063e4cEll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206811cEPt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020681d8EP10MatchPointilS1_(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02068c28EttPi(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02068c28EiiPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068edcEP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020690a8Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02069110EP11MatchPlayer(void);     // (for the asm functions)
@@ -222,7 +224,7 @@ extern "C" void _ZN11MatchEngine13func_02068590Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_020687ccEP10MatchPointilS1_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206896cEP9MatchBallP10MatchPoint(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068b08El(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02068c28EttPi(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02068c28EiiPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068ce4EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068d20EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068d74Ev(void);     // (for the asm functions)
@@ -7353,67 +7355,38 @@ asm void MatchEngine::func_02068b5c()
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
-asm u16 MatchEngine::func_02068c28(u16 direction, u16 target, int *amount)
+u16 MatchEngine::func_02068c28(int direction, int target, int *amount)
 {
-    stmdb sp!, {r4, lr}
-    sub r12, r2, r1
-    cmp r12, #0x8000
-    ble @L_02068c44
-@L_02068c38:
-    sub r12, r12, #0x10000
-    cmp r12, #0x8000
-    bgt @L_02068c38
-@L_02068c44:
-    mov r0, #0x8000
-    rsb r0, r0, #0
-    cmp r12, r0
-    bge @L_02068c60
-@L_02068c54:
-    add r12, r12, #0x10000
-    cmp r12, r0
-    blt @L_02068c54
-@L_02068c60:
-    rsb r4, r12, #0
-    cmp r12, #0
-    ldr r0, =0x18e3
-    movge r4, r12
-    cmp r4, r0
-    blt @L_02068cc0
-    ldr r1, =data_020aeb64
-    ldr lr, [r1, #0x14]
-@L_02068c80:
-    ldr r1, [r3]
-    cmp r1, #0
-    bge @L_02068cac
-    sub r0, r2, r4
-    cmp r12, #0
-    addle r0, r2, r4
-    mov r1, #0
-    mov r0, r0, lsl #0x10
-    str r1, [r3]
-    mov r0, r0, lsr #0x10
-    ldmia sp!, {r4, pc}
-@L_02068cac:
-    sub r4, r4, r0
-    sub r1, r1, lr
-    str r1, [r3]
-    cmp r4, r0
-    bge @L_02068c80
-@L_02068cc0:
-    ldr r0, [r3]
-    cmp r0, #0
-    movlt r0, #0
-    strlt r0, [r3]
-    mov r0, r2, lsl #0x10
-    mov r0, r0, lsr #0x10
-    ldmia sp!, {r4, pc}
+    int diff = target - direction;
+    int dist;
+
+    while (diff > 0x8000) {
+        diff -= 0x10000;
+    }
+    while (diff < -0x8000) {
+        diff += 0x10000;
+    }
+    dist = diff < 0 ? -diff : diff;
+    while (dist >= 0x18E3) {
+        if (*amount < 0) {
+            dist = diff > 0 ? target - dist : target + dist;
+            *amount = 0;
+            return dist;
+        }
+        dist -= 0x18E3;
+        *amount -= data_020aeb64[5];
+    }
+    if (*amount < 0) {
+        *amount = 0;
+    }
+    return target;
 }
 
 int MatchEngine::func_02068ce4(MatchPlayer *player, int target, int amount)
 {
     int left = amount;
 
-    player->body->direction = func_02068c28(player->body->direction, target, &left);
+    player->body->direction = func_02068c28(player->body->direction, (u16)target, &left);
     return amount - left;
 }
 
@@ -10406,7 +10379,7 @@ asm void MatchEngine::func_0206b89c()
     ldr r0, [sp]
     ldr r1, [sp, #8]
     add r3, sp, #0xc
-    bl _ZN11MatchEngine13func_02068c28EttPi
+    bl _ZN11MatchEngine13func_02068c28EiiPi
     str r0, [sp, #8]
     ldr r0, [sp, #0xc]
     cmp r8, #0

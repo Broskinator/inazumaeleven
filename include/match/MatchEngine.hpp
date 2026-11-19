@@ -155,7 +155,7 @@ public:
     void func_020689c4();
     s32 func_02068b08(fx32 value);
     void func_02068b5c();
-    u16 func_02068c28(u16 direction, u16 target, int *amount);
+    u16 func_02068c28(int direction, int target, int *amount);
     int func_02068ce4(MatchPlayer *player, int target, int amount);
     void func_02068d20(MatchPlayer *player, int value);
     void func_02068d74();

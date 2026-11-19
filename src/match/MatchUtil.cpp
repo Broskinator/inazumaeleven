@@ -270,56 +270,36 @@ extern "C" s32 func_02080564(u8 *arg0, s32 arg1)
     return 0;
 }
 
-extern "C" asm s32 func_020805a0(...)
+// (four ids and the slot, 1-4, of each)
+struct UnkSlots_020805a0 {
+    u16 ids[4];
+    u8 unk_8[2];
+    u8 slots[4];
+};
+
+// (takes the slot of an empty id back, or gives the first slot no id holds)
+extern "C" int func_020805a0(UnkSlots_020805a0 *list)
 {
-    stmdb sp!, {r3, r4, lr}
-    sub sp, sp, #4
-    add r12, sp, #0
-    mov lr, #0
-    strb lr, [r12]
-    strb lr, [r12, #1]
-    strb lr, [r12, #2]
-    strb lr, [r12, #3]
-    mov r2, #1
-@L_020805c4:
-    mov r1, lr, lsl #1
-    ldrh r1, [r0, r1]
-    add r3, r0, lr
-    ldrb r4, [r3, #0xa]
-    cmp r1, #0
-    bne @L_020805fc
-    cmp r4, #1
-    blt @L_020805fc
-    cmp r4, #4
-    movle r1, #0
-    addle sp, sp, #4
-    movle r0, r4
-    strleb r1, [r3, #0xa]
-    ldmleia sp!, {r3, r4, pc}
-@L_020805fc:
-    cmp r4, #1
-    blt @L_02080610
-    cmp r4, #4
-    addle r1, r12, r4
-    strleb r2, [r1, #-1]
-@L_02080610:
-    add lr, lr, #1
-    cmp lr, #4
-    blt @L_020805c4
-    mov r2, #0
-    add r1, sp, #0
-@L_02080624:
-    ldrb r0, [r1, r2]
-    cmp r0, #0
-    addeq sp, sp, #4
-    addeq r0, r2, #1
-    ldmeqia sp!, {r3, r4, pc}
-    add r2, r2, #1
-    cmp r2, #4
-    blt @L_02080624
-    mov r0, #0
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, pc}
+    u8 used[4] = {0, 0, 0, 0};
+    int i;
+    int slot;
+
+    for (i = 0; i < 4; i++) {
+        slot = list->slots[i];
+        if (list->ids[i] == 0 && slot >= 1 && slot <= 4) {
+            list->slots[i] = 0;
+            return slot;
+        }
+        if (slot >= 1 && slot <= 4) {
+            used[slot - 1] = 1;
+        }
+    }
+    for (i = 0; i < 4; i++) {
+        if (used[i] == 0) {
+            return i + 1;
+        }
+    }
+    return 0;
 }
 
 extern "C" s32 func_02080650(s32 arg0, s32 arg1)
@@ -361,7 +341,7 @@ extern "C" s32 func_02080694(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
         *(u8 *)(((u8 *)(r6 + r5)) + 0xA) = r4;
     }
     if (r7 == 0) {
-        v1 = func_020805a0(r6);
+        v1 = func_020805a0((UnkSlots_020805a0 *)r6);
         *(u8 *)(((u8 *)(r6 + r5)) + 0xA) = v1;
         return v1;
     } else {
@@ -372,7 +352,7 @@ extern "C" s32 func_02080694(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
             r7 = (r7 + 1);
         } while (r7 < 4);
         *(u8 *)(((u8 *)(r6 + r5)) + 0xA) = r4;
-        v2 = func_020805a0(r6, (r6 + r5));
+        v2 = func_020805a0((UnkSlots_020805a0 *)r6);
         *(u8 *)(((u8 *)(r6 + r7)) + 0xA) = v2;
         return v2;
     }
