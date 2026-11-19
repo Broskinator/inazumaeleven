@@ -88,7 +88,7 @@ extern "C" void MIi_CpuClearFast(void);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine13func_02063038EP11MatchPlayer(void);
 extern "C" s32 _ZN11MatchEngine13func_0206313cEv(...);
-extern "C" void _ZN11MatchEngine13func_02068434Ev(void);
+extern "C" void _ZN11MatchEngine13func_02068434EP11MatchPlayerll(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" s32 _ZN11MatchEngine13func_0206ace8Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206b308Ev(void);
@@ -1355,7 +1355,7 @@ extern "C" asm void func_ov001_02106ca4(void)
     ldr r3, [sp, #0x14]
     ldr r0, =data_020e88a0
     mov r1, r9
-    bl _ZN11MatchEngine13func_02068434Ev
+    bl _ZN11MatchEngine13func_02068434EP11MatchPlayerll
     cmp r0, #0
     bne @L_02106e2c
     bl func_ov015_021319bc

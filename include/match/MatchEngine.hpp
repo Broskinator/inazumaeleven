@@ -155,7 +155,7 @@ public:
     void func_0206815c(MatchPoint *pos, MatchPoint *a, MatchPoint *b, fx32 percent);
     void func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos);
     void func_02068248();
-    void func_02068434();
+    BOOL func_02068434(MatchPlayer *player, fx32 x, fx32 y);
     int func_020684f0(int kind, int a, int b);
     int func_02068548(int a, int b);
     int func_02068560(int a, int b, int c);
@@ -168,7 +168,7 @@ public:
     fx32 func_0206896c(MatchBall *ball, MatchPoint *pos);
     void func_020689c4();
     s32 func_02068b08(fx32 value);
-    void func_02068b5c();
+    fx32 func_02068b5c(MatchPlayer *player, fx32 dist, int c);
     u16 func_02068c28(int direction, int target, int *amount);
     int func_02068ce4(MatchPlayer *player, int target, int amount);
     void func_02068d20(MatchPlayer *player, int value);

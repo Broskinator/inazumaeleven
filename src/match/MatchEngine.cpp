@@ -231,7 +231,7 @@ extern "C" void _ZN11MatchEngine13func_02067f44Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_02068028Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206811cEPt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020681d8EP10MatchPointilS1_(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02068434Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02068434EP11MatchPlayerll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068548Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068560Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068590Eii(void);     // (for the asm functions)
@@ -322,7 +322,7 @@ extern "C" BOOL func_02084870(MatchPlayer *player);
 extern "C" char data_020c4824[];
 extern "C" char data_020c4940[];
 extern "C" void _ZdlPv(void);
-extern "C" void func_01fff13c(void);
+extern "C" fx32 func_01fff13c(MatchEngine *self, fx32 x, fx32 y, fx32 lineX, fx32 lineY);
 extern "C" s32 func_01fff184(MatchEngine *self, fx32 x, fx32 y);     // (the length of (x, y))
 extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" void _s32_div_f(void);
@@ -335,7 +335,7 @@ extern "C" int func_ov015_02131970(MatchPlayer *player);
 extern "C" void func_ov015_0213a69c(void *obj, int a, int b);
 extern "C" void func_ov015_0213a75c(void);
 extern "C" void func_ov015_0213ffc4(void);
-extern "C" void func_ov015_02140da4(void);
+extern "C" BOOL func_ov015_02140da4(MatchEngine *self, int a);
 extern "C" void func_ov015_02140df0(void);
 extern "C" void func_ov015_02140e24(void);
 extern "C" void func_ov015_02142de8(void);
@@ -437,7 +437,7 @@ extern "C" char data_020fa1a5[];
 extern "C" void func_ov015_0213fde4(void);
 extern "C" void func_ov015_0214079c(void);
 extern "C" void func_ov015_02140e74(void);
-extern "C" void func_ov015_02142850(void);
+extern "C" fx32 func_ov015_02142850(MatchEngine *self);
 extern "C" void func_ov087_02179c8c(void);
 extern "C" char data_020aedc8[];
 extern "C" char data_020af178[];
@@ -5419,7 +5419,7 @@ asm void MatchEngine::func_02066768()
     mov r0, r10
     ldmia r1, {r2, r3}
     mov r1, r9
-    bl _ZN11MatchEngine13func_02068434Ev
+    bl _ZN11MatchEngine13func_02068434EP11MatchPlayerll
     cmp r0, #0
     bne @L_02066df4
     mov r0, r10
@@ -6786,7 +6786,7 @@ asm void MatchEngine::func_02068248()
     mov r1, r7
     mov r2, r6
     mov r3, r5
-    bl _ZN11MatchEngine13func_02068434Ev
+    bl _ZN11MatchEngine13func_02068434EP11MatchPlayerll
     cmp r0, #0
     addeq sp, sp, #0x2c
     moveq r0, r4
@@ -6815,7 +6815,34 @@ asm void MatchEngine::func_02068248()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void MatchEngine::func_02068434()
+// (nonmatching: the ROM keeps dead stores of a 4-word segment (sp+4..0x10: x-0x4000, line, x+0x4000, line) that MWCC drops; only volatile keeps them)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_02068434(MatchPlayer *player, fx32 x, fx32 y)
+{
+    MatchArea *area = &data_020c4de0;
+    fx32 seg[4];
+    fx32 line;
+    fx32 dist;
+
+    seg[0] = area->unk_ec[0] - 0x4000;
+    seg[2] = area->unk_ec[2] + 0x4000;
+    line = func_0206707c(func_02083e34(player), 0);
+    seg[1] = line;
+    seg[3] = line;
+    if (x < area->unk_ec[0]) {
+        dist = func_01fff13c(this, x, y, area->unk_ec[0], line);
+    } else if (x > area->unk_ec[2]) {
+        dist = func_01fff13c(this, x, y, area->unk_ec[2], line);
+    } else {
+        dist = line - y;
+        if (dist < 0) {
+            dist = -dist;
+        }
+    }
+    return dist <= func_ov015_02142850(this);
+}
+#else
+asm BOOL MatchEngine::func_02068434(MatchPlayer *player, fx32 x, fx32 y)
 {
     stmdb sp!, {r4, r5, r6, r7, lr}
     sub sp, sp, #0x14
@@ -6868,6 +6895,7 @@ asm void MatchEngine::func_02068434()
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
+#endif
 
 int MatchEngine::func_020684f0(int kind, int a, int b)
 {
@@ -7286,60 +7314,40 @@ s32 MatchEngine::func_02068b08(fx32 value)
     return FX_Mul(value, FX_Mul(value, data_020aeb64[7])) / 49 * 10;
 }
 
-asm void MatchEngine::func_02068b5c()
+fx32 MatchEngine::func_02068b5c(MatchPlayer *player, fx32 dist, int c)
 {
-    stmdb sp!, {r4, r5, r6, r7, lr}
-    sub sp, sp, #0xc
-    movs r5, r2
-    mov r7, r0
-    mov r6, r1
-    mov r4, r3
-    addmi sp, sp, #0xc
-    movmi r0, #0
-    ldmmiia sp!, {r4, r5, r6, r7, pc}
-    ldr r2, =0x66666667
-    mov r3, r5, asr #0xc
-    smull r1, r0, r2, r3
-    mov r1, r3, lsr #0x1f
-    adds r0, r1, r0, asr #2
-    addeq sp, sp, #0xc
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, pc}
-    bl Random_RandB
-    ldr r2, [r6, #0xec]
-    mov r1, r4
-    ldrsh r2, [r2, #0x24]
-    add r4, r0, r2, asr #1
-    mov r0, r7
-    bl func_ov015_02140da4
-    mov r2, #0
-    str r2, [sp]
-    cmp r0, #0
-    str r2, [sp, #4]
-    mov r0, r7
-    beq @L_02068be0
-    mov r1, r6
-    mov r3, #0xe
-    b @L_02068be8
-@L_02068be0:
-    mov r1, r6
-    mov r3, #0xf
-@L_02068be8:
-    str r2, [sp, #8]
-    bl _ZN11MatchEngine13func_02069344Eiiiihi
-    cmp r0, #0
-    movlt r0, #0
-    movge r1, #0x52
-    mulge r1, r0, r1
-    movge r0, r1, asr #0xc
-    subs r4, r4, r0
-    movmi r4, #0
-    mov r1, r4, lsl #0xc
-    mov r0, r5, asr #1
-    cmp r1, r5, asr #1
-    movle r0, r1
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, pc}
+    int n;
+    int value;
+    int penalty;
+    fx32 result;
+
+    if (dist < 0) {
+        return 0;
+    }
+    n = (dist >> 12) / 10;
+    if (n == 0) {
+        return 0;
+    }
+    value = Random_RandB(n) + (player->state->unk_24 >> 1);
+    if (func_ov015_02140da4(this, c)) {
+        penalty = func_02069344((int)player, 0, 14, 0, 0, 0);
+    } else {
+        penalty = func_02069344((int)player, 0, 15, 0, 0, 0);
+    }
+    if (penalty < 0) {
+        penalty = 0;
+    } else {
+        penalty = penalty * 0x52 >> 12;
+    }
+    value -= penalty;
+    if (value < 0) {
+        value = 0;
+    }
+    result = dist >> 1;
+    if (value << 12 <= result) {
+        result = value << 12;
+    }
+    return result;
 }
 
 // (turns direction toward target, 0x18E3 of angle for each data_020aeb64[5] of amount; gives the
