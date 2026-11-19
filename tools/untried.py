@@ -37,6 +37,8 @@ def main(argv):
         if len(f) < 7 or not f[0].isdigit():
             continue
         addr, src, mangled = f[4], f[5], f[6]
+        if not os.path.isfile(os.path.join(ROOT, src)):
+            continue        # (not a function line: todo.py's summary)
         if src not in texts:
             texts[src] = open(os.path.join(ROOT, src), encoding="utf-8", errors="replace").read()
         t = texts[src]

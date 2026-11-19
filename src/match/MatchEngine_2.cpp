@@ -146,7 +146,7 @@ extern "C" void _ZN11MatchEngine13func_02076424EPh(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_02076460EPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207aeacEim(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207b160Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207b160Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c65cEmiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207e6dcEP11MatchPlayerll(void);     // (for the asm functions)
@@ -226,7 +226,7 @@ extern "C" void _ZN11MatchEngine13func_0207aa94Ei(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207aeacEim(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207b160Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207b160Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207b28cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207b708EmP11MatchPlayeriii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);     // (for the asm functions)
@@ -12718,7 +12718,7 @@ asm void MatchEngine::func_0207b00c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void MatchEngine::func_0207b160()
+asm u8 MatchEngine::func_0207b160(int team)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -12927,7 +12927,7 @@ asm void MatchEngine::func_0207b28c()
 @L_0207b43c:
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0207b160Ev
+    bl _ZN11MatchEngine13func_0207b160Ei
     strb r0, [r6, #0xb8]
 @L_0207b44c:
     cmp r5, #0
@@ -16766,62 +16766,36 @@ int MatchEngine::func_0207ee18(u32 id)
     return func_0208051c(unk_34c[1], id);
 }
 
-asm void MatchEngine::func_0207ee3c()
+// gives the player (with state flag 2) number value: a team mate that has it takes the player's
+// old number, or a free one (func_0207b160) when the player had none
+void MatchEngine::func_0207ee3c(int id, int value)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r4, #0
-    mov r10, r0
-    mov r0, r1
-    mov r1, r4
-    mov r9, r2
-    bl func_ov015_02130b14
-    movs r6, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrh r0, [r6, #0xf0]
-    tst r0, #2
-    movne r4, #1
-    cmp r4, #0
-    cmpne r9, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r6
-    bl func_02080b90
-    mov r8, #0
-    mov r5, r0
-    mov r11, #1
-    mov r4, r8
-@L_0207ee90:
-    mov r0, r8
-    bl func_ov015_02130ae8
-    movs r7, r0
-    beq @L_0207eef8
-    ldrh r0, [r7, #0xf0]
-    tst r0, #1
-    movne r0, r11
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_0207eef8
-    ldrb r0, [r7, #0xb8]
-    cmp r9, r0
-    bne @L_0207eef8
-    mov r0, r7
-    bl func_02080b90
-    cmp r5, r0
-    bne @L_0207eef8
-    ldrb r0, [r6, #0xb8]
-    cmp r0, #0
-    strneb r0, [r7, #0xb8]
-    strneb r4, [r6, #0xb8]
-    bne @L_0207eef8
-    mov r0, r10
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0207b160Ev
-    strb r0, [r7, #0xb8]
-@L_0207eef8:
-    add r8, r8, #1
-    cmp r8, #0x84
-    blt @L_0207ee90
-    strb r9, [r6, #0xb8]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    int team;
+    MatchPlayer *player;
+    MatchPlayer *other;
+    int i;
+
+    player = func_ov015_02130b14(id, 0);
+    if (player == NULL) {
+        return;
+    }
+    if (!MatchPlayer_HasFlag(player, 2) || value == 0) {
+        return;
+    }
+    team = func_02080b90(player);
+    for (i = 0; i < 0x84; i++) {
+        other = func_ov015_02130ae8(i);
+        if (other != NULL && MatchPlayer_HasFlag(other, 1) && value == other->unk_b8[0]
+            && team == func_02080b90(other)) {
+            if (player->unk_b8[0] != 0) {
+                other->unk_b8[0] = player->unk_b8[0];
+                player->unk_b8[0] = 0;
+            } else {
+                other->unk_b8[0] = func_0207b160(team);
+            }
+        }
+    }
+    player->unk_b8[0] = value;
 }
 
 void MatchEngine::func_0207ef0c(MatchPlayer *player)

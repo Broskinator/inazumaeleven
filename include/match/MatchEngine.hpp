@@ -264,7 +264,7 @@ public:
     BOOL func_0206c148();
     void *func_0206c180(int kind, int i);
     void *func_0206c1fc(int kind, int i);
-    void func_0206c23c();
+    void func_0206c23c(MatchSegment *area, fx32 inset, fx32 extra, u8 flag);
     void func_0206c37c();
     void func_0206c42c();
     BOOL func_0206c5b0(int team, int index);
@@ -650,7 +650,7 @@ public:
     BOOL func_0207aedc(int team, int id);
     BOOL func_0207af84(int team, int id);
     void func_0207b00c();
-    void func_0207b160();
+    u8 func_0207b160(int team);
     void func_0207b28c();
     int func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int c);
     void func_0207b780();
@@ -711,7 +711,7 @@ public:
     BOOL func_0207ec28(int index, int value);
     void func_0207ec70();
     int func_0207ee18(u32 id);
-    void func_0207ee3c();
+    void func_0207ee3c(int id, int value);
     void func_0207ef0c(MatchPlayer *player);
     void func_0207ef30(int index);
     void func_0207ef54(int team);

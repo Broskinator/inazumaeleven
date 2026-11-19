@@ -166,7 +166,7 @@ extern "C" void _ZN11MatchEngine13func_0206c0c0Em(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206c0d8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c110Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c180Eii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206c23cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206c23cEP12MatchSegmentllh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c644Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c80cEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c834Ev(void);     // (for the asm functions)
@@ -10899,7 +10899,7 @@ void *MatchEngine::func_0206c1fc(int kind, int i)
     return func_0206c180(kind, i);
 }
 
-asm void MatchEngine::func_0206c23c()
+asm void MatchEngine::func_0206c23c(MatchSegment *area, fx32 inset, fx32 extra, u8 flag)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     ldr r4, =data_020c4de0
@@ -10986,52 +10986,15 @@ asm void MatchEngine::func_0206c23c()
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void MatchEngine::func_0206c37c()
+// sets up the six areas of the field (func_0206c23c)
+void MatchEngine::func_0206c37c()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #4
-    mov r8, r0
-    mov r6, #0
-    mov r5, #0x6000
-    mov r7, #1
-    mov r2, r6
-    mov r3, r5
-    add r1, r8, #4
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_0206c23cEv
-    mov r0, r8
-    mov r2, r5
-    mov r3, r5
-    add r1, r8, #0x14
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_0206c23cEv
-    sub r4, r5, #0x1a000
-    mov r0, r8
-    str r7, [sp]
-    add r1, r8, #0x54
-    mov r2, r4
-    mov r3, r5
-    bl _ZN11MatchEngine13func_0206c23cEv
-    str r7, [sp]
-    mov r0, r8
-    add r1, r8, #0x44
-    mov r2, r7
-    mov r3, r5
-    bl _ZN11MatchEngine13func_0206c23cEv
-    str r7, [sp]
-    mov r3, r7
-    mov r0, r8
-    add r1, r8, #0x24
-    sub r2, r5, #0x24000
-    bl _ZN11MatchEngine13func_0206c23cEv
-    str r6, [sp]
-    mov r2, r4
-    mov r3, r5
-    mov r0, r8
-    add r1, r8, #0x34
-    bl _ZN11MatchEngine13func_0206c23cEv
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    func_0206c23c(&unk_4[0], 0, 6 * FX32_ONE, TRUE);
+    func_0206c23c(&unk_4[1], 6 * FX32_ONE, 6 * FX32_ONE, TRUE);
+    func_0206c23c(&unk_4[5], -20 * FX32_ONE, 6 * FX32_ONE, TRUE);
+    func_0206c23c(&unk_4[4], 1, 6 * FX32_ONE, TRUE);
+    func_0206c23c(&unk_4[2], -30 * FX32_ONE, 1, TRUE);
+    func_0206c23c(&unk_4[3], -20 * FX32_ONE, 6 * FX32_ONE, FALSE);
 }
 
 asm void MatchEngine::func_0206c42c()
