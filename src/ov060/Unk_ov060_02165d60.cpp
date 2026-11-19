@@ -83,7 +83,7 @@ extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" void _ZN13ScreenManager13func_0203e090Eii(void);
 extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" s32 _ZN13ScreenManager13func_0203e2b0Ei(...);
-extern "C" void _ZN11MatchEngine13func_0206ad94Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206ad94Eii(void);
 extern "C" s32 _ZN11MatchEngine13func_0206b4b8Ei(...);
 extern "C" void _ZN11MatchEngine13func_0206c8c8Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206d9d0Ei(...);
@@ -831,7 +831,7 @@ extern "C" asm s32 func_ov060_021665a0(...)
     bne @L_02166714
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
 @L_02166714:
     ldr r7, =g3DFieldSprite
     ldr r1, =0x47f

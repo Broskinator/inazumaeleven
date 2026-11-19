@@ -41,7 +41,7 @@ extern "C" char data_ov061_0216a15c[];
 extern "C" char data_ov061_0216a164[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" s32 _ZN11MatchEngine13func_0206ad94Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206ad94Eii(...);
 extern "C" void _ZN11MatchEngine13func_0206ceacEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206dedcEv(...);
 extern "C" void _ZN11MatchEngine13func_02078c70Ev(void);
@@ -492,7 +492,7 @@ extern "C" asm s32 func_ov061_021696cc(...)
 
 extern "C" void func_ov061_02169734(s32 arg0, s32 arg1)
 {
-    _ZN11MatchEngine13func_0206ad94Ev((s32)data_020e88a0, 1, 0);
+    _ZN11MatchEngine13func_0206ad94Eii((s32)data_020e88a0, 1, 0);
     func_ov061_02168c4c(arg0);
     CBgMenuManager_UpdateGraphics((s32)gBgMenuManager, 0);
     func_ov061_021696cc(arg0, arg1);

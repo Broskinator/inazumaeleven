@@ -212,7 +212,7 @@ public:
     BOOL func_0206acfc(int value);
     void func_0206ad1c();
     void func_0206ad68(BOOL a, BOOL b);
-    void func_0206ad94();
+    void func_0206ad94(int a, int b);
     void func_0206b018(void *body, MatchPlayer *player);
     void func_0206b050();
     void func_0206b1a0(MatchState *state, u8 value);
@@ -236,7 +236,7 @@ public:
     u8 *func_0206b4cc(int i);
     void func_0206b4d8();
     BOOL func_0206b508(MatchPoint *out, BOOL force);
-    void func_0206b5a0();
+    void func_0206b5a0(MatchPoint *pos);
     void func_0206b628();
     void func_0206b89c();
     int func_0206b9c4(MatchBall *ball, fx32 distance);

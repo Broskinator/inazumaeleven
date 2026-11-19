@@ -78,10 +78,10 @@ extern "C" void _ZN11MatchEngine13func_02063430Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206aa54Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206ace8Ev(...);
-extern "C" void _ZN11MatchEngine13func_0206ad94Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206ad94Eii(void);
 extern "C" s32 _ZN11MatchEngine13func_0206b308Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206b3fcEv(...);
-extern "C" void _ZN11MatchEngine13func_0206b5a0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206b5a0EP10MatchPoint(void);
 extern "C" void _ZN11MatchEngine13func_0206bfecEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206bff4Ei(...);
 extern "C" void _ZN11MatchEngine13func_0206c42cEv(void);
@@ -2478,7 +2478,7 @@ extern "C" asm void func_ov001_02101a98(void)
     mov r1, #0
     mov r0, r7
     mov r2, r1
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
     mov r0, r4
     bl func_ov001_02103f78
     b @L_02101e34
@@ -2493,7 +2493,7 @@ extern "C" asm void func_ov001_02101a98(void)
     ldr r0, =data_020e88a0
     mov r1, #1
     mov r2, #0
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
 @L_02101e34:
     mov r0, r4
     bl func_ov001_02101130
@@ -2531,7 +2531,7 @@ extern "C" asm void func_ov001_02101a98(void)
     mov r1, r5
     mov r2, r6
     strb r5, [r4, #0x20]
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
 @L_02101eb0:
     ldr r6, =data_020d9978
     mov r1, #1
@@ -2554,7 +2554,7 @@ extern "C" asm void func_ov001_02101a98(void)
 @L_02101ef4:
     mov r2, r6
     mov r1, #1
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
 @L_02101f00:
     mov r6, #0
     mov r7, r6
@@ -2851,7 +2851,7 @@ extern "C" asm void func_ov001_02101a98(void)
     mov r1, #0
     ldr r0, =data_020e88a0
     mov r2, r1
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
     ldr r0, [r4, #0x44]
     cmp r0, #0
     bgt @L_02102340
@@ -2979,7 +2979,7 @@ extern "C" asm void func_ov001_02102464(void)
     mov r0, r4
     mov r1, #1
     mov r2, #0
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
 @L_02102514:
     ldr r0, =gGameState
     ldrb r0, [r0, #0x1a]
@@ -3373,7 +3373,7 @@ extern "C" asm void func_ov001_02102ab0(void)
     movs r1, r0
     beq @L_02102b3c
     mov r0, r5
-    bl _ZN11MatchEngine13func_0206b5a0Ev
+    bl _ZN11MatchEngine13func_0206b5a0EP10MatchPoint
 @L_02102b3c:
     ldr r6, =data_020d9978
     mov r7, #0

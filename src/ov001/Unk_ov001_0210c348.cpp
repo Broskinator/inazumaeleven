@@ -88,7 +88,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine13func_0206a9d0Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);
-extern "C" void _ZN11MatchEngine13func_0206ad94Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206ad94Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);
 extern "C" void _ZN11MatchEngine13func_020725acEv(void);
 extern "C" void _ZN11MatchEngine13func_02074424EP11MatchPlayeriii(void);
@@ -1746,7 +1746,7 @@ extern "C" asm void func_ov001_0210dc6c(void)
     ldr r0, =data_020e88a0
     mov r1, #1
     mov r2, #0
-    bl _ZN11MatchEngine13func_0206ad94Ev
+    bl _ZN11MatchEngine13func_0206ad94Eii
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
