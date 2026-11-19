@@ -143,7 +143,7 @@ public:
     BOOL func_02067104(fx32 x, fx32 y, fx32 targetX, fx32 targetY, fx32 radius, MatchPoint *pos);
     void func_020671e4();
     void func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *pos);
-    void func_02067448();
+    void func_02067448(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_020674f8();
     void func_020678d0();
     BOOL func_02067aec(MatchPlayer *player, int a, int b, void *c, int d, int e);
@@ -497,7 +497,7 @@ public:
     static int func_020764cc(u8 *data);     // (on another struct)
     static int func_020764e4(u8 *data);     // (on another struct)
     int func_020765d4(int i, int n);     // (adds n to item i's count, at most 99: 0, or 13/27 on error)
-    void func_02076620();
+    int func_02076620(u32 id, int n);
     int func_020766e8(u32 i);
     u8 func_020767a4(u32 i);
     u32 func_020767bc();

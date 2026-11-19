@@ -8148,57 +8148,38 @@ asm int MatchEngine::func_020765d4(int i, int n)
 }
 #endif
 
-asm void MatchEngine::func_02076620()
+// buys n of item id (fewer when the count would pass 99): 0, or 13 (no such item), 3 (not for
+// sale), 14 (not enough money)
+int MatchEngine::func_02076620(u32 id, int n)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    mov r5, r1
-    mov r4, r2
-    bl _ZN11MatchEngine13func_020768fcEm
-    movs r6, r0
-    moveq r0, #0xd
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrh r0, [r6, #0x24]
-    cmp r0, #0
-    moveq r0, #3
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, r7
-    mov r1, r5
-    bl _ZN11MatchEngine13func_020766e8Em
-    add r0, r4, r0
-    cmp r0, #0x63
-    ble @L_02076678
-    mov r0, r7
-    mov r1, r5
-    bl _ZN11MatchEngine13func_020766e8Em
-    rsb r4, r0, #0x63
-@L_02076678:
-    mov r0, r7
-    bl _ZN11MatchEngine13func_020767bcEv
-    ldrh r1, [r6, #0x24]
-    mul r2, r1, r4
-    cmp r0, r2
-    movlo r0, #0xe
-    ldmloia sp!, {r3, r4, r5, r6, r7, pc}
-    ldr r0, =gGameState
-    rsb r2, r2, #0
-    ldr r1, [r0, #0x4c0]
-    adds r2, r1, r2
-    movmi r1, #0
-    strmi r1, [r0, #0x4c0]
-    bmi @L_020766c0
-    ldr r1, =0xf423f
-    cmp r2, r1
-    strgt r1, [r0, #0x4c0]
-    strle r2, [r0, #0x4c0]
-@L_020766c0:
-    ldr r3, =data_020ca78c
-    and r1, r4, #0xff
-    ldrb r2, [r3, r5]
-    mov r0, #0
-    add r1, r2, r1
-    strb r1, [r3, r5]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    u8 *entry = func_020768fc(id);
+    u32 money;
+    s32 value;
+
+    if (entry == NULL) {
+        return 0xD;
+    }
+    if (*(u16 *)(entry + 0x24) == 0) {
+        return 3;
+    }
+    if (func_020766e8(id) + n > 99) {
+        n = 99 - func_020766e8(id);
+    }
+    money = func_020767bc();
+    if (money < *(u16 *)(entry + 0x24) * n) {
+        return 0xE;
+    }
+    value = -(*(u16 *)(entry + 0x24) * n);
+    value = gGameState.profile.unk_14 + value;
+    if (value < 0) {
+        gGameState.profile.unk_14 = 0;
+    } else if (value > 999999) {
+        gGameState.profile.unk_14 = 999999;
+    } else {
+        gGameState.profile.unk_14 = value;
+    }
+    data_020ca78c[id] += n;
+    return 0;
 }
 
 asm int MatchEngine::func_020766e8(u32 i)

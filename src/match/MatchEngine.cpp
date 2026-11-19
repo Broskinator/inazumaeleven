@@ -31,7 +31,7 @@ extern "C" void func_02083ec4(void);     // (for the asm functions)
 extern "C" void func_020840e0(void);     // (for the asm functions)
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
-extern "C" void func_020841e8(void);     // (for the asm functions)
+extern "C" BOOL func_020841e8(fx32 x, fx32 y, u16 angle, fx32 *segment);
 extern "C" void func_02084428(void);     // (for the asm functions)
 extern "C" void func_020844dc(void);     // (for the asm functions)
 extern "C" void func_020845e0(void);     // (for the asm functions)
@@ -322,7 +322,7 @@ extern "C" void func_ov001_02127dcc(void);
 extern "C" u8 func_ov015_02130e28(u16 angle);    // (the direction as one of 8)
 extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_02131948(void);
-extern "C" void func_ov015_02131970(void);
+extern "C" int func_ov015_02131970(MatchPlayer *player);
 extern "C" void func_ov015_0213a69c(void *obj, int a, int b);
 extern "C" void func_ov015_0213a75c(void);
 extern "C" void func_ov015_0213ffc4(void);
@@ -406,7 +406,7 @@ extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
 extern "C" void func_01ffec94(void);
 extern "C" void func_01ffed20(void);
-extern "C" void Random_RandB(void);
+extern "C" u32 Random_RandB(u32 max);
 extern "C" void func_ov015_02140f2c(void);
 extern "C" void func_ov015_02142824(void);
 extern "C" void func_ov087_0217cf1c(void);
@@ -5815,50 +5815,23 @@ void MatchEngine::func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *
     }
 }
 
-asm void MatchEngine::func_02067448()
+// sends the ball distance in a random direction (one of 16), turned round when it would cross
+// the line through the player's side (func_0206707c), widened by 4 on both ends
+void MatchEngine::func_02067448(MatchPlayer *player, fx32 distance, MatchPoint *pos)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x14
-    mov r7, r0
-    mov r4, r1
-    mov r0, #0x10
-    mov r6, r2
-    mov r5, r3
-    bl Random_RandB
-    mov r1, r0, lsl #0x1c
-    mov r0, r4
-    ldr r8, =data_020c4ecc
-    mov r4, r1, lsr #0x10
-    bl func_ov015_02131970
-    mov r1, r0
-    mov r0, r7
-    mov r2, #0
-    bl _ZN11MatchEngine13func_0206707cEii
-    ldr r1, [r8, #8]
-    str r0, [sp, #8]
-    str r0, [sp, #0x10]
-    ldr r0, [r8]
-    add r1, r1, #0x4000
-    str r1, [sp, #0xc]
-    sub r0, r0, #0x4000
-    ldr r1, =data_020c4920
-    str r0, [sp, #4]
-    mov r2, r4
-    add r3, sp, #4
-    ldmia r1, {r0, r1}
-    bl func_020841e8
-    cmp r0, #0
-    addne r0, r4, #0x8000
-    movne r0, r0, lsl #0x10
-    movne r4, r0, lsr #0x10
-    ldr r1, =data_020c4920
-    mov r0, r7
-    mov r2, r4
-    mov r3, r6
-    str r5, [sp]
-    bl _ZN11MatchEngine13func_020681d8EP10MatchPointilS1_
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    fx32 segment[4];
+    u16 angle = Random_RandB(16) << 12;
+    fx32 *rect = (fx32 *)data_020c4ecc;
+    fx32 y = func_0206707c(func_ov015_02131970(player), 0);
+
+    segment[1] = y;
+    segment[2] = rect[2] + 4 * FX32_ONE;
+    segment[0] = rect[0] - 4 * FX32_ONE;
+    segment[3] = y;
+    if (func_020841e8(data_020c4920.pos.x, data_020c4920.pos.y, angle, segment)) {
+        angle += 0x8000;
+    }
+    func_020681d8((MatchPoint *)&data_020c4920, angle, distance, pos);
 }
 
 asm void MatchEngine::func_020674f8()
