@@ -14054,54 +14054,22 @@ asm void MatchEngine::func_0207c064()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-// (nonmatching: the mask 0xfff is loaded first (into r3), the ROM loads it after the team's entry (into r0))
-#ifdef NONMATCHING
 int MatchEngine::func_0207c110(int team, u32 id)
 {
+    int key;
     int i;
     u8 *entry = unk_34c[team];
 
     for (i = 0; i < 16; i++) {
-        if ((u16)(id & 0xFFF) == func_0208033c(entry, i)) {
+        key = id;
+        key &= 0xFFF;
+        if ((u16)key == func_0208033c(entry, i)) {
             func_020802cc(entry, i, 0);
             break;
         }
     }
     return i == 16 ? 3 : 0;
 }
-#else
-asm int MatchEngine::func_0207c110(int team, u32 id)
-{
-    stmdb sp!, {r4, r5, r6, lr}
-    add r0, r0, #0x34c
-    add r6, r0, r1, lsl #5
-    ldr r0, =0xfff
-    mov r5, #0
-    and r0, r2, r0
-    mov r0, r0, lsl #0x10
-    mov r4, r0, lsr #0x10
-@L_0207c130:
-    mov r0, r6
-    mov r1, r5
-    bl func_0208033c
-    cmp r4, r0
-    bne @L_0207c158
-    mov r0, r6
-    mov r1, r5
-    mov r2, #0
-    bl func_020802cc
-    b @L_0207c164
-@L_0207c158:
-    add r5, r5, #1
-    cmp r5, #0x10
-    blt @L_0207c130
-@L_0207c164:
-    mov r0, #3
-    cmp r5, #0x10
-    movne r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
-}
-#endif
 
 BOOL MatchEngine::func_0207c178(int a, int index)
 {

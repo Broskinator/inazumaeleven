@@ -1,0 +1,24 @@
+--- before
++++ after
+@@ -2750,13 +2750,18 @@
+ extern void func_020765a0(u8 *rec, int value);
+ int MatchEngine__func_0207c110(MatchEngine *this, int team, u32 id)
+ {
++  int new_var2;
++  u8 *new_var;
+   int i;
+   u8 *entry = this->unk_34c[team];
++  new_var = entry;
+   for (i = 0; i < 16; i++)
+   {
+-    if (((u16) (id & 0xFFF)) == func_0208033c(entry, i))
+-    {
+-      func_020802cc(entry, i, 0);
++    new_var2 = id;
++    new_var2 = new_var2 & 0xFFF;
++    if (((u16) new_var2) == func_0208033c(new_var, i))
++    {
++      func_020802cc(new_var, i, 0);
+       break;
+     }
+   }

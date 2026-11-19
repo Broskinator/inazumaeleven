@@ -1,0 +1,17 @@
+--- before
++++ after
+@@ -2763,7 +2763,14 @@
+   x = (player->body->pos.x - rect[0]) / ((fx32) 0x00001000);
+   if (w <= 0)
+   {
++    if ((&player->body->pos) || result)
++    {
+     return result;
++    }
++    else
++    {
++      return result;
++    }
+   }
+   return (x * 100) / w;
+ }
