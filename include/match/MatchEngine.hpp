@@ -189,7 +189,7 @@ public:
     BOOL func_0206a494(MatchPlayer *player, MatchPoint *point);
     BOOL func_0206a54c(MatchPlayer *player);
     int func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a);
-    void func_0206a648();
+    int func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a);
     BOOL func_0206a700(int value);
     BOOL func_0206a720(int value);
     MatchState *func_0206a748(int n);
@@ -662,7 +662,7 @@ public:
     int func_0207c110(int team, u32 id);
     BOOL func_0207c178(int a, int index);
     void func_0207c1b0();
-    void func_0207c3d8();
+    void func_0207c3d8(int team);
     int func_0207c478(MatchPlayer *player, int a, int b, int c);
     void func_0207c65c(u32 id, int a, int b, int c);
     void func_0207c6b4(int a, BOOL update, BOOL force);

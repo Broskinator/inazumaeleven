@@ -24,7 +24,7 @@ struct UnkEntry_0206e50c {
 extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
 extern "C" void func_02083e24(void);     // (for the asm functions)
-extern "C" void func_02083e54(void);     // (for the asm functions)
+extern "C" BOOL func_02083e54(MatchPlayer *player);
 extern "C" void func_02083e7c(void);     // (for the asm functions)
 extern "C" void func_02083e94(void);     // (for the asm functions)
 extern "C" void func_02083ec4(void);     // (for the asm functions)
@@ -9144,7 +9144,39 @@ asm int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *pla
 }
 #endif
 
-asm void MatchEngine::func_0206a648()
+// how many players of the other team (func_02079f98 aside) are within radius of (x, y)
+// (nonmatching: register allocation, as func_0206a590: the ROM keeps player in r7 and leaves a in its stack slot)
+#ifdef NONMATCHING
+int MatchEngine::func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
+{
+    int team = func_02083e54(player);
+    int count = 0;
+    int i;
+
+    for (i = 0; i < 11; i++) {
+        MatchPlayer *other = func_02079e90(team, i);
+        if (other != NULL && !func_02079f98(other, a, (int)player)) {
+            fx32 dy = other->body->pos.y - y;
+            fx32 dx;
+
+            if (dy < 0) {
+                dy = -dy;
+            }
+            if (dy <= radius) {
+                dx = other->body->pos.x - x;
+                if (dx < 0) {
+                    dx = -dx;
+                }
+                if (dx <= radius && func_01fff184(this, dx, dy) <= radius) {
+                    count++;
+                }
+            }
+        }
+    }
+    return count;
+}
+#else
+asm int MatchEngine::func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     ldr r7, [sp, #0x28]
@@ -9195,6 +9227,7 @@ asm void MatchEngine::func_0206a648()
     mov r0, r6
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 BOOL MatchEngine::func_0206a700(int value)
 {
