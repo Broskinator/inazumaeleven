@@ -29,3 +29,4 @@ MatchEngine::func_0206b1dc  src/match/MatchEngine.cpp  10 words: the start index
 func_020843b0  src/match/MatchGeometry.cpp  17 words: y, the rectangle and the flag in other registers; *x loaded before rect[0]
 MatchEngine::func_0206a078  src/match/MatchEngine.cpp  1 word: ldrsh of the sine where the ROM has ldrh (then smull; a u16 read gives umull)
 MatchEngine::func_0207af84  src/match/MatchEngine_2.cpp  6 words: the key (r4 in the ROM) and the 0/1 of MatchPlayer_HasFlag in other registers
+MatchPlayerList::func_02083394  src/match/MatchPlayerList.cpp  15 words: the ROM reads point->y before working out x in the two side cases; point->x and rect[0] registers swapped

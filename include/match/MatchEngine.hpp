@@ -597,7 +597,7 @@ public:
     MatchPlayer *func_02079d2c(int index);
     int func_02079d3c(int team);
     int func_02079d9c(MatchPlayer *player);
-    void func_02079dd8();
+    void func_02079dd8(u8 *order);
     MatchPlayer *func_02079e90(int team, int i);
     MatchPlayer *func_02079ea0(int team, int value, int kind);
     int func_02079f20(int a, int flags, int b);

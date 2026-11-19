@@ -551,7 +551,7 @@ extern "C" void _ZN9EntryPool4SwapEii(void);
 extern "C" void _ZN9EntryPool9DuplicateEii(void);
 extern "C" void func_01ffe354(void);
 extern "C" void func_01ffed20(void);
-extern "C" void func_01fff15c(void);
+extern "C" fx32 func_01fff15c(MatchEngine *self, MatchPlayerBody *body, MatchPoint *point);
 extern "C" void func_0209bf8c(void);
 extern "C" void func_ov015_02130b94(void);
 extern "C" u16 func_ov015_02130e40(u8 dir);
@@ -568,6 +568,7 @@ extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+// (sorts the 22 players by their distance to the ball, nearest first)
 extern SceneStartInfo data_020c4ab4;
 extern "C" void _Z22EntryPool_CompactFrontv(void);
 extern "C" void _ZN10MatchRules13func_0206f014Ev(void);
@@ -11891,7 +11892,37 @@ int MatchEngine::func_02079d9c(MatchPlayer *player)
     return -1;
 }
 
-asm void MatchEngine::func_02079dd8()
+// (nonmatching: 40 words: the ROM enters each loop through its test (b); -O2 (#pragma optimization_level 2) gives that shape with other registers)
+#ifdef NONMATCHING
+void MatchEngine::func_02079dd8(u8 *order)
+{
+    fx32 dist[0x16];
+    int i;
+    int j;
+    MatchPlayer *player;
+    u8 t;
+
+    for (i = 0; i < 0x16; i++) {
+        player = func_02079d2c(i);
+        if (player == NULL) {
+            dist[i] = 10000 * FX32_ONE;
+        } else {
+            dist[i] = func_01fff15c(this, player->body, (MatchPoint *)&data_020c4920);
+        }
+        order[i] = i;
+    }
+    for (i = 0; i < 0x15; i++) {
+        for (j = i + 1; j < 0x16; j++) {
+            if (dist[order[i]] > dist[order[j]]) {
+                t = order[i];
+                order[i] = order[j];
+                order[j] = t;
+            }
+        }
+    }
+}
+#else
+asm void MatchEngine::func_02079dd8(u8 *order)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x58
@@ -11945,6 +11976,7 @@ asm void MatchEngine::func_02079dd8()
     add sp, sp, #0x58
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
+#endif
 
 MatchPlayer *MatchEngine::func_02079e90(int team, int i)
 {

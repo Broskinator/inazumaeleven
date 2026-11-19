@@ -1,6 +1,7 @@
 #include "match/UnkClass_0208351c.hpp"
 
 #include "nitro/fx.h"
+// (moves the segment's ends to length from its middle, keeping its direction)
 
 extern "C" u16 func_02084094(fx32 *segment);
 extern "C" void func_020841d8(void);     // (for the asm functions)
@@ -103,46 +104,18 @@ extern "C" void func_0208363c(fx32 *segment, fx32 length)
     segment[3] = segment[1] + FX_Mul(length, FX_SinIdx(idx));
 }
 
-asm void UnkClass_0208351c::func_020836b4()
+extern "C" void func_020836b4(fx32 *segment, fx32 length)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, r0
-    mov r4, r1
-    bl func_02084094
-    mov r0, r0, asr #4
-    mov r3, r0, lsl #1
-    add r0, r3, #1
-    ldr r1, =FX_SinCosTable_
-    mov r2, r0, lsl #1
-    mov r0, r3, lsl #1
-    ldrsh r2, [r1, r2]
-    ldrsh r1, [r1, r0]
-    ldr r0, [r6]
-    smull r2, r3, r4, r2
-    adds r5, r2, #0x800
-    smull r1, r2, r4, r1
-    adc r7, r3, #0
-    adds r3, r1, #0x800
-    mov r5, r5, lsr #0xc
-    ldr r1, [r6, #8]
-    adc r2, r2, #0
-    mov r4, r3, lsr #0xc
-    orr r5, r5, r7, lsl #20
-    orr r4, r4, r2, lsl #20
-    bl func_02083750
-    mov r7, r0
-    ldr r0, [r6, #4]
-    ldr r1, [r6, #0xc]
-    bl func_02083750
-    sub r3, r7, r5
-    sub r2, r0, r4
-    add r1, r7, r5
-    add r0, r0, r4
-    str r3, [r6]
-    str r2, [r6, #4]
-    str r1, [r6, #8]
-    str r0, [r6, #0xc]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    int idx = func_02084094(segment) >> 4;
+    fx32 dx = FX_Mul(length, FX_CosIdx(idx));
+    fx32 dy = FX_Mul(length, FX_SinIdx(idx));
+    fx32 cx = UnkClass_0208351c::func_02083750(segment[0], segment[2]);
+    fx32 cy = UnkClass_0208351c::func_02083750(segment[1], segment[3]);
+
+    segment[0] = cx - dx;
+    segment[1] = cy - dy;
+    segment[2] = cx + dx;
+    segment[3] = cy + dy;
 }
 
 int UnkClass_0208351c::func_02083750(int a, int b)

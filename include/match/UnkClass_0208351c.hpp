@@ -14,7 +14,6 @@ public:
     void func_02083578();
     BOOL func_020835e0(MatchPlayer *player);
     int func_02083634();
-    void func_020836b4();
     static int func_02083750(int a, int b);
     void func_02083778();
     void func_020838d0();

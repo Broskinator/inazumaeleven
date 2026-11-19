@@ -24,10 +24,10 @@ public:
     BOOL func_020832f4();
     int func_02083308();
     BOOL func_0208331c(MatchPlayer *player);
-    int func_02083378(int a, int b);
-    void func_02083394();
+    int func_02083378(int side, MatchPoint *point);
+    BOOL func_02083394(int side, MatchPoint *point, MatchPoint *out);
     BOOL func_02083448(int side, MatchPoint *point, int distance);
-    int func_020834e0(BOOL side, int b);
+    int func_020834e0(BOOL side, MatchPoint *point);
     BOOL func_02083504();
     void func_0208350c(MatchEngine *match);
     BOOL func_02083514();

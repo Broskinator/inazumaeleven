@@ -1914,7 +1914,7 @@ main,0x020834e0,_ZN15MatchPlayerList13func_020834e0Eii,src/match/MatchPlayerList
 main,0x02083578,_ZN17UnkClass_0208351c13func_02083578Ev,src/match/UnkClass_0208351c.cpp,FUN_020494d8,asm/thinkmanager_mini.s,function,bytes,0,high,Other game code,
 main,0x020835e0,_ZN17UnkClass_0208351c13func_020835e0Ev,src/match/UnkClass_0208351c.cpp,FUN_02049540,asm/thinkmanager_mini.s,function,bytes,0,high,Other game code,
 main,0x0208363c,func_0208363c,src/match/UnkClass_0208351c.cpp,FUN_0203fb5c,asm/arm9_0203fb5c.s,function,bytes,0,high,Other game code,
-main,0x020836b4,_ZN17UnkClass_0208351c13func_020836b4Ev,src/match/UnkClass_0208351c.cpp,FUN_0203fbd4,asm/arm9_0203fb5c.s,function,bytes,0,high,Other game code,
+main,0x020836b4,func_020836b4,src/match/UnkClass_0208351c.cpp,FUN_0203fbd4,asm/arm9_0203fb5c.s,function,bytes,0,high,Other game code,
 main,0x02083750,_ZN17UnkClass_0208351c13func_02083750Ev,src/match/UnkClass_0208351c.cpp,FUN_0203fc70,asm/arm9_0203fb5c.s,function,bytes,6,high,Other game code,
 main,0x02083778,_ZN17UnkClass_0208351c13func_02083778Ev,src/match/UnkClass_0208351c.cpp,FUN_0203fc98,asm/arm9_0203fb5c.s,function,bytes,0,high,Other game code,
 main,0x020838d0,_ZN17UnkClass_0208351c13func_020838d0Ev,src/match/UnkClass_0208351c.cpp,FUN_01ff852c,asm/itcm.s,function,bytes,2,high,Other game code,

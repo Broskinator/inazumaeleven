@@ -1,14 +1,15 @@
 #include "match/MatchPlayerList.hpp"
 #include "match/MatchEngine.hpp"
 #include "nitro/mi.h"
+// (for a point inside the side's rectangle: the point 0x6000 outside its nearest edge)
 
 extern "C" s32 FX_Sqrt(s32 x);
 extern "C" MatchPoint *func_02083eac(int side);
 extern "C" void *data_020af3f0[];     // (the vtable)
-extern "C" u8 data_020c4eec[];
-extern "C" u8 data_020c4efc[];
-extern "C" void *func_02083e94(int a);
-extern "C" int func_02084470(void *obj, int a);
+extern "C" fx32 data_020c4eec[];
+extern "C" fx32 data_020c4efc[];
+extern "C" fx32 *func_02083e94(int side);
+extern "C" BOOL func_02084470(fx32 *rect, MatchPoint *point);
 
 extern "C" char data_020ca6e8[];
 extern "C" void _ZN11MatchEngine13func_0206c644Ev(void);
@@ -234,12 +235,58 @@ BOOL MatchPlayerList::func_0208331c(MatchPlayer *player)
     return FALSE;
 }
 
-int MatchPlayerList::func_02083378(int a, int b)
+int MatchPlayerList::func_02083378(int side, MatchPoint *point)
 {
-    return func_02084470(func_02083e94(a), b);
+    return func_02084470(func_02083e94(side), point);
 }
 
-asm void MatchPlayerList::func_02083394()
+// (nonmatching: 15 words: the ROM reads point->y before working out x in the two side cases, and keeps point->x and rect[0] in the other registers)
+#ifdef NONMATCHING
+BOOL MatchPlayerList::func_02083394(int side, MatchPoint *point, MatchPoint *out)
+{
+    fx32 *rect = func_02083e94(side);
+    fx32 edge;
+    fx32 y;
+    fx32 left;
+    fx32 right;
+    fx32 dy;
+
+    if (func_02084470(rect, point)) {
+        if (side == 0) {
+            edge = rect[1];
+            y = edge - 0x6000;
+        } else {
+            edge = rect[3];
+            y = edge + 0x6000;
+        }
+        left = rect[0] - point->x;
+        if (left < 0) {
+            left = -left;
+        }
+        right = rect[2] - point->x;
+        if (right < 0) {
+            right = -right;
+        }
+        dy = edge - point->y;
+        if (dy < 0) {
+            dy = -dy;
+        }
+        if (left < right && left < dy) {
+            out->x = rect[0] - 0x6000;
+            out->y = point->y;
+        } else if (right < left && right < dy) {
+            out->x = rect[0] + 0x6000;
+            out->y = point->y;
+        } else {
+            out->x = point->x;
+            out->y = y;
+        }
+        return TRUE;
+    }
+    return FALSE;
+}
+#else
+asm BOOL MatchPlayerList::func_02083394(int side, MatchPoint *point, MatchPoint *out)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r1
@@ -289,6 +336,7 @@ asm void MatchPlayerList::func_02083394()
     mov r0, #0
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 // (the distance between two points; the differences lose 4 bits so that their squares fit)
 static inline fx32 MatchDistance(const MatchPoint *a, const MatchPoint *b)
@@ -352,14 +400,14 @@ asm BOOL MatchPlayerList::func_02083448(int side, MatchPoint *point, int distanc
 }
 #endif
 
-int MatchPlayerList::func_020834e0(BOOL side, int b)
+int MatchPlayerList::func_020834e0(BOOL side, MatchPoint *point)
 {
-    void *rect = data_020c4efc;
+    fx32 *rect = data_020c4efc;
 
     if (side) {
         rect = data_020c4eec;
     }
-    return func_02084470(rect, b);
+    return func_02084470(rect, point);
 }
 
 BOOL MatchPlayerList::func_02083504()
