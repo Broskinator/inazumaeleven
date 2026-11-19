@@ -51,7 +51,7 @@ extern "C" void _ZN11MatchEngine13func_02076868El(void);
 extern "C" void _ZN11MatchEngine13func_020777e4EPhsmh(void);
 extern "C" void _ZN11MatchEngine13func_02078ea8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
-extern "C" void _ZN11MatchEngine13func_0207bfd0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207bfd0Eiii(void);
 extern "C" void _ZN11MatchEngine13func_02082d80Eii(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
 extern "C" s32 _ZdlPv(...);
@@ -1216,7 +1216,7 @@ extern "C" void func_ov035_02169df0(u8 *arg0)
     w = 0xC;
     m = 0xFFF;
     for (; i < *(s32 *)(arg0 + 0xbc); i++)
-        ((void (*)(void *, s32, u16, s32))_ZN11MatchEngine13func_0207bfd0Ev)(d, k, *(u16 *)(arg0 + i * w + 0xc4) & m, k);
+        ((void (*)(void *, s32, u16, s32))_ZN11MatchEngine13func_0207bfd0Eiii)(d, k, *(u16 *)(arg0 + i * w + 0xc4) & m, k);
     *(u8 *)((u8 *)gGameState + 0x5e0) = 0;
 }
 #pragma pop
@@ -1238,7 +1238,7 @@ extern "C" asm void func_ov035_02169e60(void)
     mov r3, r1
     mov r2, r2, lsr #0x10
     mov r5, #0
-    bl _ZN11MatchEngine13func_0207bfd0Ev
+    bl _ZN11MatchEngine13func_0207bfd0Eiii
     ldr r7, [r6, #0xbc]
     mov r3, r5
     cmp r7, #0

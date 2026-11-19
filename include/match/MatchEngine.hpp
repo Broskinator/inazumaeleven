@@ -253,7 +253,7 @@ public:
     void func_0206c23c();
     void func_0206c37c();
     void func_0206c42c();
-    void func_0206c5b0();
+    BOOL func_0206c5b0(int team, int index);
     BOOL func_0206c644();
     void func_0206c670(u8 value);
     void func_0206c67c(u8 value);
@@ -385,7 +385,7 @@ public:
     u16 func_0206f750(u16 id);
     BOOL func_0206f7a4();
     void func_0206f824(u32 id, BOOL second);
-    void func_0206f8c8(u32 id);
+    BOOL func_0206f8c8(u32 id);
     u16 func_0206f98c(u16 id);
     u32 func_0206f9e0(u32 id);
     BOOL func_0206faa0(int index);
@@ -641,9 +641,9 @@ public:
     int func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int c);
     void func_0207b780();
     void func_0207bb9c();
-    void func_0207bdf8();
-    void func_0207bee8();
-    void func_0207bfd0();
+    int func_0207bdf8(int team, int id);
+    int func_0207bee8(int team, int id, int value);
+    int func_0207bfd0(int team, int id, int value);
     void func_0207c064();
     int func_0207c110(int team, u32 id);
     BOOL func_0207c178(int a, int index);
@@ -807,7 +807,11 @@ public:
     u8 unk_11794[4];
     u8 unk_11798[0x117A4 - 0x11798];
     u8 unk_117a4[2][11];     // (per team and position)
-    u8 unk_117ba[0x117D4 - 0x117BA];
+    u8 unk_117ba[0x117C0 - 0x117BA];
+    u8 unk_117c0[4];     // (the start of what func_0209e020 and func_0209e220 read)
+    s32 unk_117c4[2];    // (per team)
+    u8 unk_117cc[4];
+    u8 unk_117d0[4];     // (the limits of unk_117cc)
     u8 unk_117d4;
     u8 unk_117d5;
     u8 unk_117d6[2];     // (per team: flags)

@@ -149,7 +149,7 @@ extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207b28cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207bb9cEv(void);
-extern "C" void _ZN11MatchEngine13func_0207bfd0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207bfd0Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0207c110Eim(void);
 extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207e60cEi(void);
@@ -2123,7 +2123,7 @@ extern "C" asm void func_ov015_02157cbc(void)
     mov r1, r7
     mov r3, r6
     mov r2, r2, lsr #0x10
-    bl _ZN11MatchEngine13func_0207bfd0Ev
+    bl _ZN11MatchEngine13func_0207bfd0Eiii
     ldr r0, =gEntryPool
     bl _Z22EntryPool_CompactFrontv
     cmp r5, #0

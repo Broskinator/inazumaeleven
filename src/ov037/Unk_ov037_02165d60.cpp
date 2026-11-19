@@ -75,7 +75,7 @@ extern "C" void _ZN11MatchEngine13func_020777e4EPhsmh(void);
 extern "C" void _ZN11MatchEngine13func_0207a534Em(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
-extern "C" s32 _ZN11MatchEngine13func_0207bfd0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207bfd0Eiii(...);
 extern "C" void _ZN11MatchEngine13func_02082d80Eii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
@@ -885,7 +885,7 @@ extern "C" s32 func_ov037_02166870(u8 *arg0)
     r8 = 0xC;
     do {
         t0 = ((u16)(*(u16 *)(((u8 *)((r6 * r8) + r7)) + 0xE8) & r9));
-        _ZN11MatchEngine13func_0207bfd0Ev(r5, r4, t0, r4);
+        _ZN11MatchEngine13func_0207bfd0Eiii(r5, r4, t0, r4);
         arg0 = (u8 *)*(s32 *)(r7 + 0x15C);
         r6 = (r6 + 1);
     } while (r6 < (s32)arg0);

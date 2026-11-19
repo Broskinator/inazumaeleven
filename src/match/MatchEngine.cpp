@@ -436,7 +436,7 @@ extern "C" void Random_RandA(void);
 extern "C" void func_ov015_02130e80(void);
 extern "C" void func_ov015_0213178c(void);
 extern "C" void func_ov015_02131994(void);
-extern "C" void func_ov015_021319bc(void);
+extern "C" int func_ov015_021319bc(void);
 extern "C" void func_ov015_021422a0(MatchEngine *self, MatchBall *ball, fx32 x, fx32 y);
 extern "C" void func_ov015_021422d0(MatchEngine *self, MatchBall *ball, fx32 x, fx32 y, int a, int b);
 extern "C" void func_ov087_02179c3c(void);
@@ -448,7 +448,7 @@ extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
 extern "C" void func_01ffb994(void);
 extern "C" void func_01ffca10(void);
-extern "C" void func_0209e220(void);
+extern "C" BOOL func_0209e220(u8 *obj);
 // (the penalty shoot-out's state, as func_ov001_02128144 fills it: the goals, the round and
 // whether each team has kicked in it)
 struct UnkShootout_0206d094 {
@@ -11155,45 +11155,24 @@ asm void MatchEngine::func_0206c42c()
     ldmia sp!, {r3, r4, r5, pc}
 }
 
-asm void MatchEngine::func_0206c5b0()
+BOOL MatchEngine::func_0206c5b0(int team, int index)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r5, r0
-    mov r4, r1
-    mov r6, r2
-    bl func_01ff9684
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206c644Ev
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    add r0, r5, r6
-    add r0, r0, #0x11000
-    ldrb r1, [r0, #0x7cc]
-    ldrb r0, [r0, #0x7d0]
-    cmp r1, r0
-    movhs r0, #0
-    ldmhsia sp!, {r4, r5, r6, pc}
-    add r0, r5, r4, lsl #2
-    add r0, r0, #0x11000
-    ldr r0, [r0, #0x7c4]
-    cmp r0, #0
-    movgt r0, #1
-    movle r0, #0
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    bl func_ov015_021319bc
-    cmp r4, r0
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, pc}
-    add r0, r5, #0x17c0
-    add r0, r0, #0x10000
-    bl func_0209e220
-    ldmia sp!, {r4, r5, r6, pc}
+    if (func_01ff9684(this)) {
+        return FALSE;
+    }
+    if (func_0206c644()) {
+        return FALSE;
+    }
+    if (unk_117cc[index] >= unk_117d0[index]) {
+        return FALSE;
+    }
+    if (unk_117c4[team] > 0 ? TRUE : FALSE) {
+        return FALSE;
+    }
+    if (team != func_ov015_021319bc()) {
+        return FALSE;
+    }
+    return func_0209e220(unk_117c0);
 }
 
 BOOL MatchEngine::func_0206c644()
