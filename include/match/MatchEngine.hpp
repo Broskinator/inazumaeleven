@@ -311,7 +311,7 @@ public:
     BOOL func_0206d094(int team);
     void func_0206d114();
     BOOL func_0206d188(int team, BOOL flag);
-    void func_0206d358();
+    int func_0206d358(int kind);
     void func_0206d4ec();
     BOOL func_0206d690(u8 value);
     u8 func_0206d6a4();
@@ -331,7 +331,7 @@ public:
     BOOL func_0206dad4(int id);
     BOOL func_0206daec(int id);
     void func_0206db10(SaveBody *dst);
-    void func_0206dc34();
+    BOOL func_0206dc34(u8 *out);
     void func_0206dcdc(SaveBody *src);
     void func_0206ddc8(int i, int flags);
     void func_0206dde8(int i, int flags);
@@ -468,7 +468,7 @@ public:
     s8 func_020747a0(int i);
     BOOL func_020747b4(int i, int value);
     BOOL func_020747e4(int index, u32 value);
-    void func_02074820();
+    void func_02074820(int id, int slot, BOOL set);
     int func_020748fc(int id);
     static u16 func_020749c8(s16 *values, BOOL reduce, int percent);
     static u16 func_02074a18(s16 *values, MatchPlayer *player);

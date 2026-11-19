@@ -178,7 +178,7 @@ extern "C" void gEntryPool(void);
 extern "C" char gGameState[];
 
 extern "C" void _ZN11MatchEngine13func_0206bfecEv(void);
-extern "C" void _ZN11MatchEngine13func_0206d358Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206d358Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);
 extern "C" asm void func_ov001_02121e30(void)
@@ -1193,7 +1193,7 @@ extern "C" asm void func_ov001_02122de8(void)
     str r5, [r4, #4]
     ldrb r1, [r4, #0x7e]
     mov r0, r6
-    bl _ZN11MatchEngine13func_0206d358Ev
+    bl _ZN11MatchEngine13func_0206d358Ei
     strb r0, [r4, #0x7e]
     mov r0, r6
     bl _ZN11MatchEngine13func_0206bfa8Ev

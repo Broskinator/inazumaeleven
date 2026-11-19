@@ -565,6 +565,14 @@ extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+static inline void MatchPlayerState_SetBit_88(MatchPlayerState *state, int bit, BOOL set)
+{
+    state->unk_88 &= 0xFF - bit;
+    if (set) {
+        state->unk_88 |= (u8)bit;
+    }
+}
+
 static inline BOOL UnkEntry_020739cc_HasFlag(u8 *entry, u8 flag)
 {
     return (entry[0xF] & flag) ? TRUE : FALSE;
@@ -6252,67 +6260,29 @@ BOOL MatchEngine::func_020747e4(int index, u32 value)
     return TRUE;
 }
 
-asm void MatchEngine::func_02074820()
+// sets or clears the state bit of the player's skill in slot (all its skills for slot -1)
+void MatchEngine::func_02074820(int id, int slot, BOOL set)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, #0
-    mov r0, r1
-    mov r1, r6
-    mov r4, r2
-    mov r7, r3
-    bl func_ov015_02130b14
-    movs r5, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    sub r0, r6, #1
-    cmp r4, r0
-    bne @L_020748a4
-    mov r4, #1
-@L_02074854:
-    mov r0, r5
-    mov r1, r6
-    bl func_020808c4
-    cmp r0, #0
-    beq @L_02074894
-    ldr r3, [r5, #0xec]
-    mov r2, r4, lsl r6
-    ldrb r1, [r3, #0x88]
-    rsb r0, r2, #0xff
-    cmp r7, #0
-    and r0, r1, r0
-    strb r0, [r3, #0x88]
-    ldrneb r1, [r3, #0x88]
-    andne r0, r2, #0xff
-    orrne r0, r1, r0
-    strneb r0, [r3, #0x88]
-@L_02074894:
-    add r6, r6, #1
-    cmp r6, #6
-    blt @L_02074854
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_020748a4:
-    mov r0, r5
-    mov r1, r6
-    bl func_020808c4
-    cmp r4, r0
-    bne @L_020748ec
-    ldr r3, [r5, #0xec]
-    mov r0, #1
-    mov r2, r0, lsl r6
-    ldrb r1, [r3, #0x88]
-    rsb r0, r2, #0xff
-    cmp r7, #0
-    and r0, r1, r0
-    strb r0, [r3, #0x88]
-    ldrneb r1, [r3, #0x88]
-    andne r0, r2, #0xff
-    orrne r0, r1, r0
-    strneb r0, [r3, #0x88]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_020748ec:
-    add r6, r6, #1
-    cmp r6, #6
-    blt @L_020748a4
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    int i;
+    MatchPlayer *player = func_ov015_02130b14(id, 0);
+
+    if (player == NULL) {
+        return;
+    }
+    if (slot == -1) {
+        for (i = 0; i < 6; i++) {
+            if (func_020808c4(player, i)) {
+                MatchPlayerState_SetBit_88(player->state, 1 << i, set);
+            }
+        }
+    } else {
+        for (i = 0; i < 6; i++) {
+            if (slot == func_020808c4(player, i)) {
+                MatchPlayerState_SetBit_88(player->state, 1 << i, set);
+                return;
+            }
+        }
+    }
 }
 
 // (for an entry with flag 2 or 4: the first entry from 0x1C2 whose value at 0x18 is in the same

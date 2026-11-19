@@ -108,7 +108,7 @@ extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" s32 _ZN13ScreenManager15GetCurSceneMainEv(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
-extern "C" void _ZN11MatchEngine13func_0206dc34Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206dc34EPh(void);
 extern "C" void _ZN11MatchEngine13func_0206e76cEv(void);
 extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void _ZN11MatchEngine13func_02077fa0Ev(void);
@@ -2819,7 +2819,7 @@ extern "C" asm void func_ov003_0211b294(void)
     bl MI_CpuCopy8
     mov r0, r6
     mov r1, r4
-    bl _ZN11MatchEngine13func_0206dc34Ev
+    bl _ZN11MatchEngine13func_0206dc34EPh
     add r1, r4, #0x800
     ldrh r7, [r1, #0x12]
     add r2, r4, #0x700
