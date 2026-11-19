@@ -38,9 +38,6 @@ static inline int MatchAbs(int x)
 {
     return x < 0 ? -x : x;
 }
-// (four values from 1 to 999: their low bytes at 0x13-0x16, the top two bits of each in 0x17)
-// (a table of pairs of bytes after one byte: the pair of index i, from 2 to 20, at 1 + (i - 2) * 2)
-// (adds to the profile's counter at 0x14, kept between 0 and 999999)
 extern "C" int Random_RandA(int a);
 extern "C" u8 data_020ca78c[];
 extern "C" u8 data_020cb6e0[];
@@ -568,11 +565,6 @@ extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
-// (finds id among the pairs of unk_be0 and tries the other of its pair: 0 or 1 for the one found
-// in use)
-// (whether a player outside 0x10-0x20 holds the value of entry id, a kind 0xF one)
-// (the player's first four ids into first, the last two into second; gives how many it put)
-// (sorts the 22 players by their distance to the ball, nearest first)
 extern SceneStartInfo data_020c4ab4;
 extern "C" void _Z22EntryPool_CompactFrontv(void);
 extern "C" void _ZN10MatchRules13func_0206f014Ev(void);
@@ -1059,6 +1051,8 @@ void MatchEngine::func_0206f824(u32 id, BOOL second)
     }
 }
 
+// (finds id among the pairs of unk_be0 and tries the other of its pair: 0 or 1 for the one found
+// in use)
 BOOL MatchEngine::func_0206f8c8(u32 id)
 {
     u32 a = 0;
@@ -5869,6 +5863,7 @@ BOOL MatchEngine::func_020740cc(MatchPlayer *player, int i, int a, int b)
     return TRUE;
 }
 
+// (the player's first four ids into first, the last two into second; gives how many it put)
 int MatchEngine::func_02074154(MatchPlayer *player, int *first, int nfirst, int *second, int nsecond)
 {
     int n = 0;
@@ -6470,6 +6465,7 @@ u8 MatchEngine::func_02074ac8()
     return ((u8 *)this)[0];
 }
 
+// (a table of pairs of bytes after one byte: the pair of index i, from 2 to 20, at 1 + (i - 2) * 2)
 extern "C" u8 func_02074ad0(u8 *table, u32 i)
 {
     u8 *p;
@@ -8163,6 +8159,7 @@ int MatchEngine::func_020764e4(u8 *data)
     return ((u32)(data[0x17] << 30) >> 22) | data[0x16];
 }
 
+// (four values from 1 to 999: their low bytes at 0x13-0x16, the top two bits of each in 0x17)
 extern "C" void func_020764f8(u8 *rec, int value)
 {
     if (value < 1) {
@@ -8379,6 +8376,7 @@ u32 MatchEngine::func_020767bc()
     return *(u32 *)(((u8 *)&gGameState) + 0x4C0);
 }
 
+// (adds to the profile's counter at 0x14, kept between 0 and 999999)
 s32 MatchEngine::func_020767cc(s32 amount)
 {
     s32 value = gGameState.profile.unk_14 + amount;
@@ -10063,6 +10061,7 @@ asm void MatchEngine::func_02078148()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
+// (whether a player outside 0x10-0x20 holds the value of entry id, a kind 0xF one)
 BOOL MatchEngine::func_020782f0(u32 id, BOOL last)
 {
     u8 *entry = func_020768fc(id);
@@ -10639,54 +10638,35 @@ asm void MatchEngine::func_02078aac()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm int MatchEngine::func_02078bc0(MatchPlayer *player, void *buffer, int a, int b, int c)
+// (the ids of up to max of the 22 players func_02079f98 does not rule out for player and flags)
+int MatchEngine::func_02078bc0(MatchPlayer *player, void *buffer, int max, int flags, BOOL mask)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    ldr r11, [sp, #0x28]
-    ldr r7, [sp, #0x2c]
-    movs r9, r2
-    mov r10, r0
-    mov r8, r3
-    str r1, [sp]
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r6, #0
-    mov r0, r9
-    mov r1, r6
-    mov r2, r8, lsl #1
-    bl MI_CpuFill8
-    mov r5, r6
-@L_02078bfc:
-    cmp r6, r8
-    bge @L_02078c64
-    mov r0, r10
-    mov r1, r5
-    bl _ZN11MatchEngine13func_02079d2cEi
-    movs r4, r0
-    beq @L_02078c58
-    ldr r3, [sp]
-    mov r0, r10
-    mov r1, r4
-    mov r2, r11
-    bl _ZN11MatchEngine13func_02079f98EP11MatchPlayerii
-    cmp r0, #0
-    bne @L_02078c58
-    ldrh r1, [r4, #0x42]
-    cmp r7, #0
-    ldrne r0, =0xfff
-    andne r0, r1, r0
-    movne r0, r0, lsl #0x10
-    movne r1, r0, lsr #0x10
-    mov r0, r6, lsl #1
-    strh r1, [r9, r0]
-    add r6, r6, #1
-@L_02078c58:
-    add r5, r5, #1
-    cmp r5, #0x16
-    blt @L_02078bfc
-@L_02078c64:
-    mov r0, r6
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u16 *out = (u16 *)buffer;
+    int i;
+    int n;
+    MatchPlayer *other;
+    int id;
+
+    if (out == NULL) {
+        return 0;
+    }
+    n = 0;
+    MI_CpuFill8(out, 0, max * 2);
+    for (i = 0; i < 0x16; i++) {
+        if (n >= max) {
+            break;
+        }
+        other = func_02079d2c(i);
+        if (other != NULL && !func_02079f98(other, flags, (int)player)) {
+            id = other->unk_42;
+            if (mask) {
+                id = (u16)(id & 0xFFF);
+            }
+            out[n] = id;
+            n++;
+        }
+    }
+    return n;
 }
 
 asm void MatchEngine::func_02078c70()
@@ -11726,9 +11706,9 @@ void MatchEngine::func_02079cec()
     }
 }
 
-int MatchEngine::func_02079d1c(int a)
+void MatchEngine::func_02079d1c()
 {
-    return unk_b80->func_020831f8(a);
+    unk_b80->func_020831f8();
 }
 
 MatchPlayer *MatchEngine::func_02079d2c(int index)
@@ -11763,6 +11743,7 @@ int MatchEngine::func_02079d9c(MatchPlayer *player)
     return -1;
 }
 
+// (sorts the 22 players by their distance to the ball, nearest first)
 // (nonmatching: 40 words: the ROM enters each loop through its test (b); -O2 (#pragma optimization_level 2) gives that shape with other registers)
 #ifdef NONMATCHING
 void MatchEngine::func_02079dd8(u8 *order)

@@ -90,7 +90,7 @@ extern "C" s32 _ZN11MatchEngine13func_0206d9d0Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206da44Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
 extern "C" void _ZN11MatchEngine13func_0206f08cEv(void);
-extern "C" s32 _ZN11MatchEngine13func_02079d1cEi(...);
+extern "C" s32 _ZN11MatchEngine13func_02079d1cEv(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void func_01ffa3a4(void);
 extern "C" void GX_LoadBG1Scr(void);
@@ -2717,7 +2717,7 @@ extern "C" s32 func_ov060_02168474(u8 *arg0)
     t1 = *(s32 *)(arg0 + 0x4);
     v2 = _ZN13ScreenManager13func_0203e2b0Ei(t1, v1);
     *(u8 *)(arg0 + 0x2F) = v2;
-    _ZN11MatchEngine13func_02079d1cEi((s32)((u8 *)&data_020e88a0));
+    _ZN11MatchEngine13func_02079d1cEv((s32)((u8 *)&data_020e88a0));
     func_ov060_02167d68((s32)arg0);
     t2 = *(s32 *)(((u8 *)&data_020c482c));
     func_ov001_021264cc(t2);
@@ -2744,7 +2744,7 @@ extern "C" void func_ov060_02168568(u8 *arg0)
     t1 = *(s32 *)(((u8 *)&g3DFieldSprite));
     func_ov015_02136680(t1);
     CBgMenuManager_Finalize((s32)((u8 *)&gBgMenuManager), 0);
-    _ZN11MatchEngine13func_02079d1cEi((s32)((u8 *)&data_020e88a0));
+    _ZN11MatchEngine13func_02079d1cEv((s32)((u8 *)&data_020e88a0));
     ((VCall *)arg0)->f27();
     *(s32 *)(arg0 + 0x8) = 0;
     Archive_Close((s32)(arg0 + 0x3F0), 9);

@@ -13,9 +13,7 @@ extern "C" u8 data_020cabf8[];
 #include "match/MatchBallPhysics.hpp"
 #include "system/GameHeap.hpp"
 #include "match/MatchFile.hpp"
-// (how many steps the ball takes to cover distance; -1 if it stops first)
-// (turns direction toward target, 0x18E3 of angle for each data_020aeb64[5] of amount; gives the
-// direction reached, and amount what is left)
+#include "nitro/std.h"
 
 extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
@@ -459,7 +457,7 @@ struct UnkShootout_0206d094 {
 };
 extern "C" void func_ov001_02128144(MatchEngine *self, UnkShootout_0206d094 *out);
 extern "C" void func_ov087_02182248(void);
-extern "C" char data_020a43f8[];
+extern "C" u8 data_020a43f8[];   // (the lower case of each ASCII character)
 extern "C" char data_020a71c8[];
 extern "C" char data_020af1a0[];
 extern "C" char data_020af1bc[];
@@ -468,7 +466,7 @@ extern "C" char data_020af1f4[];
 extern "C" char data_020cadf4[];
 extern "C" char data_020cb0a0[];
 extern "C" char data_020cb288[];
-extern "C" void STD_GetStringLength(void);
+// (STD_GetStringLength: nitro/std.h)
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN9EntryPool9RemoveAllEv(void);
 extern "C" void func_01ffde48(void);
@@ -7356,6 +7354,8 @@ asm void MatchEngine::func_02068b5c()
     ldmia sp!, {r4, r5, r6, r7, pc}
 }
 
+// (turns direction toward target, 0x18E3 of angle for each data_020aeb64[5] of amount; gives the
+// direction reached, and amount what is left)
 u16 MatchEngine::func_02068c28(int direction, int target, int *amount)
 {
     int diff = target - direction;
@@ -10392,6 +10392,7 @@ asm void MatchEngine::func_0206b89c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
+// (how many steps the ball takes to cover distance; -1 if it stops first)
 int MatchEngine::func_0206b9c4(MatchBall *ball, fx32 distance)
 {
     MatchBall copy = *ball;
@@ -13563,63 +13564,50 @@ u16 MatchEngine::func_0206ea5c()
     return (*(u16 *)((u8 *)this + 0x1188A));
 }
 
-asm void MatchEngine::func_0206ea68()
+// (the group of a name's first letter as on a phone's keys: a-c 0, d-f 1, ..., w-z 7; -1 if it
+// does not start with a letter)
+int MatchEngine::func_0206ea68(const char *name)
 {
-    stmdb sp!, {r4, lr}
-    movs r4, r1
-    beq @L_0206ea84
-    mov r0, r4
-    bl STD_GetStringLength
-    cmp r0, #2
-    bge @L_0206ea8c
-@L_0206ea84:
-    mvn r0, #0
-    ldmia sp!, {r4, pc}
-@L_0206ea8c:
-    ldrsb r1, [r4]
-    cmp r1, #0
-    blt @L_0206eaa4
-    cmp r1, #0x80
-    ldrlt r0, =data_020a43f8
-    ldrltb r1, [r0, r1]
-@L_0206eaa4:
-    mov r0, r1, lsl #0x10
-    mov r0, r0, lsr #0x10
-    cmp r0, #0x61
-    blt @L_0206eabc
-    cmp r0, #0x7a
-    ble @L_0206eac4
-@L_0206eabc:
-    mvn r0, #0
-    ldmia sp!, {r4, pc}
-@L_0206eac4:
-    cmp r0, #0x63
-    movle r0, #0
-    ldmleia sp!, {r4, pc}
-    cmp r0, #0x66
-    movle r0, #1
-    ldmleia sp!, {r4, pc}
-    cmp r0, #0x69
-    movle r0, #2
-    ldmleia sp!, {r4, pc}
-    cmp r0, #0x6c
-    movle r0, #3
-    ldmleia sp!, {r4, pc}
-    cmp r0, #0x6f
-    movle r0, #4
-    ldmleia sp!, {r4, pc}
-    cmp r0, #0x73
-    movle r0, #5
-    ldmleia sp!, {r4, pc}
-    cmp r0, #0x76
-    movle r0, #6
-    ldmleia sp!, {r4, pc}
-    cmp r0, #0x7a
-    movle r0, #7
-    ldmleia sp!, {r4, pc}
-    bl OS_Terminate
-    mvn r0, #0
-    ldmia sp!, {r4, pc}
+    int c;
+    u16 letter;
+
+    if (name == NULL || STD_GetStringLength(name) < 2) {
+        return -1;
+    }
+    c = name[0];
+    if (c >= 0 && c < 0x80) {
+        c = data_020a43f8[c];
+    }
+    letter = c;
+    if (letter < 'a' || letter > 'z') {
+        return -1;
+    }
+    if (letter <= 'c') {
+        return 0;
+    }
+    if (letter <= 'f') {
+        return 1;
+    }
+    if (letter <= 'i') {
+        return 2;
+    }
+    if (letter <= 'l') {
+        return 3;
+    }
+    if (letter <= 'o') {
+        return 4;
+    }
+    if (letter <= 's') {
+        return 5;
+    }
+    if (letter <= 'v') {
+        return 6;
+    }
+    if (letter <= 'z') {
+        return 7;
+    }
+    OS_Terminate();
+    return -1;
 }
 
 asm void MatchEngine::func_0206eb34()

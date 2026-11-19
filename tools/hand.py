@@ -15,7 +15,8 @@ each is checked alone, and with --write the first that matches is the one writte
                             the '#else', after a comment '// (nonmatching: REASON)'
 
 Lines before a function's definition are a preamble, put after its source's #includes (a struct,
-an inline helper), or where the asm was after a line '//@local'. Directives, on lines of their own:
+an inline helper), or where the asm was after a line '//@local'; comment lines right before the
+definition stay with it. Directives, on lines of their own:
 
     //@replace OLD => NEW             other text of the source changed with it (\\n for a line end),
                                       e.g. a placeholder 'extern "C" void func_Y(void);' typed
@@ -132,10 +133,16 @@ def check(code, fn, write=False, tag="hand", src=None, nm=None):
     i = dm.start()
     while code[:i].endswith("\n") and code[:i].rstrip("\n").split("\n")[-1].startswith("#pragma"):
         i = code[:i].rstrip("\n").rfind("\n") + 1     # (pragmas just before it go with it)
-    pre, body = code[:i], code[i:]
+    j = i
+    while code[:j].endswith("\n"):
+        last = code[:j].rstrip("\n").split("\n")[-1]
+        if not last.startswith("//") or last.startswith("//@"):
+            break
+        j = code[:j].rstrip("\n").rfind("\n") + 1     # (comments just before it go with it)
+    pre, lead, body = code[:j], code[j:i], code[i:]
     if "//@local\n" in code:
         k = code.index("//@local\n")
-        pre, body = code[:k], code[k + len("//@local\n"):]
+        pre, lead, body = code[:k], "", code[k + len("//@local\n"):]
     src = src or find_src(fn)
     if not src:
         return None, f"{fn} no asm of it"
@@ -155,10 +162,10 @@ def check(code, fn, write=False, tag="hand", src=None, nm=None):
     # with the attempt's signature otherwise)
     s = sig.strip().rstrip("{").strip()
     head = 'extern "C" asm ' + s[len('extern "C" '):] if s.startswith('extern "C" ') else "asm " + s
-    block = (f"// (nonmatching: {nm})\n#ifdef NONMATCHING\n" + body.rstrip("\n") + "\n#else\n" + head + "\n"
-             + b[0].split("\n", 1)[1] + "#endif\n") if nm else None
+    block = (lead + f"// (nonmatching: {nm})\n#ifdef NONMATCHING\n" + body.rstrip("\n") + "\n#else\n" + head
+             + "\n" + b[0].split("\n", 1)[1] + "#endif\n") if nm else None
     t_nm = t.replace(b[0], block, 1) if nm else None
-    t = t.replace(b[0], body, 1)
+    t = t.replace(b[0], lead + body, 1)
     hdr = ht = ht0 = None
     others = {}       # (other sources whose asm definitions change with a //@sig)
     if "::" in dm[1]:

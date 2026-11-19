@@ -1,7 +1,6 @@
 #include "match/UnkClass_0208351c.hpp"
 
 #include "nitro/fx.h"
-// (moves the segment's ends to length from its middle, keeping its direction)
 
 extern "C" u16 func_02084094(fx32 *segment);
 extern "C" void func_020841d8(void);     // (for the asm functions)
@@ -104,6 +103,7 @@ extern "C" void func_0208363c(fx32 *segment, fx32 length)
     segment[3] = segment[1] + FX_Mul(length, FX_SinIdx(idx));
 }
 
+// (moves the segment's ends to length from its middle, keeping its direction)
 extern "C" void func_020836b4(fx32 *segment, fx32 length)
 {
     int idx = func_02084094(segment) >> 4;

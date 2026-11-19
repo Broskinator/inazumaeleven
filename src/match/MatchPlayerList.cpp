@@ -1,7 +1,6 @@
 #include "match/MatchPlayerList.hpp"
 #include "match/MatchEngine.hpp"
 #include "nitro/mi.h"
-// (for a point inside the side's rectangle: the point 0x6000 outside its nearest edge)
 
 extern "C" s32 FX_Sqrt(s32 x);
 extern "C" MatchPoint *func_02083eac(int side);
@@ -20,7 +19,7 @@ extern "C" void _ZN10MatchRules13func_0206ef60Ev(void);
 extern "C" void _ZN10MatchRules13func_0206ef74Ev(void);
 extern "C" void _ZdlPv(void);
 extern "C" s32 func_ov015_02131854(s32 arg0, s32 arg1);
-extern "C" void func_ov015_021319b0(void);
+extern "C" int func_ov015_021319b0(MatchPlayer *player);
 extern "C" void gGameState(void);
 
 MatchPlayerList *MatchPlayerList::func_02083060()
@@ -144,7 +143,42 @@ asm void MatchPlayerList::func_020830ac()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-asm int MatchPlayerList::func_020831f8(int a)
+// (puts the players in the list: team 0 from 0, team 1 from 11)
+// (nonmatching: 16 words: the ROM indexes players from this each time and picks the slot with conditional moves; registers differ)
+#ifdef NONMATCHING
+void MatchPlayerList::func_020831f8()
+{
+    MatchPlayer **list = players;
+    int n0 = 0;
+    int n1 = 0;
+    int i;
+    MatchPlayer *player;
+    int slot;
+    int team;
+
+    if (list == NULL) {
+        return;
+    }
+    MI_CpuFill8(list, 0, sizeof(players));
+    for (i = 0; i < 0x20; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player != NULL && MatchPlayer_HasFlag(player, 1) && MatchPlayer_HasFlag(player, 8)) {
+            team = func_ov015_021319b0(player);
+            slot = team == 0 ? n0 : n1 + 11;
+            list[slot] = player;
+            if (team == 0) {
+                n0++;
+            } else {
+                n1++;
+            }
+            if (player->state != NULL) {
+                player->state->unk_2c = slot;
+            }
+        }
+    }
+}
+#else
+asm void MatchPlayerList::func_020831f8()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r7, #0
@@ -193,6 +227,7 @@ asm int MatchPlayerList::func_020831f8(int a)
     blt @L_0208322c
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 MatchPlayer *MatchPlayerList::func_020832a8(int index)
 {
@@ -240,6 +275,7 @@ int MatchPlayerList::func_02083378(int side, MatchPoint *point)
     return func_02084470(func_02083e94(side), point);
 }
 
+// (for a point inside the side's rectangle: the point 0x6000 outside its nearest edge)
 // (nonmatching: 15 words: the ROM reads point->y before working out x in the two side cases, and keeps point->x and rect[0] in the other registers)
 #ifdef NONMATCHING
 BOOL MatchPlayerList::func_02083394(int side, MatchPoint *point, MatchPoint *out)

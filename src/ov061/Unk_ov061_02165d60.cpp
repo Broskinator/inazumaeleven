@@ -91,7 +91,7 @@ extern "C" s32 _ZN11MatchEngine13func_0206d9d0Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206da44Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206f08cEv(...);
-extern "C" s32 _ZN11MatchEngine13func_02079d1cEi(...);
+extern "C" s32 _ZN11MatchEngine13func_02079d1cEv(...);
 extern "C" void _ZN11MatchEngine13func_02079d2cEi(void);
 extern "C" void func_01ffa3a4(void);
 extern "C" s32 G2x_SetBlendBrightness_(...);
@@ -215,7 +215,7 @@ extern "C" void func_ov061_02165ea4(s32 arg0)
     s32 v0 = func_ov001_02124540((arg0 + 0x58), (s32)data_ov061_02169c64);
     if (v0 == 0)
         return;
-    _ZN11MatchEngine13func_02079d1cEi((s32)data_020e88a0);
+    _ZN11MatchEngine13func_02079d1cEv((s32)data_020e88a0);
     func_ov061_021672b4(arg0, 9);
 }
 
@@ -344,7 +344,7 @@ extern "C" asm void func_ov061_02165ee0(void)
     bne @L_021660b0
 @L_0216609c:
     ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine13func_02079d1cEi
+    bl _ZN11MatchEngine13func_02079d1cEv
     mov r0, r4
     mov r1, #3
     b @L_02165fb4
@@ -1951,7 +1951,7 @@ extern "C" s32 func_ov061_021677f0(s32 arg0)
     r4 = arg0;
     if (v0 != 0) {
         if (*(u8 *)(((u8 *)&gGameState) + 0x1A) != 0) {
-            _ZN11MatchEngine13func_02079d1cEi((s32)((u8 *)&data_020e88a0));
+            _ZN11MatchEngine13func_02079d1cEv((s32)((u8 *)&data_020e88a0));
             v2 = func_ov061_021672b4(r4, 0xD);
             return v2;
         } else {
@@ -2028,7 +2028,7 @@ extern "C" asm s32 func_ov061_021678ec(...)
     ldr r4, =data_020e88a0
     strb r5, [r0]
     mov r0, r4
-    bl _ZN11MatchEngine13func_02079d1cEi
+    bl _ZN11MatchEngine13func_02079d1cEv
     mov r0, r4
     bl func_ov087_021815e4
     mov r0, r4

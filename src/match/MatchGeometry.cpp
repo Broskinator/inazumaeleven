@@ -1,7 +1,6 @@
 #include "match/MatchGeometry.hpp"
 #include "match/Match.hpp"
 #include "nitro/mi.h"
-// (brings (x, y) back onto the field; FALSE when it was outside)
 struct S02084be8 { u8 pad[0x14]; s32 x14; s32 x18; s32 x1c; s32 x20; s32 x24; s32 x28; s32 x2c; };
 struct V02084f84 { s32 x, y, z; };
 struct S02084f84 { V02084f84 a; V02084f84 b[0x60]; s32 c; s32 pad[2]; V02084f84 d[4]; };
@@ -692,6 +691,7 @@ extern "C" asm BOOL func_02084350(fx32 x, fx32 y)
 }
 #endif
 
+// (brings (x, y) back onto the field; FALSE when it was outside)
 // (nonmatching: y, the rectangle and the flag get other registers (r6/r4/r5 for r4/r5/r6), and the ROM loads *x before rect[0])
 #ifdef NONMATCHING
 extern "C" BOOL func_020843b0(fx32 *x, fx32 *y)

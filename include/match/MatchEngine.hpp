@@ -376,7 +376,7 @@ public:
     u16 func_0206ea40(int i);
     void func_0206ea50(u16 value);
     u16 func_0206ea5c();
-    void func_0206ea68();
+    int func_0206ea68(const char *name);
     void func_0206eb34();
     void func_0206ecbc();
     void func_0206f028(s32 value);
@@ -574,7 +574,7 @@ public:
     void func_02078844();
     void func_02078990();
     void func_02078aac();
-    int func_02078bc0(MatchPlayer *player, void *buffer, int a, int b, int c);
+    int func_02078bc0(MatchPlayer *player, void *buffer, int max, int flags, BOOL mask);
     void func_02078c70();
     int func_02078d84(int team, u16 *out, int max, u8 flag);
     BOOL func_02078ea8(int id);
@@ -607,7 +607,7 @@ public:
     void func_02079ae4();
     void func_02079c08();
     void func_02079cec();
-    int func_02079d1c(int a);
+    void func_02079d1c();
     MatchPlayer *func_02079d2c(int index);
     int func_02079d3c(int team);
     int func_02079d9c(MatchPlayer *player);

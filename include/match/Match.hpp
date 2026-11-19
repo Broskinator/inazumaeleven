@@ -81,7 +81,9 @@ struct MatchPlayerState {
     s16 unk_22;
     u8 unk_24[2];
     s16 unk_26;
-    u8 unk_28[0x2F - 0x28];
+    u8 unk_28[0x2C - 0x28];
+    u8 unk_2c;          // (the player's slot in MatchPlayerList::players)
+    u8 unk_2d[0x2F - 0x2D];
     u8 unk_2f;
     u8 unk_30[2];
     u16 unk_32;
