@@ -413,7 +413,7 @@ extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" void func_01fff13c(void);
 extern "C" void FX_Sqrt(void);
 extern "C" void _s32_div_f(void);
-extern "C" void Random_RandB(void);
+extern "C" u32 Random_RandB(u32 max);
 extern "C" int func_ov015_02131970(MatchPlayer *player);
 extern "C" void func_ov015_02142824(void);
 extern "C" void func_ov015_021436c0(void);
@@ -599,250 +599,155 @@ extern "C" int STD_GetStringLength(const char *str);
 extern "C" void _ll_udiv(void);
 
 
-asm void MatchEngine::func_0206f09c()
+BOOL MatchEngine::func_0206f09c(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    movs r7, r1
-    mov r6, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r4, [r7, #0xc1]
-    mov r0, r7
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r6
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r5, [r0, #0x36]
-    mov r0, r6
-    mov r1, r7
-    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
-    mov r6, r0
-    mov r0, r7
-    bl func_ov015_02131970
-    mov r1, #0xb
-    mul lr, r0, r1
-    add r7, lr, #0xb
-    cmp lr, r7
-    mov r12, #0
-    bge @L_0206f134
-    ldr r2, =data_020c6cac
-    mov r0, #0x88
-@L_0206f110:
-    mul r3, lr, r0
-    ldrb r1, [r2, r3]
-    cmp r6, r1
-    ldreq r0, =data_020c6cad
-    ldreqsb r12, [r0, r3]
-    beq @L_0206f134
-    add lr, lr, #1
-    cmp lr, r7
-    blt @L_0206f110
-@L_0206f134:
-    add r0, r4, r5
-    add r0, r12, r0
-    mov r0, r0, lsl #0x10
-    mov r4, r0, asr #0x10
-    cmp r4, #0x64
-    mov r0, #0x64
-    movgt r4, #0x64
-    bl Random_RandB
-    mov r0, r0, lsl #0x18
-    mov r1, r0, asr #0x18
-    mov r0, r4, lsl #0x18
-    cmp r1, r0, asr #24
-    movlt r0, #1
-    movge r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s8 stat;
+    s8 teamStat;
+    u8 *info;
+    u8 pos;
+    s8 bonus;
+    int i;
+    int end;
+    s16 chance;
+
+    if (player == NULL) {
+        return FALSE;
+    }
+    stat = player->unk_c1[0];
+    info = GetTeamInfo(func_ov015_021319b0(player));
+    if (info == NULL) {
+        return FALSE;
+    }
+    teamStat = (s8)info[0x36];
+    pos = func_02078f14(player);
+    i = func_ov015_02131970(player) * 11;
+    end = i + 11;
+    bonus = 0;
+    for (; i < end; i++) {
+        if (pos == (u8)data_020c6cac[i * 0x88]) {
+            bonus = (s8)data_020c6cad[i * 0x88];
+            break;
+        }
+    }
+    chance = stat + teamStat + bonus;
+    if (chance > 100) {
+        chance = 100;
+    }
+    return (s8)Random_RandB(100) < (s8)chance;
 }
 
-asm void MatchEngine::func_0206f178()
+BOOL MatchEngine::func_0206f178(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    movs r7, r1
-    mov r6, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    bl _ZN11MatchEngine13func_02078fa4EP11MatchPlayer
-    cmp r0, #0
-    beq @L_0206f1b0
-    mov r0, r6
-    mov r1, r7
-    bl _ZN11MatchEngine13func_0207903cEP11MatchPlayer
-    cmp r0, #0
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206f1b0:
-    ldrsb r4, [r7, #0xc2]
-    mov r0, r7
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r6
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r5, [r0, #0x37]
-    mov r0, r6
-    mov r1, r7
-    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
-    mov r6, r0
-    mov r0, r7
-    bl func_ov015_02131970
-    mov r1, #0xb
-    mul lr, r0, r1
-    add r7, lr, #0xb
-    cmp lr, r7
-    mov r12, #0
-    bge @L_0206f234
-    ldr r2, =data_020c6cac
-    mov r0, #0x88
-@L_0206f210:
-    mul r3, lr, r0
-    ldrb r1, [r2, r3]
-    cmp r6, r1
-    ldreq r0, =data_020c6cae
-    ldreqsb r12, [r0, r3]
-    beq @L_0206f234
-    add lr, lr, #1
-    cmp lr, r7
-    blt @L_0206f210
-@L_0206f234:
-    add r0, r4, r5
-    add r0, r12, r0
-    mov r0, r0, lsl #0x10
-    mov r4, r0, asr #0x10
-    cmp r4, #0x64
-    mov r0, #0x64
-    movgt r4, #0x64
-    bl Random_RandB
-    mov r0, r0, lsl #0x18
-    mov r1, r0, asr #0x18
-    mov r0, r4, lsl #0x18
-    cmp r1, r0, asr #24
-    movlt r0, #1
-    movge r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s8 stat;
+    s8 teamStat;
+    u8 *info;
+    u8 pos;
+    s8 bonus;
+    int i;
+    int end;
+    s16 chance;
+
+    if (player == NULL) {
+        return FALSE;
+    }
+    if (func_02078fa4(player) && func_0207903c(player)) {
+        return TRUE;
+    }
+    stat = player->unk_c1[1];
+    info = GetTeamInfo(func_ov015_021319b0(player));
+    if (info == NULL) {
+        return FALSE;
+    }
+    teamStat = (s8)info[0x37];
+    pos = func_02078f14(player);
+    i = func_ov015_02131970(player) * 11;
+    end = i + 11;
+    bonus = 0;
+    for (; i < end; i++) {
+        if (pos == (u8)data_020c6cac[i * 0x88]) {
+            bonus = (s8)data_020c6cae[i * 0x88];
+            break;
+        }
+    }
+    chance = stat + teamStat + bonus;
+    if (chance > 100) {
+        chance = 100;
+    }
+    return (s8)Random_RandB(100) < (s8)chance;
 }
 
-asm void MatchEngine::func_0206f278()
+BOOL MatchEngine::func_0206f278(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    movs r7, r1
-    mov r6, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r4, [r7, #0xc3]
-    mov r0, r7
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r6
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r5, [r0, #0x38]
-    mov r0, r6
-    mov r1, r7
-    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
-    mov r6, r0
-    mov r0, r7
-    bl func_ov015_02131970
-    mov r1, #0xb
-    mul lr, r0, r1
-    add r7, lr, #0xb
-    cmp lr, r7
-    mov r12, #0
-    bge @L_0206f310
-    ldr r2, =data_020c6cac
-    mov r0, #0x88
-@L_0206f2ec:
-    mul r3, lr, r0
-    ldrb r1, [r2, r3]
-    cmp r6, r1
-    ldreq r0, =data_020c6caf
-    ldreqsb r12, [r0, r3]
-    beq @L_0206f310
-    add lr, lr, #1
-    cmp lr, r7
-    blt @L_0206f2ec
-@L_0206f310:
-    add r0, r4, r5
-    add r0, r12, r0
-    mov r0, r0, lsl #0x10
-    mov r4, r0, asr #0x10
-    cmp r4, #0x64
-    mov r0, #0x64
-    movgt r4, #0x64
-    bl Random_RandB
-    mov r0, r0, lsl #0x18
-    mov r1, r0, asr #0x18
-    mov r0, r4, lsl #0x18
-    cmp r1, r0, asr #24
-    movlt r0, #1
-    movge r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s8 stat;
+    s8 teamStat;
+    u8 *info;
+    u8 pos;
+    s8 bonus;
+    int i;
+    int end;
+    s16 chance;
+
+    if (player == NULL) {
+        return FALSE;
+    }
+    stat = player->unk_c1[2];
+    info = GetTeamInfo(func_ov015_021319b0(player));
+    if (info == NULL) {
+        return FALSE;
+    }
+    teamStat = (s8)info[0x38];
+    pos = func_02078f14(player);
+    i = func_ov015_02131970(player) * 11;
+    end = i + 11;
+    bonus = 0;
+    for (; i < end; i++) {
+        if (pos == (u8)data_020c6cac[i * 0x88]) {
+            bonus = (s8)data_020c6caf[i * 0x88];
+            break;
+        }
+    }
+    chance = stat + teamStat + bonus;
+    if (chance > 100) {
+        chance = 100;
+    }
+    return (s8)Random_RandB(100) < (s8)chance;
 }
 
-asm void MatchEngine::func_0206f354()
+BOOL MatchEngine::func_0206f354(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    movs r7, r1
-    mov r6, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r4, [r7, #0xc4]
-    mov r0, r7
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r6
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r5, [r0, #0x39]
-    mov r0, r6
-    mov r1, r7
-    bl _ZN11MatchEngine13func_02078f14EP11MatchPlayer
-    mov r6, r0
-    mov r0, r7
-    bl func_ov015_02131970
-    mov r1, #0xb
-    mul lr, r0, r1
-    add r7, lr, #0xb
-    cmp lr, r7
-    mov r12, #0
-    bge @L_0206f3ec
-    ldr r2, =data_020c6cac
-    mov r0, #0x88
-@L_0206f3c8:
-    mul r3, lr, r0
-    ldrb r1, [r2, r3]
-    cmp r6, r1
-    ldreq r0, =data_020c6cb0
-    ldreqsb r12, [r0, r3]
-    beq @L_0206f3ec
-    add lr, lr, #1
-    cmp lr, r7
-    blt @L_0206f3c8
-@L_0206f3ec:
-    add r0, r4, r5
-    add r0, r12, r0
-    mov r0, r0, lsl #0x10
-    mov r4, r0, asr #0x10
-    cmp r4, #0x64
-    mov r0, #0x64
-    movgt r4, #0x64
-    bl Random_RandB
-    mov r0, r0, lsl #0x18
-    mov r1, r0, asr #0x18
-    mov r0, r4, lsl #0x18
-    cmp r1, r0, asr #24
-    movlt r0, #1
-    movge r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    s8 stat;
+    s8 teamStat;
+    u8 *info;
+    u8 pos;
+    s8 bonus;
+    int i;
+    int end;
+    s16 chance;
+
+    if (player == NULL) {
+        return FALSE;
+    }
+    stat = player->unk_c1[3];
+    info = GetTeamInfo(func_ov015_021319b0(player));
+    if (info == NULL) {
+        return FALSE;
+    }
+    teamStat = (s8)info[0x39];
+    pos = func_02078f14(player);
+    i = func_ov015_02131970(player) * 11;
+    end = i + 11;
+    bonus = 0;
+    for (; i < end; i++) {
+        if (pos == (u8)data_020c6cac[i * 0x88]) {
+            bonus = (s8)data_020c6cb0[i * 0x88];
+            break;
+        }
+    }
+    chance = stat + teamStat + bonus;
+    if (chance > 100) {
+        chance = 100;
+    }
+    return (s8)Random_RandB(100) < (s8)chance;
 }
 
 void MatchEngine::func_0206f430()

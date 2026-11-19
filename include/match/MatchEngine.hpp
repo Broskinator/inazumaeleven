@@ -385,10 +385,10 @@ public:
     u8 func_0206f058();
     void func_0206f064();
     void func_0206f08c();
-    void func_0206f09c();
-    void func_0206f178();
-    void func_0206f278();
-    void func_0206f354();
+    BOOL func_0206f09c(MatchPlayer *player);
+    BOOL func_0206f178(MatchPlayer *player);
+    BOOL func_0206f278(MatchPlayer *player);
+    BOOL func_0206f354(MatchPlayer *player);
     void func_0206f430();
     void func_0206f4ac(int index, s8 *data);
     int func_0206f500(int id);

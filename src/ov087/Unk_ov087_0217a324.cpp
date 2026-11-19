@@ -101,7 +101,7 @@ extern "C" void _ZN11MatchEngine13func_0206c890Em(void);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
 extern "C" void _ZN11MatchEngine13func_0206df44Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206e1d4Eih(void);
-extern "C" s32 _ZN11MatchEngine13func_0206f354Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206f354EP11MatchPlayer(...);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" s32 _ZN11MatchEngine13func_02078498Ev(...);
 extern "C" void _ZN11MatchEngine13func_020784ecEP11MatchPlayerll(void);
@@ -699,7 +699,7 @@ extern "C" asm void func_ov087_0217a858(void)
     beq @L_0217aac8
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0206f354Ev
+    bl _ZN11MatchEngine13func_0206f354EP11MatchPlayer
     cmp r0, #0
     bne @L_0217aaa0
     mov r0, r10
@@ -744,7 +744,7 @@ extern "C" asm void func_ov087_0217a858(void)
     bl func_ov087_0217d0ac
     b @L_0217ab60
 @L_0217ab24:
-    bl _ZN11MatchEngine13func_0206f354Ev
+    bl _ZN11MatchEngine13func_0206f354EP11MatchPlayer
     cmp r0, #0
     bne @L_0217ab40
     mov r0, r10
@@ -1141,7 +1141,7 @@ extern "C" asm void func_ov087_0217b014(void)
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
     mov r0, r10
     mov r1, r4
-    bl _ZN11MatchEngine13func_0206f354Ev
+    bl _ZN11MatchEngine13func_0206f354EP11MatchPlayer
     cmp r0, #0
     bne @L_0217b128
     mov r0, r10
@@ -2448,7 +2448,7 @@ extern "C" s32 func_ov087_0217c540(s32 arg0)
                 arg0 = r10;
                 r1 = (s32)r8;
                 if (v2 != 0) {
-                    v3 = _ZN11MatchEngine13func_0206f354Ev(arg0, r1);
+                    v3 = _ZN11MatchEngine13func_0206f354EP11MatchPlayer(arg0, r1);
                     if (v3 == 0) {
                         v4 = _ZN11MatchEngine13func_02065414EP11MatchPlayer(r10, (s32)r8);
                         arg0 = v4;
@@ -2457,7 +2457,7 @@ extern "C" s32 func_ov087_0217c540(s32 arg0)
                         arg0 = v5;
                     }
                 } else {
-                    v6 = _ZN11MatchEngine13func_0206f354Ev(arg0, r1);
+                    v6 = _ZN11MatchEngine13func_0206f354EP11MatchPlayer(arg0, r1);
                     if (v6 == 0) {
                         v7 = _ZN11MatchEngine13func_02065414EP11MatchPlayer(r10, (s32)r8);
                         arg0 = v7;
@@ -3251,7 +3251,7 @@ extern "C" s32 func_ov087_0217d18c(s32 arg0, u8 *arg1)
     v0 = func_02084870((s32)arg1, (s32)arg1);
     r6 = arg0;
     if (v0 != 0) {
-        v1 = _ZN11MatchEngine13func_0206f354Ev(r6, (s32)arg1);
+        v1 = _ZN11MatchEngine13func_0206f354EP11MatchPlayer(r6, (s32)arg1);
         if (v1 == 0) {
             v2 = _ZN11MatchEngine13func_02065414EP11MatchPlayer(r6, (s32)arg1);
             return v2;
@@ -3271,7 +3271,7 @@ extern "C" s32 func_ov087_0217d18c(s32 arg0, u8 *arg1)
                 return v4;
         }
         func_ov087_021769f8(r6, (s32)arg1, (s32)((u8 *)local), 3);
-        v6 = _ZN11MatchEngine13func_0206f354Ev(r6, (s32)arg1);
+        v6 = _ZN11MatchEngine13func_0206f354EP11MatchPlayer(r6, (s32)arg1);
         r4 = (s32)((u8 *)local);
         if (v6 == 0) {
             v7 = _ZN11MatchEngine13func_02065414EP11MatchPlayer(r6, (s32)arg1);
