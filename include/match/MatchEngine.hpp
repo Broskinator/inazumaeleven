@@ -12,12 +12,20 @@ struct SaveBody;
 
 // (what func_ov015_02143664 gives)
 struct UnkPair_020621b4 {
-    u8 unk_0[8];
+    MatchPoint pos;
     s16 unk_8;
     s16 unk_a;
     s8 unk_c;           // (a team)
     s8 unk_d;
+    u8 unk_e[2];
+    u8 unk_10;          // (flags)
+    u8 unk_11[0x18 - 0x11];
 };
+
+static inline BOOL UnkPair_020621b4_HasFlag(UnkPair_020621b4 *pair, u8 flag)
+{
+    return (pair->unk_10 & flag) ? TRUE : FALSE;
+}
 
 // A state of the match (the current one is at 0xB84, the past ones in a ring at 0xC7C)
 // A record of 0x18 bytes, ten of them at MatchEngine::unk_116a4 (func_02076168 gives the next one
@@ -64,8 +72,14 @@ struct UnkSlot_020621b4 {
     void *unk_18;       // (where unk_0 is saved)
     u8 unk_1c;          // (0xFF: not saved)
     u8 unk_1d[0x22 - 0x1D];
-    u8 unk_22;          // (flags in bits 0-3)
+    u8 flags : 4;
+    u8 unk_22 : 4;
 };
+
+static inline BOOL UnkSlot_020621b4_HasFlag(UnkSlot_020621b4 *slot, u8 flag)
+{
+    return (slot->flags & flag) ? TRUE : FALSE;
+}
 
 
 // The object at data_020e88a0 (0x11920+ bytes, made by the static constructors): the match's data
@@ -221,7 +235,7 @@ public:
     u8 func_0206b4b8(int a);
     u8 *func_0206b4cc(int i);
     void func_0206b4d8();
-    void func_0206b508();
+    BOOL func_0206b508(MatchPoint *out, BOOL force);
     void func_0206b5a0();
     void func_0206b628();
     void func_0206b89c();
@@ -425,7 +439,7 @@ public:
     int func_020730dc(MatchPlayer *player, int a, int b, int c);
     void func_020731c4();
     BOOL func_020732b0(int a, int id, s32 *out);
-    void func_020733d4();
+    BOOL func_020733d4(MatchPlayer *player, int a, int id, int b, int c, BOOL flag, int d, int e);
     void func_020738e4();
     u8 *func_020739a8(int i);
     u8 *func_020739cc(int i);
@@ -440,7 +454,7 @@ public:
     void func_02074210();
     BOOL func_020742f0(MatchPlayer *player, int a, int b);
     BOOL func_0207436c(MatchPlayer *player, int a, int b, int i, BOOL flag);
-    void func_02074424();
+    BOOL func_02074424(MatchPlayer *player, int a, int b, int c);
     BOOL func_020744d4(int a);
     int func_0207455c(int a, BOOL b, u32 flags);
     int func_02074584(int a, BOOL b, u32 flags);

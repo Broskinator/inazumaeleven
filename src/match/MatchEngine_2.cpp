@@ -49,8 +49,8 @@ extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 
 
 extern "C" void func_0208e9d4(void);     // (for the asm functions)
-extern "C" void func_0208f2d0(void);     // (for the asm functions)
-extern "C" void func_0208f300(void);     // (for the asm functions)
+extern "C" void func_0208f2d0(u8 *obj);
+extern "C" void func_0208f300(u8 *obj, u8 value);
 extern "C" void func_0208f310(void);     // (for the asm functions)
 extern "C" void func_0208f6ac(void);     // (for the asm functions)
 extern "C" void func_0208e9b8(void);     // (for the asm functions)
@@ -334,7 +334,7 @@ extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206de34Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020725acEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020732b0EiiPl(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020733d4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02073fa0EP11MatchPlayeriii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074210Ev(void);     // (for the asm functions)
@@ -366,7 +366,7 @@ extern "C" void _ZN11MatchEngine13func_02072bb8Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_020730dcEP11MatchPlayeriii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020731c4Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020732b0EiiPl(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020733d4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020738e4Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
@@ -401,7 +401,7 @@ extern "C" void _ZNK25UnkDequeIterator_0207076c13func_02072538ERKS_(void);     /
 extern "C" UnkSlot_020621b4 *func_ov015_02143750(MatchEngine *self, int id);
 extern "C" char data_020af210[];
 extern "C" UnkPair_020621b4 *func_ov015_02143664(MatchEngine *self);
-extern "C" char data_020c4824[];
+extern "C" u8 *data_020c4824;
 extern "C" MatchArea data_020c4de0;     // (the field)
 extern "C" UnkData_020c4ee0 data_020c4ee0;
 extern "C" char data_020c4eec[];
@@ -477,7 +477,7 @@ void MatchEngine::func_0206f08c()
 extern "C" char g3DFieldSprite[];
 extern "C" u8 data_020cb288[15][0x70];
 extern "C" s32 func_ov015_0213a75c(s32 sprite, u8 *player, u8 a, s32 frame, u8 b);
-extern "C" void func_ov015_0213b1f0(void);
+extern "C" void func_ov015_0213b1f0(void *sprite);
 extern "C" char data_020aeb84[];
 extern "C" char data_020aeb88[];
 extern "C" char data_020aeb8c[];
@@ -1792,46 +1792,21 @@ asm void MatchEngine::func_0206ffe0()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_020704b0(BOOL a)
+void MatchEngine::func_020704b0(BOOL a)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r1
-    bl func_ov015_02143750
-    movs r4, r0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    ldrb r0, [r4, #0x22]
-    mov r0, r0, lsl #0x1c
-    mov r0, r0, lsr #0x1c
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    bne @L_020704ec
-    cmp r6, #0
-    beq @L_02070530
-@L_020704ec:
-    ldr r5, =data_020c4824
-    ldr r0, [r5]
-    bl func_0208f2d0
-    ldr r0, [r5]
-    mov r1, #0
-    bl func_0208f300
-    cmp r6, #0
-    beq @L_02070530
-    ldrb r1, [r4, #0x22]
-    mov r0, r1, lsl #0x1c
-    mov r0, r0, lsr #0x1c
-    orr r0, r0, #4
-    and r0, r0, #0xff
-    bic r1, r1, #0xf
-    and r0, r0, #0xf
-    orr r0, r1, r0
-    strb r0, [r4, #0x22]
-@L_02070530:
-    ldr r0, =g3DFieldSprite
-    ldr r0, [r0]
-    bl func_ov015_0213b1f0
-    ldmia sp!, {r4, r5, r6, pc}
+    UnkSlot_020621b4 *slot = func_ov015_02143750(this, a);
+
+    if (slot == NULL) {
+        return;
+    }
+    if (UnkSlot_020621b4_HasFlag(slot, 1) || a) {
+        func_0208f2d0(data_020c4824);
+        func_0208f300(data_020c4824, 0);
+        if (a) {
+            slot->flags = (u8)(slot->flags | 4);
+        }
+    }
+    func_ov015_0213b1f0(*(void **)g3DFieldSprite);
 }
 
 void MatchEngine::func_02070548(int id)
@@ -4998,7 +4973,7 @@ asm BOOL MatchEngine::func_020732b0(int a, int id, s32 *out)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
 
-asm void MatchEngine::func_020733d4()
+asm BOOL MatchEngine::func_020733d4(MatchPlayer *player, int a, int id, int b, int c, BOOL flag, int d, int e)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x1c
@@ -5223,7 +5198,7 @@ asm void MatchEngine::func_020733d4()
     ldr r2, [sp, #0x18]
     mov r1, r10
     str r5, [sp, #0x10]
-    bl _ZN11MatchEngine13func_020733d4Ev
+    bl _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii
     cmp r0, #0
     beq @L_02073730
     cmp r6, #0
@@ -5967,7 +5942,7 @@ asm void MatchEngine::func_02074210()
     mov r0, r10
     mov r1, r9
     mov r3, r4
-    bl _ZN11MatchEngine13func_020733d4Ev
+    bl _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii
     cmp r0, #0
     beq @L_020742d8
     cmp r8, #0
@@ -6051,54 +6026,19 @@ asm BOOL MatchEngine::func_0207436c(MatchPlayer *player, int a, int b, int i, BO
     ldmia sp!, {r3, pc}
 }
 
-asm void MatchEngine::func_02074424()
+BOOL MatchEngine::func_02074424(MatchPlayer *player, int a, int b, int c)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x14
-    mov r9, r1
-    mov r10, r0
-    mov r0, r9
-    mov r8, r2
-    mov r7, r3
-    ldr r6, [sp, #0x38]
-    bl func_ov015_021319b0
-    add r0, r10, r0
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x7d6]
-    mov r4, #0
-    mov r11, r4
-    tst r0, #1
-    movne r5, #1
-    moveq r5, #0
-@L_02074468:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r7
-    mov r3, r6
-    stmia sp, {r4, r5}
-    bl _ZN11MatchEngine13func_0207436cEP11MatchPlayeriiii
-    movs r3, r0
-    beq @L_020744bc
-    str r7, [sp]
-    str r6, [sp, #4]
-    str r5, [sp, #8]
-    str r11, [sp, #0xc]
-    mov r0, r10
-    mov r1, r9
-    mov r2, r8
-    str r11, [sp, #0x10]
-    bl _ZN11MatchEngine13func_020733d4Ev
-    cmp r0, #0
-    addne sp, sp, #0x14
-    movne r0, #1
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020744bc:
-    add r4, r4, #1
-    cmp r4, #6
-    blt @L_02074468
-    mov r0, #0
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    BOOL flag = (unk_117d6[func_ov015_021319b0(player)] & 1) ? TRUE : FALSE;
+    int i;
+    int id;
+
+    for (i = 0; i < 6; i++) {
+        id = func_0207436c(player, b, c, i, flag);
+        if (id != 0 && func_020733d4(player, a, id, b, c, flag, 0, 0)) {
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 BOOL MatchEngine::func_020744d4(int a)
