@@ -35,3 +35,4 @@ MatchEngine::func_0206a590  src/match/MatchEngine.cpp  45 words: spills player (
 MatchEngine::func_0206a648  src/match/MatchEngine.cpp  45 words: as func_0206a590 (the twin), player spilled and a kept in r11
 MatchEngine::func_0206cec0  src/match/MatchEngine.cpp  25 words: the ROM sets each result to 1 first and clears it (an inline-style 0/1), and zeroes r4 before the first call
 MatchEngine::func_0206b5a0  src/match/MatchEngine.cpp  3 words: pos->x stored before pos->y is loaded; the ROM loads both (ldr, ldr =ball, ldr) then stores, without ldm/stm
+MatchEngine::func_020776f8  src/match/MatchEngine_2.cpp  22 words: lsr #16 of the id hoisted out of the search loop; the ROM compares with "cmp r2, r1, lsr #16" in it
