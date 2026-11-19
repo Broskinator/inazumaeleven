@@ -212,7 +212,7 @@ extern "C" void _ZN11MatchEngine13func_0207c3d8Ei(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c65cEmiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c720Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207c7f4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207c7f4EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207c8e0Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207cbd8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207d214Eii(void);     // (for the asm functions)
@@ -565,6 +565,11 @@ extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+// the kinds func_0207c7f4 compares (data_020a722c)
+struct UnkKinds_0207c7f4 {
+    s32 kinds[7];
+};
+
 static inline void MatchPlayerState_SetBit_88(MatchPlayerState *state, int bit, BOOL set)
 {
     state->unk_88 &= 0xFF - bit;
@@ -14220,66 +14225,40 @@ asm void MatchEngine::func_0207c720()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0207c7f4()
+// marks, for the player's team, the kind (of data_020a722c) with the player's best
+// func_0207f7cc, with 8% of that value
+void MatchEngine::func_0207c7f4(MatchPlayer *player)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x1c
-    ldr r5, =data_020a722c
-    add r4, sp, #0
-    movs r9, r1
-    mov r10, r0
-    ldmia r5!, {r0, r1, r2, r3}
-    stmia r4!, {r0, r1, r2, r3}
-    ldmia r5, {r0, r1, r2}
-    mvn r7, #0
-    mov r8, #0
-    addeq sp, sp, #0x1c
-    stmia r4, {r0, r1, r2}
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrh r0, [r9, #0xf0]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, r8
-    cmp r0, #0
-    addeq sp, sp, #0x1c
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r9
-    bl func_02080b90
-    add r1, r10, #0xe4
-    mov r6, #0
-    rsb r11, r0, r0, lsl #3
-    add r0, r1, #0x11800
-    mov r1, r6
-    add r0, r0, r11
-    mov r2, #7
-    bl MI_CpuFill8
-    add r5, sp, #0
-    mov r4, r6
-@L_0207c878:
-    ldr r2, [r5, r6, lsl #2]
-    mov r0, r10
-    mov r1, r9
-    mov r3, r4
-    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
-    cmp r0, r7
-    movgt r8, r6
-    add r6, r6, #1
-    movgt r7, r0
-    cmp r6, #7
-    blt @L_0207c878
-    cmp r7, #0
-    movlt r7, #0
-    ldr r1, =0x51eb851f
-    mov r2, r7, lsl #3
-    smull r0, r3, r1, r2
-    add r1, r11, r8
-    mov r0, r2, lsr #0x1f
-    add r1, r10, r1
-    add r3, r0, r3, asr #5
-    add r0, r1, #0x11000
-    strb r3, [r0, #0x8e4]
-    add sp, sp, #0x1c
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    UnkKinds_0207c7f4 list = *(UnkKinds_0207c7f4 *)data_020a722c;
+    int i;
+    s32 best;
+    int bestIdx;
+    int team;
+    int base;
+    s32 v;
+
+    best = -1;
+    bestIdx = 0;
+    if (player == NULL) {
+        return;
+    }
+    if (!MatchPlayer_HasFlag(player, 1)) {
+        return;
+    }
+    team = func_02080b90(player);
+    base = team * 7;
+    MI_CpuFill8(&unk_118e4[base], 0, 7);
+    for (i = 0; i < 7; i++) {
+        v = func_0207f7cc(player, list.kinds[i], 0);
+        if (v > best) {
+            bestIdx = i;
+            best = v;
+        }
+    }
+    if (best < 0) {
+        best = 0;
+    }
+    unk_118e4[base + bestIdx] = best * 8 / 100;
 }
 
 asm void MatchEngine::func_0207c8e0(int a)
@@ -14893,7 +14872,7 @@ asm void MatchEngine::func_0207d118()
     bl _ZN11MatchEngine13func_0207c720Ev
     mov r0, r10
     mov r1, r4
-    bl _ZN11MatchEngine13func_0207c7f4Ev
+    bl _ZN11MatchEngine13func_0207c7f4EP11MatchPlayer
     mov r6, #1
     mov r5, r8
     mov r4, #3

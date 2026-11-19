@@ -667,7 +667,7 @@ public:
     void func_0207c65c(u32 id, int a, int b, int c);
     void func_0207c6b4(int a, BOOL update, BOOL force);
     void func_0207c720();
-    void func_0207c7f4();
+    void func_0207c7f4(MatchPlayer *player);
     void func_0207c8e0(int a);
     void func_0207cbd8(int a);
     void func_0207d118();
@@ -862,7 +862,9 @@ public:
     u8 unk_118d6[0x118DD - 0x118D6];
     u8 unk_118dd;
     u8 unk_118de;
-    u8 unk_118df[0x118F4 - 0x118DF];
+    u8 unk_118df[0x118E4 - 0x118DF];
+    u8 unk_118e4[2 * 7];    // (7 per team: func_0207c7f4)
+    u8 unk_118f2[0x118F4 - 0x118F2];
     u8 unk_118f4;
     u8 unk_118f5;
     u8 unk_118f6[0x118FC - 0x118F6];
