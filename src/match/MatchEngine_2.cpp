@@ -335,7 +335,7 @@ extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);    
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02073fa0EP11MatchPlayeriii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074210Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207436cEP11MatchPlayeriiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207436cEP11MatchPlayeriiib(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207455cEiim(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074584Eiim(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020745acEiim(void);     // (for the asm functions)
@@ -5881,7 +5881,7 @@ asm void MatchEngine::func_02074210()
     mov r1, r9
     mov r3, r11
     stmia sp, {r5, r7}
-    bl _ZN11MatchEngine13func_0207436cEP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_0207436cEP11MatchPlayeriiib
     movs r4, r0
     beq @L_020742d8
     ldr r0, [sp, #0x18]
@@ -5915,7 +5915,7 @@ asm void MatchEngine::func_02074210()
 BOOL MatchEngine::func_020742f0(MatchPlayer *player, int a, int b)
 {
     int i;
-    BOOL flag = (unk_117d6[func_ov015_021319b0(player)] & 1) ? TRUE : FALSE;
+    bool flag = (unk_117d6[func_ov015_021319b0(player)] & 1) != 0;
 
     for (i = 0; i < 6; i++) {
         if (func_0207436c(player, a, b, i, flag)) {
@@ -5925,63 +5925,32 @@ BOOL MatchEngine::func_020742f0(MatchPlayer *player, int a, int b)
     return FALSE;
 }
 
-asm BOOL MatchEngine::func_0207436c(MatchPlayer *player, int a, int b, int i, BOOL flag)
+BOOL MatchEngine::func_0207436c(MatchPlayer *player, int a, int b, int i, bool flag)
 {
-    stmdb sp!, {r3, lr}
-    sub sp, sp, #8
-    cmp r1, #0
-    ldr lr, [sp, #0x10]
-    ldr r12, [sp, #0x14]
-    addeq sp, sp, #8
-    moveq r0, #0
-    ldmeqia sp!, {r3, pc}
-    cmp r2, #0
-    bne @L_020743c0
-    cmp r3, #0
-    mov r2, lr
-    mov r3, #0
-    str r12, [sp]
-    bne @L_020743b4
-    bl _ZN11MatchEngine13func_02074700Eiiih
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
-@L_020743b4:
-    bl _ZN11MatchEngine13func_02074728Eiiih
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
-@L_020743c0:
-    cmp r2, #2
-    bne @L_020743f8
-    cmp r3, #1
-    addne sp, sp, #8
-    movne r0, #0
-    ldmneia sp!, {r3, pc}
-    mov r2, #0x40
-    str r2, [sp]
-    mov r3, lr
-    mov r2, #6
-    str r12, [sp, #4]
-    bl _ZN11MatchEngine13func_020745e4Eiiiih
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
-@L_020743f8:
-    cmp r3, #0
-    mov r2, lr
-    mov r3, #0
-    str r12, [sp]
-    bne @L_02074418
-    bl _ZN11MatchEngine13func_02074750Eiiih
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
-@L_02074418:
-    bl _ZN11MatchEngine13func_02074778Eiiih
-    add sp, sp, #8
-    ldmia sp!, {r3, pc}
+    if (player == NULL) {
+        return FALSE;
+    }
+    if (a == 0) {
+        if (b == 0) {
+            return func_02074700((int)player, i, 0, flag);
+        }
+        return func_02074728((int)player, i, 0, flag);
+    }
+    if (a == 2) {
+        if (b != 1) {
+            return FALSE;
+        }
+        return func_020745e4((int)player, 6, i, 0x40, flag);
+    }
+    if (b == 0) {
+        return func_02074750((int)player, i, 0, flag);
+    }
+    return func_02074778((int)player, i, 0, flag);
 }
 
 BOOL MatchEngine::func_02074424(MatchPlayer *player, int a, int b, int c)
 {
-    BOOL flag = (unk_117d6[func_ov015_021319b0(player)] & 1) ? TRUE : FALSE;
+    bool flag = (unk_117d6[func_ov015_021319b0(player)] & 1) != 0;
     int i;
     int id;
 
