@@ -1,0 +1,31 @@
+--- before
++++ after
+@@ -1985,7 +1985,7 @@
+ fx32 MatchEngine__func_0206a078(MatchEngine *this, MatchPlayer *player)
+ {
+   s32 v;
+-  if (player == 0)
++  if (player == ((v << 14) * 0))
+   {
+     return 0;
+   }
+@@ -1995,10 +1995,18 @@
+     v = this->unk_11928;
+   }
+   else
++  {
++    if (!this)
++    {
++    }
+     if (v > this->unk_1192c)
+   {
+     v = this->unk_1192c;
+   }
+-  return this->unk_1191c + FX_Mul(this->unk_11924, FX_SinIdx(((v << 14) / this->unk_1192c) >> 4));
++  }
++  return this->unk_1191c + FX_Mul(this->unk_11924, FX_SinIdx(((v << 14) / this->unk_1192c) >> 4) & 0xFFFFu);
++  if (!this)
++  {
++  }
+ }
+ 

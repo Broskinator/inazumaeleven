@@ -8713,8 +8713,6 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-// (nonmatching: the sine is loaded with ldrsh, the ROM has ldrh (and still multiplies it signed: smull); a u16 load gives umull)
-#ifdef NONMATCHING
 fx32 MatchEngine::func_0206a078(MatchPlayer *player)
 {
     s32 v;
@@ -8728,47 +8726,9 @@ fx32 MatchEngine::func_0206a078(MatchPlayer *player)
     } else if (v > unk_1192c) {
         v = unk_1192c;
     }
-    return unk_1191c + FX_Mul(unk_11924, FX_SinIdx(((v << 14) / unk_1192c) >> 4));
+    // (the sine of 0-90 degrees, read as 16 bits: ldrh)
+    return unk_1191c + FX_Mul(unk_11924, FX_SinIdx(((v << 14) / unk_1192c) >> 4) & 0xFFFF);
 }
-#else
-asm fx32 MatchEngine::func_0206a078(MatchPlayer *player)
-{
-    stmdb sp!, {r4, lr}
-    mov r4, r0
-    cmp r1, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, pc}
-    mov r0, r1
-    bl func_02081600
-    add r1, r4, #0x11000
-    ldr r2, [r1, #0x928]
-    cmp r0, r2
-    movlt r0, r2
-    blt @L_0206a0b4
-    ldr r1, [r1, #0x92c]
-    cmp r0, r1
-    movgt r0, r1
-@L_0206a0b4:
-    add r1, r4, #0x11000
-    ldr r1, [r1, #0x92c]
-    mov r0, r0, lsl #0xe
-    bl _s32_div_f
-    add r1, r4, #0x11000
-    mov r2, r0, asr #4
-    ldr r0, =FX_SinCosTable_
-    mov r2, r2, lsl #2
-    ldrh r0, [r0, r2]
-    ldr r2, [r1, #0x924]
-    ldr r3, [r1, #0x91c]
-    smull r1, r0, r2, r0
-    adds r1, r1, #0x800
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    add r0, r3, r1
-    ldmia sp!, {r4, pc}
-}
-#endif
 
 asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
 {
