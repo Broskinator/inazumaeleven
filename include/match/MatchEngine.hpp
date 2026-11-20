@@ -432,12 +432,12 @@ public:
     void func_020725ac();
     int func_020728e0(int value);
     void func_02072914();
-    void func_02072a5c();
-    void func_02072bb8();
+    BOOL func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8 *req);
+    void func_02072bb8(MatchPlayer *player, int id, int slot);
     int func_02072fe8(MatchPlayer *player, int id, BOOL first);
     int func_02073094(int index, int a, int b);
-    int func_020730dc(MatchPlayer *player, int a, int b, int c);
-    void func_020731c4();
+    BOOL func_020730dc(MatchPlayer *player, int id, int slot, u8 force);
+    BOOL func_020731c4(MatchPlayer *player, u8 *move, BOOL any);
     BOOL func_020732b0(int a, int id, s32 *out);
     BOOL func_020733d4(MatchPlayer *player, int a, int id, int b, int c, BOOL flag, int d, int e);
     BOOL func_020738e4(void *buffer, int index);
@@ -472,9 +472,9 @@ public:
     int func_020748fc(int id);
     static u16 func_020749c8(s16 *values, BOOL reduce, int percent);
     static u16 func_02074a18(s16 *values, MatchPlayer *player);
-    int func_02074aac();
-    int func_02074abc();
-    u8 func_02074ac8();
+    static int func_02074aac(u8 *req);     // (req: the 12 bytes func_020738e4 copies)
+    static int func_02074abc(u8 *req);
+    static u8 func_02074ac8(u8 *req);
     void func_02074b30();
     void func_02074f90();
     void func_020751b8();

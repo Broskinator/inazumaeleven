@@ -399,7 +399,7 @@ void _ZN11MatchEngine13func_0206c064Ei(void);
 void _ZN11MatchEngine13func_02068248Ev(void);
 extern char data_020af140[];
 extern char data_020af15c[];
-void _ZN11MatchEngine13func_02074ac8Ev(void);
+void _ZN11MatchEngine13func_02074ac8EPh(void);
 void func_02074ad0(void);
 void func_02074b00(void);
 void STD_CompareString(void);
@@ -8156,7 +8156,7 @@ asm void func_01ffeee4(void)
     mul r8, r4, r7
     ldr r9, [r6, #0xc2c]
     add r0, r9, r8
-    bl _ZN11MatchEngine13func_02074ac8Ev
+    bl _ZN11MatchEngine13func_02074ac8EPh
     cmp r5, r0
     addeq r0, r9, r8
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}

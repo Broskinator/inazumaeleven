@@ -61,7 +61,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
-extern "C" void _ZN11MatchEngine13func_020731c4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020731c4EP11MatchPlayerPhi(void);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZdlPv(...);
@@ -1739,7 +1739,7 @@ extern "C" asm void func_ov048_0216d02c(void)
     mov r1, r7
     mov r2, r6
     mov r3, r11
-    bl _ZN11MatchEngine13func_020731c4Ev
+    bl _ZN11MatchEngine13func_020731c4EP11MatchPlayerPhi
     cmp r0, #0
     bne @L_0216d634
     ldr r0, =gAudioPlayer

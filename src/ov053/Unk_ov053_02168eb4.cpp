@@ -57,8 +57,8 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" s32 _ZN11MatchEngine13func_0206ea40Ei(...);
-extern "C" void _ZN11MatchEngine13func_020730dcEP11MatchPlayeriii(void);
-extern "C" s32 _ZN11MatchEngine13func_020731c4Ev(...);
+extern "C" void _ZN11MatchEngine13func_020730dcEP11MatchPlayeriih(void);
+extern "C" s32 _ZN11MatchEngine13func_020731c4EP11MatchPlayerPhi(...);
 extern "C" s32 _ZN11MatchEngine13func_020739ccEi(...);
 extern "C" s32 _ZN11MatchEngine13func_020767bcEv(...);
 extern "C" void _ZN11MatchEngine13func_020767ccEl(void);
@@ -1780,7 +1780,7 @@ extern "C" asm void func_ov053_0216a850(void)
     mov r2, r2, lsl #0x10
     mov r3, r4
     mov r2, r2, lsr #0x10
-    bl _ZN11MatchEngine13func_020730dcEP11MatchPlayeriii
+    bl _ZN11MatchEngine13func_020730dcEP11MatchPlayeriih
     mov r4, #0
     mov r0, r7
     mov r1, r4
@@ -1883,7 +1883,7 @@ extern "C" void func_ov053_0216aa84(u8 *arg0)
 {
     s32 v0 = func_ov015_02130b14(*(s32 *)(arg0 + 0x1F0), 0);
     s32 v1 = _ZN11MatchEngine13func_020739ccEi((s32)data_020e88a0, *(s32 *)(((u8 *)(arg0 + (*(s32 *)(arg0 + 0x218) << 2))) + 0x1F4));
-    _ZN11MatchEngine13func_020731c4Ev((s32)data_020e88a0, v0, v1, 1);
+    _ZN11MatchEngine13func_020731c4EP11MatchPlayerPhi((s32)data_020e88a0, v0, v1, 1);
 }
 
 extern "C" s32 func_ov053_0216aad0(u8 *arg0)
