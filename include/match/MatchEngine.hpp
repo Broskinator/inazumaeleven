@@ -149,7 +149,7 @@ public:
     BOOL func_02067aec(MatchPlayer *player, int a, int b, void *c, int d, int e);
     BOOL func_02067e00(MatchPlayer *player, int a, int b, int c);
     BOOL func_02067e78(MatchPlayer *player, int a, int b);
-    void func_02067f44();
+    int func_02067f44(MatchPlayer *player, int angle);
     void func_02068028();
     BOOL func_0206811c(u16 *action);
     void func_0206815c(MatchPoint *pos, MatchPoint *a, MatchPoint *b, fx32 percent);

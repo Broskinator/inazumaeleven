@@ -227,7 +227,7 @@ extern "C" void _ZN11MatchEngine13func_0206bfb4Ei(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206bfecEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02067f44Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02067f44EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068028Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206811cEPt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020681d8EP10MatchPointilS1_(void);     // (for the asm functions)
@@ -414,7 +414,7 @@ extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
 extern "C" void func_01ffec94(void);
-extern "C" void func_01ffed20(void);
+extern "C" BOOL func_01ffed20(MatchEngine *self, MatchPlayer *player, fx32 y);
 extern "C" u32 Random_RandB(u32 max);
 extern "C" void func_ov015_02140f2c(void);
 extern "C" void func_ov015_02142824(void);
@@ -424,7 +424,7 @@ extern "C" void func_ov087_0217e878(void);
 extern "C" void func_ov087_02180be0(void);
 extern "C" void func_ov087_021820a8(void);
 extern "C" char data_020c4ecc[];
-extern "C" void func_01ffe4c4(void);
+extern "C" BOOL func_01ffe4c4(MatchEngine *self, MatchPlayer *player, fx32 x, fx32 y, u32 flags);
 extern "C" void func_01ffe75c(void);
 extern "C" void func_01ffe898(void);
 extern "C" void func_01ffecec(void);
@@ -6494,7 +6494,40 @@ BOOL MatchEngine::func_02067e78(MatchPlayer *player, int a, int b)
     return func_02067aec(player, a, b, buffer, n, 0x81080F);
 }
 
-asm void MatchEngine::func_02067f44()
+// (nonmatching: far.y stays in r1 from the abs to the func_02084350 call; the ROM loads it into r0 in each branch and again for the call)
+#ifdef NONMATCHING
+int MatchEngine::func_02067f44(MatchPlayer *player, int angle)
+{
+    MatchPoint near;
+    MatchPoint far;
+    int score = 100000;
+    fx32 d;
+
+    func_020687cc((MatchPoint *)&data_020c4920.pos, angle, 0x32000, &near);
+    func_020687cc((MatchPoint *)&data_020c4920.pos, angle, 0x96000, &far);
+    if (func_01ffe4c4(this, player, near.x, near.y, 0x10011)) {
+        score = 1;
+    }
+    if (func_01ffed20(this, player, far.y)) {
+        d = player->body->pos.y - far.y;
+        if (d < 0) {
+            d = -d;
+        }
+        score += d >> 12;
+    } else {
+        d = player->body->pos.y - far.y;
+        if (d < 0) {
+            d = -d;
+        }
+        score -= d >> 12;
+    }
+    if (!func_02084350(far.x, far.y)) {
+        score += 10;
+    }
+    return score;
+}
+#else
+asm int MatchEngine::func_02067f44(MatchPlayer *player, int angle)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
     sub sp, sp, #0x14
@@ -6553,6 +6586,7 @@ asm void MatchEngine::func_02067f44()
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
 }
+#endif
 
 asm void MatchEngine::func_02068028()
 {
@@ -6598,7 +6632,7 @@ asm void MatchEngine::func_02068028()
     mov r0, r8
     mov r1, r7
     mov r2, r10
-    bl _ZN11MatchEngine13func_02067f44Ev
+    bl _ZN11MatchEngine13func_02067f44EP11MatchPlayeri
     cmp r0, r5
     movgt r4, r10
     movgt r5, r0
