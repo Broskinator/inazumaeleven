@@ -1,6 +1,15 @@
 #include "match/MatchGeometry.hpp"
 #include "match/Match.hpp"
 #include "nitro/mi.h"
+struct UnkTrail_02084e40 {
+    VecFx32 cur;
+    VecFx32 hist[0x60];     // 0xC
+    s32 index;              // 0x48C
+    fx32 minDist;           // 0x490
+    s32 delay;              // 0x494
+    VecFx32 out[4];         // 0x498
+};
+extern "C" BOOL func_02084e70(UnkTrail_02084e40 *trail, fx32 x, fx32 y, fx32 z, u8 force);
 struct S02084be8 { u8 pad[0x14]; s32 x14; s32 x18; s32 x1c; s32 x20; s32 x24; s32 x28; s32 x2c; };
 struct V02084f84 { s32 x, y, z; };
 struct S02084f84 { V02084f84 a; V02084f84 b[0x60]; s32 c; s32 pad[2]; V02084f84 d[4]; };
@@ -88,7 +97,7 @@ extern "C" BOOL func_02084dd8(u8 *obj);
 extern "C" BOOL func_02084de8(u8 *obj);
 extern "C" s32 func_02084e08(s32 arg0, s32 arg1);
 extern "C" void func_02084e40(u8 *obj, s32 a, s32 b);
-extern "C" void func_02084e70(void);
+// (the last 0x60 positions; out: the ones delay, 2*delay, ... back; func_02084e40 sets it up)
 extern "C" void func_02084f84(S02084f84 *arg0, s32 x, s32 y, s32 z);
 extern "C" void func_02084fdc(void *data);
 
@@ -101,7 +110,7 @@ extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
 extern "C" void FX_Div(void);
 extern "C" void FX_Sqrt(void);
-extern "C" void func_02099adc(void);
+extern "C" int func_02099adc(int x0, int y0, int x1, int y1);
 extern "C" s32 func_ov015_02131854(...);
 
 extern "C" asm void func_02083afc(void)
@@ -1341,78 +1350,35 @@ extern "C" void func_02084e40(u8 *obj, s32 a, s32 b)
     *(s32 *)(obj + 0x494) = b;
 }
 
-extern "C" asm void func_02084e70(void)
+extern "C" BOOL func_02084e70(UnkTrail_02084e40 *trail, fx32 x, fx32 y, fx32 z, u8 force)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r4, r0
-    ldr r5, [r4, #0x48c]
-    mov r0, #0xc
-    mul r0, r5, r0
-    mov r7, r1
-    mov r6, r2
-    mov r5, r3
-    add r1, r4, #0xc
-    str r7, [r4]
-    str r6, [r4, #4]
-    str r5, [r4, #8]
-    add r2, r1, r0
-    ldmia r2, {r0, r1}
-    mov r2, r7
-    mov r3, r6
-    bl func_02099adc
-    ldrb r1, [sp, #0x20]
-    cmp r1, #0
-    bne @L_02084ed0
-    ldr r1, [r4, #0x490]
-    cmp r0, r1
-    movlt r0, #0
-    ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02084ed0:
-    ldr r1, [r4, #0x48c]
-    ldr r0, =0x2aaaaaab
-    add r8, r1, #1
-    smull r2, r9, r0, r8
-    mov r1, r8, lsr #0x1f
-    add r9, r1, r9, asr #4
-    mov r3, #0x60
-    smull r1, r2, r3, r9
-    sub r9, r8, r1
-    mov r1, #0xc
-    mla r2, r9, r1, r4
-    str r9, [r4, #0x48c]
-    str r7, [r2, #0xc]
-    ldr r7, [r4, #0x48c]
-    mov lr, #0xc
-    mla r3, r7, r1, r4
-    str r6, [r3, #0x10]
-    ldr r3, [r4, #0x48c]
-    mov r2, #0
-    mla r1, r3, r1, r4
-    str r5, [r1, #0x14]
-    ldr r1, [r4, #0x48c]
-    mov r12, #0x60
-    add r3, r1, #0x60
-    mov r8, lr
-@L_02084f34:
-    ldr r6, [r4, #0x494]
-    mla r1, r2, r8, r4
-    sub r3, r3, r6
-    mov r6, r3, lsr #0x1f
-    smull r7, r9, r0, r3
-    add r9, r6, r9, asr #4
-    smull r6, r7, r12, r9
-    sub r9, r3, r6
-    mla r7, r9, lr, r4
-    ldr r6, [r7, #0xc]
-    add r2, r2, #1
-    str r6, [r1, #0x498]
-    ldr r6, [r7, #0x10]
-    cmp r2, #4
-    str r6, [r1, #0x49c]
-    str r5, [r1, #0x4a0]
-    blt @L_02084f34
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    VecFx32 *last;
+    int dist;
+    int i;
+    int j;
+    int k;
+
+    trail->cur.x = x;
+    trail->cur.y = y;
+    trail->cur.z = z;
+    last = &trail->hist[trail->index];
+    dist = func_02099adc(last->x, last->y, x, y);
+    if (!force && dist < trail->minDist) {
+        return FALSE;
+    }
+    trail->index = (trail->index + 1) % 0x60;
+    trail->hist[trail->index].x = x;
+    trail->hist[trail->index].y = y;
+    trail->hist[trail->index].z = z;
+    j = trail->index + 0x60;
+    for (i = 0; i < 4; i++) {
+        j -= trail->delay;
+        k = j % 0x60;
+        trail->out[i].x = trail->hist[k].x;
+        trail->out[i].y = trail->hist[k].y;
+        trail->out[i].z = z;
+    }
+    return TRUE;
 }
 
 extern "C" void func_02084f84(S02084f84 *arg0, s32 x, s32 y, s32 z)

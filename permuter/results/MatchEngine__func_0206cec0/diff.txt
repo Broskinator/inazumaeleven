@@ -1,0 +1,25 @@
+--- before
++++ after
+@@ -1996,16 +1996,17 @@
+ extern void gEntryPool(void);
+ BOOL MatchEngine__func_0206cec0(MatchEngine *this)
+ {
++  BOOL result;
+   int kind = gGameState.unk_07c[2];
+   int r = 0;
+-  BOOL result;
++  BOOL new_var;
+   if (this->func_0206c644())
+   {
+-    result = this->func_0206d094(0) || this->func_0206d094(1);
+-    return (result) ? (1) : (0);
++    result = this->func_0206d094(0 * ((result) ? (1) : (0))) || this->func_0206d094(1);
++    return ((result) ? (1) : (0)) & 0xFFFFFFFF;
+   }
+-  r = this->func_0206d358(kind);
+-  result = (kind == 15) || (func_01ff9684(this) && (r == 15));
++  r = this->func_0206d358(kind & 0xFFFFFFFF) & 0xFFFFFFFFFFFFFFFF;
++  result = ((kind & 0xFFFFFFFFu) == 15) || ((new_var = func_01ff9684(this)) && (r == 15));
+   return (result) ? (1) : (0);
+ }
+ 

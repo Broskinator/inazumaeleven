@@ -357,7 +357,7 @@ public:
     void func_0206e1d4(int i, u8 value);
     void func_0206e1e4(u8 value);
     u8 func_0206e1f0();
-    void func_0206e1fc();
+    int func_0206e1fc(int a);
     int func_0206e298(int team);
     int func_0206e2e4(int team);
     BOOL func_0206e330();

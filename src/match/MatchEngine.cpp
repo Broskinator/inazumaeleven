@@ -47,8 +47,8 @@ extern "C" void func_020845e0(void);     // (for the asm functions)
 extern "C" BOOL func_02084788(MatchPoint *point);
 extern "C" void func_02084900(void);     // (for the asm functions)
 extern "C" void func_0208363c(void);     // (for the asm functions)
-extern "C" void func_02081f28(void);     // (for the asm functions)
-extern "C" void func_02081f50(void);     // (for the asm functions)
+extern "C" int func_02081f28(u8 *data, int i);
+extern "C" BOOL func_02081f50(u8 *data, int i);
 extern "C" void func_02081894(void);     // (for the asm functions)
 extern "C" void func_020802a0(void);     // (for the asm functions)
 extern "C" int func_02080328(u8 *entry, int i);
@@ -495,8 +495,8 @@ extern "C" void _dfixu(void);
 extern "C" void _ddiv(void);
 extern "C" void func_0209e174(void);
 extern "C" void func_0209e1c8(void);
-extern "C" void func_ov000_02116e8c(void);
-extern "C" void func_ov000_02116f2c(void);
+extern "C" int func_ov000_02116e8c(MatchEngine *self, int a);
+extern "C" int func_ov000_02116f2c(MatchEngine *self, int a);
 extern "C" void func_ov001_02122de8(void);
 extern "C" MatchPlayer *func_ov015_02130ce0(int team, int number, int a, int mode);
 extern "C" int func_ov015_021443f4(UnkPair_020621b4 *pair);
@@ -12870,50 +12870,33 @@ u8 MatchEngine::func_0206e1f0()
     return (*(u8 *)((u8 *)this + 0x118BD));
 }
 
-asm void MatchEngine::func_0206e1fc()
+int MatchEngine::func_0206e1fc(int a)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, r0
-    ldr r2, [r8, #0xbd4]
-    mov r4, #0
-    mov r7, r1
-    mov r5, r4
-    cmp r2, #0
-    ldr r6, =data_020cb0a0
-    bne @L_0206e234
-    bl _ZN11MatchEngine13func_0207efd8Ev
-    cmp r0, #0
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r4, #1
-@L_0206e234:
-    mov r0, r8
-    mov r1, r7
-    bl func_ov000_02116e8c
-    movs r1, r0
-    bmi @L_0206e254
-    mov r0, r6
-    bl func_02081f28
-    mov r5, r0
-@L_0206e254:
-    cmp r5, #0
-    bne @L_0206e27c
-    mov r0, r8
-    mov r1, r7
-    bl func_ov000_02116f2c
-    movs r1, r0
-    bmi @L_0206e27c
-    mov r0, r6
-    bl func_02081f50
-    mov r5, r0
-@L_0206e27c:
-    cmp r4, #0
-    beq @L_0206e28c
-    mov r0, r8
-    bl _ZN11MatchEngine13func_0207f07cEv
-@L_0206e28c:
-    mov r0, r5
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    BOOL loaded = FALSE;
+    int result = 0;
+    u8 *data = (u8 *)data_020cb0a0;
+    int i;
+
+    if (unk_bd4 == NULL) {
+        if (!func_0207efd8()) {
+            return loaded;
+        }
+        loaded = TRUE;
+    }
+    i = func_ov000_02116e8c(this, a);
+    if (i >= 0) {
+        result = func_02081f28(data, i);
+    }
+    if (result == 0) {
+        i = func_ov000_02116f2c(this, a);
+        if (i >= 0) {
+            result = func_02081f50(data, i);
+        }
+    }
+    if (loaded) {
+        func_0207f07c();
+    }
+    return result;
 }
 
 int MatchEngine::func_0206e298(int team)

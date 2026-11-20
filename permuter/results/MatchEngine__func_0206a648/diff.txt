@@ -1,0 +1,12 @@
+--- before
++++ after
+@@ -2002,7 +2002,8 @@
+   for (i = 0; i < 11; i++)
+   {
+     MatchPlayer *other = this->func_02079e90(team, i);
+-    if ((other != 0) && (!this->func_02079f98(other, a, (int) player)))
++    i = (int) player;
++    if ((other != 0) && (!this->func_02079f98(other, a, i)))
+     {
+       fx32 dy = other->body->pos.y - y;
+       fx32 dx;

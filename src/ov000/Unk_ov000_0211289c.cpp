@@ -39,7 +39,7 @@ extern "C" void MI_CpuFill8(void);
 extern "C" void STD_CompareString(void);
 extern "C" void STD_GetStringLength(void);
 extern "C" void VEC_DotProduct(void);
-extern "C" void _ZN11MatchEngine13func_0206e1fcEv(void);
+extern "C" void _ZN11MatchEngine13func_0206e1fcEi(void);
 extern "C" void _ZN11MatchEngine13func_0206ea68EPKc(void);
 extern "C" void _ZN11MatchEngine13func_0207a534Em(void);
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
@@ -1945,7 +1945,7 @@ extern "C" asm void func_ov000_021143d8(void)
     beq @L_021144ac
     ldrh r1, [r5, #0x2a]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206e1fcEv
+    bl _ZN11MatchEngine13func_0206e1fcEi
     cmp r0, #0
     ldreqh r0, [r8, #4]
     addeq r0, r0, #1
@@ -2044,7 +2044,7 @@ extern "C" asm void func_ov000_0211453c(void)
     beq @L_02114614
     ldrh r1, [r5, #0x2a]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206e1fcEv
+    bl _ZN11MatchEngine13func_0206e1fcEi
     cmp r0, #0
     ldreqh r0, [r9, #4]
     addeq r0, r0, #1
@@ -2183,7 +2183,7 @@ extern "C" asm void func_ov000_0211468c(void)
     beq @L_02114814
     ldrh r1, [r4, #0x2a]
     mov r0, r9
-    bl _ZN11MatchEngine13func_0206e1fcEv
+    bl _ZN11MatchEngine13func_0206e1fcEi
     cmp r0, #0
     ldreqh r0, [r6, #4]
     addeq r0, r0, #1
@@ -2299,7 +2299,7 @@ extern "C" asm void func_ov000_021148a8(void)
     bne @L_021149b4
     mov r0, r10
     ldrh r1, [r4, #0x2a]
-    bl _ZN11MatchEngine13func_0206e1fcEv
+    bl _ZN11MatchEngine13func_0206e1fcEi
     cmp r0, #0
     beq @L_02114a4c
 @L_021149b4:
