@@ -37,3 +37,4 @@ MatchEngine::func_0206cec0  src/match/MatchEngine.cpp  25 words: the ROM sets ea
 MatchEngine::func_0206b5a0  src/match/MatchEngine.cpp  3 words: pos->x stored before pos->y is loaded; the ROM loads both (ldr, ldr =ball, ldr) then stores, without ldm/stm
 MatchEngine::func_020776f8  src/match/MatchEngine_2.cpp  22 words: lsr #16 of the id hoisted out of the search loop; the ROM compares with "cmp r2, r1, lsr #16" in it
 MatchEngine::func_02067f44  src/match/MatchEngine.cpp  18 words: far.y kept in r1 after the abs; the ROM subtracts with "subs r0, r1, r0" (far.y in r0) and reloads far.y for func_02084350
+MatchEngine::func_0206a3b8  src/match/MatchEngine.cpp  28 words: x and y loaded with one ldm (player in r7); the ROM loads y then x with two ldr (player in r4)

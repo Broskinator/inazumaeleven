@@ -107,7 +107,7 @@ extern "C" void func_020808e8(void);     // (for the asm functions)
 extern "C" void func_02080964(void);     // (for the asm functions)
 extern "C" void func_020809e8(void);     // (for the asm functions)
 extern "C" void func_02080a38(void);     // (for the asm functions)
-extern "C" void func_02080a80(void);     // (for the asm functions)
+extern "C" BOOL func_02080a80(void *team, int i);
 extern "C" void func_02080abc(void);     // (for the asm functions)
 extern "C" BOOL func_02080b38(MatchPlayer *player);
 extern "C" void func_02080b74(void);     // (for the asm functions)
@@ -565,6 +565,16 @@ extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+static inline BOOL Move_HasFlag(u8 *move, u8 flag)
+{
+    return (move[0xF] & flag) ? TRUE : FALSE;
+}
+
+static inline BOOL Move_IsKind7Flag1(u8 *move)
+{
+    return move[0] == 7 && (move[0xF] & 1) ? TRUE : FALSE;
+}
+
 // the kinds func_0207c7f4 compares (data_020a722c)
 struct UnkKinds_0207c7f4 {
     s32 kinds[7];
@@ -5952,86 +5962,46 @@ int MatchEngine::func_020745d4(int a, BOOL b, u32 flags)
     return result;
 }
 
-asm int MatchEngine::func_020745e4(int a, int kind, int b, int c, u8 d)
+int MatchEngine::func_020745e4(int a, int kind, int b, int c, u8 d)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    ldr r4, [sp, #0x30]
-    mov r6, #0
-    ldr r9, [sp, #0x34]
-    str r0, [sp]
-    mov r10, r1
-    mov r11, r2
-    str r3, [sp, #4]
-    mov r5, r6
-    and r7, r4, #0x40
-    and r8, r4, #0x20
-@L_02074614:
-    mov r0, r10
-    mov r1, r5
-    bl func_020808c4
-    movs r4, r0
-    beq @L_020746e8
-    cmp r9, #0
-    bne @L_02074644
-    mov r0, r10
-    mov r1, r5
-    bl func_02080a80
-    cmp r0, #0
-    bne @L_020746e8
-@L_02074644:
-    ldr r0, [sp]
-    mov r1, r4
-    bl _ZN11MatchEngine13func_020739ccEi
-    cmp r7, #0
-    beq @L_02074690
-    cmp r0, #0
-    beq @L_020746d0
-    ldrb r0, [r0, #0xf]
-    tst r0, #2
-    movne r1, #1
-    moveq r1, #0
-    cmp r1, #1
-    beq @L_020746d0
-    tst r0, #4
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #1
-    beq @L_020746d0
-    b @L_020746e8
-@L_02074690:
-    cmp r0, #0
-    beq @L_020746e8
-    ldrb r1, [r0]
-    cmp r1, r11
-    bne @L_020746e8
-    cmp r8, #0
-    beq @L_020746d0
-    cmp r1, #7
-    bne @L_020746c4
-    ldrb r0, [r0, #0xf]
-    tst r0, #1
-    movne r0, #1
-    bne @L_020746c8
-@L_020746c4:
-    mov r0, #0
-@L_020746c8:
-    cmp r0, #0
-    beq @L_020746e8
-@L_020746d0:
-    ldr r0, [sp, #4]
-    cmp r6, r0
-    addeq sp, sp, #8
-    moveq r0, r4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    add r6, r6, #1
-@L_020746e8:
-    add r5, r5, #1
-    cmp r5, #6
-    blt @L_02074614
-    mov r0, #0
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    int id;
+    int i;
+    int found = 0;
+    u8 *move;
+
+    for (i = 0; i < 6; i++) {
+        id = func_020808c4((void *)a, i);
+        if (id == 0) {
+            continue;
+        }
+        if (!d && func_02080a80((void *)a, i)) {
+            continue;
+        }
+        move = func_020739cc(id);
+        if (c & 0x40) {
+            if (move != NULL) {
+                if (Move_HasFlag(move, 2) != TRUE) {
+                    if (Move_HasFlag(move, 4) == TRUE) {
+                        goto found;
+                    }
+                    continue;
+                }
+            }
+        } else {
+            if (move == NULL || move[0] != kind) {
+                continue;
+            }
+            if ((c & 0x20) && !Move_IsKind7Flag1(move)) {
+                continue;
+            }
+        }
+    found:
+        if (found == b) {
+            return id;
+        }
+        found++;
+    }
+    return 0;
 }
 
 int MatchEngine::func_02074700(int a, int b, int c, u8 d)

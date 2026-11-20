@@ -189,7 +189,7 @@ extern "C" void _ZN11MatchEngine13func_02069184Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_02069394Eiiiihi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a078EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a100EP11MatchPlayeri(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206a3b8Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206a3b8EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a494EP11MatchPlayerP10MatchPoint(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a720Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a748Ei(void);     // (for the asm functions)
@@ -419,7 +419,7 @@ extern "C" u32 Random_RandB(u32 max);
 extern "C" void func_ov015_02140f2c(void);
 extern "C" void func_ov015_02142824(void);
 extern "C" void func_ov087_0217cf1c(void);
-extern "C" void func_ov087_0217d034(void);
+extern "C" void func_ov087_0217d034(MatchEngine *self, int team, fx32 x, fx32 y, fx32 *dist, int a, int team2);
 extern "C" void func_ov087_0217e878(void);
 extern "C" void func_ov087_02180be0(void);
 extern "C" void func_ov087_021820a8(void);
@@ -452,7 +452,7 @@ extern "C" int func_ov015_02131994(int index);
 extern "C" int func_ov015_021319bc(void);
 extern "C" void func_ov015_021422a0(MatchEngine *self, MatchBall *ball, fx32 x, fx32 y);
 extern "C" void func_ov015_021422d0(MatchEngine *self, MatchBall *ball, fx32 x, fx32 y, int a, int b);
-extern "C" void func_ov087_02179c3c(void);
+extern "C" BOOL func_ov087_02179c3c(MatchEngine *self, fx32 x, fx32 y, int team);
 extern "C" void func_ov087_0217aba0(MatchEngine *self, int a);
 extern "C" char data_020af184[];
 extern GameHeap gAllocator;
@@ -5371,7 +5371,7 @@ asm void MatchEngine::func_02066768()
 @L_02066c70:
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0206a3b8Ev
+    bl _ZN11MatchEngine13func_0206a3b8EP11MatchPlayer
     cmp r0, #0
     beq @L_02066d04
     mov r5, #0x8c000
@@ -8936,7 +8936,35 @@ asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0206a3b8()
+// (nonmatching: MWCC merges the loads of x and y into an ldm and keeps player in r7; the ROM loads y, then x (ldr r6, [r1, #4]; ldr r7, [r1]) with player in r4)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_0206a3b8(MatchPlayer *player)
+{
+    fx32 dist;
+    BOOL result;
+    fx32 y;
+    fx32 x;
+
+    if (MatchPlayer_HasFlag(player, 0x40) && !func_0206c110()) {
+        return FALSE;
+    }
+    if (!func_0206de54(func_ov015_02131970(player))) {
+        return FALSE;
+    }
+    y = player->body->pos.y;
+    x = player->body->pos.x;
+    if (!func_ov087_02179c3c(this, x, y, func_02083e54(player))) {
+        return FALSE;
+    }
+    result = TRUE;
+    func_ov087_0217d034(this, player->unk_f4, player->body->pos.x, player->body->pos.y, &dist, 1, player->unk_f4);
+    if (dist >= 0x20000) {
+        result = FALSE;
+    }
+    return result;
+}
+#else
+asm BOOL MatchEngine::func_0206a3b8(MatchPlayer *player)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     sub sp, sp, #0x10
@@ -8995,6 +9023,7 @@ asm void MatchEngine::func_0206a3b8()
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 // whether the player covers the ball's way to point before the ball gets there (FALSE while
 // ball flag 1 is set)
