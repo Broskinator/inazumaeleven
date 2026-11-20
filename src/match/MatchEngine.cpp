@@ -9486,51 +9486,29 @@ int MatchEngine::func_0206abfc(MatchState *state)
     return 0;
 }
 
-asm void MatchEngine::func_0206ac44()
+void MatchEngine::func_0206ac44()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    add r0, r4, #0x11000
-    ldrb r0, [r0, #0x89b]
-    cmp r0, #0
-    mvnne r0, #0
-    strne r0, [r4, #0xc78]
-    bne @L_0206ac84
-    ldr r0, [r4, #0xc78]
-    cmp r0, #0
-    ldmltia sp!, {r3, r4, r5, pc}
-    bl func_ov015_021317c8
-    cmp r0, #0
-    ldreq r0, [r4, #0xc78]
-    subeq r0, r0, #1
-    streq r0, [r4, #0xc78]
-@L_0206ac84:
-    ldr r0, [r4, #0xc78]
-    cmp r0, #0
-    blt @L_0206acc4
-    mov r0, r4
-    bl _ZN11MatchEngine13func_0206a970Ev
-    mov r5, r0
-    mov r0, r4
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0206abfcEP10MatchState
-    mov r1, r0
-    mov r0, r4
-    bl _ZN11MatchEngine13func_0206bff4Ei
-    ldrb r1, [r5, #1]
-    mov r0, r4
-    bl _ZN11MatchEngine13func_0206c004Eh
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0206acc4:
-    ldr r1, [r4, #0xba0]
-    mov r0, r4
-    bl _ZN11MatchEngine13func_0206bff4Ei
-    mov r5, #0
-    mov r0, r4
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0206c004Eh
-    str r5, [r4, #0xba0]
-    ldmia sp!, {r3, r4, r5, pc}
+    MatchState *state;
+
+    if (unk_1189b != 0) {
+        unk_c78 = -1;
+    } else {
+        if (unk_c78 < 0) {
+            return;
+        }
+        if (!func_ov015_021317c8()) {
+            unk_c78--;
+        }
+    }
+    if (unk_c78 >= 0) {
+        state = func_0206a970();
+        func_0206bff4(func_0206abfc(state));
+        func_0206c004(state->unk_1);
+    } else {
+        func_0206bff4(unk_ba0);
+        func_0206c004(0);
+        unk_ba0 = 0;
+    }
 }
 
 BOOL MatchEngine::func_0206ace8()

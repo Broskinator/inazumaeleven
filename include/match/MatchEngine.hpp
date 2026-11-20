@@ -567,7 +567,7 @@ public:
     BOOL func_020784ec(MatchPlayer *player, fx32 x, fx32 y);
     MatchPoint *func_02078520(int team, u8 *data);
     MatchPoint *func_02078560(int team, u8 *data);
-    void func_020785a0();
+    int func_020785a0(int team);
     void func_02078664();
     MatchPlayerInfo *func_020787e8(MatchPlayer *player);
     int func_02078800(int a, BOOL b, int c);
@@ -775,7 +775,7 @@ public:
     u8 unk_b90[0xB98 - 0xB90];
     s32 unk_b98;
     s32 unk_b9c;
-    u8 unk_ba0[4];
+    s32 unk_ba0;        // (a phase, see func_0206ac44)
     s32 unk_ba4;
     s32 unk_ba8;
     u8 unk_bac[0xBB0 - 0xBAC];

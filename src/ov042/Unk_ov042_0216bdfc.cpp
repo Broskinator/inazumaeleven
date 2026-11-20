@@ -63,7 +63,7 @@ extern "C" s32 _ZN11MatchEngine13func_0206f058Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206faa0Ei(void);
 extern "C" void _ZN11MatchEngine13func_02077bd4Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_02077ce4Ev(...);
-extern "C" void _ZN11MatchEngine13func_020785a0Ev(void);
+extern "C" void _ZN11MatchEngine13func_020785a0Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_0207c6b4Eiii(...);
 extern "C" s32 _ZN11MatchEngine13func_0207c720EP11MatchPlayer(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -2015,10 +2015,10 @@ extern "C" asm void func_ov042_0216d2a8(void)
     ldr r7, =data_020e88a0
     mov r1, r5
     mov r0, r7
-    bl _ZN11MatchEngine13func_020785a0Ev
+    bl _ZN11MatchEngine13func_020785a0Ei
     mov r0, r7
     mov r1, r6
-    bl _ZN11MatchEngine13func_020785a0Ev
+    bl _ZN11MatchEngine13func_020785a0Ei
     strb r5, [r4, #0x69]
     strb r5, [r4, #0x6a]
     strb r6, [r4, #0x6e]

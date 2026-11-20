@@ -89,7 +89,7 @@ extern "C" void func_02081b44(void);     // (for the asm functions)
 extern "C" s32 func_02081b70(u8 *arg0, u8 *arg1);
 extern "C" void func_020802a0(void);     // (for the asm functions)
 extern "C" void func_020802ac(void);     // (for the asm functions)
-extern "C" void func_020802b8(void);     // (for the asm functions)
+extern "C" void func_020802b8(u8 *entry);
 extern "C" void func_020802cc(u8 *entry, int i, u32 id);
 extern "C" u16 func_0208033c(u8 *entry, int i);
 extern "C" void func_02080368(void);     // (for the asm functions)
@@ -532,7 +532,7 @@ extern "C" char data_020af32c[];
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_01ffed54(void);
 extern "C" void func_ov015_021313d4(void);
-extern "C" void func_ov015_0213178c(void);
+extern "C" BOOL func_ov015_0213178c(void);
 extern "C" void func_ov015_021319fc(void);
 extern "C" BOOL func_ov015_02134040(const char *name, void *file, int a, int size, int b);
 extern "C" void func_ov087_0217f69c(void);
@@ -9892,59 +9892,39 @@ MatchPoint *MatchEngine::func_02078560(int team, u8 *data)
     return (MatchPoint *)(data + 0x20);
 }
 
-asm void MatchEngine::func_020785a0()
+int MatchEngine::func_020785a0(int team)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r10, r1
-    add r0, r0, #0x34c
-    add r7, r0, r10, lsl #5
-    bl func_ov015_0213178c
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r7
-    bl func_020802b8
-    mov r9, #0
-    mov r5, #1
-    mov r8, r9
-    mov r4, r9
-    mov r11, r5
-@L_020785dc:
-    mov r0, r8
-    bl func_ov015_02130ae8
-    movs r6, r0
-    beq @L_02078650
-    ldrh r0, [r6, #0xf0]
-    tst r0, #1
-    movne r1, r5
-    moveq r1, r4
-    cmp r1, #0
-    beq @L_02078650
-    tst r0, #2
-    movne r0, r11
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02078650
-    mov r0, r6
-    bl func_02080b90
-    cmp r10, r0
-    bne @L_02078650
-    mov r0, r6
-    mov r1, #3
-    bl func_0208130c
-    movs r1, r0
-    beq @L_02078650
-    ldrh r2, [r6, #0x42]
-    mov r0, r7
-    sub r1, r1, #1
-    bl func_020802cc
-    add r9, r9, #1
-@L_02078650:
-    add r8, r8, #1
-    cmp r8, #0x84
-    blt @L_020785dc
-    mov r0, r9
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *player;
+    u8 *entry;
+    int i;
+    int count;
+    int slot;
+
+    entry = unk_34c[team];
+    if (!func_ov015_0213178c()) {
+        return 0;
+    }
+    func_020802b8(entry);
+    count = 0;
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL) {
+            continue;
+        }
+        if (!MatchPlayer_HasFlag(player, 1) || !MatchPlayer_HasFlag(player, 2)) {
+            continue;
+        }
+        if (team != func_02080b90(player)) {
+            continue;
+        }
+        slot = func_0208130c(player, 3);
+        if (slot == 0) {
+            continue;
+        }
+        func_020802cc(entry, slot - 1, player->unk_42);
+        count++;
+    }
+    return count;
 }
 
 asm void MatchEngine::func_02078664()
