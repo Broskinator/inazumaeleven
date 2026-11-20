@@ -88,6 +88,8 @@ the asm once the C++ matches.
 | `romasm.py` | a ROM function as MWCC inline asm | `python tools/romasm.py --ov 87 0x02180000 MatchEngine` |
 | `asmconv.py` | the same, by name or address, with current callee names | `python tools/asmconv.py 0x02036354 FileManager > f.s` |
 | `hand.py` | checks hand-written functions (one per file, or `#### name` sections with variants) in place of their asm; `--write` puts the matches in (headers, fixsyms), `--nonmatching REASON` the rest under NONMATCHING | `python tools/hand.py batch.txt`, then `--write` |
+| `dumpasm.py` | prints functions' asm as it is in src/ | `python tools/dumpasm.py func_02077e78 MatchEngine::func_020805a0` |
+| `untried.py` | the todo functions with no NONMATCHING attempt yet | `python tools/untried.py -n 30 --file src/match` |
 | `asmwrap.py` | turns a function into asm + its C++ under NONMATCHING | `python tools/asmwrap.py src/f.cpp "int C::F(" f.s "reason"` |
 | `asmunwrap.py` | removes the asm of a function that now matches | `python tools/asmunwrap.py src/f.cpp "int C::F("` |
 | `permdecl.py` | tries every order of a function's local declarations | `python tools/permdecl.py src/f.cpp "int C::F(" _ZN1C1FEv` |
@@ -138,22 +140,28 @@ the includes.
 ## Current priorities
 
 1. **Match engine** (`src/match/`, ov087, ov001; [docs/match_engine.md](docs/match_engine.md)):
-   364 functions still asm in `src/match` (`make todo ARGS="--file src/match"`). Next: an
-   iterator class for `UnkDeque_0207076c` (its members func_020720e4, 020724f4, 02071df8,
-   020720b0, 02072128, 02072538 are MSL deque iterator methods: `this` is {cur, begin, start,
-   end}); the members that need their callees' signatures first (func_02077eb8, 02077e78,
-   02077ba0, 02077eec, 02076318, 0207d330); then the todo order. Before typing a C caller,
-   check whether it passes r2/r3 through to its callee (see docs/progress.md, 2026-11-17).
-   IE3 names: `CLogicThink`, `CUnitMan`, `CCalcMap` (the `match` rows of `docs/ie3_mapping.csv`).
-2. **Permuter queue**: 19 near misses in `permuter/queue.txt`. The 2026-11-17 batch covers the
-   first 14; run `tools/permuter_batch.sh` for the 5 added after it (func_020765d4, 0206ccb8,
-   0206f500, 0207070c, 0207add4). Results reached only through fake code (an uninitialised
-   variable, a self-assignment: 0207455c, 02074584, SoundManager::func_0203bd04) don't count.
+   207 functions still asm in `src/match` (`make todo ARGS="--file src/match"`), 162 of them
+   never attempted (`python tools/untried.py -n 40`: take them from the top). Skip for now the
+   loops that jump to their test first (func_0207f4bc, 0206e76c, 0207c064, 0206c694, 02079c08,
+   02068028, 02076a7c) and the `UnkDeque_0207076c` members (they want the iterator class:
+   func_020720e4, 020724f4, 02071df8, 020720b0, 02072128, 02072538; `this` is {cur, begin,
+   start, end}). `func_020810ec` (MatchUtil) needs the engine typed there instead of
+   `char data_020e88a0[]`. Before typing a C caller, check whether it passes r2/r3 through to
+   its callee (docs/progress.md, 2026-11-17). A member whose `this` is something else becomes
+   static and takes it (func_0207f3cc, func_02074aac). IE3 names: `CLogicThink`, `CUnitMan`,
+   `CCalcMap` (the `match` rows of `docs/ie3_mapping.csv`).
+2. **Permuter queue**: 35 near misses in `permuter/queue.txt`; batches 1-6 covered all but the
+   4 added last (func_0206b5a0, 020776f8, 02067f44, 0206a3b8): run `tools/permuter_batch.sh`
+   on those (`PERM_QUEUE=` a file with just them). Results reached only through fake code (an
+   uninitialised variable, a self-assignment, a 64-bit index, `if (1)`) don't count; look for
+   the natural form they point at (func_0207e738 matched that way).
 3. **Bigger non-matching attempts** (16-165 words): `SceneManager` (6), `SaveManager` (4),
    `System::func_020401bc`, `Wireless` (3), `MatchBallPhysics::func_02061ab8`, MatchEngine
-   (func_02077f20, func_02084350 and older ones).
-4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, ~10 variants tried, queued); MWCC's
-   loop rotation (func_0207070c, func_0207add4); 19 IE3 names not applied (name clashes, see
-   ie3_mapping.md); ov088 (Mobiclip) still counted as game code.
+   (func_02077f20, func_02084350, func_0206a590/0206a648 (45), func_0206cec0 (25) and older).
+4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, queued); MWCC's loop rotation and
+   test-first loops (above); two loads merged into an `ldm` (func_0206a3b8); an immediate
+   `return 0` after an index check (func_0206e50c/0206e5e4); dead stack stores the ROM keeps
+   (func_02068434); 19 IE3 names not applied (name clashes, see ie3_mapping.md); ov088
+   (Mobiclip) still counted as game code.
 
 At the end of every session, update the 'Current priorities' section in CLAUDE.md and append a short dated entry to docs/progress.md (what was matched, progress % from make progress, new findings, blockers). Commit both.

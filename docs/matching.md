@@ -76,6 +76,27 @@ The compiler is Metrowerks CodeWarrior for DSi (`mwccarm` 1.x), C++.
   then loaded before the check, as in the original (`LoadFile` in `TreasureBox.cpp`
   and `System.cpp`).
 
+- **Merged calls.** Two calls of one function in an `if`/`else` that differ only in one
+  argument become one call, the branches setting that argument (`b` over the other
+  branch); a `?:` in the argument gives conditional moves instead
+  (`MatchEngine::func_02068b5c`).
+- **A jump to shared code.** A test whose one outcome branches to the code that the other
+  cases reach by falling through (`cmp r0, #1; beq found; b next`) came from a `goto` to a
+  label before that code; the same test with `continue` on the other outcome inverts the
+  branch (`MatchEngine::func_020745e4`).
+- **Reading a table again.** When the original loads a table entry twice but our C++ reuses
+  the first load, reading the first value through the global itself (and the rest through
+  the local pointer) makes MWCC load it again (`MatchEngine::func_0207e738`; the permuter
+  found the effect with a 64-bit index).
+- **Members of another object.** A member function whose `this` is a player or a stack
+  buffer (look at what its callers pass in r0) is static and takes that object
+  (`MatchEngine::func_0207f3cc`, `func_02074aac`).
+- **Not solved yet.** Loops that jump to their test before the first pass where the
+  rebuild tests first (`func_0207f4bc`, `func_02079c08` and others); stores to a local
+  array that is never read, which the original keeps and MWCC drops unless the array is
+  `volatile` (`func_02068434`); two adjacent loads that MWCC merges into an `ldm` where the
+  original has two `ldr` in the other order (`func_0206a3b8`).
+
 ## Register allocation
 
 Registers follow the order in which local variables are declared (and,
@@ -116,8 +137,28 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   separate cases with the same body give two (`MatchEngine::func_0206c180`). A
   `switch` whose cases each return a field offset puts the blocks in source order.
 
+- **`bool` parameters.** A `u8` parameter makes C callers mask the argument (`and 0xff`);
+  with C++ `bool` they pass a `!= 0` result as it is, as the original does
+  (`MatchEngine::func_0207436c`). A `u8` stack parameter is read with `ldrb`, an `int` one
+  with `ldr` (`func_020730dc`).
+- **Tail calls.** The original jumps (`b`) to a function only when the caller returns the
+  same type; a wrong return type on either side turns it into `bl` and a return.
+- **Unused parameters.** Stores to the stack in every caller for an argument the callee
+  never reads mean a trailing parameter that is unused (`func_0206e100`'s `mode`).
+- **Operand order of an indexed add.** `add r0, base, idx` against `add r0, idx, base`
+  follows whether the array is indexed through a local `base` pointer
+  (`entry[base + i]`, `func_0207c7f4`).
+- **Masks of 16-bit results.** `FX_SinIdx(a) & 0xFFFF` gives `ldrh` then `smull`, a
+  `(u16)` cast does not; `x &= 0xFF - bit` gives `rsb #0xff`, `x |= (u8)bit` an
+  `and 0xff` before the `orr` (`MatchPlayerState_SetBit_88`).
+- **Locals declared in another order.** Most of the near misses of this engine were only
+  registers swapped between two locals; generating every order of the declarations (as a
+  `tools/hand.py` batch with one section per order) often found the match.
+
 ## Library calls
 
+- Double arithmetic (`2.0 * v * ((float)(r + 80) / 100.0)`) calls `_dmul`/`_ddiv`;
+  the conversions are `_fflt`, `_ffix`, `_d2f`.
 - `float f() { return atof(s); }` calls the runtime's double-to-float helper
   (`_d2f`) after `atof`; softfloat values come back in `r0`/`r1`.
 

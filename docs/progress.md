@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 520,244 | 26.70% | 9,634 | 5,937 | 61.63% | 3,697 |
-| Game, main program | 369,260 | 131,724 | 35.67% | 2,601 | 1,878 | 72.20% | 723 |
+| **Game code** | 1,948,264 | 524,396 | 26.92% | 9,634 | 5,957 | 61.83% | 3,677 |
+| Game, main program | 369,260 | 135,876 | 36.80% | 2,601 | 1,898 | 72.97% | 703 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 616,648 | 23.77% | 14,002 | 7,218 | 51.55% | 6,784 |
+| **Everything** | 2,594,024 | 620,800 | 23.93% | 14,002 | 7,238 | 51.69% | 6,764 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -32,16 +32,16 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Match engine, all** | 376,800 | 80,580 | 21.39% | 1,742 | 1,125 | 64.58% | 617 |
+| **Match engine, all** | 376,800 | 84,732 | 22.49% | 1,742 | 1,145 | 65.73% | 597 |
 | `src/match/MatchBallPhysics.cpp` | 3,356 | 1,224 | 36.47% | 33 | 28 | 84.85% | 5 |
-| `src/match/MatchEngine.cpp` | 52,352 | 12,048 | 23.01% | 294 | 207 | 70.41% | 87 |
-| `src/match/MatchEngine_2.cpp` | 70,264 | 21,132 | 30.08% | 391 | 273 | 69.82% | 118 |
+| `src/match/MatchEngine.cpp` | 52,352 | 13,096 | 25.02% | 294 | 213 | 72.45% | 81 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 23,856 | 33.95% | 391 | 285 | 72.89% | 106 |
 | `src/match/MatchEngine_3.cpp` | 772 | 88 | 11.40% | 6 | 4 | 66.67% | 2 |
-| `src/match/MatchGeometry.cpp` | 5,368 | 3,284 | 61.18% | 70 | 63 | 90.00% | 7 |
+| `src/match/MatchGeometry.cpp` | 5,368 | 3,560 | 66.32% | 70 | 64 | 91.43% | 6 |
 | `src/match/MatchPlayerList.cpp` | 1,212 | 372 | 30.69% | 21 | 17 | 80.95% | 4 |
 | `src/match/MatchRules.cpp` | 500 | 500 | 100.00% | 21 | 21 | 100.00% | 0 |
 | `src/match/MatchUtil.cpp` | 5,280 | 5,080 | 96.21% | 99 | 98 | 98.99% | 1 |
-| `src/match/UnkClass_0208351c.cpp` | 1,504 | 500 | 33.24% | 12 | 9 | 75.00% | 3 |
+| `src/match/UnkClass_0208351c.cpp` | 1,504 | 604 | 40.16% | 12 | 10 | 83.33% | 2 |
 | ov001 (match scene) | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov087 (match logic) | 57,468 | 6,064 | 10.55% | 167 | 62 | 37.13% | 105 |
 
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 131,724 | 35.67% | 2,601 | 1,878 | 72.20% | 723 |
+| main program | 369,260 | 135,876 | 36.80% | 2,601 | 1,898 | 72.97% | 703 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
@@ -189,3 +189,37 @@ Following CLAUDE.md's priorities: the match engine's small members, field types 
   `func_0207070c`, `func_0207add4`, `func_0207ae40` (queued), `func_02084350`, `func_02077f20`.
 - Blockers: MWCC's loop rotation (it enters some loops through the test and not others, for
   reasons not found yet: `func_0207070c`, `func_0207add4`); `FileManager::LoadAsync` as before.
+
+### 2026-11-18 to 2026-11-20
+
+Following CLAUDE.md's priorities: the match engine, functions with no attempt yet first
+(`tools/untried.py`).
+
+- Matched: 157 functions of the match engine (`MatchEngine` members in `MatchEngine.cpp` and
+  `MatchEngine_2.cpp`, helpers of MatchUtil and MatchGeometry, `UnkClass_0208351c`, the
+  deque's ring buffer and iterator). The match engine is now 1,145 / 1,742 functions in
+  C/C++ (22.49% of its bytes, from 16.49%); game code 26.92% (from 25.70%), everything
+  23.93%. `make progress`: 98.950%, 13,579 / 14,048 functions (unchanged: it counts asm as
+  matched). 207 functions of `src/match` are still asm, 162 of them never attempted.
+- Types: `MatchPlayerState::unk_24` is an `s16`, `MatchEngine::unk_ba0` an `s32` (a phase),
+  `UnkTrail_02084e40` (the last 0x60 positions, `func_02084e70`), the 7 kinds per team at
+  `unk_118e4`, the requirement of a move (12 bytes, `func_020738e4`) whose accessors
+  `func_02074aac`/`abc`/`ac8` are now static; `func_0207f3cc` takes the player (its `this`
+  was one). `_dmul` and `_ddiv` named.
+- Found: two calls of one function in an if/else that differ in one argument are merged by
+  MWCC into one call (`func_02068b5c`); a value read through a local pointer and needed again
+  is reloaded when the first read goes through the global itself (`func_0207e738`, found by
+  the permuter through a 64-bit index); `func_020745e4` matches only with a `goto` to the
+  common code. C++ `bool` parameters avoid the `and 0xff` of `u8` ones in the callers
+  (`func_0207436c`). See docs/matching.md.
+- Permuter: batches 4 to 6; `func_0207e738`, `func_0206f500`, `func_0206a078` and
+  `SoundManager::RestoreState` matched. The other improvements used fake code.
+- Under NONMATCHING (effort cap, all queued): `func_0206e50c`, `func_0206e5e4`,
+  `func_0206a590`, `func_0206a648`, `func_0206cec0`, `func_0206b5a0`, `func_020776f8`,
+  `func_02067f44`, `func_0206a3b8`, `func_02068434` (not queued: dead stack stores).
+- Blockers: loops that jump to their test first (`func_0207f4bc`, `0206e76c`, `0207c064`,
+  `0206c694`, `02079c08`, `02068028`, `02076a7c`: no source form found); MWCC merging two
+  loads into an `ldm` where the ROM has two `ldr` (`func_0206a3b8`); a `return FALSE` that
+  the ROM writes as an immediate 0 after an index check (`func_0206e50c`); dead stores to a
+  local array that MWCC drops (`func_02068434`); `func_020810ec` in MatchUtil calls engine
+  members through mangled names on a `char[]` and needs a typed engine there.
