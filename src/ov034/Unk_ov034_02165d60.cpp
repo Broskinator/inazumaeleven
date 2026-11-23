@@ -66,7 +66,7 @@ extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" s32 _ZN13ScreenManager13func_0203e090Eii(...);
 extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
-extern "C" s32 _ZN11MatchEngine13func_0206cd78Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206cd78Ei(...);
 extern "C" s32 _ZN11MatchEngine13func_0206e84cEv(...);
 extern "C" void _ZN11MatchEngine13func_0206e858Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_020795b4Ev(...);
@@ -1475,7 +1475,7 @@ extern "C" void func_ov034_02167400(u8 *arg0)
 {
     func_0209b7b0((s32)data_020d3d20, 0xFF, 0);
     s32 v1 = _ZN11MatchEngine13func_0206e84cEv((s32)data_020e88a0);
-    _ZN11MatchEngine13func_0206cd78Ev((s32)data_020e88a0, v1);
+    _ZN11MatchEngine13func_0206cd78Ei((s32)data_020e88a0, v1);
     *(s32 *)(arg0 + 0x1C8) = 2;
     func_0209b7b0((s32)data_020d3d20, 0xFF, 0, 2);
 }

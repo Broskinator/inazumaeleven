@@ -90,7 +90,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN13ScreenManager13FadeMainBlackEv(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" void _ZN11MatchEngine13func_0206cd78Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206cd78Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_0206ce6cEt(...);
 extern "C" void _ZN11MatchEngine13func_0206ce7cEv(void);
 extern "C" s32 _ZN11MatchEngine13func_02077c4cEPPv(...);
@@ -232,7 +232,7 @@ extern "C" asm s32 func_ov065_02165d60(...)
 @L_02165e4c:
     ldr r0, =data_020e88a0
     ldr r1, =0x1fd
-    bl _ZN11MatchEngine13func_0206cd78Ev
+    bl _ZN11MatchEngine13func_0206cd78Ei
     mov r0, #6
     bl Graphics_FadeScreensBlack
     mov r0, #2

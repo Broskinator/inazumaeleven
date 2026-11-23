@@ -110,7 +110,7 @@ extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" s32 _ZN13ScreenManager13func_0203e090Eii(...);
 extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" s32 _ZN11MatchEngine13func_0206cd78Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206cd78Ei(...);
 extern "C" s32 _ZN11MatchEngine13func_0206ce5cEv(...);
 extern "C" s32 _ZN11MatchEngine13func_0206e840Et(...);
 extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
@@ -263,11 +263,11 @@ extern "C" s32 func_ov001_02118a84(u8 *arg0)
     CBgMenuManager_Init((s32)((u8 *)&gBgMenuManager), 0);
     v1 = func_ov015_021317f8();
     if (v1 == 0) {
-        _ZN11MatchEngine13func_0206cd78Ev((s32)((u8 *)&data_020e88a0), 0x1F5);
+        _ZN11MatchEngine13func_0206cd78Ei((s32)((u8 *)&data_020e88a0), 0x1F5);
         _ZN11TreasureBox13func_020526ccEi((s32)((u8 *)&data_020d9978), 0x55D4A82);
     } else {
         t0 = *(s16 *)(((u8 *)&data_020cb8e0) + 0x3A);
-        _ZN11MatchEngine13func_0206cd78Ev((s32)((u8 *)&data_020e88a0), t0);
+        _ZN11MatchEngine13func_0206cd78Ei((s32)((u8 *)&data_020e88a0), t0);
         t1 = *(u16 *)(((u8 *)&data_020cb8e0) + 0x3A);
         _ZN11MatchEngine13func_0206e840Et((s32)((u8 *)&data_020e88a0), t1);
         v6 = _ZN11MatchEngine13func_0206ce5cEv((s32)((u8 *)&data_020e88a0));

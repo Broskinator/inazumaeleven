@@ -223,7 +223,7 @@ void _ZN15DistanceTable324InitEv(void);
 void _ZN15DistanceTable3212CalcDistanceEv(void);
 extern char data_020caae0[];
 void _ZN11MatchEngine13func_0206ce6cEt(void);
-void _ZN11MatchEngine13func_0206cca4Ehh(void);
+void _ZN11MatchEngine13func_0206cca4Eha(void);
 extern char data_020aeedc[];
 extern char data_020aeef4[];
 extern char data_020aef08[];
@@ -2775,7 +2775,7 @@ asm void func_01ff9ea4(void)
     mov r1, r5
     mov r2, r5
     strb r4, [r3, #0x4f0]
-    bl _ZN11MatchEngine13func_0206cca4Ehh
+    bl _ZN11MatchEngine13func_0206cca4Eha
     add r2, r7, #0x11000
     ldr r0, =gConfig
     ldr r1, =data_020aeedc
@@ -3826,7 +3826,7 @@ asm void func_01ffb040(void)
     mov r0, r8
     mov r1, r5
     mov r2, r5
-    bl _ZN11MatchEngine13func_0206cca4Ehh
+    bl _ZN11MatchEngine13func_0206cca4Eha
     ldr r1, =gGameState
     add r0, r8, #0x22c
     strb r4, [r1, #0x4f0]

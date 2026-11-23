@@ -86,7 +86,7 @@ extern "C" void _ZN13ScreenManager16GetNextSceneMainEv(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205d7e0Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205dafcEv(void);
 extern "C" void _ZN11MatchEngine13func_0206cd08EiPv(void);
-extern "C" s32 _ZN11MatchEngine13func_0206cd78Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206cd78Ei(...);
 extern "C" s32 _ZN11MatchEngine13func_02078844Ev(...);
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207efc0Ev(void);
@@ -1049,7 +1049,7 @@ extern "C" asm void func_ov000_021038f4(void)
 extern "C" void func_ov000_02103a90(void)
 {
     s32 v0 = func_0209b608((s32)data_020d3d20, 0);
-    _ZN11MatchEngine13func_0206cd78Ev((s32)data_020e88a0, v0);
+    _ZN11MatchEngine13func_0206cd78Ei((s32)data_020e88a0, v0);
 }
 
 extern "C" asm void func_ov000_02103ab8(void)

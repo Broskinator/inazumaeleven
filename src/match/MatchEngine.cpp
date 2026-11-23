@@ -14,6 +14,7 @@ extern "C" u8 data_020cabf8[];
 #include "system/GameHeap.hpp"
 #include "match/MatchFile.hpp"
 #include "nitro/std.h"
+#include "game/TreasureBox.hpp"
 // a product of 64-bit operands (the compiler multiplies all 64 bits)
 static inline fx32 MatchMul64(fx64 a, fx64 b)
 {
@@ -176,7 +177,7 @@ extern "C" void _ZN11MatchEngine13func_0206c23cEP12MatchSegmentllh(void);     //
 extern "C" void _ZN11MatchEngine13func_0206c644Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c80cEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206c834Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206cca4Ehh(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206cca4Eha(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206cd08EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ce4cEt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ce6cEt(void);     // (for the asm functions)
@@ -462,7 +463,20 @@ extern "C" BOOL func_ov087_02179c3c(MatchEngine *self, fx32 x, fx32 y, int team)
 extern "C" void func_ov087_0217aba0(MatchEngine *self, int a);
 extern "C" char data_020af184[];
 extern GameHeap gAllocator;
-extern "C" char data_020d9978[];
+// The match's setup (0x30 bytes, func_0206cd08 reads it; a copy is kept at MatchEngine::unk_1fc)
+struct MatchSetup {
+    u16 unk_0;
+    u8 unk_2;
+    s8 unk_3;
+    u16 unk_4;
+    u16 unk_6[2];
+    u8 unk_a;
+    u8 unk_b;
+    u8 unk_c[0x14 - 0xC];
+    s32 unk_14;
+    u8 unk_18[0x30 - 0x18];
+};
+
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11TreasureBox13func_02052628Eiiii(void);
 extern "C" BOOL func_01ffb994(MatchEngine *self, int id, void *buffer);
@@ -11399,7 +11413,7 @@ asm void MatchEngine::func_0206cbbc()
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
 
-void MatchEngine::func_0206cca4(u8 a, u8 b)
+void MatchEngine::func_0206cca4(u8 a, s8 b)
 {
     ((u8 *)&gGameState)[0x4F1] = a;
     ((u8 *)&gGameState)[0x4F2] = b;
@@ -11464,62 +11478,29 @@ BOOL MatchEngine::func_0206cd08(int index, void *buffer)
     return TRUE;
 }
 
-asm void MatchEngine::func_0206cd78()
+BOOL MatchEngine::func_0206cd78(int index)
 {
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x34
-    add r4, sp, #4
-    mov r2, r4
-    mov r5, r0
-    bl _ZN11MatchEngine13func_0206cd08EiPv
-    cmp r0, #0
-    addeq sp, sp, #0x34
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, pc}
-    mov r0, r4
-    add r1, r5, #0x1fc
-    mov r2, #0x30
-    bl MI_CpuCopy8
-    ldrb r1, [sp, #6]
-    ldrsb r2, [sp, #7]
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206cca4Ehh
-    ldrh r1, [sp, #4]
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206ce4cEt
-    ldrh r1, [sp, #8]
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206ce6cEt
-    ldrb r1, [sp, #0xe]
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206ce8cEh
-    ldrb r1, [sp, #0xf]
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206d690Eh
-    mov r2, #0
-@L_0206cdf4:
-    add r0, r4, r2, lsl #1
-    ldrh r1, [r0, #6]
-    cmp r1, #0
-    addne r0, r5, r2, lsl #6
-    addne r0, r0, #0x100
-    add r2, r2, #1
-    strneh r1, [r0, #0xa4]
-    cmp r2, #2
-    blt @L_0206cdf4
-    ldr r3, [sp, #0x18]
-    cmp r3, #0
-    beq @L_0206ce3c
-    ldr r0, =data_020d9978
-    mov r12, #0
-    mov r1, #1
-    mov r2, #2
-    str r12, [sp]
-    bl _ZN11TreasureBox13func_02052628Eiiii
-@L_0206ce3c:
-    mov r0, #1
-    add sp, sp, #0x34
-    ldmia sp!, {r4, r5, pc}
+    MatchSetup setup;
+    int i;
+
+    if (!func_0206cd08(index, &setup)) {
+        return FALSE;
+    }
+    MI_CpuCopy8(&setup, unk_1fc, 0x30);
+    func_0206cca4(setup.unk_2, setup.unk_3);
+    func_0206ce4c(setup.unk_0);
+    func_0206ce6c(setup.unk_4);
+    func_0206ce8c(setup.unk_a);
+    func_0206d690(setup.unk_b);
+    for (i = 0; i < 2; i++) {
+        if (setup.unk_6[i] != 0) {
+            *(u16 *)&unk_17c[i][0x28] = setup.unk_6[i];
+        }
+    }
+    if (setup.unk_14 != 0) {
+        data_020d9978.func_02052628(1, 2, setup.unk_14, 0);
+    }
+    return TRUE;
 }
 
 void MatchEngine::func_0206ce4c(u16 value)

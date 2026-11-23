@@ -300,10 +300,10 @@ public:
     void func_0206caa4();
     void func_0206cad4();
     void func_0206cbbc();
-    void func_0206cca4(u8 a, u8 b);
+    void func_0206cca4(u8 a, s8 b);
     int func_0206ccb8();
     BOOL func_0206cd08(int index, void *buffer);
-    void func_0206cd78();
+    BOOL func_0206cd78(int index);
     void func_0206ce4c(u16 value);
     u16 func_0206ce5c();
     void func_0206ce6c(u16 value);
