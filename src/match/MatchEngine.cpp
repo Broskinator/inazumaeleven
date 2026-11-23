@@ -7115,6 +7115,8 @@ asm void MatchEngine::func_02068844()
 
 // (nonmatching: the stack argument is stored at a different time)
 #ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 fx32 MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
 {
     fx32 time = FX_Div(ball->unk_3c, 0x9CCD);
@@ -7122,6 +7124,7 @@ fx32 MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
     func_020681d8(&ball->unk_20, ball->unk_52, FX_Mul(ball->unk_38, time), pos);
     return time;
 }
+#pragma pop
 #else
 asm fx32 MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
 {
@@ -8966,11 +8969,13 @@ BOOL MatchEngine::func_0206a54c(MatchPlayer *player)
 // how many players of player's team (func_02079f98 aside) are within radius of (x, y)
 // (nonmatching: register allocation: the ROM keeps player in r7 and leaves a in its stack slot, this spills player and keeps a in r11)
 #ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
 {
     int team = func_ov015_021319b0(player);
-    int count = 0;
     int i;
+    int count = 0;
 
     for (i = 0; i < 11; i++) {
         MatchPlayer *other = func_02079e90(team, i);
@@ -8994,6 +8999,7 @@ int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player,
     }
     return count;
 }
+#pragma pop
 #else
 asm int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
 {
@@ -9051,11 +9057,13 @@ asm int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *pla
 // how many players of the other team (func_02079f98 aside) are within radius of (x, y)
 // (nonmatching: register allocation, as func_0206a590: the ROM keeps player in r7 and leaves a in its stack slot)
 #ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 int MatchEngine::func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
 {
     int team = func_02083e54(player);
-    int count = 0;
     int i;
+    int count = 0;
 
     for (i = 0; i < 11; i++) {
         MatchPlayer *other = func_02079e90(team, i);
@@ -9079,6 +9087,7 @@ int MatchEngine::func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *player,
     }
     return count;
 }
+#pragma pop
 #else
 asm int MatchEngine::func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *player, int a)
 {

@@ -1364,8 +1364,8 @@ asm void SceneManager::func_0203f0dc()
 #endif
 
 // gives the keys, then the touch screen, to the objects until one of them takes them
-// (nonmatching: the loops start with a jump to their condition)
-#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 void SceneManager::func_0203f248()
 {
     int i;
@@ -1384,54 +1384,7 @@ void SceneManager::func_0203f248()
         }
     }
 }
-#else
-asm void SceneManager::func_0203f248()
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, #0
-    ldr r6, =data_020c45c8
-    ldr r5, =data_020c4818
-    ldr r4, =data_020c4820
-    b @L_0203f28c
-@L_0203f260:
-    ldr r0, [r6, r7, lsl #2]
-    cmp r0, #0
-    beq @L_0203f288
-    ldr r3, [r0]
-    ldrh r1, [r5]
-    ldrh r2, [r4]
-    ldr r3, [r3, #0x14]
-    blx r3
-    cmp r0, #0
-    bne @L_0203f294
-@L_0203f288:
-    add r7, r7, #1
-@L_0203f28c:
-    cmp r7, #3
-    blt @L_0203f260
-@L_0203f294:
-    mov r6, #0
-    ldr r4, =data_020c45c0
-    ldr r5, =data_020c45c8
-    b @L_0203f2cc
-@L_0203f2a4:
-    ldr r0, [r5, r6, lsl #2]
-    cmp r0, #0
-    beq @L_0203f2c8
-    ldr r2, [r0]
-    mov r1, r4
-    ldr r2, [r2, #0x18]
-    blx r2
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0203f2c8:
-    add r6, r6, #1
-@L_0203f2cc:
-    cmp r6, #3
-    blt @L_0203f2a4
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-}
-#endif
+#pragma pop
 
 void SceneManager::func_0203f2e8()
 {

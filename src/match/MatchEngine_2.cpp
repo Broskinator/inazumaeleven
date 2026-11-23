@@ -11320,6 +11320,8 @@ int MatchEngine::func_02079d9c(MatchPlayer *player)
 // (sorts the 22 players by their distance to the ball, nearest first)
 // (nonmatching: 40 words: the ROM enters each loop through its test (b); -O2 (#pragma optimization_level 2) gives that shape with other registers)
 #ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 void MatchEngine::func_02079dd8(u8 *order)
 {
     fx32 dist[0x16];
@@ -11347,6 +11349,7 @@ void MatchEngine::func_02079dd8(u8 *order)
         }
     }
 }
+#pragma pop
 #else
 asm void MatchEngine::func_02079dd8(u8 *order)
 {

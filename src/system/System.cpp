@@ -477,6 +477,8 @@ void System::func_0203ffd4()
 // a new game: clears the game's state
 // (nonmatching: the original keeps a second zero in a register and starts its loops with a jump to the condition)
 #ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 void System::func_020401bc()
 {
     int i;
@@ -544,6 +546,7 @@ void System::func_020401bc()
     data_020c4638.unk_88 = data_020c4c70.Init();
     func_ov015_02131818(0);
 }
+#pragma pop
 #else
 asm void System::func_020401bc()
 {
