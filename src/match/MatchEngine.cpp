@@ -14,6 +14,12 @@ extern "C" u8 data_020cabf8[];
 #include "system/GameHeap.hpp"
 #include "match/MatchFile.hpp"
 #include "nitro/std.h"
+// a product of 64-bit operands (the compiler multiplies all 64 bits)
+static inline fx32 MatchMul64(fx64 a, fx64 b)
+{
+    return (fx32)((a * b + 0x800) >> FX32_SHIFT);
+}
+
 // a team as func_01ffca10 reads it
 struct UnkTeam_01ffca10 {
     u8 unk_0[0x40];
@@ -36,7 +42,7 @@ extern "C" void func_02083e24(void);     // (for the asm functions)
 extern "C" BOOL func_02083e54(MatchPlayer *player);
 extern "C" void func_02083e7c(void);     // (for the asm functions)
 extern "C" void func_02083e94(void);     // (for the asm functions)
-extern "C" void func_02083ec4(void);     // (for the asm functions)
+extern "C" fx32 func_02083ec4(fx32 a, fx32 b, fx32 c, int which);
 extern "C" void func_020840e0(void);     // (for the asm functions)
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
@@ -7152,89 +7158,35 @@ asm fx32 MatchEngine::func_0206896c(MatchBall *ball, MatchPoint *pos)
 }
 #endif
 
-asm void MatchEngine::func_020689c4()
+fx32 MatchEngine::func_020689c4(fx32 speed, u16 angle, fx32 height, u8 flag)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    smull r4, r0, r1, r1
-    mov r2, r2, asr #4
-    mov r6, r2, lsl #1
-    adds r4, r4, #0x800
-    add r5, r6, #1
-    adc r0, r0, #0
-    mov r2, r4, lsr #0xc
-    mov r4, r5, lsl #1
-    ldr r7, =FX_SinCosTable_
-    mov r6, r6, lsl #1
-    ldrsh r6, [r7, r6]
-    mov r5, #0
-    cmp r1, #0
-    orr r2, r2, r0, lsl #20
-    ldrsh r12, [r7, r4]
-    mov lr, #0x800
-    moveq r0, r5
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    smull r1, r0, r6, r12
-    adds r1, r1, lr
-    adc r0, r0, r5
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    smull r1, r0, r2, r1
-    adds r1, r1, lr
-    adc r0, r0, r5
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    mov r4, r1, lsl #1
-    cmp r3, #0
-    mov r1, r2, asr #0x1f
-    mov r0, r12, asr #0x1f
-    rsb r4, r4, #0
-    beq @L_02068aa4
-    mov r6, r3, asr #0x1f
-    umull r8, r7, r2, r3
-    mla r7, r2, r6, r7
-    umull r6, r2, r12, r12
-    mla r2, r12, r0, r2
-    adds r8, r8, lr
-    mla r7, r1, r3, r7
-    adc r3, r7, r5
-    adds r1, r6, lr
-    mla r2, r0, r12, r2
-    mov r6, r8, lsr #0xc
-    adc r0, r2, r5
-    mov r1, r1, lsr #0xc
-    orr r6, r6, r3, lsl #20
-    orr r1, r1, r0, lsl #20
-    smull r1, r0, r6, r1
-    adds r1, r1, lr
-    adc r0, r0, r5
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    rsb r5, r1, #0
-@L_02068aa4:
-    ldr r6, =0x9ccd
-    mov r1, r4
-    mov r0, r6
-    mov r2, r5
-    mov r3, #1
-    bl func_02083ec4
-    mov r7, r0
-    mov r0, r6
-    mov r1, r4
-    mov r2, r5
-    mov r3, #0
-    bl func_02083ec4
-    ldrb r1, [sp, #0x18]
-    cmp r1, #0
-    beq @L_02068af0
-    cmp r7, r0
-    movle r7, r0
-    mov r0, r7
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
-@L_02068af0:
-    cmp r7, r0
-    movge r7, r0
-    mov r0, r7
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    fx16 sin = FX_SinIdx(angle >> 4);
+    fx16 cos = FX_CosIdx(angle >> 4);
+    fx32 v2 = FX_Mul(speed, speed);
+    fx32 b;
+    fx32 c = 0;
+    fx32 t0;
+    fx32 t1;
+
+    if (speed == 0) {
+        return 0;
+    }
+    b = -(FX_Mul(v2, FX_Mul(sin, cos)) * 2);
+    if (height != 0) {
+        c = -FX_Mul(MatchMul64(v2, height), MatchMul64(cos, cos));
+    }
+    t0 = func_02083ec4(0x9CCD, b, c, 1);
+    t1 = func_02083ec4(0x9CCD, b, c, 0);
+    if (flag) {
+        if (t0 <= t1) {
+            t0 = t1;
+        }
+        return t0;
+    }
+    if (t0 >= t1) {
+        t0 = t1;
+    }
+    return t0;
 }
 
 s32 MatchEngine::func_02068b08(fx32 value)

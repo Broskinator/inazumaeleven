@@ -173,7 +173,7 @@ public:
     BOOL func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos);
     void func_02068844();
     fx32 func_0206896c(MatchBall *ball, MatchPoint *pos);
-    void func_020689c4();
+    fx32 func_020689c4(fx32 speed, u16 angle, fx32 height, u8 flag);
     s32 func_02068b08(fx32 value);
     fx32 func_02068b5c(MatchPlayer *player, fx32 dist, int c);
     u16 func_02068c28(int direction, int target, int *amount);

@@ -475,7 +475,9 @@ void System::func_0203ffd4()
 }
 
 // a new game: clears the game's state
-// (nonmatching: the original keeps a second zero in a register and starts its loops with a jump to the condition)
+// (nonmatching, at optimization level 2 (the loops enter through their test), 15 words: the ROM stores
+// profile.unk_2C right after unk_47[0], the rebuild after the data_020c4638 stores; the data_020c4ab4 and
+// data_020c4638 addresses later swap r0 and r1)
 #ifdef NONMATCHING
 #pragma push
 #pragma optimization_level 2

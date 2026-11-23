@@ -79,7 +79,7 @@ extern "C" void _ZN11MatchEngine13func_020636b8EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);
 extern "C" void _ZN11MatchEngine13func_02067104ElllllP10MatchPoint(void);
 extern "C" void _ZN11MatchEngine13func_02068590Eii(void);
-extern "C" void _ZN11MatchEngine13func_020689c4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020689c4Eltlh(void);
 extern "C" void _ZN11MatchEngine13func_0206a700Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_0206a970Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);
@@ -321,7 +321,7 @@ extern "C" asm void func_ov015_02140958(void)
     mov r0, r10
     mov r1, r7
     mov r2, r2, lsr #0x10
-    bl _ZN11MatchEngine13func_020689c4Ev
+    bl _ZN11MatchEngine13func_020689c4Eltlh
     ldrh r2, [sp, #0x28]
     ldr r3, =FX_SinCosTable_
     ldr r1, [r9]
