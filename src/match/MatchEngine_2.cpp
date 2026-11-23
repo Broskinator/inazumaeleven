@@ -10,7 +10,7 @@ extern "C" int func_0208164c(int a, int level);
 extern "C" void _ZN9EntryPool6RemoveEi(void);     // (for the asm functions)
 #include "system/GameHeap.hpp"
 extern "C" int func_ov015_021319b0(MatchPlayer *player);
-extern "C" BOOL func_0208076c(u8 *entry, int i);
+extern "C" u16 func_0208076c(u8 *entry, u32 i);
 extern "C" BOOL func_02080328(u8 *entry, int i);
 extern "C" int func_02080b90(MatchPlayer *player);
 extern GameHeap gAllocator;
@@ -13119,74 +13119,38 @@ asm void MatchEngine::func_0207bb9c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm int MatchEngine::func_0207bdf8(int team, int id)
+#pragma push
+#pragma optimization_level 2
+int MatchEngine::func_0207bdf8(int team, int id)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r3, =0xfff
-    mov r4, r2
-    mov r6, #0
-    mov r5, r1
-    add r0, r0, #0x3ac
-    add r8, r0, r5, lsl #4
-    and r4, r4, r3
-    mov r7, r6
-    b @L_0207be50
-@L_0207be20:
-    mov r0, r8
-    mov r1, r7
-    bl func_02080780
-    cmp r4, r0
-    bne @L_0207be4c
-    mov r2, #0
-    mov r0, r8
-    mov r1, r7
-    mov r3, r2
-    bl func_02080730
-    b @L_0207be58
-@L_0207be4c:
-    add r7, r7, #1
-@L_0207be50:
-    cmp r7, #4
-    blt @L_0207be20
-@L_0207be58:
-    cmp r7, #4
-    bne @L_0207be8c
-    mov r0, #3
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
-@L_0207be68:
-    mov r0, r8
-    add r1, r7, #1
-    bl func_0208076c
-    mov r2, r0
-    mov r0, r8
-    mov r1, r7
-    mov r3, r6
-    bl func_02080730
-    add r7, r7, #1
-@L_0207be8c:
-    cmp r7, #3
-    blt @L_0207be68
-    mov r2, #0
-    mov r0, r8
-    mov r3, r2
-    mov r1, #3
-    bl func_02080730
-    ldr r0, =gGameState
-    mov r1, r6
-    ldrb r0, [r0, #0x1b]
-    cmp r0, #0
-    cmpeq r5, #1
-    orreq r4, r4, #0x8000
-    mov r0, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    beq @L_0207bed8
-    mov r1, r6
-    bl func_02081398
-@L_0207bed8:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    int i;
+    u8 *entry;
+
+    entry = unk_3ac[team];
+    id &= 0xFFF;
+    for (i = 0; i < 4; i++) {
+        if (id == func_02080780(entry, i)) {
+            func_02080730(entry, i, 0, 0);
+            break;
+        }
+    }
+    if (i == 4) {
+        return 3;
+    }
+    for (; i < 3; i++) {
+        func_02080730(entry, i, func_0208076c(entry, i + 1), 0);
+    }
+    func_02080730(entry, 3, 0, 0);
+    if (gGameState.unk_000[0x1B] == 0 && team == 1) {
+        id |= 0x8000;
+    }
+    MatchPlayer *player = func_ov015_02130b14(id, 0);
+    if (player != NULL) {
+        func_02081398(player, 0);
+    }
+    return 0;
 }
+#pragma pop
 
 #pragma push
 #pragma optimization_level 2
