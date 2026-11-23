@@ -228,7 +228,7 @@ extern "C" void _ZN11MatchEngine13func_0206bfecEv(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02067f44EP11MatchPlayeri(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02068028Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02068028EP11MatchPlayerP10MatchPointil(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206811cEPt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020681d8EP10MatchPointilS1_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068434EP11MatchPlayerll(void);     // (for the asm functions)
@@ -4386,7 +4386,7 @@ asm void MatchEngine::func_02065c00()
     mov r2, r4
     mov r3, #0xf
     str r12, [sp]
-    bl _ZN11MatchEngine13func_02068028Ev
+    bl _ZN11MatchEngine13func_02068028EP11MatchPlayerP10MatchPointil
     cmp r0, #0
     addeq sp, sp, #0x18
     ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
@@ -4667,7 +4667,7 @@ asm void MatchEngine::func_02065fa0(MatchPlayer *player)
     mov r5, #0x8c000
     mov r3, #0xf
     str r5, [sp]
-    bl _ZN11MatchEngine13func_02068028Ev
+    bl _ZN11MatchEngine13func_02068028EP11MatchPlayerP10MatchPointil
 @L_02066198:
     add r0, sp, #0x18
     str r4, [sp]
@@ -5380,7 +5380,7 @@ asm void MatchEngine::func_02066768()
     mov r2, r11
     mov r3, #0xf
     str r5, [sp]
-    bl _ZN11MatchEngine13func_02068028Ev
+    bl _ZN11MatchEngine13func_02068028EP11MatchPlayerP10MatchPointil
     cmp r0, #0
     beq @L_02066d04
     mov r0, r10
@@ -6588,73 +6588,47 @@ asm int MatchEngine::func_02067f44(MatchPlayer *player, int angle)
 }
 #endif
 
-asm void MatchEngine::func_02068028()
+#pragma push
+#pragma optimization_level 2
+BOOL MatchEngine::func_02068028(MatchPlayer *player, MatchPoint *out, int a, fx32 dist)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0xc
-    mov r7, r1
-    ldrh r1, [r7, #0xf0]
-    mov r8, r0
-    mov r6, r2
-    tst r1, #0x40
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02068080
-    mov r0, r8
-    bl _ZN11MatchEngine13func_0206c110Ev
-    cmp r0, #0
-    bne @L_02068080
-    cmp r6, #0
-    beq @L_02068074
-    mov r0, r6
-    bl func_020841d8
-@L_02068074:
-    add sp, sp, #0xc
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02068080:
-    ldr r0, [sp, #0x30]
-    cmp r0, #0
-    movle r0, #0x8c000
-    strle r0, [sp, #0x30]
-    mov r0, r7
-    bl func_ov015_02131970
-    mov r5, #0
-    mov r4, #0xc000
-    cmp r0, #0
-    movne r4, #0x4000
-    mov r9, r5
-    b @L_020680d8
-@L_020680b0:
-    mov r0, r9, lsl #0x1c
-    mov r10, r0, lsr #0x10
-    mov r0, r8
-    mov r1, r7
-    mov r2, r10
-    bl _ZN11MatchEngine13func_02067f44EP11MatchPlayeri
-    cmp r0, r5
-    movgt r4, r10
-    movgt r5, r0
-    add r9, r9, #1
-@L_020680d8:
-    cmp r9, #0x10
-    blt @L_020680b0
-    add r5, sp, #4
-    ldr r3, [sp, #0x30]
-    ldr r1, =data_020c4920
-    mov r0, r8
-    mov r2, r4
-    str r5, [sp]
-    bl _ZN11MatchEngine13func_020687ccEP10MatchPointilS1_
-    ldr r1, [sp, #4]
-    mov r0, #1
-    str r1, [r6]
-    ldr r1, [sp, #8]
-    str r1, [r6, #4]
-    add sp, sp, #0xc
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    int i;
+    u16 bestDir;
+    u16 dir;
+    int best;
+    int score;
+    MatchPoint pos;
+    int side;
+
+    if (MatchPlayer_HasFlag(player, 0x40) && !func_0206c110()) {
+        if (out != NULL) {
+            func_020841d8(out);
+        }
+        return FALSE;
+    }
+    if (dist <= 0) {
+        dist = 0x8C000;
+    }
+    side = func_ov015_02131970(player);
+    bestDir = 0xC000;
+    if (side) {
+        bestDir = 0x4000;
+    }
+    i = best = 0;
+    for (; i < 16; i++) {
+        dir = i << 12;
+        score = func_02067f44(player, dir);
+        if (score > best) {
+            bestDir = dir;
+            best = score;
+        }
+    }
+    func_020687cc((MatchPoint *)&data_020c4920.pos, bestDir, dist, &pos);
+    out->x = pos.x;
+    out->y = pos.y;
+    return TRUE;
 }
+#pragma pop
 
 BOOL MatchEngine::func_0206811c(u16 *action)
 {

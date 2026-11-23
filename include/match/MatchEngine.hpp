@@ -156,7 +156,7 @@ public:
     BOOL func_02067e00(MatchPlayer *player, int a, int b, int c);
     BOOL func_02067e78(MatchPlayer *player, int a, int b);
     int func_02067f44(MatchPlayer *player, int angle);
-    void func_02068028();
+    BOOL func_02068028(MatchPlayer *player, MatchPoint *out, int a, fx32 dist);
     BOOL func_0206811c(u16 *action);
     void func_0206815c(MatchPoint *pos, MatchPoint *a, MatchPoint *b, fx32 percent);
     void func_020681d8(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos);
