@@ -39,7 +39,7 @@ extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207bdf8Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
-extern "C" s32 _ZN11MatchEngine13func_02082f3cEv(...);
+extern "C" s32 _ZN11MatchEngine13func_02082f3cEii(...);
 extern "C" void _ZN9EntryPool4SwapEii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void _s32_div_f(void);
@@ -87,7 +87,7 @@ extern "C" void func_ov029_0216c1f8(s32 arg0)
     func_ov029_0216c3b0(arg0);
     func_ov029_0216c4a8(arg0);
     func_ov029_0216c534(arg0);
-    _ZN11MatchEngine13func_02082f3cEv((s32)data_020e88a0, 0, 2);
+    _ZN11MatchEngine13func_02082f3cEii((s32)data_020e88a0, 0, 2);
 }
 
 extern "C" asm s32 func_ov029_0216c23c(...)

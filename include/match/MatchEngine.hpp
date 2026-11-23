@@ -747,7 +747,7 @@ public:
     int func_02082d5c(int id);
     BOOL func_02082d80(int id, int value);
     void func_02082d9c();
-    void func_02082f3c();
+    void func_02082f3c(int team, int kind);
     u8 *func_02083048(int team);
     u8 *func_02083054(int team);
 

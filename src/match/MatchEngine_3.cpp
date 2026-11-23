@@ -2,7 +2,7 @@
 extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" void func_01ffde48(void);
 extern "C" void func_020802a0(void);
-extern "C" void func_02080b90(void);
+extern "C" int func_02080b90(MatchPlayer *player);
 extern "C" void func_02080c64(void);
 extern "C" void gEntryPool(void);
 
@@ -132,81 +132,38 @@ asm void MatchEngine::func_02082d9c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02082f3c()
+void MatchEngine::func_02082f3c(int team, int kind)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r9, r2
-    mov r7, #0x2000
-    cmp r9, #2
-    mov r10, r1
-    mov r6, #0
-    moveq r7, #0x4000
-    beq @L_02082f64
-    cmp r9, #3
-    moveq r7, #0x8000
-@L_02082f64:
-    mvn r0, r7
-    ldr r4, =data_020e88a0
-    mov r8, #0
-    mov r11, r0, lsl #0x10
-@L_02082f74:
-    mov r0, r8
-    bl func_ov015_02130ae8
-    movs r5, r0
-    beq @L_02083034
-    ldrh r0, [r5, #0xf0]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02083034
-    mov r0, r5
-    bl func_02080b90
-    cmp r10, r0
-    bne @L_02083034
-    ldrh r0, [r5, #0xba]
-    tst r7, r0
-    beq @L_02083034
-    cmp r6, #0
-    bne @L_02083020
-    cmp r9, #1
-    bne @L_02082fe0
-    ldrh r2, [r5, #0x42]
-    mov r0, r4
-    mov r1, r10
-    bl _ZN11MatchEngine13func_0207ae40Eim
-    cmp r0, #0
-    beq @L_02083020
-@L_02082fe0:
-    cmp r9, #2
-    bne @L_02083000
-    ldrh r2, [r5, #0x42]
-    mov r0, r4
-    mov r1, r10
-    bl _ZN11MatchEngine13func_0207add4Eim
-    cmp r0, #0
-    beq @L_02083020
-@L_02083000:
-    cmp r9, #3
-    bne @L_02083030
-    ldrh r2, [r5, #0x42]
-    mov r0, r4
-    mov r1, #2
-    bl _ZN11MatchEngine13func_0207ae40Eim
-    cmp r0, #0
-    bne @L_02083030
-@L_02083020:
-    ldrh r0, [r5, #0xba]
-    and r0, r0, r11, lsr #16
-    strh r0, [r5, #0xba]
-    b @L_02083034
-@L_02083030:
-    mov r6, #1
-@L_02083034:
-    add r8, r8, #1
-    cmp r8, #0x84
-    blt @L_02082f74
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *player;
+    BOOL found = FALSE;
+    int mask = 0x2000;
+    int i;
+
+    if (kind == 2) {
+        mask = 0x4000;
+    } else if (kind == 3) {
+        mask = 0x8000;
+    }
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1)) {
+            continue;
+        }
+        if (team != func_02080b90(player)) {
+            continue;
+        }
+        if (!(mask & player->unk_ba)) {
+            continue;
+        }
+        if (found
+            || (kind == 1 && !data_020e88a0.func_0207ae40(team, player->unk_42))
+            || (kind == 2 && !data_020e88a0.func_0207add4(team, player->unk_42))
+            || (kind == 3 && !data_020e88a0.func_0207ae40(2, player->unk_42))) {
+            player->unk_ba &= ~mask;
+        } else {
+            found = TRUE;
+        }
+    }
 }
 
 u8 *MatchEngine::func_02083048(int team)
