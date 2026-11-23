@@ -15,7 +15,7 @@ public:
     void func_02083090();
     MatchPlayerList *func_02083094();
     void func_020830a8();
-    void func_020830ac();
+    BOOL func_020830ac(int a, int b);
     void func_020831f8();
     MatchPlayer *func_020832a8(int index);
     MatchPlayer *func_020832b4(int team, int i);

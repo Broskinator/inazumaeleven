@@ -249,7 +249,7 @@ def check(code, fn, write=False, tag="hand", src=None, nm=None):
     if not m:
         return None, (r.stdout + r.stderr)[-4000:]
     k = int(m[1] or 0) + abs((size(fn) or int(m[2])) - int(m[2])) // 4
-    out = r.stdout[-4000:]
+    out = r.stdout if os.environ.get("HAND_FULL") else r.stdout[-4000:]   # (HAND_FULL=1: all of it)
     if write and (k == 0 or nm):
         save(src, t if k == 0 else t_nm)
         for f, ft in others.items():

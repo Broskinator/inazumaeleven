@@ -1,6 +1,7 @@
 #include "match/MatchPlayerList.hpp"
 #include "match/MatchEngine.hpp"
 #include "nitro/mi.h"
+#include "game/GameState.hpp"
 
 extern "C" s32 FX_Sqrt(s32 x);
 extern "C" MatchPoint *func_02083eac(int side);
@@ -20,7 +21,7 @@ extern "C" void _ZN10MatchRules13func_0206ef74Ev(void);
 extern "C" void _ZdlPv(void);
 extern "C" s32 func_ov015_02131854(s32 arg0, s32 arg1);
 extern "C" int func_ov015_021319b0(MatchPlayer *player);
-extern "C" void gGameState(void);
+
 
 MatchPlayerList *MatchPlayerList::func_02083060()
 {
@@ -50,7 +51,45 @@ void MatchPlayerList::func_020830a8()
 {
 }
 
-asm void MatchPlayerList::func_020830ac()
+// (nonmatching: 72 words: the ROM reads gGameState.unk_07c[2] again after each merge of the ladder (four ldrb), the attempt once; the rest follows)
+#ifdef NONMATCHING
+BOOL MatchPlayerList::func_020830ac(int a, int b)
+{
+    int level;
+    BOOL ok;
+    BOOL x;
+
+    if (gGameState.unk_07c[2] <= 2) {
+        level = 1;
+    } else if (gGameState.unk_07c[2] >= 3 && gGameState.unk_07c[2] <= 5) {
+        level = 2;
+    } else if (gGameState.unk_07c[2] >= 6 && gGameState.unk_07c[2] <= 8) {
+        level = 3;
+    } else if (gGameState.unk_07c[2] >= 9 && gGameState.unk_07c[2] <= 11) {
+        level = 4;
+    } else if (gGameState.unk_07c[2] >= 12 && gGameState.unk_07c[2] <= 14) {
+        level = 5;
+    } else {
+        level = -1;
+    }
+    ok = TRUE;
+    if (*(u32 *)(gGameState.unk_000 + 4) < *(u32 *)(data_020ca6e8 + (level - 1) * 4)) {
+        ok = FALSE;
+    }
+    if (a != 0 || b != 0 || MatchBall_HasFlag(&data_020c4920, 2) || (data_020c4920.unk_5a != 0 ? TRUE : FALSE)) {
+        ok = FALSE;
+    }
+    x = match->func_0206cec0();
+    if (match->func_0206d188(0, x) || match->func_0206d188(1, x)) {
+        return TRUE;
+    }
+    if (match->func_0206c644()) {
+        return FALSE;
+    }
+    return ok;
+}
+#else
+asm BOOL MatchPlayerList::func_020830ac(int a, int b)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     ldr r3, =gGameState
@@ -142,6 +181,7 @@ asm void MatchPlayerList::func_020830ac()
     moveq r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 // (puts the players in the list: team 0 from 0, team 1 from 11)
 // (nonmatching: 16 words: the ROM indexes players from this each time and picks the slot with conditional moves; registers differ)
