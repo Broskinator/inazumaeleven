@@ -442,7 +442,7 @@ extern "C" fx32 data_020aeb64[];
 extern "C" char data_020fa1a5[];
 extern "C" void func_ov015_0213fde4(void);
 extern "C" void func_ov015_0214079c(void);
-extern "C" void func_ov015_02140e74(void);
+extern "C" fx32 func_ov015_02140e74(MatchEngine *engine, int a, int b);
 extern "C" fx32 func_ov015_02142850(MatchEngine *self);
 extern "C" void func_ov087_02179c8c(void);
 extern "C" char data_020aedc8[];
@@ -7039,84 +7039,40 @@ asm BOOL MatchEngine::func_020687cc(MatchPoint *from, int angle, fx32 distance, 
 }
 #endif
 
-asm void MatchEngine::func_02068844()
+fx32 MatchEngine::func_02068844(int a, fx32 speed, u16 angle, fx32 from, fx32 to, u8 flag, fx32 g)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    movs r7, r2
-    mov r8, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    cmp r7, #0
-    blt @L_02068868
-    cmp r3, #0x4000
-    blo @L_02068870
-@L_02068868:
-    mov r0, #0x80000000
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02068870:
-    ldrb r0, [sp, #0x28]
-    ldr r5, [sp, #0x20]
-    ldr r2, [sp, #0x24]
-    cmp r0, #0
-    sub r4, r5, r2
-    beq @L_02068894
-    cmp r5, r2
-    movge r0, #0x80000000
-    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_02068894:
-    mov r0, r3, asr #4
-    mov r3, r0, lsl #1
-    ldr r2, =FX_SinCosTable_
-    mov r0, r3, lsl #1
-    ldrsh r6, [r2, r0]
-    cmp r6, #0
-    addne r0, r3, #1
-    movne r0, r0, lsl #1
-    ldrnesh r5, [r2, r0]
-    cmpne r5, #0
-    moveq r0, #0x80000000
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    ldr r9, [sp, #0x2c]
-    cmp r9, #0
-    bne @L_020688e0
-    mov r0, r8
-    mov r2, #2
-    bl func_ov015_02140e74
-    mov r9, r0
-@L_020688e0:
-    mov r0, r8
-    mov r1, r9
-    bl _ZN11MatchEngine13func_02068b08El
-    cmp r7, r0
-    movgt r0, r9
-    ldmgtia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    smull r0, r2, r6, r7
-    adds r3, r0, #0x800
-    smull r1, r0, r4, r5
-    adc r2, r2, #0
-    adds r1, r1, #0x800
-    mov r3, r3, lsr #0xc
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r3, r3, r2, lsl #20
-    orr r1, r1, r0, lsl #20
-    add r2, r1, r3, lsl #1
-    smull r1, r0, r2, r5
-    adds r2, r1, #0x800
-    adc r1, r0, #0
-    mov r0, r2, lsr #0xc
-    orr r0, r0, r1, lsl #20
-    bl FX_Sqrt
-    ldr r2, =data_020aeb64
-    mov r1, r0
-    ldr r0, [r2, #0x10]
-    smull r3, r2, r0, r7
-    adds r0, r3, #0x800
-    adc r2, r2, #0
-    mov r0, r0, lsr #0xc
-    orr r0, r0, r2, lsl #20
-    bl FX_Div
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    fx32 h;
+    fx32 vy;
+    fx16 sin;
+    fx32 cos;
+    fx32 root;
+    fx32 gravity;
+
+    if (speed == 0) {
+        return 0;
+    }
+    if (speed < 0 || angle >= 0x4000) {
+        return 0x80000000;
+    }
+    h = from - to;
+    if (flag && from >= to) {
+        return 0x80000000;
+    }
+    sin = FX_SinIdx(angle >> 4);
+    if (sin == 0 || (cos = FX_CosIdx(angle >> 4)) == 0) {
+        return 0x80000000;
+    }
+    gravity = g;
+    if (gravity == 0) {
+        gravity = func_ov015_02140e74(this, a, 2);
+    }
+    if (speed > func_02068b08(gravity)) {
+        return gravity;
+    }
+    vy = FX_Mul(sin, speed);
+    h = FX_Mul(h, cos) + vy * 2;
+    root = FX_Sqrt(FX_Mul(h, cos));
+    return FX_Div(FX_Mul(data_020aeb64[4], speed), root);
 }
 
 // (nonmatching: the stack argument is stored at a different time)
