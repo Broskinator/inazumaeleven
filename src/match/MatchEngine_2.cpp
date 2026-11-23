@@ -8313,75 +8313,46 @@ u8 *MatchEngine::func_02076f34(int i)
     return func_020768fc(func_02076f04(i));
 }
 
-asm void MatchEngine::func_02076f50()
+// sells n of item id: 0, or 13 (no such item), 12 (not that many), 3 (no price), or what
+// func_02076ba0 refused with
+int MatchEngine::func_02076f50(u32 id, int n)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r6, r0
-    mov r8, r1
-    mov r5, r2
-    bl _ZN11MatchEngine13func_020768fcEm
-    movs r4, r0
-    moveq r0, #0xd
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r0, r6
-    mov r1, r8
-    bl _ZN11MatchEngine13func_020767a4Em
-    cmp r0, r5
-    movlt r0, #0xc
-    ldmltia sp!, {r4, r5, r6, r7, r8, pc}
-    ldrh r0, [r4, #0x24]
-    cmp r0, #0
-    moveq r0, #3
-    ldmeqia sp!, {r4, r5, r6, r7, r8, pc}
-    mov r7, #1
-    mov r0, r6
-    mov r1, r8
-    mov r2, r5
-    mov r3, r7
-    bl _ZN11MatchEngine13func_02076ba0Emii
-    cmp r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, pc}
-    ldrb r0, [r4, #0x21]
-    cmp r0, #0x15
-    bne @L_02077000
-    mov r0, r6
-    mov r1, r8
-    bl _ZN11MatchEngine13func_020767a4Em
-    cmp r0, #0
-    bgt @L_02077000
-    bl func_ov015_021319bc
-    mov r1, r0
-    ldr r0, =data_020e88a0
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    cmp r0, #0
-    beq @L_02077000
-    ldrh r2, [r0, #0x3a]
-    ldrh r1, [r4, #0x2a]
-    cmp r2, r1
-    streqh r7, [r0, #0x3a]
-@L_02077000:
-    add r0, r6, #0xb00
-    ldrh r1, [r4, #0x24]
-    ldrh r0, [r0, #0x92]
-    ldr r2, =0x51eb851f
-    ldr r3, =gGameState
-    mul r4, r1, r0
-    mov r0, r4, lsr #0x1f
-    smull r1, r4, r2, r4
-    add r4, r0, r4, asr #5
-    mul r1, r5, r4
-    ldr r0, [r3, #0x4c0]
-    adds r1, r0, r1
-    movmi r0, #0
-    strmi r0, [r3, #0x4c0]
-    bmi @L_0207704c
-    ldr r0, =0xf423f
-    cmp r1, r0
-    strgt r0, [r3, #0x4c0]
-    strle r1, [r3, #0x4c0]
-@L_0207704c:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    u8 *entry = func_020768fc(id);
+    u8 *info;
+    s32 value;
+    int result;
+    s32 price;
+
+    if (entry == NULL) {
+        return 0xD;
+    }
+    if (func_020767a4(id) < n) {
+        return 0xC;
+    }
+    if (*(u16 *)(entry + 0x24) == 0) {
+        return 3;
+    }
+    result = func_02076ba0(id, n, TRUE);
+    if (result != 0) {
+        return result;
+    }
+    if (entry[0x21] == 0x15 && (int)func_020767a4(id) <= 0) {
+        info = data_020e88a0.GetTeamInfo(func_ov015_021319bc());
+        if (info != NULL && *(u16 *)(info + 0x3A) == *(u16 *)(entry + 0x2A)) {
+            *(u16 *)(info + 0x3A) = 1;
+        }
+    }
+    price = *(u16 *)(entry + 0x24) * unk_b92 / 100;
+    value = n * price;
+    value = gGameState.profile.unk_14 + value;
+    if (value < 0) {
+        gGameState.profile.unk_14 = 0;
+    } else if (value > 999999) {
+        gGameState.profile.unk_14 = 999999;
+    } else {
+        gGameState.profile.unk_14 = value;
+    }
+    return 0;
 }
 
 BOOL MatchEngine::func_02077064(u32 item, int n)

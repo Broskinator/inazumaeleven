@@ -532,7 +532,7 @@ public:
     u16 func_02076f04(int i);
     u8 *func_02076f14(MatchPlayer *player);
     u8 *func_02076f34(int i);
-    void func_02076f50();
+    int func_02076f50(u32 id, int n);
     BOOL func_02077064(u32 item, int n);
     BOOL func_020770a8(u32 id, int count);
     BOOL func_02077104(u32 item, int n);
@@ -779,7 +779,9 @@ public:
     u8 unk_b8c[2];
     s8 unk_b8e;
     u8 unk_b8f;
-    u8 unk_b90[0xB98 - 0xB90];
+    u8 unk_b90[2];
+    u16 unk_b92;        // (what an item sells for, in % of its price: func_02076f50)
+    u8 unk_b94[0xB98 - 0xB94];
     s32 unk_b98;
     s32 unk_b9c;
     s32 unk_ba0;        // (a phase, see func_0206ac44)
