@@ -438,7 +438,7 @@ public:
     s32 func_02070760();
     void func_020725ac();
     int func_020728e0(int value);
-    void func_02072914();
+    BOOL func_02072914(MatchPlayer *player, int value, u8 *req, int i);
     BOOL func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8 *req);
     void func_02072bb8(MatchPlayer *player, int id, int slot);
     int func_02072fe8(MatchPlayer *player, int id, BOOL first);

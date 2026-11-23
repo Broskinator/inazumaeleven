@@ -357,7 +357,7 @@ extern "C" void _ZN11MatchEngine13func_0206a93cEv(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206f500Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206f9e0Em(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020728e0Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02072914Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02072914EP11MatchPlayeriPhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02072a5cEP11MatchPlayerS1_Ph(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02072bb8EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020730dcEP11MatchPlayeriih(void);     // (for the asm functions)
@@ -4083,102 +4083,52 @@ int MatchEngine::func_020728e0(int value)
     return value == 7;
 }
 
-asm void MatchEngine::func_02072914()
+// whether value meets the requirement req (kind req[0], operands from 4 on; req[2]: what
+// func_0207f7cc reads for player)
+BOOL MatchEngine::func_02072914(MatchPlayer *player, int value, u8 *req, int i)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r3
-    mov r5, r2
-    ldrb r2, [r4, #2]
-    ldrb r12, [r4]
-    mov r3, #0
-    cmp r2, #0xa
-    moveq r3, #1
-    cmp r12, #0xa
-    addls pc, pc, r12, lsl #2
-    b @L_02072a54
-    b @L_0207296c
-    b @L_02072974
-    b @L_02072988
-    b @L_0207299c
-    b @L_020729c0
-    b @L_020729c0
-    b @L_020729c0
-    b @L_020729c0
-    b @L_02072a0c
-    b @L_02072a24
-    b @L_02072a3c
-@L_0207296c:
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02072974:
-    ldrh r0, [r4, #4]
-    cmp r5, r0
-    movle r0, #1
-    movgt r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02072988:
-    ldrh r0, [r4, #4]
-    cmp r5, r0
-    movge r0, #1
-    movlt r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0207299c:
-    ldrh r0, [r4, #4]
-    cmp r5, r0
-    blt @L_020729b8
-    ldrh r0, [r4, #6]
-    cmp r5, r0
-    movle r0, #1
-    ldmleia sp!, {r3, r4, r5, pc}
-@L_020729b8:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_020729c0:
-    cmp r3, #0
-    cmpeq r5, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    mov r1, r12
-    bl _ZN11MatchEngine13func_020728e0Ei
-    cmp r0, #0
-    mov r2, #0
-    ble @L_02072a04
-@L_020729e4:
-    add r1, r4, r2, lsl #1
-    ldrh r1, [r1, #4]
-    cmp r5, r1
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, pc}
-    add r2, r2, #1
-    cmp r2, r0
-    blt @L_020729e4
-@L_02072a04:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02072a0c:
-    ldr r3, [sp, #0x10]
-    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
-    cmp r5, r0
-    movle r0, #1
-    movgt r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02072a24:
-    ldr r3, [sp, #0x10]
-    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
-    cmp r5, r0
-    movle r0, #1
-    movgt r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02072a3c:
-    ldr r3, [sp, #0x10]
-    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
-    cmp r5, r0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
-@L_02072a54:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    u16 *operand;
+    int n;
+    int k;
+    BOOL any = FALSE;
+
+    if (req[2] == 10) {
+        any = TRUE;
+    }
+    switch (req[0]) {
+    case 0:
+        return TRUE;
+    case 1:
+        return value <= *(u16 *)(req + 4) ? TRUE : FALSE;
+    case 2:
+        return value >= *(u16 *)(req + 4) ? TRUE : FALSE;
+    case 3:
+        if (value >= *(u16 *)(req + 4) && value <= *(u16 *)(req + 6)) {
+            return TRUE;
+        }
+        return FALSE;
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+        if (!any && value == 0) {
+            return FALSE;
+        }
+        n = func_020728e0(req[0]);
+        for (k = 0; k < n; k++) {
+            if (value == ((u16 *)(req + 4))[k]) {
+                return TRUE;
+            }
+        }
+        return FALSE;
+    case 8:
+        return value <= func_0207f7cc(player, req[2], i) ? TRUE : FALSE;
+    case 9:
+        return value <= func_0207f7cc(player, req[2], i) ? TRUE : FALSE;
+    case 10:
+        return value == func_0207f7cc(player, req[2], i) ? TRUE : FALSE;
+    }
+    return FALSE;
 }
 
 asm BOOL MatchEngine::func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8 *req)
@@ -4265,7 +4215,7 @@ asm BOOL MatchEngine::func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8
     mov r1, r5
     mov r3, r4
     str r7, [sp]
-    bl _ZN11MatchEngine13func_02072914Ev
+    bl _ZN11MatchEngine13func_02072914EP11MatchPlayeriPhi
     cmp r0, #0
     addne sp, sp, #4
     movne r0, #1
