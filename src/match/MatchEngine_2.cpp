@@ -81,9 +81,9 @@ extern "C" void func_02084cf0(void);     // (for the asm functions)
 extern "C" void func_02084e08(void);     // (for the asm functions)
 extern "C" void func_02081f7c(void);     // (for the asm functions)
 extern "C" int func_02082150(MatchEngine *engine, int id, int a);
-extern "C" void func_020823a0(MatchEngine *self, u16 id, int a);
+extern "C" BOOL func_020823a0(MatchEngine *self, u16 id, int a);
 extern "C" void func_02082604(void);     // (for the asm functions)
-extern "C" void func_02082c8c(void);     // (for the asm functions)
+extern "C" BOOL func_02082c8c(void *a, int b);
 extern "C" void func_02081b24(void);     // (for the asm functions)
 extern "C" void func_02081b44(void);     // (for the asm functions)
 extern "C" s32 func_02081b70(u8 *arg0, u8 *arg1);
@@ -11202,6 +11202,46 @@ asm void MatchEngine::func_02079ae4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
+// (nonmatching: the ROM clears copy->unk_f0 with ldrh; and #0; strh, MWCC folds it into a store of 0 (all else matches at optimization level 2))
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_02079c08()
+{
+    int i;
+    MatchPlayer *player;
+    MatchPlayer *copy;
+
+    if (gGameState.unk_000[0x1B] == 0) {
+        return;
+    }
+    for (i = 0; i < 0x20; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL) {
+            continue;
+        }
+        if (!MatchPlayer_HasFlag(player, 1)) {
+            continue;
+        }
+        if (!func_02082c8c(this, player->unk_42)) {
+            continue;
+        }
+        if (!func_020823a0(this, player->unk_42, 0)) {
+            continue;
+        }
+        copy = (MatchPlayer *)gEntryPool.Duplicate(i, i + 0x20);
+        if (copy == NULL) {
+            continue;
+        }
+        copy->unk_f0 &= 0;
+        if (func_020823a0(this, player->unk_42, 0)) {
+            copy->unk_f0 |= 1;
+            copy->unk_b6 = 2;
+        }
+    }
+}
+#pragma pop
+#else
 asm void MatchEngine::func_02079c08()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -11263,6 +11303,7 @@ asm void MatchEngine::func_02079c08()
     blt @L_02079c38
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_02079cec()
 {
