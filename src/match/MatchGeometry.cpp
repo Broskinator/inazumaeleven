@@ -415,17 +415,17 @@ extern "C" s32 func_02083fe8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
     if (arg0 == 0) {
         if (arg1 == 0)
             return 0;
-        return ((s32 (*)(...))FX_Div)(-arg2, arg1);
+        return FX_Div(-arg2, arg1);
     }
     if (arg2 == 0) {
         if (arg0 == 0)
             return 0;
-        return ((s32 (*)(...))FX_Div)(-arg1, arg0);
+        return FX_Div(-arg1, arg0);
     }
-    s = ((s32 (*)(...))FX_Sqrt)((s32)(((s64)arg1 * arg1 + 0x800) >> 12) - ((s32)(((s64)arg0 * arg2 + 0x800) >> 12) << 2));
+    s = FX_Sqrt((s32)(((s64)arg1 * arg1 + 0x800) >> 12) - ((s32)(((s64)arg0 * arg2 + 0x800) >> 12) << 2));
     if (arg3 != 0)
-        return ((s32 (*)(...))FX_Div)(-(s + arg1), arg0 << 1);
-    return ((s32 (*)(...))FX_Div)(s - arg1, arg0 << 1);
+        return FX_Div(-(s + arg1), arg0 << 1);
+    return FX_Div(s - arg1, arg0 << 1);
 }
 
 extern "C" u16 func_02084094(fx32 *segment)
