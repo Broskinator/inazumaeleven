@@ -8885,14 +8885,13 @@ BOOL MatchEngine::func_0207765c(MatchPlayer *player, u32 id, int mode, int *erro
     return TRUE;
 }
 
-// (nonmatching: the id's lsr #16 is hoisted out of the loop; the ROM keeps id<<16 and compares with lsr #16 in it)
-#ifdef NONMATCHING
 BOOL MatchEngine::func_020776f8(MatchPlayer *player, u32 id, int *error)
 {
     int result = 0;
     u8 *entry;
     u16 ids[8];
     int i;
+    int mask = 0xFFF;
 
     if (error == NULL) {
         error = &result;
@@ -8913,7 +8912,7 @@ BOOL MatchEngine::func_020776f8(MatchPlayer *player, u32 id, int *error)
     }
     if (result == 0) {
         for (i = 0; i < 4; i++) {
-            if (ids[i] == (u16)(player->unk_42 & 0xFFF)) {
+            if (ids[i] == (u16)(player->unk_42 & mask)) {
                 break;
             }
         }
@@ -8924,72 +8923,6 @@ BOOL MatchEngine::func_020776f8(MatchPlayer *player, u32 id, int *error)
     *error = result;
     return result == 0;
 }
-#else
-asm BOOL MatchEngine::func_020776f8(MatchPlayer *player, u32 id, int *error)
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x14
-    mov r8, r0
-    mov r0, #0
-    movs r5, r3
-    mov r7, r1
-    addeq r5, sp, #0
-    str r0, [sp]
-    cmp r7, #0
-    mov r6, r0
-    moveq r0, #0x1c
-    streq r0, [r5]
-    addeq sp, sp, #0x14
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    mov r0, r8
-    mov r1, r2
-    bl _ZN11MatchEngine13func_020768fcEm
-    movs r1, r0
-    moveq r0, #0xd
-    streq r0, [r5]
-    addeq sp, sp, #0x14
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    add r4, sp, #4
-    mov r0, r8
-    mov r2, r4
-    bl _ZN11MatchEngine13func_02077eb8EPhPv
-    str r0, [sp]
-    cmp r0, #2
-    addeq sp, sp, #0x14
-    streq r6, [r5]
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    cmp r0, #0
-    bne @L_020777c4
-    ldrh r2, [r7, #0x42]
-    ldr r1, =0xfff
-    mov r3, #0
-    and r1, r2, r1
-    mov r1, r1, lsl #0x10
-@L_0207779c:
-    mov r2, r3, lsl #1
-    ldrh r2, [r4, r2]
-    cmp r2, r1, lsr #16
-    beq @L_020777b8
-    add r3, r3, #1
-    cmp r3, #4
-    blt @L_0207779c
-@L_020777b8:
-    cmp r3, #4
-    moveq r0, #5
-    streq r0, [sp]
-@L_020777c4:
-    str r0, [r5]
-    ldr r0, [sp]
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
-}
-#endif
 
 int MatchEngine::func_020777e4(u8 *team, s16 value, u32 i, u8 update)
 {

@@ -1,0 +1,27 @@
+--- before
++++ after
+@@ -2776,6 +2776,7 @@
+ BOOL MatchEngine__func_020776f8(MatchEngine *this, MatchPlayer *player, u32 id, int *error)
+ {
+   int result = 0;
++  int new_var;
+   u8 *entry;
+   u16 ids[8];
+   int i;
+@@ -2789,6 +2790,7 @@
+     return 0;
+   }
+   entry = this->func_020768fc(id);
++  new_var = 0xFFF;
+   if (entry == 0)
+   {
+     *error = 0xD;
+@@ -2804,7 +2806,7 @@
+   {
+     for (i = 0; i < 4; i++)
+     {
+-      if (ids[i] == ((u16) (player->unk_42 & 0xFFF)))
++      if (ids[i] == ((u16) (player->unk_42 & new_var)))
+       {
+         break;
+       }

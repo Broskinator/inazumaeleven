@@ -6494,8 +6494,12 @@ BOOL MatchEngine::func_02067e78(MatchPlayer *player, int a, int b)
     return func_02067aec(player, a, b, buffer, n, 0x81080F);
 }
 
-// (nonmatching: far.y stays in r1 from the abs to the func_02084350 call; the ROM loads it into r0 in each branch and again for the call)
-#ifdef NONMATCHING
+// (the point goes to func_02084350 through a reference: its x and y are loaded again for the call)
+static inline BOOL MatchPoint_func_02084350(const MatchPoint &p)
+{
+    return func_02084350(p.x, p.y);
+}
+
 int MatchEngine::func_02067f44(MatchPlayer *player, int angle)
 {
     MatchPoint near;
@@ -6521,72 +6525,11 @@ int MatchEngine::func_02067f44(MatchPlayer *player, int angle)
         }
         score -= d >> 12;
     }
-    if (!func_02084350(far.x, far.y)) {
+    if (!MatchPoint_func_02084350(far)) {
         score += 10;
     }
     return score;
 }
-#else
-asm int MatchEngine::func_02067f44(MatchPlayer *player, int angle)
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x14
-    ldr r7, =data_020c4920
-    add r4, sp, #0xc
-    mov r5, r1
-    str r4, [sp]
-    mov r1, r7
-    mov r3, #0x32000
-    mov r6, r0
-    mov r8, r2
-    ldr r4, =0x186a0
-    bl _ZN11MatchEngine13func_020687ccEP10MatchPointilS1_
-    add r12, sp, #4
-    mov r0, r6
-    mov r1, r7
-    mov r2, r8
-    mov r3, #0x96000
-    str r12, [sp]
-    bl _ZN11MatchEngine13func_020687ccEP10MatchPointilS1_
-    ldr r1, =0x10011
-    mov r0, r6
-    str r1, [sp]
-    ldr r2, [sp, #0xc]
-    ldr r3, [sp, #0x10]
-    mov r1, r5
-    bl func_01ffe4c4
-    cmp r0, #0
-    ldr r2, [sp, #8]
-    mov r0, r6
-    mov r1, r5
-    movne r4, #1
-    bl func_01ffed20
-    cmp r0, #0
-    ldr r1, [r5, #0xe8]
-    beq @L_02067fe8
-    ldr r0, [sp, #8]
-    ldr r1, [r1, #4]
-    subs r0, r1, r0
-    rsbmi r0, r0, #0
-    add r4, r4, r0, asr #12
-    b @L_02067ffc
-@L_02067fe8:
-    ldr r0, [sp, #8]
-    ldr r1, [r1, #4]
-    subs r0, r1, r0
-    rsbmi r0, r0, #0
-    sub r4, r4, r0, asr #12
-@L_02067ffc:
-    ldr r0, [sp, #4]
-    ldr r1, [sp, #8]
-    bl func_02084350
-    cmp r0, #0
-    addeq r4, r4, #0xa
-    mov r0, r4
-    add sp, sp, #0x14
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
-}
-#endif
 
 #pragma push
 #pragma optimization_level 2
@@ -8910,7 +8853,7 @@ asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-// (nonmatching: MWCC merges the loads of x and y into an ldm and keeps player in r7; the ROM loads y, then x (ldr r6, [r1, #4]; ldr r7, [r1]) with player in r4)
+// (nonmatching, 8 words: with x reused for the second call the registers match, but the ROM loads pos again with ldm r0, {r2, r3} for it; reloading both x and y moves player to r7 and this to r4)
 #ifdef NONMATCHING
 BOOL MatchEngine::func_0206a3b8(MatchPlayer *player)
 {
@@ -8931,7 +8874,7 @@ BOOL MatchEngine::func_0206a3b8(MatchPlayer *player)
         return FALSE;
     }
     result = TRUE;
-    func_ov087_0217d034(this, player->unk_f4, player->body->pos.x, player->body->pos.y, &dist, 1, player->unk_f4);
+    func_ov087_0217d034(this, player->unk_f4, x, player->body->pos.y, &dist, 1, player->unk_f4);
     if (dist >= 0x20000) {
         result = FALSE;
     }
