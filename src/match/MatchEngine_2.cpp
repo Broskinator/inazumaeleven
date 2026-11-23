@@ -72,7 +72,7 @@ extern "C" void func_02085e30(void);     // (for the asm functions)
 extern "C" void func_02085ec0(void);     // (for the asm functions)
 extern "C" void func_02083e34(void);     // (for the asm functions)
 extern "C" void func_02083e44(void);     // (for the asm functions)
-extern "C" void func_020841c8(void);     // (for the asm functions)
+extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
 extern "C" void func_02084788(void);     // (for the asm functions)
 extern "C" void func_020847ec(void);     // (for the asm functions)
@@ -1057,72 +1057,46 @@ void MatchEngine::func_0206facc()
 {
 }
 
-asm void MatchEngine::func_0206fad0()
+void MatchEngine::func_0206fad0(int index, int kind, int minutes)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r9, r0
-    mov r8, r2
-    mov r5, r3
-    bl _ZN11MatchEngine13func_0206f500Ei
-    mov r7, r0
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    bl func_02080b90
-    mov r6, r0
-    mov r0, r9
-    mov r1, r6
-    bl _ZN11MatchEngine13func_0206b2c8Ei
-    mov r4, r0
-    strh r7, [r4, #4]
-    mov r0, r9
-    mov r1, r6
-    strb r6, [r4, #6]
-    bl _ZN11MatchEngine13func_0206b4a8Ei
-    strb r0, [r4, #7]
-    cmp r8, #0
-    bne @L_0206fb40
-    ldr r0, =gGameState
-    ldrb r1, [r0, #0x7e]
-    strb r1, [r4, #8]
-    ldr r0, [r0]
-    b @L_0206fb90
-@L_0206fb40:
-    cmp r8, #4
-    addls pc, pc, r8, lsl #2
-    b @L_0206fb80
-    b @L_0206fb80
-    b @L_0206fb60
-    b @L_0206fb68
-    b @L_0206fb70
-    b @L_0206fb78
-@L_0206fb60:
-    mov r0, #1
-    b @L_0206fb7c
-@L_0206fb68:
-    mov r0, #4
-    b @L_0206fb7c
-@L_0206fb70:
-    mov r0, #7
-    b @L_0206fb7c
-@L_0206fb78:
-    mov r0, #0xa
-@L_0206fb7c:
-    strb r0, [r4, #8]
-@L_0206fb80:
-    mov r0, #0x3c
-    mul r1, r5, r0
-    mov r0, #0x1e
-    mul r0, r1, r0
-@L_0206fb90:
-    str r0, [r4]
-    mov r0, #0
-    bl func_020841c8
-    strb r0, [r4, #9]
-    mov r0, #1
-    bl func_020841c8
-    strb r0, [r4, #0xa]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    int id;
+    MatchPlayer *player;
+    int team;
+    u8 *entry;
+
+    id = func_0206f500(index);
+    player = func_ov015_02130ae8(id);
+    if (player == NULL) {
+        return;
+    }
+    team = func_02080b90(player);
+    entry = func_0206b2c8(team);
+    *(u16 *)(entry + 4) = id;
+    entry[6] = team;
+    entry[7] = func_0206b4a8(team);
+    if (kind == 0) {
+        entry[8] = gGameState.unk_07c[2];
+        *(s32 *)entry = *(s32 *)gGameState.unk_000;
+    } else {
+        switch (kind) {
+        case 1:
+            entry[8] = 1;
+            break;
+        case 2:
+            entry[8] = 4;
+            break;
+        case 3:
+            entry[8] = 7;
+            break;
+        case 4:
+            entry[8] = 10;
+            break;
+        }
+        *(s32 *)entry = minutes * 60;
+        *(s32 *)entry *= 30;
+    }
+    entry[9] = func_020841c8(0);
+    entry[10] = func_020841c8(1);
 }
 
 void MatchEngine::func_0206fbb4(int i)

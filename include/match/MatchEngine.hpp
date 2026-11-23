@@ -411,7 +411,7 @@ public:
     u32 func_0206f9e0(u32 id);
     BOOL func_0206faa0(int index);
     void func_0206facc();
-    void func_0206fad0();
+    void func_0206fad0(int index, int kind, int minutes);
     void func_0206fbb4(int i);
     void func_0206fbd0();
     s16 func_0206fdac();
