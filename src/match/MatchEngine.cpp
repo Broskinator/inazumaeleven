@@ -17,6 +17,11 @@ extern "C" u8 data_020cabf8[];
 #include "game/TreasureBox.hpp"
 #include "save/SaveManager.hpp"
 #include "data/EntryPool.hpp"
+static inline BOOL MatchPlayerBody_HasFlag(MatchPlayer *player, u16 flag)
+{
+    return (player->body->unk_16 & flag) ? TRUE : FALSE;
+}
+
 // The ball as func_0206b050 keeps it (in the states func_0206a890 gives)
 struct MatchBallSnapshot {
     VecFx32 pos;
@@ -103,7 +108,7 @@ extern "C" int func_02080328(u8 *entry, int i);
 extern "C" BOOL func_02080368(u8 *team, int id);
 extern "C" void func_02080aa0(void);     // (for the asm functions)
 extern "C" void func_02080b00(void);     // (for the asm functions)
-extern "C" void func_02080b1c(void);     // (for the asm functions)
+extern "C" void func_02080b1c(MatchPlayer *player, int value);
 extern "C" void func_02080b38(void);     // (for the asm functions)
 extern "C" void func_02080b54(void);     // (for the asm functions)
 extern "C" void func_02080c6c(void);     // (for the asm functions)
@@ -11206,132 +11211,66 @@ void MatchEngine::func_0206caa4()
     func_0207577c(record);
 }
 
-asm void MatchEngine::func_0206cad4()
+void MatchEngine::func_0206cad4()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    bl _ZN11MatchEngine13func_0206ace8Ev
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, r7
-    bl func_ov015_02143664
-    movs r6, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r0, [r6, #0xc]
-    bl func_ov015_02130ae8
-    mov r4, r0
-    ldrsh r1, [r6, #8]
-    mov r0, r7
-    bl _ZN11MatchEngine13func_020739ccEi
-    mov r6, r0
-    cmp r4, #0
-    beq @L_0206cb34
-    mov r0, r4
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r7
-    bl _ZN11MatchEngine13func_0206b4ccEi
-    mov r5, r0
-@L_0206cb34:
-    cmp r4, #0
-    cmpne r6, #0
-    cmpne r5, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r4, #0
-    beq @L_0206cb94
-    ldr r0, [r4, #0xe8]
-    ldrh r0, [r0, #0x16]
-    tst r0, #0x4000
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    bne @L_0206cb94
-    cmp r6, #0
-    beq @L_0206cb94
-    ldrsh r7, [r4, #0x96]
-    mov r0, r6
-    mov r1, r4
-    bl _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer
-    sub r0, r7, r0
-    mov r1, r0, lsl #0x10
-    mov r0, r4
-    mov r1, r1, asr #0x10
-    bl func_02080b1c
-@L_0206cb94:
-    cmp r6, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrb r0, [r6]
-    cmp r0, #7
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r5, #0
-    ldrneh r0, [r5, #4]
-    addne r0, r0, #1
-    strneh r0, [r5, #4]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    UnkPair_020621b4 *pair;
+    u8 *move;
+    MatchPlayer *player;
+    u8 *info;
+
+    if (func_0206ace8()) {
+        return;
+    }
+    pair = func_ov015_02143664(this);
+    if (pair == NULL) {
+        return;
+    }
+    player = func_ov015_02130ae8(pair->unk_c);
+    move = func_020739cc(pair->unk_8);
+    if (player != NULL) {
+        info = func_0206b4cc(func_ov015_021319b0(player));
+    }
+    if (player == NULL || move == NULL || info == NULL) {
+        return;
+    }
+    if (player != NULL && !MatchPlayerBody_HasFlag(player, 0x4000) && move != NULL) {
+        s16 tp = player->unk_96;
+        func_02080b1c(player, (s16)(tp - func_02074a18((s16 *)move, player)));
+    }
+    if (move != NULL && move[0] == 7 && info != NULL) {
+        (*(u16 *)(info + 4))++;
+    }
 }
 
-asm void MatchEngine::func_0206cbbc()
+void MatchEngine::func_0206cbbc()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, r0
-    bl _ZN11MatchEngine13func_0206ace8Ev
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    mov r0, r7
-    bl func_ov015_02143664
-    movs r6, r0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrsb r0, [r6, #0xd]
-    bl func_ov015_02130ae8
-    mov r4, r0
-    ldrsh r1, [r6, #0xa]
-    mov r0, r7
-    bl _ZN11MatchEngine13func_020739ccEi
-    mov r6, r0
-    cmp r4, #0
-    beq @L_0206cc1c
-    mov r0, r4
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r7
-    bl _ZN11MatchEngine13func_0206b4ccEi
-    mov r5, r0
-@L_0206cc1c:
-    cmp r4, #0
-    cmpne r6, #0
-    cmpne r5, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r4, #0
-    beq @L_0206cc7c
-    ldr r0, [r4, #0xe8]
-    ldrh r0, [r0, #0x16]
-    tst r0, #0x4000
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    bne @L_0206cc7c
-    cmp r6, #0
-    beq @L_0206cc7c
-    ldrsh r7, [r4, #0x96]
-    mov r0, r6
-    mov r1, r4
-    bl _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer
-    sub r0, r7, r0
-    mov r1, r0, lsl #0x10
-    mov r0, r4
-    mov r1, r1, asr #0x10
-    bl func_02080b1c
-@L_0206cc7c:
-    cmp r6, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, pc}
-    ldrb r0, [r6]
-    cmp r0, #8
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r5, #0
-    ldrneh r0, [r5, #6]
-    addne r0, r0, #1
-    strneh r0, [r5, #6]
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    UnkPair_020621b4 *pair;
+    u8 *move;
+    MatchPlayer *player;
+    u8 *info;
+
+    if (func_0206ace8()) {
+        return;
+    }
+    pair = func_ov015_02143664(this);
+    if (pair == NULL) {
+        return;
+    }
+    player = func_ov015_02130ae8(pair->unk_d);
+    move = func_020739cc(pair->unk_a);
+    if (player != NULL) {
+        info = func_0206b4cc(func_ov015_021319b0(player));
+    }
+    if (player == NULL || move == NULL || info == NULL) {
+        return;
+    }
+    if (player != NULL && !MatchPlayerBody_HasFlag(player, 0x4000) && move != NULL) {
+        s16 tp = player->unk_96;
+        func_02080b1c(player, (s16)(tp - func_02074a18((s16 *)move, player)));
+    }
+    if (move != NULL && move[0] == 8 && info != NULL) {
+        (*(u16 *)(info + 6))++;
+    }
 }
 
 void MatchEngine::func_0206cca4(u8 a, s8 b)
