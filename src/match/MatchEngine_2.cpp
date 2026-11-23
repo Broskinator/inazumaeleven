@@ -184,9 +184,9 @@ extern "C" void _ZN11MatchEngine13func_0207d538EP11MatchPlayeris(void);     // (
 extern "C" void _ZN11MatchEngine13func_0207d568EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207d60cEP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207d6bcEi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207d728Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207d728EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207da34EP11MatchPlayeri(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207dac0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207dac0EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207dbf4Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207dc10EPhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207de24EP11MatchPlayeriiPaPh(void);     // (for the asm functions)
@@ -14233,74 +14233,35 @@ int MatchEngine::func_0207d6bc(int value)
     return 0;
 }
 
-asm void MatchEngine::func_0207d728()
+// adds delta to the player's value kind (func_0207d500; down to -999, up by at most
+// func_0207dac0): what was added
+int MatchEngine::func_0207d728(MatchPlayer *player, int kind, int delta)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #0x54
-    mov r4, r3
-    mov r7, r0
-    mov r6, r1
-    mov r5, r2
-    bl _ZN11MatchEngine13func_0207d500EP11MatchPlayeri
-    cmp r4, #0
-    mov r8, r0
-    addeq sp, sp, #0x54
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    bge @L_0207d7b0
-    ldr r0, =0xfffffc19
-    add r1, r8, r4
-    cmp r1, r0
-    sublt r4, r0, r8
-    add r0, r8, r4
-    mov r3, r0, lsl #0x10
-    mov r0, r7
-    mov r1, r6
-    mov r2, r5
-    mov r3, r3, asr #0x10
-    bl _ZN11MatchEngine13func_0207d538EP11MatchPlayeris
-    mov r5, #2
-    mov r0, r7
-    mov r1, r6
-    mov r2, #1
-    mov r3, #0
-    str r5, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
-    add sp, sp, #0x54
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
-@L_0207d7b0:
-    mov r0, r7
-    mov r1, r6
-    mov r2, r5
-    bl _ZN11MatchEngine13func_0207dac0Ev
-    cmp r4, r0
-    movgt r4, r0
-    ldrh r1, [r6, #0x42]
-    add r2, sp, #4
-    mov r0, r7
-    bl _ZN11MatchEngine13func_0207a854EtPa
-    cmp r0, #0
-    addeq sp, sp, #0x54
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-    add r0, r8, r4
-    mov r3, r0, lsl #0x10
-    mov r0, r7
-    mov r1, r6
-    mov r2, r5
-    mov r3, r3, asr #0x10
-    bl _ZN11MatchEngine13func_0207d538EP11MatchPlayeris
-    mov r5, #2
-    mov r0, r7
-    mov r1, r6
-    mov r2, #1
-    mov r3, #0
-    str r5, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
-    mov r0, r4
-    add sp, sp, #0x54
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    s8 data[0x50];
+    s16 value = func_0207d500(player, kind);
+    int max;
+
+    if (delta == 0) {
+        return 0;
+    }
+    if (delta < 0) {
+        if (value + delta < -999) {
+            delta = -999 - value;
+        }
+        func_0207d538(player, kind, value + delta);
+        func_0207e334((int)player, 1, 0, 2);
+        return delta;
+    }
+    max = func_0207dac0(player, kind);
+    if (delta > max) {
+        delta = max;
+    }
+    if (!func_0207a854(player->unk_42, data)) {
+        return 0;
+    }
+    func_0207d538(player, kind, value + delta);
+    func_0207e334((int)player, 1, 0, 2);
+    return delta;
 }
 
 asm void MatchEngine::func_0207d830()
@@ -14319,7 +14280,7 @@ asm void MatchEngine::func_0207d830()
     mov r1, r9
     mov r2, r8
     mov r3, r7
-    bl _ZN11MatchEngine13func_0207d728Ev
+    bl _ZN11MatchEngine13func_0207d728EP11MatchPlayerii
     add sp, sp, #0x54
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_0207d874:
@@ -14364,7 +14325,7 @@ asm void MatchEngine::func_0207d830()
     mov r0, r10
     mov r1, r9
     mov r2, r8
-    bl _ZN11MatchEngine13func_0207dac0Ev
+    bl _ZN11MatchEngine13func_0207dac0EP11MatchPlayeri
     cmp r7, r0
     movgt r7, r0
     ldrh r1, [r9, #0x42]
@@ -14464,7 +14425,7 @@ int MatchEngine::func_0207da34(MatchPlayer *player, int kind)
     return left;
 }
 
-asm void MatchEngine::func_0207dac0()
+asm int MatchEngine::func_0207dac0(MatchPlayer *player, int kind)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x50

@@ -696,10 +696,10 @@ public:
     void func_0207d6ac();
     void func_0207d6b0(u8 *data);
     int func_0207d6bc(int value);
-    void func_0207d728();
+    int func_0207d728(MatchPlayer *player, int kind, int delta);
     void func_0207d830();
     int func_0207da34(MatchPlayer *player, int kind);
-    void func_0207dac0();
+    int func_0207dac0(MatchPlayer *player, int kind);
     int func_0207dbf4(int a, int b);
     void func_0207dc10(u8 *data, int a);
     void func_0207de24(MatchPlayer *player, int max, int base, s8 *value, u8 *rest);
