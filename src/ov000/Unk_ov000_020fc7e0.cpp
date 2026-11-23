@@ -162,7 +162,7 @@ extern "C" void _ZN13ScreenManager14GetCurSceneSubEv(void);
 extern "C" void _ZN13ScreenManager13func_0203e224Ev(void);
 extern "C" void _ZN11MatchEngine13func_020767bcEv(void);
 extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_02078990Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_02078990EiPtii(...);
 extern "C" s32 _ZN11MatchEngine13func_02078aacEiPtihi(...);
 extern "C" s32 _ZN11MatchEngine13func_0207aa58Ei(...);
 extern "C" s32 _ZN11MatchEngine13func_0207d214Eii(...);
@@ -1869,7 +1869,7 @@ extern "C" void func_ov000_020fe46c(u8 *arg0)
 
 extern "C" void func_ov000_020fe4a8(u8 *arg0)
 {
-    s32 v0 = _ZN11MatchEngine13func_02078990Ev((s32)data_020e88a0, 0, (arg0 + 0x54), 0x20, 0);
+    s32 v0 = _ZN11MatchEngine13func_02078990EiPtii((s32)data_020e88a0, 0, (arg0 + 0x54), 0x20, 0);
     *(s32 *)(arg0 + 0x124) = v0;
 }
 

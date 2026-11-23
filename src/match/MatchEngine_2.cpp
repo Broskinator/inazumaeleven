@@ -93,7 +93,7 @@ extern "C" void func_020802b8(u8 *entry);
 extern "C" void func_020802cc(u8 *entry, int i, u32 id);
 extern "C" u16 func_0208033c(u8 *entry, int i);
 extern "C" void func_02080368(void);     // (for the asm functions)
-extern "C" void func_0208039c(void);     // (for the asm functions)
+extern "C" s32 func_0208039c(u8 *list, s32 id);
 extern "C" void func_02080564(void);     // (for the asm functions)
 extern "C" void func_02080730(u8 *entry, int i, u16 id, int a);
 extern "C" u16 func_02080780(u8 *entry, u32 i);
@@ -9788,81 +9788,40 @@ asm void MatchEngine::func_02078844()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02078990()
+// the ids of the team's players that are not in its list at unk_34c (at most max of them,
+// without the team bit when bare), sorted by func_0207f634(0x80)
+int MatchEngine::func_02078990(int team, u16 *out, int max, BOOL bare)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    str r0, [sp, #4]
-    mov r10, r1
-    add r0, r0, #0x34c
-    ldr r7, [sp, #0x30]
-    movs r9, r2
-    add r11, r0, r10, lsl #5
-    mov r8, r3
-    addeq sp, sp, #8
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r6, #0
-    mov r0, r9
-    mov r1, r6
-    mov r2, r8, lsl #1
-    bl MI_CpuFill8
-    mov r5, r6
-@L_020789d8:
-    cmp r6, r8
-    bge @L_02078a80
-    mov r0, r5
-    bl func_ov015_02130ae8
-    movs r4, r0
-    beq @L_02078a74
-    ldrh r0, [r4, #0xf0]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02078a74
-    mov r0, r4
-    bl func_02080b90
-    cmp r10, r0
-    bne @L_02078a74
-    mov r0, r4
-    bl func_02080cb8
-    cmp r0, #0
-    bne @L_02078a74
-    ldrh r2, [r4, #0x42]
-    ldr r1, =0xfff
-    mov r0, r11
-    and r1, r2, r1
-    mov r1, r1, lsl #0x10
-    mov r1, r1, lsr #0x10
-    bl func_0208039c
-    cmp r0, #0
-    bne @L_02078a74
-    cmp r7, #0
-    ldreqh r1, [r4, #0x42]
-    moveq r0, r6, lsl #1
-    streqh r1, [r9, r0]
-    ldrneh r2, [r4, #0x42]
-    ldrne r0, =0xfff
-    movne r1, r6, lsl #1
-    andne r0, r2, r0
-    strneh r0, [r9, r1]
-    add r6, r6, #1
-@L_02078a74:
-    add r5, r5, #1
-    cmp r5, #0x84
-    blt @L_020789d8
-@L_02078a80:
-    ldr r0, [sp, #4]
-    mov r4, #1
-    mov r1, r9
-    mov r2, r6
-    mov r3, #0x80
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPtiih
-    mov r0, r6
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *list = unk_34c[team];
+    MatchPlayer *player;
+    int i;
+    int n;
+
+    if (out == NULL) {
+        return 0;
+    }
+    n = 0;
+    MI_CpuFill8(out, 0, max * 2);
+    for (i = 0; i < 0x84; i++) {
+        if (n >= max) {
+            break;
+        }
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1) || team != func_02080b90(player) || func_02080cb8(player)) {
+            continue;
+        }
+        if (func_0208039c(list, (u16)(player->unk_42 & 0xFFF))) {
+            continue;
+        }
+        if (!bare) {
+            out[n] = player->unk_42;
+        } else {
+            out[n] = player->unk_42 & 0xFFF;
+        }
+        n++;
+    }
+    func_0207f634(out, n, 0x80, 1);
+    return n;
 }
 
 asm int MatchEngine::func_02078aac(int team, u16 *out, int max, u8 flag, int key)
@@ -9976,8 +9935,8 @@ int MatchEngine::func_02078bc0(MatchPlayer *player, void *buffer, int max, int f
 }
 
 // the ids of the team's players with a func_0208130c(player, 0) of 1 to 16 (at most max of
-// them, without the team bit unless fullId), sorted by func_0207f634(kind) when kind != 0
-int MatchEngine::func_02078c70(int team, u16 *out, int max, BOOL fullId, int kind)
+// them, without the team bit when bare), sorted by func_0207f634(kind) when kind != 0
+int MatchEngine::func_02078c70(int team, u16 *out, int max, BOOL bare, int kind)
 {
     MatchPlayer *player;
     int i;
@@ -10001,7 +9960,7 @@ int MatchEngine::func_02078c70(int team, u16 *out, int max, BOOL fullId, int kin
         if (value <= 0 || value > 16) {
             continue;
         }
-        out[n++] = fullId ? (u16)(player->unk_42 & 0xFFF) : player->unk_42;
+        out[n++] = bare ? (u16)(player->unk_42 & 0xFFF) : player->unk_42;
     }
     if (kind != 0) {
         func_0207f634(out, n, kind, 1);
