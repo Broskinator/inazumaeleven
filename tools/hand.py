@@ -131,15 +131,20 @@ def check(code, fn, write=False, tag="hand", src=None, nm=None):
     if not dm:
         return None, f"{fn} no definition of it in the file"
     i = dm.start()
-    while code[:i].endswith("\n") and code[:i].rstrip("\n").split("\n")[-1].startswith("#pragma"):
-        i = code[:i].rstrip("\n").rfind("\n") + 1     # (pragmas just before it go with it)
+    # pragmas and comments just before it go with it, in any order: the comments before it
+    # (lead), the pragmas with its code (inside the #ifdef of an attempt)
     j = i
+    pragmas, comments = [], []
     while code[:j].endswith("\n"):
         last = code[:j].rstrip("\n").split("\n")[-1]
-        if not last.startswith("//") or last.startswith("//@"):
+        if last.startswith("#pragma"):
+            pragmas.insert(0, last + "\n")
+        elif last.startswith("//") and not last.startswith("//@"):
+            comments.insert(0, last + "\n")
+        else:
             break
-        j = code[:j].rstrip("\n").rfind("\n") + 1     # (comments just before it go with it)
-    pre, lead, body = code[:j], code[j:i], code[i:]
+        j = code[:j].rstrip("\n").rfind("\n") + 1
+    pre, lead, body = code[:j], "".join(comments), "".join(pragmas) + code[i:]
     if "//@local\n" in code:
         k = code.index("//@local\n")
         pre, lead, body = code[:k], "", code[k + len("//@local\n"):]
