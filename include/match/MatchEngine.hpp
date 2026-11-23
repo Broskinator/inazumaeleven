@@ -455,7 +455,7 @@ public:
     int func_02073a9c(void *team, int i, u16 *out, int b);
     int func_02073df8(void *team, int i, int a, u8 b);
     int func_02073e3c(void *team, int id, int a, u8 b);
-    void func_02073fa0(MatchPlayer *player, int id, int a, int b);
+    BOOL func_02073fa0(MatchPlayer *player, int id, MatchPlayer *a, MatchPlayer *b);
     BOOL func_020740cc(MatchPlayer *player, int i, int a, int b);
     int func_02074154(MatchPlayer *player, int *first, int nfirst, int *second, int nsecond);
     int func_02074210(MatchPlayer *player, int a, int b, int c, int *out, int max);
