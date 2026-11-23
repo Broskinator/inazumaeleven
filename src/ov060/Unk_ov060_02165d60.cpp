@@ -85,7 +85,7 @@ extern "C" s32 _ZN13ScreenManager18GetLoadedSceneMainEv(...);
 extern "C" s32 _ZN13ScreenManager13func_0203e2b0Ei(...);
 extern "C" void _ZN11MatchEngine13func_0206ad94Eii(void);
 extern "C" s32 _ZN11MatchEngine13func_0206b4b8Ei(...);
-extern "C" void _ZN11MatchEngine13func_0206c8c8Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206c8c8EP11MatchPlayerllPlS2_(void);
 extern "C" s32 _ZN11MatchEngine13func_0206d9d0Ei(...);
 extern "C" s32 _ZN11MatchEngine13func_0206da44Ev(...);
 extern "C" void _ZN11MatchEngine13func_0206dedcEv(void);
@@ -1433,7 +1433,7 @@ extern "C" asm s32 func_ov060_02166fd0(...)
     ldr r3, [sp, #8]
     ldr r0, =data_020e88a0
     mov r1, r5
-    bl _ZN11MatchEngine13func_0206c8c8Ev
+    bl _ZN11MatchEngine13func_0206c8c8EP11MatchPlayerllPlS2_
     ldr r0, [r5, #0xec]
     ldrb r1, [r0, #0x85]
     cmp r1, #0

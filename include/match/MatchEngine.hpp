@@ -269,7 +269,7 @@ public:
     void func_0206c104(u8 value);
     BOOL func_0206c110();
     BOOL func_0206c148();
-    void *func_0206c180(int kind, int i);
+    void *func_0206c180(int kind);
     void *func_0206c1fc(int kind, int i);
     void func_0206c23c(MatchSegment *area, fx32 inset, fx32 extra, u8 flag);
     void func_0206c37c();
@@ -295,7 +295,7 @@ public:
     void func_0206c8a4(u32 value);
     void func_0206c8b8(s32 value);
     void func_0206c8c0(s32 value);
-    void func_0206c8c8();
+    BOOL func_0206c8c8(MatchPlayer *player, fx32 x, fx32 y, fx32 *outX, fx32 *outY);
     void func_0206c9b0();
     void func_0206caa4();
     void func_0206cad4();
