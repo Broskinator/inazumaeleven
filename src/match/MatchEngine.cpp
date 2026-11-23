@@ -217,7 +217,7 @@ extern "C" void _ZN11MatchEngine13func_0206b3a4Eim(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_0206b47cEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b4a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b4ccEi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206b89cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206b89cEP11MatchPlayerP10MatchPoint(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b9c4EP9MatchBalll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ba84Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bf2cEP11MatchPlayer(void);     // (for the asm functions)
@@ -409,7 +409,7 @@ void MatchEngine::func_020622b0()
 }
 extern "C" char data_020c4efc[];
 extern "C" void func_01fff198(void);
-extern "C" void FX_Sqrt(void);
+extern "C" fx32 FX_Sqrt(fx32 x);
 extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" char data_020c4f3c[];
 extern "C" void func_01ffec70(void);
@@ -3249,7 +3249,7 @@ asm void MatchEngine::func_020646d4()
     mov r0, r10
     ldrsh r5, [r2, #0x28]
     mov r1, r9
-    bl _ZN11MatchEngine13func_0206b89cEv
+    bl _ZN11MatchEngine13func_0206b89cEP11MatchPlayerP10MatchPoint
     mul r1, r6, r5
     cmp r1, r0
     bge @L_02064b6c
@@ -10361,7 +10361,48 @@ asm void MatchEngine::func_0206b628()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0206b89c()
+// (nonmatching: player is spilled and dir kept in a register; the ROM keeps player in r10, spills dir to sp+8 and reloads player->state->unk_86 at the top of the loop)
+#ifdef NONMATCHING
+int MatchEngine::func_0206b89c(MatchPlayer *player, MatchPoint *target)
+{
+    int total = 0;
+    int i = player->state->unk_84 + 1;
+    u16 dir;
+    MatchPoint from;
+    MatchPoint to;
+    fx32 dy;
+    fx32 dx;
+    int amount;
+
+    if (player == NULL || target == NULL) {
+        return 0x80000000;
+    }
+    dir = player->body->direction;
+    from = *(MatchPoint *)&player->body->pos;
+    for (; i <= player->state->unk_86; i++) {
+        if (i == player->state->unk_86) {
+            to = *target;
+        } else {
+            to = *(MatchPoint *)player->state->unk_34[i];
+        }
+        dx = to.x - from.x;
+        dy = to.y - from.y;
+        amount = 0x7FFFFFFF;
+        dir = func_02068c28(dir, FX_Atan2Idx(dy, dx), &amount);
+        total += 0x7FFFFFFF - amount;
+        if (dx < 0) {
+            dx = -dx;
+        }
+        if (dy < 0) {
+            dy = -dy;
+        }
+        total += FX_Sqrt((FX_Mul(dx, dx) >> 4) + (FX_Mul(dy, dy) >> 4)) << 2;
+        from = to;
+    }
+    return total;
+}
+#else
+asm int MatchEngine::func_0206b89c(MatchPlayer *player, MatchPoint *target)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -10442,6 +10483,7 @@ asm void MatchEngine::func_0206b89c()
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (how many steps the ball takes to cover distance; -1 if it stops first)
 int MatchEngine::func_0206b9c4(MatchBall *ball, fx32 distance)

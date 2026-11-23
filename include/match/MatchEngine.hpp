@@ -238,7 +238,7 @@ public:
     BOOL func_0206b508(MatchPoint *out, BOOL force);
     void func_0206b5a0(MatchPoint *pos);
     void func_0206b628();
-    void func_0206b89c();
+    int func_0206b89c(MatchPlayer *player, MatchPoint *target);
     int func_0206b9c4(MatchBall *ball, fx32 distance);
     void func_0206ba84();
     void func_0206bc70();
