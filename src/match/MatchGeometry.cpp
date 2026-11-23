@@ -1,6 +1,7 @@
 #include "match/MatchGeometry.hpp"
 #include "match/Match.hpp"
 #include "nitro/mi.h"
+#include "nitro/math.h"
 struct UnkTrail_02084e40 {
     VecFx32 cur;
     VecFx32 hist[0x60];     // 0xC
@@ -39,7 +40,7 @@ extern "C" u8 *func_02083e64(int side);
 extern "C" u8 *func_02083e7c(int side);
 extern "C" u8 *func_02083e94(int side);
 extern "C" u8 *func_02083eac(int side);
-extern "C" void func_02083ec4(void);
+extern "C" fx32 func_02083ec4(fx32 a, fx32 b, fx32 c, int which);
 extern "C" s32 func_02083fe8(s32 arg0, s32 arg1, s32 arg2, s32 arg3);
 extern "C" u16 func_02084094(fx32 *segment);
 extern "C" u16 func_020840b4(MatchPoint *a, MatchPoint *b);
@@ -108,8 +109,8 @@ extern "C" s32 MIi_CpuCopyFast(...);
 extern "C" s32 _ZN11MatchEngine13func_0206de54Ei(...);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" s32 _ZN8GameHeap5AllocEiii(...);
-extern "C" void FX_Div(void);
-extern "C" void FX_Sqrt(void);
+extern "C" fx32 FX_Div(fx32 numer, fx32 denom);
+extern "C" fx32 FX_Sqrt(fx32 x);
 extern "C" int func_02099adc(int x0, int y0, int x1, int y1);
 extern "C" s32 func_ov015_02131854(...);
 
@@ -374,85 +375,38 @@ extern "C" u8 *func_02083eac(int side)
     return data_020c4f3c;
 }
 
-extern "C" asm void func_02083ec4(void)
+// a root of a*t*t + b*t + c = 0 (the other one when which is 0); large coefficients lose
+// their lowest 8 bits first
+extern "C" fx32 func_02083ec4(fx32 a, fx32 b, fx32 c, int which)
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r6, r3
-    rsb r3, r0, #0
-    cmp r0, #0
-    movge r3, r0
-    cmp r3, #0x200000
-    bge @L_02083f14
-    rsb r3, r1, #0
-    cmp r1, #0
-    movge r3, r1
-    cmp r3, #0x200000
-    bge @L_02083f14
-    rsb r3, r2, #0
-    cmp r2, #0
-    movge r3, r2
-    cmp r3, #0x200000
-    bge @L_02083f14
-    mov r3, r6
-    bl func_02083fe8
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02083f14:
-    cmp r0, #0
-    movge r4, r0, asr #8
-    movlt r0, r0, asr #8
-    orrlt r4, r0, #0xff000000
-    cmp r1, #0
-    movge r5, r1, asr #8
-    movlt r0, r1, asr #8
-    orrlt r5, r0, #0xff000000
-    cmp r2, #0
-    movge r12, r2, asr #8
-    movlt r0, r2, asr #8
-    orrlt r12, r0, #0xff000000
-    cmp r4, #0
-    bne @L_02083f68
-    cmp r5, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r1, r5
-    rsb r0, r12, #0
-    bl FX_Div
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02083f68:
-    cmp r12, #0
-    bne @L_02083f8c
-    cmp r4, #0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r1, r4
-    rsb r0, r5, #0
-    bl FX_Div
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02083f8c:
-    smull r0, r2, r5, r5
-    adds r3, r0, #0x800
-    smull r1, r0, r4, r12
-    adc r2, r2, #0
-    adds r1, r1, #0x800
-    mov r3, r3, lsr #0xc
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r3, r3, r2, lsl #20
-    orr r1, r1, r0, lsl #20
-    sub r0, r3, r1, lsl #2
-    bl FX_Sqrt
-    cmp r6, #0
-    beq @L_02083fd8
-    add r0, r0, r5
-    rsb r0, r0, #0
-    mov r1, r4, lsl #1
-    bl FX_Div
-    ldmia sp!, {r4, r5, r6, pc}
-@L_02083fd8:
-    sub r0, r0, r5
-    mov r1, r4, lsl #1
-    bl FX_Div
-    ldmia sp!, {r4, r5, r6, pc}
+    fx32 d;
+    fx32 sa;
+    fx32 sb;
+    fx32 sc;
+
+    if (MATH_ABS(a) < 0x200000 && MATH_ABS(b) < 0x200000 && MATH_ABS(c) < 0x200000) {
+        return func_02083fe8(a, b, c, which);
+    }
+    sa = a >= 0 ? a >> 8 : (a >> 8) | 0xFF000000;
+    sb = b >= 0 ? b >> 8 : (b >> 8) | 0xFF000000;
+    sc = c >= 0 ? c >> 8 : (c >> 8) | 0xFF000000;
+    if (sa == 0) {
+        if (sb == 0) {
+            return 0;
+        }
+        return FX_Div(-sc, sb);
+    }
+    if (sc == 0) {
+        if (sa == 0) {
+            return 0;
+        }
+        return FX_Div(-sb, sa);
+    }
+    d = FX_Sqrt(FX_Mul(sb, sb) - (FX_Mul(sa, sc) << 2));
+    if (which != 0) {
+        return FX_Div(-(d + sb), sa << 1);
+    }
+    return FX_Div(d - sb, sa << 1);
 }
 
 extern "C" s32 func_02083fe8(s32 arg0, s32 arg1, s32 arg2, s32 arg3)
