@@ -3,15 +3,15 @@
 
 extern "C" void func_02083afc(void);     // (for the asm functions)
 extern "C" void func_0208413c(void);     // (for the asm functions)
-extern "C" void func_02084350(void);     // (for the asm functions)
-extern "C" void func_0208454c(void);     // (for the asm functions)
+extern "C" BOOL func_02084350(fx32 x, fx32 y);
+extern "C" BOOL func_0208454c(fx32 x, fx32 y, fx32 z);
 extern "C" char data_020aeadc[];
 extern "C" char data_020aeb28[];
 extern "C" char data_020aeb50[];
 extern "C" char g3DFieldSprite[];
 extern GameHeap gAllocator;
 extern "C" char data_020c4de0[];
-extern "C" char data_020c4ebc[];
+extern "C" fx32 data_020c4ebc[4];     // (the field's rectangle)
 extern "C" char data_020f98a0[];
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
@@ -332,102 +332,34 @@ asm void MatchBallPhysics::func_0206168c()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchBallPhysics::func_020618d4()
+// whether the ball has left the field
+BOOL MatchBallPhysics::func_020618d4(MatchBall *ball, BOOL inside, BOOL check)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r10, r1
-    ldrb r0, [r10, #0x59]
-    ldr r4, [r10, #0xc]
-    ldr r5, [r10, #0x10]
-    tst r0, #4
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    mov r9, r2
-    mov r8, r3
-    ldmia r10, {r6, r7}
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldrb r0, [r10, #0x59]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    bne @L_02061950
-    mov r0, r6
-    mov r1, r7
-    bl func_02084350
-    cmp r0, #0
-    bne @L_02061950
-    mov r0, r4
-    mov r1, r5
-    bl func_02084350
-    cmp r0, #0
-    movne r0, #1
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02061950:
-    mov r0, r6
-    mov r1, r7
-    bl func_02084350
-    cmp r0, #0
-    cmpeq r9, #0
-    bne @L_020619fc
-    ldr r1, =data_020c4ebc
-    ldr r0, [r1]
-    cmp r4, r0
-    bge @L_02061980
-    cmp r4, r6
-    bgt @L_020619bc
-@L_02061980:
-    ldr r0, [r1, #8]
-    cmp r4, r0
-    ble @L_02061994
-    cmp r4, r6
-    blt @L_020619bc
-@L_02061994:
-    ldr r0, [r1, #4]
-    cmp r5, r0
-    bge @L_020619a8
-    cmp r5, r7
-    bgt @L_020619bc
-@L_020619a8:
-    ldr r0, [r1, #0xc]
-    cmp r5, r0
-    ble @L_020619c4
-    cmp r5, r7
-    bge @L_020619c4
-@L_020619bc:
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_020619c4:
-    ldrb r0, [r10, #0x59]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    bne @L_020619f4
-    ldr r0, [r10, #0x48]
-    cmp r0, #0
-    movge r0, #1
-    movlt r0, #0
-    cmp r0, #0
-    beq @L_02061a20
-@L_020619f4:
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_020619fc:
-    cmp r8, #0
-    beq @L_02061a20
-    ldr r2, [r10, #8]
-    mov r0, r6
-    mov r1, r7
-    bl func_0208454c
-    cmp r0, #0
-    movne r0, #1
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02061a20:
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    fx32 prevX = ball->prevPos.x;
+    fx32 prevY = ball->prevPos.y;
+    fx32 x = ball->pos.x;
+    fx32 y = ball->pos.y;
+    fx32 *rect;
+
+    if (MatchBall_HasFlag(ball, 4)) {
+        return FALSE;
+    }
+    if (!MatchBall_HasFlag(ball, 1) && !func_02084350(x, y) && func_02084350(prevX, prevY)) {
+        return TRUE;
+    }
+    if (!func_02084350(x, y) && !inside) {
+        rect = data_020c4ebc;
+        if ((prevX < rect[0] && prevX > x) || (prevX > rect[2] && prevX < x)
+            || (prevY < rect[1] && prevY > y) || (prevY > rect[3] && prevY < y)) {
+            return TRUE;
+        }
+        if (MatchBall_HasFlag(ball, 1) || MatchBall_IsHeld(ball)) {
+            return TRUE;
+        }
+    } else if (check && func_0208454c(x, y, ball->pos.z)) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 // keeps a position at most 32 units out of the area horizontally, 58 vertically

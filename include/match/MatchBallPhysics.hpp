@@ -33,7 +33,7 @@ public:
     void func_020614c8(MatchArea *area, fx32 value);
     void func_020614d0();
     void func_0206168c();
-    void func_020618d4();
+    BOOL func_020618d4(MatchBall *ball, BOOL inside, BOOL check);
     void func_02061a2c(VecFx32 *pos);
     fx32 func_02061a84(MatchBall *ball);
     void func_02061aa4(MatchBall *ball);

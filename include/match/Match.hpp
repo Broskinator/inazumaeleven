@@ -37,7 +37,7 @@ struct MatchBall {
     u8 unk_56;
     u8 unk_57;
     u8 unk_58;
-    u8 unk_59;          // flags
+    volatile u8 unk_59; // flags (read again at each test: func_020618d4)
     u8 unk_5a;
     u8 unk_5b;
     u8 unk_5c;
