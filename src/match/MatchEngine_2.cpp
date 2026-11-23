@@ -1820,46 +1820,21 @@ void MatchEngine::func_020706b4(int index, int frame)
     func_ov015_0213a75c(*(s32 *)g3DFieldSprite, (u8 *)player, 0, frame, 1);
 }
 
-// (nonmatching: the attempt jumps to the loop test first, the ROM enters the body directly; 14 words)
-#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 void MatchEngine::func_0207070c()
 {
     s16 i;
+    u8 *entry;
 
     for (i = 0; i < 15; i++) {
-        if (data_020cb288[i][0x56] == 1) {
-            MIi_CpuClearFast(0, data_020cb288[i], 0x70);
+        entry = data_020cb288[i];
+        if (entry[0x56] == 1) {
+            MIi_CpuClearFast(0, entry, 0x70);
         }
     }
 }
-#else
-asm void MatchEngine::func_0207070c()
-{
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    mov r8, #0
-    mov r5, #0x70
-    mov r6, r8
-    ldr r7, =data_020cb288
-    mov r4, r5
-    b @L_02070750
-@L_02070728:
-    smlabb r1, r8, r4, r7
-    ldrb r0, [r1, #0x56]
-    cmp r0, #1
-    bne @L_02070744
-    mov r0, r6
-    mov r2, r5
-    bl MIi_CpuClearFast
-@L_02070744:
-    add r0, r8, #1
-    mov r0, r0, lsl #0x10
-    mov r8, r0, asr #0x10
-@L_02070750:
-    cmp r8, #0xf
-    blt @L_02070728
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
-}
-#endif
+#pragma pop
 
 s32 MatchEngine::func_02070760()
 {
@@ -10299,13 +10274,16 @@ asm void MatchEngine::func_02078c70()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-// (nonmatching: the ROM enters the loop through its test (b) and keeps the count in r6; the attempt starts with the body, like func_0207070c)
+// (nonmatching, at optimization level 2, 19 words: the ROM loads the flag argument after MI_CpuFill8 (ldrb r4) and
+// keeps the player in r7, the attempt loads the flag first, into r7)
 #ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 int MatchEngine::func_02078d84(int team, u16 *out, int max, u8 flag)
 {
-    int n = 0;
-    int i;
     MatchPlayer *player;
+    int i;
+    int n = 0;
     u16 id;
 
     if (out == NULL) {
@@ -10335,6 +10313,7 @@ int MatchEngine::func_02078d84(int team, u16 *out, int max, u8 flag)
     func_0207f634(out, n, 0x80, 1);
     return n;
 }
+#pragma pop
 #else
 asm int MatchEngine::func_02078d84(int team, u16 *out, int max, u8 flag)
 {
