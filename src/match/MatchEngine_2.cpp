@@ -4087,7 +4087,6 @@ int MatchEngine::func_020728e0(int value)
 // func_0207f7cc reads for player)
 BOOL MatchEngine::func_02072914(MatchPlayer *player, int value, u8 *req, int i)
 {
-    u16 *operand;
     int n;
     int k;
     BOOL any = FALSE;
@@ -10742,88 +10741,50 @@ void MatchEngine::func_02079940(int team, int level)
     }
 }
 
-asm void MatchEngine::func_020799b4()
+#pragma push
+#pragma optimization_level 2
+// in a wireless match, removes the players that are not in the team's list for this console
+void MatchEngine::func_020799b4()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    bl func_ov015_021319bc
-    ldr r1, =gGameState
-    mov r6, r0
-    ldrb r0, [r1, #0x1b]
-    mov r4, #0
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r5, =gWirelessUtil
-    mov r0, r5
-    bl func_0209bf8c
-    cmp r0, #0
-    beq @L_02079a04
-    mov r0, r5
-    bl func_0209bf8c
-    sub r0, r0, #1
-    mov r1, #0x1000
-    mov r0, r1, lsl r0
-    mov r0, r0, lsl #0x10
-    mov r4, r0, lsr #0x10
-@L_02079a04:
-    ldr r0, =data_020ca716
-    mov r5, #0
-    mov r10, #1
-    add r8, r0, r6, lsl #5
-    mov r9, r5
-    mov r11, r5
-    mov r7, r10
-    ldr r6, =gEntryPool
-    b @L_02079ac4
-@L_02079a28:
-    mov r0, r5
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    beq @L_02079ac0
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r1, r10
-    moveq r1, r9
-    cmp r1, #0
-    beq @L_02079ac0
-    mov r2, r11
-    mov r1, r11
-    ldr r3, =0xfff
-    b @L_02079aa4
-@L_02079a60:
-    mov r12, r1, lsl #1
-    ldrh r12, [r12, r8]
-    cmp r12, #0
-    beq @L_02079aa0
-    and lr, r12, #0xf000
-    cmp r4, lr
-    ldreqh lr, [r0, #0x42]
-    andeq r12, r12, r3
-    andeq lr, lr, r3
-    moveq lr, lr, lsl #0x10
-    cmpeq r12, lr, lsr #16
-    ldreqh r1, [r0, #0xf0]
-    moveq r2, r7
-    orreq r1, r1, #0x22
-    streqh r1, [r0, #0xf0]
-    beq @L_02079aac
-@L_02079aa0:
-    add r1, r1, #1
-@L_02079aa4:
-    cmp r1, #0x10
-    blt @L_02079a60
-@L_02079aac:
-    cmp r2, #0
-    bne @L_02079ac0
-    mov r0, r6
-    mov r1, r5
-    bl _ZN9EntryPool6RemoveEi
-@L_02079ac0:
-    add r5, r5, #1
-@L_02079ac4:
-    cmp r5, #0x84
-    blt @L_02079a28
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    int team;
+    int j;
+    u16 key;
+    u16 value;
+    int i;
+    BOOL found;
+    MatchPlayer *player;
+
+    team = func_ov015_021319bc();
+    key = 0;
+    if (gGameState.unk_000[0x1B] == 0) {
+        return;
+    }
+    if (func_0209bf8c(gWirelessUtil)) {
+        key = 0x1000 << (func_0209bf8c(gWirelessUtil) - 1);
+    }
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1)) {
+            continue;
+        }
+        found = FALSE;
+        for (j = 0; j < 16; j++) {
+            value = *(u16 *)(data_020ca716 + team * 0x20 + j * 2);
+            if (value == 0) {
+                continue;
+            }
+            if (key == (value & 0xF000) && (u16)(player->unk_42 & 0xFFF) == (value & 0xFFF)) {
+                player->unk_f0 |= 0x22;
+                found = TRUE;
+                break;
+            }
+        }
+        if (!found) {
+            gEntryPool.Remove(i);
+        }
+    }
 }
+#pragma pop
 
 #pragma push
 #pragma optimization_level 2
