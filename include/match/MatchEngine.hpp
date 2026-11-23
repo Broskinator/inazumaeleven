@@ -57,6 +57,12 @@ struct UnkRecord_02076168 {
     u8 unk_13[0x18 - 0x13];
 };
 
+// An id and its score (func_0207f634 sorts ids through a list of them, func_0207f4bc)
+struct MatchIdScore {
+    s32 score;
+    u16 id;
+};
+
 struct MatchState {
     u8 unk_0;
     u8 unk_1;
@@ -729,9 +735,9 @@ public:
     static u16 func_0207f3cc(MatchPlayer *player, u32 i);     // (the item in the player's slot i)
     s8 func_0207f3e0();
     BOOL func_0207f42c(MatchPlayer *player);
-    void func_0207f4bc();
+    int func_0207f4bc(MatchIdScore *list, int n, u8 order);
     BOOL func_0207f5d0(char *dst, const char *src);
-    void func_0207f634(void *buffer, int n, int a, int b);
+    int func_0207f634(u16 *ids, int n, int kind, u8 order);
     BOOL func_0207f730(int kind);
     int func_0207f7cc(MatchPlayer *player, int kind, int c);
     int func_0207ff44(int team, int kind, int c);

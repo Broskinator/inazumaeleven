@@ -6481,7 +6481,7 @@ BOOL MatchEngine::func_02067e78(MatchPlayer *player, int a, int b)
     if (n == 0) {
         return FALSE;
     }
-    func_0207f634(buffer, n, 0xA1, 1);
+    func_0207f634((u16 *)buffer, n, 0xA1, 1);   // (buffer: the ids func_02078bc0 found)
     if (!func_0206dedc()) {
         if (n > 3) {
             n = 3;

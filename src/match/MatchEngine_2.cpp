@@ -157,8 +157,8 @@ extern "C" void _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi(void);     // (
 extern "C" void _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f42cEP11MatchPlayer(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207f4bcEv(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207f634EPviii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207f4bcEP12MatchIdScoreih(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207f634EPtiih(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f730Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207ff44Eiii(void);     // (for the asm functions)
@@ -4564,7 +4564,7 @@ asm void MatchEngine::func_02072bb8(MatchPlayer *player, int id, int slot)
     mov r2, r9
     mov r3, #0x81
     str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPviii
+    bl _ZN11MatchEngine13func_0207f634EPtiih
     cmp r9, #0
     ble @L_02072fac
     add r11, sp, #0x24
@@ -10120,7 +10120,7 @@ asm void MatchEngine::func_02078990()
     mov r2, r6
     mov r3, #0x80
     str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPviii
+    bl _ZN11MatchEngine13func_0207f634EPtiih
     mov r0, r6
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -10199,7 +10199,7 @@ asm int MatchEngine::func_02078aac(int team, u16 *out, int max, u8 flag, int key
     mov r1, r9
     mov r2, r6
     str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPviii
+    bl _ZN11MatchEngine13func_0207f634EPtiih
     mov r0, r6
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -10305,7 +10305,7 @@ asm void MatchEngine::func_02078c70()
     mov r1, r9
     mov r2, r6
     str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPviii
+    bl _ZN11MatchEngine13func_0207f634EPtiih
 @L_02078d74:
     mov r0, r6
     add sp, sp, #8
@@ -10423,7 +10423,7 @@ asm int MatchEngine::func_02078d84(int team, u16 *out, int max, u8 flag)
     mov r2, r6
     mov r3, #0x80
     str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPviii
+    bl _ZN11MatchEngine13func_0207f634EPtiih
     mov r0, r6
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -14436,7 +14436,7 @@ asm void MatchEngine::func_0207cbd8(int a)
     add r1, sp, #0x2c
     mov r2, r11
     mov r3, #0x80
-    bl _ZN11MatchEngine13func_0207f634EPviii
+    bl _ZN11MatchEngine13func_0207f634EPtiih
     b @L_0207d090
 @L_0207d008:
     mov r1, r5, lsl #1
@@ -16658,7 +16658,7 @@ BOOL MatchEngine::func_0207f42c(MatchPlayer *player)
     return FALSE;
 }
 
-asm void MatchEngine::func_0207f4bc()
+asm int MatchEngine::func_0207f4bc(MatchIdScore *list, int n, u8 order)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -16766,75 +16766,43 @@ BOOL MatchEngine::func_0207f5d0(char *dst, const char *src)
     return ok;
 }
 
-asm void MatchEngine::func_0207f634(void *buffer, int n, int a, int b)
+int MatchEngine::func_0207f634(u16 *ids, int n, int kind, u8 order)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    movs r9, r1
-    mov r8, r2
-    mov r10, r0
-    cmpne r8, #0
-    mov r11, r3
-    movle r0, #0
-    ldmleia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r7, #0
-    ldr r0, =gAllocator
-    mov r2, r7
-    mov r1, r8, lsl #3
-    mov r3, #1
-    bl _ZN8GameHeap5AllocEiii
-    str r0, [sp]
-    cmp r0, #0
-    moveq r0, r7
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r5, r0
-    mov r6, r9
-    cmp r8, #0
-    ble @L_0207f6d8
-    mov r4, r7
-@L_0207f690:
-    ldrh r0, [r6]
-    mov r1, r4
-    bl func_ov015_02130b14
-    ldrh r2, [r6]
-    movs r1, r0
-    strh r2, [r5, #4]
-    streq r4, [r5]
-    beq @L_0207f6c4
-    mov r0, r10
-    mov r2, r11
-    mov r3, r4
-    bl _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii
-    str r0, [r5]
-@L_0207f6c4:
-    add r7, r7, #1
-    cmp r7, r8
-    add r5, r5, #8
-    add r6, r6, #2
-    blt @L_0207f690
-@L_0207f6d8:
-    ldrb r3, [sp, #0x28]
-    ldr r1, [sp]
-    mov r0, r10
-    mov r2, r8
-    bl _ZN11MatchEngine13func_0207f4bcEv
-    mov r4, r0
-    ldr r1, [sp]
-    cmp r8, #0
-    mov r2, #0
-    ble @L_0207f718
-@L_0207f700:
-    ldrh r0, [r1, #4]
-    add r2, r2, #1
-    cmp r2, r8
-    strh r0, [r9], #2
-    add r1, r1, #8
-    blt @L_0207f700
-@L_0207f718:
-    ldr r0, =gAllocator
-    ldr r1, [sp]
-    bl _ZN8GameHeap4FreeEPv
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchIdScore *list;
+    MatchPlayer *player;
+    MatchIdScore *entry;
+    u16 *id;
+    int i;
+    int result;
+
+    if (ids == NULL || n <= 0) {
+        return 0;
+    }
+    list = (MatchIdScore *)gAllocator.Alloc(n * sizeof(MatchIdScore), 0, TRUE);
+    if (list == NULL) {
+        return 0;
+    }
+    entry = list;
+    id = ids;
+    for (i = 0; i < n; i++) {
+        player = func_ov015_02130b14(*id, 0);
+        entry->id = *id;
+        if (player == NULL) {
+            entry->score = 0;
+        } else {
+            entry->score = func_0207f7cc(player, kind, 0);
+        }
+        entry++;
+        id++;
+    }
+    result = func_0207f4bc(list, n, order);
+    entry = list;
+    for (i = 0; i < n; i++) {
+        *ids++ = entry->id;
+        entry++;
+    }
+    gAllocator.Free(list);
+    return result;
 }
 
 BOOL MatchEngine::func_0207f730(int kind)
