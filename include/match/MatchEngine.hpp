@@ -662,7 +662,7 @@ public:
     void func_0207b780();
     void func_0207bb9c();
     int func_0207bdf8(int team, int id);
-    int func_0207bee8(int team, int id, int value);
+    int func_0207bee8(int team, int id, int shift);
     int func_0207bfd0(int team, int id, int value);
     void func_0207c064();
     int func_0207c110(int team, u32 id);

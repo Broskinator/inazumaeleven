@@ -13345,72 +13345,41 @@ asm int MatchEngine::func_0207bdf8(int team, int id)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm int MatchEngine::func_0207bee8(int team, int id, int value)
+#pragma push
+#pragma optimization_level 2
+int MatchEngine::func_0207bee8(int team, int id, int shift)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    ldr r12, =0xfff
-    mov r5, r2
-    mov r7, #0
-    mov r6, r1
-    add r0, r0, #0x34c
-    mov r4, r3
-    add r9, r0, r6, lsl #5
-    and r5, r5, r12
-    mov r8, r7
-    b @L_0207bf40
-@L_0207bf14:
-    mov r0, r9
-    mov r1, r8
-    bl func_0208033c
-    cmp r5, r0
-    bne @L_0207bf3c
-    mov r0, r9
-    mov r1, r8
-    mov r2, #0
-    bl func_020802cc
-    b @L_0207bf48
-@L_0207bf3c:
-    add r8, r8, #1
-@L_0207bf40:
-    cmp r8, #0x10
-    blt @L_0207bf14
-@L_0207bf48:
-    cmp r8, #0x10
-    moveq r0, #3
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    cmp r4, #0
-    beq @L_0207bf98
-    b @L_0207bf80
-@L_0207bf60:
-    mov r0, r9
-    add r1, r8, #1
-    bl func_02080328
-    mov r2, r0
-    mov r0, r9
-    mov r1, r8
-    bl func_020802cc
-    add r8, r8, #1
-@L_0207bf80:
-    cmp r8, #0xf
-    blt @L_0207bf60
-    mov r0, r9
-    mov r1, #0xf
-    mov r2, #0
-    bl func_020802cc
-@L_0207bf98:
-    ldr r0, =gGameState
-    mov r1, r7
-    ldrb r0, [r0, #0x1b]
-    cmp r0, #0
-    cmpeq r6, #1
-    orreq r5, r5, #0x8000
-    mov r0, r5
-    bl func_ov015_02130b14
-    cmp r0, #0
-    strneb r7, [r0, #0xb8]
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    int i;
+    u8 *entry;
+    MatchPlayer *player;
+
+    entry = unk_34c[team];
+    id &= 0xFFF;
+    for (i = 0; i < 16; i++) {
+        if (id == func_0208033c(entry, i)) {
+            func_020802cc(entry, i, 0);
+            break;
+        }
+    }
+    if (i == 16) {
+        return 3;
+    }
+    if (shift) {
+        for (; i < 15; i++) {
+            func_020802cc(entry, i, func_02080328(entry, i + 1));
+        }
+        func_020802cc(entry, 15, 0);
+    }
+    if (gGameState.unk_000[0x1B] == 0 && team == 1) {
+        id |= 0x8000;
+    }
+    player = func_ov015_02130b14(id, 0);
+    if (player != NULL) {
+        player->unk_b8[0] = 0;
+    }
+    return 0;
 }
+#pragma pop
 
 // (nonmatching: 2 words: the ROM keeps the 0 of func_02077a80 in r5 and picks 3 or r5 into r0; the attempt sets r5 to 3)
 #ifdef NONMATCHING
