@@ -11977,71 +11977,23 @@ BOOL MatchEngine::func_0207a820()
     return TRUE;
 }
 
-asm BOOL MatchEngine::func_0207a854(u16 id, s8 *data)
+BOOL MatchEngine::func_0207a854(u16 id, s8 *data)
 {
-    stmdb sp!, {r0, r1, r2, r3}
-    stmdb sp!, {r4, r5, lr}
-    sub sp, sp, #0x14
-    mov r4, r0
-    bl _ZN11MatchEngine13func_0207a534Em
-    movs r5, r0
-    addmi sp, sp, #0x14
-    movmi r0, #0
-    ldmmiia sp!, {r4, r5, lr}
-    addmi sp, sp, #0x10
-    bxmi lr
-    ldr r0, [r4, #0xbdc]
-    cmp r0, #0
-    beq @L_0207a8c4
-    mov r2, #0x50
-    mla r0, r5, r2, r0
-    ldr r1, [sp, #0x28]
-    bl MI_CpuCopy8
-    mov r1, r5, lsl #0x10
-    ldr r2, [sp, #0x28]
-    mov r0, r4
-    mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_0206f4acEiPa
-    add sp, sp, #0x14
-    mov r0, #1
-    ldmia sp!, {r4, r5, lr}
-    add sp, sp, #0x10
-    bx lr
-@L_0207a8c4:
-    ldr r3, =gAllocator
-    ldr r1, =data_020af398
-    ldr r0, [r3]
-    cmp r0, #0
-    moveq r0, #0
-    beq @L_0207a908
-    mov r2, #0x50
-    mul r12, r5, r2
-    str r12, [sp]
-    str r2, [sp, #4]
-    mov r2, #0
-    str r2, [sp, #8]
-    mov r12, #1
-    str r12, [sp, #0xc]
-    add r2, sp, #0x28
-    str r12, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_0207a908:
-    cmp r0, #0
-    addeq sp, sp, #0x14
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, lr}
-    addeq sp, sp, #0x10
-    bxeq lr
-    mov r1, r5, lsl #0x10
-    ldr r2, [sp, #0x28]
-    mov r0, r4
-    mov r1, r1, lsr #0x10
-    bl _ZN11MatchEngine13func_0206f4acEiPa
-    mov r0, #1
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, lr}
-    add sp, sp, #0x10
-    bx lr
+    int index = func_0207a534(id);
+
+    if (index < 0) {
+        return FALSE;
+    }
+    if (unk_bdc != NULL) {
+        MI_CpuCopy8((u8 *)unk_bdc + index * 0x50, data, 0x50);
+        func_0206f4ac((u16)index, data);
+        return TRUE;
+    }
+    if (MatchLoadFile(data_020af398, (void **)&data, index * 0x50, 0x50) == 0) {
+        return FALSE;
+    }
+    func_0206f4ac((u16)index, data);
+    return TRUE;
 }
 
 BOOL MatchEngine::func_0207a950(MatchPlayer *player)
@@ -12509,88 +12461,49 @@ asm void MatchEngine::func_0207b00c()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm u8 MatchEngine::func_0207b160(int team)
+u8 MatchEngine::func_0207b160(int team)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x10
-    mov r6, #0
-    add r2, sp, #0
-    mov r10, r1
-    mov r9, r6
-    mov r0, #4
-@L_0207b17c:
-    strb r9, [r2]
-    strb r9, [r2, #1]
-    strb r9, [r2, #2]
-    strb r9, [r2, #3]
-    add r2, r2, #4
-    subs r0, r0, #1
-    bne @L_0207b17c
-    mov r11, #1
-    mov r8, #0
-    mov r5, r11
-    add r4, sp, #0
-@L_0207b1a8:
-    mov r0, r8
-    bl func_ov015_02130ae8
-    movs r7, r0
-    beq @L_0207b218
-    ldrh r0, [r7, #0xf0]
-    tst r0, #1
-    movne r0, r11
-    moveq r0, r6
-    cmp r0, #0
-    beq @L_0207b218
-    mov r0, r7
-    bl func_02080b90
-    cmp r10, r0
-    bne @L_0207b218
-    ldrb r1, [r7, #0xb8]
-    cmp r1, #0
-    beq @L_0207b218
-    cmp r1, #0x10
-    bhi @L_0207b218
-    ldrh r0, [r7, #0xf0]
-    add r1, r4, r1
-    strb r5, [r1, #-1]
-    tst r0, #2
-    movne r0, r5
-    moveq r0, r6
-    cmp r0, #0
-    cmpeq r9, #0
-    ldreqh r9, [r7, #0x42]
-@L_0207b218:
-    add r8, r8, #1
-    cmp r8, #0x84
-    blt @L_0207b1a8
-    mov r2, #0
-    add r1, sp, #0
-@L_0207b22c:
-    ldrb r0, [r1, r2]
-    cmp r0, #0
-    addeq r0, r2, #1
-    addeq sp, sp, #0x10
-    andeq r0, r0, #0xff
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    add r2, r2, #1
-    cmp r2, #0x10
-    blt @L_0207b22c
-    cmp r9, #0
-    beq @L_0207b280
-    mov r0, r9
-    mov r1, r6
-    bl func_ov015_02130b14
-    cmp r0, #0
-    moveq r0, r6
-    ldrneb r1, [r0, #0xb8]
-    add sp, sp, #0x10
-    strneb r6, [r0, #0xb8]
-    movne r0, r1
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207b280:
-    mov r0, #0
-    add sp, sp, #0x10
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *player;
+    int i;
+    u16 spare = 0;
+    u8 used[16] = {0};
+    u8 number;
+
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL) {
+            continue;
+        }
+        if (!MatchPlayer_HasFlag(player, 1)) {
+            continue;
+        }
+        if (team != func_02080b90(player)) {
+            continue;
+        }
+        number = player->unk_b8[0];
+        if (number == 0 || number > 16) {
+            continue;
+        }
+        used[number - 1] = TRUE;
+        if (!MatchPlayer_HasFlag(player, 2) && spare == 0) {
+            spare = player->unk_42;
+        }
+    }
+    for (i = 0; i < 16; i++) {
+        if (used[i] == 0) {
+            return i + 1;
+        }
+    }
+    if (spare != 0) {
+        player = func_ov015_02130b14(spare, 0);
+        if (player == NULL) {
+            return 0;
+        }
+        number = player->unk_b8[0];
+        player->unk_b8[0] = 0;
+        return number;
+    }
+    return 0;
 }
 
 asm void MatchEngine::func_0207b28c()
