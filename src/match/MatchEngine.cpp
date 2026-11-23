@@ -17,6 +17,45 @@ extern "C" u8 data_020cabf8[];
 #include "game/TreasureBox.hpp"
 #include "save/SaveManager.hpp"
 #include "data/EntryPool.hpp"
+// The ball as func_0206b050 keeps it (in the states func_0206a890 gives)
+struct MatchBallSnapshot {
+    VecFx32 pos;
+    MatchPoint unk_18;
+    fx32 height;
+    fx32 unk_38;
+    s16 unk_48;
+    s16 unk_4c;
+    u16 unk_52;
+    u16 unk_54;
+    u8 unk_5a;
+    u8 unk_56;
+    u8 unk_57;
+    u8 unk_5b;
+    u8 unk_58;
+    u8 unk_59;
+};
+
+static inline void MatchBall_Save(MatchBallSnapshot *s, MatchBall *ball)
+{
+    s->pos.x = ball->pos.x;
+    s->pos.y = ball->pos.y;
+    s->pos.z = ball->pos.z;
+    s->unk_18.x = ball->unk_18.x;
+    s->unk_18.y = ball->unk_18.y;
+    s->height = ball->height;
+    s->unk_38 = ball->unk_38;
+    s->unk_48 = ball->unk_48;
+    s->unk_4c = ball->unk_4c;
+    s->unk_52 = ball->unk_52;
+    s->unk_54 = ball->unk_54;
+    s->unk_5a = ball->unk_5a;
+    s->unk_56 = ball->unk_56;
+    s->unk_57 = ball->unk_57;
+    s->unk_5b = ball->unk_5b;
+    s->unk_58 = ball->unk_58;
+    s->unk_59 = ball->unk_59;
+}
+
 // a product of 64-bit operands (the compiler multiplies all 64 bits)
 static inline fx32 MatchMul64(fx64 a, fx64 b)
 {
@@ -9561,91 +9600,13 @@ void MatchEngine::func_0206b018(void *body, MatchPlayer *player)
     MIi_CpuCopy32(player->body, body, 0x20);
 }
 
-asm void MatchEngine::func_0206b050()
+void MatchEngine::func_0206b050()
 {
-    stmdb sp!, {r4, r5, r6, lr}
-    mov r4, #0
-    mov r1, r4
-    mov r2, r4
-    mov r5, r0
-    bl _ZN11MatchEngine13func_0206a890Eii
-    ldr r6, =data_020c4920
-    ldr r1, [r6]
-    str r1, [r0]
-    ldr r1, [r6, #4]
-    str r1, [r0, #4]
-    ldr r1, [r6, #8]
-    str r1, [r0, #8]
-    ldr r1, [r6, #0x18]
-    str r1, [r0, #0xc]
-    ldr r1, [r6, #0x1c]
-    str r1, [r0, #0x10]
-    ldr r1, [r6, #0x30]
-    str r1, [r0, #0x14]
-    ldr r1, [r6, #0x38]
-    str r1, [r0, #0x18]
-    ldr r1, [r6, #0x48]
-    strh r1, [r0, #0x1c]
-    ldr r1, [r6, #0x4c]
-    strh r1, [r0, #0x1e]
-    ldrh r1, [r6, #0x52]
-    strh r1, [r0, #0x20]
-    ldrh r1, [r6, #0x54]
-    strh r1, [r0, #0x22]
-    ldrb r1, [r6, #0x5a]
-    strb r1, [r0, #0x24]
-    ldrb r1, [r6, #0x56]
-    strb r1, [r0, #0x25]
-    ldrb r1, [r6, #0x57]
-    strb r1, [r0, #0x26]
-    ldrb r1, [r6, #0x5b]
-    strb r1, [r0, #0x27]
-    ldrb r1, [r6, #0x58]
-    strb r1, [r0, #0x28]
-    ldrb r1, [r6, #0x59]
-    strb r1, [r0, #0x29]
-    bl func_ov015_021317c8
-    cmp r0, #0
-    ldmeqia sp!, {r4, r5, r6, pc}
-    mov r0, r5
-    mov r2, r4
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206a890Eii
-    ldr r1, [r6]
-    str r1, [r0]
-    ldr r1, [r6, #4]
-    str r1, [r0, #4]
-    ldr r1, [r6, #8]
-    str r1, [r0, #8]
-    ldr r1, [r6, #0x18]
-    str r1, [r0, #0xc]
-    ldr r1, [r6, #0x1c]
-    str r1, [r0, #0x10]
-    ldr r1, [r6, #0x30]
-    str r1, [r0, #0x14]
-    ldr r1, [r6, #0x38]
-    str r1, [r0, #0x18]
-    ldr r1, [r6, #0x48]
-    strh r1, [r0, #0x1c]
-    ldr r1, [r6, #0x4c]
-    strh r1, [r0, #0x1e]
-    ldrh r1, [r6, #0x52]
-    strh r1, [r0, #0x20]
-    ldrh r1, [r6, #0x54]
-    strh r1, [r0, #0x22]
-    ldrb r1, [r6, #0x5a]
-    strb r1, [r0, #0x24]
-    ldrb r1, [r6, #0x56]
-    strb r1, [r0, #0x25]
-    ldrb r1, [r6, #0x57]
-    strb r1, [r0, #0x26]
-    ldrb r1, [r6, #0x5b]
-    strb r1, [r0, #0x27]
-    ldrb r1, [r6, #0x58]
-    strb r1, [r0, #0x28]
-    ldrb r1, [r6, #0x59]
-    strb r1, [r0, #0x29]
-    ldmia sp!, {r4, r5, r6, pc}
+    MatchBall_Save((MatchBallSnapshot *)func_0206a890(0, FALSE), &data_020c4920);
+    if (!func_ov015_021317c8()) {
+        return;
+    }
+    MatchBall_Save((MatchBallSnapshot *)func_0206a890(1, FALSE), &data_020c4920);
 }
 
 void MatchEngine::func_0206b1a0(MatchState *state, u8 value)
