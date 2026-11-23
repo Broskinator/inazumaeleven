@@ -92,7 +92,7 @@ extern "C" void _ZN13ScreenManager18GetLoadedSceneMainEv(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206e5e4EmPvi(void);
-extern "C" void _ZN11MatchEngine13func_0206e76cEv(void);
+extern "C" void _ZN11MatchEngine13func_0206e76cEi(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" void GX_LoadBG2Scr(void);
 extern "C" void GX_LoadBG3Char(void);
@@ -1042,7 +1042,7 @@ extern "C" asm s32 func_ov058_0216670c(...)
     ldr r0, =data_020e88a0
     mov r1, r8
     strh r3, [r2, #2]
-    bl _ZN11MatchEngine13func_0206e76cEv
+    bl _ZN11MatchEngine13func_0206e76cEi
     add r1, r9, #0x90
     str r1, [r4, #0x620]
     add r1, r4, #0x600

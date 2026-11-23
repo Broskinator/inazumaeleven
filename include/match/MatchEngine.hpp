@@ -373,7 +373,7 @@ public:
     BOOL func_0206e5e4(u32 index, void *out, int size);
     BOOL func_0206e6bc();
     BOOL func_0206e738();
-    void func_0206e76c();
+    int func_0206e76c(int mode);
     void func_0206e828(int value);
     void func_0206e840(u16 value);
     u16 func_0206e84c();
@@ -664,7 +664,7 @@ public:
     int func_0207bdf8(int team, int id);
     int func_0207bee8(int team, int id, int shift);
     int func_0207bfd0(int team, int id, int value);
-    void func_0207c064();
+    int func_0207c064(int team, int id);
     int func_0207c110(int team, u32 id);
     BOOL func_0207c178(int a, int index);
     void func_0207c1b0();
