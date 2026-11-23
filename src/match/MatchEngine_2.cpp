@@ -14425,86 +14425,52 @@ int MatchEngine::func_0207da34(MatchPlayer *player, int kind)
     return left;
 }
 
-asm int MatchEngine::func_0207dac0(MatchPlayer *player, int kind)
+// how much the player's value kind can still grow (at most 50 at a time)
+int MatchEngine::func_0207dac0(MatchPlayer *player, int kind)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x50
-    movs r7, r1
-    mov r8, r0
-    mov r5, r2
-    add r4, r7, #0xd0
-    addeq sp, sp, #0x50
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    cmp r5, #0x14
-    cmpne r5, #0x16
-    bne @L_0207db08
-    mov r0, r8
-    mov r1, r7
-    mov r2, r5
-    bl _ZN11MatchEngine13func_0207da34EP11MatchPlayeri
-    add sp, sp, #0x50
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0207db08:
-    bl _ZN11MatchEngine13func_0207d568EP11MatchPlayeri
-    mov r10, r0
-    mov r0, r8
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0207d6bcEi
-    mov r2, r0
-    mov r0, r8
-    mov r1, r7
-    bl _ZN11MatchEngine13func_0207d568EP11MatchPlayeri
-    mov r1, r5
-    mov r5, r0
-    mov r0, r8
-    bl _ZN11MatchEngine13func_0207d6bcEi
-    add r6, sp, #0
-    mov r2, r0
-    mov r0, r8
-    mov r1, r6
-    bl _ZN11MatchEngine13func_0207d494EPhi
-    cmp r10, #0x32
-    mov r9, r0
-    addge sp, sp, #0x50
-    movge r0, #0
-    ldmgeia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldrh r1, [r7, #0x42]
-    mov r2, r6
-    mov r0, r8
-    rsb r6, r10, #0x32
-    bl _ZN11MatchEngine13func_0207a854EtPa
-    cmp r0, #0
-    addeq sp, sp, #0x50
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldrb r2, [r7, #0xaa]
-    mov r0, r8
-    mov r1, r9
-    bl _ZN11MatchEngine13func_0207d394EPhi
-    ldrh r3, [sp, #0x3c]
-    ldrb r1, [r9, #1]
-    mov r2, #0
-    cmp r3, #0
-    ldreq r3, =0x7fff
-    sub r1, r1, r0
-@L_0207dbb0:
-    add r0, r4, r2
-    ldrb r0, [r0, #0xf]
-    add r2, r2, #1
-    cmp r2, #7
-    sub r3, r3, r0
-    blt @L_0207dbb0
-    sub r1, r5, r1
-    mvn r0, #0x7e
-    subs r0, r0, r1
-    rsbmi r0, r0, #0
-    add r0, r3, r0
-    cmp r6, r0
-    movgt r6, r0
-    mov r0, r6
-    add sp, sp, #0x50
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    s8 data[0x50];
+    u8 *stats = (u8 *)&player->unk_d0;
+    int n;
+    int other;
+    u8 *range;
+    int left;
+    int diff;
+    int i;
+    int total;
+
+    if (player == NULL) {
+        return 0;
+    }
+    if (kind == 0x14 || kind == 0x16) {
+        return func_0207da34(player, kind);
+    }
+    n = func_0207d568(player, kind);
+    other = func_0207d568(player, func_0207d6bc(kind));
+    range = func_0207d494((u8 *)data, func_0207d6bc(kind));
+    if (n >= 50) {
+        return 0;
+    }
+    left = 50 - n;
+    if (!func_0207a854(player->unk_42, data)) {
+        return 0;
+    }
+    diff = range[1] - func_0207d394(range, player->unk_a6[4]);
+    total = *(u16 *)(data + 0x3C);
+    if (total == 0) {
+        total = 0x7FFF;
+    }
+    for (i = 0; i < 7; i++) {
+        total -= stats[0xF + i];
+    }
+    diff = -127 - (other - diff);
+    if (diff < 0) {
+        diff = -diff;
+    }
+    total += diff;
+    if (left > total) {
+        left = total;
+    }
+    return left;
 }
 
 int MatchEngine::func_0207dbf4(int a, int b)
