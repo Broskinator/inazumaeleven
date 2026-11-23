@@ -1707,8 +1707,8 @@ BOOL MatchEngine::func_0206340c(int value)
     return result;
 }
 
-// (nonmatching: the loop starts with its test)
-#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 void MatchEngine::func_02063430()
 {
     int i;
@@ -1721,33 +1721,7 @@ void MatchEngine::func_02063430()
         }
     }
 }
-#else
-asm void MatchEngine::func_02063430()
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r7, #0
-    mov r6, r7
-    mov r5, r7
-    ldr r4, =g3DFieldSprite
-    b @L_02063470
-@L_02063448:
-    mov r0, r6
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    beq @L_0206346c
-    ldr r0, [r4]
-    mov r1, r7
-    mov r2, r5
-    bl func_ov015_0213a69c
-    add r7, r7, #1
-@L_0206346c:
-    add r6, r6, #1
-@L_02063470:
-    cmp r6, #0x16
-    blt @L_02063448
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-}
-#endif
+#pragma pop
 
 BOOL MatchEngine::func_02063480(MatchPlayer *player, fx32 *pos)
 {

@@ -12180,8 +12180,8 @@ int MatchEngine::func_0207ad74(int team)
     return n;
 }
 
-// (nonmatching: the ROM enters the loop through its test (b), the attempt's loop is rotated; 15 words)
-#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 int MatchEngine::func_0207add4(int team, u32 id)
 {
     int i;
@@ -12199,42 +12199,10 @@ int MatchEngine::func_0207add4(int team, u32 id)
     }
     return 0;
 }
-#else
-asm int MatchEngine::func_0207add4(int team, u32 id)
-{
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r3, =gGameState
-    mov r6, r2
-    ldrb r2, [r3, #0x1b]
-    cmp r2, #0
-    bne @L_0207adfc
-    ldr r2, =0xfff
-    cmp r1, #1
-    and r6, r6, r2
-    orreq r6, r6, #0x8000
-@L_0207adfc:
-    add r0, r0, #0x3ac
-    mov r5, #0
-    add r4, r0, r1, lsl #4
-    b @L_0207ae28
-@L_0207ae0c:
-    mov r0, r4
-    mov r1, r5
-    bl func_0208076c
-    cmp r6, r0
-    addeq r0, r5, #1
-    ldmeqia sp!, {r4, r5, r6, pc}
-    add r5, r5, #1
-@L_0207ae28:
-    cmp r5, #4
-    blt @L_0207ae0c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
-}
-#endif
+#pragma pop
 
-// (nonmatching: the ROM enters the loop through its test (b), the attempt's loop is rotated; 15 words)
-#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
 int MatchEngine::func_0207ae40(int team, u32 id)
 {
     int i;
@@ -12252,39 +12220,7 @@ int MatchEngine::func_0207ae40(int team, u32 id)
     }
     return 0;
 }
-#else
-asm int MatchEngine::func_0207ae40(int team, u32 id)
-{
-    stmdb sp!, {r4, r5, r6, lr}
-    ldr r3, =gGameState
-    mov r6, r2
-    ldrb r2, [r3, #0x1b]
-    cmp r2, #0
-    bne @L_0207ae68
-    ldr r2, =0xfff
-    cmp r1, #1
-    and r6, r6, r2
-    orreq r6, r6, #0x8000
-@L_0207ae68:
-    add r0, r0, #0x34c
-    mov r5, #0
-    add r4, r0, r1, lsl #5
-    b @L_0207ae94
-@L_0207ae78:
-    mov r0, r4
-    mov r1, r5
-    bl func_02080328
-    cmp r6, r0
-    addeq r0, r5, #1
-    ldmeqia sp!, {r4, r5, r6, pc}
-    add r5, r5, #1
-@L_0207ae94:
-    cmp r5, #0x10
-    blt @L_0207ae78
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, pc}
-}
-#endif
+#pragma pop
 
 BOOL MatchEngine::func_0207aeac(int team, u32 id)
 {
