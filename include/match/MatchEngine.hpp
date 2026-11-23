@@ -296,7 +296,7 @@ public:
     void func_0206c8b8(s32 value);
     void func_0206c8c0(s32 value);
     BOOL func_0206c8c8(MatchPlayer *player, fx32 x, fx32 y, fx32 *outX, fx32 *outY);
-    void func_0206c9b0();
+    BOOL func_0206c9b0(MatchBall *ball, int kind, fx32 x, fx32 y);
     void func_0206caa4();
     void func_0206cad4();
     void func_0206cbbc();

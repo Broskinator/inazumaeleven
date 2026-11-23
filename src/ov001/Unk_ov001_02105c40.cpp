@@ -98,7 +98,7 @@ extern "C" void _ZN11MatchEngine13func_0206bf98Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0206bfa8Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_0206bfb4Ei(...);
 extern "C" void _ZN11MatchEngine13func_0206c8c8EP11MatchPlayerllPlS2_(void);
-extern "C" void _ZN11MatchEngine13func_0206c9b0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206c9b0EP9MatchBallill(void);
 extern "C" void _ZN11MatchEngine13func_0206d9a0Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206df68Ei(void);
 extern "C" void _ZN11MatchEngine13func_02079d9cEP11MatchPlayer(void);
@@ -1291,7 +1291,7 @@ extern "C" asm void func_ov001_02106ca4(void)
     mov r0, r4
     mov r1, r10
     mov r2, r9
-    bl _ZN11MatchEngine13func_0206c9b0Ev
+    bl _ZN11MatchEngine13func_0206c9b0EP9MatchBallill
     cmp r0, #0
     bne @L_02106d44
     ldr r0, =gAudioPlayer

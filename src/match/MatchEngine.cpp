@@ -11163,73 +11163,33 @@ BOOL MatchEngine::func_0206c8c8(MatchPlayer *player, fx32 x, fx32 y, fx32 *outX,
     return FALSE;
 }
 
-asm void MatchEngine::func_0206c9b0()
+BOOL MatchEngine::func_0206c9b0(MatchBall *ball, int kind, fx32 x, fx32 y)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    sub sp, sp, #8
-    mov r4, r0
-    ldr r0, [r1, #0x48]
-    mov r6, r2
-    mov r7, r3
-    bl func_ov015_02130ae8
-    mov r5, r0
-    mov r0, r4
-    bl _ZN11MatchEngine13func_0206ace8Ev
-    cmp r0, #0
-    addne sp, sp, #8
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-    cmp r6, #8
-    addls pc, pc, r6, lsl #2
-    b @L_0206ca98
-    b @L_0206ca98
-    b @L_0206ca98
-    b @L_0206ca98
-    b @L_0206ca98
-    b @L_0206ca8c
-    b @L_0206ca98
-    b @L_0206ca18
-    b @L_0206ca98
-    b @L_0206ca8c
-@L_0206ca18:
-    mov r0, r5
-    bl func_ov015_021319b0
-    mov r0, r5
-    bl func_ov015_02131970
-    mov r6, r0
-    mov r0, r4
-    mov r1, r6
-    mov r2, #0
-    bl _ZN11MatchEngine13func_0206707cEii
-    ldr r1, [sp, #0x20]
-    mov r5, r0
-    str r1, [sp, #4]
-    add r2, sp, #0
-    mov r0, r4
-    mov r1, r6
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_02068548Eii
-    cmp r0, #0
-    bne @L_0206ca80
-    ldr r1, [sp, #0x20]
-    mov r0, r4
-    mov r2, r5
-    mov r3, r6
-    bl func_01ffecec
-    cmp r0, #0
-    beq @L_0206ca98
-@L_0206ca80:
-    add sp, sp, #8
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206ca8c:
-    add sp, sp, #8
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206ca98:
-    mov r0, #1
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    MatchPlayer *player = func_ov015_02130ae8(ball->unk_48);
+
+    if (func_0206ace8()) {
+        return TRUE;
+    }
+    switch (kind) {
+    case 7:
+        break;
+    case 6: {
+        func_ov015_021319b0(player);
+        int team = func_ov015_02131970(player);
+        fx32 limit = func_0206707c(team, 0);
+        MatchPoint pt;
+        pt.x = x;
+        pt.y = y;
+        if (func_02068548(team, (int)&pt) || func_01ffecec(this, y, limit, team)) {
+            return FALSE;
+        }
+        break;
+    }
+    case 4:
+    case 8:
+        return FALSE;
+    }
+    return TRUE;
 }
 
 void MatchEngine::func_0206caa4()
