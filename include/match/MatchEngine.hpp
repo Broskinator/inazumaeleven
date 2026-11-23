@@ -334,7 +334,7 @@ public:
     BOOL func_0206d988();
     BOOL func_0206d9a0();
     u32 func_0206d9d0(int value);
-    void func_0206da44();
+    u32 func_0206da44(int value);
     BOOL func_0206dad4(int id);
     BOOL func_0206daec(int id);
     void func_0206db10(SaveBody *dst);

@@ -12218,42 +12218,15 @@ u32 MatchEngine::func_0206d9d0(int value)
     return 2.0 * value * ((float)(r + 80) / 100.0);
 }
 
-asm void MatchEngine::func_0206da44()
+u32 MatchEngine::func_0206da44(int value)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r0, r1
-    bl _dflt
-    mov r3, r1
-    mov r2, r0
-    ldr r1, =0x3fe00000
-    mov r0, #0
-    bl _dmul
-    bl _dfixu
-    mov r0, r0, lsl #0x10
-    mov r4, r0, lsr #0x10
-    cmp r4, #0x1e
-    movhi r4, #0x1e
-    mov r0, #0x29
-    bl Random_RandB
-    mov r5, r0
-    mov r0, r4
-    bl _ffltu
-    bl _f2d
-    mov r4, r0
-    add r0, r5, #0x50
-    mov r5, r1
-    bl _ffltu
-    bl _f2d
-    ldr r3, =0x40590000
-    mov r2, #0
-    bl _ddiv
-    mov r2, r0
-    mov r3, r1
-    mov r0, r4
-    mov r1, r5
-    bl _dmul
-    bl _dfixu
-    ldmia sp!, {r3, r4, r5, pc}
+    u16 v = value * 0.5;
+    if (v > 30) {
+        v = 30;
+    }
+    u32 r = Random_RandB(41);
+
+    return (float)v * ((float)(r + 80) / 100.0);
 }
 
 BOOL MatchEngine::func_0206dad4(int id)
