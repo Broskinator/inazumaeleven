@@ -9968,127 +9968,48 @@ int MatchEngine::func_02078c70(int team, u16 *out, int max, BOOL bare, int kind)
     return n;
 }
 
-// (nonmatching, at optimization level 2, 19 words: the ROM loads the flag argument after MI_CpuFill8 (ldrb r4) and
-// keeps the player in r7, the attempt loads the flag first, into r7)
-#ifdef NONMATCHING
+// the ids of the team's players (at most max of them; in a wireless match as they are, else with
+// the team bit for team 1 unless flag), sorted by func_0207f634(0x80)
 #pragma push
 #pragma optimization_level 2
 int MatchEngine::func_02078d84(int team, u16 *out, int max, u8 flag)
 {
-    MatchPlayer *player;
+    u8 f;
     int i;
     int n = 0;
+    MatchPlayer *player;
     u16 id;
 
     if (out == NULL) {
         return n;
     }
     MI_CpuFill8(out, 0, max * 2);
+    f = flag;
     for (i = 0; i < 0x84; i++) {
         if (n >= max) {
             break;
         }
         player = func_ov015_02130ae8(i);
-        if (player != NULL && MatchPlayer_HasFlag(player, 1) && team == func_02080b90(player) && !func_02080cb8(player)) {
-            id = player->unk_42 & 0xFFF;
-            if (gGameState.unk_000[0x1B] != 0) {
-                out[n] = player->unk_42;
-            } else if (flag == 0 && team == 1) {
-                out[n] = id | 0x8000;
-            } else {
-                out[n] = id;
-            }
-            n++;
-            if (n >= max) {
-                break;
-            }
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1) || team != func_02080b90(player) || func_02080cb8(player)) {
+            continue;
+        }
+        id = player->unk_42 & 0xFFF;
+        if (gGameState.unk_000[0x1B] != 0) {
+            out[n] = player->unk_42;
+        } else if (f == 0 && team == 1) {
+            out[n] = id | 0x8000;
+        } else {
+            out[n] = id;
+        }
+        n++;
+        if (n >= max) {
+            break;
         }
     }
     func_0207f634(out, n, 0x80, 1);
     return n;
 }
 #pragma pop
-#else
-asm int MatchEngine::func_02078d84(int team, u16 *out, int max, u8 flag)
-{
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    movs r9, r2
-    str r0, [sp, #4]
-    mov r6, #0
-    mov r10, r1
-    mov r8, r3
-    addeq sp, sp, #8
-    moveq r0, r6
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r9
-    mov r1, r6
-    mov r2, r8, lsl #1
-    bl MI_CpuFill8
-    mov r5, r6
-    ldrb r4, [sp, #0x30]
-    ldr r11, =gGameState
-    b @L_02078e70
-@L_02078dcc:
-    cmp r6, r8
-    bge @L_02078e78
-    mov r0, r5
-    bl func_ov015_02130ae8
-    movs r7, r0
-    beq @L_02078e6c
-    ldrh r0, [r7, #0xf0]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02078e6c
-    mov r0, r7
-    bl func_02080b90
-    cmp r10, r0
-    bne @L_02078e6c
-    mov r0, r7
-    bl func_02080cb8
-    cmp r0, #0
-    bne @L_02078e6c
-    ldrh r2, [r7, #0x42]
-    ldr r0, =0xfff
-    ldrb r1, [r11, #0x1b]
-    and r0, r2, r0
-    mov r0, r0, lsl #0x10
-    cmp r1, #0
-    mov r1, r0, lsr #0x10
-    movne r0, r6, lsl #1
-    strneh r2, [r9, r0]
-    bne @L_02078e60
-    cmp r4, #0
-    cmpeq r10, #1
-    orreq r1, r1, #0x8000
-    moveq r0, r6, lsl #1
-    streqh r1, [r9, r0]
-    movne r0, r6, lsl #1
-    strneh r1, [r9, r0]
-@L_02078e60:
-    add r6, r6, #1
-    cmp r6, r8
-    bge @L_02078e78
-@L_02078e6c:
-    add r5, r5, #1
-@L_02078e70:
-    cmp r5, #0x84
-    blt @L_02078dcc
-@L_02078e78:
-    ldr r0, [sp, #4]
-    mov r4, #1
-    mov r1, r9
-    mov r2, r6
-    mov r3, #0x80
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPtiih
-    mov r0, r6
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-}
-#endif
 
 BOOL MatchEngine::func_02078ea8(int id)
 {
