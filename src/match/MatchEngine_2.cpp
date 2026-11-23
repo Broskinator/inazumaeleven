@@ -549,7 +549,7 @@ extern "C" void _ZN9EntryPool9DuplicateEii(void);
 extern "C" void func_01ffe354(void);
 extern "C" void func_01ffed20(void);
 extern "C" fx32 func_01fff15c(MatchEngine *self, MatchPlayerBody *body, MatchPoint *point);
-extern "C" void func_0209bf8c(void);
+extern "C" u16 func_0209bf8c(void *obj);     // (obj: gWirelessUtil)
 extern "C" void func_ov015_02130b94(void);
 extern "C" u16 func_ov015_02130e40(u8 dir);
 extern "C" BOOL func_ov015_02131a5c(MatchPlayer *player);
@@ -10986,84 +10986,48 @@ asm void MatchEngine::func_020799b4()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02079ae4()
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_02079ae4()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r7, #0
-    bl func_ov015_021319bc
-    ldr r1, =gGameState
-    mov r4, r0
-    ldrb r0, [r1, #0x1b]
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r5, =gWirelessUtil
-    mov r0, r5
-    bl func_0209bf8c
-    cmp r0, #0
-    beq @L_02079b34
-    mov r0, r5
-    bl func_0209bf8c
-    sub r0, r0, #1
-    mov r1, #0x1000
-    mov r0, r1, lsl r0
-    mov r0, r0, lsl #0x10
-    mov r7, r0, lsr #0x10
-@L_02079b34:
-    ldr r0, =data_020ca716
-    mov r9, #0
-    mov r5, r9
-    add r11, r0, r4, lsl #5
-    mov r6, #1
-    b @L_02079be8
-@L_02079b4c:
-    mov r0, r9, lsl #1
-    ldrh r1, [r0, r11]
-    cmp r1, #0
-    beq @L_02079be4
-    and r0, r1, #0xf000
-    cmp r7, r0
-    bne @L_02079be4
-    ldr r4, =0xfff
-    mov r10, #0
-    and r0, r1, r4
-    mov r0, r0, lsl #0x10
-    mov r8, r0, lsr #0x10
-    b @L_02079bdc
-@L_02079b80:
-    mov r0, r10
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    beq @L_02079bd8
-    ldrh r1, [r0, #0xf0]
-    tst r1, #1
-    movne r1, r6
-    moveq r1, r5
-    cmp r1, #0
-    beq @L_02079bd8
-    ldrh r0, [r0, #0x42]
-    and r0, r0, r4
-    mov r0, r0, lsl #0x10
-    cmp r8, r0, lsr #16
-    bne @L_02079bd8
-    cmp r9, r10
-    beq @L_02079be4
-    ldr r0, =gEntryPool
-    mov r1, r9
-    mov r2, r10
-    bl _ZN9EntryPool4SwapEii
-    b @L_02079be4
-@L_02079bd8:
-    add r10, r10, #1
-@L_02079bdc:
-    cmp r10, #0x84
-    blt @L_02079b80
-@L_02079be4:
-    add r9, r9, #1
-@L_02079be8:
-    cmp r9, #0x10
-    blt @L_02079b4c
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u16 key;
+    u16 id;
+    u16 value;
+    int team;
+    int i;
+    int j;
+    MatchPlayer *player;
+
+    key = 0;
+    team = func_ov015_021319bc();
+    if (gGameState.unk_000[0x1B] == 0) {
+        return;
+    }
+    if (func_0209bf8c(gWirelessUtil)) {
+        key = 0x1000 << (func_0209bf8c(gWirelessUtil) - 1);
+    }
+    for (i = 0; i < 16; i++) {
+        value = *(u16 *)(data_020ca716 + team * 0x20 + i * 2);
+        if (value == 0) {
+            continue;
+        }
+        if (key != (value & 0xF000)) {
+            continue;
+        }
+        id = value & 0xFFF;
+        for (j = 0; j < 0x84; j++) {
+            player = func_ov015_02130ae8(j);
+            if (player == NULL || !MatchPlayer_HasFlag(player, 1) || id != (u16)(player->unk_42 & 0xFFF)) {
+                continue;
+            }
+            if (i != j) {
+                gEntryPool.Swap(i, j);
+            }
+            break;
+        }
+    }
 }
+#pragma pop
 
 // (nonmatching: the ROM clears copy->unk_f0 with ldrh; and #0; strh, MWCC folds it into a store of 0 (all else matches at optimization level 2))
 #ifdef NONMATCHING
