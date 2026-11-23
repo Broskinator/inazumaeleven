@@ -125,7 +125,7 @@ extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);     // (
 extern "C" void _ZN11MatchEngine13func_0207ff44Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207fff0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02078c70Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02078c70EiPtiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078f8cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078fa4EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207903cEP11MatchPlayer(void);     // (for the asm functions)
@@ -7676,7 +7676,7 @@ asm int MatchEngine::func_02069394(int a, int b, int c, int d, u8 e, int f)
     ldr r0, =data_020e88a0
     mov r3, #0x10
     add r2, sp, #0x10
-    bl _ZN11MatchEngine13func_02078c70Ev
+    bl _ZN11MatchEngine13func_02078c70EiPtiii
     str r0, [sp, #0xc]
     mov r5, r10
     ldr r11, =0x66666667

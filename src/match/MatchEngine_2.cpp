@@ -10026,80 +10026,38 @@ int MatchEngine::func_02078bc0(MatchPlayer *player, void *buffer, int max, int f
     return n;
 }
 
-asm void MatchEngine::func_02078c70()
+// the ids of the team's players with a func_0208130c(player, 0) of 1 to 16 (at most max of
+// them, without the team bit unless fullId), sorted by func_0207f634(kind) when kind != 0
+int MatchEngine::func_02078c70(int team, u16 *out, int max, BOOL fullId, int kind)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    ldr r7, [sp, #0x30]
-    movs r9, r2
-    str r0, [sp, #4]
-    mov r10, r1
-    mov r8, r3
-    addeq sp, sp, #8
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r6, #0
-    mov r0, r9
-    mov r1, r6
-    mov r2, r8, lsl #1
-    bl MI_CpuFill8
-    ldr r11, =0xfff
-    mov r5, r6
-@L_02078cb4:
-    cmp r6, r8
-    bge @L_02078d50
-    mov r0, r5
-    bl func_ov015_02130ae8
-    movs r4, r0
-    beq @L_02078d44
-    ldrh r0, [r4, #0xf0]
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02078d44
-    mov r0, r4
-    bl func_02080b90
-    cmp r10, r0
-    bne @L_02078d44
-    mov r0, r4
-    bl func_02080cb8
-    cmp r0, #0
-    bne @L_02078d44
-    mov r0, r4
-    mov r1, #0
-    bl func_0208130c
-    cmp r0, #0
-    ble @L_02078d44
-    cmp r0, #0x10
-    bgt @L_02078d44
-    cmp r7, #0
-    ldrneh r0, [r4, #0x42]
-    andne r0, r0, r11
-    movne r0, r0, lsl #0x10
-    movne r1, r0, lsr #0x10
-    ldreqh r1, [r4, #0x42]
-    mov r0, r6, lsl #1
-    add r6, r6, #1
-    strh r1, [r9, r0]
-@L_02078d44:
-    add r5, r5, #1
-    cmp r5, #0x84
-    blt @L_02078cb4
-@L_02078d50:
-    ldr r3, [sp, #0x34]
-    cmp r3, #0
-    beq @L_02078d74
-    ldr r0, [sp, #4]
-    mov r4, #1
-    mov r1, r9
-    mov r2, r6
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPtiih
-@L_02078d74:
-    mov r0, r6
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *player;
+    int i;
+    int n;
+    s32 value;
+
+    if (out == NULL) {
+        return 0;
+    }
+    n = 0;
+    MI_CpuFill8(out, 0, max * 2);
+    for (i = 0; i < 0x84; i++) {
+        if (n >= max) {
+            break;
+        }
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1) || team != func_02080b90(player) || func_02080cb8(player)) {
+            continue;
+        }
+        value = func_0208130c(player, 0);
+        if (value <= 0 || value > 16) {
+            continue;
+        }
+        out[n++] = fullId ? (u16)(player->unk_42 & 0xFFF) : player->unk_42;
+    }
+    if (kind != 0) {
+        func_0207f634(out, n, kind, 1);
+    }
+    return n;
 }
 
 // (nonmatching, at optimization level 2, 19 words: the ROM loads the flag argument after MI_CpuFill8 (ldrb r4) and
