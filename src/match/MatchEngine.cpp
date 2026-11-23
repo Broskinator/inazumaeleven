@@ -15,6 +15,8 @@ extern "C" u8 data_020cabf8[];
 #include "match/MatchFile.hpp"
 #include "nitro/std.h"
 #include "game/TreasureBox.hpp"
+#include "save/SaveManager.hpp"
+#include "data/EntryPool.hpp"
 // a product of 64-bit operands (the compiler multiplies all 64 bits)
 static inline fx32 MatchMul64(fx64 a, fx64 b)
 {
@@ -59,7 +61,7 @@ extern "C" BOOL func_02081f50(u8 *data, int i);
 extern "C" BOOL func_02081894(u8 *bits, int i);
 extern "C" void func_020802a0(void);     // (for the asm functions)
 extern "C" int func_02080328(u8 *entry, int i);
-extern "C" void func_02080368(void);     // (for the asm functions)
+extern "C" BOOL func_02080368(u8 *team, int id);
 extern "C" void func_02080aa0(void);     // (for the asm functions)
 extern "C" void func_02080b00(void);     // (for the asm functions)
 extern "C" void func_02080b1c(void);     // (for the asm functions)
@@ -503,8 +505,7 @@ extern "C" char data_020cb0a0[];
 extern "C" char data_020cb288[];
 // (STD_GetStringLength: nitro/std.h)
 extern "C" void _ZN8GameHeap4FreeEPv(void);
-extern "C" void _ZN9EntryPool9RemoveAllEv(void);
-extern "C" void func_01ffde48(void);
+extern "C" void func_01ffde48(MatchEngine *engine, u8 *entry, int slot);
 extern "C" void OS_Terminate(void);
 extern "C" void _dmul(void);
 extern "C" void _dflt(void);
@@ -522,7 +523,6 @@ extern "C" MatchPlayer *func_ov015_02130ce0(int team, int number, int a, int mod
 extern "C" int func_ov015_021443f4(UnkPair_020621b4 *pair);
 extern "C" int func_ov015_0214440c(UnkPair_020621b4 *pair);
 extern "C" void func_ov087_0217e70c(void);
-extern "C" void gEntryPool(void);
 
 asm void MatchEngine::func_020622b4()
 {
@@ -12415,68 +12415,31 @@ BOOL MatchEngine::func_0206dc34(u8 *out)
     return TRUE;
 }
 
-asm void MatchEngine::func_0206dcdc(SaveBody *src)
+BOOL MatchEngine::func_0206dcdc(SaveBody *src)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r5, #0
-    movs r7, r1
-    mov r8, r0
-    mov r6, r5
-    moveq r0, r5
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, =gEntryPool
-    bl _ZN9EntryPool9RemoveAllEv
-    add r0, r7, #0x14c
-    add r0, r0, #0x3c00
-    add r1, r8, #0x17c
-    mov r2, #0x40
-    bl MI_CpuCopy8
-    add r0, r8, #0x100
-    ldrh r1, [r0, #0xba]
-    mov r4, #0x20
-    mov r2, r4
-    cmp r1, #0
-    ldreqh r1, [r0, #0x9e]
-    streqh r1, [r0, #0xba]
-    add r0, r7, #0x18c
-    add r0, r0, #0x3c00
-    add r1, r8, #0x34c
-    bl MI_CpuCopy8
-    add r0, r7, #0x1ac
-    mov r2, r4
-    add r0, r0, #0x3c00
-    add r1, r8, #0x38c
-    bl MI_CpuCopy8
-    add r0, r7, #0x1cc
-    add r0, r0, #0x3c00
-    add r1, r8, #0x3ac
-    mov r2, #0x10
-    bl MI_CpuCopy8
-    add r0, r7, #0x18c
-    mov r4, #0
-    add r9, r0, #0x1000
-    mov r7, #0x70
-@L_0206dd78:
-    mla r10, r4, r7, r9
-    ldrh r1, [r10, #4]
-    cmp r1, #0
-    beq @L_0206ddb0
-    add r0, r8, #0x34c
-    bl func_02080368
-    cmp r0, #0
-    movne r2, r5
-    addeq r2, r6, #0x20
-    mov r0, r8
-    mov r1, r10
-    addne r5, r5, #1
-    addeq r6, r6, #1
-    bl func_01ffde48
-@L_0206ddb0:
-    add r4, r4, #1
-    cmp r4, #0x64
-    blt @L_0206dd78
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    int i;
+    int own = 0;
+    int other = 0;
+    u8 *entry;
+
+    if (src == NULL) {
+        return FALSE;
+    }
+    gEntryPool.RemoveAll();
+    MI_CpuCopy8(&src->unk_3D4C[0], unk_17c, 0x40);
+    if (*(u16 *)&unk_17c[0][0x3E] == 0) {
+        *(u16 *)&unk_17c[0][0x3E] = *(u16 *)&unk_17c[0][0x22];
+    }
+    MI_CpuCopy8(&src->unk_3D4C[0x40], unk_34c, 0x20);
+    MI_CpuCopy8(&src->unk_3D4C[0x60], unk_38c, 0x20);
+    MI_CpuCopy8(&src->unk_3D4C[0x80], unk_3ac, 0x10);
+    for (i = 0; i < 100; i++) {
+        entry = &src->unk_118C[i * 0x70];
+        if (*(u16 *)(entry + 4) != 0) {
+            func_01ffde48(this, entry, func_02080368(unk_34c[0], *(u16 *)(entry + 4)) ? own++ : other++ + 0x20);
+        }
+    }
+    return TRUE;
 }
 
 void MatchEngine::func_0206ddc8(int i, int flags)

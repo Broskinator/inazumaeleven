@@ -339,7 +339,7 @@ public:
     BOOL func_0206daec(int id);
     void func_0206db10(SaveBody *dst);
     BOOL func_0206dc34(u8 *out);
-    void func_0206dcdc(SaveBody *src);
+    BOOL func_0206dcdc(SaveBody *src);
     void func_0206ddc8(int i, int flags);
     void func_0206dde8(int i, int flags);
     BOOL func_0206de18(int i, u16 flags);
