@@ -247,7 +247,7 @@ extern "C" void _ZN11MatchEngine13func_02068b08El(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_02068c28EiiPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068ce4EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068d20EP11MatchPlayeri(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02068d74Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02068d74EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068eb4EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068ed4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068edcEP11MatchPlayeri(void);     // (for the asm functions)
@@ -2432,7 +2432,7 @@ asm void MatchEngine::func_02063f24()
     mov r1, r10
     strne r0, [r9, #4]
     mov r0, r11
-    bl _ZN11MatchEngine13func_02068d74Ev
+    bl _ZN11MatchEngine13func_02068d74EP11MatchPlayer
     ldr r1, [sp, #4]
     ldr r3, =FX_SinCosTable_
     mov r1, r1, asr #4
@@ -7237,99 +7237,43 @@ void MatchEngine::func_02068d20(MatchPlayer *player, int value)
     player->state->unk_14 = value;
 }
 
-asm void MatchEngine::func_02068d74()
+fx32 MatchEngine::func_02068d74(MatchPlayer *player)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r6, r0
-    mov r5, r1
-    bl _ZN11MatchEngine13func_020787e8EP11MatchPlayer
-    mov r4, r0
-    mov r0, r6
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0206a078EP11MatchPlayer
-    ldrb r2, [r4, #0xe]
-    ldr r1, =0x19a
-    ldr r3, [r5, #0xec]
-    mul r2, r0, r2
-    umull r7, r4, r2, r1
-    mov r0, r2, asr #0x1f
-    mla r4, r0, r1, r4
-    adds r2, r7, #0x800
-    adc r1, r4, #0
-    mov r4, r2, lsr #0xc
-    ldrb r0, [r3, #0x2d]
-    orr r4, r4, r1, lsl #20
-    mov r12, #0
-    cmp r0, #7
-    mov r2, #0x800
-    addls pc, pc, r0, lsl #2
-    b @L_02068e8c
-    b @L_02068df8
-    b @L_02068e18
-    b @L_02068e38
-    b @L_02068e3c
-    b @L_02068e5c
-    b @L_02068e60
-    b @L_02068e74
-    b @L_02068e88
-@L_02068df8:
-    mov r1, r4, asr #0x1f
-    mov r1, r1, lsl #0xc
-    orr r1, r1, r4, lsr #20
-    adds r2, r2, r4, lsl #12
-@L_02068e08:
-    adc r1, r1, r12
-@L_02068e0c:
-    mov r4, r2, lsr #0xc
-    orr r4, r4, r1, lsl #20
-    b @L_02068e8c
-@L_02068e18:
-    mov r1, #0x1800
-    umull lr, r7, r4, r1
-    mla r7, r4, r12, r7
-    mov r4, r4, asr #0x1f
-    mla r7, r4, r1, r7
-    adds r2, lr, r2
-    adc r1, r7, r12
-@L_02068e34:
-    b @L_02068e0c
-@L_02068e38:
-    b @L_02068e18
-@L_02068e3c:
-    mov r1, #0x1400
-    umull r7, lr, r4, r1
-    mla lr, r4, r12, lr
-    mov r4, r4, asr #0x1f
-    adds r2, r7, r2
-    mla lr, r4, r1, lr
-    adc r1, lr, r12
-    b @L_02068e34
-@L_02068e5c:
-    b @L_02068df8
-@L_02068e60:
-    mov r1, r4, asr #0x1f
-    mov r1, r1, lsl #0xb
-    orr r1, r1, r4, lsr #21
-    adds r2, r2, r4, lsl #11
-    b @L_02068e08
-@L_02068e74:
-    mov r1, r4, asr #0x1f
-    mov r1, r1, lsl #0xa
-    orr r1, r1, r4, lsr #22
-    adds r2, r2, r4, lsl #10
-    b @L_02068e08
-@L_02068e88:
-    mov r4, r12
-@L_02068e8c:
-    add r0, r0, #1
-    and r12, r0, #7
-    mov r0, r6
-    mov r1, r5
-    mov r2, r4
-    strb r12, [r3, #0x2d]
-    bl _ZN11MatchEngine13func_02068d20EP11MatchPlayeri
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    MatchPlayerInfo *info = func_020787e8(player);
+    fx32 value = func_0206a078(player);
+    MatchPlayerState *state;
+
+    value = MatchMul64(value * info->unk_e, 0x19A);
+    state = player->state;
+    switch (state->unk_2d) {
+    case 0:
+        value = MatchMul64(value, 0x1000);
+        break;
+    case 1:
+        value = MatchMul64(value, 0x1800);
+        break;
+    case 2:
+        value = MatchMul64(value, 0x1800);
+        break;
+    case 3:
+        value = MatchMul64(value, 0x1400);
+        break;
+    case 4:
+        value = MatchMul64(value, 0x1000);
+        break;
+    case 5:
+        value = MatchMul64(value, 0x800);
+        break;
+    case 6:
+        value = MatchMul64(value, 0x400);
+        break;
+    case 7:
+        value = 0;
+        break;
+    }
+    state->unk_2d = (state->unk_2d + 1) & 7;
+    func_02068d20(player, value);
+    return value;
 }
 
 int MatchEngine::func_02068eb4(MatchPlayer *player)

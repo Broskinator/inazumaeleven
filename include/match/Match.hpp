@@ -83,7 +83,8 @@ struct MatchPlayerState {
     s16 unk_26;
     u8 unk_28[0x2C - 0x28];
     u8 unk_2c;          // (the player's slot in MatchPlayerList::players)
-    u8 unk_2d[0x2F - 0x2D];
+    u8 unk_2d;          // (counts 0-7, func_02068d74)
+    u8 unk_2e;
     u8 unk_2f;
     u8 unk_30[2];
     u16 unk_32;
@@ -149,7 +150,9 @@ struct MatchPlayerInfo {
     s16 unk_0;
     u8 unk_2[6];
     u8 unk_8;
-    u8 unk_9[0x10 - 0x9];
+    u8 unk_9[0xE - 0x9];
+    u8 unk_e;
+    u8 unk_f;
     u16 unk_10;         // flags
     u16 unk_12;         // flags
     u8 unk_14[0x18 - 0x14];

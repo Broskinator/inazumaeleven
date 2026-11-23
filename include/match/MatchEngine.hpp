@@ -179,7 +179,7 @@ public:
     u16 func_02068c28(int direction, int target, int *amount);
     int func_02068ce4(MatchPlayer *player, int target, int amount);
     void func_02068d20(MatchPlayer *player, int value);
-    void func_02068d74();
+    fx32 func_02068d74(MatchPlayer *player);
     int func_02068eb4(MatchPlayer *player);
     int func_02068ed4(int value);
     BOOL func_02068edc(MatchPlayer *player, int angle);
