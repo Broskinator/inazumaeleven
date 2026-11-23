@@ -8130,7 +8130,60 @@ BOOL MatchEngine::func_02076a64(u8 a, u8 b)
     return FALSE;
 }
 
-asm void MatchEngine::func_02076a7c()
+// (nonmatching, at optimization level 2, 11 words: the ROM reads gAllocator.fileManager twice, for the check and for
+// the call; only a read of another type for the check (here a cast) keeps MWCC from reusing it, and the
+// prologue's order still differs)
+#ifdef NONMATCHING
+static inline int MatchLoadEntry(const char *name, void **buffer, int index, int size)
+{
+    const char *path = name;
+
+    if (*(void **)&gAllocator == NULL) {
+        return 0;
+    }
+    return gAllocator.fileManager->Load(path, buffer, &gAllocator, index * size, size, FALSE, 1, TRUE);
+}
+
+#pragma push
+#pragma optimization_level 2
+int MatchEngine::func_02076a7c(u16 *out, int max, int *error)
+{
+    u16 ids[0x20];
+    void *buffer = ids;
+    int n = 0;
+    int i;
+    u8 *entry;
+
+    if (MatchLoadEntry(data_020af2c0, &buffer, data_020cb6e0[0x268], 0x40) == 0) {
+        if (error != NULL) {
+            *error = 0x18;
+        }
+        return 0;
+    }
+    for (i = 0; i < 0x20; i++) {
+        if (ids[i] == 0) {
+            continue;
+        }
+        entry = func_020768fc(ids[i]);
+        if (*(u16 *)(entry + 0x24) == 0) {
+            continue;
+        }
+        if (entry[0x29] != 0 && !func_02077f20(entry)) {
+            continue;
+        }
+        if (n < max) {
+            out[n] = ids[i];
+        }
+        n++;
+    }
+    if (error != NULL) {
+        *error = 0;
+    }
+    return n;
+}
+#pragma pop
+#else
+asm int MatchEngine::func_02076a7c(u16 *out, int max, int *error)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x58
@@ -8209,6 +8262,7 @@ asm void MatchEngine::func_02076a7c()
     add sp, sp, #0x58
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
+#endif
 
 int MatchEngine::func_02076ba0(u32 id, int cost, BOOL force)
 {

@@ -522,7 +522,7 @@ public:
     int func_0207697c(int kind, u16 *out, int max);
     int func_020769f0(u16 *out, int max);
     BOOL func_02076a64(u8 a, u8 b);
-    void func_02076a7c();
+    int func_02076a7c(u16 *out, int max, int *error);
     int func_02076ba0(u32 id, int cost, BOOL force);
     int func_02076c08(MatchPlayer *player, u32 id);
     void func_02076c98();

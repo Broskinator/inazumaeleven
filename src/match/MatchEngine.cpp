@@ -333,7 +333,7 @@ extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_02131948(void);
 extern "C" int func_ov015_02131970(MatchPlayer *player);
 extern "C" void func_ov015_0213a69c(void *obj, int a, int b);
-extern "C" void func_ov015_0213a75c(void);
+extern "C" void func_ov015_0213a75c(void *sprite, MatchPlayer *player, int a, int dir, int b);
 extern "C" void func_ov015_0213ffc4(void);
 extern "C" BOOL func_ov015_02140da4(MatchEngine *self, int a);
 extern "C" void func_ov015_02140df0(void);
@@ -11147,6 +11147,29 @@ u8 MatchEngine::func_0206c688()
     return unk_11912;
 }
 
+// (nonmatching: at optimization level 2, 6 words: the ROM loads g3DFieldSprite last for func_ov015_0213a75c (after player->body->unk_1a), the rebuild loads it before)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_0206c694()
+{
+    MatchPlayer *player;
+    int i;
+
+    if (func_0206ace8()) {
+        return;
+    }
+    for (i = 0; i < 0x20; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player != NULL && MatchPlayer_HasFlag(player, 8)) {
+            func_020654cc(player, 0, -1, NULL, NULL, 0);
+            func_ov015_0213a75c(g3DFieldSprite, player, 0, player->body->unk_1a, 0);
+        }
+    }
+    func_0206ad94(1, 0);
+}
+#pragma pop
+#else
 asm void MatchEngine::func_0206c694()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -11201,6 +11224,7 @@ asm void MatchEngine::func_0206c694()
     add sp, sp, #0xc
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_0206c758(MatchPlayer *player)
 {
