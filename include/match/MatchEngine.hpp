@@ -61,6 +61,7 @@ struct UnkRecord_02076168 {
 struct MatchIdScore {
     s32 score;
     u16 id;
+    u8 unk_6[2];
 };
 
 struct MatchState {

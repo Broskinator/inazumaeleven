@@ -16635,89 +16635,35 @@ BOOL MatchEngine::func_0207f42c(MatchPlayer *player)
     return FALSE;
 }
 
-asm int MatchEngine::func_0207f4bc(MatchIdScore *list, int n, u8 order)
+int MatchEngine::func_0207f4bc(MatchIdScore *list, int n, u8 order)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #8
-    mov r8, #1
-    mov r9, r8
-    b @L_0207f5b4
-@L_0207f4d0:
-    sub r10, r2, #1
-    cmp r10, #0
-    mov r9, #0
-    ble @L_0207f5ac
-    mov r11, r9
-@L_0207f4e4:
-    add r5, r1, r10, lsl #3
-    ldrh r0, [r5, #4]
-    cmp r0, #0
-    beq @L_0207f5a0
-    cmp r3, #0
-    ldrh r0, [r5, #-4]
-    beq @L_0207f528
-    cmp r0, #0
-    beq @L_0207f518
-    ldr r4, [r1, r10, lsl #3]
-    ldr r0, [r5, #-8]
-    cmp r4, r0
-    bge @L_0207f520
-@L_0207f518:
-    mov r0, r8
-    b @L_0207f548
-@L_0207f520:
-    mov r0, r11
-    b @L_0207f548
-@L_0207f528:
-    cmp r0, #0
-    beq @L_0207f540
-    ldr r4, [r1, r10, lsl #3]
-    ldr r0, [r5, #-8]
-    cmp r4, r0
-    ble @L_0207f544
-@L_0207f540:
-    b @L_0207f518
-@L_0207f544:
-    mov r0, #0
-@L_0207f548:
-    cmp r0, #0
-    beq @L_0207f5a0
-    add r6, r1, r10, lsl #3
-    ldrb r4, [r6, #6]
-    ldrb lr, [r6, #7]
-    ldrh r5, [r6, #4]
-    ldr r7, [r1, r10, lsl #3]
-    ldr r0, [r6, #-8]
-    strb r4, [sp, #6]
-    str r0, [r1, r10, lsl #3]
-    ldrh r0, [r6, #-4]
-    strb lr, [sp, #7]
-    mov r9, r8
-    strh r0, [r6, #4]
-    ldrb r12, [r6, #-2]
-    ldrb r0, [r6, #-1]
-    strb r12, [r6, #6]
-    strb r0, [r6, #7]
-    str r7, [r6, #-8]
-    strh r5, [r6, #-4]
-    strb r4, [r6, #-2]
-    strb lr, [r6, #-1]
-@L_0207f5a0:
-    sub r10, r10, #1
-    cmp r10, #0
-    bgt @L_0207f4e4
-@L_0207f5ac:
-    add r1, r1, #8
-    sub r2, r2, #1
-@L_0207f5b4:
-    cmp r9, #0
-    beq @L_0207f5c4
-    cmp r2, #0
-    bgt @L_0207f4d0
-@L_0207f5c4:
-    mov r0, #1
-    add sp, sp, #8
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    BOOL swapped = TRUE;
+    int i;
+    BOOL swap;
+    MatchIdScore tmp;
+
+    while (swapped && n > 0) {
+        swapped = FALSE;
+        for (i = n - 1; i > 0; i--) {
+            if (list[i].id == 0) {
+                continue;
+            }
+            if (order) {
+                swap = list[i - 1].id == 0 || list[i].score < list[i - 1].score;
+            } else {
+                swap = list[i - 1].id == 0 || list[i].score > list[i - 1].score;
+            }
+            if (swap) {
+                tmp = list[i];
+                list[i] = list[i - 1];
+                list[i - 1] = tmp;
+                swapped = TRUE;
+            }
+        }
+        list++;
+        n--;
+    }
+    return TRUE;
 }
 
 BOOL MatchEngine::func_0207f5d0(char *dst, const char *src)
