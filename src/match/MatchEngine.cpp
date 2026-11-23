@@ -128,7 +128,7 @@ extern "C" void _ZN11MatchEngine13func_0207f3b8Ei(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207ff44Eiii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207fff0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207fff0Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078c70EiPtiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078f8cEP11MatchPlayer(void);     // (for the asm functions)
@@ -12555,98 +12555,76 @@ void MatchEngine::func_0206e3a8()
     }
 }
 
-asm void MatchEngine::func_0206e3d4()
+// picks the entry of the table at unk_c00 (48 of 0x20 bytes, by level) for the team's level:
+// its index goes to gGameState.profile.unk_2C (-1: none)
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_0206e3d4()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r10, r0
-    ldr r2, [r10, #0xc00]
-    mov r1, #0
-    str r1, [sp]
-    cmp r2, #0
-    bne @L_0206e404
-    bl _ZN11MatchEngine13func_0206e330Ev
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, #1
-    str r0, [sp]
-@L_0206e404:
-    bl func_ov015_021319bc
-    mov r1, r0
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206b4b8Ei
-    mov r6, r0
-    cmp r6, #0x63
-    movgt r6, #0x63
-    mov r9, #0
-@L_0206e424:
-    ldr r0, [r10, #0xc00]
-    add r5, r0, r9, lsl #5
-    b @L_0206e448
-@L_0206e430:
-    ldrb r0, [r5]
-    cmp r6, r0
-    movge r7, r0
-    bge @L_0206e450
-    add r9, r9, #1
-    add r5, r5, #0x20
-@L_0206e448:
-    cmp r9, #0x30
-    blt @L_0206e430
-@L_0206e450:
-    mov r4, r9
-    b @L_0206e46c
-@L_0206e458:
-    ldrb r0, [r5]
-    cmp r7, r0
-    bne @L_0206e474
-    add r4, r4, #1
-    add r5, r5, #0x20
-@L_0206e46c:
-    cmp r4, #0x30
-    blt @L_0206e458
-@L_0206e474:
-    ldr r0, [r10, #0xc00]
-    mov r8, #0
-    add r5, r0, r9, lsl #5
-    sub r11, r8, #1
-    b @L_0206e4c4
-@L_0206e488:
-    ldrb r1, [r5, #1]
-    cmp r1, #0
-    moveq r11, r9
-    beq @L_0206e4cc
-    mov r0, r10
-    mov r2, #0
-    bl _ZN11MatchEngine13func_0207fff0Ev
-    cmp r8, r0
-    bgt @L_0206e4bc
-    ldr r1, [r5, #4]
-    cmp r0, r1
-    movge r8, r0
-    movge r11, r9
-@L_0206e4bc:
-    add r9, r9, #1
-    add r5, r5, #0x20
-@L_0206e4c4:
-    cmp r9, r4
-    blt @L_0206e488
-@L_0206e4cc:
-    mvn r1, #0
-    cmp r11, r1
-    moveq r9, r4
-    beq @L_0206e424
-    cmp r11, #0x30
-    ldrlt r0, =gGameState
-    strltb r11, [r0, #0x4d8]
-    ldrge r0, =gGameState
-    strgeb r1, [r0, #0x4d8]
-    ldr r0, [sp]
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206e3a8Ev
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    BOOL loaded;
+    int end;
+    u8 *entry;
+    int level;
+    int entryLevel;
+    int best;
+    int i;
+    int value;
+    int found;
+
+    loaded = FALSE;
+    if (unk_c00 == NULL) {
+        if (!func_0206e330()) {
+            return;
+        }
+        loaded = TRUE;
+    }
+    level = func_0206b4b8(func_ov015_021319bc());
+    if (level > 99) {
+        level = 99;
+    }
+    i = 0;
+    for (;;) {
+        entry = (u8 *)unk_c00 + i * 0x20;
+        for (; i < 0x30; i++, entry += 0x20) {
+            if (level >= entry[0]) {
+                entryLevel = entry[0];
+                break;
+            }
+        }
+        for (end = i; end < 0x30; end++, entry += 0x20) {
+            if (entryLevel != entry[0]) {
+                break;
+            }
+        }
+        entry = *(u8 **)&unk_c00 + i * 0x20;
+        best = 0;
+        found = -1;
+        for (; i < end; i++, entry += 0x20) {
+            if (entry[1] == 0) {
+                found = i;
+                break;
+            }
+            value = func_0207fff0(entry[1], 0);
+            if (best <= value && value >= *(s32 *)(entry + 4)) {
+                best = value;
+                found = i;
+            }
+        }
+        if (found != -1) {
+            break;
+        }
+        i = end;
+    }
+    if (found < 0x30) {
+        gGameState.profile.unk_2C = found;
+    } else {
+        gGameState.profile.unk_2C = -1;
+    }
+    if (loaded) {
+        func_0206e3a8();
+    }
 }
+#pragma pop
 
 // (nonmatching: the second FALSE: the ROM returns an immediate 0 (movhs r0, #0), this reuses the 0 in r2)
 #ifdef NONMATCHING

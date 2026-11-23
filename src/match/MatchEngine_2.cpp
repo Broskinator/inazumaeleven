@@ -16733,7 +16733,7 @@ int MatchEngine::func_0207ff44(int team, int kind, int c)
     return (total + n / 2) / n;
 }
 
-asm void MatchEngine::func_0207fff0()
+asm int MatchEngine::func_0207fff0(int kind, int arg)
 {
     stmdb sp!, {r3, lr}
     ldr lr, =gGameState

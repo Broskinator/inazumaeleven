@@ -742,7 +742,7 @@ public:
     BOOL func_0207f730(int kind);
     int func_0207f7cc(MatchPlayer *player, int kind, int c);
     int func_0207ff44(int team, int kind, int c);
-    void func_0207fff0();
+    int func_0207fff0(int kind, int arg);
     MatchAction *func_02080288(MatchPlayer *player);
     int func_02082d5c(int id);
     BOOL func_02082d80(int id, int value);
