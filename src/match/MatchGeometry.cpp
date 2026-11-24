@@ -74,7 +74,7 @@ extern "C" BOOL func_02084870(MatchPlayer *player);
 extern "C" s32 func_0208488c(s32 arg0, s32 arg1, s32 arg2);
 extern "C" void func_02084900(fx32 *x, fx32 *y, fx32 *rect, fx32 margin);
 extern "C" void func_02084958(fx32 *pos, fx32 *rect, fx32 margin);
-extern "C" void func_02084970(void);
+extern "C" BOOL func_02084970(fx32 *pos, fx32 *from, fx32 *rect);
 extern "C" s32 func_02084aec(s32 arg0, s32 arg1, s32 arg2);
 extern "C" s32 func_02084ba0(u8 *arg0, u8 *arg1);
 extern "C" void func_02084be8(S02084be8 *arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4);
@@ -996,7 +996,53 @@ extern "C" void func_02084958(fx32 *pos, fx32 *rect, fx32 margin)
     func_02084900(pos, &pos[1], rect, margin);
 }
 
-extern "C" asm void func_02084970(void)
+// (brings pos back into the rectangle along the line from 'from', which is inside it; if 'from'
+// is outside too, clamps pos)
+// (nonmatching: the clip arithmetic colours its registers differently (x and y end in r0/r1, stored with an stm))
+#ifdef NONMATCHING
+extern "C" BOOL func_02084970(fx32 *pos, fx32 *from, fx32 *rect)
+{
+    fx32 t;
+    fx32 x;
+    fx32 y;
+
+    if (func_02084808(pos[0], pos[1], (u8 *)rect)) {
+        return TRUE;
+    }
+    if (!func_02084808(from[0], from[1], (u8 *)rect)) {
+        func_02084958(pos, rect, 1);
+        return TRUE;
+    }
+    if (pos[0] <= rect[0]) {
+        t = FX_Div(from[0] - rect[0], from[0] - pos[0]);
+        y = from[1] + FX_Mul(pos[1] - from[1], t);
+        x = rect[0] + 1;
+        pos[0] = x;
+        pos[1] = y;
+    } else if (pos[0] >= rect[2]) {
+        t = FX_Div(rect[2] - from[0], pos[0] - from[0]);
+        y = from[1] + FX_Mul(pos[1] - from[1], t);
+        x = rect[2] - 1;
+        pos[0] = x;
+        pos[1] = y;
+    }
+    if (pos[1] <= rect[1]) {
+        t = FX_Div(from[1] - rect[1], from[1] - pos[1]);
+        x = from[0] + FX_Mul(pos[0] - from[0], t);
+        y = rect[1] + 1;
+        pos[0] = x;
+        pos[1] = y;
+    } else if (pos[1] >= rect[3]) {
+        t = FX_Div(rect[3] - from[1], pos[1] - from[1]);
+        x = from[0] + FX_Mul(pos[0] - from[0], t);
+        y = rect[3] - 1;
+        pos[0] = x;
+        pos[1] = y;
+    }
+    return TRUE;
+}
+#else
+extern "C" asm BOOL func_02084970(fx32 *pos, fx32 *from, fx32 *rect)
 {
     stmdb sp!, {r4, r5, r6, lr}
     mov r6, r0
@@ -1101,6 +1147,7 @@ extern "C" asm void func_02084970(void)
     mov r0, #1
     ldmia sp!, {r4, r5, r6, pc}
 }
+#endif
 
 extern "C" s32 func_02084aec(s32 arg0, s32 arg1, s32 arg2)
 {
