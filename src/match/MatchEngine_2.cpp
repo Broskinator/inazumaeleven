@@ -11,7 +11,7 @@ extern "C" void _ZN9EntryPool6RemoveEi(void);     // (for the asm functions)
 #include "system/GameHeap.hpp"
 extern "C" int func_ov015_021319b0(MatchPlayer *player);
 extern "C" u16 func_0208076c(u8 *entry, u32 i);
-extern "C" BOOL func_02080328(u8 *entry, int i);
+extern "C" u16 func_02080328(u8 *entry, u32 i);
 extern "C" int func_02080b90(MatchPlayer *player);
 extern GameHeap gAllocator;
 extern "C" void _ZN8GameHeap4FreeEPv(void);     // (for the asm functions)
@@ -550,7 +550,7 @@ extern "C" void func_01ffe354(void);
 extern "C" void func_01ffed20(void);
 extern "C" fx32 func_01fff15c(MatchEngine *self, MatchPlayerBody *body, MatchPoint *point);
 extern "C" u16 func_0209bf8c(void *obj);     // (obj: gWirelessUtil)
-extern "C" void func_ov015_02130b94(void);
+extern "C" MatchPlayer *func_ov015_02130b94(int id);
 extern "C" u16 func_ov015_02130e40(u8 dir);
 extern "C" BOOL func_ov015_02131a5c(MatchPlayer *player);
 extern "C" BOOL func_ov087_0217ea64(MatchEngine *match);
@@ -9824,7 +9824,50 @@ int MatchEngine::func_02078990(int team, u16 *out, int max, BOOL bare)
     return n;
 }
 
-asm int MatchEngine::func_02078aac(int team, u16 *out, int max, u8 flag, int key)
+// the ids in the team's list at unk_34c whose players are there (at most max of them; in a
+// wireless match as they are, else with the team bit for team 1 unless flag), sorted by
+// func_0207f634(kind)
+// (nonmatching: 38 words: at O4 with the compound condition the ROM's tail merge of the two calls is there but the loop tests both conditions at the bottom; at O2 (the ROM's loop: n tested at the top) the calls are not merged and n/id swap r6/r7)
+#ifdef NONMATCHING
+int MatchEngine::func_02078aac(int team, u16 *out, int max, u8 flag, int kind)
+{
+    u8 *list = unk_34c[team];
+    int i;
+    int n;
+    u16 id;
+    u8 f;
+    MatchPlayer *player;
+
+    if (out == NULL) {
+        return 0;
+    }
+    n = 0;
+    MI_CpuFill8(out, 0, max * 2);
+    f = flag;
+    for (i = 0; i < 16 && n < max; i++) {
+        if (gGameState.unk_000[0x1B] != 0) {
+            id = func_02080328(list, i);
+        } else if (f == 0 && team == 1) {
+            id = func_02080328(list, i) | 0x8000;
+        } else {
+            id = func_0208033c(list, i);
+        }
+        if ((id & 0xFFF) == 0) {
+            continue;
+        }
+        player = func_ov015_02130b94(id);
+        if (player == NULL) {
+            continue;
+        }
+        if (!func_02080cb8(player)) {
+            out[n++] = id;
+        }
+    }
+    func_0207f634(out, n, kind, 1);
+    return n;
+}
+#else
+asm int MatchEngine::func_02078aac(int team, u16 *out, int max, u8 flag, int kind)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -9902,6 +9945,7 @@ asm int MatchEngine::func_02078aac(int team, u16 *out, int max, u8 flag, int key
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (the ids of up to max of the 22 players func_02079f98 does not rule out for player and flags)
 int MatchEngine::func_02078bc0(MatchPlayer *player, void *buffer, int max, int flags, BOOL mask)
