@@ -7993,95 +7993,40 @@ int MatchEngine::func_02076c08(MatchPlayer *player, u32 id)
     return 0;
 }
 
-asm void MatchEngine::func_02076c98()
+int MatchEngine::func_02076c98(int team, u32 id)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r4, r2
-    mov r9, r1
-    mov r1, r4
-    mov r10, r0
-    mov r5, #0
-    bl _ZN11MatchEngine13func_020768fcEm
-    cmp r0, #0
-    beq @L_02076cc8
-    ldrb r0, [r0, #0x21]
-    cmp r0, #0x17
-    beq @L_02076cd0
-@L_02076cc8:
-    mov r0, #0xd
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02076cd0:
-    mov r0, r9
-    bl func_ov015_02131bb4
-    cmp r0, #0
-    beq @L_02076cf8
-    mov r0, r10
-    mov r1, r4
-    bl _ZN11MatchEngine13func_020767a4Em
-    cmp r0, #0
-    moveq r0, #0xc
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02076cf8:
-    mov r0, r10
-    mov r1, r9
-    mov r2, #0
-    bl _ZN11MatchEngine13func_02076ddcEii
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r10
-    mov r1, r9
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    strh r4, [r0, #0x34]
-    mov r0, r9
-    bl func_ov015_02131bb4
-    cmp r0, #0
-    beq @L_02076d4c
-    mov r2, #1
-    mov r0, r10
-    mov r1, r4
-    mov r3, r2
-    bl _ZN11MatchEngine13func_02076ba0Emii
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02076d4c:
-    mov r6, #1
-    mov r8, #0
-    mov r11, r6
-    mov r4, #3
-@L_02076d5c:
-    mov r0, r8
-    bl func_ov015_02130ae8
-    movs r7, r0
-    cmpne r7, #0
-    beq @L_02076dc8
-    ldrh r0, [r7, #0xf0]
-    tst r0, #1
-    movne r0, r6
-    moveq r0, r5
-    cmp r0, #0
-    beq @L_02076dc8
-    mov r0, r7
-    bl func_02080b90
-    cmp r9, r0
-    bne @L_02076dc8
-    ldrh r0, [r7, #0xf0]
-    tst r0, #0x80
-    movne r0, r11
-    moveq r0, r5
-    cmp r0, #0
-    beq @L_02076dc8
-    mov r0, r10
-    mov r1, r7
-    mov r2, #1
-    mov r3, r5
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
-@L_02076dc8:
-    add r8, r8, #1
-    cmp r8, #0x84
-    blt @L_02076d5c
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *item;
+    int result;
+    MatchPlayer *player;
+    int i;
+
+    item = func_020768fc(id);
+    if (item == NULL || item[0x21] != 0x17) {
+        return 0xD;
+    }
+    if (func_ov015_02131bb4(team) && !func_020767a4(id)) {
+        return 0xC;
+    }
+    result = func_02076ddc(team, FALSE);
+    if (result != 0) {
+        return result;
+    }
+    *(u16 *)(GetTeamInfo(team) + 0x34) = id;
+    if (func_ov015_02131bb4(team)) {
+        result = func_02076ba0(id, 1, TRUE);
+        if (result != 0) {
+            return result;
+        }
+    }
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        // (the ROM tests player twice)
+        if (player != NULL && player != NULL && MatchPlayer_HasFlag(player, 1) && team == func_02080b90(player)
+            && MatchPlayer_HasFlag(player, 0x80)) {
+            func_0207e334((int)player, 1, 0, 3);
+        }
+    }
+    return 0;
 }
 
 int MatchEngine::func_02076ddc(int team, BOOL all)
