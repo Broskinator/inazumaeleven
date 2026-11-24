@@ -59,7 +59,7 @@ extern "C" s32 MIi_CpuClearFast(...);
 extern "C" void STD_ConcatenateString(void);
 extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
 extern "C" void _ZN11MatchEngine13func_02076c08EP11MatchPlayerm(void);
-extern "C" void _ZN11MatchEngine13func_020777e4EPhsmh(void);
+extern "C" void _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh(void);
 extern "C" void _ZN11MatchEngine13func_02077e78EPhPv(void);
 extern "C" void _ZN11MatchEngine13func_02078450EPh(void);
 extern "C" void _ZN11MatchEngine13func_02078474EPh(void);
@@ -568,7 +568,7 @@ extern "C" asm s32 func_ov080_02170504(...)
 @L_021706b0:
     mov r3, r4
 @L_021706b4:
-    bl _ZN11MatchEngine13func_020777e4EPhsmh
+    bl _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh
 @L_021706b8:
     add r6, r6, #1
     cmp r6, #0x10

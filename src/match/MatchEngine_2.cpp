@@ -277,7 +277,7 @@ extern "C" void _ZN11MatchEngine13func_02077224Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_02077448EP11MatchPlayermi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207765cEP11MatchPlayermiPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020776f8EP11MatchPlayermPi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020777e4EPhsmh(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02077830Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02077b00EP11MatchPlayermi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02077d18EPvi(void);     // (for the asm functions)
@@ -8691,17 +8691,17 @@ BOOL MatchEngine::func_020776f8(MatchPlayer *player, u32 id, int *error)
     return result == 0;
 }
 
-int MatchEngine::func_020777e4(u8 *team, s16 value, u32 i, u8 update)
+int MatchEngine::func_020777e4(MatchPlayer *player, u32 id, u32 i, u8 update)
 {
-    if (team == NULL) {
+    if (player == NULL) {
         return 28;
     }
     if (i >= 4) {
         return 30;
     }
-    ((s16 *)(team + 0x70))[i] = value;
+    player->unk_70[i] = id;
     if (update) {
-        func_0207e334((int)team, 1, 0, 3);
+        func_0207e334((int)player, 1, 0, 3);
     }
     return 0;
 }
@@ -8765,7 +8765,7 @@ asm void MatchEngine::func_02077830()
     mov r2, r5
     mov r3, r4
     str r12, [sp]
-    bl _ZN11MatchEngine13func_020777e4EPhsmh
+    bl _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh
     str r0, [sp, #4]
     cmp r0, #0
     beq @L_02077930
@@ -8860,7 +8860,7 @@ asm void MatchEngine::func_0207793c()
     mov r2, r8
     mov r3, r7
     str r4, [sp]
-    bl _ZN11MatchEngine13func_020777e4EPhsmh
+    bl _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh
     cmp r0, #0
     addne sp, sp, #4
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
