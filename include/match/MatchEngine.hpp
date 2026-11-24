@@ -677,7 +677,7 @@ public:
     void func_0207c7f4(MatchPlayer *player);
     void func_0207c8e0(int a);
     void func_0207cbd8(int a);
-    void func_0207d118();
+    void func_0207d118(int team);
     BOOL func_0207d214(int team, int i);
     BOOL func_0207d244(int team, int i);
     u16 func_0207d274(int team, int value);

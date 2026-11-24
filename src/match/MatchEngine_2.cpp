@@ -13957,7 +13957,44 @@ asm void MatchEngine::func_0207cbd8(int a)
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0207d118()
+// (the team's player at GetTeamInfo + 0x2E goes through func_0207c720 and func_0207c7f4, then
+// func_0207e334(1, 0, 3) for every player of the team)
+// (nonmatching: 4 words short: the ROM tests gGameState.unk_000[0x1B] and goes to the same code either way (ldrb, cmp, bne, b), what the source had in the branches is gone; the attempt has no test, the rest is the same)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_0207d118(int team)
+{
+    u8 *info;
+    int id;
+    MatchPlayer *player;
+    int i;
+
+    if (!func_ov015_0213178c()) {
+        return;
+    }
+    info = GetTeamInfo(team);
+    id = (u16)(*(u16 *)(info + 0x2E) & 0xFFF);
+    if (team != 0) {
+        id |= 0x8000;
+    }
+    player = func_ov015_02130b14(id, 0);
+    if (player == NULL) {
+        return;
+    }
+    func_0207c720(player);
+    func_0207c7f4(player);
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1) || team != func_02080b90(player)) {
+            continue;
+        }
+        func_0207e334((int)player, 1, 0, 3);
+    }
+}
+#pragma pop
+#else
+asm void MatchEngine::func_0207d118(int team)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -14025,6 +14062,7 @@ asm void MatchEngine::func_0207d118()
     blt @L_0207d1ac
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 BOOL MatchEngine::func_0207d214(int team, int i)
 {
