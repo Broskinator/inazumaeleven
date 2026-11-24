@@ -547,7 +547,7 @@ extern "C" void _ZN9EntryPool4MoveEii(void);
 extern "C" void _ZN9EntryPool4SwapEii(void);
 extern "C" void _ZN9EntryPool9DuplicateEii(void);
 extern "C" void func_01ffe354(void);
-extern "C" void func_01ffed20(void);
+extern "C" BOOL func_01ffed20(MatchEngine *engine, MatchPlayer *player, fx32 y);
 extern "C" fx32 func_01fff15c(MatchEngine *self, MatchPlayerBody *body, MatchPoint *point);
 extern "C" u16 func_0209bf8c(void *obj);     // (obj: gWirelessUtil)
 extern "C" MatchPlayer *func_ov015_02130b94(int id);
@@ -565,6 +565,11 @@ extern "C" void func_01ffe22c(void);
 extern "C" void func_01ffe3e4(void);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+static inline BOOL MatchPlayerBody_HasFlag16(MatchPlayerBody *body, u16 flag)
+{
+    return (body->unk_16 & flag) ? TRUE : FALSE;
+}
+
 static inline BOOL Move_HasFlag(u8 *move, u8 flag)
 {
     return (move[0xF] & flag) ? TRUE : FALSE;
@@ -10974,105 +10979,44 @@ asm BOOL MatchEngine::func_02079f98(MatchPlayer *player, int a, int b)
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
 
-asm void MatchEngine::func_0207a144()
+BOOL MatchEngine::func_0207a144(MatchPlayer *player, u32 flags, MatchPlayer *other, u8 *info)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r7, r1
-    ldr r4, [r7, #0xe8]
-    movs r6, r2
-    mov r8, r0
-    mov r5, r3
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    cmp r7, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    tst r6, #1
-    beq @L_0207a194
-    ldrh r0, [r4, #0x16]
-    tst r0, #0x100
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a194:
-    tst r6, #0x10
-    beq @L_0207a1b8
-    ldrh r0, [r7, #0xf0]
-    tst r0, #0x80
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a1b8:
-    tst r6, #0x80000
-    ldrne r0, [sp, #0x20]
-    cmpne r0, #0
-    beq @L_0207a1dc
-    ldrsh r1, [r7, #0xf4]
-    ldrsh r0, [r0, #0x1c]
-    cmp r1, r0
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a1dc:
-    cmp r5, #0
-    cmpne r7, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    tst r6, #0x10000
-    beq @L_0207a214
-    mov r0, r7
-    bl func_02080b90
-    mov r9, r0
-    mov r0, r5
-    bl func_02080b90
-    cmp r9, r0
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a214:
-    tst r6, #0x20000
-    beq @L_0207a23c
-    mov r0, r7
-    bl func_02080b90
-    mov r9, r0
-    mov r0, r5
-    bl func_02080b90
-    cmp r9, r0
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a23c:
-    tst r6, #0x40000
-    beq @L_0207a258
-    ldrh r1, [r7, #0x42]
-    ldrh r0, [r5, #0x42]
-    cmp r1, r0
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a258:
-    tst r6, #0x100000
-    beq @L_0207a27c
-    ldr r2, [r4, #4]
-    mov r0, r8
-    mov r1, r5
-    bl func_01ffed20
-    cmp r0, #0
-    movne r0, #1
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a27c:
-    tst r6, #0x200000
-    beq @L_0207a2a0
-    ldr r2, [r4, #4]
-    mov r0, r8
-    mov r1, r5
-    bl func_01ffed20
-    cmp r0, #0
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0207a2a0:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    MatchPlayerBody *body = player->body;
+
+    if (flags == 0) {
+        return FALSE;
+    }
+    if (player == NULL) {
+        return FALSE;
+    }
+    if ((flags & 1) && MatchPlayerBody_HasFlag16(body, 0x100)) {
+        return TRUE;
+    }
+    if ((flags & 0x10) && MatchPlayer_HasFlag(player, 0x80)) {
+        return TRUE;
+    }
+    if ((flags & 0x80000) && info != NULL && player->unk_f4 == *(s16 *)(info + 0x1C)) {
+        return TRUE;
+    }
+    if (other == NULL || player == NULL) {
+        return FALSE;
+    }
+    if ((flags & 0x10000) && func_02080b90(player) == func_02080b90(other)) {
+        return TRUE;
+    }
+    if ((flags & 0x20000) && func_02080b90(player) != func_02080b90(other)) {
+        return TRUE;
+    }
+    if ((flags & 0x40000) && player->unk_42 == other->unk_42) {
+        return TRUE;
+    }
+    if ((flags & 0x100000) && func_01ffed20(this, other, body->pos.y)) {
+        return TRUE;
+    }
+    if ((flags & 0x200000) && !func_01ffed20(this, other, body->pos.y)) {
+        return TRUE;
+    }
+    return FALSE;
 }
 
 MatchPlayer *MatchEngine::func_0207a2a8(int team)
