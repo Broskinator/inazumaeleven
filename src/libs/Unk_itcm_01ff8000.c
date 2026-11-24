@@ -171,7 +171,7 @@ void func_ov087_0217e540(void);
 void func_ov015_02131854(void);
 void func_ov015_02143548(void);
 void _ZN11MatchEngine13func_0207903cEP11MatchPlayer(void);
-void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
+void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);
 void func_ov087_021748a4(void);
 extern char g3DFieldSprite[];
 void func_ov015_0213a75c(void);
@@ -1674,7 +1674,7 @@ asm void func_01ff8ca4(void)
     mov r4, #1
     str r4, [sp, #4]
     mov r2, #0x3c
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     cmp r5, #0
     blt @L_01ff9258
     ldr r0, =data_020c4920

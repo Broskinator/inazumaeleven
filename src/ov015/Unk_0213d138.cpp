@@ -65,7 +65,7 @@ extern "C" void MI_CpuFill8(void);
 extern "C" void MTX_Identity43_(void);
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN11MatchEngine13func_020622b4Ev(void);
-extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
+extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);
 extern "C" void _ZN11MatchEngine13func_02067104ElllllP10MatchPoint(void);
 extern "C" void _ZN11MatchEngine13func_02068248Ev(void);
@@ -3754,7 +3754,7 @@ extern "C" asm void func_ov015_0213ffc4(void)
     mov r1, r5
     mov r3, r9
     mov r2, #0xf
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     ldr r0, [r8, #0x48]
     bl func_ov015_02130ae8
     ldr r1, [sp, #0x20]

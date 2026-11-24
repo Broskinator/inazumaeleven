@@ -112,8 +112,8 @@ public:
     BOOL func_0206340c(int value);
     void func_02063430();
     BOOL func_02063480(MatchPlayer *player, fx32 *pos);
-    void func_020634e8(int index, int a, int b);
-    void func_02063550(MatchPlayer *player, int a, int b, int c, int d);
+    void func_020634e8(int index, u16 time, BOOL b);
+    void func_02063550(MatchPlayer *player, u16 time, BOOL b, u8 c, BOOL d);
     BOOL func_020636b8(MatchPlayer *player);
     void func_0206371c();
     void func_02063c14();

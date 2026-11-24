@@ -240,7 +240,7 @@ extern "C" void _ZN11MatchEngine13func_0207a534Em(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207a854EtPa(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207ae40Eim(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068548Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02069344Eiiiihi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020787e8EP11MatchPlayer(void);     // (for the asm functions)
@@ -295,7 +295,7 @@ extern "C" void _ZN11MatchEngine13func_02078474EPh(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_020784b8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078520EiPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02078560EiPh(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a970Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);     // (for the asm functions)
@@ -7091,7 +7091,7 @@ asm void MatchEngine::func_0207597c()
     mov r1, r4
     mov r2, #0x5a
     mov r3, #1
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     mov r0, r9
     mov r1, r4
     mov r2, #0
@@ -7168,7 +7168,7 @@ asm void MatchEngine::func_0207597c()
     mov r0, r9
     mov r1, r4
     mov r3, r2
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
 @L_02075d50:
     ldrsh r1, [r4, #0x94]
     mov r0, r4

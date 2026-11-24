@@ -230,7 +230,7 @@ extern "C" void _ZN11MatchEngine13func_0206ce6cEt(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206ce8cEh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206cec0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206d094Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063e4cEll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206811cEPt(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020681d8EP10MatchPointilS1_(void);     // (for the asm functions)
@@ -391,8 +391,8 @@ extern "C" void func_ov015_0213ffc4(void);
 extern "C" BOOL func_ov015_02140da4(MatchEngine *self, int a);
 extern "C" void func_ov015_02140df0(void);
 extern "C" void func_ov015_02140e24(void);
-extern "C" void func_ov015_02142de8(void);
-extern "C" void func_ov015_02142e24(void);
+extern "C" void func_ov015_02142de8(MatchBall *ball, int a);
+extern "C" void func_ov015_02142e24(MatchBall *ball, int a);
 extern "C" void func_ov015_021435e4(void);
 extern "C" void func_ov015_021443c0(void);
 extern "C" void func_ov015_02144420(void);
@@ -1801,18 +1801,74 @@ BOOL MatchEngine::func_02063480(MatchPlayer *player, fx32 *pos)
     return func_ov087_02177a10(this, player, info, pos);
 }
 
-void MatchEngine::func_020634e8(int index, int a, int b)
+void MatchEngine::func_020634e8(int index, u16 time, BOOL b)
 {
     MatchPlayer *player = func_ov015_02130b14(index, 0);
 
     if (player == NULL) {
         return;
     }
-    func_02063550(player, a, b, 1, 1);
+    func_02063550(player, time, b, 1, 1);
     func_01ff9490(this, player, 0);
 }
 
-asm void MatchEngine::func_02063550(MatchPlayer *player, int a, int b, int c, int d)
+// (nonmatching: r0/r1 swapped in the last store (state->unk_14 = 0))
+#ifdef NONMATCHING
+void MatchEngine::func_02063550(MatchPlayer *player, u16 time, BOOL b, u8 c, BOOL d)
+{
+    MatchBall *ball;
+
+    if (player == NULL) {
+        return;
+    }
+    if (time != 0) {
+        if (d && (player->unk_f8 & 0x20)) {
+            time = time * 100 / func_020739cc(0x38)[6];
+        }
+        if (c && func_020847b0(player)) {
+            ball = &data_020c4920;
+            ball->unk_48 = -1;
+            ball->unk_4c = player->unk_f4;
+            ball->unk_18.x = 0x80000000;
+            ball->unk_18.y = 0x80000000;
+            ball->prevPos.x = ball->pos.x;
+            ball->prevPos.y = ball->pos.y;
+            ball->prevPos.z = ball->pos.z;
+            func_ov015_02142de8(ball, 1);
+            func_ov015_02142e24(ball, 0);
+            ball->unk_34 = 0;
+            ball->unk_38 = 0;
+            ball->unk_3c = 0;
+            ball->height = 0;
+            ball->unk_40 = 0;
+            ball->unk_5a = 0;
+        }
+        if (time > player->state->unk_1e) {
+            player->state->unk_1e = time;
+        }
+        if (time > player->state->unk_26) {
+            player->state->unk_26 = time;
+        }
+        if (b) {
+            if (player->body != NULL) {
+                player->body->unk_16 |= 0x100;
+            }
+        } else {
+            if (player->body != NULL) {
+                player->body->unk_16 &= ~0x100;
+            }
+        }
+    } else {
+        player->state->unk_1e = 0;
+        player->state->unk_26 = 0;
+        if (player->body != NULL) {
+            player->body->unk_16 &= ~0x100;
+        }
+    }
+    player->state->unk_14 = 0;
+}
+#else
+asm void MatchEngine::func_02063550(MatchPlayer *player, u16 time, BOOL b, u8 c, BOOL d)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, lr}
     movs r6, r1
@@ -1909,6 +1965,7 @@ asm void MatchEngine::func_02063550(MatchPlayer *player, int a, int b, int c, in
     str r0, [r1, #0x14]
     ldmia sp!, {r4, r5, r6, r7, r8, pc}
 }
+#endif
 
 BOOL MatchEngine::func_020636b8(MatchPlayer *player)
 {
@@ -10530,7 +10587,7 @@ asm void MatchEngine::func_0206bc70()
     mov r2, r11
     mov r3, r4
     str r4, [sp, #4]
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
 @L_0206be2c:
     add r8, r8, #1
 @L_0206be30:

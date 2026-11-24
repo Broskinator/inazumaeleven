@@ -154,7 +154,7 @@ extern "C" s32 NNS_G3dReleaseMdlTex(...);
 extern "C" void NNS_G3dRenderObjInit(void);
 extern "C" void OS_GetTick(void);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
-extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
+extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);
 extern "C" void _ZN11MatchEngine13func_020673d8EP11MatchPlayerlP10MatchPoint(void);
 extern "C" void _ZN11MatchEngine13func_02069394Eiiiihi(void);
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);
@@ -700,7 +700,7 @@ extern "C" asm void func_ov015_021439e0(void)
     mov r0, r10
     mov r2, #0xf
     mov r3, r9
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     str r7, [sp]
     str r7, [sp, #4]
     ldrsb r1, [r4, #0x1d]
@@ -885,7 +885,7 @@ extern "C" asm void func_ov015_021439e0(void)
     mov r0, r10
     mov r3, r9
     mov r2, #0x1e
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
 @L_02144104:
     ldrsb r0, [r5, #0xc]
     bl func_ov015_02130ae8
@@ -896,7 +896,7 @@ extern "C" asm void func_ov015_021439e0(void)
     mov r3, #1
     mov r2, #0x1e
     str r3, [sp, #4]
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     b @L_021441b4
 @L_02144130:
     ldrsb r0, [r4, #0x1d]
@@ -907,7 +907,7 @@ extern "C" asm void func_ov015_021439e0(void)
     mov r0, r10
     mov r2, r11
     str r3, [sp, #4]
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     ldr r1, [r6, #0xe8]
     cmp r1, #0
     movne r0, #6

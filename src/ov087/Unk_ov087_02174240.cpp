@@ -39,7 +39,7 @@ extern "C" void FX_SinCosTable_(void);
 extern "C" void MI_CpuCopy8(void);
 extern "C" void MIi_CpuCopy32(void);
 extern "C" void _ZN11MatchEngine13func_02078ff4EP11MatchPlayer(void);
-extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
+extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);
 extern "C" void _ZN11MatchEngine13func_02067014EP11MatchPlayerii(void);
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);
 extern "C" void _ZN11MatchEngine13func_020671e4Ev(void);
@@ -516,7 +516,7 @@ extern "C" asm void func_ov087_0217450c(void)
     mov r0, r10
     mov r3, r6
     mov r2, #0x5a
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
 @L_0217473c:
     add sp, sp, #0x84
     mov r0, #5
@@ -571,7 +571,7 @@ extern "C" asm void func_ov087_0217450c(void)
     ldr r1, [sp, #0x1c]
     mov r0, r10
     mov r2, #0x5a
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
 @L_02174804:
     ldr r1, [sp, #0x20]
     cmp r1, #0

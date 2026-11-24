@@ -53,7 +53,7 @@ extern "C" void _ZN11MatchEngine13func_020630d8Ev(void);
 extern "C" void _ZN11MatchEngine13func_020630fcEv(void);
 extern "C" void _ZN11MatchEngine13func_020632b4EP11MatchPlayerS1_Pl(void);
 extern "C" void _ZN11MatchEngine13func_02063480EP11MatchPlayerPl(void);
-extern "C" s32 _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(...);
+extern "C" s32 _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(...);
 extern "C" void _ZN11MatchEngine13func_020636b8EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0206371cEv(void);
 extern "C" void _ZN11MatchEngine13func_02063c14Ev(void);
@@ -1686,7 +1686,7 @@ extern "C" asm void func_ov087_0217b5bc(void)
     mov r2, #0x3c
     mov r3, r5
     stmia sp, {r4, r5}
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     mov r0, r5
     add sp, sp, #0x6c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -2100,7 +2100,7 @@ extern "C" s32 func_ov087_0217bec8(s32 arg0, u8 *arg1)
         *(u16 *)(arg1 + 0x12) = 0x1E;
         *(u16 *)(arg1 + 0x14) = 0;
     }
-    _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(arg0, (s32)r6, 0x1E, 0, 0, 1);
+    _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(arg0, (s32)r6, 0x1E, 0, 0, 1);
     func_01ff9490(arg0, (s32)r6, 0);
     _ZN11MatchEngine13func_0206bff4Ei(arg0, 6);
     _ZN11MatchEngine13func_0206c004Eh(arg0, 7);
@@ -2174,7 +2174,7 @@ extern "C" s32 func_ov087_0217c098(s32 arg0, u8 *arg1)
         *(u16 *)(arg1 + 0x12) = 0x1E;
         *(u16 *)(arg1 + 0x14) = 0;
     }
-    _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(arg0, r4, 0x1E, 0, 0, 1);
+    _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(arg0, r4, 0x1E, 0, 0, 1);
     v1 = func_01ff9490(arg0, r4, 0);
     return v1;
 }
@@ -2205,7 +2205,7 @@ extern "C" void func_ov087_0217c108(s32 arg0, u8 *arg1)
         *(u16 *)(arg1 + 0x12) = 0x1E;
         *(u16 *)(arg1 + 0x14) = (u16)r4;
     }
-    _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(r6, r5, 0x1E, 0, 0, 1);
+    _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(r6, r5, 0x1E, 0, 0, 1);
     t0 = *(u8 *)(((u8 *)&data_020c4920) + 0x56);
     v1 = func_ov015_02140da4(r6, t0);
     if (v1 != 0) {

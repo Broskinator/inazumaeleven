@@ -67,7 +67,7 @@ extern "C" void _ZN15DistanceTable3213func_02062178Ev(void);
 extern "C" void _ZN15DistanceTable3214DistanceToBallEP11MatchPlayer(void);
 extern "C" void _ZN16MatchBallPhysics13func_02061a84EP9MatchBall(void);
 extern "C" void _ZN11MatchEngine13func_02078ff4EP11MatchPlayer(void);
-extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii(void);
+extern "C" void _ZN11MatchEngine13func_02063550EP11MatchPlayertihi(void);
 extern "C" void _ZN11MatchEngine13func_020636b8EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0206371cEv(void);
 extern "C" void _ZN11MatchEngine13func_02063e7cEP11MatchPlayer(void);
@@ -2717,7 +2717,7 @@ extern "C" asm s32 func_ov087_0217f854(...)
     mov r1, r4
     mov r2, r8
     mov r3, r8
-    bl _ZN11MatchEngine13func_02063550EP11MatchPlayeriiii
+    bl _ZN11MatchEngine13func_02063550EP11MatchPlayertihi
     ldr r0, [r4, #0xe8]
     cmp r0, #0
     strneb r8, [r0, #0x1c]
