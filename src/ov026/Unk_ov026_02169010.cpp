@@ -70,7 +70,7 @@ extern "C" char data_ov026_0216b548[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" s32 _ZN11MatchEngine13func_0206e858Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0206e858EmPP11MatchPlayeri(...);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
 extern "C" void _ZN8TextFont12ResetSpacingEv(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -685,7 +685,7 @@ extern "C" s32 func_ov026_021698a8(s32 arg0, s32 arg1)
     if (v0 == 0)
         return 0;
     t1 = (*(s16 *)(data_020cb8e0 + 0x38) & 0xFF);
-    v1 = _ZN11MatchEngine13func_0206e858Ev((s32)data_020e88a0, t1, (s32)((u8 *)local), 1);
+    v1 = _ZN11MatchEngine13func_0206e858EmPP11MatchPlayeri((s32)data_020e88a0, t1, (s32)((u8 *)local), 1);
     return v1;
 }
 

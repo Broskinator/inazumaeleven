@@ -101,7 +101,9 @@ struct MatchPlayer {
     u8 unk_0[0x41];
     u8 unk_41;
     u16 unk_42;
-    u8 unk_44[0x55 - 0x44];
+    u8 unk_44[0x52 - 0x44];
+    u8 unk_52;          // (1 or 2: func_0206e858)
+    u8 unk_53[0x55 - 0x53];
     u8 unk_55;          // (bits 5-7 and 0-4)
     u8 unk_56[0x5A - 0x56];
     u8 unk_5a;

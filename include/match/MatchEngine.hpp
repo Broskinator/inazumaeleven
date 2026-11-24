@@ -417,7 +417,7 @@ public:
     void func_0206e828(int value);
     void func_0206e840(u16 value);
     u16 func_0206e84c();
-    void func_0206e858();
+    BOOL func_0206e858(u32 kind, MatchPlayer **players, int count);
     void func_0206ea30(int i, u16 value);
     u16 func_0206ea40(int i);
     void func_0206ea50(u16 value);

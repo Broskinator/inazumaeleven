@@ -41,3 +41,4 @@ MatchEngine::func_02076a7c  src/match/MatchEngine_2.cpp  11 words (O2): prologue
 System::func_020401bc  src/system/System.cpp  15 words (O2): profile.unk_2C stored after the data_020c4638 stores; the ROM stores it right after unk_47[0]
 MatchEngine::func_02068f90 src/match/MatchEngine.cpp r0/r1 swapped for ball unk_4c / player unk_f4 in the holder test
 MatchEngine::func_02063550 src/match/MatchEngine.cpp r0/r1 swapped in the last store (player->state->unk_14 = 0)
+MatchEngine::func_0206e858 src/match/MatchEngine.cpp table copy before the loop guard, i/j and kind-4 registers swapped

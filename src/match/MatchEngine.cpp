@@ -17,6 +17,10 @@ extern "C" u8 data_020cabf8[];
 #include "game/TreasureBox.hpp"
 #include "save/SaveManager.hpp"
 #include "data/EntryPool.hpp"
+struct UnkLimits_0206e858 {
+    s32 limits[2];
+};
+
 static inline BOOL MatchPlayerBody_HasFlag(MatchPlayer *player, u16 flag)
 {
     return (player->body->unk_16 & flag) ? TRUE : FALSE;
@@ -12877,7 +12881,64 @@ u16 MatchEngine::func_0206e84c()
     return unk_bb0;
 }
 
-asm void MatchEngine::func_0206e858()
+// (nonmatching: the table copy and kind - 7 come after the loop guard; i/j registers swapped)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_0206e858(u32 kind, MatchPlayer **players, int count)
+{
+    int i;
+    int j;
+    u8 *move;
+    int value;
+    UnkLimits_0206e858 t;
+    UnkLimits_0206e858 table;
+
+    if (kind == 0) {
+        return TRUE;
+    }
+    if (kind >= 7 && kind <= 8) {
+        kind -= 7;
+        table = *(UnkLimits_0206e858 *)data_020a71c8;
+        for (i = 0; i < count; i++) {
+            value = func_0207f7cc(players[i], 0x25, 0);
+            t = table;
+            if (t.limits[kind] < value) {
+                return FALSE;
+            }
+        }
+    } else if (kind >= 5 && kind <= 6) {
+        for (i = 0; i < count; i++) {
+            if (kind - 4 == players[i]->unk_52) {
+                return FALSE;
+            }
+        }
+    } else if (kind >= 1 && kind <= 4) {
+        for (i = 0; i < count; i++) {
+            if (kind != players[i]->unk_5a) {
+                return FALSE;
+            }
+        }
+    } else if (kind >= 9 && kind <= 10) {
+        for (i = 0; i < count; i++) {
+            for (j = 0; j < 6; j++) {
+                if (players[i]->unk_98[j] != 0) {
+                    move = data_020e88a0.func_020739cc(players[i]->unk_98[j]);
+                    if (move != NULL) {
+                        if (kind == 9) {
+                            if (move[0] == 7) {
+                                return FALSE;
+                            }
+                        } else if (kind == 10 && move[0] == 8) {
+                            return FALSE;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    return TRUE;
+}
+#else
+asm BOOL MatchEngine::func_0206e858(u32 kind, MatchPlayer **players, int count)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -13007,6 +13068,7 @@ asm void MatchEngine::func_0206e858()
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_0206ea30(int i, u16 value)
 {
