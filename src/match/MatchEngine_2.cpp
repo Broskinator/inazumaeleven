@@ -8587,94 +8587,45 @@ int MatchEngine::func_02077830(int index, u32 id, u32 slot, u8 update)
     return result;
 }
 
-asm void MatchEngine::func_0207793c()
+int MatchEngine::func_0207793c(int index, u32 id, u32 slot, u8 update)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #4
-    mov r9, r1
-    mov r6, #0
-    mov r10, r0
-    mov r0, r9
-    mov r1, r6
-    mov r8, r2
-    mov r7, r3
-    bl func_ov015_02130b14
-    bl func_ov015_021319b0
-    mov r4, r0
-    mov r0, r10
-    mov r1, r4
-    mov r5, #1
-    bl _ZN11MatchEngine11GetTeamInfoEi
-    ldrh r0, [r0, #0x30]
-    cmp r0, r8
-    mov r0, r4
-    moveq r6, r5
-    bl func_ov015_02131bb4
-    cmp r0, #0
-    moveq r5, #0
-    cmp r5, #0
-    beq @L_020779c4
-    cmp r6, #0
-    bne @L_020779c4
-    mov r0, r10
-    mov r1, r8
-    bl _ZN11MatchEngine13func_020767a4Em
-    cmp r0, #0
-    addeq sp, sp, #4
-    moveq r0, #0xc
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-@L_020779c4:
-    cmp r5, #0
-    beq @L_020779e8
-    cmp r6, #0
-    bne @L_020779e8
-    mov r2, #1
-    mov r0, r10
-    mov r1, r8
-    mov r3, r2
-    bl _ZN11MatchEngine13func_02076ba0Emii
-@L_020779e8:
-    cmp r5, #0
-    beq @L_02077a40
-    ldrb r4, [sp, #0x28]
-    mov r0, r10
-    mov r1, r9
-    mov r2, r8
-    mov r3, r7
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_02077830Eimmh
-    movs r4, r0
-    beq @L_02077a74
-    cmp r5, #0
-    beq @L_02077a34
-    cmp r6, #0
-    bne @L_02077a34
-    mov r0, r10
-    mov r1, r8
-    mov r2, #1
-    bl _ZN11MatchEngine13func_020765d4Eii
-@L_02077a34:
-    add sp, sp, #4
-    mov r0, r4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02077a40:
-    mov r0, r9
-    mov r1, #0
-    bl func_ov015_02130b14
-    ldrb r4, [sp, #0x28]
-    mov r1, r0
-    mov r0, r10
-    mov r2, r8
-    mov r3, r7
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh
-    cmp r0, #0
-    addne sp, sp, #4
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-@L_02077a74:
-    mov r0, #0
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    int team;
+    BOOL pay;
+    BOOL equipped;
+    int result;
+    u8 *info;
+
+    equipped = FALSE;
+    team = func_ov015_021319b0(func_ov015_02130b14(index, 0));
+    pay = TRUE;
+    info = GetTeamInfo(team);
+    if (*(u16 *)(info + 0x30) == id) {
+        equipped = TRUE;
+    }
+    if (!func_ov015_02131bb4(team)) {
+        pay = FALSE;
+    }
+    if (pay && !equipped && !func_020767a4(id)) {
+        return 0xC;
+    }
+    if (pay && !equipped) {
+        func_02076ba0(id, 1, TRUE);
+    }
+    if (pay) {
+        result = func_02077830(index, id, slot, update);
+        if (result != 0) {
+            if (pay && !equipped) {
+                func_020765d4(id, 1);
+            }
+            return result;
+        }
+    } else {
+        result = func_020777e4(func_ov015_02130b14(index, 0), id, slot, update);
+        if (result != 0) {
+            return result;
+        }
+    }
+    return 0;
 }
 
 int MatchEngine::func_02077a80(int index, BOOL update)
