@@ -184,7 +184,7 @@ public:
     int func_02068ed4(int value);
     BOOL func_02068edc(MatchPlayer *player, int angle);
     fx32 func_02068f68(fx32 value);
-    void func_02068f90();
+    int func_02068f90(MatchPlayer *player);
     BOOL func_020690a8(int a, int b);
     BOOL func_02069110(MatchPlayer *player);
     void func_02069184();

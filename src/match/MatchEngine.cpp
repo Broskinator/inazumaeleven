@@ -299,7 +299,7 @@ extern "C" void _ZN11MatchEngine13func_02068eb4EP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_02068ed4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068edcEP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02068f68El(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02068f90Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02068f90EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020690a8Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02069344Eiiiihi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020654ccEP11MatchPlayeriiP10MatchPointS3_i(void);     // (for the asm functions)
@@ -382,7 +382,7 @@ extern "C" void _s32_div_f(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
 extern "C" void func_ov001_02127dcc(void);
 extern "C" u8 func_ov015_02130e28(u16 angle);    // (the direction as one of 8)
-extern "C" void func_ov015_02131854(void);
+extern "C" BOOL func_ov015_02131854(void);
 extern "C" void func_ov015_02131948(void);
 extern "C" int func_ov015_02131970(MatchPlayer *player);
 extern "C" void func_ov015_0213a69c(void *obj, int a, int b);
@@ -2699,7 +2699,7 @@ asm void MatchEngine::func_020640b4()
     bne @L_0206429c
     ldr r0, [sp, #4]
     mov r1, r10
-    bl _ZN11MatchEngine13func_02068f90Ev
+    bl _ZN11MatchEngine13func_02068f90EP11MatchPlayer
     str r0, [sp, #0x1c]
 @L_0206429c:
     ldr r0, [sp, #4]
@@ -3388,7 +3388,7 @@ asm void MatchEngine::func_020646d4()
     mov r0, r10
     ldr r5, [r1, #0x10]
     mov r1, r9
-    bl _ZN11MatchEngine13func_02068f90Ev
+    bl _ZN11MatchEngine13func_02068f90EP11MatchPlayer
     sub r6, r0, r5
     ldr r1, [sp, #0x18]
     mov r0, r10
@@ -7404,7 +7404,56 @@ fx32 MatchEngine::func_02068f68(fx32 value)
     return FX_Mul(value, 0x266);
 }
 
-asm void MatchEngine::func_02068f90()
+// (nonmatching: r0/r1 swapped in the ball-holder test)
+#ifdef NONMATCHING
+int MatchEngine::func_02068f90(MatchPlayer *player)
+{
+    MatchPlayerInfo *info;
+    int max;
+    int min;
+    int value;
+    BOOL flag;
+
+    info = func_020787e8(player);
+    flag = FALSE;
+    max = func_0206a100(player, 0);
+    min = func_02068ed4(max);
+    value = player->state->unk_10;
+    if (value < max) {
+        if (!func_0206811c((u16 *)info)) {
+            if (player->body->unk_16 & 0x20) {
+                flag = TRUE;
+            }
+            if (!flag) {
+                goto other;
+            }
+        }
+        if (func_02068edc(player, 0x4000) && data_020c4920.unk_4c >= 0 && data_020c4920.unk_4c != player->unk_f4
+            && func_ov015_02131854() && data_020c4920.unk_48 < 0) {
+            if (value != max) {
+                value = max;
+            }
+            goto clamp;
+        }
+    other:
+        if (info->unk_12 & 0x200) {
+            value = max;
+        } else if (info->unk_12 & 0x100) {
+            value = max;
+        } else {
+            value += func_02068f68(max);
+        }
+    }
+clamp:
+    if (value > max) {
+        value = max;
+    } else if (value < min) {
+        value = min;
+    }
+    return value;
+}
+#else
+asm int MatchEngine::func_02068f90(MatchPlayer *player)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r10, r0
@@ -7480,6 +7529,7 @@ asm void MatchEngine::func_02068f90()
     mov r0, r7
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
+#endif
 
 BOOL MatchEngine::func_020690a8(int a, int b)
 {

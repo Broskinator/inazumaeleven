@@ -39,3 +39,4 @@ MatchEngine::func_0206a3b8  src/match/MatchEngine.cpp  8 words: the second call 
 MatchEngine::func_0206c694  src/match/MatchEngine.cpp  6 words (O2): g3DFieldSprite loaded before the body->unk_1a argument; the ROM loads it last
 MatchEngine::func_02076a7c  src/match/MatchEngine_2.cpp  11 words (O2): prologue order (ids address, fileManager read, data_020cb6e0 base); the check reads gAllocator.fileManager through a cast so that the call reads it again as in the ROM: find the natural form
 System::func_020401bc  src/system/System.cpp  15 words (O2): profile.unk_2C stored after the data_020c4638 stores; the ROM stores it right after unk_47[0]
+MatchEngine::func_02068f90 src/match/MatchEngine.cpp r0/r1 swapped for ball unk_4c / player unk_f4 in the holder test
