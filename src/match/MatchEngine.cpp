@@ -537,7 +537,7 @@ struct UnkShootout_0206d094 {
     s32 unk_14;
 };
 extern "C" void func_ov001_02128144(MatchEngine *self, UnkShootout_0206d094 *out);
-extern "C" void func_ov087_02182248(void);
+extern "C" s32 func_ov087_02182248(MatchArea *area, s32 side);
 extern "C" u8 data_020a43f8[];   // (the lower case of each ASCII character)
 extern "C" char data_020a71c8[];
 extern "C" char data_020af1a0[];
@@ -10772,91 +10772,47 @@ void *MatchEngine::func_0206c1fc(int kind, int i)
     return func_0206c180(kind);
 }
 
-asm void MatchEngine::func_0206c23c(MatchSegment *area, fx32 inset, fx32 extra, u8 flag)
+void MatchEngine::func_0206c23c(MatchSegment *area, fx32 inset, fx32 extra, u8 flag)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, lr}
-    ldr r4, =data_020c4de0
-    movs r6, r2
-    ldr r2, [r4, #0xdc]
-    mov r7, r1
-    str r2, [r7]
-    ldr r1, [r4, #0xe0]
-    add r2, r2, r6
-    str r1, [r7, #4]
-    ldr r1, [r4, #0xe4]
-    mov r8, r0
-    str r1, [r7, #8]
-    ldr r12, [r4, #0xe8]
-    sub r1, r1, r6
-    mov r5, r3
-    str r12, [r7, #0xc]
-    str r2, [r7]
-    str r1, [r7, #8]
-    bmi @L_0206c2a4
-    ldrb r1, [sp, #0x18]
-    cmp r1, #0
-    beq @L_0206c2a4
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206de54Ei
-    cmp r0, #0
-    bne @L_0206c2b0
-@L_0206c2a4:
-    ldr r0, [r7, #4]
-    add r0, r0, r6
-    str r0, [r7, #4]
-@L_0206c2b0:
-    cmp r6, #0
-    blt @L_0206c2d8
-    ldrb r0, [sp, #0x18]
-    cmp r0, #0
-    beq @L_0206c2d8
-    mov r0, r8
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206de54Ei
-    cmp r0, #0
-    bne @L_0206c2e4
-@L_0206c2d8:
-    ldr r0, [r7, #0xc]
-    sub r0, r0, r6
-    str r0, [r7, #0xc]
-@L_0206c2e4:
-    mov r0, r4
-    mov r1, #1
-    bl func_ov087_02182248
-    cmp r0, #0
-    ldrne r1, [r4, #0x150]
-    ldrne r0, [r7, #4]
-    addne r1, r1, r5
-    cmpne r1, r0
-    strgt r1, [r7, #4]
-    mov r0, r4
-    mov r1, #3
-    bl func_ov087_02182248
-    cmp r0, #0
-    ldrne r1, [r4, #0x158]
-    ldrne r0, [r7, #0xc]
-    subne r1, r1, r5
-    cmpne r1, r0
-    strlt r1, [r7, #0xc]
-    mov r0, r4
-    mov r1, #0
-    bl func_ov087_02182248
-    cmp r0, #0
-    ldrne r1, [r4, #0x14c]
-    ldrne r0, [r7]
-    addne r1, r1, r5
-    cmpne r1, r0
-    strgt r1, [r7]
-    mov r0, r4
-    mov r1, #2
-    bl func_ov087_02182248
-    cmp r0, #0
-    ldrne r1, [r4, #0x154]
-    ldrne r0, [r7, #8]
-    subne r1, r1, r5
-    cmpne r1, r0
-    strlt r1, [r7, #8]
-    ldmia sp!, {r4, r5, r6, r7, r8, pc}
+    MatchArea *field = &data_020c4de0;
+    fx32 limit;
+
+    area->a.x = field->minX;
+    area->a.y = field->minY;
+    area->b.x = field->maxX;
+    area->b.y = field->maxY;
+    area->a.x += inset;
+    area->b.x -= inset;
+    if (inset < 0 || !flag || !func_0206de54(1)) {
+        area->a.y += inset;
+    }
+    if (inset < 0 || !flag || !func_0206de54(0)) {
+        area->b.y -= inset;
+    }
+    if (func_ov087_02182248(field, 1)) {
+        limit = field->limits[1] + extra;
+        if (limit > area->a.y) {
+            area->a.y = limit;
+        }
+    }
+    if (func_ov087_02182248(field, 3)) {
+        limit = field->limits[3] - extra;
+        if (limit < area->b.y) {
+            area->b.y = limit;
+        }
+    }
+    if (func_ov087_02182248(field, 0)) {
+        limit = field->limits[0] + extra;
+        if (limit > area->a.x) {
+            area->a.x = limit;
+        }
+    }
+    if (func_ov087_02182248(field, 2)) {
+        limit = field->limits[2] - extra;
+        if (limit < area->b.x) {
+            area->b.x = limit;
+        }
+    }
 }
 
 // sets up the six areas of the field (func_0206c23c)
