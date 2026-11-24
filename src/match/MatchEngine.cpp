@@ -337,7 +337,7 @@ extern "C" void _ZN11MatchEngine13func_02063e4cEll(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_02063e6cEll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063e7cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063ec8EP11MatchPlayer(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02063f24Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02063f24EP11MatchPlayerP10MatchPointPiillll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020640b4Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02064500Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020646d4Ev(void);     // (for the asm functions)
@@ -465,7 +465,7 @@ void MatchEngine::func_020622b0()
 {
 }
 extern "C" char data_020c4efc[];
-extern "C" void func_01fff198(void);
+extern "C" fx32 func_01fff198(MatchEngine *engine, fx32 x0, fx32 y0, fx32 x1, fx32 y1);
 extern "C" fx32 FX_Sqrt(fx32 x);
 extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" char data_020c4f3c[];
@@ -2523,7 +2523,48 @@ void MatchEngine::func_02063ec8(MatchPlayer *player)
     player->body->unk_1a = func_ov015_02130e28(direction);
 }
 
-asm void MatchEngine::func_02063f24()
+// (moves the player from (x0, y0) toward (x1, y1) by its speed: pos gets where it is now, dir its
+// direction as one of 8; TRUE when it arrives)
+// (nonmatching: the ROM keeps the 0xC000/0x4000 choice as branches; every form tried is if-converted (moveq/movne))
+#ifdef NONMATCHING
+BOOL MatchEngine::func_02063f24(MatchPlayer *player, MatchPoint *pos, int *dir, int unused, fx32 x0, fx32 y0, fx32 x1, fx32 y1)
+{
+    u16 angle = FX_Atan2Idx(y1 - y0, x1 - x0);
+    MatchPlayerInfo *info = func_020787e8(player);
+    fx32 speed;
+    fx32 dx;
+    fx32 dy;
+    u16 direction;
+
+    if (pos != NULL) {
+        *pos = *(MatchPoint *)&player->body->pos;
+    }
+    speed = func_02068d74(player);
+    dx = FX_Mul(speed, FX_CosIdx(angle >> 4));
+    dy = FX_Mul(speed, FX_SinIdx(angle >> 4));
+    if (dir != NULL && !(info->unk_12 & 0x80)) {
+        *dir = func_ov015_02130e28(angle);
+    }
+    if (speed >= func_01fff198(this, x0, y0, x1, y1)) {
+        pos->x = x1;
+        pos->y = y1;
+        if (dir != NULL && !(info->unk_12 & 0x80)) {
+            if (func_ov015_02131970(player) == 0) {
+                direction = 0xC000;
+            } else {
+                direction = 0x4000;
+            }
+            player->body->direction = direction;
+            *dir = func_ov015_02130e28(direction);
+        }
+        return (info->unk_12 & 0x10) ? FALSE : TRUE;
+    }
+    pos->x = x0 + dx;
+    pos->y = y0 + dy;
+    return FALSE;
+}
+#else
+asm BOOL MatchEngine::func_02063f24(MatchPlayer *player, MatchPoint *pos, int *dir, int unused, fx32 x0, fx32 y0, fx32 x1, fx32 y1)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -2630,6 +2671,7 @@ asm void MatchEngine::func_02063f24()
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 asm void MatchEngine::func_020640b4()
 {
@@ -3424,7 +3466,7 @@ asm void MatchEngine::func_020646d4()
     mov r1, r9
     mov r2, r8
     str r4, [sp, #0x10]
-    bl _ZN11MatchEngine13func_02063f24Ev
+    bl _ZN11MatchEngine13func_02063f24EP11MatchPlayerP10MatchPointPiillll
     add sp, sp, #0x44
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02064c74:

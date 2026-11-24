@@ -45,3 +45,4 @@ MatchEngine::func_0206e858 src/match/MatchEngine.cpp table copy before the loop 
 MatchEngine::func_02078844 src/match/MatchEngine_2.cpp O2: the mov r8, r0 after the two calls is not tail-merged (as func_02078aac)
 func_02084970 src/match/MatchGeometry.cpp registers of the clip arithmetic (x/y in r0/r1 -> stm instead of r2/r0)
 UnkClass_0208351c::func_02083778 src/match/UnkClass_0208351c.cpp seg1 stores scheduled after the a->x/c->x loads in the ROM
+MatchEngine::func_02063f24 src/match/MatchEngine.cpp the 0xC000/0x4000 choice is if-converted (ROM: bne/b)
