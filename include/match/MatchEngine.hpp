@@ -419,7 +419,7 @@ public:
     BOOL func_0206fe28(int team, fx32 y);
     void func_0206fe94(int delta);
     void func_0206fec0(s16 value);
-    void func_0206fed0();
+    void func_0206fed0(MatchPlayer *player, fx32 x, fx32 y, fx32 toX, fx32 toY);
     void func_0206ffe0();
     void func_020704b0(BOOL a);
     void func_02070548(int id);
