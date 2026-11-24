@@ -543,7 +543,7 @@ public:
     BOOL func_0207765c(MatchPlayer *player, u32 id, int mode, int *error);
     BOOL func_020776f8(MatchPlayer *player, u32 id, int *error);
     int func_020777e4(MatchPlayer *player, u32 id, u32 i, u8 update);     // (sets the player's item in slot i)
-    void func_02077830();
+    int func_02077830(int index, u32 id, u32 slot, u8 update);
     void func_0207793c();
     int func_02077a80(int index, BOOL update);
     int func_02077b00(MatchPlayer *player, u32 slot, BOOL flag);
