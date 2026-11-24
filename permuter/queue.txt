@@ -44,3 +44,4 @@ MatchEngine::func_02063550 src/match/MatchEngine.cpp r0/r1 swapped in the last s
 MatchEngine::func_0206e858 src/match/MatchEngine.cpp table copy before the loop guard, i/j and kind-4 registers swapped
 MatchEngine::func_02078844 src/match/MatchEngine_2.cpp O2: the mov r8, r0 after the two calls is not tail-merged (as func_02078aac)
 func_02084970 src/match/MatchGeometry.cpp registers of the clip arithmetic (x/y in r0/r1 -> stm instead of r2/r0)
+UnkClass_0208351c::func_02083778 src/match/UnkClass_0208351c.cpp seg1 stores scheduled after the a->x/c->x loads in the ROM

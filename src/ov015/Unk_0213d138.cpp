@@ -89,7 +89,7 @@ extern "C" void _ZN11MatchEngine13func_02070604Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_0207903cEP11MatchPlayer(...);
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void func_0208363c(void);
-extern "C" void _ZN17UnkClass_0208351c13func_020838d0Ev(void);
+extern "C" void _ZN17UnkClass_0208351c13func_020838d0EPlS0_P10MatchPoint(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void func_01ffca10(void);
@@ -2740,7 +2740,7 @@ extern "C" asm void func_ov015_0213f338(void)
     add r0, sp, #0x30
     add r1, sp, #0x20
     mov r2, r4
-    bl _ZN17UnkClass_0208351c13func_020838d0Ev
+    bl _ZN17UnkClass_0208351c13func_020838d0EPlS0_P10MatchPoint
     cmp r0, #0
     addeq sp, sp, #0x40
     ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}

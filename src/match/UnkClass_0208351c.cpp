@@ -3,8 +3,8 @@
 #include "nitro/fx.h"
 
 extern "C" u16 func_02084094(fx32 *segment);
-extern "C" void func_020841d8(void);     // (for the asm functions)
-extern "C" void func_0208488c(void);     // (for the asm functions)
+extern "C" void func_020841d8(MatchPoint *point);
+extern "C" BOOL func_0208488c(MatchPoint *a, MatchPoint *b, MatchPoint *c);
 extern "C" void *data_020af44c[];     // (the vtable)
 
 extern "C" void MI_CpuFill8(void);
@@ -14,7 +14,7 @@ extern "C" void _ZN15MatchPlayerList13func_020832c8Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_0208331cEP11MatchPlayer(void);
 extern "C" void _ZdlPv(void);
 extern "C" void FX_Div(void);
-extern "C" void FX_Atan2Idx(void);
+extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);
 extern "C" int func_ov015_021319b0(MatchPlayer *player);
 extern "C" BOOL func_ov015_02131bb4(int team);
 extern "C" int func_ov015_021335c0(void);
@@ -117,7 +117,38 @@ int UnkClass_0208351c::func_02083750(int a, int b)
     return a + (d >> 1);
 }
 
-asm void UnkClass_0208351c::func_02083778()
+// (nonmatching: the ROM stores the first segment after loading the next call's arguments (cos/sin in r3/r2))
+#ifdef NONMATCHING
+// (the perpendicular bisector of pq, as a segment of length 16 from the middle of pq)
+static inline void UnkClass_0208351c_Bisector(fx32 *seg, MatchPoint *p, MatchPoint *q)
+{
+    fx32 x = UnkClass_0208351c::func_02083750(p->x, q->x);
+    fx32 y = UnkClass_0208351c::func_02083750(p->y, q->y);
+    int idx = (u16)(FX_Atan2Idx(p->y - q->y, p->x - q->x) + 0x4000) >> 4;
+
+    seg[0] = x;
+    seg[1] = y;
+    seg[2] = x + (FX_CosIdx(idx) << 4);
+    seg[3] = y + (FX_SinIdx(idx) << 4);
+}
+
+// (the centre of the circle through a, b and c: where the perpendicular bisectors of ab and ac
+// cross; FALSE when the points are on a line)
+BOOL UnkClass_0208351c::func_02083778(MatchPoint *out, MatchPoint *a, MatchPoint *b, MatchPoint *c)
+{
+    fx32 seg1[4];
+    fx32 seg2[4];
+
+    if (!func_0208488c(a, b, c)) {
+        func_020841d8(out);
+        return FALSE;
+    }
+    UnkClass_0208351c_Bisector(seg1, a, b);
+    UnkClass_0208351c_Bisector(seg2, a, c);
+    return func_020838d0(seg1, seg2, out);
+}
+#else
+asm BOOL UnkClass_0208351c::func_02083778(MatchPoint *out, MatchPoint *a, MatchPoint *b, MatchPoint *c)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     sub sp, sp, #0x20
@@ -206,8 +237,9 @@ asm void UnkClass_0208351c::func_02083778()
     add sp, sp, #0x20
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
+#endif
 
-asm void UnkClass_0208351c::func_020838d0()
+asm BOOL UnkClass_0208351c::func_020838d0(fx32 *a, fx32 *b, MatchPoint *out)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     mov r9, r1

@@ -15,8 +15,8 @@ public:
     BOOL func_020835e0(int team);
     int func_02083634();
     static int func_02083750(int a, int b);
-    void func_02083778();
-    void func_020838d0();
+    static BOOL func_02083778(MatchPoint *out, MatchPoint *a, MatchPoint *b, MatchPoint *c);
+    static BOOL func_020838d0(fx32 *a, fx32 *b, MatchPoint *out);
 };
 
 #endif // MATCH_UNKCLASS_0208351C_HPP
