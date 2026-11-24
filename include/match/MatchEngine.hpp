@@ -10,6 +10,45 @@
 
 struct SaveBody;
 
+// A team as MatchEngine::unk_17c keeps it
+struct MatchTeamRecord {
+    char name[0x1F];
+    u8 unk_1f;
+    u16 unk_20;
+    u16 unk_22;
+    u16 unk_24;
+    u16 unk_26;
+    u16 unk_28;
+    u16 unk_2a;
+    u8 unk_2c;
+    u8 unk_2d;
+    u16 unk_2e;
+    u16 unk_30;
+    u16 unk_32;
+    u16 unk_34;
+    s8 unk_36;
+    s8 unk_37;
+    s8 unk_38;
+    s8 unk_39;
+    u16 unk_3a;
+    u8 unk_3c;
+    u8 unk_3d;
+    u16 unk_3e;
+};
+
+// The ids of a team's members (MatchEngine::unk_34c)
+struct MatchIdList {
+    u16 ids[16];
+};
+
+// A saved team (0x834 bytes, see func_02082d9c)
+struct MatchTeamSave {
+    u8 unk_0[0xD4];
+    u8 players[16][0x70];   // 0xD4
+    MatchTeamRecord record; // 0x7D4
+    MatchIdList members;    // 0x814
+};
+
 // (what func_ov015_02143664 gives)
 struct UnkPair_020621b4 {
     MatchPoint pos;
@@ -746,7 +785,7 @@ public:
     MatchAction *func_02080288(MatchPlayer *player);
     int func_02082d5c(int id);
     BOOL func_02082d80(int id, int value);
-    void func_02082d9c();
+    void func_02082d9c(int team, MatchTeamSave *src);
     void func_02082f3c(int team, int kind);
     u8 *func_02083048(int team);
     u8 *func_02083054(int team);

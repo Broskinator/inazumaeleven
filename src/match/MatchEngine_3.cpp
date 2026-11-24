@@ -1,10 +1,10 @@
 #include "match/MatchEngine.hpp"
-extern "C" void _ZN9EntryPool3GetEi(void);
-extern "C" void func_01ffde48(void);
+extern "C" void func_01ffde48(MatchEngine *engine, u8 *entry, int slot);
 extern "C" void func_020802a0(void);
 extern "C" int func_02080b90(MatchPlayer *player);
-extern "C" void func_02080c64(void);
-extern "C" void gEntryPool(void);
+extern "C" void func_02080c64(MatchPlayer *player, u8 team);
+#include "data/EntryPool.hpp"
+extern "C" void _ZN9EntryPool3GetEi(void);     // (for the asm functions)
 
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);     // (for the asm functions)
@@ -22,7 +22,27 @@ BOOL MatchEngine::func_02082d80(int id, int value)
     return value == func_02082d5c(id);
 }
 
-asm void MatchEngine::func_02082d9c()
+// (nonmatching: the ROM schedules the member-wise struct copies across members)
+#ifdef NONMATCHING
+void MatchEngine::func_02082d9c(int team, MatchTeamSave *src)
+{
+    MatchPlayer *player;
+    int i;
+
+    ((MatchTeamRecord *)unk_17c)[team] = src->record;
+    ((MatchIdList *)unk_34c)[team] = src->members;
+    for (i = 0; i < 16; i++) {
+        func_01ffde48(this, src->players[i], i + 0x10);
+        player = (MatchPlayer *)gEntryPool.Get(i + 0x10);
+        if (player != NULL) {
+            func_02080c64(player, team);
+            player->unk_42 = (player->unk_42 & ~0x8000) | (((u32)team << 31) >> 16);
+            player->unk_f0 = (player->unk_f0 | 0x40) & ~0x20;
+        }
+    }
+}
+#else
+asm void MatchEngine::func_02082d9c(int team, MatchTeamSave *src)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -131,6 +151,7 @@ asm void MatchEngine::func_02082d9c()
     blt @L_02082ed4
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_02082f3c(int team, int kind)
 {

@@ -119,7 +119,7 @@ extern "C" void _ZN13ScreenManager13func_0203e090Eii(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206e5e4EmPvi(void);
 extern "C" void _ZN11MatchEngine13func_0207aba0Ei(void);
-extern "C" void _ZN11MatchEngine13func_02082d9cEv(void);
+extern "C" void _ZN11MatchEngine13func_02082d9cEiP13MatchTeamSave(void);
 extern "C" s32 _ZN9EntryPool6RemoveEi(...);
 extern "C" s32 _ZdlPv(...);
 extern "C" void G2x_SetBlendBrightness_(void);
@@ -2007,7 +2007,7 @@ extern "C" asm void func_ov057_02167a14(void)
     ldr r0, =data_020e88a0
     add r2, r1, r2
     mov r1, #1
-    bl _ZN11MatchEngine13func_02082d9cEv
+    bl _ZN11MatchEngine13func_02082d9cEiP13MatchTeamSave
     mov r0, r7
     bl func_ov057_0216797c
 @L_02167aa8:
