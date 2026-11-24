@@ -12205,84 +12205,37 @@ BOOL MatchEngine::func_0206daec(int id)
     return func_02081894((u8 *)data_020cadf4, index);
 }
 
-asm void MatchEngine::func_0206db10(SaveBody *dst)
+#pragma push
+#pragma optimization_level 2
+BOOL MatchEngine::func_0206db10(SaveBody *dst)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    movs r4, r1
-    mov r6, r0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    add r1, r4, #0x14c
-    add r0, r6, #0x17c
-    add r1, r1, #0x3c00
-    mov r2, #0x40
-    bl MI_CpuCopy8
-    add r1, r4, #0x18c
-    mov r5, #0x20
-    mov r2, r5
-    add r0, r6, #0x34c
-    add r1, r1, #0x3c00
-    bl MI_CpuCopy8
-    add r1, r4, #0x1ac
-    mov r2, r5
-    add r0, r6, #0x38c
-    add r1, r1, #0x3c00
-    bl MI_CpuCopy8
-    add r1, r4, #0x1cc
-    add r0, r6, #0x3ac
-    add r1, r1, #0x3c00
-    mov r2, #0x10
-    bl MI_CpuCopy8
-    add r0, r4, #0x2fc
-    add r1, r0, #0x800
-    ldr r0, =data_020cb288
-    mov r2, #0x690
-    bl MI_CpuCopy8
-    add r0, r4, #0x18c
-    mov r10, #0
-    add r0, r0, #0x1000
-    mov r1, r10
-    mov r2, #0x2bc0
-    bl MI_CpuFill8
-    add r0, r4, #0x18c
-    mov r11, #0x70
-    mov r9, r10
-    add r5, r0, #0x1000
-    mov r6, r10
-    mov r7, #1
-    mov r4, r11
-    b @L_0206dc20
-@L_0206dbc4:
-    mov r0, r9
-    bl func_ov015_02130ae8
-    movs r8, r0
-    beq @L_0206dc1c
-    ldrh r0, [r8, #0xf0]
-    tst r0, #1
-    movne r0, r7
-    moveq r0, r6
-    cmp r0, #0
-    beq @L_0206dc1c
-    mov r0, r8
-    bl func_02080b90
-    cmp r0, #0
-    bne @L_0206dc1c
-    cmp r10, #0x64
-    movge r0, #0
-    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mla r1, r10, r4, r5
-    mov r2, r11
-    add r0, r8, #0x60
-    bl MI_CpuCopy8
-    add r10, r10, #1
-@L_0206dc1c:
-    add r9, r9, #1
-@L_0206dc20:
-    cmp r9, #0x84
-    blt @L_0206dbc4
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *player;
+    int i;
+    int n;
+
+    if (dst == NULL) {
+        return FALSE;
+    }
+    MI_CpuCopy8(unk_17c, &dst->unk_3D4C[0], 0x40);
+    MI_CpuCopy8(unk_34c, &dst->unk_3D4C[0x40], 0x20);
+    MI_CpuCopy8(unk_38c, &dst->unk_3D4C[0x60], 0x20);
+    MI_CpuCopy8(unk_3ac, &dst->unk_3D4C[0x80], 0x10);
+    MI_CpuCopy8(data_020cb288, &dst->block12, 0x690);
+    MI_CpuFill8(dst->unk_118C, 0, 0x2BC0);
+    n = 0;
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player != NULL && MatchPlayer_HasFlag(player, 1) && func_02080b90(player) == 0) {
+            if (n >= 100) {
+                return FALSE;
+            }
+            MI_CpuCopy8((u8 *)player + 0x60, &dst->unk_118C[n * 0x70], 0x70);
+            n++;
+        }
+    }
+    return TRUE;
 }
+#pragma pop
 
 // copies the first team's data (unk_17c[0], unk_38c) and its players (0x70 bytes each from
 // offset 0x60, in order) into out

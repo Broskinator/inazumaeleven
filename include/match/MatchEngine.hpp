@@ -376,7 +376,7 @@ public:
     u32 func_0206da44(int value);
     BOOL func_0206dad4(int id);
     BOOL func_0206daec(int id);
-    void func_0206db10(SaveBody *dst);
+    BOOL func_0206db10(SaveBody *dst);
     BOOL func_0206dc34(u8 *out);
     BOOL func_0206dcdc(SaveBody *src);
     void func_0206ddc8(int i, int flags);
