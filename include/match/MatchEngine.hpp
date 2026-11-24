@@ -312,7 +312,7 @@ public:
     void *func_0206c1fc(int kind, int i);
     void func_0206c23c(MatchSegment *area, fx32 inset, fx32 extra, u8 flag);
     void func_0206c37c();
-    void func_0206c42c();
+    BOOL func_0206c42c(int team);
     BOOL func_0206c5b0(int team, int index);
     BOOL func_0206c644();
     void func_0206c670(u8 value);

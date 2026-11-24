@@ -10887,104 +10887,54 @@ void MatchEngine::func_0206c37c()
     func_0206c23c(&unk_4[3], -20 * FX32_ONE, 6 * FX32_ONE, FALSE);
 }
 
-asm void MatchEngine::func_0206c42c()
+BOOL MatchEngine::func_0206c42c(int team)
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r5, r0
-    mov r4, r1
-    bl func_01ff9684
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r5
-    bl _ZN11MatchEngine13func_0206c644Ev
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    add r0, r5, r4
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x7d8]
-    cmp r0, #1
-    movlo r0, #1
-    movhs r0, #0
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1a]
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    mov r0, r5
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0206df68Ei
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    add r0, r5, r4, lsl #2
-    add r0, r0, #0x11000
-    ldr r0, [r0, #0x7c4]
-    cmp r0, #0
-    movgt r0, #1
-    movle r0, #0
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, pc}
-    bl func_ov015_021319bc
-    cmp r4, r0
-    bne @L_0206c4ec
-    add r0, r5, #0x17c0
-    add r0, r0, #0x10000
-    bl func_0209e220
-    ldmia sp!, {r3, r4, r5, pc}
-@L_0206c4ec:
-    ldr r0, =gGameState
-    ldrb r1, [r0, #0x7e]
-    ldr r2, [r0]
-    cmp r1, #1
-    bne @L_0206c510
-    ldr r0, =0x4650
-    cmp r2, r0
-    movlo r0, #0
-    ldmloia sp!, {r3, r4, r5, pc}
-@L_0206c510:
-    cmp r1, #4
-    bne @L_0206c528
-    ldr r0, =0x8ca0
-    cmp r2, r0
-    movhi r0, #0
-    ldmhiia sp!, {r3, r4, r5, pc}
-@L_0206c528:
-    add r0, r5, #0x11000
-    ldr r2, [r0, #0x7c0]
-    ldr r1, =0x51eb851f
-    add r4, r2, #1
-    umull r1, r2, r4, r1
-    mov r2, r2, lsr #5
-    mov r3, #0x64
-    umull r1, r2, r3, r2
-    str r4, [r0, #0x7c0]
-    subs r2, r4, r1
-    moveq r0, #1
-    movne r0, #0
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, pc}
-    ldr r0, =gGameState
-    ldrb r1, [r0, #0x86]
-    ldrb r0, [r0, #0x87]
-    sub r0, r1, r0
-    mov r0, r0, lsl #2
-    adds r4, r0, #2
-    movmi r4, #0
-    cmp r4, #0xc
-    mov r0, #0x64
-    movgt r4, #0xc
-    bl Random_RandB
-    cmp r0, r4
-    movlt r0, #1
-    movge r0, #0
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 kind;
+    u32 time;
+    u32 count;
+    int chance;
+
+    if (func_01ff9684(this)) {
+        return FALSE;
+    }
+    if (func_0206c644()) {
+        return FALSE;
+    }
+    if (!(unk_117d8[team] < 1 ? TRUE : FALSE)) {
+        return FALSE;
+    }
+    if (gGameState.unk_000[0x1A] != 0) {
+        return FALSE;
+    }
+    if (!func_0206df68(team)) {
+        return FALSE;
+    }
+    if (unk_117c4[team] > 0 ? TRUE : FALSE) {
+        return FALSE;
+    }
+    if (team == func_ov015_021319bc()) {
+        return func_0209e220(unk_117c0);
+    }
+    kind = gGameState.unk_07c[2];
+    time = *(u32 *)gGameState.unk_000;
+    if (kind == 1 && time < 18000) {
+        return FALSE;
+    }
+    if (kind == 4 && time > 36000) {
+        return FALSE;
+    }
+    count = ++*(u32 *)unk_117c0;
+    if (!(count % 100 == 0 ? TRUE : FALSE)) {
+        return FALSE;
+    }
+    chance = (gGameState.unk_07c[0xA] - gGameState.unk_07c[0xB]) * 4 + 2;
+    if (chance < 0) {
+        chance = 0;
+    }
+    if (chance > 12) {
+        chance = 12;
+    }
+    return (int)Random_RandB(100) < chance ? TRUE : FALSE;
 }
 
 BOOL MatchEngine::func_0206c5b0(int team, int index)
