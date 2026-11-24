@@ -617,7 +617,7 @@ public:
     void func_02078664();
     MatchPlayerInfo *func_020787e8(MatchPlayer *player);
     int func_02078800(int a, BOOL b, int c);
-    void func_02078844();
+    int func_02078844(int team, u16 *out, int max, u8 flag);
     int func_02078990(int team, u16 *out, int max, BOOL bare);
     int func_02078aac(int team, u16 *out, int max, u8 flag, int kind);
     int func_02078bc0(MatchPlayer *player, void *buffer, int max, int flags, BOOL mask);

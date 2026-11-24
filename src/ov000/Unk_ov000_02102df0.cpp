@@ -87,7 +87,7 @@ extern "C" void _ZN17UnkClass_0205480013func_0205d7e0Ev(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205dafcEv(void);
 extern "C" void _ZN11MatchEngine13func_0206cd08EiPv(void);
 extern "C" s32 _ZN11MatchEngine13func_0206cd78Ei(...);
-extern "C" s32 _ZN11MatchEngine13func_02078844Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_02078844EiPtih(...);
 extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207efc0Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207efccEh(void);
@@ -1065,7 +1065,7 @@ extern "C" asm void func_ov000_02103ab8(void)
     mov r2, r8
     mov r3, #4
     str r4, [sp]
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r10, r0
     ldr r9, [sp, #4]
     cmp r10, #0
@@ -1120,7 +1120,7 @@ extern "C" s32 func_ov000_02103b6c(void)
     s32 v3;
     u16 t0;
     r11 = 0;
-    v0 = _ZN11MatchEngine13func_02078844Ev((s32)((u8 *)&data_020e88a0), 0, (s32)((u8 *)local), 4, 0);
+    v0 = _ZN11MatchEngine13func_02078844EiPtih((s32)((u8 *)&data_020e88a0), 0, (s32)((u8 *)local), 4, 0);
     r8 = ((u8 *)local);
     r10 = v0;
     r9 = 0;
@@ -1156,7 +1156,7 @@ extern "C" asm void func_ov000_02103c0c(void)
     mov r2, r8
     mov r3, #4
     str r4, [sp]
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r10, r0
     ldr r9, [sp, #4]
     cmp r10, #0
@@ -2196,7 +2196,7 @@ extern "C" asm void func_ov000_02104b40(void)
     mov r2, r6
     mov r3, #4
     str r9, [sp]
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r8, r0
     ldr r5, =g2DGChar
     ldr r4, =g3DSpriteCtrl

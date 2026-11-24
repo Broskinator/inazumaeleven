@@ -96,7 +96,7 @@ extern "C" void _ZN11MatchEngine13func_02076914EPh(void);
 extern "C" void _ZN11MatchEngine13func_02076c08EP11MatchPlayerm(void);
 extern "C" void _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh(void);
 extern "C" void _ZN11MatchEngine13func_02077e58EPhm(void);
-extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -1330,7 +1330,7 @@ extern "C" asm void func_ov079_021711dc(void)
     add r2, sp, #4
     mov r3, r5
     str r4, [sp]
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r6, r0
     cmp r6, #4
     movgt r6, r5
@@ -2282,7 +2282,7 @@ extern "C" void func_ov079_02172104(u8 *arg0)
     u16 ids[4];
     s32 n;
     s32 i;
-    n = ((s32 (*)(...))_ZN11MatchEngine13func_02078844Ev)(data_020e88a0, ((s32 (*)(...))func_ov015_021319bc)(), ids, 4, 0);
+    n = ((s32 (*)(...))_ZN11MatchEngine13func_02078844EiPtih)(data_020e88a0, ((s32 (*)(...))func_ov015_021319bc)(), ids, 4, 0);
     {
         T02172104 a = *(T02172104 *)data_ov079_02173cac;
         T02172104 b = *(T02172104 *)data_ov079_02173cbc;

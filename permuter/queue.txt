@@ -42,3 +42,4 @@ System::func_020401bc  src/system/System.cpp  15 words (O2): profile.unk_2C stor
 MatchEngine::func_02068f90 src/match/MatchEngine.cpp r0/r1 swapped for ball unk_4c / player unk_f4 in the holder test
 MatchEngine::func_02063550 src/match/MatchEngine.cpp r0/r1 swapped in the last store (player->state->unk_14 = 0)
 MatchEngine::func_0206e858 src/match/MatchEngine.cpp table copy before the loop guard, i/j and kind-4 registers swapped
+MatchEngine::func_02078844 src/match/MatchEngine_2.cpp O2: the mov r8, r0 after the two calls is not tail-merged (as func_02078aac)

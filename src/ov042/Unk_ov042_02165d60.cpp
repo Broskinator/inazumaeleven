@@ -109,7 +109,7 @@ extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" s32 _ZN11MatchEngine13func_020768fcEm(...);
 extern "C" s32 _ZN11MatchEngine13func_0207697cEiPti(...);
-extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" s32 _ZN11MatchEngine13func_02078aacEiPtihi(...);
 extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02083048Ei(void);
@@ -1002,7 +1002,7 @@ extern "C" asm s32 func_ov042_02166858(...)
     mov r2, r6
     mov r3, r4
     str r5, [sp]
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     cmp r0, #1
     ble @L_02166ad4
     mov r0, r10

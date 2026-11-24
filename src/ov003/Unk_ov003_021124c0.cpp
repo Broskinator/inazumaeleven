@@ -53,7 +53,7 @@ extern "C" s32 _ZN11SaveManager8LoadIntoEiP8SaveFilei(...);
 extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN11MatchEngine13func_0206db10EP8SaveBody(void);
 extern "C" void _ZN11MatchEngine13func_0206dcdcEP8SaveBody(void);
-extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
@@ -586,7 +586,7 @@ extern "C" asm void func_ov003_021124c0(void)
     ldr r0, =data_020e88a0
     mov r2, r7
     mov r3, #4
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r0, r7
     mov r2, r6
     add r1, r5, #0x58
@@ -1049,7 +1049,7 @@ extern "C" asm void func_ov003_02112ec4(void)
     ldr r0, =data_020e88a0
     mov r2, r9
     mov r3, #4
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r0, r9
     mov r2, r8
     add r1, r7, #0x58

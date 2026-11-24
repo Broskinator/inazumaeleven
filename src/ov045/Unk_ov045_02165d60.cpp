@@ -80,7 +80,7 @@ extern "C" void _ZN11TreasureBox13func_02052618Ei(void);
 extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" s32 _ZN13ScreenManager8PopSceneEi(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);
 extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
@@ -645,7 +645,7 @@ extern "C" asm void func_ov045_0216611c(void)
     str r7, [sp]
     mov r8, #1
     mov r4, r7
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r1, #0x3c
 @L_02166434:
     mov r3, r4
@@ -713,7 +713,7 @@ extern "C" asm void func_ov045_021664b4(void)
     mov r0, r9
     mov r2, r4
     mov r3, #4
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r2, r6
     str r7, [sp]
     mov r6, r0

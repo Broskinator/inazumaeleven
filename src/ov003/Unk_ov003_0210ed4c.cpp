@@ -63,7 +63,7 @@ extern "C" void _ZN11TreasureBox13func_02052618Ei(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206db10EP8SaveBody(void);
 extern "C" void _ZN11MatchEngine13func_0206dcdcEP8SaveBody(void);
-extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
@@ -3664,7 +3664,7 @@ extern "C" asm void func_ov003_02111b64(void)
     ldr r0, =data_020e88a0
     mov r2, r6
     mov r3, #4
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r0, r6
     mov r2, r4
     add r1, r5, #0x58

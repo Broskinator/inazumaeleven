@@ -97,8 +97,8 @@ extern "C" s32 func_0208039c(u8 *list, s32 id);
 extern "C" void func_02080564(void);     // (for the asm functions)
 extern "C" void func_02080730(u8 *entry, int i, u16 id, int a);
 extern "C" u16 func_02080780(u8 *entry, u32 i);
-extern "C" void func_020807ac(void);     // (for the asm functions)
-extern "C" void func_020807b4(void);     // (for the asm functions)
+extern "C" u16 func_020807ac(u8 *entry);
+extern "C" u16 func_020807b4(u8 *entry);
 extern "C" void func_020807d0(void);     // (for the asm functions)
 extern "C" void func_02080804(void);     // (for the asm functions)
 extern "C" void func_02080830(void *player, int i, u16 a, u16 b);
@@ -9514,7 +9514,63 @@ int MatchEngine::func_02078800(int a, BOOL b, int c)
     return func_02069344(a, 0, 12, 0, 0, c);
 }
 
-asm void MatchEngine::func_02078844()
+// (nonmatching: one instruction: at O2 the two calls' mov r8, r0 is not merged; at O3/O4 the loop loses its jump to the test (as func_02078aac))
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+int MatchEngine::func_02078844(int team, u16 *out, int max, u8 flag)
+{
+    u8 f;
+    u8 *entry = unk_3ac[team];
+    int i;
+    int n;
+    u16 id;
+    MatchPlayer *player;
+
+    if (out == NULL) {
+        return 0;
+    }
+    n = 0;
+    MI_CpuFill8(out, 0, max * 2);
+    f = flag;
+    for (i = 0; i < 4; i++) {
+        if (n >= max) {
+            break;
+        }
+        if (gGameState.unk_000[0x1B] != 0) {
+            id = func_0208076c(entry, i);
+        } else if (f == 0 && team == 1) {
+            id = func_0208076c(entry, i) | 0x8000;
+        } else {
+            id = func_02080780(entry, i);
+        }
+        if (id == 0) {
+            continue;
+        }
+        player = func_ov015_02130b14(id, 0);
+        if (player == NULL || func_02080cb8(player)) {
+            continue;
+        }
+        n++;
+        if (f == 0 && team == 1 && gGameState.unk_000[0x1B] == 0) {
+            out[i] = id | 0x8000;
+        } else {
+            out[i] = id;
+        }
+    }
+    if (max > 4 && func_020807ac(entry)) {
+        if (flag == 0 && team == 1) {
+            out[4] = func_020807ac(entry) | 0x8000;
+        } else {
+            out[4] = func_020807b4(entry);
+        }
+        n++;
+    }
+    return n;
+}
+#pragma pop
+#else
+asm int MatchEngine::func_02078844(int team, u16 *out, int max, u8 flag)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r1
@@ -9610,6 +9666,7 @@ asm void MatchEngine::func_02078844()
     mov r0, r7
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // the ids of the team's players that are not in its list at unk_34c (at most max of them,
 // without the team bit when bare), sorted by func_0207f634(0x80)

@@ -89,7 +89,7 @@ extern "C" s32 _ZN13ScreenManager12SetNextSceneEii(...);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
 extern "C" void _ZN11MatchEngine13func_0206b4b8Ei(void);
 extern "C" void _ZN11MatchEngine13func_0206f70cEt(void);
-extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" void _ZN11MatchEngine13func_0207aa94Ei(void);
 extern "C" s32 _ZN11MatchEngine13func_0207c6b4Eiii(...);
 extern "C" void _ZN11MatchEngine13func_0207d308EPh(void);
@@ -218,7 +218,7 @@ extern "C" asm s32 func_ov000_02109518(...)
     add r2, r5, #0x10
     mov r3, #4
     str r4, [sp]
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     cmp r0, #4
     ldmgeia sp!, {r3, r4, r5, pc}
     mov r0, r4

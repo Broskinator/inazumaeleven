@@ -87,7 +87,7 @@ extern "C" void _ZN12SoundManager9PlaySoundEi(void);
 extern "C" void _ZN13ScreenManager12SetNextSceneEii(void);
 extern "C" void _ZN13ScreenManager8PopSceneEi(void);
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);
-extern "C" void _ZN11MatchEngine13func_02078844Ev(void);
+extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" void _ZN11MatchEngine13func_02078aacEiPtihi(void);
 extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN8TextFont10SetSpacingEii(void);
@@ -542,7 +542,7 @@ extern "C" asm void func_ov054_02166264(void)
     mov r3, #4
     mov r2, r4
     str r6, [sp]
-    bl _ZN11MatchEngine13func_02078844Ev
+    bl _ZN11MatchEngine13func_02078844EiPtih
     mov r3, r0
     mov lr, r3
     mov r0, #1
