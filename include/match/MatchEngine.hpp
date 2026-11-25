@@ -206,7 +206,7 @@ public:
     void func_020658ec(MatchPlayer *player);
     void func_020659f8(MatchPlayer *player);
     void func_02065a04(MatchPlayer *player);
-    void func_02065a90();
+    void func_02065a90(MatchPlayer *player);
     void func_02065c00();
     void func_02065dec();
     void func_02065fa0(MatchPlayer *player);
@@ -936,7 +936,8 @@ public:
     u8 unk_1189c[0x118A7 - 0x1189C];
     s8 unk_118a7;
     s8 unk_118a8;
-    u8 unk_118a9[3];
+    s8 unk_118a9;       // (a player, see func_02065a90)
+    u8 unk_118aa[2];
     s32 unk_118ac;
     s32 unk_118b0;
     s32 unk_118b4;
