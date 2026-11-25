@@ -340,7 +340,7 @@ extern "C" void _ZN11MatchEngine13func_02063e7cEP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_02063ec8EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063f24EP11MatchPlayerP10MatchPointPiillll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020640b4Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02064500Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02064500EP11MatchPlayerPlPiS3_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020646d4Ev(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
 extern "C" void *g3DFieldSprite;
@@ -2968,7 +2968,51 @@ asm void MatchEngine::func_020640b4()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02064500()
+// shortens the distance left (state->unk_10) by 0.03 x the speed (func_0206a100): pos gets the
+// point that far along the direction, dir the direction as one of 8; TRUE (and kind) once it is 0
+// (nonmatching: the rebuild keeps (fx64)speed for both FX_Muls and spills it; the ROM keeps speed in r11 and redoes the sign)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_02064500(MatchPlayer *player, fx32 *pos, int *dir, int *kind)
+{
+    MatchPlayerInfo *info;
+    fx32 dx;
+    fx32 dy;
+    fx32 v;
+    int speed;
+    u16 angle;
+
+    speed = func_0206a100(player, 0);
+    v = FX_Mul(speed, 0x7B);
+    info = func_020787e8(player);
+    angle = player->body->direction;
+    func_02068d20(player, player->state->unk_10 - v);
+    if (player->state->unk_10 <= 0) {
+        player->state->unk_10 = 0;
+        player->state->unk_18 = 0;
+        pos[0] = player->body->pos.x;
+        pos[1] = player->body->pos.y;
+        *kind = player->state->unk_85;
+        return TRUE;
+    }
+    player->state->unk_18 = -v;
+    v = player->state->unk_10;
+    dx = FX_Mul(v, FX_CosIdx(angle >> 4));
+    dy = FX_Mul(v, FX_SinIdx(angle >> 4));
+    if (dir != NULL && !(info->unk_12 & 0x80)) {
+        *dir = func_ov015_02130e28(angle);
+    }
+    pos[0] = dx + player->body->pos.x;
+    pos[1] = dy + player->body->pos.y;
+    if (player->body != NULL) {
+        player->body->unk_16 |= 4;
+    }
+    if (v < FX_Mul(speed, 0x4CD)) {
+        func_ov015_0213a75c(g3DFieldSprite, player, 0, *dir, 0);
+    }
+    return FALSE;
+}
+#else
+asm BOOL MatchEngine::func_02064500(MatchPlayer *player, fx32 *pos, int *dir, int *kind)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #8
@@ -3088,6 +3132,7 @@ asm void MatchEngine::func_02064500()
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 asm void MatchEngine::func_020646d4()
 {
@@ -3148,7 +3193,7 @@ asm void MatchEngine::func_020646d4()
     mov r1, r9
     mov r2, r8
     str r7, [sp]
-    bl _ZN11MatchEngine13func_02064500Ev
+    bl _ZN11MatchEngine13func_02064500EP11MatchPlayerPlPiS3_
     add sp, sp, #0x44
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_020647c4:
@@ -3184,7 +3229,7 @@ asm void MatchEngine::func_020646d4()
     mov r1, r9
     mov r2, r8
     str r7, [sp]
-    bl _ZN11MatchEngine13func_02064500Ev
+    bl _ZN11MatchEngine13func_02064500EP11MatchPlayerPlPiS3_
     add sp, sp, #0x44
     mov r0, #0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}

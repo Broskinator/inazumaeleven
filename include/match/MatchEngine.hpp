@@ -163,7 +163,7 @@ public:
     void func_02063ec8(MatchPlayer *player);
     BOOL func_02063f24(MatchPlayer *player, MatchPoint *pos, int *dir, int unused, fx32 x0, fx32 y0, fx32 x1, fx32 y1);
     void func_020640b4();
-    void func_02064500();
+    BOOL func_02064500(MatchPlayer *player, fx32 *pos, int *dir, int *kind);
     void func_020646d4();
     void func_02065178();
     void func_02065414(MatchPlayer *player);
