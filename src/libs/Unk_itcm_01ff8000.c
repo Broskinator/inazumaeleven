@@ -386,7 +386,7 @@ void _ZN11MatchEngine13func_0207ef0cEP11MatchPlayer(void);
 void _ZN11MatchEngine13func_0207a534Em(void);
 void _ZN11MatchEngine13func_0206f4acEiPa(void);
 void _ZN11MatchEngine13func_02079d2cEi(void);
-void _ZN11MatchEngine13func_02079f98EP11MatchPlayerii(void);
+void _ZN11MatchEngine13func_02079f98EP11MatchPlayeriS1_(void);
 void func_ov087_02179e8c(void);
 void func_ov087_02179c3c(void);
 void func_ov087_0217d034(void);
@@ -7437,7 +7437,7 @@ asm void func_01ffe4c4(void)
     mov r1, r4
     mov r2, r6
     mov r3, r7
-    bl _ZN11MatchEngine13func_02079f98EP11MatchPlayerii
+    bl _ZN11MatchEngine13func_02079f98EP11MatchPlayeriS1_
     cmp r0, #0
     bne @L_01ffe574
     ldrsh r1, [r4, #0xf4]

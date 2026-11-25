@@ -141,7 +141,7 @@ extern "C" void _ZN11MatchEngine13func_02078fa4EP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_0207903cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02079d2cEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02079e90Eii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02079f98EP11MatchPlayerii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02079f98EP11MatchPlayeriS1_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a144EP11MatchPlayermS1_Ph(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a350EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207a394EP11MatchPlayer(void);     // (for the asm functions)
@@ -5136,7 +5136,7 @@ void MatchEngine::func_02066504(int flags, int a, int b)
 
     for (i = 0; i < 0x16; i++) {
         MatchPlayer *player = func_02079d2c(i);
-        if (player != NULL && !func_02079f98(player, a, b) && func_ov015_021318a4(player, b) &&
+        if (player != NULL && !func_02079f98(player, a, (MatchPlayer *)b) && func_ov015_021318a4(player, b) &&
             MatchPlayerInfo_HasFlag(func_020787e8(player), flags)) {
             func_ov087_0217d0ac(this, player, 1);
         }
@@ -9081,7 +9081,7 @@ int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *player,
 
     for (i = 0; i < 11; i++) {
         MatchPlayer *other = func_02079e90(team, i);
-        if (other != NULL && !func_02079f98(other, a, (int)player)) {
+        if (other != NULL && !func_02079f98(other, a, player)) {
             fx32 dy = other->body->pos.y - y;
             fx32 dx;
 
@@ -9129,7 +9129,7 @@ asm int MatchEngine::func_0206a590(fx32 x, fx32 y, fx32 radius, MatchPlayer *pla
     mov r0, r10
     mov r1, r4
     mov r3, r7
-    bl _ZN11MatchEngine13func_02079f98EP11MatchPlayerii
+    bl _ZN11MatchEngine13func_02079f98EP11MatchPlayeriS1_
     cmp r0, #0
     bne @L_0206a634
     ldr r1, [r4, #0xe8]
@@ -9169,7 +9169,7 @@ int MatchEngine::func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *player,
 
     for (i = 0; i < 11; i++) {
         MatchPlayer *other = func_02079e90(team, i);
-        if (other != NULL && !func_02079f98(other, a, (int)player)) {
+        if (other != NULL && !func_02079f98(other, a, player)) {
             fx32 dy = other->body->pos.y - y;
             fx32 dx;
 
@@ -9217,7 +9217,7 @@ asm int MatchEngine::func_0206a648(fx32 x, fx32 y, fx32 radius, MatchPlayer *pla
     mov r0, r10
     mov r1, r4
     mov r3, r7
-    bl _ZN11MatchEngine13func_02079f98EP11MatchPlayerii
+    bl _ZN11MatchEngine13func_02079f98EP11MatchPlayeriS1_
     cmp r0, #0
     bne @L_0206a6ec
     ldr r1, [r4, #0xe8]

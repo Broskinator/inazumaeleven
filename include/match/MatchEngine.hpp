@@ -673,7 +673,7 @@ public:
     int func_02079f20(int a, int flags, int b);
     int func_02079f30(int a, int flags, int b);
     int func_02079f40(int a, int flags, int b);
-    BOOL func_02079f98(MatchPlayer *player, int a, int b);
+    BOOL func_02079f98(MatchPlayer *player, int flags, MatchPlayer *other);
     BOOL func_0207a144(MatchPlayer *player, u32 flags, MatchPlayer *other, u8 *info);
     MatchPlayer *func_0207a2a8(int team);
     void func_0207a304(MatchPlayer *player);
