@@ -33,7 +33,7 @@ public:
     void func_020614b0();
     MatchBallPhysics *func_020614b4();
     void func_020614c8(MatchArea *area, fx32 value);
-    void func_020614d0();
+    BOOL func_020614d0(MatchBall *ball, fx32 *px, fx32 *py, u16 *outDir);
     void func_0206168c();
     BOOL func_020618d4(MatchBall *ball, BOOL inside, BOOL check);
     void func_02061a2c(VecFx32 *pos);

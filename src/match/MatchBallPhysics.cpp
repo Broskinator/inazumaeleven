@@ -2,7 +2,7 @@
 #include "system/GameHeap.hpp"
 
 extern "C" void func_02083afc(void);     // (for the asm functions)
-extern "C" void func_0208413c(void);     // (for the asm functions)
+extern "C" s32 func_0208413c(s32 arg0, s32 arg1);
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" BOOL func_0208454c(fx32 x, fx32 y, fx32 z);
 extern "C" char data_020aeadc[];
@@ -10,7 +10,7 @@ extern "C" char data_020aeb28[];
 extern "C" char data_020aeb50[];
 extern "C" char g3DFieldSprite[];
 extern GameHeap gAllocator;
-extern "C" char data_020c4de0[];
+extern "C" MatchArea data_020c4de0;     // (the field)
 extern "C" fx32 data_020c4ebc[4];     // (the field's rectangle)
 extern "C" char data_020f98a0[];
 extern "C" void _ZN8GameHeap4FreeEPv(void);
@@ -24,8 +24,8 @@ extern "C" void func_ov015_0213a818(void);
 extern "C" void func_ov015_02142de8(void);
 extern "C" void func_ov015_02142e24(void);
 extern "C" void func_ov015_02142ec8(void);
-extern "C" void func_ov087_02182234(void);
-extern "C" void func_ov087_02182248(void);
+extern "C" BOOL func_ov087_02182234(MatchArea *area);
+extern "C" s32 func_ov087_02182248(MatchArea *area, s32 side);
 
 MatchBallPhysics *MatchBallPhysics::func_02061498()
 {
@@ -50,7 +50,64 @@ void MatchBallPhysics::func_020614c8(MatchArea *area, fx32 value)
     unk_8 = value;
 }
 
-asm void MatchBallPhysics::func_020614d0()
+// bounces the ball's next position (px, py) off the field's sides that func_ov087_02182248 says it
+// has, turning outDir with func_0208413c: TRUE when it bounced
+// (nonmatching: 7 words: the side argument 0 of the first func_ov087_02182248 is set early; the (s32) casts keep MWCC from folding minX + (minX - x) into 2 * minX - x)
+#ifdef NONMATCHING
+BOOL MatchBallPhysics::func_020614d0(MatchBall *ball, fx32 *px, fx32 *py, u16 *outDir)
+{
+    BOOL bounced = FALSE;
+    fx32 bx;
+    fx32 by;
+    fx32 minX;
+    fx32 maxX;
+    fx32 minY;
+    fx32 maxY;
+    fx32 x = *px;
+    fx32 y = *py;
+    s32 dir = ball->unk_52;
+
+    if (!func_ov087_02182234(&data_020c4de0)) {
+        return FALSE;
+    }
+    if (outDir != NULL) {
+        *outDir = ball->unk_52;
+    }
+    bx = ball->pos.x;
+    by = ball->pos.y;
+    minX = area->minX;
+    maxX = area->maxX;
+    minY = area->minY;
+    maxY = area->maxY;
+    if (func_ov087_02182248(&data_020c4de0, 0) && bx > minX && x <= minX) {
+        x = minX + (s32)(minX - x) + 1;
+        bounced = TRUE;
+        dir = func_0208413c(dir, 0x4000);
+    } else if (func_ov087_02182248(&data_020c4de0, 2) && bx < maxX && x >= maxX) {
+        x = maxX - (s32)(x - maxX) - 1;
+        bounced = TRUE;
+        dir = func_0208413c(dir, 0x4000);
+    }
+    if (func_ov087_02182248(&data_020c4de0, 1) && by > minY && y <= minY) {
+        y = minY + (s32)(minY - y) + 1;
+        bounced = TRUE;
+        dir = func_0208413c(dir, 0);
+    } else if (func_ov087_02182248(&data_020c4de0, 3) && by < maxY && y >= maxY) {
+        y = maxY - (s32)(y - maxY) - 1;
+        bounced = TRUE;
+        dir = func_0208413c(dir, 0);
+    }
+    if (bounced) {
+        if (outDir != NULL) {
+            *outDir = dir;
+        }
+        *px = x;
+        *py = y;
+    }
+    return bounced;
+}
+#else
+asm BOOL MatchBallPhysics::func_020614d0(MatchBall *ball, fx32 *px, fx32 *py, u16 *outDir)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -170,6 +227,7 @@ asm void MatchBallPhysics::func_020614d0()
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 asm void MatchBallPhysics::func_0206168c()
 {
