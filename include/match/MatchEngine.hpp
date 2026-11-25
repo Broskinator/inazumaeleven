@@ -599,8 +599,8 @@ public:
     int func_02077eb8(u8 *data, void *buffer);
     int func_02077eec(int index, u32 id, int a);
     BOOL func_02077f20(u8 *data);
-    void func_02077fa0();
-    void func_02078148();
+    u16 func_02077fa0(int level);
+    u16 func_02078148(int level);
     BOOL func_020782f0(u32 id, BOOL last);
     BOOL func_02078394(u32 id);
     // (on an entry of unk_bbc: its u16 at 0x22 packs a kind in bits 14-15, a sign in bit 10

@@ -524,7 +524,7 @@ extern "C" void func_ov015_02140e74(void);
 extern "C" void func_ov087_0217a324(void);
 extern "C" void func_ov087_0217a640(void);
 extern "C" void func_ov087_0217b3c8(void);
-extern "C" char data_020a71f0[];
+extern "C" u8 data_020a71f0[][3];  // (kind, lowest and highest level: func_02077fa0, func_02078148)
 extern "C" char data_020af2d8[];
 extern "C" char data_020af2f4[];
 extern "C" char data_020af310[];
@@ -538,7 +538,7 @@ extern "C" BOOL func_ov015_02134040(const char *name, void *file, int a, int siz
 extern "C" void func_ov087_0217f69c(void);
 extern "C" int func_ov087_02181680(MatchEngine *match, MatchPlayer *player);    // (the player's index, 0 to 21)
 extern "C" void func_ov087_021816dc(void);
-extern "C" void rand(void);
+extern "C" int rand(void);
 extern "C" char data_020a7248[];
 extern "C" int data_020c4828;
 extern "C" char data_020ca716[];
@@ -8858,7 +8858,80 @@ asm BOOL MatchEngine::func_02077f20(u8 *data)
 }
 #endif
 
-asm void MatchEngine::func_02077fa0()
+// a random id among those of the kind (rows 0-9 of data_020a71f0) for the level, lowering the
+// kind while none is free (down to 1): 0xB when there is none
+// (nonmatching: the table pointer and the row offset swap registers (r3/r4))
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+u16 MatchEngine::func_02077fa0(int level)
+{
+    u8 (*table)[3];
+    u16 ids[32];
+    int kind;
+    int i;
+    int count;
+    int j;
+    int n;
+    int m;
+    int r;
+    u8 *entry;
+    u8 *used;
+    int k;
+
+    if (level < 1 || level > 100) {
+        return 0xB;
+    }
+    kind = -1;
+    for (i = 0, table = data_020a71f0; i < 10; i++) {
+        if (table[i][1] <= level && table[i][2] >= level) {
+            kind = table[i][0];
+            break;
+        }
+    }
+    if (kind == -1) {
+        return 0xB;
+    }
+    for (;;) {
+        MI_CpuFill8(ids, 0, sizeof(ids));
+        count = 0;
+        for (j = 0; j < 0x400; j++) {
+            entry = func_020768fc(j);
+            if (entry[0x2c] == kind) {
+                ids[count] = j;
+                count++;
+            }
+        }
+        n = count;
+        used = data_020ca78c;
+        for (k = 0; k < n; k++) {
+            if (used[ids[k]] == 0 && !func_020782f0(ids[k], TRUE) && !func_02078394(ids[k])) {
+                ids[k] = 0;
+                count--;
+            }
+        }
+        if (count >= 1) {
+            break;
+        }
+        if (kind <= 1) {
+            return 0xB;
+        }
+        kind--;
+    }
+    r = rand() % count;
+    for (m = 0; m < 32; m++) {
+        if (ids[m] != 0) {
+            if (r == 0) {
+                return ids[m];
+            }
+            r--;
+        }
+    }
+    return 0xB;
+}
+#pragma pop
+#else
+asm u16 MatchEngine::func_02077fa0(int level)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x40
@@ -8981,8 +9054,82 @@ asm void MatchEngine::func_02077fa0()
     add sp, sp, #0x40
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
-asm void MatchEngine::func_02078148()
+// a random id among those of the kind (rows 10-19 of data_020a71f0) for the level, lowering the
+// kind while none is free (down to 101): 0x15 when there is none
+// (nonmatching: the table pointer and the row offset swap registers (r3/r4))
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+u16 MatchEngine::func_02078148(int level)
+{
+    u8 (*table)[3];
+    u16 ids[32];
+    int kind;
+    int i;
+    int count;
+    int j;
+    int n;
+    int m;
+    int r;
+    u8 *entry;
+    u8 *used;
+    int k;
+
+    if (level < 1 || level > 100) {
+        return 0x15;
+    }
+    kind = -1;
+    for (i = 10, table = data_020a71f0; i < 20; i++) {
+        if (table[i][1] <= level && table[i][2] >= level) {
+            kind = table[i][0];
+            break;
+        }
+    }
+    if (kind == -1) {
+        return 0x15;
+    }
+    for (;;) {
+        MI_CpuFill8(ids, 0, sizeof(ids));
+        count = 0;
+        for (j = 0; j < 0x400; j++) {
+            entry = func_020768fc(j);
+            if (entry[0x2c] == kind) {
+                ids[count] = j;
+                count++;
+            }
+        }
+        n = count;
+        used = data_020ca78c;
+        for (k = 0; k < n; k++) {
+            if (used[ids[k]] == 0 && !func_020782f0(ids[k], TRUE) && !func_02078394(ids[k])) {
+                ids[k] = 0;
+                count--;
+            }
+        }
+        if (count >= 1) {
+            break;
+        }
+        if (kind <= 101) {
+            return 0x15;
+        }
+        kind--;
+    }
+    r = rand() % count;
+    for (m = 0; m < 32; m++) {
+        if (ids[m] != 0) {
+            if (r == 0) {
+                return ids[m];
+            }
+            r--;
+        }
+    }
+    return 0x15;
+}
+#pragma pop
+#else
+asm u16 MatchEngine::func_02078148(int level)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x40
@@ -9105,6 +9252,7 @@ asm void MatchEngine::func_02078148()
     add sp, sp, #0x40
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (whether a player outside 0x10-0x20 holds the value of entry id, a kind 0xF one)
 BOOL MatchEngine::func_020782f0(u32 id, BOOL last)
