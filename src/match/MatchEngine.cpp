@@ -18,6 +18,8 @@ extern "C" u8 data_020cabf8[];
 #include "save/SaveManager.hpp"
 #include "data/EntryPool.hpp"
 #include "data/ConfigFile.hpp"
+#include "nitro/math.h"
+
 struct UnkLimits_0206e858 {
     s32 limits[2];
 };
@@ -90,7 +92,7 @@ struct UnkEntry_0206e50c {
 
 extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
-extern "C" void func_02083e24(void);     // (for the asm functions)
+extern "C" int func_02083e24(int team);
 extern "C" BOOL func_02083e54(MatchPlayer *player);
 extern "C" fx32 *func_02083e7c(int side);     // (the side's area: x0, y0, x1, y1)
 extern "C" void func_02083e94(void);     // (for the asm functions)
@@ -5817,7 +5819,38 @@ BOOL MatchEngine::func_02067104(fx32 x, fx32 y, fx32 targetX, fx32 targetY, fx32
     return TRUE;
 }
 
-asm void MatchEngine::func_020671e4()
+// whether spot a scores better than spot b for team, around body: 100000, less 10000 when
+// func_01ffecec says so of the spot, less 10 per unk_10, 2 per unk_12 and 2 per tile from the
+// field's unk_d4 line, plus 4 per tile of unk_c and 10 per tile from func_0206707c's line
+// (nonmatching: the scores and the parameters take other registers (an inline score helper gets them, but then a's call comes before b's arithmetic))
+#ifdef NONMATCHING
+BOOL MatchEngine::func_020671e4(int team, UnkSpot_020671e4 *a, UnkSpot_020671e4 *b, MatchPlayerBody *body)
+{
+    int sa = 100000;
+    int sb = 100000;
+
+    if (func_02068590(func_02083e24(team), (int)body)) {
+        if (func_01ffecec(this, a->y, body->pos.y, team)) {
+            sa -= 10000;
+        }
+        if (func_01ffecec(this, b->y, body->pos.y, team)) {
+            sb -= 10000;
+        }
+    }
+    sa -= a->unk_10 * 10;
+    sb -= b->unk_10 * 10;
+    sa -= a->unk_12 * 2;
+    sb -= b->unk_12 * 2;
+    sa += a->unk_c / FX32_ONE * 4;
+    sb += b->unk_c / FX32_ONE * 4;
+    sa -= MATH_ABS(a->x - data_020c4de0.unk_d4) / FX32_ONE * 2;
+    sb -= MATH_ABS(b->x - data_020c4de0.unk_d4) / FX32_ONE * 2;
+    sa += MATH_ABS(a->y - func_0206707c(team, 0)) / FX32_ONE * 10;
+    sb += MATH_ABS(b->y - func_0206707c(team, 0)) / FX32_ONE * 10;
+    return sa > sb;
+}
+#else
+asm BOOL MatchEngine::func_020671e4(int team, UnkSpot_020671e4 *a, UnkSpot_020671e4 *b, MatchPlayerBody *body)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     ldr r4, =0x186a0
@@ -5948,6 +5981,7 @@ asm void MatchEngine::func_020671e4()
     movle r0, #0
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
+#endif
 
 void MatchEngine::func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *pos)
 {

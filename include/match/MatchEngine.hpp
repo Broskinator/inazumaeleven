@@ -138,6 +138,16 @@ struct UnkRecord_0206eb34 {
     u8 unk_4c8[4];
 };
 
+// A place a player could go to, with what its score is made of (func_020671e4 compares two)
+struct UnkSpot_020671e4 {
+    fx32 x;
+    fx32 y;
+    u8 unk_8[4];
+    fx32 unk_c;
+    s16 unk_10;
+    s16 unk_12;
+};
+
 // A player's data kept by MatchEngine::func_0207a5c0 (unk_bf0)
 struct MatchPlayerCache {
     u8 unk_0[0x42];
@@ -222,7 +232,7 @@ public:
     fx32 func_0206707c(int a, int b);
     void func_020670ec(fx32 *pos, fx32 margin);     // (clamps pos into the field, margin inside its edges)
     BOOL func_02067104(fx32 x, fx32 y, fx32 targetX, fx32 targetY, fx32 radius, MatchPoint *pos);
-    void func_020671e4();
+    BOOL func_020671e4(int team, UnkSpot_020671e4 *a, UnkSpot_020671e4 *b, MatchPlayerBody *body);
     void func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_02067448(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_020674f8();
