@@ -118,7 +118,7 @@ extern "C" void func_020844dc(void);     // (for the asm functions)
 extern "C" BOOL func_020845e0(u16 angle, u16 from, u16 to, BOOL inside, u8 edges);
 extern "C" BOOL func_02084788(MatchPoint *point);
 extern "C" void func_02084900(fx32 *x, fx32 *y, fx32 *rect, fx32 margin);
-extern "C" void func_0208363c(void);     // (for the asm functions)
+extern "C" void func_0208363c(fx32 *segment, fx32 length);
 extern "C" int func_02081f28(u8 *data, int i);
 extern "C" BOOL func_02081f50(u8 *data, int i);
 extern "C" BOOL func_02081894(u8 *bits, int i);
@@ -489,7 +489,7 @@ extern "C" void func_01ffec94(void);
 extern "C" BOOL func_01ffed20(MatchEngine *self, MatchPlayer *player, fx32 y);
 extern "C" u32 Random_RandB(u32 max);
 extern "C" void func_ov015_02140f2c(void);
-extern "C" void func_ov015_02142824(void);
+extern "C" int func_ov015_02142824(MatchEngine *self, MatchPlayer *player);
 extern "C" int func_ov087_0217cf1c(MatchEngine *engine, int team, MatchPoint pos, int *out, int n, int team2);
 extern "C" void func_ov087_0217d034(MatchEngine *self, int team, fx32 x, fx32 y, fx32 *dist, int a, int team2);
 extern "C" void func_ov087_0217e878(void);
@@ -505,12 +505,12 @@ extern "C" void func_ov087_021774bc(MatchEngine *self, fx32 x, fx32 y, fx32 rang
 extern "C" void func_ov087_0217877c(void);
 extern "C" void func_ov087_0217d29c(void);
 extern "C" fx32 data_020aeb64[];
-extern "C" char data_020fa1a5[];
+extern "C" u8 data_020fa1a5[];
 extern "C" void func_ov015_0213fde4(MatchEngine *self, MatchBall *ball, int team, int a, MatchPoint *out);
 extern "C" BOOL func_ov015_0214079c(MatchEngine *self, fx32 x, fx32 y, int a, int kind, MatchBall *ball, int b);
 extern "C" fx32 func_ov015_02140e74(MatchEngine *engine, int a, int b);
 extern "C" fx32 func_ov015_02142850(MatchEngine *self);
-extern "C" void func_ov087_02179c8c(void);
+extern "C" BOOL func_ov087_02179c8c(MatchEngine *self, fx32 x, fx32 y, int side);
 extern "C" char data_020aedc8[];
 extern "C" char data_020af178[];
 extern ConfigFile gConfig;
@@ -6658,130 +6658,51 @@ asm void MatchEngine::func_020681d8(MatchPoint *from, int angle, fx32 distance, 
 }
 #endif
 
-asm void MatchEngine::func_02068248()
+// (can player pass from (x0, y0) to (x1, y1)? not when func_01ffecec says so of y1; always with
+// direct; else the path, lengthened by twice func_ov015_02142824, must cross player's side's line
+// (func_0206707c, the field's width and 4 more on both ends) where func_02068434 and
+// func_01ffe4c4 allow it)
+BOOL MatchEngine::func_02068248(MatchPlayer *player, fx32 x0, fx32 y0, fx32 x1, fx32 y1, BOOL direct)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
-    sub sp, sp, #0x2c
-    mov r7, r1
-    mov r8, r0
-    mov r0, r7
-    mov r6, r2
-    mov r5, r3
-    mov r4, #0
-    bl func_02083e34
-    mov r1, r0
-    mov r0, r8
-    bl _ZN11MatchEngine13func_0206de54Ei
-    cmp r0, #0
-    addeq sp, sp, #0x2c
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    ldr r0, [r7, #0xe8]
-    ldrh r0, [r0, #0x16]
-    tst r0, #0x1000
-    movne r0, #1
-    moveq r0, r4
-    cmp r0, #0
-    addne sp, sp, #0x2c
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r7
-    bl func_ov015_02131970
-    mov r3, r0
-    ldr r1, [sp, #0x4c]
-    mov r0, r8
-    mov r2, r5
-    bl func_01ffecec
-    cmp r0, #0
-    addne sp, sp, #0x2c
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    ldr r0, [sp, #0x50]
-    cmp r0, #0
-    addne sp, sp, #0x2c
-    movne r0, #1
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    ldr r1, =data_020c4de0
-    mov r0, r7
-    ldr r2, [r1, #0xec]
-    sub r2, r2, #0x4000
-    str r2, [sp, #0x1c]
-    ldr r1, [r1, #0xf4]
-    add r1, r1, #0x4000
-    str r1, [sp, #0x24]
-    bl func_02083e34
-    mov r1, r0
-    mov r0, r8
-    mov r2, r4
-    bl _ZN11MatchEngine13func_0206707cEii
-    ldr r1, [sp, #0x48]
-    str r0, [sp, #0x20]
-    str r1, [sp, #0x14]
-    ldr r1, [sp, #0x4c]
-    str r0, [sp, #0x28]
-    str r1, [sp, #0x18]
-    mov r0, r8
-    mov r1, r7
-    str r6, [sp, #0xc]
-    str r5, [sp, #0x10]
-    bl func_ov015_02142824
-    add r9, sp, #0xc
-    mov r1, r0, lsl #1
-    mov r0, r9
-    bl func_0208363c
-    mov r0, r7
-    bl func_02083e34
-    mov r3, r0
-    ldr r1, [sp, #0x48]
-    ldr r2, [sp, #0x4c]
-    mov r0, r8
-    bl func_ov087_02179c8c
-    cmp r0, #0
-    addeq sp, sp, #0x2c
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    add r1, sp, #0x1c
-    add r2, sp, #4
-    mov r0, r9
-    bl func_02083afc
-    cmp r0, #0
-    addeq sp, sp, #0x2c
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
-    ldr r0, [sp, #0x50]
-    cmp r0, #0
-    bne @L_020683d8
-    mov r0, r8
-    mov r1, r7
-    mov r2, r6
-    mov r3, r5
-    bl _ZN11MatchEngine13func_02068434EP11MatchPlayerll
-    cmp r0, #0
-    addeq sp, sp, #0x2c
-    moveq r0, r4
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
-@L_020683d8:
-    ldr r1, =0x20011
-    mov r0, r8
-    str r1, [sp]
-    ldr r2, [sp, #4]
-    ldr r3, [sp, #8]
-    mov r1, r7
-    bl func_01ffe4c4
-    cmp r0, #0
-    beq @L_0206841c
-    mov r0, r7
-    bl func_02080b90
-    ldr r1, =data_020fa1a5
-    ldrb r0, [r1, r0]
-    cmp r0, #0
-    addeq sp, sp, #0x2c
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, pc}
-@L_0206841c:
-    mov r0, #1
-    add sp, sp, #0x2c
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
+    MatchPoint hit;
+    fx32 line[4];
+    fx32 segment[4];
+
+    if (!func_0206de54(func_02083e34(player))) {
+        return FALSE;
+    }
+    if (MatchPlayerBody_HasFlag(player, 0x1000)) {
+        return FALSE;
+    }
+    if (func_01ffecec(this, y1, y0, func_ov015_02131970(player))) {
+        return FALSE;
+    }
+    if (direct) {
+        return TRUE;
+    }
+    line[0] = data_020c4de0.unk_ec[0] - 4 * FX32_ONE;
+    line[2] = data_020c4de0.unk_ec[2] + 4 * FX32_ONE;
+    fx32 y = func_0206707c(func_02083e34(player), 0);
+    line[1] = y;
+    line[3] = y;
+    segment[0] = x0;
+    segment[1] = y0;
+    segment[2] = x1;
+    segment[3] = y1;
+    func_0208363c(segment, func_ov015_02142824(this, player) * 2);
+    if (!func_ov087_02179c8c(this, x1, y1, func_02083e34(player))) {
+        return FALSE;
+    }
+    if (!func_02083afc(segment, line, (int)&hit)) {
+        return FALSE;
+    }
+    if (!direct && !func_02068434(player, x0, y0)) {
+        return FALSE;
+    }
+    if (func_01ffe4c4(this, player, hit.x, hit.y, 0x20011) && data_020fa1a5[func_02080b90(player)] == 0) {
+        return FALSE;
+    }
+    return TRUE;
 }
 
 // (nonmatching: the ROM keeps dead stores of a 4-word segment (sp+4..0x10: x-0x4000, line, x+0x4000, line) that MWCC drops; only volatile keeps them)

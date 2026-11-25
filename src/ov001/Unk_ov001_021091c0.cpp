@@ -65,7 +65,7 @@ extern "C" char data_ov001_02130678[];
 extern "C" char data_ov001_02130694[];
 extern "C" char data_ov001_02130694_b[];
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" void _ZN11MatchEngine13func_02068248Ev(void);
+extern "C" void _ZN11MatchEngine13func_02068248EP11MatchPlayerlllli(void);
 extern "C" void _ZN11MatchEngine13func_0206c7d8Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_020725acEv(...);
 extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);
@@ -861,7 +861,7 @@ extern "C" asm void func_ov001_02109c70(void)
     ldr r2, [r1, #0x20]
     ldr r3, [r1, #0x24]
     mov r1, r7
-    bl _ZN11MatchEngine13func_02068248Ev
+    bl _ZN11MatchEngine13func_02068248EP11MatchPlayerlllli
     cmp r0, #0
     beq @L_02109d90
 @L_02109d38:

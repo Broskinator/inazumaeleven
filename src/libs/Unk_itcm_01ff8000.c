@@ -396,7 +396,7 @@ void _ZN11MatchEngine13func_0206de54Ei(void);
 void _ZN11MatchEngine13func_0206c148Ev(void);
 void func_ov015_02142824(void);
 void _ZN11MatchEngine13func_0206c064Ei(void);
-void _ZN11MatchEngine13func_02068248Ev(void);
+void _ZN11MatchEngine13func_02068248EP11MatchPlayerlllli(void);
 extern char data_020af140[];
 extern char data_020af15c[];
 void _ZN11MatchEngine13func_02074ac8EPh(void);
@@ -7836,7 +7836,7 @@ asm void func_01ffe898(void)
     ldr r3, [sp, #0x14]
     mov r0, r10
     stmia sp, {r5, r6, r9}
-    bl _ZN11MatchEngine13func_02068248Ev
+    bl _ZN11MatchEngine13func_02068248EP11MatchPlayerlllli
     cmp r0, #0
     beq @L_01ffec2c
 @L_01ffeae4:

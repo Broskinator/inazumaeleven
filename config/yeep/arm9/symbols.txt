@@ -2713,7 +2713,7 @@ _ZN11MatchEngine13func_02068028EP11MatchPlayerP10MatchPointil kind:function(arm,
 _ZN11MatchEngine13func_0206811cEPt kind:function(arm,size=0x40) addr:0x0206811c
 _ZN11MatchEngine13func_0206815cEP10MatchPointS1_S1_l kind:function(arm,size=0x7c) addr:0x0206815c
 _ZN11MatchEngine13func_020681d8EP10MatchPointilS1_ kind:function(arm,size=0x70) addr:0x020681d8
-_ZN11MatchEngine13func_02068248Ev kind:function(arm,size=0x1ec) addr:0x02068248
+_ZN11MatchEngine13func_02068248EP11MatchPlayerlllli kind:function(arm,size=0x1ec) addr:0x02068248
 _ZN11MatchEngine13func_02068434EP11MatchPlayerll kind:function(arm,size=0xbc) addr:0x02068434
 _ZN11MatchEngine13func_020684f0Eiii kind:function(arm,size=0x58) addr:0x020684f0
 _ZN11MatchEngine13func_02068548Eii kind:function(arm,size=0x18) addr:0x02068548
