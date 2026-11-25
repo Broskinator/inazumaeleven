@@ -244,7 +244,8 @@ def check(code, fn, write=False, tag="hand", src=None, nm=None):
     tmp = f"{ROOT}/build/tmp/" + os.path.basename(src).replace(".cpp", f"_diff{tag}_{os.getpid()}.cpp")
     save(tmp, tt)
     r = subprocess.run([sys.executable, "tools/fncmp.py", tmp, fn, "-d"], cwd=ROOT, capture_output=True, text=True)
-    os.remove(tmp)
+    if not os.environ.get("HAND_KEEP"):  # (HAND_KEEP=1 keeps it, to read a compile error)
+        os.remove(tmp)
     m = re.search(r"^\S*%s\S*: (?:OK|(\d+) words differ) \((\d+) bytes\)" % fn, r.stdout, re.M)
     if not m:
         return None, (r.stdout + r.stderr)[-4000:]

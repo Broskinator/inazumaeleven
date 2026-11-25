@@ -17,6 +17,7 @@ extern "C" u8 data_020cabf8[];
 #include "game/TreasureBox.hpp"
 #include "save/SaveManager.hpp"
 #include "data/EntryPool.hpp"
+#include "data/ConfigFile.hpp"
 struct UnkLimits_0206e858 {
     s32 limits[2];
 };
@@ -498,7 +499,7 @@ extern "C" fx32 func_ov015_02142850(MatchEngine *self);
 extern "C" void func_ov087_02179c8c(void);
 extern "C" char data_020aedc8[];
 extern "C" char data_020af178[];
-extern "C" char gConfig[];
+extern ConfigFile gConfig;
 extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void func_01fff06c(void);
 extern "C" void memcpy(void);
@@ -9381,118 +9382,78 @@ void MatchEngine::func_0206aa54()
     func_0206ac44();
 }
 
-asm void MatchEngine::func_0206aa6c()
+// sets unk_c78 (at most unk_c70): cut back to before a state that went back to the latest one's
+// unk_2, unk_3 or unk_7 after leaving it, then past the states func_0206a77c accepts
+void MatchEngine::func_0206aa6c(int phase, int count, BOOL flag)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r7, #0
-    mov r10, r0
-    mov r6, r1
-    ldr r0, =gConfig
-    ldr r1, =data_020af178
-    mov r5, r2
-    mov r4, r3
-    mov r11, r7
-    mov r8, r7
-    bl _ZN10ConfigFile6GetIntEPKc
-    cmp r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206ace8Ev
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    cmp r4, #0
-    str r5, [r10, #0xc78]
-    addne r1, r10, #0x11000
-    movne r0, #1
-    strneb r0, [r1, #0x89a]
-    ldr r2, [r10, #0xc70]
-    ldr r1, [r10, #0xc78]
-    add r0, r10, #0x11000
-    mov r3, #0
-    cmp r1, r2
-    strb r3, [r0, #0x89b]
-    str r6, [r10, #0xba0]
-    strgt r2, [r10, #0xc78]
-    bl func_ov015_021317c8
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r10
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206a748Ei
-    ldr r1, [r10, #0xc78]
-    ldrsb r5, [r0, #2]
-    cmp r1, #1
-    ldrsb r6, [r0, #3]
-    ldrsb r9, [r0, #7]
-    mov r4, #1
-    ble @L_0206ab9c
-@L_0206ab18:
-    mov r0, r10
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0206a748Ei
-    cmp r7, #0
-    ldrsb r1, [r0, #2]
-    beq @L_0206ab44
-    cmp r1, r5
-    bne @L_0206ab4c
-@L_0206ab38:
-    sub r0, r4, #1
-    str r0, [r10, #0xc78]
-    b @L_0206ab9c
-@L_0206ab44:
-    cmp r1, r5
-    movne r7, #1
-@L_0206ab4c:
-    cmp r11, #0
-    ldrsb r1, [r0, #3]
-    beq @L_0206ab64
-    cmp r1, r6
-    bne @L_0206ab6c
-    b @L_0206ab38
-@L_0206ab64:
-    cmp r1, r6
-    movne r11, #1
-@L_0206ab6c:
-    cmp r8, #0
-    ldrsb r0, [r0, #7]
-    beq @L_0206ab84
-    cmp r0, r9
-    bne @L_0206ab8c
-    b @L_0206ab38
-@L_0206ab84:
-    cmp r0, r9
-    movne r8, #1
-@L_0206ab8c:
-    ldr r0, [r10, #0xc78]
-    add r4, r4, #1
-    cmp r4, r0
-    blt @L_0206ab18
-@L_0206ab9c:
-    ldr r1, [r10, #0xc78]
-    cmp r1, #0
-    ble @L_0206abe0
-    add r4, r10, #0x78
-@L_0206abac:
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206a748Ei
-    movs r1, r0
-    beq @L_0206abcc
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206a77cEP10MatchState
-    cmp r0, #0
-    beq @L_0206abe0
-@L_0206abcc:
-    ldr r0, [r4, #0xc00]
-    sub r1, r0, #1
-    str r1, [r4, #0xc00]
-    cmp r1, #0
-    bgt @L_0206abac
-@L_0206abe0:
-    ldr r0, [r10, #0xc78]
-    cmp r0, #0x59
-    addlt r0, r0, #1
-    strlt r0, [r10, #0xc78]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchState *state;
+    int i;
+    s8 a;
+    s8 b;
+    BOOL changedA = FALSE;
+    BOOL changedB = FALSE;
+    BOOL changedC = FALSE;
+    s8 c;
+
+    if (!gConfig.GetInt(data_020af178)) {
+        return;
+    }
+    if (func_0206ace8()) {
+        return;
+    }
+    unk_c78 = count;
+    unk_ba0 = phase;
+    if (flag) {
+        unk_1189a = 1;
+    }
+    unk_1189b = 0;
+    if (unk_c78 > unk_c70) {
+        unk_c78 = unk_c70;
+    }
+    if (func_ov015_021317c8()) {
+        return;
+    }
+    state = func_0206a748(0);
+    a = state->unk_2;
+    b = state->unk_3;
+    c = state->unk_7;
+    for (i = 1; i < unk_c78; i++) {
+        state = func_0206a748(i);
+        if (changedA) {
+            if (state->unk_2 == a) {
+                unk_c78 = i - 1;
+                break;
+            }
+        } else if (state->unk_2 != a) {
+            changedA = TRUE;
+        }
+        if (changedB) {
+            if (state->unk_3 == b) {
+                unk_c78 = i - 1;
+                break;
+            }
+        } else if (state->unk_3 != b) {
+            changedB = TRUE;
+        }
+        if (changedC) {
+            if (state->unk_7 == c) {
+                unk_c78 = i - 1;
+                break;
+            }
+        } else if (state->unk_7 != c) {
+            changedC = TRUE;
+        }
+    }
+    while (unk_c78 > 0) {
+        state = func_0206a748(unk_c78);
+        if (state != NULL && !func_0206a77c(state)) {
+            break;
+        }
+        unk_c78--;
+    }
+    if (unk_c78 < 0x59) {
+        unk_c78++;
+    }
 }
 
 int MatchEngine::func_0206abfc(MatchState *state)

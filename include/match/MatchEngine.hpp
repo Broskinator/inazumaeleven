@@ -107,9 +107,10 @@ struct MatchState {
     u8 unk_0;
     u8 unk_1;
     s8 unk_2;           // (the current record of MatchEngine::unk_116a4)
-    u8 unk_3;
+    s8 unk_3;
     u8 flags;
-    u8 unk_5[3];
+    u8 unk_5[2];
+    s8 unk_7;
 };
 
 // (what func_ov015_02143750 gives)
@@ -251,7 +252,7 @@ public:
     u8 *func_0206a9d0(int team, BOOL convert);
     u8 *func_0206aa30(int a);
     void func_0206aa54();
-    void func_0206aa6c();
+    void func_0206aa6c(int phase, int count, BOOL flag);
     int func_0206abfc(MatchState *state);
     void func_0206ac44();
     BOOL func_0206ace8();
