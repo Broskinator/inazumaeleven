@@ -404,7 +404,7 @@ extern "C" void func_ov015_02144420(void);
 extern "C" void func_ov015_02144458(void);
 extern "C" void func_ov087_02177634(void);
 extern "C" void func_ov087_02177f28(void);
-extern "C" void func_ov087_0217b3c8(void);
+extern "C" void func_ov087_0217b3c8(MatchEngine *self, MatchPlayer *player, MatchBall *ball, u8 a, u8 b);
 
 MatchEngine *MatchEngine::func_020621b4()
 {
@@ -1545,113 +1545,39 @@ void MatchEngine::func_020630fc()
     }
 }
 
-asm void MatchEngine::func_0206313c()
+// (each step: the players' actions when func_0206c644 allows, the ball's holder, the field's
+// points, then unk_c70 when func_0206c80c and func_ov015_021317c8 both say no)
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_0206313c()
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0xc
-    mov r10, r0
-    mov r6, #0
-    bl _ZN11MatchEngine13func_0206c644Ev
-    cmp r0, #0
-    bne @L_020631f4
-    mov r7, #1
-    mov r8, r6
-    mov r5, #2
-    mvn r4, #0
-    mov r11, r7
-    b @L_020631ec
-@L_02063170:
-    mov r0, r8
-    bl func_ov015_02130ae8
-    movs r9, r0
-    beq @L_020631e8
-    ldrh r0, [r9, #0xf0]
-    tst r0, #8
-    movne r0, r7
-    moveq r0, r6
-    cmp r0, #0
-    beq @L_020631e8
-    mov r0, r9
-    bl func_02084870
-    cmp r0, #0
-    bne @L_020631e8
-    ldr r0, [r9, #0xec]
-    ldrh r0, [r0, #0x1c]
-    cmp r0, #2
-    beq @L_020631d8
-    str r6, [sp]
-    str r6, [sp, #4]
-    mov r0, r10
-    mov r1, r9
-    mov r2, r5
-    mov r3, r4
-    str r6, [sp, #8]
-    bl _ZN11MatchEngine13func_020654ccEP11MatchPlayeriiP10MatchPointS3_i
-@L_020631d8:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r11
-    bl func_ov087_0217d0ac
-@L_020631e8:
-    add r8, r8, #1
-@L_020631ec:
-    cmp r8, #0x20
-    blt @L_02063170
-@L_020631f4:
-    ldr r4, =data_020c4920
-    ldr r0, [r4, #0x4c]
-    bl func_ov015_02130ae8
-    movs r5, r0
-    beq @L_02063234
-    mov r0, r4
-    bl func_02084788
-    cmp r0, #0
-    bne @L_02063234
-    ldrb r2, [r4, #0x5c]
-    mov r0, r10
-    mov r1, r5
-    str r2, [sp]
-    ldrb r3, [r4, #0x56]
-    mov r2, r4
-    bl func_ov087_0217b3c8
-@L_02063234:
-    mov r5, #0
-    add r4, r10, #0x9c
-    b @L_0206324c
-@L_02063240:
-    add r0, r4, r5, lsl #3
-    bl func_020841d8
-    add r5, r5, #1
-@L_0206324c:
-    cmp r5, #2
-    blt @L_02063240
-    mov r4, #0
-    b @L_02063270
-@L_0206325c:
-    mov r0, r10
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0206c018Ei
-    bl func_020841d8
-    add r4, r4, #1
-@L_02063270:
-    cmp r4, #5
-    blt @L_0206325c
-    ldr r1, =data_020c4920
-    mov r0, r10
-    ldrb r1, [r1, #0x5c]
-    bl _ZN11MatchEngine13func_0206c80cEi
-    cmp r0, #0
-    bne @L_020632a0
-    bl func_ov015_021317c8
-    cmp r0, #0
-    moveq r0, #1
-    streq r0, [r10, #0xc70]
-@L_020632a0:
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206c834Ev
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    if (!func_0206c644()) {
+        for (int i = 0; i < 0x20; i++) {
+            MatchPlayer *player = func_ov015_02130ae8(i);
+            if (player != NULL && MatchPlayer_HasFlag(player, 8) && !func_02084870(player)) {
+                if (player->state->unk_1c != 2) {
+                    func_020654cc(player, 2, -1, NULL, NULL, 0);
+                }
+                func_ov087_0217d0ac(this, player, 1);
+            }
+        }
+    }
+    MatchPlayer *holder = func_ov015_02130ae8(data_020c4920.unk_4c);
+    if (holder != NULL && !func_02084788((MatchPoint *)&data_020c4920)) {
+        func_ov087_0217b3c8(this, holder, &data_020c4920, data_020c4920.unk_56, data_020c4920.unk_5c);
+    }
+    for (int i = 0; i < 2; i++) {
+        func_020841d8((MatchPoint *)unk_9c[i]);
+    }
+    for (int i = 0; i < 5; i++) {
+        func_020841d8((MatchPoint *)func_0206c018(i));
+    }
+    if (!func_0206c80c(data_020c4920.unk_5c) && !func_ov015_021317c8()) {
+        unk_c70 = 1;
+    }
+    func_0206c834();
 }
+#pragma pop
 
 // (nonmatching: register allocation differs)
 #ifdef NONMATCHING
