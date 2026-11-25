@@ -67,7 +67,7 @@ extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine13func_0206dfa4Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
-extern "C" void _ZN11MatchEngine13func_0207b28cEv(void);
+extern "C" void _ZN11MatchEngine13func_0207b28cEiiih(void);
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207bdf8Eii(void);
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);
@@ -2664,7 +2664,7 @@ extern "C" asm void func_ov028_0216b4c8(void)
 @L_0216b540:
     str r11, [sp]
 @L_0216b544:
-    bl _ZN11MatchEngine13func_0207b28cEv
+    bl _ZN11MatchEngine13func_0207b28cEiiih
     add r9, r9, #1
 @L_0216b54c:
     add r8, r8, #1
@@ -2702,7 +2702,7 @@ extern "C" asm void func_ov028_0216b4c8(void)
     ldr r0, =data_020e88a0
     mov r1, r7
     mov r3, r6
-    bl _ZN11MatchEngine13func_0207b28cEv
+    bl _ZN11MatchEngine13func_0207b28cEiiih
     add r9, r9, #1
     cmp r9, #0x10
     ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}

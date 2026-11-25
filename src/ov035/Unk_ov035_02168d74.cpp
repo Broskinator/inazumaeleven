@@ -50,7 +50,7 @@ extern "C" void _ZN11MatchEngine13func_02076858Ev(void);
 extern "C" void _ZN11MatchEngine13func_02076868El(void);
 extern "C" void _ZN11MatchEngine13func_020777e4EP11MatchPlayermmh(void);
 extern "C" void _ZN11MatchEngine13func_02078ea8Ei(void);
-extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
+extern "C" void _ZN11MatchEngine13func_0207b00cEitihih(void);
 extern "C" void _ZN11MatchEngine13func_0207bfd0Eiii(void);
 extern "C" void _ZN11MatchEngine13func_02082d80Eii(void);
 extern "C" void _ZN8TextFont8DrawTextEPKcPviiiiiP12TextCharRectiii(void);
@@ -1158,7 +1158,7 @@ extern "C" asm s32 func_ov035_02169c10(...)
     and r2, r12, r2
     mov r2, r2, lsl #0x10
     mov r2, r2, lsr #0x10
-    bl _ZN11MatchEngine13func_0207b00cEv
+    bl _ZN11MatchEngine13func_0207b00cEitihih
     cmp r0, #0
     mla r0, r9, r4, r10
     strneh r5, [r0, #0xc4]

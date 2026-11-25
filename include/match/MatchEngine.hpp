@@ -696,9 +696,9 @@ public:
     BOOL func_0207aec4(int team, u32 id);
     BOOL func_0207aedc(int team, int id);
     BOOL func_0207af84(int team, int id);
-    void func_0207b00c();
+    int func_0207b00c(int team, u16 id, BOOL flag, u8 a, int b, u8 c);
     u8 func_0207b160(int team);
-    void func_0207b28c();
+    int func_0207b28c(int team, int index, BOOL flag, u8 a);
     int func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int c);
     void func_0207b780();
     void func_0207bb9c();

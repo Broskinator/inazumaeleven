@@ -56,8 +56,8 @@ extern "C" void _ZN11MatchEngine13func_0206dcdcEP8SaveBody(void);
 extern "C" void _ZN11MatchEngine13func_02078844EiPtih(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);
-extern "C" void _ZN11MatchEngine13func_0207b00cEv(void);
-extern "C" void _ZN11MatchEngine13func_0207b28cEv(void);
+extern "C" void _ZN11MatchEngine13func_0207b00cEitihih(void);
+extern "C" void _ZN11MatchEngine13func_0207b28cEiiih(void);
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0207bfd0Eiii(void);
@@ -383,7 +383,7 @@ extern "C" asm void func_ov003_021124c0(void)
     str r1, [sp, #8]
     ldr r1, [r10, #0x638]
     ldr r3, [r10, #0x994]
-    bl _ZN11MatchEngine13func_0207b00cEv
+    bl _ZN11MatchEngine13func_0207b00cEitihih
     cmp r0, #0
     beq @L_021128d8
     bl OS_Terminate
@@ -403,7 +403,7 @@ extern "C" asm void func_ov003_021124c0(void)
     str r0, [sp]
     ldr r3, [r10, #0x99c]
     mov r0, r11
-    bl _ZN11MatchEngine13func_0207b28cEv
+    bl _ZN11MatchEngine13func_0207b28cEiiih
     ldr r0, [r10, #0x98c]
     cmp r0, #0
     beq @L_02112a80
@@ -942,7 +942,7 @@ extern "C" asm void func_ov003_02112ec4(void)
     str r6, [sp, #8]
     ldr r1, [r5, #0x638]
     ldr r3, [r5, #0x994]
-    bl _ZN11MatchEngine13func_0207b00cEv
+    bl _ZN11MatchEngine13func_0207b00cEitihih
     cmp r0, #0
     beq @L_02113158
     bl OS_Terminate
@@ -962,7 +962,7 @@ extern "C" asm void func_ov003_02112ec4(void)
     mov r1, #2
     str r9, [sp]
     ldr r3, [r5, #0x99c]
-    bl _ZN11MatchEngine13func_0207b28cEv
+    bl _ZN11MatchEngine13func_0207b28cEiiih
     add r0, r5, #0x700
     ldrh r0, [r0, #0x72]
     mov r1, r9

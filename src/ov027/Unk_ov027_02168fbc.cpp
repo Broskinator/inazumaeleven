@@ -72,7 +72,7 @@ extern "C" char data_ov027_0216bfb4[];
 extern "C" void MI_CpuCopy8(void);
 extern "C" s32 MI_CpuFill8(...);
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
-extern "C" s32 _ZN11MatchEngine13func_0207b28cEv(...);
+extern "C" s32 _ZN11MatchEngine13func_0207b28cEiiih(...);
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" s32 _ZN11MatchEngine13func_02082f3cEii(...);
@@ -2876,7 +2876,7 @@ extern "C" void func_ov027_0216ba7c(s32 arg0)
         r9 = 0;
         r2 = *(u16 *)(((u8 *)(((r4 * 0x58) + arg0) + 0x500)) + 0xD0);
         if (r2 != 0) {
-            _ZN11MatchEngine13func_0207b28cEv((u8 *)((u8 *)&data_020e88a0), r7, r2, (r4 + 1), r9);
+            _ZN11MatchEngine13func_0207b28cEiiih((u8 *)((u8 *)&data_020e88a0), r7, r2, (r4 + 1), r9);
         }
         r4 = (r4 + 1);
     } while (r4 < 0x10);
