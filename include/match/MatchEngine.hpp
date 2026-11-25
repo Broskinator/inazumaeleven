@@ -113,6 +113,31 @@ struct MatchState {
     s8 unk_7;
 };
 
+// What func_0206eb34 gathers at MatchEngine+0x6B0 (0x4CC bytes)
+struct UnkRecord_0206eb34 {
+    u8 unk_0[0x40][0x10];     // (a copy of unk_bcc)
+    u8 unk_400[2][0x10];      // (unk_15c)
+    u8 unk_420[8];            // (these four from func_0209e174)
+    s32 unk_428[2];           // (unk_c08)
+    s32 unk_430[2];           // (unk_c10)
+    s32 unk_438[2];           // (unk_c18)
+    s32 unk_440;              // (unk_bac)
+    s32 unk_444;              // (unk_118f8)
+    u8 unk_448[2][6];         // (unk_118be)
+    u8 unk_454[2][6];         // (unk_118ca)
+    u8 unk_460[2];
+    u8 unk_462[2];
+    u8 unk_464;               // (gGameState.unk_07c[0xA])
+    u8 unk_465;               // (gGameState.unk_07c[0xB])
+    u8 unk_466[2];
+    struct {
+        u16 id;               // (MatchPlayer::unk_42)
+        s16 x;                // (MatchPlayer::unk_94)
+        s16 y;                // (MatchPlayer::unk_96)
+    } unk_468[16];            // (the players of team 1, in order)
+    u8 unk_4c8[4];
+};
+
 // A player's data kept by MatchEngine::func_0207a5c0 (unk_bf0)
 struct MatchPlayerCache {
     u8 unk_0[0x42];
@@ -821,7 +846,8 @@ public:
     u8 unk_3cc[0x554 - 0x3CC];
     UnkRecord_0206b3fc unk_554;
     UnkRecord_0206b3fc unk_56c;     // (unk_554 as it was, see func_0206b3fc)
-    u8 unk_584[0xB7C - 0x584];
+    u8 unk_584[0x6B0 - 0x584];
+    UnkRecord_0206eb34 unk_6b0;
     s32 unk_b7c;
     MatchPlayerList *unk_b80;     // (an object with a vtable)
     MatchState unk_b84;   // (unk_0: the phase)
@@ -836,7 +862,7 @@ public:
     s32 unk_ba0;        // (a phase, see func_0206ac44)
     s32 unk_ba4;
     s32 unk_ba8;
-    u8 unk_bac[0xBB0 - 0xBAC];
+    s32 unk_bac;
     u16 unk_bb0;
     u8 unk_bb2;
     u8 unk_bb3;
@@ -916,7 +942,8 @@ public:
     s32 unk_118b4;
     u8 unk_118b8[2];
     u8 unk_118ba;
-    u8 unk_118bb[0x118CA - 0x118BB];
+    u8 unk_118bb[0x118BE - 0x118BB];
+    u8 unk_118be[2][6];
     u8 unk_118ca[2][6];     // (per team)
     u8 unk_118d6[0x118DD - 0x118D6];
     u8 unk_118dd;
@@ -926,7 +953,8 @@ public:
     u8 unk_118f2[0x118F4 - 0x118F2];
     u8 unk_118f4;
     u8 unk_118f5;
-    u8 unk_118f6[0x118FC - 0x118F6];
+    u8 unk_118f6[2];
+    s32 unk_118f8;
     s32 unk_118fc;
     s16 unk_11900;
     u8 unk_11902;

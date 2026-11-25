@@ -563,7 +563,7 @@ extern "C" void _ffltu(void);
 extern "C" void _u32_div_f(void);
 extern "C" void _dfixu(void);
 extern "C" void _ddiv(void);
-extern "C" void func_0209e174(void);
+extern "C" void func_0209e174(void *src, void *a, void *b, void *c, void *d);
 extern "C" void func_0209e1c8(void);
 extern "C" int func_ov000_02116e8c(MatchEngine *self, int a);
 extern "C" int func_ov000_02116f2c(MatchEngine *self, int a);
@@ -11742,123 +11742,56 @@ asm BOOL MatchEngine::func_0206d188(int team, BOOL flag)
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm int MatchEngine::func_0206d358(int kind)
+// (the state that follows kind; 15 when func_0206d188 holds for either team)
+int MatchEngine::func_0206d358(int kind)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, lr}
-    mov r5, r1
-    sub r2, r5, #2
-    mov r6, r0
-    cmp r2, #0xc
-    mov r4, #0
-    bhi @L_0206d384
-    ldr r0, =0x1249
-    mov r1, #1
-    tst r0, r1, lsl r2
-    movne r4, r1
-@L_0206d384:
-    mov r7, #0
-    mov r0, r6
-    mov r1, r7
-    mov r2, r7
-    bl _ZN11MatchEngine13func_0206d188Eii
-    cmp r0, #0
-    bne @L_0206d3b8
-    mov r0, r6
-    mov r2, r7
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206d188Eii
-    cmp r0, #0
-    beq @L_0206d3c0
-@L_0206d3b8:
-    mov r0, #0xf
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d3c0:
-    cmp r5, #0xf
-    addls pc, pc, r5, lsl #2
-    b @L_0206d4e0
-    b @L_0206d40c
-    b @L_0206d414
-    b @L_0206d414
-    b @L_0206d40c
-    b @L_0206d428
-    b @L_0206d428
-    b @L_0206d40c
-    b @L_0206d470
-    b @L_0206d470
-    b @L_0206d40c
-    b @L_0206d484
-    b @L_0206d484
-    b @L_0206d40c
-    b @L_0206d4d0
-    b @L_0206d4d0
-    b @L_0206d4d8
-@L_0206d40c:
-    mov r0, r5
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d414:
-    add r0, r6, #0x22c
-    bl _ZN10MatchRules13func_0206eea8Ev
-    cmp r0, #0
-    movne r0, #3
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d428:
-    mov r0, r6
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    bne @L_0206d450
-    mov r0, r6
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    beq @L_0206d45c
-@L_0206d450:
-    cmp r4, #0
-    movne r0, #0xf
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d45c:
-    add r0, r6, #0x22c
-    bl _ZN10MatchRules13func_0206eebcEv
-    cmp r0, #0
-    movne r0, #6
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d470:
-    add r0, r6, #0x22c
-    bl _ZN10MatchRules13func_0206eed0Ev
-    cmp r0, #0
-    movne r0, #9
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d484:
-    mov r0, r6
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    bne @L_0206d4ac
-    mov r0, r6
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    beq @L_0206d4b8
-@L_0206d4ac:
-    cmp r4, #0
-    movne r0, #0xf
-    ldmneia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d4b8:
-    add r0, r6, #0x22c
-    bl _ZN10MatchRules13func_0206eee4Ev
-    cmp r0, #0
-    movne r0, #0xc
-    moveq r0, #0xf
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d4d0:
-    mov r0, #0xf
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d4d8:
-    mov r0, r5
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
-@L_0206d4e0:
-    add r0, r5, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, pc}
+    BOOL flag = (kind == 2 || kind == 5 || kind == 8 || kind == 11 || kind == 14);
+
+    if (func_0206d188(0, FALSE) || func_0206d188(1, FALSE)) {
+        return 15;
+    }
+    switch (kind) {
+    case 0:
+    case 3:
+    case 6:
+    case 9:
+    case 12:
+        return kind;
+    case 1:
+    case 2:
+        if (rules.func_0206eea8()) {
+            return 3;
+        }
+    case 4:
+    case 5:
+        if ((func_0206d114(0) || func_0206d114(1)) && flag) {
+            return 15;
+        }
+        if (rules.func_0206eebc()) {
+            return 6;
+        }
+    case 7:
+    case 8:
+        if (rules.func_0206eed0()) {
+            return 9;
+        }
+    case 10:
+    case 11:
+        if ((func_0206d114(0) || func_0206d114(1)) && flag) {
+            return 15;
+        }
+        if (rules.func_0206eee4()) {
+            return 12;
+        }
+        return 15;
+    case 13:
+    case 14:
+        return 15;
+    case 15:
+        return kind;
+    default:
+        return kind + 1;
+    }
 }
 
 asm void MatchEngine::func_0206d4ec()
@@ -13127,109 +13060,42 @@ int MatchEngine::func_0206ea68(const char *name)
     return -1;
 }
 
-asm void MatchEngine::func_0206eb34()
+// fills unk_6b0 from the match's state: unk_bcc's 0x40 entries, the teams' data and the first
+// 16 players of team 1 (id and position)
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_0206eb34()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, lr}
-    sub sp, sp, #4
-    mov r4, r0
-    add r5, r4, #0x6b0
-    ldr r2, =0x4cc
-    mov r0, r5
-    mov r1, #0
-    bl MI_CpuFill8
-    ldr r0, [r4, #0xbcc]
-    cmp r0, #0
-    beq @L_0206eb6c
-    mov r1, r5
-    mov r2, #0x400
-    bl MI_CpuCopy8
-@L_0206eb6c:
-    add r0, r5, #0x66
-    add r3, r5, #0x62
-    add r6, r0, #0x400
-    add r1, r4, #0x17c0
-    add r0, r1, #0x10000
-    add r1, r5, #0x420
-    add r2, r5, #0x460
-    add r3, r3, #0x400
-    str r6, [sp]
-    bl func_0209e174
-    add r0, r4, #0x15c
-    add r1, r5, #0x400
-    mov r2, #0x20
-    bl MI_CpuCopy8
-    add r0, r4, #8
-    add r1, r5, #0x28
-    mov r6, #8
-    mov r2, r6
-    add r0, r0, #0xc00
-    add r1, r1, #0x400
-    bl MI_CpuCopy8
-    mov r2, r6
-    add r0, r4, #0xc10
-    add r1, r5, #0x430
-    bl MI_CpuCopy8
-    add r0, r4, #0x18
-    add r1, r5, #0x38
-    mov r2, r6
-    add r0, r0, #0xc00
-    add r1, r1, #0x400
-    bl MI_CpuCopy8
-    add r0, r4, #0xbe
-    add r1, r5, #0x48
-    mov r6, #0xc
-    add r0, r0, #0x11800
-    add r1, r1, #0x400
-    mov r2, r6
-    bl MI_CpuCopy8
-    add r0, r4, #0xca
-    add r1, r5, #0x54
-    mov r2, r6
-    add r0, r0, #0x11800
-    add r1, r1, #0x400
-    bl MI_CpuCopy8
-    ldr r1, [r4, #0xbac]
-    mov r6, #0
-    add r0, r4, #0x11000
-    str r1, [r5, #0x440]
-    ldr r1, [r0, #0x8f8]
-    ldr r0, =gGameState
-    str r1, [r5, #0x444]
-    ldrb r1, [r0, #0x86]
-    mov r7, r6
-    mov r8, #6
-    strb r1, [r5, #0x464]
-    ldrb r0, [r0, #0x87]
-    strb r0, [r5, #0x465]
-    b @L_0206eca4
-@L_0206ec54:
-    mov r0, r7
-    bl func_ov015_02130ae8
-    movs r4, r0
-    beq @L_0206eca0
-    bl func_02080b90
-    cmp r0, #1
-    bne @L_0206eca0
-    mla r0, r6, r8, r5
-    ldrh r1, [r4, #0x42]
-    add r0, r0, #0x400
-    add r6, r6, #1
-    strh r1, [r0, #0x68]
-    ldrsh r1, [r4, #0x94]
-    cmp r6, #0x10
-    addeq sp, sp, #4
-    strh r1, [r0, #0x6a]
-    ldrsh r1, [r4, #0x96]
-    strh r1, [r0, #0x6c]
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, pc}
-@L_0206eca0:
-    add r7, r7, #1
-@L_0206eca4:
-    cmp r7, #0x84
-    blt @L_0206ec54
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, pc}
+    UnkRecord_0206eb34 *rec = &unk_6b0;
+    MI_CpuFill8(rec, 0, sizeof(UnkRecord_0206eb34));
+    if (unk_bcc != NULL) {
+        MI_CpuCopy8(unk_bcc, rec->unk_0, 0x400);
+    }
+    func_0209e174(unk_117c0, rec->unk_420, rec->unk_460, rec->unk_462, rec->unk_466);
+    MI_CpuCopy8(unk_15c, rec->unk_400, 0x20);
+    MI_CpuCopy8(unk_c08, rec->unk_428, 8);
+    MI_CpuCopy8(unk_c10, rec->unk_430, 8);
+    MI_CpuCopy8(unk_c18, rec->unk_438, 8);
+    MI_CpuCopy8(unk_118be, rec->unk_448, 0xC);
+    MI_CpuCopy8(unk_118ca, rec->unk_454, 0xC);
+    rec->unk_440 = unk_bac;
+    rec->unk_444 = unk_118f8;
+    rec->unk_464 = gGameState.unk_07c[0xA];
+    rec->unk_465 = gGameState.unk_07c[0xB];
+    int n = 0;
+    for (int i = 0; i < 0x84; i++) {
+        MatchPlayer *player = func_ov015_02130ae8(i);
+        if (player != NULL && func_02080b90(player) == 1) {
+            rec->unk_468[n].id = player->unk_42;
+            rec->unk_468[n].x = player->unk_94;
+            rec->unk_468[n].y = player->unk_96;
+            if (++n == 16) {
+                return;
+            }
+        }
+    }
 }
+#pragma pop
 
 asm void MatchEngine::func_0206ecbc()
 {
