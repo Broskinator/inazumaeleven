@@ -70,7 +70,7 @@ extern "C" void func_02085bfc(void);     // (for the asm functions)
 extern "C" void func_02085d88(void);     // (for the asm functions)
 extern "C" void func_02085e30(void);     // (for the asm functions)
 extern "C" void func_02085ec0(void);     // (for the asm functions)
-extern "C" void func_02083e34(void);     // (for the asm functions)
+extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" void func_02083e44(void);     // (for the asm functions)
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
@@ -401,7 +401,7 @@ extern "C" UnkPair_020621b4 *func_ov015_02143664(MatchEngine *self);
 extern "C" u8 *data_020c4824;
 extern "C" MatchArea data_020c4de0;     // (the field)
 extern "C" UnkData_020c4ee0 data_020c4ee0;
-extern "C" char data_020c4eec[];
+extern "C" fx32 data_020c4eec[][4];    // (per side: x0, y0, x1, y1)
 extern "C" char data_020c4ef4[];
 extern "C" char data_020c6cac[];
 extern "C" char data_020c6cad[];
@@ -410,12 +410,12 @@ extern "C" char data_020c6caf[];
 extern "C" char data_020c6cb0[];
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN9EntryPool3GetEi(void);
-extern "C" void func_01fff13c(void);
+extern "C" fx32 func_01fff13c(MatchEngine *self, fx32 x, fx32 y, fx32 lineX, fx32 lineY);
 extern "C" void FX_Sqrt(void);
 extern "C" void _s32_div_f(void);
 extern "C" u32 Random_RandB(u32 max);
 extern "C" int func_ov015_02131970(MatchPlayer *player);
-extern "C" void func_ov015_02142824(void);
+extern "C" fx32 func_ov015_02142824(MatchEngine *self, MatchPlayer *player);
 extern "C" void func_ov015_021436c0(void);
 
 extern "C" void _ZN11MatchEngine13func_0206ad68Eii(void);     // (for the asm functions)
@@ -1120,7 +1120,83 @@ void MatchEngine::func_0206fbb4(int i)
     }
 }
 
-asm void MatchEngine::func_0206fbd0()
+// unk_11900 from how far the ball is from the middle of player's side's goal line, in bands of
+// func_ov015_02142824's range: 0 when there is no player
+// (nonmatching: 11 words: special = FALSE is set before the NULL test, and of the identical cases 1 and 2 the ROM keeps case 2's code (case 1 jumps to it))
+#ifdef NONMATCHING
+void MatchEngine::func_0206fbd0(MatchPlayer *player, u8 *action)
+{
+    int side;
+    fx32 x;
+    fx32 y;
+    int dist;
+    int range;
+    int pct;
+    int band;
+    int value;
+    BOOL special;
+
+    if (player == NULL) {
+        unk_11900 = 0;
+        return;
+    }
+    side = func_02083e34(player);
+    x = (data_020c4eec[side][0] + data_020c4eec[side][2]) / 2;
+    y = func_0206707c(side, 0);
+    dist = func_01fff13c(this, data_020c4920.pos.x, data_020c4920.pos.y, x, y) / FX32_ONE;
+    range = func_ov015_02142824(this, player) / FX32_ONE;
+    pct = dist * 100 / range;
+    band = (dist - 1) / range;
+    if (band < 0) {
+        band = 0;
+    }
+    special = FALSE;
+    if (action != NULL) {
+        if (action[0] == 7 && (action[0xF] & 1)) {
+            special = TRUE;
+        }
+    }
+    if (!special) {
+        switch (band) {
+        case 0:
+            value = (75 - pct) * 20 / 25;
+            break;
+        case 1:
+            value = -pct * 20 / 100;
+            break;
+        case 2:
+            value = -pct * 20 / 100;
+            break;
+        case 3:
+            value = -80 - (pct - 300) * 20 / 100;
+            break;
+        default:
+            value = 0;
+            break;
+        }
+    } else {
+        switch (band) {
+        case 0:
+            value = (75 - pct) * 20 / 25;
+            break;
+        case 1:
+            value = -20 - (pct - 100) * 10 / 100;
+            break;
+        case 2:
+            value = -20 - (pct - 100) * 10 / 100;
+            break;
+        case 3:
+            value = -20 - (pct - 100) * 10 / 100;
+            break;
+        default:
+            value = -50;
+            break;
+        }
+    }
+    unk_11900 = (s8)value;
+}
+#else
+asm void MatchEngine::func_0206fbd0(MatchPlayer *player, u8 *action)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
     movs r8, r1
@@ -1252,6 +1328,7 @@ asm void MatchEngine::func_0206fbd0()
     strh r0, [r5, r1]
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
 }
+#endif
 
 s16 MatchEngine::func_0206fdac()
 {

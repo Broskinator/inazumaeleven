@@ -50,3 +50,4 @@ MatchEngine::func_02077fa0 src/match/MatchEngine_2.cpp table pointer and row off
 MatchEngine::func_02078148 src/match/MatchEngine_2.cpp table pointer and row offset swap registers r3/r4 (O2)
 MatchEngine::func_020663b0 src/match/MatchEngine.cpp test-first loop at O4; ball address reloaded after each FX_Atan2Idx
 MatchBallPhysics::func_020614d0 src/match/MatchBallPhysics.cpp mov r1,#0 for the first func_ov087_02182248 scheduled early (7 words)
+MatchEngine::func_0206fbd0 src/match/MatchEngine_2.cpp special = FALSE placement; which of identical switch cases 1/2 keeps the code

@@ -462,7 +462,7 @@ public:
     void func_0206facc();
     void func_0206fad0(int index, int kind, int minutes);
     void func_0206fbb4(int i);
-    void func_0206fbd0();
+    void func_0206fbd0(MatchPlayer *player, u8 *action);
     s16 func_0206fdac();
     BOOL func_0206fdbc(int team, fx32 y);
     BOOL func_0206fe28(int team, fx32 y);
