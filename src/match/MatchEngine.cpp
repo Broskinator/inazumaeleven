@@ -107,7 +107,7 @@ extern "C" void func_0208f300(void);     // (for the asm functions)
 extern "C" int func_02083e24(int team);
 extern "C" BOOL func_02083e54(MatchPlayer *player);
 extern "C" fx32 *func_02083e7c(int side);     // (the side's area: x0, y0, x1, y1)
-extern "C" void func_02083e94(void);     // (for the asm functions)
+extern "C" fx32 *func_02083e94(int side);
 extern "C" fx32 func_02083ec4(fx32 a, fx32 b, fx32 c, int which);
 extern "C" void func_020840e0(void);     // (for the asm functions)
 extern "C" u8 func_020841c8(int i);
@@ -329,7 +329,7 @@ extern "C" void _ZN11MatchEngine13func_02067044Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02067104ElllllP10MatchPoint(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020674f8Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020678d0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020678d0EP11MatchPlayermS1_P10MatchPointii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02067aecEP11MatchPlayeriiPvii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02067e00EP11MatchPlayeriii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02067e78EP11MatchPlayerii(void);     // (for the asm functions)
@@ -498,10 +498,10 @@ extern "C" void func_ov087_021820a8(void);
 extern "C" char data_020c4ecc[];
 extern "C" BOOL func_01ffe4c4(MatchEngine *self, MatchPlayer *player, fx32 x, fx32 y, u32 flags);
 extern "C" void func_01ffe75c(void);
-extern "C" void func_01ffe898(void);
+extern "C" BOOL func_01ffe898(MatchEngine *self, MatchPlayer *player, fx32 x, fx32 y, int a, int b);
 extern "C" BOOL func_01ffecec(MatchEngine *engine, fx32 y, fx32 limit, int team);
 extern "C" void func_01fff170(void);
-extern "C" void func_ov087_021774bc(void);
+extern "C" void func_ov087_021774bc(MatchEngine *self, fx32 x, fx32 y, fx32 range, MatchPlayer *player, fx32 *dist);
 extern "C" void func_ov087_0217877c(void);
 extern "C" void func_ov087_0217d29c(void);
 extern "C" fx32 data_020aeb64[];
@@ -6189,157 +6189,84 @@ asm void MatchEngine::func_020674f8()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_020678d0()
+// (a score for player passing to target, by flags: target far enough from what
+// func_ov087_021774bc measures, past the middle or the edge of player's side of the field and
+// ahead of point, a against b, and func_01ffecec's test of point weighted by func_0206e1c4; plus
+// 0-2 at random)
+int MatchEngine::func_020678d0(MatchPlayer *player, u32 flags, MatchPlayer *target, MatchPoint *point, int a, int b)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0xc
-    mov r8, r2
-    mov r7, r3
-    mov r10, r0
-    mov r9, r1
-    tst r8, #0x200000
-    ldr r6, [sp, #0x30]
-    ldr r4, [r7, #0xe8]
-    mov r5, #0
-    beq @L_0206790c
-    mov r1, r7
-    bl _ZN11MatchEngine13func_02078f8cEP11MatchPlayer
-    cmp r0, #0
-    addne r5, r5, #1
-@L_0206790c:
-    add r0, sp, #8
-    str r7, [sp]
-    str r0, [sp, #4]
-    mov r0, r10
-    mov r3, #0x10000
-    ldmia r4, {r1, r2}
-    bl func_ov087_021774bc
-    ldr r0, [sp, #8]
-    cmp r0, #0x28000
-    ble @L_02067948
-    add r5, r5, #1
-    cmp r0, #0x50000
-    addgt r5, r5, #1
-    tst r8, #0x40000
-    addne r5, r5, #1
-@L_02067948:
-    mov r0, r9
-    bl func_02080b90
-    mov r11, r0
-    ldr r2, [r4, #4]
-    mov r0, r10
-    mov r1, r9
-    bl func_01ffed20
-    cmp r0, #0
-    mov r0, #0x200
-    str r0, [sp]
-    mov r0, #0
-    str r0, [sp, #4]
-    mov r0, r10
-    mov r1, r7
-    addeq r5, r5, #1
-    ldmia r4, {r2, r3}
-    bl func_01ffe898
-    cmp r0, #0
-    mov r0, r9
-    addne r5, r5, #1
-    bl func_02083e34
-    bl func_02083e94
-    add r1, r10, r11, lsl #2
-    add r1, r1, #0x11000
-    ldr r1, [r1, #0x7f0]
-    tst r1, #0x10
-    beq @L_020679ec
-    ldr r1, [r0, #8]
-    ldr r0, [r0]
-    ldr r2, [r4]
-    add r0, r0, r1
-    cmp r2, r0, asr #1
-    ble @L_020679d8
-    add r5, r5, #1
-    cmp r2, r1
-    addgt r5, r5, #1
-@L_020679d8:
-    ldr r0, [r6]
-    cmp r2, r0
-    movgt r0, #1
-    mvnle r0, #0
-    b @L_02067a28
-@L_020679ec:
-    tst r1, #0x20
-    beq @L_02067a2c
-    ldr r1, [r0]
-    ldr r0, [r0, #8]
-    ldr r2, [r4]
-    add r0, r1, r0
-    cmp r2, r0, asr #1
-    bge @L_02067a18
-    add r5, r5, #1
-    cmp r2, r1
-    addlt r5, r5, #1
-@L_02067a18:
-    ldr r0, [r6]
-    cmp r2, r0
-    movlt r0, #1
-    mvnge r0, #0
-@L_02067a28:
-    add r5, r5, r0
-@L_02067a2c:
-    tst r8, #0x10000
-    beq @L_02067a4c
-    ldr r1, [sp, #0x34]
-    ldr r0, [sp, #0x38]
-    cmp r1, r0
-    movlt r0, #1
-    mvnge r0, #0
-    add r5, r5, r0
-@L_02067a4c:
-    tst r8, #0x20000
-    beq @L_02067a6c
-    ldr r1, [sp, #0x34]
-    ldr r0, [sp, #0x38]
-    cmp r1, r0
-    movgt r0, #1
-    mvnle r0, #0
-    add r5, r5, r0
-@L_02067a6c:
-    mov r0, r10
-    mov r1, r11
-    bl _ZN11MatchEngine13func_0206e1c4Ei
-    cmp r0, #0
-    beq @L_02067aa4
-    cmp r0, #1
-    beq @L_02067a94
-    cmp r0, #2
-    beq @L_02067a9c
-    b @L_02067aa4
-@L_02067a94:
-    mov r9, #2
-    b @L_02067aa8
-@L_02067a9c:
-    mov r9, #0
-    b @L_02067aa8
-@L_02067aa4:
-    mov r9, #1
-@L_02067aa8:
-    tst r8, #0x80000
-    beq @L_02067ad8
-    mov r0, r7
-    bl func_ov015_02131970
-    mov r3, r0
-    ldr r1, [r6, #4]
-    ldr r2, [r4, #4]
-    mov r0, r10
-    bl func_01ffecec
-    cmp r0, #0
-    addeq r5, r5, r9
-    subne r5, r5, r9
-@L_02067ad8:
-    mov r0, #3
-    bl Random_RandB
-    add r0, r5, r0
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayerBody *body = target->body;
+    int score = 0;
+    fx32 dist;
+
+    if ((flags & 0x200000) && func_02078f8c(target)) {
+        score++;
+    }
+    func_ov087_021774bc(this, body->pos.x, body->pos.y, 0x10000, target, &dist);
+    if (dist > 0x28000) {
+        score++;
+        if (dist > 0x50000) {
+            score++;
+        }
+        if (flags & 0x40000) {
+            score++;
+        }
+    }
+    int team = func_02080b90(player);
+    if (!func_01ffed20(this, player, body->pos.y)) {
+        score++;
+    }
+    if (func_01ffe898(this, target, body->pos.x, body->pos.y, 0x200, 0)) {
+        score++;
+    }
+    fx32 *rect = func_02083e94(func_02083e34(player));
+    u32 side = unk_117f0[team];
+    if (side & 0x10) {
+        fx32 x = body->pos.x;
+        if (x > (rect[0] + rect[2]) >> 1) {
+            score++;
+            if (x > rect[2]) {
+                score++;
+            }
+        }
+        score += (x > point->x) ? 1 : -1;
+    } else if (side & 0x20) {
+        fx32 x = body->pos.x;
+        if (x < (rect[0] + rect[2]) >> 1) {
+            score++;
+            if (x < rect[0]) {
+                score++;
+            }
+        }
+        score += (x < point->x) ? 1 : -1;
+    }
+    if (flags & 0x10000) {
+        score += (a < b) ? 1 : -1;
+    }
+    if (flags & 0x20000) {
+        score += (a > b) ? 1 : -1;
+    }
+    int bonus;
+    switch (func_0206e1c4(team)) {
+    case 1:
+        bonus = 2;
+        break;
+    case 2:
+        bonus = 0;
+        break;
+    case 0:
+    default:
+        bonus = 1;
+        break;
+    }
+    if (flags & 0x80000) {
+        if (!func_01ffecec(this, point->y, body->pos.y, func_ov015_02131970(target))) {
+            score += bonus;
+        } else {
+            score -= bonus;
+        }
+    }
+    return score + Random_RandB(3);
 }
 
 asm BOOL MatchEngine::func_02067aec(MatchPlayer *player, int a, int b, void *c, int d, int e)
@@ -6451,7 +6378,7 @@ asm BOOL MatchEngine::func_02067aec(MatchPlayer *player, int a, int b, void *c, 
     mov r0, r10
     mov r2, r8
     mov r3, r4
-    bl _ZN11MatchEngine13func_020678d0Ev
+    bl _ZN11MatchEngine13func_020678d0EP11MatchPlayermS1_P10MatchPointii
 @L_02067c8c:
     cmp r6, #0
     blt @L_02067c9c

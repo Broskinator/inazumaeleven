@@ -236,7 +236,7 @@ public:
     void func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_02067448(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_020674f8();
-    void func_020678d0();
+    int func_020678d0(MatchPlayer *player, u32 flags, MatchPlayer *target, MatchPoint *point, int a, int b);
     BOOL func_02067aec(MatchPlayer *player, int a, int b, void *c, int d, int e);
     BOOL func_02067e00(MatchPlayer *player, int a, int b, int c);
     BOOL func_02067e78(MatchPlayer *player, int a, int b);
@@ -927,7 +927,9 @@ public:
     u8 unk_117da[2];     // (per team)
     u8 unk_117dc[0x117E4 - 0x117DC];
     s32 unk_117e4[2];
-    u8 unk_117ec[0x117FC - 0x117EC];
+    u8 unk_117ec[0x117F0 - 0x117EC];
+    u32 unk_117f0[2];   // (per team: flags)
+    u8 unk_117f8[0x117FC - 0x117F8];
     u16 unk_117fc;
     u16 unk_117fe;
     s16 unk_11800;      // (what func_020663b0 gives the players' state->unk_22)
