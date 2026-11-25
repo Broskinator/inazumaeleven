@@ -16,7 +16,9 @@ struct MatchArea {
     fx32 maxY;          // 0xE8
     fx32 unk_ec[4];     // 0xEC
     fx32 unk_fc[4];     // 0xFC
-    u8 unk_10c[0x14C - 0x10C];
+    u8 unk_10c[0x12C - 0x10C];
+    fx32 unk_12c[4];     // (rectangles: func_02068614)
+    fx32 unk_13c[4];
     fx32 limits[4];     // 0x14C (per side, when func_ov087_02182248 says it has one: func_0206c23c)
 };
 

@@ -253,7 +253,7 @@ public:
     int func_02068578(int a, int b, int c);
     int func_02068590(int a, int b);
     BOOL func_020685a8(int team, int position, BOOL force);
-    void func_02068614();
+    BOOL func_02068614(MatchPlayer *player, fx32 x, fx32 y);
     BOOL func_020687cc(MatchPoint *from, int angle, fx32 distance, MatchPoint *pos);
     fx32 func_02068844(int a, fx32 speed, u16 angle, fx32 from, fx32 to, u8 flag, fx32 g);
     fx32 func_0206896c(MatchBall *ball, MatchPoint *pos);

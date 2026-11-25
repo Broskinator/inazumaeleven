@@ -19,6 +19,18 @@ extern "C" u8 data_020cabf8[];
 #include "data/EntryPool.hpp"
 #include "data/ConfigFile.hpp"
 #include "nitro/math.h"
+struct UnkRect_02068614 {
+    fx32 v[4];
+};
+
+static inline void UnkRect_02068614_Set(UnkRect_02068614 *rect, const fx32 *src)
+{
+    rect->v[0] = src[0];
+    rect->v[1] = src[1];
+    rect->v[2] = src[2];
+    rect->v[3] = src[3];
+}
+
 
 struct UnkLimits_0206e858 {
     s32 limits[2];
@@ -494,8 +506,8 @@ extern "C" void func_ov087_0217877c(void);
 extern "C" void func_ov087_0217d29c(void);
 extern "C" fx32 data_020aeb64[];
 extern "C" char data_020fa1a5[];
-extern "C" void func_ov015_0213fde4(void);
-extern "C" void func_ov015_0214079c(void);
+extern "C" void func_ov015_0213fde4(MatchEngine *self, MatchBall *ball, int team, int a, MatchPoint *out);
+extern "C" BOOL func_ov015_0214079c(MatchEngine *self, fx32 x, fx32 y, int a, int kind, MatchBall *ball, int b);
 extern "C" fx32 func_ov015_02140e74(MatchEngine *engine, int a, int b);
 extern "C" fx32 func_ov015_02142850(MatchEngine *self);
 extern "C" void func_ov087_02179c8c(void);
@@ -7074,119 +7086,46 @@ BOOL MatchEngine::func_020685a8(int team, int position, BOOL force)
     return unk_117a4[0][index] == 1;
 }
 
-asm void MatchEngine::func_02068614()
+// (can player reach the ball kicked toward (x, y)? func_02084470 with the player's body in a
+// rectangle of its side)
+BOOL MatchEngine::func_02068614(MatchPlayer *player, fx32 x, fx32 y)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x84
-    movs r8, r1
-    mov r9, r0
-    mov r10, #0
-    mov r7, r2
-    mov r6, r3
-    addeq sp, sp, #0x84
-    moveq r0, r10
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r5, [r8, #0xe8]
-    cmp r5, #0
-    addeq sp, sp, #0x84
-    moveq r0, r10
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r0, r8
-    bl func_02083e34
-    mov r1, r0
-    mov r0, r9
-    bl _ZN11MatchEngine13func_0206de54Ei
-    cmp r0, #0
-    addeq sp, sp, #0x84
-    moveq r0, r10
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, [r9, #0xb80]
-    ldr r1, [r0]
-    ldr r1, [r1, #0x18]
-    blx r1
-    cmp r0, #0
-    addeq sp, sp, #0x84
-    moveq r0, r10
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r0, r8
-    bl func_02083e54
-    mov r1, r0
-    mov r0, r9
-    bl _ZN11MatchEngine13func_0206c0d8Ei
-    cmp r0, #0
-    beq @L_020686d0
-    ldr r2, [r0, #4]
-    mov r0, r9
-    mov r1, r8
-    bl func_01ffed20
-    cmp r0, #0
-    addne sp, sp, #0x84
-    movne r0, r10
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-@L_020686d0:
-    add r4, sp, #0x24
-    ldr r0, =data_020c4920
-    mov r1, r4
-    mov r2, #0x60
-    bl MI_CpuCopy8
-    mov r0, r9
-    bl _ZN11MatchEngine13func_0206bfa8Ev
-    stmia sp, {r0, r4, r10}
-    mov r1, r7
-    mov r2, r6
-    mov r0, r9
-    mov r3, #0x11
-    bl func_ov015_0214079c
-    cmp r0, #0
-    addeq sp, sp, #0x84
-    moveq r0, r10
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r0, r8
-    bl func_02083e34
-    add r6, sp, #0xc
-    mov r2, r0
-    mov r0, r9
-    mov r1, r4
-    mov r3, #0x1e
-    str r6, [sp]
-    bl func_ov015_0213fde4
-    mov r0, r8
-    bl func_02083e34
-    cmp r0, #0
-    bne @L_0206877c
-    ldr r0, =data_020c4de0
-    ldr r1, [r0, #0x13c]
-    str r1, [sp, #0x14]
-    ldr r1, [r0, #0x140]
-    str r1, [sp, #0x18]
-    ldr r1, [r0, #0x144]
-    str r1, [sp, #0x1c]
-    ldr r1, [r0, #0x148]
-    str r1, [sp, #0x20]
-    ldr r1, [r0, #0xfc]
-    str r1, [sp, #0x14]
-    ldr r0, [r0, #0x104]
-    b @L_020687ac
-@L_0206877c:
-    ldr r0, =data_020c4de0
-    ldr r1, [r0, #0x12c]
-    str r1, [sp, #0x14]
-    ldr r1, [r0, #0x130]
-    str r1, [sp, #0x18]
-    ldr r1, [r0, #0x134]
-    str r1, [sp, #0x1c]
-    ldr r1, [r0, #0x138]
-    str r1, [sp, #0x20]
-    ldr r1, [r0, #0xec]
-    str r1, [sp, #0x14]
-    ldr r0, [r0, #0xf4]
-@L_020687ac:
-    str r0, [sp, #0x1c]
-    add r0, sp, #0x14
-    mov r1, r5
-    bl func_02084470
-    add sp, sp, #0x84
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    MatchBall ball;
+    UnkRect_02068614 rect;
+    MatchPoint out;
+
+    if (player == NULL) {
+        return FALSE;
+    }
+    MatchPlayerBody *body = player->body;
+    if (body == NULL) {
+        return FALSE;
+    }
+    if (!func_0206de54(func_02083e34(player))) {
+        return FALSE;
+    }
+    if (!((BOOL (*)(MatchPlayerList *))unk_b80->vtable[6])(unk_b80)) {
+        return FALSE;
+    }
+    MatchPoint *goal = (MatchPoint *)func_0206c0d8(func_02083e54(player));
+    if (goal != NULL && func_01ffed20(this, player, goal->y)) {
+        return FALSE;
+    }
+    MI_CpuCopy8(&data_020c4920, &ball, sizeof(MatchBall));
+    if (!func_ov015_0214079c(this, x, y, 0x11, func_0206bfa8(), &ball, 0)) {
+        return FALSE;
+    }
+    func_ov015_0213fde4(this, &ball, func_02083e34(player), 0x1E, &out);
+    if (func_02083e34(player) == 0) {
+        UnkRect_02068614_Set(&rect, data_020c4de0.unk_13c);
+        rect.v[0] = data_020c4de0.unk_fc[0];
+        rect.v[2] = data_020c4de0.unk_fc[2];
+    } else {
+        UnkRect_02068614_Set(&rect, data_020c4de0.unk_12c);
+        rect.v[0] = data_020c4de0.unk_ec[0];
+        rect.v[2] = data_020c4de0.unk_ec[2];
+    }
+    return func_02084470(&rect, (int)body);
 }
 
 // (nonmatching: the loads are scheduled differently)
