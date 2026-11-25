@@ -612,7 +612,7 @@ public:
     BOOL func_02077104(u32 item, int n);
     BOOL func_02077148(u8 *data, int *error);
     BOOL func_020771d4(u32 id, int *error);
-    void func_02077224();
+    BOOL func_02077224(MatchPlayer *player, u32 id, int *error);
     int func_02077448(MatchPlayer *player, u32 id, int a);
     BOOL func_0207765c(MatchPlayer *player, u32 id, int mode, int *error);
     BOOL func_020776f8(MatchPlayer *player, u32 id, int *error);
