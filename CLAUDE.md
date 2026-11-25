@@ -140,26 +140,31 @@ the includes.
 ## Current priorities
 
 1. **Match engine** (`src/match/`, ov087, ov001; [docs/match_engine.md](docs/match_engine.md)):
-   207 functions still asm in `src/match` (`make todo ARGS="--file src/match"`), 162 of them
-   never attempted (`python tools/untried.py -n 40`: take them from the top). Skip for now the
-   loops that jump to their test first (func_0207f4bc, 0206e76c, 0207c064, 0206c694, 02079c08,
-   02068028, 02076a7c) and the `UnkDeque_0207076c` members (they want the iterator class:
-   func_020720e4, 020724f4, 02071df8, 020720b0, 02072128, 02072538; `this` is {cur, begin,
-   start, end}). `func_020810ec` (MatchUtil) needs the engine typed there instead of
-   `char data_020e88a0[]`. Before typing a C caller, check whether it passes r2/r3 through to
-   its callee (docs/progress.md, 2026-11-17). A member whose `this` is something else becomes
-   static and takes it (func_0207f3cc, func_02074aac). IE3 names: `CLogicThink`, `CUnitMan`,
-   `CCalcMap` (the `match` rows of `docs/ie3_mapping.csv`).
-2. **Permuter queue**: 35 near misses in `permuter/queue.txt`; batches 1-6 covered all but the
-   4 added last (func_0206b5a0, 020776f8, 02067f44, 0206a3b8): run `tools/permuter_batch.sh`
-   on those (`PERM_QUEUE=` a file with just them). Results reached only through fake code (an
-   uninitialised variable, a self-assignment, a 64-bit index, `if (1)`) don't count; look for
-   the natural form they point at (func_0207e738 matched that way).
+   143 functions still asm in `src/match` (`make todo ARGS="--file src/match"`), 80 of them
+   never attempted (`python tools/untried.py -n 40 --file src/match`: take them from the top;
+   next: `MatchBallPhysics::func_0206168c`, `func_0206313c`, `UnkClass_0208351c::func_020838d0`,
+   `func_020671e4`, `func_02068614`). A loop that jumps to its test first: put the function at
+   `#pragma optimization_level 2` (push/pop around it), and if it then reuses a value the ROM
+   computes again after a call, add `#pragma opt_common_subs off` (docs/matching.md). Skip for
+   now the `UnkDeque_0207076c` members and users (`func_0206d6b4`: they want the deque template
+   modelled; the iterator's `this` is {cur, begin, start, end}). `func_020810ec` (MatchUtil)
+   needs the engine typed there instead of `char data_020e88a0[]`. Before retyping a callee,
+   check that its C callers still match (a `u32` parameter where `int` was changed
+   `func_02078bc0`). A member whose `this` is something else becomes static and takes it
+   (func_0207f3cc, func_0207f3e0). IE3 names: `CLogicThink`, `CUnitMan`, `CCalcMap` (the
+   `match` rows of `docs/ie3_mapping.csv`).
+2. **Permuter queue**: 55 entries in `permuter/queue.txt`; batches 1-6 covered the first 35.
+   The 20 from line 36 (`func_0206b5a0`) on have never run: `tools/permuter_batch.sh` with
+   `PERM_QUEUE=` a file holding just them. Results reached only through fake code (an uninitialised
+   variable, a self-assignment, a 64-bit index, `if (1)`) don't count; look for the natural
+   form they point at (func_0207e738 matched that way).
 3. **Bigger non-matching attempts** (16-165 words): `SceneManager` (6), `SaveManager` (4),
    `System::func_020401bc`, `Wireless` (3), `MatchBallPhysics::func_02061ab8`, MatchEngine
-   (func_02077f20, func_02084350, func_0206a590/0206a648 (45), func_0206cec0 (25) and older).
-4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, queued); MWCC's loop rotation and
-   test-first loops (above); two loads merged into an `ldm` (func_0206a3b8); an immediate
+   (func_02065dec (70), func_02066e28 (56), func_02077f20, func_02084350, func_0206a590/0206a648
+   (45), func_0206cec0 (25) and older).
+4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, queued); identical blocks of two
+   branches the ROM shares (func_02066e28); a field read twice that the rebuild keeps in a
+   register (func_02061bc0); two loads merged into an `ldm` (func_0206a3b8); an immediate
    `return 0` after an index check (func_0206e50c/0206e5e4); dead stack stores the ROM keeps
    (func_02068434); 19 IE3 names not applied (name clashes, see ie3_mapping.md); ov088
    (Mobiclip) still counted as game code.

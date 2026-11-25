@@ -91,11 +91,31 @@ The compiler is Metrowerks CodeWarrior for DSi (`mwccarm` 1.x), C++.
 - **Members of another object.** A member function whose `this` is a player or a stack
   buffer (look at what its callers pass in r0) is static and takes that object
   (`MatchEngine::func_0207f3cc`, `func_02074aac`).
-- **Not solved yet.** Loops that jump to their test before the first pass where the
-  rebuild tests first (`func_0207f4bc`, `func_02079c08` and others); stores to a local
-  array that is never read, which the original keeps and MWCC drops unless the array is
-  `volatile` (`func_02068434`); two adjacent loads that MWCC merges into an `ldm` where the
-  original has two `ldr` in the other order (`func_0206a3b8`).
+- **Loops entered through their test.** When the original jumps to a loop's test before the
+  first pass and the rebuild does not, the function was built at a lower level:
+  `#pragma push` / `#pragma optimization_level 2` / `#pragma pop` around it gives the jump
+  (`func_02068028`, `func_0206eb34`, `func_02065a90` and about 15 others). A few of those
+  also compute an expression again after each call where level 2 reuses it (an entry's
+  address, a player's `body->pos.y`): `#pragma opt_common_subs off` with the level gives
+  that (`func_0206ecbc`). Every level-2 function of `src/match` still matches with common
+  subexpressions off, but the rest of the code does not, so it is not a file setting.
+- **Switch tables up to a high label.** When the ROM's jump table runs further than the last
+  case that does something (`cmp r1, #0x1e` with entries 17-30 all on the default), the
+  original listed those labels before `default:`; without them MWCC splits the range
+  (`func_02077224`).
+- **A flag from several values.** `BOOL flag = (k == 2 || k == 5 || k == 8 || ...);` gives
+  the ROM's bit test (`sub; cmp; tst r0, r1, lsl r2`); a switch setting the flag or an `if`
+  do not (`func_0206d358`).
+- **Leaving a loop.** A `return` in a loop that the ROM writes as a branch to the common
+  epilogue was a `break` before a shared `return` (`func_0206ba84`).
+- **Struct arguments.** A function taking a `MatchPoint` by value gets it in two registers
+  (`ldmia rN, {r2, r3}`): `*(MatchPoint *)&player->body->pos` (`func_02065a90`).
+- **Not solved yet.** Stores to a local array that is never read, which the original keeps
+  and MWCC drops unless the array is `volatile` (`func_02068434`); two adjacent loads that
+  MWCC merges into an `ldm` where the original has two `ldr` in the other order
+  (`func_0206a3b8`); identical blocks of two branches that the ROM shares and the rebuild
+  does not, at any level (`func_02066e28`); a field read again for a second test where the
+  rebuild keeps it (`MatchBallPhysics::func_02061bc0`: only `opt_common_subs off` gives it).
 
 ## Register allocation
 
@@ -154,6 +174,14 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
 - **Locals declared in another order.** Most of the near misses of this engine were only
   registers swapped between two locals; generating every order of the declarations (as a
   `tools/hand.py` batch with one section per order) often found the match.
+- **The type of a parameter changes its callers.** Retyping a callee's `int` parameter as
+  `u32` moved a stack load in one of its C callers (`func_02078bc0` after
+  `func_02079f98`); keep the type that leaves the callers matching.
+- **Index forms.** `(p + k)[0xF]` gives `add r0, p, k; ldrb [r0, #0xf]`, `p[0xF + k]` gives
+  `add r0, k, #0xf; ldrb [p, r0]`; `table[team * 7 + i]` keeps `this + team * 7` in a
+  register where a pointer `&table[team * 7]` keeps the field's address (`func_0207e19c`).
+- **The type of a local.** An `int` local for an `s8` result stored to the stack right after
+  the call; with `s8` the store moved after the next load (`func_0206ba84`).
 
 ## Library calls
 

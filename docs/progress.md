@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 524,396 | 26.92% | 9,634 | 5,957 | 61.83% | 3,677 |
-| Game, main program | 369,260 | 135,876 | 36.80% | 2,601 | 1,898 | 72.97% | 703 |
+| **Game code** | 1,948,264 | 543,148 | 27.88% | 9,634 | 6,022 | 62.51% | 3,612 |
+| Game, main program | 369,260 | 154,628 | 41.88% | 2,601 | 1,963 | 75.47% | 638 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 620,800 | 23.93% | 14,002 | 7,238 | 51.69% | 6,764 |
+| **Everything** | 2,594,024 | 639,552 | 24.65% | 14,002 | 7,303 | 52.16% | 6,699 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -32,12 +32,12 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Match engine, all** | 376,800 | 84,732 | 22.49% | 1,742 | 1,145 | 65.73% | 597 |
-| `src/match/MatchBallPhysics.cpp` | 3,356 | 1,224 | 36.47% | 33 | 28 | 84.85% | 5 |
-| `src/match/MatchEngine.cpp` | 52,352 | 13,096 | 25.02% | 294 | 213 | 72.45% | 81 |
-| `src/match/MatchEngine_2.cpp` | 70,264 | 23,856 | 33.95% | 391 | 285 | 72.89% | 106 |
-| `src/match/MatchEngine_3.cpp` | 772 | 88 | 11.40% | 6 | 4 | 66.67% | 2 |
-| `src/match/MatchGeometry.cpp` | 5,368 | 3,560 | 66.32% | 70 | 64 | 91.43% | 6 |
+| **Match engine, all** | 376,800 | 103,324 | 27.42% | 1,742 | 1,209 | 69.40% | 533 |
+| `src/match/MatchBallPhysics.cpp` | 3,356 | 1,568 | 46.72% | 33 | 29 | 87.88% | 4 |
+| `src/match/MatchEngine.cpp` | 52,352 | 20,840 | 39.81% | 294 | 239 | 81.29% | 55 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 33,800 | 48.10% | 391 | 320 | 81.84% | 71 |
+| `src/match/MatchEngine_3.cpp` | 772 | 356 | 46.11% | 6 | 5 | 83.33% | 1 |
+| `src/match/MatchGeometry.cpp` | 5,368 | 3,852 | 71.76% | 70 | 65 | 92.86% | 5 |
 | `src/match/MatchPlayerList.cpp` | 1,212 | 372 | 30.69% | 21 | 17 | 80.95% | 4 |
 | `src/match/MatchRules.cpp` | 500 | 500 | 100.00% | 21 | 21 | 100.00% | 0 |
 | `src/match/MatchUtil.cpp` | 5,280 | 5,080 | 96.21% | 99 | 98 | 98.99% | 1 |
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 135,876 | 36.80% | 2,601 | 1,898 | 72.97% | 703 |
+| main program | 369,260 | 154,628 | 41.88% | 2,601 | 1,963 | 75.47% | 638 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
@@ -223,3 +223,40 @@ Following CLAUDE.md's priorities: the match engine, functions with no attempt ye
   the ROM writes as an immediate 0 after an index check (`func_0206e50c`); dead stores to a
   local array that MWCC drops (`func_02068434`); `func_020810ec` in MatchUtil calls engine
   members through mangled names on a `char[]` and needs a typed engine there.
+
+### 2026-11-21 to 2026-11-25
+
+The match engine again, the functions with no attempt first (`tools/untried.py`).
+
+- Matched: about 70 functions of the match engine, among them `func_02068028`, `func_0207c064`,
+  `func_0206e76c`, `func_0207f4bc`, `func_0207070c`, `func_020776f8`, `func_02067f44`,
+  `func_0207a5c0`, `func_0207b00c`, `func_0206aa6c`, `func_020665a4`, `func_0206d358`,
+  `func_0206eb34`/`func_0206ecbc` (the record at 0x6B0 and its restore), `func_02065a90`,
+  `func_02077224` (can a player use an item), `func_0207e19c`, `func_0206ba84`, and
+  `MatchBallPhysics::func_020618d4`; also `SceneManager::func_0203f248`. The match engine is
+  1,209 / 1,742 functions in C/C++ (27.42% of its bytes, from 22.49%); game code 27.88%,
+  everything 24.65%. `make progress`: 98.950%, 13,579 / 14,048 functions (it counts asm as
+  matched). 143 functions of `src/match` are still asm (from 207), 80 never attempted.
+- Found: loops that jump to their test first were built at optimization level 2 (`#pragma
+  optimization_level 2` around the function); some of those also need `#pragma
+  opt_common_subs off` (`func_0206ecbc`), and every level-2 function still matches with it.
+  A jump table that runs to a high label wants those labels listed before `default:`; a flag
+  `(k == 2 || k == 5 || ...)` gives the ROM's bit test; retyping a callee's `int` parameter
+  as `u32` changed a caller (`func_02078bc0`). See docs/matching.md.
+- Types: the record at `MatchEngine+0x6B0` (`UnkRecord_0206eb34`), `MatchPlayerCache`
+  (`unk_bf0`), `MatchArea::unk_d4`, `unk_118a9` (an s8 player index), `unk_118be`,
+  `unk_118f8`, `unk_bac`; `func_0207f3e0` and `func_0207f3b8` are static and take the player.
+- `.gitattributes`: sources are LF (a Python script that wrote text mode on Windows had made
+  two files CRLF).
+- Under NONMATCHING (effort cap): `func_02079f98` (one `cmp` with its operands swapped),
+  `func_02065dec`, `func_02066e28`, `MatchBallPhysics::func_02061bc0` and
+  `func_020614d0`, `func_02077fa0`, `func_02078148`, `func_02064500`, `func_020663b0`,
+  `func_0206fbd0`, `func_02063f24`, `func_02078844`, `func_0206e858`, `func_02063550`,
+  `func_02068f90`, `func_02078aac`, `func_0207d118`, `func_02082d9c`, `func_02084970`,
+  `UnkClass_0208351c::func_02083778`, `MatchPlayerList::func_020830ac`; most are queued.
+- Blockers: identical blocks of two branches that the ROM shares and the rebuild keeps apart
+  at every level (`func_02066e28`); a field read again where the rebuild keeps it in a register
+  (`func_02061bc0`, matching only with `opt_common_subs off`, which the rest of the code
+  does not have); the users of the stack deque (`func_0206d6b4` passes an empty tag object to
+  push_back) want the deque template modelled; the older ones (an `ldm` merge, dead stack
+  stores, `FileManager::LoadAsync`).
