@@ -572,7 +572,7 @@ public:
     void func_02075428();
     void func_0207577c(UnkRecord_02076168 *record);
     void func_0207597c();
-    void func_02075f7c();
+    void func_02075f7c(MatchPlayer *player, UnkRecord_02076168 *rec);
     BOOL func_020760e4(int a, int b);
     UnkRecord_02076168 *func_02076168();
     UnkRecord_02076168 *func_0207620c();

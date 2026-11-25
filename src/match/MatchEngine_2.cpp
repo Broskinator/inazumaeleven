@@ -302,7 +302,7 @@ extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02075f7cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02075f7cEP11MatchPlayerP18UnkRecord_02076168(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020760e4Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02076168Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);     // (for the asm functions)
@@ -514,16 +514,16 @@ extern "C" void _ffltu(void);
 extern "C" void _ffix(void);
 extern "C" void _fadd(void);
 extern "C" void _fsub(void);
-extern "C" void func_ov015_02131704(void);
+extern "C" void func_ov015_02131704(int a);
 extern "C" void func_ov015_02131854(void);
 extern "C" void func_ov015_02131910(void);
 extern "C" int func_ov015_021319bc(void);
 extern "C" BOOL func_ov015_02131bb4(int team);
-extern "C" void func_ov015_02140958(void);
-extern "C" void func_ov015_02140e74(void);
+extern "C" void func_ov015_02140958(MatchEngine *self, MatchBall *ball, MatchPlayer *player, fx32 speed, int angle, int elevation, int a, int b, int c, int d);
+extern "C" fx32 func_ov015_02140e74(MatchEngine *self, MatchPlayer *player, int a);
 extern "C" void func_ov087_0217a324(void);
 extern "C" void func_ov087_0217a640(void);
-extern "C" void func_ov087_0217b3c8(void);
+extern "C" void func_ov087_0217b3c8(MatchEngine *self, MatchPlayer *player, MatchBall *ball, u8 a, int b);
 extern "C" u8 data_020a71f0[][3];  // (kind, lowest and highest level: func_02077fa0, func_02078148)
 extern "C" char data_020af2d8[];
 extern "C" char data_020af2f4[];
@@ -7239,7 +7239,7 @@ asm void MatchEngine::func_0207597c()
     mov r0, r9
     mov r1, r5
     mov r2, r6
-    bl _ZN11MatchEngine13func_02075f7cEv
+    bl _ZN11MatchEngine13func_02075f7cEP11MatchPlayerP18UnkRecord_02076168
 @L_02075e68:
     cmp r5, #0
     beq @L_02075e9c
@@ -7312,99 +7312,22 @@ asm void MatchEngine::func_0207597c()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02075f7c()
+// (a random kick: 25-29 units of speed at most what kind 9 allows, the body's direction give or
+// take 0x3000, 10-14 degrees up)
+void MatchEngine::func_02075f7c(MatchPlayer *player, UnkRecord_02076168 *rec)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x18
-    mov r6, r0
-    mov r5, r1
-    mov r4, r2
-    bl func_ov015_02143664
-    mov r7, #5
-    mov r0, r7
-    bl Random_RandA
-    adds r0, r0, #0x19
-    mov r0, r7
-    beq @L_02075fcc
-    bl Random_RandA
-    add r0, r0, #0x19
-    mov r0, r0, lsl #0xc
-    bl _ffltu
-    mov r1, r0
-    mov r0, #0x3f000000
-    bl _fadd
-    b @L_02075fe4
-@L_02075fcc:
-    bl Random_RandA
-    add r0, r0, #0x19
-    mov r0, r0, lsl #0xc
-    bl _ffltu
-    mov r1, #0x3f000000
-    bl _fsub
-@L_02075fe4:
-    bl _ffix
-    ldr r1, [r5, #0xe8]
-    mov r9, r0
-    ldrh r7, [r1, #0x18]
-    mov r0, #0x6000
-    bl Random_RandA
-    sub r0, r0, #0x3000
-    add r1, r7, #0x10000
-    add r0, r1, r0
-    mov r1, r0, lsl #0x10
-    mov r0, #5
-    mov r7, r1, lsr #0x10
-    bl Random_RandA
-    add r2, r0, #0xa
-    mov r3, r2, lsl #0x10
-    ldr r1, =0x6c16c16d
-    mov r0, r6
-    umull r1, r8, r3, r1
-    rsb r1, r8, r2, lsl #16
-    add r8, r8, r1, lsr #1
-    mov r1, r8, lsl #8
-    mov r8, r1, lsr #0x10
-    mov r1, r5
-    mov r10, #9
-    mov r2, r10
-    bl func_ov015_02140e74
-    cmp r9, r0
-    ble @L_02076068
-    mov r0, r6
-    mov r1, r5
-    mov r2, r10
-    bl func_ov015_02140e74
-    mov r9, r0
-@L_02076068:
-    mov r0, #6
-    bl func_ov015_02131704
-    str r7, [sp]
-    ldr r7, =data_020c4920
-    str r8, [sp, #4]
-    mov r8, #9
-    str r8, [sp, #8]
-    mov r3, #0
-    str r3, [sp, #0xc]
-    str r3, [sp, #0x10]
-    mov r0, r6
-    mov r1, r7
-    mov r2, r5
-    str r3, [sp, #0x14]
-    mov r3, r9
-    bl func_ov015_02140958
-    ldrb r1, [r4, #0x12]
-    mov r0, r6
-    orr r1, r1, #4
-    strb r1, [r4, #0x12]
-    bl _ZN11MatchEngine13func_0206bfa8Ev
-    mov r1, r5
-    mov r2, r7
-    mov r3, r8
-    str r0, [sp]
-    mov r0, r6
-    bl func_ov087_0217b3c8
-    add sp, sp, #0x18
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    func_ov015_02143664(this);
+    fx32 speed = (fx32)(((u32)(Random_RandA(5) + 25) > 0) ? ((u32)(Random_RandA(5) + 25) * 4096 + 0.5f) : ((u32)(Random_RandA(5) + 25) * 4096 - 0.5f));
+    u16 dir = player->body->direction;
+    u16 angle = dir + 0x10000 + (Random_RandA(0x6000) - 0x3000);
+    u16 elevation = ((u32)(Random_RandA(5) + 10) << 16) / 360;
+    if (speed > func_ov015_02140e74(this, player, 9)) {
+        speed = func_ov015_02140e74(this, player, 9);
+    }
+    func_ov015_02131704(6);
+    func_ov015_02140958(this, &data_020c4920, player, speed, angle, elevation, 9, 0, 0, 0);
+    rec->unk_12 |= 4;
+    func_ov087_0217b3c8(this, player, &data_020c4920, 9, func_0206bfa8());
 }
 
 BOOL MatchEngine::func_020760e4(int a, int b)
