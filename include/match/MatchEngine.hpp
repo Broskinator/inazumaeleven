@@ -659,7 +659,7 @@ public:
     MatchPoint *func_02078520(int team, u8 *data);
     MatchPoint *func_02078560(int team, u8 *data);
     int func_020785a0(int team);
-    void func_02078664();
+    BOOL func_02078664(MatchPlayer *player, MatchPoint *out, int force);
     MatchPlayerInfo *func_020787e8(MatchPlayer *player);
     int func_02078800(int a, BOOL b, int c);
     int func_02078844(int team, u16 *out, int max, u8 flag);
