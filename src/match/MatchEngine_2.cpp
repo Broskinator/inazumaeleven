@@ -554,7 +554,7 @@ extern "C" MatchPlayer *func_ov015_02130b94(int id);
 extern "C" u16 func_ov015_02130e40(u8 dir);
 extern "C" BOOL func_ov015_02131a5c(MatchPlayer *player);
 extern "C" BOOL func_ov087_0217ea64(MatchEngine *match);
-extern "C" char data_020af360[];
+extern "C" char data_020af360[];     // (the players' data file)
 extern "C" const char data_020af37c[];
 extern "C" char data_020af398[];
 extern "C" char g2DGChar[];
@@ -11298,126 +11298,81 @@ asm int MatchEngine::func_0207a534(u32 id)
 }
 #endif
 
-asm int MatchEngine::func_0207a5c0(int id, void *out)
+// (loads size bytes of entry index of the file)
+static inline int MatchEngine_LoadEntry(const char *name, void **buffer, int index, int size)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #0x18
-    movs r6, r2
-    mov r8, r0
-    mov r7, r1
-    addeq sp, sp, #0x18
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r9, =0xfff
-    and r7, r7, r9
-    mov r1, r7
-    bl _ZN11MatchEngine13func_0207a534Em
-    movs r5, r0
-    addmi sp, sp, #0x18
-    movmi r0, #0
-    ldmmiia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r4, #0
-    mov r0, r7
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    beq @L_0207a630
-    mov r1, r6
-    mov r2, #0x60
-    bl MI_CpuCopy8
-    add sp, sp, #0x18
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0207a630:
-    ldr r0, [r8, #0xbf0]
-    sub r1, r4, #1
-    add r2, r9, #0xf000
-@L_0207a63c:
-    ldrh r3, [r0, #0x42]
-    mov r10, #0
-    and r3, r3, r9
-    mov r3, r3, lsl #0x10
-    cmp r7, r3, lsr #16
-    ldrh r3, [r0, #0x60]
-    moveq r1, r4
-    add r4, r4, #1
-    cmp r3, r2
-    addlo r3, r3, #1
-    strloh r3, [r0, #0x60]
-    cmp r4, #0x40
-    add r0, r0, #0x64
-    blt @L_0207a63c
-    cmp r1, #0
-    blt @L_0207a6a8
-    ldr r2, [r8, #0xbf0]
-    mov r0, #0x64
-    mla r4, r1, r0, r2
-    mov r0, r4
-    mov r1, r6
-    mov r2, #0x60
-    bl MI_CpuCopy8
-    add sp, sp, #0x18
-    strh r10, [r4, #0x60]
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-@L_0207a6a8:
-    ldr r1, [r8, #0xbf0]
-    mvn r2, #0
-    mov r0, r2
-    mov r3, r1
-    mov r4, r10
-    add r7, r2, #0x1000
-@L_0207a6c0:
-    ldrh r9, [r3, #0x42]
-    and r9, r9, r7
-    mov r9, r9, lsl #0x10
-    movs r9, r9, lsr #0x10
-    moveq r2, r4
-    beq @L_0207a6f8
-    ldrh r9, [r3, #0x60]
-    add r3, r3, #0x64
-    cmp r9, r0
-    movgt r2, r4
-    add r4, r4, #1
-    movgt r0, r9
-    cmp r4, #0x40
-    blt @L_0207a6c0
-@L_0207a6f8:
-    mov r0, #0x64
-    mul r7, r2, r0
-    ldr r3, =gAllocator
-    add r1, r1, r7
-    ldr r0, [r3]
-    str r1, [sp, #0x14]
-    mov r4, #0
-    cmp r0, #0
-    ldr r1, =data_020af360
-    moveq r0, r4
-    beq @L_0207a748
-    mov r2, #0x60
-    mul r9, r5, r2
-    str r9, [sp]
-    stmib sp, {r2, r4}
-    mov r5, #1
-    str r5, [sp, #0xc]
-    add r2, sp, #0x14
-    str r5, [sp, #0x10]
-    bl _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih
-@L_0207a748:
-    cmp r0, #0
-    addeq sp, sp, #0x18
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    ldr r0, [sp, #0x14]
-    mov r1, r6
-    mov r2, #0x60
-    bl MI_CpuCopy8
-    ldr r0, [r8, #0xbf0]
-    add r0, r0, r7
-    strh r4, [r0, #0x60]
-    mov r0, #1
-    add sp, sp, #0x18
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    const char *path = name;
+
+    if (gAllocator.fileManager == NULL) {
+        return 0;
+    }
+    return gAllocator.fileManager->Load(path, buffer, &gAllocator, index * size, size, FALSE, 1, TRUE);
+}
+
+// copies player id's 0x60 bytes to out: from its match player when there is one, else from the
+// cache (unk_bf0), loading it from data_020af360 into a free or the oldest entry on a miss: 1 when done
+int MatchEngine::func_0207a5c0(int id, void *out)
+{
+    MatchPlayerCache *entry;
+    int i;
+    MatchPlayerCache *dest;
+    int maxAge;
+    MatchPlayerCache *cache;
+    int best;
+    MatchPlayer *player;
+    int index;
+    int found;
+
+    if (out == NULL) {
+        return 0;
+    }
+    id &= 0xFFF;
+    index = func_0207a534(id);
+    if (index < 0) {
+        return 0;
+    }
+    player = func_ov015_02130b14(id, 0);
+    if (player != NULL) {
+        MI_CpuCopy8(player, out, 0x60);
+        return 1;
+    }
+    found = -1;
+    entry = unk_bf0;
+    for (i = 0; i < 0x40; i++, entry++) {
+        if (id == (u16)(entry->id & 0xFFF)) {
+            found = i;
+        }
+        if (entry->age < 0xFFFF) {
+            entry->age++;
+        }
+    }
+    if (found >= 0) {
+        entry = &unk_bf0[found];
+        MI_CpuCopy8(entry, out, 0x60);
+        entry->age = 0;
+        return 1;
+    }
+    best = -1;
+    maxAge = -1;
+    cache = unk_bf0;
+    entry = cache;
+    for (i = 0; i < 0x40; i++, entry++) {
+        if ((u16)(entry->id & 0xFFF) == 0) {
+            best = i;
+            break;
+        }
+        if (entry->age > maxAge) {
+            best = i;
+            maxAge = entry->age;
+        }
+    }
+    dest = &cache[best];
+    if (!MatchEngine_LoadEntry(data_020af360, (void **)&dest, index, 0x60)) {
+        return 0;
+    }
+    MI_CpuCopy8(dest, out, 0x60);
+    unk_bf0[best].age = 0;
+    return 1;
 }
 
 BOOL MatchEngine::func_0207a78c()

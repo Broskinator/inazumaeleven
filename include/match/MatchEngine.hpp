@@ -113,6 +113,15 @@ struct MatchState {
     s8 unk_7;
 };
 
+// A player's data kept by MatchEngine::func_0207a5c0 (unk_bf0)
+struct MatchPlayerCache {
+    u8 unk_0[0x42];
+    u16 id;             // 0x42 (12 bits)
+    u8 unk_44[0x60 - 0x44];
+    u16 age;            // 0x60 (reads since it was last used, at most 0xFFFF)
+    u8 unk_62[2];
+};
+
 // (what func_ov015_02143750 gives)
 struct UnkSlot_020621b4 {
     u8 unk_0[0x18];
@@ -846,7 +855,7 @@ public:
     u8 (*unk_be4)[0xC];
     s8 *unk_be8;
     s16 *unk_bec;       // (sorted ids, data_020c4828 of them; see func_0207a534)
-    s32 unk_bf0;
+    MatchPlayerCache *unk_bf0;      // (64 of them: func_0207a5c0)
     MatchAction *unk_bf4;     // (per player, indexed by MatchPlayer::unk_f4)
     s32 unk_bf8[2];
     void *unk_c00;      // (on the heap)

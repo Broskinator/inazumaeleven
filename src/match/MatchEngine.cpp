@@ -4978,8 +4978,8 @@ void MatchEngine::func_02066338()
 }
 
 // sets the players' state->unk_22: 0 for those func_ov015_021318a4 pairs with player, and for those
-// func_02078fa4 accepts when
-// func_ov015_02140da4 or the ball's direction lies between those to the ends of player's area; else unk_11800
+// func_02078fa4 accepts when func_ov015_02140da4 or the ball's direction lies between those to the
+// ends of player's area; else unk_11800
 // (nonmatching: the ROM's loop jumps to its test first and the ball's address is reloaded after each FX_Atan2Idx; O4 rotates the loop and keeps the address)
 #ifdef NONMATCHING
 void MatchEngine::func_020663b0(MatchPlayer *player, int a)
