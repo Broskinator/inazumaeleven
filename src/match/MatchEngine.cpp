@@ -381,7 +381,7 @@ extern "C" void func_ov087_0217dfbc(MatchEngine *self, MatchPlayer *player);
 extern "C" BOOL func_01ffed54(MatchEngine *self, MatchPlayer *player);
 extern "C" BOOL func_01ff9684(MatchEngine *self);
 extern "C" int func_02080b90(MatchPlayer *player);
-extern "C" int func_02083e44(int a);
+extern "C" u8 func_02083e44(int a);
 extern "C" BOOL func_ov087_02179e8c(MatchEngine *self, fx32 *segment, MatchPlayer *player, int a);
 extern "C" BOOL func_02083afc(fx32 *a, fx32 *b, int c);     // (do the segments cross?)
 extern "C" void func_ov087_0217d0ac(MatchEngine *self, MatchPlayer *player, int a);
@@ -581,11 +581,11 @@ extern "C" void func_0209e174(void *src, void *a, void *b, void *c, void *d);
 extern "C" void func_0209e1c8(void *dst, void *a, void *b, void *c, void *d);
 extern "C" int func_ov000_02116e8c(MatchEngine *self, int a);
 extern "C" int func_ov000_02116f2c(MatchEngine *self, int a);
-extern "C" void func_ov001_02122de8(void);
+extern "C" void func_ov001_02122de8(int a);
 extern "C" MatchPlayer *func_ov015_02130ce0(int team, int number, int a, int mode);
 extern "C" int func_ov015_021443f4(UnkPair_020621b4 *pair);
 extern "C" int func_ov015_0214440c(UnkPair_020621b4 *pair);
-extern "C" void func_ov087_0217e70c(void);
+extern "C" void func_ov087_0217e70c(MatchEngine *self);
 
 asm void MatchEngine::func_020622b4()
 {
@@ -11348,128 +11348,55 @@ int MatchEngine::func_0206d358(int kind)
     }
 }
 
-asm void MatchEngine::func_0206d4ec()
+// (the end of a period (gGameState.unk_07c[2]): the next phase, and the kick-off to the other
+// team of func_0206ceb4 after periods 1 and 7, to it after 4, to team 0 otherwise; unk_bac adds the
+// period's time)
+void MatchEngine::func_0206d4ec()
 {
-    stmdb sp!, {r3, r4, r5, lr}
-    mov r4, r0
-    bl _ZN11MatchEngine13func_0206ceb4Ev
-    ldr r1, =gGameState
-    mov r5, r0
-    ldrb r0, [r1, #0x7e]
-    cmp r0, #0xa
-    bgt @L_0206d604
-    cmp r0, #0
-    addge pc, pc, r0, lsl #2
-    b @L_0206d604
-    b @L_0206d604
-    b @L_0206d548
-    b @L_0206d604
-    b @L_0206d604
-    b @L_0206d568
-    b @L_0206d604
-    b @L_0206d604
-    b @L_0206d5b4
-    b @L_0206d604
-    b @L_0206d604
-    b @L_0206d5c0
-    b @L_0206d604
-@L_0206d548:
-    mov r0, r4
-    mov r1, #8
-@L_0206d550:
-    bl _ZN11MatchEngine13func_0206bff4Ei
-    mov r0, r5
-    bl func_02083e44
-    mov r1, r0
-    mov r0, r4
-    b @L_0206d618
-@L_0206d568:
-    mov r0, r4
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    bne @L_0206d590
-    mov r0, r4
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    beq @L_0206d59c
-@L_0206d590:
-    mov r0, r4
-    mov r1, #0xc
-    b @L_0206d5a4
-@L_0206d59c:
-    mov r0, r4
-    mov r1, #9
-@L_0206d5a4:
-    bl _ZN11MatchEngine13func_0206bff4Ei
-    mov r0, r4
-    mov r1, r5
-    b @L_0206d618
-@L_0206d5b4:
-    mov r0, r4
-    mov r1, #0xa
-    b @L_0206d550
-@L_0206d5c0:
-    mov r0, r4
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    bne @L_0206d5e8
-    mov r0, r4
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    beq @L_0206d5f4
-@L_0206d5e8:
-    mov r0, r4
-    mov r1, #0xc
-    b @L_0206d5fc
-@L_0206d5f4:
-    mov r0, r4
-    mov r1, #0xb
-@L_0206d5fc:
-    bl _ZN11MatchEngine13func_0206bff4Ei
-    b @L_0206d610
-@L_0206d604:
-    mov r0, r4
-    mov r1, #0xc
-    bl _ZN11MatchEngine13func_0206bff4Ei
-@L_0206d610:
-    mov r0, r4
-    mov r1, #0
-@L_0206d618:
-    bl _ZN11MatchEngine13func_0206bfa0Eh
-    ldr r1, =gGameState
-    ldr r3, [r4, #0xbac]
-    ldr r2, [r1, #4]
-    mov r0, r4
-    add r2, r3, r2
-    str r2, [r4, #0xbac]
-    ldrb r1, [r1, #0x7e]
-    add r1, r1, #1
-    bl _ZN11MatchEngine13func_0206d358Ei
-    mov r5, r0
-    cmp r5, #0xc
-    bne @L_0206d658
-    mov r0, r4
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206bfa0Eh
-@L_0206d658:
-    cmp r5, #0xf
-    bne @L_0206d66c
-    mov r0, r4
-    mov r1, #0xc
-    bl _ZN11MatchEngine13func_0206bff4Ei
-@L_0206d66c:
-    mov r0, #0x38
-    bl func_ov001_02122de8
-    mov r0, r4
-    bl func_ov087_0217e70c
-    mov r0, r4
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206bfb4Ei
-    ldmia sp!, {r3, r4, r5, pc}
+    u8 team = func_0206ceb4();
+
+    switch (gGameState.unk_07c[2]) {
+    case 1:
+        func_0206bff4(8);
+        func_0206bfa0(func_02083e44(team));
+        break;
+    case 4:
+        if (func_0206d114(0) || func_0206d114(1)) {
+            func_0206bff4(12);
+        } else {
+            func_0206bff4(9);
+        }
+        func_0206bfa0(team);
+        break;
+    case 7:
+        func_0206bff4(10);
+        func_0206bfa0(func_02083e44(team));
+        break;
+    case 10:
+        if (func_0206d114(0) || func_0206d114(1)) {
+            func_0206bff4(12);
+        } else {
+            func_0206bff4(11);
+        }
+        func_0206bfa0(0);
+        break;
+    case 13:
+    default:
+        func_0206bff4(12);
+        func_0206bfa0(0);
+        break;
+    }
+    unk_bac += *(s32 *)&gGameState.unk_000[4];
+    int next = func_0206d358(gGameState.unk_07c[2] + 1);
+    if (next == 12) {
+        func_0206bfa0(0);
+    }
+    if (next == 15) {
+        func_0206bff4(12);
+    }
+    func_ov001_02122de8(0x38);
+    func_ov087_0217e70c(this);
+    func_0206bfb4(1);
 }
 
 BOOL MatchEngine::func_0206d690(u8 value)
