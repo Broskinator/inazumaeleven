@@ -784,8 +784,8 @@ public:
     void func_0207d830();
     int func_0207da34(MatchPlayer *player, int kind);
     int func_0207dac0(MatchPlayer *player, int kind);
-    int func_0207dbf4(int a, int b);
-    void func_0207dc10(u8 *data, int a);
+    int func_0207dbf4(u8 *data, int *moves);     // (the moves data learns at its level)
+    BOOL func_0207dc10(u8 *data, int a);
     void func_0207de24(MatchPlayer *player, int max, int base, s8 *value, u8 *rest);
     void func_0207dec0();
     void func_0207e19c(MatchPlayer *player);
@@ -958,7 +958,9 @@ public:
     u8 unk_118bb[0x118BE - 0x118BB];
     u8 unk_118be[2][6];
     u8 unk_118ca[2][6];     // (per team)
-    u8 unk_118d6[0x118DD - 0x118D6];
+    u8 unk_118d6[0x118DB - 0x118D6];
+    u8 unk_118db;
+    u8 unk_118dc;
     u8 unk_118dd;
     u8 unk_118de;
     u8 unk_118df[0x118E4 - 0x118DF];

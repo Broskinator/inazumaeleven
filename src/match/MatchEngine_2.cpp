@@ -187,7 +187,7 @@ extern "C" void _ZN11MatchEngine13func_0207d6bcEi(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207d728EP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207da34EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207dac0EP11MatchPlayeri(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207dbf4Eii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207dbf4EPhPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207dc10EPhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207de24EP11MatchPlayeriiPaPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207dec0Ev(void);     // (for the asm functions)
@@ -14226,12 +14226,89 @@ int MatchEngine::func_0207dac0(MatchPlayer *player, int kind)
     return left;
 }
 
-int MatchEngine::func_0207dbf4(int a, int b)
+int MatchEngine::func_0207dbf4(u8 *data, int *moves)
 {
-    return func_0207e334(a, 1, b, 0);
+    return func_0207e334((int)data, 1, (int)moves, 0);
 }
 
-asm void MatchEngine::func_0207dc10(u8 *data, int a)
+// (levels data up while its experience (at 0x60) reaches the next level's, to 99 at most: the
+// moves each new level teaches go to the free slots of a (4 ints, may be 0), the stat gains
+// of func_0207a854 to unk_c1 (100 at most); whether the level changed)
+// (nonmatching: the stat gains scheduled with other registers, an inner compare's operands swapped)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_0207dc10(u8 *data, int a)
+{
+    int *learned = (int *)a;
+    int level = data[0xAA];
+    int moves[4] = {0, 0, 0, 0};
+    s8 stats[0x50];
+    int start = level;
+    BOOL loaded = FALSE;
+
+    if (learned != NULL) {
+        MI_CpuFill8(learned, 0, 0x10);
+    }
+    u32 exp = *(u32 *)(data + 0x60);
+    if (exp < func_0207d378(data, 1)) {
+        *(u32 *)(data + 0x60) = func_0207d378(data, 1);
+    }
+    for (; level < 99; level++) {
+        exp = *(u32 *)(data + 0x60);
+        if (exp < func_0207d378(data, level + 1)) {
+            break;
+        }
+        if (unk_bdc == NULL) {
+            func_0207a78c();
+            loaded = TRUE;
+        }
+        data[0xAA] = level + 1;
+        func_0207dbf4(data, moves);
+        if (learned != NULL) {
+            int i, j, move;
+            for (i = 0; i < 4; i++) {
+                move = moves[i];
+                if (move != 0) {
+                    for (j = 0; j < 4; j++) {
+                        if (learned[j] <= 0 && learned[j] != move) {
+                            learned[j] = move;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (data != NULL && func_0207a854(*(u16 *)(data + 0x42), stats)) {
+            s8 a = ((s8 *)data)[0xC1] + stats[0x3F];
+            s8 b = ((s8 *)data)[0xC2] + stats[0x41];
+            s8 c = ((s8 *)data)[0xC3] + stats[0x43];
+            if (a >= 100) {
+                a = 100;
+            }
+            if (b >= 100) {
+                b = 100;
+            }
+            if (c >= 100) {
+                c = 100;
+            }
+            data[0xC1] = a;
+            data[0xC2] = b;
+            data[0xC3] = c;
+        }
+    }
+    if (loaded) {
+        func_0207a820();
+    }
+    if (start == data[0xAA]) {
+        return FALSE;
+    }
+    if (func_02080b90((MatchPlayer *)data) == func_ov015_021319bc() && *(u16 *)(data + 0x42) == 1) {
+        func_0206e3d4();
+        unk_118db = 1;
+    }
+    return TRUE;
+}
+#else
+asm BOOL MatchEngine::func_0207dc10(u8 *data, int a)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x60
@@ -14289,7 +14366,7 @@ asm void MatchEngine::func_0207dc10(u8 *data, int a)
     mov r1, r9
     mov r2, r7
     strb r3, [r9, #0xaa]
-    bl _ZN11MatchEngine13func_0207dbf4Eii
+    bl _ZN11MatchEngine13func_0207dbf4EPhPi
     cmp r8, #0
     beq @L_0207dd34
     mov r2, #0
@@ -14380,6 +14457,7 @@ asm void MatchEngine::func_0207dc10(u8 *data, int a)
     add sp, sp, #0x60
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_0207de24(MatchPlayer *player, int max, int base, s8 *value, u8 *rest)
 {
