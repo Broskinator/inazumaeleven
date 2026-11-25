@@ -5632,7 +5632,72 @@ BOOL MatchEngine::func_02066e14(int value)
     return (u32)(value - 5) <= 2;
 }
 
-asm int MatchEngine::func_02066e28(int a, int b, int c)
+// the line of team side's defence (unk_117e4[side], worked out again when it has none or when
+// refresh is set): the halfway line, or the ball or the second last player of the team
+// func_0206b47c(side) gives when they are further back; plus func_01ffe4b4's offset
+// (nonmatching: the ROM shares the two assignment blocks between the sides (cross-jumped), and keeps i in r4)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+#pragma opt_common_subs off
+int MatchEngine::func_02066e28(int side, int b, BOOL refresh)
+{
+    int team = func_0206b47c(side);
+    if (!refresh && unk_117e4[side] != (s32)0x80000000) {
+        return unk_117e4[side] + func_01ffe4b4(this, side, b);
+    }
+    if (func_02066e14(func_0206bfa8())) {
+        unk_117e4[side] = func_02067044(side, 0);
+        return unk_117e4[side] + func_01ffe4b4(this, side, b);
+    }
+    fx32 line = data_020c4de0.unk_d8;
+    if (side == 0) {
+        if (data_020c4920.pos.y > line) {
+            line = data_020c4920.pos.y;
+        }
+    } else {
+        if (data_020c4920.pos.y < line) {
+            line = data_020c4920.pos.y;
+        }
+    }
+    fx32 last = 0x80000000;
+    fx32 second = 0x80000000;
+    for (int i = 0; i < 11; i++) {
+        MatchPlayer *player = func_02079e90(team, i);
+        if (player == NULL || player->body == NULL) {
+            continue;
+        }
+        if (side == 0) {
+            if (last == (fx32)0x80000000 || player->body->pos.y > last) {
+                second = last;
+                last = player->body->pos.y;
+            } else if (second == (fx32)0x80000000 || player->body->pos.y > second) {
+                second = player->body->pos.y;
+            }
+        } else {
+            if (last == (fx32)0x80000000 || player->body->pos.y < last) {
+                second = last;
+                last = player->body->pos.y;
+            } else if (second == (fx32)0x80000000 || player->body->pos.y < second) {
+                second = player->body->pos.y;
+            }
+        }
+    }
+    if (side == 0) {
+        if (second > line) {
+            line = second;
+        }
+    } else {
+        if (second < line) {
+            line = second;
+        }
+    }
+    unk_117e4[side] = line;
+    return unk_117e4[side] + func_01ffe4b4(this, side, b);
+}
+#pragma pop
+#else
+asm int MatchEngine::func_02066e28(int side, int b, BOOL refresh)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r4, r3
@@ -5772,6 +5837,7 @@ asm int MatchEngine::func_02066e28(int a, int b, int c)
     add r0, r1, r0
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 int MatchEngine::func_02067014(MatchPlayer *player, int a, int b)
 {

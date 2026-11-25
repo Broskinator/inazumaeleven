@@ -216,7 +216,7 @@ public:
     int func_020665a4(MatchPoint *target, int count, s32 *ids, fx32 *dists, u32 flags, MatchPlayer *player);
     void func_02066768();
     BOOL func_02066e14(int value);
-    int func_02066e28(int a, int b, int c);
+    int func_02066e28(int side, int b, BOOL refresh);
     int func_02067014(MatchPlayer *player, int a, int b);
     fx32 func_02067044(int a, int b);
     fx32 func_0206707c(int a, int b);
