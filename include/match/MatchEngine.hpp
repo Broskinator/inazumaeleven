@@ -933,7 +933,9 @@ public:
     s16 unk_11800;      // (what func_020663b0 gives the players' state->unk_22)
     u8 unk_11802[0x11842 - 0x11802];
     u16 unk_11842;      // (the number of unk_bd4's entries)
-    u8 unk_11844[0x1188C - 0x11844];
+    u8 unk_11844[0x11848 - 0x11844];
+    u16 unk_11848[2];   // (per team)
+    u8 unk_1184c[0x1188C - 0x1184C];
     u8 unk_1188c[2];
     u8 unk_1188e[2];
     u8 unk_11890[0x11895 - 0x11890];

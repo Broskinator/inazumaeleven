@@ -11485,134 +11485,64 @@ BOOL MatchEngine::func_0206d114(int team)
     return func_0206d094(team);
 }
 
-asm BOOL MatchEngine::func_0206d188(int team, BOOL flag)
+// (whether team has won, or will by the rule in force: rules.func_0206efb0 says which; with flag,
+// the rule set in rules.unk_8[7] first gives the win to team 0 or 1 when the other has not)
+BOOL MatchEngine::func_0206d188(int team, BOOL flag)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, lr}
-    mov r7, r1
-    mov r8, r0
-    mov r0, r7
-    mov r6, r2
-    mov r9, #1
-    bl func_02083e44
-    mov r4, r0
-    mov r1, r7
-    add r0, r8, #0x22c
-    bl _ZN10MatchRules13func_0206efb8Ei
-    mov r5, r0
-    mov r0, r8
-    bl _ZN11MatchEngine13func_0206c644Ev
-    cmp r0, #0
-    beq @L_0206d1d8
-    mov r0, r8
-    mov r1, r7
-    bl _ZN11MatchEngine13func_0206d094Ei
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d1d8:
-    cmp r6, #0
-    ldrneb r0, [r8, #0x23b]
-    cmpne r0, #0
-    beq @L_0206d248
-    cmp r0, #1
-    beq @L_0206d1fc
-    cmp r0, #2
-    beq @L_0206d224
-    b @L_0206d248
-@L_0206d1fc:
-    cmp r7, #0
-    bne @L_0206d248
-    mov r0, r8
-    mov r1, r9
-    mov r2, r6
-    bl _ZN11MatchEngine13func_0206d188Eii
-    cmp r0, #0
-    bne @L_0206d248
-    mov r0, r9
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d224:
-    cmp r7, #1
-    bne @L_0206d248
-    mov r0, r8
-    mov r2, r6
-    mov r1, #0
-    bl _ZN11MatchEngine13func_0206d188Eii
-    cmp r0, #0
-    moveq r0, r9
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d248:
-    mov r1, r7
-    add r0, r8, #0x22c
-    bl _ZN10MatchRules13func_0206efb0Ei
-    cmp r0, #8
-    addls pc, pc, r0, lsl #2
-    b @L_0206d350
-    b @L_0206d284
-    b @L_0206d2d0
-    b @L_0206d350
-    b @L_0206d350
-    b @L_0206d350
-    b @L_0206d350
-    b @L_0206d2f8
-    b @L_0206d28c
-    b @L_0206d338
-@L_0206d284:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d28c:
-    cmp r6, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r1, r4
-    add r0, r8, #0x22c
-    bl _ZN10MatchRules13func_0206efb0Ei
-    cmp r0, #7
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r8
-    mov r1, r4
-    mov r2, r6
-    bl _ZN11MatchEngine13func_0206d188Eii
-    cmp r0, #0
-    moveq r0, #1
-    movne r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d2d0:
-    cmp r6, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r8
-    mov r1, r7
-    bl _ZN11MatchEngine13func_0206d114Ei
-    cmp r0, #0
-    beq @L_0206d350
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d2f8:
-    mov r0, r7
-    bl func_020841c8
-    mov r6, r0
-    mov r0, r4
-    bl func_020841c8
-    add r0, r5, r0
-    cmp r6, r0
-    movge r0, #1
-    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-    mov r0, r8
-    mov r1, r7
-    bl _ZN11MatchEngine13func_0206d094Ei
-    cmp r0, #0
-    beq @L_0206d350
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d338:
-    add r0, r8, r7, lsl #1
-    add r0, r0, #0x11800
-    ldrh r0, [r0, #0x48]
-    cmp r0, r5
-    movge r0, #1
-    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
-@L_0206d350:
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, pc}
+    int other = func_02083e44(team);
+    s8 lead = rules.func_0206efb8(team);
+    if (func_0206c644()) {
+        return func_0206d094(team);
+    }
+    u8 mode;
+    if (flag != 0 && (mode = rules.unk_8[7]) != 0) {
+        switch (mode) {
+        case 1:
+            if (team == 0 && !func_0206d188(1, flag)) {
+                return TRUE;
+            }
+            break;
+        case 2:
+            if (team == 1 && !func_0206d188(0, flag)) {
+                return TRUE;
+            }
+            break;
+        }
+    }
+    switch (rules.func_0206efb0(team)) {
+    case 0:
+        return FALSE;
+    case 7:
+        if (flag == 0) {
+            return FALSE;
+        }
+        if (rules.func_0206efb0(other) == 7) {
+            return FALSE;
+        }
+        return !func_0206d188(other, flag);
+    case 1:
+        if (flag == 0) {
+            return FALSE;
+        }
+        if (func_0206d114(team)) {
+            return TRUE;
+        }
+        break;
+    case 6:
+        if (func_020841c8(team) >= lead + func_020841c8(other)) {
+            return TRUE;
+        }
+        if (func_0206d094(team)) {
+            return TRUE;
+        }
+        break;
+    case 8:
+        if (unk_11848[team] >= lead) {
+            return TRUE;
+        }
+        break;
+    }
+    return FALSE;
 }
 
 // (the state that follows kind; 15 when func_0206d188 holds for either team)
