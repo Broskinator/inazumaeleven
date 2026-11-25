@@ -351,7 +351,7 @@ extern "C" void _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer(void);     // (
 extern "C" void _ZN11MatchEngine13func_02074aacEPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074abcEPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020751b8Ev(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020665a4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a8d8Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a93cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206f500Ei(void);     // (for the asm functions)
@@ -5158,7 +5158,7 @@ asm int MatchEngine::func_02073a9c(void *team, int i, u16 *out, int b)
     mov r3, r7
     mov r2, #0xb
     str r9, [sp, #8]
-    bl _ZN11MatchEngine13func_020665a4Ev
+    bl _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer
     str r0, [sp, #0xc]
     cmp r0, #0
     mov r6, #0

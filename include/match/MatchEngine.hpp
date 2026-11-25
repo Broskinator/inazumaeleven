@@ -188,7 +188,7 @@ public:
     void func_02066338();
     void func_020663b0(MatchPlayer *player, int a);
     void func_02066504(int flags, int a, int b);
-    void func_020665a4();
+    int func_020665a4(MatchPoint *target, int count, s32 *ids, fx32 *dists, u32 flags, MatchPlayer *player);
     void func_02066768();
     BOOL func_02066e14(int value);
     int func_02066e28(int a, int b, int c);

@@ -55,7 +55,7 @@ extern "C" void _ZN15DistanceTable3213func_02062178Ev(void);
 extern "C" s32 _ZN11MatchEngine13func_020630d8Ev(...);
 extern "C" void _ZN11MatchEngine13func_02063388Esll(void);
 extern "C" void _ZN11MatchEngine13func_02063ec8EP11MatchPlayer(void);
-extern "C" void _ZN11MatchEngine13func_020665a4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02066e28Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0206707cEii(void);
 extern "C" void _ZN11MatchEngine13func_02068590Eii(void);
@@ -756,7 +756,7 @@ extern "C" asm void func_ov087_02180ea8(void)
     mov r3, r4
     sub r2, r5, r6
     str r9, [sp, #8]
-    bl _ZN11MatchEngine13func_020665a4Ev
+    bl _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer
     mov r11, #0
     sub r5, r5, r6
     b @L_0218112c

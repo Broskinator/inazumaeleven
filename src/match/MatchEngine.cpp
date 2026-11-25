@@ -5144,132 +5144,69 @@ void MatchEngine::func_02066504(int flags, int a, int b)
     unk_b98 = 0;
 }
 
-asm void MatchEngine::func_020665a4()
+// the count players nearest target (by func_01fff15c) that func_0207a144 does not rule out: ids
+// gets their unk_f4 and dists the distances, nearest first; returns how many (at most count)
+int MatchEngine::func_020665a4(MatchPoint *target, int count, s32 *ids, fx32 *dists, u32 flags, MatchPlayer *player)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x14
-    mov r10, r0
-    ldr r0, [sp, #0x3c]
-    mov r9, r2
-    str r1, [sp, #4]
-    mov r8, r3
-    cmp r9, #0
-    ldr r7, [sp, #0x38]
-    str r0, [sp, #0x3c]
-    ldr r6, [sp, #0x40]
-    mov r11, #0
-    ble @L_020665e4
-    cmp r8, #0
-    cmpne r7, #0
-    bne @L_020665f0
-@L_020665e4:
-    add sp, sp, #0x14
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020665f0:
-    mov r2, r11
-    cmp r9, #0
-    ble @L_02066618
-    mvn r1, #0
-    sub r0, r1, #0x80000000
-@L_02066604:
-    str r1, [r8, r2, lsl #2]
-    str r0, [r7, r2, lsl #2]
-    add r2, r2, #1
-    cmp r2, r9
-    blt @L_02066604
-@L_02066618:
-    mov r5, #0
-    str r5, [sp, #8]
-@L_02066620:
-    mov r0, r10
-    mov r1, r5
-    mov r2, #0
-    bl _ZN11MatchEngine13func_0206a9a4Eii
-    mov r4, r0
-    mov r0, r10
-    mov r1, r5
-    bl _ZN11MatchEngine13func_02079d2cEi
-    cmp r0, #0
-    cmpne r4, #0
-    beq @L_02066660
-    ldrsh r2, [r0, #0xf4]
-    ldrsh r1, [r6, #0xf4]
-    cmp r2, r1
-    streq r0, [sp, #8]
-    beq @L_0206666c
-@L_02066660:
-    add r5, r5, #1
-    cmp r5, #0x16
-    blt @L_02066620
-@L_0206666c:
-    mov r6, #0
-    mov r0, r10
-    mov r1, r6
-    bl _ZN11MatchEngine13func_0206aa30Ei
-    str r0, [sp, #0xc]
-@L_02066680:
-    mov r0, r10
-    mov r1, r6
-    mov r2, #0
-    bl _ZN11MatchEngine13func_0206a9a4Eii
-    mov r5, r0
-    mov r0, r10
-    mov r1, r6
-    bl _ZN11MatchEngine13func_02079d2cEi
-    mov r4, r0
-    cmp r5, #0
-    cmpne r4, #0
-    mvnne r0, #0
-    ldrnesh r1, [r4, #0xf4]
-    strne r0, [sp, #0x10]
-    cmpne r1, r0
-    beq @L_02066748
-    ldr r0, [sp, #0xc]
-    ldr r2, [sp, #0x3c]
-    str r0, [sp]
-    ldr r3, [sp, #8]
-    mov r0, r10
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0207a144EP11MatchPlayermS1_Ph
-    cmp r0, #0
-    bne @L_02066748
-    ldr r2, [sp, #4]
-    mov r1, r5
-    mov r0, r10
-    bl func_01fff15c
-    ldrsh r5, [r4, #0xf4]
-    cmp r9, #0
-    mov r4, #0
-    ble @L_02066744
-    ldr r1, [sp, #0x10]
-    sub r1, r1, #0x80000000
-@L_0206670c:
-    cmp r5, #0
-    blt @L_02066744
-    cmp r0, r1
-    beq @L_02066744
-    ldr r3, [r7, r4, lsl #2]
-    cmp r3, r0
-    ldrgt r2, [r8, r4, lsl #2]
-    strgt r5, [r8, r4, lsl #2]
-    strgt r0, [r7, r4, lsl #2]
-    add r4, r4, #1
-    movgt r5, r2
-    movgt r0, r3
-    cmp r4, r9
-    blt @L_0206670c
-@L_02066744:
-    add r11, r11, #1
-@L_02066748:
-    add r6, r6, #1
-    cmp r6, #0x16
-    blt @L_02066680
-    cmp r11, r9
-    movgt r11, r9
-    mov r0, r11
-    add sp, sp, #0x14
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    int found = 0;
+    int i;
+    int j;
+    u8 *state;
+    MatchPlayer *other;
+    u8 *info;
+    MatchPlayer *mate;
+    fx32 dist;
+    s32 id;
+    s32 tmpId;
+    fx32 tmpDist;
+
+    if (count <= 0 || ids == NULL || dists == NULL) {
+        return 0;
+    }
+    for (i = 0; i < count; i++) {
+        ids[i] = -1;
+        dists[i] = 0x7FFFFFFF;
+    }
+    mate = NULL;
+    for (i = 0; i < 0x16; i++) {
+        state = func_0206a9a4(i, 0);
+        other = func_02079d2c(i);
+        if (other != NULL && state != NULL && other->unk_f4 == player->unk_f4) {
+            mate = other;
+            break;
+        }
+    }
+    info = func_0206aa30(0);
+    for (i = 0; i < 0x16; i++) {
+        state = func_0206a9a4(i, 0);
+        other = func_02079d2c(i);
+        if (state == NULL || other == NULL || other->unk_f4 == -1) {
+            continue;
+        }
+        if (func_0207a144(other, flags, mate, info)) {
+            continue;
+        }
+        dist = func_01fff15c(this, (MatchPlayerBody *)state, target);
+        id = other->unk_f4;
+        for (j = 0; j < count; j++) {
+            if (id < 0 || dist == 0x7FFFFFFF) {
+                break;
+            }
+            if (dists[j] > dist) {
+                tmpId = ids[j];
+                tmpDist = dists[j];
+                ids[j] = id;
+                dists[j] = dist;
+                id = tmpId;
+                dist = tmpDist;
+            }
+        }
+        found++;
+    }
+    if (found > count) {
+        found = count;
+    }
+    return found;
 }
 
 asm void MatchEngine::func_02066768()

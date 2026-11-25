@@ -80,7 +80,7 @@ extern "C" char data_020fa064[];
 extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN17UnkClass_0205480013func_0205a69cEv(void);
 extern "C" void _ZN11MatchEngine13func_020634e8Eiti(void);
-extern "C" void _ZN11MatchEngine13func_020665a4Ev(void);
+extern "C" void _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02068548Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206a9d0Eii(void);
 extern "C" void _ZN11MatchEngine13func_0206aa30Ei(void);
@@ -1797,7 +1797,7 @@ extern "C" asm void func_ov015_0215a7a0(void)
     mov r0, r6
     mov r3, r4
     add r2, r2, #2
-    bl _ZN11MatchEngine13func_020665a4Ev
+    bl _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer
     ldr r0, [sp, #0x140]
     add r0, r0, #1
     ldr r0, [r4, r0, lsl #2]
@@ -1886,7 +1886,7 @@ extern "C" asm void func_ov015_0215a8c0(void)
     mov r0, r4
     mov r3, r9
     add r2, r2, #1
-    bl _ZN11MatchEngine13func_020665a4Ev
+    bl _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer
     ldr r0, [sp, #0x13c]
     ldr r0, [r9, r0, lsl #2]
     bl func_ov015_02130ae8
