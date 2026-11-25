@@ -130,7 +130,7 @@ extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207f07cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f3b8EP11MatchPlayeri(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207ff44Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207fff0Eii(void);     // (for the asm functions)
@@ -277,7 +277,7 @@ extern "C" void _ZN11MatchEngine13func_0206b4a8Ei(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206b4ccEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b89cEP11MatchPlayerP10MatchPoint(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206b9c4EP9MatchBalll(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206ba84Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206ba84EP11MatchPlayerPtiPiS3_Pa(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bf2cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bf98Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);     // (for the asm functions)
@@ -10423,135 +10423,73 @@ int MatchEngine::func_0206b9c4(MatchBall *ball, fx32 distance)
     return n;
 }
 
-asm void MatchEngine::func_0206ba84()
+// the players of player's team (func_02083e54) within 3 tiles in front of player that are not
+// on the bench (func_02078fa4): their ids in ids, their number returned; *angle: how far the
+// nearest is from player's direction, *best: the best func_02069394 of those of player's
+// level, *level: 0 when there is one, -1 when one is higher (and the search stops there)
+int MatchEngine::func_0206ba84(MatchPlayer *player, u16 *ids, int max, int *best, int *angle, s8 *level)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x34
-    mov r10, r0
-    str r1, [sp, #0xc]
-    mov r0, r1
-    ldr r1, [sp, #0x60]
-    str r2, [sp, #0x10]
-    ldr r11, [sp, #0x58]
-    ldr r9, [sp, #0x5c]
-    str r1, [sp, #0x60]
-    mov r6, #0
-    bl _ZN11MatchEngine13func_0207f3e0Ev
-    ldr r1, [sp, #0xc]
-    str r0, [sp, #0x2c]
-    ldr r2, [r1, #0xe8]
-    ldr r0, [r2]
-    ldrh r1, [r2, #0x18]
-    str r0, [sp, #0x1c]
-    ldr r0, [r2, #4]
-    str r0, [sp, #0x18]
-    add r0, r1, #0x8000
-    mov r0, r0, lsl #0x10
-    mov r0, r0, lsr #0x10
-    str r0, [sp, #0x14]
-    ldr r0, [sp, #0xc]
-    str r6, [r11]
-    bl func_02083e54
-    str r0, [sp, #0x20]
-    mov r0, #0x8000
-    rsb r0, r0, #0
-    mov r5, r6
-    str r0, [sp, #0x30]
-@L_0206bb04:
-    ldr r1, [sp, #0x20]
-    mov r0, r10
-    mov r2, r5
-    bl _ZN11MatchEngine13func_02079e90Eii
-    movs r4, r0
-    beq @L_0206bc58
-    mov r0, r10
-    mov r1, r4
-    bl _ZN11MatchEngine13func_02078fa4EP11MatchPlayer
-    cmp r0, #0
-    bne @L_0206bc58
-    ldr r2, [r4, #0xe8]
-    ldr r0, [sp, #0x1c]
-    ldr r1, [r2]
-    ldr r2, [r2, #4]
-    subs r1, r1, r0
-    rsbmi r7, r1, #0
-    ldr r0, [sp, #0x18]
-    movpl r7, r1
-    subs r0, r2, r0
-    rsbmi r8, r0, #0
-    movpl r8, r0
-    cmp r7, #0x30000
-    cmple r8, #0x30000
-    bgt @L_0206bc58
-    bl FX_Atan2Idx
-    ldr r1, [sp, #0x14]
-    mov r2, #0x6000
-    str r0, [sp, #0x24]
-    bl func_020842b0
-    cmp r0, #0
-    beq @L_0206bc58
-    mov r1, r7
-    mov r2, r8
-    mov r0, r10
-    bl func_01fff184
-    mov r7, r0
-    cmp r7, #0x30000
-    bgt @L_0206bc58
-    mov r0, r4
-    bl _ZN11MatchEngine13func_0207f3e0Ev
-    ldr r1, [sp, #0x2c]
-    cmp r0, r1
-    ldrgt r0, [sp, #0x60]
-    mvngt r1, #0
-    strgtb r1, [r0]
-    bgt @L_0206bc64
-    bne @L_0206bc04
-    ldr r0, [sp, #0x60]
-    mov r1, #0
-    strb r1, [r0]
-    mov r0, r1
-    str r0, [sp]
-    str r0, [sp, #4]
-    ldr r0, [sp, #0xc]
-    mov r1, r4
-    str r0, [sp, #8]
-    mov r0, r10
-    mov r2, #0
-    mov r3, #0x1e
-    bl _ZN11MatchEngine13func_02069394Eiiiihi
-    ldr r1, [r11]
-    cmp r0, r1
-    strgt r0, [r11]
-@L_0206bc04:
-    ldr r0, [sp, #0x28]
-    ldrh r2, [r4, #0x42]
-    cmp r0, r7
-    mov r1, r6, lsl #1
-    ldr r0, [sp, #0x10]
-    add r6, r6, #1
-    strh r2, [r0, r1]
-    ble @L_0206bc58
-    ldr r1, [sp, #0x14]
-    ldr r0, [sp, #0x24]
-    str r7, [sp, #0x28]
-    sub r1, r1, r0
-    ldr r0, [sp, #0x30]
-    str r1, [r9]
-    cmp r1, r0
-    addlt r0, r1, #0x10000
-    strlt r0, [r9]
-    blt @L_0206bc58
-    cmp r1, #0x8000
-    subgt r0, r1, #0x10000
-    strgt r0, [r9]
-@L_0206bc58:
-    add r5, r5, #1
-    cmp r5, #0xb
-    blt @L_0206bb04
-@L_0206bc64:
-    mov r0, r6
-    add sp, sp, #0x34
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *other;
+    int i;
+    int own;
+    fx32 nearest;     // (never set before its first test, in the ROM too)
+    u16 a;
+    int team;
+    fx32 x;
+    fx32 y;
+    u16 dir;
+    int n = 0;
+
+    own = func_0207f3e0(player);
+    x = player->body->pos.x;
+    y = player->body->pos.y;
+    dir = player->body->direction + 0x8000;
+    *best = 0;
+    team = func_02083e54(player);
+    for (i = 0; i < 11; i++) {
+        other = func_02079e90(team, i);
+        if (other == NULL || func_02078fa4(other)) {
+            continue;
+        }
+        fx32 dx = other->body->pos.x - x;
+        fx32 ax = dx < 0 ? -dx : dx;
+        fx32 dy = other->body->pos.y - y;
+        fx32 ay = dy < 0 ? -dy : dy;
+        if (ax > 0x30000 || ay > 0x30000) {
+            continue;
+        }
+        a = FX_Atan2Idx(dy, dx);
+        if (!func_020842b0(a, dir, 0x6000)) {
+            continue;
+        }
+        fx32 d = func_01fff184(this, ax, ay);
+        if (d > 0x30000) {
+            continue;
+        }
+        s8 l = func_0207f3e0(other);
+        if (l > own) {
+            *level = -1;
+            break;
+        }
+        if (l == own) {
+            *level = 0;
+            int v = func_02069394((int)other, 0, 0x1E, 0, 0, (int)player);
+            if (v > *best) {
+                *best = v;
+            }
+        }
+        ids[n++] = other->unk_42;
+        if (nearest > d) {
+            nearest = d;
+            *angle = dir - a;
+            if (*angle < -0x8000) {
+                *angle += 0x10000;
+            } else if (*angle > 0x8000) {
+                *angle -= 0x10000;
+            }
+        }
+    }
+    return n;
 }
 
 asm void MatchEngine::func_0206bc70()
@@ -10600,7 +10538,7 @@ asm void MatchEngine::func_0206bc70()
     mov r2, r5
     str r4, [sp, #0xc]
     mov r3, #0xb
-    bl _ZN11MatchEngine13func_0206ba84Ev
+    bl _ZN11MatchEngine13func_0206ba84EP11MatchPlayerPtiPiS3_Pa
     str r4, [sp]
     str r4, [sp, #4]
     mov r5, #0x1d

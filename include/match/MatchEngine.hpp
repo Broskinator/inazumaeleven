@@ -321,7 +321,7 @@ public:
     void func_0206b628();
     int func_0206b89c(MatchPlayer *player, MatchPoint *target);
     int func_0206b9c4(MatchBall *ball, fx32 distance);
-    void func_0206ba84();
+    int func_0206ba84(MatchPlayer *player, u16 *ids, int max, int *best, int *angle, s8 *level);
     void func_0206bc70();
     void func_0206befc(MatchPoint *a, MatchPoint *b);
     BOOL func_0206bf2c(MatchPlayer *player);
@@ -808,7 +808,7 @@ public:
     static void func_0207f38c(MatchPlayer *player, u8 dir, BOOL update);
     static void func_0207f3b8(MatchPlayer *player, int value);     // (state->unk_22, at least 0)
     static u16 func_0207f3cc(MatchPlayer *player, u32 i);     // (the item in the player's slot i)
-    s8 func_0207f3e0();
+    static s8 func_0207f3e0(MatchPlayer *player);     // (player->body->unk_1e)
     BOOL func_0207f42c(MatchPlayer *player);
     int func_0207f4bc(MatchIdScore *list, int n, u8 order);
     BOOL func_0207f5d0(char *dst, const char *src);

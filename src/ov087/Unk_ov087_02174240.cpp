@@ -89,7 +89,7 @@ extern "C" void _ZN11MatchEngine13func_02078f8cEP11MatchPlayer(void);
 extern "C" s32 _ZN11MatchEngine13func_02078fa4EP11MatchPlayer(...);
 extern "C" void _ZN11MatchEngine13func_02079d1cEv(void);
 extern "C" void _ZN11MatchEngine13func_0207c478EP11MatchPlayeriii(void);
-extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer(void);
 extern "C" void func_020836b4(void);
 extern "C" void _ZN17UnkClass_0208351c13func_02083750Eii(void);
 extern "C" void _ZN17UnkClass_0208351c13func_020838d0EPlS0_P10MatchPoint(void);
@@ -325,19 +325,19 @@ extern "C" asm void func_ov087_02174338(void)
     bne @L_02174504
 @L_02174454:
     mov r0, r6
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     mov r10, r0
     mov r0, r5
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     cmp r10, r0
     strgt r6, [r8]
     strgt r5, [r7]
     bgt @L_02174504
     mov r0, r5
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     mov r10, r0
     mov r0, r6
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     cmp r10, r0
     strgt r5, [r8]
     strgt r6, [r7]

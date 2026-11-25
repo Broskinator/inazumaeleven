@@ -60,7 +60,7 @@ extern "C" void _ZN11MatchEngine13func_02078fa4EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207903cEP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_02079d2cEi(void);
 extern "C" void _ZN11MatchEngine13func_02079f98EP11MatchPlayeriS1_(void);
-extern "C" s32 _ZN11MatchEngine13func_0207f3e0Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer(...);
 extern "C" void _ZN17UnkClass_0208351c13func_02083778EP10MatchPointS1_S1_S1_(void);
 extern "C" void _ZN17UnkClass_0208351c13func_020838d0EPlS0_P10MatchPoint(void);
 extern "C" void func_01ffe4b4(void);
@@ -2225,14 +2225,14 @@ extern "C" asm void func_ov087_021790a4(void)
     bl _ZN11MatchEngine13func_020739ccEi
     mov r6, r0
     ldr r0, [sp, #0xc]
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     mov r7, r0
     ldrsh r1, [r4, #8]
     mov r0, r10
     bl _ZN11MatchEngine13func_020747a0Ei
     add r11, r7, r0
     mov r0, r9
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     mov r7, r0
     ldrsh r1, [r4, #0xa]
     mov r0, r10
@@ -3295,13 +3295,13 @@ extern "C" s32 func_ov087_02179f54(s32 arg0, u8 *arg1, u8 *arg2, s32 arg3)
                         return 0;
                     }
                 }
-                v10 = _ZN11MatchEngine13func_0207f3e0Ev((s32)r7);
-                v11 = _ZN11MatchEngine13func_0207f3e0Ev((s32)arg2);
+                v10 = _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer((s32)r7);
+                v11 = _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer((s32)arg2);
                 if (v10 > v11) {
                     return 1;
                 } else {
-                    v12 = _ZN11MatchEngine13func_0207f3e0Ev((s32)arg2);
-                    v13 = _ZN11MatchEngine13func_0207f3e0Ev((s32)r7);
+                    v12 = _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer((s32)arg2);
+                    v13 = _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer((s32)r7);
                     if (v12 > v13) {
                         return 0;
                     } else {

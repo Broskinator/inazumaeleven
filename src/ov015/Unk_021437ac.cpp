@@ -176,7 +176,7 @@ extern "C" void func_02076530(void);
 extern "C" void func_02076568(void);
 extern "C" void func_020765a0(void);
 extern "C" void _ZN11MatchEngine13func_0207a2a8Ei(void);
-extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer(void);
 extern "C" s32 _ZN8GameHeap4FreeEPv(...);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" s32 _ZdlPv(...);
@@ -453,14 +453,14 @@ extern "C" asm void func_ov015_021439e0(void)
     ldrb r2, [r6, #0xaa]
     ldrb r1, [r0, #0xaa]
     sub r7, r1, r2
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     mov r8, r0
     ldrsh r1, [r5, #8]
     mov r0, r10
     bl _ZN11MatchEngine13func_020747a0Ei
     add r8, r8, r0
     mov r0, r6
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     str r0, [sp, #0x1c]
     ldrsh r1, [r4, #0x1e]
     mov r0, r10

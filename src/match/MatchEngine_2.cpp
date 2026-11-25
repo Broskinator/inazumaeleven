@@ -155,7 +155,7 @@ extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0207f07cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f42cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f4bcEP12MatchIdScoreih(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f634EPtiih(void);     // (for the asm functions)
@@ -6430,14 +6430,14 @@ asm void MatchEngine::func_020751b8()
     mov r0, r8
     ldrne r6, [sp, #0x34]
     ldreq r5, [sp, #0x34]
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     mov r4, r0
     ldrsh r1, [r9]
     mov r0, r10
     bl _ZN11MatchEngine13func_020747a0Ei
     add r4, r4, r0
     mov r0, r7
-    bl _ZN11MatchEngine13func_0207f3e0Ev
+    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
     mov r11, r0
     ldrsh r1, [r9, #2]
     mov r0, r10
@@ -15787,9 +15787,9 @@ u16 MatchEngine::func_0207f3cc(MatchPlayer *player, u32 i)
     return player->unk_70[i];
 }
 
-s8 MatchEngine::func_0207f3e0()
+s8 MatchEngine::func_0207f3e0(MatchPlayer *player)
 {
-    return *(s8 *)((u8 *)((MatchPlayer *)this)->body + 0x1E);
+    return player->body->unk_1e;
 }
 
 extern "C" int func_0207f3ec(u8 *data)
