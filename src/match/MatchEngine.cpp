@@ -518,7 +518,7 @@ extern "C" void _ZN10ConfigFile6GetIntEPKc(void);
 extern "C" void func_01fff06c(void);
 extern "C" void memcpy(void);
 extern "C" void Random_RandA(void);
-extern "C" void func_ov015_02130e80(void);
+extern "C" void func_ov015_02130e80(int a, int b, fx32 *x, fx32 *y);
 extern "C" void func_ov015_0213178c(void);
 extern "C" int func_ov015_02131994(int index);
 extern "C" int func_ov015_021319bc(void);
@@ -9757,7 +9757,99 @@ asm void MatchEngine::func_0206b5a0(MatchPoint *pos)
 }
 #endif
 
-asm void MatchEngine::func_0206b628()
+// (where the line from player to the ball's holder leaves the field: the nearest to player of the
+// crossings with the 4 sides of the rectangle func_ov015_02130e80 gives (0x100 by 0xC0 from its
+// corner) goes to out; which side (1-4), 0 when there is none or the two are too far apart)
+// (nonmatching: holder->body loaded once for the distances, the loop not entered by its test, the edges' registers)
+#ifdef NONMATCHING
+static inline void UnkSegment_0206b628_Set(fx32 *s, fx32 x0, fx32 y0, fx32 x1, fx32 y1)
+{
+    s[0] = x0;
+    s[1] = y0;
+    s[2] = x1;
+    s[3] = y1;
+}
+
+#pragma push
+#pragma optimization_level 4
+#pragma opt_loop_invariants off
+int MatchEngine::func_0206b628(MatchPlayer *player, MatchPoint *out)
+{
+    fx32 edge[4];
+    fx32 path[4];
+    fx32 x;
+    fx32 y;
+    MatchPoint hit;
+    MatchPlayerBody *body;
+    MatchPlayer *holder = func_ov015_02130ae8(data_020c4920.unk_48);
+    int found = 0;
+    fx32 best = 0x7FFFFFFF;
+
+    if (func_0206bfa8() != 0) {
+        return 0;
+    }
+    if (out != NULL) {
+        func_020841d8(out);
+    }
+    if (player == NULL || holder == NULL) {
+        return 0;
+    }
+    body = player->body;
+    if (body == NULL) {
+        return 0;
+    }
+    if (!MatchPlayer_HasFlag(holder, 0x20)) {
+        return 0;
+    }
+    if (gGameState.unk_000[0x1B] == 0) {
+        if (!MatchPlayer_HasFlag(player, 0x20)) {
+            return 0;
+        }
+    } else if (func_02080b90(player) != func_ov015_021319bc()) {
+        return 0;
+    }
+    fx32 dx = body->pos.x - holder->body->pos.x;
+    fx32 dy = body->pos.y - holder->body->pos.y;
+    dx = MATH_ABS(dx);
+    dy = MATH_ABS(dy);
+    if (dy > 0xC8000 || dx > 0xC8000) {
+        return 0;
+    }
+    if (func_01fff184(this, dx, dy) > 0xC8000) {
+        return 0;
+    }
+    func_ov015_02130e80(0, 0, &x, &y);
+    UnkSegment_0206b628_Set(path, body->pos.x, body->pos.y, holder->body->pos.x, holder->body->pos.y);
+    for (int i = 1; i < 5; i++) {
+        switch (i) {
+        case 1:
+            UnkSegment_0206b628_Set(edge, x, y, x + 0x100000, y);
+            break;
+        case 3:
+            UnkSegment_0206b628_Set(edge, x, y + 0xC0000, x + 0x100000, y + 0xC0000);
+            break;
+        case 2:
+            UnkSegment_0206b628_Set(edge, x, y, x, y + 0xC0000);
+            break;
+        case 4:
+            UnkSegment_0206b628_Set(edge, x + 0x100000, y, x + 0x100000, y + 0xC0000);
+            break;
+        }
+        if (func_02083afc(path, edge, (int)&hit)) {
+            fx32 d = func_01fff15c(this, body, &hit);
+            if (found == 0 || d < best) {
+                found = i;
+                best = d;
+                out->x = hit.x;
+                out->y = hit.y;
+            }
+        }
+    }
+    return found;
+}
+#pragma pop
+#else
+asm int MatchEngine::func_0206b628(MatchPlayer *player, MatchPoint *out)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
@@ -9930,6 +10022,7 @@ asm void MatchEngine::func_0206b628()
     add sp, sp, #0x30
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (nonmatching: player is spilled and dir kept in a register; the ROM keeps player in r10, spills dir to sp+8 and reloads player->state->unk_86 at the top of the loop)
 #ifdef NONMATCHING

@@ -54,3 +54,4 @@ MatchEngine::func_0206fbd0 src/match/MatchEngine_2.cpp special = FALSE placement
 MatchEngine::func_02079f98 src/match/MatchEngine_2.cpp cmp r0,r1 swapped in the unk_42 == test
 MatchBallPhysics::func_02061bc0 src/match/MatchBallPhysics.cpp unk_58 kept in a register where the ROM loads it again for the second test
 MatchEngine::func_0207dc10 src/match/MatchEngine_2.cpp stat gains (unk_c1) scheduled with other registers; learned[j] != move compare operands swapped
+MatchEngine::func_0206b628 src/match/MatchEngine.cpp holder->body loaded once where the ROM loads it twice; loop entered without its test; edge registers in the switch
