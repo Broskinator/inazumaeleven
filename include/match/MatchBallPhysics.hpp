@@ -7,7 +7,8 @@
 
 // The area an object moves in (only the bounds are known)
 struct MatchArea {
-    u8 unk_0[0xD8];
+    u8 unk_0[0xD4];
+    fx32 unk_d4;
     fx32 unk_d8;        // (the halfway line)
     fx32 minX;          // 0xDC
     fx32 minY;          // 0xE0

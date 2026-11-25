@@ -208,7 +208,7 @@ public:
     void func_02065a04(MatchPlayer *player);
     void func_02065a90(MatchPlayer *player);
     void func_02065c00();
-    void func_02065dec();
+    void func_02065dec(MatchPlayer *player);
     void func_02065fa0(MatchPlayer *player);
     void func_02066338();
     void func_020663b0(MatchPlayer *player, int a);
