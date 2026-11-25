@@ -112,7 +112,7 @@ extern "C" void func_020802a0(void);     // (for the asm functions)
 extern "C" int func_02080328(u8 *entry, int i);
 extern "C" BOOL func_02080368(u8 *team, int id);
 extern "C" void func_02080aa0(void);     // (for the asm functions)
-extern "C" void func_02080b00(void);     // (for the asm functions)
+extern "C" void func_02080b00(MatchPlayer *player, int value);
 extern "C" void func_02080b1c(MatchPlayer *player, int value);
 extern "C" void func_02080b38(void);     // (for the asm functions)
 extern "C" void func_02080b54(void);     // (for the asm functions)
@@ -564,7 +564,7 @@ extern "C" void _u32_div_f(void);
 extern "C" void _dfixu(void);
 extern "C" void _ddiv(void);
 extern "C" void func_0209e174(void *src, void *a, void *b, void *c, void *d);
-extern "C" void func_0209e1c8(void);
+extern "C" void func_0209e1c8(void *dst, void *a, void *b, void *c, void *d);
 extern "C" int func_ov000_02116e8c(MatchEngine *self, int a);
 extern "C" int func_ov000_02116f2c(MatchEngine *self, int a);
 extern "C" void func_ov001_02122de8(void);
@@ -4377,9 +4377,8 @@ void MatchEngine::func_02065a04(MatchPlayer *player)
 }
 
 // player's action while the ball has a holder: 0x24 toward the data_020c4f3c point of the
-// holder's side when
-// player is unk_118a9 (picked by func_ov087_02180be0 if it has none), 0x2D otherwise; with no
-// holder and no unk_4c, action 0 for all 22 players
+// holder's side when player is unk_118a9 (picked by func_ov087_02180be0 if it has none), 0x2D
+// otherwise; with no holder and no unk_4c, action 0 for all 22 players
 #pragma push
 #pragma optimization_level 2
 void MatchEngine::func_02065a90(MatchPlayer *player)
@@ -13030,103 +13029,34 @@ void MatchEngine::func_0206eb34()
 }
 #pragma pop
 
-asm void MatchEngine::func_0206ecbc()
+// puts back what func_0206eb34 saved in unk_6b0
+#pragma push
+#pragma optimization_level 2
+#pragma opt_common_subs off     // (it computes each entry's address again after a call)
+void MatchEngine::func_0206ecbc()
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
-    sub sp, sp, #4
-    mov r4, r0
-    ldr r1, [r4, #0xbcc]
-    add r8, r4, #0x6b0
-    cmp r1, #0
-    beq @L_0206ece4
-    mov r0, r8
-    mov r2, #0x400
-    bl MI_CpuCopy8
-@L_0206ece4:
-    add r0, r8, #0x66
-    add r3, r8, #0x62
-    add r5, r0, #0x400
-    add r1, r4, #0x17c0
-    add r0, r1, #0x10000
-    add r1, r8, #0x420
-    add r2, r8, #0x460
-    add r3, r3, #0x400
-    str r5, [sp]
-    bl func_0209e1c8
-    add r0, r8, #0x400
-    add r1, r4, #0x15c
-    mov r2, #0x20
-    bl MI_CpuCopy8
-    add r0, r8, #0x28
-    add r1, r4, #8
-    mov r5, #8
-    mov r2, r5
-    add r0, r0, #0x400
-    add r1, r1, #0xc00
-    bl MI_CpuCopy8
-    mov r2, r5
-    add r0, r8, #0x430
-    add r1, r4, #0xc10
-    bl MI_CpuCopy8
-    add r0, r8, #0x38
-    add r1, r4, #0x18
-    mov r2, r5
-    add r0, r0, #0x400
-    add r1, r1, #0xc00
-    bl MI_CpuCopy8
-    add r0, r8, #0x48
-    add r1, r4, #0xbe
-    mov r5, #0xc
-    add r0, r0, #0x400
-    add r1, r1, #0x11800
-    mov r2, r5
-    bl MI_CpuCopy8
-    add r0, r8, #0x54
-    add r1, r4, #0xca
-    mov r2, r5
-    add r0, r0, #0x400
-    add r1, r1, #0x11800
-    bl MI_CpuCopy8
-    ldr r0, [r8, #0x440]
-    ldr r1, [r8, #0x444]
-    str r0, [r4, #0xbac]
-    add r0, r4, #0x11000
-    str r1, [r0, #0x8f8]
-    ldrb r2, [r8, #0x464]
-    ldr r1, =gGameState
-    mov r0, r4
-    strb r2, [r1, #0x86]
-    ldrb r2, [r8, #0x465]
-    strb r2, [r1, #0x87]
-    bl _ZN11MatchEngine13func_0206b3fcEv
-    mov r10, #6
-    mov r9, #0
-    mov r7, r9
-    mov r4, r10
-    mov r5, r10
-    b @L_0206ee20
-@L_0206eddc:
-    mla r0, r9, r5, r8
-    add r0, r0, #0x400
-    ldrh r0, [r0, #0x68]
-    mov r1, r7
-    bl func_ov015_02130b14
-    movs r6, r0
-    beq @L_0206ee1c
-    mla r1, r9, r10, r8
-    add r1, r1, #0x400
-    ldrsh r1, [r1, #0x6a]
-    bl func_02080b00
-    mla r0, r9, r4, r8
-    add r0, r0, #0x400
-    ldrsh r1, [r0, #0x6c]
-    mov r0, r6
-    bl func_02080b1c
-@L_0206ee1c:
-    add r9, r9, #1
-@L_0206ee20:
-    cmp r9, #0x10
-    blt @L_0206eddc
-    add sp, sp, #4
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
+    UnkRecord_0206eb34 *rec = &unk_6b0;
+    if (unk_bcc != NULL) {
+        MI_CpuCopy8(rec->unk_0, unk_bcc, 0x400);
+    }
+    func_0209e1c8(unk_117c0, rec->unk_420, rec->unk_460, rec->unk_462, rec->unk_466);
+    MI_CpuCopy8(rec->unk_400, unk_15c, 0x20);
+    MI_CpuCopy8(rec->unk_428, unk_c08, 8);
+    MI_CpuCopy8(rec->unk_430, unk_c10, 8);
+    MI_CpuCopy8(rec->unk_438, unk_c18, 8);
+    MI_CpuCopy8(rec->unk_448, unk_118be, 0xC);
+    MI_CpuCopy8(rec->unk_454, unk_118ca, 0xC);
+    unk_bac = rec->unk_440;
+    unk_118f8 = rec->unk_444;
+    gGameState.unk_07c[0xA] = rec->unk_464;
+    gGameState.unk_07c[0xB] = rec->unk_465;
+    func_0206b3fc();
+    for (int i = 0; i < 16; i++) {
+        MatchPlayer *player = func_ov015_02130b14(rec->unk_468[i].id, 0);
+        if (player != NULL) {
+            func_02080b00(player, rec->unk_468[i].x);
+            func_02080b1c(player, rec->unk_468[i].y);
+        }
+    }
 }
+#pragma pop
