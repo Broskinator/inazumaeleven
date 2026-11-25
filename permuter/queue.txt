@@ -52,3 +52,4 @@ MatchEngine::func_020663b0 src/match/MatchEngine.cpp test-first loop at O4; ball
 MatchBallPhysics::func_020614d0 src/match/MatchBallPhysics.cpp mov r1,#0 for the first func_ov087_02182248 scheduled early (7 words)
 MatchEngine::func_0206fbd0 src/match/MatchEngine_2.cpp special = FALSE placement; which of identical switch cases 1/2 keeps the code
 MatchEngine::func_02079f98 src/match/MatchEngine_2.cpp cmp r0,r1 swapped in the unk_42 == test
+MatchBallPhysics::func_02061bc0 src/match/MatchBallPhysics.cpp unk_58 kept in a register where the ROM loads it again for the second test

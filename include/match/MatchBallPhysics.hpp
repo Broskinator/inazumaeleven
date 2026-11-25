@@ -42,7 +42,7 @@ public:
     void func_02061aa4(MatchBall *ball);
     void func_02061ab8(MatchBall *ball, fx32 x, fx32 y);
     void func_02061bac(MatchBall *ball);
-    void func_02061bc0();
+    void func_02061bc0(MatchBall *ball, fx32 x, fx32 y, int kind, u8 sound);
     void func_02061dc4(MatchBall *ball, fx32 x, fx32 y, fx32 z);
 
     void *vtable;

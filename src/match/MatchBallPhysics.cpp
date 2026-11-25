@@ -17,13 +17,13 @@ extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void _ZN8GameHeap5AllocEiii(void);
 extern "C" void _ZdlPv(void);
 extern "C" s32 FX_Sqrt(s32 x);     // (the square root of x)
-extern "C" void FX_Atan2Idx(void);
+extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);
 extern "C" BOOL func_02084808(fx32 x, fx32 y, fx32 *rect);    // (is (x, y) in the rectangle?)
-extern "C" void func_ov015_02131704(void);
-extern "C" void func_ov015_0213a818(void);
-extern "C" void func_ov015_02142de8(void);
-extern "C" void func_ov015_02142e24(void);
-extern "C" void func_ov015_02142ec8(void);
+extern "C" void func_ov015_02131704(int a);
+extern "C" void func_ov015_0213a818(void *sprite);
+extern "C" void func_ov015_02142de8(MatchBall *ball, int a);
+extern "C" void func_ov015_02142e24(MatchBall *ball, int a);
+extern "C" void func_ov015_02142ec8(MatchBall *ball, int a);
 extern "C" BOOL func_ov087_02182234(MatchArea *area);
 extern "C" s32 func_ov087_02182248(MatchArea *area, s32 side);
 
@@ -542,7 +542,66 @@ void MatchBallPhysics::func_02061bac(MatchBall *ball)
     ball->unk_54 = ball->unk_54 + (ball->unk_38 >> 5);
 }
 
-asm void MatchBallPhysics::func_02061bc0()
+// (the ball lands at (x, y): it bounces, or stops when it is slow)
+// (nonmatching: the ROM loads unk_58 again for the sound test (it matches with opt_common_subs off))
+#ifdef NONMATCHING
+void MatchBallPhysics::func_02061bc0(MatchBall *ball, fx32 x, fx32 y, int kind, u8 sound)
+{
+    if (ball->height > 0) {
+        return;
+    }
+    if (ball->unk_58 == 0 || ball->unk_3c >= 0x5000) {
+        if (sound && ball->unk_58 != 2 && kind != 5) {
+            func_ov015_02131704(1);
+        }
+    }
+    if (sound && ball->unk_58 != 2) {
+        func_ov015_0213a818(*(void **)g3DFieldSprite);
+    }
+    ball->unk_20.x = x;
+    ball->unk_20.y = y;
+    if (ball->unk_58 != 2) {
+        fx32 v;
+        ball->unk_38 = FX_Mul(ball->unk_38, 0xCCD);
+        if (ball->unk_40 > 0) {
+            v = FX_Mul(ball->unk_44, 0x9CCD) - ball->unk_3c;
+        } else {
+            v = ball->unk_3c;
+        }
+        ball->unk_3c = FX_Mul(v, 0xB33);
+        ball->unk_50 = FX_Atan2Idx(ball->unk_3c, ball->unk_38);
+    } else if (ball->unk_38 > 0) {
+        ball->unk_38 -= 0x800;
+        if (ball->unk_38 < 0) {
+            ball->unk_38 = 0;
+        }
+    }
+    if (ball->unk_58 != 0 && ball->unk_3c < 0xCCD) {
+        ball->unk_3c = 0;
+        func_ov015_02142ec8(ball, 2);
+        if (ball->unk_38 < 0xCCD) {
+            ball->unk_18.x = 0x80000000;
+            ball->unk_18.y = 0x80000000;
+            ball->prevPos = ball->pos;
+            func_ov015_02142de8(ball, 1);
+            func_ov015_02142e24(ball, 0);
+            ball->unk_34 = 0;
+            ball->unk_38 = 0;
+            ball->unk_3c = 0;
+            ball->height = 0;
+            ball->unk_40 = 0;
+            ball->unk_5a = 0;
+            ball->unk_56 = 0;
+        }
+    } else {
+        func_ov015_02142ec8(ball, 1);
+    }
+    ball->unk_44 = 0;
+    ball->unk_40 = 0;
+    ball->height = 0;
+}
+#else
+asm void MatchBallPhysics::func_02061bc0(MatchBall *ball, fx32 x, fx32 y, int kind, u8 sound)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, lr}
     mov r7, r1
@@ -679,6 +738,7 @@ asm void MatchBallPhysics::func_02061bc0()
     str r4, [r7, #0x30]
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
+#endif
 
 // moves the ball, keeping its previous position
 void MatchBallPhysics::func_02061dc4(MatchBall *ball, fx32 x, fx32 y, fx32 z)
