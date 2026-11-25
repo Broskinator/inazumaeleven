@@ -92,7 +92,7 @@ extern "C" void func_0208f294(void);     // (for the asm functions)
 extern "C" void func_0208f300(void);     // (for the asm functions)
 extern "C" void func_02083e24(void);     // (for the asm functions)
 extern "C" BOOL func_02083e54(MatchPlayer *player);
-extern "C" void func_02083e7c(void);     // (for the asm functions)
+extern "C" fx32 *func_02083e7c(int side);     // (the side's area: x0, y0, x1, y1)
 extern "C" void func_02083e94(void);     // (for the asm functions)
 extern "C" fx32 func_02083ec4(fx32 a, fx32 b, fx32 c, int which);
 extern "C" void func_020840e0(void);     // (for the asm functions)
@@ -101,7 +101,7 @@ extern "C" void func_020841d8(MatchPoint *point);
 extern "C" BOOL func_020841e8(fx32 x, fx32 y, u16 angle, fx32 *segment);
 extern "C" s32 func_02084428(u8 *area, s32 x, s32 y);
 extern "C" void func_020844dc(void);     // (for the asm functions)
-extern "C" void func_020845e0(void);     // (for the asm functions)
+extern "C" BOOL func_020845e0(u16 angle, u16 from, u16 to, BOOL inside, u8 edges);
 extern "C" BOOL func_02084788(MatchPoint *point);
 extern "C" void func_02084900(fx32 *x, fx32 *y, fx32 *rect, fx32 margin);
 extern "C" void func_0208363c(void);     // (for the asm functions)
@@ -129,7 +129,7 @@ extern "C" void _ZN11MatchEngine13func_02080288EP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_0207efd8Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f07cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f38cEP11MatchPlayerhi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207f3b8Ei(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207f3b8EP11MatchPlayeri(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f3e0Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207ff44Eiii(void);     // (for the asm functions)
@@ -4977,7 +4977,62 @@ void MatchEngine::func_02066338()
     }
 }
 
-asm void MatchEngine::func_020663b0()
+// sets the players' state->unk_22: 0 for those func_ov015_021318a4 pairs with player, and for those
+// func_02078fa4 accepts when
+// func_ov015_02140da4 or the ball's direction lies between those to the ends of player's area; else unk_11800
+// (nonmatching: the ROM's loop jumps to its test first and the ball's address is reloaded after each FX_Atan2Idx; O4 rotates the loop and keeps the address)
+#ifdef NONMATCHING
+void MatchEngine::func_020663b0(MatchPlayer *player, int a)
+{
+    int side;
+    fx32 *area;
+    fx32 x0;
+    fx32 x1;
+    u16 from;
+    u16 to;
+    int i;
+    fx32 dx;
+    fx32 dy;
+    MatchPlayer *other;
+
+    if (player == NULL) {
+        return;
+    }
+    side = func_02083e34(player);
+    area = func_02083e7c(side);
+    x0 = area[0] - 0x2000;
+    x1 = area[2] + 0x2000;
+    if (side == 1) {
+        dx = x0 - data_020c4920.pos.x;
+        dy = area[3] - data_020c4920.pos.y;
+        from = FX_Atan2Idx(dy, dx);
+        dx = x1 - data_020c4920.pos.x;
+        dy = area[3] - data_020c4920.pos.y;
+        to = FX_Atan2Idx(dy, dx);
+    } else {
+        dx = x0 - data_020c4920.pos.x;
+        dy = area[1] - data_020c4920.pos.y;
+        from = FX_Atan2Idx(dy, dx);
+        dx = x1 - data_020c4920.pos.x;
+        dy = area[1] - data_020c4920.pos.y;
+        to = FX_Atan2Idx(dy, dx);
+    }
+    for (i = 0; i < 0x16; i++) {
+        other = func_02079d2c(i);
+        if (other == NULL) {
+            continue;
+        }
+        if (func_ov015_021318a4(other, (int)player)) {
+            func_0207f3b8(other, 0);
+        } else if (func_02078fa4(other) && (func_ov015_02140da4(this, a) || func_020845e0(data_020c4920.unk_52, from, to, TRUE, TRUE))) {
+            func_0207f3b8(other, 0);
+        } else {
+            func_0207f3b8(other, unk_11800);
+        }
+    }
+}
+#else
+asm void MatchEngine::func_020663b0(MatchPlayer *player, int a)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     movs r9, r1
@@ -5065,7 +5120,7 @@ asm void MatchEngine::func_020663b0()
     ldrsh r1, [r4]
     mov r0, r6
 @L_020664ec:
-    bl _ZN11MatchEngine13func_0207f3b8Ei
+    bl _ZN11MatchEngine13func_0207f3b8EP11MatchPlayeri
 @L_020664f0:
     add r5, r5, #1
 @L_020664f4:
@@ -5073,6 +5128,7 @@ asm void MatchEngine::func_020663b0()
     blt @L_02066460
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_02066504(int flags, int a, int b)
 {

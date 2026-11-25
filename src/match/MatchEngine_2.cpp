@@ -15834,12 +15834,12 @@ void MatchEngine::func_0207f38c(MatchPlayer *player, u8 dir, BOOL update)
     }
 }
 
-void MatchEngine::func_0207f3b8(int value)
+void MatchEngine::func_0207f3b8(MatchPlayer *player, int value)
 {
     if (value < 0) {
         value = 0;
     }
-    ((MatchPlayer *)this)->state->unk_22 = value;
+    player->state->unk_22 = value;
 }
 
 u16 MatchEngine::func_0207f3cc(MatchPlayer *player, u32 i)

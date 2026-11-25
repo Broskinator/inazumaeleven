@@ -177,7 +177,7 @@ public:
     void func_02065dec();
     void func_02065fa0(MatchPlayer *player);
     void func_02066338();
-    void func_020663b0();
+    void func_020663b0(MatchPlayer *player, int a);
     void func_02066504(int flags, int a, int b);
     void func_020665a4();
     void func_02066768();
@@ -772,7 +772,7 @@ public:
     int func_0207f260(u16 *out, int max);
     BOOL func_0207f2f8(int id);
     static void func_0207f38c(MatchPlayer *player, u8 dir, BOOL update);
-    void func_0207f3b8(int value);
+    static void func_0207f3b8(MatchPlayer *player, int value);     // (state->unk_22, at least 0)
     static u16 func_0207f3cc(MatchPlayer *player, u32 i);     // (the item in the player's slot i)
     s8 func_0207f3e0();
     BOOL func_0207f42c(MatchPlayer *player);
@@ -885,7 +885,8 @@ public:
     u8 unk_117ec[0x117FC - 0x117EC];
     u16 unk_117fc;
     u16 unk_117fe;
-    u8 unk_11800[0x11842 - 0x11800];
+    s16 unk_11800;      // (what func_020663b0 gives the players' state->unk_22)
+    u8 unk_11802[0x11842 - 0x11802];
     u16 unk_11842;      // (the number of unk_bd4's entries)
     u8 unk_11844[0x1188C - 0x11844];
     u8 unk_1188c[2];
