@@ -623,7 +623,7 @@ public:
     BOOL func_02077148(u8 *data, int *error);
     BOOL func_020771d4(u32 id, int *error);
     BOOL func_02077224(MatchPlayer *player, u32 id, int *error);
-    int func_02077448(MatchPlayer *player, u32 id, int a);
+    int func_02077448(MatchPlayer *player, u32 id, int slot);
     BOOL func_0207765c(MatchPlayer *player, u32 id, int mode, int *error);
     BOOL func_020776f8(MatchPlayer *player, u32 id, int *error);
     int func_020777e4(MatchPlayer *player, u32 id, u32 i, u8 update);     // (sets the player's item in slot i)
