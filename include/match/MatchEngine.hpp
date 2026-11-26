@@ -236,7 +236,7 @@ public:
     BOOL func_020671e4(int team, UnkSpot_020671e4 *a, UnkSpot_020671e4 *b, MatchPlayerBody *body);
     void func_020673d8(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_02067448(MatchPlayer *player, fx32 distance, MatchPoint *pos);
-    void func_020674f8();
+    BOOL func_020674f8(MatchPlayer *player, MatchPoint *out, MatchPoint *target, int *index);
     int func_020678d0(MatchPlayer *player, u32 flags, MatchPlayer *target, MatchPoint *point, int a, int b);
     BOOL func_02067aec(MatchPlayer *player, MatchPoint *out, int *id, u16 *ids, int count, u32 flags); // (picks whom to pass to)
     BOOL func_02067e00(MatchPlayer *player, MatchPoint *out, int *id, u32 flags);
