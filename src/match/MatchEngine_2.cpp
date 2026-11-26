@@ -350,7 +350,7 @@ extern "C" void _ZN11MatchEngine13func_020749c8EPsii(void);     // (for the asm 
 extern "C" void _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074aacEPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074abcEPh(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020751b8Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020751b8EPhP11MatchPlayerS2_S0_S0_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020665a4EP10MatchPointiPlS2_mP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a8d8Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206a93cEv(void);     // (for the asm functions)
@@ -572,6 +572,24 @@ extern "C" int func_01ffe22c(MatchEngine *engine);
 extern "C" int func_01ffe3e4(MatchEngine *engine);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+// (kinds 1, 3, 5 and 7)
+static inline BOOL Move_IsOddKind(u8 *move)
+{
+    u8 kind = move[0];
+    BOOL odd = (kind == 1 || kind == 3 || kind == 5 || kind == 7);
+
+    return odd;
+}
+
+// (kinds 5 to 8)
+static inline BOOL Move_IsKind5To8(u8 *move)
+{
+    u8 kind = move[0];
+    BOOL ok = (kind == 5 || kind == 6 || kind == 7 || kind == 8);
+
+    return ok;
+}
+
 
 // (bit 3 of the record's unk_12 clear: func_02074f90)
 static inline BOOL UnkRecord_02076168_IsOpen(UnkRecord_02076168 *record)
@@ -6285,174 +6303,68 @@ void MatchEngine::func_02074f90(int team, int *out)
     *out = ids[pick];
 }
 
-asm void MatchEngine::func_020751b8()
+// the winner of a duel, 1 (home) or 2 (away): a flagged player whose team func_0206de34 favours,
+// then the higher func_0207f3e0 plus team level, then the two moves' func_02069394 scores (also
+// stored in rec)
+int MatchEngine::func_020751b8(u8 *rec, MatchPlayer *home, MatchPlayer *away, u8 *moveA, u8 *moveB)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0xc
-    mov r7, r3
-    ldrh r3, [r7, #0xf0]
-    mov r4, #1
-    mov r10, r0
-    tst r3, #0x80
-    movne r0, r4
-    moveq r0, #0
-    mov r9, r1
-    mov r8, r2
-    ldr r6, [sp, #0x30]
-    mov r5, #2
-    cmp r0, #0
-    beq @L_02075228
-    mov r0, r7
-    bl func_02080b90
-    mov r1, r0
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206de34Ei
-    cmp r0, #0
-    beq @L_02075228
-    mov r0, r9
-    mov r1, r5
-    bl _ZN11MatchEngine13func_02076370EPhi
-    add sp, sp, #0xc
-    mov r0, r5
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02075228:
-    ldrh r0, [r8, #0xf0]
-    tst r0, #0x80
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_02075274
-    mov r0, r8
-    bl func_02080b90
-    mov r1, r0
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206de34Ei
-    cmp r0, #0
-    beq @L_02075274
-    mov r0, r9
-    mov r1, r4
-    bl _ZN11MatchEngine13func_02076370EPhi
-    add sp, sp, #0xc
-    mov r0, r4
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02075274:
-    ldrb r0, [r6]
-    mov r1, #0
-    add r0, r0, #0xff
-    and r0, r0, #0xff
-    cmp r0, #6
-    bhi @L_02075298
-    mov r0, r4, lsl r0
-    tst r0, #0x55
-    movne r1, r4
-@L_02075298:
-    cmp r1, #0
-    movne r5, r6
-    mov r0, r8
-    ldrne r6, [sp, #0x34]
-    ldreq r5, [sp, #0x34]
-    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
-    mov r4, r0
-    ldrsh r1, [r9]
-    mov r0, r10
-    bl _ZN11MatchEngine13func_020747a0Ei
-    add r4, r4, r0
-    mov r0, r7
-    bl _ZN11MatchEngine13func_0207f3e0EP11MatchPlayer
-    mov r11, r0
-    ldrsh r1, [r9, #2]
-    mov r0, r10
-    bl _ZN11MatchEngine13func_020747a0Ei
-    add r0, r11, r0
-    cmp r4, r0
-    ble @L_02075304
-    mov r4, #1
-    mov r0, r9
-    mov r1, r4
-    bl _ZN11MatchEngine13func_02076370EPhi
-    add sp, sp, #0xc
-    mov r0, r4
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02075304:
-    cmp r4, r0
-    mov r0, #2
-    mov r4, #0
-    bge @L_02075330
-    mov r4, r0
-    mov r0, r9
-    mov r1, r4
-    bl _ZN11MatchEngine13func_02076370EPhi
-    add sp, sp, #0xc
-    mov r0, r4
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02075330:
-    ldrb r1, [r5]
-    add r1, r1, #0xfb
-    and r1, r1, #0xff
-    cmp r1, #3
-    movls r1, #1
-    movhi r1, r4
-    str r4, [sp]
-    cmp r1, #0
-    str r0, [sp, #4]
-    mov r0, r10
-    mov r1, r8
-    beq @L_0207536c
-    mov r2, r5
-    mov r3, #0x19
-    b @L_02075374
-@L_0207536c:
-    mov r2, r5
-    mov r3, #1
-@L_02075374:
-    str r7, [sp, #8]
-    bl _ZN11MatchEngine13func_02069394Eiiiihi
-    ldrb r1, [r6]
-    mov r5, r0
-    mov r0, #2
-    add r1, r1, #0xfb
-    and r1, r1, #0xff
-    cmp r1, #3
-    movls r1, #1
-    movhi r1, #0
-    str r4, [sp]
-    cmp r1, #0
-    str r0, [sp, #4]
-    mov r0, r10
-    mov r1, r7
-    beq @L_020753c0
-    mov r2, r6
-    mov r3, #0x1b
-    b @L_020753c8
-@L_020753c0:
-    mov r2, r6
-    mov r3, #3
-@L_020753c8:
-    str r8, [sp, #8]
-    bl _ZN11MatchEngine13func_02069394Eiiiihi
-    mov r4, r0
-    cmp r5, #1
-    movlt r5, #1
-    cmp r4, #1
-    movlt r4, #1
-    cmp r5, r4
-    bne @L_020753fc
-    cmp r4, #2
-    movlt r5, #1
-    movlt r4, #2
-    subge r5, r5, #1
-@L_020753fc:
-    mov r0, r9
-    mov r1, r5
-    bl func_020764f8
-    mov r0, r9
-    mov r1, r4
-    bl func_02076530
-    mov r0, #1
-    cmp r5, r4
-    movle r0, #2
-    add sp, sp, #0xc
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *awayMove;
+    int homeScore;
+    u8 *homeMove;
+    int awayScore;
+
+    if (MatchPlayer_HasFlag(away, 0x80) && func_0206de34(func_02080b90(away))) {
+        func_02076370(rec, 2);
+        return 2;
+    }
+    if (MatchPlayer_HasFlag(home, 0x80) && func_0206de34(func_02080b90(home))) {
+        func_02076370(rec, 1);
+        return 1;
+    }
+    if (Move_IsOddKind(moveA)) {
+        homeMove = moveA;
+        awayMove = moveB;
+    } else {
+        homeMove = moveB;
+        awayMove = moveA;
+    }
+    homeScore = func_0207f3e0(home) + func_020747a0(((s16 *)rec)[0]);
+    awayScore = func_0207f3e0(away) + func_020747a0(((s16 *)rec)[1]);
+    if (homeScore > awayScore) {
+        func_02076370(rec, 1);
+        return 1;
+    }
+    if (homeScore < awayScore) {
+        func_02076370(rec, 2);
+        return 2;
+    }
+    if (Move_IsKind5To8(homeMove)) {
+        homeScore = func_02069394((int)home, (int)homeMove, 0x19, 0, 2, (int)away);
+    } else {
+        homeScore = func_02069394((int)home, (int)homeMove, 1, 0, 2, (int)away);
+    }
+    if (Move_IsKind5To8(awayMove)) {
+        awayScore = func_02069394((int)away, (int)awayMove, 0x1B, 0, 2, (int)home);
+    } else {
+        awayScore = func_02069394((int)away, (int)awayMove, 3, 0, 2, (int)home);
+    }
+    if (homeScore < 1) {
+        homeScore = 1;
+    }
+    if (awayScore < 1) {
+        awayScore = 1;
+    }
+    if (homeScore == awayScore) {
+        if (awayScore < 2) {
+            homeScore = 1;
+            awayScore = 2;
+        } else {
+            homeScore--;
+        }
+    }
+    func_020764f8(rec, homeScore);
+    func_02076530(rec, awayScore);
+    return homeScore > awayScore ? 1 : 2;
 }
 
 asm void MatchEngine::func_02075428()
@@ -6602,7 +6514,7 @@ asm void MatchEngine::func_02075428()
     ldr r7, =data_020fc704
     moveq r6, #0
     str r11, [sp, #4]
-    bl _ZN11MatchEngine13func_020751b8Ev
+    bl _ZN11MatchEngine13func_020751b8EPhP11MatchPlayerS2_S0_S0_
     ldr r1, =data_020c4808
     str r0, [r7]
     ldrb r0, [r1]

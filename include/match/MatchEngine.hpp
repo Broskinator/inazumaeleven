@@ -568,7 +568,7 @@ public:
     static u8 func_02074ac8(u8 *req);
     void func_02074b30();
     void func_02074f90(int team, int *out);
-    void func_020751b8();
+    int func_020751b8(u8 *rec, MatchPlayer *home, MatchPlayer *away, u8 *moveA, u8 *moveB);
     void func_02075428();
     void func_0207577c(UnkRecord_02076168 *record);
     void func_0207597c();
