@@ -800,7 +800,7 @@ public:
     int func_0207e884(int index);
     void func_0207e8f8();
     BOOL func_0207ec28(int index, int value);
-    void func_0207ec70();
+    BOOL func_0207ec70(int team, u32 id, int pos);
     int func_0207ee18(u32 id);
     void func_0207ee3c(int id, int value);
     void func_0207ef0c(MatchPlayer *player);

@@ -116,8 +116,8 @@ extern "C" void func_02080c6c(void);     // (for the asm functions)
 extern "C" int func_02080cb8(MatchPlayer *player);
 extern "C" BOOL func_02080cd0(MatchPlayer *player);
 extern "C" void func_020812f4(void);     // (for the asm functions)
-extern "C" void func_020812fc(void);     // (for the asm functions)
-extern "C" void func_02081304(void);     // (for the asm functions)
+extern "C" int func_020812fc(MatchPlayer *player);
+extern "C" int func_02081304(MatchPlayer *player);
 extern "C" s32 func_0208130c(MatchPlayer *player, s32 a);
 extern "C" int func_02081390(MatchPlayer *player, int value);
 extern "C" void func_02081398(MatchPlayer *player, int value);
@@ -15328,120 +15328,61 @@ BOOL MatchEngine::func_0207ec28(int index, int value)
     return TRUE;
 }
 
-asm void MatchEngine::func_0207ec70()
+// (puts member id of team at position pos (1-16) of its list, the one there going to id's old
+// position, both through func_0207c65c; with pos out of range, func_0207bee8 or func_0207c65c
+// takes id off unless func_0207aeac says no; FALSE when id is not in the list or refused)
+BOOL MatchEngine::func_0207ec70(int team, u32 id, int pos)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r10, r0
-    mov r5, r1
-    add r0, r10, #0x34c
-    mov r9, r2
-    add r4, r0, r5, lsl #5
-    mov r0, r4
-    mov r1, r9
-    mov r8, r3
-    bl func_0208039c
-    cmp r0, #0
-    moveq r0, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    cmp r8, #0
-    ble @L_0207ecb4
-    cmp r8, #0x10
-    ble @L_0207ed2c
-@L_0207ecb4:
-    mov r0, r10
-    mov r1, r5
-    mov r2, r9
-    bl _ZN11MatchEngine13func_0207aeacEim
-    cmp r0, #0
-    movne r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r10
-    mov r1, r5
-    mov r2, r9
-    mov r3, #1
-    bl _ZN11MatchEngine13func_0207bee8Eiii
-    cmp r0, #0
-    bne @L_0207ed24
-    mov r4, #0
-    mov r0, r9
-    mov r1, r4
-    bl func_ov015_02130b14
-    cmp r0, #0
-    beq @L_0207ed0c
-    bl func_02081304
-    mov r4, r0
-@L_0207ed0c:
-    mov r2, #0
-    mov r0, r10
-    mov r1, r9
-    mov r3, r2
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207c65cEmiii
-@L_0207ed24:
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207ed2c:
-    mov r0, r4
-    sub r1, r8, #1
-    bl func_02080328
-    mov r5, r0
-    mov r0, r4
-    mov r1, r9
-    bl func_0208051c
-    mov r6, r0
-    mov r0, r4
-    mov r2, r9
-    sub r1, r8, #1
-    bl func_020802cc
-    mov r7, #0
-    mov r0, r9
-    mov r1, r7
-    bl func_ov015_02130b14
-    movs r11, r0
-    mov r12, r7
-    beq @L_0207ed8c
-    bl func_020812fc
-    mov r7, r0
-    mov r0, r11
-    bl func_02081304
-    mov r12, r0
-@L_0207ed8c:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r8
-    mov r3, r7
-    str r12, [sp]
-    bl _ZN11MatchEngine13func_0207c65cEmiii
-    ldr r0, =0xfff
-    tst r5, r0
-    cmpne r6, #0
-    ble @L_0207ee0c
-    mov r0, r4
-    mov r2, r5
-    sub r1, r6, #1
-    bl func_020802cc
-    mov r8, #0
-    mov r0, r5
-    mov r1, r8
-    bl func_ov015_02130b14
-    movs r4, r0
-    mov r7, r8
-    beq @L_0207edf4
-    bl func_020812fc
-    mov r8, r0
-    mov r0, r4
-    bl func_02081304
-    mov r7, r0
-@L_0207edf4:
-    mov r0, r10
-    mov r1, r5
-    mov r2, r6
-    mov r3, r8
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_0207c65cEmiii
-@L_0207ee0c:
-    mov r0, #1
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 *members = unk_34c[team];
+    u32 other;
+    int old;
+    int a;
+    int b;
+    int d;
+    int c;
+    MatchPlayer *player;
+    MatchPlayer *swapped;
+
+    if (!func_0208039c(members, id)) {
+        return FALSE;
+    }
+    if (pos <= 0 || pos > 16) {
+        if (func_0207aeac(team, id)) {
+            return FALSE;
+        }
+        if (!func_0207bee8(team, id, 1)) {
+            int b = 0;
+            MatchPlayer *player = func_ov015_02130b14(id, 0);
+            if (player != NULL) {
+                b = func_02081304(player);
+            }
+            func_0207c65c(id, 0, 0, b);
+        }
+        return TRUE;
+    }
+    other = func_02080328(members, pos - 1);
+    old = func_0208051c(members, id);
+    func_020802cc(members, pos - 1, id);
+    player = func_ov015_02130b14(id, 0);
+    a = 0;
+    b = 0;
+    if (player != NULL) {
+        a = func_020812fc(player);
+        b = func_02081304(player);
+    }
+    func_0207c65c(id, pos, a, b);
+    if ((other & 0xFFF) != 0 && old > 0) {
+        func_020802cc(members, old - 1, other);
+        swapped = func_ov015_02130b14(other, 0);
+        c = 0;
+        d = 0;
+        if (swapped != NULL) {
+            c = func_020812fc(swapped);
+            d = func_02081304(swapped);
+        }
+        func_0207c65c(other, old, c, d);
+    }
+    return TRUE;
 }
 
 int MatchEngine::func_0207ee18(u32 id)
