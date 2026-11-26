@@ -37,7 +37,14 @@ union SaveProfile {
         s8 unk_46;              // (a level, see MatchEngine::func_0206ccb8)
         u8 unk_47[0x4A - 0x47];
         u8 unk_4A;
-        u8 unk_4B[0xC5];
+        u8 unk_4B;
+        u8 unk_4C[0x70 - 0x4C];
+        s32 unk_70;             // (MatchEngine::func_0207fff0 reads 0x70-0x80)
+        s32 unk_74;
+        s32 unk_78;
+        s32 unk_7C;
+        s32 unk_80;
+        u8 unk_84[0x110 - 0x84];
     };
 };
 

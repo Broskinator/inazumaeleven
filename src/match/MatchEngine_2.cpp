@@ -16111,195 +16111,76 @@ int MatchEngine::func_0207ff44(int team, int kind, int c)
     return (total + n / 2) / n;
 }
 
-asm int MatchEngine::func_0207fff0(int kind, int arg)
+// (a number for the kind of record: func_0207ff44's counts, the profile's counts and the
+// percentages of them (u8), the play time in hours, ...; 0 for the others)
+int MatchEngine::func_0207fff0(int kind, int arg)
 {
-    stmdb sp!, {r3, lr}
-    ldr lr, =gGameState
-    mov r3, r2
-    cmp r1, #0x2b
-    mov r12, #0
-    addls pc, pc, r1, lsl #2
-    b @L_02080274
-    b @L_020800bc
-    b @L_020800c4
-    b @L_020800d4
-    b @L_020800e4
-    b @L_020800f4
-    b @L_02080104
-    b @L_02080114
-    b @L_02080124
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080134
-    b @L_0208013c
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080144
-    b @L_02080150
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_0208015c
-    b @L_02080164
-    b @L_0208016c
-    b @L_02080174
-    b @L_0208017c
-    b @L_020801b4
-    b @L_020801ec
-    b @L_02080274
-    b @L_02080274
-    b @L_02080274
-    b @L_02080224
-    b @L_0208022c
-    b @L_02080238
-    b @L_0208024c
-@L_020800bc:
-    mov r0, r12
-    ldmia sp!, {r3, pc}
-@L_020800c4:
-    mov r1, r12
-    mov r2, #0x22
-    bl _ZN11MatchEngine13func_0207ff44Eiii
-    ldmia sp!, {r3, pc}
-@L_020800d4:
-    mov r1, r12
-    mov r2, #0x23
-    bl _ZN11MatchEngine13func_0207ff44Eiii
-    ldmia sp!, {r3, pc}
-@L_020800e4:
-    mov r1, r12
-    mov r2, #0x21
-    bl _ZN11MatchEngine13func_0207ff44Eiii
-    ldmia sp!, {r3, pc}
-@L_020800f4:
-    mov r1, r12
-    mov r2, #0x20
-    bl _ZN11MatchEngine13func_0207ff44Eiii
-    ldmia sp!, {r3, pc}
-@L_02080104:
-    mov r1, r12
-    mov r2, #0x24
-    bl _ZN11MatchEngine13func_0207ff44Eiii
-    ldmia sp!, {r3, pc}
-@L_02080114:
-    mov r1, r12
-    mov r2, #0x1e
-    bl _ZN11MatchEngine13func_0207ff44Eiii
-    ldmia sp!, {r3, pc}
-@L_02080124:
-    mov r1, r12
-    mov r2, #0x1f
-    bl _ZN11MatchEngine13func_0207ff44Eiii
-    ldmia sp!, {r3, pc}
-@L_02080134:
-    ldr r0, [lr, #0x4c0]
-    ldmia sp!, {r3, pc}
-@L_0208013c:
-    ldr r0, [lr, #0x4c4]
-    ldmia sp!, {r3, pc}
-@L_02080144:
-    mov r1, r12
-    bl _ZN11MatchEngine13func_0206e76cEi
-    ldmia sp!, {r3, pc}
-@L_02080150:
-    mov r1, #1
-    bl _ZN11MatchEngine13func_0206e76cEi
-    ldmia sp!, {r3, pc}
-@L_0208015c:
-    ldr r0, [lr, #0x51c]
-    ldmia sp!, {r3, pc}
-@L_02080164:
-    ldr r0, [lr, #0x520]
-    ldmia sp!, {r3, pc}
-@L_0208016c:
-    ldr r0, [lr, #0x524]
-    ldmia sp!, {r3, pc}
-@L_02080174:
-    ldr r0, [lr, #0x528]
-    ldmia sp!, {r3, pc}
-@L_0208017c:
-    ldr r0, [lr, #0x51c]
-    ldr lr, [lr, #0x528]
-    adds r2, r0, lr
-    moveq r0, r12
-    ldmeqia sp!, {r3, pc}
-    mov r3, #0x64
-    umull r0, r1, lr, r3
-    mla r1, lr, r12, r1
-    mov r12, lr, asr #0x1f
-    mla r1, r12, r3, r1
-    mov r3, r2, asr #0x1f
-    bl _ll_udiv
-    and r0, r0, #0xff
-    ldmia sp!, {r3, pc}
-@L_020801b4:
-    ldr r2, [lr, #0x51c]
-    cmp r2, #0
-    moveq r0, r12
-    ldmeqia sp!, {r3, pc}
-    ldr lr, [lr, #0x520]
-    mov r3, #0x64
-    umull r0, r1, lr, r3
-    mla r1, lr, r12, r1
-    mov r12, lr, asr #0x1f
-    mla r1, r12, r3, r1
-    mov r3, r2, asr #0x1f
-    bl _ll_udiv
-    and r0, r0, #0xff
-    ldmia sp!, {r3, pc}
-@L_020801ec:
-    ldr r2, [lr, #0x51c]
-    cmp r2, #0
-    moveq r0, r12
-    ldmeqia sp!, {r3, pc}
-    ldr lr, [lr, #0x524]
-    mov r3, #0x64
-    umull r0, r1, lr, r3
-    mla r1, lr, r12, r1
-    mov r12, lr, asr #0x1f
-    mla r1, r12, r3, r1
-    mov r3, r2, asr #0x1f
-    bl _ll_udiv
-    and r0, r0, #0xff
-    ldmia sp!, {r3, pc}
-@L_02080224:
-    ldrb r0, [lr, #0x4f7]
-    ldmia sp!, {r3, pc}
-@L_0208022c:
-    ldr r0, =data_020cabe0
-    ldrh r0, [r0, #0x1a]
-    ldmia sp!, {r3, pc}
-@L_02080238:
-    ldr r2, [lr, #0x4c8]
-    ldr r0, =0x91a2b3c5
-    umull r1, r0, r2, r0
-    mov r0, r0, lsr #0xb
-    ldmia sp!, {r3, pc}
-@L_0208024c:
-    ldr r2, [lr, #0x51c]
-    cmp r2, #0
-    moveq r0, r12
-    ldmeqia sp!, {r3, pc}
-    ldr r0, [lr, #0x52c]
-    mov r3, r2, asr #0x1f
-    mov r1, r0, asr #0x1f
-    bl _ll_udiv
-    and r0, r0, #0xff
-    ldmia sp!, {r3, pc}
-@L_02080274:
-    mov r0, #0
-    ldmia sp!, {r3, pc}
+    switch (kind) {
+    case 0:
+        return 0;
+    case 1:
+        return func_0207ff44(0, 0x22, arg);
+    case 2:
+        return func_0207ff44(0, 0x23, arg);
+    case 3:
+        return func_0207ff44(0, 0x21, arg);
+    case 4:
+        return func_0207ff44(0, 0x20, arg);
+    case 5:
+        return func_0207ff44(0, 0x24, arg);
+    case 6:
+        return func_0207ff44(0, 0x1E, arg);
+    case 7:
+        return func_0207ff44(0, 0x1F, arg);
+    case 20:
+        return gGameState.profile.unk_14;
+    case 21:
+        return gGameState.profile.unk_18;
+    case 25:
+        return func_0206e76c(0);
+    case 26:
+        return func_0206e76c(1);
+    case 30:
+        return gGameState.profile.unk_70;
+    case 31:
+        return gGameState.profile.unk_74;
+    case 32:
+        return gGameState.profile.unk_78;
+    case 33:
+        return gGameState.profile.unk_7C;
+    case 34: {
+        s32 total = gGameState.profile.unk_70;
+        s32 n = gGameState.profile.unk_7C;
+
+        total += n;
+        if (total == 0) {
+            return 0;
+        }
+        return (u8)(n * 100ULL / total);
+    }
+    case 35:
+        if (gGameState.profile.unk_70 == 0) {
+            return 0;
+        }
+        return (u8)(gGameState.profile.unk_74 * 100ULL / gGameState.profile.unk_70);
+    case 36:
+        if (gGameState.profile.unk_70 == 0) {
+            return 0;
+        }
+        return (u8)(gGameState.profile.unk_78 * 100ULL / gGameState.profile.unk_70);
+    case 40:
+        return gGameState.profile.unk_4B;
+    case 41:
+        return *(u16 *)(data_020cabe0 + 0x1A);
+    case 42:
+        return gGameState.profile.playTime / 3600;
+    case 43:
+        if (gGameState.profile.unk_70 == 0) {
+            return 0;
+        }
+        return (u8)((u64)gGameState.profile.unk_80 / gGameState.profile.unk_70);
+    }
+    return 0;
 }
 
 MatchAction *MatchEngine::func_02080288(MatchPlayer *player)
