@@ -200,7 +200,7 @@ public:
     void func_02063550(MatchPlayer *player, u16 time, BOOL b, u8 c, BOOL d);
     BOOL func_020636b8(MatchPlayer *player);
     void func_0206371c();
-    void func_02063c14();
+    void func_02063c14(MatchPlayer *player);
     u16 func_02063e4c(fx32 x, fx32 y);
     void func_02063e6c(fx32 x, fx32 y);
     void func_02063e7c(MatchPlayer *player);

@@ -71,7 +71,7 @@ struct MatchPlayerBody {
 struct MatchPlayerState {
     fx32 unk_0;         // (a position: x, 0x80000000 when there is none)
     fx32 unk_4;
-    u8 unk_8[0x10 - 0x8];
+    MatchPoint unk_8;   // (where it kicks to: 0x80000000 when nowhere, func_02063c14)
     s32 unk_10;
     s32 unk_14;
     s32 unk_18;
@@ -152,7 +152,8 @@ struct MatchPlayerInfo {
     s16 unk_0;
     u8 unk_2[6];
     u8 unk_8;
-    u8 unk_9[0xE - 0x9];
+    u8 unk_9[0xD - 0x9];
+    u8 unk_d;
     u8 unk_e;
     u8 unk_f;
     u16 unk_10;         // flags
