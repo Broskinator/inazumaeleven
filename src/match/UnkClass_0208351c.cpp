@@ -1,19 +1,19 @@
 #include "match/UnkClass_0208351c.hpp"
 
 #include "nitro/fx.h"
+#include "nitro/mi.h"
 
 extern "C" u16 func_02084094(fx32 *segment);
 extern "C" void func_020841d8(MatchPoint *point);
 extern "C" BOOL func_0208488c(MatchPoint *a, MatchPoint *b, MatchPoint *c);
 extern "C" void *data_020af44c[];     // (the vtable)
 
-extern "C" void MI_CpuFill8(void);
 extern "C" void _ZN15MatchPlayerList13func_02083060Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_020830a8Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_020832c8Ev(void);
 extern "C" void _ZN15MatchPlayerList13func_0208331cEP11MatchPlayer(void);
 extern "C" void _ZdlPv(void);
-extern "C" void FX_Div(void);
+extern "C" fx32 FX_Div(fx32 numer, fx32 denom);
 extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);
 extern "C" int func_ov015_021319b0(MatchPlayer *player);
 extern "C" BOOL func_ov015_02131bb4(int team);
@@ -239,146 +239,45 @@ asm BOOL UnkClass_0208351c::func_02083778(MatchPoint *out, MatchPoint *a, MatchP
 }
 #endif
 
-asm BOOL UnkClass_0208351c::func_020838d0(fx32 *a, fx32 *b, MatchPoint *out)
+// (where the lines through the segments a and b cross, in out: FALSE when they are parallel)
+BOOL UnkClass_0208351c::func_020838d0(fx32 *a, fx32 *b, MatchPoint *out)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
-    mov r9, r1
-    mov r10, r0
-    mov r8, r2
-    bl func_02084094
-    mov r4, r0
-    mov r0, r9
-    bl func_02084094
-    mov r5, r0
-    cmp r8, #0
-    beq @L_0208390c
-    mov r0, r8
-    mov r1, #0
-    mov r2, #8
-    bl MI_CpuFill8
-@L_0208390c:
-    ldr r0, =0x7fff
-    and r1, r4, r0
-    and r0, r5, r0
-    cmp r1, r0
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    cmp r8, #0
-    moveq r0, #1
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
-    mov r0, r4, asr #4
-    mov r4, r0, lsl #1
-    add r1, r4, #1
-    mov r0, r5, asr #4
-    mov r2, r0, lsl #1
-    add r0, r2, #1
-    ldr r3, =FX_SinCosTable_
-    mov r1, r1, lsl #1
-    ldrsh r6, [r3, r1]
-    mov r4, r4, lsl #1
-    mov r1, r2, lsl #1
-    mov r0, r0, lsl #1
-    cmp r6, #0
-    ldrsh r5, [r3, r4]
-    ldrsh r4, [r3, r1]
-    ldrsh r7, [r3, r0]
-    beq @L_02083a2c
-    smull r0, r4, r6, r4
-    adds r12, r0, #0x800
-    ldr r3, [r9]
-    ldr r1, [r9, #4]
-    ldr r0, [r10, #4]
-    adc r9, r4, #0
-    mov r4, r12, lsr #0xc
-    orr r4, r4, r9, lsl #20
-    ldr r2, [r10]
-    sub r0, r1, r0
-    sub r1, r3, r2
-    smull r1, r2, r4, r1
-    adds r3, r1, #0x800
-    smull r1, r0, r7, r0
-    adc r2, r2, #0
-    adds r1, r1, #0x800
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    smull r1, r0, r6, r1
-    adds r1, r1, #0x800
-    mov r3, r3, lsr #0xc
-    smull r12, r9, r7, r5
-    adc r0, r0, #0
-    adds r7, r12, #0x800
-    mov r12, r1, lsr #0xc
-    adc r1, r9, #0
-    mov r7, r7, lsr #0xc
-    orr r7, r7, r1, lsl #20
-    orr r3, r3, r2, lsl #20
-    orr r12, r12, r0, lsl #20
-    sub r0, r3, r12
-    sub r1, r4, r7
-    bl FX_Div
-    mov r4, r0
-    smull r1, r0, r4, r5
-    adds r1, r1, #0x800
-    adc r2, r0, #0
-    mov r0, r1, lsr #0xc
-    mov r1, r6
-    orr r0, r0, r2, lsl #20
-    bl FX_Div
-    ldr r2, [r10]
-    ldr r1, [r10, #4]
-    add r2, r4, r2
-    b @L_02083ae0
-@L_02083a2c:
-    smull r0, r5, r7, r5
-    adds r12, r0, #0x800
-    ldr r3, [r10]
-    ldr r1, [r10, #4]
-    ldr r0, [r9, #4]
-    adc r10, r5, #0
-    mov r5, r12, lsr #0xc
-    orr r5, r5, r10, lsl #20
-    ldr r2, [r9]
-    sub r0, r1, r0
-    sub r1, r3, r2
-    smull r1, r2, r5, r1
-    adds r3, r1, #0x800
-    smull r1, r0, r6, r0
-    adc r2, r2, #0
-    adds r1, r1, #0x800
-    adc r0, r0, #0
-    mov r1, r1, lsr #0xc
-    orr r1, r1, r0, lsl #20
-    smull r1, r0, r7, r1
-    adds r1, r1, #0x800
-    mov r3, r3, lsr #0xc
-    smull r12, r10, r6, r4
-    adc r0, r0, #0
-    adds r6, r12, #0x800
-    mov r12, r1, lsr #0xc
-    adc r1, r10, #0
-    mov r6, r6, lsr #0xc
-    orr r6, r6, r1, lsl #20
-    orr r3, r3, r2, lsl #20
-    orr r12, r12, r0, lsl #20
-    sub r0, r3, r12
-    sub r1, r5, r6
-    bl FX_Div
-    mov r5, r0
-    smull r1, r0, r5, r4
-    adds r1, r1, #0x800
-    adc r2, r0, #0
-    mov r0, r1, lsr #0xc
-    mov r1, r7
-    orr r0, r0, r2, lsl #20
-    bl FX_Div
-    ldr r2, [r9]
-    ldr r1, [r9, #4]
-    add r2, r5, r2
-@L_02083ae0:
-    add r0, r0, r1
-    str r0, [r8, #4]
-    str r2, [r8]
-    mov r0, #1
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
+    int angleA = func_02084094(a);
+    int angleB = func_02084094(b);
+    fx32 sinA;
+    fx32 cosA;
+    fx32 sinB;
+    fx32 cosB;
+    fx32 x;
+    fx32 y;
+
+    if (out != NULL) {
+        MI_CpuClear8(out, sizeof(MatchPoint));
+    }
+    if ((angleA & 0x7FFF) == (angleB & 0x7FFF)) {
+        return FALSE;
+    }
+    if (out == NULL) {
+        return TRUE;
+    }
+    sinA = FX_SinIdx(angleA >> 4);
+    sinB = FX_SinIdx(angleB >> 4);
+    cosA = FX_CosIdx(angleA >> 4);
+    cosB = FX_CosIdx(angleB >> 4);
+    if (cosA != 0) {
+        x = FX_Div(FX_Mul(FX_Mul(cosA, sinB), b[0] - a[0]) - FX_Mul(cosA, FX_Mul(cosB, b[1] - a[1])),
+                   FX_Mul(cosA, sinB) - FX_Mul(cosB, sinA));
+        y = FX_Div(FX_Mul(x, sinA), cosA);
+        x += a[0];
+        y += a[1];
+    } else {
+        x = FX_Div(FX_Mul(FX_Mul(cosB, sinA), a[0] - b[0]) - FX_Mul(cosB, FX_Mul(cosA, a[1] - b[1])),
+                   FX_Mul(cosB, sinA) - FX_Mul(cosA, sinB));
+        y = FX_Div(FX_Mul(x, sinB), cosB);
+        x += b[0];
+        y += b[1];
+    }
+    out->x = x;
+    out->y = y;
+    return TRUE;
 }
