@@ -303,7 +303,7 @@ public:
     BOOL func_0206acfc(int value);
     void func_0206ad1c();
     void func_0206ad68(BOOL a, BOOL b);
-    void func_0206ad94(int a, int b);
+    void func_0206ad94(int force, int b);
     void func_0206b018(void *body, MatchPlayer *player);
     void func_0206b050();
     void func_0206b1a0(MatchState *state, u8 value);
