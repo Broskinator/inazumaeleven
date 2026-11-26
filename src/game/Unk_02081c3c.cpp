@@ -36,7 +36,7 @@ extern "C" void _ZN11MatchEngine13func_0207a820Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207a854EtPa(void);
 extern "C" void _ZN11MatchEngine13func_0207d378EPhi(void);
 extern "C" void _ZN11MatchEngine13func_0207dbf4EPhPi(void);
-extern "C" void _ZN11MatchEngine13func_0207e334Eiiii(void);
+extern "C" void _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii(void);
 extern "C" void _ZN11MatchEngine13func_0207e5a4EPhii(void);
 extern "C" void _ZN9EntryPool4SwapEii(void);
 extern "C" void _u32_div_f(void);
@@ -656,7 +656,7 @@ extern "C" asm void func_020823a0(void)
     mov r3, r5
     mov r2, #1
     str r4, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
     add r4, r10, #0x3ac
     b @L_02082540
 @L_020824f8:
@@ -949,7 +949,7 @@ extern "C" asm void func_020828ec(void)
     mov r2, #1
     mov r3, #0
     str r12, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
     ldmia sp!, {r3, r4, r5, pc}
 }
 

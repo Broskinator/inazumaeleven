@@ -305,7 +305,7 @@ extern char data_020aef8c[];
 extern char data_020aefa8[];
 void Archive_PackHeaderGetOffsetAndSize(void);
 extern char data_020aefc0[];
-void _ZN11MatchEngine13func_0207e334Eiiii(void);
+void _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii(void);
 void func_ov087_02181cbc(void);
 extern char data_020c6cac[];
 void func_ov087_0218208c(void);
@@ -4581,7 +4581,7 @@ asm void func_01ffbc80(void)
     strh r3, [r1, #0xf0]
     mov r3, #0
     str r12, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
     ldmia sp!, {r3, pc}
 }
 
@@ -4604,7 +4604,7 @@ asm void func_01ffbcc8(void)
     mov r2, #1
     mov r3, #0
     str r12, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
     ldmia sp!, {r3, pc}
 }
 
@@ -6527,7 +6527,7 @@ asm void func_01ffcb50(void)
     mov r2, #1
     mov r3, r5
     str r5, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
 @L_01ffd860:
     add r7, r7, #1
 @L_01ffd864:
@@ -6974,7 +6974,7 @@ asm void func_01ffde48(void)
     mov r0, r7
     mov r2, r4
     str r3, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
     mov r0, r4
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }

@@ -789,7 +789,7 @@ public:
     void func_0207de24(MatchPlayer *player, int growth, int cap, s8 *value, u8 *rest);     // (on level up: takes the stats past the cap back from what was trained)
     int func_0207dec0(MatchPlayer *player, u8 *rec);
     void func_0207e19c(MatchPlayer *player);
-    int func_0207e334(int a, int b, int c, int d);
+    BOOL func_0207e334(MatchPlayer *player, BOOL bonus, int *learnt, int mode);     // (recomputes the player at its level)
     void func_0207e5a4(u8 *data, int level, int a);
     u8 func_0207e5fc();
     void func_0207e60c(int value);

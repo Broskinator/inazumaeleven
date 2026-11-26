@@ -69,7 +69,7 @@ extern "C" void _ZN11MatchEngine13func_0207add4Eim(void);
 extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0207bfd0Eiii(void);
-extern "C" void _ZN11MatchEngine13func_0207e334Eiiii(void);
+extern "C" void _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii(void);
 extern "C" void _ZN11MatchEngine13func_0207f0b0EPti(void);
 extern "C" void _ZN11MatchEngine13func_0207f260EPti(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
@@ -2878,7 +2878,7 @@ extern "C" asm void func_ov003_02111014(void)
     ldrh r9, [r12, #0x4a]
     strh r9, [lr, #0x8e]
     str r11, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
     ldr r0, [r6, #0x34]
     cmp r0, #8
     bne @L_021116ac

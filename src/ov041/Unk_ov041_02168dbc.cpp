@@ -83,7 +83,7 @@ extern "C" s32 _ZN11MatchEngine13func_02076ddcEii(...);
 extern "C" void _ZN11MatchEngine13func_02076ec8EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207793cEimmh(void);
 extern "C" void _ZN11MatchEngine13func_02077ba0Eimi(void);
-extern "C" s32 _ZN11MatchEngine13func_0207e334Eiiii(...);
+extern "C" s32 _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii(...);
 extern "C" void _s32_div_f(void);
 extern "C" void C3DPlaneCtrl_Create(void);
 extern "C" s32 C3DPlaneCtrl_Destroy(...);
@@ -891,7 +891,7 @@ extern "C" s32 func_ov041_0216989c(u8 *arg0, u16 arg1, s32 arg2)
     v6 = _ZN11MatchEngine13func_02076ba0Emii((u8 *)((u8 *)&data_020e88a0), arg1, 1, 1);
     if (arg2 != 1)
         return v6;
-    v7 = _ZN11MatchEngine13func_0207e334Eiiii((u8 *)((u8 *)&data_020e88a0), r9, 1, 0, 3);
+    v7 = _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii((u8 *)((u8 *)&data_020e88a0), r9, 1, 0, 3);
     return v7;
 }
 

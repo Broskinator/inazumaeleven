@@ -125,7 +125,7 @@ extern "C" int func_020813a0(MatchPlayer *player, int value);
 extern "C" void func_02081438(void);     // (for the asm functions)
 extern "C" void func_02081484(void);     // (for the asm functions)
 extern "C" void func_020814d0(void);     // (for the asm functions)
-extern "C" void func_0208151c(void);     // (for the asm functions)
+extern "C" int func_0208151c(MatchPlayer *player);
 extern "C" s32 func_02081568(MatchPlayer *player);
 extern "C" void func_020815b4(void);     // (for the asm functions)
 extern "C" void func_02081600(void);     // (for the asm functions)
@@ -192,7 +192,7 @@ extern "C" void _ZN11MatchEngine13func_0207dc10EPhi(void);     // (for the asm f
 extern "C" void _ZN11MatchEngine13func_0207de24EP11MatchPlayeriiPaPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207dec0EP11MatchPlayerPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207e19cEP11MatchPlayer(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207e334Eiiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207e6dcEP11MatchPlayerll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020685a8Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);     // (for the asm functions)
@@ -572,6 +572,18 @@ extern "C" int func_01ffe22c(MatchEngine *engine);
 extern "C" int func_01ffe3e4(MatchEngine *engine);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+// A player's record in unitstat.dat (docs/ie1_recomp.md)
+struct UnkUnitStat_0207e334 {
+    u8 unk_0[0x2C];             // (FP, TP and the 7 stats: at level 1, at 99, the curve)
+    struct {
+        u16 move;
+        u8 level;
+        u8 unk_3;
+    } moves[4];                 // 0x2C: what it learns, and at which level
+    u16 cap;                    // 0x3C: of the 7 stats' sum
+    u8 unk_3e[0x50 - 0x3E];
+};
+
 // (kinds 1, 3, 5 and 7)
 static inline BOOL Move_IsOddKind(u8 *move)
 {
@@ -7745,7 +7757,7 @@ int MatchEngine::func_02076c08(MatchPlayer *player, u32 id)
     if (player == NULL) {
         return 0x1C;
     }
-    func_0207e334((int)player, 0, 0, 3);
+    func_0207e334(player, 0, 0, 3);
     rec = func_020768fc(id);
     if (rec == NULL) {
         return 0xD;
@@ -7786,7 +7798,7 @@ int MatchEngine::func_02076c98(int team, u32 id)
         // (the ROM tests player twice)
         if (player != NULL && player != NULL && MatchPlayer_HasFlag(player, 1) && team == func_02080b90(player)
             && MatchPlayer_HasFlag(player, 0x80)) {
-            func_0207e334((int)player, 1, 0, 3);
+            func_0207e334(player, 1, 0, 3);
         }
     }
     return 0;
@@ -7811,7 +7823,7 @@ int MatchEngine::func_02076ddc(int team, BOOL all)
             player = func_ov015_02130ae8(i);
             if (player != NULL && MatchPlayer_HasFlag(player, 1) && team == func_02080b90(player)
                 && MatchPlayer_HasFlag(player, 0x80)) {
-                func_0207e334((int)player, 1, 0, 3);
+                func_0207e334(player, 1, 0, 3);
             }
         }
     }
@@ -8152,7 +8164,7 @@ int MatchEngine::func_020777e4(MatchPlayer *player, u32 id, u32 i, u8 update)
     }
     player->unk_70[i] = id;
     if (update) {
-        func_0207e334((int)player, 1, 0, 3);
+        func_0207e334(player, 1, 0, 3);
     }
     return 0;
 }
@@ -8241,7 +8253,7 @@ int MatchEngine::func_02077a80(int index, BOOL update)
         }
     }
     if (update) {
-        func_0207e334((int)player, 1, 0, 3);
+        func_0207e334(player, 1, 0, 3);
     }
     return result;
 }
@@ -8264,7 +8276,7 @@ int MatchEngine::func_02077b00(MatchPlayer *player, u32 slot, BOOL flag)
     }
     player->unk_70[slot] = 0;
     if (flag) {
-        func_0207e334((int)player, 1, 0, 3);
+        func_0207e334(player, 1, 0, 3);
     }
     return 0;
 }
@@ -12597,7 +12609,7 @@ int MatchEngine::func_0207c478(MatchPlayer *player, int a, int b, int c)
     player->unk_f0 |= 1;
     if (placed) {
         player->unk_f0 |= 2;
-        func_0207e334((int)player, 1, 0, 3);
+        func_0207e334(player, 1, 0, 3);
     }
     if (!onField) {
         return onField;
@@ -12610,7 +12622,7 @@ int MatchEngine::func_0207c478(MatchPlayer *player, int a, int b, int c)
             func_01ffbcc8(this, player);
         }
     }
-    return func_0207e334((int)player, 1, 0, 3);
+    return func_0207e334(player, 1, 0, 3);
 }
 
 void MatchEngine::func_0207c65c(u32 id, int a, int b, int c)
@@ -13399,7 +13411,7 @@ void MatchEngine::func_0207d118(int team)
         if (player == NULL || !MatchPlayer_HasFlag(player, 1) || team != func_02080b90(player)) {
             continue;
         }
-        func_0207e334((int)player, 1, 0, 3);
+        func_0207e334(player, 1, 0, 3);
     }
 }
 #pragma pop
@@ -13464,7 +13476,7 @@ asm void MatchEngine::func_0207d118(int team)
     mov r2, r11
     mov r3, #0
     str r4, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
+    bl _ZN11MatchEngine13func_0207e334EP11MatchPlayeriPii
 @L_0207d1fc:
     add r8, r8, #1
 @L_0207d200:
@@ -13741,7 +13753,7 @@ int MatchEngine::func_0207d728(MatchPlayer *player, int kind, int delta)
             delta = -999 - value;
         }
         func_0207d538(player, kind, value + delta);
-        func_0207e334((int)player, 1, 0, 2);
+        func_0207e334(player, 1, 0, 2);
         return delta;
     }
     max = func_0207dac0(player, kind);
@@ -13752,7 +13764,7 @@ int MatchEngine::func_0207d728(MatchPlayer *player, int kind, int delta)
         return 0;
     }
     func_0207d538(player, kind, value + delta);
-    func_0207e334((int)player, 1, 0, 2);
+    func_0207e334(player, 1, 0, 2);
     return delta;
 }
 
@@ -13778,7 +13790,7 @@ int MatchEngine::func_0207d830(MatchPlayer *player, int kind, int delta, u8 appl
             delta = -127 - cur;
         }
         func_0207d60c(player, kind, (s8)(delta + cur));
-        func_0207e334((int)player, 1, 0, 2);
+        func_0207e334(player, 1, 0, 2);
         return delta;
     }
     int max = func_0207dac0(player, kind);
@@ -13807,7 +13819,7 @@ int MatchEngine::func_0207d830(MatchPlayer *player, int kind, int delta, u8 appl
         if (over > 0) {
             func_0207d60c(player, func_0207d6bc(kind), (s8)(other - over));
         }
-        func_0207e334((int)player, 1, 0, 2);
+        func_0207e334(player, 1, 0, 2);
     }
     return delta;
 }
@@ -13886,7 +13898,7 @@ int MatchEngine::func_0207dac0(MatchPlayer *player, int kind)
 
 int MatchEngine::func_0207dbf4(u8 *data, int *moves)
 {
-    return func_0207e334((int)data, 1, (int)moves, 0);
+    return func_0207e334((MatchPlayer *)data, 1, moves, 0);
 }
 
 // (levels data up while its experience (at 0x60) reaches the next level's, to 99 at most: the
@@ -14449,178 +14461,79 @@ void MatchEngine::func_0207e19c(MatchPlayer *player)
     }
 }
 
-asm int MatchEngine::func_0207e334(int a, int b, int c, int d)
+// recomputes the player at its level: its record from unitstat.dat (unless mode 3), the base
+// values (func_0207dec0, or just those shown with mode bit 0), the moves it learns at this level
+// (unless mode bit 1; their ids in learnt), the bonuses of its items and, with bonus, of its
+// team's captain item; FP and TP within the new maximums, then the action's unk_1a
+BOOL MatchEngine::func_0207e334(MatchPlayer *player, BOOL bonus, int *learnt, int mode)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x64
-    mov r10, r0
-    mov r9, r1
-    str r2, [sp]
-    mov r8, r3
-    mov r11, #1
-    mov r4, #0
-    bl _ZN11MatchEngine13func_02080288EP11MatchPlayer
-    mov r5, r0
-    mov r0, r4
-@L_0207e360:
-    cmp r8, #0
-    strne r4, [r8, r0, lsl #2]
-    add r0, r0, #1
-    cmp r0, #4
-    blt @L_0207e360
-    ldr r0, [sp, #0x88]
-    cmp r0, #3
-    beq @L_0207e3a0
-    ldrh r1, [r9, #0x42]
-    add r2, sp, #0x14
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0207a854EtPa
-    cmp r0, #0
-    addeq sp, sp, #0x64
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207e3a0:
-    ldr r0, [sp, #0x88]
-    tst r0, #1
-    bne @L_0207e3c0
-    add r2, sp, #0x14
-    mov r0, r10
-    mov r1, r9
-    bl _ZN11MatchEngine13func_0207dec0EP11MatchPlayerPh
-    b @L_0207e3c8
-@L_0207e3c0:
-    add r0, r9, #0xd0
-    bl func_02081b44
-@L_0207e3c8:
-    ldr r0, [sp, #0x88]
-    tst r0, #2
-    bne @L_0207e42c
-    mov r6, #0
-    mov r7, r6
-    add r4, sp, #0x14
-@L_0207e3e0:
-    add r1, r4, r7, lsl #2
-    ldrb r2, [r9, #0xaa]
-    ldrb r0, [r1, #0x2e]
-    cmp r2, r0
-    blt @L_0207e420
-    ldrh r2, [r1, #0x2c]
-    mov r0, r10
-    mov r1, r9
-    mov r3, r11
-    bl _ZN11MatchEngine13func_02072fe8EP11MatchPlayerii
-    cmp r0, #0
-    cmpne r8, #0
-    addne r0, r4, r7, lsl #2
-    ldrneh r0, [r0, #0x2c]
-    strne r0, [r8, r6, lsl #2]
-    addne r6, r6, #1
-@L_0207e420:
-    add r7, r7, #1
-    cmp r7, #4
-    blt @L_0207e3e0
-@L_0207e42c:
-    mov r4, #1
-    mov r8, #0
-    add r6, sp, #4
-@L_0207e438:
-    mov r0, r9
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207f3ccEP11MatchPlayerm
-    movs r1, r0
-    beq @L_0207e48c
-    mov r0, r10
-    bl _ZN11MatchEngine13func_020768fcEm
-    movs r7, r0
-    beq @L_0207e48c
-    bl _ZN11MatchEngine13func_02078450EPh
-    cmp r0, #0
-    beq @L_0207e48c
-    mov r0, r10
-    mov r1, r7
-    mov r2, r6
-    bl _ZN11MatchEngine13func_02077e78EPhPv
-    cmp r0, #0
-    bne @L_0207e48c
-    mov r1, r6
-    add r0, r9, #0xd0
-    bl func_02081b70
-@L_0207e48c:
-    add r8, r8, #1
-    cmp r8, #4
-    blt @L_0207e438
-    ldr r0, [sp]
-    cmp r0, #0
-    beq @L_0207e518
-    mov r0, r9
-    bl func_02080b90
-    mov r1, r0
-    mov r0, r10
-    bl _ZN11MatchEngine13func_02076f04Ei
-    ldrh r2, [r9, #0xf0]
-    mov r1, r0
-    tst r2, #0x80
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    cmpne r1, #0
-    beq @L_0207e518
-    mov r0, r10
-    bl _ZN11MatchEngine13func_020768fcEm
-    mov r7, r0
-    bl _ZN11MatchEngine13func_02078450EPh
-    cmp r0, #0
-    beq @L_0207e518
-    add r6, sp, #4
-    mov r0, r10
-    mov r1, r7
-    mov r2, r6
-    bl _ZN11MatchEngine13func_02077e78EPhPv
-    cmp r0, #0
-    bne @L_0207e518
-    mov r1, r6
-    add r0, r9, #0xd0
-    bl func_02081b70
-@L_0207e518:
-    mov r0, r10
-    mov r1, r9
-    bl _ZN11MatchEngine13func_0207e19cEP11MatchPlayer
-    ldrsh r1, [r9, #0xd0]
-    ldrsh r0, [r9, #0x94]
-    cmp r0, r1
-    ble @L_0207e53c
-    mov r0, r9
-    bl func_02080b00
-@L_0207e53c:
-    ldrsh r1, [r9, #0xd2]
-    ldrsh r0, [r9, #0x96]
-    cmp r0, r1
-    ble @L_0207e554
-    mov r0, r9
-    bl func_02080b1c
-@L_0207e554:
-    cmp r5, #0
-    beq @L_0207e598
-    mov r0, r9
-    bl func_0208151c
-    cmp r0, #0x400
-    strgth r4, [r5, #0x1a]
-    bgt @L_0207e58c
-    mov r0, r9
-    bl func_0208151c
-    rsb r1, r0, #0x400
-    mov r0, #0x78
-    mul r0, r1, r0
-    mov r0, r0, asr #0xa
-    strh r0, [r5, #0x1a]
-@L_0207e58c:
-    ldrsh r0, [r5, #0x1a]
-    cmp r0, #0
-    strleh r4, [r5, #0x1a]
-@L_0207e598:
-    mov r0, #1
-    add sp, sp, #0x64
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 buffer[0x10];
+    UnkUnitStat_0207e334 rec;
+    MatchAction *action;
+    int i;
+    int n;
+    u8 *item;
+
+    action = func_02080288(player);
+    for (i = 0; i < 4; i++) {
+        if (learnt != NULL) {
+            learnt[i] = 0;
+        }
+    }
+    if (mode != 3 && !func_0207a854(player->unk_42, (s8 *)&rec)) {
+        return FALSE;
+    }
+    if (!(mode & 1)) {
+        func_0207dec0(player, (u8 *)&rec);
+    } else {
+        func_02081b44((u8 *)&player->unk_d0);
+    }
+    if (!(mode & 2)) {
+        n = 0;
+        for (i = 0; i < 4; i++) {
+            if ((int)player->unk_aa >= (int)rec.moves[i].level) {
+                if (func_02072fe8(player, rec.moves[i].move, TRUE) && learnt != NULL) {
+                    learnt[n] = rec.moves[i].move;
+                    n++;
+                }
+            }
+        }
+    }
+    for (i = 0; i < 4; i++) {
+        u32 id = func_0207f3cc(player, i);
+
+        if (id != 0 && (item = func_020768fc(id)) != NULL && func_02078450(item) && !func_02077e78(item, buffer)) {
+            func_02081b70((u8 *)&player->unk_d0, buffer);
+        }
+    }
+    if (bonus) {
+        u16 id = func_02076f04(func_02080b90(player));
+
+        if (MatchPlayer_HasFlag(player, 0x80) && id != 0) {
+            item = func_020768fc(id);
+            if (func_02078450(item) && !func_02077e78(item, buffer)) {
+                func_02081b70((u8 *)&player->unk_d0, buffer);
+            }
+        }
+    }
+    func_0207e19c(player);
+    if (player->unk_94 > player->unk_d0) {
+        func_02080b00(player, player->unk_d0);
+    }
+    if (player->unk_96 > player->unk_d2) {
+        func_02080b1c(player, player->unk_d2);
+    }
+    if (action != NULL) {
+        if (func_0208151c(player) > 0x400) {
+            action->unk_1a = 1;
+        } else {
+            action->unk_1a = (0x400 - func_0208151c(player)) * 120 >> 10;
+        }
+        if (action->unk_1a <= 0) {
+            action->unk_1a = 1;
+        }
+    }
+    return TRUE;
 }
 
 void MatchEngine::func_0207e5a4(u8 *data, int level, int a)
