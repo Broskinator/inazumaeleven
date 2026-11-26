@@ -102,7 +102,7 @@ extern "C" u16 func_020807b4(u8 *entry);
 extern "C" void func_020807d0(void);     // (for the asm functions)
 extern "C" BOOL func_02080804(MatchPlayer *player);
 extern "C" void func_02080830(void *player, int i, u16 a, u16 b);
-extern "C" void func_0208084c(void);     // (for the asm functions)
+extern "C" u32 func_0208084c(MatchPlayer *player, int slot, int k);   // (the k-th partner set for a move)
 extern "C" BOOL func_020808e8(MatchPlayer *player, u16 id);
 extern "C" BOOL func_02080964(MatchPlayer *player, int slot, u16 id, int a);
 extern "C" void func_020809e8(MatchPlayer *player, int slot);
@@ -368,7 +368,7 @@ extern "C" void _ZN11MatchEngine13func_020738e4EPvi(void);     // (for the asm f
 extern "C" void _ZN11MatchEngine13func_020739a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02073a20EPviPt(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02073a9cEPviPti(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02073a9cEP11MatchPlayeriPti(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02073e3cEP11MatchPlayeriS1_h(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02070854Em(void);     // (for the asm functions)
 extern "C" void _ZN17UnkDeque_0207076c13func_02070e34EPKc(void);     // (for the asm functions)
@@ -5127,10 +5127,129 @@ int MatchEngine::func_02073a20(void *team, int id, u16 *out)
     if (i == 6) {
         return 0;
     }
-    return func_02073a9c(team, i, out, 1);
+    return func_02073a9c((MatchPlayer *)team, i, out, 1);
 }
 
-asm int MatchEngine::func_02073a9c(void *team, int i, u16 *out, int b)
+// the partners of the player's move in slot (one that needs several players, command.dat +0x0A):
+// first those set for it, then, with fill, the nearest players func_02073e3c does not refuse.
+// TRUE when the move has all it needs
+// (nonmatching: in the last loop the player and the free-slot index have r6 and r7 swapped, and one compare's operands the other way)
+#ifdef NONMATCHING
+BOOL MatchEngine::func_02073a9c(MatchPlayer *player, int slot, u16 *partners, BOOL fill)
+{
+    s32 ids[11];
+    fx32 dists[11];
+    int move;
+    int count;
+    u8 *rec;
+    int n;
+    int k;
+    int j;
+    int m;
+    u16 id;
+    MatchPlayer *other;
+    MatchPoint *point;
+
+    if (player == NULL || partners == NULL) {
+        return FALSE;
+    }
+    if (partners != NULL) {
+        partners[0] = partners[1] = 0;
+    }
+    move = func_020808c4(player, slot);
+    rec = func_020739cc(move);
+    if (rec == NULL) {
+        return FALSE;
+    }
+    if (rec[0xA] == 0) {
+        return TRUE;
+    }
+    n = 0;
+    for (k = 0; k < rec[0xA]; k++) {
+        id = func_0206f9e0(func_0208084c(player, slot, k));
+        if (id == 0) {
+            continue;
+        }
+        for (j = 0; j < rec[0xA]; j++) {
+            if (id == partners[j]) {
+                break;
+            }
+        }
+        if (j != rec[0xA]) {
+            continue;
+        }
+        other = func_ov015_02130b14(id, 0);
+        if (other == NULL) {
+            continue;
+        }
+        if (fill && !MatchPlayer_HasFlag(other, 8)) {
+            continue;
+        }
+        partners[k] = other->unk_42;
+        n++;
+        if (n == rec[0xA]) {
+            return TRUE;
+        }
+    }
+    if (!fill) {
+        return FALSE;
+    }
+    if (rec[0xB] == 0x51) {
+        return FALSE;
+    }
+    if (!MatchPlayer_HasFlag(player, 8)) {
+        return FALSE;
+    }
+    point = NULL;
+    for (k = 0; k < 22; k++) {
+        if (player == func_02079d2c(k)) {
+            point = (MatchPoint *)func_0206a8d8(k, func_0206a93c(), FALSE);
+        }
+    }
+    if (point == NULL) {
+        return FALSE;
+    }
+    count = func_020665a4(point, 11, ids, dists, 0x60001, player);
+    for (k = 0; k < count; k++) {
+        func_ov015_02130ae8(ids[k]);
+    }
+    if (rec[0xB] != 0) {
+        for (k = 0; k < count; k++) {
+            other = func_ov015_02130ae8(ids[k]);
+            if (other == NULL) {
+                continue;
+            }
+            id = other->unk_42 & 0xFFF;
+            if (id == (u16)(player->unk_42 & 0xFFF)) {
+                continue;
+            }
+            for (m = 0; m < rec[0xA]; m++) {
+                if ((partners[m] & 0xFFF) == id) {
+                    break;
+                }
+            }
+            if (m != rec[0xA]) {
+                continue;
+            }
+            if (func_02073e3c(player, move, other, 0)) {
+                continue;
+            }
+            for (j = 0; j < rec[0xA]; j++) {
+                if (partners[j] == 0) {
+                    partners[j] = other->unk_42;
+                    break;
+                }
+            }
+            n++;
+            if (n == rec[0xA]) {
+                return TRUE;
+            }
+        }
+    }
+    return FALSE;
+}
+#else
+asm BOOL MatchEngine::func_02073a9c(MatchPlayer *player, int slot, u16 *partners, BOOL fill)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x6c
@@ -5363,6 +5482,7 @@ asm int MatchEngine::func_02073a9c(void *team, int i, u16 *out, int b)
     add sp, sp, #0x6c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 int MatchEngine::func_02073df8(void *team, int i, int a, u8 b)
 {

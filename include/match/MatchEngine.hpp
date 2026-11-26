@@ -536,7 +536,7 @@ public:
     u8 *func_020739cc(int i);
     u8 func_020739e4(void *team, int i);
     int func_02073a20(void *team, int id, u16 *out);
-    int func_02073a9c(void *team, int i, u16 *out, int b);
+    BOOL func_02073a9c(MatchPlayer *player, int slot, u16 *partners, BOOL fill);
     int func_02073df8(void *team, int i, int a, u8 b);
     int func_02073e3c(MatchPlayer *player, int id, MatchPlayer *target, u8 check);
     BOOL func_02073fa0(MatchPlayer *player, int id, MatchPlayer *a, MatchPlayer *b);
