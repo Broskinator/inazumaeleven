@@ -329,7 +329,7 @@ extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206bfecEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206de34Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020725acEP11MatchPlayeriiiPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020732b0EP11MatchPlayeriPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
@@ -572,6 +572,14 @@ extern "C" int func_01ffe22c(MatchEngine *engine);
 extern "C" int func_01ffe3e4(MatchEngine *engine);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+// the different ids of what the player can choose in mode/kind (the ones func_0207436c tries,
+// two of func_0207455c, func_02074584, func_020745ac or func_020745d4 first, none of those in
+// mode 2): their count, in ids (8)
+static inline BOOL Info_HasFlag(UnkPair_020621b4 *info, u8 mask)
+{
+    return (info->unk_e[1] & mask) ? TRUE : FALSE;
+}
+
 // (swaps a and b through tmp, flushing each from the cache after its copy)
 #define MATCH_SWAP_FLUSH(a, b, tmp)                 \
     MI_CpuCopy8(a, tmp, sizeof(tmp));               \
@@ -3956,231 +3964,99 @@ int UnkDequeIterator_0207076c::func_02072538(const UnkDequeIterator_0207076c &ot
     return n;
 }
 
-asm int MatchEngine::func_020725ac(MatchPlayer *player, int a, int b, bool flag, int *ids)
+int MatchEngine::func_020725ac(MatchPlayer *player, int mode, int kind, BOOL flag, int *ids)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x2c
-    mov r9, r1
-    mov r10, r0
-    str r2, [sp, #8]
-    mov r6, r3
-    ldr r8, [sp, #0x54]
-    mov r5, #0
-    bl func_ov015_02143664
-    mov r11, r0
-    mov r0, r9
-    bl func_ov015_021319b0
-    add r0, r10, r0
-    add r0, r0, #0x11000
-    ldrb r0, [r0, #0x7d6]
-    add r4, sp, #0xc
-    mov r1, #0
-    tst r0, #1
-    movne r7, #1
-    mov r0, r8
-    mov r2, #0x20
-    moveq r7, r5
-    bl MI_CpuFill8
-    mov r1, #0
-    mov r2, #0x20
-    mov r0, r4
-    bl MI_CpuFill8
-    ldr r0, [sp, #0x50]
-    mov r1, #0
-    cmp r0, #0
-    orreq r5, r5, #1
-    ldr r0, [sp, #8]
-    orrne r5, r5, #2
-    cmp r0, #0
-    bne @L_020726f8
-    cmp r6, #0
-    mov r6, r1
-    mov r0, r10
-    mov r1, r9
-    mov r2, r6
-    bne @L_020726a4
-    mov r3, r5
-    bl _ZN11MatchEngine13func_0207455cEiim
-    str r0, [r4]
-    mov r0, r10
-    mov r1, r9
-    mov r2, #1
-    mov r3, r5
-    bl _ZN11MatchEngine13func_0207455cEiim
-    str r0, [r4, #4]
-    add r4, r4, #8
-@L_02072678:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r6
-    mov r3, r5
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_02074700Eiiih
-    add r6, r6, #1
-    cmp r6, #6
-    str r0, [r4], #4
-    blt @L_02072678
-    b @L_0207284c
-@L_020726a4:
-    mov r3, r5
-    bl _ZN11MatchEngine13func_02074584Eiim
-    str r0, [r4]
-    mov r0, r10
-    mov r1, r9
-    mov r2, #1
-    mov r3, r5
-    bl _ZN11MatchEngine13func_02074584Eiim
-    str r0, [r4, #4]
-    add r4, r4, #8
-@L_020726cc:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r6
-    mov r3, r5
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_02074728Eiiih
-    add r6, r6, #1
-    cmp r6, #6
-    str r0, [r4], #4
-    blt @L_020726cc
-    b @L_0207284c
-@L_020726f8:
-    cmp r0, #2
-    bne @L_02072758
-    cmp r6, #1
-    bne @L_02072740
-    orr r5, r5, #0x40
-    mov r6, r1
-    mov r11, #6
-@L_02072714:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r11
-    mov r3, r6
-    stmia sp, {r5, r7}
-    bl _ZN11MatchEngine13func_020745e4Eiiiih
-    add r6, r6, #1
-    cmp r6, #6
-    str r0, [r4], #4
-    blt @L_02072714
-    b @L_0207284c
-@L_02072740:
-    mov r0, r1
-@L_02072744:
-    add r0, r0, #1
-    cmp r0, #6
-    str r1, [r4], #4
-    blt @L_02072744
-    b @L_0207284c
-@L_02072758:
-    cmp r6, #0
-    bne @L_020727ec
-    ldrb r0, [r11, #0xf]
-    mov r6, #0
-    mov r2, r6
-    tst r0, #0x20
-    movne r1, #1
-    cmp r1, #0
-    orrne r5, r5, #0x20
-    tst r0, #1
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    orrne r5, r5, #0x10
-    mov r0, r10
-    mov r1, r9
-    mov r3, r5
-    bl _ZN11MatchEngine13func_020745acEiim
-    str r0, [r4]
-    mov r0, r10
-    mov r1, r9
-    mov r2, #1
-    mov r3, r5
-    bl _ZN11MatchEngine13func_020745acEiim
-    str r0, [r4, #4]
-    add r4, r4, #8
-@L_020727c0:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r6
-    mov r3, r5
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_02074750Eiiih
-    add r6, r6, #1
-    cmp r6, #6
-    str r0, [r4], #4
-    blt @L_020727c0
-    b @L_0207284c
-@L_020727ec:
-    mov r6, r1
-    mov r0, r10
-    mov r1, r9
-    mov r2, r6
-    mov r3, r5
-    bl _ZN11MatchEngine13func_020745d4Eiim
-    str r0, [r4]
-    mov r0, r10
-    mov r1, r9
-    mov r2, #1
-    mov r3, r5
-    bl _ZN11MatchEngine13func_020745d4Eiim
-    str r0, [r4, #4]
-    add r4, r4, #8
-@L_02072824:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r6
-    mov r3, r5
-    str r7, [sp]
-    bl _ZN11MatchEngine13func_02074778Eiiih
-    add r6, r6, #1
-    cmp r6, #6
-    str r0, [r4], #4
-    blt @L_02072824
-@L_0207284c:
-    ldr r0, [sp, #8]
-    mov r2, #0
-    mov r6, r2
-    cmp r0, #2
-    streq r6, [r8, #4]
-    add r5, sp, #0xc
-    streq r6, [r8]
-    beq @L_02072880
-@L_0207286c:
-    ldr r0, [r5], #4
-    str r0, [r8, r6, lsl #2]
-    add r6, r6, #1
-    cmp r6, #2
-    blt @L_0207286c
-@L_02072880:
-    cmp r6, #8
-    addge sp, sp, #0x2c
-    mov r0, r6
-    ldmgeia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02072890:
-    mov r3, r2
-    b @L_020728a8
-@L_02072898:
-    ldr r1, [r8, r3, lsl #2]
-    add r3, r3, #1
-    cmp r4, r1
-    streq r2, [r5]
-@L_020728a8:
-    ldr r4, [r5]
-    cmp r4, #0
-    beq @L_020728bc
-    cmp r3, r0
-    blt @L_02072898
-@L_020728bc:
-    add r6, r6, #1
-    cmp r4, #0
-    strne r4, [r8, r0, lsl #2]
-    addne r0, r0, #1
-    cmp r6, #8
-    add r5, r5, #4
-    blt @L_02072890
-    add sp, sp, #0x2c
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    int list[8];
+    u32 flags;
+    UnkPair_020621b4 *info;
+    bool side;
+    int *p;
+    int i;
+    int n;
+    int j;
+
+    flags = 0;
+    info = func_ov015_02143664(this);
+    side = (unk_117d6[func_ov015_021319b0(player)] & 1) != 0;
+    p = list;
+    MI_CpuFill8(ids, 0, sizeof(list));
+    MI_CpuFill8(list, 0, sizeof(list));
+    if (!flag) {
+        flags |= 1;
+    } else {
+        flags |= 2;
+    }
+    if (mode == 0) {
+        if (kind == 0) {
+            p[0] = func_0207455c((int)player, 0, flags);
+            p[1] = func_0207455c((int)player, 1, flags);
+            p += 2;
+            for (i = 0; i < 6; i++) {
+                *p++ = func_02074700((int)player, i, flags, side);
+            }
+        } else {
+            p[0] = func_02074584((int)player, 0, flags);
+            p[1] = func_02074584((int)player, 1, flags);
+            p += 2;
+            for (i = 0; i < 6; i++) {
+                *p++ = func_02074728((int)player, i, flags, side);
+            }
+        }
+    } else if (mode == 2) {
+        if (kind == 1) {
+            flags |= 0x40;
+            for (i = 0; i < 6; i++) {
+                *p++ = func_020745e4((int)player, 6, i, flags, side);
+            }
+        } else {
+            for (i = 0; i < 6; i++) {
+                *p++ = 0;
+            }
+        }
+    } else {
+        if (kind == 0) {
+            if (Info_HasFlag(info, 0x20)) {
+                flags |= 0x20;
+            }
+            if (Info_HasFlag(info, 1)) {
+                flags |= 0x10;
+            }
+            p[0] = func_020745ac((int)player, 0, flags);
+            p[1] = func_020745ac((int)player, 1, flags);
+            p += 2;
+            for (i = 0; i < 6; i++) {
+                *p++ = func_02074750((int)player, i, flags, side);
+            }
+        } else {
+            p[0] = func_020745d4((int)player, 0, flags);
+            p[1] = func_020745d4((int)player, 1, flags);
+            p += 2;
+            for (i = 0; i < 6; i++) {
+                *p++ = func_02074778((int)player, i, flags, side);
+            }
+        }
+    }
+    i = 0;
+    p = list;
+    if (mode == 2) {
+        ids[0] = ids[1] = 0;
+    } else {
+        for (; i < 2; i++) {
+            ids[i] = *p++;
+        }
+    }
+    n = i;
+    for (; i < 8; i++, p++) {
+        for (j = 0; *p != 0 && j < n; j++) {
+            if (*p == ids[j]) {
+                *p = 0;
+            }
+        }
+        if (*p != 0) {
+            ids[n++] = *p;
+        }
+    }
+    return n;
 }
 
 int MatchEngine::func_020728e0(int value)
@@ -6810,7 +6686,7 @@ asm int MatchEngine::func_02075428(int moveA, int a, int moveB, int b)
     mov r3, #1
     str r5, [sp, #4]
 @L_02075704:
-    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriiiPi
     ldr r0, [sp, #0x10]
     cmp r0, r9
     cmpne r0, r8

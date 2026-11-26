@@ -521,7 +521,7 @@ public:
     void func_020706b4(int index, int frame);
     void func_0207070c();
     s32 func_02070760();
-    int func_020725ac(MatchPlayer *player, int a, int b, bool flag, int *ids);
+    int func_020725ac(MatchPlayer *player, int mode, int kind, BOOL flag, int *ids);
     int func_020728e0(int value);
     BOOL func_02072914(MatchPlayer *player, int value, u8 *req, int i);
     BOOL func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8 *req);
