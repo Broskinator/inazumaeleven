@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 543,148 | 27.88% | 9,634 | 6,022 | 62.51% | 3,612 |
-| Game, main program | 369,260 | 154,628 | 41.88% | 2,601 | 1,963 | 75.47% | 638 |
+| **Game code** | 1,948,264 | 547,604 | 28.11% | 9,634 | 6,032 | 62.61% | 3,602 |
+| Game, main program | 369,260 | 159,084 | 43.08% | 2,601 | 1,973 | 75.86% | 628 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 639,552 | 24.65% | 14,002 | 7,303 | 52.16% | 6,699 |
+| **Everything** | 2,594,024 | 644,008 | 24.83% | 14,002 | 7,313 | 52.23% | 6,689 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -32,10 +32,10 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Match engine, all** | 376,800 | 103,324 | 27.42% | 1,742 | 1,209 | 69.40% | 533 |
+| **Match engine, all** | 376,800 | 107,780 | 28.60% | 1,742 | 1,219 | 69.98% | 523 |
 | `src/match/MatchBallPhysics.cpp` | 3,356 | 1,568 | 46.72% | 33 | 29 | 87.88% | 4 |
-| `src/match/MatchEngine.cpp` | 52,352 | 20,840 | 39.81% | 294 | 239 | 81.29% | 55 |
-| `src/match/MatchEngine_2.cpp` | 70,264 | 33,800 | 48.10% | 391 | 320 | 81.84% | 71 |
+| `src/match/MatchEngine.cpp` | 52,352 | 24,064 | 45.97% | 294 | 246 | 83.67% | 48 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 35,032 | 49.86% | 391 | 323 | 82.61% | 68 |
 | `src/match/MatchEngine_3.cpp` | 772 | 356 | 46.11% | 6 | 5 | 83.33% | 1 |
 | `src/match/MatchGeometry.cpp` | 5,368 | 3,852 | 71.76% | 70 | 65 | 92.86% | 5 |
 | `src/match/MatchPlayerList.cpp` | 1,212 | 372 | 30.69% | 21 | 17 | 80.95% | 4 |
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 154,628 | 41.88% | 2,601 | 1,963 | 75.47% | 638 |
+| main program | 369,260 | 159,084 | 43.08% | 2,601 | 1,973 | 75.86% | 628 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
@@ -260,3 +260,19 @@ The match engine again, the functions with no attempt first (`tools/untried.py`)
   does not have); the users of the stack deque (`func_0206d6b4` passes an empty tag object to
   push_back) want the deque template modelled; the older ones (an `ldm` merge, dead stack
   stores, `FileManager::LoadAsync`).
+
+### 2026-11-26
+
+- Matched: MatchEngine::func_02075f7c, func_02078664, func_0206d188, func_02065c00, func_020678d0,
+  func_02068248, func_0206d4ec, func_0207c478. Under NONMATCHING (queued for the permuter):
+  func_0207dc10 (22 words), func_0206b628 (38), func_020795b4 (32).
+- make progress 98.950%; match engine 1,219 / 1,742 functions in C/C++ (28.60% of its bytes);
+  src/match has 135 asm functions left, 48 never attempted.
+- Findings: a signed jump-table check (cmp #N; bgt; cmp #0; addge) comes from a case above the
+  table sharing the default's code (func_0206d4ec: case 13); func_ov087_02180be0 takes x and y,
+  not a MatchPoint by value (the base register of the ldm); a BOOL passed to a bool parameter
+  gives mov #1; cmp; moveq #0; `case 0:` grouped with `default:` after the other cases; an
+  array initialised with = {0, 0, 0, 0} gives the add rN, sp store base; opt_loop_invariants off
+  fixed a path setup (func_0206b628); a bare return in an int function leaves r0 as the ROM does.
+- Next: func_0207ec70 (the ROM keeps its stack slot in the push, ours subtracts sp: started, not
+  written), then the untried list.

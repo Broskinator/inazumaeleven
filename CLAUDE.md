@@ -140,10 +140,10 @@ the includes.
 ## Current priorities
 
 1. **Match engine** (`src/match/`, ov087, ov001; [docs/match_engine.md](docs/match_engine.md)):
-   143 functions still asm in `src/match` (`make todo ARGS="--file src/match"`), 80 of them
-   never attempted (`python tools/untried.py -n 40 --file src/match`: take them from the top;
-   next: `MatchBallPhysics::func_0206168c`, `func_0206313c`, `UnkClass_0208351c::func_020838d0`,
-   `func_020671e4`, `func_02068614`). A loop that jumps to its test first: put the function at
+   135 functions still asm in `src/match` (`make todo ARGS="--file src/match"`), 48 of them
+   never attempted (`python tools/untried.py -n 300 --file src/match`: take them from the top;
+   next: `func_0207ec70` (stack slot kept in the push), `func_0207577c`, `func_0207d830`,
+   `func_02069184`, `UnkClass_0208351c::func_020838d0`). A loop that jumps to its test first: put the function at
    `#pragma optimization_level 2` (push/pop around it), and if it then reuses a value the ROM
    computes again after a call, add `#pragma opt_common_subs off` (docs/matching.md). Skip for
    now the `UnkDeque_0207076c` members and users (`func_0206d6b4`: they want the deque template
@@ -153,7 +153,7 @@ the includes.
    `func_02078bc0`). A member whose `this` is something else becomes static and takes it
    (func_0207f3cc, func_0207f3e0). IE3 names: `CLogicThink`, `CUnitMan`, `CCalcMap` (the
    `match` rows of `docs/ie3_mapping.csv`).
-2. **Permuter queue**: 55 entries in `permuter/queue.txt`; batches 1-6 covered the first 35.
+2. **Permuter queue**: 60 entries in `permuter/queue.txt`; batches 1-6 covered the first 35.
    The 20 from line 36 (`func_0206b5a0`) on have never run: `tools/permuter_batch.sh` with
    `PERM_QUEUE=` a file holding just them. Results reached only through fake code (an uninitialised
    variable, a self-assignment, a 64-bit index, `if (1)`) don't count; look for the natural
