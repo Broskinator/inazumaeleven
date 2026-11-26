@@ -8432,7 +8432,51 @@ fx32 MatchEngine::func_0206a078(MatchPlayer *player)
     return unk_1191c + FX_Mul(unk_11924, FX_SinIdx(((v << 14) / unk_1192c) >> 4) & 0xFFFF);
 }
 
-asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
+// (player's speed: func_0206a078 scaled by the items func_020739cc(0x34) and (0x45) when its
+// flags have them, then by its info's unk_f (fast: a or body flag 0x10) or unk_e; half when
+// func_0207a394, 0.7 when func_0207a350; double when it runs at the ball's holder of the other
+// team from behind; 0.8 when its unk_94 is under 40% of unk_d0)
+// (nonmatching: 131 words: the ROM keeps value apart from speed, keeps 64-bit zero high words in registers (r4 from the start, then r8/r11) and multiplies by 0x800 in full)
+#ifdef NONMATCHING
+fx32 MatchEngine::func_0206a100(MatchPlayer *player, int fast)
+{
+    fx32 speed = func_0206a078(player);
+    MatchPlayerInfo *info = func_020787e8(player);
+    fx32 value;
+    BOOL chase;
+
+    if (player->unk_f8 & 2) {
+        speed = speed * func_020739cc(0x34)[6] / 100;
+    }
+    if (player->unk_f8 & 0x40000) {
+        speed = speed * func_020739cc(0x45)[6] / 100;
+    }
+    value = speed;
+    if (fast != 0 || MatchPlayerBody_HasFlag(player, 0x10)) {
+        return MatchMul64(value * info->unk_f, 0x19A);
+    }
+    value = MatchMul64(value * info->unk_e, 0x19A);
+    chase = FALSE;
+    if (func_0207a394(player)) {
+        return MatchMul64(value, 0x800);
+    }
+    if (func_0207a350(player)) {
+        return MatchMul64(value, 0xB33);
+    }
+    if (func_0206811c((u16 *)info) || (MatchPlayerBody_HasFlag(player, 0x20) ? (chase = TRUE) : chase)) {
+        if (func_02068edc(player, 0x4000) && data_020c4920.unk_4c >= 0 && data_020c4920.unk_4c != player->unk_f4 &&
+            func_ov015_02131854() && data_020c4920.unk_48 < 0 &&
+            func_020842b0(player->body->direction, func_02063e4c(player->body->pos.x, player->body->pos.y), 0x4000)) {
+            value = MatchMul64(speed, 0x2000);
+        }
+    }
+    if (player->unk_94 * 100 < player->unk_d0 * 40) {
+        value = MatchMul64(value, 0xCCD);
+    }
+    return value;
+}
+#else
+asm fx32 MatchEngine::func_0206a100(MatchPlayer *player, int fast)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     mov r10, r0
@@ -8613,6 +8657,7 @@ asm int MatchEngine::func_0206a100(MatchPlayer *player, int a)
     mov r0, r6
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (nonmatching, 8 words: with x reused for the second call the registers match, but the ROM loads pos again with ldm r0, {r2, r3} for it; reloading both x and y moves player to r7 and this to r4)
 #ifdef NONMATCHING

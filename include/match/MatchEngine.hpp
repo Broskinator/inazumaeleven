@@ -275,7 +275,7 @@ public:
     int func_02069344(int a, int b, int c, int d, u8 e, int f);
     int func_02069394(int a, int b, int c, int d, u8 e, int f);
     fx32 func_0206a078(MatchPlayer *player);
-    int func_0206a100(MatchPlayer *player, int a);
+    fx32 func_0206a100(MatchPlayer *player, int fast);
     BOOL func_0206a3b8(MatchPlayer *player);
     BOOL func_0206a494(MatchPlayer *player, MatchPoint *point);
     BOOL func_0206a54c(MatchPlayer *player);
