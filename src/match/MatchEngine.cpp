@@ -342,7 +342,7 @@ extern "C" void _ZN11MatchEngine13func_02065a90EP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_02065c00EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02065decEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02065fa0EP11MatchPlayer(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02062b58EPlP11MatchPlayeriPi(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02062b58EPlP11MatchPlayerP10MatchPointPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02062bfcEPllltll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206313cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020636b8EP11MatchPlayer(void);     // (for the asm functions)
@@ -1184,7 +1184,7 @@ asm void MatchEngine::func_020622b4()
 // unk_84 to unk_85)? gives the index of the first point it crosses the path before
 // (nonmatching: the copies are scheduled differently)
 #ifdef NONMATCHING
-BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
+BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, MatchPoint *cross, int *index)
 {
     MatchPlayerState *state = player->state;
     int i = state->unk_84;
@@ -1198,7 +1198,7 @@ BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *
         path[1] = prev[1];
         path[2] = point[0];
         path[3] = point[1];
-        if (func_02083afc(segment, path, a)) {
+        if (func_02083afc(segment, path, cross)) {
             *index = i;
             return TRUE;
         }
@@ -1208,7 +1208,7 @@ BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *
     return FALSE;
 }
 #else
-asm BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index)
+asm BOOL MatchEngine::func_02062b58(fx32 *segment, MatchPlayer *player, MatchPoint *cross, int *index)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x10
@@ -1331,190 +1331,89 @@ BOOL MatchEngine::func_02062ca4(MatchPlayer *player)
     if (func_ov087_02179e8c(this, segment, player, 0)) {
         return TRUE;
     }
-    return func_02062b58(segment, player, 0, &index);
+    return func_02062b58(segment, player, NULL, &index);
 }
 
-asm void MatchEngine::func_02062d74()
+// the player of team (not exclude) that the ball, on its way, reaches first low enough to take
+// (its height then, v t - 9.8 t^2 / 2, at most 1) and nearest where it lands: sends him there.
+// FALSE when the ball is not free or no one can
+#pragma push
+#pragma optimization_level 2
+BOOL MatchEngine::func_02062d74(int team, int exclude)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x44
-    ldr r4, =data_020c4920
-    mvn r3, #0
-    str r3, [sp, #0x14]
-    ldrb r3, [r4, #0x59]
-    mov r9, r0
-    ldr r0, [sp, #0x14]
-    tst r3, #1
-    sub r7, r0, #0x80000000
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    str r1, [sp, #0xc]
-    mov r8, r2
-    addne sp, sp, #0x44
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldr r0, =data_020c4938
-    bl func_02084788
-    cmp r0, #0
-    addne sp, sp, #0x44
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    add r4, sp, #0x24
-    ldr r1, =data_020c4920
-    mov r0, r9
-    mov r2, r4
-    bl _ZN11MatchEngine13func_0206896cEP9MatchBallP10MatchPoint
-    ldr r1, =data_020c4940
-    mov r2, r4
-    mov r0, r9
-    bl func_01fff15c
-    mov r11, r0
-    ldr r0, =data_020c4920
-    mov r6, #0
-    ldrh r1, [r0, #0x52]
-    mov r0, #0x400000
-    ldr r3, =data_020c4920
-    stmia sp, {r1, r6}
-    str r0, [sp, #8]
-    ldr r1, =data_020c4920
-    ldr r3, [r3, #4]
-    ldr r2, [r1]
-    mov r0, r9
-    add r1, sp, #0x34
-    bl _ZN11MatchEngine13func_02062bfcEPllltll
-    add r4, sp, #0x1c
-    b @L_02062f64
-@L_02062e38:
-    ldr r1, [sp, #0xc]
-    mov r0, r9
-    mov r2, r6
-    bl _ZN11MatchEngine13func_02079e90Eii
-    movs r5, r0
-    ldrnesh r1, [r5, #0xf4]
-    cmpne r8, r1
-    beq @L_02062f60
-    bl func_02084870
-    cmp r0, #0
-    beq @L_02062f60
-    mov r0, r9
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0207a350EP11MatchPlayer
-    cmp r0, #0
-    bne @L_02062f60
-    add r0, sp, #0x18
-    str r0, [sp]
-    mov r0, r9
-    add r1, sp, #0x34
-    mov r2, r5
-    mov r3, r4
-    bl _ZN11MatchEngine13func_02062b58EPlP11MatchPlayeriPi
-    cmp r0, #0
-    beq @L_02062f60
-    ldr r1, =data_020c4940
-    mov r0, r9
-    mov r2, r4
-    bl func_01fff15c
-    cmp r0, r11
-    blt @L_02062f60
-    ldr r1, =data_020c4920
-    ldr r1, [r1, #0x38]
-    bl FX_Div
-    ldr r1, =data_020c4920
-    smull r12, r10, r0, r0
-    ldr r3, [r1, #0x3c]
-    smull r2, r1, r3, r0
-    adds r3, r12, #0x800
-    adc r0, r10, #0
-    mov r10, r3, lsr #0xc
-    orr r10, r10, r0, lsl #20
-    ldr r0, =0x9ccd
-    mov r3, r10, asr #0x1f
-    umull lr, r12, r10, r0
-    ldr r0, =0x9ccd
-    mla r12, r3, r0, r12
-    adds r3, lr, #0x800
-    adc r0, r12, #0
-    adds r2, r2, #0x800
-    mov r3, r3, lsr #0xc
-    orr r3, r3, r0, lsl #20
-    adc r1, r1, #0
-    mov r2, r2, lsr #0xc
-    add r0, r3, r3, lsr #31
-    orr r2, r2, r1, lsl #20
-    sub r0, r2, r0, asr #1
-    cmp r0, #0x10000
-    bgt @L_02062f60
-    ldr r1, =data_020c4938
-    mov r0, r9
-    mov r2, r4
-    bl func_01fff15c
-    cmp r0, r7
-    bge @L_02062f60
-    ldrsh r1, [r5, #0xf4]
-    mov r7, r0
-    ldr r0, [sp, #0x20]
-    str r1, [sp, #0x14]
-    ldr r1, [sp, #0x1c]
-    str r0, [sp, #0x30]
-    ldr r0, [sp, #0x18]
-    str r1, [sp, #0x2c]
-    str r0, [sp, #0x10]
-@L_02062f60:
-    add r6, r6, #1
-@L_02062f64:
-    cmp r6, #0xb
-    blt @L_02062e38
-    ldr r0, [sp, #0x14]
-    mov r5, #0
-    cmp r0, #0
-    addlt sp, sp, #0x44
-    movlt r0, r5
-    ldmltia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    bl func_ov015_02130ae8
-    movs r4, r0
-    beq @L_0206301c
-    mov r0, r9
-    mov r1, r4
-    bl _ZN11MatchEngine13func_0206f354EP11MatchPlayer
-    cmp r0, #0
-    bne @L_02062fbc
-    mov r0, r9
-    mov r1, r4
-    bl _ZN11MatchEngine13func_02065414EP11MatchPlayer
-    add sp, sp, #0x44
-    mov r0, r5
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02062fbc:
-    add r0, sp, #0x2c
-    stmia sp, {r0, r5}
-    mov r2, #0x12
-    mov r0, r9
-    mov r1, r4
-    str r5, [sp, #8]
-    sub r3, r2, #0x13
-    bl _ZN11MatchEngine13func_020654ccEP11MatchPlayeriiP10MatchPointS3_i
-    ldr r1, [r4, #0xec]
-    ldr r0, [sp, #0x10]
-    ldr r5, =data_020c4920
-    strh r0, [r1, #0x86]
-    ldr r1, [sp, #0x30]
-    mov r0, r9
-    str r1, [sp]
-    ldr r3, [sp, #0x2c]
-    ldmia r5, {r1, r2}
-    bl func_01fff13c
-    mov r2, r0
-    mov r0, r9
-    mov r1, r5
-    bl _ZN11MatchEngine13func_0206b9c4EP9MatchBalll
-    ldr r1, [r4, #0xec]
-    strh r0, [r1, #0x28]
-@L_0206301c:
-    mov r0, #1
-    add sp, sp, #0x44
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    fx32 segment[4];
+    MatchPoint best;
+    MatchPoint pos;
+    MatchPoint cross;
+    int index;
+    int bestId;
+    int bestIndex;
+    int i;
+    fx32 bestDist;
+    fx32 limit;
+    MatchPlayer *player;
+    fx32 dist;
+    fx32 t;
+
+    bestId = -1;
+    bestDist = 0x7FFFFFFF;
+    if (MatchBall_HasFlag(&data_020c4920, 1)) {
+        return FALSE;
+    }
+    if (func_02084788(&data_020c4920.unk_18)) {
+        return FALSE;
+    }
+    func_0206896c(&data_020c4920, &pos);
+    limit = func_01fff15c(this, (MatchPlayerBody *)&data_020c4920.unk_20, &pos);
+    func_02062bfc(segment, data_020c4920.pos.x, data_020c4920.pos.y, data_020c4920.unk_52, 0, 0x400000);
+    for (i = 0; i < 11; i++) {
+        player = func_02079e90(team, i);
+        if (player == NULL || exclude == player->unk_f4) {
+            continue;
+        }
+        if (!func_02084870(player)) {
+            continue;
+        }
+        if (func_0207a350(player)) {
+            continue;
+        }
+        if (!func_02062b58(segment, player, &cross, &index)) {
+            continue;
+        }
+        dist = func_01fff15c(this, (MatchPlayerBody *)&data_020c4920.unk_20, &cross);
+        if (dist < limit) {
+            continue;
+        }
+        t = FX_Div(dist, data_020c4920.unk_38);
+        if (FX_Mul(data_020c4920.unk_3c, t) - FX_Mul(FX_Mul(t, t), 0x9CCD) / 2 > 0x10000) {
+            continue;
+        }
+        dist = func_01fff15c(this, (MatchPlayerBody *)&data_020c4920.unk_18, &cross);
+        if (dist >= bestDist) {
+            continue;
+        }
+        bestId = player->unk_f4;
+        bestDist = dist;
+        best = cross;
+        bestIndex = index;
+    }
+    if (bestId < 0) {
+        return FALSE;
+    }
+    player = func_ov015_02130ae8(bestId);
+    if (player != NULL) {
+        if (!func_0206f354(player)) {
+            func_02065414(player);
+            return FALSE;
+        }
+        func_020654cc(player, 0x12, -1, &best, NULL, 0);
+        player->state->unk_86 = bestIndex;
+        player->state->unk_28 = func_0206b9c4(&data_020c4920,
+            func_01fff13c(this, data_020c4920.pos.x, data_020c4920.pos.y, best.x, best.y));
+    }
+    return TRUE;
 }
+#pragma pop
 
 void MatchEngine::func_02063038(MatchPlayer *player)
 {

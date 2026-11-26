@@ -47,7 +47,7 @@ extern "C" char data_020e88a0[];
 extern "C" void FX_SinCosTable_(void);
 extern "C" s32 _ZN15DistanceTable3213func_02062178Ev(...);
 extern "C" s32 _ZN11MatchEngine13func_02062ca4EP11MatchPlayer(...);
-extern "C" void _ZN11MatchEngine13func_02062d74Ev(void);
+extern "C" void _ZN11MatchEngine13func_02062d74Eii(void);
 extern "C" void _ZN11MatchEngine13func_020630a8Ev(void);
 extern "C" void _ZN11MatchEngine13func_020630d8Ev(void);
 extern "C" void _ZN11MatchEngine13func_020630fcEv(void);
@@ -1221,7 +1221,7 @@ extern "C" asm void func_ov087_0217b1a8(void)
     ldrsh r2, [r4, #0xf4]
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_02062d74Ev
+    bl _ZN11MatchEngine13func_02062d74Eii
     cmp r0, #0
     addne sp, sp, #0x24
     ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}

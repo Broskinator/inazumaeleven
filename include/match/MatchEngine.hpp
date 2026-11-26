@@ -181,10 +181,10 @@ public:
     MatchEngine *func_02062288();
     void func_020622b0();
     void func_020622b4();
-    BOOL func_02062b58(fx32 *segment, MatchPlayer *player, int a, int *index);
+    BOOL func_02062b58(fx32 *segment, MatchPlayer *player, MatchPoint *cross, int *index); // (where it crosses: func_02083afc)
     void func_02062bfc(fx32 *segment, fx32 x, fx32 y, u16 angle, fx32 from, fx32 to);
     BOOL func_02062ca4(MatchPlayer *player);
-    void func_02062d74();
+    BOOL func_02062d74(int team, int exclude);
     void func_02063038(MatchPlayer *player);
     void func_020630a8();
     void func_020630d8();
