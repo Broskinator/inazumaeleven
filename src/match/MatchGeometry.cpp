@@ -45,7 +45,6 @@ extern "C" u8 data_020c4ecc[][0x10];
 extern "C" u8 data_020ca766[];
 extern "C" char data_020c4938[];
 
-extern "C" BOOL func_02083afc(fx32 *a, fx32 *b, MatchPoint *out);
 extern "C" BOOL func_02083e24(int value);
 extern "C" BOOL func_02083e34(MatchPlayer *player);
 extern "C" BOOL func_02083e44(int value);

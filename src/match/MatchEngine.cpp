@@ -11,6 +11,7 @@ extern "C" u8 data_020cabf8[];
 #include "game/GameState.hpp"
 #include "nitro/mi.h"
 #include "match/MatchBallPhysics.hpp"
+#include "match/MatchGeometry.hpp"
 #include "system/GameHeap.hpp"
 #include "match/MatchFile.hpp"
 #include "nitro/std.h"
@@ -383,7 +384,6 @@ extern "C" BOOL func_01ff9684(MatchEngine *self);
 extern "C" int func_02080b90(MatchPlayer *player);
 extern "C" u8 func_02083e44(int a);
 extern "C" BOOL func_ov087_02179e8c(MatchEngine *self, fx32 *segment, MatchPlayer *player, int a);
-extern "C" BOOL func_02083afc(fx32 *a, fx32 *b, int c);     // (do the segments cross?)
 extern "C" void func_ov087_0217d0ac(MatchEngine *self, MatchPlayer *player, int a);
 extern "C" BOOL func_ov015_021318a4(MatchPlayer *player, int a);
 extern "C" BOOL func_ov087_02177a10(MatchEngine *self, MatchPlayer *player, MatchPlayerInfo *info, fx32 *pos);
@@ -6858,7 +6858,7 @@ BOOL MatchEngine::func_02068248(MatchPlayer *player, fx32 x0, fx32 y0, fx32 x1, 
     if (!func_ov087_02179c8c(this, x1, y1, func_02083e34(player))) {
         return FALSE;
     }
-    if (!func_02083afc(segment, line, (int)&hit)) {
+    if (!func_02083afc(segment, line, &hit)) {
         return FALSE;
     }
     if (!direct && !func_02068434(player, x0, y0)) {
@@ -9847,7 +9847,7 @@ int MatchEngine::func_0206b628(MatchPlayer *player, MatchPoint *out)
             UnkSegment_0206b628_Set(edge, x + 0x100000, y, x + 0x100000, y + 0xC0000);
             break;
         }
-        if (func_02083afc(path, edge, (int)&hit)) {
+        if (func_02083afc(path, edge, &hit)) {
             fx32 d = func_01fff15c(this, body, &hit);
             if (found == 0 || d < best) {
                 found = i;

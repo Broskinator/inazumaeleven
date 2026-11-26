@@ -1,7 +1,7 @@
 #include "match/MatchBallPhysics.hpp"
+#include "match/MatchGeometry.hpp"
 #include "system/GameHeap.hpp"
 
-extern "C" BOOL func_02083afc(fx32 *a, fx32 *b, int c);     // (do the segments cross?)
 extern "C" s32 func_0208413c(s32 arg0, s32 arg1);
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" BOOL func_0208454c(fx32 x, fx32 y, fx32 z);
@@ -308,7 +308,7 @@ int MatchBallPhysics::func_0206168c(MatchBall *ball, fx32 *px, fx32 *py, u16 *ou
     } else {
         hit = FALSE;
     }
-    if (hit && func_02083afc(post, path, 0)) {
+    if (hit && func_02083afc(post, path, NULL)) {
         result |= 1;
         if (outDir != NULL) {
             *outDir = dir;
