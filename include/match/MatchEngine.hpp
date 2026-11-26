@@ -86,12 +86,13 @@ struct UnkRecord_0206b3fc {
 };
 
 struct UnkRecord_02076168 {
-    u8 unk_0[4];
-    s8 unk_4[3];
-    s8 unk_7[3];
-    u8 unk_a[0x10 - 0xA];
-    u8 unk_10;
-    u8 unk_11;
+    s16 unk_0[2];       // (the moves of the two sides: func_02075428)
+    s8 unk_4[3];        // (the players of side 0)
+    s8 unk_7[3];        // (of side 1)
+    u8 unk_a[3];        // (what each of side 0's players does: 0 not set yet)
+    u8 unk_d[3];        // (side 1's)
+    u8 unk_10;          // (how many on side 0)
+    u8 unk_11;          // (on side 1)
     u8 unk_12;          // (bit 7: empty?)
     u8 unk_13[0x18 - 0x13];
 };
@@ -569,7 +570,7 @@ public:
     void func_02074b30();
     void func_02074f90(int team, int *out);
     int func_020751b8(u8 *rec, MatchPlayer *home, MatchPlayer *away, u8 *moveA, u8 *moveB);
-    void func_02075428();
+    int func_02075428(int moveA, int a, int moveB, int b);
     void func_0207577c(UnkRecord_02076168 *record);
     void func_0207597c();
     void func_02075f7c(MatchPlayer *player, UnkRecord_02076168 *rec);

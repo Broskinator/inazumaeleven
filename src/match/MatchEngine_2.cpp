@@ -494,9 +494,9 @@ extern "C" char data_020a71d0[];
 extern "C" char data_020af274[];
 extern "C" BOOL func_ov015_021318a4(MatchPlayer *a, MatchPlayer *b);
 extern "C" void memset(void);
-extern "C" char data_020c4808[];
+extern "C" u8 data_020c4808[];
 extern "C" char data_020fa076[];
-extern "C" char data_020fc704[];
+extern "C" int data_020fc704;     // (the duel's result: func_02075428)
 extern "C" void func_01fff198(void);
 extern "C" BOOL func_ov015_021317c8(void);
 extern "C" int func_ov015_02131948(int team);
@@ -572,6 +572,28 @@ extern "C" int func_01ffe22c(MatchEngine *engine);
 extern "C" int func_01ffe3e4(MatchEngine *engine);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+// the slots of a duel's players still free get kind (a, b): (3, 4) on both sides when each has
+// two or more free, one of them each (at random) when one side has just one, then (5, 6)
+static inline void Duel_FillSlots(UnkRecord_02076168 *rec, u8 a, u8 b)
+{
+    int i;
+
+    for (i = 0; i < 3; i++) {
+        if (i < rec->unk_10 && rec->unk_a[i] == 0) {
+            rec->unk_a[i] = a;
+        }
+        if (i < rec->unk_11 && rec->unk_d[i] == 0) {
+            rec->unk_d[i] = b;
+        }
+    }
+}
+
+// (a duel record without flag 8)
+static inline BOOL Duel_IsOpen(UnkRecord_02076168 *rec)
+{
+    return (rec->unk_12 & 8) ? FALSE : TRUE;
+}
+
 // A player's record in unitstat.dat (docs/ie1_recomp.md)
 struct UnkUnitStat_0207e334 {
     u8 unk_0[0x2C];             // (FP, TP and the 7 stats: at level 1, at 99, the curve)
@@ -6499,7 +6521,88 @@ int MatchEngine::func_020751b8(u8 *rec, MatchPlayer *home, MatchPlayer *away, u8
     return homeScore > awayScore ? 1 : 2;
 }
 
-asm void MatchEngine::func_02075428()
+// starts the duel of the current record with the two sides' moves (moveA for side 0's player
+// when it is the home side): its result from func_020751b8, then, in a match with the rule
+// 0x200, 2 when func_020725ac picks one of the two moves
+// (nonmatching: data_020c4808 is loaded into r1 instead of r0 (2 words))
+#ifdef NONMATCHING
+int MatchEngine::func_02075428(int moveA, int a, int moveB, int b)
+{
+    int ids[8];
+    UnkRecord_02076168 *rec;
+    MatchPlayer *home;
+    MatchPlayer *away;
+    u8 *recA;
+    u8 *recB;
+    int freeA;
+    int freeB;
+    int i;
+    int r;
+    bool open;
+
+    rec = func_0207620c();
+    home = func_ov015_02130ae8(rec->unk_4[0]);
+    away = func_ov015_02130ae8(rec->unk_7[0]);
+    recA = func_020739cc(moveA);
+    recB = func_020739cc(moveB);
+    if (func_ov015_021319b0(home) == 0) {
+        rec->unk_0[0] = moveA;
+        rec->unk_0[1] = moveB;
+    } else {
+        rec->unk_0[0] = moveB;
+        rec->unk_0[1] = moveA;
+    }
+    freeA = 0;
+    freeB = 0;
+    for (i = 0; i < 3; i++) {
+        if (i < rec->unk_10 && rec->unk_a[i] == 0) {
+            freeA++;
+        }
+        if (i < rec->unk_11 && rec->unk_d[i] == 0) {
+            freeB++;
+        }
+    }
+    if (freeA > 1 && freeB > 1) {
+        Duel_FillSlots(rec, 3, 4);
+    } else if (freeA > 0 && freeB > 0) {
+        r = Random_RandA(2);
+        if (freeA == 1 || r == 0) {
+            rec->unk_a[1] = 3;
+        } else {
+            rec->unk_a[2] = 3;
+        }
+        if (freeB == 1 || r == 0) {
+            rec->unk_d[1] = 4;
+        } else {
+            rec->unk_d[2] = 4;
+        }
+    }
+    Duel_FillSlots(rec, 5, 6);
+    if (!func_0206ace8() && !func_ov015_021317c8()) {
+        unk_1189a = 1;
+    }
+    open = Duel_IsOpen(rec);
+    data_020fc704 = func_020751b8((u8 *)rec, home, away, recA, recB);
+    if (data_020c4808[0] != 0 && !func_ov015_021317c8() && !Move_IsKind5To8(recA) && !Move_IsKind5To8(recB)
+        && (unk_117fe & 0x200)) {
+        if (MatchPlayer_HasFlag(home, 0x20)) {
+            data_020e88a0.func_020725ac(home, 0, 0, open, ids);
+        } else {
+            data_020e88a0.func_020725ac(away, 0, 1, open, ids);
+        }
+        if (ids[0] == moveA || ids[0] == moveB) {
+            rec->unk_12 |= 0x20;
+            data_020fc704 = 2;
+        } else if (ids[1] == moveA || ids[1] == moveB) {
+            rec->unk_12 |= 0x40;
+            data_020fc704 = 2;
+        }
+        func_02076370((u8 *)rec, data_020fc704);
+    }
+    return data_020fc704;
+}
+#else
+asm int MatchEngine::func_02075428(int moveA, int a, int moveB, int b)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
@@ -6728,6 +6831,7 @@ asm void MatchEngine::func_02075428()
     add sp, sp, #0x30
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (after a duel between the players of record (unk_4[0] against unk_7[0]): the winner's
 // (func_0207649c against func_020764b4) loses func_02074a18 of its unk_96 when unk_1189c[1] is
@@ -6748,8 +6852,8 @@ void MatchEngine::func_0207577c(UnkRecord_02076168 *record)
     }
     a = func_ov015_02130ae8(record->unk_4[0]);
     b = func_ov015_02130ae8(record->unk_7[0]);
-    eventA = func_020739cc(*(s16 *)&record->unk_0[0]);
-    eventB = func_020739cc(*(s16 *)&record->unk_0[2]);
+    eventA = func_020739cc(record->unk_0[0]);
+    eventB = func_020739cc(record->unk_0[1]);
     if (a != NULL) {
         statsA = func_0206b4cc(func_ov015_021319b0(a));
     }

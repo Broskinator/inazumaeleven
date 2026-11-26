@@ -7669,7 +7669,7 @@ int MatchEngine::func_02069184(MatchPlayer *player)
     }
     if (record->unk_4[0] == player->unk_f4) {
         func_ov015_02130ae8(record->unk_7[0]);
-        func_020739cc(*(s16 *)&record->unk_0[0]);
+        func_020739cc(record->unk_0[0]);
         for (i = 1; i < record->unk_10; i++) {
             other = func_ov015_02130ae8(record->unk_4[i]);
             if (other != NULL && func_02080c6c(other) != 0 && func_02080c6c(other) == func_02080c6c(player)) {
@@ -7679,7 +7679,7 @@ int MatchEngine::func_02069184(MatchPlayer *player)
         score += (record->unk_10 - 1) * func_0206c0c0(1);
     } else if (record->unk_7[0] == player->unk_f4) {
         func_ov015_02130ae8(record->unk_4[0]);
-        func_020739cc(*(s16 *)&record->unk_0[2]);
+        func_020739cc(record->unk_0[1]);
         for (i = 1; i < record->unk_11; i++) {
             other = func_ov015_02130ae8(record->unk_7[i]);
             if (other != NULL && func_02080c6c(other) != 0 && func_02080c6c(other) == func_02080c6c(player)) {
