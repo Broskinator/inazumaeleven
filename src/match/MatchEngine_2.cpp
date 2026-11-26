@@ -6764,140 +6764,63 @@ asm void MatchEngine::func_02075428()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_0207577c(UnkRecord_02076168 *record)
+// (after a duel between the players of record (unk_4[0] against unk_7[0]): the winner's
+// (func_0207649c against func_020764b4) loses func_02074a18 of its unk_96 when unk_1189c[1] is
+// set and its body has no flag 0x4000; a kind 5 (or 6) event of func_020739cc counts in unk_4
+// (or unk_6) of its func_0206b4cc record)
+void MatchEngine::func_0207577c(UnkRecord_02076168 *record)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    mov r7, #0
-    mov r10, r0
-    mov r9, r1
-    mov r8, r7
-    bl _ZN11MatchEngine13func_0206ace8Ev
-    cmp r0, #0
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrsb r0, [r9, #4]
-    bl func_ov015_02130ae8
-    mov r4, r0
-    ldrsb r0, [r9, #7]
-    bl func_ov015_02130ae8
-    mov r5, r0
-    ldrsh r1, [r9]
-    mov r0, r10
-    bl _ZN11MatchEngine13func_020739ccEi
-    mov r11, r0
-    ldrsh r1, [r9, #2]
-    mov r0, r10
-    bl _ZN11MatchEngine13func_020739ccEi
-    mov r6, r0
-    cmp r4, #0
-    beq @L_020757f4
-    mov r0, r4
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206b4ccEi
-    mov r7, r0
-@L_020757f4:
-    cmp r5, #0
-    beq @L_02075814
-    mov r0, r5
-    bl func_ov015_021319b0
-    mov r1, r0
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206b4ccEi
-    mov r8, r0
-@L_02075814:
-    mov r0, r9
-    bl _ZN11MatchEngine13func_0207649cEPh
-    str r0, [sp]
-    mov r0, r9
-    bl _ZN11MatchEngine13func_020764b4EPh
-    ldr r1, [sp]
-    cmp r1, r0
-    movge r0, #1
-    movlt r0, #2
-    mov r0, r0, lsl #0x18
-    mov r0, r0, asr #0x18
-    cmp r0, #1
-    bne @L_020758e0
-    cmp r4, #0
-    beq @L_020758b8
-    ldr r0, [r4, #0xe8]
-    ldrh r0, [r0, #0x16]
-    tst r0, #0x4000
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    bne @L_020758b8
-    add r0, r10, #0x11000
-    ldrb r0, [r0, #0x89d]
-    cmp r0, #0
-    beq @L_020758b8
-    mov r0, r11
-    mov r1, r4
-    ldrsh r5, [r4, #0x96]
-    bl _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer
-    mov r1, #0x64
-    mul r1, r0, r1
-    ldr r2, =0x51eb851f
-    mov r0, r1, lsr #0x1f
-    smull r1, r3, r2, r1
-    add r3, r0, r3, asr #5
-    sub r0, r5, r3
-    mov r1, r0, lsl #0x10
-    mov r0, r4
-    mov r1, r1, asr #0x10
-    bl func_02080b1c
-@L_020758b8:
-    cmp r11, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrb r0, [r11]
-    cmp r0, #5
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    cmp r7, #0
-    ldrneh r0, [r7, #4]
-    addne r0, r0, #1
-    strneh r0, [r7, #4]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020758e0:
-    cmp r5, #0
-    beq @L_02075950
-    ldr r0, [r5, #0xe8]
-    ldrh r0, [r0, #0x16]
-    tst r0, #0x4000
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    bne @L_02075950
-    add r0, r10, #0x11000
-    ldrb r0, [r0, #0x89d]
-    cmp r0, #0
-    beq @L_02075950
-    mov r0, r6
-    mov r1, r5
-    ldrsh r4, [r5, #0x96]
-    bl _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer
-    mov r1, #0x64
-    mul r1, r0, r1
-    ldr r2, =0x51eb851f
-    mov r0, r1, lsr #0x1f
-    smull r1, r3, r2, r1
-    add r3, r0, r3, asr #5
-    sub r0, r4, r3
-    mov r1, r0, lsl #0x10
-    mov r0, r5
-    mov r1, r1, asr #0x10
-    bl func_02080b1c
-@L_02075950:
-    cmp r6, #0
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrb r0, [r6]
-    cmp r0, #6
-    ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    cmp r8, #0
-    ldrneh r0, [r8, #6]
-    addne r0, r0, #1
-    strneh r0, [r8, #6]
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    MatchPlayer *a;
+    MatchPlayer *b;
+    u8 *eventA;
+    u8 *eventB;
+    u8 *statsA;
+    u8 *statsB;
+    statsA = NULL;
+    statsB = NULL;
+    if (func_0206ace8()) {
+        return;
+    }
+    a = func_ov015_02130ae8(record->unk_4[0]);
+    b = func_ov015_02130ae8(record->unk_7[0]);
+    eventA = func_020739cc(*(s16 *)&record->unk_0[0]);
+    eventB = func_020739cc(*(s16 *)&record->unk_0[2]);
+    if (a != NULL) {
+        statsA = func_0206b4cc(func_ov015_021319b0(a));
+    }
+    if (b != NULL) {
+        statsB = func_0206b4cc(func_ov015_021319b0(b));
+    }
+    s8 winner = (func_0207649c((u8 *)record) >= func_020764b4((u8 *)record)) ? 1 : 2;
+    if (winner == 1) {
+        if (a != NULL && !MatchPlayerBody_HasFlag16(a->body, 0x4000) && unk_1189c[1]) {
+            s16 v = a->unk_96;
+            func_02080b1c(a, v - func_02074a18((s16 *)eventA, a) * 100 / 100);
+        }
+        if (eventA == NULL) {
+            return;
+        }
+        if (eventA[0] != 5) {
+            return;
+        }
+        if (statsA != NULL) {
+            (*(u16 *)(statsA + 4))++;
+        }
+    } else {
+        if (b != NULL && !MatchPlayerBody_HasFlag16(b->body, 0x4000) && unk_1189c[1]) {
+            s16 v = b->unk_96;
+            func_02080b1c(b, v - func_02074a18((s16 *)eventB, b) * 100 / 100);
+        }
+        if (eventB == NULL) {
+            return;
+        }
+        if (eventB[0] != 6) {
+            return;
+        }
+        if (statsB != NULL) {
+            (*(u16 *)(statsB + 6))++;
+        }
+    }
 }
 
 asm void MatchEngine::func_0207597c()
