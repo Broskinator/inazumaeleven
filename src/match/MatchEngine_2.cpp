@@ -12701,7 +12701,95 @@ void MatchEngine::func_0207c7f4(MatchPlayer *player)
     unk_118e4[base + bestIdx] = best * 8 / 100;
 }
 
-asm void MatchEngine::func_0207c8e0(int a)
+// gives the team's players with flag 2 free numbers from 1 to 16 (unk_b8[0]), then makes the
+// one with the team's id (or the flagged 0x80 one, or the first with flag 2) captain
+// (nonmatching: 170 words: the ROM clears used[] four bytes a pass, a count-down loop no form of
+// the clear here gives; written out four at a time 53 words, the rest the registers of the loops)
+#ifdef NONMATCHING
+void MatchEngine::func_0207c8e0(int team)
+{
+    u8 *info = GetTeamInfo(team);
+    MatchPlayer *captain = NULL;
+    BOOL found = FALSE;
+    u8 used[16];
+    int i;
+    int j;
+    MatchPlayer *player;
+    int number;
+    u16 id;
+
+    for (i = 0; i < 16; i++) {
+        used[i] = 0;
+    }
+    MI_CpuFill8(used, 0, sizeof(used));
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1) || team != func_02080b90(player)) {
+            continue;
+        }
+        number = player->unk_b8[0];
+        if (!MatchPlayer_HasFlag(player, 2)) {
+            if (!func_0206dedc()) {
+                player->unk_b8[0] = 0;
+            }
+        } else if (number > 0 && number <= 16) {
+            if (used[number - 1] == 0) {
+                used[number - 1] = 1;
+            } else {
+                player->unk_b8[0] = 0;
+            }
+        }
+        if (number < 0 || number > 16) {
+            player->unk_b8[0] = 0;
+        }
+    }
+    id = *(u16 *)(info + 0x2E) & 0xFFF;
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1) || team != func_02080b90(player)) {
+            continue;
+        }
+        if (MatchPlayer_HasFlag(player, 2) && (player->unk_b8[0] == 0 || player->unk_b8[0] > 16)) {
+            for (j = 0; j < 16; j++) {
+                if (used[j] == 0) {
+                    player->unk_b8[0] = j + 1;
+                    used[j] = 1;
+                    break;
+                }
+            }
+        }
+        if (MatchPlayer_HasFlag(player, 0x80)) {
+            captain = player;
+        }
+        if (rules.func_0206f014()) {
+            if (id == 0 || id != (u16)(player->unk_42 & 0xFFF)) {
+                continue;
+            }
+        } else {
+            if (id == 0 || id != (u16)(player->unk_42 & 0xFFF) || !MatchPlayer_HasFlag(player, 2)) {
+                continue;
+            }
+        }
+        func_0207c720(player);
+        found = TRUE;
+    }
+    if (found) {
+        return;
+    }
+    if (captain != NULL) {
+        func_0207c720(captain);
+        return;
+    }
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player != NULL && team == func_02080b90(player) && MatchPlayer_HasFlag(player, 2)) {
+            func_0207c720(player);
+            return;
+        }
+    }
+}
+#else
+asm void MatchEngine::func_0207c8e0(int team)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x14
@@ -12909,6 +12997,7 @@ asm void MatchEngine::func_0207c8e0(int a)
     add sp, sp, #0x14
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 asm void MatchEngine::func_0207cbd8(int a)
 {

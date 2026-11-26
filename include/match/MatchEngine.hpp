@@ -759,7 +759,7 @@ public:
     void func_0207c6b4(int a, BOOL update, BOOL force);
     void func_0207c720(MatchPlayer *player);
     void func_0207c7f4(MatchPlayer *player);
-    void func_0207c8e0(int a);
+    void func_0207c8e0(int team);
     void func_0207cbd8(int a);
     void func_0207d118(int team);
     BOOL func_0207d214(int team, int i);
