@@ -81,7 +81,8 @@ struct MatchPlayerState {
     s16 unk_22;
     s16 unk_24;
     s16 unk_26;
-    u8 unk_28[0x2C - 0x28];
+    u8 unk_28[0x2A - 0x28];
+    u16 unk_2a;
     u8 unk_2c;          // (the player's slot in MatchPlayerList::players)
     u8 unk_2d;          // (counts 0-7, func_02068d74)
     u8 unk_2e;
@@ -132,7 +133,9 @@ struct MatchPlayer {
     u8 unk_c6[0xD0 - 0xC6];
     s16 unk_d0;
     s16 unk_d2;
-    u8 unk_d4[0xE8 - 0xD4];
+    u8 unk_d4[0xE6 - 0xD4];
+    u8 unk_e6;
+    u8 unk_e7;
     MatchPlayerBody *body;      // 0xE8
     MatchPlayerState *state;    // 0xEC
     u16 unk_f0;                 // flags

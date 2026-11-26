@@ -129,7 +129,7 @@ extern "C" void func_02080aa0(void);     // (for the asm functions)
 extern "C" void func_02080b00(MatchPlayer *player, int value);
 extern "C" void func_02080b1c(MatchPlayer *player, int value);
 extern "C" BOOL func_02080b38(MatchPlayer *player);
-extern "C" void func_02080b54(void);     // (for the asm functions)
+extern "C" void func_02080b54(MatchPlayer *player, int action);
 extern "C" int func_02080c6c(MatchPlayer *player);
 extern "C" void func_0208130c(void);     // (for the asm functions)
 extern "C" void func_02081438(void);     // (for the asm functions)
@@ -4054,6 +4054,113 @@ void MatchEngine::func_02065414(MatchPlayer *player)
     }
 }
 
+// (gives player the action (an entry of unk_bb4): its state is reset (func_0206ee34) but for
+// the fields kept here; the target becomes b, else func_ov087_02177a10's, then c the kick's
+// point and a its unk_2e; unk_22 at least d; the same action again counts unk_89 up to 50)
+// (nonmatching: 100 words: the ROM spills this and keeps unk_22 in r11; opt_common_subs off
+// gives the second read of player->state; func_0206ee34 resets a MatchPlayerState, not rules)
+#ifdef NONMATCHING
+#pragma push
+#pragma opt_common_subs off
+void MatchEngine::func_020654cc(MatchPlayer *player, int action, int a, MatchPoint *b, MatchPoint *c, int d)
+{
+    MatchAction *act;
+    u16 flags;
+    u16 prev;
+    MatchPlayerInfo *info;
+    MatchPlayerState *state;
+    s32 unk_10;
+    u16 unk_1e;
+    u16 direction;
+    int unk_22;
+    s16 unk_24;
+    u16 unk_2a;
+    s16 unk_26;
+    u8 unk_2d;
+    u16 unk_32;
+    u8 unk_88;
+    u8 unk_e6;
+    BOOL changed;
+    MatchPoint pos;
+
+    act = func_02080288(player);
+    flags = player->body->unk_16 & 0xFF00;
+    prev = player->state->unk_1c;
+    info = &unk_bb4[action];
+    state = player->state;
+    unk_10 = state->unk_10;
+    unk_1e = state->unk_1e;
+    direction = player->body->direction;
+    unk_24 = state->unk_24;
+    unk_22 = state->unk_22;
+    unk_2a = state->unk_2a;
+    unk_26 = state->unk_26;
+    unk_2d = state->unk_2d;
+    unk_32 = state->unk_32;
+    unk_88 = state->unk_88;
+    unk_e6 = player->unk_e6;
+    changed = action != prev ? TRUE : FALSE;
+
+    if (changed) {
+        state->unk_89 = 0;
+    } else {
+        state->unk_89 = state->unk_89 + (state->unk_89 < 50 ? 1 : 0);
+    }
+    if (func_02084870(player) && action != 0 && info->unk_0 != 10) {
+        if (!(info->unk_12 & 0x400)) {
+            return;
+        }
+        if (player->state != NULL) {
+            player->state->unk_84 = 0;
+            player->state->unk_85 = 0;
+            player->state->unk_86 = -1;
+        }
+    } else if (!func_02084870(player) && info->unk_0 == 10) {
+        func_020654cc(player, 2, -1, NULL, NULL, 0);
+        return;
+    }
+    func_020841d8(&pos);
+    if (b != NULL) {
+        pos = *b;
+    } else {
+        if (changed) {
+            func_020841d8((MatchPoint *)state);
+        }
+        func_ov087_02177a10(this, player, info, (fx32 *)&pos);
+    }
+    ((MatchRules *)player->state)->func_0206ee34(0);
+    func_02080b54(player, action);
+    act->action = 0;
+    player->state->unk_20 = info->unk_8;
+    player->state->unk_24 = unk_24;
+    player->state->unk_1e = unk_1e;
+    player->body->direction = direction;
+    player->state->unk_26 = unk_26;
+    player->state->unk_2a = unk_2a;
+    player->state->unk_10 = unk_10;
+    player->state->unk_32 = unk_32;
+    player->state->unk_88 = unk_88;
+    player->unk_e6 = unk_e6;
+    player->body->unk_16 = flags;
+    state->unk_22 = d > unk_22 ? d : unk_22;
+    if (!changed) {
+        state->unk_2d = unk_2d;
+    }
+    state->unk_0 = pos.x;
+    state->unk_4 = pos.y;
+    if (c != NULL) {
+        state->unk_8 = *c;
+    } else {
+        func_020841d8(&state->unk_8);
+    }
+    state->unk_2e = a;
+    act->unk_1e = -1;
+    if (changed) {
+        player->state->unk_86 = -1;
+    }
+}
+#pragma pop
+#else
 asm void MatchEngine::func_020654cc(MatchPlayer *player, int action, int a, MatchPoint *b, MatchPoint *c, int d)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -4246,6 +4353,7 @@ asm void MatchEngine::func_020654cc(MatchPlayer *player, int action, int a, Matc
     add sp, sp, #0x4c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // updates a player: starts its next action, or what it does in the current phase
 void MatchEngine::func_020657a8(MatchPlayer *player)
