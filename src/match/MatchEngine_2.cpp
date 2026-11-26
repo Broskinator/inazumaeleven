@@ -85,7 +85,7 @@ extern "C" BOOL func_020823a0(MatchEngine *self, u16 id, int a);
 extern "C" void func_02082604(void);     // (for the asm functions)
 extern "C" BOOL func_02082c8c(void *a, int b);
 extern "C" void func_02081b24(u8 *data, int i, int delta);
-extern "C" void func_02081b44(void);     // (for the asm functions)
+extern "C" void func_02081b44(u8 *data);
 extern "C" s32 func_02081b70(u8 *arg0, u8 *arg1);
 extern "C" void func_020802a0(void);     // (for the asm functions)
 extern "C" void func_020802ac(void);     // (for the asm functions)
@@ -190,7 +190,7 @@ extern "C" void _ZN11MatchEngine13func_0207dac0EP11MatchPlayeri(void);     // (f
 extern "C" void _ZN11MatchEngine13func_0207dbf4EPhPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207dc10EPhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207de24EP11MatchPlayeriiPaPh(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207dec0Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207dec0EP11MatchPlayerPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207e19cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207e334Eiiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207e6dcEP11MatchPlayerll(void);     // (for the asm functions)
@@ -13795,7 +13795,7 @@ int MatchEngine::func_0207d830(MatchPlayer *player, int kind, int delta, u8 appl
     for (int i = 0; i < 7; i++) {
         total -= stats[0xF + i];
     }
-    int level = player->unk_a6[4];
+    int level = player->unk_aa;
     u8 *range = func_0207d494((u8 *)data, func_0207d6bc(kind));
     int room = func_0207d394(range, level) + other;
     if (room - (delta - total) < 1) {
@@ -13865,7 +13865,7 @@ int MatchEngine::func_0207dac0(MatchPlayer *player, int kind)
     if (!func_0207a854(player->unk_42, data)) {
         return 0;
     }
-    diff = range[1] - func_0207d394(range, player->unk_a6[4]);
+    diff = range[1] - func_0207d394(range, player->unk_aa);
     total = *(u16 *)(data + 0x3C);
     if (total == 0) {
         total = 0x7FFF;
@@ -14117,7 +14117,7 @@ asm BOOL MatchEngine::func_0207dc10(u8 *data, int a)
 }
 #endif
 
-void MatchEngine::func_0207de24(MatchPlayer *player, int max, int base, s8 *value, u8 *rest)
+void MatchEngine::func_0207de24(MatchPlayer *player, int growth, int cap, s8 *value, u8 *rest)
 {
     u8 *stats = (u8 *)&player->unk_d0;
     int sum;
@@ -14125,19 +14125,19 @@ void MatchEngine::func_0207de24(MatchPlayer *player, int max, int base, s8 *valu
     int n;
     int v;
 
-    if (base == 0 || max <= 0) {
+    if (cap == 0 || growth <= 0) {
         return;
     }
     sum = 0;
     for (i = 0; i < 7; i++) {
         sum += stats[0xF + i];
     }
-    n = sum - base;
+    n = sum - cap;
     if (n <= 0) {
         return;
     }
-    if (n > max) {
-        n = max;
+    if (n > growth) {
+        n = growth;
     }
     v = *value - n;
     if (v > 127) {
@@ -14152,7 +14152,71 @@ void MatchEngine::func_0207de24(MatchPlayer *player, int max, int base, s8 *valu
     *rest = *rest - n;
 }
 
-asm void MatchEngine::func_0207dec0()
+// the player's base values at its level (FP and TP maximum, the 7 stats: at the level from rec,
+// unitstat.dat's record, plus what was trained), then the growth past rec's cap taken back
+// (func_0207de24) unless flag 0x40, and the values shown set from them
+// (nonmatching: 68 words: the ROM loads each trained stat before its func_0207d394 call, into r10,
+// but any variable for it changes all the registers here; cap and base swap r5 and r6)
+#ifdef NONMATCHING
+int MatchEngine::func_0207dec0(MatchPlayer *player, u8 *rec)
+{
+    int level = player->unk_aa;
+    int cap = *(u16 *)(rec + 0x3C);
+    s16 points;
+    s8 trained;
+    int growth[7];
+    int i;
+    u8 *base;
+
+    if (cap == 0) {
+        cap = 0x7FFF;
+    }
+    points = player->unk_78;
+    player->unk_d4 = func_0207d3f8((u16 *)rec, level) + points;
+    points = player->unk_7a;
+    player->unk_d6 = func_0207d3f8((u16 *)(rec + 8), level) + points;
+    base = player->unk_df;
+    for (i = 0; i < 7; i++) {
+        growth[i] = base[i];
+    }
+    base[0] = func_0207d394(rec + 0x10, level) + player->unk_af[0];
+    base[1] = func_0207d394(rec + 0x14, level) + player->unk_af[1];
+    base[3] = func_0207d394(rec + 0x18, level) + player->unk_af[2];
+    base[2] = func_0207d394(rec + 0x1C, level) + player->unk_af[3];
+    base[4] = func_0207d394(rec + 0x20, level) + player->unk_af[4];
+    base[6] = func_0207d394(rec + 0x24, level) + player->unk_af[5];
+    base[5] = func_0207d394(rec + 0x28, level) + player->unk_af[6];
+    for (i = 0; i < 7; i++) {
+        growth[i] = base[i] - growth[i];
+    }
+    if (!MatchPlayer_HasFlag(player, 0x40)) {
+        trained = player->unk_af[0];
+        func_0207de24(player, growth[0], cap, &trained, base);
+        player->unk_af[0] = trained;
+        trained = player->unk_af[1];
+        func_0207de24(player, growth[1], cap, &trained, base + 1);
+        player->unk_af[1] = trained;
+        trained = player->unk_af[2];
+        func_0207de24(player, growth[3], cap, &trained, base + 3);
+        player->unk_af[2] = trained;
+        trained = player->unk_af[3];
+        func_0207de24(player, growth[2], cap, &trained, base + 2);
+        player->unk_af[3] = trained;
+        trained = player->unk_af[4];
+        func_0207de24(player, growth[4], cap, &trained, base + 4);
+        player->unk_af[4] = trained;
+        trained = player->unk_af[5];
+        func_0207de24(player, growth[6], cap, &trained, base + 6);
+        player->unk_af[5] = trained;
+        trained = player->unk_af[6];
+        func_0207de24(player, growth[5], cap, &trained, base + 5);
+        player->unk_af[6] = trained;
+    }
+    func_02081b44((u8 *)&player->unk_d0);
+    return TRUE;
+}
+#else
+asm int MatchEngine::func_0207dec0(MatchPlayer *player, u8 *rec)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x28
@@ -14340,6 +14404,7 @@ asm void MatchEngine::func_0207dec0()
     add sp, sp, #0x28
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, pc}
 }
+#endif
 
 // player's stats with its team's bonuses (unk_118e4), and those of its team's kind: 5% of
 // stats 3 and 4 (kind 1), 5% of stat 2 and of every entry of func_020747a0 (2), 10% of the
@@ -14421,7 +14486,7 @@ asm int MatchEngine::func_0207e334(int a, int b, int c, int d)
     add r2, sp, #0x14
     mov r0, r10
     mov r1, r9
-    bl _ZN11MatchEngine13func_0207dec0Ev
+    bl _ZN11MatchEngine13func_0207dec0EP11MatchPlayerPh
     b @L_0207e3c8
 @L_0207e3c0:
     add r0, r9, #0xd0

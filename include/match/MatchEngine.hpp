@@ -786,8 +786,8 @@ public:
     int func_0207dac0(MatchPlayer *player, int kind);
     int func_0207dbf4(u8 *data, int *moves);     // (the moves data learns at its level)
     BOOL func_0207dc10(u8 *data, int a);
-    void func_0207de24(MatchPlayer *player, int max, int base, s8 *value, u8 *rest);
-    void func_0207dec0();
+    void func_0207de24(MatchPlayer *player, int growth, int cap, s8 *value, u8 *rest);     // (on level up: takes the stats past the cap back from what was trained)
+    int func_0207dec0(MatchPlayer *player, u8 *rec);
     void func_0207e19c(MatchPlayer *player);
     int func_0207e334(int a, int b, int c, int d);
     void func_0207e5a4(u8 *data, int level, int a);

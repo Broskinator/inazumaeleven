@@ -119,7 +119,9 @@ struct MatchPlayer {
     s16 unk_94;         // (FP now, at most unk_d0)
     s16 unk_96;         // (TP now, at most unk_d2)
     u16 unk_98[7];      // (the 6 moves; 0xA4-0xA9: their uses)
-    u8 unk_a6[0xAF - 0xA6];     // (0xAA: the level)
+    u8 unk_a6[0xAA - 0xA6];
+    u8 unk_aa;                  // (the level)
+    u8 unk_ab[0xAF - 0xAB];
     s8 unk_af[7];       // (the stats trained, by id - 30; func_0207d568/func_0207d60c: kinds 30 to 36)
     u8 unk_b6;          // (the team)
     u8 unk_b7;
@@ -134,7 +136,10 @@ struct MatchPlayer {
     u8 unk_c6[0xD0 - 0xC6];
     s16 unk_d0;         // (FP maximum shown: base + team bonuses)
     s16 unk_d2;         // (TP maximum shown)
-    u8 unk_d4[0xE6 - 0xD4];     // (0xD4/0xD6: FP/TP base maximum; 0xD8: 7 stats shown, 0xDF: base)
+    s16 unk_d4;         // (FP base maximum: at the level + trained)
+    s16 unk_d6;         // (TP base maximum)
+    u8 unk_d8[7];       // (the 7 stats shown, in screen order)
+    u8 unk_df[7];       // (the 7 stats base: at the level + trained)
     u8 unk_e6;
     u8 unk_e7;
     MatchPlayerBody *body;      // 0xE8
