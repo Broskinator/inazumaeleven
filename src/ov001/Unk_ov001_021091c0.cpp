@@ -67,7 +67,7 @@ extern "C" char data_ov001_02130694_b[];
 extern "C" s32 _ZN12SoundManager9PlaySoundEi(...);
 extern "C" void _ZN11MatchEngine13func_02068248EP11MatchPlayerlllli(void);
 extern "C" void _ZN11MatchEngine13func_0206c7d8Ev(void);
-extern "C" s32 _ZN11MatchEngine13func_020725acEv(...);
+extern "C" s32 _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi(...);
 extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" void _ZN11MatchEngine13func_020742f0EP11MatchPlayerii(void);
@@ -241,7 +241,7 @@ extern "C" asm void func_ov001_021092c0(void)
     mov r2, #1
     moveq r9, #0
     str r5, [sp, #4]
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     str r8, [r10, #0x54]
     mov r11, #1
 @L_021093c8:
@@ -554,7 +554,7 @@ extern "C" asm s32 func_ov001_021097e8(...)
     mov r3, r5
     mov r2, #1
     str r7, [sp, #4]
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -1057,7 +1057,7 @@ extern "C" asm void func_ov001_02109db8(void)
     mov r1, r6
     mov r2, r5
     mov r3, r4
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     add r0, r10, #0x400
     ldrh r1, [r0, #0x2c]
     ldr r0, [sp, #0x3c]
@@ -1296,7 +1296,7 @@ extern "C" asm void func_ov001_0210a280(void)
     mov r3, r4
     moveq r9, #0
     str r5, [sp, #4]
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     mov r0, r11
     mov r1, r7
     mov r2, r6
@@ -1689,7 +1689,7 @@ extern "C" asm s32 func_ov001_0210a8ec(...)
     mov r3, r4
     mov r2, #0
     stmia sp, {r5, r6}
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     add sp, sp, #8
     ldmia sp!, {r3, r4, r5, r6, r7, pc}
 }
@@ -2001,7 +2001,7 @@ extern "C" s32 func_ov001_0210ae1c(s32 arg0)
     v1 = func_ov015_02130ae8(t0);
     if (v1 == 0)
         return v1;
-    v2 = _ZN11MatchEngine13func_020725acEv((s32)data_020e88a0, v1, 2, 1, 0, arg0);
+    v2 = _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi((s32)data_020e88a0, v1, 2, 1, 0, arg0);
     return v2;
 }
 
@@ -2154,7 +2154,7 @@ extern "C" asm void func_ov001_0210af94(void)
     mov r0, r11
     moveq r9, #0
     str r7, [sp, #4]
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     mov r0, r11
     mov r1, r5
     mov r2, #2
@@ -2392,7 +2392,7 @@ extern "C" void func_ov001_0210b430(s32 arg0, s32 arg1, s32 arg2)
         if (h == 0)
             return;
     }
-    ((s32 (*)(...))_ZN11MatchEngine13func_020725acEv)(data_020e88a0, h, 2, k, 0, arg2);
+    ((s32 (*)(...))_ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi)(data_020e88a0, h, 2, k, 0, arg2);
 }
 
 extern "C" asm s32 func_ov001_0210b4d8(...)
@@ -3112,7 +3112,7 @@ extern "C" asm void func_ov001_0210bf88(void)
     mov r2, r4
     mov r3, r5
     stmia sp, {r8, r11}
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     mov r0, r9
     mov r1, r6
     mov r2, r7
@@ -3228,7 +3228,7 @@ extern "C" asm void func_ov001_0210c19c(void)
     mov r2, r8
     mov r3, r4
     stmia sp, {r7, r11}
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     mov r0, r9
     mov r1, r5
     mov r2, r6

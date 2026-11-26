@@ -329,7 +329,7 @@ extern "C" void _ZN11MatchEngine13func_0206bfa8Ev(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206bfecEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206de34Ei(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020725acEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020732b0EP11MatchPlayeriPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
@@ -500,9 +500,9 @@ extern "C" char data_020fc704[];
 extern "C" void func_01fff198(void);
 extern "C" BOOL func_ov015_021317c8(void);
 extern "C" int func_ov015_02131948(int team);
-extern "C" void func_ov015_02131994(void);
+extern "C" int func_ov015_02131994(int index);
 extern "C" void func_ov087_0217e70c(void);
-extern "C" void func_ov087_0217e9e8(void);
+extern "C" u32 func_ov087_0217e9e8(MatchEngine *self, MatchPlayer *player, int n);
 extern "C" char data_020af2c0[];
 extern "C" char gWirelessUtil[];
 extern "C" char gAudioPlayer[];
@@ -572,6 +572,13 @@ extern "C" int func_01ffe22c(MatchEngine *engine);
 extern "C" int func_01ffe3e4(MatchEngine *engine);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+
+// (bit 3 of the record's unk_12 clear: func_02074f90)
+static inline BOOL UnkRecord_02076168_IsOpen(UnkRecord_02076168 *record)
+{
+    return (record->unk_12 & 8) ? FALSE : TRUE;
+}
+
 static inline BOOL MatchPlayerBody_HasFlag16(MatchPlayerBody *body, u16 flag)
 {
     return (body->unk_16 & flag) ? TRUE : FALSE;
@@ -3888,7 +3895,7 @@ int UnkDequeIterator_0207076c::func_02072538(const UnkDequeIterator_0207076c &ot
     return n;
 }
 
-asm void MatchEngine::func_020725ac()
+asm int MatchEngine::func_020725ac(MatchPlayer *player, int a, int b, bool flag, int *ids)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x2c
@@ -6214,154 +6221,68 @@ asm void MatchEngine::func_02074b30()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02074f90()
+// (who player team's duel record (func_0207620c) passes to, in *out: the one of func_02074210's
+// that the passer's state already points at, else one by chance (func_ov087_0217e9e8's odds),
+// else one of func_020725ac's)
+void MatchEngine::func_02074f90(int team, int *out)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x34
-    mov r6, r0
-    mov r8, r1
-    mov r5, r2
-    add r7, sp, #0x14
-    bl _ZN11MatchEngine13func_02076268Ev
-    mov r9, r0
-    mov r0, r6
-    bl _ZN11MatchEngine13func_020762c0Ev
-    str r0, [sp, #0x10]
-    mov r0, #0x64
-    bl Random_RandB
-    mov r11, r0
-    mov r0, #2
-    bl Random_RandB
-    str r0, [sp, #0xc]
-    mov r0, r6
-    bl _ZN11MatchEngine13func_0207620cEv
-    ldrb r0, [r0, #0x12]
-    mov r4, #1
-    tst r0, #8
-    moveq r0, #1
-    movne r0, #0
-    cmp r0, #0
-    mov r0, r9
-    moveq r4, #0
-    bl func_ov015_02131994
-    cmp r8, r0
-    bne @L_020750d4
-    mov r0, r9
-    bl func_ov015_02130ae8
-    mov r10, r0
-    ldr r0, [sp, #0x10]
-    bl func_ov015_02130ae8
-    mov r9, #0
-    mov r2, r0
-    str r9, [sp]
-    add r7, sp, #0x14
-    mov r0, #4
-    str r7, [sp, #4]
-    str r0, [sp, #8]
-    mov r0, r6
-    mov r1, r10
-    mov r3, r9
-    bl _ZN11MatchEngine13func_02074210EP11MatchPlayeriiiPii
-    mov r8, r0
-    mov r0, r6
-    mov r1, r10
-    mov r2, r8
-    bl func_ov087_0217e9e8
-    ldr r1, [r10, #0xec]
-    ldrh r2, [r1, #0x32]
-    cmp r2, #0
-    cmpne r8, #0
-    ble @L_02075090
-@L_02075070:
-    ldr r1, [r7, r9, lsl #2]
-    cmp r1, r2
-    addeq sp, sp, #0x34
-    streq r1, [r5]
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    add r9, r9, #1
-    cmp r9, r8
-    blt @L_02075070
-@L_02075090:
-    cmp r8, #0
-    add r7, sp, #0x14
-    ble @L_020750c0
-    cmp r11, r0
-    bhs @L_020750c0
-    mov r0, r11
-    mov r1, r8
-    bl _u32_div_f
-    ldr r0, [r7, r1, lsl #2]
-    add sp, sp, #0x34
-    str r0, [r5]
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020750c0:
-    mov r2, #0
-    mov r0, r6
-    mov r1, r10
-    mov r3, r2
-    b @L_02075198
-@L_020750d4:
-    ldr r0, [sp, #0x10]
-    bl func_ov015_02130ae8
-    mov r8, r0
-    mov r0, r9
-    bl func_ov015_02130ae8
-    mov r2, r0
-    mov r0, #1
-    stmia sp, {r0, r7}
-    mov r0, #4
-    mov r10, #0
-    str r0, [sp, #8]
-    mov r0, r6
-    mov r1, r8
-    mov r3, r10
-    bl _ZN11MatchEngine13func_02074210EP11MatchPlayeriiiPii
-    mov r9, r0
-    mov r0, r6
-    mov r1, r8
-    mov r2, r9
-    bl func_ov087_0217e9e8
-    ldr r1, [r8, #0xec]
-    ldrh r2, [r1, #0x32]
-    cmp r2, #0
-    cmpne r9, #0
-    ble @L_02075158
-@L_02075138:
-    ldr r1, [r7, r10, lsl #2]
-    cmp r1, r2
-    addeq sp, sp, #0x34
-    streq r1, [r5]
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    add r10, r10, #1
-    cmp r10, r9
-    blt @L_02075138
-@L_02075158:
-    cmp r9, #0
-    add r7, sp, #0x14
-    ble @L_02075188
-    cmp r11, r0
-    bhs @L_02075188
-    mov r0, r11
-    mov r1, r9
-    bl _u32_div_f
-    ldr r0, [r7, r1, lsl #2]
-    add sp, sp, #0x34
-    str r0, [r5]
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02075188:
-    mov r0, r6
-    mov r1, r8
-    mov r2, #0
-    mov r3, #1
-@L_02075198:
-    stmia sp, {r4, r7}
-    bl _ZN11MatchEngine13func_020725acEv
-    ldr r0, [sp, #0xc]
-    add r1, sp, #0x14
-    ldr r0, [r1, r0, lsl #2]
-    str r0, [r5]
-    add sp, sp, #0x34
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    int ids[8];
+    s8 first;
+    s8 second;
+    u32 chance;
+    u32 pick;
+    bool free;
+    int n;
+    int i;
+    MatchPlayer *player;
+    u32 odds;
+
+    first = func_02076268();
+    second = func_020762c0();
+    chance = Random_RandB(100);
+    pick = Random_RandB(2);
+    free = UnkRecord_02076168_IsOpen(func_0207620c());
+
+    if (team == func_ov015_02131994(first)) {
+        player = func_ov015_02130ae8(first);
+        n = func_02074210(player, (int)func_ov015_02130ae8(second), 0, 0, ids, 4);
+        odds = func_ov087_0217e9e8(this, player, n);
+        if (player->state->unk_32 != 0) {
+            for (i = 0; i < n; i++) {
+                int id = ids[i];
+
+                if (id == player->state->unk_32) {
+                    *out = id;
+                    return;
+                }
+            }
+        }
+        if (n > 0 && chance < odds) {
+            *out = ids[chance % n];
+            return;
+        }
+        func_020725ac(player, 0, 0, free, ids);
+    } else {
+        player = func_ov015_02130ae8(second);
+        n = func_02074210(player, (int)func_ov015_02130ae8(first), 0, 1, ids, 4);
+        odds = func_ov087_0217e9e8(this, player, n);
+        if (player->state->unk_32 != 0) {
+            for (i = 0; i < n; i++) {
+                int id = ids[i];
+
+                if (id == player->state->unk_32) {
+                    *out = id;
+                    return;
+                }
+            }
+        }
+        if (n > 0 && chance < odds) {
+            *out = ids[chance % n];
+            return;
+        }
+        func_020725ac(player, 0, 1, free, ids);
+    }
+    *out = ids[pick];
 }
 
 asm void MatchEngine::func_020751b8()
@@ -6733,7 +6654,7 @@ asm void MatchEngine::func_02075428()
     mov r3, #1
     str r5, [sp, #4]
 @L_02075704:
-    bl _ZN11MatchEngine13func_020725acEv
+    bl _ZN11MatchEngine13func_020725acEP11MatchPlayeriibPi
     ldr r0, [sp, #0x10]
     cmp r0, r9
     cmpne r0, r8

@@ -8436,7 +8436,9 @@ fx32 MatchEngine::func_0206a078(MatchPlayer *player)
 // flags have them, then by its info's unk_f (fast: a or body flag 0x10) or unk_e; half when
 // func_0207a394, 0.7 when func_0207a350; double when it runs at the ball's holder of the other
 // team from behind; 0.8 when its unk_94 is under 40% of unk_d0)
-// (nonmatching: 131 words: the ROM keeps value apart from speed, keeps 64-bit zero high words in registers (r4 from the start, then r8/r11) and multiplies by 0x800 in full)
+// (nonmatching: 131 words: the ROM keeps value apart from speed, keeps the 64-bit products'
+// zero high words in registers (r4 from the start, then r8 and r11) and multiplies by 0x800 in
+// full; a chase = FALSE before func_0207a394 gives the r8 one)
 #ifdef NONMATCHING
 fx32 MatchEngine::func_0206a100(MatchPlayer *player, int fast)
 {

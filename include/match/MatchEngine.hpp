@@ -520,7 +520,7 @@ public:
     void func_020706b4(int index, int frame);
     void func_0207070c();
     s32 func_02070760();
-    void func_020725ac();
+    int func_020725ac(MatchPlayer *player, int a, int b, bool flag, int *ids);
     int func_020728e0(int value);
     BOOL func_02072914(MatchPlayer *player, int value, u8 *req, int i);
     BOOL func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8 *req);
@@ -567,7 +567,7 @@ public:
     static int func_02074abc(u8 *req);
     static u8 func_02074ac8(u8 *req);
     void func_02074b30();
-    void func_02074f90();
+    void func_02074f90(int team, int *out);
     void func_020751b8();
     void func_02075428();
     void func_0207577c(UnkRecord_02076168 *record);
