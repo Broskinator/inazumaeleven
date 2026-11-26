@@ -781,7 +781,7 @@ public:
     void func_0207d6b0(u8 *data);
     int func_0207d6bc(int value);
     int func_0207d728(MatchPlayer *player, int kind, int delta);
-    void func_0207d830();
+    int func_0207d830(MatchPlayer *player, int kind, int delta, u8 apply);
     int func_0207da34(MatchPlayer *player, int kind);
     int func_0207dac0(MatchPlayer *player, int kind);
     int func_0207dbf4(u8 *data, int *moves);     // (the moves data learns at its level)

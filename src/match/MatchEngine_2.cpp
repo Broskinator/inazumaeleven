@@ -13924,141 +13924,60 @@ int MatchEngine::func_0207d728(MatchPlayer *player, int kind, int delta)
     return delta;
 }
 
-asm void MatchEngine::func_0207d830()
+// (adds delta to stat kind of player (func_0207d568, -127 at least), what the other stat of the
+// pair (func_0207d6bc) leaves room for and func_0207dac0 allows, the excess taken from the other
+// stat; only with apply does it change them (and func_0207e334 refreshes); the delta used)
+int MatchEngine::func_0207d830(MatchPlayer *player, int kind, int delta, u8 apply)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x54
-    mov r9, r1
-    mov r8, r2
-    cmp r8, #0x14
-    mov r10, r0
-    mov r7, r3
-    add r5, r9, #0xd0
-    cmpne r8, #0x16
-    bne @L_0207d874
-    mov r0, r10
-    mov r1, r9
-    mov r2, r8
-    mov r3, r7
-    bl _ZN11MatchEngine13func_0207d728EP11MatchPlayerii
-    add sp, sp, #0x54
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207d874:
-    bl _ZN11MatchEngine13func_0207d568EP11MatchPlayeri
-    mov r4, r0, lsl #0x18
-    mov r0, r10
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207d6bcEi
-    mov r2, r0
-    mov r0, r10
-    mov r1, r9
-    bl _ZN11MatchEngine13func_0207d568EP11MatchPlayeri
-    cmp r7, #0
-    mov r11, r0, lsl #0x18
-    addeq sp, sp, #0x54
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    cmp r7, #0
-    bge @L_0207d908
-    add r1, r7, r4, asr #24
-    mvn r0, #0x7e
-    cmp r1, r0
-    sublt r7, r0, r4, asr #24
-    add r0, r7, r4, asr #24
-    mov r3, r0, lsl #0x18
-    mov r0, r10
-    mov r1, r9
-    mov r2, r8
-    mov r3, r3, asr #0x18
-    bl _ZN11MatchEngine13func_0207d60cEP11MatchPlayerii
-    mov r4, #2
-    mov r0, r10
-    mov r1, r9
-    mov r2, #1
-    mov r3, #0
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
-    add sp, sp, #0x54
-    mov r0, r7
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207d908:
-    mov r0, r10
-    mov r1, r9
-    mov r2, r8
-    bl _ZN11MatchEngine13func_0207dac0EP11MatchPlayeri
-    cmp r7, r0
-    movgt r7, r0
-    ldrh r1, [r9, #0x42]
-    add r2, sp, #4
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0207a854EtPa
-    cmp r0, #0
-    addeq sp, sp, #0x54
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrh r6, [sp, #0x40]
-    mov r1, #0
-    cmp r6, #0
-    ldreq r6, =0x7fff
-@L_0207d950:
-    add r0, r5, r1
-    ldrb r0, [r0, #0xf]
-    add r1, r1, #1
-    cmp r1, #7
-    sub r6, r6, r0
-    blt @L_0207d950
-    ldrb r5, [r9, #0xaa]
-    mov r0, r10
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207d6bcEi
-    mov r2, r0
-    add r1, sp, #4
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0207d494EPhi
-    mov r1, r0
-    mov r2, r5
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0207d394EPhi
-    add r1, r0, r11, asr #24
-    sub r0, r7, r6
-    sub r0, r1, r0
-    cmp r0, #1
-    ldrb r0, [sp, #0x78]
-    sublt r7, r1, #1
-    cmp r0, #0
-    beq @L_0207da24
-    add r0, r7, r4, asr #24
-    mov r3, r0, lsl #0x18
-    mov r0, r10
-    mov r1, r9
-    mov r2, r8
-    mov r3, r3, asr #0x18
-    bl _ZN11MatchEngine13func_0207d60cEP11MatchPlayerii
-    sub r4, r7, r6
-    cmp r4, #0
-    ble @L_0207da08
-    mov r0, r10
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207d6bcEi
-    rsb r1, r4, r11, asr #24
-    mov r3, r1, lsl #0x18
-    mov r2, r0
-    mov r0, r10
-    mov r1, r9
-    mov r3, r3, asr #0x18
-    bl _ZN11MatchEngine13func_0207d60cEP11MatchPlayerii
-@L_0207da08:
-    mov r4, #2
-    mov r0, r10
-    mov r1, r9
-    mov r2, #1
-    mov r3, #0
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207e334Eiiii
-@L_0207da24:
-    mov r0, r7
-    add sp, sp, #0x54
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    s8 data[0x50];
+    u8 *stats = (u8 *)&player->unk_d0;
+    int total;
+
+    if (kind == 0x14 || kind == 0x16) {
+        return func_0207d728(player, kind, delta);
+    }
+    s8 cur = func_0207d568(player, kind);
+    s8 other = func_0207d568(player, func_0207d6bc(kind));
+    if (delta == 0) {
+        return 0;
+    }
+    if (delta < 0) {
+        if (delta + cur < -127) {
+            delta = -127 - cur;
+        }
+        func_0207d60c(player, kind, (s8)(delta + cur));
+        func_0207e334((int)player, 1, 0, 2);
+        return delta;
+    }
+    int max = func_0207dac0(player, kind);
+    if (delta > max) {
+        delta = max;
+    }
+    if (!func_0207a854(player->unk_42, data)) {
+        return 0;
+    }
+    total = *(u16 *)(data + 0x3C);
+    if (total == 0) {
+        total = 0x7FFF;
+    }
+    for (int i = 0; i < 7; i++) {
+        total -= stats[0xF + i];
+    }
+    int level = player->unk_a6[4];
+    u8 *range = func_0207d494((u8 *)data, func_0207d6bc(kind));
+    int room = func_0207d394(range, level) + other;
+    if (room - (delta - total) < 1) {
+        delta = room - 1;
+    }
+    if (apply) {
+        func_0207d60c(player, kind, (s8)(delta + cur));
+        int over = delta - total;
+        if (over > 0) {
+            func_0207d60c(player, func_0207d6bc(kind), (s8)(other - over));
+        }
+        func_0207e334((int)player, 1, 0, 2);
+    }
+    return delta;
 }
 
 int MatchEngine::func_0207da34(MatchPlayer *player, int kind)
