@@ -346,7 +346,7 @@ extern "C" void _ZN11MatchEngine13func_02062b58EPlP11MatchPlayeriPi(void);     /
 extern "C" void _ZN11MatchEngine13func_02062bfcEPllltll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0206313cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020636b8EP11MatchPlayer(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0206371cEv(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0206371cEP11MatchPlayerP9MatchBalli(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063c14EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063e4cEll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063e6cEll(void);     // (for the asm functions)
@@ -355,7 +355,7 @@ extern "C" void _ZN11MatchEngine13func_02063ec8EP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_02063f24EP11MatchPlayerP10MatchPointPiillll(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020640b4Ev(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02064500EP11MatchPlayerPlPiS3_(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020646d4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020646d4EP11MatchPlayerP10MatchPointPiS4_(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
 extern "C" void *g3DFieldSprite;
 extern "C" u8 data_020c4eec[][0x10];
@@ -1923,7 +1923,7 @@ BOOL MatchEngine::func_020636b8(MatchPlayer *player)
     return !func_02084870(player);
 }
 
-asm void MatchEngine::func_0206371c()
+asm BOOL MatchEngine::func_0206371c(MatchPlayer *player, MatchBall *ball, BOOL flag)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x28
@@ -3148,7 +3148,7 @@ asm BOOL MatchEngine::func_02064500(MatchPlayer *player, fx32 *pos, int *dir, in
 }
 #endif
 
-asm void MatchEngine::func_020646d4()
+asm BOOL MatchEngine::func_020646d4(MatchPlayer *player, MatchPoint *pos, int *dir, int *kind)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x44
@@ -3861,7 +3861,90 @@ asm void MatchEngine::func_020646d4()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
-asm void MatchEngine::func_02065178()
+// (nonmatching: 14 words: the state and -1 registers swapped; the ROM reads player->body
+// again before the kind test's branch, for both paths)
+#ifdef NONMATCHING
+#pragma push
+#pragma opt_common_subs off
+void MatchEngine::func_02065178(MatchPlayer *player)
+{
+    MatchPlayerInfo *info;
+    BOOL busy;
+    BOOL ok;
+    MatchPoint pos;
+    int dir;
+    int kind;
+
+    if (MatchPlayerBody_HasFlag(player, 8)) {
+        return;
+    }
+    info = func_020787e8(player);
+    busy = func_0206811c((u16 *)info);
+    func_020841d8(&pos);
+    ok = func_020646d4(player, &pos, &dir, &kind) ? TRUE : FALSE;
+    {
+        MatchPlayerBody *body = player->body;
+        fx32 x = pos.x;
+        fx32 y = pos.y;
+
+        body->pos.x = x;
+        body->pos.y = y;
+    }
+    if (info->unk_12 & 0x80) {
+        dir = player->body->unk_1a;
+    } else {
+        func_0207f38c(player, dir & 7, FALSE);
+    }
+    player->state->unk_84 = kind;
+    if (ok) {
+        MatchPlayerBody *body;
+
+        func_ov015_02130ae8(data_020c4920.unk_48);
+        body = player->body;
+        if (body != NULL) {
+            body->unk_16 |= 8;
+        }
+        if (info->unk_0 == 10 && player->state != NULL) {
+            player->state->unk_84 = 0;
+            player->state->unk_85 = 0;
+            player->state->unk_86 = -1;
+        }
+        if ((busy || func_02078fa4(player)) && func_0206371c(player, &data_020c4920, TRUE)) {
+            return;
+        }
+    }
+    if (ok && !(info->unk_12 & 0x10)) {
+        if (info->unk_12 & 8) {
+            func_02063c14(player);
+            return;
+        }
+        func_ov015_0213a75c(g3DFieldSprite, player, info->unk_a, dir, 0);
+        return;
+    }
+    if (player->body->unk_1d == 2 || player->body->unk_1d == 3 || player->body->unk_1d == 8) {
+        func_ov015_0213a75c(g3DFieldSprite, player, player->body->unk_1d, dir, 0);
+        return;
+    }
+    if (!MatchPlayerBody_HasFlag(player, 4)) {
+        func_ov015_0213a75c(g3DFieldSprite, player, info->unk_a, dir, 0);
+        return;
+    }
+    if (info->unk_b == 9) {
+        if (func_ov015_02131970(player) == 0) {
+            dir = 0;
+        } else {
+            dir = 4;
+        }
+    }
+    if (!ok) {
+        func_ov015_0213a75c(g3DFieldSprite, player, info->unk_b, dir, 0);
+        return;
+    }
+    func_ov015_0213a75c(g3DFieldSprite, player, info->unk_a, dir, 0);
+}
+#pragma pop
+#else
+asm void MatchEngine::func_02065178(MatchPlayer *player)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, lr}
     sub sp, sp, #0x14
@@ -3894,7 +3977,7 @@ asm void MatchEngine::func_02065178()
     mov r0, r9
     mov r1, r8
     add r3, sp, #8
-    bl _ZN11MatchEngine13func_020646d4Ev
+    bl _ZN11MatchEngine13func_020646d4EP11MatchPlayerP10MatchPointPiS4_
     cmp r0, #0
     mov r7, #1
     ldr r2, [r8, #0xe8]
@@ -3952,7 +4035,7 @@ asm void MatchEngine::func_02065178()
     mov r0, r9
     mov r1, r8
     mov r3, #1
-    bl _ZN11MatchEngine13func_0206371cEv
+    bl _ZN11MatchEngine13func_0206371cEP11MatchPlayerP9MatchBalli
     cmp r0, #0
     addne sp, sp, #0x14
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
@@ -4039,6 +4122,7 @@ asm void MatchEngine::func_02065178()
     add sp, sp, #0x14
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, pc}
 }
+#endif
 
 void MatchEngine::func_02065414(MatchPlayer *player)
 {

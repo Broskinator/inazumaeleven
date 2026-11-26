@@ -155,7 +155,10 @@ struct MatchPlayerInfo {
     s16 unk_0;
     u8 unk_2[6];
     u8 unk_8;
-    u8 unk_9[0xD - 0x9];
+    u8 unk_9;
+    u8 unk_a;
+    u8 unk_b;
+    u8 unk_c;
     u8 unk_d;
     u8 unk_e;
     u8 unk_f;

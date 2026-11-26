@@ -58,3 +58,4 @@ MatchEngine::func_0206b628 src/match/MatchEngine.cpp holder->body loaded once wh
 MatchEngine::func_020795b4 src/match/MatchEngine_2.cpp registers rotated in both loops (ma and b, the table base, -1 and &index); loop 2 loads the table value after the flag stores
 func_0206168c src/match/MatchBallPhysics.cpp 5 words: dir reloaded from its stack slot for *outDir; dir load scheduled before y1 + front
 func_02063c14 src/match/MatchEngine.cpp 14 words: func_ov015_0213a75c arguments scheduled differently (body in r0, unk_1a first); opt_common_subs off needed
+MatchEngine::func_02065178 src/match/MatchEngine.cpp state and -1 registers swapped, player->body read again before the kind test's branch (opt_common_subs off)

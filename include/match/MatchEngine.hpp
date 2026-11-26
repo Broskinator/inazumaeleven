@@ -199,7 +199,7 @@ public:
     void func_020634e8(int index, u16 time, BOOL b);
     void func_02063550(MatchPlayer *player, u16 time, BOOL b, u8 c, BOOL d);
     BOOL func_020636b8(MatchPlayer *player);
-    void func_0206371c();
+    BOOL func_0206371c(MatchPlayer *player, MatchBall *ball, BOOL flag);
     void func_02063c14(MatchPlayer *player);
     u16 func_02063e4c(fx32 x, fx32 y);
     void func_02063e6c(fx32 x, fx32 y);
@@ -208,8 +208,8 @@ public:
     BOOL func_02063f24(MatchPlayer *player, MatchPoint *pos, int *dir, int unused, fx32 x0, fx32 y0, fx32 x1, fx32 y1);
     void func_020640b4();
     BOOL func_02064500(MatchPlayer *player, fx32 *pos, int *dir, int *kind);
-    void func_020646d4();
-    void func_02065178();
+    BOOL func_020646d4(MatchPlayer *player, MatchPoint *pos, int *dir, int *kind);
+    void func_02065178(MatchPlayer *player);
     void func_02065414(MatchPlayer *player);
     void func_020654cc(MatchPlayer *player, int action, int a, MatchPoint *b, MatchPoint *c, int d);     // (sets the player's action)
     void func_020657a8(MatchPlayer *player);
