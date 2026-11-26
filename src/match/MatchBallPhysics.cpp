@@ -1,7 +1,7 @@
 #include "match/MatchBallPhysics.hpp"
 #include "system/GameHeap.hpp"
 
-extern "C" void func_02083afc(void);     // (for the asm functions)
+extern "C" BOOL func_02083afc(fx32 *a, fx32 *b, int c);     // (do the segments cross?)
 extern "C" s32 func_0208413c(s32 arg0, s32 arg1);
 extern "C" BOOL func_02084350(fx32 x, fx32 y);
 extern "C" BOOL func_0208454c(fx32 x, fx32 y, fx32 z);
@@ -229,7 +229,110 @@ asm BOOL MatchBallPhysics::func_020614d0(MatchBall *ball, fx32 *px, fx32 *py, u1
 }
 #endif
 
-asm void MatchBallPhysics::func_0206168c()
+// bounces the ball's next position (px, py) off the posts of the goal of side (the rectangle
+// unk_ec or unk_fc of the area; flag: from inside it): bit 0 of the result when it crossed one,
+// bit 1 when flag and py was pulled back 0x4001 from the goal line
+// (nonmatching: 5 words: the ROM reloads dir from its stack slot for *outDir and loads it before y1 + front)
+#ifdef NONMATCHING
+int MatchBallPhysics::func_0206168c(MatchBall *ball, fx32 *px, fx32 *py, u16 *outDir, int side, BOOL flag)
+{
+    fx32 path[4];
+    fx32 post[4];
+    fx32 x0;
+    fx32 x1;
+    fx32 y0;
+    fx32 y1;
+    fx32 x = *px;
+    fx32 y = *py;
+    s32 dir = ball->unk_52;
+    int result = 0;
+    BOOL hit;
+    fx32 *rect;
+    fx32 back;
+    fx32 front;
+    fx32 bx;
+
+    if (outDir != NULL) {
+        *outDir = ball->unk_52;
+    }
+    bx = ball->pos.x;
+    path[1] = ball->pos.y;
+    path[3] = y;
+    if (side == 1) {
+        rect = area->unk_ec;
+        back = 0x4800;
+        front = 0x800;
+    } else {
+        rect = area->unk_fc;
+        back = 0x800;
+        front = 0x4800;
+    }
+    path[0] = bx;
+    path[2] = x;
+    x0 = rect[0];
+    x1 = rect[2];
+    y0 = rect[1];
+    y1 = rect[3];
+    if (flag && bx >= x0 && x <= x0) {
+        post[0] = x0;
+        post[1] = y0 - back;
+        post[2] = x0;
+        post[3] = y1 + front;
+        dir = func_0208413c(dir, 0x4000);
+        x = x0 + (x0 - x) + 1;
+        hit = TRUE;
+    } else if (!flag && bx >= x1 && x <= x1) {
+        post[0] = x1;
+        post[1] = y0;
+        post[2] = x1;
+        post[3] = y1;
+        dir = func_0208413c(dir, 0x4000);
+        x = x1 + (x1 - x) + 1;
+        hit = TRUE;
+    } else if (!flag && bx <= x0 && x >= x0) {
+        post[0] = x0;
+        post[1] = y0;
+        post[2] = x0;
+        post[3] = y1;
+        dir = func_0208413c(dir, 0x4000);
+        x = x0 - (x - x0) - 1;
+        hit = TRUE;
+    } else if (flag && bx <= x1 && x >= x1) {
+        post[0] = x1;
+        post[1] = y0 - back;
+        post[2] = x1;
+        post[3] = y1 + front;
+        dir = func_0208413c(dir, 0x4000);
+        x = x1 - (x - x1) - 1;
+        hit = TRUE;
+    } else {
+        hit = FALSE;
+    }
+    if (hit && func_02083afc(post, path, 0)) {
+        result |= 1;
+        if (outDir != NULL) {
+            *outDir = dir;
+        }
+        *px = x;
+        *py = y;
+    }
+    if (flag) {
+        if (side == 1) {
+            if (*py < y0 + 0x4000) {
+                *py = y0 + 0x4001;
+                result |= 2;
+            }
+        } else {
+            if (*py > y1 - 0x4000) {
+                *py = y1 - 0x4001;
+                result |= 2;
+            }
+        }
+    }
+    return result;
+}
+#else
+asm int MatchBallPhysics::func_0206168c(MatchBall *ball, fx32 *px, fx32 *py, u16 *outDir, int side, BOOL flag)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x2c
@@ -389,6 +492,7 @@ asm void MatchBallPhysics::func_0206168c()
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // whether the ball has left the field
 BOOL MatchBallPhysics::func_020618d4(MatchBall *ball, BOOL inside, BOOL check)
