@@ -111,7 +111,8 @@ struct MatchPlayer {
     u8 unk_5a;                  // (the element: 1 wind, 2 wood, 3 fire, 4 earth)
     u8 unk_5b[0x64 - 0x5B];     // (0x60: EXP)
     u16 unk_64;
-    u8 unk_66[0x70 - 0x66];
+    u8 unk_66[0x6E - 0x66];
+    u16 unk_6e;         // (kept with the unit on the map: func_020859c0)
     u16 unk_70[4];      // (ids)
     s16 unk_78;         // (FP trained; MatchEngine::func_0207d500/func_0207d538: kinds 20 and 21)
     s16 unk_7a;         // (TP trained; kinds 22 and 23)

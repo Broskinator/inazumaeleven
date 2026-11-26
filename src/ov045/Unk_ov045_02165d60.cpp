@@ -86,7 +86,7 @@ extern "C" void _ZN11MatchEngine13func_02078f14EP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207a5c0EiPv(void);
 extern "C" void _ZN11MatchEngine13func_0207aeacEim(void);
 extern "C" void _ZN11MatchEngine13func_0207b00cEitihih(void);
-extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207b780EitihPti(void);
 extern "C" void _ZN11MatchEngine13func_0207bfd0Eiii(void);
 extern "C" void _ZN11MatchEngine13func_0207f7ccEP11MatchPlayerii(void);
 extern "C" void _ZN11MatchEngine13func_02083054Ei(void);
@@ -2771,7 +2771,7 @@ extern "C" asm void func_ov045_02168464(void)
     mov r2, r10
     mov r3, r9
     str r4, [sp, #8]
-    bl _ZN11MatchEngine13func_0207b780Ev
+    bl _ZN11MatchEngine13func_0207b780EitihPti
     ldrh r3, [r8, #0x50]
     mov r0, #0x32
     ldr r4, =g2DAdventureLogic

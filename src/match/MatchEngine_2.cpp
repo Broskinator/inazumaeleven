@@ -51,25 +51,25 @@ extern "C" void func_0208f300(u8 *obj, u8 value);
 extern "C" void func_0208f310(void);     // (for the asm functions)
 extern "C" void func_0208f6ac(void);     // (for the asm functions)
 extern "C" void func_0208e9b8(u8 *obj, int i, BOOL value);
-extern "C" void func_02087500(void);     // (for the asm functions)
+extern "C" void func_02087500(void *chars, int unit, int id, int a, u16 value, int b, u8 c);
 extern "C" void func_020877e0(void);     // (for the asm functions)
-extern "C" void func_020878ac(void);     // (for the asm functions)
-extern "C" void func_020879e4(void);     // (for the asm functions)
-extern "C" void func_02086164(void);     // (for the asm functions)
+extern "C" void func_020878ac(void *chars, int id, u16 value, int a, u8 b);
+extern "C" void func_020879e4(void *chars, int a);
+extern "C" void func_02086164(void *logic, int handle, int a);
 extern "C" void func_0208620c(void);     // (for the asm functions)
-extern "C" void func_020864f4(void);     // (for the asm functions)
-extern "C" void func_020864fc(void);     // (for the asm functions)
+extern "C" void *func_020864f4(void *logic);
+extern "C" VecFx32 func_020864fc(void *logic, int index);
 extern "C" void func_02087464(void);     // (for the asm functions)
-extern "C" void func_02085228(void);     // (for the asm functions)
-extern "C" void func_020859c0(void);     // (for the asm functions)
+extern "C" int func_02085228(void *list, int handle);
+extern "C" int func_020859c0(void *logic, int id, int a, u16 value, u8 b); // (puts a unit on the map: a handle, or -1)
 extern "C" void func_02085b4c(void);     // (for the asm functions)
-extern "C" void func_02085ba4(void);     // (for the asm functions)
+extern "C" u8 *func_02085ba4(void *logic, int handle);
 extern "C" void func_02085bb4(void);     // (for the asm functions)
 extern "C" void func_02085be8(void);     // (for the asm functions)
-extern "C" void func_02085bfc(void);     // (for the asm functions)
+extern "C" int func_02085bfc(void *logic, int handle);
 extern "C" void func_02085d88(void);     // (for the asm functions)
-extern "C" void func_02085e30(void);     // (for the asm functions)
-extern "C" void func_02085ec0(void);     // (for the asm functions)
+extern "C" BOOL func_02085e30(void *logic, int handle, u16 angle);
+extern "C" VecFx32 func_02085ec0(void *logic, int handle, fx32 x, fx32 y, fx32 z, BOOL a, BOOL b, BOOL c);
 extern "C" int func_02083e34(MatchPlayer *player);
 extern "C" void func_02083e44(void);     // (for the asm functions)
 extern "C" u8 func_020841c8(int i);
@@ -78,7 +78,7 @@ extern "C" BOOL func_02084788(MatchPoint *point);
 extern "C" void func_020847ec(void);     // (for the asm functions)
 extern "C" BOOL func_02084870(MatchPlayer *player);
 extern "C" void func_02084cf0(void);     // (for the asm functions)
-extern "C" void func_02084e08(void);     // (for the asm functions)
+extern "C" void func_02084e08(u8 *unit, int a);
 extern "C" void func_02081f7c(MatchEngine *engine, int index, int a);
 extern "C" int func_02082150(MatchEngine *engine, int id, int a);
 extern "C" BOOL func_020823a0(MatchEngine *self, u16 id, int a);
@@ -229,7 +229,7 @@ extern "C" void _ZN11MatchEngine13func_0207af84Eii(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_0207b160Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207b28cEiiih(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207b708EmP11MatchPlayeriii(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_0207b780Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_0207b780EitihPti(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207bdf8Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_0207bee8Eiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine11GetTeamInfoEi(void);     // (for the asm functions)
@@ -557,8 +557,8 @@ extern "C" BOOL func_ov087_0217ea64(MatchEngine *match);
 extern "C" char data_020af360[];     // (the players' data file)
 extern "C" const char data_020af37c[];
 extern "C" char data_020af398[];
-extern "C" char g2DGChar[];
-extern "C" char g2DAdventureLogic[];
+extern "C" void *g2DGChar;
+extern "C" void *g2DAdventureLogic;
 // (what func_0207b00c asks func_01ffe1a4 for)
 struct UnkRequest_0207b00c {
     u16 id;
@@ -11776,7 +11776,7 @@ int MatchEngine::func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int 
     return func_020813a0(player, a);
 }
 
-asm void MatchEngine::func_0207b780()
+asm int MatchEngine::func_0207b780(int team, u16 id, int pos, u8 flag, u16 *out, int slot)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x20
@@ -11928,7 +11928,7 @@ asm void MatchEngine::func_0207b780()
     ldr r2, [sp, #0x14]
     mov r0, r9
     mov r1, r8
-    bl _ZN11MatchEngine13func_0207b780Ev
+    bl _ZN11MatchEngine13func_0207b780EitihPti
     ldr r1, [sp, #0x14]
     mov r0, r4
     bl func_020807d0
@@ -12059,6 +12059,76 @@ asm void MatchEngine::func_0207b780()
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
 
+// fills free places 1 to 4 of team 0 with players from the first 16 records that are not in it
+// yet (func_0207b780 with the slot func_0206dfa4 gives), and puts each on the map
+// (nonmatching: the ROM copies the position word by word and keeps team 0 in r5: registers differ throughout)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_0207bb9c()
+{
+    u8 record[0x60];
+    int team;
+    int start;
+    int i;
+    int j;
+    int slot;
+    MatchPlayer *player;
+    u16 id;
+    u16 value;
+    int unit;
+
+    team = 0;
+    start = 0;
+    for (i = 1; i <= 4; i++) {
+        if (data_020e88a0.func_0207d214(team, i)) {
+            continue;
+        }
+        slot = func_0206dfa4(team, 2);
+        if (slot == 0) {
+            return;
+        }
+        for (j = start; j < 0x10; j++) {
+            player = func_ov015_02130ae8(j);
+            if (player == NULL) {
+                continue;
+            }
+            if (func_0207aeac(team, player->unk_42)) {
+                continue;
+            }
+            if (func_0207b780(team, player->unk_42, i, 0, NULL, slot) != 0) {
+                return;
+            }
+            func_02081398(player, slot);
+            id = player->unk_42;
+            if (player != NULL) {
+                value = player->unk_6e;
+            } else {
+                if (!data_020e88a0.func_0207a5c0(id, record)) {
+                    return;
+                }
+                value = *(u16 *)(record + 0x50);
+            }
+            id = data_020e88a0.func_0206f98c(id);
+            unit = func_020859c0(g2DAdventureLogic, id, 0, value, 0x32);
+            func_02086164(g2DAdventureLogic, unit, -1);
+            func_02084e08(func_02085ba4(g2DAdventureLogic, unit), 1);
+            {
+                VecFx32 pos = func_020864fc(g2DAdventureLogic, func_02085228(func_020864f4(g2DAdventureLogic), unit));
+                func_02085ec0(g2DAdventureLogic, unit, pos.x, 0, pos.y, 0, 1, 1);
+                func_02085e30(g2DAdventureLogic, unit, pos.z);
+            }
+            unit = func_02085bfc(g2DAdventureLogic, unit);
+            func_020878ac(g2DGChar, id, value, 0, 0x32);
+            func_02087500(g2DGChar, unit, id, 0, value, 0, 0x32);
+            func_020879e4(g2DGChar, 1);
+            start = j + 1;
+            break;
+        }
+    }
+}
+#pragma pop
+#else
 asm void MatchEngine::func_0207bb9c()
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -12103,7 +12173,7 @@ asm void MatchEngine::func_0207bb9c()
     mov r1, r5
     mov r3, r6
     str r8, [sp, #8]
-    bl _ZN11MatchEngine13func_0207b780Ev
+    bl _ZN11MatchEngine13func_0207b780EitihPti
     cmp r0, #0
     addne sp, sp, #0x98
     ldmneia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
@@ -12217,6 +12287,7 @@ asm void MatchEngine::func_0207bb9c()
     add sp, sp, #0x98
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 #pragma push
 #pragma optimization_level 2

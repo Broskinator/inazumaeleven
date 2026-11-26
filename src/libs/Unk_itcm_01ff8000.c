@@ -331,7 +331,7 @@ void _ZN11MatchEngine13func_0207af84Eii(void);
 void _ZN11MatchEngine13func_0206f9e0Em(void);
 void func_ov015_02131bd0(void);
 void func_02080780(void);
-void _ZN11MatchEngine13func_0207b780Ev(void);
+void _ZN11MatchEngine13func_0207b780EitihPti(void);
 void func_02081f7c(void);
 void _ZN11MatchEngine13func_0207a820Ev(void);
 extern char data_020aefd8[];
@@ -5480,7 +5480,7 @@ asm void func_01ffc784(void)
     mov r1, r9
     mov r2, r7
     mov r3, r8
-    bl _ZN11MatchEngine13func_0207b780Ev
+    bl _ZN11MatchEngine13func_0207b780EitihPti
 @L_01ffc980:
     cmp r8, #0
     blt @L_01ffc998

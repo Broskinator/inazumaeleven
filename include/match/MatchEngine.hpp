@@ -744,7 +744,7 @@ public:
     u8 func_0207b160(int team);
     int func_0207b28c(int team, int index, BOOL flag, u8 a);
     int func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int c);
-    void func_0207b780();
+    int func_0207b780(int team, u16 id, int pos, u8 flag, u16 *out, int slot); // (0 when done; 2, 3, 4 refused)
     void func_0207bb9c();
     int func_0207bdf8(int team, int id);
     int func_0207bee8(int team, int id, int shift);
