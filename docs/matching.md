@@ -116,6 +116,24 @@ The compiler is Metrowerks CodeWarrior for DSi (`mwccarm` 1.x), C++.
   (`func_0206a3b8`); identical blocks of two branches that the ROM shares and the rebuild
   does not, at any level (`func_02066e28`); a field read again for a second test where the
   rebuild keeps it (`MatchBallPhysics::func_02061bc0`: only `opt_common_subs off` gives it).
+- **u8 against u8.** `a >= b` on two `u8` gives an unsigned branch (`blo`); the original's
+  `blt` came from `(int)a >= (int)b` (`MatchEngine::func_0207e334`).
+- **Stores under a test already made.** Stores right after `if (p == NULL) return ...;` that
+  the original predicates on the old flags (`strneh`) sit under their own `if (p != NULL)`, as
+  an inline helper would have it (`func_02073a9c`).
+- **Copies of stack parameters.** A loop reading two stack parameters through new spill slots
+  (`ldr r0, [sp, #0x68]; str r0, [sp, #0x1c]` before it) used local copies, `list = ids;
+  n = count;`, at level 2 (`func_02067aec`).
+- **A BOOL into a bool.** `tst; moveq #1; movne #0` followed by `cmp; mov #1; moveq #0` is an
+  inline returning `cond ? FALSE : TRUE` assigned to a `bool` (`func_02075428`).
+- **A bigger frame than the locals read.** The buffer a callee fills is longer than what the
+  caller reads (`int ids[8]` where two are used, `func_02075428`).
+- **Not solved yet (2).** A struct returned by value, copied word by word into a second stack
+  slot whose stores stay (`func_0207bb9c`; the same idiom in `func_ov029_0216c640` and in IE3):
+  a POD copy gives `ldm/stm`, a copy constructor is elided, a converting constructor is
+  scalarised. Two `u16` swapped through a stack temporary the original keeps
+  (`func_020793bc`): arrays, a 2-byte-aligned struct, a union and a copy-constructed pair all
+  stay in registers.
 
 ## Register allocation
 
@@ -182,6 +200,13 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   register where a pointer `&table[team * 7]` keeps the field's address (`func_0207e19c`).
 - **The type of a local.** An `int` local for an `s8` result stored to the stack right after
   the call; with `s8` the store moved after the next load (`func_0206ba84`).
+- **Post-increment index.** `out[n++] = x` keeps `n` in a second register for the store;
+  `out[n] = x; n++;` stores through `n` and adds after, as the original (`func_0207e334`).
+- **Recording a new best.** The order of the assignments in the block that keeps a new best
+  (id first, then the distance) and declaring the loop index before the distances decided
+  the registers (`func_02062d74`).
+- **One index per inner loop.** Two inner loops of a loop (a search, then a fill) with their
+  own index variables instead of one shared gave the original's registers (`func_02073a9c`).
 
 ## Library calls
 

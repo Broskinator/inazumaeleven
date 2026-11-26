@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 547,604 | 28.11% | 9,634 | 6,032 | 62.61% | 3,602 |
-| Game, main program | 369,260 | 159,084 | 43.08% | 2,601 | 1,973 | 75.86% | 628 |
+| **Game code** | 1,948,264 | 555,216 | 28.50% | 9,634 | 6,045 | 62.75% | 3,589 |
+| Game, main program | 369,260 | 166,696 | 45.14% | 2,601 | 1,986 | 76.36% | 615 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 644,008 | 24.83% | 14,002 | 7,313 | 52.23% | 6,689 |
+| **Everything** | 2,594,024 | 651,620 | 25.12% | 14,002 | 7,326 | 52.32% | 6,676 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -32,16 +32,16 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Match engine, all** | 376,800 | 107,780 | 28.60% | 1,742 | 1,219 | 69.98% | 523 |
+| **Match engine, all** | 376,800 | 115,392 | 30.62% | 1,742 | 1,232 | 70.72% | 510 |
 | `src/match/MatchBallPhysics.cpp` | 3,356 | 1,568 | 46.72% | 33 | 29 | 87.88% | 4 |
-| `src/match/MatchEngine.cpp` | 52,352 | 24,064 | 45.97% | 294 | 246 | 83.67% | 48 |
-| `src/match/MatchEngine_2.cpp` | 70,264 | 35,032 | 49.86% | 391 | 323 | 82.61% | 68 |
+| `src/match/MatchEngine.cpp` | 52,352 | 25,864 | 49.40% | 294 | 249 | 84.69% | 45 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 39,480 | 56.19% | 391 | 331 | 84.65% | 60 |
 | `src/match/MatchEngine_3.cpp` | 772 | 356 | 46.11% | 6 | 5 | 83.33% | 1 |
-| `src/match/MatchGeometry.cpp` | 5,368 | 3,852 | 71.76% | 70 | 65 | 92.86% | 5 |
+| `src/match/MatchGeometry.cpp` | 5,368 | 4,660 | 86.81% | 70 | 66 | 94.29% | 4 |
 | `src/match/MatchPlayerList.cpp` | 1,212 | 372 | 30.69% | 21 | 17 | 80.95% | 4 |
 | `src/match/MatchRules.cpp` | 500 | 500 | 100.00% | 21 | 21 | 100.00% | 0 |
 | `src/match/MatchUtil.cpp` | 5,280 | 5,080 | 96.21% | 99 | 98 | 98.99% | 1 |
-| `src/match/UnkClass_0208351c.cpp` | 1,504 | 604 | 40.16% | 12 | 10 | 83.33% | 2 |
+| `src/match/UnkClass_0208351c.cpp` | 1,504 | 1,160 | 77.13% | 12 | 11 | 91.67% | 1 |
 | ov001 (match scene) | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov087 (match logic) | 57,468 | 6,064 | 10.55% | 167 | 62 | 37.13% | 105 |
 
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 159,084 | 43.08% | 2,601 | 1,973 | 75.86% | 628 |
+| main program | 369,260 | 166,696 | 45.14% | 2,601 | 1,986 | 76.36% | 615 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
@@ -276,3 +276,30 @@ The match engine again, the functions with no attempt first (`tools/untried.py`)
   fixed a path setup (func_0206b628); a bare return in an int function leaves r0 as the ROM does.
 - Next: func_0207ec70 (the ROM keeps its stack slot in the push, ours subtracts sp: started, not
   written), then the untried list.
+
+### 2026-11-26 (continued)
+
+- Matched: MatchEngine::func_0207ec70, func_0207577c, func_0207d830, func_02069184,
+  func_0206ad94, func_02074f90, func_0207fff0, func_02077448, func_020751b8, func_0207e334,
+  func_02062d74, UnkClass_0208351c::func_020838d0, func_02083afc (MatchGeometry).
+- Typed, under NONMATCHING: MatchBallPhysics::func_0206168c; MatchEngine::func_0206bc70,
+  func_02063c14, func_0206a100, func_020654cc, func_02065178, func_0207c8e0, func_0207dec0,
+  func_0207bb9c (118 words), func_02067aec (57), func_02073a9c (13, queued), func_02075428 (2,
+  queued; 10 permuter minutes without improvement), func_020793bc (94).
+- The [Inazuma Eleven recomp](https://github.com/2002-source/InazumaElevenRecomp) (a PC port of
+  this ROM, MIT) documents the player record, the stat, level and EXP functions, the rows of
+  func_02069394 and the data files: [docs/ie1_recomp.md](ie1_recomp.md). From it: the
+  unitstat.dat record (the moves learnt at +0x2C), MatchPlayer's level (unk_aa), FP/TP and the
+  stats shown and base, the duel record's moves and slots.
+- Retyped on the way: func_0207b780, func_02062b58 (the crossing point), func_02067aec with
+  func_02067e00/func_02067e78, func_02073a9c, func_02075428, the 2D adventure-logic calls of
+  MatchEngine_2.cpp; func_02083afc is declared once, in MatchGeometry.hpp.
+- make progress 98.950% (asm counted); C/C++: match engine 1,232 / 1,742 functions (30.62% of
+  its bytes), game code 28.50%; src/match has 120 asm functions left, 40 never attempted.
+- Findings in docs/matching.md: u8 compared as int for `blt`; `out[n] = x; n++;`; stores
+  predicated on a test already made; local copies of stack parameters; a BOOL inline into a
+  bool; the order of a new-best block; one index per inner loop.
+- Blockers: func_0207bb9c's returned struct copied word by word (an idiom ov029 and IE3 share);
+  func_020793bc's swap temporary.
+- Note: commit cf1f451 ("func_02062d74 in C++", a second time) is the move of func_02083afc's
+  declaration to MatchGeometry.hpp; its message was left over from the commit before.

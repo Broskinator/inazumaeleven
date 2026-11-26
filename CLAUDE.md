@@ -144,10 +144,12 @@ the includes.
 ## Current priorities
 
 1. **Match engine** (`src/match/`, ov087, ov001; [docs/match_engine.md](docs/match_engine.md)):
-   135 functions still asm in `src/match` (`make todo ARGS="--file src/match"`), 48 of them
+   120 functions still asm in `src/match` (`make todo ARGS="--file src/match"`), 40 of them
    never attempted (`python tools/untried.py -n 300 --file src/match`: take them from the top;
-   next: `func_0207ec70` (stack slot kept in the push), `func_0207577c`, `func_0207d830`,
-   `func_02069184`, `UnkClass_0208351c::func_020838d0`). A loop that jumps to its test first: put the function at
+   next: `func_020725ac`, `func_0207e8f8`, `func_020640b4`, `func_02065fa0`, `func_020733d4`;
+   `func_0207c1b0` drives the 2D adventure logic like `func_0207bb9c`, whose callees are now
+   typed in MatchEngine_2.cpp). Field meanings and function roles checked in play are in
+   [docs/ie1_recomp.md](docs/ie1_recomp.md): use them when typing. A loop that jumps to its test first: put the function at
    `#pragma optimization_level 2` (push/pop around it), and if it then reuses a value the ROM
    computes again after a call, add `#pragma opt_common_subs off` (docs/matching.md). Skip for
    now the `UnkDeque_0207076c` members and users (`func_0206d6b4`: they want the deque template
@@ -157,20 +159,24 @@ the includes.
    `func_02078bc0`). A member whose `this` is something else becomes static and takes it
    (func_0207f3cc, func_0207f3e0). IE3 names: `CLogicThink`, `CUnitMan`, `CCalcMap` (the
    `match` rows of `docs/ie3_mapping.csv`).
-2. **Permuter queue**: 60 entries in `permuter/queue.txt`; batches 1-6 covered the first 35.
-   The 20 from line 36 (`func_0206b5a0`) on have never run: `tools/permuter_batch.sh` with
+2. **Permuter queue**: 64 entries in `permuter/queue.txt`; batches 1-6 covered the first 35.
+   The ones from line 36 (`func_0206b5a0`) on have never run (func_02075428, 2 words, got 10
+   minutes without improvement): `tools/permuter_batch.sh` with
    `PERM_QUEUE=` a file holding just them. Results reached only through fake code (an uninitialised
    variable, a self-assignment, a 64-bit index, `if (1)`) don't count; look for the natural
    form they point at (func_0207e738 matched that way).
 3. **Bigger non-matching attempts** (16-165 words): `SceneManager` (6), `SaveManager` (4),
    `System::func_020401bc`, `Wireless` (3), `MatchBallPhysics::func_02061ab8`, MatchEngine
-   (func_02065dec (70), func_02066e28 (56), func_02077f20, func_02084350, func_0206a590/0206a648
-   (45), func_0206cec0 (25) and older).
+   (func_0207bb9c (118), func_020793bc (94), func_02065dec (70), func_02067aec (57),
+   func_02066e28 (56), func_02077f20, func_02084350, func_0206a590/0206a648 (45),
+   func_0206cec0 (25) and older).
 4. Known blockers: `FileManager::LoadAsync` (r9/r11 swap, queued); identical blocks of two
    branches the ROM shares (func_02066e28); a field read twice that the rebuild keeps in a
    register (func_02061bc0); two loads merged into an `ldm` (func_0206a3b8); an immediate
    `return 0` after an index check (func_0206e50c/0206e5e4); dead stack stores the ROM keeps
-   (func_02068434); 19 IE3 names not applied (name clashes, see ie3_mapping.md); ov088
+   (func_02068434); a returned struct copied word by word into a second slot (func_0207bb9c)
+   and a u16 swap through a kept stack temporary (func_020793bc), docs/matching.md; 19 IE3
+   names not applied (name clashes, see ie3_mapping.md); ov088
    (Mobiclip) still counted as game code.
 
 At the end of every session, update the 'Current priorities' section in CLAUDE.md and append a short dated entry to docs/progress.md (what was matched, progress % from make progress, new findings, blockers). Commit both.
