@@ -43,6 +43,10 @@ work in Git Bash / MSYS2 with Python on the PATH.
 6. **Inazuma Eleven 3 reference** (`../ext/ie3ogres`, never inside this repo): it has no
    license. Use it for names, struct layouts, enums and understanding only; never copy its
    files or code. What maps to what: [docs/ie3_mapping.md](docs/ie3_mapping.md).
+7. **Inazuma Eleven recomp** (`../ext/ie1recomp`, MIT): a PC port of this same ROM whose mod
+   plugin documents the player record, the stat and level functions, the rows of
+   `func_02069394` and more, checked in play. Same use as the IE3 reference (names, layouts,
+   meaning; our own code): [docs/ie1_recomp.md](docs/ie1_recomp.md).
 
 ### The NONMATCHING pattern
 
