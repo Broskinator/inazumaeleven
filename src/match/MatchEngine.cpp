@@ -400,7 +400,7 @@ extern "C" u16 FX_Atan2Idx(fx32 y, fx32 x);     // (the direction of (x, y))
 extern "C" void _s32_div_f(void);
 extern "C" BOOL func_020847b0(MatchPlayer *player);
 extern "C" void func_ov001_02127dcc(void);
-extern "C" u8 func_ov015_02130e28(u16 angle);    // (the direction as one of 8)
+extern "C" u8 func_ov015_02130e28(int angle);    // (the direction as one of 8)
 extern "C" BOOL func_ov015_02131854(void);
 extern "C" void func_ov015_02131948(void);
 extern "C" int func_ov015_02131970(MatchPlayer *player);
@@ -2587,6 +2587,166 @@ asm BOOL MatchEngine::func_02063f24(MatchPlayer *player, MatchPoint *pos, int *d
 }
 #endif
 
+// (walks the player along its path (state->unk_34, up to unk_85 points; unk_86 the one that is
+// the position unk_0) by its speed: out gets where it is now, dir its direction as one of 8,
+// index the point it heads to; a step that ends inside its side's box is put just outside, by
+// the nearest edge. TRUE when it reaches the last point)
+// (nonmatching: 4 words: in the loop the ROM stores the stack argument y1 of func_01fff198 before the
+// register ones; the call after the loop and the rest match. opt_common_subs off gives the reloads)
+#ifdef NONMATCHING
+#pragma push
+#pragma opt_common_subs off
+BOOL MatchEngine::func_020640b4(MatchPlayer *player, MatchPoint *out, int *dir, int *index)
+{
+    fx32 x1;
+    fx32 y1;
+    fx32 x0;
+    fx32 y0;
+    fx32 remaining;
+    int i;
+    fx32 dist;
+    MatchPoint pt;
+    MatchPlayerInfo *info;
+    fx32 speed;
+    int angle;
+    BOOL slowed;
+    fx32 dx;
+    fx32 dy;
+    int lost;
+    MatchPlayerState *state;
+    fx32 *target;
+    fx32 *box;
+    fx32 left;
+    fx32 right;
+    fx32 top;
+    fx32 bottom;
+    BOOL done;
+    int side;
+
+    x0 = player->body->pos.x;
+    y0 = player->body->pos.y;
+    info = func_020787e8(player);
+    i = player->state->unk_84;
+    if (index != NULL) {
+        *index = i;
+    }
+    if (out != NULL) {
+        *out = *(MatchPoint *)&player->body->pos;
+    }
+    speed = player->state->unk_10;
+    if (speed < func_02068eb4(player)) {
+        speed = func_02068eb4(player);
+    }
+    remaining = speed;
+    slowed = FALSE;
+    for (;;) {
+        state = player->state;
+        if (i == state->unk_86) {
+            target = &state->unk_0;
+        } else {
+            target = state->unk_34[i];
+        }
+        x1 = target[0];
+        y1 = target[1];
+        if (x1 == x0 && y1 == y0) {
+            angle = player->body->direction;
+        } else {
+            angle = FX_Atan2Idx(y1 - y0, x1 - x0);
+        }
+        dist = func_01fff198(this, x0, y0, x1, y1);
+        lost = func_02068ce4(player, angle, remaining);
+        if (lost > 0) {
+            remaining -= lost;
+            if (!(info->unk_12 & 0x200)) {
+                speed -= lost;
+                slowed = TRUE;
+            }
+        }
+        if (dist > remaining) {
+            break;
+        }
+        if (i == player->state->unk_86) {
+            out->x = x1;
+            out->y = y1;
+            if (index != NULL) {
+                *index = i;
+            }
+            if (dir != NULL && !(info->unk_12 & 0x80)) {
+                *dir = func_ov015_02130e28(angle);
+            }
+            player->state->unk_14 = 0;
+            return FALSE;
+        }
+        if (remaining <= dist) {
+            break;
+        }
+        i++;
+        if (i >= player->state->unk_85) {
+            break;
+        }
+        remaining -= dist;
+        x0 = x1;
+        y0 = y1;
+    }
+    if (!slowed) {
+        speed = func_02068f90(player);
+    }
+    func_02068d20(player, speed);
+    if (index != NULL) {
+        *index = i;
+    }
+    dx = FX_Mul(speed, FX_CosIdx(angle >> 4));
+    dy = FX_Mul(speed, FX_SinIdx(angle >> 4));
+    if (!(info->unk_12 & 0x80)) {
+        player->body->direction = angle;
+        if (dir != NULL && !(info->unk_12 & 0x80)) {
+            *dir = func_ov015_02130e28(angle);
+        }
+    }
+    if (func_0206de34(func_02083e54(player))) {
+        pt.x = x0 + dx;
+        pt.y = y0 + dy;
+        if (func_02068590(func_02083e34(player), (int)&pt)) {
+            side = func_02083e34(player);
+            box = (fx32 *)data_020c4efc;
+            if (side != 0) {
+                box = (fx32 *)data_020c4eec;
+            }
+            left = pt.x - box[0];
+            right = box[2] - pt.x;
+            top = pt.y - box[1];
+            bottom = box[3] - pt.y;
+            if (left < right && left < top && left < bottom) {
+                out->x = box[0] - 1;
+                out->y = pt.y;
+            } else if (right < left && right < top && right < bottom) {
+                out->x = box[2] + 1;
+                out->y = pt.y;
+            } else if (top < left && top < right && top < bottom) {
+                out->x = pt.x;
+                out->y = box[1] - 1;
+            } else {
+                out->x = pt.x;
+                out->y = box[3] + 1;
+            }
+            return FALSE;
+        }
+    }
+    if (remaining >= func_01fff198(this, x0, y0, x1, y1)) {
+        out->x = x1;
+        out->y = y1;
+        done = FALSE;
+        if (i >= player->state->unk_85 && !(info->unk_12 & 0x10)) {
+            done = TRUE;
+        }
+        return done ? TRUE : FALSE;
+    }
+    out->x = x0 + dx;
+    out->y = y0 + dy;
+    return FALSE;
+}
+#pragma pop
+#else
 asm BOOL MatchEngine::func_020640b4(MatchPlayer *player, MatchPoint *out, int *dir, int *index)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -2880,6 +3040,7 @@ asm BOOL MatchEngine::func_020640b4(MatchPlayer *player, MatchPoint *out, int *d
     add sp, sp, #0x2c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // shortens the distance left (state->unk_10) by 0.03 x the speed (func_0206a100): pos gets the
 // point that far along the direction, dir the direction as one of 8; TRUE (and kind) once it is 0

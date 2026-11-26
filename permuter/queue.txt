@@ -62,3 +62,4 @@ MatchEngine::func_02065178 src/match/MatchEngine.cpp state and -1 registers swap
 MatchEngine::func_0207dec0 src/match/MatchEngine_2.cpp cap and base registers swapped; trained stats loaded after the calls (the ROM loads them before, into r10)
 MatchEngine::func_02073a9c src/match/MatchEngine_2.cpp 13 words: in the last loop other and the free-slot index m have r6/r7 swapped; one compare's operands reversed
 MatchEngine::func_02075428 src/match/MatchEngine_2.cpp 2 words: the byte of data_020c4808 is loaded into r1 (the ROM: r0, free after the store of the result)
+MatchEngine::func_020640b4 src/match/MatchEngine.cpp 4 words: in the loop the stack argument y1 of func_01fff198 is stored before the register arguments (the ROM), after them (the rebuild)
