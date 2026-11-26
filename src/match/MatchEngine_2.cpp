@@ -71,7 +71,7 @@ extern "C" void func_02085d88(void);     // (for the asm functions)
 extern "C" BOOL func_02085e30(void *logic, int handle, u16 angle);
 extern "C" VecFx32 func_02085ec0(void *logic, int handle, fx32 x, fx32 y, fx32 z, BOOL a, BOOL b, BOOL c);
 extern "C" int func_02083e34(MatchPlayer *player);
-extern "C" void func_02083e44(void);     // (for the asm functions)
+extern "C" u8 func_02083e44(int a);     // (the other side)
 extern "C" u8 func_020841c8(int i);
 extern "C" void func_020841d8(MatchPoint *point);
 extern "C" BOOL func_02084788(MatchPoint *point);
@@ -572,6 +572,15 @@ extern "C" int func_01ffe22c(MatchEngine *engine);
 extern "C" int func_01ffe3e4(MatchEngine *engine);
 extern "C" char data_020a722c[];
 #include "game/SceneManager.hpp"
+// (swaps a and b through tmp, flushing each from the cache after its copy)
+#define MATCH_SWAP_FLUSH(a, b, tmp)                 \
+    MI_CpuCopy8(a, tmp, sizeof(tmp));               \
+    DC_FlushRange(tmp, sizeof(tmp));                \
+    MI_CpuCopy8(b, a, sizeof(tmp));                 \
+    DC_FlushRange(a, sizeof(tmp));                  \
+    MI_CpuCopy8(tmp, b, sizeof(tmp));               \
+    DC_FlushRange(b, sizeof(tmp))
+
 // the slots of a duel's players still free get kind (a, b): (3, 4) on both sides when each has
 // two or more free, one of them each (at random) when one side has just one, then (5, 6)
 static inline void Duel_FillSlots(UnkRecord_02076168 *rec, u8 a, u8 b)
@@ -9957,6 +9966,37 @@ void MatchEngine::func_0207934c()
     }
 }
 
+// the two sides change ends (half time): gGameState's u16s at 0x80 and 0x82, the team infos,
+// unk_34c and unk_3ac swap, and each player still in the match goes to the other side
+// (nonmatching: the ROM keeps the two u16s it swaps in a stack temporary (sp+0, sp+2); here they stay in registers, which moves every buffer by 4)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_020793bc()
+{
+    u8 info[0x40];
+    u8 places[0x10];
+    u8 members[0x20];
+    u16 sides[2];
+    int i;
+    MatchPlayer *player;
+
+    sides[0] = *(u16 *)&gGameState.unk_07c[4];
+    sides[1] = *(u16 *)&gGameState.unk_07c[6];
+    *(u16 *)&gGameState.unk_07c[4] = sides[1];
+    *(u16 *)&gGameState.unk_07c[6] = sides[0];
+    MATCH_SWAP_FLUSH(GetTeamInfo(0), GetTeamInfo(1), info);
+    MATCH_SWAP_FLUSH(unk_34c[0], unk_34c[1], members);
+    MATCH_SWAP_FLUSH(unk_3ac[0], unk_3ac[1], places);
+    for (i = 0; i < 0x84; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player != NULL && MatchPlayer_HasFlag(player, 1) && func_02080b90(player) != 2) {
+            func_02080c64(player, func_02083e44(func_02080b90(player)));
+        }
+    }
+}
+#pragma pop
+#else
 asm void MatchEngine::func_020793bc()
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, lr}
@@ -10088,6 +10128,7 @@ asm void MatchEngine::func_020793bc()
     add sp, sp, #0x74
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
+#endif
 
 // (swaps the members of teams a and b (unk_34c): a's take their place again with flags 3 (and
 // 0x1C on the field, 0x80 as goalkeeper) less mask, the others get a free entry; b's lose flags
