@@ -332,7 +332,7 @@ public:
     int func_0206b89c(MatchPlayer *player, MatchPoint *target);
     int func_0206b9c4(MatchBall *ball, fx32 distance);
     int func_0206ba84(MatchPlayer *player, u16 *ids, int max, int *best, int *angle, s8 *level);
-    void func_0206bc70();
+    void func_0206bc70(int index);
     void func_0206befc(MatchPoint *a, MatchPoint *b);
     BOOL func_0206bf2c(MatchPlayer *player);
     void func_0206bf88();

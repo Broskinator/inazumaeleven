@@ -10157,7 +10157,91 @@ int MatchEngine::func_0206ba84(MatchPlayer *player, u16 *ids, int max, int *best
     return n;
 }
 
-asm void MatchEngine::func_0206bc70()
+// (the player index's call to its teammates in front (func_0206ba84): when none of them is of a
+// higher level, a draw between twice its own func_02069394 and the others' decides; when it
+// wins they all take it up (func_02063550) and the body goes to state 5, else to 6)
+// (nonmatching: 150 words: the ROM keeps nearest (0x7fffffff, never changed) in a stack slot
+// and tests it, and stores a 0 in the fourth outgoing stack slot of the func_0206ba84 call (a
+// 7th argument?); with a volatile nearest and a 7th argument 112 words differ (the zero
+// register, the order of the stack slots))
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+void MatchEngine::func_0206bc70(int index)
+{
+    MatchPlayer *player = func_ov015_02130ae8(index);
+    s8 level = 1;
+    int nearest = 0x7FFFFFFF;
+    u16 ids[11];
+    int best;
+    int angle;
+    int count;
+    int score;
+    int i;
+    MatchPlayerBody *body;
+
+    u8 st = player->body->unk_1d;
+
+    if (st == 3 || st == 2) {
+        return;
+    }
+    if (player->state->unk_30[0] != 0) {
+        return;
+    }
+    if (func_0207a350(player)) {
+        return;
+    }
+    MI_CpuClear8(ids, sizeof(ids));
+    count = func_0206ba84(player, ids, 11, &best, &angle, &level);
+    score = func_02069394((int)player, 0, 0x1D, 0, 0, 0);
+    if (level == -1) {
+        score = 0;
+    }
+    if (count < 0) {
+        return;
+    }
+    if (level == 0) {
+        int t = (count - 1) * (best + score) * func_0206c0c0(7) / 100;
+        score = score * 2 - t;
+        best = best * 2 + t;
+        if (score > 0) {
+            level = Random_RandB(score + best) < score ? 1 : -1;
+        }
+    }
+    if (level == 1) {
+        for (i = 0; i < count; i++) {
+            MatchPlayer *other = func_ov015_02130b14(ids[i], 0);
+            if (other != NULL) {
+                func_02063550(other, 0x1E, TRUE, 0, TRUE);
+            }
+        }
+        if (nearest < 0x7FFFFFFF) {
+            if (angle < 0) {
+                func_ov015_0213a75c(g3DFieldSprite, player, 3, player->body->unk_1a, 0);
+            } else {
+                func_ov015_0213a75c(g3DFieldSprite, player, 2, player->body->unk_1a, 0);
+            }
+        }
+        body = player->body;
+        if (body != NULL) {
+            body->unk_1c = 5;
+            body->unk_12 = 0x1E;
+            body->unk_14 = 0;
+        }
+    } else {
+        body = player->body;
+        if (body != NULL) {
+            body->unk_1c = 6;
+            body->unk_12 = 0x1E;
+            body->unk_14 = 0;
+        }
+    }
+    func_02080b00(player, (s16)(player->unk_94 - 5));
+    player->state->unk_30[0] = 0x1E;
+}
+#pragma pop
+#else
+asm void MatchEngine::func_0206bc70(int index)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x38
@@ -10330,6 +10414,7 @@ asm void MatchEngine::func_0206bc70()
     add sp, sp, #0x38
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_0206befc(MatchPoint *a, MatchPoint *b)
 {

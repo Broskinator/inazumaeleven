@@ -109,7 +109,7 @@ extern "C" void func_ov001_0210ac70(void);
 extern "C" void func_ov087_0217bb0c(void);
 extern "C" void func_ov015_02140d88(void);
 extern "C" void func_ov001_0210690c(void);
-extern "C" void _ZN11MatchEngine13func_0206bc70Ev(void);
+extern "C" void _ZN11MatchEngine13func_0206bc70Ei(void);
 extern "C" void func_ov001_0210a9c8(void);
 extern "C" void func_ov001_020ff594(void);
 extern "C" void func_ov001_0210d33c(void);
@@ -2322,7 +2322,7 @@ extern "C" asm void func_ov001_02113f08(void)
     beq @L_021148c8
     ldrsh r1, [r0, #0xf4]
     mov r0, r10
-    bl _ZN11MatchEngine13func_0206bc70Ev
+    bl _ZN11MatchEngine13func_0206bc70Ei
     b @L_021148c8
 @L_0211455c:
     ldr r0, [r5, #8]

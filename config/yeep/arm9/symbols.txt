@@ -2800,7 +2800,7 @@ _ZN11MatchEngine13func_0206b628EP11MatchPlayerP10MatchPoint kind:function(arm,si
 _ZN11MatchEngine13func_0206b89cEP11MatchPlayerP10MatchPoint kind:function(arm,size=0x128) addr:0x0206b89c
 _ZN11MatchEngine13func_0206b9c4EP9MatchBalll kind:function(arm,size=0xc0) addr:0x0206b9c4
 _ZN11MatchEngine13func_0206ba84EP11MatchPlayerPtiPiS3_Pa kind:function(arm,size=0x1ec) addr:0x0206ba84
-_ZN11MatchEngine13func_0206bc70Ev kind:function(arm,size=0x28c) addr:0x0206bc70
+_ZN11MatchEngine13func_0206bc70Ei kind:function(arm,size=0x28c) addr:0x0206bc70
 _ZN11MatchEngine13func_0206befcEP10MatchPointS1_ kind:function(arm,size=0x30) addr:0x0206befc
 _ZN11MatchEngine13func_0206bf2cEP11MatchPlayer kind:function(arm,size=0x5c) addr:0x0206bf2c
 _ZN11MatchEngine13func_0206bf88Ev kind:function(arm,size=0x10) addr:0x0206bf88
