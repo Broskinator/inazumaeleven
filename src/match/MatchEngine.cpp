@@ -166,7 +166,7 @@ extern "C" void _ZN11MatchEngine13func_020787e8EP11MatchPlayer(void);     // (fo
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020764ccEPh(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020764e4EPh(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_02074424EP11MatchPlayeriii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020744d4Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
@@ -490,7 +490,7 @@ extern "C" BOOL func_01ffed20(MatchEngine *self, MatchPlayer *player, fx32 y);
 extern "C" u32 Random_RandB(u32 max);
 extern "C" void func_ov015_02140f2c(MatchEngine *engine, MatchPlayer *player, fx32 x, fx32 y);
 extern "C" int func_ov015_02142824(MatchEngine *self, MatchPlayer *player);
-extern "C" int func_ov087_0217cf1c(MatchEngine *engine, int team, MatchPoint pos, int *out, int n, int team2);
+extern "C" int func_ov087_0217cf1c(MatchEngine *engine, int team, fx32 x, fx32 y, int *out, int n, int team2);
 extern "C" void func_ov087_0217d034(MatchEngine *self, int team, fx32 x, fx32 y, fx32 *dist, int a, int team2);
 extern "C" void func_ov087_0217e878(void);
 extern "C" MatchPlayer *func_ov087_02180be0(MatchEngine *engine, int a, fx32 x, fx32 y);
@@ -498,12 +498,12 @@ extern "C" void func_ov087_021820a8(void);
 extern "C" char data_020c4ecc[];
 extern "C" BOOL func_01ffe4c4(MatchEngine *self, MatchPlayer *player, fx32 x, fx32 y, u32 flags);
 extern "C" BOOL func_01ffe75c(MatchEngine *self, MatchPlayer *player, MatchPlayer *target, MatchPoint *pos, u32 flags, int *out);
-extern "C" BOOL func_01ffe898(MatchEngine *self, MatchPlayer *player, fx32 x, fx32 y, int a, int b);
+extern "C" BOOL func_01ffe898(MatchEngine *self, MatchPlayer *player, fx32 x, fx32 y, int a, MatchPoint *out);
 extern "C" BOOL func_01ffecec(MatchEngine *engine, fx32 y, fx32 limit, int team);
-extern "C" void func_01fff170(void);
+extern "C" fx32 func_01fff170(MatchEngine *self, MatchPlayer *a, MatchPlayer *b);     // (the distance between two players)
 extern "C" void func_ov087_021774bc(MatchEngine *self, fx32 x, fx32 y, fx32 range, MatchPlayer *player, fx32 *dist);
 extern "C" void func_ov087_0217877c(MatchEngine *self, MatchPlayer *player, MatchPoint *from, MatchPoint *out, fx32 a, fx32 b);
-extern "C" void func_ov087_0217d29c(void);
+extern "C" BOOL func_ov087_0217d29c(MatchEngine *engine, MatchPoint *point, MatchPlayer *player, int kind, fx32 radius);     // (a player within radius of point)
 extern "C" fx32 data_020aeb64[];
 extern "C" u8 data_020fa1a5[];
 extern "C" void func_ov015_0213fde4(MatchEngine *self, MatchBall *ball, int team, int a, MatchPoint *out);
@@ -4722,7 +4722,7 @@ void MatchEngine::func_02065dec(MatchPlayer *player)
         if (!func_02067e00(player, &target, &index, 0x4041F) &&
             !func_02067e00(player, &target, &index, 0x4041F + 0xB00)) {
             int out;
-            index = func_ov087_0217cf1c(this, player->unk_f4, *(MatchPoint *)&player->body->pos, &out, 0x10, player->unk_f4);
+            index = func_ov087_0217cf1c(this, player->unk_f4, player->body->pos.x, player->body->pos.y, &out, 0x10, player->unk_f4);
             MatchPlayer *other = func_ov015_02130ae8(index);
             if (other == NULL) {
                 target.x = data_020c4de0.unk_d4;
@@ -6081,6 +6081,127 @@ void MatchEngine::func_02067448(MatchPlayer *player, fx32 distance, MatchPoint *
     func_020681d8((MatchPoint *)&data_020c4920, angle, distance, pos);
 }
 
+// (a free point for player to run to: first ahead of a team-mate it can pass to (24 units along his
+// direction, 32-120 units from player, nobody within 32 of it), then behind a rival close to him
+// (as far again as player is from him); out gets the point, target what func_01ffe898 gives,
+// index the team-mate's unk_f4 (-1 otherwise); TRUE when one is found)
+// (nonmatching: 4 words: the constant 3 for func_ov087_0217cf1c goes through r0 before this does (the ROM),
+// through r3 (the rebuild). It wants O2 without common subexpressions)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+#pragma opt_common_subs off
+BOOL MatchEngine::func_020674f8(MatchPlayer *player, MatchPoint *out, MatchPoint *target, int *index)
+{
+    fx32 line;
+    fx32 px;
+    fx32 py;
+    int team;
+    int i;
+    MatchPlayer *other;
+    MatchPlayerBody *body;
+    fx32 x;
+    fx32 y;
+    fx32 dist;
+    MatchPoint p;
+    int found;
+    int own;
+
+    line = func_02067014(player, 0, 0);
+    px = player->body->pos.x;
+    py = player->body->pos.y;
+    func_020841d8(out);
+    if (index != NULL) {
+        *index = -1;
+    }
+    if (func_01ffed20(this, player, data_020c4de0.unk_d8)) {
+        return FALSE;
+    }
+    team = func_ov015_021319b0(player);
+    for (i = 0; i < 11; i++) {
+        other = func_02079e90(team, i);
+        if (other == NULL) {
+            continue;
+        }
+        if (func_02080b38(other)) {
+            continue;
+        }
+        if (func_0207a510(other, player)) {
+            continue;
+        }
+        if (func_01ffed20(this, other, data_020c4de0.unk_d8)) {
+            continue;
+        }
+        if (!func_02078f8c(other) && !func_02074424(other, 0, 1, 0, 0)) {
+            continue;
+        }
+        if (!func_01ffed20(this, other, line)) {
+            continue;
+        }
+        body = other->body;
+        x = body->pos.x + FX_Mul(FX_CosIdx(body->direction >> 4), 0x18000);
+        y = body->pos.y + FX_Mul(FX_SinIdx(body->direction >> 4), 0x18000);
+        if (!func_01ffed20(this, other, y)) {
+            continue;
+        }
+        if (!func_02084350(x, y)) {
+            continue;
+        }
+        dist = func_01fff184(this, MATH_ABS(x - player->body->pos.x), MATH_ABS(y - player->body->pos.y));
+        if (dist < 0x20000 || dist > 0x78000) {
+            continue;
+        }
+        p.x = x;
+        p.y = y;
+        if (func_ov087_0217d29c(this, &p, player, 0x10000, 0x20000)) {
+            continue;
+        }
+        if (!func_01ffe898(this, other, x, y, 0xC00, target)) {
+            continue;
+        }
+        out->x = x;
+        out->y = y;
+        if (index != NULL) {
+            *index = other->unk_f4;
+        }
+        return TRUE;
+    }
+    team = func_02083e54(player);
+    for (i = 0; i < 11; i++) {
+        other = func_02079e90(team, i);
+        if (other == NULL) {
+            continue;
+        }
+        dist = func_01fff170(this, other, player);
+        if (dist > 0x20000) {
+            continue;
+        }
+        body = other->body;
+        x = body->pos.x;
+        y = body->pos.y;
+        x += x - px;
+        y += y - py;
+        if (!func_02084350(x, y)) {
+            continue;
+        }
+        own = player->unk_f4;
+        other = func_ov015_02130ae8(func_ov087_0217cf1c(this, own, x, y, &found, 3, own));
+        if (func_02080b38(other)) {
+            continue;
+        }
+        if (found > dist) {
+            continue;
+        }
+        if (func_01ffe898(this, other, x, y, 0xC00, target)) {
+            out->x = x;
+            out->y = y;
+            return TRUE;
+        }
+    }
+    return FALSE;
+}
+#pragma pop
+#else
 asm BOOL MatchEngine::func_020674f8(MatchPlayer *player, MatchPoint *out, MatchPoint *target, int *index)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
@@ -6155,7 +6276,7 @@ asm BOOL MatchEngine::func_020674f8(MatchPlayer *player, MatchPoint *out, MatchP
     mov r1, r5
     mov r2, #0
     mov r3, #1
-    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriii
+    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii
     cmp r0, #0
     beq @L_020677a0
 @L_02067620:
@@ -6335,6 +6456,7 @@ asm BOOL MatchEngine::func_020674f8(MatchPlayer *player, MatchPoint *out, MatchP
     add sp, sp, #0x34
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (a score for player passing to target, by flags: target far enough from what
 // func_ov087_021774bc measures, past the middle or the edge of player's side of the field and

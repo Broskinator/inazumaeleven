@@ -5604,7 +5604,7 @@ BOOL MatchEngine::func_0207436c(MatchPlayer *player, int a, int b, int i, bool f
     return func_02074778((int)player, i, 0, flag);
 }
 
-BOOL MatchEngine::func_02074424(MatchPlayer *player, int a, int b, int c)
+BOOL MatchEngine::func_02074424(MatchPlayer *player, int a, int b, int c, int unused)
 {
     bool flag = (unk_117d6[func_ov015_021319b0(player)] & 1) != 0;
     int i;

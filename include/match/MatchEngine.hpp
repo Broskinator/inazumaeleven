@@ -546,7 +546,7 @@ public:
     int func_02074210(MatchPlayer *player, int a, int b, int c, int *out, int max);
     BOOL func_020742f0(MatchPlayer *player, int a, int b);
     BOOL func_0207436c(MatchPlayer *player, int a, int b, int i, bool flag);
-    BOOL func_02074424(MatchPlayer *player, int a, int b, int c);
+    BOOL func_02074424(MatchPlayer *player, int a, int b, int c, int unused);
     BOOL func_020744d4(int a);
     int func_0207455c(int a, BOOL b, u32 flags);
     int func_02074584(int a, BOOL b, u32 flags);

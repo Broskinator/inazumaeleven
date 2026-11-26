@@ -71,7 +71,7 @@ extern "C" s32 _ZN11MatchEngine13func_020725acEP11MatchPlayeriiiPi(...);
 extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);
 extern "C" void _ZN11MatchEngine13func_020742f0EP11MatchPlayerii(void);
-extern "C" void _ZN11MatchEngine13func_02074424EP11MatchPlayeriii(void);
+extern "C" void _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii(void);
 extern "C" void _ZN11MatchEngine13func_02074a18EPsP11MatchPlayer(void);
 extern "C" void _ZN11MatchEngine13func_0207620cEv(void);
 extern "C" void func_01fff00c(void);
@@ -266,7 +266,7 @@ extern "C" asm void func_ov001_021092c0(void)
     mov r3, r11
     str r5, [sp, #4]
     mov r1, r6
-    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriii
+    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii
     ldr r1, [r10, #0x50]
     cmp r1, #0
     moveq r11, #0x38
@@ -1308,7 +1308,7 @@ extern "C" asm void func_ov001_0210a280(void)
     mov r0, r11
     mov r1, r7
     mov r3, r6
-    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriii
+    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii
     str r0, [sp, #0x38]
     str r6, [r10, #0x54]
 @L_0210a3d0:
@@ -2166,7 +2166,7 @@ extern "C" asm void func_ov001_0210af94(void)
     mov r0, r11
     mov r1, r5
     mov r3, #2
-    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriii
+    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii
     str r0, [sp, #0x38]
     ldr r2, [r10, #0x78c]
     cmp r2, #0
@@ -3118,7 +3118,7 @@ extern "C" asm void func_ov001_0210bf88(void)
     mov r2, r7
     mov r3, r4
     stmia sp, {r5, r8}
-    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriii
+    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii
     mov r3, #0
     mov r7, r3
     mov r0, #0xc
@@ -3234,7 +3234,7 @@ extern "C" asm void func_ov001_0210c19c(void)
     mov r2, r6
     mov r3, r8
     stmia sp, {r4, r7}
-    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriii
+    bl _ZN11MatchEngine13func_02074424EP11MatchPlayeriiii
     mov r9, r7
     mov r0, #0xc
 @L_0210c254:
