@@ -140,7 +140,7 @@ extern "C" void _ZN11MatchEngine13func_0206ace8Ev(void);
 extern "C" void _ZN11MatchEngine13func_0206c694Ev(void);
 extern "C" void _ZN11MatchEngine13func_020768fcEm(void);
 extern "C" void _ZN11MatchEngine13func_0207a2a8Ei(void);
-extern "C" void _ZN11MatchEngine13func_0207e8f8Ev(void);
+extern "C" void _ZN11MatchEngine13func_0207e8f8Eii(void);
 extern "C" void _ZN8GameHeap4FreeEPv(void);
 extern "C" void NNS_G3dGetResDataByName(void);
 extern "C" void func_0208cee0(void);
@@ -2869,7 +2869,7 @@ extern "C" asm void func_ov015_0215548c(void)
     ldr r1, [sp, #0x80]
     ldr r2, [sp, #0x84]
     mov r0, r6
-    bl _ZN11MatchEngine13func_0207e8f8Ev
+    bl _ZN11MatchEngine13func_0207e8f8Eii
 @L_02155508:
     ldrsb r0, [r5, #0xb]
     add r0, r0, #1

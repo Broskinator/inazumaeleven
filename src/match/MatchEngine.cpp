@@ -354,7 +354,7 @@ extern "C" void _ZN11MatchEngine13func_02063e6cEll(void);     // (for the asm fu
 extern "C" void _ZN11MatchEngine13func_02063e7cEP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063ec8EP11MatchPlayer(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02063f24EP11MatchPlayerP10MatchPointPiillll(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020640b4Ev(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020640b4EP11MatchPlayerP10MatchPointPiS4_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02064500EP11MatchPlayerPlPiS3_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020646d4EP11MatchPlayerP10MatchPointPiS4_(void);     // (for the asm functions)
 extern "C" char data_020aec84[];
@@ -2587,7 +2587,7 @@ asm BOOL MatchEngine::func_02063f24(MatchPlayer *player, MatchPoint *pos, int *d
 }
 #endif
 
-asm void MatchEngine::func_020640b4()
+asm BOOL MatchEngine::func_020640b4(MatchPlayer *player, MatchPoint *out, int *dir, int *index)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x2c
@@ -3396,7 +3396,7 @@ asm BOOL MatchEngine::func_020646d4(MatchPlayer *player, MatchPoint *pos, int *d
     mov r1, r9
     mov r2, r8
     str r7, [sp]
-    bl _ZN11MatchEngine13func_020640b4Ev
+    bl _ZN11MatchEngine13func_020640b4EP11MatchPlayerP10MatchPointPiS4_
     add sp, sp, #0x44
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 @L_02064c04:

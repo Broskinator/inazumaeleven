@@ -207,7 +207,7 @@ public:
     void func_02063e7c(MatchPlayer *player);
     void func_02063ec8(MatchPlayer *player);
     BOOL func_02063f24(MatchPlayer *player, MatchPoint *pos, int *dir, int unused, fx32 x0, fx32 y0, fx32 x1, fx32 y1);
-    void func_020640b4();
+    BOOL func_020640b4(MatchPlayer *player, MatchPoint *out, int *dir, int *index);
     BOOL func_02064500(MatchPlayer *player, fx32 *pos, int *dir, int *kind);
     BOOL func_020646d4(MatchPlayer *player, MatchPoint *pos, int *dir, int *kind);
     void func_02065178(MatchPlayer *player);
@@ -799,7 +799,7 @@ public:
     void func_0207e738(int index, int px, int py);
     int func_0207e810(int index);
     int func_0207e884(int index);
-    void func_0207e8f8();
+    void func_0207e8f8(int a, int b);
     BOOL func_0207ec28(int index, int value);
     BOOL func_0207ec70(int team, u32 id, int pos);
     int func_0207ee18(u32 id);
