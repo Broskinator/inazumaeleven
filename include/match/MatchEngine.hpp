@@ -237,9 +237,9 @@ public:
     void func_02067448(MatchPlayer *player, fx32 distance, MatchPoint *pos);
     void func_020674f8();
     int func_020678d0(MatchPlayer *player, u32 flags, MatchPlayer *target, MatchPoint *point, int a, int b);
-    BOOL func_02067aec(MatchPlayer *player, int a, int b, void *c, int d, int e);
-    BOOL func_02067e00(MatchPlayer *player, int a, int b, int c);
-    BOOL func_02067e78(MatchPlayer *player, int a, int b);
+    BOOL func_02067aec(MatchPlayer *player, MatchPoint *out, int *id, u16 *ids, int count, u32 flags); // (picks whom to pass to)
+    BOOL func_02067e00(MatchPlayer *player, MatchPoint *out, int *id, u32 flags);
+    BOOL func_02067e78(MatchPlayer *player, MatchPoint *out, int *id);
     int func_02067f44(MatchPlayer *player, int angle);
     BOOL func_02068028(MatchPlayer *player, MatchPoint *out, int a, fx32 dist);
     BOOL func_0206811c(u16 *action);
