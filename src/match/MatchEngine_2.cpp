@@ -111,7 +111,7 @@ extern "C" BOOL func_02080a80(void *team, int i);
 extern "C" void func_02080abc(void);     // (for the asm functions)
 extern "C" BOOL func_02080b38(MatchPlayer *player);
 extern "C" void func_02080b74(void);     // (for the asm functions)
-extern "C" void func_02080c64(void);     // (for the asm functions)
+extern "C" void func_02080c64(MatchPlayer *player, int team);
 extern "C" void func_02080c6c(void);     // (for the asm functions)
 extern "C" int func_02080cb8(MatchPlayer *player);
 extern "C" BOOL func_02080cd0(MatchPlayer *player);
@@ -539,7 +539,7 @@ extern "C" BOOL func_ov087_0217f69c(MatchEngine *self, int a, int b, u8 *data, i
 extern "C" int func_ov087_02181680(MatchEngine *match, MatchPlayer *player);    // (the player's index, 0 to 21)
 extern "C" u8 *func_ov087_021816dc(MatchEngine *self, MatchPlayer *player);
 extern "C" int rand(void);
-extern "C" char data_020a7248[];
+extern "C" s32 data_020a7248[];     // (the 16 positions)
 extern "C" int data_020c4828;
 extern "C" char data_020ca716[];
 extern "C" void _ZN9EntryPool12FindFreeSlotEii(void);
@@ -10187,7 +10187,68 @@ asm void MatchEngine::func_020793bc()
     ldmia sp!, {r4, r5, r6, r7, r8, r9, pc}
 }
 
-asm void MatchEngine::func_020795b4()
+// (swaps the members of teams a and b (unk_34c): a's take their place again with flags 3 (and
+// 0x1C on the field, 0x80 as goalkeeper) less mask, the others get a free entry; b's lose flags
+// 2, 4 and 8; team 0's unk_22 and unk_3e trade places)
+// (nonmatching: registers rotated in both loops (ma/b, the table and index), loop 2's table value loaded after the flag stores)
+#ifdef NONMATCHING
+void MatchEngine::func_020795b4(int a, int b, int mask)
+{
+    u8 tmp[0x20];
+    int index;
+    u8 *info;
+    u8 *mb;
+    MatchPlayer *player;
+    u8 *ma;
+    int pos;
+    ma = unk_34c[a];
+    MI_CpuCopy8(ma, tmp, sizeof(tmp));
+    mb = unk_34c[b];
+    MI_CpuCopy8(mb, ma, sizeof(tmp));
+    MI_CpuCopy8(tmp, mb, sizeof(tmp));
+    info = GetTeamInfo(0);
+    for (b = 0; b < 16; b++) {
+        pos = data_020a7248[b];
+        player = func_ov015_02130b14(func_02080328(ma, pos - 1), 0);
+        if (player != NULL && MatchPlayer_HasFlag(player, 1)) {
+            func_02080c64(player, a);
+            player->unk_f0 &= (u16)~mask;
+            player->unk_f0 |= 3;
+            if (pos >= 1 && pos <= 11) {
+                player->unk_f0 |= 0x1C;
+            }
+            if (pos == 1) {
+                player->unk_f0 |= 0x80;
+            }
+            player->unk_b7 = data_020a7248[b];
+            gEntryPool.Swap(b, player->unk_f4);
+        } else {
+            int slot = gEntryPool.FindFreeSlot(0x20, 0x83);
+            if (slot == -1) {
+                slot = func_01ffe354(this, 1);
+                if (slot == -1) {
+                    continue;
+                }
+            }
+            gEntryPool.Swap(b, slot);
+        }
+    }
+    for (b = 0; b < 16; b++) {
+        index = -1;
+        player = func_ov015_02130b14(func_02080328(mb, data_020a7248[b] - 1), (int)&index);
+        if (player != NULL && index >= 0) {
+            player->unk_f0 &= (u16)~8;
+            player->unk_f0 &= (u16)~2;
+            player->unk_f0 &= (u16)~4;
+            func_020813a0(player, data_020a7248[b]);
+        }
+    }
+    u16 t = *(u16 *)(info + 0x22);
+    *(u16 *)(info + 0x22) = *(u16 *)(info + 0x3E);
+    *(u16 *)(info + 0x3E) = t;
+}
+#else
+asm void MatchEngine::func_020795b4(int a, int b, int mask)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x30
@@ -10331,6 +10392,7 @@ asm void MatchEngine::func_020795b4()
     add sp, sp, #0x30
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_020797d4()
 {

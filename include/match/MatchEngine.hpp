@@ -689,7 +689,7 @@ public:
     void func_020792cc(int team, BOOL on);
     void func_0207934c();
     void func_020793bc();
-    void func_020795b4();
+    void func_020795b4(int a, int b, int mask);
     void func_020797d4();
     void func_02079838(int level);
     void func_020798c0(int team, int level);

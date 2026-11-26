@@ -69,7 +69,7 @@ extern "C" s32 _ZN11MatchEngine11GetTeamInfoEi(...);
 extern "C" s32 _ZN11MatchEngine13func_0206cd78Ei(...);
 extern "C" s32 _ZN11MatchEngine13func_0206e84cEv(...);
 extern "C" void _ZN11MatchEngine13func_0206e858EmPP11MatchPlayeri(void);
-extern "C" s32 _ZN11MatchEngine13func_020795b4Ev(...);
+extern "C" s32 _ZN11MatchEngine13func_020795b4Eiii(...);
 extern "C" void _ZN11MatchEngine13func_0207d244Eii(void);
 extern "C" s32 _ZdlPv(...);
 extern "C" s32 C3DPlaneCtrl_Acquire(...);
@@ -1084,7 +1084,7 @@ extern "C" s32 func_ov034_02166d64(u8 *arg0, s32 arg1, s32 arg2, s32 arg3)
     r4 = (s32)data_020e88a0;
     r5 = 0;
     if (*(s32 *)(arg0 + 0x1CC) == 1) {
-        _ZN11MatchEngine13func_020795b4Ev(r4, r5, 2, 0x9F);
+        _ZN11MatchEngine13func_020795b4Eiii(r4, r5, 2, 0x9F);
         *(u8 *)(data_020c463a) = 1;
     }
     *(u8 *)(data_020c463b) = 1;
