@@ -48,8 +48,8 @@ extern "C" MatchPlayer *func_ov015_02130b14(int index, int a);
 extern "C" void func_0208e9d4(u8 *obj, int i, fx32 x, fx32 y, fx32 toX, fx32 toY, int kind);
 extern "C" void func_0208f2d0(u8 *obj);
 extern "C" void func_0208f300(u8 *obj, u8 value);
-extern "C" void func_0208f310(void);     // (for the asm functions)
-extern "C" void func_0208f6ac(void);     // (for the asm functions)
+extern "C" s32 func_0208f310(u8 *data, int i, fx32 x, fx32 y, fx32 speed);
+extern "C" s32 func_0208f6ac(u8 *data, fx32 x0, fx32 y0, fx32 x1, fx32 y1, fx32 x, fx32 y, fx32 *outX, fx32 *outY);
 extern "C" void func_0208e9b8(u8 *obj, int i, BOOL value);
 extern "C" void func_02087500(void *chars, int unit, int id, int a, u16 value, int b, u8 c);
 extern "C" void func_020877e0(void);     // (for the asm functions)
@@ -122,7 +122,7 @@ extern "C" s32 func_0208130c(MatchPlayer *player, s32 a);
 extern "C" int func_02081390(MatchPlayer *player, int value);
 extern "C" void func_02081398(MatchPlayer *player, int value);
 extern "C" int func_020813a0(MatchPlayer *player, int value);
-extern "C" void func_02081438(void);     // (for the asm functions)
+extern "C" s32 func_02081438(MatchPlayer *player);
 extern "C" void func_02081484(void);     // (for the asm functions)
 extern "C" void func_020814d0(void);     // (for the asm functions)
 extern "C" int func_0208151c(MatchPlayer *player);
@@ -411,12 +411,22 @@ extern "C" char data_020c6cb0[];
 extern "C" void _ZN11FileManager4LoadEPKcPPvP8GameHeapiiiih(void);
 extern "C" void _ZN9EntryPool3GetEi(void);
 extern "C" fx32 func_01fff13c(MatchEngine *self, fx32 x, fx32 y, fx32 lineX, fx32 lineY);
-extern "C" void FX_Sqrt(void);
+extern "C" fx32 FX_Sqrt(fx32 x);
 extern "C" void _s32_div_f(void);
 extern "C" u32 Random_RandB(u32 max);
 extern "C" int func_ov015_02131970(MatchPlayer *player);
 extern "C" fx32 func_ov015_02142824(MatchEngine *self, MatchPlayer *player);
-extern "C" void func_ov015_021436c0(void);
+// (0x28 bytes: func_ov015_021436c0 gives the current one)
+struct UnkState_021436c0 {
+    u8 unk_0[0x1D];
+    s8 unk_1d;          // (the player who cuts the pass, -1 none)
+    s16 unk_1e;         // (with which of his moves)
+    u8 unk_20[3];
+    s8 unk_23;          // (the passer)
+    s16 unk_24;         // (where, in units)
+    s16 unk_26;
+};
+extern "C" UnkState_021436c0 *func_ov015_021436c0(MatchEngine *engine);
 
 extern "C" void _ZN11MatchEngine13func_0206ad68Eii(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020704b0Ei(void);     // (for the asm functions)
@@ -1472,7 +1482,145 @@ void MatchEngine::func_0206fed0(MatchPlayer *player, fx32 x, fx32 y, fx32 toX, f
     }
 }
 
-asm void MatchEngine::func_0206ffe0()
+// (looks for an opponent who can cut player's pass from (x, y) to (toX, toY) with a move (flag 2 or
+// 4 and enough TP): the one who gets there first, within the pass (extended by half each way); the
+// result goes to func_ov015_021436c0's record and that player is sent there (action 13))
+// (nonmatching: 232 words: the rebuild keeps the best interceptor record (0x58: index, move
+// slot, time, x, y) in registers and spill slots, where the ROM keeps it in memory, so the frame
+// and the registers differ)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+BOOL MatchEngine::func_0206ffe0(MatchPlayer *player, fx32 x, fx32 y, fx32 toX, fx32 toY)
+{
+    struct {
+        s16 index;
+        s16 slot;
+        s32 time;
+        s16 x;
+        s16 y;
+    } best;
+    MatchPoint hit1;
+    MatchPoint hit2;
+    UnkPair_020621b4 *info;
+    int team;
+    BOOL home;
+    MatchPlayer *other;
+    s32 reach;
+    fx32 dx;
+    fx32 dy;
+    fx32 startX;
+    fx32 startY;
+    fx32 endX;
+    fx32 endY;
+    int idx;
+    fx32 len;
+    UnkState_021436c0 *state;
+    int i;
+    int k;
+    int found;
+    u8 *move;
+    fx32 speed;
+    s32 time;
+    fx32 d;
+
+    if (!func_02070760()) {
+        return FALSE;
+    }
+    if (player == NULL) {
+        return FALSE;
+    }
+    info = func_ov015_02143664(this);
+    team = func_02080b90(player);
+    home = team == 0;
+    if (toX != (fx32)0x80000000 && toY != (fx32)0x80000000) {
+        func_0206fed0(player, x, y, toX, toY);
+    }
+    other = func_ov015_02130ae8(info->unk_d);
+    if (other == NULL) {
+        reach = -1;
+    } else {
+        reach = func_0208f6ac(data_020c4824, x, y, toX, toY, other->body->pos.x, other->body->pos.y, &hit1.x, &hit1.y);
+    }
+    dx = toX - x;
+    dy = toY - y;
+    endY = toY + dy / 2;
+    startY = y - dy / 2;
+    endX = toX + dx / 2;
+    startX = x - dx / 2;
+    idx = 0;
+    len = FX_Sqrt(FX_Mul(dx, dx) + FX_Mul(dy, dy));
+    state = func_ov015_021436c0(this);
+    best.index = -1;
+    best.time = 0x7FFFFFFF;
+    if (home) {
+        idx = 11;
+    }
+    for (i = 0; i < 11; i++, idx++) {
+        other = func_02079d2c(idx);
+        if (other == NULL || team == func_02080b90(other)) {
+            continue;
+        }
+        if (MatchPlayer_HasFlag(other, 0x80) && func_0207903c(other)) {
+            continue;
+        }
+        if (func_02080b38(other) || !func_02080abc(other)) {
+            continue;
+        }
+        found = -1;
+        for (k = 0; k < 6; k++) {
+            move = func_020739cc(other->unk_98[k]);
+            if (move == NULL) {
+                continue;
+            }
+            if (Move_HasFlag(move, 2) || Move_HasFlag(move, 4)) {
+                if (other->unk_96 >= func_02074a18((s16 *)move, other)) {
+                    found = (s8)other->unk_f4;
+                }
+                break;
+            }
+        }
+        if (found == -1) {
+            continue;
+        }
+        speed = func_02081438(other) / 5;
+        if (speed > 20) {
+            speed = 20;
+        }
+        speed = (speed + 12) << FX32_SHIFT;
+        time = func_0208f310(data_020c4824, 0, other->body->pos.x, other->body->pos.y, speed);
+        if (time < 0) {
+            continue;
+        }
+        func_0208f6ac(data_020c4824, startX, startY, endX, endY, other->body->pos.x, other->body->pos.y, &hit2.x, &hit2.y);
+        d = FX_Sqrt(FX_Mul(hit2.x - x, hit2.x - x) + FX_Mul(hit2.y - y, hit2.y - y));
+        if ((reach >= 0 && d >= 0 && d < reach) || (reach < 0 && d < speed + len)) {
+            if (best.time > time) {
+                best.time = time;
+                best.slot = k;
+                best.index = other->unk_f4;
+                best.x = hit2.x >> FX32_SHIFT;
+                best.y = hit2.y >> FX32_SHIFT;
+            }
+        }
+    }
+    state->unk_1d = best.index;
+    state->unk_23 = player->unk_f4;
+    state->unk_1e = best.slot;
+    state->unk_24 = best.x;
+    state->unk_26 = best.y;
+    if (state->unk_1d != -1) {
+        if (func_02084870(func_ov015_02130ae8(state->unk_1d))) {
+            func_0206bf2c(func_ov015_02130ae8(state->unk_1d));
+        }
+        func_020654cc(func_ov015_02130ae8(state->unk_1d), 13, -1, NULL, NULL, 0);
+        func_ov015_02130ae8(state->unk_1d);
+    }
+    return state->unk_1d != -1;
+}
+#pragma pop
+#else
+asm BOOL MatchEngine::func_0206ffe0(MatchPlayer *player, fx32 x, fx32 y, fx32 toX, fx32 toY)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x64
@@ -1796,6 +1944,7 @@ asm void MatchEngine::func_0206ffe0()
     add sp, sp, #0x64
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 void MatchEngine::func_020704b0(BOOL a)
 {
