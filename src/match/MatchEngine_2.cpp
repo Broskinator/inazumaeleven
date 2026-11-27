@@ -11533,7 +11533,128 @@ u8 MatchEngine::func_0207b160(int team)
     return 0;
 }
 
-asm int MatchEngine::func_0207b28c(int team, int index, BOOL flag, u8 a)
+// (puts the player with id in slot of team's list (unk_34c; slot 0 takes the player off it): 0 done,
+// 1 no free place, 3 no such player, 4 a bad slot; a taken slot is swapped when swap is set (the
+// player there takes this one's old slot), else the player goes to the first free one)
+// (nonmatching: 213 words: at O2 the tests team == 0 || team == 1 become an unsigned range
+// check the ROM does not have, the side-flag store is not shared, and the registers differ)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+int MatchEngine::func_0207b28c(int team, int id, int slot, u8 swap)
+{
+    int index;
+    MatchPlayer *player;
+    int old;
+    int place;
+    int cur;
+    int i;
+    MatchPlayer *other;
+    u8 *list;
+
+    index = slot - 1;
+    list = unk_34c[team];
+    if (slot < 0 || index >= 16) {
+        return 4;
+    }
+    if (gGameState.unk_000[0x1B] == 0) {
+        id = (u16)(id & 0xFFF);
+        if (team == 1) {
+            id |= 0x8000;
+        }
+    }
+    player = func_ov015_02130b14(id, 0);
+    if (player == NULL) {
+        return 3;
+    }
+    old = func_020812fc(player);
+    place = func_02081304(player);
+    if (gGameState.unk_000[0x1A] == 0) {
+        if (team == 0) {
+            player->unk_f0 = (player->unk_f0 | 0x20) & (u16)~0x40;
+        } else if (team == 1) {
+            player->unk_f0 &= (u16)~0x20;
+            player->unk_f0 |= 0x40;
+        }
+    }
+    if (player == NULL || !func_0207af84(team == 2 ? 0 : team, id)) {
+        return 3;
+    }
+    if (slot == 0) {
+        if (team == 0 || team == 1) {
+            player->unk_f0 &= (u16)~0xE;
+        }
+        if (player->unk_f4 > 16) {
+            func_02081390(player, 0);
+        }
+        return 0;
+    }
+    if (index >= 0 && id == func_02080328(list, index)) {
+        return 0;
+    }
+    if (team == 0 || team == 1) {
+        if (player->unk_b8[0] == 0 || func_0207f42c(player)) {
+            player->unk_b8[0] = func_0207b160(team);
+        }
+    }
+    if (index >= 0) {
+        cur = func_02080328(list, index);
+        if (cur == 0) {
+            func_020802cc(list, index, id);
+            func_0207b708(team, player, index + 1, old, place);
+            return 0;
+        }
+        if (swap) {
+            func_020802cc(list, index, id);
+            if (team == 0 || team == 1) {
+                func_0207c478(player, index + 1, old, place);
+            } else {
+                func_020813a0(player, index + 1);
+            }
+            other = func_ov015_02130b14(cur, 0);
+            if (team == 0 && player->unk_f4 >= 16) {
+                gEntryPool.Swap(player->unk_f4, other->unk_f4);
+            }
+            func_0207b28c(team, cur, func_020812fc(other), 0);
+            return 0;
+        }
+    }
+    if (slot >= 2 && slot <= 11) {
+        for (i = 1; i < 11; i++) {
+            if (func_02080328(list, i) == 0) {
+                func_020802cc(list, i, id);
+                func_0207b708(team, player, index + 1, old, place);
+                return 0;
+            }
+        }
+    }
+    for (i = 11; i < 16; i++) {
+        if (func_02080328(list, i) == 0) {
+            func_020802cc(list, i, id);
+            func_0207b708(team, player, index + 1, old, place);
+            return 0;
+        }
+    }
+    if (gGameState.unk_000[0x1A] != 0) {
+        for (i = 0; i < 12; i++) {
+            if (func_02080328(list, i) == 0) {
+                func_020802cc(list, i, id);
+                func_0207b708(team, player, index + 1, old, place);
+                return 0;
+            }
+        }
+    }
+    if (player != NULL && (team == 0 || team == 1)) {
+        player->unk_b8[0] = 0;
+        func_0207c478(player, 0, 0, 0);
+    } else {
+        func_020813a0(player, 0);
+    }
+    return 1;
+}
+#pragma pop
+#else
+asm int MatchEngine::func_0207b28c(int team, int id, int slot, u8 swap)
 {
     stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x10
@@ -11849,6 +11970,7 @@ asm int MatchEngine::func_0207b28c(int team, int index, BOOL flag, u8 a)
     add sp, sp, #0x10
     ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 int MatchEngine::func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int c)
 {

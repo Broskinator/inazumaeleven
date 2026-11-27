@@ -743,7 +743,7 @@ public:
     BOOL func_0207af84(int team, int id);
     int func_0207b00c(int team, u16 id, BOOL flag, u8 a, int b, u8 c);
     u8 func_0207b160(int team);
-    int func_0207b28c(int team, int index, BOOL flag, u8 a);
+    int func_0207b28c(int team, int id, int slot, u8 swap);
     int func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int c);
     int func_0207b780(int team, u16 id, int pos, u8 flag, u16 *out, int slot); // (0 when done; 2, 3, 4 refused)
     void func_0207bb9c();
