@@ -133,10 +133,13 @@ repository's encrypted secrets and is never uploaded. A secret holds at most 48 
 256 MB, so `BASEROM_B64` (read first if set) cannot hold it; use `BASEROM_KEY` instead:
 
 1. `gpg --symmetric --cipher-algo AES256 baserom_yeep.nds` (choose a strong passphrase).
-2. Attach `baserom_yeep.nds.gpg` to a release of this private repository tagged `baserom`
-   (`gh release create baserom baserom_yeep.nds.gpg --title baserom --notes "encrypted"`).
+2. Put `baserom_yeep.nds.gpg` somewhere private that `curl` can download from (a link only you
+   have), and set the secret `BASEROM_URL` to it. **The repository is public: never attach the
+   file to a release here**, as release assets are public. (Only while the repository was
+   private could it live in a release tagged `baserom`; the workflow uses that only when the
+   repository is private and `BASEROM_URL` is unset.)
 3. Settings > Secrets and variables > Actions > New repository secret: `BASEROM_KEY` = the
-   passphrase (`gh secret set BASEROM_KEY`). Optional `BASEROM_URL`: download the .gpg from there.
+   passphrase (`gh secret set BASEROM_KEY`), and `BASEROM_URL`.
 
 Without the secret the workflow skips the build with a notice and still checks the tools and
 the includes.

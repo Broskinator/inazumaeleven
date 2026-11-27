@@ -6,9 +6,10 @@
 #
 #   BASEROM_KEY   the passphrase of an encrypted copy of the ROM, baserom_yeep.nds.gpg, made with
 #                     gpg --symmetric --cipher-algo AES256 baserom_yeep.nds
-#                 and attached to a release of this (private) repository tagged "baserom".
-#                 With a BASEROM_URL secret as well, the encrypted copy is downloaded from that
-#                 address instead of the release.
+#                 and downloaded from the address in the BASEROM_URL secret: somewhere private
+#                 (the repository is public, so a release of it would publish the file).
+#                 Only a private repository may keep it in a release of its own tagged
+#                 "baserom" instead, used when BASEROM_URL is not set.
 #   BASEROM_B64   the ROM itself in base64. GitHub limits a secret to 48 KB and this ROM is
 #                 256 MB, so this one cannot hold it: it is read first if it is ever set.
 #
@@ -56,14 +57,19 @@ jobs:
           BASEROM_KEY: ${{ secrets.BASEROM_KEY }}
           BASEROM_URL: ${{ secrets.BASEROM_URL }}
           GH_TOKEN: ${{ github.token }}
+          REPO_PRIVATE: ${{ github.event.repository.private }}
         run: |
           if [ -n "$BASEROM_B64" ]; then
             printf '%s' "$BASEROM_B64" | base64 -d > baserom_yeep.nds
           elif [ -n "$BASEROM_KEY" ]; then
             if [ -n "$BASEROM_URL" ]; then
               curl -fsSL "$BASEROM_URL" -o baserom_yeep.nds.gpg
-            else
+            elif [ "$REPO_PRIVATE" = "true" ]; then
               gh release download baserom -R "$GITHUB_REPOSITORY" -p baserom_yeep.nds.gpg
+            else
+              echo "::notice title=ROM check skipped::The repository is public: set BASEROM_URL to a private copy of baserom_yeep.nds.gpg (a release here would be public). See CLAUDE.md, Continuous integration."
+              echo "found=false" >> "$GITHUB_OUTPUT"
+              exit 0
             fi
             printf '%s' "$BASEROM_KEY" | gpg --batch --quiet --pinentry-mode loopback \
               --passphrase-fd 0 --output baserom_yeep.nds --decrypt baserom_yeep.nds.gpg
