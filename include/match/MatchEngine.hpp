@@ -525,7 +525,7 @@ public:
     int func_020728e0(int value);
     BOOL func_02072914(MatchPlayer *player, int value, u8 *req, int i);
     BOOL func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8 *req);
-    void func_02072bb8(MatchPlayer *player, int id, int slot);
+    BOOL func_02072bb8(MatchPlayer *player, int id, int slot);
     int func_02072fe8(MatchPlayer *player, int id, BOOL first);
     int func_02073094(int index, int a, int b);
     BOOL func_020730dc(MatchPlayer *player, int id, int slot, u8 force);

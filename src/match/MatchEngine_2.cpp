@@ -87,7 +87,7 @@ extern "C" BOOL func_02082c8c(void *a, int b);
 extern "C" void func_02081b24(u8 *data, int i, int delta);
 extern "C" void func_02081b44(u8 *data);
 extern "C" s32 func_02081b70(u8 *arg0, u8 *arg1);
-extern "C" void func_020802a0(void);     // (for the asm functions)
+extern "C" int func_020802a0(MatchPlayer *player);
 extern "C" void func_020802ac(void);     // (for the asm functions)
 extern "C" void func_020802b8(u8 *entry);
 extern "C" void func_020802cc(u8 *entry, int i, u32 id);
@@ -102,7 +102,7 @@ extern "C" u16 func_020807b4(u8 *entry);
 extern "C" s32 func_020807d0(u8 *entry, s32 id);
 extern "C" BOOL func_02080804(MatchPlayer *player);
 extern "C" void func_02080830(void *player, int i, u16 a, u16 b);
-extern "C" u32 func_0208084c(MatchPlayer *player, int slot, int k);   // (the k-th partner set for a move)
+extern "C" u16 func_0208084c(MatchPlayer *player, int slot, int k);   // (the k-th partner set for a move)
 extern "C" BOOL func_020808e8(MatchPlayer *player, u16 id);
 extern "C" BOOL func_02080964(MatchPlayer *player, int slot, u16 id, int a);
 extern "C" void func_020809e8(MatchPlayer *player, int slot);
@@ -490,10 +490,14 @@ extern "C" void abort(void);
 extern "C" void memmove(void);
 extern "C" int func_0201a508(const char *format, ...);    // (printf)
 extern "C" void _u32_div_f(void);
-extern "C" char data_020a71d0[];
+// (the formation positions in an order that keeps neighbours close: func_02072bb8)
+struct UnkOrder_02072bb8 {
+    s32 pos[8];
+};
+extern "C" UnkOrder_02072bb8 data_020a71d0;
 extern "C" char data_020af274[];
 extern "C" BOOL func_ov015_021318a4(MatchPlayer *a, MatchPlayer *b);
-extern "C" void memset(void);
+#include "msl/string.h"
 extern "C" u8 data_020c4808[];
 extern "C" char data_020fa076[];
 extern "C" int data_020fc704;     // (the duel's result: func_02075428)
@@ -4166,292 +4170,113 @@ BOOL MatchEngine::func_02072a5c(MatchPlayer *player, MatchPlayer *target, u8 *re
     return FALSE;
 }
 
-asm void MatchEngine::func_02072bb8(MatchPlayer *player, int id, int slot)
+// (picks the partners of move id in player's slot (a move that needs move[0xA] more players):
+// those of another slot with the same move, else the team-mates whose formation position is
+// nearest (data_020a71d0), else the next of func_0207f634's order; FALSE when there are too few.
+// The searches of data_020a71d0 run to sizeof (32), past its 8 entries: so in the ROM)
+BOOL MatchEngine::func_02072bb8(MatchPlayer *player, int id, int slot)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x88
-    add r5, sp, #0x24
-    mov r4, #0
-    mov r10, r0
-    str r1, [sp, #8]
-    str r2, [sp, #0xc]
-    str r3, [sp, #0x10]
-    strh r4, [r5]
-    strh r4, [r5, #2]
-    movs r0, r1
-    beq @L_02072bfc
-    mov r1, r3
-    bl func_020808c4
-    ldr r1, [sp, #0xc]
-    cmp r1, r0
-    beq @L_02072c08
-@L_02072bfc:
-    add sp, sp, #0x88
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02072c08:
-    ldr r0, [sp, #8]
-    ldr r1, [sp, #0x10]
-    mov r2, r4
-    mov r3, r4
-    bl func_02080830
-    ldr r1, [sp, #0xc]
-    mov r0, r10
-    bl _ZN11MatchEngine13func_020739ccEi
-    str r0, [sp, #0x20]
-    cmp r0, #0
-    addeq sp, sp, #0x88
-    moveq r0, r4
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrb r0, [r0, #0xa]
-    cmp r0, #0
-    addeq sp, sp, #0x88
-    moveq r0, #1
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02072c50:
-    ldr r0, [sp, #0x10]
-    cmp r4, r0
-    beq @L_02072cbc
-    ldr r0, [sp, #8]
-    mov r1, r4
-    bl func_020808c4
-    ldr r1, [sp, #0xc]
-    cmp r1, r0
-    bne @L_02072cbc
-    ldr r0, [sp, #8]
-    mov r1, r4
-    mov r2, #0
-    bl func_0208084c
-    mov r5, #1
-    mov r6, r0
-    ldr r0, [sp, #8]
-    mov r1, r4
-    mov r2, r5
-    bl func_0208084c
-    mov r3, r0
-    ldr r0, [sp, #8]
-    ldr r1, [sp, #0x10]
-    mov r2, r6
-    bl func_02080830
-    add sp, sp, #0x88
-    mov r0, r5
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02072cbc:
-    add r4, r4, #1
-    cmp r4, #6
-    blt @L_02072c50
-    mov r0, #0
-    str r0, [sp, #0x14]
-    add r5, sp, #0x48
-    mov r4, #0x20
-    ldr r1, [sp, #0x14]
-    mov r0, r5
-    mov r2, r4
-    bl memset
-    ldr r1, [sp, #0x14]
-    mov r2, r4
-    add r0, sp, #0x68
-    bl memset
-    ldr r0, [sp, #8]
-    bl func_02080b90
-    ldr r1, [sp, #0x14]
-    mov r2, r5
-    str r1, [sp]
-    mov r1, r0
-    mov r0, #0x80
-    str r0, [sp, #4]
-    mov r0, r10
-    mov r3, #0x10
-    bl _ZN11MatchEngine13func_02078aacEiPtihi
-    str r0, [sp, #0x1c]
-    ldr r0, [sp, #8]
-    bl func_020802a0
-    add r5, sp, #0x28
-    ldr r7, =data_020a71d0
-    mov r8, r0
-    mov r4, r5
-    ldmia r7!, {r0, r1, r2, r3}
-    stmia r5!, {r0, r1, r2, r3}
-    ldmia r7, {r0, r1, r2, r3}
-    stmia r5, {r0, r1, r2, r3}
-    ldr r9, [sp, #0x14]
-@L_02072d54:
-    ldr r0, [r4, r9, lsl #2]
-    cmp r8, r0
-    streq r9, [sp, #0x18]
-    add r9, r9, #1
-    cmp r9, #0x20
-    blo @L_02072d54
-    ldr r0, [sp, #8]
-    mov r7, #1
-    ldrh r0, [r0, #0x42]
-    add r4, sp, #0x28
-    add r5, sp, #0x48
-    strh r0, [sp, #0x68]
-@L_02072d84:
-    ldr r1, [sp, #0x18]
-    ldr r0, [sp, #0x14]
-    mov r9, #0
-    add r11, r1, r0
-    sub r8, r1, r0
-@L_02072d98:
-    mov r0, r9, lsl #1
-    ldrh r1, [r5, r0]
-    cmp r1, #0
-    beq @L_02072e08
-    mov r0, r10
-    bl _ZN11MatchEngine13func_0206f500Ei
-    bl func_ov015_02130ae8
-    cmp r0, #0
-    beq @L_02072e08
-    bl func_020802a0
-    mov r2, #0
-@L_02072dc4:
-    ldr r1, [r4, r2, lsl #2]
-    cmp r0, r1
-    moveq r6, r2
-    add r2, r2, #1
-    cmp r2, #0x20
-    blo @L_02072dc4
-    cmp r6, r11
-    cmpne r6, r8
-    bne @L_02072e08
-    mov r3, r9, lsl #1
-    ldrh r2, [r5, r3]
-    mov r1, r7, lsl #1
-    add r0, sp, #0x68
-    strh r2, [r0, r1]
-    mov r0, #0
-    add r7, r7, #1
-    strh r0, [r5, r3]
-@L_02072e08:
-    add r9, r9, #1
-    cmp r9, #0x10
-    blt @L_02072d98
-    ldr r0, [sp, #0x14]
-    cmp r7, #0x10
-    add r0, r0, #1
-    str r0, [sp, #0x14]
-    beq @L_02072e30
-    cmp r0, #0x20
-    blo @L_02072d84
-@L_02072e30:
-    ldr r0, [sp, #0x1c]
-    mov r7, #0
-    mov r9, r7
-    cmp r0, #0
-    mov r6, r7
-    ble @L_02072ec8
-    add r4, sp, #0x24
-    add r8, sp, #0x68
-@L_02072e50:
-    mov r0, r9, lsl #1
-    ldrh r0, [r8, r0]
-    mov r1, r6
-    bl func_ov015_02130b14
-    movs r5, r0
-    ldrne r0, [sp, #8]
-    ldrneh r1, [r5, #0x42]
-    ldrneh r0, [r0, #0x42]
-    cmpne r1, r0
-    beq @L_02072eb8
-    ldr r1, [sp, #8]
-    ldr r2, [sp, #0xc]
-    mov r0, r10
-    mov r3, r5
-    str r6, [sp]
-    bl _ZN11MatchEngine13func_02073e3cEP11MatchPlayeriS1_h
-    cmp r0, #0
-    bne @L_02072eb8
-    ldr r0, [sp, #0x20]
-    mov r1, r7, lsl #1
-    ldrh r2, [r5, #0x42]
-    ldrb r0, [r0, #0xa]
-    add r7, r7, #1
-    strh r2, [r4, r1]
-    cmp r7, r0
-    beq @L_02072ec8
-@L_02072eb8:
-    ldr r0, [sp, #0x1c]
-    add r9, r9, #1
-    cmp r9, r0
-    blt @L_02072e50
-@L_02072ec8:
-    ldr r0, [sp, #0x20]
-    mov r4, #1
-    ldrb r0, [r0, #0xa]
-    cmp r7, r0
-    bge @L_02072fc4
-    ldr r0, [sp, #8]
-    bl func_02080b90
-    mov r8, #0
-    add r6, sp, #0x68
-    mov r1, r0
-    str r8, [sp]
-    mov r0, #0x80
-    str r0, [sp, #4]
-    mov r0, r10
-    mov r2, r6
-    mov r3, #0x10
-    bl _ZN11MatchEngine13func_02078aacEiPtihi
-    mov r9, r0
-    mov r0, r10
-    mov r1, r6
-    mov r2, r9
-    mov r3, #0x81
-    str r4, [sp]
-    bl _ZN11MatchEngine13func_0207f634EPtiih
-    cmp r9, #0
-    ble @L_02072fac
-    add r11, sp, #0x24
-    mov r5, r8
-@L_02072f38:
-    mov r0, r8, lsl #1
-    ldrh r0, [r6, r0]
-    mov r1, r5
-    bl func_ov015_02130b14
-    movs r4, r0
-    ldrne r0, [sp, #8]
-    ldrneh r1, [r4, #0x42]
-    ldrneh r0, [r0, #0x42]
-    cmpne r1, r0
-    beq @L_02072fa0
-    ldr r1, [sp, #8]
-    ldr r2, [sp, #0xc]
-    mov r0, r10
-    mov r3, r4
-    str r5, [sp]
-    bl _ZN11MatchEngine13func_02073e3cEP11MatchPlayeriS1_h
-    cmp r0, #0
-    bne @L_02072fa0
-    ldr r0, [sp, #0x20]
-    mov r1, r7, lsl #1
-    ldrh r2, [r4, #0x42]
-    ldrb r0, [r0, #0xa]
-    add r7, r7, #1
-    strh r2, [r11, r1]
-    cmp r7, r0
-    beq @L_02072fac
-@L_02072fa0:
-    add r8, r8, #1
-    cmp r8, r9
-    blt @L_02072f38
-@L_02072fac:
-    ldr r0, [sp, #0x20]
-    ldrb r0, [r0, #0xa]
-    cmp r7, r0
-    addlt sp, sp, #0x88
-    movlt r0, #0
-    ldmltia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02072fc4:
-    ldrh r2, [sp, #0x24]
-    ldrh r3, [sp, #0x26]
-    ldr r0, [sp, #8]
-    ldr r1, [sp, #0x10]
-    bl func_02080830
-    mov r0, #1
-    add sp, sp, #0x88
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u16 partners[2] = {0, 0};
+    u8 *move;
+    int i;
+    u32 j;
+    int n;
+    u32 pos;
+    int at;
+    int count;
+    int found;
+    u32 k;
+    u16 list[16];
+    u16 ids[16];
+    UnkOrder_02072bb8 order;
+    MatchPlayer *other;
+    u16 a;
+    u16 b;
+    int unit;
+
+    if (player == NULL || id != func_020808c4(player, slot)) {
+        return FALSE;
+    }
+    func_02080830(player, slot, 0, 0);
+    move = func_020739cc(id);
+    if (move == NULL) {
+        return FALSE;
+    }
+    if (move[0xA] == 0) {
+        return TRUE;
+    }
+    for (i = 0; i < 6; i++) {
+        if (i != slot && id == func_020808c4(player, i)) {
+            a = func_0208084c(player, i, 0);
+            b = func_0208084c(player, i, 1);
+            func_02080830(player, slot, a, b);
+            return TRUE;
+        }
+    }
+    k = 0;
+    memset(ids, 0, sizeof(ids));
+    memset(list, 0, sizeof(list));
+    n = func_02078aac(func_02080b90(player), ids, 0x10, 0, 0x80);
+    unit = func_020802a0(player);
+    order = data_020a71d0;
+    for (i = 0; i < sizeof(order); i++) {
+        if (unit == order.pos[i]) {
+            pos = i;
+        }
+    }
+    list[0] = player->unk_42;
+    count = 1;
+    do {
+        for (i = 0; i < 16; i++) {
+            if (ids[i] != 0) {
+                other = func_ov015_02130ae8(func_0206f500(ids[i]));
+                if (other != NULL) {
+                    unit = func_020802a0(other);
+                    for (j = 0; j < sizeof(order); j++) {
+                        if (unit == order.pos[j]) {
+                            at = j;
+                        }
+                    }
+                    if (at == pos + k || at == pos - k) {
+                        list[count] = ids[i];
+                        count++;
+                        ids[i] = 0;
+                    }
+                }
+            }
+        }
+        k++;
+    } while (count != 16 && k < sizeof(order));
+    found = 0;
+    for (i = 0; i < n; i++) {
+        other = func_ov015_02130b14(list[i], 0);
+        if (other != NULL && other->unk_42 != player->unk_42 && !func_02073e3c(player, id, other, 0)) {
+            partners[found] = other->unk_42;
+            found++;
+            if (found == move[0xA]) {
+                break;
+            }
+        }
+    }
+    if (found < move[0xA]) {
+        n = func_02078aac(func_02080b90(player), list, 0x10, 0, 0x80);
+        func_0207f634(list, n, 0x81, 1);
+        for (i = 0; i < n; i++) {
+            other = func_ov015_02130b14(list[i], 0);
+            if (other != NULL && other->unk_42 != player->unk_42 && !func_02073e3c(player, id, other, 0)) {
+                partners[found] = other->unk_42;
+                found++;
+                if (found == move[0xA]) {
+                    break;
+                }
+            }
+        }
+        if (found < move[0xA]) {
+            return FALSE;
+        }
+    }
+    func_02080830(player, slot, partners[0], partners[1]);
+    return TRUE;
 }
 
 int MatchEngine::func_02072fe8(MatchPlayer *player, int id, BOOL first)
