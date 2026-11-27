@@ -11,13 +11,13 @@ This file is written by `python tools/cprogress.py`.
 
 | Area | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Game code** | 1,948,264 | 555,216 | 28.50% | 9,634 | 6,045 | 62.75% | 3,589 |
-| Game, main program | 369,260 | 166,696 | 45.14% | 2,601 | 1,986 | 76.36% | 615 |
+| **Game code** | 1,948,264 | 561,192 | 28.80% | 9,634 | 6,051 | 62.81% | 3,583 |
+| Game, main program | 369,260 | 172,672 | 46.76% | 2,601 | 1,992 | 76.59% | 609 |
 | Game, overlays | 1,579,004 | 388,520 | 24.61% | 7,033 | 4,059 | 57.71% | 2,974 |
 | Libraries (SDK, runtime) | 306,978 | 0 | 0.00% | 1,960 | 0 | 0.00% | 1,960 |
 | Libraries in overlays (Wi-Fi, download play) | 317,846 | 96,404 | 30.33% | 2,169 | 1,281 | 59.06% | 888 |
 | Not in a source file yet | 20,936 | 0 | 0.00% | 239 | 0 | 0.00% | 239 |
-| **Everything** | 2,594,024 | 651,620 | 25.12% | 14,002 | 7,326 | 52.32% | 6,676 |
+| **Everything** | 2,594,024 | 657,596 | 25.35% | 14,002 | 7,332 | 52.36% | 6,670 |
 
 The game code is the target of the decompilation. The libraries are Nintendo's SDK, NitroSystem
 and the Metrowerks runtime: much of them is assembly in the original as well. Overlays 14, 16 and
@@ -32,10 +32,10 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Part | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| **Match engine, all** | 376,800 | 115,392 | 30.62% | 1,742 | 1,232 | 70.72% | 510 |
+| **Match engine, all** | 376,800 | 121,368 | 32.21% | 1,742 | 1,238 | 71.07% | 504 |
 | `src/match/MatchBallPhysics.cpp` | 3,356 | 1,568 | 46.72% | 33 | 29 | 87.88% | 4 |
-| `src/match/MatchEngine.cpp` | 52,352 | 25,864 | 49.40% | 294 | 249 | 84.69% | 45 |
-| `src/match/MatchEngine_2.cpp` | 70,264 | 39,480 | 56.19% | 391 | 331 | 84.65% | 60 |
+| `src/match/MatchEngine.cpp` | 52,352 | 26,784 | 51.16% | 294 | 250 | 85.03% | 44 |
+| `src/match/MatchEngine_2.cpp` | 70,264 | 44,536 | 63.38% | 391 | 336 | 85.93% | 55 |
 | `src/match/MatchEngine_3.cpp` | 772 | 356 | 46.11% | 6 | 5 | 83.33% | 1 |
 | `src/match/MatchGeometry.cpp` | 5,368 | 4,660 | 86.81% | 70 | 66 | 94.29% | 4 |
 | `src/match/MatchPlayerList.cpp` | 1,212 | 372 | 30.69% | 21 | 17 | 80.95% | 4 |
@@ -49,7 +49,7 @@ overlay (ov001). See [match_engine.md](match_engine.md) for what each part is.
 
 | Module | Code bytes | In C/C++ | % of bytes | Functions | In C/C++ | % of functions | Still asm |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| main program | 369,260 | 166,696 | 45.14% | 2,601 | 1,986 | 76.36% | 615 |
+| main program | 369,260 | 172,672 | 46.76% | 2,601 | 1,992 | 76.59% | 609 |
 | ov000 | 108,664 | 19,904 | 18.32% | 408 | 239 | 58.58% | 169 |
 | ov001 | 178,724 | 30,288 | 16.95% | 628 | 343 | 54.62% | 285 |
 | ov002 | 2,972 | 1,176 | 39.57% | 23 | 16 | 69.57% | 7 |
@@ -303,3 +303,22 @@ The match engine again, the functions with no attempt first (`tools/untried.py`)
   func_020793bc's swap temporary.
 - Note: commit cf1f451 ("func_02062d74 in C++", a second time) is the move of func_02083afc's
   declaration to MatchGeometry.hpp; its message was left over from the commit before.
+
+### 2026-11-27
+
+- The repository is public now: CI fetches the encrypted ROM only through `BASEROM_URL` and
+  never from a release (the release fallback runs only while the repository is private);
+  CLAUDE.md says so.
+- Matched: MatchEngine::func_020725ac, func_0207e8f8, func_02065fa0, func_020733d4,
+  func_0207b780, func_02072bb8.
+- Typed, under NONMATCHING: func_020640b4 (4 words, queued), func_020674f8 (4, queued),
+  func_02074b30 (9, queued), func_0207b28c (213), func_0206ffe0 (232).
+- make progress 98.950% (asm counted); C/C++: match engine 1,238 / 1,742 functions (32.21% of
+  its bytes), game code 28.80%; src/match has 114 asm functions left, 11 never attempted
+  outside the UnkDeque members.
+- Findings in docs/matching.md: a local declared last gets the lowest callee-saved register;
+  a counter per phase; `(u16)(id & 0xFFF)` keeps the truncation; row bases of a 2D local
+  array at O2 with CSE off; the searches of data_020a71d0 run past its 8 entries (so in the
+  ROM).
+- Blockers: func_0207b28c's `team == 0 || team == 1` (an unsigned range check at O2);
+  func_0206ffe0's best record, which the rebuild splits into registers.

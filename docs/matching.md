@@ -207,6 +207,23 @@ set them). `tools/permdecl.py` tries every order of a function's declarations.
   the registers (`func_02062d74`).
 - **One index per inner loop.** Two inner loops of a loop (a search, then a fill) with their
   own index variables instead of one shared gave the original's registers (`func_02073a9c`).
+- **A local declared last** gets the lowest callee-saved register: the team list of
+  `func_0207b780` (`r4`, below the parameters) matched only as the last declaration.
+- **A counter per phase, and the first search on `i`.** In `func_02072bb8` the partner count
+  needs its own variable (not the list count reset to 0), the formation position is `u32` like
+  the search index, `n` comes before it, and the first search of the order runs on `i`; each
+  fixed a register or a spill slot.
+- **`(u16)(id & 0xFFF)` on a `u16` parameter** keeps the `lsl/lsr #16` the original has after
+  the `and` (`id &= 0xFFF` drops it), and changed the whole register assignment
+  (`func_0207b780`).
+- **Row pointers of a 2D local array.** At O2 with `opt_common_subs off`, `ids[team][i]` and
+  `ids[other][i]` written in the loop give the hoisted row bases of the original; pointers set
+  before the loop don't; a separate counter for the set-up loop and row pointers `pi` before
+  `pd` fixed the rest (`func_02074b30`, 9 words left).
+- **Blockers seen.** At O2, `team == 0 || team == 1` becomes an unsigned range check
+  (`cmp #1; bhi`) that the original doesn't have, whatever the form (inline, order, `!`)
+  (`func_0207b28c`). A local struct is split into registers even as a one-element array or
+  when an inline takes its address; the original keeps `func_0206ffe0`'s best record in memory.
 
 ## Library calls
 
