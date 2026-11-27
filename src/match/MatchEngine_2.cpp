@@ -106,7 +106,7 @@ extern "C" u32 func_0208084c(MatchPlayer *player, int slot, int k);   // (the k-
 extern "C" BOOL func_020808e8(MatchPlayer *player, u16 id);
 extern "C" BOOL func_02080964(MatchPlayer *player, int slot, u16 id, int a);
 extern "C" void func_020809e8(MatchPlayer *player, int slot);
-extern "C" void func_02080a38(void);     // (for the asm functions)
+extern "C" BOOL func_02080a38(MatchPlayer *player, int id);
 extern "C" BOOL func_02080a80(void *team, int i);
 extern "C" void func_02080abc(void);     // (for the asm functions)
 extern "C" BOOL func_02080b38(MatchPlayer *player);
@@ -331,7 +331,7 @@ extern "C" void _ZN11MatchEngine13func_0206bff4Ei(void);     // (for the asm fun
 extern "C" void _ZN11MatchEngine13func_0206de34Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020725acEP11MatchPlayeriiiPi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020732b0EP11MatchPlayeriPi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiihPih(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02073fa0EP11MatchPlayeriS1_S1_(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_02074210EP11MatchPlayeriiiPii(void);     // (for the asm functions)
@@ -363,7 +363,7 @@ extern "C" void _ZN11MatchEngine13func_02072bb8EP11MatchPlayerii(void);     // (
 extern "C" void _ZN11MatchEngine13func_020730dcEP11MatchPlayeriih(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020731c4EP11MatchPlayerPhi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020732b0EP11MatchPlayeriPi(void);     // (for the asm functions)
-extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii(void);     // (for the asm functions)
+extern "C" void _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiihPih(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020738e4EPvi(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739a8Ei(void);     // (for the asm functions)
 extern "C" void _ZN11MatchEngine13func_020739ccEi(void);     // (for the asm functions)
@@ -4612,358 +4612,159 @@ BOOL MatchEngine::func_020732b0(MatchPlayer *player, int id, int *error)
     return TRUE;
 }
 
-asm BOOL MatchEngine::func_020733d4(MatchPlayer *player, int a, int id, int b, int c, BOOL flag, int d, int e)
+// (kinds 1, 2, 5 and 6)
+static inline BOOL Move_IsKind1256(u8 *move)
 {
-    stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x1c
-    mov r9, r3
-    mov r10, r1
-    mov r1, r9
-    str r0, [sp, #0x14]
-    str r2, [sp, #0x18]
-    ldr r8, [sp, #0x40]
-    ldr r7, [sp, #0x44]
-    ldr r6, [sp, #0x4c]
-    bl _ZN11MatchEngine13func_020739ccEi
-    mov r4, r0
-    ldrb r0, [r4]
-    add r0, r0, #0xfb
-    and r0, r0, #0xff
-    cmp r0, #3
-    movls r0, #1
-    movhi r0, #0
-    cmp r0, #0
-    beq @L_02073468
-    mov r5, #0
-@L_02073428:
-    mov r0, r10
-    mov r1, r5
-    bl func_020808c4
-    cmp r9, r0
-    beq @L_02073448
-    add r5, r5, #1
-    cmp r5, #6
-    blt @L_02073428
-@L_02073448:
-    cmp r5, #6
-    bne @L_02073468
-    cmp r6, #0
-    movne r0, #2
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02073468:
-    ldr r0, [sp, #0x14]
-    mov r1, r10
-    mov r2, r9
-    mov r3, r6
-    bl _ZN11MatchEngine13func_020732b0EP11MatchPlayeriPi
-    cmp r0, #0
-    addeq sp, sp, #0x1c
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrb r0, [sp, #0x48]
-    cmp r0, #0
-    bne @L_020734c4
-    mov r0, r10
-    mov r1, r9
-    bl func_02080a38
-    cmp r0, #0
-    beq @L_020734c4
-    cmp r6, #0
-    movne r0, #9
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020734c4:
-    cmp r8, #0
-    mov r3, #0
-    bne @L_02073514
-    ldrb r0, [r4]
-    add r1, r0, #0xff
-    and r2, r1, #0xff
-    cmp r2, #5
-    bhi @L_020734f4
-    mov r1, #1
-    mov r2, r1, lsl r2
-    tst r2, #0x33
-    movne r3, r1
-@L_020734f4:
-    cmp r3, #0
-    bne @L_020735d0
-    cmp r6, #0
-    movne r0, #0xa
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02073514:
-    cmp r8, #2
-    ldrb r0, [r4]
-    bne @L_02073590
-    mov r2, #1
-    cmp r0, #7
-    bne @L_02073544
-    ldrb r1, [r4, #0xf]
-    tst r1, #4
-    movne r1, r2
-    moveq r1, r3
-    cmp r1, #0
-    movne r3, #1
-@L_02073544:
-    cmp r3, #0
-    bne @L_02073570
-    cmp r0, #6
-    bne @L_0207356c
-    ldrb r1, [r4, #0xf]
-    tst r1, #2
-    movne r1, #1
-    moveq r1, #0
-    cmp r1, #0
-    bne @L_02073570
-@L_0207356c:
-    mov r2, #0
-@L_02073570:
-    cmp r2, #0
-    bne @L_020735d0
-    cmp r6, #0
-    movne r0, #0xa
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02073590:
-    add r1, r0, #0xff
-    and r2, r1, #0xff
-    cmp r2, #5
-    bhi @L_020735b0
-    mov r1, #1
-    mov r2, r1, lsl r2
-    tst r2, #0x33
-    movne r3, r1
-@L_020735b0:
-    cmp r3, #0
-    beq @L_020735d0
-    cmp r6, #0
-    movne r0, #0xa
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020735d0:
-    cmp r8, #2
-    beq @L_0207365c
-    add r1, r0, #0xff
-    cmp r7, #0
-    mov r3, #0
-    and r2, r1, #0xff
-    bne @L_02073624
-    cmp r2, #6
-    bhi @L_02073604
-    mov r1, #1
-    mov r2, r1, lsl r2
-    tst r2, #0x55
-    movne r3, r1
-@L_02073604:
-    cmp r3, #0
-    bne @L_0207365c
-    cmp r6, #0
-    movne r0, #0xb
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02073624:
-    cmp r2, #6
-    bhi @L_0207363c
-    mov r1, #1
-    mov r2, r1, lsl r2
-    tst r2, #0x55
-    movne r3, r1
-@L_0207363c:
-    cmp r3, #0
-    beq @L_0207365c
-    cmp r6, #0
-    movne r0, #0xb
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207365c:
-    ldr r1, [r10, #0xec]
-    ldrh r3, [r1, #0x32]
-    cmp r3, #0
-    beq @L_02073730
-    ldr r1, =0x1ff
-    cmp r3, r1
-    bne @L_020736d8
-    add r0, r0, #0xfb
-    and r0, r0, #0xff
-    cmp r0, #3
-    mov r5, #0
-    movls r0, #1
-    movhi r0, r5
-    cmp r0, #0
-    bne @L_02073730
-    str r7, [sp]
-    str r5, [sp, #4]
-    ldr r0, [sp, #0x14]
-    ldr r2, [sp, #0x18]
-    mov r1, r10
-    mov r3, r8
-    str r5, [sp, #8]
-    bl _ZN11MatchEngine13func_02074210EP11MatchPlayeriiiPii
-    cmp r0, #0
-    beq @L_02073730
-    cmp r6, #0
-    movne r0, #0xc
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020736d8:
-    cmp r9, r3
-    mov r0, #0
-    beq @L_02073730
-    ldrb r1, [sp, #0x48]
-    str r8, [sp]
-    str r7, [sp, #4]
-    str r1, [sp, #8]
-    str r0, [sp, #0xc]
-    ldrb r5, [sp, #0x50]
-    ldr r0, [sp, #0x14]
-    ldr r2, [sp, #0x18]
-    mov r1, r10
-    str r5, [sp, #0x10]
-    bl _ZN11MatchEngine13func_020733d4EP11MatchPlayeriiiiiii
-    cmp r0, #0
-    beq @L_02073730
-    cmp r6, #0
-    movne r0, #0xc
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02073730:
-    mov r11, #1
-    mov r5, #0
-@L_02073738:
-    mov r0, r10
-    mov r1, r5
-    bl func_020808c4
-    cmp r9, r0
-    bne @L_02073764
-    ldr r0, [r10, #0xec]
-    ldrb r0, [r0, #0x88]
-    tst r0, r11, lsl r5
-    addne sp, sp, #0x1c
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02073764:
-    add r5, r5, #1
-    cmp r5, #6
-    blt @L_02073738
-    ldr r0, [sp, #0x18]
-    mov r5, #0
-    cmp r0, #0
-    beq @L_020737dc
-    ldrh r0, [r0, #0xf0]
-    tst r0, #0x80
-    movne r0, #1
-    moveq r0, r5
-    cmp r0, #0
-    beq @L_020737dc
-    ldr r0, [sp, #0x14]
-    ldr r1, [sp, #0x18]
-    bl _ZN11MatchEngine13func_0207903cEP11MatchPlayer
-    cmp r0, #0
-    cmpne r8, #2
-    beq @L_020737dc
-    ldrb r0, [r4]
-    add r0, r0, #0xfb
-    and r0, r0, #0xff
-    cmp r0, #1
-    bhi @L_020737dc
-    cmp r6, #0
-    movne r0, #5
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020737dc:
-    ldrb r0, [r4, #7]
-    cmp r0, #0
-    beq @L_0207380c
-    ldr r0, [sp, #0x14]
-    mov r1, r10
-    mov r2, r4
-    mov r3, r5
-    bl _ZN11MatchEngine13func_020731c4EP11MatchPlayerPhi
-    cmp r0, #0
-    addeq sp, sp, #0x1c
-    moveq r0, r5
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207380c:
-    cmp r7, #0
-    ldreqb r0, [sp, #0x50]
-    cmpeq r0, #1
-    bne @L_02073858
-    ldrb r0, [r4]
-    cmp r0, #7
-    bne @L_02073838
-    ldrb r0, [r4, #0xf]
-    tst r0, #1
-    movne r0, #1
-    bne @L_0207383c
-@L_02073838:
-    mov r0, #0
-@L_0207383c:
-    cmp r0, #0
-    bne @L_02073858
-    cmp r9, #0x14
-    cmpne r9, #0x16
-    addne sp, sp, #0x1c
-    movne r0, #0
-    ldmneia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_02073858:
-    cmp r9, #0x15
-    bne @L_020738d4
-    ldr r0, [sp, #0x14]
-    bl func_ov015_02143664
-    cmp r0, #0
-    addeq sp, sp, #0x1c
-    moveq r0, #0
-    ldmeqia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    ldrb r0, [r0, #0xf]
-    tst r0, #1
-    movne r1, #1
-    moveq r1, #0
-    cmp r1, #0
-    beq @L_020738a8
-    cmp r6, #0
-    movne r0, #6
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020738a8:
-    tst r0, #2
-    movne r0, #1
-    moveq r0, #0
-    cmp r0, #0
-    beq @L_020738d4
-    cmp r6, #0
-    movne r0, #7
-    strne r0, [r6]
-    add sp, sp, #0x1c
-    mov r0, #0
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_020738d4:
-    mov r0, #1
-    add sp, sp, #0x1c
-    ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    u8 kind = move[0];
+    BOOL ok = (kind == 1 || kind == 2 || kind == 5 || kind == 6);
+
+    return ok;
+}
+
+// (a kind 7 move with attribute 4: a shot that can be blocked)
+static inline BOOL Move_IsKind7Flag4(u8 *move)
+{
+    BOOL ok = FALSE;
+
+    if (move[0] == 7 && Move_HasFlag(move, 4)) {
+        ok = TRUE;
+    }
+    return ok;
+}
+
+// (can player use move id, in mode (0, 2 or other) and kind (0 or not), against rival a? FALSE
+// with the reason in *error: 2 a special move it doesn't have, 9 already used (func_02080a38,
+// unless flag), 10 the wrong kind for the mode, 11 for the kind, 12 the move in progress
+// (state->unk_32) rules it out, 5 a dribble or block against a rival that can't be passed)
+BOOL MatchEngine::func_020733d4(MatchPlayer *player, int a, int id, int mode, int kind, u8 flag, int *error, u8 e)
+{
+    BOOL ok;
+    u8 *move;
+    int i;
+    u16 cur;
+    UnkPair_020621b4 *info;
+
+    move = func_020739cc(id);
+    if (Move_IsKind5To8(move)) {
+        for (i = 0; i < 6; i++) {
+            if (id == func_020808c4(player, i)) {
+                break;
+            }
+        }
+        if (i == 6) {
+            if (error != NULL) {
+                *error = 2;
+            }
+            return FALSE;
+        }
+    }
+    if (!func_020732b0(player, id, error)) {
+        return FALSE;
+    }
+    if (!flag && func_02080a38(player, id)) {
+        if (error != NULL) {
+            *error = 9;
+        }
+        return FALSE;
+    }
+    if (mode == 0) {
+        if (!Move_IsKind1256(move)) {
+            if (error != NULL) {
+                *error = 10;
+            }
+            return FALSE;
+        }
+    } else if (mode == 2) {
+        ok = TRUE;
+        if (!Move_IsKind7Flag4(move) && !(move[0] == 6 && Move_HasFlag(move, 2))) {
+            ok = FALSE;
+        }
+        if (!ok) {
+            if (error != NULL) {
+                *error = 10;
+            }
+            return FALSE;
+        }
+    } else {
+        if (Move_IsKind1256(move)) {
+            if (error != NULL) {
+                *error = 10;
+            }
+            return FALSE;
+        }
+    }
+    if (mode != 2) {
+        if (kind == 0) {
+            if (!Move_IsOddKind(move)) {
+                if (error != NULL) {
+                    *error = 11;
+                }
+                return FALSE;
+            }
+        } else {
+            if (Move_IsOddKind(move)) {
+                if (error != NULL) {
+                    *error = 11;
+                }
+                return FALSE;
+            }
+        }
+    }
+    cur = player->state->unk_32;
+    if (cur != 0) {
+        if (cur == 0x1FF) {
+            if (!Move_IsKind5To8(move) && func_02074210(player, a, mode, kind, NULL, 0)) {
+                if (error != NULL) {
+                    *error = 12;
+                }
+                return FALSE;
+            }
+        } else if (id != cur && func_020733d4(player, a, cur, mode, kind, flag, NULL, e)) {
+            if (error != NULL) {
+                *error = 12;
+            }
+            return FALSE;
+        }
+    }
+    for (i = 0; i < 6; i++) {
+        if (id == func_020808c4(player, i) && (player->state->unk_88 & (1 << i))) {
+            return FALSE;
+        }
+    }
+    if ((MatchPlayer *)a != NULL && MatchPlayer_HasFlag((MatchPlayer *)a, 0x80) && func_0207903c((MatchPlayer *)a)
+        && mode != 2 && (move[0] == 5 || move[0] == 6)) {
+        if (error != NULL) {
+            *error = 5;
+        }
+        return FALSE;
+    }
+    if (move[7] != 0 && !func_020731c4(player, move, FALSE)) {
+        return FALSE;
+    }
+    if (kind == 0 && e == 1) {
+        if (!Move_IsKind7Flag1(move) && id != 0x14 && id != 0x16) {
+            return FALSE;
+        }
+    }
+    if (id == 0x15) {
+        info = func_ov015_02143664(this);
+        if (info == NULL) {
+            return FALSE;
+        }
+        if (Info_HasFlag(info, 1)) {
+            if (error != NULL) {
+                *error = 6;
+            }
+            return FALSE;
+        }
+        if (Info_HasFlag(info, 2)) {
+            if (error != NULL) {
+                *error = 7;
+            }
+            return FALSE;
+        }
+    }
+    return TRUE;
 }
 
 // copies entry index (0xc bytes) into buffer: from the table in memory when there is one, else

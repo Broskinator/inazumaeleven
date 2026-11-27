@@ -531,7 +531,7 @@ public:
     BOOL func_020730dc(MatchPlayer *player, int id, int slot, u8 force);
     BOOL func_020731c4(MatchPlayer *player, u8 *move, BOOL any);
     BOOL func_020732b0(MatchPlayer *player, int id, int *error);
-    BOOL func_020733d4(MatchPlayer *player, int a, int id, int b, int c, BOOL flag, int d, int e);
+    BOOL func_020733d4(MatchPlayer *player, int a, int id, int mode, int kind, u8 flag, int *error, u8 e);
     BOOL func_020738e4(void *buffer, int index);
     u8 *func_020739a8(int i);
     u8 *func_020739cc(int i);
