@@ -108,7 +108,7 @@ extern "C" BOOL func_02080964(MatchPlayer *player, int slot, u16 id, int a);
 extern "C" void func_020809e8(MatchPlayer *player, int slot);
 extern "C" BOOL func_02080a38(MatchPlayer *player, int id);
 extern "C" BOOL func_02080a80(void *team, int i);
-extern "C" void func_02080abc(void);     // (for the asm functions)
+extern "C" BOOL func_02080abc(MatchPlayer *player);
 extern "C" BOOL func_02080b38(MatchPlayer *player);
 extern "C" void func_02080b74(void);     // (for the asm functions)
 extern "C" void func_02080c64(MatchPlayer *player, int team);
@@ -497,11 +497,11 @@ extern "C" void memset(void);
 extern "C" u8 data_020c4808[];
 extern "C" char data_020fa076[];
 extern "C" int data_020fc704;     // (the duel's result: func_02075428)
-extern "C" void func_01fff198(void);
+extern "C" fx32 func_01fff198(MatchEngine *engine, fx32 x0, fx32 y0, fx32 x1, fx32 y1);
 extern "C" BOOL func_ov015_021317c8(void);
 extern "C" int func_ov015_02131948(int team);
 extern "C" int func_ov015_02131994(int index);
-extern "C" void func_ov087_0217e70c(void);
+extern "C" void func_ov087_0217e70c(MatchEngine *engine);
 extern "C" u32 func_ov087_0217e9e8(MatchEngine *self, MatchPlayer *player, int n);
 extern "C" char data_020af2c0[];
 extern "C" char gWirelessUtil[];
@@ -5773,7 +5773,149 @@ extern "C" u8 func_02074b00(u8 *table, u32 i)
     return p[2];
 }
 
-asm void MatchEngine::func_02074b30()
+// (sets up the next duel record around the ball: the three nearest players of each team within
+// 3 units of the ball, the holder first; a (the holder) and b (the challenger) get roles 1 and 2)
+// (nonmatching: 9 words: in the first loop the constant -1 and &dists[1] take each other's
+// scratch register, and the body pointer for func_01fff198 is loaded into r3, not r0)
+#ifdef NONMATCHING
+#pragma push
+#pragma optimization_level 2
+#pragma opt_common_subs off
+void MatchEngine::func_02074b30(int a, int b)
+{
+    s32 dists[2][4];
+    s32 ids[2][4];
+    int j;
+    int i;
+    int team;
+    MatchPlayer *player;
+    fx32 dx;
+    fx32 dy;
+    fx32 d;
+    UnkRecord_02076168 *rec;
+    s32 id;
+    MatchPlayer *p1;
+    MatchPlayer *p2;
+    VecFx32 *pos;
+    int other;
+    s32 *pi;
+    s32 *pd;
+    int k;
+
+    if (func_ov015_021317c8()) {
+        return;
+    }
+    if (func_0206bfec()) {
+        return;
+    }
+    if (func_0206bfa8()) {
+        return;
+    }
+    for (j = 0; j < 4; j++) {
+        dists[0][j] = 0x7FFFFFFF;
+        ids[0][j] = -1;
+        dists[1][j] = 0x7FFFFFFF;
+        ids[1][j] = -1;
+    }
+    team = func_ov015_02131948(data_020c4920.unk_48);
+    dists[team][0] = (s32)0x80000000;
+    ids[team][0] = data_020c4920.unk_48;
+    for (i = 0; i < 32; i++) {
+        player = func_ov015_02130ae8(i);
+        if (player == NULL || !MatchPlayer_HasFlag(player, 1)) {
+            continue;
+        }
+        if (!MatchPlayer_HasFlag(player, 8) || i == data_020c4920.unk_48) {
+            continue;
+        }
+        if (!func_02080abc(player)) {
+            continue;
+        }
+        dx = MatchAbs(player->body->pos.x - data_020c4920.pos.x);
+        dy = MatchAbs(player->body->pos.y - data_020c4920.pos.y);
+        if (dx > 0x30000 || dy > 0x30000) {
+            continue;
+        }
+        pos = &player->body->pos;
+        d = func_01fff198(this, data_020c4920.pos.x, data_020c4920.pos.y, pos->x, pos->y);
+        if (d > 0x30000) {
+            continue;
+        }
+        team = func_ov015_02131948(i);
+        pd = dists[team];
+        pi = ids[team];
+        pd[3] = d;
+        pi[3] = i;
+        for (k = 2; k >= 0; k--) {
+            if (pd[k] <= d) {
+                break;
+            }
+            pd[k + 1] = pd[k];
+            pi[k + 1] = pi[k];
+            pd[k] = d;
+            pi[k] = i;
+        }
+    }
+    for (i = 1; i < 3; i++) {
+        player = func_ov015_02130ae8(ids[0][i]);
+        if (ids[0][i - 1] == ids[0][i] || (player != NULL && MatchPlayer_HasFlag(player, 0x80))) {
+            ids[0][i] = ids[0][i + 1];
+        }
+        player = func_ov015_02130ae8(ids[1][i]);
+        if (ids[1][i - 1] == ids[1][i] || (player != NULL && MatchPlayer_HasFlag(player, 0x80))) {
+            ids[1][i] = ids[1][i + 1];
+        }
+    }
+    rec = func_02076168();
+    if (func_020760e4(a, b)) {
+        rec->unk_12 |= 8;
+    } else {
+        rec->unk_12 &= ~8;
+    }
+    team = func_ov015_02131948(data_020c4920.unk_48);
+    other = team == 0 ? 1 : 0;
+    for (i = 0; i < 3; i++) {
+        id = ids[team][i];
+        if (id >= 0) {
+            if (a == id) {
+                if (rec->unk_10 != 0) {
+                    rec->unk_4[rec->unk_10] = rec->unk_4[0];
+                    rec->unk_a[rec->unk_10] = 0;
+                }
+                rec->unk_4[0] = a;
+                rec->unk_a[0] = 1;
+            } else {
+                rec->unk_4[rec->unk_10] = id;
+                rec->unk_a[rec->unk_10] = 0;
+            }
+            rec->unk_10++;
+        }
+        id = ids[other][i];
+        if (id >= 0) {
+            if (b == id) {
+                if (rec->unk_11 != 0) {
+                    rec->unk_7[rec->unk_11] = rec->unk_7[0];
+                    rec->unk_d[rec->unk_11] = 0;
+                }
+                rec->unk_7[0] = b;
+                rec->unk_d[0] = 2;
+            } else {
+                rec->unk_7[rec->unk_11] = id;
+                rec->unk_d[rec->unk_11] = 0;
+            }
+            rec->unk_11++;
+        }
+    }
+    p1 = func_ov015_02130ae8(rec->unk_4[0]);
+    p2 = func_ov015_02130ae8(rec->unk_7[0]);
+    func_02076568((u8 *)rec, func_02069344((int)p1, 0, 1, 0, 1, (int)p2));
+    func_020765a0((u8 *)rec, func_02069344((int)p2, 0, 3, 0, 1, (int)p1));
+    func_ov087_0217e70c(this);
+    func_0206bff4(1);
+}
+#pragma pop
+#else
+asm void MatchEngine::func_02074b30(int a, int b)
 {
     stmdb sp!, {r4, r5, r6, r7, r8, r9, r10, r11, lr}
     sub sp, sp, #0x4c
@@ -6078,6 +6220,7 @@ asm void MatchEngine::func_02074b30()
     add sp, sp, #0x4c
     ldmia sp!, {r4, r5, r6, r7, r8, r9, r10, r11, pc}
 }
+#endif
 
 // (who player team's duel record (func_0207620c) passes to, in *out: the one of func_02074210's
 // that the passer's state already points at, else one by chance (func_ov087_0217e9e8's odds),

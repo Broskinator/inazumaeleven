@@ -567,7 +567,7 @@ public:
     static int func_02074aac(u8 *req);     // (req: the 12 bytes func_020738e4 copies)
     static int func_02074abc(u8 *req);
     static u8 func_02074ac8(u8 *req);
-    void func_02074b30();
+    void func_02074b30(int a, int b);
     void func_02074f90(int team, int *out);
     int func_020751b8(u8 *rec, MatchPlayer *home, MatchPlayer *away, u8 *moveA, u8 *moveB);
     int func_02075428(int moveA, int a, int moveB, int b);
