@@ -99,7 +99,7 @@ extern "C" void func_02080730(u8 *entry, int i, u16 id, int a);
 extern "C" u16 func_02080780(u8 *entry, u32 i);
 extern "C" u16 func_020807ac(u8 *entry);
 extern "C" u16 func_020807b4(u8 *entry);
-extern "C" void func_020807d0(void);     // (for the asm functions)
+extern "C" s32 func_020807d0(u8 *entry, s32 id);
 extern "C" BOOL func_02080804(MatchPlayer *player);
 extern "C" void func_02080830(void *player, int i, u16 a, u16 b);
 extern "C" u32 func_0208084c(MatchPlayer *player, int slot, int k);   // (the k-th partner set for a move)
@@ -11861,288 +11861,109 @@ int MatchEngine::func_0207b708(u32 mode, MatchPlayer *player, int a, int b, int 
     return func_020813a0(player, a);
 }
 
-asm int MatchEngine::func_0207b780(int team, u16 id, int pos, u8 flag, u16 *out, int slot)
+// (a player without a position on the map gets slot, else the first free one: func_0207b780)
+static inline void MatchEngine_PlaceAt(MatchEngine *engine, int team, MatchPlayer *player, int slot)
 {
-    stmdb sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, lr}
-    sub sp, sp, #0x20
-    mov r9, r0
-    ldr r6, [sp, #0x4c]
-    mov r0, r3
-    sub r10, r0, #1
-    mov r8, r1
-    add r1, r9, #0x3ac
-    str r3, [sp, #0xc]
-    mov r0, #0
-    cmp r6, #0
-    strneh r0, [r6]
-    ldr r0, [sp, #0xc]
-    mov r7, r2
-    add r4, r1, r8, lsl #4
-    ldr r5, [sp, #0x50]
-    cmp r0, #0
-    bge @L_0207b7d8
-    cmp r0, #4
-    addge sp, sp, #0x20
-    movge r0, #4
-    ldmgeia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207b7d8:
-    ldr r0, =gGameState
-    ldrb r0, [r0, #0x1b]
-    cmp r0, #0
-    bne @L_0207b800
-    ldr r0, =0xfff
-    cmp r8, #1
-    and r0, r7, r0
-    mov r0, r0, lsl #0x10
-    mov r7, r0, lsr #0x10
-    orreq r7, r7, #0x8000
-@L_0207b800:
-    mov r0, r9
-    mov r1, r8
-    mov r2, r7
-    bl _ZN11MatchEngine13func_0207af84Eii
-    cmp r0, #0
-    addeq sp, sp, #0x20
-    moveq r0, #3
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r7
-    mov r1, #0
-    bl func_ov015_02130b14
-    mov r11, r0
-    mov r0, r9
-    mov r1, r8
-    mov r2, r7
-    bl _ZN11MatchEngine13func_0207aeacEim
-    cmp r0, #0
-    beq @L_0207b910
-    ldrb r0, [sp, #0x48]
-    cmp r0, #0
-    addeq sp, sp, #0x20
-    moveq r0, #2
-    ldmeqia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-    mov r0, r9
-    mov r1, r8
-    mov r2, r7
-    bl _ZN11MatchEngine13func_0207add4Eim
-    sub r0, r0, #1
-    str r0, [sp, #0x10]
-    mov r0, r4
-    mov r1, r10
-    bl func_0208076c
-    mov r2, r7
-    mov r7, r0
-    mov r1, r10
-    mov r0, r4
-    mov r3, #0
-    bl func_02080730
-    ldr r1, [sp, #0x10]
-    mov r0, r4
-    mov r3, #0
-    mov r2, r7
-    bl func_02080730
-    cmp r6, #0
-    mov r0, r11
-    strneh r7, [r6]
-    mov r4, #2
-    bl func_020812fc
-    cmp r0, #0
-    bne @L_0207b904
-    mov r0, r9
-    mov r1, r8
-    mov r2, r5
-    mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Eiii
-    cmp r0, #0
-    bne @L_0207b8f8
-    mov r0, r9
-    mov r1, r8
-    mov r2, r4
-    bl _ZN11MatchEngine13func_0206dfa4Eii
-    mov r5, r0
-@L_0207b8f8:
-    mov r0, r11
-    mov r1, r5
-    bl func_02081398
-@L_0207b904:
-    add sp, sp, #0x20
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207b910:
-    cmp r10, #0
-    blt @L_0207ba4c
-    mov r0, r4
-    mov r1, r10
-    bl func_0208076c
-    cmp r0, #0
-    bne @L_0207b94c
-    mov r0, r4
-    mov r1, r10
-    mov r2, r7
-    mov r3, #0
-    bl func_02080730
-    add sp, sp, #0x20
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207b94c:
-    ldrb r0, [sp, #0x48]
-    cmp r0, #0
-    beq @L_0207ba4c
-    mov r0, r4
-    mov r1, r10
-    bl func_0208076c
-    str r0, [sp, #0x14]
-    mov r1, #0
-    bl func_ov015_02130b14
-    str r0, [sp, #0x18]
-    bl func_020812fc
-    str r0, [sp, #0x1c]
-    ldr r2, [sp, #0x14]
-    mov r0, r9
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207bdf8Eii
-    mov r1, r10
-    mov r2, r7
-    mov r0, r4
-    mov r3, #0
-    bl func_02080730
-    mov r0, #0
-    str r0, [sp]
-    str r0, [sp, #4]
-    str r0, [sp, #8]
-    ldr r3, [sp, #0xc]
-    ldr r2, [sp, #0x14]
-    mov r0, r9
-    mov r1, r8
-    bl _ZN11MatchEngine13func_0207b780EitihPti
-    ldr r1, [sp, #0x14]
-    mov r0, r4
-    bl func_020807d0
-    cmp r0, #0
-    beq @L_0207b9e4
-    ldr r0, [sp, #0x18]
-    ldr r1, [sp, #0x1c]
-    bl func_02081398
-@L_0207b9e4:
-    cmp r6, #0
-    ldrne r0, [sp, #0x14]
-    mov r4, #2
-    strneh r0, [r6]
-    mov r0, r11
-    bl func_020812fc
-    cmp r0, #0
-    bne @L_0207ba40
-    mov r0, r9
-    mov r1, r8
-    mov r2, r5
-    mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Eiii
-    cmp r0, #0
-    bne @L_0207ba34
-    mov r0, r9
-    mov r1, r8
-    mov r2, r4
-    bl _ZN11MatchEngine13func_0206dfa4Eii
-    mov r5, r0
-@L_0207ba34:
-    mov r0, r11
-    mov r1, r5
-    bl func_02081398
-@L_0207ba40:
-    add sp, sp, #0x20
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207ba4c:
-    mov r10, #0
-    b @L_0207badc
-@L_0207ba54:
-    mov r0, r4
-    mov r1, r10
-    bl func_0208076c
-    cmp r0, #0
-    bne @L_0207bad8
-    mov r0, r4
-    mov r1, r10
-    mov r2, r7
-    mov r3, #0
-    mov r4, #2
-    bl func_02080730
-    mov r0, r11
-    bl func_020812fc
-    cmp r0, #0
-    bne @L_0207bacc
-    mov r0, r9
-    mov r1, r8
-    mov r2, r5
-    mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Eiii
-    cmp r0, #0
-    bne @L_0207bac0
-    mov r0, r9
-    mov r1, r8
-    mov r2, r4
-    bl _ZN11MatchEngine13func_0206dfa4Eii
-    mov r5, r0
-@L_0207bac0:
-    mov r0, r11
-    mov r1, r5
-    bl func_02081398
-@L_0207bacc:
-    add sp, sp, #0x20
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207bad8:
-    add r10, r10, #1
-@L_0207badc:
-    cmp r10, #4
-    blt @L_0207ba54
-    ldrb r0, [sp, #0x48]
-    cmp r0, #0
-    beq @L_0207bb88
-    mov r0, r4
-    mov r1, #3
-    bl func_0208076c
-    mov r10, r0
-    mov r0, r9
-    mov r1, r8
-    mov r2, r10
-    bl _ZN11MatchEngine13func_0207bdf8Eii
-    mov r0, r4
-    mov r1, #3
-    mov r2, r7
-    mov r3, #0
-    bl func_02080730
-    cmp r6, #0
-    mov r0, r11
-    strneh r10, [r6]
-    mov r4, #2
-    bl func_020812fc
-    cmp r0, #0
-    bne @L_0207bb7c
-    mov r0, r9
-    mov r1, r8
-    mov r2, r5
-    mov r3, r4
-    bl _ZN11MatchEngine13func_0207a990Eiii
-    cmp r0, #0
-    bne @L_0207bb70
-    mov r0, r9
-    mov r1, r8
-    mov r2, r4
-    bl _ZN11MatchEngine13func_0206dfa4Eii
-    mov r5, r0
-@L_0207bb70:
-    mov r0, r11
-    mov r1, r5
-    bl func_02081398
-@L_0207bb7c:
-    add sp, sp, #0x20
-    mov r0, #0
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
-@L_0207bb88:
-    mov r0, #1
-    add sp, sp, #0x20
-    ldmia sp!, {r3, r4, r5, r6, r7, r8, r9, r10, r11, pc}
+    if (func_020812fc(player) == 0) {
+        if (!engine->func_0207a990(team, slot, 2)) {
+            slot = engine->func_0206dfa4(team, 2);
+        }
+        func_02081398(player, slot);
+    }
 }
+
+// (gives the player the team's slot pos (1-4) of unk_3ac, then a position on the map (func_0207a990,
+// else func_0206dfa4) unless it has one: 0 done (out: the player it replaced), 1 no free slot, 2 in
+// the list already, 3 not in the team, 4 a bad slot (never: the test is pos < 0 && pos >= 4). With
+// flag set a taken slot is swapped)
+#pragma push
+#pragma optimization_level 2
+int MatchEngine::func_0207b780(int team, u16 id, int pos, u8 flag, u16 *out, int slot)
+{
+    int index;
+    MatchPlayer *player;
+    u16 other;
+    int i;
+    u16 cur;
+    int at;
+    u8 *list;
+    MatchPlayer *curPlayer;
+    int curSlot;
+
+    index = pos - 1;
+    list = unk_3ac[team];
+    if (out != NULL) {
+        *out = 0;
+    }
+    if (pos < 0 && pos >= 4) {
+        return 4;
+    }
+    if (gGameState.unk_000[0x1B] == 0) {
+        id = (u16)(id & 0xFFF);
+        if (team == 1) {
+            id |= 0x8000;
+        }
+    }
+    if (!func_0207af84(team, id)) {
+        return 3;
+    }
+    player = func_ov015_02130b14(id, 0);
+    if (func_0207aeac(team, id)) {
+        if (!flag) {
+            return 2;
+        }
+        at = func_0207add4(team, id) - 1;
+        other = func_0208076c(list, index);
+        func_02080730(list, index, id, 0);
+        func_02080730(list, at, other, 0);
+        if (out != NULL) {
+            *out = other;
+        }
+        MatchEngine_PlaceAt(this, team, player, slot);
+        return 0;
+    }
+    if (index >= 0) {
+        if (func_0208076c(list, index) == 0) {
+            func_02080730(list, index, id, 0);
+            return 0;
+        }
+        if (flag) {
+            cur = func_0208076c(list, index);
+            curPlayer = func_ov015_02130b14(cur, 0);
+            curSlot = func_020812fc(curPlayer);
+            func_0207bdf8(team, cur);
+            func_02080730(list, index, id, 0);
+            func_0207b780(team, cur, pos, 0, NULL, 0);
+            if (func_020807d0(list, cur)) {
+                func_02081398(curPlayer, curSlot);
+            }
+            if (out != NULL) {
+                *out = cur;
+            }
+            MatchEngine_PlaceAt(this, team, player, slot);
+            return 0;
+        }
+    }
+    for (i = 0; i < 4; i++) {
+        if (func_0208076c(list, i) == 0) {
+            func_02080730(list, i, id, 0);
+            MatchEngine_PlaceAt(this, team, player, slot);
+            return 0;
+        }
+    }
+    if (flag) {
+        cur = func_0208076c(list, 3);
+        func_0207bdf8(team, cur);
+        func_02080730(list, 3, id, 0);
+        if (out != NULL) {
+            *out = cur;
+        }
+        MatchEngine_PlaceAt(this, team, player, slot);
+        return 0;
+    }
+    return 1;
+}
+#pragma pop
 
 // fills free places 1 to 4 of team 0 with players from the first 16 records that are not in it
 // yet (func_0207b780 with the slot func_0206dfa4 gives), and puts each on the map
